@@ -17,9 +17,6 @@
             marksData = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
         if (marksData.length <= 0) marksData = [];
         
-        marksData = GeckoJS.Session.get('TableStatus_TableMarks');
-alert(GeckoJS.BaseObject.dump(marksData));
-        
         var index = -1;
         // var marksData = inputObj.marksData;
         var panel = document.getElementById('markscrollablepanel');

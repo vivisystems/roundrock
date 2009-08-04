@@ -223,9 +223,6 @@
 
         addTable: function() {
 
-var d = Date.today().addDays(-1);
-alert(d);
-return;
             // no any table, batch create.
             if (this._tableListDatas.length <= 0) {
                 this.autoCreateTables();
@@ -298,7 +295,7 @@ return;
         modifyTable: function() {
             var index = this.getTableListObj().selectedIndex;
             var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
-this.log(this.dump(inputObj));
+
             if (index > -1 && inputObj.id != '' && inputObj.table_no != '') {
                 // var table = this._tableListDatas[index];
                 var table = inputObj;
@@ -307,7 +304,7 @@ this.log(this.dump(inputObj));
                 tableModel.id = inputObj.id;
                 inputObj.active = GeckoJS.String.parseBoolean(inputObj.active);
                 if (inputObj.table_name)
-this.log(this.dump(inputObj));
+
                 var tables = tableModel.save(inputObj);
 
                 // update table_status
@@ -890,6 +887,35 @@ this.log(this.dump(inputObj));
             GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
             // @todo OSD
             OsdUtils.info(_('Options saved successfully'));
+        },
+
+        cloneSettingsFromMaster: function() {
+            //
+
+
+            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                        _('Clone options from master of table status'),
+                        _('The options of table status will be changed with options of master. Proceed?\n' +
+                            'Click OK to change options, \nor, click Cancel to abort.')) == true) {
+
+
+                var settings = this._getTableStatusModel().getTableStatusOptions();
+                var options = settings['options'];
+                var marksData = settings['marksData'];
+
+                this._markListDatas = marksData;
+                this.saveMarks();
+
+                GeckoJS.FormHelper.unserializeFromObject('settingsForm', options);
+                this.saveSettings();
+
+                // @todo OSD
+                NotifyUtils.warn(_('The options of table status is changed.'));
+
+            }
+
+
+
         },
 
         load: function() {

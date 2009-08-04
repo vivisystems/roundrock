@@ -45,6 +45,7 @@
 <!ENTITY tableman.button.delete "Delete">
 <!ENTITY tableman.button.savesettings "Save">
 <!ENTITY tableman.button.addtables "Add Tables">
+<!ENTITY tableman.button.clonesettingsfrommaster "Clone Master">
 
 <!ENTITY tableman.properties "Properties:">
 <!ENTITY tableman.no "No:">

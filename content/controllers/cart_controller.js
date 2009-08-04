@@ -2857,7 +2857,15 @@
                     GREUtils.Dialog.confirm(this.topmostWindow,
                         _('confirm cancel'),
                         _('Are you sure you want to discard changes made to this order?'))) {
-                    curTransaction.process(-1, true);
+
+                    var ret = curTransaction.process(-1, true);
+                    if (ret == -1) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                        _('alert cancel'),
+                        _('Failed to cancel order due to data operation error.'));
+
+                        NotifyUtils.error('Failed to cancel order due to data operation error.')
+                    }
                     //this._cartView.empty();
                     this.cartViewEmpty();
 
@@ -2916,30 +2924,6 @@
                     _('Order Finalization'),
                     _('Current order has non-zero balance and may not be closed'));
                 return false;
-            }
-
-            // get checksum if recall == 2
-            if (oldTransaction.data.recall == 2) {
-                //
-                var tableOrderObj = this.GuestCheck._tableStatusModel.getTableOrderCheckSum(oldTransaction.data.id);
-
-                if (tableOrderObj.length <= 0) return false;
-
-                var orderModel = new OrderModel();
-                var crc = orderModel.getOrderChecksum(oldTransaction.data.id);
-                // if (crc != tableOrderObj[0].TableOrder.checksum) {
-                // if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
-                if ((crc != tableOrderObj[0].TableOrder.checksum) && (oldTransaction.data.terminal_no != tableOrderObj[0].TableOrder.terminal_no)) {
-
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Order Finalization'),
-                                          _('This order appears to have been updated on another terminal; please cancel the order to discard the changes you have made'));
-
-                    // sync database
-                    this.GuestCheck.syncClient();
-
-                    return false;
-                }
             }
 
             if (status == 1) {

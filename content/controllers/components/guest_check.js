@@ -72,7 +72,7 @@
                 cart.addEventListener('onSplitCheck', this.handleSplitCheck, this);
 
                 // MergeCheck
-                cart.addEventListener('onMergeCheck', this.handleSplitCheck, this);
+                cart.addEventListener('onMergeCheck', this.handleMergeCheck, this);
                 
             }
             
@@ -246,13 +246,9 @@
         handleTransTable: function(evt) {
             //
 //            this._tableStatusModel.transTable(evt.data.data);
-//
-//            this.syncClient();
-//
-
-            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                    this._controller.newTable();
-            }
+//            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
+//                    this._controller.newTable();
+//            }
 
         },
 
@@ -275,7 +271,6 @@
             order.restoreOrderFromBackup();
             delete order;
 
-            this.syncClient();
         },
 
         handleAfterSubmit: function(evt) {
@@ -329,8 +324,6 @@
             var order = new OrderModel();
             order.restoreOrderFromBackup();
             delete order;
-
-            if (evt.data.data.recall == 2) this.syncClient();
             
         },
 
@@ -361,8 +354,6 @@
             order.restoreOrderFromBackup();
             delete order;
 
-            this.syncClient();
-
         },
 
         handleMergeCheck: function(evt) {
@@ -392,8 +383,6 @@
             order.restoreOrderFromBackup();
             delete order;
 
-            this.syncClient();
-
         },
 
         handleCancel: function(evt) {
@@ -405,7 +394,6 @@
 
         handleFirstLoad: function(evt) {
             //
-
             if (this._firstRun) {
                 this._firstRun = false;
                 $do('load', null, 'SelectTable');
@@ -538,6 +526,7 @@
         getNewTableNo: function() {
 
             if (this._tableStatusModel._tableStatusList.length <=0) {
+
                     this._tableStatusModel.getTableStatusList();
                     return;
             }
@@ -677,7 +666,6 @@ this.log("doSelectTableFuncs:::TransTable:::");
         },
 
         table: function(table_no, txn) {
-
             // read table settings...
             this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
 
@@ -705,13 +693,6 @@ this.log("doSelectTableFuncs:::TransTable:::");
                 var tables = this._tableStatusModel.getTableStatusList();
                 var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + r + "'");
                 if (tableObj && tableObj.length > 0) {
-/*
-                    var defaultDest = GeckoJS.Session.get('defaultDestination');
-                    if (defaultDest != null) {
-                        this.setDestination(defaultDest.name);
-                    }
-                    else {
-*/
 
                     // set destination action
                     var destination = tableObj[0].Table.destination;
@@ -798,76 +779,12 @@ this.log("doSelectTableFuncs:::TransTable:::");
 
         getCheckList: function(key, no, notCheckStatus) {
             //
-            // disable check checksum
-            notCheckStatus = true;
-
-            var self = this;
             var order = new OrderModel();
-
-            var fields = null;
-            var conditions = null;
+            // var ord = order.getCheckList(key, no, notCheckStatus);
+            var ord = order.getCheckList(key, no);
             
-            switch (key) {
-                case 'CheckNo':
-                    conditions = "orders.check_no='" + no + "' AND orders.status='2'";
-                    break;
-                case 'TableNo':
-                    conditions = "orders.table_no='" + no + "' AND orders.status='2'";
-                    break;
-                case 'AllCheck':
-                    conditions = "orders.status='2'";
-                    break;
-                case 'OrderNo':
-                    conditions = "orders.sequence='" + no + "' AND orders.status='2'";
-                    break;
-            }
-            
-            var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
+            return ord;
 
-            // return all store checks...
-            if (notCheckStatus) return ord;
-
-            // var tables = this._tableStatusModel.getTableStatusList();
-            
-            var tableOrderIdx = this._tableStatusModel.getTableOrderIdx();
-
-            var ordChecked = [];
-            ord.forEach(function(o){
-
-                var crc = order.getOrderChecksum(o.id);
-                
-                if (tableOrderIdx[o.id]) {
-                    // if ((crc == tableOrderIdx[o.id].checksum) || ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified))) {
-                    if (crc == tableOrderIdx[o.id].checksum) {
-                        o.table_order_status = 0;
-                        ordChecked.push(o);
-
-//                    } else if ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified)) {
-
-//                        ordChecked.push(o);
-
-                    } else if ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified)) {
-
-                        o.table_order_status = 1;
-                        ordChecked.push(o);
-                    }
-                } else {
-
-                    o.table_order_status = 2;
-                    ordChecked.push(o);
-                }
-
-                /*
-                if (tableOrderIdx[o.id] && (crc == tableOrderIdx[o.id].checksum)) {
-
-                    ordChecked.push(o);
-                } else if () {
-
-                }
-                */
-            })
-
-            return ordChecked;
         },
 
         store: function() {
@@ -1211,39 +1128,8 @@ this.log("doSelectTableFuncs:::TransTable:::");
 
         doStore: function(oldTransaction) {
 
-            // get checksum if recall == 2
             if (oldTransaction.data.recall == 2) {
                 //
-                var tableOrderObj = this._tableStatusModel.getTableOrderCheckSum(oldTransaction.data.id);
-
-                if (tableOrderObj.length <= 0) return false;
-
-                var orderModel = new OrderModel();
-                var crc = orderModel.getOrderChecksum(oldTransaction.data.id);
-
-                /*
-                if (tableOrderIdx[o.id]) {
-                    if ((crc == tableOrderIdx[o.id].checksum) || ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified))) {
-
-                        ordChecked.push(o);
-
-                    }
-                }
-                */
-
-                // if (crc != tableOrderObj[0].TableOrder.checksum) {
-                // if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
-                if ((crc != tableOrderObj[0].TableOrder.checksum) && (oldTransaction.data.terminal_no != tableOrderObj[0].TableOrder.terminal_no)) {
-                    GREUtils.Dialog.alert(this._controller.topmostWindow,
-                                      _('Order Checksum Fail'),
-                                      _('Current order checksum fail and may not be submit. Please retry or check this order.'));
-
-                    // sync database
-                    this.syncClient();
-
-                    return false;
-                }
-
                 var status = 2;
 
                 if (this._controller.dispatchEvent('beforeSubmit', {

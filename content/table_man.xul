@@ -397,14 +397,14 @@
                                                     <checkbox id="requestMinimumCharge" label="&tableman.tableoptions.requestminimumcharge;" form="settingsForm" name="RequestMinimumCharge"/>
                                                     <hbox>
                                                         <label control="globalMinimumChargePerTable" value="&tableman.tableoptions.globalminimumchargepertable;"/>
-                                                        <textbox id="globalMinimumChargePerTable" name="GlobalMinimumChargePerTable" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                                        <textbox id="globalMinimumChargePerTable" name="GlobalMinimumChargePerTable" form="settingsForm" type="Number" size="8" maxlength="6" min="1" max="999999" onfocus="select()"/>
                                                     </hbox>
                                                 </row>
                                                 <row>
                                                     <label />
                                                     <hbox>
                                                         <label control="globalMinimumChargePerGuest" value="&tableman.tableoptions.globalminimumchargeperguest;"/>
-                                                        <textbox id="globalMinimumChargePerGuest" name="GlobalMinimumChargePerGuest" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                                        <textbox id="globalMinimumChargePerGuest" name="GlobalMinimumChargePerGuest" form="settingsForm" type="Number" size="8" maxlength="6" min="1" max="999999" onfocus="select()"/>
                                                     </hbox>
                                                 </row>
                                                 <row>
@@ -459,7 +459,8 @@
 
                             <hbox>
                                 <hbox class="ToolBar" flex="1">
-                                    <button id="save_setting"  label="&tableman.button.savesettings;" hidden="false" class="BtnAdd" oncommand="$do('saveSettings', null, 'TableMan');"/>
+                                    <button id="save_settings"  label="&tableman.button.savesettings;" hidden="false" class="BtnAdd" oncommand="$do('saveSettings', null, 'TableMan');"/>
+                                    <button id="clone_settings_from_master"  label="&tableman.button.clonesettingsfrommaster;" hidden="false" class="BtnAdd" oncommand="$do('cloneSettingsFromMaster', null, 'TableMan');"/>
                                     <spacer flex="1"/>
                                 </hbox>
                                 <hbox id="search_dialogButtons" class="dialogbtns" pack="center">

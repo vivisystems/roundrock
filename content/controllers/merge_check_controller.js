@@ -228,9 +228,16 @@
 
             // @todo set source check's status to -3 ==> transfered check'
             this._sourceCheck.status = -3;
+            // lastMidifiedTime
+            this._sourceCheck.lastModifiedTime = this._sourceCheck.modified;
+            this._sourceCheck.modified = Math.round(new Date().getTime() / 1000 );
             order.saveOrder(this._sourceCheck);
             this._getTableStatusModel().addCheck(this._sourceCheck);
+
             // save merged check...
+            // lastMidifiedTime
+            this._mergedCheck.lastModifiedTime = this._mergedCheck.modified;
+            this._mergedCheck.modified = Math.round(new Date().getTime() / 1000 );
             order.saveOrder(this._mergedCheck);
             this.getCartController().dispatchEvent('onMergeCheck', {view:{}, data:this._mergedCheck});
 
