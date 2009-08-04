@@ -7,9 +7,9 @@
 
 window.addEventListener('load', function() {
  document.getElementById("search-view").hidden = true;
-  document.getElementById("themes-view").hidden = false;
+  document.getElementById("themes-view").hidden = true;
     document.getElementById("locales-view").hidden = false;
-   document.getElementById("plugins-view").hidden = true;
+   document.getElementById("plugins-view").hidden = false;
    document.getElementById("searchPanel").hidden = true;
       document.getElementById('extensionsManager').setAttribute('hidechrome', false);   
    //document.getElementById('extensionsManager').setAttribute('width', 1024);
