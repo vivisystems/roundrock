@@ -10,7 +10,9 @@
   <box id="vfdPanelContainer" orient="vertical" flex="0">
     <vbox id="vfdPanel" flex="1" class="vfd-pad">
 
-        <onscreenvfd id="onscreenvfd" maxlen="17" class="vfd-vbox" labelClass="vfd-label" inputController="inputLineTextBox" value="" />
+        <onscreenvfd id="onscreenvfd" maxlen="17" value=""
+                     class="vfd-vbox" labelClass="vfd-label" trainingClass="vfd-pad-training"
+                     inputController="inputLineTextBox"/>
 
         <vivisessionstatus id="vivipos_fec_order_status" flex="1"
                            class="orderstatus"

@@ -400,7 +400,8 @@
                 itemDisplay = GREUtils.extend(itemDisplay, {
                     id: item.id,
                     no: item.no,
-                    name: this.data.destination_prefix + item.name,
+                    name: item.name,
+                    destination: this.data.destination_prefix,
                     current_qty: item.current_qty,
                     current_price: item.current_price,
                     //current_subtotal: item.current_subtotal + item.current_condiment,

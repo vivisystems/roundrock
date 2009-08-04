@@ -116,6 +116,20 @@
                 </row>
             </rows>
         </grid>
+
+    </prefpane>
+
+    <prefpane id="cartSettingsPane" label="&category.layout.cart;">
+        <caption label="&cart.display.fields;"/>
+        <vbox flex="1" class="content-buttonpanel">
+            <viviscrollablebuttonpanel id="cartscrollablepanel" flex="1" seltype="multiple"
+                                       cols="4" rows="4" labelField="header" ensureVisible="true"
+                                       buttonClass="button-item-a"
+                                       scrollUpClass="scroll-up-button"
+                                       scrollDownClass="scroll-down-button">
+                  <spacer flex="1" />
+            </viviscrollablebuttonpanel>
+        </vbox>
     </prefpane>
 
     <prefpane id="layoutSettingsPane" label="&category.layout.top;">

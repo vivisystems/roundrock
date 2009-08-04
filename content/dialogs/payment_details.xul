@@ -36,7 +36,7 @@
                     </vbox>
                     
                     <hbox id="dialogButtons" pack="end" class="exitbar">
-                        <button id="paymentDetails-ok" label="&dialog.closeButton.label;" default="true" class="button-exit"
+                        <button id="paymentDetails-ok" default="true" class="button-exit"
                                 oncommand="$.hidePanel('paymentDetailsPanel', false)"/>
                     </hbox>
 

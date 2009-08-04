@@ -23,7 +23,6 @@
                 <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.layout.HideDeptScrollbar" type="bool"/>
                 <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.layout.HideSoldOutButtons" type="bool"/>
 
-                <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.layout.HideTagColumn" type="bool"/>
                 <preference id="pref_hideunitpricecolumn" name="vivipos.fec.settings.layout.HideUnitPriceColumn" type="bool"/>
                 <preference id="pref_showtoolbar" name="vivipos.fec.settings.layout.ShowToolbar" type="bool" />
                 <preference id="pref_registeratleft" name="vivipos.fec.settings.layout.RegisterAtLeft" type="bool"/>
@@ -60,10 +59,6 @@
                     <row>
                         <checkbox preference="pref_showvirtualkeyboardicon" id="pref_showvirtualkeyboardiconCtrl" label="&layout.showvirtualkeyboardicon;" />
                         <checkbox preference="pref_showconfigicon" id="pref_showconfigiconCtrl" label="&layout.showconfigicon;" />
-                    </row>
-                    <row>
-                        <checkbox id="hideTagColumn" label="&layout.hidetagcolumn;" preference="pref_hidetagcolumn"/>
-                        <checkbox id="hideUnitPriceColumn" label="&layout.hideunitpricecolumn;" preference="pref_hideunitpricecolumn"/>
                     </row>
                     <row>
                         <hbox flex="1" pack="end" align="center">

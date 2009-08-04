@@ -302,8 +302,8 @@
                 <xbl:body>
                 <![CDATA[
                     var classStr = this.getAttribute('class');
-                    var trainingClass = this.getAttribute('trainingClass') || 'vfdPadOnTraining';
-                    GREUtils.log('in switchTrainingMode: ' + classStr);
+                    var trainingClass = this.getAttribute('trainingClass') || 'vfd-pad-training';
+                    //GREUtils.log( 'in switchTrainingMode: ' + classStr);
                     if (isTraining) {
                         // if class doesn't contain trainingClass, append it
                         if (!GeckoJS.String.contains(classStr, trainingClass)) {

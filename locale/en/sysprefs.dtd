@@ -2,7 +2,7 @@
 <!ENTITY category.layout.top "Layout">
 <!ENTITY category.layout.general "General">
 <!ENTITY category.layout.panels "Panels">
-<!ENTITY category.layout.toolbar "Toolbar">
+<!ENTITY category.layout.cart "Cart">
 <!ENTITY category.layout.banner "Banner">
 <!ENTITY category.general "General">
 <!ENTITY category.formats "Numbers &amp; Formats">
@@ -118,3 +118,4 @@
 <!ENTITY training.takecurrentdbtobedefaultdb "Take current database to be default training database">
 <!ENTITY training.takedefaultdbtobetrainingdb "Reset training database to default training database">
 <!ENTITY training.taketrainingdbtobedefaultdb "Take current training database as default training database">
+<!ENTITY cart.display.fields "Display Fields">

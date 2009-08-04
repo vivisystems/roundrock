@@ -6,6 +6,7 @@
 
         _layouts: {},
         _selectedLayout: '',
+        _fields: [],
         _rbObj: null,
 
         getRichlistbox: function() {
@@ -28,9 +29,6 @@
 
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
-
-
-            //var displayPane = document.getElementById('displaySettingsPane');
 
             var observer = {
                 observe : function (subject, topic, data) {
@@ -74,6 +72,36 @@
 
             rbObj.selectedIndex = selectedIndex;
             rbObj.ensureIndexIsVisible(selectedIndex);
+
+            // build list of cart display fields
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var cart = mainWindow.document.getElementById('cartList');
+            var fieldListObj = document.getElementById('cartscrollablepanel');
+            var displayFields = GeckoJS.Configure.read('vivipos.fec.settings.layout.CartDisplayFields') || '';
+
+            var headers = cart.getAttribute('headerlist') || '';
+            var fields = cart.getAttribute('fieldlist') || '';
+
+            var headerArray = headers.split(',');
+            var fieldArray = fields.split(',');
+            var displayArray = displayFields.split(',');
+
+            var selectedItems = [];
+            if (fieldArray.length > 0) {
+
+                var data = [];
+                fieldArray.forEach(function(f, i) {
+                    if (f) {
+                        this._fields.push(f);
+                        data.push({header: headerArray[i] ? headerArray[i] : f, field: f});
+                        if (displayArray.indexOf(f) > -1) selectedItems.push(i);
+                    }
+                }, this);
+
+                fieldListObj.datasource = data;
+                fieldListObj.value = selectedItems;
+            }
         },
 
         appendItem: function(box, data, value) {
@@ -180,6 +208,7 @@
             var newSelectedLayout = rbObj.value;
             var layout = layouts[newSelectedLayout];
             var changedSkin = '';
+
             if(layout) {
                 // replace prefs width/height to current resolution.
                 changedSkin = layout.skin.replace('${width}', screenWidth).replace('${height}', screenHeight );
@@ -205,6 +234,20 @@
             else {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Layout Manager'), _('Layout settings saved'));
             }
+
+            // update cart display fields
+            var fieldListObj = document.getElementById('cartscrollablepanel');
+            var selectedItems = fieldListObj.selectedItems;
+            var displayFields = '';
+
+            selectedItems.forEach(function(i) {
+                var field = this._fields[i];
+                if (field) {
+                    displayFields += ((displayFields == '') ? '' : ',') + field;
+                }
+            }, this);
+            GeckoJS.Configure.write('vivipos.fec.settings.layout.CartDisplayFields', displayFields);
+
             // otherwise just update options and layout
             var mainWindow = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow('Vivipos:Main');
 

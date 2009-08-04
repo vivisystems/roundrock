@@ -206,8 +206,8 @@
                 <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                     <button id="addBtn" label="&promotions_manager.button.action.add;" disabled="false" class="button-add"
                             oncommand="$do('add', null, 'PromotionsManager');"/>
-                    <spacer flex="1"/>
                     <button id="modifyBtn" label="&promotions_manager.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('update', null, 'PromotionsManager');"/>
+                    <spacer flex="1"/>
                     <button id="deleteBtn" label="&promotions_manager.button.action.delete;" disabled="true" class="button-delete" oncommand="$do('remove', null, 'PromotionsManager');"/>
                 </hbox>
                 <hbox  pack="end" class="exitbar">

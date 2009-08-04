@@ -51,7 +51,7 @@
                     <xul:spacer height="10px"/>
 
                     <xul:hbox id="dialogButtons" pack="end" class="exitbar">
-                        <xul:button id="paymentDetails-ok" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="hideDetailPanel();"/>
+                        <xul:button id="paymentDetails-ok" default="true" class="button-exit" oncommand="hideDetailPanel();"/>
                     </xul:hbox>
                     </xul:vbox>
                     </xul:hbox>
