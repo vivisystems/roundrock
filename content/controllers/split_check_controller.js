@@ -482,27 +482,7 @@
                 // save order
                 // var order = new OrderModel();
                 order.saveOrder(data);
-/*
-                // order.saveOrder(data);
-                order.saveOrderMaster(data);
 
-                check_no_list.push(data.check_no);
-                // save order items...
-                // order.saveOrderItems(data);
-                var r;
-                var orderItems  = order.mappingTranToOrderItemsFields(data);
-                var orderItem = new OrderItemModel();
-                orderItem.begin();
-                orderItems.forEach(function(item){
-                    // update items order_id
-                    orderItem.id = item.id;
-                    r = orderItem.save(item);
-                });
-                orderItem.commit();
-
-                // save order object
-                order.serializeOrder(data);
-*/
                 // dispatch changeclerk event
                 // this.getCartController().dispatchEvent('onStore', origData);
                 self.getCartController().dispatchEvent('onSplitCheck', {view:{}, data:data});

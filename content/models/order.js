@@ -483,30 +483,6 @@
             }
             return r;
         },
-        
-        saveOrderMaster: function(data) {
-
-            var orderData  = this.mappingTranToOrderFields(data);
-
-            this.create();
-            var r = this.save(orderData);
-            if (!r) {
-                this.log('ERROR',
-                         'An error was encountered while saving order master (error code ' + this.lastError + '): ' + this.lastErrorString);
-
-                //@db saveToBackup
-                r = this.saveToBackup(data);
-                if (r) {
-                    this.log('ERROR', 'order master saved to backup');
-                }
-                else {
-                    this.log('ERROR',
-                             'order master could not be saved to backup\n' +  this.dump(data));
-                }
-            }
-            return r;
-            
-        },
 
         mappingTranToOrderFields: function(data) {
 
@@ -1018,22 +994,7 @@
 
             var order = new OrderModel();
             var conditions = null;
-/*
-            switch (key) {
-                case 'CheckNo':
-                    conditions = "Order.check_no='" + no + "' AND Order.status='2'";
-                    break;
-                case 'TableNo':
-                    conditions = "Order.table_no='" + no + "' AND Order.status='2'";
-                    break;
-                case 'AllCheck':
-                    conditions = "Order.status='2'";
-                    break;
-                case 'OrderNo':
-                    conditions = "Order.sequence='" + no + "' AND Order.status='2'";
-                    break;
-            }
-*/
+
             switch (key) {
                 case 'CheckNo':
                     conditions = "Order.check_no='" + no + "'";
@@ -1047,11 +1008,14 @@
                 case 'OrderNo':
                     conditions = "Order.sequence='" + no + "'";
                     break;
+                case 'OrderId':
+                    conditions = "Order.id'" + no + "'";
+                    break;
             }
 
             if (lastModified) {
                 conditions += " AND Order.modified > " + lastModified;
-            } else {
+            } else if (key != 'OrderId') {
                 conditions += " AND Order.status='2'";
             }
             
@@ -1090,21 +1054,26 @@
 
                 switch (key) {
                     case 'CheckNo':
-                        conditions = "orders.check_no='" + no + "' AND orders.status='2'";
+                        conditions = "orders.check_no='" + no + "'";
                         break;
                     case 'TableNo':
-                        conditions = "orders.table_no='" + no + "' AND orders.status='2'";
+                        conditions = "orders.table_no='" + no + "'";
                         break;
                     case 'AllCheck':
-                        conditions = "orders.status='2'";
+                        conditions = "'2'='2'";
                         break;
                     case 'OrderNo':
-                        conditions = "orders.sequence='" + no + "' AND orders.status='2'";
+                        conditions = "orders.sequence='" + no + "'";
+                        break;
+                    case 'OrderId':
+                        conditions = "orders.id'" + no + "'";
                         break;
                 }
 
                 if (lastModified) {
-                    conditions += ' AND orders.modified > ' + lastModified;
+                    conditions += " AND orders.modified > " + lastModified;
+                } else if (key != 'OrderId') {
+                    conditions += " AND orders.status='2'";
                 }
 
                 var fields = null;
@@ -1112,8 +1081,8 @@
                 orders = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
             }
 
-if (orders && orders.length > 0)
-this._orderLastTime = orders[orders.length - 1].modified;
+            if (orders && orders.length > 0)
+            this._orderLastTime = orders[orders.length - 1].modified;
 
             delete (order);
             return orders;

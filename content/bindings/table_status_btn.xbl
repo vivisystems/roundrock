@@ -17,41 +17,6 @@
                
   <content>
     <xul:hbox xbl:inherits="align,dir,pack,orient,disabled" anonid="boxContainer">
-    <!-- html:div anonid="face_div" style="position: relative;">
-        <html:div anonid="bg_div" style="position: absolute; top: 10px; width: 100%; text-align: center;">
-            <html:span anonid="bg_table_no" class="bgtext">12</html:span>
-        </html:div>
-        <html:div anonid="div" style="position: absolute; top: 0px; width: 100%;">
-            <html:table style="width: 100%; height: 50%;" class="tablebox">
-                <html:tr>
-                    <html:td anonid="caption" class="tdb_green">
-                        <html:span anonid="table_no" class="table_no"></html:span>
-                        <html:span anonid="table_label" class="table_label"></html:span>
-                        <html:span anonid="checks" class="checks"></html:span>
-                    </html:td>
-                </html:tr>
-                <html:tr>
-                    <html:td>
-                        <html:span anonid="check_no" class="check_no">C#36</html:span>
-                        <html:span anonid="period" class="period">12:00</html:span>
-                    </html:td>
-                </html:tr>
-                <html:tr>
-                    <html:td anonid="seq_no" class="seq_no">S#200903212324</html:td>
-                </html:tr>
-                <html:tr style="empty-cells: show;">
-                    <html:td anonid="booking" class="booking">B#17:30</html:td>
-                </html:tr>
-                <html:tr>
-                    <html:td>
-                        <html:span anonid="subtotal" class="subtotal">T#785</html:span>
-                        <html:span anonid="capacity" class="capacity"></html:span>
-                    </html:td>
-                </html:tr>
-            </html:table>
-        </html:div>
-    </html:div -->
-
     <html:div anonid="face_div" class="style05">
         <html:div anonid="table_status" class="greentable">
             <html:div class="thumbtack"></html:div>
@@ -71,7 +36,7 @@
                     </html:div>
                     <html:div class="tableInfo">
                         <html:div class="remark">
-                            <html:span anonid="caption" class="tdb_green"></html:span>
+                            <html:span anonid="caption" class="check_no"></html:span>
                         </html:div>
                         <html:div class="cneckNo">
                             <html:span anonid="check_no" class="check_no">C#36</html:span>

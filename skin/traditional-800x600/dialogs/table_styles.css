@@ -503,7 +503,7 @@
 	width: 138px;
 	height: 100px;
 	position:relative; 
-	background: transparent url(images/paper.png) no-repeat center bottom;
+	background: transparent url(../images/paper.png) no-repeat center bottom;
 }
 .style05 .topItem {
 	position:absolute;
@@ -538,7 +538,7 @@
 }
 .style05 .tableData {
 	width: 120px;
-	margin-left: 10px;
+	margin-left: 0px;
 }
 .style05 .tableInfo {
 	padding: 4px;
@@ -573,7 +573,7 @@
 	right: 28px;
 	z-index: 120;
 	text-align: right;
-	background: transparent url(images/time.png) no-repeat 0px center;
+	background: transparent url(../images/time.png) no-repeat 0px center;
 	font-size: 8pt;
 	width: 49px;
 	color: black;
@@ -582,7 +582,7 @@
 	font-size: 16pt;
 	font-weight: bold;
     margin: 2px 2px 0 2px;
-	padding: 9px 18px 0 2px;
+	padding: 0px 18px 0 2px;
 	line-height: 16px;
 }
 
@@ -615,7 +615,7 @@
 	border-bottom: 1px solid #9e0b0f;	
 }
 .style05 .redtable .thumbtack {
-	background: transparent url(images/thumbtack_red.png) no-repeat 0px center;	
+	background: transparent url(../images/thumbtack_red.png) no-repeat 0px center;
 }
 
 .style05 .bluetable .tableNo {
@@ -623,7 +623,7 @@
 	border-bottom: 1px solid #354f66;	
 }
 .style05 .bluetable .thumbtack {
-	background: transparent url(images/thumbtack_blue.png) no-repeat 0px center;	
+	background: transparent url(../images/thumbtack_blue.png) no-repeat 0px center;
 }
 .style05 .bluetable .time {
 	background: none;
@@ -634,7 +634,7 @@
 	border-bottom: 1px solid #a2a70f;	
 }
 .style05 .greentable .thumbtack {
-	background: transparent url(images/thumbtack_green.png) no-repeat 0px center;	
+	background: transparent url(../images/thumbtack_green.png) no-repeat 0px center;
 }
 .style05 .greentable .people{
 	font-weight: bold;
@@ -653,7 +653,7 @@
 	border-bottom: 1px solid #f2c54e;	
 }
 .style05 .yellowtable .thumbtack {
-	background: transparent url(images/thumbtack_yellow.png) no-repeat 0px center;	
+	background: transparent url(../images/thumbtack_yellow.png) no-repeat 0px center;
 }
 .style05 .yellowtable .time {
 	background: none;

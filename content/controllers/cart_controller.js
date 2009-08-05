@@ -3521,7 +3521,9 @@
 
             // load data
             var orderModel = new OrderModel();
-            var order = orderModel.findById(id, 2);
+            // var order = orderModel.findById(id, 2);
+            var order = orderModel.getCheckList("OrderId", id);
+
             if (parseInt(orderModel.lastError) != 0) {
                 this._dbError(orderModel.lastError, orderModel.lastErrorString,
                     _('An error was encountered while retrieving order payment records (error code %S).', [orderModel.lastError]));
