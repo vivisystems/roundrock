@@ -187,6 +187,13 @@
 */
 }
 
+.main-overlay .cart-list tree #no {
+/*
+    max-width: 140px;
+    min-width: 140px;
+*/
+}
+
 .main-overlay .cart-list tree #current_qty {
     max-width: 64px;
     min-width: 64px;
