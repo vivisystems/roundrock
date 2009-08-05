@@ -465,23 +465,46 @@
 
         updateOrderMaster: function(data, updateTimestamp) {
 
-            this.id = data.id;
-            var r = this.save(data, updateTimestamp);
-            if (!r) {
-                this.log('ERROR',
-                         'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
+            var async = false;
+            var callback = null;
 
-                //@db saveToBackup
-                r = this.saveToBackup(data, updateTimestamp);
-                if (r) {
-                    this.log('ERROR', 'order master saved to backup');
-                }
-                else {
+            var remoteUrl = this.getRemoteServiceUrl('updateOrderMaster');
+
+            if(remoteUrl) {
+
+                var response_data = this.requestRemoteService('POST', remoteUrl, data);
+
+                if (!response_data) {
+                    // save order fail...
                     this.log('ERROR',
-                             'order master could not be saved to backup\n' +  this.dump(data));
+                             'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
+
+                    return false;
                 }
+
+                return true;
+
+
+            }else {
+
+                this.id = data.id;
+                var r = this.save(data, updateTimestamp);
+                if (!r) {
+                    this.log('ERROR',
+                             'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
+
+                    //@db saveToBackup
+                    r = this.saveToBackup(data, updateTimestamp);
+                    if (r) {
+                        this.log('ERROR', 'order master saved to backup');
+                    }
+                    else {
+                        this.log('ERROR',
+                                 'order master could not be saved to backup\n' +  this.dump(data));
+                    }
+                }
+                return r;
             }
-            return r;
         },
 
         mappingTranToOrderFields: function(data) {

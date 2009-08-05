@@ -10,6 +10,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/queued_order.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_styles.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/table_status_btn.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
@@ -43,7 +44,7 @@
                     <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="2" rows="4"  seltype="single"
                                                labelField="table_no"
                                                buttonClass="button-item-a"
-                                               buttonTagName="table_status_btn"
+                                               buttonTagName="table_status_std_btn"
                                                scrollUpClass="scroll-up-button"
                                                scrollDownClass="scroll-down-button">
                         <spacer flex="1"/>
