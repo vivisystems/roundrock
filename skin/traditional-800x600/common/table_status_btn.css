@@ -4,6 +4,12 @@
  *
  *-----------------------------------------------------------------------------
  */
+table_status_std_btn {
+  -moz-binding: url("chrome://viviecr/content/bindings/table_status_std_btn.xbl#table_status_btn");
+}
+table_status_btn {
+  -moz-binding: url("chrome://viviecr/content/bindings/table_status_btn.xbl#table_status_btn");
+}
 
 .container-dialog table_status_btn {
     margin: 2px;

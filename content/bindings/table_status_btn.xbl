@@ -17,7 +17,7 @@
                
   <content>
     <xul:hbox xbl:inherits="align,dir,pack,orient,disabled" anonid="boxContainer">
-    <html:div anonid="face_div" class="style05">
+    <html:div anonid="face_div" class="tableStatusBtn">
         <html:div anonid="table_status" class="greentable">
             <html:div class="thumbtack"></html:div>
             <html:div class="time">

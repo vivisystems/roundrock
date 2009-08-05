@@ -14,113 +14,55 @@
 
 <binding id="table_status_btn" display="xul:button"
            extends="chrome://global/content/bindings/button.xml#button-base">
-  <resources>
-  	<stylesheet src="chrome://viviecr/skin/buttons.css" />
-    <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
-    <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
-    <stylesheet src="chrome://viviecr/skin/user/table_status_std_btn.css" />
-    <stylesheet src="chrome://viviecr/skin/user/TableStyle.css" />
-  </resources>
-
+               
   <content>
     <xul:hbox xbl:inherits="align,dir,pack,orient,disabled" anonid="boxContainer">
-
-        <!-- html:div anonid="face_div" class="style04">
-            <html:div anonid="table_status" class="greentable">
-                <html:div class="thumbtack"></html:div>
-                <html:div class="time">
-                    <html:span anonid="period">12:00</html:span>
-                </html:div>
-                <html:div class="checkNum">
-                    <html:span anonid="checks"></html:span>
-                </html:div>
-		<html:div class="topItem">
-                    <html:div class="tableData">
-                        <html:div class="tableNo">
-                            <html:span anonid="table_no"></html:span>
-                        </html:div>
-                        <html:div class="tableName">
-                                <html:span anonid="table_label"></html:span><html:br />
-                        </html:div>
-			<html:div class="tableInfo">
-                            <html:div class="checkNo">
-                                <html:span anonid="check_no" class="check_no">C#36</html:span>
-                            </html:div>
-                            <html:div class="total">
-				<html:span anonid="subtotal" class="subtotal">T#785</html:span>
-                            </html:div>
-                            <html:div class="remark">
-                                <html:span anonid="seq_no" class="seq_no">S#200903212324</html:span>
-                            </html:div>
-                            <html:div class="remark">
-                                <html:span anonid="booking" class="booking">B#17:30</html:span>
-                            </html:div>
-                            <html:div class="remark">
-                                <html:span anonid="caption" class="tdb_green"></html:span>
-                            </html:div>
-			</html:div>
-                    </html:div>
-                </html:div>
-                <html:div class="bgItem">
-                        <html:span anonid="bg_table_no">12</html:span>
-                </html:div>
-                <html:div class="bottomItem">
-                        <html:div class="people">
-                                        <html:span anonid="capacity"></html:span>
-                        </html:div>
-                </html:div>
+    <html:div anonid="face_div" class="tableStatusStdBtn">
+        <html:div anonid="table_status" class="greentable">
+            <html:div class="thumbtack"></html:div>
+            <html:div class="time">
+                <html:span anonid="period">12:00</html:span>
             </html:div>
-	</html:div -->
-
-        <html:div anonid="face_div" class="style04">
-            <html:div anonid="table_status" class="greentable">
-                <html:div class="thumbtack"></html:div>
-                <html:div class="time">
-                    <html:span anonid="period">12:00</html:span>
-                </html:div>
-                <!--Mickey. checkNum-->
-		<html:div class="topItem">
-                    <html:div class="tableData">
-                        <html:div class="tableNo">
-                            <html:span anonid="table_no"></html:span>
-                        </html:div>
-                        <html:div class="tableName">
-                                <html:span anonid="table_label"></html:span><html:br />
-                        </html:div>
-			<html:div class="tableInfo">
-                            <html:div class="checkNo">
-                                <html:span anonid="check_no" class="check_no">C#36</html:span>
-                            </html:div>
-                            <html:div class="total">
-				<html:span anonid="subtotal" class="subtotal">T#785</html:span>
-                            </html:div>
-                            <html:div class="remark">
-                                <html:span anonid="seq_no" class="seq_no">S#200903212324</html:span>
-                            </html:div>
-                            <html:div class="remark">
-                                <html:span anonid="booking" class="booking">B#17:30</html:span>
-                            </html:div>
-                            <html:div class="remark">
-                                <html:span anonid="caption" class="tdb_green"></html:span>
-                            </html:div>
-			</html:div>
+            <html:div class="checkNum">
+                <html:span anonid="checks"></html:span>
+            </html:div>
+            <html:div class="topItem">
+                <html:div class="tableData">
+                    <html:div class="tableNo">
+                        <html:span anonid="table_no"></html:span>
                     </html:div>
-                </html:div>
-                <html:div class="bgItem">
-                        <html:span anonid="bg_table_no">12</html:span>
-                </html:div>
-                <html:div class="bottomItem">
-                    <!--Mickey-->
-                    <html:div class="checkNum">
-                        <html:span anonid="checks"></html:span>
+                    <html:div class="tableName">
+                            <html:span anonid="table_label"></html:span><html:br />
                     </html:div>
-                    <html:div class="people">
-                        <html:span anonid="capacity"></html:span>
+                    <html:div class="tableInfo">
+                        <html:div class="cneckNo">
+                            <html:span anonid="check_no" class="check_no">C#36</html:span>
+                        </html:div>
+                        <html:div class="remark">
+                            <html:span anonid="seq_no" class="seq_no">S#200903212324</html:span>
+                        </html:div>
+                        <html:div class="remark">
+                            <html:span anonid="booking" class="booking">B#17:30</html:span>
+                        </html:div>
+                        <html:div class="remark">
+                            <html:span anonid="clerk" class="clerk">clerk</html:span>
+                        </html:div>
+                        <html:div class="total">
+                            <html:span anonid="subtotal" class="subtotal">T#785</html:span>
+                        </html:div>
                     </html:div>
                 </html:div>
             </html:div>
-	</html:div>
-
+            <html:div class="bgItem">
+                <html:span anonid="bg_table_no">12</html:span>
+            </html:div>
+            <html:div class="bottomItem">
+                <html:div class="people">
+                    <html:span anonid="capacity"></html:span>
+                </html:div>
+            </html:div>
+        </html:div>
+    </html:div>
 
   </xul:hbox>
 
@@ -134,9 +76,6 @@
     </field>
     <field name="_table_status">
         document.getAnonymousElementByAttribute(this, "anonid", "table_status");
-    </field>
-    <field name="_caption">
-        document.getAnonymousElementByAttribute(this, "anonid", "caption");
     </field>
     <field name="_bg_table_no">
         document.getAnonymousElementByAttribute(this, "anonid", "bg_table_no");
@@ -173,6 +112,9 @@
     </field>
     <field name="_capacity">
         document.getAnonymousElementByAttribute(this, "anonid", "capacity");
+    </field>
+    <field name="_clerk">
+        document.getAnonymousElementByAttribute(this, "anonid", "clerk");
     </field>
 
     <property name="table_no" onget="return this._table_no.textContent;">
@@ -244,6 +186,14 @@
         <setter>
             <![CDATA[
                 this._capacity.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+     <property name="clerk" onget="return this._clerk.textContent;">
+        <setter>
+            <![CDATA[
+                this._clerk.textContent = val;
                 return val;
             ]]>
         </setter>
@@ -352,22 +302,12 @@
         case 2:
             this._table_status.className = "bluetable";
             break;
+        case 3:
+            this._table_status.className = "yellowtable";
+            break;
         }
         return;
-        switch (status) {
-        case 0:
-            this._table_no.className = "table_no table_green";
-            this._caption.className = "tdb_green";
-            break;
-        case 1:
-            this._table_no.className = "table_no table_red";
-            this._caption.className = "tdb_red";
-            break;
-        case 2:
-            this._table_no.className = "table_no table_blue";
-            this._caption.className = "tdb_blue";
-            break;
-        }
+        
         ]]>
         </body>
     </method>
