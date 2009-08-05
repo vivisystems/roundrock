@@ -153,7 +153,62 @@
             return (table != null);
         },
 
+// Reset check number as:
+
+        autoCreateTables: function() {
+
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+            var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
+
+            this.topmostWindow.openDialog(aURL, _('Add Tables'), features, _('Quick Adding New Tables'), '', _('Input total table count'), _('Number of seat per table'), inputObj);
+            if (inputObj.ok && inputObj.input0) {
+                var num = inputObj.input0 || 0;
+                var defaultSeats = inputObj.input1 || 2;
+
+                var tableModel = new TableModel();
+
+                tableModel.begin();
+
+                for(var no = 1; no <= num; no++) {
+                    var table_no = no;
+                    var table_name = '';
+                    var seats = defaultSeats;
+
+                    var newTable = {table_no: table_no, table_name: table_name, active: true, seats: seats};
+
+
+                    tableModel.id = '';
+                    newTable = tableModel.save(newTable);
+
+                    // add table_status
+                    var newTableStatus = {table_id:newTable.id, table_no: table_no};
+                    this._getTableStatusModel().id = '';
+                    newTableStatus = this._getTableStatusModel().save(newTableStatus);
+                }
+
+                tableModel.commit();
+                delete tableModel;
+
+                this.loadTables();
+
+                this.selectTable(0);
+
+                this._needRestart = true;
+
+                // @todo OSD
+                OsdUtils.info(_('total of [%S] new tables added successfully', [num]));
+            }
+        },
+
         addTable: function() {
+
+            // no any table, batch create.
+            if (this._tableListDatas.length <= 0) {
+                this.autoCreateTables();
+                return;
+            }
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
             var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
@@ -221,13 +276,15 @@
             var index = this.getTableListObj().selectedIndex;
             var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
 
-            if (index > -1 && inputObj.id != '' && inputObj.table_no != '' && inputObj.table_name != '') {
+            if (index > -1 && inputObj.id != '' && inputObj.table_no != '') {
                 // var table = this._tableListDatas[index];
                 var table = inputObj;
 
                 var tableModel = new TableModel();
                 tableModel.id = inputObj.id;
                 inputObj.active = GeckoJS.String.parseBoolean(inputObj.active);
+                if (inputObj.table_name)
+
                 var tables = tableModel.save(inputObj);
 
                 // update table_status
@@ -534,6 +591,8 @@
                 
                 // @todo OSD
                 OsdUtils.info(_('Table status [%S] added successfully', [markName]));
+
+                this.seAutoMarkMenuItem();
             }
         },
 
@@ -553,6 +612,8 @@
 
                     this.getMarkListObj().treeBoxObject.ensureRowIsVisible(index);
                     OsdUtils.info(_('Table status [%S] modified successfully', [markName]));
+
+                    this.seAutoMarkMenuItem();
                 }
                 else {
                     // shouldn't happen, but check anyways
@@ -579,6 +640,8 @@
                 index = this.getMarkListObj().selectedIndex;
                 if (index >= this._markListDatas.length) index = this._markListDatas.length - 1;
                 this.selectMark(index);
+
+                this.seAutoMarkMenuItem();
             }
         },
 
@@ -672,11 +735,21 @@
                 fields: ['id', 'name']
                 });
             var regionObj = document.getElementById('table_region_menupopup');
+            var defaultRegionObj = document.getElementById('default_region_menupopup');
+
 
             // remove all child...
             while (regionObj.firstChild) {
                 regionObj.removeChild(regionObj.firstChild);
             }
+            while (defaultRegionObj.firstChild) {
+                defaultRegionObj.removeChild(defaultRegionObj.firstChild);
+            }
+
+            var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+            menuitem.setAttribute('value', '');
+            menuitem.setAttribute('label', _('All Regions'));
+            defaultRegionObj.appendChild(menuitem);
 
             if (regions && regions.length > 0) {
                 regions.forEach(function(data){
@@ -684,6 +757,11 @@
                     menuitem.setAttribute('value', data.id);
                     menuitem.setAttribute('label', data.name);
                     regionObj.appendChild(menuitem);
+
+                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+                    menuitem.setAttribute('value', data.id);
+                    menuitem.setAttribute('label', data.name);
+                    defaultRegionObj.appendChild(menuitem);
                 });
             }
         },
@@ -761,6 +839,35 @@
             OsdUtils.info(_('Options saved successfully'));
         },
 
+        cloneSettingsFromMaster: function() {
+            //
+
+
+            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                        _('Clone options from master of table status'),
+                        _('The options of table status will be changed with options of master. Proceed?\n' +
+                            'Click OK to change options, \nor, click Cancel to abort.')) == true) {
+
+
+                var settings = this._getTableStatusModel().getTableStatusOptions();
+                var options = settings['options'];
+                var marksData = settings['marksData'];
+
+                this._markListDatas = marksData;
+                this.saveMarks();
+
+                GeckoJS.FormHelper.unserializeFromObject('settingsForm', options);
+                this.saveSettings();
+
+                // @todo OSD
+                NotifyUtils.warn(_('The options of table status is changed.'));
+
+            }
+
+
+
+        },
+
         load: function() {
             //
             var settings = this.readTableSettings();
@@ -776,6 +883,8 @@
             this.loadMarks();
             this.selectMark(0);
             this.seAutoMarkMenuItem();
+
+            this.validateForm();
 
         },
 
@@ -818,7 +927,10 @@
         },
 
         validateForm: function() {
+
             var index = this.getTableListObj().selectedIndex;
+            // var autoCreateBtn = document.getElementById('auto_create_table');
+            var addBtn = document.getElementById('add_table');
             var modBtn = document.getElementById('modify_table');
             var delBtn = document.getElementById('delete_table');
             var toggleBtn = document.getElementById('toggleactive_table');
@@ -826,10 +938,13 @@
 
             if (this._tableListDatas.length <= 0) {
                 index = -1;
+
             }
+            // autoCreateBtn.setAttribute('hidden', index != -1);
             modBtn.setAttribute('disabled', index == -1);
             delBtn.setAttribute('disabled', index == -1);
             toggleBtn.setAttribute('disabled', index == -1);
+
         }
 
     };

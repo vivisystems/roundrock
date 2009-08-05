@@ -7,6 +7,7 @@
 <!ENTITY tableman.tab.tablemap "Table Map">
 <!ENTITY tableman.tab.tableoptions.1 "Options 1">
 <!ENTITY tableman.tab.tableoptions.2 "Options 2">
+<!ENTITY tableman.tab.tableoptions.3 "Options 3">
 
 <!ENTITY tableman.table.active "Active">
 <!ENTITY tableman.table.tableno "Table Number">
@@ -43,6 +44,8 @@
 <!ENTITY tableman.button.toggleactive "Toggle Active">
 <!ENTITY tableman.button.delete "Delete">
 <!ENTITY tableman.button.savesettings "Save">
+<!ENTITY tableman.button.addtables "Add Tables">
+<!ENTITY tableman.button.clonesettingsfrommaster "Clone Master">
 
 <!ENTITY tableman.properties "Properties:">
 <!ENTITY tableman.no "No:">
@@ -81,3 +84,14 @@
 <!ENTITY tableman.tableoptions.displaytotal "Check Total">
 <!ENTITY tableman.tableoptions.displaycapacity "Seats">
 <!ENTITY tableman.tableoptions.displayclerk "Service Clerk">
+
+<!ENTITY tableman.tableoptions.defaultregion "Default Region:">
+<!ENTITY tableman.tableoptions.printsplitcheck "Print Splited Check:">
+<!ENTITY tableman.tableoptions.printsplitcheck.none "None">
+<!ENTITY tableman.tableoptions.printsplitcheck.auto "Print automatically">
+<!ENTITY tableman.tableoptions.printsplitcheck.confirm "Confirm before print">
+<!ENTITY tableman.tableoptions.printmergecheck "Print Merged Check:">
+<!ENTITY tableman.tableoptions.printmergecheck.none "None">
+<!ENTITY tableman.tableoptions.printmergecheck.auto "Print automatically">
+<!ENTITY tableman.tableoptions.printmergecheck.confirm "Confirm before print">
+

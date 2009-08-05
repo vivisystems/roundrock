@@ -3,135 +3,7 @@
     include('chrome://viviecr/content/reports/template.js');
     include('chrome://viviecr/content/reports/template_ext.js');
 
-    var __view__ = {
-
-        renderButton: function(row, btn) {
-            // GREUtils.log('renderButton...');
-            if (!this.data[row]) return;
-            if (this.data[row].table_no <= 0) return;
-
-            var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
-
-            var seq = this.data[row].sequence || '';
-            var check_no = this.data[row].check_no || '';
-            var checks = this.data[row].checks || '';
-            var table_no = this.data[row].table_no || '';
-            var table_label = this.data[row].Table.table_name || '';
-            var seats = this.data[row].Table.seats || '0';
-            // var guest_num = this.data[row].order.no_of_customers || '0';
-            var guest_num = this.data[row].guests || '0';
-            
-            var subtotal = this.data[row].total || '';
-
-            var clerk = this.data[row].clerk || '';
-            var now = Math.round(new Date().getTime());
-            var holdby = this.data[row].hostby || '';
-            var mark_user = this.data[row].mark_user || '';
-
-            // var transaction_created = this.data[row].start_time * 1000 || now;
-            // var transaction_created = now;
-            var transaction_created = this.data[row].transaction_created * 1000 || now;
-
-            var mark = this.data[row].mark || '';
-            var mark_user = this.data[row].mark_user || '';
-            var mark_op_deny = this.data[row].mark_op_deny || false;
-
-            // display booking...
-            var book_time = '';
-            if (this.data[row].TableBooking && this.data[row].TableBooking.length > 0) {
-                var remindTime = now - tableSettings.TableRemindTime * 60 *1000;
-                var bookTimeOut = tableSettings.TableBookingTimeout * 60 *1000;
-                
-
-                for (var key in this.data[row].TableBooking) {
-                    var bookTime = this.data[row].TableBooking[key];
-                    // var booking_time = Math.round((this.data[row].booking ? this.data[row].booking : 0) || 0) * 1000;
-                    var booking_time = Math.round((bookTime.booking ? bookTime.booking : 0) || 0) * 1000;
-
-                    if (booking_time < remindTime) {
-                        booking_time = 0;
-                    } else if (now  > booking_time + bookTimeOut) {
-                        booking_time = 0;
-                    }
-
-                    if (booking_time > 100) {
-                        book_time = _("B#") + (new Date(booking_time)).toString("HH:mm");
-                        break;
-                    }
-
-                }
-
-            }
-
-            var period_time = Math.round((now - transaction_created) + 1);
-            var period = Date.today().addMilliseconds(period_time).toString("HH:mm");
-
-            var capacity = guest_num + "/" + seats;
-
-            if (check_no != "") check_no = _("C#") + check_no;
-            if (checks != "") checks = "+" + checks;
-
-            if (seq != "") {
-                subtotal = _("T#") + subtotal;
-                btn.setTableStatus(1);
-
-                if (guest_num <= seats)
-                    btn.setCapacityStatus(1);
-                else
-                    btn.setCapacityStatus(2);
-
-                if (period_time < tableSettings.TablePeriodLimit * 60 * 1000)
-                    btn.setPeriodStatus(1);
-                else
-                    btn.setPeriodStatus(2);
-            } else {
-                subtotal = '';
-                period = '';
-
-                if (holdby)
-                    btn.setTableStatus(2);
-                else {
-                    if (mark) {
-                        btn.setTableStatus(3);
-                    } else {
-                        btn.setTableStatus(0);
-                    }
-                }
-                    
-                
-                btn.setPeriodStatus(0);
-                btn.setCapacityStatus(0);
-
-                
-            }
-
-            
-
-            btn.table_no = table_no;
-            btn.checks = checks;
-            btn.table_label = tableSettings.DisplayTableLabel ? table_label : '';
-            btn.seq_no = tableSettings.DisplaySeqNo ? seq : '';
-            btn.check_no = tableSettings.DisplayCheckNo ? check_no : '';
-            btn.booking = tableSettings.DisplayBooking ? book_time : '';
-            btn.period = tableSettings.DisplayPeriod ? period : '';
-            btn.subtotal = tableSettings.DisplayTotal ? subtotal : '';
-            btn.capacity = tableSettings.DisplayCapacity ? capacity : '';
-            // share seq_no for seq & clerk
-            // btn.seq_no = tableSettings.DisplayClerk ? clerk : btn.seq_no;
-            btn.clerk = tableSettings.DisplayClerk ? clerk : '';
-
-            if (mark && seq == "" ) {
-                btn.seq_no = _('Status') + ':' + mark;
-                btn.clerk = mark_user;
-            }
-
-            if (holdby) btn.seq_no = _('Host Table') + ':' + holdby;
-
-            return;
-        }
-    };
-
-    var TableStatusView = window.TableStatusView = GeckoJS.NSITreeViewArray.extend(__view__);
+    var TableStatusView = NSITableStatusView;
 
     /**
      * Class SelectTableController
@@ -187,12 +59,13 @@
                 this._cartController = GeckoJS.Controller.getInstanceByName('Cart');
             };
 
-            this.readTableConfig();
             if (this._tableStatusModel == null) {
                 // this._tableStatusModel = new TableStatusModel;
                 // this._tableStatusModel.initial();
                 this._tableStatusModel = this._cartController.GuestCheck._tableStatusModel;
             }
+
+            this.readTableConfig();
 
         },
 
@@ -360,8 +233,11 @@
         },
 
         readTableConfig: function() {
+
             this._tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+            // this._tableSettings = this._tableStatusModel.getTableStatusOptions();
             this._timeout = (this._tableSettings.TableRefreshFrequence || 15) * 1000;
+            
         },
 
         popupOrderPanel: function() {
@@ -626,9 +502,11 @@
         },
 
         doRefreshTableStatus: function() {
+
             if (this.isBusy) return;
 
             this._tableStatusModel._tableStatusLastTime = 0;
+            this._tableStatusModel._tableOrderLastTime = 0;
             this._tableStatusModel.getTableStatusList();
 
             document.getElementById('tableScrollablepanel').invalidate();
@@ -741,11 +619,8 @@
                         this._inputObj.index = v;
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
-                        // doOKButton();
 
-                        // var r = cart.GuestCheck.doSelectTableFuncs(this._inputObj);
                         var r = cart.GuestCheck.doRecallCheck(this._inputObj);
-        //                this.log("DEBUG", "do not call to doSelectTableFuncs with action:" + this._inputObj.action);
 
                         if (r) {
 
@@ -771,14 +646,11 @@
                     // alert('doFunc...' + inputObj.action);
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._regionTables[v].table_no;
+
                         this._inputObj.index = v;
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
-                        // doOKButton();
-                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
 
-                        // if (this._selectedCheckNo) {
                         if (selectedOrderId) {
                             r = cart.GuestCheck.doSplitCheckByCheck(selectedOrderId);
                         } else {
@@ -799,6 +671,7 @@
                         // $.hidePanel('selectTablePanel', true);
                         // cart.GuestCheck.getNewTableNo();
                         this._isBusy = false;
+                        this.doRefreshTableStatusLight();
                         return;
                     }
                    
@@ -814,18 +687,13 @@
                     this._inputObj.sourceTableNo = this._sourceTableNo;
 
                     this._hidePromptPanel('prompt_panel');
-                    // alert('doFunc...' + inputObj.action);
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._regionTables[v].table_no;
+
                         this._inputObj.index = v;
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
-                        // doOKButton();
 
-                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
-
-                        // if (this._selectedCheckNo) {
                         if (selectedOrderId) {
                             r = cart.GuestCheck.doMergeCheckByCheck(selectedOrderId);
                         } else {
@@ -846,6 +714,7 @@
                         // $.hidePanel('selectTablePanel', true);
                         // cart.GuestCheck.getNewTableNo();
                         this._isBusy = false;
+                        this.doRefreshTableStatusLight();
                         return;
                     }
 
@@ -855,18 +724,13 @@
                     this._inputObj.sourceTableNo = this._sourceTableNo;
 
                     this._hidePromptPanel('prompt_panel');
-                    // alert('doFunc...' + inputObj.action);
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._regionTables[v].table_no;
+
                         this._inputObj.index = v;
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
-                        // doOKButton();
 
-                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
-
-                        // if (this._selectedCheckNo) {
                         if (selectedOrderId) {
                             cart.GuestCheck.doChangeClerkByCheck(selectedOrderId);
                         } else {
@@ -905,20 +769,16 @@
                         this._inputObj.sourceTableNo = this._sourceTableNo;
 
                         this._hidePromptPanel('prompt_panel');
-                        // alert('doFunc...' + inputObj.action);
 
                         if (this._inputObj.action) {
-                            // this._inputObj.index = this._regionTables[v].table_no;
+
                             this._inputObj.index = v;
                             this._inputObj.tableObj = this._regionTables[v];
-                            // this._inputObj.tableObj = GREUtils.extend({}, this._regionTables[v]);
-                            this._inputObj.ok = true;
-                            // doOKButton();
 
-                            // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                            this._inputObj.ok = true;
 
                             var dstTableNo = this._regionTables[v].table_no;
-                            // cart.GuestCheck.doTransferCheck(srcTableNo, dstTableNo);
+
                             if (selectedOrderId) {
                                 cart.GuestCheck.doTransferByCheck(srcTableNo, dstTableNo, selectedOrderId);
                             } else {
@@ -932,7 +792,7 @@
                             // $.hidePanel('selectTablePanel', true);
                             
                             this._isBusy = false;
-                            cart.GuestCheck.getNewTableNo();
+
                             return;
                         }
 
@@ -988,7 +848,6 @@
                     break;
                 case 'UnmergeTable':
 
-                    // if (!selTable.holdby) {
                     if (!selTable.hostby) {
                         // @todo OSD
                         NotifyUtils.error(_('This table had not been hold!!'));
@@ -1000,8 +859,6 @@
                     var holdby = GeckoJS.BaseObject.clone(this._regionTables[v]);
                     holdby.status = -1;
 
-                    // this._tables = this._tableStatusModel.holdTable(i, holdby);
-                    // this._tables = this._tableStatusModel.holdTable(i, i);
                     this._tableStatusModel.holdTable(table_no, table_no);
 
                     document.getElementById('tableScrollablepanel').invalidate();
@@ -1176,13 +1033,11 @@
             this._hidePromptPanel('prompt_panel');
             
             if (this._inputObj.action) {
-                // this._inputObj.index = this._regionTables[v].table_no;
+
                 this._inputObj.index = v;
                 this._inputObj.tableObj = this._regionTables[v];
                 this._inputObj.ok = true;
-                // doOKButton();
 
-                // var r = cart.GuestCheck.doSelectTableFuncs(this._inputObj);
                 this.log("DEBUG", "do not call to doSelectTableFuncs with action:" + this._inputObj.action);
 
                 if (r) {
@@ -1262,11 +1117,8 @@
         getRegionList: function() {
             //
             if (this._regions) return this._regions;
-            
-            var regionModel = new TableRegionModel();
-            this._regions = regionModel.find('all', {
-                fields: ['id', 'name']
-                });
+
+            this._regions = this._tableStatusModel.getRegions();
 
             var index = 0;
             this._regions.forEach(function(regionObj){
@@ -1279,7 +1131,6 @@
 
         setRegion: function(index) {
             //
-            // var tables = null;
             var region_id;
             if (index == "0") {
                 this._regionTables = this._tables;
@@ -1287,7 +1138,6 @@
             } else {
                 region_id = this._regions[index - 1].id;
 
-                // this._regionTables = new GeckoJS.ArrayQuery(this._tables).filter("table_region_id = '" + region_id + "'");
                 this._regionTables = this._regions[index - 1].regionTables;
 
             }
@@ -1326,7 +1176,6 @@
 
             // init popupPanel...
             var $panel = $('#selectTablePanel');
-            // var $buttonPanel = $('#paymentscrollablepanel');
 
             var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
@@ -1388,7 +1237,7 @@
 
                     self.readTableConfig();
                     window.tableStatusRefreshTime = self._timeout;
-
+//GREUtils.log("panel shown:::");
                     window._tableStatusModel.getTableStatusList();
                     document.getElementById('tableScrollablepanel').invalidate();
 
@@ -1427,10 +1276,10 @@
             if (inputObj) {
             this._inputObj = inputObj;
             this._isNewOrder = inputObj.isNewOrder;
-            // this._enableFuncs(this._isNewOrder);
+
             this._enableFuncs(false);
             }
-            
+
             var tables = this._tableStatusModel.getTableStatusList();
 
             if (this._tables == null) {
@@ -1440,12 +1289,6 @@
 
                     this.setRegionMenuItem();
 
-/*
-                    //var regs = [];
-                    this._tables.forEach(function(tableObj) {
-                        tableObj.regionTables = [];
-                    }, this);
-*/
                     // make tables of regions to reference to all tables
                     this._tables.forEach(function(tableObj){
                         //
@@ -1456,15 +1299,15 @@
                         }
                     }, this);
 
-                    this.setRegion(0);
+                    var default_region_id = this._tableSettings.DefaultRegion;
+                    var regionIndex = (this._regionsById[default_region_id] || -1) + 1;
+
+                    this._menuSetRegion(regionIndex);
 
             } else {
                     this._inputObj.tables = this._tables;
-                    // tableStatus._controller = this;
-                    // document.getElementById('tableScrollablepanel').invalidate();
-            }
 
-            
+            }
 
         }
 

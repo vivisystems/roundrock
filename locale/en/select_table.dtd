@@ -9,3 +9,5 @@
 <!ENTITY selecttable.unmergetable  "Unmerge Table">
 <!ENTITY selecttable.bookingtable  "Book Table">
 <!ENTITY selecttable.changeclerk  "Change Clerk">
+<!ENTITY selecttable.priorregion  "Prior Region">
+<!ENTITY selecttable.nextregion  "Next Region">

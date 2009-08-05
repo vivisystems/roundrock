@@ -87,7 +87,8 @@
                 closed: false,
 
                 created: '',
-                modified: ''
+                modified: '',
+                lastModifiedTime: ''
             };
 
             this.create(recoveryMode);
@@ -252,6 +253,7 @@
                 this.data.branch_id = store.branch_id;
             }
 
+            this.data.lastModifiedTime = this.data.modified;
             this.data.modified = Math.round(new Date().getTime() / 1000 );
                        
             // remove recovery file

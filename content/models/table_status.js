@@ -15,15 +15,14 @@
 
         belongsTo: ['Table'],
 
-        hasMany: ['TableBooking', 'TableOrder'],
+        // hasMany: ['TableBooking', 'TableOrder'],
+        hasMany: ['TableBooking'],
 
         behaviors: ['Sync', 'Training'], // for local use when connect master fail...
 
         timeout: 15,
         _delta: 0,
 
-        _checkNoArray: [],
-        _tableNoArray: [],
         _connected: false,
         _guestCheck: null,
         _checkList: null,
@@ -40,8 +39,11 @@
         _tableBookings: null,
 
         initial: function (c) {
-            if (!this._tableStatusList) {
 
+            this.setTableStatusOptions();
+            
+            if (!this._tableStatusList) {
+                
                 this.getTableStatusList();
             }
         },
@@ -60,13 +62,39 @@
             }
         },
 
-        getRemoteService: function(method) {
+        getLocalService: function(method,force_remote) {
+            this.syncSettings = (new SyncSetting()).read();
+
+            if (this.syncSettings && this.syncSettings.active == 1) {
+
+                var hostname = 'localhost';
+
+                //  http://localhost:3000/sequences/getSequence/check_no
+                // check connection status
+                this.url = this.syncSettings.protocol + '://' +
+                hostname + ':' +
+                this.syncSettings.port + '/' +
+                'table_status/' + method;
+
+                this.username = 'vivipos';
+                this.password = this.syncSettings.password ;
+
+                //dump('table services url ' + this.url + "\n");
+
+                return this.url;
+
+            }else {
+                return false;
+            }
+        },
+
+        getRemoteService: function(method,force_remote) {
             this.syncSettings = (new SyncSetting()).read();
 
             if (this.syncSettings && this.syncSettings.active == 1) {
 
                 var hostname = this.syncSettings.table_hostname || 'localhost';
-                if (hostname == 'localhost' || hostname == '127.0.0.1') return false;
+                if ((hostname == 'localhost' || hostname == '127.0.0.1') && !force_remote) return false;
                 
                 //  http://localhost:3000/sequences/getSequence/check_no
                 // check connection status
@@ -93,6 +121,8 @@
 
             var username = this.username ;
             var password = this.password ;
+
+            // this.log('DEBUG', 'requestRemoteService: ' + reqUrl + ', with method: ' + method);
 
             // for use asynchronize mode like synchronize mode
             // mozilla only
@@ -152,9 +182,7 @@
                 var now = Date.now().getTime();
 
                 var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                while(!reqStatus.finish) {
-                    thread.processNextEvent(true);
-                }
+                
                 while (!reqStatus.finish) {
 
                     if (Date.now().getTime() > (now+timeoutSec)) break;
@@ -186,18 +214,8 @@
             this.data = GeckoJS.BaseObject.unserialize(data);
         },
 
-        resetCheckNoArray: function() {
-            //
-            var self = this;
-            this._checkNoArray = [];
-            this._checkList.forEach(function(o){
-                self._checkNoArray[o.check_no] = 1;
-            });
-        },
-
         getNewCheckNo: function(no) {
 
-            this.resetCheckNoArray();
             var i = 1;
             var cnt = 0;
             var maxCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.MaxCheckNo') || 999;
@@ -205,18 +223,13 @@
             // minimize maxCheckNo is 30
             maxCheckNo = Math.max(maxCheckNo, 30);
 
+            // remove duplicate check no check...
             // var ar = this.getCheckList('AllCheck', null);
             var ar = this._checkList;
             if (no) {
-                if (!this._checkNoArray[no] || this._checkNoArray[no] == 0) {
-                    this._checkNoArray[no] = 1;
-                    // GeckoJS.Session.set('vivipos_fec_check_number', no);
-                    return "" + no;
-                } else {
-                    // @todo OSD
-                    // NotifyUtils.error(_('Can not get new check no [%S]!!', [no]));
-                    return -1;
-                }
+
+                return "" + no;
+
             } else {
                 while (true) {
                     i = SequenceModel.getSequence('check_no');
@@ -224,17 +237,8 @@
                     if (i > maxCheckNo) {
                         i = 0;
                         SequenceModel.resetSequence('check_no');
-                    } else if (!this._checkNoArray[i] || this._checkNoArray[i] == 0) {
-                        this._checkNoArray[i] = 1;
-                        // GeckoJS.Session.set('vivipos_fec_check_number', i);
+                    } else {
                         return "" + i;
-                        break;
-                    }
-
-                    if (cnt++ > maxCheckNo) {
-                        // @todo OSD
-                        // NotifyUtils.error(_('Can not get new check no!!'));
-                        return -1;
                         break;
                     }
                 }
@@ -281,10 +285,6 @@
 
             this._tableStatuses = tableStatus;
 
-            // if table status changed, sync database...
-            if (tableStatus.length > 0) {
-                this.syncClient();
-            }
 
             return tableStatus;
         },
@@ -346,7 +346,6 @@
                     delete o.order;
                     delete o.TableOrder;
                     o.TableOrder = new GeckoJS.ArrayQuery(this._tableOrders).filter("table_no = '" + o.table_no + "'");
-
                     delete o.TableBooking;
                     o.TableBooking = new GeckoJS.ArrayQuery(this._tableBookings).filter("table_no = '" + o.table_no + "'");
 
@@ -360,6 +359,8 @@
                     o.total = 0;
                     o.check_no = 0;
                     o.sequence = '';
+
+                    if (o.hostby == '0') o.hostby = '';
 
                     // mark
                     // if (!o.mark || (o.start_time > now) || (o.end_time < now)) {
@@ -415,9 +416,6 @@
 
         getTableNo: function(table_no) {
             //
-            if (table_no) {
-                this._tableNoArray[table_no] = 1;
-            }
             return table_no;
 
         },
@@ -485,55 +483,7 @@
         },
 
         transTable: function(checkObj, sourceTableNo) {
-            // GREUtils.log("DEBUG", "add check...");
-return;
-            var index = -1;
-            var i = 0;
-
-            this._tableStatusList.forEach(function(o){
-                //
-                if (o.table_no == checkObj.table_no) {
-                    index = i;
-                }
-                i++;
-            })
-
-            var tableObj = {
-                order_id: checkObj.id,
-                check_no: checkObj.check_no,
-                table_no: checkObj.table_no,
-                sequence: "" + checkObj.seq,
-                guests: checkObj.no_of_customers,
-                holdby: '',
-                clerk: checkObj.service_clerk,
-                booking: 0,
-                lock: false,
-                status: checkObj.status,
-                terminal_no: checkObj.terminal_no,
-                transaction_created: checkObj.created,
-                checksum: checkObj.checksum,
-
-                total: checkObj.total,
-
-//                table_id: (index > -1) ? this._tableStatusList[index].table_id : '',
-                table_status_id: (index > -1) ? this._tableStatusList[index].id : ''
-
-            };
-
-            tableObj["org_table_no"] = sourceTableNo;
-
-            var remoteUrl = this.getRemoteService('transTable');
-            var tableStatus = null;
-
-            if (remoteUrl) {
-
-                tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize(tableObj));
-
-                return ;
-            }
-
-            this._setTableStatus(tableObj);
-            this._touchTableStatus(sourceTableNo);
+            // GREUtils.log("DEBUG", "transTable...");
         },
 
         holdTable: function(table_no, holdTable) {
@@ -544,37 +494,6 @@ return;
             // return;
             var list = this.getTableStatusList(this._tableStatusLastTime);
             return list;
-        },
-
-        getTableOrderCheckSum: function(order_id) {
-            var self = this;
-
-            var remoteUrl = this.getRemoteService('getTableOrderCheckSum');
-            var tableOrder = null;
-
-            if (remoteUrl) {
-                try {
-                    tableOrder = this.requestRemoteService('GET', remoteUrl + "/" + order_id, null);
-
-                    this._connected = true;
-                }catch(e) {
-                    tableOrder = [];
-                    this._connected = false;
-
-                }
-
-            }else {
-                // read all order status
-                this._connected = true;
-                var fields = null;
-                var conditions = "table_orders.id='" + order_id + "'";
-
-                tableOrder = this.TableOrder.find('all', {fields: fields, conditions: conditions, recursive: 0});
-
-            }
-
-            return tableOrder;
-
         },
 
         getTableStatus: function(table_no) {
@@ -738,6 +657,10 @@ return;
         },
 
         addCheck: function(checkObj) {
+
+            return ;
+
+            
             var index = -1;
             var i = 0;
 
@@ -793,17 +716,6 @@ return;
                 var tableOrderObj = this.save(tableStatusObj);
             }
 
-            var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.id='" + tableStatusObj.order_id + "'"});
-
-            if (tableOrderObj) {
-                this.TableOrder.id = tableOrderObj.id;
-            } else {
-                this.TableOrder.id = ''; // append table order
-            }
-
-            tableStatusObj.id = tableStatusObj.order_id;
-            this.TableOrder.save(tableStatusObj);
-
             return;
 
         },
@@ -814,18 +726,6 @@ return;
                 this.id = tableStatusObj.table_status_id;
                 var tableOrderObj = this.save(tableStatusObj);
             }
-
-            var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.id='" + tableStatusObj.order_id + "'"});
-
-            if (tableOrderObj) {
-                this.TableOrder.id = tableOrderObj.id;
-            } else {
-                this.TableOrder.id = ''; // append table order
-            }
-
-            // this.TableOrder.id = "";
-            tableStatusObj.id = tableStatusObj.order_id;
-            this.TableOrder.save(tableStatusObj);
 
             return;
 
@@ -850,42 +750,50 @@ return;
 
             var self = this;
 
-            var remoteUrl = this.getRemoteService('getTableOrders');
+            var orderModel = new OrderModel();
+            var orders = null;
+
+            orders = orderModel.getCheckList('AllCheck', '', lastModified);
+            delete (orderModel);
+
             var tableOrder = null;
+            if (orders && orders.length > 0) {
+                tableOrder = [];
+                orders.forEach(function(o){
+                    var tableOrderTmp = { TableOrder:
+                        {
+                            id: o.Order.id,
+                            total: o.Order.total,
+                            table_no: o.Order.table_no,
+                            check_no: o.Order.check_no,
+                            clerk: o.Order.service_clerk,
+                            sequence: o.Order.sequence,
+                            guests: o.Order.no_of_customers,
+                            transaction_created: o.Order.transaction_created,
+                            checksum: null,
+                            created: o.Order.created,
+                            modified: o.Order.modified,
+                            status: o.Order.status,
+                            terminal_no: o.Order.terminal_no
+                        }}
+                    tableOrder.push( tableOrderTmp);
 
-            if (remoteUrl) {
-                try {
-                    tableOrder = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
+                });
 
-                    //@todo do not need, just for ArrayQuery.filter
-                    tableOrder.forEach(function(o){
-
-                        var item = GREUtils.extend({}, o.TableOrder);
+                tableOrder.forEach(function(o){
+                    var item = GREUtils.extend({}, o.TableOrder);
                         for (var key in item) {
                             o[key] = item[key];
                         }
-                    });
+                });
 
-                    this._connected = true;
-                }catch(e) {
-                    tableOrder = [];
-                    this._connected = false;
-
-                }
-
-            }else {
-                // read all order status
                 this._connected = true;
-                var fields = null;
-                var conditions = "table_orders.modified > '" + lastModified + "'";
-                var orderby = 'table_orders.modified';
-
-                tableOrder = this.TableOrder.find('all', {fields: fields, conditions: conditions, recursive: 0, order: orderby});
 
             }
 
+
             // first get order list...
-            if (this._tableOrders == null) {
+            if (this._tableOrders == null && (tableOrder && tableOrder.length > 0)) {
 
                 // clone table orders...
                 this._tableOrders = tableOrder.concat([]);
@@ -898,9 +806,7 @@ return;
 
             } else {
 
-                if (tableOrder.length > 0) {
-
-                    this.syncClient();
+                if (tableOrder && tableOrder.length > 0) {
 
                     tableOrder.forEach(function(orderObj){
 
@@ -947,6 +853,114 @@ return;
             }, this);
 
             return this._tableOrders;
+        },
+
+        getRegions: function() {
+
+            var remoteUrl = this.getRemoteService('getRegions');
+            var regions = null;
+
+            if (remoteUrl) {
+                try {
+                    regions = this.requestRemoteService('GET', remoteUrl, null);
+
+                    //@todo
+                    regions.forEach(function(o){
+
+                        var item = GREUtils.extend({}, o.TableRegion);
+                        for (var key in item) {
+                            o[key] = item[key];
+                        }
+                    });
+                    this._connected = true;
+                }catch(e) {
+                    regions = [];
+                    this._connected = false;
+
+                }
+
+            }else {
+                // read all regions
+                this._connected = true;
+
+                var regionModel = new TableRegionModel();
+                regions = regionModel.find('all', {
+                        fields: ['id', 'name']
+                    });
+                delete regionModel;
+
+            }
+
+            return regions;
+        },
+
+        getTableStatusOptions: function() {
+
+            var remoteUrl = this.getRemoteService('getTableStatusOptions');
+            var options = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+            var tableMarks = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+            var marksData;
+
+            if (remoteUrl) {
+                try {
+                    var remote_options = this.requestRemoteService('GET', remoteUrl, null);
+
+                    if (remote_options) {
+                        options = remote_options.options;
+                        marksData = remote_options.marks;
+                    }
+
+                    this._connected = true;
+                    
+                }catch(e) {
+                    options = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+                    tableMarks = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+                    this._connected = false;
+
+                }
+
+            }else {
+                // read all regions
+                this._connected = true;
+
+                options = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+                tableMarks = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+
+            }
+
+            if (tableMarks != null && (marksData == [] || marksData == null)) {
+                marksData = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(tableMarks));
+            }
+            if (!marksData || marksData.length <= 0) marksData = [];
+
+            return {options: options, marksData: marksData};
+        },
+
+        setTableStatusOptions: function() {
+
+            // save options of table status to local file /tmp/tableStatusPrefs
+            var remoteUrl = this.getLocalService('setTableStatusOptions', true);
+
+            var optionsData = {}
+            var marksData = [];
+
+            var options = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+
+            var tableMarks = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+            var marksData = [];
+            if (tableMarks != null)
+                marksData = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(tableMarks));
+            if (marksData.length <= 0) marksData = [];
+
+            if (remoteUrl) {
+
+                this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({options: options, marks: marksData}));
+
+                return ;
+            }
+
+            return options;
+
         }
 
     };
