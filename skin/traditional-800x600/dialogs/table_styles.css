@@ -541,21 +541,21 @@
 	margin-left: 0px;
 }
 .style05 .tableInfo {
-	padding: 4px;
-    margin-left: 4px;
+	padding: 0px;
+    margin-left: 8px;
 }
 .style05 .tableInfo .cneckNo,
 .style05 .tableInfo .clerk,
 .style05 .tableInfo .total,
 .style05 .remark {
-	margin-top: 2px;
+	margin-top: 0px;
 	overflow: hidden;
 }
 .style05 .tableName {
 	color: #372213;
 	padding: 2px;
 	margin-left: 4px;
-	margin-top: 2px;
+	margin-top: 0px;
 	word-wrap: break-word;
 	word-break:break-all;
 }

@@ -35,9 +35,6 @@
                             <html:span anonid="table_label"></html:span><html:br />
                     </html:div>
                     <html:div class="tableInfo">
-                        <html:div class="remark">
-                            <html:span anonid="caption" class="check_no"></html:span>
-                        </html:div>
                         <html:div class="cneckNo">
                             <html:span anonid="check_no" class="check_no">C#36</html:span>
                         </html:div>
@@ -79,9 +76,6 @@
     </field>
     <field name="_table_status">
         document.getAnonymousElementByAttribute(this, "anonid", "table_status");
-    </field>
-    <field name="_caption">
-        document.getAnonymousElementByAttribute(this, "anonid", "caption");
     </field>
     <field name="_bg_table_no">
         document.getAnonymousElementByAttribute(this, "anonid", "bg_table_no");
@@ -313,24 +307,7 @@
             break;
         }
         return;
-        switch (status) {
-        case 0:
-            this._table_no.className = "table_no table_green";
-            this._caption.className = "tdb_green";
-            break;
-        case 1:
-            this._table_no.className = "table_no table_red";
-            this._caption.className = "tdb_red";
-            break;
-        case 2:
-            this._table_no.className = "table_no table_blue";
-            this._caption.className = "tdb_blue";
-            break;
-        case 3:
-            this._table_no.className = "table_no table_yellow";
-            this._caption.className = "tdb_yellow";
-            break;
-        }
+        
         ]]>
         </body>
     </method>
