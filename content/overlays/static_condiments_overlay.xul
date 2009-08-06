@@ -16,19 +16,17 @@
     <!-- include startup script -->
     <script type="application/x-javascript" src="chrome://viviecr/content/static_condiments.js" />
 
-	<box id="cartlistPanelContainer">
-		<hbox id="staticCondimentsPanelContainer" insertafter="cartlistPanelContainer" style="overflow: none;">
-			<viviscrollablebuttonpanel id="staticCondimentsPanel" flex="1" cols="5" rows="1"  seltype="single" labelField="name"
-                                       class="condscrollablepanel"
-                                       buttonClass="button-condiment"
-                                       scrollUpClass="cond-scroll-up-button"
-                                       scrollDownClass="cond-scroll-down-button">
-                            <spacer flex="1"/>
-                            <vivibutton id="staticCondimentsPanel-soldout" class="button-soldout" flex="0" type="checkbox" checkState="0"
-                                        oncommand="$('#staticCondimentsPanel')[0].datasource.soldoutActive=this.checkState; event.stopPropagation()"/>
-                            <spacer flex="1"/>
-                        </viviscrollablebuttonpanel>
-		</hbox>
-	</box>
+    <vbox id="staticCondimentsPanelContainer" style="overflow: none;">
+        <viviscrollablebuttonpanel id="staticCondimentsPanel" flex="1" cols="5" rows="1"  seltype="single" labelField="name"
+                                   class="condscrollablepanel"
+                                   buttonClass="button-condiment"
+                                   scrollUpClass="cond-scroll-up-button"
+                                   scrollDownClass="cond-scroll-down-button">
+            <spacer flex="1"/>
+            <vivibutton id="staticCondimentsPanel-soldout" class="button-soldout" flex="0" type="checkbox" checkState="0"
+                        oncommand="$('#staticCondimentsPanel')[0].datasource.soldoutActive=this.checkState; event.stopPropagation()"/>
+            <spacer flex="1"/>
+        </viviscrollablebuttonpanel>
+    </vbox>
 
 </overlay>

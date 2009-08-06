@@ -55,12 +55,13 @@
                     </box>
                 </box>
 
-                <vbox id="rightPanel" flex="0" orient="vertical" class="right-panel">
+                <box id="rightPanel" flex="0" orient="vertical" class="right-panel">
                     <box id="vfdPanelContainer" flex="0" panel="&layout.panel.vfd;"/>
+                    <box id="staticCondimentsPanelContainer" panel=""/>
                     <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
                     <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
                     <box id="visiblePromotionsStatusPanelContainer" flex="0" panel="&layout.panel.promotions;"/>
-                </vbox>
+                </box>
                 <box id="productPanelContainer" flex="1" style="display: none;"/>
             </box>
         </box>

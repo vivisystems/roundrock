@@ -6,20 +6,14 @@
  */
 
 .main-overlay .condscrollablepanel {
-	margin: 0px 2px 0px 0px;
-	padding: 0px 0 0 2px;
+	margin: 0px;
+	padding: 0px;
 	-moz-appearance: none;
 	-moz-background-clip: border;
 }
 
-.main-overlay .condscrollablepanel vivibuttonpanel {
-	margin-top: 2px;
-	margin-right: 4px;
-	margin-bottom: 0px;
-}
-
 .main-overlay .condscrollablepanel vivibuttonpanel vivibutton {
-	margin: 2px;
+	margin: 4px;
 }
 
 /*-----------------------------------------------------------------------------
