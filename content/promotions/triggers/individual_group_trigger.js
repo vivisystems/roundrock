@@ -100,9 +100,12 @@
 
             }
 
-            this.setMatchedAmount(amount);
-
-            return true;
+            if (matchedItems.length) {
+                this.setMatchedAmount(amount);
+                return true;
+            }
+            
+            return false;
 
         },
 
