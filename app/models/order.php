@@ -23,66 +23,38 @@ class Order extends AppModel {
         }
 
         try {
-            
-            $this->save($data['Order']);
-            try {
-            $this->OrderItem->saveAll($data['OrderItem']);
-            }catch (Exception $e) {
-                CakeLog::write('saveOrder', 'OrderItem ' .
-                                      '  OrderItem: ' . $e->getMessage() . "\n" );
-            }
-            try {
-                if ($data['OrderAddition'])
-            $this->OrderAddition->saveAll($data['OrderAddition']);
-            }catch (Exception $e) {
-                CakeLog::write('saveOrder', 'OrderAddition ' .
-                                      '  OrderAddition: ' . $e->getMessage() . "\n" );
-            }
-            try {
-                if ($data['OrderPayment'])
-            $this->OrderPayment->saveAll($data['OrderPayment']);
-            }catch (Exception $e) {
-                CakeLog::write('saveOrder', 'OrderPayment ' .
-                                      '  OrderPayment: ' . $e->getMessage() . "\n" );
-            }
-            try {
-                if ($data['OrderAnnotation'])
-            $this->OrderAnnotation->saveAll($data['OrderAnnotation']);
-            }catch (Exception $e) {
-                CakeLog::write('saveOrder', 'OrderAnnotation ' .
-                                      '  OrderAnnotation: ' . $e->getMessage() . "\n" );
-            }
-            try {
-                if ($data['OrderItemCondiment'])
-            $this->OrderItemCondiment->saveAll($data['OrderItemCondiment']);
-            }catch (Exception $e) {
-                CakeLog::write('saveOrder', 'OrderItemCondiment ' .
-                                      '  OrderItemCondiment: ' . $e->getMessage() . "\n" );
-            }
-            try {
-                if ($data['OrderPromotion'])
-            $this->OrderPromotion->saveAll($data['OrderPromotion']);
-            }catch (Exception $e) {
-                CakeLog::write('saveOrder', 'OrderPromotion ' .
-                                      '  OrderPromotion: ' . $e->getMessage() . "\n" );
-            }
+            $this->begin();
 
-            try {
-                if ($data['OrderObject']) {
-            $obj['id'] = $data['OrderObject']['id'];
-            $obj['order_id'] = $data['OrderObject']['order_id'];
-            $obj['object'] = json_encode($data['OrderObject']['object']);
-            $this->OrderObject->save($obj);
-                }
-            }catch (Exception $e) {
-                CakeLog::write('saveOrder', 'OrderObject ' .
-                                      '  OrderObject: ' . $e->getMessage() . "\n" );
+            if (!$this->save($data['Order'])) throw new Exception('save Order error.');
+            if ($data['OrderItem'])
+                if (!$this->OrderItem->saveAll($data['OrderItem'])) throw new Exception('save OrderItem error.');
+            if ($data['OrderAddition'])
+                if (!$this->OrderAddition->saveAll($data['OrderAddition'])) throw new Exception('save OrderAddition error.');
+            if ($data['OrderPayment'])
+                if (!$this->OrderPayment->saveAll($data['OrderPayment'])) throw new Exception('save OrderPayment error.');
+            if ($data['OrderAnnotation'])
+                if (!$this->OrderAnnotation->saveAll($data['OrderAnnotation'])) throw new Exception('save OrderAnnotation error.');
+            if ($data['OrderItemCondiment'])
+                if (!$this->OrderItemCondiment->saveAll($data['OrderItemCondiment'])) throw new Exception('save OrderItemCondiment error.');
+            if ($data['OrderPromotion'])
+                if (!$this->OrderPromotion->saveAll($data['OrderPromotion'])) throw new Exception('save OrderPromotion error.');
+
+            if ($data['OrderObject']) {
+                $obj['id'] = $data['OrderObject']['id'];
+                $obj['order_id'] = $data['OrderObject']['order_id'];
+                $obj['object'] = json_encode($data['OrderObject']['object']);
+                if (!$this->OrderObject->save($obj)) throw new Exception('save OrderObject error.');
             }
+            
+            $this->commit();
             
         }catch (Exception $e) {
 
+            $this->rollback();
+
             CakeLog::write('saveOrderDefault', 'An error was encountered while saving order ' .
                                   '  saveOrderDefault: ' . $e->getMessage() . "\n" );
+
         }
 
         // return $data;
