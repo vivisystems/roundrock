@@ -18,13 +18,28 @@
             
             var keypadController = this._keypadController = GeckoJS.Controller.getInstanceByName('Keypad');
             var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
-            
+
+            // register listener for main controller event 'onUpdateOptions'
+            var mainController = this._keypadController = GeckoJS.Controller.getInstanceByName('Main');
+            if (mainController) {
+                mainController.addEventListener('onUpdateOptions', this.updateDecimalPoint, this);
+            }
             if (inputBox) {
                 inputBox.addEventListener('input', function(evt){
                     keypadController.buf = evt.target.value;
                 }, true);
             }
 
+            this.updateDecimalPoint();
+        },
+
+        updateDecimalPoint: function() {
+            var autoAdjust = GeckoJS.Configure.read('vivipos.fec.settings.AutoSetDecimalPoint');
+            var precision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+
+            if (autoAdjust) {
+                this._inputBox.setAttribute('style', 'text-align: right');
+            }
         },
 
         destroy: function() {

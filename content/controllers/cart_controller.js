@@ -3526,7 +3526,7 @@
             // load data
             var orderModel = new OrderModel();
             // var order = orderModel.findById(id, 2);
-            var order = orderModel.getCheckList("OrderId", id);
+            var orders = orderModel.getCheckList("OrderId", id);
 
             if (parseInt(orderModel.lastError) != 0) {
                 this._dbError(orderModel.lastError, orderModel.lastErrorString,
@@ -3534,13 +3534,14 @@
                 return false;
             }
 
-            if (!order) {
+            if (!orders || orders.length == 0) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
                     _('Failed to void: the selected order no longer exists'));
                 return false;
             }
 
+            var order = orders[0];
             if (order.status < 1) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),

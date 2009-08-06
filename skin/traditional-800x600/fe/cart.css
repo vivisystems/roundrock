@@ -8,7 +8,7 @@
 .main-overlay .cart-list {
     background: transparent;
     border: 2px solid ;
-    font-size: 13px;
+    font-size: 12px;
     margin: 0px 0px 2px 0px;
     padding: 0px;
     -moz-border-top-colors: #ecf7ff #ecf7ff;
@@ -171,8 +171,8 @@
 }
 
 .main-overlay .cart-list tree #destination {
-    max-width: 30px;
-    min-width: 30px;
+    max-width: 24px;
+    min-width: 24px;
 }
 
 .main-overlay .cart-list tree #name {

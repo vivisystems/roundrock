@@ -6,9 +6,10 @@
  */
 
 .main-overlay .main-input-line {
+    font-family: monospace;
     font-size: 20px !important;
     font-weight: bold;
-    padding: 2px;
+    padding: 2px 10px;
     -moz-appearance: none;
 }
 

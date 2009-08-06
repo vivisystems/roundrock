@@ -47,7 +47,8 @@
             }, this);
 
             this._paidTotal = data.paidTotal;
-
+            this._refundTotal = 0;
+alert(this.dump(data));
             document.getElementById('orderSeq').value = '[' + data.sequence + ']';
 
             document.getElementById('paymentscrollablepanel').datasource = this._originalPayments;

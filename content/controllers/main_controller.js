@@ -565,6 +565,7 @@
         },
 
         updateOptions: function () {
+            // used by input_line_controller to listen for option updates
         },
 
         initialLogin: function () {

@@ -55,8 +55,6 @@
                     </box>
                 </box>
 
-                <spacer id="panelSpacer" flex="1"/>
-
                 <vbox id="rightPanel" flex="0" orient="vertical" class="right-panel">
                     <box id="vfdPanelContainer" flex="0" panel="&layout.panel.vfd;"/>
                     <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
