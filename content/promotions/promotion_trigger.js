@@ -213,12 +213,16 @@ var __klass__ = {
 
         //this.log(this.dump(matchedItems) + ',,,' + qty + ',,,' + matchedItemsSubtotal);
 
-        // set MatchedItemsSubtotal
-        this.setMatchedItemsSubtotal(matchedItemsSubtotal);
+        if (remain <= 0) {
+            // set MatchedItemsSubtotal
+            this.setMatchedItemsSubtotal(matchedItemsSubtotal);
 
-        // set MatchedItems
-        this.setMatchedItems(matchedItems);
+            // set MatchedItems
+            this.setMatchedItems(matchedItems);
 
+        }else {
+            matchedItems = [];
+        }
         return matchedItems;
 
     },
@@ -272,11 +276,15 @@ var __klass__ = {
 
 //        this.log(this.dump(matchedItems) + ',,,' + subtotal);
 
-        // set MatchedItemsQty
-        this.setMatchedItemsQty(matchedItemsQty);
-        
-        // set MatchedItems
-        this.setMatchedItems(matchedItems);
+        if (remain <= 0) {
+            // set MatchedItemsQty
+            this.setMatchedItemsQty(matchedItemsQty);
+
+            // set MatchedItems
+            this.setMatchedItems(matchedItems);
+        }else {
+            matchedItems = [];
+        }
 
         return matchedItems;
     },
