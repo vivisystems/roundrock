@@ -14,7 +14,13 @@ class Order extends AppModel {
 
     function saveOrder($data) {
 
-        
+        $conditions = "Order.id='" . $data['Order']['id'] . "'";
+        $orderTmp = $this->find('first', array("conditions" => $conditions));
+
+        if ($orderTmp && $data['Order']['lastModifiedTime'] != $orderTmp['Order']['transaction_submitted']) {
+            CakeLog::write('saveOrderObject', 'saveOrder fail:::' . $data['Order']['id']);
+            return false;
+        }
 
         try {
             
@@ -26,30 +32,35 @@ class Order extends AppModel {
                                       '  OrderItem: ' . $e->getMessage() . "\n" );
             }
             try {
+                if ($data['OrderAddition'])
             $this->OrderAddition->saveAll($data['OrderAddition']);
             }catch (Exception $e) {
                 CakeLog::write('saveOrder', 'OrderAddition ' .
                                       '  OrderAddition: ' . $e->getMessage() . "\n" );
             }
             try {
+                if ($data['OrderPayment'])
             $this->OrderPayment->saveAll($data['OrderPayment']);
             }catch (Exception $e) {
                 CakeLog::write('saveOrder', 'OrderPayment ' .
                                       '  OrderPayment: ' . $e->getMessage() . "\n" );
             }
             try {
+                if ($data['OrderAnnotation'])
             $this->OrderAnnotation->saveAll($data['OrderAnnotation']);
             }catch (Exception $e) {
                 CakeLog::write('saveOrder', 'OrderAnnotation ' .
                                       '  OrderAnnotation: ' . $e->getMessage() . "\n" );
             }
             try {
+                if ($data['OrderItemCondiment'])
             $this->OrderItemCondiment->saveAll($data['OrderItemCondiment']);
             }catch (Exception $e) {
                 CakeLog::write('saveOrder', 'OrderItemCondiment ' .
                                       '  OrderItemCondiment: ' . $e->getMessage() . "\n" );
             }
             try {
+                if ($data['OrderPromotion'])
             $this->OrderPromotion->saveAll($data['OrderPromotion']);
             }catch (Exception $e) {
                 CakeLog::write('saveOrder', 'OrderPromotion ' .
@@ -57,10 +68,12 @@ class Order extends AppModel {
             }
 
             try {
+                if ($data['OrderObject']) {
             $obj['id'] = $data['OrderObject']['id'];
             $obj['order_id'] = $data['OrderObject']['order_id'];
             $obj['object'] = json_encode($data['OrderObject']['object']);
             $this->OrderObject->save($obj);
+                }
             }catch (Exception $e) {
                 CakeLog::write('saveOrder', 'OrderObject ' .
                                       '  OrderObject: ' . $e->getMessage() . "\n" );
@@ -72,7 +85,8 @@ class Order extends AppModel {
                                   '  saveOrderDefault: ' . $e->getMessage() . "\n" );
         }
 
-        return $datas;
+        // return $data;
+        return true;
 
     }
 
@@ -103,6 +117,22 @@ class Order extends AppModel {
         }
 
         return null;
+    }
+
+    function updateOrderMaster($data) {
+
+        try {
+
+            $r = $this->save(data);
+
+        }catch (Exception $e) {
+
+            CakeLog::write('error', 'An error was encountered while updating order ' .
+                                  '  Exception: ' . $e->getMessage() . "\n" );
+        }
+
+        return $r;
+
     }
 
 }
