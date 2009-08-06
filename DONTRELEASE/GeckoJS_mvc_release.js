@@ -3384,6 +3384,7 @@ GeckoJS.NumberHelper.round = function (value, precision, policy, table) {
     
     var p = Math.round(precision);
     var result = value * Math.pow(10, p);
+    if (p > 0) result = result.toFixed(12);
     
     switch(policy) {
         
@@ -3406,11 +3407,11 @@ GeckoJS.NumberHelper.round = function (value, precision, policy, table) {
             break;
             
         case 'always-round-up':
-            result = Math.round(result + 0.5);
+            result = (result >= 0) ? Math.ceil(result) : Math.floor(result);
             break;
             
         case 'always-round-down':
-            result = Math.floor(result);
+            result = (result >= 0) ? Math.floor(result) : Math.ceil(result);
             break;
             
         case 'use-table':

@@ -14,7 +14,7 @@
  * @public
  * @namespace
  */
-var GeckoJS = GeckoJS || {version: "1.0.38"}; // Check to see if already defined in current scope
+var GeckoJS = GeckoJS || {version: "1.2.0"}; // Check to see if already defined in current scope
 
 /**
  * This is a reference to the global context, which is normally the "window" object.
