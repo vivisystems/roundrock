@@ -1043,6 +1043,7 @@
         <parameter name="aValue"/>
         <body>
           <![CDATA[
+
             this._valueEntered = false;
 
             var prependZero = false;
@@ -1147,6 +1148,7 @@
             this._fieldAMPM.parentNode.collapsed = true;
             this.yearField.size = twoDigitYear ? 2 : 4;
             this.yearField.maxLength = twoDigitYear ? 2 : 4;
+
           ]]>
         </body>
       </method>
@@ -1184,8 +1186,8 @@
             <label class="datepicker-gridlabel"/>
             <label class="datepicker-gridlabel"/>
           </deck>
-          <label anonid="yearlabel" class="datepicker-gridlabel" onclick="document.getBindingParent(this)._showYearList(this.value);" />
-          <menulist anonid="yearMenulist" hidden="true" style="min-width:120px;" onselect="document.getBindingParent(this)._increaseOrDecreaseYearList(this.value);">
+          <label anonid="yearlabel" hidden="true" class="datepicker-gridlabel" />
+          <menulist anonid="yearMenulist" hidden="false" style="min-width:120px;" onselect="document.getBindingParent(this)._increaseOrDecreaseYearList(this.value);">
                 <menupopup>
                 </menupopup>
           </menulist >
@@ -1317,6 +1319,7 @@
       <method name="_init">
         <body>
           <![CDATA[
+
             var monthLabel = this.monthField.firstChild;
             var tempDate = new Date();
             for (var month = 0; month < 12; month++) {
@@ -1336,6 +1339,8 @@
               weekbox[i].value = date.toLocaleFormat("%a").charAt(0);
               date.setDate(date.getDate() + 1);
             }
+
+            this._showYearList(tempDate.getFullYear());
           ]]>
         </body>
       </method>
@@ -1397,6 +1402,8 @@
             // Update the month and year title
             this.monthField.selectedIndex = currentMonth;
             this.yearField.setAttribute("value", date.getFullYear());
+
+            this._showYearList(date.getFullYear());
 
             date.setDate(1);
             var firstWeekday = (7 + date.getDay() - this._weekStart) % 7;
@@ -1531,18 +1538,15 @@
 
             yearList.removeAllItems();
 
-            var seek = 20;
+            var seek = 10;
             var i = 0, selectedIndex=0;
-            for (nYear=year-seek; nYear<year+seek; nYear++) {
+            for (nYear=year-seek; nYear<=year+seek; nYear++) {
                 yearList.appendItem( nYear, nYear, null );
                 if (nYear == year) selectedIndex = i;
                 i++;
             }
             yearList.value = year;
             
-            yearlabel.setAttribute('hidden', true);
-            yearList.setAttribute('hidden', false);
-
           ]]>
         </body>
       </method>
@@ -1552,21 +1556,16 @@
         <body>
           <![CDATA[
 
-
             var yearList = document.getAnonymousElementByAttribute(this, "anonid", "yearMenulist");
             var yearlabel = document.getAnonymousElementByAttribute(this, "anonid", "yearlabel");
-
-            if (yearList.getAttribute('hidden') == true || yearList.getAttribute('hidden') == 'true') return;
 
             var lYear = parseInt(yearlabel.value);
             var mYear = parseInt(yearList.value);
 
-            this._increaseOrDecreaseMonth((mYear-lYear)*12);
-
-            yearlabel.setAttribute('hidden', false);
-            yearList.setAttribute('hidden', true);
-
-
+            if (!isNaN((mYear-lYear)) && (mYear-lYear) != 0) {
+                this._increaseOrDecreaseMonth((mYear-lYear)*12);
+            }
+            
           ]]>
         </body>
       </method>
@@ -1656,10 +1655,12 @@
         <xul:hbox>
           <xul:vividatetimepicker-datepad anonid="datepad" class="datepicker-popupgrid"
                         xbl:inherits="disabled,readonly,firstdayofweek"/>
-          <xul:vbox pack="end">
-            <xul:vividatetimepicker-timepad anonid="timepad" class="datepicker-popupgrid" flex="1"
+          <xul:vbox>
+            <xul:vividatetimepicker-timepad anonid="timepad" class="datepicker-popupgrid"
                         xbl:inherits="disabled,readonly"/>
-            <xul:hbox pack="end">
+            <xul:spacer flex="1"/>
+            <xul:hbox>
+                <xul:spacer flex="1"/>
                 <xul:button label="&okButton.label;" oncommand="this.parentNode.parentNode.parentNode.parentNode.hidePopup(); event.stopPropagation();"/>
             </xul:hbox>
           </xul:vbox>

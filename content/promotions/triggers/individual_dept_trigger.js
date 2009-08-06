@@ -39,9 +39,9 @@
 
             var condition = " cate_no='"+productCateNo+"' ";
 
-            var sql = "SELECT SUM(current_qty) AS qty, SUM(current_qty*current_price) AS subtotal FROM promotion_cart_items WHERE "+condition+" GROUP BY cate_no";
+            var sql = "SELECT SUM(current_qty) AS qty, SUM(current_qty*current_price) AS subtotal FROM promotion_cart_items WHERE "+condition+" GROUP BY cate_no ORDER BY ROWID";
 
-            //this.log('execute ' + sql) ;
+            // this.log('execute ' + sql) ;
 
             var result = cartItemModel.getDataSource().fetchAll(sql);
 
@@ -50,7 +50,7 @@
             var subtotal_qty = result[0]['qty'];
             var subtotal = result[0]['subtotal'];
 
-            //this.log(this.dump(result));
+            // this.log(this.dump(result));
             
             var amount = 0 ;
 
@@ -69,8 +69,10 @@
 
             // ONLY DISTINCT cart item
             var sql2 = "SELECT DISTINCT(ROWID) AS ROWID,promotion_cart_items.* FROM promotion_cart_items WHERE " + condition + " ";
+            //this.log('execute ' + sql2) ;
             cartItems = cartItemModel.getDataSource().fetchAll(sql2);
 
+            // this.log(this.dump(cartItems));
             switch (amount_mode) {
                 case "single":
                     amount = 1;
@@ -100,10 +102,14 @@
 
             }
 
-            this.setMatchedAmount(amount);
+            //this.log(this.dump(matchedItems));
 
-            return true;
+            if (matchedItems.length) {
+                this.setMatchedAmount(amount);
+                return true;
+            }
 
+            return false;
         },
 
         isRepeatable: function() {
