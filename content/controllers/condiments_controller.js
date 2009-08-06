@@ -470,9 +470,7 @@
                     view.data = condGroups;
                     this._condGroupscrollablepanel.refresh();
 
-                    this._selectedIndex = -1;
-                    //this.changeCondimentPanel(this._selectedIndex);
-
+                    GeckoJS.FormHelper.unserializeFromObject('condGroupForm', inputData);
                     OsdUtils.info(_('Condiment Group [%S] modified successfully', [inputData.name]));
                 }
                 catch (e) {
@@ -563,7 +561,7 @@
 
         getInputCondData: function () {
 
-            return valObj = GeckoJS.FormHelper.serializeToObject('condimentForm');
+            return GeckoJS.FormHelper.serializeToObject('condimentForm');
         },
 
         resetInputCondData: function () {
@@ -729,7 +727,8 @@
 
                 var view = this._condscrollablepanel.datasource;
                 view.data = condGroups[this._selectedIndex]['Condiment'];
-                this._selectedCondIndex = -1;
+
+                GeckoJS.FormHelper.unserializeFromObject('condimentForm', inputData);
                 this._condscrollablepanel.refresh();
                 //this.clickCondimentPanel(this._selectedCondIndex);
 

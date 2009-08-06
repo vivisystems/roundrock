@@ -256,12 +256,14 @@
                 } else {
                     product.stock = 0;
                 }
+                var rate = product.rate;
+                product.rate_name = this.getRateName(rate);
+
+                //$('#rate').val(rate);
+                //$('#rate_name').val(this.getRateName(rate));
                 this.setInputData(product);
                 this.reorderCondimentGroup();
                 
-                var rate = product.rate;
-                $('#rate').val(rate);
-                $('#rate_name').val(this.getRateName(rate));
             }
             else {
                 var valObj = this.getInputDefault();
@@ -835,7 +837,7 @@
             }
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
             var inputObj = {
                 input0:prodNo, require0:true, alphaOnly0:true,
                 input1:null, require1:true
@@ -1187,8 +1189,6 @@
                 var targetIndexes = [];
                 var targetGroupName = '';
 
-                var self = this;
-
                 // get target
                 if (this._selCateNo == null) {
                     if (this._selCateIndex == -1) {
@@ -1232,75 +1232,97 @@
 
                 if (inputObj.ok && inputObj.selectedItems && inputObj.selectedItems.length > 0) {
 
-                    var productModel = new ProductModel();
-
-                    // use transactoin
-                    productModel.begin();
-                    for (var i = 0; i < inputObj.selectedItems.length; i++) {
-                        // remove by rack , why need to update all fields ?
-                        var oldData = targets[inputObj.selectedItems[i]];
-                        //var newData = GREUtils.extend({}, oldData);
-                        var newData = {id: oldData.id};
-
-                        var modified = false;
-
-                        if (inputObj.cloneSettings['basic-data']) {
-                            modified = true;
-
-                            newData.rate = product.rate;
-                            newData.auto_maintain_stock = product.auto_maintain_stock;
-                            newData.return_stock = product.return_stock;
-                            newData.force_memo = product.force_memo;
-                            newData.visible = product.visible;
-                            newData.single = product.single;
-                            newData.age_verification = product.age_verification;
-                            newData.icon_only = product.icon_only;
-                            newData.manual_adjustment_only = product.manual_adjustment_only;
-                            newData.memo = product.memo;
-                        }
-
-                        if (inputObj.cloneSettings['appearance']) {
-                            modified = true;
-
-                            newData.button_color = product.button_color;
-                            newData.font_size = product.font_size;
-                        }
-
-                        if (inputObj.cloneSettings['prices']) {
-                            modified = true;
-
-                            for (var level = 1; level <= 9; level++) {
-                                newData['level_enable' + level] = product['level_enable' + level];
-                                newData['price_level' + level] = product['price_level' + level];
-                                newData['halo' + level] = product['halo' + level];
-                                newData['lalo' + level] = product['lalo' + level];
-                            }
-                        }
-
-                        if (inputObj.cloneSettings['condiments']) {
-                            newData.force_condiment = product.force_condiment;
-                            newData.cond_group = product.cond_group;
-                            modified = true;
-                        }
-
-                        if (inputObj.cloneSettings['linkgroups']) {
-                            newData.link_group = product.link_group;
-                            modified = true;
-                        }
-
-                        if (modified) {
-                            productModel.id = newData.id;
-                            productModel.save(newData);
-
-                            // dont refreshUI rightnow
-                            this.updateSession('modify', newData, oldData, false);
+                    // check if any property groups has been selected
+                    var settings = GeckoJS.BaseObject.getValues(inputObj.cloneSettings);
+                    var doClone = false;
+                    for (var i = 0; i < settings.length; i++) {
+                        if (settings[i]) {
+                            doClone = true;
+                            break;
                         }
                     }
-                    productModel.commit();
-                    // refresh UI
-                    GeckoJS.Session.add('productsIndexesByCateAll', GeckoJS.Session.get('productsIndexesByCateAll'));
 
-                    OsdUtils.info(_('Product [%S] cloned successfully', [product.name]));
+                    if (doClone) {
+
+                        // bring up progressbar
+                        var waitPanel = this._showWaitPanel(_('Please wait while product properties are cloned'));
+
+                        var productModel = new ProductModel();
+
+                        // use transactoin
+                        productModel.begin();
+                        for (var i = 0; i < inputObj.selectedItems.length; i++) {
+                            // remove by rack , why need to update all fields ?
+                            var oldData = targets[inputObj.selectedItems[i]];
+                            //var newData = GREUtils.extend({}, oldData);
+                            var newData = {id: oldData.id};
+
+                            var modified = false;
+
+                            if (inputObj.cloneSettings['basic-data']) {
+                                modified = true;
+
+                                newData.rate = product.rate;
+                                newData.auto_maintain_stock = product.auto_maintain_stock;
+                                newData.return_stock = product.return_stock;
+                                newData.force_memo = product.force_memo;
+                                newData.visible = product.visible;
+                                newData.single = product.single;
+                                newData.age_verification = product.age_verification;
+                                newData.icon_only = product.icon_only;
+                                newData.manual_adjustment_only = product.manual_adjustment_only;
+                                newData.memo = product.memo;
+                            }
+
+                            if (inputObj.cloneSettings['appearance']) {
+                                modified = true;
+
+                                newData.button_color = product.button_color;
+                                newData.font_size = product.font_size;
+                            }
+
+                            if (inputObj.cloneSettings['prices']) {
+                                modified = true;
+
+                                for (var level = 1; level <= 9; level++) {
+                                    newData['level_enable' + level] = product['level_enable' + level];
+                                    newData['price_level' + level] = product['price_level' + level];
+                                    newData['halo' + level] = product['halo' + level];
+                                    newData['lalo' + level] = product['lalo' + level];
+                                }
+                            }
+
+                            if (inputObj.cloneSettings['condiments']) {
+                                newData.force_condiment = product.force_condiment;
+                                newData.cond_group = product.cond_group;
+                                modified = true;
+                            }
+
+                            if (inputObj.cloneSettings['linkgroups']) {
+                                newData.link_group = product.link_group;
+                                modified = true;
+                            }
+
+                            if (modified) {
+                                productModel.id = newData.id;
+                                productModel.save(newData);
+
+                                // dont refreshUI rightnow
+                                this.updateSession('modify', newData, oldData, false);
+                            }
+                        }
+                        productModel.commit();
+
+                        // refresh UI
+                        GeckoJS.Session.add('productsIndexesByCateAll', GeckoJS.Session.get('productsIndexesByCateAll'));
+
+                        waitPanel.hidePopup();
+
+                        OsdUtils.info(_('Product [%S] cloned successfully', [product.name]));
+                    }
+                    else {
+                        NotifyUtils.warn(_('You have not selected any properties to clone.'));
+                    }
                 }
             }
         },
@@ -1341,6 +1363,18 @@
             }
         },
         
+        _showWaitPanel: function(message) {
+            var waitPanel = document.getElementById('wait_panel');
+            waitPanel.openPopupAtScreen(0, 0);
+
+            var caption = document.getElementById( 'wait_caption' );
+            caption.label = message;
+
+            // release CPU for progressbar ...
+            this.sleep(500);
+            return waitPanel;
+        },
+
         validateForm: function(resetTabs) {
             // category selected?
             if (this._selCateNo == null || this._selCateNo == -1) {

@@ -3516,7 +3516,7 @@
         voidSale: function(id) {
             
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-
+alert(id);
             if (!id) return false;
 
             // load data

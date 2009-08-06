@@ -6,7 +6,7 @@
      */
     function startup() {
         if (inputObj) {
-            $('#title-caption')[0].label = inputObj.title;
+            $('#title-caption')[0].value = inputObj.title;
             $('#targets-label')[0].value = inputObj.targetsLabel;
 
             $('#targetscrollablepanel')[0].datasource = inputObj.targets;

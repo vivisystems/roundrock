@@ -137,11 +137,11 @@
             <preference id="pref_selectedLayout" name="vivipos.fec.general.layouts.selectedLayout" type="unichar"/>
         </preferences>
         <textbox id="selectedLayout" hidden="true" preference="pref_selectedLayout"/>
-        <hbox>
+        <vbox>
             <richlistbox id="rbSelectLayout" flex="1" class="custom-content-layout-listbox"
                          onselect="$do('select', this, 'LayoutManager');">
             </richlistbox>
-        </hbox>
+        </vbox>
     </prefpane>
 
 </prefwindow>

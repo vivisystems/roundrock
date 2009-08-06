@@ -5,13 +5,14 @@
   <!ENTITY % rpt_clerk_sales SYSTEM "chrome://viviecr/locale/reports/rpt_clerk_sales.dtd">
   %rpt_clerk_sales;
   ]>
+
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
 
@@ -26,87 +27,91 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js"/>
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_clerk_sales.js"/>
   
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()"/>
+    </keyset>
+
     <vbox flex="1" class="container-report">
 		<vbox flex="1" class="container-main">
 		    <vbox>
-		        <label value="&rptclerksales.title;" class="label-age-title"/>
+		        <label value="&rptclerksales.title;" class="label-page-title"/>
 		        <hbox>
 		            <hbox flex="1">
-		            <grid flex="1" class="data-form">
-		                <columns>
-		                    <column  flex="1"/>
-                            <column flex="1"/>
-		                </columns>
-		                <rows>
-		                    <row>
-		                        <vbox>
-		                            <label value="&rptclerksales.startdate;"/>
-		                            <vividatetimepicker id="start_date" value="" type="popup"/>
-		                        </vbox>
-		                        <vbox>
-		                            <label value="&rptclerksales.enddate;"/>
-		                            <vividatetimepicker id="end_date" value="" type="popup"/>
-		                        </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-		                    		<label value="&rptclerksales.periodtype;"/>
-					                <menulist id="period_type">
-					                    <menupopup id="period_type_menupopup">
-					                        <menuitem selected="false" label="&rptclerksales.transaction_created;" value="transaction_created"/>
-					                        <menuitem selected="true" label="&rptclerksales.transaction_submitted;" value="transaction_submitted"/>
-					                        <menuitem selected="false" label="&rptclerksales.sale_period;" value="sale_period"/>
-					                    </menupopup>
-					                </menulist>
-		                    	</vbox>
-		                    	<vbox>
-				                    <label value="&rptclerksales.shiftno;"/>
-				                    <textbox id="shift_no" value=""/>
-				                </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-		                    		<label value="&rptclerksales.clerk_type;"/>
-					                <menulist id="clerk_type">
-					                    <menupopup id="clerk_type_menupopup">
-					                        <menuitem selected="false" label="&rptclerksales.service_clerk;" value="service_clerk_displayname"/>
-					                        <menuitem selected="true" label="&rptclerksales.proceeds_clerk;" value="proceeds_clerk_displayname"/>
-					                    </menupopup>
-					                </menulist>
-		                    	</vbox>
-		                    	<vbox>
-				                    <label value="&rptclerksales.terminal_no;"/>
-				                    <textbox id="terminal_no" value=""/>
-				                </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-				                	<label value="&rptclerksales.sortby;"/>
-					                <menulist id="sortby">
-					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="false" label="&rptclerksales.sortby.terminal_no;" value="terminal_no"/>
-					                        <menuitem selected="true" label="&rptclerksales.sortby.time;" value="time"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.sequence;" value="sequence"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.invoice_no;" value="invoice_no"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.item_subtotal;" value="item_subtotal"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.tax_subtotal;" value="tax_subtotal"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.surcharge_subtotal;" value="surcharge_subtotal"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.discount_subtotal;" value="discount_subtotal"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.promotion_subtotal;" value="promotion_subtotal"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.revalue_subtotal;" value="revalue_subtotal"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.netsales;" value="total"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.payment;" value="payment"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.cash;" value="cash"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.check;" value="check"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.creditcard;" value="creditcard"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.coupon;" value="coupon"/>
-					                        <menuitem selected="false" label="&rptclerksales.sortby.giftcard;" value="giftcard"/>
-					                    </menupopup>
-					                </menulist>
-			                    </vbox>
-		                    </row>
-		                </rows>
-		            </grid>
+                        <grid flex="1" class="data-form">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptclerksales.startdate;"/>
+                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptclerksales.enddate;"/>
+                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptclerksales.periodtype;"/>
+                                        <menulist id="period_type">
+                                            <menupopup id="period_type_menupopup">
+                                                <menuitem selected="false" label="&rptclerksales.transaction_created;" value="transaction_created"/>
+                                                <menuitem selected="true" label="&rptclerksales.transaction_submitted;" value="transaction_submitted"/>
+                                                <menuitem selected="false" label="&rptclerksales.sale_period;" value="sale_period"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptclerksales.shiftno;"/>
+                                        <textbox id="shift_no" value=""/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptclerksales.clerk_type;"/>
+                                        <menulist id="clerk_type">
+                                            <menupopup id="clerk_type_menupopup">
+                                                <menuitem selected="false" label="&rptclerksales.service_clerk;" value="service_clerk_displayname"/>
+                                                <menuitem selected="true" label="&rptclerksales.proceeds_clerk;" value="proceeds_clerk_displayname"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptclerksales.terminal_no;"/>
+                                        <textbox id="terminal_no" value=""/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptclerksales.sortby;"/>
+                                        <menulist id="sortby">
+                                            <menupopup id="sortby_menupopup">
+                                                <menuitem selected="false" label="&rptclerksales.sortby.terminal_no;" value="terminal_no"/>
+                                                <menuitem selected="true" label="&rptclerksales.sortby.time;" value="time"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.sequence;" value="sequence"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.invoice_no;" value="invoice_no"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.item_subtotal;" value="item_subtotal"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.tax_subtotal;" value="tax_subtotal"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.surcharge_subtotal;" value="surcharge_subtotal"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.discount_subtotal;" value="discount_subtotal"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.promotion_subtotal;" value="promotion_subtotal"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.revalue_subtotal;" value="revalue_subtotal"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.netsales;" value="total"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.payment;" value="payment"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.cash;" value="cash"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.check;" value="check"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.creditcard;" value="creditcard"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.coupon;" value="coupon"/>
+                                                <menuitem selected="false" label="&rptclerksales.sortby.giftcard;" value="giftcard"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
 		            </hbox>
 		            <button id="execute" label="&rptclerksales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptClerkSales');"/>
 		        </hbox>

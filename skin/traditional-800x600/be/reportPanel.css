@@ -19,7 +19,7 @@
     -moz-border-radius: 8px;
 }
 
-.custom-button-report[disabled="true"] {
+.custom-button-report[disabled=true] {
     background: #ececec;
     border: none;
     -moz-appearance: none;

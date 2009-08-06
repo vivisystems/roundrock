@@ -11,7 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
 
@@ -35,27 +35,29 @@
 		    <vbox>
 		        <label value="&rptdepartments.title;" class="label-page-title"/>
 		        <hbox>
-		            <grid flex="1" class="data-form">
-		                <columns>
-		                    <column flex="1"/>
-		                </columns>
-		                <rows>
-		                    <row>
-		                    	<vbox>
-				                    <label value="&rptdepartments.sortby;"/>
-					                <menulist id="sortby">
-					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="&rptdepartments.sortby.no;" value="no"/>
-					                        <menuitem selected="false" label="&rptdepartments.sortby.name;" value="name"/>
-					                    </menupopup>
-					                </menulist>
-					            </vbox>
-					            <vbox>
-					            	<spacer width="280"/>
-					            </vbox>
-		                    </row>
-		                </rows>
-		            </grid>
+                    <hbox flex="1">
+                        <grid flex="1" class="data-form">
+                            <columns>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptdepartments.sortby;"/>
+                                        <menulist id="sortby">
+                                            <menupopup id="sortby_menupopup">
+                                                <menuitem selected="true" label="&rptdepartments.sortby.no;" value="no"/>
+                                                <menuitem selected="false" label="&rptdepartments.sortby.name;" value="name"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <spacer width="280"/>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </hbox>
 		            <button id="execute" label="&rptdepartments.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDepartments');"/>
 		        </hbox>
             </vbox>

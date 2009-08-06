@@ -4,81 +4,79 @@
  *
  *-----------------------------------------------------------------------------
  */
+
 * {
-	padding: 0px;
-	margin: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
 #signinpanel  {
-    width: 800px;
-    height: 600px;
     background: #f8f4eb url(../images/Signin.jpg) top left no-repeat;
     border: 0px solid red;
+    height: 600px;
+    width: 800px;
 }
 
 .userscrollablepanel {
-  max-height: 365px;
-  min-height: 365px;
-  margin-left: 82px;
-  margin-top: 14px;
+    margin-left: 82px;
+    margin-top: 14px;
+    max-height: 365px;
+    min-height: 365px;
 }
 
 .numberbtn {
-    min-width:100px;
+    background: url(../images/btn_purple.png);
+    background-color:#800040;
+    color: White;
+    font-size: 30px;
+    font-weight: bold !important;
+    height: 64px;
+    list-style-type: none;
+    margin: 1px 1px 0px 0px;
+    max-height:64px;
     max-width:100px;
     min-height:64px;
-    max-height:64px;
-    height: 64px;
-    width: 100px;
-    margin: 1px 1px 0px 0px;
-    padding: 0px;
-    list-style-type: none;
-    color: White;
-    font-weight: bold !important;
-    font-size: 30px;
+    min-width:100px;
     overflow: hidden;
-    background-color:#800040;
+    padding: 0px;
+    width: 100px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
-    background: url(../images/btn_purple.png);
     -moz-background-clip: border;
 }
 
 .numpad {
-	width: 295px;
-	height: 265px;
-	max-height: 265px;
-	max-width: 295px;
 	background: white url(../images/numpadbg.gif) no-repeat top center;
 	border: solid 1px #5c5751;
+	height: 265px;
+	margin: 103px 0 0 10px;
+	max-height: 265px;
+	max-width: 295px;
+	padding: 27px 10px 10px 5px;
+	width: 295px;
 	-moz-background-clip: border;
 	-moz-border-radius-topright: 8px; 
 	-moz-border-radius-topleft: 8px;
-	padding: 27px 10px 10px 5px;
-	margin: 103px 0 0 10px;
 }
-.numberpad {
-   
-}
+
 .numberpad sendkeybutton{
-    min-width:64px;
+    background: transparent url(../images/numbtn_tall.png);
+    border: 0px solid;
+    color: white;
+    font-size: 30px;
+    font-weight: bold !important;
+    height: 52px;
+    list-style-type: none;
+    margin: 5px 0 0 5px;
+    max-height:52px;
     max-width:64px;
     min-height:52px;
-    max-height:52px;
-    height: 52px;
-    width: 64px;
-    margin: 5px 0 0 5px;
-    padding: 0px;
-    list-style-type: none;
-    font-weight: bold !important;
-    font-size: 30px;
+    min-width:64px;
     overflow: hidden;
-    border: 0px solid;
+    padding: 0px;
+    width: 64px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
-    /* background: white; */
-    background: transparent url(../images/numbtn_tall.png);
-    color: white;
 }
 
 .numberpad sendkeybutton:active{
@@ -86,105 +84,108 @@
 }
 
 .rightprevbtn {
+    background: transparent url(../images/userUp.png) center center no-repeat;
+	border: none;
+    height: 50px;
     max-width:32px;
     min-width:32px;
-    height: 50px;
     width: 32px;
-    background: transparent url(../images/userUp.png) center center no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-	border: none;
 }
+
 .rightprevbtn:active {
 	background: transparent url(../images/userUp_a.png) center center no-repeat;
 }
+
 .rightprevbtn label {
 	display: none;
 }
+
 .rightprevbtn description {
 	display: none;
 }
+
 .rightnextbtn {
+    background: transparent url(../images/userDown.png) center center no-repeat;
+    border: none;
+    height: 50px;
     max-width:32px;
     min-width:32px;
-    height: 50px;
     width: 32px;
-    background: transparent url(../images/userDown.png) center center no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
 }
+
 .rightnextbtn:active {
 	background: transparent url(../images/userDown_a.png) center center no-repeat;
 }
+
 .rightnextbtn label {
 	display: none;
 }
+
 .rightnextbtn description {
 	display: none;
 }
 
 .leftprevbtn {
+    background: transparent url(../images/userUp.png) center center no-repeat;
+    border: none;
+    height: 50px;
     max-width:32px;
     min-width:32px;
-    height: 50px;
     width: 32px;
-    background: transparent url(../images/userUp.png) center center no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
 }
 
 .leftnextbtn {
+    background: transparent url(../images/userDown.png) center center no-repeat;
+    border: none;
+    height: 50px;
     max-width:32px;
     min-width:32px;
-    height: 50px;
     width: 32px;
-    background: transparent url(../images/userDown.png) center center no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
 }
 
 .userbtn {
-    min-width:225px;
-    max-width:225px;
-    min-height:73px;
-    max-height:73px;
-    height: 73px;
-    width: 225px;
-    margin: 0px;
-    padding: 0px;
-    list-style-type: none;
-    color: #514f43;
-    font-weight: bold !important;
-    font-size: 14px;
-    overflow: hidden;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
     background: transparent url(../images/user.gif) no-repeat 26px 12px;
-    -moz-background-clip: border;
-    -moz-box-orient: vertical;
     border: none;
     border-bottom: 1px dotted #908c83;
+    color: #514f43;
+    font-size: 14px;
+    font-weight: bold !important;
+    height: 73px;
+    list-style-type: none;
+    margin: 0px;
+    max-height:73px;
+    max-width:225px;
+    min-height:73px;
+    min-width:225px;
+    overflow: hidden;
+    padding: 0px;
+    width: 225px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    -moz-box-orient: vertical;
 }
 
 .userbtn hbox{
-  width: 100%;
-  height: 100%;
-  padding-left: 87px;
-  vertical-align: middle;
+    height: 100%;
+    padding-left: 87px;
+    vertical-align: middle;
+    width: 100%;
 }
 .userbtn hbox image{
-  max-height: 24px;
-  height: 24px;
-  max-width: 24px;
-  width: 24px;
-  display: none;
+    display: none;
 }
 
 .userbtn[disabled=false]:active {
@@ -198,127 +199,132 @@
 }
 
 .gray {
-  background: url(../images/btn_gray.png);
-  background-position:0pt -64px;
+    background: url(../images/btn_gray.png);
+    background-position:0pt -64px;
 }
 
 .blue {
-  background: url(../images/btn_blue.png);
-  background-position:0pt -64px;
+    background: url(../images/btn_blue.png);
+    background-position:0pt -64px;
 }
 
 .green {
-  background: url(../images/btn_green.png);
-  background-position:0pt -64px;
+    background: url(../images/btn_green.png);
+    background-position:0pt -64px;
 }
 
 .purple {
-  background: url(../images/btn_purple.png);
-  background-position:0pt -64px;
+    background: url(../images/btn_purple.png);
+    background-position:0pt -64px;
 }
 
 .systembtn {
-    min-width:70px;
+    background: transparent url(../images/funBtn4.png) center center no-repeat;
+    border: 0px solid;
+    color: #42422f;
+    font-size: 14px;
+    font-weight: bold !important;
+    height: 109px;
+    list-style-type: none;
+    max-height:109px;
     max-width:70px;
     min-height:109px;
-    max-height:109px;
-    height: 109px;
-    width: 70px;
+    min-width:70px;
     margin: 5px 0px 0px 5px;
-    padding: 0px;
-    list-style-type: none;
-    color: #42422f;
-    font-weight: bold !important;
-    font-size: 14px;
     overflow: hidden;
+    padding: 0px;
     text-wrap: normal;
+    width: 70px;
     word-wrap: break-word;
-    border: 0px solid;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-box-align:center;
     -moz-box-pack:center;
-
-    /* background: white; */
-    background: transparent url(../images/funBtn4.png) center center no-repeat;
 }
+
 .systembtn:active {
     background: transparent url(../images/funBtn4_a.png) center center no-repeat;
 }
 
 .genbtn {
-    height: 61px;
-    width: 70px;
-    max-width: 70px;
-    min-width: 70px;
-    min-height:61px;
-    max-height: 61px;
-    margin: 0px 0px 0px 0px;
-    padding: 0px;
-    list-style-type: none;
-    overflow: hidden;
-    color: White;
-    font-weight: bold !important;
-    font-size: 14px;
-    overflow: hidden;
     background: transparent url(../images/signin.gif) no-repeat center center;
+    border: none;
+    color: White;
+    font-size: 14px;
+    font-weight: bold !important;
+    height: 61px;
+    list-style-type: none;
+    margin: 0px 0px 0px 0px;
+    max-height: 61px;
+    max-width: 70px;
+    min-height:61px;
+    min-width: 70px;
+    overflow: hidden;
+    padding: 0px;
+    width: 70px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
 }
+
 .genbtn[disabled=false]:active {
 	background: transparent url(../images/signin_a.gif) no-repeat center center;
 }
+
 .genbtn hbox{
     max-height: 40px;
 }
+
 .genbtn label{
 	color: #ffffff;
 }
+
 .genbtn[disabled=true] {
 	background: transparent url(../images/signin_disable.gif) no-repeat center center;
 }
 
 .PwPad {
 	margin: 45px 0 0 270px;
-	min-height: 70px;
-	
+	min-height: 70px;	
 }
 
 .pwlabel {
-	font-size: 12pt; 
 	color: white;
+	font-size: 12pt; 
 	margin-top: 13px;
 }
+
 .userlabel {
-	font-size: 11pt; 
 	color: #dcf74a;
+	font-size: 11pt; 
 	margin-top: 9px;
 }
+
 .pwBox {
-	width: 211px;
-	margin-top: 5px;
-	margin-right: 12px;
-	height: 36px;
 	border: 2px solid #b2a59a;
-	-moz-border-radius: 4px;
-	-moz-appearance: none;
 	color: #514f43;
 	font-size: 21px;
+	height: 36px;
+	margin-top: 5px;
+	margin-right: 12px;
+	width: 211px;
+	-moz-appearance: none;
+	-moz-border-radius: 4px;
 }
+
 .PageTitle {
-	font-size: 15pt;
 	color: black;
+	font-size: 15pt;
 	margin: 10px 0 0 300px;
 }
+
 .QuickLogin {
-    max-width: 80px;
-    min-width: 80px;
-    max-height: 57px;
-    min-height: 57px;
-    margin : 4px 25px 0px 0px;
     background: transparent url(../images/light_on.png) 0 0 no-repeat;
+    margin : 4px 25px 0px 0px;
+    max-height: 57px;
+    max-width: 80px;
+    min-height: 57px;
+    min-width: 80px;
 }
 
 .QuickLogin[disabled=true] {
@@ -327,8 +333,8 @@
 
 .clockinout {
     background: transparent url(../images/clock.png) center center no-repeat;
-    -moz-appearance: none;
     border-width: 0px;
-    width: 80px;
     height: 80px;
+    width: 80px;
+    -moz-appearance: none;
 }

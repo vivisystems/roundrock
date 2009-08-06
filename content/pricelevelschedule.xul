@@ -82,7 +82,9 @@
 
                     <vbox flex="1" class="content-buttonpanel">
                         <label value="&pricelevelschedule.step2;" class="label-sub-title"/>
-                        <vividatetimepicker-timepad id="datetime" flex="1" type="embed"/>
+                        <vbox flex="1" align="center">
+                            <vividatetimepicker-timepad id="datetime" flex="1" type="embed"/>
+                        </vbox>
                     </vbox>
                     <hbox class="toolbar" toolbarmode="horizontal">
                         <spacer flex="1"/>

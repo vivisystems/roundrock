@@ -141,7 +141,6 @@
 
 .button-vkb {
     background: transparent url(../images/keyboard.png) center center no-repeat;
-    margin: 2px;
 }
 
 .button-select-all {
@@ -209,8 +208,8 @@
     border: none;
     height: 48px;
     margin: 0px;
-    max-width: 36px;
-    min-width: 36px;
+    max-width: 40px;
+    min-width: 40px;
     -moz-user-focus: ignore;
     -moz-appearance: none;
 }
@@ -246,7 +245,7 @@
     display: none;
 }
 
-.button-iconic[disabled=false] {
+.button-iconic:not([disabled=true]) {
     border: 2px solid black;
 }
 
@@ -467,15 +466,15 @@ button_fontsizepicker:not([disabled=true]) button[selected] {
     -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
 }
 
-.button-item-a[disabled=false]:active {
+.button-item-a:not([disabled=true]):active {
     -moz-border-top-colors: #d9d9d2 #c3c2bc #a5a49f;
     -moz-border-left-colors: #d9d9d2 #c3c2bc #a5a49f;
     -moz-border-bottom-colors: #f0efe8 #e8e8e1 #d9d9d2;
     -moz-border-right-colors: #f0efe8 #e8e8e1 #d9d9d2;
 }
 
-.button-item-a[disabled=false][selected],
-.button-item-a[disabled=false][checked] {
+.button-item-a[selected]:not([disabled=true]),
+.button-item-a[checked]:not([disabled=true]) {
     background: white url(../images/itembtnA_sel.png) left center repeat-x;
     border: 2px solid;
     color: #603913;

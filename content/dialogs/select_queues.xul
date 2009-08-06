@@ -27,7 +27,7 @@
 
                 <vbox flex="1" class="container-main">
 
-                    <caption label="&select.queues.title;" class="label-page-title"/>
+                    <label value="&select.queues.title;" class="label-page-title"/>
 
                     <hbox flex="1">
 
@@ -51,10 +51,8 @@
 
                     </hbox>
 
-                    <spacer flex="1"/>
-
                     <hbox>
-                        <hbox flex="1" pack="center" class="toolbar">
+                        <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
                             <button disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', true)"/>
                             <button disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', false)"/>
                         </hbox>

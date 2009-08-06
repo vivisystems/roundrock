@@ -13,7 +13,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
 
@@ -37,87 +37,89 @@
 		    <vbox>
 		        <label value="&rptorderannotation.title;" class="label-page-title"/>
 		        <hbox>
-		            <grid flex="1" class="data-form">
-		                <columns>
-		                    <column flex="1"/>
-                            <column flex="1"/>
-		                </columns>
-		                <rows>
-		                    <row>
-		                        <vbox>
-		                            <label value="&rptorderannotation.startdate;"/>
-		                            <vividatetimepicker id="start_date" value="" type="popup"/>
-		                        </vbox>
-		                        <vbox>
-		                            <label value="&rptorderannotation.enddate;"/>
-		                            <vividatetimepicker id="end_date" value="" type="popup"/>
-		                        </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-		                    		<label value="&rptorderannotation.periodtype;"/>
-					                <menulist id="period_type">
-					                    <menupopup id="periodtype_menupopup">
-					                        <menuitem selected="false" label="&rptorderannotation.transaction_created;" value="transaction_created"/>
-					                        <menuitem selected="true" label="&rptorderannotation.transaction_submitted;" value="transaction_submitted"/>
-					                        <menuitem selected="false" label="&rptorderannotation.saleperiod;" value="sale_period"/>
-					                    </menupopup>
-					                </menulist>
-		                    	</vbox>
-					            <vbox>
-				                    <label value="&rptorderannotation.shiftno;"/>
-				                    <textbox id="shift_no" value=""/>
-				                </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-		                    		<label value="&rptorderannotation.annotationtype;"/>
-		                    		<menulist id="annotation_type">
-					                    <menupopup id="annotationtype_menupopup">
-					                        <menuitem selected="true" label="[&rptorderannotation.all;]" value="all"/>
-					                    </menupopup>
-					                </menulist>
-					            </vbox>
-		                    	<vbox>
-				                	<label value="&rptorderstatus.orderstatus;"/>
-					                <menulist id="orderstatus">
-					                    <menupopup id="orderstatus_menupopup">
-					                        <menuitem selected="true" label="[&rptorderstatus.all;]" value="all"/>
-					                        <menuitem selected="false" label="&rptorderstatus.finalizedorder;" value="1"/>
-					                        <menuitem selected="false" label="&rptorderstatus.savedorder;" value="2"/>
-					                        <menuitem selected="false" label="&rptorderstatus.canceledorder;" value="-1"/>
-					                        <menuitem selected="false" label="&rptorderstatus.voidedorder;" value="-2"/>
-					                    </menupopup>
-					                </menulist>
-			                    </vbox>
-				            </row>
-				            <row>
-		                    	<vbox>
-				                	<label value="&rptorderannotation.sortby;"/>
-					                <menulist id="sortby">
-					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.terminal_no;" value="terminal_no"/>
-					                        <menuitem selected="true" label="&rptorderannotation.sortby.time;" value="time"/>
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.sequence;" value="sequence"/>
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.annotationtext;" value="text"/>
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.item_subtotal;" value="item_subtotal"/>
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.tax_subtotal;" value="tax_subtotal"/>
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.surcharge_subtotal;" value="surcharge_subtotal"/>
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.discount_subtotal;" value="discount_subtotal"/>
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.promotion_subtotal;" value="promotion_subtotal"/>
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.revalue_subtotal;" value="revalue_subtotal"/>
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.total;" value="total"/>
-					                        <menuitem selected="false" label="&rptorderannotation.sortby.orderstatus;" value="status"/>
-					                    </menupopup>
-					                </menulist>
-			                    </vbox>
-		                    	<vbox>
-				                    <label value="&rptorderannotation.terminal_no;"/>
-				                    <textbox id="terminal_no" value=""/>
-				                </vbox>
-				            </row>
-		                </rows>
-		            </grid>
+                    <hbox flex="1">
+                        <grid flex="1" class="data-form">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptorderannotation.startdate;"/>
+                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptorderannotation.enddate;"/>
+                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptorderannotation.periodtype;"/>
+                                        <menulist id="period_type">
+                                            <menupopup id="periodtype_menupopup">
+                                                <menuitem selected="false" label="&rptorderannotation.transaction_created;" value="transaction_created"/>
+                                                <menuitem selected="true" label="&rptorderannotation.transaction_submitted;" value="transaction_submitted"/>
+                                                <menuitem selected="false" label="&rptorderannotation.saleperiod;" value="sale_period"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptorderannotation.shiftno;"/>
+                                        <textbox id="shift_no" value=""/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptorderannotation.annotationtype;"/>
+                                        <menulist id="annotation_type">
+                                            <menupopup id="annotationtype_menupopup">
+                                                <menuitem selected="true" label="[&rptorderannotation.all;]" value="all"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptorderstatus.orderstatus;"/>
+                                        <menulist id="orderstatus">
+                                            <menupopup id="orderstatus_menupopup">
+                                                <menuitem selected="true" label="[&rptorderstatus.all;]" value="all"/>
+                                                <menuitem selected="false" label="&rptorderstatus.finalizedorder;" value="1"/>
+                                                <menuitem selected="false" label="&rptorderstatus.savedorder;" value="2"/>
+                                                <menuitem selected="false" label="&rptorderstatus.canceledorder;" value="-1"/>
+                                                <menuitem selected="false" label="&rptorderstatus.voidedorder;" value="-2"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptorderannotation.sortby;"/>
+                                        <menulist id="sortby">
+                                            <menupopup id="sortby_menupopup">
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.terminal_no;" value="terminal_no"/>
+                                                <menuitem selected="true" label="&rptorderannotation.sortby.time;" value="time"/>
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.sequence;" value="sequence"/>
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.annotationtext;" value="text"/>
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.item_subtotal;" value="item_subtotal"/>
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.tax_subtotal;" value="tax_subtotal"/>
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.surcharge_subtotal;" value="surcharge_subtotal"/>
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.discount_subtotal;" value="discount_subtotal"/>
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.promotion_subtotal;" value="promotion_subtotal"/>
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.revalue_subtotal;" value="revalue_subtotal"/>
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.total;" value="total"/>
+                                                <menuitem selected="false" label="&rptorderannotation.sortby.orderstatus;" value="status"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptorderannotation.terminal_no;"/>
+                                        <textbox id="terminal_no" value=""/>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </hbox>
 		            <button id="execute" label="&rptorderannotation.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptOrderAnnotation');"/>
 		        </hbox>
             </vbox>

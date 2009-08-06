@@ -10,6 +10,8 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/stocks.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -138,18 +140,19 @@
         </hbox>
     </vbox>
 
-    <vivipanel id="error_panel" position="overlap" noautohide="f" pack="center" align="center">
-        <hbox flex="1" class="container-main custom-container-error-panel" pack="center" align="center">
-            <vbox flex="1" pack="start" class="custom-container-error-dialog">
+    <vivipanel id="error_panel" position="overlap" class="container-dialog">
+        <hbox flex="1" class="custom-container-error-panel">
+            <vbox flex="1" class="container-main custom-container-error-dialog">
                 <caption label="&stockrecords.import.errors.title;" class="label-page-title"/>
                 <vbox flex="1" class="content-listbox">
-                    <label value="&stockrecords.import.errors.desc;"/>
-                    <vivitree id="errorscrollablepanel" flex="1" rows="10" class="standard custom-content-error-list"
+                    <label value="&stockrecords.import.errors.desc;" class="label-alert"/>
+                    <vivitree id="errorscrollablepanel" flex="1"
                               headers="&stockrecords.import.line;,&stockrecords.import.prodno;"
                               fields="line,no"
+                              class="standard custom-content-error-list"
                               />
                 </vbox>
-                <hbox id="errorPanelButtons" class="exitbar" pack="end">
+                <hbox id="errorPanelButtons" pack="end" class="exitbar">
                     <button id="close_error" default="true" class="button-exit"
                             oncommand="document.getElementById('error_panel').hidePopup()"/>
                 </hbox>

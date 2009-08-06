@@ -37,69 +37,69 @@
 		        <label value="&rptdailysales.title;" class="label-page-title"/>
 		        <hbox>
 		            <hbox flex="1">
-		            <grid flex="1" class="data-form">
-		                <columns>
-		                    <column flex="1"/>
-                            <column flex="1"/>
-		                </columns>
-		                <rows>
-		                    <row>
-		                        <vbox>
-		                            <label value="&rptdailysales.startdate;"/>
-		                            <vividatetimepicker id="start_date" value="" type="popup"/>
-		                        </vbox>
-		                        <vbox>
-		                            <label value="&rptdailysales.enddate;"/>
-		                            <vividatetimepicker id="end_date" value="" type="popup"/>
-		                        </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-		                    		<label value="&rptdailysales.periodtype;"/>
-					                <menulist id="period_type">
-					                    <menupopup id="period_type_menupopup">
-					                        <menuitem selected="false" label="&rptdailysales.transaction_created;" value="transaction_created"/>
-					                        <menuitem selected="true" label="&rptdailysales.transaction_submitted;" value="transaction_submitted"/>
-					                        <menuitem selected="false" label="&rptdailysales.sale_period;" value="sale_period"/>
-					                    </menupopup>
-					                </menulist>
-		                    	</vbox>
-		                    	<vbox>
-				                    <label value="&rptdailysales.shiftno;"/>
-				                    <textbox id="shift_no" value=""/>
-				                </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-				                	<label value="&rptdailysales.sortby;"/>
-					                <menulist id="sortby">
-					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="false" label="&rptdailysales.sortby.terminal_no;" value="terminal_no"/>
-					                        <menuitem selected="true" label="&rptdailysales.sortby.time;" value="time"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.sequence;" value="sequence"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.invoice_no;" value="invoice_no"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.item_subtotal;" value="item_subtotal"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.tax_subtotal;" value="tax_subtotal"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.surcharge_subtotal;" value="surcharge_subtotal"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.discount_subtotal;" value="discount_subtotal"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.promotion_subtotal;" value="promotion_subtotal"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.revalue_subtotal;" value="revalue_subtotal"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.total;" value="total"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.cash;" value="cash"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.check;" value="check"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.creditcard;" value="creditcard"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.coupon;" value="coupon"/>
-					                        <menuitem selected="false" label="&rptdailysales.sortby.giftcard;" value="giftcard"/>
-					                    </menupopup>
-					                </menulist>
-			                    </vbox>
-			                    <vbox>
-				                    <label value="&rptdailysales.terminal_no;"/>
-				                    <textbox id="terminal_no" value=""/>
-				                </vbox>
-		                    </row>
-		                </rows>
-		            </grid>
+                        <grid flex="1" class="data-form">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptdailysales.startdate;"/>
+                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptdailysales.enddate;"/>
+                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptdailysales.periodtype;"/>
+                                        <menulist id="period_type">
+                                            <menupopup id="period_type_menupopup">
+                                                <menuitem selected="false" label="&rptdailysales.transaction_created;" value="transaction_created"/>
+                                                <menuitem selected="true" label="&rptdailysales.transaction_submitted;" value="transaction_submitted"/>
+                                                <menuitem selected="false" label="&rptdailysales.sale_period;" value="sale_period"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptdailysales.shiftno;"/>
+                                        <textbox id="shift_no" value=""/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptdailysales.sortby;"/>
+                                        <menulist id="sortby">
+                                            <menupopup id="sortby_menupopup">
+                                                <menuitem selected="false" label="&rptdailysales.sortby.terminal_no;" value="terminal_no"/>
+                                                <menuitem selected="true" label="&rptdailysales.sortby.time;" value="time"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.sequence;" value="sequence"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.invoice_no;" value="invoice_no"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.item_subtotal;" value="item_subtotal"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.tax_subtotal;" value="tax_subtotal"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.surcharge_subtotal;" value="surcharge_subtotal"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.discount_subtotal;" value="discount_subtotal"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.promotion_subtotal;" value="promotion_subtotal"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.revalue_subtotal;" value="revalue_subtotal"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.total;" value="total"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.cash;" value="cash"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.check;" value="check"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.creditcard;" value="creditcard"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.coupon;" value="coupon"/>
+                                                <menuitem selected="false" label="&rptdailysales.sortby.giftcard;" value="giftcard"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptdailysales.terminal_no;"/>
+                                        <textbox id="terminal_no" value=""/>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
 		            </hbox>
 		            <button id="execute" label="&rptdailysales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDailySales');"/>
 		        </hbox>

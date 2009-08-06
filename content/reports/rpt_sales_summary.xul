@@ -11,7 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
 
@@ -35,56 +35,58 @@
 		  	<vbox><!--this vbox is for the splitter to shadow the caption.-->
 		        <label value="&rptsalessummary.title;"  class="label-page-title"/>
 		        <hbox>
-		            <grid flex="1" class="data-form">
-		                <columns>
-		                    <column flex="1"/>
-                            <column flex="1"/>
-		                </columns>
-		                <rows>
-		                    <row>
-		                        <vbox>
-		                            <label value="&rptsalessummary.startdate;"/>
-		                            <vividatetimepicker id="start_date" value="" type="popup"/>
-		                        </vbox>
-		                        <vbox>
-		                            <label value="&rptsalessummary.enddate;"/>
-		                            <vividatetimepicker id="end_date" value="" type="popup"/>
-		                        </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-		                    		<label value="&rptsalessummary.periodtype;"/>
-					                <menulist id="period_type">
-					                    <menupopup id="periodtype_menupopup">
-					                        <menuitem selected="false" label="&rptsalessummary.transaction_created;" value="transaction_created"/>
-					                        <menuitem selected="true" label="&rptsalessummary.transaction_submitted;" value="transaction_submitted"/>
-					                        <menuitem selected="false" label="&rptsalessummary.saleperiod;" value="sale_period"/>
-					                    </menupopup>
-					                </menulist>
-		                    	</vbox>
-		                    	<vbox>
-				                    <label value="&rptsalessummary.shiftno;"/>
-				                    <textbox id="shift_no" value=""/>
-				                </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-				                    <label value="&rptsalessummary.numdept;"/>
-				                    <textbox id="num_dept" value=""/>
-				                </vbox>
-		                    	<vbox>
-				                    <label value="&rptsalessummary.numproduct;"/>
-				                    <textbox id="num_product" value=""/>
-				                </vbox>
-				            </row>
-		                    <row>
-		                    	<vbox>
-				                    <label value="&rptsalessummary.terminal_no;"/>
-				                    <textbox id="terminal_no" value=""/>
-				                </vbox>
-				            </row>
-		                </rows>
-		            </grid>
+                    <hbox flex="1">
+                        <grid flex="1" class="data-form">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptsalessummary.startdate;"/>
+                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptsalessummary.enddate;"/>
+                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptsalessummary.periodtype;"/>
+                                        <menulist id="period_type">
+                                            <menupopup id="periodtype_menupopup">
+                                                <menuitem selected="false" label="&rptsalessummary.transaction_created;" value="transaction_created"/>
+                                                <menuitem selected="true" label="&rptsalessummary.transaction_submitted;" value="transaction_submitted"/>
+                                                <menuitem selected="false" label="&rptsalessummary.saleperiod;" value="sale_period"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptsalessummary.shiftno;"/>
+                                        <textbox id="shift_no" value=""/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptsalessummary.numdept;"/>
+                                        <textbox id="num_dept" value=""/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptsalessummary.numproduct;"/>
+                                        <textbox id="num_product" value=""/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptsalessummary.terminal_no;"/>
+                                        <textbox id="terminal_no" value=""/>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </hbox>
 		            <button id="execute" label="&rptsalessummary.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptSalesSummary');"/>
 		        </hbox>
         	</vbox>

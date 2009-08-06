@@ -32,7 +32,7 @@
 
 .label-sub-title {
     color: #372213;
-    font-size: 10pt;
+    font-size: 11pt;
     font-weight: bold;
     margin: 5px 8px;
 }
@@ -45,7 +45,7 @@
 .label-alert {
     border: 2px solid #cc6300;
     color: #cc6300 !important;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     margin: 10px 5px;
     padding: 5px;
@@ -79,7 +79,7 @@
  *-----------------------------------------------------------------------------
  */
 
-vivitree[clas=standard] {
+vivitree[class=standard] {
     margin: 4px;
 }
 

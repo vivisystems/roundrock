@@ -35,8 +35,8 @@
                     <tab id="tab2" label="&datetime.timezone.title;"/>
                 </tabs>
                 <tabpanels flex="1">
-                    <tabpanel flex="1" pack="center" orient="vertical">
-                        <vividatetimepicker id="datetime" flex="1" type="embed"/>
+                    <tabpanel flex="1" orient="vertical">
+                        <vividatetimepicker id="datetime" type="embed"/>
                     </tabpanel>
                     <tabpanel flex="1" orient="vertical">
                         <vivitimezones id="timezones" flex="1" type="button" cols="5" rows="6"

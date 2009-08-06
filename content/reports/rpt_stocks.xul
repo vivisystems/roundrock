@@ -11,7 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
 
@@ -35,43 +35,45 @@
 		    <vbox>
 		        <label value="&rptstocks.title;" class="label-page-title"/>
 		        <hbox>
-                    <grid flex="1" class="data-form">
-                        <columns>
-                            <column flex="1"/>
-                            <column flex="1"/>
-                        </columns>
-                        <rows>
-                            <row>
-                                <vbox>
-                                    <label value="&rptstocks.department;"/>
-                                    <menulist id="department" flex="1">
-                                        <menupopup id="department_menupopup"  flex="1">
-                                            <menuitem selected="true" label="[&rptstocks.all;]" value="all"/>
-                                        </menupopup>
-                                    </menulist>
-                                </vbox>
-                                <vbox>
-                                    <label value="&rptstocks.sortby;"/>
-                                    <menulist id="sortby">
-                                        <menupopup id="sortby_menupopup">
-                                            <menuitem selected="true" label="&rptstocks.sortby.no;" value="no"/>
-                                            <menuitem selected="false" label="&rptstocks.sortby.name;" value="name"/>
-                                            <menuitem selected="false" label="&rptstocks.sortby.stock;" value="stock"/>
-                                            <menuitem selected="false" label="&rptstocks.sortby.min_stock;" value="min_stock"/>
-                                        </menupopup>
-                                    </menulist>
-                                </vbox>
-                            </row>
-                            <row>
-                                <vbox>
-                                    <checkbox id="show_low_stock" label="&rptstocks.show_low_stock;"/>
-                                </vbox>
-                                <vbox>
-                                    <checkbox id="show_maintained_ones" label="&rptstocks.show_maintained_ones;"/>
-                                </vbox>
-                            </row>
-                        </rows>
-                    </grid>
+                    <hbox flex="1">
+                        <grid flex="1" class="data-form">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptstocks.department;"/>
+                                        <menulist id="department" flex="1">
+                                            <menupopup id="department_menupopup"  flex="1">
+                                                <menuitem selected="true" label="[&rptstocks.all;]" value="all"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptstocks.sortby;"/>
+                                        <menulist id="sortby">
+                                            <menupopup id="sortby_menupopup">
+                                                <menuitem selected="true" label="&rptstocks.sortby.no;" value="no"/>
+                                                <menuitem selected="false" label="&rptstocks.sortby.name;" value="name"/>
+                                                <menuitem selected="false" label="&rptstocks.sortby.stock;" value="stock"/>
+                                                <menuitem selected="false" label="&rptstocks.sortby.min_stock;" value="min_stock"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <checkbox id="show_low_stock" label="&rptstocks.show_low_stock;"/>
+                                    </vbox>
+                                    <vbox>
+                                        <checkbox id="show_maintained_ones" label="&rptstocks.show_maintained_ones;"/>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </hbox>
 		            <button id="execute" label="&rptstocks.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptStocks');"/>
 		        </hbox>
             </vbox>

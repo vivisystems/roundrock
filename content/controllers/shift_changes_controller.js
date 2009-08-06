@@ -844,7 +844,7 @@
 
                 // offer options to power off or restart and to print shift and day reports
                 var aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=250';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=300';
                 var parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Sale Period Close'), features, parms);
 

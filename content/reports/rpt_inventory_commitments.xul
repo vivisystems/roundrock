@@ -13,7 +13,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
 
@@ -36,42 +36,44 @@
 		    <vbox>
 		        <label value="&rptinventorycommitments.title;" class="label-page-title"/>
 		        <hbox>
-		            <grid flex="1" class="data-form">
-		                <columns>
-		                    <column flex="1"/>
-                            <column flex="1"/>
-		                </columns>
-		                <rows>
-		                    <row>
-		                        <vbox>
-		                            <label value="&rptinventorycommitments.startdate;"/>
-		                            <vividatetimepicker id="start_date" value="" type="popup"/>
-		                        </vbox>
-		                        <vbox>
-		                            <label value="&rptinventorycommitments.enddate;"/>
-		                            <vividatetimepicker id="end_date" value="" type="popup"/>
-		                        </vbox>
-		                    </row>
-		                    <row>
-		                        <vbox>
-		                    		<label value="&rptinventorycommitments.type;"/>
-					                <menulist id="type">
-					                    <menupopup id="type_menupopup">
-					                        <menuitem selected="true" label="&rptinventorycommitments.type.all;" value="all"/>
-					                        <menuitem selected="false" label="&stockrecords.commit.reason.inventory;" value="inventory"/>
-					                        <menuitem selected="false" label="&stockrecords.commit.reason.procure;" value="procure"/>
-					                        <menuitem selected="false" label="&stockrecords.commit.reason.waste;" value="waste"/>
-					                        <menuitem selected="false" label="&stockrecords.commit.reason.other;" value="other"/>
-					                    </menupopup>
-					                </menulist>
-		                    	</vbox>
-		                    	<vbox>
-				                    <label value="&rptinventorycommitments.warehouse;"/>
-				                    <textbox id="warehouse" value=""/>
-				                </vbox>
-		                    </row>
-		                </rows>
-		            </grid>
+                    <hbox flex="1">
+                        <grid flex="1" class="data-form">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptinventorycommitments.startdate;"/>
+                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptinventorycommitments.enddate;"/>
+                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptinventorycommitments.type;"/>
+                                        <menulist id="type">
+                                            <menupopup id="type_menupopup">
+                                                <menuitem selected="true" label="&rptinventorycommitments.type.all;" value="all"/>
+                                                <menuitem selected="false" label="&stockrecords.commit.reason.inventory;" value="inventory"/>
+                                                <menuitem selected="false" label="&stockrecords.commit.reason.procure;" value="procure"/>
+                                                <menuitem selected="false" label="&stockrecords.commit.reason.waste;" value="waste"/>
+                                                <menuitem selected="false" label="&stockrecords.commit.reason.other;" value="other"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptinventorycommitments.warehouse;"/>
+                                        <textbox id="warehouse" value=""/>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </hbox>
 		            <button id="execute" label="&rptinventorycommitments.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptInventoryCommitments');"/>
 		        </hbox>
             </vbox>

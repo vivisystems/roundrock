@@ -34,13 +34,13 @@
 
     <vbox flex="1" class="container-be">
         <vbox flex="1" class="container-main">
-            <tabbox  flex="1" class="content-tabbox">
+            <tabbox  flex="1" class="content-tabbox content-tabbox-no-tabs-right">
                 <tabs id="main-tabbox" onselect="$do('logList', null, 'ViewSystemLog'); event.stopPropagation();">
                     <tab id="tab_vivipos" label="&view_system_log.vivipos;" value="vivipos" selected="true"/>
                     <tab id="tab_syslog" label="&view_system_log.syslog;" value="syslog"/>
                     <tab id="tab_web" label="&view_system_log.web;" value="web"/>
-                    <spacer flex="5"/>
-                    <menulist id="logFilesList" flex="1" style="min-width: 200px;"
+                    <spacer flex="1"/>
+                    <menulist id="logFilesList" class="data-form" style="min-width: 150px;"
                               onselect="$do('viewLog', this.value, 'ViewSystemLog'); event.stopPropagation();">
                         <menupopup>
                         </menupopup>

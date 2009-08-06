@@ -40,7 +40,7 @@
     
     <vbox flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-b">
-            <vbox flex="1" class="container-top block-50">
+            <vbox class="container-top">
                 <label id="" value="&dialog.title;"  class="label-page-title"/>
 
                 <grid class="data-form">
@@ -114,7 +114,7 @@
 
             <vbox flex="1">
                 <hbox flex="1" align="center" class="toolbar" toolbarmode="horizontal">
-                    <label value="&condiment.group.label;"/>
+                    <label value="&condiment.group.label;" class="label-sub-title"/>
                     <spacer flex="1"/>
                     <button id="order_cond_group" label="&condiment.reorder.label;" class="button-modify"
                             oncommand="$do('reorderCondimentGroup', null, 'StaticCondiments');"/>

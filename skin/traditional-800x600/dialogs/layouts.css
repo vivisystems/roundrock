@@ -8,13 +8,6 @@
 .layout-dialog {
 }
 
-/*-----------------------------------------------------------------------------
- *
- * Layout A is for vertical panels with fixed widths toolbar at bottom
- *
- *-----------------------------------------------------------------------------
- */
-
 .layout-dialog .layout-fullscreen {
     background: transparent;
     height: 600px;
@@ -25,6 +18,13 @@
     overflow: hidden;
     width: 800px;
 }
+
+/*-----------------------------------------------------------------------------
+ *
+ * Layout A is for vertical panels with fixed widths toolbar at bottom
+ *
+ *-----------------------------------------------------------------------------
+ */
 
 .layout-dialog .layout-a .block-flex {
 

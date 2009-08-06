@@ -50,7 +50,6 @@
                     fax: '',
                     email: '',
                     note: ''
-
                 };
             }
 
@@ -138,11 +137,13 @@
         load: function () {
 
             var terminal_no = GeckoJS.Session.get('terminal_no');
+            document.getElementById('terminal_no').setAttribute('default', terminal_no);
+
             var formObj;
             
             var storeContactModel = new StoreContactModel();
 
-            if(terminal_no==null || terminal_no==""){
+            if(terminal_no==null || terminal_no==''){
                 formObj = storeContactModel.find('first' );
             }else{
                 formObj = storeContactModel.findByIndex('first', {
@@ -151,7 +152,7 @@
             }
 	        
 	        this._old_branch_id = "";
-	        
+
             if (formObj != null) {
                 GeckoJS.FormHelper.unserializeFromObject('storecontactForm', formObj);
                 this._old_branch_id = formObj.branch_id;

@@ -52,6 +52,8 @@
             control_label_class="vivifuncpanelecr_control_label"
             control_home_class="vivifuncpanelecr_control_home"
             button_panel_class="vivifuncpanelecr_button_panel"
+            default_button_color="function-button-color-default"
+            default_button_fontsize="medium"
             matrix_button_nomap_class="vivifuncpanelecr_matrix_button_nomap"
             matrix_button_configure_class="vivifuncpanelecr_matrix_button_configure"
             matrix_button_mapped_class="vivifuncpanelecr_matrix_button_mapped"

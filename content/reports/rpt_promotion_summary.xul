@@ -11,7 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
 
@@ -34,79 +34,81 @@
 		    <vbox>
 		        <label value="&promotionsummary.title;" class="label-page-title"/>
 		        <hbox>
-		            <grid flex="1" class="data-form">
-		                <columns>
-		                    <column flex="1"/>
-                            <column flex="1"/>
-		                </columns>
-		                <rows>
-		                    <row>
-		                        <vbox>
-		                            <label value="&promotionsummary.startdate;"/>
-		                            <vividatetimepicker id="start_date" value="" type="popup"/>
-		                        </vbox>
-		                        <vbox>
-		                            <label value="&promotionsummary.enddate;"/>
-		                            <vividatetimepicker id="end_date" value="" type="popup"/>
-		                        </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-		                    		<label value="&promotionsummary.periodtype;"/>
-						            <menulist id="periodtype">
-						                <menupopup id="periodtype_menupopup">
-						                    <menuitem selected="false" label="&promotionsummary.created;" value="transaction_created"/>
-						                    <menuitem selected="true" label="&promotionsummary.transaction_submitted;" value="transaction_submitted"/>
-						                    <menuitem selected="false" label="&promotionsummary.saleperiod;" value="sale_period"/>
-						                </menupopup>
-						            </menulist>
-						        </vbox>
-		                    	<vbox>
-				                    <label value="&promotionsummary.shiftno;"/>
-				                    <textbox id="shiftno" value=""/>
-				                </vbox>
-				            </row>
-				            <row>
-				            	<vbox>
-				                	<label value="&promotionsummary.promotion;"/>
-						            <menulist id="promotion" flex="1">
-				                        <menupopup id="promotion_menupopup"  flex="1">
-				                            <menuitem selected="true" label="[&promotionsummary.all;]" value="all"/>
-				                        </menupopup>
-						            </menulist>
-						        </vbox>
-						        <vbox>
-				                	<label value="&promotionsummary.empty_promotion;"/>
-						            <menulist id="empty_promotion">
-						                <menupopup id="empty_promotion_menupopup">
-						                    <menuitem selected="true" label="&promotionsummary.hide;" value="hide"/>
-						                    <menuitem selected="false" label="&promotionsummary.show;" value="show"/>
-						                </menupopup>
-						            </menulist>
-						        </vbox>
-				            </row>
-		                    <row>
-						        <vbox>
-				                	<label value="&promotionsummary.sortby;"/>
-						            <menulist id="sortby">
-						                <menupopup id="sortby_menupopup">
-						                    <menuitem selected="true" label="&promotionsummary.sortby.date;" value="date"/>
-						                    <menuitem selected="false" label="&promotionsummary.sortby.gross;" value="gross"/>
-						                    <menuitem selected="false" label="&promotionsummary.sortby.order_count;" value="order_count"/>
-						                    <menuitem selected="false" label="&promotionsummary.sortby.promotion_subtotal;" value="promotion_subtotal"/>
-						                    <menuitem selected="false" label="&promotionsummary.sortby.matched_count;" value="matched_count"/>
-						                    <menuitem selected="false" label="&promotionsummary.sortby.matched_items_qty;" value="matched_items_qty"/>
-						                    <menuitem selected="false" label="&promotionsummary.sortby.matched_items_subtotal;" value="matched_items_subtotal"/>
-						                </menupopup>
-						            </menulist>
-						        </vbox>
-				                <vbox>
-				                    <label value="&promotionsummary.terminal_no;"/>
-				                    <textbox id="terminal_no" value=""/>
-				                </vbox>
-		                    </row>
-		                </rows>
-		            </grid>
+                    <hbox flex="1">
+                        <grid flex="1" class="data-form">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&promotionsummary.startdate;"/>
+                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&promotionsummary.enddate;"/>
+                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&promotionsummary.periodtype;"/>
+                                        <menulist id="periodtype">
+                                            <menupopup id="periodtype_menupopup">
+                                                <menuitem selected="false" label="&promotionsummary.created;" value="transaction_created"/>
+                                                <menuitem selected="true" label="&promotionsummary.transaction_submitted;" value="transaction_submitted"/>
+                                                <menuitem selected="false" label="&promotionsummary.saleperiod;" value="sale_period"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&promotionsummary.shiftno;"/>
+                                        <textbox id="shiftno" value=""/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&promotionsummary.promotion;"/>
+                                        <menulist id="promotion" flex="1">
+                                            <menupopup id="promotion_menupopup"  flex="1">
+                                                <menuitem selected="true" label="[&promotionsummary.all;]" value="all"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&promotionsummary.empty_promotion;"/>
+                                        <menulist id="empty_promotion">
+                                            <menupopup id="empty_promotion_menupopup">
+                                                <menuitem selected="true" label="&promotionsummary.hide;" value="hide"/>
+                                                <menuitem selected="false" label="&promotionsummary.show;" value="show"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&promotionsummary.sortby;"/>
+                                        <menulist id="sortby">
+                                            <menupopup id="sortby_menupopup">
+                                                <menuitem selected="true" label="&promotionsummary.sortby.date;" value="date"/>
+                                                <menuitem selected="false" label="&promotionsummary.sortby.gross;" value="gross"/>
+                                                <menuitem selected="false" label="&promotionsummary.sortby.order_count;" value="order_count"/>
+                                                <menuitem selected="false" label="&promotionsummary.sortby.promotion_subtotal;" value="promotion_subtotal"/>
+                                                <menuitem selected="false" label="&promotionsummary.sortby.matched_count;" value="matched_count"/>
+                                                <menuitem selected="false" label="&promotionsummary.sortby.matched_items_qty;" value="matched_items_qty"/>
+                                                <menuitem selected="false" label="&promotionsummary.sortby.matched_items_subtotal;" value="matched_items_subtotal"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&promotionsummary.terminal_no;"/>
+                                        <textbox id="terminal_no" value=""/>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </hbox>
 		            <button id="execute" label="&promotionsummary.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptPromotionSummary');"/>
 		        </hbox>
             </vbox>

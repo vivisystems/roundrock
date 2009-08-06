@@ -53,6 +53,8 @@
                         control_scroll_right_class="vivifuncpanelecr_control_scroll_right"
                         control_label_class="vivifuncpanelecr_control_label"
                         control_home_class="vivifuncpanelecr_control_home"
+                        default_button_color="function-button-color-default"
+                        default_button_fontsize="medium"
                         button_panel_class="vivifuncpanelecr_button_panel"
                         matrix_button_nomap_class="vivifuncpanelecr_matrix_button_nomap"
                         matrix_button_configure_class="vivifuncpanelecr_matrix_button_configure"
@@ -104,13 +106,15 @@
             <vbox flex="1">
                 <!-- preference panel -->
                 <tabbox id="vivifuncpanelecr_prefs_tabbox" flex="1" selectedIndex="0" class="content-tabbox">
-                    <tabs onselect="$do('switchTab', this.parentNode.selectedIndex, 'vivifuncpanelecr_prefs')">
-                        <tab label="&vivifuncpanelecr.prefs.tabpanel.general.label;"/>
-                        <tab label="&vivifuncpanelecr.prefs.tabpanel.layout.label;"/>
-                        <tab label="&vivifuncpanelecr.prefs.tabpanel.keymap.label;"/>
-                        <tab label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.label;"/>
-                    </tabs>
-                    <tabpanels>
+                    <arrowscrollbox orient="horizontal" class="content-arrow-scrollbox">
+                        <tabs onselect="$do('switchTab', this.parentNode.parentNode.selectedIndex, 'vivifuncpanelecr_prefs')">
+                                <tab label="&vivifuncpanelecr.prefs.tabpanel.general.label;"/>
+                                <tab label="&vivifuncpanelecr.prefs.tabpanel.layout.label;"/>
+                                <tab label="&vivifuncpanelecr.prefs.tabpanel.keymap.label;"/>
+                                <tab label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.label;"/>
+                        </tabs>
+                    </arrowscrollbox >
+                    <tabpanels flex="1">
 
                     <!-- General Preferences -->
                         <tabpanel id="vivifuncpanelecr_prefs_general_panel" flex="1" orient="horizontal" allowevents="true">

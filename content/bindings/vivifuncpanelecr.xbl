@@ -1582,8 +1582,8 @@
                     var btnstylemap = this.getPageButtonstyles(page);
                     var btnfontsizemap = this.getPageButtonfontsizes(page);
                     
-                    var defaultButtonColor = GeckoJS.Configure.read('vivipos.fec.ui.functionpanel.button.defaultcolor');
-                    var defaultButtonFontsize = GeckoJS.Configure.read('vivipos.fec.ui.functionpanel.button.defaultfontsize');
+                    var defaultButtonColor = this.getAttribute('default_button_color') || '';
+                    var defaultButtonFontsize = this.getAttribute('default_button_fontsize') || '';
 <!--
                     GREUtils.log('[KEYMAP]: page <' + page + '> global keymap <' + GeckoJS.BaseObject.dump(gkeymap) + '> local keymap <' + GeckoJS.BaseObject.dump(lkeymap) + '>');
                     GREUtils.log('[KEYMAP]: page <' + page + '> button style map <' + GeckoJS.BaseObject.dump(btnstylemap) + '>');

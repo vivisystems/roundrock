@@ -47,7 +47,7 @@
 
             var user = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=550';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=580';
             var inputObj = {input0:null, require0:true, alphaOnly0: true,
                             input1:null, require1:true, numericOnly1: true, type1:'password',
                             numpad: null};

@@ -33,58 +33,60 @@
 
     <vbox flex="1" class="container-report">
         <vbox flex="1" class="container-main">
-		    <vbox><!-- set for the splitter to collapse up to here.-->
+		    <vbox>
 		        <label value="&rptattendancerecord.title;" class="label-page-title"/>
 		        <hbox>
-		            <grid flex="1" class="data-form">
-		                <columns>
-		                    <column flex="1"/>
-                            <column flex="1"/>
-		                </columns>
-		                <rows>
-		                    <row>
-		                        <vbox>
-		                            <label value="&rptattendancerecord.startdate;"/>
-		                            <vividatetimepicker id="start_date" value="" type="popup"/>
-		                        </vbox>
-		                        <vbox>
-		                            <label value="&rptattendancerecord.enddate;"/>
-		                            <vividatetimepicker id="end_date" value="" type="popup"/>
-		                        </vbox>
-		                    </row>
-		                    <row>
-				                <vbox>
-				                	<label value="&rptattendancerecord.user;"/>
-				                    <menulist id="user">
-				                        <menupopup id="user_menupopup">
-				                            <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all"/>
-				                        </menupopup>
-				                    </menulist>
-				                </vbox>
-				                <vbox>
-				                	<label value="&rptattendancerecord.jobs;"/>
-				                	<menulist id="job">
-				                		<menupopup id="job_menupopup">
-				                			<menuitem selected="true" label="[&rptattendancerecord.all;]" value="all"/>
-				                		</menupopup>
-				                	</menulist>
-				                </vbox>
-					        </row>
-					        <row>
-					        	<vbox>
-				                	<label value="&rptattendancerecord.sortby;"/>
-					                <menulist id="sortby">
-					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="false" label="&rptattendancerecord.job;" value="job"/>
-					                        <menuitem selected="true" label="&rptattendancerecord.intime;" value="InTime"/>
-					                        <menuitem selected="false" label="&rptattendancerecord.outtime;" value="OutTime"/>
-					                        <menuitem selected="false" label="&rptattendancerecord.spantime;" value="SpanTime"/>
-					                    </menupopup>
-					                </menulist>
-					            </vbox>
-					        </row>
-		                </rows>
-		            </grid>
+                    <hbox flex="1">
+                        <grid flex="1" class="data-form">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptattendancerecord.startdate;"/>
+                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptattendancerecord.enddate;"/>
+                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptattendancerecord.user;"/>
+                                        <menulist id="user">
+                                            <menupopup id="user_menupopup">
+                                                <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rptattendancerecord.jobs;"/>
+                                        <menulist id="job">
+                                            <menupopup id="job_menupopup">
+                                                <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptattendancerecord.sortby;"/>
+                                        <menulist id="sortby">
+                                            <menupopup id="sortby_menupopup">
+                                                <menuitem selected="false" label="&rptattendancerecord.job;" value="job"/>
+                                                <menuitem selected="true" label="&rptattendancerecord.intime;" value="InTime"/>
+                                                <menuitem selected="false" label="&rptattendancerecord.outtime;" value="OutTime"/>
+                                                <menuitem selected="false" label="&rptattendancerecord.spantime;" value="SpanTime"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </hbox>
 		            <button id="execute" label="&rptattendancerecord.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptAttendanceRecord');"/>
 		        </hbox>
 		    </vbox>

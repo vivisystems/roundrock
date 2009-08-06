@@ -54,14 +54,16 @@
                 </box>
             </hbox>
             <spacer height="5px"/>
-            <hbox flex="1" class="container-report">
+            <hbox flex="1">
                 <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                     <button id="void" label="&vieworder.button.void;" disabled="false" class="button-delete"
                             oncommand="$do('voidSale', null, 'ViewOrder')"/>
                 </hbox>
-                <hbox class="ReportTool">
-                    <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="$do('exportRcp', null, 'ViewOrder')"/>
-                </hbox>
+                <vbox pack="center" class="container-report">
+                    <hbox class="ReportTool">
+                        <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="$do('exportRcp', null, 'ViewOrder')"/>
+                    </hbox>
+                </vbox>
                 <hbox id="dialogButtons" class="exitbar">
                     <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>

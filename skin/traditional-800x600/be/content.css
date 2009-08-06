@@ -59,6 +59,10 @@
     margin: 2px;
 }
 
+.container-be .content-buttonpanel checkbox {
+    margin: 6px;
+}
+
 /*-----------------------------------------------------------------------------
  * List box
  *-----------------------------------------------------------------------------
@@ -431,6 +435,10 @@
     margin: 4px;
 }
 
+.container-be .content-tabbox-no-tabs-right .tabs-right {
+    display: none;
+}
+
 .container-be .content-tabbox tab {
     background: white url(../images/sep.png) center right no-repeat;
     border:none;
@@ -446,6 +454,13 @@
     color: white;
     font-weight: bold;
     -moz-user-focus: ignore;
+}
+
+.container-be .content-tabbox > tabs > tab label,
+.container-be windowdragbox radio label,
+.container-be .content-tabbox > arrowscrollbox label {
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .container-be .content-tabbox tabpanels {

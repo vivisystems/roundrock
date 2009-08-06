@@ -14,8 +14,11 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/plus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
 
 <window title="&plus.title;"
         hidechrome="true"
@@ -77,7 +80,7 @@
                                                            scrollUpClass="scroll-up-button"
                                                            scrollDownClass="scroll-down-button">
                                     <spacer flex="1"/>
-                                    <button id="clone_plu" class="button-systool button-clone" oncommand="$do('clonePlu', null, 'Plus'); event.stopPropagation()"/>
+                                    <button id="clone_plu" class="button-iconic button-clone" oncommand="$do('clonePlu', null, 'Plus'); event.stopPropagation()"/>
                                     <spacer flex="1"/>
                                 </viviscrollablebuttonpanel>
                             </vbox>
@@ -126,16 +129,16 @@
                 <tabbox flex="1" crop="right" class="content-tabbox">
                     
                     <arrowscrollbox orient="horizontal" flex="1" class="content-arrow-scrollbox">
-                    <tabs id="tabs" >
-                        <tab id="tab1" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
-                        <tab id="tab2" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
-                        <tab id="tab3" label="&plus.tab.pluset;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
-                        <tab id="tab4" label="&plus.tab.appearance;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
-                        <tab id="tab5" label="&plus.tab.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
-                        <tab id="tabCondGroups" label="&plus.tab.condimentgroups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
-                        <tab id="tab6" label="&plus.tab.linkgroups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
-                    </tabs>
-                    </arrowscrollbox >
+                        <tabs id="tabs" >
+                            <tab id="tab1" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                            <tab id="tab2" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                            <tab id="tab3" label="&plus.tab.pluset;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                            <tab id="tab4" label="&plus.tab.appearance;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
+                            <tab id="tab5" label="&plus.tab.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                            <tab id="tabCondGroups" label="&plus.tab.condimentgroups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                            <tab id="tab6" label="&plus.tab.linkgroups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                        </tabs>
+                    </arrowscrollbox>
 
                     <tabpanels id="tabpanels" flex="1" >
 
@@ -343,7 +346,7 @@
                                 </viviscrollabletree>
                             </vbox>
                             
-                            <vbox>
+                            <hbox align="center" class="content-box">
                                 <grid class="data-form-2" flex="1">
                                     <columns>
                                         <column flex="1"/>
@@ -397,9 +400,9 @@
                                         </row>
                                     </rows>
                                 </grid>
-                                <button id="modify_setitem" label="&plus.button.action.update.setitem;" disabled="true" class="button-modify button-item-c"
+                                <button id="modify_setitem" label="update" disabled="true" class="button-modify button-execute"
                                         oncommand="$do('modifySetItem', null, 'Plus');" />
-                            </vbox>
+                            </hbox>
                         </tabpanel>
 
                         <!-- Icon and Button color -->
@@ -624,14 +627,12 @@
                         <!-- condiment Groups -->
                         <tabpanel flex="1" orient="vertical">
                             <hbox>
-                                <vbox flex="1" align="center" pack="center" class="data-form">
+                                <hbox flex="1" align="center" class="data-form">
                                     <checkbox id="force_condiment" value="false" label="&plus.require.condiment;"
                                               form="productForm" name="force_condiment" default="false"/>
-                                </vbox>
-                                <vbox class="toolbar" toolbarmode="horizontal">
-                                    <button id="order_cond_group" label="&plus.button.action.order;" class="button-modify"
+                                    <button id="order_cond_group" label="&plus.button.action.order;" class="button-execute button-modify"
                                             oncommand="$do('reorderCondimentGroup', null, 'Plus');"/>
-                                </vbox>
+                                </hbox>
                             </hbox>
                             <vbox flex="1" class="content-buttonpanel">
                                 <viviscrollablebuttonpanel id="condimentscrollablepanel" seltype="multiple" flex="1" cols="3" rows="5" labelField="name" imageField="no"
@@ -678,6 +679,7 @@
         </hbox>
     </vbox>
 
-    
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs"/>
 
 </window>

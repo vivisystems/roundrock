@@ -30,9 +30,10 @@
                 <vbox flex="1" class="container-main layout-a">
 
                     <label id="pluset-caption" value="" class="label-page-title"/>
+                    <separator orient="horizontal" class="groove"/>
 
-                    <hbox flex="1" class="block-30">
-                        <vbox class="content-buttonpanel">
+                    <hbox flex="1">
+                        <vbox class="content-buttonpanel block-30">
                             <viviscrollablebuttonpanel id="plusetscrollablepanel" flex="1" cols="1" rows="8" dir="reverse"
                                                        seltype="single" labelField="name" imageField="no"
                                                        buttonClass="custom-content-button-pluset product-button-color-default font-large"
@@ -42,12 +43,16 @@
                                 <spacer flex="1"/>
                             </viviscrollablebuttonpanel>
                         </vbox>
+
+                        <separator orient="vertical" class="groove"/>
+                        
                         <vbox flex="1">
 
                             <label id="setitem-caption" value="" class="label-page-title"/>
+                            <separator orient="horizontal" class="groove"/>
                             <vbox flex="1">
                                 <vbox class="content-buttonpanel">
-                                    <label value="&select.setitem.preset;"/>
+                                    <label value="&select.setitem.preset;" class="label-sub-title"/>
                                     <vivibuttonpanel id="presetbuttonpanel" flex="1" cols="1" rows="1"  seltype="none"
                                                      labelField="name" imageField="no" disabled="true"
                                                      buttonClass="button-plu button-medium-image"
@@ -55,7 +60,7 @@
                                                     />
                                 </vbox>
                                 <vbox flex="1" class="content-buttonpanel">
-                                    <label value="&select.setitem.selections;"/>
+                                    <label value="&select.setitem.selections;" class="label-sub-title"/>
                                     <viviscrollablebuttonpanel id="selectionscrollablepanel" flex="1" cols="3" rows="4"  seltype="none"
                                                                labelField="name" imageField="no"
                                                                buttonClass="button-plu button-medium-image"

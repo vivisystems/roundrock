@@ -41,7 +41,7 @@
     <vbox flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-b">
             <!-- Begin Condiment Groups -->
-            <hbox class="container-top block-33">
+            <hbox class="container-top">
                 <vbox flex="1" class="container-left">
                     <caption label="&condiments.group;" class="label-page-title" />
                     <hbox flex="1" class="content-buttonpanel">
@@ -112,7 +112,7 @@
                         </viviscrollablebuttonpanel>
                     </vbox>
                 </vbox>
-                <vbox flex="1">
+                <vbox flex="1" pack="center">
                     <label id="condiment_id" hidden="true" value=""
                            form="condimentForm" name="id"/>
                     <label id="condiment_group_id2" hidden="true" value=""
@@ -150,7 +150,7 @@
                         </rows>
                     </grid>
 
-                    <hbox class="custom-container-button-color-fontsize-picker">
+                    <hbox flex="1" class="custom-container-button-color-fontsize-picker">
                         <vbox flex="1">
                             <label value="&condiments.condiment.button.color;" class="label-sub-title"/>
                             <hbox flex="1" pack="center">
@@ -166,7 +166,6 @@
                                                    form="condimentForm" name="font_size" default="medium"/>
                         </vbox>
                     </hbox>
-                    <spacer flex="1" />
                     <hbox>
                         <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                             <button id="add_condiment" label="&condiments.button.action.add;" disabled="false" class="button-add" oncommand="$do('addCond', null, 'Condiments');" />

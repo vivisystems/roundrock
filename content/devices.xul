@@ -870,63 +870,63 @@
 
                                 <vbox pack="center" class="custom-content-device-details content-optionbox">
                                     <label value="&devices.cashdrawer.action.label;"/>
-                                    <grid class="data-form block-40">
+                                    <grid class="data-form block-50">
                                         <columns>
                                             <column flex="0"/>
-                                            <column flex="0"/>
+                                            <column flex="1"/>
                                         </columns>
                                         <rows>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.cash.label;"/>
                                                 <radiogroup id="cashdrawer-1-cash-action" orient="horizontal"
                                                             form="deviceForm" name="cashdrawer-1-cash-action" default="finalization">
-                                                    <radio id="cashdrawer-1-cash-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
-                                                    <radio id="cashdrawer-1-cash-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-1-cash-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-1-cash-action-finalization" flex="1" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                    <radio id="cashdrawer-1-cash-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-1-cash-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.creditcard.label;"/>
                                                 <radiogroup id="cashdrawer-1-creditcard-action" orient="horizontal"
                                                             form="deviceForm" name="cashdrawer-1-creditcard-action" default="finalization">
-                                                    <radio id="cashdrawer-1-creditcard-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
-                                                    <radio id="cashdrawer-1-creditcard-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-1-creditcard-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-1-creditcard-action-finalization" flex="1" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                    <radio id="cashdrawer-1-creditcard-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-1-creditcard-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.check.label;"/>
                                                 <radiogroup id="cashdrawer-1-check-action" orient="horizontal"
                                                             form="deviceForm" name="cashdrawer-1-check-action" default="finalization">
-                                                    <radio id="cashdrawer-1-check-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
-                                                    <radio id="cashdrawer-1-check-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-1-check-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-1-check-action-finalization" flex="1" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                    <radio id="cashdrawer-1-check-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-1-check-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.coupon.label;"/>
                                                 <radiogroup id="cashdrawer-1-coupon-action" orient="horizontal"
                                                             form="deviceForm" name="cashdrawer-1-coupon-action" default="finalization">
-                                                    <radio id="cashdrawer-1-coupon-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
-                                                    <radio id="cashdrawer-1-coupon-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-1-coupon-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-1-coupon-action-finalization" flex="1" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                    <radio id="cashdrawer-1-coupon-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-1-coupon-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.giftcard.label;"/>
                                                 <radiogroup id="cashdrawer-1-giftcard-action" orient="horizontal"
                                                             form="deviceForm" name="cashdrawer-1-giftcard-action" default="finalization">
-                                                    <radio id="cashdrawer-1-giftcard-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
-                                                    <radio id="cashdrawer-1-giftcard-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-1-giftcard-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-1-giftcard-action-finalization" flex="1" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                    <radio id="cashdrawer-1-giftcard-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-1-giftcard-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.ledger.label;"/>
-                                                <radiogroup id="cashdrawer-1-ledger-action" orient="horizontal"
+                                                <radiogroup id="cashdrawer-1-ledger-action" orient="vertical"
                                                             form="deviceForm" name="cashdrawer-1-ledger-action" default="always">
-                                                    <radio id="cashdrawer-1-ledger-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-1-ledger-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-1-ledger-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-1-ledger-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                         </rows>
@@ -1015,63 +1015,63 @@
 
                                 <vbox pack="center" class="custom-content-device-details content-optionbox">
                                     <label value="&devices.cashdrawer.action.label;"/>
-                                    <grid class="data-form block-40">
+                                    <grid class="data-form block-50">
                                         <columns>
                                             <column flex="0"/>
-                                            <column flex="0"/>
+                                            <column flex="1"/>
                                         </columns>
                                         <rows>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.cash.label;"/>
                                                 <radiogroup id="cashdrawer-2-cash-action" orient="horizontal"
                                                             form="deviceForm" name="cashdrawer-2-cash-action" default="finalization">
-                                                    <radio id="cashdrawer-2-cash-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
-                                                    <radio id="cashdrawer-2-cash-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-2-cash-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-2-cash-action-finalization" flex="1" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                    <radio id="cashdrawer-2-cash-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-2-cash-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.creditcard.label;"/>
                                                 <radiogroup id="cashdrawer-2-creditcard-action" orient="horizontal"
                                                             form="deviceForm" name="cashdrawer-2-creditcard-action" default="finalization">
-                                                    <radio id="cashdrawer-2-creditcard-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
-                                                    <radio id="cashdrawer-2-creditcard-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-2-creditcard-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-2-creditcard-action-finalization" flex="1" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                    <radio id="cashdrawer-2-creditcard-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-2-creditcard-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.check.label;"/>
                                                 <radiogroup id="cashdrawer-2-check-action" orient="horizontal"
                                                             form="deviceForm" name="cashdrawer-2-check-action" default="finalization">
-                                                    <radio id="cashdrawer-2-check-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
-                                                    <radio id="cashdrawer-2-check-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-2-check-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-2-check-action-finalization" flex="1" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                    <radio id="cashdrawer-2-check-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-2-check-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.coupon.label;"/>
                                                 <radiogroup id="cashdrawer-2-coupon-action" orient="horizontal"
                                                             form="deviceForm" name="cashdrawer-2-coupon-action" default="finalization">
-                                                    <radio id="cashdrawer-2-coupon-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
-                                                    <radio id="cashdrawer-2-coupon-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-2-coupon-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-2-coupon-action-finalization" flex="1" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                    <radio id="cashdrawer-2-coupon-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-2-coupon-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.giftcard.label;"/>
                                                 <radiogroup id="cashdrawer-2-giftcard-action" orient="horizontal"
                                                             form="deviceForm" name="cashdrawer-2-giftcard-action" default="finalization">
-                                                    <radio id="cashdrawer-2-giftcard-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
-                                                    <radio id="cashdrawer-2-giftcard-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-2-giftcard-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-2-giftcard-action-finalization" flex="1" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                    <radio id="cashdrawer-2-giftcard-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-2-giftcard-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                             <row>
                                                 <label value="&devices.cashdrawer.payment.ledger.label;"/>
-                                                <radiogroup id="cashdrawer-2-ledger-action" orient="horizontal"
+                                                <radiogroup id="cashdrawer-2-ledger-action" orient="vertical"
                                                             form="deviceForm" name="cashdrawer-2-ledger-action" default="always">
-                                                    <radio id="cashdrawer-2-ledger-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
-                                                    <radio id="cashdrawer-2-ledger-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                                    <radio id="cashdrawer-2-ledger-action-always" flex="1" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                    <radio id="cashdrawer-2-ledger-action-never" flex="1" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                                 </radiogroup>
                                             </row>
                                         </rows>

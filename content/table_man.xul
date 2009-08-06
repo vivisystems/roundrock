@@ -272,7 +272,7 @@
 
                     <tabpanel id="panel_table_settings" oncommand="event.stopPropagation()">
                         <vbox flex="1">
-                            <tabbox flex="1" class="content-tabbox" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
+                            <tabbox flex="1" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
                                 <tabs id="options-tabbox">
                                     <tab id="tab_options1" label="&tableman.tab.tableoptions.1;"/>
                                     <tab id="tab_options2" label="&tableman.tab.tableoptions.2;"/>

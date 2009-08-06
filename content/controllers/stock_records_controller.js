@@ -203,7 +203,7 @@
 
                 // get adjustment type first
                 var aURL = 'chrome://viviecr/content/prompt_stockadjustment.xul';
-                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=450,height=560';
+                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=450,height=580';
 
                 // retrieve list of suppliers
                 var inventoryCommitmentModel = new InventoryCommitmentModel();

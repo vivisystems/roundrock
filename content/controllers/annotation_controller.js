@@ -46,7 +46,6 @@
             }
 
             this.getCodeListObj().datasource = this._codeDatas;
-            this._selectedCodeIndex = -1;
             this.validateCodeForm();
         },
 
@@ -176,7 +175,7 @@
             if (index == this._selectedCodeIndex && index != -1) return;
 
             if (!this.confirmChangeCode(index)) {
-                panel.selectedItems = [this._selectedCodeIndex];
+                panel.selection.select(this._selectedCodeIndex);
                 return;
             }
             panel.selection.select(index);
