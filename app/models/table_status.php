@@ -4,7 +4,6 @@ class TableStatus extends AppModel {
     var $name = 'TableStatus';
     var $useDbConfig = 'table';
     
-    // var $belongsTo: array('Table');
     var $belongsTo = array('Table' =>  
                             array('className'  => 'Table',  
                                   'conditions' => '',  
@@ -12,8 +11,8 @@ class TableStatus extends AppModel {
                                   'foreignKey' => 'table_id'  
                             )  
                       );
-        
-    var $hasMany = array('TableBooking' , 'TableOrder' );
+
+    var $hasMany = array('TableBooking');
 
 
 	function getTableStatuses($lastModified) {
@@ -55,27 +54,6 @@ class TableStatus extends AppModel {
 		    
                 }
 
-                // save TableOrder...
-                $tableOrderObj = $this->TableOrder->find('first', array("conditions" => "TableOrder.id='" . $tableObject['order_id'] . "'"));
-
-                if ($tableOrderObj) {
-                    // update order
-                    $this->TableOrder->id = $tableOrderObj['TableOrder']['id'];
-
-                } else {
-                    // add new one
-                    $this->TableOrder->create();
-                    $this->TableOrder->id = '';
-                    // $tableObject['id'] = String::uuid();
-                    $tableObject['id'] = $tableObject['order_id'];
-
-                }
-
-                $retObj = $this->TableOrder->save($tableObject);
-
-                // remove old table order
-                // $this->_removeOldFinishedTableOrder();
-		
 		return true;
 
 	}

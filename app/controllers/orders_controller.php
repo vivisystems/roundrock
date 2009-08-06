@@ -62,7 +62,7 @@ class OrdersController extends AppController {
 	if($_REQUEST['request_data']) {
 		$orderObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
 
-		file_put_contents("/tmp/saveOrder", serialize($orderObject));
+		// file_put_contents("/tmp/saveOrder", serialize($orderObject));
 	}
 
 	if ($orderObject) {
@@ -72,7 +72,7 @@ class OrdersController extends AppController {
 	}
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'request_data' => $data,
+            'response_data' => $setResult,
             'value' => $setResult
         );
 
@@ -88,11 +88,11 @@ class OrdersController extends AppController {
         $orders = $this->Order->getCheckList($conditions);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $orders
+            'value' => $this->SyncHandler->prepareResponse($orders, 'bgz_json')// $orders
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-file_put_contents("/tmp/getCheckList", $responseResult);
+// file_put_contents("/tmp/getCheckList", $responseResult);
         echo $responseResult;
 
         exit;
@@ -108,13 +108,101 @@ file_put_contents("/tmp/getCheckList", $responseResult);
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-file_put_contents("/tmp/serializeOrder", $responseResult);
+//file_put_contents("/tmp/serializeOrder", $responseResult);
         echo $responseResult;
 
         
 
         exit;
 
+    }
+
+    function savePayment($data) {
+        $orderObject = array();
+
+	if($_REQUEST['request_data']) {
+		$paymentObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+
+		file_put_contents("/tmp/savePayment", serialize($paymentObject));
+	}
+
+	if ($paymentObject) {
+		$setResult = $this->OrderPayment->savePayment($paymentObject);
+	}else {
+		$setResult = false;
+	}
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $setResult,
+            'value' => $setResult
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+
+
+        exit;
+    }
+
+    function saveLedgerPayment($data) {
+        $orderObject = array();
+
+	if($_REQUEST['request_data']) {
+		$paymentObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+
+		file_put_contents("/tmp/saveLedgerPayment", serialize($paymentObject));
+	}
+
+	if ($paymentObject) {
+		$setResult = $this->OrderPayment->saveLedgerPayment($paymentObject);
+	}else {
+		$setResult = false;
+	}
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $setResult,
+            'value' => $setResult
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+
+
+        exit;
+    }
+
+    function updateOrderMaster($data) {
+
+        $orderObject = array();
+
+	if($_REQUEST['request_data']) {
+		$orderObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+
+		// file_put_contents("/tmp/updateOrderMaster", serialize($orderObject));
+	}
+
+	if ($orderObject) {
+		$setResult = $this->Order->updateOrderMaster($orderObject);
+	}else {
+		$setResult = false;
+	}
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $setResult,
+            'value' => $setResult
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+
+
+        exit;
     }
 
 }
