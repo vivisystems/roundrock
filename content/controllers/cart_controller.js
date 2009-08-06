@@ -386,6 +386,7 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this._cancelReturn();
@@ -422,10 +423,13 @@
             }
 
             if (tag == null || tag.length == 0) {
-                NotifyUtils.warn(_('Cannot tag the selected item with an empty tag'));
+                tag = buf;
+                if (tag == null || tag.length == 0) {
+                    NotifyUtils.warn(_('Cannot tag the selected item with an empty tag'));
 
-                this._clearAndSubtotal();
-                return;
+                    this._clearAndSubtotal();
+                    return;
+                }
             }
 
             var itemTrans = curTransaction.getItemAt(index, true);
@@ -2871,7 +2875,7 @@
                     var ret = curTransaction.process(-1, true);
                     if (ret == -1) {
                         GREUtils.Dialog.alert(this.topmostWindow,
-                        _('alert cancel'),
+                        _('Data Operation Error'),
                         _('Failed to cancel order due to data operation error.'));
 
                         NotifyUtils.error('Failed to cancel order due to data operation error.')
@@ -3001,11 +3005,11 @@
 
                     if (submitStatus == -3) {
                         GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Finalization Error'),
+                            _('Data Operation Error'),
                             _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence master.'));
                     }
                     else {
-                        NotifyUtils.error('Failed to finalize order due to data operation error.')
+                        NotifyUtils.error('Failed to submit order due to data operation error.')
                     }
                     // unblockUI
                     this._unblockUI('blockui_panel');
@@ -3516,7 +3520,7 @@
         voidSale: function(id) {
             
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-alert(id);
+
             if (!id) return false;
 
             // load data
@@ -3681,9 +3685,13 @@ alert(id);
 
             var self = this;
 
+            var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+            var annotationTypes = annotationController.getAllAnnotationTypes();
+
             var inputObj = {
                 input0: memo,
-                require0:false
+                require0: false,
+                annotations: annotationTypes
             };
 
             var data = [
@@ -3694,7 +3702,7 @@ alert(id);
             inputObj
             ];
 
-            return $.popupPanel('promptAdditemPanel', data).next( function(evt){
+            return $.popupPanel('promptAddMemoPanel', data).next( function(evt){
                 var result = evt.data;
                 
                 if (result.ok && result.input0) {

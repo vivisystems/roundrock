@@ -2343,7 +2343,7 @@
 
             //var profileStart = (new Date()).getTime();
             
-            //this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(this.data));
+            this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(this.data));
             Transaction.events.dispatch('onCalcTotal', this.data, this);
 
             var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0, qty_subtotal=0;

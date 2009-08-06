@@ -3,6 +3,7 @@
 
 <!-- dialog panel -->
 <?xul-overlay href="chrome://viviecr/content/dialogs/prompt_additem.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/prompt_addmemo.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/select_condiments.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/select_setitem.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/select_queues.xul" ?>

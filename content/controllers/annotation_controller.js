@@ -482,6 +482,10 @@
             }
         },
 
+        getAllAnnotationTypes: function() {
+            return GeckoJS.Session.get('annotations');
+        },
+
         extractAnnotations: function() {
             var annotations = this._order.annotations;
             var result = [];

@@ -235,7 +235,8 @@
             }
 
             // cart display fields
-            var cartFields = GeckoJS.Configure.read('vivipos.fec.settings.layout.CartDisplayFields') || '';
+            var defaults = cartList.getAttribute('defaultfields') || '';
+            var cartFields = GeckoJS.Configure.read('vivipos.fec.settings.layout.CartDisplayFields') || defaults;
             var headers = cartList.getAttribute('headerlist') || '';
             var fields = cartList.getAttribute('fieldlist') || '';
             var headerArray = headers.split(',');
