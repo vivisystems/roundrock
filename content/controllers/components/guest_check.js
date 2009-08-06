@@ -1418,7 +1418,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                     var retSplit = this.splitOrder(order_id, curTransaction.data);
 
                     // clear cart
-                    this._controller.cancel(true);
+                    // this._controller.cancel(true);
 
                     if ( retSplit == -1) {
 
@@ -1426,6 +1426,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                     } else {
 
                         // payit
+                        if (retSplit != 1) this._controller.cancel(true);
                         return retSplit;
 
                     }
@@ -1450,7 +1451,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                     var retSplit = this.splitOrder(order_id, curTransaction.data);
 
                     // clear cart
-                    this._controller.cancel(true);
+                    // this._controller.cancel(true);
 
                     if ( retSplit == -1) {
 
@@ -1458,6 +1459,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                     } else {
 
                         // payit
+                        if (retSplit != 1) this._controller.cancel(true);
                         return retSplit;
 
                     }
@@ -1483,7 +1485,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                     var retMerge = this.mergeOrder(order_id, curTransaction.data);
 
                     // clear cart
-                    this._controller.cancel(true);
+                    
                     
                     if ( retMerge == -1) {
                         // clear recall check from cart
@@ -1493,6 +1495,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                     } else {
 
                         // payit
+                        if (retMerge != 1) this._controller.cancel(true);
                         return retMerge;
 
                     }
@@ -1517,7 +1520,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                     var retMerge = this.mergeOrder(order_id, curTransaction.data);
 
                     // clear cart
-                    this._controller.cancel(true);
+                    // this._controller.cancel(true);
 
                     if ( retMerge == -1) {
                         // clear recall check from cart
@@ -1527,6 +1530,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                     } else {
 
                         // payit
+                        if (retMerge != 1) this._controller.cancel(true);
                         return retMerge;
 
                     }

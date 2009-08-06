@@ -700,14 +700,6 @@
                             r = cart.GuestCheck.doMergeCheck(this._sourceTableNo);
                         }
 
-                        if (r) {
-                            if (!this._tableDock) {
-                                if (r == 1){
-                                    $.hidePanel('selectTablePanel', true);
-                                }
-                            }
-                        }
-
                         this._inputObj.action = '';
                         this._sourceTableNo = null;
 
@@ -715,6 +707,18 @@
                         // cart.GuestCheck.getNewTableNo();
                         this._isBusy = false;
                         this.doRefreshTableStatusLight();
+
+                        if (r) {
+                            if (r == 1){
+                                if (!this._tableDock) {
+                                    $.hidePanel('selectTablePanel', true);
+                                }
+                            
+
+                            }
+
+                        }
+
                         return;
                     }
 
@@ -1026,8 +1030,16 @@
                 default:
 
                     var orders = this._cartController.GuestCheck.getCheckList("TableNo", this._regionTables[v].table_no);
-                    this._regionTables[v].order = orders.concat([]);
-                    this._showOrderDisplayPanel('order_display_panel', this._regionTables[v], evt.originalTarget);
+                    if (orders && orders.length > 0) {
+                        this._regionTables[v].order = orders.concat([]);
+                        this._showOrderDisplayPanel('order_display_panel', this._regionTables[v], evt.originalTarget);
+                    } else if (this._tableSettings.QuickSelectTableNo) {
+
+                        this._inputObj.action = 'SelectTableNo';
+                        this._isBusy = false;
+                        this.doFunc(evt);
+                        return;
+                    }
                     break;
             }
             this._hidePromptPanel('prompt_panel');

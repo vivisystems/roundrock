@@ -293,7 +293,7 @@
          *   false - if save to backup failed
          */
         saveOrder: function(data) {
-//GREUtils.log(Date.now().getTime() + ": saveOrder:::");
+
             if (!data ) return true;
             
             var retObj;
@@ -777,8 +777,6 @@
 
         mappingTranToOrderObjectFields: function(data) {
 
-            // var obj = GeckoJS.BaseObject.serialize(data);
-
             var orderObj = {};
             orderObj['id'] = data.id;
             orderObj['order_id'] = data.id;
@@ -790,7 +788,6 @@
 
         serializeOrder: function (data) {
 
-            // var obj = GREUtils.Gzip.deflate(GeckoJS.BaseObject.serialize(data));
             var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var obj = GeckoJS.BaseObject.serialize(data);
 
@@ -812,7 +809,7 @@
         },
 
         unserializeOrder: function (order_id) {
-//GREUtils.log(Date.now().getTime() + ": unserializeOrder:::" + order_id);
+
             var remoteUrl = this.getRemoteServiceUrl2('unserializeOrder');
             var orderObject = null;
 
@@ -1032,7 +1029,7 @@
                     conditions = "Order.sequence='" + no + "'";
                     break;
                 case 'OrderId':
-                    conditions = "Order.id'" + no + "'";
+                    conditions = "Order.id='" + no + "'";
                     break;
             }
 
@@ -1089,7 +1086,7 @@
                         conditions = "orders.sequence='" + no + "'";
                         break;
                     case 'OrderId':
-                        conditions = "orders.id'" + no + "'";
+                        conditions = "orders.id='" + no + "'";
                         break;
                 }
 

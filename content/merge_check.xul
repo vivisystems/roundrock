@@ -87,7 +87,7 @@
                         <spacer style="height: 15px;"/>
                         <button id="btn_confirm" label="&mergecheck.button.action.confirm;" disabled="false" class="button-modify" oncommand="$do('confirm', null, 'MergeCheck');"/>
                         <spacer style="height: 15px;"/>
-                        <button id="btn_paythis" label="&mergecheck.button.action.paythis;" disabled="false" class="button-modify" oncommand="$do('confirm', 'true', 'MergeCheck');"/>
+                        <button id="btn_paythis" label="&mergecheck.button.action.paythis;" disabled="false" class="button-modify" oncommand="$do('payThis', null, 'MergeCheck');"/>
                     </vbox>
                 </hbox>
             </vbox>
