@@ -10,6 +10,8 @@ class Order extends AppModel {
 
     var $hasOne = array('OrderObject');
 
+    var $actsAs = array('Sync');
+
     function saveOrder($data) {
 
         

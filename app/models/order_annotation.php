@@ -5,6 +5,7 @@ class OrderAnnotation extends AppModel {
     var $name = 'OrderAnnotation';
     var $useDbConfig = 'order';
 
+    var $actsAs = array('Sync');
 }
 
 ?>

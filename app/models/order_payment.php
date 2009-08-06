@@ -4,6 +4,7 @@ App::import('Core', array('CakeLog'));
 class OrderPayment extends AppModel {
     var $name = 'OrderPayment';
     var $useDbConfig = 'order';
+    var $actsAs = array('Sync');
 
     function savePayment($data) {
 
