@@ -648,31 +648,48 @@
             var height = this.boxHeight;
             var rows = parseInt(this.rows);
             var cols = parseInt(this.cols);
-            //var btnWidth = Math.floor(width/cols);
-            //var btnHeight = Math.floor(height/rows);
             var buttonCount = this.buttonCount;
             var buttons = this.buttons;
+            var $btns = [];
 
             // GREUtils.log('resizeButtons ' + width + ',,' + cols + ',,' + btnWidth );
             
             // Calculate the average width of buttons. Buttons are all set in initGrid so don't worry about the lack of buttons.
             var sumWidth = 0;
-            for ( var i = 0; i < cols; i++ )
+            for ( var i = 0; i < cols; i++ ) {
                 sumWidth += buttons[ i ].boxWidth || 0;
+            }
             var btnWidth = Math.floor( ((sumWidth > 0) ? sumWidth : width ) / cols );
             
             // Calculate the average height of buttons.
             var sumHeight = 0;
-            for ( var i = 0; i < rows; i++ )
+            for ( var i = 0; i < rows; i++ ) {
                 sumHeight += buttons[ i * cols ].boxHeight || 0;
+            }
             var btnHeight = Math.floor( ((sumHeight > 0) ? sumHeight : height ) / rows );
-            
+
             for(let i=0; i < buttonCount ; i++) {
-		       buttons[i].style['width'] = btnWidth +'px';
-	           buttons[i].style['height'] = btnHeight +'px';
-                //GREUtils.log('resizeButton ' + i +',,,' + btnWidth );
+                   let $btn = $(buttons[i]);
+                   $btn.css({width: btnWidth +'px', height: btnHeight +'px'});
+                   
                try {
-                 buttons[i].resizeLabel(btnWidth, btnHeight);
+                 let labelWidth = btnWidth - parseInt($btn.css('border-left-width').replace('px','')) -
+                                  parseInt($btn.css('border-right-width').replace('px','')) -
+                                  parseInt($btn.css('margin-left').replace('px','')) -
+                                  parseInt($btn.css('margin-right').replace('px','')) -
+                                  parseInt($btn.css('padding-left').replace('px','')) -
+                                  parseInt($btn.css('padding-right').replace('px','')) ;
+
+                 let labelHeight = btnHeight - parseInt($btn.css('border-top-width').replace('px','')) -
+                                  parseInt($btn.css('border-bottom-width').replace('px','')) -
+                                  parseInt($btn.css('margin-top').replace('px','')) -
+                                  parseInt($btn.css('margin-bottom').replace('px','')) -
+                                  parseInt($btn.css('padding-top').replace('px','')) -
+                                  parseInt($btn.css('padding-bottom').replace('px','')) ;
+
+                                  //dump('labelwidth = ' + labelWidth + '\n');
+
+                 buttons[i].resizeLabel(labelWidth, labelHeight);
                }catch(e){
                 //GREUtils.log('call button.resizeLabel ' + i + ',,,' + e );
                }
