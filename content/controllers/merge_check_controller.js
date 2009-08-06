@@ -214,6 +214,11 @@
 
         },
 
+        payThis: function() {
+            //
+            this.confirm(true);
+        },
+
         confirm: function(paythis) {
 
             // var datasource = document.getElementById('sourcecheckscrollablepanel').datasource;

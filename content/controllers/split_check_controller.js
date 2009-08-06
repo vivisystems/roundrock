@@ -8,6 +8,7 @@
         name: 'SplitCheck',
         _sourceCheck: null,
         _sourceItems: [],
+        _sourceItemIdxById: [],
 
         _splitItems: [],
         _index: 0,
@@ -463,8 +464,11 @@
 
             var origData = this._genOrigOrder();
             var order = new OrderModel();
+
+            // lastMidifiedTime
+            origData.lastModifiedTime = origData.modified;
+            origData.modified = Math.round(new Date().getTime() / 1000 );
             order.saveOrder(origData);
-//            order.serializeOrder(origData);
 
             // dispatch changeclerk event
             // this.getCartController().dispatchEvent('onStore', origData);
@@ -552,10 +556,22 @@
 
             this._sourceCheck = inputObj.sourceCheck;
 
+            for (var k in this._sourceCheck.items) {
+// this.log("k:" + k + " , " + this._sourceCheck.items[k].name);
+                this._sourceItemIdxById.push(k);
+            }
+
             document.getElementById('source_check_no').value = this._sourceCheck.check_no;
             document.getElementById('source_table_no').value = this._sourceCheck.table_no;
 
             this._sourceItems = GeckoJS.BaseObject.getValues(this._sourceCheck.items);
+            // this._sourceItems = this._sourceCheck.items;
+//this.log("sourceItems:::");
+//this.log(this.dump(this._sourceItems));
+//this.log("sourceCheckItems:::");
+//this.log(this.dump(this._sourceCheck.items));
+//this.log("sourceCheck:::");
+//this.log(this.dump(this._sourceCheck));
             this._sourceItems.forEach(function(o){
                 o.selected = false;
             });
