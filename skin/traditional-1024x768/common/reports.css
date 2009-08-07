@@ -246,6 +246,7 @@
 .container-report .TopPnl {
     border-bottom: 1px solid #c1ab8e;
     padding-bottom: 4px;
+    padding-top: 2px;
 }
 
 .container-report .LoadingPnl {

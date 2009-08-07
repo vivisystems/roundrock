@@ -194,7 +194,6 @@
                 }else {
                     this.setAttribute(action, false) ;
                 }
-
             });
         },
         
@@ -251,6 +250,8 @@
             // otherwise just update options and layout
             var mainWindow = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow('Vivipos:Main');
 
+            this.dispatchEvent('onUpdateOptions', null);
+            
             // change button height
             var layout = mainWindow.GeckoJS.Controller.getInstanceByName('Layout');
             if (layout) layout.requestCommand('resetLayout', null, 'Layout');

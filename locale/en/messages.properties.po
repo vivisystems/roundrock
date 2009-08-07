@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-06 19:25+0800\n"
+"POT-Creation-Date: 2009-08-08 01:10+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2843,7 +2843,7 @@ msgstr ""
 #: ../..//content/controllers/plugroups_controller.js:400
 #: ../..//content/controllers/plus_controller.js:669
 #: ../..//content/controllers/remote_control_controller.js:88
-#: ../..//content/controllers/static_condiments_controller.js:485
+#: ../..//content/controllers/static_condiments_controller.js:484
 #: ../..//content/controllers/storecontact_controller.js:176
 #: ../..//content/controllers/sync_settings_controller.js:142
 #: ../..//content/controllers/taxes_controller.js:88
@@ -2875,7 +2875,7 @@ msgstr ""
 #: ../..//content/controllers/plugroups_controller.js:402
 #: ../..//content/controllers/plus_controller.js:671
 #: ../..//content/controllers/remote_control_controller.js:90
-#: ../..//content/controllers/static_condiments_controller.js:487
+#: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:178
 #: ../..//content/controllers/sync_settings_controller.js:144
 #: ../..//content/controllers/taxes_controller.js:90
@@ -2903,7 +2903,7 @@ msgstr ""
 #: ../..//content/controllers/plugroups_controller.js:402
 #: ../..//content/controllers/plus_controller.js:671
 #: ../..//content/controllers/remote_control_controller.js:90
-#: ../..//content/controllers/static_condiments_controller.js:487
+#: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:178
 #: ../..//content/controllers/sync_settings_controller.js:144
 #: ../..//content/controllers/taxes_controller.js:90
@@ -4814,21 +4814,21 @@ msgstr ""
 msgid "Journal save error: %S"
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:222
+#: ../..//content/controllers/layout_manager_controller.js:221
 msgid ""
 "If you change layout now, the system will restart automatically after you "
 "return to the Main Screen. Are you sure you want to change layout?"
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:224
+#: ../..//content/controllers/layout_manager_controller.js:223
 msgid "Confirm Change Layout"
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:235
+#: ../..//content/controllers/layout_manager_controller.js:234
 msgid "Layout Manager"
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:235
+#: ../..//content/controllers/layout_manager_controller.js:234
 msgid "Layout settings saved"
 msgstr ""
 
@@ -6334,11 +6334,11 @@ msgstr ""
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/static_condiments_controller.js:472
+#: ../..//content/controllers/static_condiments_controller.js:471
 msgid "Condiment stock settings saved"
 msgstr ""
 
-#: ../..//content/controllers/static_condiments_controller.js:486
+#: ../..//content/controllers/static_condiments_controller.js:485
 msgid ""
 "You have made changes to condiment dock settings. Save changes before "
 "exiting?"
@@ -7550,7 +7550,7 @@ msgstr ""
 msgid "Obsolete"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_products_controller.js:65
+#: ../..//content/reports/controllers/rpt_products_controller.js:70
 #: ../..//content/reports/controllers/rpt_stocks_controller.js:124
 msgid "(rpt)Obsolete Department"
 msgstr ""
@@ -7847,7 +7847,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:17
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:17
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:17
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:17
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:18
 #: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary.tpl:17
 #: ../..//content/reports/tpl/rpt_purchase_history/rpt_purchase_history.tpl:17
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:17
@@ -8461,7 +8461,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:50
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:30
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:21
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:128
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:129
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:109
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:69
 #: ../..//content/reports/tpl/rpt_purchase_history/rpt_purchase_history.tpl:60
@@ -8715,6 +8715,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl:105
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:91
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:79
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:129
 #: ../..//content/reports/tpl/rpt_your_order/rpt_your_order.tpl:65
 msgid "(rpt)Records Display"
 msgstr ""
@@ -8891,7 +8892,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:28
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:13
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:28
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:29
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:17
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:12
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:27
@@ -8908,7 +8909,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:29
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:18
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:14
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:29
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:30
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:19
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:13
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:28
@@ -8928,7 +8929,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl:76
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_58mm.tpl:61
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_80mm.tpl:39
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:67
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:68
 msgid "(rpt)Price"
 msgstr ""
 
@@ -9062,7 +9063,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:31
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:28
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:20
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:32
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:33
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:25
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:16
 #: ../..//content/reports/tpl/rpt_purchase_history/rpt_purchase_history.tpl:32
@@ -9110,25 +9111,33 @@ msgstr ""
 msgid "(rpt)Quantities Sold"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:30
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:13
+msgid "(rpt)Product Count"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:13
+msgid "(rpt)Product Displayed"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:31
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:21
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:14
 msgid "(rpt)Alt Name1"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:31
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:32
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:23
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:15
 msgid "(rpt)Alt Name2"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:33
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:34
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:27
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:17
 msgid "(rpt)Tax Code"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:34
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:35
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:29
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:18
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:29
@@ -9137,69 +9146,69 @@ msgstr ""
 msgid "(rpt)Stock Level"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:35
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:36
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:31
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:19
 msgid "(rpt)Low Stock Threshold"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:79
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:80
 msgid "(rpt)Halo"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:91
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:92
 msgid "(rpt)Lalo"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:104
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:105
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:89
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:58
 msgid "(rpt)auto_maintain_stock"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:105
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:106
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:91
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:59
 msgid "(rpt)return_stock"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:106
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:107
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:93
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:60
 msgid "(rpt)manual_adjustment_only"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:110
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:111
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:95
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:61
 msgid "(rpt)force_memo"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:111
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:112
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:97
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:62
 msgid "(rpt)force_condiment"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:112
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:113
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:99
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:63
 msgid "(rpt)age_verification"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:116
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:117
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:101
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:64
 msgid "(rpt)single"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:117
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:118
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:103
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:65
 msgid "(rpt)visible"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:118
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:119
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:105
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:66
 msgid "(rpt)icon_only"

@@ -24,10 +24,11 @@
             var conditions = null;
 
             if (department != "all") {
+                conditions = "cate_no = '" + this._queryStringPreprocessor( department ) + "'";
                 var cate = new CategoryModel();
                 var cateRecords = cate.find('all', {
                     fields: ['no','name'],
-                    conditions: "categories.no LIKE '" + this._queryStringPreprocessor( department ) + "%'",
+                    conditions: "categories.no = '" + this._queryStringPreprocessor( department ) + "'",
                     order: 'no',
                     limit: this._csvLimit
                     });
@@ -45,7 +46,8 @@
                 records[o.no] = {
                     no:o.no,
                     name:o.name,
-                    plu: []
+                    plu: [],
+                    count: 0
                     };
             });
 
@@ -55,25 +57,35 @@
             	orderby = 'products.cate_no, products.' + sortby;
 
             var prod = new ProductModel();
-            var prodRecords = prod.find('all', { fields: fields, conditions: conditions, order: orderby, limit: this._csvLimit });
+
+            var prodRecords = prod.find('all', { fields: fields, conditions: conditions, order: orderby, limit: limit });
+            var count = 0;
+            var displayed = 0;
 
             prodRecords.forEach(function(o){
                 // does category exist?
                 if (!(o.cate_no in records) && department == 'all') {
                     records[o.cate_no] = {
                         no: o.cate_no,
-                        name: _('(rpt)Obsolete Department')
+                        name: _('(rpt)Obsolete Department'),
+                        count: 0
                     }
                 }
                 if (records[o.cate_no]) {
                     if (records[o.cate_no].plu == null) {
                         records[o.cate_no].plu = [];
                     }
-                    records[o.cate_no].plu.push(GREUtils.extend({}, o));
+                    if (count++ < limit) {
+                        records[o.cate_no].plu.push(GREUtils.extend({}, o));
+                        displayed++;
+                    }
+                    records[o.cate_no].count++;
                 }
-            });
+            }, this);
 
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.productlist.label' );
+            this._reportRecords.head.total = count;
+            this._reportRecords.head.displayed = displayed;
             this._reportRecords.body = records;
         },
 

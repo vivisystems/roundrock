@@ -47,6 +47,7 @@
 
             // resizing department panel
             var deptPanel = document.getElementById('catescrollablepanel');
+            var deptPanelContainer = document.getElementById('categoryPanelContainer');
             
             // resizing function panel
             var fnPanel = document.getElementById('functionpanel');
@@ -150,8 +151,8 @@
                 else deptPanel.removeAttribute('crop');
 
                 if ((departmentRows > 0) && (departmentCols > 0) && (departmentButtonHeight > 0)) {
+                    deptPanelContainer.setAttribute('hidden', false);
                     deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
-                    deptPanel.setAttribute('hidden', false);
                     deptPanel.initGrid();
                     
                     deptPanel.datasource.refreshView();
@@ -160,7 +161,7 @@
                     deptPanel.vivibuttonpanel.resizeButtons();
                 }
                 else {
-                    deptPanel.setAttribute('hidden', true);
+                    deptPanelContainer.setAttribute('hidden', true);
                 }
             }
 

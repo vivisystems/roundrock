@@ -356,7 +356,6 @@
                 .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
             var panels = mainWindow.$('box[panel]');
             for (var i = 0; i < panels.length; i++) {
-                this.log(panels[i].getAttribute('panel') + ',' + panels[i].getAttribute('id'));
                 menu.appendItem(panels[i].getAttribute('panel'), panels[i].getAttribute('id'));
             };
 

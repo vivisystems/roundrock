@@ -10,6 +10,7 @@
 		<p class="heading_p">${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}</p>
 		<p class="heading_p">${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}</p>
 		<p class="caption">${head.title}</p>
+		<p class="heading_p">${_( '(rpt)Product Count' ) + ': '}${head.total} ${_( '(rpt)Product Displayed' ) + ': '}${head.displayed}</p>
 	</div>
 
 	<div style="float: right;">
@@ -125,7 +126,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4" style="text-align: left;">${_('(rpt)Records Found') + ': '}${category.plu.length|format:0}</td>
+                    <td colspan="2" style="text-align: left;">${_('(rpt)Records Found') + ': '}${category.count|format:0} <br/>${_( '(rpt)Records Display' ) + ': '}${category.plu.length|format:0}</td>
                 </tr>
             </tfoot>
         </table>

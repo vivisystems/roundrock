@@ -73,7 +73,7 @@
 
             // release CPU for progressbar to show up.
             if ( !sleepTime ) {
-                sleepTime = 1000;
+                sleepTime = 100;
             }
             this.sleep( sleepTime );
 
