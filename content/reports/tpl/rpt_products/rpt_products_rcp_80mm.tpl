@@ -4,6 +4,9 @@ ${head.store.telephone1|center:42}
 ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no + ' '|left:11}${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname|left:14}
 
 ${head.title|center:42}
+${_( '(rpt)Product Count' ) + ': '|left:30}${head.total|format:0|right:12}
+${_( '(rpt)Products Displayed' ) + ': '|left:30}${head.displayed|format:0|right:12}
+
 {for category in body}
 ------------------------------------------
 ${category.no} - ${category.name}
@@ -66,7 +69,8 @@ ${_( '(rpt)visible' ) + ': '|left:30}${plu.visible|boolToLetter|right:12}
 ${_( '(rpt)icon_only' ) + ': '|left:30}${plu.icon_only|boolToLetter|right:12}
 {/for}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ': '|left:16}${category.plu.length|format:0|left: 26}
+${_( '(rpt)Records Found' ) + ': '|left:30}${category.count|format:0|right:12}
+${_( '(rpt)Records Displayed' ) + ': '|left:30}${category.plu.length|format:0|right:12}
 ------------------------------------------
 {/for}
 ${foot.gen_time}

@@ -46,7 +46,18 @@
                 self.filterOperations(evt);
             };
 
+            // put up waiting dialog
+            var alertWin = this.showAlertDialog();
+            this.sleep(1000);
+            
             this.createPluPanel();
+
+            if (alertWin) {
+                alertWin.close();
+                delete alertWin;
+            }
+
+            
             //this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
 
@@ -118,6 +129,25 @@
                 this.requestCommand('initialLogin', null, 'Main');
             }
             
+        },
+
+        showAlertDialog: function() {
+
+            var width = 600;
+            var height = 140;
+
+            var aURL = 'chrome://viviecr/content/alert_product_initialization.xul';
+            var aName = _('Product Initialization');
+            var aArguments = {};
+            var aFeatures = 'chrome,dialog,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
+
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+                win = null;
+
+            var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
+
+            return alertWin;
         },
 
         destroy: function() {
@@ -911,7 +941,7 @@
                                             _('Remove All Transaction Records'),
                                             _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
 
-                    var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing all transaction records'), 500);
+                    var waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Removing all transaction records'), 500);
                     var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
                     GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
@@ -994,7 +1024,7 @@
                 var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
-                var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing expired transaction records'), 500);
+                var waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Removing expired transaction records'), 500);
 
                 try {
                     var retainDate = Date.today().addDays(retainDays * -1).getTime() / 1000;
@@ -1061,11 +1091,46 @@
             }
         },
         
-        stockAdjustment: function () {
+        stockAdjustment: function (backend) {
+            var isMaster = (new StockRecordModel()).getRemoteServiceUrl('auth') === false;
+            var isTraining = GeckoJS.Session.get("isTraining");
+            var inputObj = {};
+
+            if (isMaster && !isTraining) {
+
+                // get adjustment type first
+                var aURL = 'chrome://viviecr/content/prompt_stockadjustment.xul';
+                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=450,height=580';
+
+                // retrieve list of suppliers
+                var inventoryCommitmentModel = new InventoryCommitmentModel();
+                var suppliers = inventoryCommitmentModel.find('all', {fields: ['supplier'],
+                                                                      group: 'supplier',
+                                                                      limit: 3000,
+                                                                      recursive: 0});
+                if (inventoryCommitmentModel.lastError != 0) {
+                    this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
+                                  _('An error was encountered while retrieving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
+                    suppliers = null;
+                }
+
+                inputObj = {commit: true, suppliers: suppliers, backend: backend};
+
+                GREUtils.Dialog.openWindow(
+                    this.topmostWindow,
+                    aURL,
+                    _('Stock Adjustment'),
+                    aFeatures,
+                    inputObj
+               );
+
+               if (!inputObj.ok || inputObj.reason == '') return;
+            }
+            
             var aURL = 'chrome://viviecr/content/stock_records.xul';
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _( 'Adjust Stock' ), aFeatures);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _( 'Adjust Stock' ), aFeatures, inputObj);
         },
 
         reboot: function() {
@@ -1144,11 +1209,11 @@
                 startIndex = this.loadTestState;
                 this.loadTestState = null;
                 progressBar.value = startIndex * 100 / count;
-                waitPanel = this._showWaitPanel('wait_panel', 'common_wait', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+                waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
             else {
                 progressBar.value = 0;
-                waitPanel = this._showWaitPanel('wait_panel', 'common_wait', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+                waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
 
             //this.sleep(100);

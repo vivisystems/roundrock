@@ -52,28 +52,42 @@
             // sync stock record before list, if machine not master.
             this.StockRecord.syncAllStockRecords();
             
+            // make progressbar move
+            this.sleep(100);
+
             //var stockRecords = this.StockRecord.find('all', {fields: "products." , order: 'products.no', recursive: 1});
             // attach vivipos.sqlite to use product table.
             var productDB = this.Product.getDataSource().path + '/' + this.Product.getDataSource().database;
             var sql = "ATTACH '" + productDB + "' AS vivipos;";
             this.StockRecord.execute( sql );
             
+            // make progressbar move
+            this.sleep(100);
+
             sql = "SELECT products.no, products.name, products.barcode, products.sale_unit, products.min_stock, products.auto_maintain_stock, stock_records.warehouse, stock_records.quantity FROM products INNER  JOIN stock_records ON (products.no=stock_records.id) ORDER BY products.no";
             var stockRecords = this.StockRecord.getDataSource().fetchAll(sql);
             
+            // make progressbar move
+            this.sleep(100);
+
             // detach the file.
             sql = "DETACH vivipos;";
             this.StockRecord.execute( sql );
 
+            // make progressbar move
+            this.sleep(100);
+
+            var saleUnitCache = {};
             stockRecords.forEach(function(stock) {
                 stock.product_no = stock.no;
                 stock.product_name = stock.name;
                 stock.product_barcode = stock.barcode;
-                stock.sale_unit = _('(saleunit)' + stock.sale_unit);
-                stock.min_stock = stock.min_stock;
-                stock.auto_maintain_stock = stock.auto_maintain_stock;
+                stock.sale_unit = saleUnitCache[stock.sale_unit] || (saleUnitCache[stock.sale_unit] = _('(saleunit)' + stock.sale_unit));
             }, this);
             
+            // make progressbar move
+            this.sleep(100);
+
             if (this.StockRecord.lastError != 0) {
                 this._dbError(this.StockRecord.lastError, this.StockRecord.lastErrorString,
                               _('An error was encountered while retrieving stock records (error code %S).', [this.StockRecord.lastError]));
@@ -194,58 +208,26 @@
             else return -1; // not found
         },
 
-        load: function() {
+        load: function(data) {
 
             var isMaster = this.StockRecord.getRemoteServiceUrl('auth') === false;
             var isTraining = GeckoJS.Session.get("isTraining");
             
             if (isMaster && !isTraining) {
 
-                // get adjustment type first
-                var aURL = 'chrome://viviecr/content/prompt_stockadjustment.xul';
-                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=450,height=580';
+                this._adjustmentReason = data.reason || '';
+                this._adjustmentMemo = data.memo || '';
+                this._adjustmentSupplier = data.supplier || '';
 
-                // retrieve list of suppliers
-                var inventoryCommitmentModel = new InventoryCommitmentModel();
-                var suppliers = inventoryCommitmentModel.find('all', {fields: ['supplier'],
-                                                                      group: 'supplier',
-                                                                      limit: 3000,
-                                                                      recursive: 0});
-                if (inventoryCommitmentModel.lastError != 0) {
-                    this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
-                                  _('An error was encountered while retrieving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
-                    window.close();
-                    return;
+                var details = '';
+                if (this._adjustmentReason == 'procure') {
+                    details = _('(inventory)' + this._adjustmentReason) + (this._adjustmentSupplier ? ' [' + this._adjustmentSupplier + ' ]' : '');
                 }
-
-                var inputObj = {commit: true, suppliers: suppliers};
-
-                GREUtils.Dialog.openWindow(
-                    this.topmostWindow,
-                    aURL,
-                    _('Stock Adjustment'),
-                    aFeatures,
-                    inputObj
-               );
-
-                if (inputObj.ok && inputObj.reason) {
-                    this._adjustmentReason = inputObj.reason || '';
-                    this._adjustmentMemo = inputObj.memo || '';
-                    this._adjustmentSupplier = inputObj.supplier || '';
-
-                    var details = '';
-                    if (this._adjustmentReason == 'procure') {
-                        details = _('(inventory)' + this._adjustmentReason) + (this._adjustmentSupplier ? ' [' + this._adjustmentSupplier + ' ]' : '');
-                    }
-                    else {
-                        details = _('(inventory)' + this._adjustmentReason);
-                    }
-                    details += (this._adjustmentMemo ? ' (' + this._adjustmentMemo + ')' : '');
-                    document.getElementById('adjustment_type').label = details;
-                } else {// user canceled.
-                    window.close();
-                    return;
+                else {
+                    details = _('(inventory)' + this._adjustmentReason);
                 }
+                details += (this._adjustmentMemo ? ' (' + this._adjustmentMemo + ')' : '');
+                document.getElementById('adjustment_type').value = details;
 
                 // adjust form fields according to adjustment reason
                 switch(this._adjustmentReason) {
@@ -284,8 +266,6 @@
                 this.Product.restoreFromBackup();
                 stockRecordModel.restoreFromBackup();
 
-                // var startTime = Date.now().getTime();
-                
                 // attach vivipos.sqlite to use product table.
                 var productDB = this.Product.getDataSource().path + '/' + this.Product.getDataSource().database;
                 var sql = "ATTACH '" + productDB + "' AS vivipos;";
@@ -299,10 +279,6 @@
                                   _('An error was encountered while retrieving products (error code %S).', [ds.lastError]));
                 }
 
-                //dump('load all product:  ' + (Date.now().getTime() - startTime) + '\n');
-
-                //dump('products.length = ' + products.length + '\n');
-                
                 if (products.length > 0) {
                 	if (!stockRecordModel.insertNewRecords(products)) {
                         this._dbError(stockRecordModel.lastError, stockRecordModel.lastErrorString,
@@ -310,16 +286,14 @@
                     }
                 }
 
-                //dump('after all stock records:  ' + (Date.now().getTime() - startTime) + '\n');
-                
                 // remove the products which no longer exist from stock_record table.
                 sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON (s.id = p.no) WHERE p.no IS NULL;";
                 var stockRecords = stockRecordModel.getDataSource().fetchAll(sql);
-                
+
                 // detach the file.
                 sql = "DETACH vivipos;";
                 this.StockRecord.execute( sql );
-                
+
                 if (stockRecords.length > 0) {
                     stockRecords.forEach(function(stockRecord) {
                         stockRecordModel.remove(stockRecord.id);
@@ -415,11 +389,28 @@
             model.execute('VACUUM');
         },
 
+        _showWaitPanel: function(message) {
+            var waitPanel = document.getElementById('wait_panel');
+            waitPanel.openPopupAtScreen(0, 0);
+
+            var caption = document.getElementById( 'wait_caption' );
+            caption.label = message;
+
+            // release CPU for progressbar ...
+            this.sleep(500);
+            return waitPanel;
+        },
+
         reload: function() {
+            var waitPanel = this._showWaitPanel(_('Retrieving Stock Information...'))
+
             this._selectedIndex = -1;
             this.list();
+            
             this.updateStock();
 
+            if (waitPanel) waitPanel.hidePopup();
+            
             document.getElementById('plu').focus();
         },
 
@@ -582,6 +573,8 @@
                 return;
             }
 
+            var waitPanel = this._showWaitPanel(_('Saving Stock Data...'))
+
             var inventoryCommitmentModel = new InventoryCommitmentModel();
             var commitmentID = GeckoJS.String.uuid();
             var user = this.Acl.getUserPrincipal();
@@ -593,6 +586,7 @@
                     supplier: this._adjustmentSupplier,
                     clerk: user.username
                 })) {
+                waitPanel.hidePopup();
                 this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
                               _('An error was encountered while saving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
                 return;
@@ -628,6 +622,7 @@
             if (!stockRecordModel.setAll(stockRecords, doInventory)) {
                 this._dbError(stockRecordModel.lastError, stockRecordModel.lastErrorString,
                               _('An error was encountered while saving stock records (error code %S).', [stockRecordModel.lastError]));
+                waitPanel.hidePopup();
                 return;
             }
         	
@@ -635,9 +630,11 @@
             if (!inventoryRecordModel.setAll(records, doInventory)) {
                 this._dbError(inventoryRecordModel.lastError, inventoryRecordModel.lastErrorString,
                               _('An error was encountered while saving stock adjustment details (error code %S).', [inventoryRecordModel.lastError]));
+                waitPanel.hidePopup();
                 return;
             }
-
+            waitPanel.hidePopup();
+            
             GeckoJS.Observer.notify(null, 'StockRecords', 'commitChanges');
         	
             GREUtils.Dialog.alert(

@@ -73,8 +73,10 @@ ${items.current_subtotal|default:0|viviFormatPrices:true|right:24}
   delete TrimPath.PrecisionTaxes;
 {/eval}
 ------------------------
-${_( '(rpt)Records Found' ) + ': '|left:16}${body.length|default:0|format:0|right:8}
-[&CR]
+${_( '(rpt)Records Found' ) + ': '|left:24}
+${foot.foot_datas.rowCount|default:0|format:0|right:24}
+${_( '(rpt)Records Displayed' ) + ': '|left:24}
+${body.length|default:0|format:0|right:24}
 ------------------------
 ${_( '(rpt)Summary' )}
 ${_( '(rpt)Number of Guests' ) + ':'}

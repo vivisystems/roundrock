@@ -31,13 +31,13 @@
 
     <vbox flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-a">
-            <tabbox class="content-tabbox">
+            <tabbox flex="1" class="content-tabbox">
                 <tabs>
                     <tab id="tab1" label="&localekeyboard.locale.title;"/>
                     <tab id="tab2" label="&localekeyboard.keyboard.title;"/>
                 </tabs>
-                <tabpanels>
-                    <tabpanel flex="1" orient="vertical" align="center">
+                <tabpanels flex="1">
+                    <tabpanel flex="1" orient="vertical">
                         <vbox flex="1" class="content-listbox">
                             <vivilocaleslistbox id="locale" type="listbox" package="viviecr" flex="1"
                                                 class="custom-content-locales"/>
@@ -48,6 +48,7 @@
                         <vivikbmaps id="kbmap" type="button" cols="5" rows="6" flex="1"
                                     label="&localekeyboard.keyboard.select;" popTitle="&localekeyboard.keyboard.title;"
                                     buttonClass="button-selections" kbmapButtonClass="button-execute"
+                                    popupwidth="800" popupheight="600"
                                     oncommand="$do('selectKbmap', null, 'LocaleKeyboard');"
                                     scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                         <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"
@@ -57,8 +58,6 @@
                 </tabpanels>
             </tabbox>
 
-            <spacer flex="1"/>
-        
             <hbox id="dialogButtons" class="exitbar">
                 <button id="save" default="true" class="button-save" oncommand="$do('save', null, 'LocaleKeyboard');"/>
                 <spacer flex="1"/>

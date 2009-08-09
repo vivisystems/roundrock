@@ -6,6 +6,11 @@ ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
 ${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 
 ${head.title|center:24}
+${_( '(rpt)Product Count' ) + ':'|left:24}
+${head.total|format:0|right:24}
+${_( '(rpt)Products Displayed' ) + ':'|left:24}
+${head.displayed|format:0|right:24}
+
 {for category in body}
 ------------------------
 ${_( '(rpt)Department Number' ) + ':'}
@@ -106,7 +111,10 @@ ${_( '(rpt)icon_only' ) + ': '}
 ${plu.icon_only|boolToLetter|right:24}
 {/for}
 ------------------------
-${_( '(rpt)Records Found' ) + ':'|left:16}${category.plu.length|format:0|right:8}
+${_( '(rpt)Records Found' ) + ':'|left:24}
+${category.count|format:0|right:24}
+${_( '(rpt)Records Displayed' ) + ':'|left:24}
+${category.plu.length|format:0|right:24}
 ------------------------
 {/for}
 ${foot.gen_time}

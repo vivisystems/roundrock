@@ -1,4 +1,6 @@
 <!ENTITY plus.title "Product Properties">
+<!ENTITY plus.alert.title "Product Notification">
+<!ENTITY plus.initialization.label "Initializing Products...">
 <!ENTITY plusearch.title "Product Search">
 
 <!ENTITY plus.tab.base.data1 "Basic 1">

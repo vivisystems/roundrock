@@ -224,7 +224,7 @@
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminal_no;
-            this._reportRecords.head.rowCount = rowCount;
+            this._reportRecords.foot.rowCount = rowCount;
    			
             this._reportRecords.body = clerks;
         },

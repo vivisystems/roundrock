@@ -5,5 +5,5 @@
 <!ENTITY dialog.closeButton.label "CLOSE">
 <!ENTITY dialog.saveButton.label "SAVE">
 <!ENTITY dialog.applyButton.label "APPLY">
-<!ENTITY dialog.reports.wait "Your report is being generated, please wait...">
+<!ENTITY dialog.reports.wait "Your report is being generated...">
 

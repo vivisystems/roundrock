@@ -16,7 +16,8 @@ ${_( '(rpt)Sequence' ) + ': '}${item.sequence|default:''}
 ${_( '(rpt)Amount' ) + ': '}${item.amount|default:''|viviFormatPrices:true}
 {/for}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ': '|left:17}${body.length|format:0|right:25}
+${_( '(rpt)Records Found' ) + ': '|left:30}${foot.rowCount|format:0|right:12}
+${_( '(rpt)Records Displayed' ) + ': '|left:30}${body.length|format:0|right:12}
 ------------------------------------------
 ${foot.gen_time}
 [&CR]

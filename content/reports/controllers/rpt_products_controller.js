@@ -58,7 +58,7 @@
 
             var prod = new ProductModel();
 
-            var prodRecords = prod.find('all', { fields: fields, conditions: conditions, order: orderby, limit: limit });
+            var prodRecords = prod.find('all', { fields: fields, conditions: conditions, order: orderby, limit: this._csvLimit });
             var count = 0;
             var displayed = 0;
 

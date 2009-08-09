@@ -31,8 +31,8 @@ ${detail[ field.value ]|unixTimeToString|right:22}
   delete TrimPath.RoundingTaxes;
   delete TrimPath.PrecisionTaxes;
 {/eval}
-${_( '(rpt)Records Found' ) + ': '|left:20}${body.length|default:0|format:0|right:22}
-[&CR]
+${_( '(rpt)Records Found' ) + ': '|left:30}${foot.foot_datas.rowCount|default:0|format:0|right:12}
+${_( '(rpt)Records Displayed' ) + ':'|left:30}${body.length|default:0|format:0|right:12}
 ------------------------------------------
 ${_( '(rpt)Summary' )}
 {for field in fields}

@@ -2,9 +2,12 @@
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 <?xml-stylesheet href="chrome://viviecr/skin/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/overlay.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <!-- dialog panel -->
 <?xul-overlay href="chrome://viviecr/content/bootstrap_mainscreen_dialogs.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
 
 <overlay id="viviecrOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -87,22 +90,8 @@
         <hotkey-keyset id="hotkeySets" />
 
         <popupset id="dialogs" />
-
-        <vivipanel id="wait_panel" position="overlap" noautohide="true" pack="center" align="center">
-            <vbox flex="1" class="main-wait-panel">
-                <vbox flex="1" class="main-wait-dialog">
-                    <vbox flex="1">
-                        <caption id="common_wait" label="" class="label-page-title"/>
-                        <spacer style="height: 20px;" />
-                        <progressmeter id="progress" mode="undetermined" value="0" flex="1"/>
-                        <spacer style="height: 20px;" />
-                    </vbox>
-                </vbox>
-            </vbox>
-        </vivipanel>
-
-        <vivipanel id="blockui_panel" position="overlap" noautohide="true" pack="center" align="center">
-        </vivipanel>
+        
+        <vivipanel id="blockui_panel" position="overlap" noautohide="true" pack="center" align="center"/>
 
     </box>
 

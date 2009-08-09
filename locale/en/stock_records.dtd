@@ -6,6 +6,7 @@
 <!ENTITY stockrecords.header.saleunit "Unit of Sale">
 <!ENTITY stockrecords.header.qtydifference "Delta">
 <!ENTITY stockrecords.header.memo "Memo">
+<!ENTITY stockrecords.show.filter "Filter products by:">
 <!ENTITY stockrecords.show.low.only "Low watermark reached">
 <!ENTITY stockrecords.show.qty.different "Stock level adjusted">
 <!ENTITY stockrecords.show.stockmaintainones "Auto-stock items">
@@ -34,5 +35,4 @@
 <!ENTITY stockrecords.import.errors.title "Import Errors">
 <!ENTITY stockrecords.import.line "Line">
 <!ENTITY stockrecords.import.prodno "Product Number/Barcode">
-
 <!ENTITY stockrecords.syncing.title "Syncing stock records from Stock Server">

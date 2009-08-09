@@ -47,6 +47,9 @@
                             roles: el.roles,
                             features: (el.features || null),
                             type:  (el.type || 'uri'),
+                            method: el.method,
+                            data: el.data,
+                            controller: el.controller,
                             label: label
                         }
 
@@ -99,7 +102,12 @@
 
                         window.openDialog(pref['path'], pref['label'], features);
 
-                    }else {
+                    }
+                    else if (pref['type'] == 'function') {
+                        var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+                        mainWindow.$do(pref['method'], pref['data'], pref['controller']);
+                    }
+                    else {
 
                         VirtualKeyboard.show();
 

@@ -49,8 +49,8 @@
         <tfoot>
             <tr>
                 <td colspan="8" style="text-align: left;">
-                    ${_( '(rpt)Records Found' ) + ':'} ${head.rowCount|default:0|format:0} <br/>
-                    ${_( '(rpt)Records Display' ) + ':'} ${body.length|default:0|format:0}
+                    ${_( '(rpt)Records Found' ) + ':'} ${foot.rowCount|default:0|format:0} <br/>
+                    ${_( '(rpt)Records Displayed' ) + ':'} ${body.length|default:0|format:0}
                 </td>
             </tr>
         </tfoot>

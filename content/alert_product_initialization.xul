@@ -2,7 +2,7 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
-  <!ENTITY % StockRecords SYSTEM "chrome://viviecr/locale/stock_records.dtd">
+  <!ENTITY % StockRecords SYSTEM "chrome://viviecr/locale/plus.dtd">
   %StockRecords;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
@@ -13,14 +13,14 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window title="&stockrecords.title;"
+<window title="&plus.alert.title;"
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   
     <vbox flex="1" class="container-dialog container-wait-dialog">
         <vbox flex="1" class="container-main">
-            <label id="dialog-caption" value="&stockrecords.syncing.title;" class="label-page-title"/>
+            <label id="dialog-caption" value="&plus.initialization.label;" class="label-page-title"/>
             <spacer style="height: 20px;"/>
             <progressmeter id="progress" mode="undetermined" value="0"/>
             <spacer style="height: 20px;"/>

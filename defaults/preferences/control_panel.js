@@ -131,7 +131,11 @@ pref("vivipos.fec.settings.controlpanels.product.static_condiments.roles", "acl_
 
 pref("vivipos.fec.settings.controlpanels.product.stocks.icon", "chrome://viviecr/skin/icons/icon_stocks.png");
 pref("vivipos.fec.settings.controlpanels.product.stocks.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.settings.controlpanels.product.stocks.path", "chrome://viviecr/content/stock_records.xul");
+//pref("vivipos.fec.settings.controlpanels.product.stocks.path", "chrome://viviecr/content/stock_records.xul");
+pref("vivipos.fec.settings.controlpanels.product.stocks.type", "function");
+pref("vivipos.fec.settings.controlpanels.product.stocks.method", "stockAdjustment");
+pref("vivipos.fec.settings.controlpanels.product.stocks.controller", "Main");
+pref("vivipos.fec.settings.controlpanels.product.stocks.data", "true");
 pref("vivipos.fec.settings.controlpanels.product.stocks.roles", "acl_manage_stock");
 
 pref("vivipos.fec.settings.controlpanels.product.taxes.icon", "chrome://viviecr/skin/icons/icon_taxes.png");

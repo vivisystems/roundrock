@@ -518,7 +518,7 @@
             if (this._mainController == null) {
                 this._mainController = GeckoJS.Controller.getInstanceByName('Main');
             }
-            var waitPanel = this._mainController._showWaitPanel('wait_panel', 'common_wait', _('Data synchronizing, please wait...'), 1000);
+            var waitPanel = this._mainController._showWaitPanel('wait_panel', 'wait_caption', _('Data synchronizing, please wait...'), 1000);
             // sync data
             try {
                 var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");

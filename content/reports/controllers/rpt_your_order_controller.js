@@ -117,7 +117,8 @@
                 items_count: 0,
                 change: 0,
                 invoice_count: 0,
-                included_tax_subtotal: 0
+                included_tax_subtotal: 0,
+                rowCount: rowCount
             };
             
             var old_oid;
@@ -264,7 +265,6 @@
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminal_no;
-            this._reportRecords.head.rowCount = rowCount;
             
             this._reportRecords.fields = this._pickedFields;
 			

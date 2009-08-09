@@ -47,8 +47,8 @@ ${'    ' + _( '(rpt)Gift Card' ) + ': '|left:19}${order.giftcard|default:0|viviF
   delete TrimPath.PrecisionTaxes;
 {/eval}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ': '|left:19}${clerk.orders.length|default:0|format:0|right:22}
-[&CR]
+${_( '(rpt)Records Found' ) + ': '|left:30}${foot.rowCount|default:0|format:0|right:12}
+${_( '(rpt)Records Displayed' ) + ': '|left:30}${clerk.orders.length|default:0|format:0|right:12}
 ------------------------------------------
 ${_( '(rpt)Summary' )}
 ${'    ' + _( '(rpt)Number of Guests' ) + ': '|left:19}${clerk.summary.guests|format:0|right:22}

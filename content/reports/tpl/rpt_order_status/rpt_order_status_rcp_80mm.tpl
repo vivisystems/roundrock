@@ -39,7 +39,8 @@ ${'  ' + _( '(rpt)Payment' ) + ':'|left:16}${detail.payment|viviFormatPrices:tru
   delete TrimPath.PrecisionTaxes;
 {/eval}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ': ' + body.length|left:42}
+${_( '(rpt)Records Found' ) + ':'|left:30}${foot.foot_datas.rowCount|right:12}
+${_( '(rpt)Records Displayed' ) + ':'|left:30}${body.length|right:12}
 ------------------------------------------
 ${_( '(rpt)Summary' )}
 ${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:16}${foot.foot_datas.item_subtotal|viviFormatPrices:true|right:26}

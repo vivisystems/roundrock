@@ -4,6 +4,9 @@
 "${_( '(rpt)Clerk' ) + ':'}","${head.clerk_displayname}"
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 
+"${_( '(rpt)Product Count' )}","${head.total}"
+"${_( '(rpt)Products Displayed' )}","${head.displayed}"
+
 "${_( '(rpt)Department Number' )}","${_( '(rpt)Department Name' )}","${_( '(rpt)Product Number' )}","${_( '(rpt)Product Name' )}","${_( '(rpt)Alt Name1' )}","${_( '(rpt)Alt Name2' )}","${_( '(rpt)Barcode' )}","${_( '(rpt)Tax Code' )}","${_( '(rpt)Stock Level' )}","${_( '(rpt)Low Stock Threshold' )}","'${_( '(rpt)auto_maintain_stock') }","${_( '(rpt)return_stock' )}","${_( '(rpt)manual_adjustment_only' )}","${_( '(rpt)force_memo' )}","${_( '(rpt)force_condiment' )}","${_( '(rpt)age_verification' )}","${_( '(rpt)single' )}","${_( '(rpt)visible' )}","${_( '(rpt)icon_only' )}"
 
 {for category in body}
@@ -17,5 +20,6 @@
 "","","","","'${_( '(rpt)Lalo' ) + ':'}","${plu.lalo1|viviFormatPrices:false}","${plu.lalo1|viviFormatPrices:false}","${plu.lalo1|viviFormatPrices:false}","${plu.lalo4|viviFormatPrices:false}","${plu.lalo5|viviFormatPrices:false}","${plu.lalo6|viviFormatPrices:false}","${plu.lalo7|viviFormatPrices:false}","${plu.lalo8|viviFormatPrices:false}","${plu.lalo9|viviFormatPrices:false}"
 "",""
 {/for}
-"${_( '(rpt)Records Found' ) + ':'}","${category.plu.length}"
+"${_( '(rpt)Records Found' ) + ':'}","${category.count}"
+"${_( '(rpt)Records Displayed' ) + ':'}","${category.plu.length|format:0}"
 {/for}

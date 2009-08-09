@@ -102,7 +102,7 @@
 {/eval}
             <tfoot>
                 <tr>
-                    <td colspan="4" style="text-align: left;">${_( '(rpt)Records Found' ) }: ${foot.foot_datas.rowCount|format:0}<br/>${_( '(rpt)Records Display' ) }: ${body.length|default:0|format:0}</td>
+                    <td colspan="4" style="text-align: left;">${_( '(rpt)Records Found' ) }: ${foot.foot_datas.rowCount|format:0}<br/>${_( '(rpt)Records Displayed' ) }: ${body.length|default:0|format:0}</td>
                     <td colspan="2">${_( '(rpt)Summary' ) + ':'}</td>
                     <td style="text-align: right;">${foot.foot_datas.guests|format:0}</td>
                     <td style="text-align: right;">${foot.foot_datas.items|format:0}</td>

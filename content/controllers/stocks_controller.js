@@ -26,6 +26,7 @@
             this.hostname = this.syncSettings.stock_hostname;
 
             var hWin = this.showSyncingDialog();
+            this.sleep(1000);
 
             // synchronize mode.
             this.StockRecord.syncAllStockRecords();
@@ -269,8 +270,8 @@
 
         showSyncingDialog: function() {
 
-            var width = 450;
-            var height = 160;
+            var width = 600;
+            var height = 140;
 
             var aURL = 'chrome://viviecr/content/alert_stock_syncing.xul';
             var aName = _('Stock Syncing');
@@ -281,9 +282,9 @@
             if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
                 win = null;
 
-            var handWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
+            var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
 
-            return handWin;
+            return alertWin;
 
 
         },
@@ -311,7 +312,7 @@
         window.addEventListener('load', function() {
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
-                main.addEventListener('onInitial', function() {
+                main.addEventListener('beforeInitial', function() {
                     main.requestCommand('initial', null, 'Stocks');
                 });
             }

@@ -9,7 +9,7 @@
 }
 
 .layout-dialog .layout-fullscreen {
-    background: transparent;
+    background: white;
     height: 600px;
     max-height: 600px;
     max-width: 800px;
@@ -17,6 +17,30 @@
     min-width: 800px;
     overflow: hidden;
     width: 800px;
+}
+
+.layout-dialog .layout-popup-memo {
+    background: white;
+    height: 560px;
+    margin: 20px 100px;
+    max-height: 560px;
+    max-width: 600px;
+    min-height: 560px;
+    min-width: 600px;
+    overflow: hidden;
+    width: 600px;
+}
+
+.layout-dialog .layout-popup-prompt {
+    background: white;
+    height: 560px;
+    margin: 20px 100px;
+    max-height: 560px;
+    max-width: 500px;
+    min-height: 560px;
+    min-width: 500px;
+    overflow: hidden;
+    width: 500px;
 }
 
 /*-----------------------------------------------------------------------------

@@ -61,7 +61,7 @@
                 </rows>
             </grid>
             <hbox pack="center" flex="1" align="center">
-                <viviclock showdate="true"/>
+                <viviclock showdate="true" class="label-sub-title"/>
             </hbox>
             <hbox id="dialogButtons" flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
                 <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>

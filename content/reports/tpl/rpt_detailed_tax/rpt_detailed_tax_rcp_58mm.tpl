@@ -60,8 +60,10 @@ ${tax_subtotal|viviFormatTaxes:true|right:24}
 {/for}
 {/for}
 ------------------------
-${_( '(rpt)Records Found' ) + ': '|left:16}${GeckoJS.BaseObject.getKeys(body).length|default:0|format:0|right:8}
-[&CR]
+${_( '(rpt)Records Found' ) + ': '|left:24}
+${foot.rowCount|default:0|format:0|right:24}
+${_( '(rpt)Records Displayed' ) + ': '|left:24}
+${GeckoJS.BaseObject.getKeys(body).length|default:0|format:0|right:24}
 ------------------------
 {eval}
   delete TrimPath.RoundingPrices;

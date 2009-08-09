@@ -22,9 +22,9 @@
 
         <vivipanel id="creditcardRemarkPanel" noautohide="false" class="container-dialog layout-dialog">
 
-            <hbox flex="1" class="layout-fullscreen">
+            <hbox flex="1" class="layout-popup-prompt">
 
-                <vbox flex="1" class="container-popup-prompt">
+                <vbox flex="1" class="container-main">
 
                     <label id="creditcardRemark-dialog-caption" value="" class="label-page-title"/>
                     <hbox>

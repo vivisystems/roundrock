@@ -1,11 +1,17 @@
 ( function(){
+    var inputObj = window.arguments[0];
+
     /**
      * Controller Startup
      */
     function startup() {
+
         $( '#plu' ).focus();
 
-        $do( 'load', null, 'StockRecords' );
+        function loadData() {
+            $do( 'load', inputObj, 'StockRecords' );
+        }
+        setTimeout(loadData, 100 );
 
     };
 

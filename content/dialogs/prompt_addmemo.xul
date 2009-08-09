@@ -22,9 +22,9 @@
 
         <vivipanel id="promptAddMemoPanel" noautohide="true"  class="container-dialog layout-dialog">
 
-            <hbox flex="1" class="layout-fullscreen">
+            <hbox flex="1" class="layout-popup-memo">
 
-                <vbox flex="1" class="container-popup-memo">
+                <vbox flex="1" class="container-main">
 
                     <label id="promptAddMemo-dialog-caption" value="" class="label-page-title"/>
                     <label id="promptAddMemo-text0" value=""/>

@@ -59,7 +59,10 @@ ${detail.payment|viviFormatPrices:true|right:24}
   delete TrimPath.PrecisionTaxes;
 {/eval}
 ------------------------
-${_( '(rpt)Records Found' ) + ': ' + body.length|left:24}
+${_( '(rpt)Records Found' ) + ':'|left:24}
+${foot.foot_datas.rowCount|format:0|right:24}
+${_( '(rpt)Records Displayed' ) + ':'|left:24}
+${body.length|format:0|right:24}
 ------------------------
 ${_( '(rpt)Summary' )}
 ${_( '(rpt)Gross Sales' ) + ':'}

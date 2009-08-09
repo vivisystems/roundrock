@@ -42,8 +42,8 @@ ${tax.no + ':'|left:14}${tax_subtotal|viviFormatTaxes:true|right:28}
 {/for}
 {/for}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ': '|left:19}${GeckoJS.BaseObject.getKeys(body).length|default:0|format:0|right:22}
-[&CR]
+${_( '(rpt)Records Found' ) + ': '|left:30}${GeckoJS.BaseObject.getKeys(body).length|default:0|format:0|right:12}
+${_( '(rpt)Records Displayed' ) + ': '|left:30}${foot.rowCount|default:0|format:0|right:12}
 ------------------------------------------
 ${_( '(rpt)Summary' )}
 ${_( '(rpt)Net Sales' ) + ':'|left:14}${foot.summary.total|default:0|viviFormatPrices:true|right:28}
