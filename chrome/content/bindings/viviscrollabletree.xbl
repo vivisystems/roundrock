@@ -10,19 +10,19 @@
 
         <xul:hbox style="margin: 0px; padding:0px;" flex="1" anonid="scrollablepanel-container" class="scrollablepanel" xbl:inherits="class,flex,pack,dir">
 
-            <xul:vivitree anonid="vivitree" flex="1" xbl:inherits="class=treeClass,headers,fields,enableColumnDrag,flags,hidecolumnpicker,rows,seltype,collapsed,hidevscroll,hidehscroll,fixed,primary,disabled,disableKeyNavigation,types,editables,ignorecolumnpickers" />
+            <xul:vivitree anonid="vivitree" flex="1" xbl:inherits="class=treeClass,headers,fields,enableColumnDrag,flags,hidecolumnpicker,rows,seltype,collapsed,hidevscroll,hidehscroll,fixed,primary,disabled,disableKeyNavigation,types,editables,ignorecolumnpickers"/>
 
             <xul:vbox style="margin: 0px; padding:0px;" class="scrollablepanel-scrollbar" xbl:inherits="class=scrollbarClass" anonid="scrollbar" >
-                <xul:vivibutton label="UP" anonid="scrollbutton-up" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollUpClass"></xul:vivibutton>
+                <xul:vivibutton label="UP" anonid="scrollbutton-up" disabled="true" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollUpClass"></xul:vivibutton>
                 <xul:spacer flex="1"/>
-                <xbl:children />
+                <xbl:children/>
                 <xul:spacer flex="1"/>
-                <xul:vivibutton label="DOWN" anonid="scrollbutton-down" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollDownClass"></xul:vivibutton>
+                <xul:vivibutton label="DOWN" anonid="scrollbutton-down" disabled="true" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollDownClass"></xul:vivibutton>
             </xul:vbox>
         </xul:hbox>
     </content>
     <resources>
-      <stylesheet src="chrome://vivipos/skin/bindings/viviscrollabletree.css" />
+      <stylesheet src="chrome://vivipos/skin/bindings/viviscrollabletree.css"/>
     </resources>
 
   <implementation>
@@ -38,30 +38,32 @@
       </field>
 
     
-  <property name="vivitree" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'vivitree');" readonly="true" />
-  <property name="scrollbar" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'scrollbar');" readonly="true" />
+  <property name="vivitree" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'vivitree');" readonly="true"/>
+  <property name="scrollbar" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'scrollbar');" readonly="true"/>
 
-  <property name="rowCount" onget="return this.vivitree.rowCount;" readonly="true" />
+  <property name="rowCount" onget="return this.vivitree.rowCount;" readonly="true"/>
 
-  <property name="currentIndex" onget="return this.vivitree.currentIndex;" onset="this.vivitree.currentIndex = val; return val;"/>
+  <property name="currentIndex" onget="return this.vivitree.currentIndex;" onset="this.vivitree.currentIndex = val; this.updateScrollBtn(); return val;"/>
 
-  <property name="selectedIndex" onget="return this.vivitree.currentIndex;" onset="return this.vivitree.currentIndex = val;" />
+  <property name="selectedIndex" onget="return this.vivitree.currentIndex;" onset="var res = (this.vivitree.currentIndex = val); this.updateScrollBtn(); return res;"/>
 
-  <property name="selectedItems" onget="return this.vivitree.selectedItems;" onset="return this.vivitree.selectedItems = val;" />
+  <property name="selectedItems" onget="return this.vivitree.selectedItems;" onset="var res = (this.vivitree.selectedItems = val); this.updateScrollBtn(); return res;"/>
 
 
-  <property name="treeBoxObject" onget="return this.vivitree.treeBoxObject;" readonly="true" />
+  <property name="treeBoxObject" onget="return this.vivitree.treeBoxObject;" readonly="true"/>
 
-  <property name="view" onget="return this.vivitree.view;" readonly="true" />
+  <property name="view" onget="return this.vivitree.view;" readonly="true"/>
 
-  <property name="selection" onget="return this.vivitree.selection;" readonly="true" />
+  <property name="selection" onget="return this.vivitree.selection;" readonly="true"/>
 
-  <property name="datasource" onget="return this.vivitree.datasource" onset="return this.vivitree.datasource = val;"/>
+  <property name="datasource" onget="return this.vivitree.datasource" onset="var res = this.vivitree.datasource = val; this.updateScrollBtn(); return res;"/>
 
     <method name="scrollByLines">
         <parameter name="numLines"/>
         <body><![CDATA[
             this.vivitree.scrollByLines(numLines);
+
+            this.updateScrollBtn();
         ]]>  
         </body>
     </method>
@@ -70,6 +72,8 @@
         <parameter name="numPages"/>
         <body><![CDATA[
             this.vivitree.scrollByPages(numPages);
+
+            this.updateScrollBtn();
         ]]>  
         </body>
     </method>
@@ -79,11 +83,24 @@
         <parameter name="index"/>
         <body><![CDATA[
             this.vivitree.scrollToRow(index);
+
+            this.updateScrollBtn();
         ]]>  
         </body>
     </method>
 
 
+    <method name="updateScrollBtn">
+        <body><![CDATA[
+            var currentIndex = this.currentIndex;
+            var lastRowIndex = this.rowCount - 1;
+            var firstVisible = this.treeBoxObject.getFirstVisibleRow();
+            var lastVisible = this.treeBoxObject.getLastVisibleRow();
+            this._scrollButtonUp.setAttribute('disabled', (firstVisible == 0) && (currentIndex == -1 || currentIndex == 0));
+            this._scrollButtonDown.setAttribute('disabled', (lastVisible >= lastRowIndex) && (currentIndex == -1 || currentIndex == lastRowIndex));
+        ]]>
+        </body>
+    </method>
     <method name="refresh">
         <body><![CDATA[
             this.invalidate();
@@ -95,29 +112,41 @@
     <method name="invalidate">
         <body><![CDATA[
             this.vivitree.invalidate();
+            this.updateScrollBtn();
         ]]>
         </body>
     </method>
 
 
     <method name="invalidateRange">
-        <parameter name="startIndex" />
-        <parameter name="endIndex" />
+        <parameter name="startIndex"/>
+        <parameter name="endIndex"/>
         <body><![CDATA[
             this.vivitree.invalidateRange(startIndex, endIndex);
+            this.updateScrollBtn();
         ]]>
         </body>
     </method>
 
 
     <method name="invalidateRow">
-        <parameter name="index" />
+        <parameter name="index"/>
         <body><![CDATA[
             this.vivitree.invalidateRow(index);
         ]]>
         </body>
     </method>
 
+
+    <method name="ensureRowIsVisible">
+        <parameter name="index"/>
+        <body><![CDATA[
+            this.treeBoxObject.ensureRowIsVisible(index);
+
+            this.updateScrollBtn();
+        ]]>
+        </body>
+    </method>
 
       <method name="_autorepeatbuttonScroll">
         <parameter name="event"/>
@@ -137,8 +166,8 @@
               if (newIndex < 0) newIndex = 0;
               if (newIndex >= this.vivitree.view.rowCount) newIndex = this.vivitree.view.rowCount - 1;
               if (newIndex != this.selectedIndex) {
-                  this.vivitree.selection.select(newIndex);
-                  this.vivitree.treeBoxObject.ensureRowIsVisible(newIndex);
+                  this.selection.select(newIndex);
+                  this.ensureRowIsVisible(newIndex);
               }
           }
 

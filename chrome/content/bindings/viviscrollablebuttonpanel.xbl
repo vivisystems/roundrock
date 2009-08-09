@@ -79,6 +79,7 @@
         <body><![CDATA[
             // XXX call vivibuttonpanel.initGrid will before vivibuttonpanel.constructor ??
             this.vivibuttonpanel.initGrid();
+            this.updateScrollBtn();
         ]]>
         </body>
         </method>
