@@ -45,6 +45,7 @@
             <box id="leftPanel" flex="0" orient="vertical" class="left-panel">
                 <box id="categoryPanelContainer" flex="0" panel="&layout.panel.departments;"/>
                 <box id="productPanelContainer" flex="1" panel="&layout.panel.products;" />
+                 <box id="staticCondimentsPanelContainer" panel=""/>
             </box>
 
             <box id="rightPanel" flex="0" class="right-panel" orient="vertical">

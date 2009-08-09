@@ -27,20 +27,21 @@
         <hbox>
             <vbox style="width: 350px;">
                 <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" labelField="displayname"
-                                           oncommand="$do('validateForm', null, 'ChangeUser')"
+                                           oncommand="$do('setUserName', null, 'ChangeUser')"
                                            class="userscrollablepanel" scrollUpClass="rightprevbtn" scrollDownClass="rightnextbtn" buttonClass="userbtn"
                                            >
                     <spacer flex="1"/>
                 </viviscrollablebuttonpanel>
+                <textbox id="username" value="" class="nameBox pwBox" onfocus="this.select()" oninput="$do('validateForm', null, 'ChangeUser')"/>
             </vbox>
             <vbox>
                 <label value="&changeuser.title;" class="PageTitle" />
                 <hbox>
                     <hbox class="numpad">
-                            <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
+                            <numberpad id="multinumberpad" class="numberpad"/>
                             <vbox>
-                                <vivibutton id="delBtn" label="&changeuser.keylabel.del;" class="systembtn" />
-                                <vivibutton id="clearBtn" label="&changeuser.keylabel.clear;" class="systembtn"/>
+                                <sendkeybutton id="delBtn" label="&changeuser.keylabel.del;"   keyCode="0x08" class="systembtn"/>
+                                <sendkeybutton id="clearBtn" label="&changeuser.keylabel.clear;" class="systembtn"/>
                             </vbox>
                     </hbox>
                 </hbox>
@@ -58,8 +59,11 @@
         </hbox>
         <spacer flex="1"/>
         <hbox pack="end">
+            <isoptionenabled option="vivipos.fec.settings.ShowVKIcon" action="display">
+                <vivibutton id="vkbBtn" label="" class="vkb" oncommand="VirtualKeyboard.toggle();" />
+            </isoptionenabled>
             <isoptionenabled option="vivipos.fec.settings.ClockInEnabled" action="display">
-                    <vivibutton id="clockBtn" label="" class="clockinout" oncommand="opener.$do('ClockInOutDialog', null, 'Main'); document.getElementById('user_password').focus()" />
+                <vivibutton id="clockBtn" label="" class="clockinout" oncommand="opener.$do('ClockInOutDialog', null, 'Main'); document.getElementById('user_password').focus()" />
             </isoptionenabled>
         </hbox>
     </vbox>

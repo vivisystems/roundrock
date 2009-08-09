@@ -43,8 +43,8 @@
     border: 10px solid;
     background: white;
     height:160px;
-    left: 250px;
-    top: 200px;
+    margin-left: 230px;
+    margin-top: 254px;
     width:564px;
     -moz-box-align: center;
     -moz-border-top-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;

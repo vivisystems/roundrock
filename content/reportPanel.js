@@ -35,10 +35,18 @@
         if (isShowing) {
             // nothings to do
         }else {
-            $('#loading').show();
+            $.blockUI({
+                message:$('#loading'),
+                css: {
+                    'background-color': 'transparent',
+                    left: '0px',
+                    top: '0px',
+                    border: '0px'
+                }
+            });
             isShowing = true;
             openModel(pref['path'], "Preferences_" + pref['label'], aArguments);
-            $('#loading').hide();
+            $.unblockUI();
             isShowing = false;
         }
     };

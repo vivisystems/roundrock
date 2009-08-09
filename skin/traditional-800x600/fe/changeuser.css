@@ -284,7 +284,7 @@
 }
 
 .PwPad {
-	margin: 45px 0 0 270px;
+	margin: 32px 0 0 270px;
 	min-height: 70px;	
 }
 
@@ -298,6 +298,10 @@
 	color: #dcf74a;
 	font-size: 11pt; 
 	margin-top: 9px;
+}
+
+.nameBox {
+    margin-left: 140px;
 }
 
 .pwBox {
@@ -333,6 +337,14 @@
 
 .clockinout {
     background: transparent url(../images/clock.png) center center no-repeat;
+    border-width: 0px;
+    height: 80px;
+    width: 80px;
+    -moz-appearance: none;
+}
+
+.vkb {
+    background: transparent url(../images/keyboard.png) center center no-repeat;
     border-width: 0px;
     height: 80px;
     width: 80px;

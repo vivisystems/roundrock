@@ -66,13 +66,13 @@
                 this.tree.rowCountChanged(oldIndex, rc2 - rc1);
             }
             // doing so to redraw the tree.
-            this.tree.invalidate();
+            this._cartList.invalidate();
 
             if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
             else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
 
-            this.tree.view.selection.select(newIndex);
-            this.tree.ensureRowIsVisible(newIndex);
+            this._cartList.view.selection.select(newIndex);
+            this._cartList.ensureRowIsVisible(newIndex);
         },
         
         getCellProperties: function(row, col, prop) {

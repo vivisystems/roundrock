@@ -19,11 +19,13 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.blockUI_XUL.js" />
     <script type="application/x-javascript">
         window['GeckoJS'] = opener.GeckoJS;
         window['GREUtils'] = opener.GREUtils;
         window['_'] = opener._;
     </script>
+    
     <script type="application/x-javascript" src="chrome://viviecr/content/reportPanel.js" />
 
     <keyset id="keyset_extensions">

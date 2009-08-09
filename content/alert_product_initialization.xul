@@ -21,9 +21,11 @@
     <vbox flex="1" class="container-dialog container-wait-dialog">
         <vbox flex="1" class="container-main">
             <label id="dialog-caption" value="&plus.initialization.label;" class="label-page-title"/>
+            <!--
             <spacer style="height: 20px;"/>
             <progressmeter id="progress" mode="undetermined" value="0"/>
             <spacer style="height: 20px;"/>
+            -->
         </vbox>
     </vbox>
     

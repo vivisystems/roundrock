@@ -55,20 +55,22 @@
             return this._waiting_caption_id;
         },
 
-        _showWaitingPanel: function( sleepTime ) {
+        _showWaitingPanel: function( sleepTime, hideProgressbar ) {
             var waitPanel = document.getElementById( this._wait_panel_id );
             
             // set the content of the label attribute be default string, taking advantage of the statusText attribute.
             var caption = document.getElementById( this.getCaptionId() );
             caption.label = caption.statusText;
-            
+
             var progressBox = document.getElementById( this._progress_box_id );
             var progressBar = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:progressmeter" );
             progressBar.setAttribute( 'value', '0' );
             progressBar.setAttribute( 'mode', 'determined' );
             progressBar.setAttribute( 'id', this._progress_bar_id );
             progressBox.appendChild( progressBar );
-            
+
+            progressBox.hidden = hideProgressbar;
+
             waitPanel.openPopupAtScreen( 0, 0 );
 
             // release CPU for progressbar to show up.
@@ -186,7 +188,7 @@
                 
                 this._enableButton( false );
 
-                var waitPanel = this._showWaitingPanel();
+                var waitPanel = this._showWaitingPanel(100, true);
                 this._setTemplateDataHead();
                 this._set_reportRecords();
                 this._setTemplateDataFoot();
@@ -330,8 +332,9 @@
                     // enable buttons
                     self._enableButton( true );
                     // hide panel
-                    if ( waitPanel != undefined )
+                    if ( waitPanel != undefined ) {
                         self._dismissWaitingPanel();
+                    }
                 };
 
                 this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl, caption, progress );

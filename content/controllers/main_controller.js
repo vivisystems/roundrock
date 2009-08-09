@@ -56,7 +56,7 @@
                 alertWin.close();
                 delete alertWin;
             }
-
+            $.unblockUI();
             
             //this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
@@ -134,7 +134,7 @@
         showAlertDialog: function() {
 
             var width = 600;
-            var height = 140;
+            var height = 120;
 
             var aURL = 'chrome://viviecr/content/alert_product_initialization.xul';
             var aName = _('Product Initialization');

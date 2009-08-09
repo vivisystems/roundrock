@@ -41,53 +41,66 @@
             this.validateForm();
         },
 
+        setUserName: function () {
+            if (this.userpanel && this.users) {
+
+                var index = this.userpanel.selectedIndex;
+                if (index > -1 && index < this.users.length) {
+                    $('#username').val(this.users[index].username);
+                }
+            }
+        },
+
         checkUser: function () {
 
-            var username;
-            var userpass = $('#user_password').val() || '';
+            var username = GeckoJS.String.trim($('#username').val()) || '';
+            var userpass = GeckoJS.String.trim($('#user_password').val()) || '';
             var allowQuickLogin = GeckoJS.Configure.read('vivipos.fec.settings.login.allowquicklogin');
 
-            userpass = userpass.replace(/^\s*/, '').replace(/\s*$/, '');
             if (userpass.length == 0) return;
 
             $('#user_password').val('');
 
-            if (this.userpanel && this.users) {
+            if (username.length == 0 && this.userpanel && this.users) {
 
                 var index = this.userpanel.selectedIndex;
                 if (index > -1 && index < this.users.length) {
                     username = this.users[index].username;
                 }
+            }
+            // case 1 - username is null and allowQuickLogin
+            // case 2 - username is null and not allowQuickLogin
+            // case 3 - username is not null
 
-                // case 1 - username is null and allowQuickLogin
-                // case 2 - username is null and not allowQuickLogin
-                // case 3 - username is not null
-                if (username == null) {
-                    if (allowQuickLogin) {
-                        if (!this.Acl.securityCheckByPassword(userpass, false)) {
-                            NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
-                        }
-                    }
-                    else {
-                        // we shouldn't be here if validateForm works correctly, but will display warning just in case
-                        NotifyUtils.error(_('Authentication failed! Please select a user'));
+            if (username == '') {
+                if (allowQuickLogin) {
+                    if (!this.Acl.securityCheckByPassword(userpass, false)) {
+                        NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
+                        return;
                     }
                 }
                 else {
-                    if (!this.Acl.securityCheck(username, userpass)) {
-                        NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
-                    }
+                    // we shouldn't be here if validateForm works correctly, but will display warning just in case
+                    NotifyUtils.error(_('Authentication failed! Please select a user'));
+                    return;
                 }
+            }
+            else {
+                if (!this.Acl.securityCheck(username, userpass)) {
+                    NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
+                    return;
+                }
+            }
 
-                if (this.Acl.getUserPrincipal()) {
-                    opener.$do('setClerk', null, 'Main');
-                    window.close();
-                }
+            if (this.Acl.getUserPrincipal()) {
+                opener.$do('setClerk', null, 'Main');
+                window.close();
             }
         },
 
         validateForm: function () {
-            var password = $('#user_password').val().replace(/^\s*/, '').replace(/\s*$/, '');
+            var name = GeckoJS.String.trim($('#username').val());
+            var password = GeckoJS.String.trim($('#user_password').val());
             var allowQuickLogin = GeckoJS.Configure.read('vivipos.fec.settings.login.allowquicklogin');
             var index = this.userpanel.selectedIndex;
 
@@ -95,7 +108,7 @@
                 document.getElementById('signinBtn').setAttribute('disabled', password.length == 0);
             }
             else {
-                document.getElementById('signinBtn').setAttribute('disabled', password.length == 0 || index == null || index == -1);
+                document.getElementById('signinBtn').setAttribute('disabled', password.length == 0 || ((index == null || index == -1) && name.length == 0));
             }
         },
 

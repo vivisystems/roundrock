@@ -297,7 +297,7 @@
 }
 
 .PwPad {
-	margin: 89px 0 0 305px;
+	margin: 45px 0 0 305px;
 	min-height: 70px;
 }
 
@@ -313,6 +313,10 @@
 	margin-top: 9px;
 }
 
+.nameBox {
+    margin-left: 175px;
+}
+
 .pwBox {
 	border: 2px solid #b2a59a;
 	color: #514f43;
@@ -320,6 +324,7 @@
 	height: 40px;
 	margin-right: 12px;
 	margin-top: 5px;
+    padding: 2px;
 	width: 270px;
 	-moz-appearance: none;
 	-moz-border-radius: 4px;
@@ -346,6 +351,14 @@
 
 .clockinout {
     background: transparent url(../images/clock.png) center center no-repeat;
+    border-width: 0px;
+    height: 80px;
+    width: 80px;
+    -moz-appearance: none;
+}
+
+.vkb {
+    background: transparent url(../images/keyboard.png) center center no-repeat;
     border-width: 0px;
     height: 80px;
     width: 80px;
