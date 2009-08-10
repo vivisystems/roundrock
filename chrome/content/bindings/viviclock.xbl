@@ -13,10 +13,6 @@
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <binding id="viviclock">
-        <resources>
-            <stylesheet src="chrome://vivipos/skin/bindings/viviclock.css" />
-        </resources>
-
         <content>
             <xul:box>
                 <xul:label value="" anonid="clock" flex="1" inherits="class,flex,align,dir,pack,orient,style" />
