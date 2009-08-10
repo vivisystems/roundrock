@@ -38,10 +38,11 @@
             var autoAdjust = GeckoJS.Configure.read('vivipos.fec.settings.AutoSetDecimalPoint');
             var precision = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0);
 
+            var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
+
             if (autoAdjust) {
                 this._inputBox.setAttribute('style', 'text-align: right');
                 
-                var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
                 if (precision > 0) {
                     
                     // we need to calculate real font render width;
@@ -60,6 +61,13 @@
                     inputBox.inputField.style.backgroundRepeat = "";
                     inputBox.inputField.style.backgroundPosition = "";
                 }
+            }else {
+                this._inputBox.setAttribute('style', 'text-align: left');
+               
+                inputBox.inputField.style.backgroundImage = "";
+                inputBox.inputField.style.backgroundRepeat = "";
+                inputBox.inputField.style.backgroundPosition = "";
+
             }
         },
 
