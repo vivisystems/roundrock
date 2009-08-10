@@ -373,7 +373,7 @@
             var profPath = GeckoJS.Configure.read('ProfD');
             var systemPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
 
-            var rootPath = '/tmp/' + GeckoJS.String.uuid();
+            var rootPath = systemPath + '/backups/' + GeckoJS.String.uuid();
             var chromePath = rootPath + '/chrome';
             var defaultsPath = rootPath + '/defaults';
             var prefsPath = defaultsPath + '/preferences';
