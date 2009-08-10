@@ -50,6 +50,8 @@
 
             <box id="rightPanel" flex="0" class="right-panel" orient="vertical">
                 <box id="vfdPanelContainer" flex="1" panel="&layout.panel.vfd;"/>
+                <box id="customerPanelContainer" panel=""/>
+
                 <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
                 <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
                 <box id="promotionsStatusPanelContainer" flex="0"/>
