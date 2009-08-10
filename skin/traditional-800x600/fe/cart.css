@@ -43,10 +43,6 @@
     -moz-user-focus: ignore;
 }
 
-.main-overlay .cart-scroll-up-button[disabled=true] {
-    background-position: -64px 0;
-}
-
 .main-overlay .cart-scroll-up-button[disabled=false]:active {
     background-position: -32px 0;
 }

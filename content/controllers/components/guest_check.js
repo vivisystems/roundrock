@@ -188,6 +188,7 @@
 
                 var tables = this._tableStatusModel.getTableStatusList();
                 var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + table_no + "'");
+
                 if (tableObj.length > 0) {
                     // set minimum charge
                     minimum_charge_per_table = tableObj[0].Table.minimum_charge_per_table || minimum_charge_per_table;

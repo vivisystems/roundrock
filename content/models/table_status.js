@@ -91,9 +91,9 @@
         getRemoteService: function(method,force_remote) {
             this.syncSettings = (new SyncSetting()).read();
 
-            if (this.syncSettings && this.syncSettings.active == 1) {
+            if (this.syncSettings && this.syncSettings.active == 1 && this.syncSettings.table_active) {
 
-                var hostname = this.syncSettings.table_hostname || 'localhost';
+                var hostname = this.syncSettings.hostname || 'localhost';
                 if ((hostname == 'localhost' || hostname == '127.0.0.1') && !force_remote) return false;
                 
                 //  http://localhost:3000/sequences/getSequence/check_no
@@ -255,9 +255,9 @@
             if (remoteUrl) {
                 try {
                     tableStatus = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
-
                     tableStatus.forEach(function(o){
-
+                        self.Table.convertDataTypes(o.Table);
+                        self.convertDataTypes(o.TableStatus);
                         var item = GREUtils.extend({}, o.TableStatus);
                         for (var key in item) {
                             o[key] = item[key];
@@ -266,8 +266,10 @@
 
                     this._connected = true;
                 }catch(e) {
+
                     tableStatus = [];
                     this._connected = false;
+                    this.dump(e);
 
                 }
 

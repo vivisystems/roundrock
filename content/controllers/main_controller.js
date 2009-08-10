@@ -56,7 +56,6 @@
                 alertWin.close();
                 delete alertWin;
             }
-            $.unblockUI();
             
             //this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
@@ -187,6 +186,9 @@
                 return;
             }
 
+            // block UI
+            var waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
+
             // invoke external script to capture screen image
             var uuid = GeckoJS.String.uuid();
             var dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
@@ -204,6 +206,9 @@
             var aName = _('Package Builder');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             var aArguments = {image: imageFile, icon: thumbFile };
+
+            if (waitPanel) waitPanel.hidePopup();
+            
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
 
             GREUtils.File.remove(imageFile);

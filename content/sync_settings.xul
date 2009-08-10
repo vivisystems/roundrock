@@ -163,7 +163,7 @@
 
                     <tabpanel id="services-panel" orient="vertical">
 
-                        <grid flex="1" class="data-form-2">
+                        <grid flex="1" class="data-form">
                             <columns>
                                 <column  flex="1"/>
                                 <column flex="2"/>
@@ -181,13 +181,11 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&sync_settings.label.table_hostname;"/>
-                                        <textbox value="localhost"
-                                                 form="syncSettingForm" name="table_hostname"/>
+                                        <checkbox form="syncSettingForm" name="table_active" label="&sync_settings.label.table_active;"/>
                                     </vbox>
                                     <textbox id="table_hostname_desc" flex="1" class="textbox-description"
                                              readonly="true" wrap="true" multiline="true" rows="2"
-                                             value="&sync_settings.desc.table_hostname;"/>
+                                             value="&sync_settings.desc.table_active;"/>
                                 </row>
                                 <row>
                                     <vbox>
