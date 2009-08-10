@@ -29,6 +29,8 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul"?>
 
+<?xul-overlay href="chrome://viviecr/content/dialogs/select_table.xul"?>
+
 <?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/functionPanelOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/product_image_overlay.xul"?>
 

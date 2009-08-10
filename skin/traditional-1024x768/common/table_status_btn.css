@@ -1,136 +1,103 @@
-/*-----------------------------------------------------------------------------
- *
- * Styles for Table Status Button
- *
- *-----------------------------------------------------------------------------
- */
-table_status_std_btn {
-  -moz-binding: url("chrome://viviecr/content/bindings/table_status_std_btn.xbl#table_status_btn");
-}
-table_status_btn {
-  -moz-binding: url("chrome://viviecr/content/bindings/table_status_btn.xbl#table_status_btn");
-}
-
-.container-dialog table_status_btn {
-    margin: 2px;
-}
-
-.container-dialog table_status_btn .bgtext {
+/* sycn_settings */
+.bgtext {
     color: #ddd;
     font-size: 80px;
     font-style: italic;
     font-weight: bold;
     text-align: center;
 }
-
-.container-dialog table_status_btn .tablebox td {
-    height: 18px;
-    empty-cells: show;
+.tablebox td {
+  empty-cells: show;
+  height: 18px;
 }
 
-.container-dialog table_status_btn .tdb_green {
+.tdb_green {
     border-bottom: #0a2 solid 1px;
 }
-
-.container-dialog table_status_btn .tdb_red {
+.tdb_red {
     border-bottom: #d26 solid 1px;
 }
-
-.container-dialog table_status_btn .tdb_blue {
+.tdb_blue {
     border-bottom: #66f solid 1px;
 }
-
-.container-dialog table_status_btn .tdb_yellow {
+.tdb_yellow {
     border-bottom: #f6f solid 1px;
 }
 
-.container-dialog table_status_btn .table_no {
+.table_no {
+    /*
+	border-bottom: 2px solid white;
+	font-size: 10pt;
+	padding: 8px;
+    -moz-box-align: center;
+    */
+
     color: #eef;
     font-size: 18px;
     font-style: italic;
     font-weight: bold;
-    float: left;
-    text-align: center;
     width: 40px;
+    text-align: center;
+    float: left;
 }
-
-.container-dialog table_status_btn .table_label {
-    background: none;
+.table_label {
+    background-color: none;
     font-style: italic;
     float: left;
 }
-
-.container-dialog table_status_btn .checks {
+.checks {
     background-color: none;
     color: #f33;
     font-size: 16px;
+    text-align: right;
     float: right;
     margin-top: 6px;
-    text-align: right;
 }
-
-.container-dialog table_status_btn .check_no {
-    background: none;
+.check_no {
+    background-color: none;
     float: left;
 }
-
-.container-dialog table_status_btn .period {
+.period {
+    text-align: right;
     float: right;
+}
+.seq_no {
+    background-color: none;
+    float: left;
+}
+.booking {
+    background-color: none;
+    float: left;
+}
+.subtotal {
+    background-color: none;
+    float: left;
+}
+.capacity {
     text-align: right;
-}
-
-.container-dialog table_status_btn .seq_no {
-    float: left;
-    background: none;
-}
-
-.container-dialog table_status_btn .booking {
-    background: none;
-    float: left;
-}
-
-.container-dialog table_status_btn .subtotal {
-    background: none;
-    float: left;
-}
-
-.container-dialog table_status_btn .capacity {
     float: right;
-    text-align: right;
 }
-
-.container-dialog table_status_btn .clerk {
-    margin-top: 0px;
-    text-align: left;
-}
-
-.container-dialog table_status_btn .green {
+.green {
     background-color: #cfc;
 }
-
-.container-dialog table_status_btn .red {
+.red {
     background-color: #fcc;
 }
-
-.container-dialog table_status_btn .blue {
+.blue {
     background-color: #ccf;
 }
-
-.container-dialog table_status_btn .yellow {
+.yellow {
     background-color: #fcf;
 }
-
-.container-dialog table_status_btn .table_green {
+.table_green {
     background-color: #0a2;
 }
-.container-dialog table_status_btn .table_red {
+.table_red {
     background-color: #d26;
 }
-
-.container-dialog table_status_btn .table_blue {
+.table_blue {
     background-color: #66f;
 }
-
-.container-dialog table_status_btn .table_yellow {
+.table_yellow {
     background-color: #f6f;
 }

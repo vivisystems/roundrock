@@ -492,13 +492,13 @@
             // not allow to Merge when transaction is closed
             if (data.isClosed()) {
             // if (data.closed) {
-                NotifyUtils.warn(_('The order has been pre-finalized ; Can not be merged'));
+                NotifyUtils.warn(_('The order has been pre-finalized ; Cannot be merged'));
                 r = false;
             }
 
             // not allow to split when transaction is prepaid
             if (data.data.payment_subtotal != 0) {
-                NotifyUtils.warn(_('The order has been prepaid ; Can not be merged'));
+                NotifyUtils.warn(_('The order has been prepaid ; Cannot be merged'));
                 r = false;
             }
 
@@ -511,13 +511,13 @@
             // not allow to split when transaction is closed
             if (data.isClosed()) {
             // if (data.closed) {
-                NotifyUtils.warn(_('The order has been pre-finalized ; Can not be split'));
+                NotifyUtils.warn(_('The order has been pre-finalized ; Cannot be split'));
                 r = false;
             }
             
             // not allow to split when transaction is prepaid
             if (data.data.payment_subtotal != 0) {
-                NotifyUtils.warn(_('The order has been prepaid ; Can not be split'));
+                NotifyUtils.warn(_('The order has been prepaid ; Cannot be split'));
                 r = false;
             }
 
@@ -882,7 +882,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                     }
                     else {
                         // @todo OSD
-                        NotifyUtils.warn(_('Can not find the Order# (%S)!!', [no]));
+                        NotifyUtils.warn(_('No stored order found for sequence number [%S]', [no]));
                         return -1;
                     }
                     break;
@@ -913,7 +913,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                         }
                     } else {
                         // @todo OSD
-                        NotifyUtils.warn(_('Can not find the Check# %S !!', [no]));
+                        NotifyUtils.warn(_('NO stored order found for check number [%S]', [no]));
                         return -1;
                     }
                     break;
@@ -995,7 +995,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                         }
                     } else {
                         // @todo OSD
-                        NotifyUtils.warn(_('Can not find the Table# %S !!', [no]));
+                        NotifyUtils.warn(_('No stored order found for table number [%S]', [no]));
                         return -1;
                     }
                     break;
@@ -1094,7 +1094,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                         }
                     } else {
                         // @todo OSD
-                        NotifyUtils.warn(_('Can not find the Table# %S !!', [no]));
+                        NotifyUtils.warn(_('No order found for table number [%S]', [no]));
                     }
                     break;
             }
@@ -1263,7 +1263,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                 return curTransaction;
             } else {
                 // @todo OSD
-                NotifyUtils.warn(_('Can not find the Table# %S !!', [no]));
+                NotifyUtils.warn(_('No order found for table number [%S]', [no]));
                 return false;
             }
         },
