@@ -34,12 +34,56 @@
         },
 
         updateDecimalPoint: function() {
+
             var autoAdjust = GeckoJS.Configure.read('vivipos.fec.settings.AutoSetDecimalPoint');
-            var precision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            var precision = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0);
 
             if (autoAdjust) {
                 this._inputBox.setAttribute('style', 'text-align: right');
+
+                if (precision > 0) {
+                    var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
+                    
+                    // we need to calculate real font render width;
+                    var fontWidth = this.detectFontWidth();
+                    var imgHalfWidth = 4;
+
+                    var inputFieldWidth = inputBox.inputField.clientWidth;
+                    var inputFieldBgSeek = inputFieldWidth - imgHalfWidth - precision * fontWidth ;
+
+                    // set css style
+                    inputBox.inputField.style.backgroundImage = "url(chrome://viviecr/skin/images/numdot.png)";
+                    inputBox.inputField.style.backgroundRepeat = "no-repeat";
+                    inputBox.inputField.style.backgroundPosition = inputFieldBgSeek +"px 100%";
+                }
             }
+        },
+
+        detectFontWidth: function() {
+
+            var h = document.getElementById("detectFontContainer");
+            var d = document.createElementNS("http://www.w3.org/1999/xhtml","html:div");
+            var s = document.createElementNS("http://www.w3.org/1999/xhtml","html:span");
+            var fontWidth = 0;
+            
+            try {
+                h.style.display = "block";
+                d.appendChild(s);
+                s.textContent       = "0123456789ABCDEF";
+                h.appendChild(d);
+                var defaultWidth   = s.offsetWidth;
+
+                // remove fontDetectContainer
+                h.removeChild(d);
+
+                h.style.display = "none";
+
+                fontWidth = Math.floor(defaultWidth/16);
+
+            }catch(e) {
+            }
+
+            return fontWidth;
         },
 
         destroy: function() {
