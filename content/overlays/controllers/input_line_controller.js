@@ -40,13 +40,13 @@
 
             if (autoAdjust) {
                 this._inputBox.setAttribute('style', 'text-align: right');
-
+                
+                var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
                 if (precision > 0) {
-                    var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
                     
                     // we need to calculate real font render width;
                     var fontWidth = this.detectFontWidth();
-                    var imgHalfWidth = 4;
+                    var imgHalfWidth = 4; // image width = 7px
 
                     var inputFieldWidth = inputBox.inputField.clientWidth;
                     var inputFieldBgSeek = inputFieldWidth - imgHalfWidth - precision * fontWidth ;
@@ -55,6 +55,10 @@
                     inputBox.inputField.style.backgroundImage = "url(chrome://viviecr/skin/images/numdot.png)";
                     inputBox.inputField.style.backgroundRepeat = "no-repeat";
                     inputBox.inputField.style.backgroundPosition = inputFieldBgSeek +"px 100%";
+                }else {
+                    inputBox.inputField.style.backgroundImage = "";
+                    inputBox.inputField.style.backgroundRepeat = "";
+                    inputBox.inputField.style.backgroundPosition = "";
                 }
             }
         },
