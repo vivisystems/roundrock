@@ -4,12 +4,6 @@
  *
  *-----------------------------------------------------------------------------
  */
-table_status_std_btn {
-  -moz-binding: url("chrome://viviecr/content/bindings/table_status_std_btn.xbl#table_status_btn");
-}
-table_status_btn {
-  -moz-binding: url("chrome://viviecr/content/bindings/table_status_btn.xbl#table_status_btn");
-}
 
 .container-dialog table_status_btn {
     margin: 2px;
@@ -24,8 +18,8 @@ table_status_btn {
 }
 
 .container-dialog table_status_btn .tablebox td {
-    height: 18px;
-    empty-cells: show;
+  empty-cells: show;
+  height: 18px;
 }
 
 .container-dialog table_status_btn .tdb_green {
@@ -46,10 +40,10 @@ table_status_btn {
 
 .container-dialog table_status_btn .table_no {
     color: #eef;
+    float: left;
     font-size: 18px;
     font-style: italic;
     font-weight: bold;
-    float: left;
     text-align: center;
     width: 40px;
 }
@@ -61,10 +55,10 @@ table_status_btn {
 }
 
 .container-dialog table_status_btn .checks {
-    background-color: none;
+    background: none;
     color: #f33;
-    font-size: 16px;
     float: right;
+    font-size: 16px;
     margin-top: 6px;
     text-align: right;
 }
@@ -73,15 +67,14 @@ table_status_btn {
     background: none;
     float: left;
 }
-
 .container-dialog table_status_btn .period {
     float: right;
     text-align: right;
 }
 
 .container-dialog table_status_btn .seq_no {
-    float: left;
     background: none;
+    float: left;
 }
 
 .container-dialog table_status_btn .booking {
@@ -97,11 +90,6 @@ table_status_btn {
 .container-dialog table_status_btn .capacity {
     float: right;
     text-align: right;
-}
-
-.container-dialog table_status_btn .clerk {
-    margin-top: 0px;
-    text-align: left;
 }
 
 .container-dialog table_status_btn .green {
@@ -123,6 +111,7 @@ table_status_btn {
 .container-dialog table_status_btn .table_green {
     background-color: #0a2;
 }
+
 .container-dialog table_status_btn .table_red {
     background-color: #d26;
 }

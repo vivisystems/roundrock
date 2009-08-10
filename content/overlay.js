@@ -9,26 +9,29 @@
         // of '.initialized' file under user profile
         var profPath = GeckoJS.Configure.read('ProfD');
         var initMarker = new GeckoJS.File(profPath + '/.runsetup');
+        var restartMarker = new GeckoJS.File(profPath + '/.rerunsetup');
         var firstRunMarker = new GeckoJS.File(profPath + '/.firstrun');
 
         if (initMarker.exists()) {
-            
-            var aURL = 'chrome://viviecr/content/wizard_first.xul';
+
+            var restarted = restartMarker.exists();
+            if (restarted) {
+                restartMarker.remove();
+            }
+
+            var aURL = restarted ? 'chrome://viviecr/content/setup_wizard.xul' : 'chrome://viviecr/content/wizard_first.xul';
             var aName = _('VIVIPOS Setup');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
-            var aArguments = {initialized: false, restart: false, restarted: false};
+            var aArguments = {initialized: false, restart: false, restarted: restarted};
 
             GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
-            var aURL = 'chrome://viviecr/content/setup_wizard.xul';
             
-            while (aArguments.restart) {
-                aArguments.restart = false;
-                aArguments.restarted = true;
+            if (aArguments.restart) {
+                restartMarker.create();
 
-                // reload project locale properties
-                GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties");
-
-                GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
+                GREUtils.restartApplication();
+                GeckoJS.Session.set('restarting', true);
+                return;
             }
 
             if (aArguments.initialized) {
