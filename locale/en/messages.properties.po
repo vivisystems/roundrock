@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-10 21:16+0800\n"
+"POT-Creation-Date: 2009-08-11 11:11+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2050,6 +2050,18 @@ msgstr "Multi Buy"
 msgid "type.multi_buy.desc"
 msgstr "Promotion type - Multi Buy"
 
+msgid "Add New Multi-Buy Quantity Setting"
+msgstr "Add New Multi-Buy Quantity Setting"
+
+msgid "New Multi-Buy Quantity Setting"
+msgstr "New Multi-Buy Quantity Setting"
+
+msgid "Multi-Buy Quantity"
+msgstr "Multi-Buy Quantity"
+
+msgid "Multi-Buy Value"
+msgstr "Multi-Buy Value"
+
 # #######################################################################
 #
 # System Backup
@@ -2604,17 +2616,17 @@ msgid ""
 "return to the Main Screen. Do you want to save your changes?"
 msgstr ""
 
-#: ../..//content/overlay.js:17
+#: ../..//content/overlay.js:23
 #: ../..//content/controllers/main_controller.js:1182
 #: ../..//content/controllers/setup_wizard_controller.js:681
 msgid "VIVIPOS Setup"
 msgstr ""
 
-#: ../..//content/overlay.js:83 ../..//content/overlay.js:86
+#: ../..//content/overlay.js:86 ../..//content/overlay.js:89
 msgid "Initial Setup"
 msgstr ""
 
-#: ../..//content/overlay.js:84
+#: ../..//content/overlay.js:87
 msgid ""
 "Welcome to VIVIPOS. If you have prepared product data in comma-separated "
 "vector (CSV) format, you can easily import them into the terminal. Would you "
@@ -5157,7 +5169,7 @@ msgstr ""
 #: ../..//content/controllers/plusearch_controller.js:150
 #: ../..//content/controllers/stock_records_controller.js:124
 #: ../..//content/controllers/table_man_controller.js:789
-#: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:73
+#: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:72
 msgid "Product Search"
 msgstr ""
 
