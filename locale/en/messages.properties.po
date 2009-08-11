@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-11 16:13+0800\n"
+"POT-Creation-Date: 2009-08-11 19:12+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2757,15 +2757,15 @@ msgstr ""
 msgid "Do not pack"
 msgstr ""
 
-#: ../..//content/sysprefs.js:64
+#: ../..//content/sysprefs.js:77
 msgid "Rebuilding databases..."
 msgstr ""
 
-#: ../..//content/sysprefs.js:109
+#: ../..//content/sysprefs.js:122
 msgid "General Options"
 msgstr ""
 
-#: ../..//content/sysprefs.js:109
+#: ../..//content/sysprefs.js:122
 msgid "General options saved"
 msgstr ""
 
@@ -4700,7 +4700,7 @@ msgid "Export Error"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:129
-#: ../..//content/controllers/import_export_controller.js:646
+#: ../..//content/controllers/import_export_controller.js:644
 msgid "Import/Export already in progress"
 msgstr ""
 
@@ -4716,69 +4716,69 @@ msgstr ""
 msgid "Exporting %S"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:606
-#: ../..//content/controllers/import_export_controller.js:738
-#: ../..//content/controllers/import_export_controller.js:1780
+#: ../..//content/controllers/import_export_controller.js:604
+#: ../..//content/controllers/import_export_controller.js:736
+#: ../..//content/controllers/import_export_controller.js:1776
 msgid "Yes"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:606
-#: ../..//content/controllers/import_export_controller.js:738
-#: ../..//content/controllers/import_export_controller.js:1780
+#: ../..//content/controllers/import_export_controller.js:604
+#: ../..//content/controllers/import_export_controller.js:736
+#: ../..//content/controllers/import_export_controller.js:1776
 msgid " (%S)"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:609
+#: ../..//content/controllers/import_export_controller.js:607
 msgid "Export of [%S] to file [%S] finished!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:616
+#: ../..//content/controllers/import_export_controller.js:614
 msgid "Failed to export [%S] to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:646
-#: ../..//content/controllers/import_export_controller.js:651
+#: ../..//content/controllers/import_export_controller.js:644
+#: ../..//content/controllers/import_export_controller.js:649
 msgid "Import Error"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:651
+#: ../..//content/controllers/import_export_controller.js:649
 msgid "Import device and/or folder not found [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:657
+#: ../..//content/controllers/import_export_controller.js:655
 msgid "Please select a data category to import"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:662
+#: ../..//content/controllers/import_export_controller.js:660
 msgid "Importing %S"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1783
+#: ../..//content/controllers/import_export_controller.js:1779
 msgid "Import of [%S] from file [%S] finished!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1794
+#: ../..//content/controllers/import_export_controller.js:1790
 msgid "Failed to import [%S] from file [%S]!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1820
+#: ../..//content/controllers/import_export_controller.js:1816
 msgid "Department"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1828
+#: ../..//content/controllers/import_export_controller.js:1824
 msgid "Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1836
+#: ../..//content/controllers/import_export_controller.js:1832
 msgid "Condiment"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1844
+#: ../..//content/controllers/import_export_controller.js:1840
 #: ../..//content/controllers/plus_controller.js:555
 msgid "Product Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1852
+#: ../..//content/controllers/import_export_controller.js:1848
 msgid "Product"
 msgstr ""
 

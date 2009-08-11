@@ -32,7 +32,9 @@
                 // release cpu to update ui
                 this.sleep( 10 );
 
-                var output = GREUtils.Charset.convertFromUnicode( tpl.process( datas ) );
+                var selectedCharSet = GREUtils.Pref.getPref('vivipos.fec.registry.import_export.charset') || 'utf-8';
+
+                var output = GREUtils.Charset.convertFromUnicode( tpl.process( datas ), selectedCharSet );
                 var bufLength = output.length;
                 var blockCount = Math.ceil( bufLength / this._blockSize );
 
