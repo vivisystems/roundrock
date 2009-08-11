@@ -2,6 +2,7 @@
 
 . /etc/environment
 
+DIR=`dirname $0`
 LIC_STUB=getSystemLicenseStub
 
-./$LIC_STUB -v > /tmp/vivipos_stub.txt
+$DIR/$LIC_STUB -v > /tmp/vivipos_stub.txt

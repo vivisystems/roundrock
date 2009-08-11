@@ -141,7 +141,7 @@
     <method name="ensureRowIsVisible">
         <parameter name="index"/>
         <body><![CDATA[
-            this.treeBoxObject.ensureRowIsVisible(index);
+            this.vivitree.ensureRowIsVisible(index);
 
             this.updateScrollBtn();
         ]]>

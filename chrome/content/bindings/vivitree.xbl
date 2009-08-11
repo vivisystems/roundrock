@@ -231,6 +231,14 @@
         </body>
     </method>
 
+    <method name="ensureRowIsVisible">
+        <parameter name="index"/>
+        <body><![CDATA[
+            this.treeBoxObject.ensureRowIsVisible(index);
+        ]]>
+        </body>
+    </method>
+
   </implementation>
 
 </binding>
