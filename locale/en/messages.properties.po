@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-11 15:04+0800\n"
+"POT-Creation-Date: 2009-08-11 16:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4399,31 +4399,36 @@ msgid ""
 "You have made changes to device configuration. Save changes before exiting?"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:41
+#: ../..//content/controllers/export_locale_controller.js:57
 msgid "Please select a package to export first"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:46
+#: ../..//content/controllers/export_locale_controller.js:62
 msgid "Please select a locale to export first"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:52
-#: ../..//content/controllers/package_builder_controller.js:368
+#: ../..//content/controllers/export_locale_controller.js:68
+#: ../..//content/controllers/package_builder_controller.js:354
 #: ../..//content/controllers/stock_records_controller.js:661
 #: ../..//content/controllers/systembackup_controller.js:196
 #: ../..//content/controllers/systembackup_controller.js:266
 msgid "Media not found!! Please attach the USB thumb drive..."
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:71
+#: ../..//content/controllers/export_locale_controller.js:87
 msgid "Installation file [install.rdf] must not be empty"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:82
+#: ../..//content/controllers/export_locale_controller.js:91
+#: ../..//content/controllers/package_builder_controller.js:358
+msgid "Generating add-on..."
+msgstr ""
+
+#: ../..//content/controllers/export_locale_controller.js:100
 msgid "Failed to create install.rdf file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:98
+#: ../..//content/controllers/export_locale_controller.js:118
 msgid "Locale package [%S] successfully exported"
 msgstr ""
 
@@ -5184,7 +5189,8 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:280
 #: ../..//content/controllers/plus_controller.js:523
 #: ../..//content/controllers/plus_controller.js:1035
-#: ../..//content/controllers/plusearch_controller.js:150
+#: ../..//content/controllers/plusearch_controller.js:154
+#: ../..//content/controllers/plusearch_controller.js:159
 #: ../..//content/controllers/stock_records_controller.js:124
 #: ../..//content/controllers/table_man_controller.js:789
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:72
@@ -5406,16 +5412,16 @@ msgid ""
 "You have made changes to the non-PLU settings. Save changes before exiting?"
 msgstr ""
 
-#: ../..//content/controllers/package_builder_controller.js:332
-#: ../..//content/controllers/package_builder_controller.js:508
+#: ../..//content/controllers/package_builder_controller.js:348
+#: ../..//content/controllers/package_builder_controller.js:528
 msgid "Export Package"
 msgstr ""
 
-#: ../..//content/controllers/package_builder_controller.js:332
+#: ../..//content/controllers/package_builder_controller.js:348
 msgid "Are you sure you want to export this package now?"
 msgstr ""
 
-#: ../..//content/controllers/package_builder_controller.js:508
+#: ../..//content/controllers/package_builder_controller.js:528
 msgid "Package [%S] has been exported to [%S] as [%S]"
 msgstr ""
 
@@ -5680,7 +5686,11 @@ msgstr ""
 msgid "You have not selected any properties to clone."
 msgstr ""
 
-#: ../..//content/controllers/plusearch_controller.js:151
+#: ../..//content/controllers/plusearch_controller.js:155
+msgid "No products found with conditions"
+msgstr ""
+
+#: ../..//content/controllers/plusearch_controller.js:160
 msgid "Product [%S] Not Found!"
 msgstr ""
 

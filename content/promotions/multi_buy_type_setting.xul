@@ -54,8 +54,8 @@
                                             flex="2"
                                             hidevscroll="true" hidecolumnpicker="true"
                                             scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button">
-                            <vivibutton id="plusBtn" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('addQuantity', null, 'MultiBuyTypeSetting');"/>
-                            <vivibutton id="minusBtn" class="systoolbtn mediumimagebtn minusbtn" oncommand="$do('removeQuantity', null, 'MultiBuyTypeSetting');"/>
+                            <vivibutton id="plusBtn" class="button-systool button-medium-image button-plus" oncommand="$do('addQuantity', null, 'MultiBuyTypeSetting');"/>
+                            <vivibutton id="minusBtn" class="button-systool button-medium-image button-minus" oncommand="$do('removeQuantity', null, 'MultiBuyTypeSetting');"/>
                         </viviscrollabletree>
           </vbox>
 
