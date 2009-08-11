@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/promotions_manager.css" type="text/css"?>
+
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Promotions SYSTEM "chrome://viviecr/locale/promotions_manager.dtd">
+  %Promotions;
+  <!ENTITY % BasicPromotionsSet SYSTEM "chrome://viviecr/locale/basic_promotions_set.dtd">
+  %BasicPromotionsSet;
+  ]>
+
+<page title="&promotions_manager.title;"
+      hidechrome="true"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script src='chrome://viviecr/content/models/plugroup.js'/>
+    <script src='chrome://viviecr/content/helpers/nsi_plugroups_view.js'/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/promotion.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/promotions/controllers/multi_group_trigger_setting_controller.js"/>
+  
+    <vbox flex="1" class="container-be custom-content-promotion-type">
+
+        <tabbox  flex="1" crop="right" class="content-tabbox">
+            
+            <tabs id="tabs">
+                <tab id="tabBasic" label="&multi_group.tab.basic;"/>
+                <tab id="tabFirstGroup" label="&multi_group.tab.first_group;"/>
+                <tab id="tabSecondGroup" label="&multi_group.tab.second_group;"/>
+            </tabs>
+
+            <tabpanels id="tabpanels" flex="1">
+                <!-- Basic -->
+                <tabpanel flex="1" orient="vertical">
+
+                    <grid class="data-form">
+                        <columns>
+                            <column/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="&common.label.trigger_amount_type;"/>
+                                <radiogroup orient="horizontal" id="amount_type" form="multiGroupForm" name="amount_type">
+                                    <radio label="&common.label.trigger_amount_type_by_qty;" selected="true" value="by_qty"/>
+                                    <radio label="&common.label.trigger_amount_type_by_subtotal;" value="by_subtotal"/>
+                                </radiogroup>
+                            </row>
+                            <spacer flex="1" />
+                            <row>
+                                <label value="&common.label.trigger_amount_mode;"/>
+                                <radiogroup id="amount_mode" orient="vertical" form="multiGroupForm" name="amount_mode">
+                                    <radio label="&common.label.trigger_amount_mode_single;" selected="true" value="single"/>
+                                    <radio label="&common.label.trigger_amount_mode_more;" value="more"/>
+                                    <radio label="&common.label.trigger_amount_mode_multiple;" value="multiple"/>
+                                </radiogroup>
+                            </row>
+                        </rows>
+                    </grid>
+                </tabpanel>
+
+                <!-- Plugroup Data -->
+                <tabpanel flex="1" orient="vertical">
+                    <vbox flex="1" class="content-buttonpanel">
+
+                        <viviscrollablebuttonpanel id="groupscrollablepanel1" flex="1" cols="3" rows="3" labelField="name" imageField="no"
+                                                   seltype="single"
+                                                   ensureVisible="true"
+                                                   buttonClass="button-plugroup"
+                                                   scrollUpClass="scroll-up-button"
+                                                   scrollDownClass="scroll-down-button">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+
+                        <spacer style="height: 10px;" />
+
+                        <hbox>
+                                <label value="&common.label.trigger_amount_value;"/>
+                                <textbox id="amount_value" type="number" decimalplaces="Infinity" min="-Infinity" flex="1"
+                                         form="multiGroupForm" name="first_amount_value" default="0"/>
+                        </hbox>
+
+                    </vbox>
+                </tabpanel>
+                <tabpanel flex="1" orient="vertical">
+                    <vbox flex="1" class="content-buttonpanel">
+
+                        <viviscrollablebuttonpanel id="groupscrollablepanel2" flex="1" cols="3" rows="3" labelField="name" imageField="no"
+                                                   seltype="single"
+                                                   ensureVisible="true"
+                                                   buttonClass="button-plugroup"
+                                                   scrollUpClass="scroll-up-button"
+                                                   scrollDownClass="scroll-down-button">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                        
+                        <spacer style="height: 10px;" />
+
+                        <hbox>
+                                <label value="&common.label.trigger_amount_value;"/>
+                                <textbox id="amount_value" type="number" decimalplaces="Infinity" min="-Infinity" flex="1"
+                                         form="multiGroupForm" name="second_amount_value" default="0"/>
+                        </hbox>
+
+                    </vbox>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+
+    </vbox>
+</page>

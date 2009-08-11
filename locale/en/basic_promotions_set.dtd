@@ -19,6 +19,16 @@
 <!ENTITY    individual_group.tab.group               "Product Group">
 <!ENTITY    individual_group.label.selected_groups   "Selected Groups">
 
+<!ENTITY    multi_group.title                   "Individual Group Setting">
+<!ENTITY    multi_group.tab.basic               "Options">
+<!ENTITY    multi_group.tab.first_group         "First Product Group">
+<!ENTITY    multi_group.tab.second_group        "Second Product Group">
+<!ENTITY    multi_group.label.selected_groups   "Selected Groups">
+
+<!ENTITY    multi_dept.title                   "Individual Department Setting">
+<!ENTITY    multi_dept.tab.basic               "Options">
+<!ENTITY    multi_dept.tab.first_dept         "First Department">
+<!ENTITY    multi_dept.tab.second_dept        "Second Department">
 
 <!ENTITY    common.label.trigger_amount_type             "Trigger Amount Type">
 <!ENTITY    common.label.trigger_amount_type_by_qty      "By Quantity">

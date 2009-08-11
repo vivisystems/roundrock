@@ -15,6 +15,14 @@ pref("vivipos.fec.registry.promotion.trigger.individual_group.classname", "Indiv
 pref("vivipos.fec.registry.promotion.trigger.individual_group.class_uri", "chrome://viviecr/content/promotions/triggers/individual_group_trigger.js");
 pref("vivipos.fec.registry.promotion.trigger.individual_group.setting_uri", "chrome://viviecr/content/promotions/individual_group_trigger_setting.xul");
 
+pref("vivipos.fec.registry.promotion.trigger.multi_dept.classname", "MultiDept");
+pref("vivipos.fec.registry.promotion.trigger.multi_dept.class_uri", "chrome://viviecr/content/promotions/triggers/multi_dept_trigger.js");
+pref("vivipos.fec.registry.promotion.trigger.multi_dept.setting_uri", "chrome://viviecr/content/promotions/multi_dept_trigger_setting.xul");
+
+pref("vivipos.fec.registry.promotion.trigger.multi_group.classname", "MultiGroup");
+pref("vivipos.fec.registry.promotion.trigger.multi_group.class_uri", "chrome://viviecr/content/promotions/triggers/multi_group_trigger.js");
+pref("vivipos.fec.registry.promotion.trigger.multi_group.setting_uri", "chrome://viviecr/content/promotions/multi_group_trigger_setting.xul");
+
 pref("vivipos.fec.registry.promotion.type.bypass.classname", "Bypass");
 pref("vivipos.fec.registry.promotion.type.bypass.class_uri", "chrome://viviecr/content/promotions/types/bypass_type.js");
 pref("vivipos.fec.registry.promotion.type.bypass.setting_uri", "chrome://viviecr/content/promotions/bypass_type_setting.xul");
@@ -35,8 +43,6 @@ pref("vivipos.fec.registry.promotion.type.cheapest_one_free.classname", "Cheapes
 pref("vivipos.fec.registry.promotion.type.cheapest_one_free.class_uri", "chrome://viviecr/content/promotions/types/cheapest_one_free_type.js");
 pref("vivipos.fec.registry.promotion.type.cheapest_one_free.setting_uri", "chrome://viviecr/content/promotions/cheapest_one_free_type_setting.xul");
 
-/*
 pref("vivipos.fec.registry.promotion.type.multi_buy.classname", "MultiBuy");
 pref("vivipos.fec.registry.promotion.type.multi_buy.class_uri", "chrome://viviecr/content/promotions/types/multi_buy_type.js");
 pref("vivipos.fec.registry.promotion.type.multi_buy.setting_uri", "chrome://viviecr/content/promotions/multi_buy_type_setting.xul");
-*/

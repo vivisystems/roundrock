@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-11 11:11+0800\n"
+"POT-Creation-Date: 2009-08-11 15:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2049,6 +2049,24 @@ msgstr "Multi Buy"
 
 msgid "type.multi_buy.desc"
 msgstr "Promotion type - Multi Buy"
+
+msgid "trigger.multi_dept.label"
+msgstr "Multi Department"
+
+msgid "trigger.multi_dept.name"
+msgstr "Multi Department"
+
+msgid "trigger.multi_dept.desc"
+msgstr "Promotion trigger - Multi Department"
+
+msgid "trigger.multi_group.label"
+msgstr "Multi Product Group"
+
+msgid "trigger.multi_group.name"
+msgstr "Multi Product Group"
+
+msgid "trigger.multi_group.desc"
+msgstr "Promotion trigger - Multi Product Group"
 
 msgid "Add New Multi-Buy Quantity Setting"
 msgstr "Add New Multi-Buy Quantity Setting"
