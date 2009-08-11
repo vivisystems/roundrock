@@ -87,8 +87,8 @@
             var panelView1 = this._pluGroupPanelView1;
             var panelView2 = this._pluGroupPanelView2;
 
-            panelView1.setValue(item.first_group);
-            panelView2.setValue(item.second_group);
+            if (item.first_group) panelView1.setValue(item.first_group);
+            if (item.second_group) panelView2.setValue(item.second_group);
             
         }
 
