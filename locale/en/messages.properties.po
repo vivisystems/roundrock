@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-10 15:18+0800\n"
+"POT-Creation-Date: 2009-08-10 21:16+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3722,7 +3722,7 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:4020
 #: ../..//content/controllers/components/guest_check.js:1178
 #: ../..//content/controllers/components/guest_check.js:1253
-#: ../..//content/controllers/components/guest_check.js:1742
+#: ../..//content/controllers/components/guest_check.js:1743
 msgid "The order object does not exist [%S]"
 msgstr ""
 
@@ -3765,10 +3765,10 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4179
 #: ../..//content/controllers/components/guest_check.js:480
-#: ../..//content/controllers/components/guest_check.js:686
-#: ../..//content/controllers/components/guest_check.js:735
-#: ../..//content/controllers/components/guest_check.js:769
-#: ../..//content/controllers/components/guest_check.js:1570
+#: ../..//content/controllers/components/guest_check.js:679
+#: ../..//content/controllers/components/guest_check.js:728
+#: ../..//content/controllers/components/guest_check.js:762
+#: ../..//content/controllers/components/guest_check.js:1571
 msgid "fatal error!!"
 msgstr ""
 
@@ -5916,7 +5916,7 @@ msgid "Press CANCEL button to cancel function"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:303
-#: ../..//content/controllers/components/guest_check.js:1726
+#: ../..//content/controllers/components/guest_check.js:1727
 msgid "Split Check"
 msgstr ""
 
@@ -7216,120 +7216,124 @@ msgid "Select Table Number"
 msgstr ""
 
 #: ../..//content/controllers/components/guest_check.js:495
-msgid "The order has been pre-finalized ; Can not be merged"
+msgid "The order has been pre-finalized ; Cannot be merged"
 msgstr ""
 
 #: ../..//content/controllers/components/guest_check.js:501
-msgid "The order has been prepaid ; Can not be merged"
+msgid "The order has been prepaid ; Cannot be merged"
 msgstr ""
 
 #: ../..//content/controllers/components/guest_check.js:514
-msgid "The order has been pre-finalized ; Can not be split"
+msgid "The order has been pre-finalized ; Cannot be split"
 msgstr ""
 
 #: ../..//content/controllers/components/guest_check.js:520
-msgid "The order has been prepaid ; Can not be split"
+msgid "The order has been prepaid ; Cannot be split"
 msgstr ""
 
 #: ../..//content/controllers/components/guest_check.js:550
 msgid "The order must be stored first!"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:607
-#: ../..//content/controllers/components/guest_check.js:622
-#: ../..//content/controllers/components/guest_check.js:874
-#: ../..//content/controllers/components/guest_check.js:903
-#: ../..//content/controllers/components/guest_check.js:959
-#: ../..//content/controllers/components/guest_check.js:985
-#: ../..//content/controllers/components/guest_check.js:1048
-#: ../..//content/controllers/components/guest_check.js:1083
+#: ../..//content/controllers/components/guest_check.js:606
+#: ../..//content/controllers/components/guest_check.js:621
+#: ../..//content/controllers/components/guest_check.js:867
+#: ../..//content/controllers/components/guest_check.js:896
+#: ../..//content/controllers/components/guest_check.js:956
+#: ../..//content/controllers/components/guest_check.js:982
+#: ../..//content/controllers/components/guest_check.js:1049
+#: ../..//content/controllers/components/guest_check.js:1084
 #: ../..//content/controllers/components/guest_check.js:1226
-#: ../..//content/controllers/components/guest_check.js:1606
-#: ../..//content/controllers/components/guest_check.js:1621
+#: ../..//content/controllers/components/guest_check.js:1607
+#: ../..//content/controllers/components/guest_check.js:1622
 msgid "This order object does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:617
-#: ../..//content/controllers/components/guest_check.js:880
-#: ../..//content/controllers/components/guest_check.js:912
-#: ../..//content/controllers/components/guest_check.js:994
-#: ../..//content/controllers/components/guest_check.js:1064
-#: ../..//content/controllers/components/guest_check.js:1093
+#: ../..//content/controllers/components/guest_check.js:616
+#: ../..//content/controllers/components/guest_check.js:873
+#: ../..//content/controllers/components/guest_check.js:905
+#: ../..//content/controllers/components/guest_check.js:991
+#: ../..//content/controllers/components/guest_check.js:1065
+#: ../..//content/controllers/components/guest_check.js:1094
 #: ../..//content/controllers/components/guest_check.js:1185
 #: ../..//content/controllers/components/guest_check.js:1260
-#: ../..//content/controllers/components/guest_check.js:1616
+#: ../..//content/controllers/components/guest_check.js:1617
 msgid "This order is already finalized!"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:716
+#: ../..//content/controllers/components/guest_check.js:709
 msgid ""
-"Table# %S invalid. table number must greater than 0; Please input another "
-"Table#"
+"[%S] is an invalid table number. Table number must be greater than 0; Please "
+"input another table number."
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:743
+#: ../..//content/controllers/components/guest_check.js:736
 msgid ""
-"Check# %S invalid. check number must greater than 0; Please input another "
-"Check#"
+"[%S] is an invalid number. Check numbers must be greater than 0. Please "
+"input another check number"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:794
+#: ../..//content/controllers/components/guest_check.js:787
 msgid "STORED"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:797
-#: ../..//content/controllers/components/guest_check.js:1287
-#: ../..//content/controllers/components/guest_check.js:1318
-#: ../..//content/controllers/components/guest_check.js:1361
-#: ../..//content/controllers/components/guest_check.js:1397
+#: ../..//content/controllers/components/guest_check.js:790
+#: ../..//content/controllers/components/guest_check.js:1288
+#: ../..//content/controllers/components/guest_check.js:1319
+#: ../..//content/controllers/components/guest_check.js:1362
+#: ../..//content/controllers/components/guest_check.js:1398
 msgid "This order has been stored!!"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:821
+#: ../..//content/controllers/components/guest_check.js:814
 msgid "Recall Input Sequence Number"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:821
+#: ../..//content/controllers/components/guest_check.js:814
 msgid "Input sequence number to recall"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:821
+#: ../..//content/controllers/components/guest_check.js:814
 msgid "Sequence Number"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:885
-msgid "Can not find the Order# (%S)!!"
+#: ../..//content/controllers/components/guest_check.js:878
+msgid "No stored order found for sequence number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:908
-#: ../..//content/controllers/components/guest_check.js:964
-#: ../..//content/controllers/components/guest_check.js:990
-#: ../..//content/controllers/components/guest_check.js:1089
-#: ../..//content/controllers/components/guest_check.js:1704
-#: ../..//content/controllers/components/guest_check.js:1750
+#: ../..//content/controllers/components/guest_check.js:901
+#: ../..//content/controllers/components/guest_check.js:961
+#: ../..//content/controllers/components/guest_check.js:987
+#: ../..//content/controllers/components/guest_check.js:1090
+#: ../..//content/controllers/components/guest_check.js:1705
+#: ../..//content/controllers/components/guest_check.js:1751
 msgid "RECALL# %S"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:916
-msgid "Can not find the Check# %S !!"
+#: ../..//content/controllers/components/guest_check.js:909
+#: ../..//content/controllers/components/guest_check.js:995
+#: ../..//content/controllers/components/guest_check.js:1097
+msgid "No stored order found"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:968
+#: ../..//content/controllers/components/guest_check.js:912
+msgid "No stored order found for check number [%S]"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:965
 #: ../..//content/controllers/components/guest_check.js:1232
 msgid "This order has been submited!!"
 msgstr ""
 
 #: ../..//content/controllers/components/guest_check.js:998
-#: ../..//content/controllers/components/guest_check.js:1097
-#: ../..//content/controllers/components/guest_check.js:1266
-msgid "Can not find the Table# %S !!"
+msgid "No stored order found for table number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1056
+#: ../..//content/controllers/components/guest_check.js:1057
 msgid "RECALLED# %S"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1059
+#: ../..//content/controllers/components/guest_check.js:1060
 msgid "ORDER RECALLED"
 msgstr ""
 
@@ -7341,11 +7345,15 @@ msgstr ""
 msgid "Current order is not saved successfully, please try again..."
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1667
+#: ../..//content/controllers/components/guest_check.js:1267
+msgid "No order found for table number [%S]"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:1668
 msgid "The target order object does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1699
+#: ../..//content/controllers/components/guest_check.js:1700
 msgid "The source order object does not exist [%S]"
 msgstr ""
 
