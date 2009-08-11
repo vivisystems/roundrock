@@ -37,13 +37,13 @@
             var plugroupPanelView = new NSIPluGroupsView(groups);
             group_listscrollablepanel.datasource = plugroupPanelView;
 
-            var condGroups = GeckoJS.Session.get('condGroups');
+            var condGroups = GeckoJS.Session.get('condGroups') || [];
 
             var condimentscrollablepanel = document.getElementById('condimentscrollablepanel');
             var condGroupPanelView = new NSICondGroupsView(condGroups);
             condimentscrollablepanel.datasource = condGroupPanelView;
 
-           this._condGroupsById = GeckoJS.Session.get('condGroupsById');
+           this._condGroupsById = GeckoJS.Session.get('condGroupsById') || {};
 
             doSetOKCancel(
                 function(){

@@ -12,7 +12,6 @@
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
 
             var layoutOverlayUri = 'chrome://viviecr/content/layouts/traditional/traditional.xul';
-
             if (layouts[selectedLayout]) {
                 layoutOverlayUri = layouts[selectedLayout]['overlay_uri'] || layoutOverlayUri;
             }
@@ -26,7 +25,6 @@
                     }
                 }
             };
-
             try {
                 document.loadOverlay(layoutOverlayUri, observer);
             }catch(e) {

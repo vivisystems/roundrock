@@ -38,7 +38,8 @@
                 var row = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'xul:row');
                 var filter_label = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'xul:label');
                 var filter_textbox = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul','xul:vivitextbox');
-                var label = o.filtername + ' (' + index + '-' + (index + len - 1) + '):';
+                var label = o.filtername + ' (' + index + '-' + (index + len - 1) + ')';
+                filter_label.setAttribute('id', 'filter_label_' + i);
                 filter_label.setAttribute('value', label);
                 filter_textbox.setAttribute('id', 'filter_' + i++);
                 filter_textbox.setAttribute('size', parseInt(o.length) + 2);
@@ -57,10 +58,11 @@
             var lastItem = this._filterDatas[this._filterDatas.length - 1];
             var len = parseInt(lastItem.index) + parseInt(lastItem.length) - 1;
             var pattern = '';
+            var searchMessage = '';
             pattern = GeckoJS.String.padLeft(pattern, len, "_");
             var i=0;
             this._filterDatas.forEach(function(o){
-                var f = document.getElementById('filter_' + i++).value;
+                var f = GeckoJS.String.trim(document.getElementById('filter_' + i++).value);
                 if (f.length > 0) {
                     var index = parseInt(o.index) - 1;
                     var len = parseInt(o.length);
@@ -70,10 +72,11 @@
                         pat[index + j] = f[j];
                     }
                     pattern = pat.join("");
+                    searchMessage += ('    ' + o.filtername + '=' + f + '\n');
                 }
             });
             // this.load(pattern);
-            this.searchPlu(pattern);
+            this.searchPlu(pattern, searchMessage);
         },
 
         advClear: function() {
@@ -84,11 +87,11 @@
             });
         },
 
-        load: function(barcode) {
+        load: function(barcode, advanced) {
             var fields = [];
             var searchStr = this._queryStringPreprocessor(barcode);
 
-            var conditions = "products.no like '" + searchStr + "%' or products.barcode like '" + searchStr + "%' or products.name like '%" + searchStr + "%'";
+            var conditions = "products.no like '" + searchStr + (advanced ? "%" : ("%' or products.barcode like '" + searchStr + "%' or products.name like '%" + searchStr + "%'"));
             var prodModel = new ProductModel();
             var datas = prodModel.find('all',{fields: fields, conditions: conditions, recursive: 1});
 
@@ -137,18 +140,25 @@
             }
         },
 
-        searchPlu: function (barcode) {
+        searchPlu: function (barcode, advanced) {
             barcode = barcode.replace(/[_\xa0]+$/, '');
             if (barcode == "") return;
 
-            this.load(barcode);
+            this.load(barcode, advanced);
             
             if (this._listDatas.length <= 0) {
                 // barcode notfound
 
-                GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Product Search'),
-                                      _('Product [%S] Not Found!', [barcode]));
+                if (advanced) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Product Search'),
+                                          _('No products found with conditions') + ':\n\n' + advanced);
+                }
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Product Search'),
+                                          _('Product [%S] Not Found!', [barcode]));
+                }
             } else if (this._listDatas.length == 1) {
                 var product = this._listDatas[0];
                 
