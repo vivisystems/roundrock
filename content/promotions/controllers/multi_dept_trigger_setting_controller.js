@@ -84,8 +84,8 @@
             var panelView1 = this._deptPanelView1;
             var panelView2 = this._deptPanelView2;
 
-            panelView1.setValue(item.first_id);
-            panelView2.setValue(item.second_id);
+            if (item.first_id) panelView1.setValue(item.first_id);
+            if (item.second_id) panelView2.setValue(item.second_id);
             
         }
 
