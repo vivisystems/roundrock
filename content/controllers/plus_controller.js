@@ -57,7 +57,7 @@
 
         createPluPanel: function () {
             // construct categoryByNo lookup table
-            var categories = GeckoJS.Session.get('categories');
+            var categories = GeckoJS.Session.get('categories') || [];
             for (var i = 0; i < categories.length; i++) {
                 this._categoriesByNo['' + categories[i].no] = categories[i];
                 this._categoryIndexByNo['' + categories[i].no] = i;

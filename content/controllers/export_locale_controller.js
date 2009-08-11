@@ -36,6 +36,22 @@
             this._path = path;
         },
         
+        _showWaitPanel: function(message) {
+            var caption = document.getElementById( 'wait_caption' );
+            if (caption) caption.label = message;
+
+            // hide progress bar
+            var progress = document.getElementById('progress');
+            if (progress) progress.setAttribute('hidden', true);
+
+            var waitPanel = document.getElementById('wait_panel');
+            if (waitPanel) waitPanel.openPopupAtScreen(0, 0);
+
+            // release CPU for progressbar ...
+            this.sleep(100);
+            return waitPanel;
+        },
+
         exportLocale: function() {
             if (!this._pkg) {
                 NotifyUtils.warn(_('Please select a package to export first'));
@@ -72,6 +88,8 @@
                 return;
             }
 
+            var waitPanel = this._showWaitPanel(_('Generating add-on...'));
+
             // save edited install.rdf in /tmp
             var r;
             var tmpInstallRDF = '/tmp/install.rdf.' + GeckoJS.String.uuid();
@@ -84,6 +102,7 @@
             fp.close();
             if (!r) {
                 GREUtils.File.remove(tmpInstallRDF);
+                waitPanel.hidePopup();
                 return;
             }
 
@@ -95,6 +114,7 @@
             exec.close();
 
             GREUtils.File.remove(tmpInstallRDF);
+            waitPanel.hidePopup();
             NotifyUtils.info(_( 'Locale package [%S] successfully exported', [this._pkg]));
         },
         
