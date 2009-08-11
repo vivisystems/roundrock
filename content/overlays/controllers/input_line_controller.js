@@ -48,12 +48,14 @@
                     // we need to calculate real font render width;
                     var fontWidth = this.detectFontWidth();
                     var imgHalfWidth = 4; // image width = 7px
+                    //var imgHalfWidth = 1; // image width = 1 200px
 
                     var inputFieldWidth = inputBox.inputField.clientWidth;
                     var inputFieldBgSeek = inputFieldWidth - imgHalfWidth - precision * fontWidth ;
 
                     // set css style
-                    inputBox.inputField.style.backgroundImage = "url(chrome://viviecr/skin/images/numdot.png)";
+                    //inputBox.inputField.style.backgroundImage = "url(chrome://viviecr/skin/images/numdot.png)"; 7px
+                    inputBox.inputField.style.backgroundImage = "url(chrome://viviecr/skin/images/numdot2.png)"; //1 200px
                     inputBox.inputField.style.backgroundRepeat = "no-repeat";
                     inputBox.inputField.style.backgroundPosition = inputFieldBgSeek +"px 100%";
                 }else {

@@ -2121,6 +2121,18 @@ msgstr "Multi Buy"
 msgid "type.multi_buy.desc"
 msgstr "Promotion type - Multi Buy"
 
+msgid "Add New Multi-Buy Quantity Setting"
+msgstr "Add New Multi-Buy Quantity Setting"
+
+msgid "New Multi-Buy Quantity Setting"
+msgstr "New Multi-Buy Quantity Setting"
+
+msgid "Multi-Buy Quantity"
+msgstr "Multi-Buy Quantity"
+
+msgid "Multi-Buy Value"
+msgstr "Multi-Buy Value"
+
 ########################################################################
 #
 # System Backup

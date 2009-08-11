@@ -54,6 +54,13 @@
 
 <!ENTITY    multi_buy.title                "Multi-Buy">
 <!ENTITY    multi_buy.announcement         "This promotion type is coming soon">
+<!ENTITY    multi_buy.label.type             "Multi-Buy Type">
+<!ENTITY    multi_buy.label.type_by_fixed_value             "Fixed Value">
+<!ENTITY    multi_buy.label.type_by_amount_off             "Amount Off">
+<!ENTITY    multi_buy.label.type_by_percentage_off             "Percentage Off">
+<!ENTITY    multi_buy.label.quantity       "Quantity">
+<!ENTITY    multi_buy.label.value          "Value">
+
 
 <!ENTITY    button.action.down    "Down">
 <!ENTITY    button.action.modify  "Modify">
