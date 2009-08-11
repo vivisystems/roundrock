@@ -50,7 +50,8 @@
                         discount = (0 - parseFloat(subtotal - amount*promotionValue));
                         break;
                     case 'by_amount_off':
-                        discount = (0 - parseFloat(promotionValue*amount));
+                        //discount = (0 - parseFloat(promotionValue*amount)); // preitem amount off
+                        discount = (0 - parseFloat(promotionValue)); // subtotal amount off
                         break;
                     case 'by_percentage_off':
                         discount = (0 - parseFloat(subtotal * promotionValue / 100));
