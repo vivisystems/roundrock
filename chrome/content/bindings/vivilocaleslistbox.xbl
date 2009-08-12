@@ -16,6 +16,12 @@
         </resources>
 
         <content>
+            
+            <xul:stringbundleset>
+                <xul:stringbundle anonid="bundleRegions"      src="chrome://global/locale/regionNames.properties"/>
+                <xul:stringbundle anonid="bundleLanguages"    src="chrome://global/locale/languageNames.properties"/>
+            </xul:stringbundleset>
+            
             <xul:hbox xbl:inherits="class,pack,width,height,disabled,flex,popupheight,popupwidth">
                 <xul:listbox anonid="locales-listbox" crop="none" xbl:inherits="rows,flex,class=listboxClass,crop,dir,pack,align,seltype"
                              onselect="updateLocale(this.selectedIndex)">
@@ -41,6 +47,14 @@
         </content>
 
         <xbl:implementation>
+
+            <field name="bundleLanguages">
+            document.getAnonymousElementByAttribute(this, "anonid", "bundleLanguages");
+            </field>
+
+            <field name="bundleRegions">
+            document.getAnonymousElementByAttribute(this, "anonid", "bundleRegions");
+            </field>
 
             <field name="listbox">
             document.getAnonymousElementByAttribute(this, "anonid", "locales-listbox");
@@ -140,7 +154,7 @@
                 while(availableLocales.hasMore()) {
                     var locale = availableLocales.getNext();
 
-                    locales.push({label: _('(locale)' + locale),
+                    locales.push({label: this.getLanguageName(locale),
                                   value: locale,
                                   image: 'chrome://vivipos/skin/flags/tb_' + locale + '.png'});
 
@@ -176,7 +190,7 @@
                     locales.forEach(function(locale) {
                         var listitem = document.createElementNS(XUL_NS, "listitem");
                         listitem.setAttribute("value", locale.value);
-                        listitem.setAttribute("label", _('(locale)' + locale.value));
+                        listitem.setAttribute("label", locale.label);
                         listitem.setAttribute("class", "listitem-iconic");
                         listitem.setAttribute("image", "chrome://vivipos/skin/flags/tb_" + locale.value + ".png");
 
@@ -192,6 +206,47 @@
                 ]]>
                 </xbl:body>
             </xbl:method>
+
+            <xbl:method name="getLanguageName">
+                <xbl:parameter name="abCD"/>
+                <xbl:body><![CDATA[
+                    // abCD ex. zh-TW
+                    var abCDPairs = abCD.split("-");      // ab[-cd]
+                    var useABCDFormat = abCDPairs.length > 1;
+                    var ab = useABCDFormat ? abCDPairs[0] : abCD;
+                    var cd = (useABCDFormat ? abCDPairs[1] : "").toLowerCase();
+
+                    var name = "";
+                    var language = "";
+                    var region = "";
+
+                    if (ab) {
+                          
+                          try {
+                            language = this.bundleLanguages.getString(ab);
+                          }
+                          catch (e) {  }
+
+                          if (useABCDFormat) {
+                            try {
+                              region = this.bundleRegions.getString(cd);
+                            }
+                            catch (e) {  }
+                          }
+                     }
+
+                     if (useABCDFormat) {
+                        name = language + " - " + region + " [" + abCD + "]";
+                     }else {
+                        name = language + " [" + abCD + "]";
+                     }
+
+                     return name;
+
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
 
             <xbl:method name="updateLocale">
                 <xbl:parameter name="index"/>
