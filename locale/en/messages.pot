@@ -2121,6 +2121,36 @@ msgstr "Multi Buy"
 msgid "type.multi_buy.desc"
 msgstr "Promotion type - Multi Buy"
 
+msgid "trigger.multi_dept.label"
+msgstr "Multi Department"
+
+msgid "trigger.multi_dept.name"
+msgstr "Multi Department"
+
+msgid "trigger.multi_dept.desc"
+msgstr "Promotion trigger - Multi Department"
+
+msgid "trigger.multi_group.label"
+msgstr "Multi Product Group"
+
+msgid "trigger.multi_group.name"
+msgstr "Multi Product Group"
+
+msgid "trigger.multi_group.desc"
+msgstr "Promotion trigger - Multi Product Group"
+
+msgid "Add New Multi-Buy Quantity Setting"
+msgstr "Add New Multi-Buy Quantity Setting"
+
+msgid "New Multi-Buy Quantity Setting"
+msgstr "New Multi-Buy Quantity Setting"
+
+msgid "Multi-Buy Quantity"
+msgstr "Multi-Buy Quantity"
+
+msgid "Multi-Buy Value"
+msgstr "Multi-Buy Value"
+
 ########################################################################
 #
 # System Backup

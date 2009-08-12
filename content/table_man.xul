@@ -346,7 +346,7 @@
                                     <tabpanel>
                                         <vbox flex="1">
                                         <caption label="&tableman.tableoptions.options;" />
-                                        <grid class="DataForm" flex="1">
+                                        <grid class="data-form" flex="1">
                                             <columns>
                                                 <column flex="1" />
                                                 <column flex="1" />

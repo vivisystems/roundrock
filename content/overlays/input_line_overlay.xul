@@ -10,6 +10,7 @@
 
     <box id="inputLinePanelContainer">
         <textbox id="inputLineTextBox" rows="2" flex="1" class="main-input-line"/>
+        <html:div id="detectFontContainer" style="display: none;" class="main-input-line"></html:div>
     </box>
 
 </overlay>

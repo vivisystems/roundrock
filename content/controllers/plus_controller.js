@@ -37,13 +37,13 @@
             var plugroupPanelView = new NSIPluGroupsView(groups);
             group_listscrollablepanel.datasource = plugroupPanelView;
 
-            var condGroups = GeckoJS.Session.get('condGroups');
+            var condGroups = GeckoJS.Session.get('condGroups') || [];
 
             var condimentscrollablepanel = document.getElementById('condimentscrollablepanel');
             var condGroupPanelView = new NSICondGroupsView(condGroups);
             condimentscrollablepanel.datasource = condGroupPanelView;
 
-           this._condGroupsById = GeckoJS.Session.get('condGroupsById');
+           this._condGroupsById = GeckoJS.Session.get('condGroupsById') || {};
 
             doSetOKCancel(
                 function(){
@@ -57,7 +57,7 @@
 
         createPluPanel: function () {
             // construct categoryByNo lookup table
-            var categories = GeckoJS.Session.get('categories');
+            var categories = GeckoJS.Session.get('categories') || [];
             for (var i = 0; i < categories.length; i++) {
                 this._categoriesByNo['' + categories[i].no] = categories[i];
                 this._categoryIndexByNo['' + categories[i].no] = i;

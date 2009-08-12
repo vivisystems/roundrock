@@ -53,11 +53,12 @@
                 </hbox>
                 <hbox align="center" flex="1" pack="center">
                     <label value="&importexport.charsetselector;:"/>
-                    <menulist id="import_export_charset" name="import_export_charset" class="custom-content-charset-menu"
+                    <label id="selectedCharset" value=""/>
+                    <!--menulist id="import_export_charset" name="import_export_charset" class="custom-content-charset-menu"
                               oncommand="GeckoJS.Configure.write('vivipos.fec.registry.import_export.index', this.value)">
                         <menupopup id="import_export_charset-popup">
                         </menupopup>
-                    </menulist>
+                    </menulist-->
                 </hbox>
             </hbox>
             <hbox>

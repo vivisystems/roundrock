@@ -34,12 +34,70 @@
         },
 
         updateDecimalPoint: function() {
+
             var autoAdjust = GeckoJS.Configure.read('vivipos.fec.settings.AutoSetDecimalPoint');
-            var precision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            var precision = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0);
+
+            var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
 
             if (autoAdjust) {
                 this._inputBox.setAttribute('style', 'text-align: right');
+                
+                if (precision > 0) {
+                    
+                    // we need to calculate real font render width;
+                    var fontWidth = this.detectFontWidth();
+                    var imgHalfWidth = 4; // image width = 7px
+                    //var imgHalfWidth = 1; // image width = 1 200px
+
+                    var inputFieldWidth = inputBox.inputField.clientWidth;
+                    var inputFieldBgSeek = inputFieldWidth - imgHalfWidth - precision * fontWidth ;
+
+                    // set css style
+                    //inputBox.inputField.style.backgroundImage = "url(chrome://viviecr/skin/images/numdot.png)"; 7px
+                    inputBox.inputField.style.backgroundImage = "url(chrome://viviecr/skin/images/numdot2.png)"; //1 200px
+                    inputBox.inputField.style.backgroundRepeat = "no-repeat";
+                    inputBox.inputField.style.backgroundPosition = inputFieldBgSeek +"px 100%";
+                }else {
+                    inputBox.inputField.style.backgroundImage = "";
+                    inputBox.inputField.style.backgroundRepeat = "";
+                    inputBox.inputField.style.backgroundPosition = "";
+                }
+            }else {
+                this._inputBox.setAttribute('style', 'text-align: left');
+               
+                inputBox.inputField.style.backgroundImage = "";
+                inputBox.inputField.style.backgroundRepeat = "";
+                inputBox.inputField.style.backgroundPosition = "";
+
             }
+        },
+
+        detectFontWidth: function() {
+
+            var h = document.getElementById("detectFontContainer");
+            var d = document.createElementNS("http://www.w3.org/1999/xhtml","html:div");
+            var s = document.createElementNS("http://www.w3.org/1999/xhtml","html:span");
+            var fontWidth = 0;
+            
+            try {
+                h.style.display = "block";
+                d.appendChild(s);
+                s.textContent       = "0123456789ABCDEF";
+                h.appendChild(d);
+                var defaultWidth   = s.offsetWidth;
+
+                // remove fontDetectContainer
+                h.removeChild(d);
+
+                h.style.display = "none";
+
+                fontWidth = Math.floor(defaultWidth/16);
+
+            }catch(e) {
+            }
+
+            return fontWidth;
         },
 
         destroy: function() {

@@ -245,6 +245,22 @@
             return resolutions;
         },
 
+        _showWaitPanel: function(message) {
+            var caption = document.getElementById( 'wait_caption' );
+            if (caption) caption.label = message;
+
+            // hide progress bar
+            var progress = document.getElementById('progress');
+            if (progress) progress.setAttribute('hidden', true);
+
+            var waitPanel = document.getElementById('wait_panel');
+            if (waitPanel) waitPanel.openPopupAtScreen(0, 0);
+
+            // release CPU for progressbar ...
+            this.sleep(100);
+            return waitPanel;
+        },
+
         updateTranslation: function() {
             var targetLocaleListObj = document.getElementById('targetlocales');
             this.selectTargetLocale(targetLocaleListObj.selectedIndex);
@@ -333,6 +349,14 @@
                 return;
             }
 
+            var media_path = this.CheckMedia.checkMedia( this.exporting_file_folder );
+            if ( !media_path ) {
+                NotifyUtils.warn( _( 'Media not found!! Please attach the USB thumb drive...' ) );
+                return;
+            }
+
+            var waitPanel = this._showWaitPanel(_('Generating add-on...'));
+
             var data = {};
             data.location = document.getElementById('pkg_location').value;
             data.sector = document.getElementById('pkg_sector').value;
@@ -363,17 +387,11 @@
 
             data.layout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             
-            var media_path = this.CheckMedia.checkMedia( this.exporting_file_folder );
-            if ( !media_path ) {
-                NotifyUtils.warn( _( 'Media not found!! Please attach the USB thumb drive...' ) );
-                return;
-            }
-
             // create directory structure
             var profPath = GeckoJS.Configure.read('ProfD');
             var systemPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
 
-            var rootPath = '/tmp/' + GeckoJS.String.uuid();
+            var rootPath = systemPath + '/backups/' + GeckoJS.String.uuid();
             var chromePath = rootPath + '/chrome';
             var defaultsPath = rootPath + '/defaults';
             var prefsPath = defaultsPath + '/preferences';
@@ -504,6 +522,8 @@
             // remove tmp directory, which should be empty
             GREUtils.Dir.remove(rootPath);
 
+            waitPanel.hidePopup();
+            
             // notify user
             GREUtils.Dialog.alert(this.topmostWindow, _('Export Package'), _('Package [%S] has been exported to [%S] as [%S]',
                                   [package_name, media_path, xpiFile]));

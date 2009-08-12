@@ -56,7 +56,6 @@
                 alertWin.close();
                 delete alertWin;
             }
-            $.unblockUI();
             
             //this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
@@ -188,7 +187,7 @@
             }
 
             // block UI
-            var waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Generating screen capture...'), 500, true);
+            var waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
 
             // invoke external script to capture screen image
             var uuid = GeckoJS.String.uuid();

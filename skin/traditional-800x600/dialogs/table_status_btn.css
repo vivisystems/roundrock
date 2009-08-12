@@ -4,12 +4,6 @@
  *
  *-----------------------------------------------------------------------------
  */
-table_status_std_btn {
-  -moz-binding: url("chrome://viviecr/content/bindings/table_status_std_btn.xbl#table_status_btn");
-}
-table_status_btn {
-  -moz-binding: url("chrome://viviecr/content/bindings/table_status_btn.xbl#table_status_btn");
-}
 
 .container-dialog table_status_btn {
     margin: 2px;
@@ -56,15 +50,15 @@ table_status_btn {
 
 .container-dialog table_status_btn .table_label {
     background: none;
-    font-style: italic;
     float: left;
+    font-style: italic;
 }
 
 .container-dialog table_status_btn .checks {
-    background-color: none;
+    background: none;
     color: #f33;
-    font-size: 16px;
     float: right;
+    font-size: 16px;
     margin-top: 6px;
     text-align: right;
 }
@@ -80,8 +74,8 @@ table_status_btn {
 }
 
 .container-dialog table_status_btn .seq_no {
-    float: left;
     background: none;
+    float: left;
 }
 
 .container-dialog table_status_btn .booking {

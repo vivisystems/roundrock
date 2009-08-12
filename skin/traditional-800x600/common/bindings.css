@@ -83,3 +83,12 @@ vivi_tables_map {
 diskspace_usage {
   -moz-binding: url("chrome://viviecr/content/bindings/diskspace_usage.xbl#diskspace_usage");
 }
+
+table_status_std_btn {
+  -moz-binding: url("chrome://viviecr/content/bindings/table_status_std_btn.xbl#table_status_btn");
+}
+
+table_status_btn {
+  -moz-binding: url("chrome://viviecr/content/bindings/table_status_btn.xbl#table_status_btn");
+}
+

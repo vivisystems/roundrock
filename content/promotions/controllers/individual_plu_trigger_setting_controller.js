@@ -60,7 +60,6 @@
                 this._treeData = item.data || [];
                 this.updateTreeView();
 
-
             }else {
                 this.Form.reset('individualPluForm');
             }

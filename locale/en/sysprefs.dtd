@@ -109,6 +109,7 @@
 <!ENTITY formats.sequence.number.length "Sequence number length">
 <!ENTITY formats.revalueprices "Rounding value to use for Revalue Prices">
 <!ENTITY formats.autorevalueprices "Auto-Revalue subtotal prices">
+<!ENTITY formats.charsetselector "Import/Export Charset">
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
 <!ENTITY orderdata.diskunused "Available disk space">
 <!ENTITY orderdata.orderweeklypack "Pack order data on">

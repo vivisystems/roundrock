@@ -12,7 +12,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/select_setitem.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_win.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_styles.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/common/table_status_btn.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_status_btn.css" type="text/css"?>
 
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/order_display_template.css" type="text/css"?>
 
@@ -35,13 +35,13 @@
         <vbox class="EmptyArea" >
             <hbox flex="1">
                 <spacer flex = "1" />
-                <button id="btn_prior_region" class="fixedbtn" label="&selecttable.priorregion;" disabled="false"  oncommand="$do('_menuPriorRegion', null, 'SelectTable');" />
+                <button id="btn_prior_region" class="button-fixed" label="&selecttable.priorregion;" disabled="false"  oncommand="$do('_menuPriorRegion', null, 'SelectTable');" />
                 <menulist id="table_region" flex="1" oncommand="$do('setRegion', this.value, 'SelectTable');">
                     <menupopup id="table_region_menupopup">
 
                     </menupopup>
                 </menulist>
-                <button id="btn_next_region" class="fixedbtn" label="&selecttable.nextregion;" disabled="false"  oncommand="$do('_menuNextRegion', null, 'SelectTable');" />
+                <button id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"  oncommand="$do('_menuNextRegion', null, 'SelectTable');" />
             </hbox>
             <spacer flex="1" />
         </vbox>

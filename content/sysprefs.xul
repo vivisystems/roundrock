@@ -209,6 +209,18 @@
                             <textbox preference="pref_revalueprices" id="revalueprices" type="number" min="0"/>
                         </vbox>
                     </row>
+                    <row>
+                        <hbox flex="1" align="center">
+                            <label value="&formats.charsetselector;:"/>
+                            <menulist id="import_export_charset" flex="1" class="custom-content-charset-menu"
+                                      oncommand="GeckoJS.Configure.write('vivipos.fec.registry.import_export.charset', this.value);
+                                      GeckoJS.Configure.write('vivipos.fec.registry.import_export.label', this.label);">
+                                <menupopup id="import_export_charset-popup">
+                                </menupopup>
+                            </menulist>
+                        </hbox>
+                        <spacer />
+                    </row>
                 </rows>
             </grid>
         </vbox>
