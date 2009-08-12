@@ -37,8 +37,11 @@
         _tableStatusIdxById: {},
         _tableOrderByOrderId: {},
         _tableBookings: null,
+        _tableNoArray: [],
 
         initial: function (c) {
+
+            this._validateTables();
 
             this.setTableStatusOptions();
             
@@ -46,6 +49,7 @@
                 
                 this.getTableStatusList();
             }
+
         },
 
         syncClient: function() {
@@ -214,6 +218,41 @@
             this.data = GeckoJS.BaseObject.unserialize(data);
         },
 
+        _validateTables: function() {
+            try {
+                // validate table_status belongsTo table
+                var conditions = "tables.id IS NULL";
+                var tableStatuses = this.find("all", {conditions: conditions});
+
+                if (tableStatuses && tableStatuses.length > 0) {
+                    tableStatuses.forEach(function(tableStatus){
+                        this.del(tableStatus.id);
+                    }, this);
+                }
+
+                // validate table hasOne table_status
+                var tableModel = new TableModel();
+                var condTables = "table_statuses.id IS NULL";
+                var tables = tableModel.find("all", {conditions: condTables, recursive: 1});
+
+                if (tables && tables.length > 0) {
+                    tables.forEach(function(table){
+
+                        var newTableStatus = {table_id:table.id, table_no: table.table_no};
+
+                        this.id = '';
+                        this.save(newTableStatus);
+                    }, this);
+
+                }
+                delete tableModel;
+
+            } catch (e) {
+                this.log('ERROR', e.errmsg);
+            }
+
+        },
+
         getNewCheckNo: function(no) {
 
             var i = 1;
@@ -324,9 +363,11 @@
             } else {
 
                 this._tableStatusList = tableStatus.concat([]);
+                this._tableNoArray = [];
 
                 for (var i = 0; i < tableStatus.length; i++) {
                     this._tableStatusIdxById['' + tableStatus[i].id] = i;
+                    this._tableNoArray[tableStatus[i].Table.table_no] = tableStatus[i].Table.table_no;
                 };
             }
 
@@ -418,7 +459,10 @@
 
         getTableNo: function(table_no) {
             //
-            return table_no;
+            if (table_no in this._tableNoArray)
+                return table_no;
+            else
+                return '';
 
         },
 
