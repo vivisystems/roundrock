@@ -4,6 +4,7 @@ pref("vivipos.fec.acl.roles.acl_cancel_order", "acl_cancel_order");
 pref("vivipos.fec.acl.roles.acl_change_price_level", "acl_change_price_level");
 pref("vivipos.fec.acl.roles.acl_delete_annotations", "acl_delete_annotations");
 pref("vivipos.fec.acl.roles.acl_end_sale_period", "acl_end_sale_period");
+pref("vivipos.fec.acl.roles.acl_change_shift", "acl_change_shift");
 pref("vivipos.fec.acl.roles.acl_guest_no", "acl_guest_no");
 pref("vivipos.fec.acl.roles.acl_internal_access", "acl_internal_access");
 pref("vivipos.fec.acl.roles.acl_issue_check", "acl_issue_check");

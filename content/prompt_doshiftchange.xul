@@ -124,9 +124,12 @@
 
             <hbox>
                 <hbox id="dialogButtons" pack="start" flex="1" class="toolbar" toolbarmode="horizontal">
-                    <button id="ok" label="&prompt.shiftchange.change.shift;" disabled="false" default="true" oncommand="if (confirmEndShift()) doOKButton();"/>
+                    <vivibutton id="ok" label="&prompt.shiftchange.change.shift;" disabled="false" default="true"
+                                roles="acl_change_shift" action="hide"
+                                oncommand="if (confirmEndShift()) doOKButton();"/>
                     <spacer flex="1"/>
                     <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" disabled="false" default="false"
+                                roles="acl_end_sale_period" action="hide"
                                 oncommand="if (confirmEndSalePeriod()) doOKButton('end')"/>
                 </hbox>
                 <hbox id="dialogButtons" pack="end" class="exitbar">
