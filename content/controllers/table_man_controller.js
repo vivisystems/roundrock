@@ -172,7 +172,7 @@
 
                 for(var no = 1; no <= num; no++) {
                     var table_no = no;
-                    var table_name = '';
+                    var table_name = 'T' + no;
                     var seats = defaultSeats;
 
                     var newTable = {table_no: table_no, table_name: table_name, active: true, seats: seats};
