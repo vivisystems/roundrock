@@ -48,12 +48,18 @@
 
         // csv export charset
         var charsetmenu = document.getElementById('import_export_charset');
+        var bundleCharsetTitles = document.getElementById('bundleCharsetTitles');
 
-        var charSetLabels = _('vivipos.fec.registry.import_export.charsets.label') == 'vivipos.fec.registry.import_export.charsets.label' ? ['UTF-8'] : _('vivipos.fec.registry.import_export.charsets.label').split(',');
-        var charSets = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
+        var charSets = _('vivipos.fec.registry.import_export.charsets') == 'vivipos.fec.registry.import_export.charsets' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets').split(',');
 
-        for (var i in charSetLabels) {
-            charsetmenu.appendItem(charSetLabels[i], GeckoJS.String.trim(charSets[i]), '');
+        for (var i in charSets) {
+            var charset = GeckoJS.String.trim(charSets[i]);
+            var charsetTitle = charset;
+            try {
+                charsetTitle = bundleCharsetTitles.getString(charset+".title");
+            }catch(e){}
+
+            charsetmenu.appendItem(charsetTitle, charset, '');
         }
 
         var selectedCharSet = GeckoJS.Configure.read('vivipos.fec.registry.import_export.charset') || 'utf-8';

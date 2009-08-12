@@ -1936,7 +1936,13 @@
             this.getListObj().datasource = panelView;
 
             this.selectedCharSet = GeckoJS.Configure.read('vivipos.fec.registry.import_export.charset') || 'utf-8';
-            this.selectedCharSetLabel = GeckoJS.Configure.read('vivipos.fec.registry.import_export.label') || 'UTF-8';
+            this.selectedCharSetLabel = this.selectedCharSet;
+            
+            var bundleCharsetTitles = document.getElementById('bundleCharsetTitles');
+
+            try {
+                this.selectedCharSetLabel = bundleCharsetTitles.getString(this.selectedCharSet +'.title');
+            }catch(e){}
 
             document.getElementById('selectedCharset').value = this.selectedCharSetLabel;
         },

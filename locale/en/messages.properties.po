@@ -14,27 +14,13 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-11 19:12+0800\n"
+"POT-Creation-Date: 2009-08-12 14:41+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-# #######################################################################
-#
-# List of Locales
-#
-# #######################################################################
-msgid "(locale)en"
-msgstr "English (en)"
-
-msgid "(locale)en-US"
-msgstr "English - US (en-US)"
-
-msgid "(locale)zh-TW"
-msgstr "繁體中文 - 台灣 (zh-TW)"
 
 # #######################################################################
 #
@@ -2565,11 +2551,8 @@ msgstr "Internal VFD (non-en)"
 # List of Import / Export
 #
 # #######################################################################
-msgid "vivipos.fec.registry.import_export.charsets.label"
-msgstr "BIG5,UTF-8"
-
-msgid "vivipos.fec.registry.import_export.charsets.charset"
-msgstr "big5,utf-8"
+msgid "vivipos.fec.registry.import_export.charsets"
+msgstr "us-ascii,iso-8859-1,utf-8"
 
 # #######################################################################
 #
@@ -2757,15 +2740,15 @@ msgstr ""
 msgid "Do not pack"
 msgstr ""
 
-#: ../..//content/sysprefs.js:77
+#: ../..//content/sysprefs.js:83
 msgid "Rebuilding databases..."
 msgstr ""
 
-#: ../..//content/sysprefs.js:122
+#: ../..//content/sysprefs.js:128
 msgid "General Options"
 msgstr ""
 
-#: ../..//content/sysprefs.js:122
+#: ../..//content/sysprefs.js:128
 msgid "General options saved"
 msgstr ""
 

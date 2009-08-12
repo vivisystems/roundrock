@@ -23,9 +23,10 @@
         getRemoteServiceUrl2: function(method,force_remote) {
             this.syncSettings = (new SyncSetting()).read();
 
-            if (this.syncSettings && this.syncSettings.active == 1) {
+            if (this.syncSettings && this.syncSettings.active == 1 && this.syncSettings.table_active) {
 
-                var hostname = this.syncSettings.table_hostname || 'localhost';
+                // var hostname = this.syncSettings.table_hostname || 'localhost';
+                var hostname = this.syncSettings.hostname || 'localhost';
                 if ((hostname == 'localhost' || hostname == '127.0.0.1') && !force_remote) return false;
 
                 //  http://localhost:3000/sequences/getSequence/check_no
@@ -140,9 +141,9 @@
 
             this.syncSettings = (new SyncSetting()).read();
 
-            if (this.syncSettings && this.syncSettings.active == 1) {
+            if (this.syncSettings && this.syncSettings.active == 1 && this.syncSettings.table_active) {
 
-                var hostname = this.syncSettings.table_hostname || 'localhost';
+                var hostname = this.syncSettings.hostname || 'localhost';
 
                 if (hostname == 'localhost' || hostname == '127.0.0.1') return false;
 
