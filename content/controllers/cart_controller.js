@@ -565,6 +565,9 @@
                 this._clearAndSubtotal();
                 return;
             }
+
+            this._blockUI('blockui_panel', 'common_wait', _('Adding Item'), 1);
+
             // transaction is submit and close success
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 curTransaction = this._newTransaction();
@@ -628,6 +631,10 @@
                             currentItem.tax_name == plu.rate) {
 
                             this.modifyQty('plus', qty);
+
+                            // unblockUI
+                            this._unblockUI('blockui_panel');
+
                             return;
                         }
                     }
@@ -639,6 +646,9 @@
                 if (GeckoJS.Session.get('cart_set_price_value') == null) {
                     NotifyUtils.error(_('Price must be given to register sale of department [%S]', [item.name]));
                     this._clearAndSubtotal();
+
+                    // unblockUI
+                    this._unblockUI('blockui_panel');
                     return;
                 }
             }
@@ -647,6 +657,9 @@
                 // check if set item selection is needed
                 if (item.setItemSelectionRequired) {
                     this._setItemSelectionDialog(curTransaction, item);
+
+                    // unblockUI
+                    this._unblockUI('blockui_panel');
                     return;
                 }
 
@@ -714,6 +727,9 @@
             else {
                 this._clearAndSubtotal();
             }
+
+            // unblockUI
+            this._unblockUI('blockui_panel');
         //this._getCartlist().refresh();
         },
 	

@@ -90,6 +90,11 @@
     margin: 5px;
 }
 
+.container-be .content-formbox label {
+    font-size: 12pt;
+    color: #372213;
+}
+
 /*-----------------------------------------------------------------------------
  * Option box
  *-----------------------------------------------------------------------------
@@ -141,6 +146,10 @@
     color: #372213;
 }
 
+.container-be .data-form button label {
+    font-size: inherit;
+}
+
 .container-be .data-form-2 {
 	border-right: 2px solid white;
 	background: #f0efe8;
@@ -161,6 +170,10 @@
 .container-be .data-form-2 label {
     font-size: 12pt;
     color: #372213;
+}
+
+.container-be .data-form-2 button label {
+    font-size: inherit;
 }
 
 .container-be .data-form-options {

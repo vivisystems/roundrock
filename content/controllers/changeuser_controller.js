@@ -49,6 +49,8 @@
                     $('#username').val(this.users[index].username);
                 }
             }
+
+            this.validateForm();
         },
 
         checkUser: function () {

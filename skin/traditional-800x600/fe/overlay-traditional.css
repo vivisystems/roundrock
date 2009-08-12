@@ -46,3 +46,8 @@
 #statusbar-display .statusbarpanel-text {
     display: none;
 }
+
+#customerPanelContainer {
+    border: 2px ridge;
+    margin: 2px;
+}

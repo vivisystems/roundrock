@@ -135,6 +135,10 @@ vivitree[class~=standard] treechildren::-moz-tree-checkbox(checked){
   list-style-image: url("chrome://global/skin/checkbox/cbox-check.gif");
 }
 
+vivitree[class~=noscrollbar] scrollbar {
+    display: none;
+}
+
 /*-----------------------------------------------------------------------------
  * Standard vivitimezones
  *-----------------------------------------------------------------------------

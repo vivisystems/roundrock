@@ -1893,6 +1893,9 @@ msgstr "Add Ledger Entries"
 msgid "acl_localization_editor"
 msgstr "Localization Editor"
 
+msgid "acl_change_shift"
+msgstr "Change Shift"
+
 msgid "acl_end_sale_period"
 msgstr "End Sale Period"
 

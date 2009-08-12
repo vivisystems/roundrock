@@ -148,6 +148,7 @@
                                 <columns>
                                     <column flex="1"/>
                                     <column flex="1"/>
+                                    <column/>
                                 </columns>
                                 <rows>
                                     <row>
@@ -173,9 +174,6 @@
                                                    control="vivifuncpanelecr_prefs_size_vspacing"/>
                                             <textbox id="vivifuncpanelecr_prefs_size_vspacing" type="number" size="3" value="5"/>
                                         </vbox>
-                                    </row>
-                                    <row>
-                                        <hbox></hbox>
                                         <button label="&vivifuncpanelecr.prefs.tabpanel.general.size.apply;" flex="1"
                                                 class="button-item-a button-set"
                                                 oncommand="$do('setSize', null, 'vivifuncpanelecr_prefs')"/>

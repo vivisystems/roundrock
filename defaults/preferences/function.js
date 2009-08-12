@@ -303,7 +303,7 @@ pref("vivipos.fec.registry.function.programmable.setdestination.command", "setDe
 pref("vivipos.fec.registry.function.programmable.setdestination.controller", "Destinations");
 pref("vivipos.fec.registry.function.programmable.setdestination.data", "");
 
-pref("vivipos.fec.registry.function.programmable.shiftchange.access", "");
+pref("vivipos.fec.registry.function.programmable.shiftchange.access", "acl_end_sale_period,acl_change_shift");
 pref("vivipos.fec.registry.function.programmable.shiftchange.command", "shiftChange");
 pref("vivipos.fec.registry.function.programmable.shiftchange.controller", "ShiftChanges");
 pref("vivipos.fec.registry.function.programmable.shiftchange.data", "");
