@@ -5,21 +5,6 @@ msgstr ""
 
 ########################################################################
 #
-# List of Locales
-#
-########################################################################
-
-msgid "(locale)en"
-msgstr "English (en)"
-
-msgid "(locale)en-US"
-msgstr "English - US (en-US)"
-
-msgid "(locale)zh-TW"
-msgstr "繁體中文 - 台灣 (zh-TW)"
-
-########################################################################
-#
 # List of Control Panels
 #
 ########################################################################
@@ -2630,11 +2615,8 @@ msgstr "Internal VFD (non-en)"
 #
 ########################################################################
 
-msgid "vivipos.fec.registry.import_export.charsets.label"
-msgstr "BIG5,UTF-8"
-
-msgid "vivipos.fec.registry.import_export.charsets.charset"
-msgstr "big5,utf-8"
+msgid "vivipos.fec.registry.import_export.charsets"
+msgstr "us-ascii,iso-8859-1,utf-8"
 
 ########################################################################
 #
