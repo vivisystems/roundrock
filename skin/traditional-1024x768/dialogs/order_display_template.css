@@ -24,10 +24,10 @@
 }
 
 .paper {
-	width: 590px;
-    max-width: 590px;
-	min-height: 500px;
-	max-height: 520px;
+	width: 736px;
+    max-width: 736px;
+	min-height: 580px;
+	max-height: 600px;
 	overflow-y:auto;
 	margin: 0px auto;
   padding: 10px;
