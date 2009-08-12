@@ -27,17 +27,23 @@ class Order extends AppModel {
 
             if (!$this->save($data['Order'])) throw new Exception('save Order error.');
             if ($data['OrderItem'])
-                if (!$this->OrderItem->saveAll($data['OrderItem'])) throw new Exception('save OrderItem error.');
+                // if (!$this->OrderItem->saveAll($data['OrderItem'])) throw new Exception('save OrderItem error.');
+                $this->OrderItem->saveAll($data['OrderItem']);
             if ($data['OrderAddition'])
-                if (!$this->OrderAddition->saveAll($data['OrderAddition'])) throw new Exception('save OrderAddition error.');
+                // if (!$this->OrderAddition->saveAll($data['OrderAddition'])) throw new Exception('save OrderAddition error.');
+                $this->OrderAddition->saveAll($data['OrderAddition']);
             if ($data['OrderPayment'])
-                if (!$this->OrderPayment->saveAll($data['OrderPayment'])) throw new Exception('save OrderPayment error.');
+                // if (!$this->OrderPayment->saveAll($data['OrderPayment'])) throw new Exception('save OrderPayment error.');
+                $this->OrderPayment->saveAll($data['OrderPayment']);
             if ($data['OrderAnnotation'])
-                if (!$this->OrderAnnotation->saveAll($data['OrderAnnotation'])) throw new Exception('save OrderAnnotation error.');
+                // if (!$this->OrderAnnotation->saveAll($data['OrderAnnotation'])) throw new Exception('save OrderAnnotation error.');
+                $this->OrderAnnotation->saveAll($data['OrderAnnotation']);
             if ($data['OrderItemCondiment'])
-                if (!$this->OrderItemCondiment->saveAll($data['OrderItemCondiment'])) throw new Exception('save OrderItemCondiment error.');
+                // if (!$this->OrderItemCondiment->saveAll($data['OrderItemCondiment'])) throw new Exception('save OrderItemCondiment error.');
+                $this->OrderItemCondiment->saveAll($data['OrderItemCondiment']);
             if ($data['OrderPromotion'])
-                if (!$this->OrderPromotion->saveAll($data['OrderPromotion'])) throw new Exception('save OrderPromotion error.');
+                // if (!$this->OrderPromotion->saveAll($data['OrderPromotion'])) throw new Exception('save OrderPromotion error.');
+                $this->OrderPromotion->saveAll($data['OrderPromotion']);
 
             if ($data['OrderObject']) {
                 $obj['id'] = $data['OrderObject']['id'];
@@ -54,6 +60,7 @@ class Order extends AppModel {
 
             CakeLog::write('saveOrderDefault', 'An error was encountered while saving order ' .
                                   '  saveOrderDefault: ' . $e->getMessage() . "\n" );
+            return false;
 
         }
 

@@ -123,7 +123,7 @@ class OrdersController extends AppController {
 	if($_REQUEST['request_data']) {
 		$paymentObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
 
-		file_put_contents("/tmp/savePayment", serialize($paymentObject));
+		// file_put_contents("/tmp/savePayment", serialize($paymentObject));
 	}
 
 	if ($paymentObject) {
@@ -152,7 +152,7 @@ class OrdersController extends AppController {
 	if($_REQUEST['request_data']) {
 		$paymentObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
 
-		file_put_contents("/tmp/saveLedgerPayment", serialize($paymentObject));
+		// file_put_contents("/tmp/saveLedgerPayment", serialize($paymentObject));
 	}
 
 	if ($paymentObject) {
