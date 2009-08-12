@@ -4,8 +4,8 @@
 "${_( '(rpt)Terminal' ) + ':'}","${head.store.terminal_no}"
 "${_( '(rpt)Clerk' ) + ':'}","${head.clerk_displayname}"
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
-"${_( '(rpt)Start' ) + ':'}","${head.start_time}"
-"${_( '(rpt)End' ) + ':'}","${head.end_time}"
+"${_( '(rpt)Start Time' ) + ':'}","${head.start_time}"
+"${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
 
 "${_( '(rpt)Terminal' )}","${_( '(rpt)Time' )}","${_( '(rpt)Number of Guests' )}","${_( '(rpt)Number of Items' )}","${_( '(rpt)Gross Sales' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Net Sales' )}","${_( '(rpt)Payment' )}","${_( '(rpt)Cash' )}","${_( '(rpt)Check' )}","${_( '(rpt)Credit Card' )}","${_( '(rpt)Coupon' )}","${_( '(rpt)Gift Card' )}"
 {for detail in body}
