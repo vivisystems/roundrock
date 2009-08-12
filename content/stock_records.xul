@@ -129,14 +129,12 @@
                     </grid>
                 </vbox>
                 <hbox>
-		            <hbox  flex="1" class="toolbar" toolbarmode="horizontal">
-	                    <hbox flex="1" pack="start">
+		            <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+	                    <hbox id="toolbar" flex="1" pack="start"> <!-- id=toolbar here in order for controller to hide the toolbar -->
 	                    	<button id="modify_stock" label="&stockrecords.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyStock', null, 'StockRecords');"/>
                             <spacer flex="1"/>
 	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" disabled="false" class="button-import" oncommand="$do('importRecords', null, 'StockRecords');"/>
                             <spacer flex="1"/>
-	                    </hbox>
-	                    <hbox>
 	                    	<button id="commitchanges" label="&stockrecords.button.action.commitchanges;" disabled="false" class="button-commit" oncommand="$do('commitChanges', null, 'StockRecords');"/>
 	                    	<button id="reset" label="&stockrecords.button.action.reset;" hidden="true" disabled="false" class="button-clear" oncommand="$do('reset', null, 'StockRecords');"/>
 		            	</hbox>
