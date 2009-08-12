@@ -14,7 +14,7 @@
  * @public
  * @namespace
  */
-var GeckoJS = GeckoJS || {version: "1.2.0"}; // Check to see if already defined in current scope
+var GeckoJS = GeckoJS || {version: "1.2.2"}; // Check to see if already defined in current scope
 
 /**
  * This is a reference to the global context, which is normally the "window" object.
@@ -5979,7 +5979,6 @@ GeckoJS.Configure = GeckoJS.BaseObject.extend('Configure',
      */
     init: function(){
 
-        
         this._events = new GeckoJS.Event();
         this._map = new GeckoJS.Map();
         this._hasLoadPreferences = {};
@@ -6138,6 +6137,11 @@ GeckoJS.Configure.prototype.getMap = function() {
  * @function
  */
 GeckoJS.Configure.prototype.clear = function() {
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'clear ');
+    /* endif DEBUG */
+
     this.map.clear();
     this.events.dispatch("clear", this);
 };
@@ -6180,6 +6184,10 @@ GeckoJS.Configure.clear = function() {
  */
 GeckoJS.Configure.prototype.remove = function(key, savePref){
 
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'remove key: ' + key  + ' ,savePref: ' + savePref);
+    /* endif DEBUG */
+
     savePref = (typeof savePref != 'undefined' )? savePref : true;
     
     var name = this.__configVarNames(key);
@@ -6209,19 +6217,18 @@ GeckoJS.Configure.prototype.remove = function(key, savePref){
 
         var prefServices =  GREUtils.Pref.getPrefService();
         prefServices.deleteBranch(key);
-        
-    }
 
-    var mPrefService = this.mPrefService ;
+        var mPrefService = this.mPrefService ;
 
-    // Save preference file after one 1/2 second to delay in case another preference changes at same time as first
-    this.mTimer.cancel();
-    this.mTimer.initWithCallback({
-        notify:function (aTimer) {
-            mPrefService.savePrefFile(null);
-        }
+        // Save preference file after one 1/2 second to delay in case another preference changes at same time as first
+        this.mTimer.cancel();
+        this.mTimer.initWithCallback({
+            notify:function (aTimer) {
+                mPrefService.savePrefFile(null);
+            }
         }, 500, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
 
+    }
 
     this.events.dispatch("remove", key);
 };
@@ -6268,6 +6275,10 @@ GeckoJS.Configure.remove = function(key, savePref){
  */
 GeckoJS.Configure.prototype.write = function(key, value, savePref) {
 
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'write key: ' + key  + ' ,savePref: ' + savePref);
+    /* endif DEBUG */
+
     savePref = (typeof savePref != 'undefined' )? savePref : true;
 
     var name = this.__configVarNames(key);
@@ -6296,17 +6307,18 @@ GeckoJS.Configure.prototype.write = function(key, value, savePref) {
     
     if(savePref) {
         this.savePreferences(key);
-    }
+        
+        var mPrefService = this.mPrefService ;
 
-    var mPrefService = this.mPrefService ;
-    
-    // Save preference file after one 1/2 second to delay in case another preference changes at same time as first
-    this.mTimer.cancel();
-    this.mTimer.initWithCallback({
-        notify:function (aTimer) {
-            mPrefService.savePrefFile(null);
-        }
-        }, 500, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
+        // Save preference file after one 1/2 second to delay in case another preference changes at same time as first
+        this.mTimer.cancel();
+        this.mTimer.initWithCallback({
+            notify:function (aTimer) {
+                mPrefService.savePrefFile(null);
+            }
+            }, 500, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
+
+    }
 
     this.events.dispatch("write", {
         key: key,
@@ -6363,7 +6375,11 @@ GeckoJS.Configure.write = function(key, value, savePref) {
  * @return {Object}                   The configuration value
  */
 GeckoJS.Configure.prototype.read = function(key){
-    
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'read ' + key);
+    /* endif DEBUG */
+
     var name = this.__configVarNames(key);
 
     if(name.length >1) {
@@ -6418,7 +6434,11 @@ GeckoJS.Configure.read = function(key) {
  * @return {Boolean}                  "true" if the key exists, "false" otherwise
  */
 GeckoJS.Configure.prototype.check = function(key) {
-    
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'check ' + key);
+    /* endif DEBUG */
+
     var name = this.__configVarNames(key);
 
     if(name.length >1) {
@@ -6537,8 +6557,13 @@ GeckoJS.Configure.unserialize = function(str) {
  * @param {String} startingAt                The point on the branch at which to start enumerating the child preferences. Pass in "" to enumerate all preferences referenced by this branch.
  */
 GeckoJS.Configure.prototype.loadPreferences = function(startingAt){
-	
-    if(typeof this._hasLoadPreferences[startingAt] =='undefined' || !this._hasLoadPreferences[startingAt]) {
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'loadPreferences ' + startingAt);
+    /* endif DEBUG */
+
+    if(!this._isLoadedPrefreences(startingAt)) {
+
         var prefs = GREUtils.Pref.getPrefService();
         var prefCount = {}, prefValues = {};
 
@@ -6547,7 +6572,9 @@ GeckoJS.Configure.prototype.loadPreferences = function(startingAt){
         for(var i=0; i<prefCount.value; i++) {
             this.write(prefValues[i], GREUtils.Pref.getPref(prefValues[i], prefs), false);
         }
-        this._hasLoadPreferences[startingAt] = true;
+
+        // update loaded
+        this._setLoadedPrefreences(startingAt);
 
     }
 };
@@ -6637,6 +6664,47 @@ GeckoJS.Configure.prototype.__configVarNames = function (name) {
         name = name.split(".");
     }
     return name;
+};
+
+GeckoJS.Configure.prototype._isLoadedPrefreences = function (startingAt) {
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', '_isLoadedPrefreences ' + startingAt);
+    /* endif DEBUG */
+
+    startingAt = startingAt || "";
+    var keyPairs = startingAt.split(".");
+    var isLoaded = false;
+    var prevKey = "", key = "" ;
+
+    for (var i = 0; i < keyPairs.length; i++) {
+
+        key = (prevKey.length > 0 ? prevKey+"."+keyPairs[i] : keyPairs[i]);
+        isLoaded = (typeof this._hasLoadPreferences[key] != 'undefined');
+        if(isLoaded) break;
+
+        prevKey = key+"";
+    }
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', '_isLoadedPrefreences return: ' + isLoaded);
+    /* endif DEBUG */
+
+    return isLoaded;
+};
+
+GeckoJS.Configure.prototype._setLoadedPrefreences = function (startingAt) {
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', '_setLoadedPrefreences ' + startingAt);
+    /* endif DEBUG */
+
+    startingAt = startingAt || "";
+
+    if (startingAt.length <= 0) return;
+
+    this._hasLoadPreferences[startingAt] = true;
+
 };
 
 /**
