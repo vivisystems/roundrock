@@ -1,18 +1,17 @@
 /****************** table status button**********************/
 
 .tableStatusBtn {
+	font-size: 10pt;
     height: 126px !important;
 	max-height: 126px;
     width: 172px;
-	-moz-appearance: none;
 }
 
 .tableStatusBtn > div {
 	background: transparent url(../images/paper.png) no-repeat center bottom;
-	font-size: 10pt;
 	height: 126px;
 	position:relative; 
-    width: 172px;
+	width: 172px;
 }
 
 .tableStatusBtn .topItem {
@@ -42,7 +41,7 @@
     font-size: 12pt;
     height: 16px;
     padding: 0px;
-    position:absolute;
+    position: absolute;
     right: 10px;
     text-align:right;
     width: 60px;
@@ -55,22 +54,22 @@
 }
 
 .tableStatusBtn .tableInfo {
-    margin-left: 4px;
-	padding: 4px;
+    margin-left: 12px;
+	padding: 0px;
 }
 
 .tableStatusBtn .tableInfo .cneckNo,
 .tableStatusBtn .tableInfo .clerk,
 .tableStatusBtn .tableInfo .total,
 .tableStatusBtn .remark {
-	margin-top: 2px;
+	margin-top: 0px;
 	overflow: hidden;
 }
 
 .tableStatusBtn .tableName {
 	color: #372213;
 	margin-left: 4px;
-	margin-top: 2px;
+	margin-top: 0px;
 	padding: 2px;
 	word-break:break-all;
 	word-wrap: break-word;
@@ -79,16 +78,10 @@
 .tableStatusBtn .checkNum{
 	color: #9e0b0f;
 	font-weight: bold;
-	position:absolute;
 	right: 16px;
+	position:absolute;
 	top: 36px;
 	z-index: 130;
-}
-
-.tableStatusBtn .clerk{
-	float: right;
-	text-align: right;
-	width: 70px;
 }
 
 .tableStatusBtn .time{
@@ -108,7 +101,7 @@
 	font-weight: bold;
 	line-height: 18px;
     margin: 2px 2px 0 2px;
-	padding: 0px 6px 0 0px;
+	padding: 0px 22px 0 0px;
 }
 
 .tableStatusBtn .thumbtack {
@@ -157,8 +150,8 @@
 }
 
 .tableStatusBtn .greentable .tableNo {
-	border-bottom: 1px solid #a2a70f;
 	color: #a2a70f;
+	border-bottom: 1px solid #a2a70f;
 }
 
 .tableStatusBtn .greentable .thumbtack {
@@ -167,8 +160,8 @@
 
 .tableStatusBtn .greentable .people {
 	color:  #ed145b;
-	font-size: 16pt;
 	font-weight: bold;
+	font-size: 16pt;
 }
 
 .tableStatusBtn .greentable .bottomItem {
@@ -180,8 +173,8 @@
 }
 
 .tableStatusBtn .yellowtable .tableNo {
-	border-bottom: 1px solid #f2c54e;
 	color: #f2c54e;
+	border-bottom: 1px solid #f2c54e;
 }
 
 .tableStatusBtn .yellowtable .thumbtack {
@@ -195,17 +188,16 @@
 /****************** standard table status button**********************/
 
 .tableStatusStdBtn {
-    height: 126px !important;
+	font-size: 10pt;
+	height: 126px;
 	max-height: 126px;
-    width: 172px;
-	-moz-appearance: none;
+	width: 172px;
 }
 
 .tableStatusStdBtn > div {
-	font-size: 10pt;
 	height: 126px;
 	position:relative;
-    width: 172px;
+	width: 172px;
 }
 
 .tableStatusStdBtn .topItem {
@@ -244,26 +236,26 @@
 
 .tableStatusStdBtn .tableData {
 	margin-left: 0px;
-	width: 146px;
+	width: 180px;
 }
 
 .tableStatusStdBtn .tableInfo {
-    margin-left: 4px;
-	padding: 4px;
+    margin-left: 12px;
+	padding: 0px;
 }
 
 .tableStatusStdBtn .tableInfo .cneckNo,
 .tableStatusStdBtn .tableInfo .clerk,
 .tableStatusStdBtn .tableInfo .total,
 .tableStatusStdBtn .remark {
-	margin-top: 2px;
+	margin-top: 0px;
 	overflow: hidden;
 }
 
 .tableStatusStdBtn .tableName {
 	color: #372213;
-	margin-left: 4px;
-	margin-top: 2px;
+	margin-left: 8px;
+	margin-top: 0px;
 	padding: 2px;
 	word-break:break-all;
 	word-wrap: break-word;
@@ -276,12 +268,6 @@
 	right: 16px;
 	top: 36px;
 	z-index: 130;
-}
-
-.tableStatusStdBtn .clerk{
-	float: right;
-	text-align: right;
-	width: 70px;
 }
 
 .tableStatusStdBtn .time{
@@ -300,17 +286,17 @@
 	font-size: 20pt;
 	font-weight: bold;
 	line-height: 18px;
-    margin: 2px 2px 0 2px;
+	margin: 2px 2px 0 2px;
 	padding: 0px 6px 0 2px;
 }
 
 .tableStatusStdBtn .thumbtack {
-	height: 35px;
 	position:absolute;
-	right: 10px;
 	top: 0;
-	width: 24px;
+	right: 10px;
 	z-index: 110;
+	width: 24px;
+	height: 35px;
 }
 
 /* �W�L�ɶ� */
