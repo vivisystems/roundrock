@@ -515,6 +515,8 @@
             this._sourceTableNo = null;
             this._hidePromptPanel('prompt_panel');
 
+            // do not need to sync data
+            /*
             if (this._mainController == null) {
                 this._mainController = GeckoJS.Controller.getInstanceByName('Main');
             }
@@ -532,6 +534,8 @@
             finally {
                 waitPanel.hidePopup();
             }
+            */
+
             return;
         },
 
@@ -1211,14 +1215,16 @@
                     top: top,
                     left: left,
                     width: width,
-                    height: height
+                    height: height,
+                    'z-index': 901
                 },
 
                 overlayCSS: {
                     top: top,
                     left: left,
                     width: width,
-                    height: height
+                    height: height,
+                    'z-index': 900
                 },
 
                 init: function(evt) {
