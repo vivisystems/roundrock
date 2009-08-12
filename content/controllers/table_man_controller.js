@@ -153,8 +153,6 @@
             return (table != null);
         },
 
-// Reset check number as:
-
         autoCreateTables: function() {
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
