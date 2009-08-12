@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-12 18:20+0800\n"
+"POT-Creation-Date: 2009-08-12 19:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3748,9 +3748,9 @@ msgid "Order is not queued because it is empty"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4036
-#: ../..//content/controllers/components/guest_check.js:1178
-#: ../..//content/controllers/components/guest_check.js:1253
-#: ../..//content/controllers/components/guest_check.js:1743
+#: ../..//content/controllers/components/guest_check.js:1180
+#: ../..//content/controllers/components/guest_check.js:1255
+#: ../..//content/controllers/components/guest_check.js:1745
 msgid "The order object does not exist [%S]"
 msgstr ""
 
@@ -3794,9 +3794,9 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:4195
 #: ../..//content/controllers/components/guest_check.js:480
 #: ../..//content/controllers/components/guest_check.js:679
-#: ../..//content/controllers/components/guest_check.js:728
-#: ../..//content/controllers/components/guest_check.js:762
-#: ../..//content/controllers/components/guest_check.js:1571
+#: ../..//content/controllers/components/guest_check.js:730
+#: ../..//content/controllers/components/guest_check.js:764
+#: ../..//content/controllers/components/guest_check.js:1573
 msgid "fatal error!!"
 msgstr ""
 
@@ -5190,7 +5190,7 @@ msgstr ""
 #: ../..//content/controllers/plusearch_controller.js:154
 #: ../..//content/controllers/plusearch_controller.js:159
 #: ../..//content/controllers/stock_records_controller.js:124
-#: ../..//content/controllers/table_man_controller.js:789
+#: ../..//content/controllers/table_man_controller.js:787
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:72
 msgid "Product Search"
 msgstr ""
@@ -5954,7 +5954,7 @@ msgid "Press CANCEL button to cancel function"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:303
-#: ../..//content/controllers/components/guest_check.js:1727
+#: ../..//content/controllers/components/guest_check.js:1729
 msgid "Split Check"
 msgstr ""
 
@@ -6116,7 +6116,7 @@ msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:1094
 #: ../..//content/controllers/select_table_controller.js:1096
-#: ../..//content/controllers/table_man_controller.js:751
+#: ../..//content/controllers/table_man_controller.js:749
 msgid "All Regions"
 msgstr ""
 
@@ -6785,172 +6785,172 @@ msgstr ""
 msgid "No Promotion"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:164
+#: ../..//content/controllers/table_man_controller.js:162
 msgid "Add Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:164
+#: ../..//content/controllers/table_man_controller.js:162
 msgid "Quick Adding New Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:164
+#: ../..//content/controllers/table_man_controller.js:162
 msgid "Input total table count"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:164
+#: ../..//content/controllers/table_man_controller.js:162
 msgid "Number of seat per table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:200
+#: ../..//content/controllers/table_man_controller.js:198
 msgid "total of [%S] new tables added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:216
+#: ../..//content/controllers/table_man_controller.js:214
 msgid "Add Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:216
+#: ../..//content/controllers/table_man_controller.js:214
 msgid "New Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:216
+#: ../..//content/controllers/table_man_controller.js:214
 msgid "Table Number"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:216
+#: ../..//content/controllers/table_man_controller.js:214
 msgid "Table Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:222
+#: ../..//content/controllers/table_man_controller.js:220
 msgid "Table Number [%S] is invalid"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:227
+#: ../..//content/controllers/table_man_controller.js:225
 msgid "Table Number [%S] has already been assigned"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:271
+#: ../..//content/controllers/table_man_controller.js:269
 msgid "Table [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:323
-#: ../..//content/controllers/table_man_controller.js:403
+#: ../..//content/controllers/table_man_controller.js:321
+#: ../..//content/controllers/table_man_controller.js:401
 msgid "Table [%S (%S)] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:332
+#: ../..//content/controllers/table_man_controller.js:330
 msgid "confirm delete table [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:333
+#: ../..//content/controllers/table_man_controller.js:331
 msgid "Are you sure you want to delete table [%S (%S)]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:364
+#: ../..//content/controllers/table_man_controller.js:362
 msgid "Table [%S (%S)] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:412
+#: ../..//content/controllers/table_man_controller.js:410
 msgid "Add Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:412
+#: ../..//content/controllers/table_man_controller.js:410
 msgid "New Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:412
+#: ../..//content/controllers/table_man_controller.js:410
 msgid "Region Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:448
+#: ../..//content/controllers/table_man_controller.js:446
 msgid "Region [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:484
+#: ../..//content/controllers/table_man_controller.js:482
 msgid "Region [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:493
+#: ../..//content/controllers/table_man_controller.js:491
 msgid "confirm delete region [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:494
+#: ../..//content/controllers/table_man_controller.js:492
 msgid "Are you sure you want to delete region [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:517
+#: ../..//content/controllers/table_man_controller.js:515
 msgid "Region [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:565
+#: ../..//content/controllers/table_man_controller.js:563
 msgid "Add New Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:566
+#: ../..//content/controllers/table_man_controller.js:564
 msgid "New Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:566
+#: ../..//content/controllers/table_man_controller.js:564
 msgid "Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:573
+#: ../..//content/controllers/table_man_controller.js:571
 msgid "Table status [%S] already exists"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:593
+#: ../..//content/controllers/table_man_controller.js:591
 msgid "Table status [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:614
+#: ../..//content/controllers/table_man_controller.js:612
 msgid "Table status [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:620
+#: ../..//content/controllers/table_man_controller.js:618
 msgid "Table status must not be empty"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:630
+#: ../..//content/controllers/table_man_controller.js:628
 msgid "confirm delete table status [%S]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:630
+#: ../..//content/controllers/table_man_controller.js:628
 msgid "Are you sure you want to delete table status [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:638
+#: ../..//content/controllers/table_man_controller.js:636
 msgid "Table status [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:839
+#: ../..//content/controllers/table_man_controller.js:837
 msgid "Options saved successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:847
+#: ../..//content/controllers/table_man_controller.js:845
 msgid "Clone options from master of table status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:848
+#: ../..//content/controllers/table_man_controller.js:846
 msgid ""
 "The options of table status will be changed with options of master. "
 "Proceed?\n"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:863
+#: ../..//content/controllers/table_man_controller.js:861
 msgid "The options of table status is changed."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:896
+#: ../..//content/controllers/table_man_controller.js:894
 msgid ""
 "Modifications of table and region require system restart to take effect.\n"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:897
+#: ../..//content/controllers/table_man_controller.js:895
 msgid ""
 "The system will restart automatically after you return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:898
+#: ../..//content/controllers/table_man_controller.js:896
 msgid "Table Manage"
 msgstr ""
 
@@ -7275,123 +7275,129 @@ msgstr ""
 
 #: ../..//content/controllers/components/guest_check.js:606
 #: ../..//content/controllers/components/guest_check.js:621
-#: ../..//content/controllers/components/guest_check.js:867
-#: ../..//content/controllers/components/guest_check.js:896
-#: ../..//content/controllers/components/guest_check.js:956
-#: ../..//content/controllers/components/guest_check.js:982
-#: ../..//content/controllers/components/guest_check.js:1049
-#: ../..//content/controllers/components/guest_check.js:1084
-#: ../..//content/controllers/components/guest_check.js:1226
-#: ../..//content/controllers/components/guest_check.js:1607
-#: ../..//content/controllers/components/guest_check.js:1622
+#: ../..//content/controllers/components/guest_check.js:869
+#: ../..//content/controllers/components/guest_check.js:898
+#: ../..//content/controllers/components/guest_check.js:958
+#: ../..//content/controllers/components/guest_check.js:984
+#: ../..//content/controllers/components/guest_check.js:1051
+#: ../..//content/controllers/components/guest_check.js:1086
+#: ../..//content/controllers/components/guest_check.js:1228
+#: ../..//content/controllers/components/guest_check.js:1609
+#: ../..//content/controllers/components/guest_check.js:1624
 msgid "This order object does not exist [%S]"
 msgstr ""
 
 #: ../..//content/controllers/components/guest_check.js:616
-#: ../..//content/controllers/components/guest_check.js:873
-#: ../..//content/controllers/components/guest_check.js:905
-#: ../..//content/controllers/components/guest_check.js:991
-#: ../..//content/controllers/components/guest_check.js:1065
-#: ../..//content/controllers/components/guest_check.js:1094
-#: ../..//content/controllers/components/guest_check.js:1185
-#: ../..//content/controllers/components/guest_check.js:1260
-#: ../..//content/controllers/components/guest_check.js:1617
+#: ../..//content/controllers/components/guest_check.js:875
+#: ../..//content/controllers/components/guest_check.js:907
+#: ../..//content/controllers/components/guest_check.js:993
+#: ../..//content/controllers/components/guest_check.js:1067
+#: ../..//content/controllers/components/guest_check.js:1096
+#: ../..//content/controllers/components/guest_check.js:1187
+#: ../..//content/controllers/components/guest_check.js:1262
+#: ../..//content/controllers/components/guest_check.js:1619
 msgid "This order is already finalized!"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:709
+#: ../..//content/controllers/components/guest_check.js:710
 msgid ""
 "[%S] is an invalid table number. Table number must be greater than 0; Please "
 "input another table number."
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:736
+#: ../..//content/controllers/components/guest_check.js:711
+msgid ""
+"[%S] is an invalid table number. Table number must be defined through table "
+"manager; Please input another table number."
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:738
 msgid ""
 "[%S] is an invalid number. Check numbers must be greater than 0. Please "
 "input another check number"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:787
+#: ../..//content/controllers/components/guest_check.js:789
 msgid "STORED"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:790
-#: ../..//content/controllers/components/guest_check.js:1288
-#: ../..//content/controllers/components/guest_check.js:1319
-#: ../..//content/controllers/components/guest_check.js:1362
-#: ../..//content/controllers/components/guest_check.js:1398
+#: ../..//content/controllers/components/guest_check.js:792
+#: ../..//content/controllers/components/guest_check.js:1290
+#: ../..//content/controllers/components/guest_check.js:1321
+#: ../..//content/controllers/components/guest_check.js:1364
+#: ../..//content/controllers/components/guest_check.js:1400
 msgid "This order has been stored!!"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:814
+#: ../..//content/controllers/components/guest_check.js:816
 msgid "Recall Input Sequence Number"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:814
+#: ../..//content/controllers/components/guest_check.js:816
 msgid "Input sequence number to recall"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:814
+#: ../..//content/controllers/components/guest_check.js:816
 msgid "Sequence Number"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:878
+#: ../..//content/controllers/components/guest_check.js:880
 msgid "No stored order found for sequence number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:901
-#: ../..//content/controllers/components/guest_check.js:961
-#: ../..//content/controllers/components/guest_check.js:987
-#: ../..//content/controllers/components/guest_check.js:1090
-#: ../..//content/controllers/components/guest_check.js:1705
-#: ../..//content/controllers/components/guest_check.js:1751
+#: ../..//content/controllers/components/guest_check.js:903
+#: ../..//content/controllers/components/guest_check.js:963
+#: ../..//content/controllers/components/guest_check.js:989
+#: ../..//content/controllers/components/guest_check.js:1092
+#: ../..//content/controllers/components/guest_check.js:1707
+#: ../..//content/controllers/components/guest_check.js:1753
 msgid "RECALL# %S"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:909
-#: ../..//content/controllers/components/guest_check.js:995
-#: ../..//content/controllers/components/guest_check.js:1097
+#: ../..//content/controllers/components/guest_check.js:911
+#: ../..//content/controllers/components/guest_check.js:997
+#: ../..//content/controllers/components/guest_check.js:1099
 msgid "No stored order found"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:912
+#: ../..//content/controllers/components/guest_check.js:914
 msgid "No stored order found for check number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:965
-#: ../..//content/controllers/components/guest_check.js:1232
+#: ../..//content/controllers/components/guest_check.js:967
+#: ../..//content/controllers/components/guest_check.js:1234
 msgid "This order has been submited!!"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:998
+#: ../..//content/controllers/components/guest_check.js:1000
 msgid "No stored order found for table number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1057
+#: ../..//content/controllers/components/guest_check.js:1059
 msgid "RECALLED# %S"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1060
+#: ../..//content/controllers/components/guest_check.js:1062
 msgid "ORDER RECALLED"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1154
+#: ../..//content/controllers/components/guest_check.js:1156
 msgid "Submit Fail"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1155
+#: ../..//content/controllers/components/guest_check.js:1157
 msgid "Current order is not saved successfully, please try again..."
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1267
+#: ../..//content/controllers/components/guest_check.js:1269
 msgid "No order found for table number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1668
+#: ../..//content/controllers/components/guest_check.js:1670
 msgid "The target order object does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1700
+#: ../..//content/controllers/components/guest_check.js:1702
 msgid "The source order object does not exist [%S]"
 msgstr ""
 

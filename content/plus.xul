@@ -92,7 +92,7 @@
                             <hbox align="center">
                                 <vivitextbox id="plu" flex="1"
                                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                             onenter="$do('searchPlu', this.value, 'PluSearch');"/>
+                                             onenter="$do('searchPlu', this.value, 'PluSearch'); event.preventDefault();"/>
                                 <vivibutton id="ekeyBtn" class="button-fixed" label="&plus.button.numpad.advsearch;"
                                             oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');"/>
                             </hbox>
