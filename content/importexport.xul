@@ -22,6 +22,10 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+  <stringbundleset>
+          <stringbundle id="bundleCharsetTitles"      src="chrome://global/locale/charsetTitles.properties" />
+  </stringbundleset>
+
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
 
   <!-- include models -->

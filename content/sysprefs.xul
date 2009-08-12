@@ -21,6 +21,10 @@
             class="container-be"
            >
 
+  <stringbundleset>
+          <stringbundle id="bundleCharsetTitles"      src="chrome://global/locale/charsetTitles.properties" />
+  </stringbundleset>
+
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include models -->
@@ -213,8 +217,7 @@
                         <hbox flex="1" align="center">
                             <label value="&formats.charsetselector;:"/>
                             <menulist id="import_export_charset" flex="1" class="custom-content-charset-menu"
-                                      oncommand="GeckoJS.Configure.write('vivipos.fec.registry.import_export.charset', this.value);
-                                      GeckoJS.Configure.write('vivipos.fec.registry.import_export.label', this.label);">
+                                      oncommand="GeckoJS.Configure.write('vivipos.fec.registry.import_export.charset', this.value);">
                                 <menupopup id="import_export_charset-popup">
                                 </menupopup>
                             </menulist>
