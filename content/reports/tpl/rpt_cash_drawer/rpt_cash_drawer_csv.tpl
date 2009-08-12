@@ -4,8 +4,8 @@
 "${_( '(rpt)Terminal' ) + ':'}","${head.store.terminal_no}"
 "${_( '(rpt)Clerk' ) + ':'}","${head.clerk_displayname}"
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
-"${_( '(rpt)Start' ) + ':'}","${head.start_time}"
-"${_( '(rpt)End' ) + ':'}","${head.end_time}"
+"${_( '(rpt)Start Time' ) + ':'}","${head.start_time}"
+"${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
 
 "${_( '(rpt)Terminal' )}","${_( '(rpt)Drawer' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Time' )}","${_( '(rpt)Event' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Payment Type' )}","${_( '(rpt)Amount' )}"
 {for item in body}

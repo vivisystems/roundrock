@@ -4,8 +4,8 @@
 "${_( '(rpt)Terminal' ) + ':'}","${head.store.terminal_no}"
 "${_( '(rpt)Clerk' ) + ':'}","${head.clerk_displayname}"
 "${( 'Printed Time' ) + ':'}","${foot.gen_time}"
-"${( 'Start' ) + ':'}","${head.start_time}"
-"${( 'End' ) + ':'}","${head.end_time}"
+"${( 'Start Time' ) + ':'}","${head.start_time}"
+"${( 'End Time' ) + ':'}","${head.end_time}"
 {for commitment in body}
 ""
 "${_( "(inventory)" + commitment.type )}( ${commitment.clerk} / ${commitment.created|unixTimeToString} )","${commitment.commitment_memo}"
