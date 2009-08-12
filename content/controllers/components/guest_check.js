@@ -698,15 +698,17 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
                     } else {
 
                         var defaultDest = GeckoJS.Session.get('defaultDestination');
-                        if (defaultDest != null) {
-                            this.requestCommand('setDestination', defaultDest.name, 'Destinations');
+
+                        if (defaultDest) {
+                            this.requestCommand('setDestination', defaultDest, 'Destinations');
                         }
 
                     }
                 }
 
             } else {
-                NotifyUtils.warn(_('[%S] is an invalid table number. Table number must be greater than 0; Please input another table number.', [table_no]));
+                // NotifyUtils.warn(_('[%S] is an invalid table number. Table number must be greater than 0; Please input another table number.', [table_no]));
+                NotifyUtils.warn(_('[%S] is an invalid table number. Table number must be defined through table manager; Please input another table number.', [table_no]));
             }
             return r;
         },
