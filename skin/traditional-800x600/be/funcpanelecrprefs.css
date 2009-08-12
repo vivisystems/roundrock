@@ -71,8 +71,18 @@
 	font-size: 10pt;
     min-height: 44px;
 	padding: 4px;
+    -moz-box-align: center;
 }
 
 .custom-content-data-form column {
 	padding: 4px;
+}
+
+.custom-content-data-form .data-form label {
+    font-size: 10pt;
+    color: #372213;
+}
+
+.custom-content-data-form .data-form button label {
+    font-size: inherit;
 }
