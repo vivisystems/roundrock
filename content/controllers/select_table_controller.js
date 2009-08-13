@@ -919,8 +919,7 @@
                     var tableName = this._regionTables[v].table_name;
                     if (GREUtils.Dialog.confirm(this.topmostWindow,
                         _('Clear Table Status'),
-                        _('You are now clearing table status of Table# %S (%S). Proceed?\n' +
-                            'Click OK to clear, \nor, click Cancel to abort.', [tableNo,tableName])) == true) {
+                        _('You are now clearing table status of Table# %S (%S). Proceed?\nClick OK to clear, \nor, click Cancel to abort.', [tableNo,tableName])) == true) {
 
                         var table_no = this._regionTables[v].table_no;
                         var markObj = {};
@@ -979,8 +978,7 @@
                     var regionName = this._regionName[this._regionIndex];
                     if (GREUtils.Dialog.confirm(this.topmostWindow,
                         _('Clear all table status in region'),
-                        _('You are now clearing all table status of region [%S]. Proceed?\n' +
-                            'Click OK to clear, \nor, click Cancel to abort.', [regionName])) == true) {
+                        _('You are now clearing all table status of region [%S]. Proceed?\nClick OK to clear, \nor, click Cancel to abort.', [regionName])) == true) {
 
                         var markObj = {};
                         this._isBusy = true;
