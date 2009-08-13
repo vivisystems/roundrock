@@ -6035,7 +6035,7 @@ GeckoJS.Configure = GeckoJS.BaseObject.extend('Configure',
 
                         // }
                     }catch(e) {
-                        GREUtils.log('[ERROR] GeckoJS_Configure_PrefObserver ' + e);
+                        GREUtils.log('[ERROR] [Configure] GeckoJS_Configure_PrefObserver ' + e);
                     }
                 }
             };
@@ -6054,7 +6054,7 @@ GeckoJS.Configure = GeckoJS.BaseObject.extend('Configure',
             }
 
         }catch(e) {
-            GREUtils.log(e);
+            GREUtils.log( '[ERROR] [Configure] ' + e);
         }
         //}
 
@@ -6072,7 +6072,7 @@ GeckoJS.Configure = GeckoJS.BaseObject.extend('Configure',
                 self.write("CORE."+key, (directory_service.get(key, Components.interfaces.nsIFile)).path, false);
             }
             catch (e) {
-                self.log('[Error] GeckoJS.Configure directory_service;1 get [' + key +'] fail.');
+                GREUtils.log('[Error] [Configure] GeckoJS.Configure directory_service;1 get [' + key +'] fail.');
             }
         });
 
@@ -6137,11 +6137,6 @@ GeckoJS.Configure.prototype.getMap = function() {
  * @function
  */
 GeckoJS.Configure.prototype.clear = function() {
-
-    /* ifdef DEBUG 
-    this.log('DEBUG', 'clear ');
-    /* endif DEBUG */
-
     this.map.clear();
     this.events.dispatch("clear", this);
 };
@@ -6183,10 +6178,6 @@ GeckoJS.Configure.clear = function() {
  * @param {Boolean} savePref          Save Configure to Preferences System
  */
 GeckoJS.Configure.prototype.remove = function(key, savePref){
-
-    /* ifdef DEBUG 
-    this.log('DEBUG', 'remove key: ' + key  + ' ,savePref: ' + savePref);
-    /* endif DEBUG */
 
     savePref = (typeof savePref != 'undefined' )? savePref : true;
     
@@ -6274,10 +6265,6 @@ GeckoJS.Configure.remove = function(key, savePref){
  * @param {Boolean} savePref          Save Configure to Preferences System
  */
 GeckoJS.Configure.prototype.write = function(key, value, savePref) {
-
-    /* ifdef DEBUG 
-    this.log('DEBUG', 'write key: ' + key  + ' ,savePref: ' + savePref);
-    /* endif DEBUG */
 
     savePref = (typeof savePref != 'undefined' )? savePref : true;
 
@@ -6376,10 +6363,6 @@ GeckoJS.Configure.write = function(key, value, savePref) {
  */
 GeckoJS.Configure.prototype.read = function(key){
 
-    /* ifdef DEBUG 
-    this.log('DEBUG', 'read ' + key);
-    /* endif DEBUG */
-
     var name = this.__configVarNames(key);
 
     if(name.length >1) {
@@ -6434,10 +6417,6 @@ GeckoJS.Configure.read = function(key) {
  * @return {Boolean}                  "true" if the key exists, "false" otherwise
  */
 GeckoJS.Configure.prototype.check = function(key) {
-
-    /* ifdef DEBUG 
-    this.log('DEBUG', 'check ' + key);
-    /* endif DEBUG */
 
     var name = this.__configVarNames(key);
 
@@ -6559,7 +6538,7 @@ GeckoJS.Configure.unserialize = function(str) {
 GeckoJS.Configure.prototype.loadPreferences = function(startingAt){
 
     /* ifdef DEBUG 
-    this.log('DEBUG', 'loadPreferences ' + startingAt);
+    GREUtils.log('[Configure] loadPreferences ' + startingAt);
     /* endif DEBUG */
 
     if(!this._isLoadedPrefreences(startingAt)) {
@@ -6669,7 +6648,7 @@ GeckoJS.Configure.prototype.__configVarNames = function (name) {
 GeckoJS.Configure.prototype._isLoadedPrefreences = function (startingAt) {
 
     /* ifdef DEBUG 
-    this.log('DEBUG', '_isLoadedPrefreences ' + startingAt);
+    GREUtils.log('[Configure] _isLoadedPrefreences ' + startingAt);
     /* endif DEBUG */
 
     startingAt = startingAt || "";
@@ -6687,7 +6666,7 @@ GeckoJS.Configure.prototype._isLoadedPrefreences = function (startingAt) {
     }
 
     /* ifdef DEBUG 
-    this.log('DEBUG', '_isLoadedPrefreences return: ' + isLoaded);
+    GREUtils.log('[Configure] _isLoadedPrefreences return: ' + isLoaded);
     /* endif DEBUG */
 
     return isLoaded;
@@ -6696,7 +6675,7 @@ GeckoJS.Configure.prototype._isLoadedPrefreences = function (startingAt) {
 GeckoJS.Configure.prototype._setLoadedPrefreences = function (startingAt) {
 
     /* ifdef DEBUG 
-    this.log('DEBUG', '_setLoadedPrefreences ' + startingAt);
+    GREUtils.log('[Configure] _setLoadedPrefreences ' + startingAt);
     /* endif DEBUG */
 
     startingAt = startingAt || "";

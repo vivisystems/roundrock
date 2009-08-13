@@ -39,6 +39,9 @@
             GeckoJS.Log.getLoggerForClass('DatasourceSQL').level = GeckoJS.Log[logLevel];
             GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log[logLevel];
 
+            // process userConfigure.js
+            this.processUserConfigure();
+
             // set main screen
             var mainscreenSettings = GeckoJS.Configure.read('vivipos.fec.mainscreen');
 
@@ -360,6 +363,43 @@
 
             }catch(e) {}
 
+        },
+
+        processUserConfigure: function () {
+            
+            var profilePath = GeckoJS.Configure.read('CORE.ProfD');
+            var userConf = profilePath + '/chrome/userConfigure.js' ;
+
+            var f = new GeckoJS.File(userConf);
+            
+            if (f.exists()) {
+
+                f.open("r");
+
+                var jsContent = f.read();
+
+                if (jsContent.length <=0) return ;
+
+                var write = function(k, v) {
+                    // dump('write k: ' + k + ' ,v: ' + v + '\n');
+                    GeckoJS.Configure.write(k, v, false);
+                };
+
+                var remove = function(k) {
+                    // dump('remove k: ' + k + '\n');
+                    GeckoJS.Configure.remove(k, false);
+                };
+
+                try {
+                    window.eval(jsContent);
+                }catch(e) {
+                    //dump(e);
+                }
+                
+                f.close();
+            }
+
+            return ;
         }
         
 
