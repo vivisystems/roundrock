@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-13 18:36+0800\n"
+"POT-Creation-Date: 2009-08-13 19:47+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2776,7 +2776,7 @@ msgid "Lost Status"
 msgstr ""
 
 #: ../..//content/select_checks.js:44
-#: ../..//content/helpers/nsi_tablestatus_view.js:100
+#: ../..//content/helpers/nsi_tablestatus_view.js:55
 msgid "B#"
 msgstr ""
 
@@ -2785,7 +2785,7 @@ msgid "G#"
 msgstr ""
 
 #: ../..//content/select_checks.js:52
-#: ../..//content/helpers/nsi_tablestatus_view.js:113
+#: ../..//content/helpers/nsi_tablestatus_view.js:68
 msgid "C#"
 msgstr ""
 
@@ -2794,12 +2794,12 @@ msgid "S#"
 msgstr ""
 
 #: ../..//content/select_checks.js:57
-#: ../..//content/helpers/nsi_tablestatus_view.js:117
+#: ../..//content/helpers/nsi_tablestatus_view.js:72
 msgid "T#"
 msgstr ""
 
 #: ../..//content/select_checks.js:95 ../..//content/select_checks.js:96
-#: ../..//content/helpers/nsi_tablestatus_view.js:166
+#: ../..//content/helpers/nsi_tablestatus_view.js:121
 msgid "Status"
 msgstr ""
 
@@ -2882,7 +2882,7 @@ msgstr ""
 #: ../..//content/controllers/departments_controller.js:302
 #: ../..//content/controllers/jobs_controller.js:145
 #: ../..//content/controllers/plugroups_controller.js:185
-#: ../..//content/controllers/plus_controller.js:1000
+#: ../..//content/controllers/plus_controller.js:1012
 #: ../..//content/controllers/promotions_manager_controller.js:359
 #: ../..//content/controllers/taxes_controller.js:246
 #: ../..//content/controllers/users_controller.js:255
@@ -2896,7 +2896,7 @@ msgstr ""
 #: ../..//content/controllers/jobs_controller.js:145
 #: ../..//content/controllers/ledger_entry_types_controller.js:148
 #: ../..//content/controllers/plugroups_controller.js:185
-#: ../..//content/controllers/plus_controller.js:1000
+#: ../..//content/controllers/plus_controller.js:1012
 #: ../..//content/controllers/pricelevelschedule_controller.js:154
 #: ../..//content/controllers/promotions_manager_controller.js:359
 #: ../..//content/controllers/taxes_controller.js:246
@@ -2939,7 +2939,7 @@ msgstr ""
 #: ../..//content/controllers/nonplu_setting_controller.js:217
 #: ../..//content/controllers/plufilter_controller.js:199
 #: ../..//content/controllers/plugroups_controller.js:400
-#: ../..//content/controllers/plus_controller.js:669
+#: ../..//content/controllers/plus_controller.js:671
 #: ../..//content/controllers/remote_control_controller.js:88
 #: ../..//content/controllers/static_condiments_controller.js:484
 #: ../..//content/controllers/storecontact_controller.js:176
@@ -2971,7 +2971,7 @@ msgstr ""
 #: ../..//content/controllers/nonplu_setting_controller.js:219
 #: ../..//content/controllers/plufilter_controller.js:201
 #: ../..//content/controllers/plugroups_controller.js:402
-#: ../..//content/controllers/plus_controller.js:671
+#: ../..//content/controllers/plus_controller.js:673
 #: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:178
@@ -2999,7 +2999,7 @@ msgstr ""
 #: ../..//content/controllers/nonplu_setting_controller.js:219
 #: ../..//content/controllers/plufilter_controller.js:201
 #: ../..//content/controllers/plugroups_controller.js:402
-#: ../..//content/controllers/plus_controller.js:671
+#: ../..//content/controllers/plus_controller.js:673
 #: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:178
@@ -3020,8 +3020,8 @@ msgstr ""
 #: ../..//content/controllers/ledger_entry_types_controller.js:255
 #: ../..//content/controllers/plufilter_controller.js:217
 #: ../..//content/controllers/plugroups_controller.js:381
-#: ../..//content/controllers/plus_controller.js:687
-#: ../..//content/controllers/plus_controller.js:700
+#: ../..//content/controllers/plus_controller.js:689
+#: ../..//content/controllers/plus_controller.js:702
 #: ../..//content/controllers/taxes_controller.js:106
 #: ../..//content/controllers/users_controller.js:391
 msgid "Discard Changes"
@@ -5260,7 +5260,7 @@ msgstr ""
 
 #: ../..//content/controllers/main_controller.js:280
 #: ../..//content/controllers/plus_controller.js:523
-#: ../..//content/controllers/plus_controller.js:1035
+#: ../..//content/controllers/plus_controller.js:1047
 #: ../..//content/controllers/plusearch_controller.js:154
 #: ../..//content/controllers/plusearch_controller.js:159
 #: ../..//content/controllers/stock_records_controller.js:124
@@ -5611,150 +5611,150 @@ msgstr ""
 msgid "[%S] (%S) may not be a member of its own product set."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:670
+#: ../..//content/controllers/plus_controller.js:672
 msgid ""
 "You have made changes to the current product. Save changes before exiting?"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:688
+#: ../..//content/controllers/plus_controller.js:690
 msgid ""
 "You have made changes to the current product. Are you sure you want to "
 "discard the changes?"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:701
+#: ../..//content/controllers/plus_controller.js:703
 msgid ""
 "You have made changes to the current set item. Are you sure you want to "
 "discard the changes?"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:713
+#: ../..//content/controllers/plus_controller.js:726
 msgid "Product number must not be empty."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:717
+#: ../..//content/controllers/plus_controller.js:730
 msgid "Product name must not be empty."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:724
+#: ../..//content/controllers/plus_controller.js:737
 msgid "Product number [%S] already exists; product not added"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:729
+#: ../..//content/controllers/plus_controller.js:742
 msgid "Duplicate Product Name [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:730
+#: ../..//content/controllers/plus_controller.js:743
 msgid ""
 "One or more products with name [%S] already exist in department [%S]. Are "
 "you sure this is the name you want?"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:731
+#: ../..//content/controllers/plus_controller.js:744
 msgid "Product name [%S] already exists in department [%S]; product not added"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:741
+#: ../..//content/controllers/plus_controller.js:754
 msgid ""
 "Condiment is required but no condiment group selected; product not modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:754
+#: ../..//content/controllers/plus_controller.js:767
 msgid ""
 "Price level %S preset price [%S] is larger than HALO [%S]; product not "
 "modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:758
+#: ../..//content/controllers/plus_controller.js:771
 msgid ""
 "Price level %S preset price [%S] is less than LALO [%S]; product not modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:773
+#: ../..//content/controllers/plus_controller.js:786
 msgid ""
 "This product is part of product set [%S] and may not itself be a product set"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:782
+#: ../..//content/controllers/plus_controller.js:795
 msgid ""
 "Product set item [%S] does not have either default item or group configured"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:845
+#: ../..//content/controllers/plus_controller.js:858
 msgid "Add New Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:845
+#: ../..//content/controllers/plus_controller.js:858
 msgid "New Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:845
+#: ../..//content/controllers/plus_controller.js:858
 msgid "Product Number"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:845
+#: ../..//content/controllers/plus_controller.js:858
 msgid "Product Name"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:891
+#: ../..//content/controllers/plus_controller.js:903
 msgid "Product [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:964
+#: ../..//content/controllers/plus_controller.js:976
 msgid "Product [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:996
+#: ../..//content/controllers/plus_controller.js:1008
 msgid "Product [%S] is part of a product set [%S] and may not be removed"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1027
+#: ../..//content/controllers/plus_controller.js:1039
 msgid "Product [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1046
+#: ../..//content/controllers/plus_controller.js:1058
 msgid "Product [%S] already linked to to product group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1060
+#: ../..//content/controllers/plus_controller.js:1072
 msgid "Selected products successfully linked to product group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1179
+#: ../..//content/controllers/plus_controller.js:1191
 msgid "Save Changes"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1180
+#: ../..//content/controllers/plus_controller.js:1192
 msgid ""
 "You have made changes to the current product. Please either save or discard "
 "the changes before cloning this product."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1202
+#: ../..//content/controllers/plus_controller.js:1214
 msgid "Product Group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1210
+#: ../..//content/controllers/plus_controller.js:1222
 msgid "Department [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1226
+#: ../..//content/controllers/plus_controller.js:1238
 msgid "Product to Clone"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1231
+#: ../..//content/controllers/plus_controller.js:1243
 msgid "Clone Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1248
+#: ../..//content/controllers/plus_controller.js:1260
 msgid "Please wait while product properties are cloned"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1321
+#: ../..//content/controllers/plus_controller.js:1333
 msgid "Product [%S] cloned successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1324
+#: ../..//content/controllers/plus_controller.js:1336
 msgid "You have not selected any properties to clone."
 msgstr ""
 
@@ -6155,8 +6155,8 @@ msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:893
 #: ../..//content/controllers/select_table_controller.js:896
-#: ../..//content/controllers/select_table_controller.js:956
-#: ../..//content/controllers/select_table_controller.js:959
+#: ../..//content/controllers/select_table_controller.js:955
+#: ../..//content/controllers/select_table_controller.js:958
 msgid "Select Table Status"
 msgstr ""
 
@@ -6165,31 +6165,37 @@ msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:922
-msgid "You are now clearing table status of Table# %S (%S). Proceed?\n"
+msgid ""
+"You are now clearing table status of Table# %S (%S). Proceed?\n"
+"Click OK to clear, \n"
+"or, click Cancel to abort."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:932
+#: ../..//content/controllers/select_table_controller.js:931
 msgid "Table status of Table# %S (%S) is cleared."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:957
+#: ../..//content/controllers/select_table_controller.js:956
 msgid "You are now marking table status of region [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:981
+#: ../..//content/controllers/select_table_controller.js:980
 msgid "Clear all table status in region"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:982
-msgid "You are now clearing all table status of region [%S]. Proceed?\n"
+#: ../..//content/controllers/select_table_controller.js:981
+msgid ""
+"You are now clearing all table status of region [%S]. Proceed?\n"
+"Click OK to clear, \n"
+"or, click Cancel to abort."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:993
+#: ../..//content/controllers/select_table_controller.js:991
 msgid "All table status of region [%S] are cleared."
 msgstr ""
 
+#: ../..//content/controllers/select_table_controller.js:1096
 #: ../..//content/controllers/select_table_controller.js:1098
-#: ../..//content/controllers/select_table_controller.js:1100
 #: ../..//content/controllers/table_man_controller.js:749
 msgid "All Regions"
 msgstr ""
@@ -7008,23 +7014,25 @@ msgstr ""
 msgid ""
 "The options of table status will be changed with options of master. "
 "Proceed?\n"
+"Click OK to change options, \n"
+"or, click Cancel to abort."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:861
+#: ../..//content/controllers/table_man_controller.js:860
 msgid "The options of table status is changed."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:894
+#: ../..//content/controllers/table_man_controller.js:891
 msgid ""
 "Modifications of table and region require system restart to take effect.\n"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:895
+#: ../..//content/controllers/table_man_controller.js:892
 msgid ""
 "The system will restart automatically after you return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:896
+#: ../..//content/controllers/table_man_controller.js:893
 msgid "Table Manage"
 msgstr ""
 
@@ -7489,7 +7497,7 @@ msgstr ""
 msgid "Sold Out -"
 msgstr ""
 
-#: ../..//content/helpers/nsi_tablestatus_view.js:170
+#: ../..//content/helpers/nsi_tablestatus_view.js:125
 msgid "Host Table"
 msgstr ""
 
