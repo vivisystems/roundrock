@@ -582,7 +582,12 @@
             if (item.scale) {
                 // if qty not manually set, read from scale
                 if (GeckoJS.Session.get('cart_set_qty_value') == null) {
-                    if (!this.readScale(null, item.tare)) return;
+                    if (!this.readScale(null, item.tare)) {
+
+                        // unblockUI
+                        this._unblockUI('blockui_panel');
+                        return;
+                    }
                 }
             }
             else {
