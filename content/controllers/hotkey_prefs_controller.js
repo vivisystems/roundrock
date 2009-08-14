@@ -52,9 +52,9 @@
 
             for (var i = 0; i < keys.length; i++) {
                 var newKey = GeckoJS.BaseObject.extend(fns[keys[i]], {});
-                newKey.name = _(keys[i] + '.name');
-                newKey.label = _(keys[i] + '.label');
-                newKey.desc = _(keys[i] + '.desc');
+                newKey.name = _(prefix + '.' + keys[i] + '.name');
+                newKey.label = _(prefix + '.' + keys[i] + '.label');
+                newKey.desc = _(prefix + '.' + keys[i] + '.desc');
                 functionArray.push(newKey);
             }
             functionArray.sort(function(a, b) {

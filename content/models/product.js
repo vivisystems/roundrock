@@ -33,11 +33,11 @@
 
             if (products == null) {
 
-                products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,icon_only,button_color,font_size,sale_unit,append_empty_btns,link_group,cond_group,0 as 'imageCounter' FROM products ORDER BY cate_no, display_order, name, no ");
+                products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,display_order,icon_only,button_color,font_size,sale_unit,append_empty_btns,link_group,cond_group,0 as 'imageCounter' FROM products ORDER BY cate_no, display_order, name, no ");
                 //products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,icon_only,button_color,font_size,append_empty_btns FROM products ORDER BY cate_no, display_order, name, no ");
 
             }
-            dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
+            //dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
             
             return products;
 
@@ -162,6 +162,29 @@
 
         },
 
+        // given a sorted list of product IDs, locate the position into which a new
+        // product is to be inserted, in the order of display_name, name, no
+        locateProductIndex: function(product, list) {
+            var productsById = GeckoJS.Session.get('productsById');
+            var display_order = product.display_order;
+            var name = product.name;
+            var no = product.no;
+
+            for (var i = 0; i < list.length; i++) {
+                var target = productsById[list[i]];
+                if (target) {
+                    if (display_order < target.display_order) break;
+                    else if (display_order == target.display_order) {
+                        if (name < target.name) break;
+                        else if (name == target.name) {
+                            if (no <= target.no) break;
+                        }
+                    }
+                }
+            }
+            return i;
+        },
+
         updateProductSession: function(mode, product, oldProduct) {
 
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
@@ -169,6 +192,7 @@
             var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
             var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
             var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+            var insertIndex;
 
             try {
 
@@ -190,15 +214,21 @@
                                 indexCate[product.cate_no] = [];
                                 indexCateAll[product.cate_no] = [];
                             }
-                            indexCateAll[(product.cate_no+"")].push((product.id+""));
+                            // locate index
+                            insertIndex = this.locateProductIndex(product, indexCateAll[(product.cate_no+"")]);
+                            indexCateAll[(product.cate_no+"")].splice(insertIndex, 0, product.id+"");
+                            //indexCateAll[(product.cate_no+"")].push((product.id+""));
 
                             if(GeckoJS.String.parseBoolean(product.visible)) {
-                                indexCate[(product.cate_no+"")].push((product.id+""));
+                                insertIndex = this.locateProductIndex(product, indexCate[(product.cate_no+"")]);
+                                indexCate[(product.cate_no+"")].splice(insertIndex++, 0, product.id+"");
+                                //indexCate[(product.cate_no+"")].push((product.id+""));
 
                                 // if append_empty_btns
                                 if (product.append_empty_btns && product.append_empty_btns > 0) {
                                     for (var jj=0; jj<product.append_empty_btns; jj++ ) {
-                                        indexCate[(product.cate_no+"")].push("");
+                                        indexCate[(product.cate_no+"")].splice(insertIndex++, 0, "");
+                                        //indexCate[(product.cate_no+"")].push("");
                                     }
                                 }
                             }
@@ -233,20 +263,26 @@
 
                         var indexCateAllArray = indexCateAll[(oldProduct.cate_no+"")];
                         var indexCateArray = indexCate[(oldProduct.cate_no+"")];
+                        var reordered = false;
 
-                        if (oldProduct.cate_no != product.cate_no || oldProduct.visible != product.visible) {
-
-                            // remove old category
-                            var index = -1;
-                            for (var i = 0; i < indexCateAllArray.length; i++) {
-                                if (indexCateAllArray[i] == oldProduct.id) {
-                                    index = i;
-                                    break;
+                        if (oldProduct.cate_no != product.cate_no ||
+                            oldProduct.visible != product.visible ||
+                            oldProduct.display_order != product.display_order) {
+                            reordered = true;
+                            // remove old category from indexCateAll only if category or display_order has changed
+                            if (oldProduct.cate_no != product.cate_no || oldProduct.display_order != product.display_order) {
+                                var index = -1;
+                                for (var i = 0; i < indexCateAllArray.length; i++) {
+                                    if (indexCateAllArray[i] == oldProduct.id) {
+                                        index = i;
+                                        break;
+                                    }
                                 }
+                                if (index > -1)
+                                    indexCateAllArray.splice(index, 1);
                             }
-                            if (index > -1)
-                                indexCateAllArray.splice(index, 1);
 
+                            // remove old category from indexCate
                             var index = -1;
                             for (var i = 0; i < indexCateArray.length; i++) {
                                 if (indexCateArray[i] == oldProduct.id) {
@@ -256,10 +292,9 @@
                             }
                             if (index > -1) {
                                 indexCateArray.splice(index, 1);
-                            }
 
-                            if (oldProduct.append_empty_btns && oldProduct.append_empty_btns > 0) {
-                                indexCateArray.splice(index, oldProduct.append_empty_btns);
+                                if (oldProduct.append_empty_btns && oldProduct.append_empty_btns > 0)
+                                    indexCateArray.splice(index, oldProduct.append_empty_btns);
                             }
 
                             // add new category
@@ -268,22 +303,32 @@
                                     indexCate[product.cate_no] = [];
                                     indexCateAll[product.cate_no] = [];
                                 }
-                                indexCateAll[(product.cate_no+"")].push((product.id+""));
+
+                                // insert into indexCateAll if category or display_order has changed
+                                if (oldProduct.cate_no != product.cate_no || oldProduct.display_order != product.display_order) {
+                                    insertIndex = this.locateProductIndex(product, indexCateAll[(product.cate_no+"")]);
+                                    indexCateAll[(product.cate_no+"")].splice(insertIndex, 0, product.id+"");
+                                    //indexCateAll[(product.cate_no+"")].push((product.id+""));
+                                }
+
                                 if(GeckoJS.String.parseBoolean(product.visible)) {
-                                    indexCate[(product.cate_no+"")].push((product.id+""));
+                                    insertIndex = this.locateProductIndex(product, indexCate[(product.cate_no+"")]);
+                                    indexCate[(product.cate_no+"")].splice(insertIndex++, 0, product.id+"");
+                                    //indexCate[(product.cate_no+"")].push((product.id+""));
 
                                     // if append_empty_btns
                                     if (product.append_empty_btns && product.append_empty_btns > 0) {
                                         for (var jj=0; jj<product.append_empty_btns; jj++ ) {
-                                            indexCate[(product.cate_no+"")].push("");
+                                            indexCate[(product.cate_no+"")].splice(insertIndex++, 0, "");
+                                            //indexCate[(product.cate_no+"")].push("");
                                         }
                                     }
                                 }
                             }
                         }
 
-                        // support append empty buttons
-                        if (oldProduct.append_empty_btns != product.append_empty_btns) {
+                        // support append empty buttons - only if
+                        if (!reordered && oldProduct.append_empty_btns != product.append_empty_btns) {
                             var index = -1;
                             for (var i = 0; i < indexCateArray.length; i++) {
                                 if (indexCateArray[i] == oldProduct.id) {

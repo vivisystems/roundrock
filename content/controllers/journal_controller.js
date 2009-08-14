@@ -156,18 +156,22 @@
 
                         //produce preview file
                         var previewContent = this.getSelectedTemplateData(txn, true);
-                        var previewFile = new GeckoJS.File(this._journalPath + journal.preview_file, true);
-                        previewFile.open("wb");
-                        previewFile.write(GREUtils.Gzip.deflate(previewContent));
-                        previewFile.close();
+                        if (previewContent != '') {
+                            var previewFile = new GeckoJS.File(this._journalPath + journal.preview_file, true);
+                            previewFile.open("wb");
+                            previewFile.write(GREUtils.Gzip.deflate(previewContent));
+                            previewFile.close();
+                        }
 
                         //produce print file
                         var prnContent = this.getSelectedTemplateData(txn, false);
-                        //var prnContent = GeckoJS.BaseObject.serialize(txn.data);
-                        var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file, true);
-                        prnFile.open("wb");
-                        prnFile.write(GREUtils.Gzip.deflate(prnContent));
-                        prnFile.close();
+                        if (prnContent != '') {
+                            //var prnContent = GeckoJS.BaseObject.serialize(txn.data);
+                            var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file, true);
+                            prnFile.open("wb");
+                            prnFile.write(GREUtils.Gzip.deflate(prnContent));
+                            prnFile.close();
+                        }
                         this.saveJournal(journal);
                     }
                 } catch (e) {
@@ -197,6 +201,9 @@
             var tpl = this._device.getTemplateData(template, false);
             var order = txn.data;
 
+            // @2009-08-13 irving
+            if (!tpl) return '';
+            
             var data = {
                 txn: txn,
                 order: order

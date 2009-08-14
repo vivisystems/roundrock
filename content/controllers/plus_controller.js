@@ -172,13 +172,13 @@
             return ratename;
         },
 
-        reorderCondimentGroup: function() {
+        reorderCondimentGroup: function(groups) {
             // re-arrange condiment groups
             var condimentscrollablepanel = document.getElementById('condimentscrollablepanel');
             var condGroupsById = this._condGroupsById;
             
             // build list of selection orders by group id
-            var selectedGroups = condimentscrollablepanel.value.split(',');
+            var selectedGroups = (groups || condimentscrollablepanel.value).split(',');
             var count = 0;
             var selectedGroupsById = {};
             var selectedItems = [];
@@ -262,7 +262,7 @@
                 //$('#rate').val(rate);
                 //$('#rate_name').val(this.getRateName(rate));
                 this.setInputData(product);
-                this.reorderCondimentGroup();
+                this.reorderCondimentGroup(product.cond_group);
                 
             }
             else {
@@ -1322,6 +1322,7 @@
                                 // dont refreshUI rightnow
                                 this.updateSession('modify', newData, oldData, false);
                             }
+                            this.sleep(100);
                         }
                         productModel.commit();
 
