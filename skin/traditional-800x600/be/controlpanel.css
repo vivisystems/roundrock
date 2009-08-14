@@ -114,7 +114,7 @@
     background: transparent url(../images/cp_prodDownBtn_a.png) center center no-repeat;
 }
 
-.ProductDownBtn[disabled=false]:active {
+.ProductDownBtn[disabled=true] {
     background: transparent url(../images/cp_prodDownBtn_b.png) center center no-repeat;
 }
 

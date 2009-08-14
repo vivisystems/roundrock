@@ -202,7 +202,6 @@
             if (drawer != null) {
                 drawer = GeckoJS.String.trim(drawer);
                 if (drawer != '') {
-                    alert('drawer: ' + drawer);
                     var warn = true;
                     if (device) {
                         if (!(device.deviceExists('cashdrawer', drawer))) {
