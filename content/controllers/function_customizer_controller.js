@@ -113,19 +113,33 @@
                                                             _('function_customizer.saved_confirm')
                                                             ))
             {
+
+
+                try {
+                    GREUtils.restartApplication();
+                }
+                catch(err) {
+                }
+
+            }
+
+           window.close();
+
+        },
+
+
+        removeFlagFile: function() {
+
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('function_customizer.remove_confirm.title'),
+                                                            _('function_customizer.remove_confirm')
+                                                            ))
+            {
                 // remove flag
                 GeckoJS.File.remove(this.profD+"/.fncustomizer");
             }
 
             window.close();
-
-            try {
-                GREUtils.restartApplication();
-            }
-            catch(err) {
-            }
-
-
+            
         },
 
         saveSetting: function() {

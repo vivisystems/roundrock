@@ -679,6 +679,7 @@
             <hbox>
                 <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                     <button id="save"  label="&function_customizer.save;" oncommand="$do('save', null, 'FunctionCustomizer');"/>
+                    <button id="disable"  label="&function_customizer.disable;" oncommand="$do('removeFlagFile', null, 'FunctionCustomizer');"/>
                 </hbox>
                 <hbox id="dialogButtons" pack="end" class="exitbar">
                     <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>

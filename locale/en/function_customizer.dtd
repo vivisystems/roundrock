@@ -1,6 +1,7 @@
 <!ENTITY    function_customizer.title "Function Customizer">
 <!ENTITY    function_customizer.loading "Loading...">
 <!ENTITY    function_customizer.save "Save">
+<!ENTITY    function_customizer.disable "Disable [Function Customizer]">
 
 <!ENTITY    function_customizer.products.label "Products">
 <!ENTITY    function_customizer.activities.label "Activities">
