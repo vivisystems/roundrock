@@ -1,0 +1,37 @@
+<!ENTITY    function_customizer.title "Function Customizer">
+<!ENTITY    function_customizer.loading "Loading...">
+<!ENTITY    function_customizer.save "Save">
+
+<!ENTITY    function_customizer.products.label "Products">
+<!ENTITY    function_customizer.activities.label "Activities">
+<!ENTITY    function_customizer.employees.label "Employees">
+<!ENTITY    function_customizer.tools.label "Tools">
+<!ENTITY    function_customizer.reports.title "Reports">
+<!ENTITY    function_customizer.functions.title "Functions">
+<!ENTITY    function_customizer.systems.title "Systems">
+
+<!ENTITY    function_customizer.tab.controlpanel "Control Panel">
+<!ENTITY    function_customizer.tab.appearance "Appearance">
+<!ENTITY    function_customizer.tab.attributes "Attributes">
+<!ENTITY    function_customizer.tab.promotions "Promotions">
+<!ENTITY    function_customizer.tab.devices "Devices">
+<!ENTITY    function_customizer.tab.others "Others">
+<!ENTITY    function_customizer.tab.register "Register">
+<!ENTITY    function_customizer.tab.additional "Additional">
+<!ENTITY    function_customizer.tab.price "Price">
+<!ENTITY    function_customizer.tab.order "Order">
+
+<!ENTITY    function_customizer.tab.sales "Sales">
+
+<!ENTITY    function_customizer.products.disable_image_picker "Disable [Image Picker]">
+<!ENTITY    function_customizer.products.disable_color_picker "Disable [Color Picker]">
+<!ENTITY    function_customizer.products.disable_font_picker "Disable [Font Picker]">
+<!ENTITY    function_customizer.products.disable_stock "Disable [Stock] Relation Fields">
+<!ENTITY    function_customizer.products.disable_scale "Disable [Scale] Relation Fields">
+<!ENTITY    function_customizer.products.disable_memo "Disable [Memo] Relation Fields">
+<!ENTITY    function_customizer.products.disable_setitem "Disable [SetItem] Relation Fields">
+<!ENTITY    function_customizer.products.disable_basic2 "Disable [Basic2] Tab">
+<!ENTITY    function_customizer.products.disable_condiments "Disable [Condiments] Tab">
+<!ENTITY    function_customizer.products.disable_groups "Disable [Product Groups] Tab">
+<!ENTITY    function_customizer.products.max_pricelevel "Maximum Price Level:" >
+

@@ -2668,6 +2668,21 @@ msgstr "Gallon"
 
 ########################################################################
 #
+# List of Function Customizer
+#
+########################################################################
+
+msgid "function_customizer.disable.label"
+msgstr "Disable [%S]"
+
+msgid "function_customizer.saved_confirm.title"
+msgstr "confirm function customizer change"
+
+msgid "function_customizer.saved_confirm"
+msgstr "Your settings has saved and generated!\nThe system will restart automatically after you return to the Main Screen.\n\nDo you want to disable [Function Customizer] for the future using?"
+
+########################################################################
+#
 # END OF STATIC MESSAGES
 #
 ########################################################################

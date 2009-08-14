@@ -130,6 +130,14 @@
             
         },
 
+        restart: function() {
+                try {
+                    GREUtils.restartApplication();
+                }
+                catch(err) {
+                }
+        },
+
         showAlertDialog: function() {
 
             var width = 600;
@@ -233,12 +241,9 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
 
             if (this.doRestart) {
-                try {
-                    GREUtils.restartApplication();
-                }
-                catch(err) {
-                }
+                this.restart();
             }
+
             if (this.restartClock) {
                 try {
                     $('#clock')[0].stopClock();
@@ -1282,7 +1287,29 @@
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+        },
+
+        FunctionCustomizerDialog: function() {
+
+            // check if .funcmanager exists
+            var procPath = GeckoJS.Configure.read('ProfD');
+            var builderMarker = new GeckoJS.File(procPath + '/.fncustomizer');
+            if (!builderMarker.exists()) return;
+
+            // check for access privilege
+            if (!this.Acl.isUserInRole('acl_internal_access')) {
+                return;
+            }
+
+            var aURL = 'chrome://viviecr/content/function_customizer.xul';
+            var aName = _('Function Customizer');
+            var aFeatures = 'chrome,dialog,modal=no,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var aArguments = {};
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
+
         }
+
 
     };
 
