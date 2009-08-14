@@ -101,8 +101,8 @@
                                     </rows>
                                 </grid>
                                 
-                                <hbox flex="1" class="custom-container-button-color-fontsize-picker">
-                                    <vbox flex="1">
+                                <hbox id="productGroupsAppearanceBox" flex="1" class="custom-container-button-color-fontsize-picker">
+                                    <vbox id="productGroupsAppearanceColorBox" flex="1">
                                         <label value="&plugroups.button.color;" class="label-sub-title"/>
                                         <hbox flex="1" pack="center">
                                             <button_colorpicker id="plugroup_button_color" orient="vertical"
@@ -110,13 +110,14 @@
                                                                 form="plugroupForm" name="button_color" default="plugroup-button-color-default"/>
                                         </hbox>
                                     </vbox >
-                                    <vbox flex="1">
+                                    <vbox id="productGroupsAppearanceFontBox" flex="1">
                                         <label value="&plugroups.font.size;" class="label-sub-title"/>
                                         <button_fontsizepicker id="plugroup_font_size" orient="vertical" flex="1"
                                                                buttonClass="button-item-b"
                                                                form="plugroupForm" name="font_size" default="medium"/>
                                     </vbox>
                                 </hbox>
+                                <spacer flex="1" />
                             </vbox>
                         </tabpanel>
 

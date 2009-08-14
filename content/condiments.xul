@@ -150,8 +150,8 @@
                         </rows>
                     </grid>
 
-                    <hbox flex="1" class="custom-container-button-color-fontsize-picker">
-                        <vbox flex="1">
+                    <hbox id="condimentsAppearanceBox" flex="1" class="custom-container-button-color-fontsize-picker">
+                        <vbox id="condimentsAppearanceColorBox" flex="1">
                             <label value="&condiments.condiment.button.color;" class="label-sub-title"/>
                             <hbox flex="1" pack="center">
                                 <button_colorpicker id="condiment_button_color" orient="vertical"
@@ -159,13 +159,14 @@
                                                     form="condimentForm" name="button_color" default="condiment-button-color-default"/>
                             </hbox>
                         </vbox>
-                        <vbox flex="1">
+                        <vbox id="condimentsAppearanceFontBox" flex="1">
                             <label value="&condiments.condiment.font.size;" class="label-sub-title"/>
                             <button_fontsizepicker id="condiment_font_size" orient="vertical" flex="1"
                                                    class="button-fontsize-picker custom-content-fontsize-picker" buttonClass="button-item-b"
                                                    form="condimentForm" name="font_size" default="medium"/>
                         </vbox>
                     </hbox>
+                    <spacer flex="1" />
                     <hbox>
                         <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                             <button id="add_condiment" label="&condiments.button.action.add;" disabled="false" class="button-add" oncommand="$do('addCond', null, 'Condiments');" />

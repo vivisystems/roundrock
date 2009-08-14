@@ -42,7 +42,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="container-be layout-be">
+    <vbox id="devicesXUL" flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-a">
             <tabbox flex="1" class="content-tabbox">
                 <arrowscrollbox orient="horizontal" class="content-arrow-scrollbox">
@@ -133,7 +133,7 @@
                         <spacer width="10px"/>
 
                         <!-- Receipt Printer 2 -->
-                        <vbox flex="1" class="custom-content-device">
+                        <vbox id="deviceReceipt2Box" flex="1" class="custom-content-device">
                             <checkbox label="&devices.receipt.printer.2.label;" value="false"
                                       form="deviceForm" name="receipt-2-enabled" default="false"/>
                             <vbox class="custom-content-device-details">
@@ -537,7 +537,7 @@
                     <tabpanel id="report-panel" orient="horizontal">
 
                         <!-- Report Printer -->
-                        <vbox flex="1" class="custom-content-device">
+                        <vbox id="deviceReportBox" flex="1" class="custom-content-device">
                             <checkbox label="&devices.report.printer.1.label;" value="false"
                                       form="deviceForm" name="report-1-enabled" default="false"/>
                             <vbox class="custom-content-device-details">
@@ -603,7 +603,7 @@
                         <spacer width="10px"/>
                         
                         <!-- Label Printer -->
-                        <vbox flex="1" class="custom-content-device">
+                        <vbox id="deviceLabelBox" flex="1" class="custom-content-device">
                             <checkbox label="&devices.report.printer.2.label;" value="false"
                                       form="deviceForm" name="report-2-enabled" default="false"/>
                             <vbox class="custom-content-device-details">
@@ -663,7 +663,7 @@
                     <tabpanel id="vfd-panel" orient="horizontal">
 
                         <!-- VFD 1 -->
-                        <vbox flex="1" class="custom-content-device">
+                        <vbox id="devVfd1Box" flex="1" class="custom-content-device">
                            <checkbox label="&devices.vfd.1.label;" value="false"
                                      form="deviceForm" name="vfd-1-enabled" default="false"/>
                             <vbox class="custom-content-device-details">
@@ -728,7 +728,7 @@
                         <spacer width="10px"/>
 
                         <!-- VFD 2 -->
-                        <vbox flex="1" class="custom-content-device">
+                        <vbox id="devVfd2Box" flex="1" class="custom-content-device">
                            <checkbox label="&devices.vfd.2.label;" value="false"
                                      form="deviceForm" name="vfd-2-enabled" default="false"/>
                             <vbox class="custom-content-device-details">
@@ -796,7 +796,7 @@
                     <tabpanel id="cashdrawer-1-panel" orient="horizontal">
 
                         <!-- Cash Drawer 1 -->
-                        <vbox flex="1" class="custom-content-device">
+                        <vbox id="devicesDrawer1Box" flex="1" class="custom-content-device">
                             <checkbox label="&devices.cashdrawer.1.label;" value="false"
                                       form="deviceForm" name="cashdrawer-1-enabled" default="false"/>
                             <hbox class="custom-content-device-details">
@@ -941,7 +941,7 @@
                     <tabpanel id="cashdrawer-2-panel" orient="horizontal">
 
                         <!-- Cash Drawer 2 -->
-                        <vbox flex="1" class="custom-content-device">
+                        <vbox id="devicesDrawer2Box" flex="1" class="custom-content-device">
                             <checkbox label="&devices.cashdrawer.2.label;" value="false"
                                       form="deviceForm" name="cashdrawer-2-enabled" default="false"/>
                             <hbox class="custom-content-device-details">
@@ -1087,7 +1087,7 @@
                     <tabpanel id="scale-panel" orient="horizontal">
 
                         <!-- Scale 1 -->
-                        <vbox flex="1" class="custom-content-device">
+                        <vbox id="devicesScale1Box" flex="1" class="custom-content-device">
                             <checkbox label="&devices.scale1.label;" value="false"
                                       form="deviceForm" name="scale-1-enabled" default="false"/>
                             <vbox class="custom-content-device-details">
@@ -1146,7 +1146,7 @@
                         <spacer width="10px"/>
 
                         <!-- Scale 2 -->
-                         <vbox flex="1" class="custom-content-device">
+                         <vbox id="devicesScale2Box" flex="1" class="custom-content-device">
                             <checkbox label="&devices.scale2.label;" value="false"
                                       form="deviceForm" name="scale-2-enabled" default="false"/>
                             <vbox class="custom-content-device-details">

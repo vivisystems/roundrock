@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % extensionsDTD SYSTEM "chrome://mozapps/locale/extensions/extensions.dtd">
+  %extensionsDTD;
+  <!ENTITY % FunctionCustomizer SYSTEM "chrome://viviecr/locale/function_customizer.dtd">
+  %FunctionCustomizer;
+  <!ENTITY % Devices SYSTEM "chrome://viviecr/locale/devices.dtd">
+  %Devices;
+  <!ENTITY % Sysprefs SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
+  %Sysprefs;
+  <!ENTITY % extensionsSDKDTD SYSTEM "chrome://vivipos/locale/extensions.dtd">
+  %extensionsSDKDTD;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/plus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
+
+<window title="&function_customizer.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include components -->
+  <script src="chrome://viviecr/content/controllers/components/function_settings.js" type="application/x-javascript"/>
+
+  <!-- include controller -->
+  <script src="chrome://viviecr/content/controllers/function_customizer_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/function_customizer.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
+    </keyset>
+
+    <vbox flex="1" class="container-be layout-be">
+        <vbox flex="1" class="container-main layout-b">
+            <label value="&function_customizer.title;" class="label-page-title"/>
+
+            <!-- Main Content Block -->
+            <hbox flex="1">
+                    <!-- Left Panel for Category -->
+                    <vbox>
+                        <richlistbox flex="1" onselect="document.getElementById('deckContainer').selectedIndex = this.selectedIndex;">
+                          <richlistitem align="center" >
+                              <image src="chrome://viviecr/skin/icons/icon_plus.png" />
+                              <description>&function_customizer.products.label;</description>
+                              <spacer style="width: 4px;" />
+                          </richlistitem>
+                          <richlistitem align="center" >
+                              <image src="chrome://viviecr/skin/icons/icon_employee.png" />
+                              <description>&function_customizer.employees.label;</description>
+                              <spacer style="width: 4px;" />
+                          </richlistitem>
+                          <richlistitem align="center" >
+                              <image src="chrome://viviecr/skin/icons/icon_discount.png" />
+                              <description>&function_customizer.activities.label;</description>
+                              <spacer style="width: 4px;" />
+                          </richlistitem>
+                          <richlistitem align="center" >
+                              <image src="chrome://viviecr/skin/icons/icon_addons.png" />
+                              <description>&function_customizer.tools.label;</description>
+                              <spacer style="width: 4px;" />
+                          </richlistitem>
+                          <richlistitem align="center">
+                              <image src="chrome://viviecr/skin/icons/icon_functionpnl.png" />
+                              <description>&function_customizer.functions.title;</description>
+                              <spacer style="width: 4px;" />
+                          </richlistitem>
+                          <richlistitem align="center" >
+                              <image src="chrome://viviecr/skin/icons/icon_sync.png" />
+                              <description>&function_customizer.systems.title;</description>
+                              <spacer style="width: 4px;" />
+                          </richlistitem>
+                          <richlistitem align="center">
+                              <image src="chrome://viviecr/skin/icons/icon_reports.png" />
+                              <description>&function_customizer.reports.title;</description>
+                              <spacer style="width: 4px;" />
+                          </richlistitem>
+                        </richlistbox>
+                    </vbox>
+                    <!-- Left Panel for Category End -->
+
+                    <spacer style="width: 10px;" />
+                    
+                    <!-- Right Panel for Option -->
+                    <vbox flex="1" style="border: 1px solid gray;">
+                        <deck id="deckContainer" selectedIndex="0">
+
+                            <!-- Products Container -->
+                            <hbox flex="1" id="productsContainer" >
+                                <tabbox id="productsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                  <tabs id="productsTabs">
+                                    <tab label="&function_customizer.tab.controlpanel;"/>
+                                    <tab label="&function_customizer.tab.appearance;"/>
+                                    <tab label="&function_customizer.tab.attributes;"/>
+                                  </tabs>
+                                  <tabpanels id="productsTabpanels" flex="1">
+
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="cpDepartments" value="true" label="Disable Departments Manager"
+                                                      form="productsForm" name="cpDepartments" default="false" />
+                                        <checkbox id="cpProducts" value="true" label="Disable Products Manager"
+                                                      form="productsForm" name="cpProducts" default="false" />
+                                        <checkbox id="cpProductGroups" value="true" label="Disable Product Groups Manager"
+                                                      form="productsForm" name="cpProductGroups" default="false" />
+                                        <checkbox id="cpCondiments" value="true" label="Disable Condiments Manager"
+                                                      form="productsForm" name="cpCondiments" default="false" />
+                                        <checkbox id="cpCondimentsDock" value="true" label="Disable Condiments Dock Manager"
+                                                      form="productsForm" name="cpCondimentsDock" default="false" />
+                                        <checkbox id="cpProductFilters" value="true" label="Disable Product Filters Manager"
+                                                      form="productsForm" name="cpProductFilters" default="false" />
+                                        <checkbox id="cpNonPluSettings" value="true" label="Disable Non PLU Settings"
+                                                      form="productsForm" name="cpNonPluSettings" default="false" />
+                                        <checkbox id="cpImagesManager" value="true" label="Disable Images Manager"
+                                                      form="productsForm" name="cpImagesManager" default="false" />
+                                        <checkbox id="cpStockControl" value="true" label="Disable Stock Control"
+                                                      form="productsForm" name="cpStockControl" default="false" />
+                                        <checkbox id="cpTaxes" value="true" label="Disable Taxes Manager"
+                                                      form="productsForm" name="cpTaxes" default="false" />
+                                    </tabpanel>
+
+                                    <tabpanel flex="1" orient="vertical">
+                                        <groupbox>
+                                          <caption label="Departments"/>
+                                          <checkbox id="appearDept" value="true" checked="true" hidden="true" form="productsForm" name="appearDept" />
+                                          <checkbox id="appearDeptColor" value="true" label="&function_customizer.products.disable_color_picker;"
+                                                      form="productsForm" name="appearDeptColor" default="false" />
+                                          <checkbox id="appearDeptFont" value="true" label="&function_customizer.products.disable_font_picker;"
+                                                      form="productsForm" name="appearDeptFont" default="false" />
+                                        </groupbox>
+                                        <spacer style="height: 10px;" />
+
+                                        <groupbox>
+                                          <caption label="Products"/>
+                                          <checkbox id="appearProduct" value="true" checked="true" hidden="true" form="productsForm" name="appearProduct" />
+                                          <checkbox id="appearProductImage" value="true" label="&function_customizer.products.disable_image_picker;"
+                                                      form="productsForm" name="appearProductImage" default="false" />
+                                          <checkbox id="appearProductColor" value="true" label="&function_customizer.products.disable_color_picker;"
+                                                      form="productsForm" name="appearProductColor" default="false" />
+                                          <checkbox id="appearProductFont" value="true" label="&function_customizer.products.disable_font_picker;"
+                                                      form="productsForm" name="appearProductFont" default="false" />
+                                        </groupbox>
+                                        <spacer style="height: 10px;" />
+
+                                        <groupbox>
+                                          <caption label="Condiments"/>
+                                          <checkbox id="appearCondment" value="true" checked="true" hidden="true" form="productsForm" name="appearCondment" />
+                                          <checkbox id="appearCondmentColor" value="true" label="&function_customizer.products.disable_color_picker;"
+                                                      form="productsForm" name="appearCondmentColor" default="false" />
+                                          <checkbox id="appearCondmentFont" value="true" label="&function_customizer.products.disable_font_picker;"
+                                                      form="productsForm" name="appearCondmentFont" default="false" />
+                                        </groupbox>
+                                        <spacer style="height: 10px;" />
+
+                                        <groupbox>
+                                          <caption label="Product Groups"/>
+                                          <checkbox id="appearProdGroup" value="true" checked="true" hidden="true" form="productsForm" name="appearProdGroup" />
+                                          <checkbox id="appearProdGroupColor" value="true" label="&function_customizer.products.disable_color_picker;"
+                                                      form="productsForm" name="appearProdGroupColor" default="false" />
+                                          <checkbox id="appearProdGroupFont" value="true" label="&function_customizer.products.disable_font_picker;"
+                                                      form="productsForm" name="appearProdGroupFont" default="false" />
+                                        </groupbox>
+                                    </tabpanel>
+
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="attrProdBasic2" value="true" checked="true" hidden="true" form="productsForm" name="attrProdBasic2" />
+                                        <checkbox id="attrProdStock" value="true" label="&function_customizer.products.disable_stock;"
+                                                      form="productsForm" name="attrProdStock" default="false" />
+                                        <checkbox id="attrProdScale" value="true" label="&function_customizer.products.disable_scale;"
+                                                      form="productsForm" name="attrProdScale" default="false" />
+                                        <checkbox id="attrProdMemo" value="true" label="&function_customizer.products.disable_memo;"
+                                                      form="productsForm" name="attrProdMemo" default="false" />
+                                        <checkbox id="attrProdSetItem" value="true" label="&function_customizer.products.disable_setitem;"
+                                                      form="productsForm" name="attrProdSetItem" default="false" />
+                                        <checkbox id="attrProdCondiments" value="true" label="&function_customizer.products.disable_condiments;"
+                                                      form="productsForm" name="attrProdCondiments" default="false" />
+                                        <checkbox id="attrProdGroups" value="true" label="&function_customizer.products.disable_groups;"
+                                                      form="productsForm" name="attrProdGroups" default="false" />
+                                        <hbox>
+                                            <label value="&function_customizer.products.max_pricelevel;" control="attrProdPriceLevel" />
+                                            <textbox id="attrProdPriceLevel" form="productsForm" name="attrProdPriceLevel" value="9" type="number" size="2" maxlength="2" min="1" max="9" />
+                                        </hbox>
+                                    </tabpanel>
+
+                                  </tabpanels>
+                                </tabbox>
+
+                            </hbox>
+                            <!-- Products Container End -->
+
+                            <!-- Employees Container -->
+                            <hbox flex="1" id="employeesContainer" >
+
+                                <tabbox id="employeesTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                  <tabs id="employeesTabs">
+                                    <tab label="&function_customizer.tab.controlpanel;"/>
+                                  </tabs>
+                                  <tabpanels id="employeesTabpanels" flex="1">
+
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="cpEmployees" value="true" label="Disable Employees Manager"
+                                                      form="employeesForm" name="cpEmployees" default="false" />
+                                        <checkbox id="cpJobs" value="true" label="Disable Jobs Manager"
+                                                      form="employeesForm" name="cpJobs" default="false" />
+                                        <checkbox id="cpRoles" value="true" label="Disable Roles Manager"
+                                                      form="employeesForm" name="cpRoles" default="false" />
+                                        <checkbox id="cpStorecontact" value="true" label="Disable Store Contact Manager"
+                                                      form="employeesForm" name="cpStorecontact" default="false" />
+                                    </tabpanel>
+
+                                  </tabpanels>
+                                  
+                                </tabbox>
+
+                            </hbox>
+                            <!-- Employees Container End -->
+
+                            <!-- Activities Container -->
+                            <hbox flex="1" id="activitiesContainer" >
+                                <tabbox id="activitiesTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                  <tabs id="activitiesTabs">
+                                    <tab label="&function_customizer.tab.controlpanel;"/>
+                                    <tab label="&function_customizer.tab.promotions;"/>
+                                  </tabs>
+                                  <tabpanels id="activitiesTabpanels" flex="1">
+
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="cpPricelevelschedule" value="true" label="Disable Price level Schedule Manager"
+                                                      form="activitiesForm" name="cpPricelevelschedule" default="false" />
+                                        <checkbox id="cpPromotionsManager" value="true" label="Disable Promotions Manager Manager"
+                                                      form="activitiesForm" name="cpPromotionsManager" default="false" />
+                                    </tabpanel>
+
+                                    <tabpanel flex="1" orient="vertical">
+
+                                        <groupbox>
+                                          <caption label="&function_customizer.groupbox.triggers.caption;"/>
+
+                                          <checkbox id="promoTriggerIndividualPlu" value="true" label="Disable Individual Plu Trigger"
+                                                      form="activitiesForm" name="promoTriggerIndividualPlu" default="false" />
+                                          <checkbox id="promoTriggerIndividualDept" value="true" label="Disable Individual Department Trigger"
+                                                      form="activitiesForm" name="promoTriggerIndividualDept" default="false" />
+                                          <checkbox id="promoTriggerIndividualGroup" value="true" label="Disable Individual Group Trigger"
+                                                      form="activitiesForm" name="promoTriggerIndividualGroup" default="false" />
+                                          <checkbox id="promoTriggerMultiDept" value="true" label="Disable Multiple Department Trigger"
+                                                      form="activitiesForm" name="promoTriggerMultiDept" default="false" />
+                                          <checkbox id="promoTriggerMultiGroup" value="true" label="Disable Multiple Group Trigger"
+                                                      form="activitiesForm" name="promoTriggerMultiGroup" default="false" />
+                                        </groupbox>
+                                        <spacer style="height: 10px;" />
+
+                                        <groupbox>
+                                          <caption label="&function_customizer.groupbox.types.caption;"/>
+
+                                          <checkbox id="promoTypeAmountOff" value="true" label="Disable Amount Off Type"
+                                                      form="activitiesForm" name="promoTypeAmountOff" default="false" />
+                                          <checkbox id="promoTypePercentageOff" value="true" label="Disable Percentage Off Type"
+                                                      form="activitiesForm" name="promoTypePercentageOff" default="false" />
+                                          <checkbox id="promoTypeFixedValue" value="true" label="Disable Fixed Value Type"
+                                                      form="activitiesForm" name="promoTypeFixedValue" default="false" />
+                                          <checkbox id="promoTypeCheapestOneFree" value="true" label="Disable Cheapest One Free Type"
+                                                      form="activitiesForm" name="promoTypeCheapestOneFree" default="false" />
+                                          <checkbox id="promoTypeMultiBuy" value="true" label="Disable MultiBuy Type"
+                                                      form="activitiesForm" name="promoTypeMultiBuy" default="false" />
+                                        </groupbox>
+
+                                    </tabpanel>
+                                  </tabpanels>
+                                </tabbox>
+                            </hbox>
+                            <!-- Activities Container End -->
+
+                            <!-- Tools Container -->
+                            <hbox flex="1" id="toolsContainer" >
+                                <tabbox id="toolsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                  <tabs id="toolsTabs">
+                                    <tab label="&function_customizer.tab.controlpanel;"/>
+                                    <tab label="&function_customizer.tab.devices;"/>
+                                    <tab label="&function_customizer.tab.others;"/>
+                                  </tabs>
+                                  <tabpanels id="toolsTabpanels" flex="1">
+
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="cpAddons" value="true" label="Disable Addons Manager"
+                                                      form="toolsForm" name="cpAddons" default="false" />
+                                        <checkbox id="cpAnnotations" value="true" label="Disable Annotations Manager"
+                                                      form="toolsForm" name="cpAnnotations" default="false" />
+                                        <checkbox id="cpCurrency" value="true" label="Disable Currency Manager"
+                                                      form="toolsForm" name="cpCurrency" default="false" />
+                                        <checkbox id="cpDestinations" value="true" label="Disable Destinations Manager"
+                                                      form="toolsForm" name="cpDestinations" default="false" />
+                                        <checkbox id="cpDevices" value="true" label="Disable Devices Manager"
+                                                      form="toolsForm" name="cpDevices" default="false" />
+                                        <checkbox id="cpFunctionpanel" value="true" label="Disable Function Panel Manager"
+                                                      form="toolsForm" name="cpFunctionpanel" default="false" />
+                                        <checkbox id="cpHotkey" value="true" label="Disable Hotkey Manager"
+                                                      form="toolsForm" name="cpHotkey" default="false" />
+                                        <checkbox id="cpLayout" value="true" label="Disable Layout Manager"
+                                                      form="toolsForm" name="cpLayout" default="false" />
+                                        <checkbox id="cpLedger" value="true" label="Disable Ledger Manager"
+                                                      form="toolsForm" name="cpLedger" default="false" />
+                                        <checkbox id="cpSysprefs" value="true" label="Disable Sysprefs Manager"
+                                                      form="toolsForm" name="cpSysprefs" default="false" />
+                                        <checkbox id="cpTableman" value="true" label="Disable Table Manager"
+                                                      form="toolsForm" name="cpTableman" default="false" />
+                                    </tabpanel>
+
+                                    <!-- Devices Support -->
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="devReceipt2" value="true" label="&devices.receipt.printer.2.label;"
+                                                      form="toolsForm" name="devReceipt2" default="false" />
+                                        <checkbox id="devCheck1" value="true" label="&devices.check.printer.1.label;"
+                                                      form="toolsForm" name="devCheck1" default="false" />
+                                        <checkbox id="devCheck2" value="true" label="&devices.check.printer.2.label;"
+                                                      form="toolsForm" name="devCheck2" default="false" />
+                                        <checkbox id="devCheck3" value="true" label="&devices.check.printer.3.label;"
+                                                      form="toolsForm" name="devCheck3" default="false" />
+                                        <checkbox id="devCheck4" value="true" label="&devices.check.printer.4.label;"
+                                                      form="toolsForm" name="devCheck4" default="false" />
+
+                                        <checkbox id="devReportLabel" value="true" checked="true" hidden="true" form="toolsForm" name="devReportLabel" />
+                                        <checkbox id="devReport" value="true" label="&devices.report.printer.1.label;"
+                                                      form="toolsForm" name="devReport" default="false" />
+                                        <checkbox id="devLabel" value="true" label="&devices.report.printer.2.label;"
+                                                      form="toolsForm" name="devLabel" default="false" />
+
+                                        <checkbox id="devVfd2" value="true" label="&devices.vfd.2.label;"
+                                                      form="toolsForm" name="devVfd2" default="false" />
+                                        <checkbox id="devDrawer2" value="true" label="&devices.cashdrawer.2.label;"
+                                                      form="toolsForm" name="devDrawer2" default="false" />
+                                                      
+                                        <checkbox id="devScale" value="true" checked="true" hidden="true" form="toolsForm" name="devScale" />
+                                        <checkbox id="devScale1" value="true" label="&devices.scale1.label;"
+                                                      form="toolsForm" name="devScale1" default="false" />
+                                        <checkbox id="devScale2" value="true" label="&devices.scale2.label;"
+                                                      form="toolsForm" name="devScale2" default="false" />
+
+                                        <checkbox id="devJournal" value="true" label="&devices.tab.journal.label;"
+                                                      form="toolsForm" name="devJournal" default="false" />
+                                    </tabpanel>
+                                    <!-- Devices Support End -->
+
+                                    <tabpanel flex="1" orient="vertical">
+
+                                        <groupbox>
+                                          <caption label="&function_customizer.groupbox.addons.caption;"/>
+
+                                            <checkbox id="optAddonsUpdate" value="true" label="&cmd.checkUpdatesAll.label;"
+                                                          form="toolsForm" name="optAddonsUpdate" default="false" />
+                                            <checkbox id="optAddonsSDKUpdate" value="true" label="&checkNewUpdates.label;"
+                                                          form="toolsForm" name="optAddonsSDKUpdate" default="false" />
+                                            <checkbox id="optAddonsEditable" value="true" label="&cmd.installLocalFile.label;/&cmd.options.label;/&cmd.disable.label;/&cmd.uninstall.label;"
+                                                          form="toolsForm" name="optAddonsEditable" default="false" />
+                                            <checkbox id="optAddonsExtensionsView" value="true" label="&extensions.label;"
+                                                          form="toolsForm" name="optAddonsExtensionsView" default="false" />
+                                            <checkbox id="optAddonsLocalesView" value="true" label="&locales.label;"
+                                                          form="toolsForm" name="optAddonsLocalesView" default="false" />
+                                            <checkbox id="optAddonsPluginsView" value="true" label="&plugins.label;"
+                                                          form="toolsForm" name="optAddonsPluginsView" default="false" />
+
+                                        </groupbox>
+
+                                        <groupbox>
+                                          <caption label="&function_customizer.groupbox.generaloptions.caption;"/>
+
+                                            <checkbox id="optFormatSettings" value="true" label="&category.formats;"
+                                                          form="toolsForm" name="optFormatSettings" default="false" />
+                                            <checkbox id="optTrainingMode" value="true" label="&category.training;"
+                                                          form="toolsForm" name="optTrainingMode" default="false" />
+                                        </groupbox>
+
+                                    </tabpanel>
+
+                                  </tabpanels>
+                                </tabbox>                                
+                            </hbox>
+                            <!-- Tools Container End -->
+
+                            <!-- Function Panels Container -->
+                            <hbox flex="1" id="functionsContainer" >
+                                <tabbox id="functionsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                  <tabs id="functionsTabs">
+                                    <tab label="&function_customizer.tab.register;"/>
+                                    <tab label="&function_customizer.tab.additional;"/>
+                                    <tab label="&function_customizer.tab.price;"/>
+                                    <tab label="&function_customizer.tab.devices;"/>
+                                    <tab label="&function_customizer.tab.order;"/>
+                                    <tab label="&function_customizer.tab.others;"/>
+                                  </tabs>
+                                  <tabpanels id="functionsTabpanels" flex="1">
+
+                                    <!-- Register -->
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="fnCancel" value="true" label="Disable Cancel"
+                                                      form="functionsForm" name="fnCancel" default="false" />
+                                        <checkbox id="fnClear" value="true" label="Disable Clear"
+                                                      form="functionsForm" name="fnClear" default="false" />
+                                        <checkbox id="fnDeptbyno" value="true" label="Disable Deptbyno"
+                                                      form="functionsForm" name="fnDeptbyno" default="false" />
+                                        <checkbox id="fnEnter" value="true" label="Disable Enter"
+                                                      form="functionsForm" name="fnEnter" default="false" />
+                                        <checkbox id="fnItembybarcode" value="true" label="Disable Itembybarcode"
+                                                      form="functionsForm" name="fnItembybarcode" default="false" />
+                                        <checkbox id="fnKeypress" value="true" label="Disable Keypress"
+                                                      form="functionsForm" name="fnKeypress" default="false" />
+                                        <checkbox id="fnModifyitem" value="true" label="Disable Modifyitem"
+                                                      form="functionsForm" name="fnModifyitem" default="false" />
+                                        <checkbox id="fnQuantity" value="true" label="Disable Quantity"
+                                                      form="functionsForm" name="fnQuantity" default="false" />
+                                        <checkbox id="fnReturn" value="true" label="Disable Return"
+                                                      form="functionsForm" name="fnReturn" default="false" />
+                                        <checkbox id="fnReturncartitem" value="true" label="Disable Returncartitem"
+                                                      form="functionsForm" name="fnReturncartitem" default="false" />
+                                        <checkbox id="fnShifttax" value="true" label="Disable Shifttax"
+                                                      form="functionsForm" name="fnShifttax" default="false" />
+                                        <checkbox id="fnShowpayment" value="true" label="Disable Showpayment"
+                                                      form="functionsForm" name="fnShowpayment" default="false" />
+                                        <checkbox id="fnSubtotal" value="true" label="Disable Subtotal"
+                                                      form="functionsForm" name="fnSubtotal" default="false" />
+                                        <checkbox id="fnTraymarker" value="true" label="Disable fnTraymarker"
+                                                      form="functionsForm" name="fnTraymarker" default="false" />
+                                        <checkbox id="fnVoidItem" value="true" label="Disable VoidItem"
+                                                      form="functionsForm" name="fnVoidItem" default="false" />
+                                    </tabpanel>
+                                    <!-- Register End -->
+
+                                    <!-- Addition -->
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="fnCoupon" value="true" label="Disable Coupon"
+                                                      form="functionsForm" name="fnCoupon" default="false" />
+                                        <checkbox id="fnCash" value="true" label="Disable Cash"
+                                                      form="functionsForm" name="fnCash" default="false" />
+                                        <checkbox id="fnCreditcard" value="true" label="Disable Creditcard"
+                                                      form="functionsForm" name="fnCreditcard" default="false" />
+                                        <checkbox id="fnGiftcard" value="true" label="Disable Giftcard"
+                                                      form="functionsForm" name="fnGiftcard" default="false" />
+                                        <checkbox id="fnAddcondiment" value="true" label="Disable Addcondiment"
+                                                      form="functionsForm" name="fnAddcondiment" default="false" />
+                                        <checkbox id="fnAddlinkedcondiment" value="true" label="Disable Addlinkedcondiment"
+                                                      form="functionsForm" name="fnAddlinkedcondiment" default="false" />
+                                        <checkbox id="fnAddmemo" value="true" label="Disable Addmemo"
+                                                      form="functionsForm" name="fnAddmemo" default="false" />
+                                        <checkbox id="fnAnnotate" value="true" label="Disable Annotate"
+                                                      form="functionsForm" name="fnAnnotate" default="false" />
+                                        <checkbox id="fnGuestNum" value="true" label="Disable GuestNum"
+                                                      form="functionsForm" name="fnGuestNum" default="false" />
+                                        <checkbox id="fnLedgerentry" value="true" label="Disable Ledgerentry"
+                                                      form="functionsForm" name="fnLedgerentry" default="false" />
+                                        <checkbox id="fnSetdestination" value="true" label="Disable Setdestination"
+                                                      form="functionsForm" name="fnSetdestination" default="false" />
+                                        <checkbox id="fnTagitem" value="true" label="Disable Tagitem"
+                                                      form="functionsForm" name="fnTagitem" default="false" />
+                                    </tabpanel>
+                                    <!-- Addition End -->
+
+                                    <!-- Price -->
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="fnChangeToCurrentLevel" value="true" label="Disable ChangeToCurrentLevel"
+                                                      form="functionsForm" name="fnChangeToCurrentLevel" default="false" />
+                                        <checkbox id="fnDiscountByAmount" value="true" label="Disable Discount By Amount"
+                                                      form="functionsForm" name="fnDiscountByAmount" default="false" />
+                                        <checkbox id="fnDiscountByPercentage" value="true" label="Disable Discount By Percentage"
+                                                      form="functionsForm" name="fnDiscountByPercentage" default="false" />
+                                        <checkbox id="fnDiscountPretaxByPercentage" value="true" label="Disable Discount Pretax By Percentage"
+                                                      form="functionsForm" name="fnDiscountPretaxByPercentage" default="false" />
+                                        <checkbox id="fnHouseBon" value="true" label="Disable HouseBon"
+                                                      form="functionsForm" name="fnHouseBon" default="false" />
+                                        <checkbox id="fnPricelevel1" value="true" label="Disable Pricelevel1"
+                                                      form="functionsForm" name="fnPricelevel1" default="false" />
+                                        <checkbox id="fnPricelevel2" value="true" label="Disable Pricelevel2"
+                                                      form="functionsForm" name="fnPricelevel2" default="false" />
+                                        <checkbox id="fnPricelevel3" value="true" label="Disable Pricelevel3"
+                                                      form="functionsForm" name="fnPricelevel3" default="false" />
+                                        <checkbox id="fnPricelevel4" value="true" label="Disable Pricelevel4"
+                                                      form="functionsForm" name="fnPricelevel4" default="false" />
+                                        <checkbox id="fnPricelevel5" value="true" label="Disable Pricelevel5"
+                                                      form="functionsForm" name="fnPricelevel5" default="false" />
+                                        <checkbox id="fnPricelevel6" value="true" label="Disable Pricelevel6"
+                                                      form="functionsForm" name="fnPricelevel6" default="false" />
+                                        <checkbox id="fnPricelevel7" value="true" label="Disable Pricelevel7"
+                                                      form="functionsForm" name="fnPricelevel7" default="false" />
+                                        <checkbox id="fnPricelevel8" value="true" label="Disable Pricelevel8"
+                                                      form="functionsForm" name="fnPricelevel8" default="false" />
+                                        <checkbox id="fnPricelevel9" value="true" label="Disable Pricelevel9"
+                                                      form="functionsForm" name="fnPricelevel9" default="false" />
+                                        <checkbox id="fnPricelevelshift" value="true" label="Disable Price level shift"
+                                                      form="functionsForm" name="fnPricelevelshift" default="false" />
+                                        <checkbox id="fnSurchargeByAmount" value="true" label="Disable SurchargeByAmount"
+                                                      form="functionsForm" name="fnSurchargeByAmount" default="false" />
+                                        <checkbox id="fnSurchargeByPercentage" value="true" label="Disable SurchargeByPercentage"
+                                                      form="functionsForm" name="fnSurchargeByPercentage" default="false" />
+                                        <checkbox id="fnSurchargePretaxByPercentage" value="true" label="Disable SurchargePretaxByPercentage"
+                                                      form="functionsForm" name="fnSurchargePretaxByPercentage" default="false" />
+                                    </tabpanel>
+                                    <!-- Price End -->
+
+                                    <!-- Devices -->
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="fnCheck" value="true" label="Disable Check"
+                                                      form="functionsForm" name="fnCheck" default="false" />
+                                        <checkbox id="fnCheckcopy" value="true" label="Disable Checkcopy"
+                                                      form="functionsForm" name="fnCheckcopy" default="false" />
+                                        <checkbox id="fnOpendrawer1" value="true" label="Disable Opendrawer1"
+                                                      form="functionsForm" name="fnOpendrawer1" default="false" />
+                                        <checkbox id="fnOpendrawer2" value="true" label="Disable Opendrawer2"
+                                                      form="functionsForm" name="fnOpendrawer2" default="false" />
+                                        <checkbox id="fnPrintcheck" value="true" label="Disable Printcheck"
+                                                      form="functionsForm" name="fnPrintcheck" default="false" />
+                                        <checkbox id="fnPrinterDashboard" value="true" label="Disable PrinterDashboard"
+                                                      form="functionsForm" name="fnPrinterDashboard" default="false" />
+                                        <checkbox id="fnReceipt" value="true" label="Disable Receipt"
+                                                      form="functionsForm" name="fnReceipt" default="false" />
+                                        <checkbox id="fnReceiptcopy" value="true" label="Disable Receiptcopy"
+                                                      form="functionsForm" name="fnReceiptcopy" default="false" />
+                                        <checkbox id="fnScale" value="true" label="Disable Scale"
+                                                      form="functionsForm" name="fnScale" default="false" />
+                                    </tabpanel>
+                                    <!-- Devices End -->
+
+                                    <!-- Order -->
+                                    <tabpanel flex="1" orient="vertical" >
+                                        <checkbox id="fnMergeCheck" value="true" label="Disable MergeCheck"
+                                                      form="functionsForm" name="fnMergeCheck" default="false" />
+                                        <checkbox id="fnNewCheck" value="true" label="Disable NewCheck"
+                                                      form="functionsForm" name="fnNewCheck" default="false" />
+                                        <checkbox id="fnNewTable" value="true" label="Disable NewTable"
+                                                      form="functionsForm" name="fnNewTable" default="false" />
+                                        <checkbox id="fnPrefinalize" value="true" label="Disable Prefinalize"
+                                                      form="functionsForm" name="fnPrefinalize" default="false" />
+                                        <checkbox id="fnPullqueue" value="true" label="Disable Pullqueue"
+                                                      form="functionsForm" name="fnPullqueue" default="false" />
+                                        <checkbox id="fnPushqueue" value="true" label="Disable Pushqueue"
+                                                      form="functionsForm" name="fnPushqueue" default="false" />
+                                        <checkbox id="fnRecallCheck" value="true" label="Disable RecallCheck"
+                                                      form="functionsForm" name="fnRecallCheck" default="false" />
+                                        <checkbox id="fnRecallTable" value="true" label="Disable RecallTable"
+                                                      form="functionsForm" name="fnRecallTable" default="false" />
+                                        <checkbox id="fnRecallOrder" value="true" label="Disable RecallOrder"
+                                                      form="functionsForm" name="fnRecallOrder" default="false" />
+                                        <checkbox id="fnSplitCheck" value="true" label="Disable SplitCheck"
+                                                      form="functionsForm" name="fnSplitCheck" default="false" />
+                                        <checkbox id="fnTransferTable" value="true" label="Disable TransferTable"
+                                                      form="functionsForm" name="fnTransferTable" default="false" />
+                                        <checkbox id="fnTruncatetxnrecords" value="true" label="Disable Truncatetxnrecords"
+                                                      form="functionsForm" name="fnTruncatetxnrecords" default="false" />
+                                    </tabpanel>
+                                    <!-- Order End-->
+
+                                    <!-- Others -->
+                                    <tabpanel flex="1" orient="vertical" >
+                                        <checkbox id="fnClockin" value="true" label="Disable Clockin"
+                                                      form="functionsForm" name="fnClockin" default="false" />
+                                        <checkbox id="fnControlpanel" value="true" label="Disable Controlpanel"
+                                                      form="functionsForm" name="fnControlpanel" default="false" />
+                                        <checkbox id="fnDispatch" value="true" label="Disable Dispatch"
+                                                      form="functionsForm" name="fnDispatch" default="false" />
+                                        <checkbox id="fnPlusearch" value="true" label="Disable Plusearch"
+                                                      form="functionsForm" name="fnPlusearch" default="false" />
+                                        <checkbox id="fnQuicksignoff" value="true" label="Disable Quicksignoff"
+                                                      form="functionsForm" name="fnQuicksignoff" default="false" />
+                                        <checkbox id="fnReboot" value="true" label="Disable Reboot"
+                                                      form="functionsForm" name="fnReboot" default="false" />
+                                        <checkbox id="fnShiftchange" value="true" label="Disable Shiftchange"
+                                                      form="functionsForm" name="fnShiftchange" default="false" />
+                                        <checkbox id="fnShutdown" value="true" label="Disable Shutdown"
+                                                      form="functionsForm" name="fnShutdown" default="false" />
+                                        <checkbox id="fnSignOff" value="true" label="Disable SignOff"
+                                                      form="functionsForm" name="fnSignOff" default="false" />
+                                        <checkbox id="fnSilentsignoff" value="true" label="Disable Silentsignoff"
+                                                      form="functionsForm" name="fnSilentsignoff" default="false" />
+                                        <checkbox id="fnStockAdjustment" value="true" label="Disable StockAdjustment"
+                                                      form="functionsForm" name="fnStockAdjustment" default="false" />
+                                        <checkbox id="fnStoreCheck" value="true" label="Disable StoreCheck"
+                                                      form="functionsForm" name="fnStoreCheck" default="false" />
+                                        <checkbox id="fnTogglevirtualkeyboard" value="true" label="Disable Togglevirtualkeyboard"
+                                                      form="functionsForm" name="fnTogglevirtualkeyboard" default="false" />
+                                        <checkbox id="fnTrainingMode" value="true" label="Disable TrainingMode"
+                                                      form="functionsForm" name="fnTrainingMode" default="false" />
+                                        <checkbox id="fnVieworders" value="true" label="Disable Vieworders"
+                                                      form="functionsForm" name="fnVieworders" default="false" />
+                                        <checkbox id="fnCurrencyConvert" value="true" label="Disable Currency Convert"
+                                                      form="functionsForm" name="fnCurrencyConvert" default="false" />
+                                    </tabpanel>
+                                    <!-- Others End -->
+
+                                  </tabpanels>
+                                </tabbox>                                
+                            </hbox>
+                            <!-- Function Panels Container End -->
+                            
+                            <!-- Systems Container -->
+                            <hbox flex="1" id="systemsContainer" >
+                                <tabbox id="systemsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                  <tabs id="systemsTabs">
+                                    <tab label="&function_customizer.tab.controlpanel;"/>
+                                    <!--tab label="&function_customizer.tab.others;"/-->
+                                  </tabs>
+                                  <tabpanels id="systemsTabpanels" flex="1">
+
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="cpDatetime" value="true" label="Disable Datetime Manager"
+                                                      form="systemsForm" name="cpDatetime" default="false" />
+                                        <checkbox id="cpImportexport" value="true" label="Disable Import/Export Manager"
+                                                      form="systemsForm" name="cpImportexport" default="false" />
+                                        <checkbox id="cpLocalekeyboard" value="true" label="Disable Locale Keyboard Manager"
+                                                      form="systemsForm" name="cpLocalekeyboard" default="false" />
+                                        <checkbox id="cpLocalization" value="true" label="Disable Localization Editor Manager"
+                                                      form="systemsForm" name="cpLocalization" default="false" />
+                                        <checkbox id="cpNetworkSetting" value="true" label="Disable Network Setting Manager"
+                                                      form="systemsForm" name="cpNetworkSetting" default="false" />
+                                        <checkbox id="cpPrinters" value="true" label="Disable Printers Sharing Manager"
+                                                      form="systemsForm" name="cpPrinters" default="false" />
+                                        <checkbox id="cpRemoteControl" value="true" label="Disable Remote Control Manager"
+                                                      form="systemsForm" name="cpRemoteControl" default="false" />
+                                        <checkbox id="cpSyncSettings" value="true" label="Disable Sync Settings Manager"
+                                                      form="systemsForm" name="cpSyncSettings" default="false" />
+                                        <checkbox id="cpSystembackup" value="true" label="Disable System Backup Manager"
+                                                      form="systemsForm" name="cpSystembackup" default="false" />
+                                        <checkbox id="cpTouchCalibration" value="true" label="Disable Touch Calibration"
+                                                      form="systemsForm" name="cpTouchCalibration" default="false" />
+                                        <checkbox id="cpXterm" value="true" label="Disable Xterm"
+                                                      form="systemsForm" name="cpXterm" default="false" />
+                                        <checkbox id="cpJournal" value="true" label="Disable Journal Manager"
+                                                      form="systemsForm" name="cpJournal" default="false" />
+                                        <checkbox id="cpViewSystemLog" value="true" label="Disable View System Log Manager"
+                                                      form="systemsForm" name="cpViewSystemLog" default="false" />
+                                    </tabpanel>
+
+                                    <!--tabpanel flex="1" orient="vertical">
+                                    </tabpanel-->
+
+                                  </tabpanels>
+                                </tabbox>                                
+                            </hbox>
+                            <!-- Systems Container End -->
+
+                            <hbox flex="1" id="reportsContainer" >
+                                <tabbox id="reportsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                  <tabs id="reportsTabs">
+                                    <tab label="&function_customizer.tab.sales;"/>
+                                    <tab label="&function_customizer.tab.others;"/>
+                                  </tabs>
+                                  <tabpanels id="productsTabpanels" flex="1">
+
+                                    <tabpanel flex="1" orient="vertical" style="overflow: auto">
+                                        <checkbox id="rptClerksalesreport" value="true" label="Disable Clerk Sales Report"
+                                                      form="reportsForm" name="rptClerksalesreport" default="false" />
+                                        <checkbox id="rptDailysalesdetail" value="true" label="Disable Sales - Detailed Report"
+                                                      form="reportsForm" name="rptDailysalesdetail" default="false" />
+                                        <checkbox id="rptDailysales" value="true" label="Disable Sales Report Report"
+                                                      form="reportsForm" name="rptDailysales" default="false" />
+                                        <checkbox id="rptDailysalessummary" value="true" label="Disable Daily Sales Summary Report"
+                                                      form="reportsForm" name="rptDailysalessummary" default="false" />
+                                        <checkbox id="rptHourlysales" value="true" label="Disable Hourly Sales Report"
+                                                      form="reportsForm" name="rptHourlysales" default="false" />
+                                        <checkbox id="rptOrderannotation" value="true" label="Disable Order Annotations Report"
+                                                      form="reportsForm" name="rptOrderannotation" default="false" />
+                                        <checkbox id="rptOrderstatus" value="true" label="Disable Order Status Report"
+                                                      form="reportsForm" name="rptOrderstatus" default="false" />
+                                        <checkbox id="rptProductsales" value="true" label="Disable Product Sales Report"
+                                                      form="reportsForm" name="rptProductsales" default="false" />
+                                        <checkbox id="rptPromotionsummary" value="true" label="Disable Promotion Summary Report"
+                                                      form="reportsForm" name="rptPromotionsummary" default="false" />
+                                        <checkbox id="rptSalessummary" value="true" label="Disable Sales Summary Report"
+                                                      form="reportsForm" name="rptSalessummary" default="false" />
+                                        <checkbox id="rptYourorder" value="true" label="Disable Custom Sales Report"
+                                                      form="reportsForm" name="rptYourorder" default="false" />
+                                    </tabpanel>
+                                    <tabpanel flex="1" orient="vertical" style="overflow: auto">
+                                        <checkbox id="rptAttendancerecord" value="true" label="Disable Attendance Record Report"
+                                                      form="reportsForm" name="rptAttendancerecord" default="false" />
+                                        <checkbox id="rptCashbyclerk" value="true" label="Disable Shift Change Report Report"
+                                                      form="reportsForm" name="rptCashbyclerk" default="false" />
+                                        <checkbox id="rptCashdrawerreport" value="true" label="Disable Cash Drawer Report Report"
+                                                      form="reportsForm" name="rptCashdrawerreport" default="false" />
+                                        <checkbox id="rptCashdrawersummary" value="true" label="Disable Cash Drawer Summary Report"
+                                                      form="reportsForm" name="rptCashdrawersummary" default="false" />
+                                        <checkbox id="rptDepartmentlist" value="true" label="Disable Department List Report"
+                                                      form="reportsForm" name="rptDepartmentlist" default="false" />
+                                        <checkbox id="rptDetailedtaxreport" value="true" label="Disable Detailed Tax Report Report"
+                                                      form="reportsForm" name="rptDetailedtaxreport" default="false" />
+                                        <checkbox id="rptProductlist" value="true" label="Disable Product List Report"
+                                                      form="reportsForm" name="rptProductlist" default="false" />
+                                        <checkbox id="rptStocks" value="true" label="Disable Stock Report"
+                                                      form="reportsForm" name="rptStocks" default="false" />
+                                        <checkbox id="rptInventorycommitments" value="true" label="Disable Stock Adjustments Report"
+                                                      form="reportsForm" name="rptInventorycommitments" default="false" />
+                                        <checkbox id="rptPurchasehistory" value="true" label="Disable Purchase History Report"
+                                                      form="reportsForm" name="rptPurchasehistory" default="false" />
+                                        <checkbox id="rptUserlist" value="true" label="Disable Employee List Report"
+                                                      form="reportsForm" name="rptUserlist" default="false" />
+                                    </tabpanel>
+                                  </tabpanels>
+                                </tabbox>
+                            </hbox>
+                        </deck>
+                    </vbox>
+                    <!-- Right Panel for Option End -->
+            </hbox>
+            <!-- Main Content End -->
+
+            <spacer style="height: 10px;" />
+            
+            <hbox>
+                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                    <button id="save"  label="&function_customizer.save;" oncommand="$do('save', null, 'FunctionCustomizer');"/>
+                    <button id="disable"  label="&function_customizer.disable;" oncommand="$do('removeFlagFile', null, 'FunctionCustomizer');"/>
+                </hbox>
+                <hbox id="dialogButtons" pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
+            
+        </vbox>
+    </vbox>
+
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs"/>
+
+</window>

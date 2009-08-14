@@ -61,11 +61,12 @@
         createPriceLevelPanel: function () {
             this.readPrefSchedule();
             var defaultpriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel') || 1;
+            var maxPriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.MaxPriceLevel') || 10;
 
             var priceleveldata = [];
             var item = {name: _('Default') + ' (' + defaultpriceLevel + ')'};
             priceleveldata.push(item);
-            for (var i=1; i < 10; i++) {
+            for (var i=1; i < maxPriceLevel; i++) {
                 var item ={name: i};
                 priceleveldata.push(item);
             }

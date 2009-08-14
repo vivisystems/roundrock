@@ -14,7 +14,7 @@
     left: 60px;
 }
 .TableBtns button{
-    margin: 5px 10px;
+    margin: 5px 10px 0px 9px;
     -moz-appearance: none;
     background: none;
     border: none;
@@ -23,8 +23,11 @@
     min-width: 54px;
     min-height: 41px;
 }
-.TableBtns button label,
-.RightBtns button label{
+.tbButton[selected], .tbButtonn[checked]{
+    background: #85775b !important;
+    -moz-appearance: none;
+}
+.TableBtns button label{
     display: none;
 }
 
@@ -33,8 +36,8 @@
     border: none;
     margin-left: 155px;
     max-height: 520px;
+    min-height: 520px;
 }
-
 .TablePanel row {
     max-height: 128px;
 }
@@ -44,12 +47,9 @@
     margin: 1px;
     border: none;
     background: none;
+    height: 120px;
     max-height: 128px;
     width: 174px;
-}
-.tbButton[selected], .tbButtonn[checked]{
-    background: #85775b !important;
-    -moz-appearance: none;
 }
 
 .dialogbtn {
@@ -111,6 +111,18 @@
 .bookcBtn2 {
     background: transparent url(../icons/bookTable2.png) center center no-repeat !important;
 }
+.addMarkBtn {
+    background: transparent url(../icons/addMark.png) center center no-repeat !important;
+}
+.clearMarkBtn {
+    background: transparent url(../icons/clearMark.png) center center no-repeat !important;
+}
+.addMarksBtn {
+    background: transparent url(../icons/addMarks.png) center center no-repeat !important;
+}
+.clearMarksBtn {
+    background: transparent url(../icons/clearMarks.png) center center no-repeat !important;
+}
 
 .RightBtns {
     left: 880px;
@@ -133,6 +145,9 @@
     max-height: 63px;
     min-height: 63px !important;
     background: transparent url(../icons/clerk.png) center center no-repeat !important;
+}
+.RightBtns button label{
+    display: none;
 }
 
 .space{

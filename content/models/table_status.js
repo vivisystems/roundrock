@@ -1014,8 +1014,9 @@
 
                 this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize(optDatas));
 
-                return ;
             }
+
+            options.MinimumChargePlu = GeckoJS.BaseObject.serialize(options.MinimumChargePlu);
 
             return options;
 

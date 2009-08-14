@@ -380,6 +380,14 @@
 
             GeckoJS.FormHelper.reset('userForm');
 
+            // update price level list
+            var maxPriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.MaxPriceLevel') || 10;
+            var priceLevelObj = document.getElementById('default_price_level');
+            for (let i=0; i<maxPriceLevel; i++) {
+                let v = i == 0 ? "" : i;
+                priceLevelObj.appendItem(v,v);
+            }
+
             this.validateForm();
         },
 
