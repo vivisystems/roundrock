@@ -362,6 +362,8 @@
                                                           form="toolsForm" name="optAddonsUpdate" default="false" />
                                             <checkbox id="optAddonsSDKUpdate" value="true" label="&checkNewUpdates.label;"
                                                           form="toolsForm" name="optAddonsSDKUpdate" default="false" />
+                                            <checkbox id="optAddonsEditable" value="true" label="&cmd.installLocalFile.label;/&cmd.options.label;/&cmd.disable.label;/&cmd.uninstall.label;"
+                                                          form="toolsForm" name="optAddonsEditable" default="false" />
                                             <checkbox id="optAddonsExtensionsView" value="true" label="&extensions.label;"
                                                           form="toolsForm" name="optAddonsExtensionsView" default="false" />
                                             <checkbox id="optAddonsLocalesView" value="true" label="&locales.label;"
