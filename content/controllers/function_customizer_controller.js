@@ -36,9 +36,12 @@
                     }else if (elemId.indexOf('fn') == 0) {
 
                         // function
+                        localeKey = formSettings[elemId].key + ".label";
+                        /*
                         let tmps = formSettings[elemId].key.split('.');
                         let k = tmps[tmps.length-1];
                         localeKey = k + ".label";
+                        */
 
                     }else if (elemId.indexOf('promo') == 0) {
 
