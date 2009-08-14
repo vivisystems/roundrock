@@ -126,7 +126,7 @@
             var username = this.username ;
             var password = this.password ;
 
-            // this.log('DEBUG', 'requestRemoteService: ' + reqUrl + ', with method: ' + method);
+            this.log('DEBUG', 'requestRemoteService: ' + reqUrl + ', with method: ' + method);
 
             // for use asynchronize mode like synchronize mode
             // mozilla only

@@ -55,7 +55,7 @@
             var username = this.username ;
             var password = this.password ;
 
-            // this.log('DEBUG', 'requestRemoteService2 url: ' + reqUrl + ', with method: ' + method);
+            this.log('DEBUG', 'requestRemoteService2 url: ' + reqUrl + ', with method: ' + method);
 
             // for use asynchronize mode like synchronize mode
             // mozilla only
@@ -175,7 +175,7 @@
             var username = this.username ;
             var password = this.password ;
 
-            // this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with method: ' + type);
+            this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with method: ' + type);
 
             // set this reference to self for callback
             var self = this;
@@ -817,7 +817,16 @@
             if (remoteUrl) {
                 try {
                     // orders = this.requestRemoteService('GET', remoteUrl + "/" + cond, null);
-                    orderObject = this.requestRemoteService2('GET', remoteUrl + "/" + order_id, null);
+                    var requestUrl = remoteUrl + "/" + order_id + '/' + this.syncSettings.machine_id;
+                    orderObject = this.requestRemoteService2('GET',requestUrl, null);
+                    this.log(this.dump(orderObject));
+
+                    // locked by remote machined
+                    if(orderObject.LockedByMachineId) {
+                        this.datasource.lastError = 98;
+                        this.datasource.lastErrorString = orderObject.LockedByMachineId;
+                    }
+
 /*
                     //@todo
                     order.forEach(function(o){
@@ -846,7 +855,7 @@
                 }
             }
 
-            if(orderObject) {
+            if(orderObject && orderObject['OrderObject']) {
                 // return GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(orderObject.object));
                 return GeckoJS.BaseObject.unserialize(orderObject['OrderObject'].object);
             }
