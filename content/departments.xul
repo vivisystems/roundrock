@@ -128,8 +128,8 @@
                         </row>
                     </rows>
                 </grid>
-                <hbox flex="1" class="custom-container-button-color-fontsize-picker">
-                    <vbox flex="1">
+                <hbox id="departmentsAppearanceBox" flex="1" class="custom-container-button-color-fontsize-picker">
+                    <vbox id="departmentsAppearanceColorBox" flex="1">
                         <label value="&departments.button.color;" class="label-sub-title"/>
                         <hbox flex="1" pack="center">
                             <button_colorpicker id="dept_button_color" orient="vertical"
@@ -137,13 +137,14 @@
                                                 form="deptForm" name="button_color" default="department-button-color-default"/>
                         </hbox>
                     </vbox>
-                    <vbox flex="1">
+                    <vbox id="departmentsAppearanceFontBox" flex="1">
                         <label value="&departments.font.size;" class="label-sub-title"/>
                         <button_fontsizepicker id="dept_font_size" orient="vertical" flex="1"
                                                buttonClass="button-item-b"
                                                form="deptForm" name="font_size" default="medium"/>
                     </vbox>
                 </hbox>
+                <spacer flex="1" />
                 <hbox flex="1">
                     <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Departments');" />

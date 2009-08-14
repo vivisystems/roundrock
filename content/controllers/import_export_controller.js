@@ -17,8 +17,6 @@
         _busy: false,
         _importFolder: 'database_import',
         _exportFolder: 'database_export',
-        _maxRuntime: 20 * 60,
-        _maxRuntimePreference: 'dom.max_chrome_script_run_time',
 
         select: function(index) {
             var button = document.getElementById('importBtn');
@@ -222,10 +220,6 @@
             };
 
             try {
-
-                // set max script run time...
-                var oldLimit = GREUtils.Pref.getPref(this._maxRuntimePreference);
-                GREUtils.Pref.setPref(this._maxRuntimePreference, this._maxRuntime);
 
                 this.setButtonDisable(true);
                 switch(exportType) {
@@ -620,8 +614,6 @@
                 
                 progmeter.value = 100;
                 this.sleep(200);
-                // reset max script run time...
-                GREUtils.Pref.setPref(this._maxRuntimePreference, oldLimit);
                 // sync to media...
                 this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
 
@@ -830,9 +822,6 @@
             }
 
             try {
-                // set max script run time...
-                var oldLimit = GREUtils.Pref.getPref(this._maxRuntimePreference);
-                GREUtils.Pref.setPref(this._maxRuntimePreference, this._maxRuntime);
 
                 progmeter.value = 0;
 
@@ -1796,8 +1785,6 @@
 
                 progmeter.value = 100;
                 this.sleep(200);
-                // reset max script run time...
-                GREUtils.Pref.setPref(this._maxRuntimePreference, oldLimit);
                 // progmeter.value = 0;
                 this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
 

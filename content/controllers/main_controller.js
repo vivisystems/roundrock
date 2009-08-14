@@ -130,6 +130,14 @@
             
         },
 
+        restart: function() {
+                try {
+                    GREUtils.restartApplication();
+                }
+                catch(err) {
+                }
+        },
+
         showAlertDialog: function() {
 
             var width = 600;
@@ -233,12 +241,9 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
 
             if (this.doRestart) {
-                try {
-                    GREUtils.restartApplication();
-                }
-                catch(err) {
-                }
+                this.restart();
             }
+
             if (this.restartClock) {
                 try {
                     $('#clock')[0].stopClock();
@@ -947,8 +952,6 @@
                                             _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
 
                     var waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Removing all transaction records'), 500);
-                    var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                    GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
                     // dispatch beforeTruncateTxnRecords event
                     this.dispatchEvent('beforeTruncateTxnRecords', null);
@@ -1002,7 +1005,6 @@
                         
                     } catch (e) {}
                     finally {
-                        GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                         waitPanel.hidePopup();
                     }
 
@@ -1026,8 +1028,6 @@
             var weeklyPack = GeckoJS.Configure.read('vivipos.fec.settings.OrderWeeklyPack') || -1;
 
             if (retainDays > 0) {
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
                 var waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Removing expired transaction records'), 500);
 
@@ -1090,7 +1090,6 @@
                     this._dbError(e.errno, e.errstr, e.errmsg);
                 }
                 finally {
-                    GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                     waitPanel.hidePopup();
                 }
             }
@@ -1282,7 +1281,29 @@
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+        },
+
+        FunctionCustomizerDialog: function() {
+
+            // check if .funcmanager exists
+            var procPath = GeckoJS.Configure.read('ProfD');
+            var builderMarker = new GeckoJS.File(procPath + '/.fncustomizer');
+            if (!builderMarker.exists()) return;
+
+            // check for access privilege
+            if (!this.Acl.isUserInRole('acl_internal_access')) {
+                return;
+            }
+
+            var aURL = 'chrome://viviecr/content/function_customizer.xul';
+            var aName = _('Function Customizer');
+            var aFeatures = 'chrome,dialog,modal=no,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var aArguments = {};
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
+
         }
+
 
     };
 
