@@ -17,8 +17,8 @@ pref("dom.event.contextualmenu.enabled", false);
 pref("dom.disable_window_open_feature.status", true);
 pref("dom.disable_window_status_change", true);
 
-pref("dom.max_chrome_script_run_time", 3600);
-pref("dom.max_script_run_time", 3600);
+pref("dom.max_chrome_script_run_time", 7200);
+pref("dom.max_script_run_time", 7200);
 
 /* TraceMonkey JIT 1.9.1 */
 pref("javascript.options.jit.content", true);

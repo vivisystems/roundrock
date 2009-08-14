@@ -44,7 +44,7 @@ function checkForUpdates(prompt) {
 
 
   <hbox id="commandBarBottom">
-    <button label="&checkNewUpdates.label;" tooltiptext="&checkNewUpdates.tooltip;" oncommand="checkForUpdates(true);" />
+    <button label="&checkNewUpdates.label;" id="checkSDKUpdateButton" tooltiptext="&checkNewUpdates.tooltip;" oncommand="checkForUpdates(true);" />
     <button label="&close.label;" tooltiptext="&close.tooltip;" oncommand="window.close();" />
   </hbox>
 
