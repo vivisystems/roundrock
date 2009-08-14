@@ -130,16 +130,18 @@
 
         saveSetting: function() {
 
-            var obj = {};
+            var obj = {}, productsForm = {}, reportsForm={}, employeesForm={}, activitiesForm={};
+            var toolsForm={}, systemsForm={}, functionsForm = {};
 
-            var productsForm = this.Form.serializeToObject('productsForm', true);
+
+            productsForm = GREUtils.extend(productsForm, this.Form.serializeToObject('productsForm', true));
 
             // need to process special fields
-           
             if (parseInt(productsForm.attrProdPriceLevel) != 9) {
                 productsForm.attrProdPriceLevelPref = parseInt(productsForm.attrProdPriceLevel)+1;
                 for (let i = productsForm.attrProdPriceLevelPref; i <= 9 ; i++) {
                     productsForm['attrProdPriceLevelCss'+i] = true;
+                    functionsForm['fnPricelevel'+i] = true;
                 }
             }else {
                 delete productsForm.attrProdPriceLevelPref;
@@ -147,22 +149,27 @@
 
             obj['productsForm'] = productsForm;
 
-            var reportsForm = this.Form.serializeToObject('reportsForm', true);
+            reportsForm = GREUtils.extend(reportsForm, this.Form.serializeToObject('reportsForm', true));
             obj['reportsForm'] = reportsForm;
 
-            var employeesForm = this.Form.serializeToObject('employeesForm', true);
+            employeesForm = GREUtils.extend(employeesForm, this.Form.serializeToObject('employeesForm', true));
             obj['employeesForm'] = employeesForm;
 
-            var activitiesForm = this.Form.serializeToObject('activitiesForm', true);
+            activitiesForm = GREUtils.extend(activitiesForm, this.Form.serializeToObject('activitiesForm', true));
             obj['activitiesForm'] = activitiesForm;
 
-            var toolsForm = this.Form.serializeToObject('toolsForm', true);
+            toolsForm = GREUtils.extend(toolsForm, this.Form.serializeToObject('toolsForm', true));
+
+            // need to process special fields
+            if(toolsForm['devDrawer2']) functionsForm['fnOpendrawer2'] = true;
+            if(toolsForm['devScale1'] && toolsForm['devScale2']) functionsForm['fnScale'] = true;
+
             obj['toolsForm'] = toolsForm;
 
-            var systemsForm = this.Form.serializeToObject('systemsForm', true);
+            systemsForm = GREUtils.extend(systemsForm, this.Form.serializeToObject('systemsForm', true));
             obj['systemsForm'] = systemsForm;
 
-            var functionsForm = this.Form.serializeToObject('functionsForm', true);
+            functionsForm = GREUtils.extend(functionsForm, this.Form.serializeToObject('functionsForm', true));
             obj['functionsForm'] = functionsForm;
 
             // save
