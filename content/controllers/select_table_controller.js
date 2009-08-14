@@ -464,11 +464,15 @@
             }
         },
 
-        doSelectTableNo: function() {
+        doSelectTableNo: function(silence) {
+
             this._setPromptLabel('*** ' + _('Select Table') + ' ***', _('Please select a table...'), '', _('Press CANCEL button to cancel function'), 2);
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'SelectTableNo';
+
+            if (silence)
+                this.doFunc();
 
         },
 

@@ -50,7 +50,7 @@
                         <spacer flex="1"/>
                     </viviscrollablebuttonpanel>
                 </hbox>
-                <vbox>
+                <vbox flex="1">
                     <label value="&selectchecks.check.details;" class="label-page-title"/>
                     <hbox class="custom-content-sline"></hbox>
                     <textbox readonly="1" id="itemlist" value="" class="custom-content-queue-list"/>
