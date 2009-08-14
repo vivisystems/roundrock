@@ -25,7 +25,7 @@
     -moz-appearance: none;
 }
 
-.custom-button-report:active {
+.custom-button-report[disabled=false]:active {
     border: 2px solid;
     color: #603913 !important;
     -moz-appearance: none;

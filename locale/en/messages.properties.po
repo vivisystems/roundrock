@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-12 19:34+0800\n"
+"POT-Creation-Date: 2009-08-13 18:36+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -259,6 +259,80 @@ msgstr "Stock Adjustments"
 
 msgid "vivipos.fec.reportpanels.purchasehistory.label"
 msgstr "Purchase History"
+
+# #######################################################################
+#
+# List of Reports ACLs
+#
+# #######################################################################
+msgid "acl_report_attendancerecord"
+msgstr "Report - Attendance Record"
+
+msgid "acl_report_cashbyclerk"
+msgstr "Report - Shift Change Report"
+
+msgid "acl_report_cashdrawerreport"
+msgstr "Report - Cash Drawer Report"
+
+msgid "acl_report_cashdrawersummary"
+msgstr "Report - Cash Drawer Summary"
+
+msgid "acl_report_clerksalesreport"
+msgstr "Report - Clerk Sales"
+
+msgid "acl_report_dailysalesdetail"
+msgstr "Report - Sales - Detailed"
+
+msgid "acl_report_dailysales"
+msgstr "Report - Sales Report"
+
+msgid "acl_report_dailysalessummary"
+msgstr "Report - Daily Sales Summary"
+
+msgid "acl_report_departmentlist"
+msgstr "Report - Department List"
+
+msgid "acl_report_detailedtaxreport"
+msgstr "Report - Detailed Tax Report"
+
+msgid "acl_report_hourlysales"
+msgstr "Report - Hourly Sales"
+
+msgid "acl_report_orderannotation"
+msgstr "Report - Order Annotations"
+
+msgid "acl_report_orderstatus"
+msgstr "Report - Order Status Report"
+
+msgid "acl_report_productlist"
+msgstr "Report - Product List"
+
+msgid "acl_report_productsales"
+msgstr "Report - Product Sales"
+
+msgid "acl_report_promotionsummary"
+msgstr "Report - Promotion Summary"
+
+msgid "acl_report_salessummary"
+msgstr "Report - Sales Summary"
+
+msgid "acl_report_stocks"
+msgstr "Report - Stock Report"
+
+msgid "acl_report_userlist"
+msgstr "Report - Employee List"
+
+msgid "acl_report_run_yourorder"
+msgstr "Report - Create Custom Sales Reports"
+
+msgid "acl_report_yourorder"
+msgstr "Report - Custom Sales Report"
+
+msgid "acl_report_inventorycommitments"
+msgstr "Report - Stock Adjustments"
+
+msgid "acl_report_purchasehistory"
+msgstr "Report - Purchase History"
 
 # #######################################################################
 #
@@ -2672,9 +2746,9 @@ msgid "Please confirm shift change"
 msgstr ""
 
 #: ../..//content/refund_payment.js:22 ../..//content/refund_payment.js:28
-#: ../..//content/controllers/cart_controller.js:3555
-#: ../..//content/controllers/cart_controller.js:3563
-#: ../..//content/controllers/cart_controller.js:3688
+#: ../..//content/controllers/cart_controller.js:3560
+#: ../..//content/controllers/cart_controller.js:3568
+#: ../..//content/controllers/cart_controller.js:3693
 msgid "Void Sale"
 msgstr ""
 
@@ -3060,30 +3134,30 @@ msgid "Not an open order; cannot tag the selected item"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:404
-#: ../..//content/controllers/cart_controller.js:1046
-#: ../..//content/controllers/cart_controller.js:1210
-#: ../..//content/controllers/cart_controller.js:1332
-#: ../..//content/controllers/cart_controller.js:3286
+#: ../..//content/controllers/cart_controller.js:1051
+#: ../..//content/controllers/cart_controller.js:1215
+#: ../..//content/controllers/cart_controller.js:1337
+#: ../..//content/controllers/cart_controller.js:3291
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:411
 #: ../..//content/controllers/cart_controller.js:476
-#: ../..//content/controllers/cart_controller.js:1053
-#: ../..//content/controllers/cart_controller.js:1217
-#: ../..//content/controllers/cart_controller.js:1339
-#: ../..//content/controllers/cart_controller.js:1691
-#: ../..//content/controllers/cart_controller.js:1862
-#: ../..//content/controllers/cart_controller.js:2764
-#: ../..//content/controllers/cart_controller.js:3293
-#: ../..//content/controllers/cart_controller.js:3492
+#: ../..//content/controllers/cart_controller.js:1058
+#: ../..//content/controllers/cart_controller.js:1222
+#: ../..//content/controllers/cart_controller.js:1344
+#: ../..//content/controllers/cart_controller.js:1696
+#: ../..//content/controllers/cart_controller.js:1867
+#: ../..//content/controllers/cart_controller.js:2769
+#: ../..//content/controllers/cart_controller.js:3298
+#: ../..//content/controllers/cart_controller.js:3497
 msgid "Please select an item first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:419
-#: ../..//content/controllers/cart_controller.js:1061
-#: ../..//content/controllers/cart_controller.js:3301
-#: ../..//content/controllers/cart_controller.js:3500
+#: ../..//content/controllers/cart_controller.js:1066
+#: ../..//content/controllers/cart_controller.js:3306
+#: ../..//content/controllers/cart_controller.js:3505
 msgid "Stored items may not be modified"
 msgstr ""
 
@@ -3129,462 +3203,462 @@ msgstr ""
 msgid "Adding Item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:647
+#: ../..//content/controllers/cart_controller.js:652
 #: ../..//content/controllers/main_controller.js:481
 msgid "Price must be given to register sale of department [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:718
+#: ../..//content/controllers/cart_controller.js:723
 msgid "SINGLE ITEM SALE"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:920
+#: ../..//content/controllers/cart_controller.js:925
 msgid "Product number/barcode not provided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:958
+#: ../..//content/controllers/cart_controller.js:963
 msgid "Product number/barcode [%S] not found"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:999
+#: ../..//content/controllers/cart_controller.js:1004
 msgid "Department [%S] (%S) is not a sale department"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1004
+#: ../..//content/controllers/cart_controller.js:1009
 msgid "[%S] is not a valid department number"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1008
+#: ../..//content/controllers/cart_controller.js:1013
 msgid "Department number not provided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1038
-#: ../..//content/controllers/cart_controller.js:1202
+#: ../..//content/controllers/cart_controller.js:1043
+#: ../..//content/controllers/cart_controller.js:1207
 msgid "Not an open order; cannot modify the selected item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1076
+#: ../..//content/controllers/cart_controller.js:1081
 msgid "Price/quantity of product set item [%S] may not be modified"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1083
+#: ../..//content/controllers/cart_controller.js:1088
 msgid "Cannot modify the selected item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1101
+#: ../..//content/controllers/cart_controller.js:1106
 msgid "Cannot modify condiments when collapsed"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1109
+#: ../..//content/controllers/cart_controller.js:1114
 msgid "Cannot modify condiment quantity"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1117
+#: ../..//content/controllers/cart_controller.js:1122
 msgid "Cannot modify condiment price; no price entered"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1125
+#: ../..//content/controllers/cart_controller.js:1130
 msgid "Not authorized to modify condiment price"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1133
-#: ../..//content/controllers/cart_controller.js:1244
+#: ../..//content/controllers/cart_controller.js:1138
+#: ../..//content/controllers/cart_controller.js:1249
 msgid "Cannot modify; selected item [%S] has discount or surcharge applied"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1140
+#: ../..//content/controllers/cart_controller.js:1145
 msgid "Cannot modify; selected item [%S] has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1155
+#: ../..//content/controllers/cart_controller.js:1160
 msgid "Not authorized to modify price"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1162
+#: ../..//content/controllers/cart_controller.js:1167
 msgid "Not authorized to modify quantity"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1173
+#: ../..//content/controllers/cart_controller.js:1178
 msgid "Product [%S] may not be modified with a price of [%S]!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1230
+#: ../..//content/controllers/cart_controller.js:1235
 msgid "Quantity of product set item [%S] may not be modified"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1233
+#: ../..//content/controllers/cart_controller.js:1238
 msgid "Quantity of condiment [%S] may not be modified"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1236
+#: ../..//content/controllers/cart_controller.js:1241
 msgid "Cannot modify quantity of selected item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1269
+#: ../..//content/controllers/cart_controller.js:1274
 msgid "Quantity may not be less than 1"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1324
+#: ../..//content/controllers/cart_controller.js:1329
 msgid "Not an open order; cannot void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1347
+#: ../..//content/controllers/cart_controller.js:1352
 msgid "Stored items may not be voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1362
+#: ../..//content/controllers/cart_controller.js:1367
 msgid "Cannot VOID the selected item [%S]. It is not the last registered item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1369
+#: ../..//content/controllers/cart_controller.js:1374
 msgid ""
 "The select item [%S] is a member of a product set and cannot be VOIDed "
 "individually"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1380
+#: ../..//content/controllers/cart_controller.js:1385
 msgid "Cannot VOID an entry that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1389
-#: ../..//content/controllers/cart_controller.js:3329
+#: ../..//content/controllers/cart_controller.js:1394
+#: ../..//content/controllers/cart_controller.js:3334
 msgid "Please void discount on item [%S] first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1395
-#: ../..//content/controllers/cart_controller.js:3335
+#: ../..//content/controllers/cart_controller.js:1400
+#: ../..//content/controllers/cart_controller.js:3340
 msgid "Please void surcharge on item [%S] first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1482
+#: ../..//content/controllers/cart_controller.js:1487
 msgid "Not an open order; cannot add discount"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1490
+#: ../..//content/controllers/cart_controller.js:1495
 msgid "This order is being finalized and discount may not be registered"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1497
+#: ../..//content/controllers/cart_controller.js:1502
 msgid "Please select an item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1505
+#: ../..//content/controllers/cart_controller.js:1510
 msgid "Discount may not be registered against stored items"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1518
+#: ../..//content/controllers/cart_controller.js:1523
 msgid "Pretax discount can only be registered against subtotals"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1526
-#: ../..//content/controllers/cart_controller.js:1553
-#: ../..//content/controllers/cart_controller.js:1719
-#: ../..//content/controllers/cart_controller.js:1746
+#: ../..//content/controllers/cart_controller.js:1531
+#: ../..//content/controllers/cart_controller.js:1558
+#: ../..//content/controllers/cart_controller.js:1724
+#: ../..//content/controllers/cart_controller.js:1751
 msgid "Discount has been already been registered on item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1532
-#: ../..//content/controllers/cart_controller.js:1547
-#: ../..//content/controllers/cart_controller.js:1725
-#: ../..//content/controllers/cart_controller.js:1740
+#: ../..//content/controllers/cart_controller.js:1537
+#: ../..//content/controllers/cart_controller.js:1552
+#: ../..//content/controllers/cart_controller.js:1730
+#: ../..//content/controllers/cart_controller.js:1745
 msgid "Surcharge has been already been registered on item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1538
-#: ../..//content/controllers/cart_controller.js:1731
-#: ../..//content/controllers/cart_controller.js:2788
+#: ../..//content/controllers/cart_controller.js:1543
+#: ../..//content/controllers/cart_controller.js:1736
+#: ../..//content/controllers/cart_controller.js:2793
 msgid "Cannot modify an item that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1559
+#: ../..//content/controllers/cart_controller.js:1564
 msgid "Cannot apply discount to [%S]. It is not the last registered item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1566
+#: ../..//content/controllers/cart_controller.js:1571
 msgid "Discount may not be applied to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1574
+#: ../..//content/controllers/cart_controller.js:1579
 msgid "Please enter the discount amount"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1577
+#: ../..//content/controllers/cart_controller.js:1582
 msgid "Please enter the discount percentage"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1676
+#: ../..//content/controllers/cart_controller.js:1681
 msgid "Not an open order; cannot add surcharge"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1684
+#: ../..//content/controllers/cart_controller.js:1689
 msgid "This order is being finalized and surcharge may not be registered"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1699
+#: ../..//content/controllers/cart_controller.js:1704
 msgid "Surcharge may not be registered against stored items"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1711
+#: ../..//content/controllers/cart_controller.js:1716
 msgid "Pretax surcharge can only be registered against subtotals"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1752
+#: ../..//content/controllers/cart_controller.js:1757
 msgid "Cannot apply surcharge to [%S]. It is not the last registered item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1759
+#: ../..//content/controllers/cart_controller.js:1764
 msgid "Surcharge may not be applied to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1767
+#: ../..//content/controllers/cart_controller.js:1772
 msgid "Please enter the surcharge amount"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1770
+#: ../..//content/controllers/cart_controller.js:1775
 msgid "Please enter the surcharge percentage"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1801
+#: ../..//content/controllers/cart_controller.js:1806
 msgid "subtotal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1810
+#: ../..//content/controllers/cart_controller.js:1815
 msgid "Not an open order; cannot add %S"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1817
+#: ../..//content/controllers/cart_controller.js:1822
 msgid "Nothing has been registered yet; cannot add %S"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1846
+#: ../..//content/controllers/cart_controller.js:1851
 msgid "House Bon"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1855
+#: ../..//content/controllers/cart_controller.js:1860
 msgid "Not an open order; cannot register %S"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1877
+#: ../..//content/controllers/cart_controller.js:1882
 msgid "House Bon may not be applied to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1905
+#: ../..//content/controllers/cart_controller.js:1910
 msgid "The selected currency [%S] has not been configured"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1916
-#: ../..//content/controllers/cart_controller.js:2049
-#: ../..//content/controllers/cart_controller.js:2149
-#: ../..//content/controllers/cart_controller.js:2241
-#: ../..//content/controllers/cart_controller.js:2336
-#: ../..//content/controllers/cart_controller.js:2541
+#: ../..//content/controllers/cart_controller.js:1921
+#: ../..//content/controllers/cart_controller.js:2054
+#: ../..//content/controllers/cart_controller.js:2154
+#: ../..//content/controllers/cart_controller.js:2246
+#: ../..//content/controllers/cart_controller.js:2341
+#: ../..//content/controllers/cart_controller.js:2546
 msgid "Not an open order; cannot register payments"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1934
-#: ../..//content/controllers/cart_controller.js:2481
+#: ../..//content/controllers/cart_controller.js:1939
+#: ../..//content/controllers/cart_controller.js:2486
 msgid "Please enter an amount first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1937
+#: ../..//content/controllers/cart_controller.js:1942
 msgid "Please configure the selected currency entry first [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1954
+#: ../..//content/controllers/cart_controller.js:1959
 msgid "Credit Card Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1955
-#: ../..//content/controllers/cart_controller.js:1976
-#: ../..//content/controllers/cart_controller.js:1997
-#: ../..//content/controllers/cart_controller.js:2018
+#: ../..//content/controllers/cart_controller.js:1960
+#: ../..//content/controllers/cart_controller.js:1981
+#: ../..//content/controllers/cart_controller.js:2002
+#: ../..//content/controllers/cart_controller.js:2023
 msgid "Payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1956
+#: ../..//content/controllers/cart_controller.js:1961
 msgid "Card Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1957
+#: ../..//content/controllers/cart_controller.js:1962
 msgid "Card Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1975
-#: ../..//content/controllers/cart_controller.js:1978
+#: ../..//content/controllers/cart_controller.js:1980
+#: ../..//content/controllers/cart_controller.js:1983
 msgid "Coupon Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1977
+#: ../..//content/controllers/cart_controller.js:1982
 msgid "Coupon Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1996
-#: ../..//content/controllers/cart_controller.js:1999
+#: ../..//content/controllers/cart_controller.js:2001
+#: ../..//content/controllers/cart_controller.js:2004
 msgid "Giftcard Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1998
+#: ../..//content/controllers/cart_controller.js:2003
 msgid "Giftcard Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2017
-#: ../..//content/controllers/cart_controller.js:2020
+#: ../..//content/controllers/cart_controller.js:2022
+#: ../..//content/controllers/cart_controller.js:2025
 msgid "Check Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2019
+#: ../..//content/controllers/cart_controller.js:2024
 msgid "Check Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2067
-#: ../..//content/controllers/cart_controller.js:2167
-#: ../..//content/controllers/cart_controller.js:2259
-#: ../..//content/controllers/cart_controller.js:2354
+#: ../..//content/controllers/cart_controller.js:2072
+#: ../..//content/controllers/cart_controller.js:2172
+#: ../..//content/controllers/cart_controller.js:2264
+#: ../..//content/controllers/cart_controller.js:2359
 msgid "Refund amount [%S] may not exceed amount paid [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2077
-#: ../..//content/controllers/cart_controller.js:2177
-#: ../..//content/controllers/cart_controller.js:2271
-#: ../..//content/controllers/cart_controller.js:2364
+#: ../..//content/controllers/cart_controller.js:2082
+#: ../..//content/controllers/cart_controller.js:2182
+#: ../..//content/controllers/cart_controller.js:2276
+#: ../..//content/controllers/cart_controller.js:2369
 msgid "No payments accepted when balance is zero or negative"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2089
+#: ../..//content/controllers/cart_controller.js:2094
 msgid "Credit Card Payment Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2090
+#: ../..//content/controllers/cart_controller.js:2095
 msgid "Credit card payment may not exceed remaining balance"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2283
+#: ../..//content/controllers/cart_controller.js:2288
 msgid "confirm giftcard payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2284
+#: ../..//content/controllers/cart_controller.js:2289
 msgid "Change of [%S] will NOT be given for this type of payment. Proceed?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2386
+#: ../..//content/controllers/cart_controller.js:2391
 msgid "Check Payment Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2387
+#: ../..//content/controllers/cart_controller.js:2392
 msgid "Check Cashing limit of [%S] exceeded"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2439
+#: ../..//content/controllers/cart_controller.js:2444
 msgid "Please complete or cancel transaction first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2459
+#: ../..//content/controllers/cart_controller.js:2464
 #, python-format
 msgid ""
 "An error was encountered while retrieving ledger entry types (error code %s)"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2476
+#: ../..//content/controllers/cart_controller.js:2481
 msgid "unknown user"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2494
+#: ../..//content/controllers/cart_controller.js:2499
 msgid "Specified ledger entry type [%S] is not defined"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2503
+#: ../..//content/controllers/cart_controller.js:2508
 msgid "Add New Ledger Entry"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2522
+#: ../..//content/controllers/cart_controller.js:2527
 #: ../..//content/controllers/ledger_controller.js:200
 msgid "Transaction [%S] for amount of [%S] successfully logged to the ledger"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2526
+#: ../..//content/controllers/cart_controller.js:2531
 #: ../..//content/controllers/ledger_controller.js:205
 msgid "Failed to log transaction [%S] for amount of [%S] to the ledger"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2548
+#: ../..//content/controllers/cart_controller.js:2553
 msgid "Nothing has been registered yet; cannot register payments"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2560
+#: ../..//content/controllers/cart_controller.js:2565
 msgid "No payment has been made; cannot register refund payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2571
+#: ../..//content/controllers/cart_controller.js:2576
 msgid "Refund amount [%S] may not exceed payment amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2646
+#: ../..//content/controllers/cart_controller.js:2651
 msgid "No order for which to show payment status"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2662
+#: ../..//content/controllers/cart_controller.js:2667
 msgid "Payment Details"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2692
-#: ../..//content/controllers/cart_controller.js:2695
-#: ../..//content/controllers/cart_controller.js:2703
+#: ../..//content/controllers/cart_controller.js:2697
+#: ../..//content/controllers/cart_controller.js:2700
+#: ../..//content/controllers/cart_controller.js:2708
 msgid "Scale"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2692
+#: ../..//content/controllers/cart_controller.js:2697
 msgid ""
 "No reading from scale: please make sure scale is powered on and properly "
 "connected"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2695
+#: ../..//content/controllers/cart_controller.js:2700
 msgid ""
 "No stable reading from scale: please remove and re-place item securely on "
 "the scale"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2704
+#: ../..//content/controllers/cart_controller.js:2709
 msgid ""
 "Invalid scale reading [%S]: please remove and re-place item securely on the "
 "scale."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2708
+#: ../..//content/controllers/cart_controller.js:2713
 msgid "Weight read from scale"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2749
+#: ../..//content/controllers/cart_controller.js:2754
 msgid "Not an open order; cannot shift tax"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2757
+#: ../..//content/controllers/cart_controller.js:2762
 msgid "This order is being finalized and tax status may not be changed"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2772
+#: ../..//content/controllers/cart_controller.js:2777
 msgid "Tax status may not be changed on stored items"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2781
+#: ../..//content/controllers/cart_controller.js:2786
 msgid "This operation cannot be performed on [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2805
+#: ../..//content/controllers/cart_controller.js:2810
 msgid "The tax status indicated does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2888
+#: ../..//content/controllers/cart_controller.js:2893
 msgid "confirm cancel"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2889
+#: ../..//content/controllers/cart_controller.js:2894
 msgid "Are you sure you want to discard changes made to this order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2894
-#: ../..//content/controllers/cart_controller.js:3024
-#: ../..//content/controllers/cart_controller.js:4344
+#: ../..//content/controllers/cart_controller.js:2899
+#: ../..//content/controllers/cart_controller.js:3029
+#: ../..//content/controllers/cart_controller.js:4349
 #: ../..//content/controllers/cashdrawer_controller.js:333
 #: ../..//content/controllers/changeuser_controller.js:120
 #: ../..//content/controllers/clockinout_controller.js:285
@@ -3601,197 +3675,197 @@ msgstr ""
 msgid "Data Operation Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2895
+#: ../..//content/controllers/cart_controller.js:2900
 msgid "Failed to cancel order due to data operation error."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2954
+#: ../..//content/controllers/cart_controller.js:2959
 msgid "Order Finalization"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2955
+#: ../..//content/controllers/cart_controller.js:2960
 msgid "Current order has non-zero balance and may not be closed"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2969
+#: ../..//content/controllers/cart_controller.js:2974
 msgid "Total surcharge [%S] may not exceed user order surcharge limit [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2982
+#: ../..//content/controllers/cart_controller.js:2987
 msgid "Total discount [%S] may not exceed user order discount limit [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2992
+#: ../..//content/controllers/cart_controller.js:2997
 #: ../..//content/controllers/shift_changes_controller.js:300
 msgid "Saving Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3025
+#: ../..//content/controllers/cart_controller.js:3030
 msgid ""
 "This order could not be saved because a valid sequence number cannot be "
 "obtained. Please check the network connectivity to the terminal designated "
 "as the order sequence master."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3077
+#: ../..//content/controllers/cart_controller.js:3082
 msgid "Not an open order; cannot pre-finalize order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3083
+#: ../..//content/controllers/cart_controller.js:3088
 msgid "The order is already pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3089
+#: ../..//content/controllers/cart_controller.js:3094
 msgid "The order is empty; cannot pre-finalize order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3109
-#: ../..//content/controllers/cart_controller.js:3127
+#: ../..//content/controllers/cart_controller.js:3114
+#: ../..//content/controllers/cart_controller.js:3132
 msgid "confirm destination"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3110
+#: ../..//content/controllers/cart_controller.js:3115
 msgid ""
 "The order destination is different from [%S], proceed with pre-finalization?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3128
+#: ../..//content/controllers/cart_controller.js:3133
 msgid ""
 "Destinations other than [%S] found in the order, proceed with pre-"
 "finalization?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3156
+#: ../..//content/controllers/cart_controller.js:3161
 #: ../..//content/controllers/main_controller.js:364
 msgid "Add Annotation"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3176
-#: ../..//content/controllers/cart_controller.js:3206
+#: ../..//content/controllers/cart_controller.js:3181
+#: ../..//content/controllers/cart_controller.js:3211
 msgid "PRE-FINALIZED"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3187
-#: ../..//content/controllers/cart_controller.js:3214
+#: ../..//content/controllers/cart_controller.js:3192
+#: ../..//content/controllers/cart_controller.js:3219
 msgid "Order# [%S] has been pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3265
-#: ../..//content/controllers/cart_controller.js:3277
+#: ../..//content/controllers/cart_controller.js:3270
+#: ../..//content/controllers/cart_controller.js:3282
 msgid "Not an open order; cannot add condiment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3317
+#: ../..//content/controllers/cart_controller.js:3322
 msgid "Condiments may not be added to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3323
+#: ../..//content/controllers/cart_controller.js:3328
 msgid "Cannot add condiments to an item that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3357
+#: ../..//content/controllers/cart_controller.js:3362
 msgid "No Condiment group associated with item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3485
+#: ../..//content/controllers/cart_controller.js:3490
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3549
+#: ../..//content/controllers/cart_controller.js:3554
 msgid ""
 "An error was encountered while retrieving order payment records (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3556
+#: ../..//content/controllers/cart_controller.js:3561
 msgid "Failed to void: the selected order no longer exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3564
+#: ../..//content/controllers/cart_controller.js:3569
 msgid "Failed to void: the selected order is not stored or finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3582
+#: ../..//content/controllers/cart_controller.js:3587
 msgid "Payment Refund"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3631
+#: ../..//content/controllers/cart_controller.js:3636
 msgid "An error was encountered while saving refund payment (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3658
+#: ../..//content/controllers/cart_controller.js:3663
 msgid "An error was encountered while updating order status (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3689
+#: ../..//content/controllers/cart_controller.js:3694
 msgid "Transaction [%S] successfully voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3715
+#: ../..//content/controllers/cart_controller.js:3720
 msgid "Add Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3717
+#: ../..//content/controllers/cart_controller.js:3722
 msgid "Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3901
+#: ../..//content/controllers/cart_controller.js:3906
 msgid "No order to queue"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3909
+#: ../..//content/controllers/cart_controller.js:3914
 msgid "Cannot queue the recalled order!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3949
+#: ../..//content/controllers/cart_controller.js:3954
 msgid "Order is not queued because it is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4036
+#: ../..//content/controllers/cart_controller.js:4041
 #: ../..//content/controllers/components/guest_check.js:1180
 #: ../..//content/controllers/components/guest_check.js:1255
 #: ../..//content/controllers/components/guest_check.js:1745
 msgid "The order object does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4089
+#: ../..//content/controllers/cart_controller.js:4094
 msgid "This order must be stored first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4143
-#: ../..//content/controllers/cart_controller.js:4186
-#: ../..//content/controllers/cart_controller.js:4218
-#: ../..//content/controllers/cart_controller.js:4260
-#: ../..//content/controllers/cart_controller.js:4296
-msgid "Not an open order; unable to store"
-msgstr ""
-
 #: ../..//content/controllers/cart_controller.js:4148
-#: ../..//content/controllers/cart_controller.js:4224
+#: ../..//content/controllers/cart_controller.js:4191
+#: ../..//content/controllers/cart_controller.js:4223
 #: ../..//content/controllers/cart_controller.js:4265
 #: ../..//content/controllers/cart_controller.js:4301
-msgid "This order has been submitted"
+msgid "Not an open order; unable to store"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4153
 #: ../..//content/controllers/cart_controller.js:4229
-#: ../..//content/controllers/cart_controller.js:4269
-#: ../..//content/controllers/cart_controller.js:4305
-msgid "This order is closed pending payment and may only be finalized"
+#: ../..//content/controllers/cart_controller.js:4270
+#: ../..//content/controllers/cart_controller.js:4306
+msgid "This order has been submitted"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4158
 #: ../..//content/controllers/cart_controller.js:4234
-#: ../..//content/controllers/cart_controller.js:4273
-#: ../..//content/controllers/cart_controller.js:4309
+#: ../..//content/controllers/cart_controller.js:4274
+#: ../..//content/controllers/cart_controller.js:4310
+msgid "This order is closed pending payment and may only be finalized"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:4163
+#: ../..//content/controllers/cart_controller.js:4239
+#: ../..//content/controllers/cart_controller.js:4278
+#: ../..//content/controllers/cart_controller.js:4314
 msgid "This order is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4171
+#: ../..//content/controllers/cart_controller.js:4176
 msgid "No change to store"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4195
+#: ../..//content/controllers/cart_controller.js:4200
 #: ../..//content/controllers/components/guest_check.js:480
 #: ../..//content/controllers/components/guest_check.js:679
 #: ../..//content/controllers/components/guest_check.js:730
@@ -3800,13 +3874,13 @@ msgstr ""
 msgid "fatal error!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4240
-#: ../..//content/controllers/cart_controller.js:4278
-#: ../..//content/controllers/cart_controller.js:4315
+#: ../..//content/controllers/cart_controller.js:4245
+#: ../..//content/controllers/cart_controller.js:4283
+#: ../..//content/controllers/cart_controller.js:4320
 msgid "This order has been modified and must be stored first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4345
+#: ../..//content/controllers/cart_controller.js:4350
 #: ../..//content/controllers/ledger_controller.js:311
 #: ../..//content/controllers/list_orders_controller.js:192
 #: ../..//content/controllers/main_controller.js:993
@@ -5995,7 +6069,7 @@ msgid "Please select the table to mark status..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:354
-#: ../..//content/controllers/select_table_controller.js:917
+#: ../..//content/controllers/select_table_controller.js:921
 msgid "Clear Table Status"
 msgstr ""
 
@@ -6040,82 +6114,82 @@ msgstr ""
 msgid "Please select a table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:521
+#: ../..//content/controllers/select_table_controller.js:523
 msgid "Data synchronizing, please wait..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:529
+#: ../..//content/controllers/select_table_controller.js:531
 #: ../..//content/controllers/components/guest_check.js:114
 msgid "Failed to execute command (sync_client)."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:575
-#: ../..//content/controllers/select_table_controller.js:758
+#: ../..//content/controllers/select_table_controller.js:579
+#: ../..//content/controllers/select_table_controller.js:762
 msgid "This table is hosted by Table#%S !!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:582
-#: ../..//content/controllers/select_table_controller.js:765
+#: ../..//content/controllers/select_table_controller.js:586
+#: ../..//content/controllers/select_table_controller.js:769
 msgid "This table status is marked as [%S] and can not be selected !!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:612
-#: ../..//content/controllers/select_table_controller.js:638
-#: ../..//content/controllers/select_table_controller.js:682
-#: ../..//content/controllers/select_table_controller.js:806
-#: ../..//content/controllers/select_table_controller.js:840
+#: ../..//content/controllers/select_table_controller.js:616
+#: ../..//content/controllers/select_table_controller.js:642
+#: ../..//content/controllers/select_table_controller.js:686
+#: ../..//content/controllers/select_table_controller.js:810
+#: ../..//content/controllers/select_table_controller.js:844
 msgid "This table is empty!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:810
+#: ../..//content/controllers/select_table_controller.js:814
 msgid "Please select the table to transfer to..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:844
+#: ../..//content/controllers/select_table_controller.js:848
 msgid "Please select an empty table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:857
+#: ../..//content/controllers/select_table_controller.js:861
 msgid "This table had not been hold!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:889
-#: ../..//content/controllers/select_table_controller.js:892
-#: ../..//content/controllers/select_table_controller.js:952
-#: ../..//content/controllers/select_table_controller.js:955
+#: ../..//content/controllers/select_table_controller.js:893
+#: ../..//content/controllers/select_table_controller.js:896
+#: ../..//content/controllers/select_table_controller.js:956
+#: ../..//content/controllers/select_table_controller.js:959
 msgid "Select Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:890
+#: ../..//content/controllers/select_table_controller.js:894
 msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:918
+#: ../..//content/controllers/select_table_controller.js:922
 msgid "You are now clearing table status of Table# %S (%S). Proceed?\n"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:928
+#: ../..//content/controllers/select_table_controller.js:932
 msgid "Table status of Table# %S (%S) is cleared."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:953
+#: ../..//content/controllers/select_table_controller.js:957
 msgid "You are now marking table status of region [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:977
+#: ../..//content/controllers/select_table_controller.js:981
 msgid "Clear all table status in region"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:978
+#: ../..//content/controllers/select_table_controller.js:982
 msgid "You are now clearing all table status of region [%S]. Proceed?\n"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:989
+#: ../..//content/controllers/select_table_controller.js:993
 msgid "All table status of region [%S] are cleared."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1094
-#: ../..//content/controllers/select_table_controller.js:1096
+#: ../..//content/controllers/select_table_controller.js:1098
+#: ../..//content/controllers/select_table_controller.js:1100
 #: ../..//content/controllers/table_man_controller.js:749
 msgid "All Regions"
 msgstr ""
@@ -7685,15 +7759,15 @@ msgstr ""
 msgid "Report ID(Alphanumeric)"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:484
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:485
 msgid "New report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:484
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:485
 msgid "has been generated"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:497
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:498
 msgid "Are you sure you want to remove this report?"
 msgstr ""
 

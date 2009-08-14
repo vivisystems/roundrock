@@ -32,7 +32,7 @@
                     if (el.bundle) GeckoJS.StringBundle.createBundle(el.bundle);
 
                     // hidden inaccessible entry
-                    if(GeckoJS.AclComponent.isUserInRole(el.roles)) {
+                    if(el.roles == '' || GeckoJS.AclComponent.isUserInRole(el.roles)) {
                         var label = el.label;
                         if (label.indexOf('chrome://') == 0) {
                             var keystr = 'vivipos.fec.settings.controlpanels.' + cn + '.' + key + '.label';
