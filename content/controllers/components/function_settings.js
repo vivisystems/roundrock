@@ -100,7 +100,10 @@
                 'devScale': {type:'css', method:'hidden', selector: '#devicesXUL #scale-tab', checkForCss:'devScale1,devScale2'},
                 'devScale1': {type:'css', method:'hidden', selector: '#devicesXUL #devicesScale1Box', checkForCss:'devScale1'},
                 'devScale2': {type:'css', method:'hidden', selector: '#devicesXUL #devicesScale2Box', checkForCss:'devScale2'},
-                'devJournal': {type:'css', method:'hidden', selector: '#devicesXUL #journal-tab', checkForCss:'devJournal'}
+                'devJournal': {type:'css', method:'hidden', selector: '#devicesXUL #journal-tab', checkForCss:'devJournal'},
+
+                'optTrainingMode': {type:'css', method:'hidden', selector: '#prefwin radio[pane="trainingSettingsPane"]', checkForCss:'optTrainingMode'},
+                'optFormatSettings': {type:'css', method:'hidden', selector: '#prefwin radio[pane="formatSettingsPane"]', checkForCss:'optFormatSettings'}
 
             },
 

@@ -36,3 +36,6 @@
 <!ENTITY    function_customizer.products.disable_groups "Disable [Product Groups] Tab">
 <!ENTITY    function_customizer.products.max_pricelevel "Maximum Price Level:" >
 
+<!ENTITY    function_customizer.groupbox.triggers.caption "Triggers">
+<!ENTITY    function_customizer.groupbox.types.caption "Types">
+<!ENTITY    function_customizer.groupbox.generaloptions.caption "General Options">

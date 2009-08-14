@@ -6,6 +6,8 @@
   %FunctionCustomizer;
   <!ENTITY % Devices SYSTEM "chrome://viviecr/locale/devices.dtd">
   %Devices;
+  <!ENTITY % Sysprefs SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
+  %Sysprefs;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
@@ -241,7 +243,7 @@
                                     <tabpanel flex="1" orient="vertical">
 
                                         <groupbox>
-                                          <caption label="Triggers"/>
+                                          <caption label="&function_customizer.groupbox.triggers.caption;"/>
 
                                           <checkbox id="promoTriggerIndividualPlu" value="true" label="Disable Individual Plu Trigger"
                                                       form="activitiesForm" name="promoTriggerIndividualPlu" default="false" />
@@ -257,7 +259,7 @@
                                         <spacer style="height: 10px;" />
 
                                         <groupbox>
-                                          <caption label="Types"/>
+                                          <caption label="&function_customizer.groupbox.types.caption;"/>
 
                                           <checkbox id="promoTypeAmountOff" value="true" label="Disable Amount Off Type"
                                                       form="activitiesForm" name="promoTypeAmountOff" default="false" />
@@ -348,6 +350,18 @@
                                     <!-- Devices Support End -->
 
                                     <tabpanel flex="1" orient="vertical">
+
+                                        <groupbox>
+                                          <caption label="&function_customizer.groupbox.generaloptions.caption;"/>
+
+                                            <checkbox id="optFormatSettings" value="true" label="&category.formats;"
+                                                          form="toolsForm" name="optFormatSettings" default="false" />
+                                            <checkbox id="optTrainingMode" value="true" label="&category.training;"
+                                                          form="toolsForm" name="optTrainingMode" default="false" />
+
+
+                                        </groupbox>
+
                                     </tabpanel>
 
                                   </tabpanels>
@@ -572,6 +586,7 @@
                                 <tabbox id="systemsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
                                   <tabs id="systemsTabs">
                                     <tab label="&function_customizer.tab.controlpanel;"/>
+                                    <!--tab label="&function_customizer.tab.others;"/-->
                                   </tabs>
                                   <tabpanels id="systemsTabpanels" flex="1">
 
@@ -603,6 +618,9 @@
                                         <checkbox id="cpViewSystemLog" value="true" label="Disable View System Log Manager"
                                                       form="systemsForm" name="cpViewSystemLog" default="false" />
                                     </tabpanel>
+
+                                    <!--tabpanel flex="1" orient="vertical">
+                                    </tabpanel-->
 
                                   </tabpanels>
                                 </tabbox>                                
