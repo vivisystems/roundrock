@@ -11,8 +11,6 @@
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
         _csvLimit: 3000000,
         _stdLimit: 3000,
-        _maxRuntime: 20 * 60,
-        _maxRuntimePreference: 'dom.max_chrome_script_run_time',
         _scrollRange: null,
         _scrollRangePreference: "vivipos.fec.settings.scrollRange",
         
@@ -183,8 +181,6 @@
         execute: function() {
             try {
                 // Doing so to prevent the timeout dialog from prompting during the execution.
-                var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
-                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
                 
                 this._enableButton( false );
 
@@ -196,8 +192,6 @@
             } catch ( e ) {
                 this.log( 'ERROR', GeckoJS.BaseObject.dump( e ) );
             } finally {
-                // Reset the timeout limit to the default value.
-                GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
                 
                 var splitter = document.getElementById( 'splitter_zoom' );
                 splitter.setAttribute( 'state', 'collapsed' );
@@ -232,8 +226,6 @@
                 //this._fileExportingFlag = false;
                 
                 // Doing so to prevent the timeout dialog from prompting during the execution.
-                var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
-                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
             	
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
@@ -253,8 +245,6 @@
                 var self = this;
 
                 cb = function() {
-                    // Reset the timeout limit to the default value.
-                    GREUtils.Pref.setPref( self._maxRuntimePreference, oldLimit );
                     // enable buttons
                     self._enableButton( true );
                     // hide panel
@@ -282,8 +272,6 @@
         		
             try {
                 // Doing so to prevent the timeout dialog from prompting during the execution.
-                var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
-                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
 
                 // setting the flag be false means that the exporting has not finished yet.
                 //this._fileExportingFlag = false;
@@ -327,8 +315,6 @@
                         self._reportRecords = tmpRecords;
                         GREUtils.gc();
                     }
-                    // Reset the timeout limit to the default value.
-                    GREUtils.Pref.setPref( self._maxRuntimePreference, oldLimit );
                     // enable buttons
                     self._enableButton( true );
                     // hide panel
@@ -351,8 +337,6 @@
         		
             try {
                 // Doing so to prevent the timeout dialog from prompting during the execution.
-                var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
-                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
 
                 this._enableButton( false );
                 var waitPanel = this._showWaitingPanel( 100 );
@@ -371,8 +355,6 @@
             } catch ( e ) {
                 dump( e );
             } finally {
-                // Reset the timeout limit to the default value.
-                GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
                 
                 this._enableButton( true );
                 
@@ -384,8 +366,6 @@
         print: function( paperProperties ) {
             try {
                 // Doing so to prevent the timeout dialog from prompting during the execution.
-                var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
-                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
 
                 this._enableButton( false );
 
@@ -400,8 +380,6 @@
             } catch ( e ) {
                 dump( e );
             } finally {
-                // Reset the timeout limit to the default value.
-                GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
                 
                 this._enableButton( true );
                 

@@ -952,8 +952,6 @@
                                             _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
 
                     var waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Removing all transaction records'), 500);
-                    var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                    GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
                     // dispatch beforeTruncateTxnRecords event
                     this.dispatchEvent('beforeTruncateTxnRecords', null);
@@ -1007,7 +1005,6 @@
                         
                     } catch (e) {}
                     finally {
-                        GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                         waitPanel.hidePopup();
                     }
 
@@ -1031,8 +1028,6 @@
             var weeklyPack = GeckoJS.Configure.read('vivipos.fec.settings.OrderWeeklyPack') || -1;
 
             if (retainDays > 0) {
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
                 var waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Removing expired transaction records'), 500);
 
@@ -1095,7 +1090,6 @@
                     this._dbError(e.errno, e.errstr, e.errmsg);
                 }
                 finally {
-                    GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                     waitPanel.hidePopup();
                 }
             }

@@ -264,9 +264,6 @@
 
             $importStatus.val(_('in progress'));
             try {
-                // set max script run time...
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
                 this._busy = true;
 
                 if (linkProductImage == 2) {
@@ -336,8 +333,6 @@
 
                 this._busy = false;
                 this.sleep(200);
-                // reset max script run time...
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
 
                 this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
 
@@ -399,11 +394,7 @@
                 if (!GREUtils.File.isDir(exportDir) || !GREUtils.File.isWritable(exportDir)) {
                     throw new Exception();
                 }
-
-                // set max script run time...
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
-                
+               
 
                 var destDir = GREUtils.File.getFile(exportDir);
 
@@ -427,8 +418,6 @@
                 this._busy = false;
                 progmeter.value = 100;
                 this.sleep(200);
-                // reset max script run time...
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
 
                 this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
 
