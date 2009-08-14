@@ -330,7 +330,7 @@
             // @todo individual setting...
             data.status = 2;
             // data.check_no = ?;
-            data.no_of_customers = 0;
+            data.no_of_customers = '';
             data.lockIndex = data.display_sequences.length;
             // data.batchCount = ?;
             // data.closed = ?;

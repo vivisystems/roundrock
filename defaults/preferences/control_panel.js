@@ -59,7 +59,7 @@ pref("vivipos.fec.settings.controlpanels.config.sysprefs.label", "chrome://vivie
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.path", "chrome://viviecr/content/sysprefs.xul");
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.roles", "acl_manage_system_options");
 
-pref("vivipos.fec.settings.controlpanels.config.tableman.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.config.tableman.icon", "chrome://viviecr/skin/icons/icon_tbl.png");
 pref("vivipos.fec.settings.controlpanels.config.tableman.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.settings.controlpanels.config.tableman.path", "chrome://viviecr/content/table_man.xul");
 pref("vivipos.fec.settings.controlpanels.config.tableman.roles", "acl_manage_tableman");

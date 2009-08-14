@@ -23,7 +23,7 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/split_check.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('btn_cancel').click()" />
     </keyset>
 
     <vbox flex="1" class="container-dialog layout-dialog">
@@ -53,13 +53,17 @@
                         </vbox>
                     </vbox>
                     <vbox flex="1" class="toolbar custom-content-toolbar" toolbarmode="vertical">
-                        <button id="btn_split" label="&splitcheck.button.action.split;" class="button-modify" disabled="false"  oncommand="$do('splitItems', null, 'SplitCheck');" />
+                        <button id="btn_split" label="&splitcheck.button.action.split;" class="button-modify" disabled="false"
+                                oncommand="$do('splitItems', null, 'SplitCheck');" />
                         <spacer style="height: 5px;" />
-                        <button id="btn_confirm" label="&splitcheck.button.action.confirm;" class="button-modify" disabled="false"  oncommand="$do('confirm', null, 'SplitCheck');" />
+                        <button id="btn_confirm" label="&splitcheck.button.action.confirm;" class="button-modify" disabled="false"
+                                oncommand="$do('confirm', null, 'SplitCheck');" />
                         <spacer style="height: 5px;" />
-                        <button id="btn_paythis" label="&splitcheck.button.action.paythis;" class="button-modify" disabled="false"  oncommand="$do('paythis', 'src', 'SplitCheck');" />
+                        <button id="btn_paythis" label="&splitcheck.button.action.paythis;" class="button-modify" disabled="false"
+                                oncommand="$do('paythis', 'src', 'SplitCheck');" />
                         <spacer style="height: 5px;" />
-                        <button id="btn_cancel" label="&splitcheck.button.action.cancel;" class="button-delete" disabled="false"  oncommand="$do('cancel', null, 'SplitCheck');" />
+                        <button id="btn_cancel" label="&splitcheck.button.action.cancel;" class="button-delete" disabled="false"
+                                oncommand="$do('cancel', null, 'SplitCheck');" />
                     </vbox>
                 </hbox>
             </vbox>

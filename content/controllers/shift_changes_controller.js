@@ -295,7 +295,6 @@
                                       _('Shift change is disabled in training mode'));
                 return;
             }
-
             // block UI until DB access is completed
             this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
 
