@@ -10,13 +10,15 @@ class Order extends AppModel {
 
     var $hasOne = array('OrderObject');
 
-    var $actsAs = array('Sync','transaction');
+    var $actsAs = array('Sync');
 
     function saveOrder($data) {
 
-        if ($this->lockTable( array('WRITE', array('order', 'OrderItem', 'OrderAddition', 'OrderPayment', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion')))) {
-            return false;
-        }
+        // if ($this->lockTable( array('WRITE', array('order', 'OrderItem', 'OrderAddition', 'OrderPayment', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion')))) {
+//        if ($this->lockTable('WRITE')) {
+//            CakeLog::write('saveOrderObject', 'lockTable fail:::');
+//            return false;
+//        }
 
         $conditions = "Order.id='" . $data['Order']['id'] . "'";
         $orderTmp = $this->find('first', array("conditions" => $conditions));
@@ -27,7 +29,8 @@ class Order extends AppModel {
         }
 
         try {
-            if (!$this->begin()) throw new Exception('save Order error when begin transaction.');
+            // if (!$this->begin()) throw new Exception('save Order error when begin transaction.');
+            // $this->begin();
 
             if (!$this->save($data['Order'])) throw new Exception('save Order error.');
             if ($data['OrderItem'])
@@ -56,13 +59,15 @@ class Order extends AppModel {
                 if (!$this->OrderObject->save($obj)) throw new Exception('save OrderObject error.');
             }
             
-            if (!$this->commit()) throw new Exception('save Order error when commit transaction.');
+            // if (!$this->commit()) throw new Exception('save Order error when commit transaction.');
+            $this->commit();
             
         }catch (Exception $e) {
 
-            if (!$this->rollback()) throw new Exception('save Order error when rollback transaction.');;
+            // if (!$this->rollback()) throw new Exception('save Order error when rollback transaction.');
+            $this->rollback();
 
-            $this->unlockTable(array('order', 'OrderItem', 'OrderAddition', 'OrderPayment', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'));
+//            $this->unlockTable(array('order', 'OrderItem', 'OrderAddition', 'OrderPayment', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'));
 
             CakeLog::write('saveOrderDefault', 'An error was encountered while saving order ' .
                                   '  saveOrderDefault: ' . $e->getMessage() . "\n" );
@@ -70,8 +75,8 @@ class Order extends AppModel {
 
         }
 
-        $this->unlockTable(array('order', 'OrderItem', 'OrderAddition', 'OrderPayment', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'));
-        // return $data;
+//        $this->unlockTable(array('order', 'OrderItem', 'OrderAddition', 'OrderPayment', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'));
+
         return true;
 
     }
