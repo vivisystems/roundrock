@@ -5,15 +5,15 @@
  *-----------------------------------------------------------------------------
  */
 * {
-	padding: 0px;
 	margin: 0px;
+	padding: 0px;
 }
 
 .ControlPanel {
-	width: 800px;
-    height: 600px;
     background: #f8f4eb url(../images/controlpanelbg.jpg) top left no-repeat;
     border: none;
+    height: 600px;
+	width: 800px;
 }
 
 /* Product Area */
@@ -22,11 +22,12 @@
 	padding: 90px 0 0 0;
 }
 .ProductTitle {
-	max-width: 126px;
-	max-height: 24px;
 	color: #503828;
 	font-size: 11pt;
+	max-height: 24px;
+	max-width: 126px;
 }
+
 .ProductScrollPanel {
 	margin: 12px 0 0 0;
 	max-height: 298px;
@@ -34,76 +35,90 @@
 	min-width: 347px;
 	width: 347px;
 }
+
 .ProductBtn {
-	  min-width:102px;
-    max-width:102px;
-    min-height:92px;
-    max-height:92px;
-    height: 92px;
-    width: 102px;
-    margin: 4px 3px 3px 2px;
-    padding: 0px;
+    background: none;
+    border: none;
     color: black;
     font-size: 11px;
+    height: 92px;
+    margin: 4px 3px 3px 2px;
+    max-height:92px;
+    max-width:102px;
+    min-height:92px;
+    min-width:102px;
     overflow: hidden;
+    padding: 0px;
+    width: 102px;
     -moz-appearance: none;
-    -moz-user-focus: ignore;
-    background: none;
-    border: none;
     -moz-background-clip: border;
+    -moz-user-focus: ignore;
 }
-.ProductBtn[disabled=true] {
-    background: none;
-    border: none;
-    -moz-appearance: none;
-}
+
 .ProductBtn hbox {
     -moz-box-orient: vertical;
 }
+
 .ProductBtn image{
-	width: 87px;
 	height: 60px;
+	width: 87px;
 }
+
 .ProductBtn description{
+	height: 25px;
 	padding: 5px 0 0 0;
 	width: 87px;
-	height: 25px;
 }
+
 .ProductUpBtn {
+    background: transparent url(../images/cp_prodUpBtn.png) center center no-repeat;
+    border: none;
+    height: 25px;
     max-width:25px;
     min-width:25px;
-    height: 25px;
     width: 25px;
-    background: transparent url(../images/cp_prodUpBtn.png) center center no-repeat;
     -moz-appearance: none;
-    -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
+    -moz-user-focus: ignore;
 }
+
 .ProductUpBtn hbox {
     -moz-box-orient: vertical;
 }
+
 .ProductUpBtn[disabled=false]:active {
     background: transparent url(../images/cp_prodUpBtn_a.png) center center no-repeat;
 }
-.ProductUpBtn  description {
+
+.ProductUpBtn[disabled=true] {
+    background: transparent url(../images/cp_prodUpBtn_b.png) center center no-repeat;
+}
+
+.ProductUpBtn description {
     display: none;
 }
+
 .ProductDownBtn {
+    background: transparent url(../images/cp_prodDownBtn.png) center center no-repeat;
+    border: none;
+    height: 25px;
     max-width:25px;
     min-width:25px;
-    height: 25px;
     width: 25px;
-    background: transparent url(../images/cp_prodDownBtn.png) center center no-repeat;
     -moz-appearance: none;
-    -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
+    -moz-user-focus: ignore;
 }
+
 .ProductDownBtn[disabled=false]:active {
     background: transparent url(../images/cp_prodDownBtn_a.png) center center no-repeat;
 }
-.ProductDownBtn  description {
+
+.ProductDownBtn[disabled=false]:active {
+    background: transparent url(../images/cp_prodDownBtn_b.png) center center no-repeat;
+}
+
+.ProductDownBtn description {
     display: none;
 }
 
@@ -112,61 +127,69 @@
     margin: 28px 0 0 18px;
 }
 
-
 /* Employee Area */
 .EmployeeBox {
     
 }
+
 .EmployeeTitle {
-    max-width: 119px;
-    max-height: 22px;
     color: #605048;
     font-size: 11pt;
     margin: 0 0 0 235px;
+    max-height: 22px;
+    max-width: 119px;
 }
+
 .EmployeeScrollPanel {
     margin: 12px 0 0 2px;
 }
+
 .EmployeeScrollPanel > .scrollablepanel-scrollbar {
     margin-left: 6px !important;
 }
+
 .EmployeeBtn {
-	  min-width:101px;
-    max-width:101px;
-    min-height:96px;
-    max-height:96px;
-    height: 96px;
-    width: 101px;
-    margin: 0px 3px 0px 0px;
-    padding: 0px;
-    color: black;
-    font-size: 11px;
-    overflow: hidden;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
     background: white;
     border: 7px solid #c4bdac;
+    color: black;
+    font-size: 11px;
+    height: 96px;
+    margin: 0px 3px 0px 0px;
+    max-height:96px;
+    max-width:101px;
+    min-height:96px;
+    min-width:101px;
+    overflow: hidden;
+    padding: 0px;
+    width: 101px;
+    -moz-appearance: none;
     -moz-background-clip: border;
     -moz-border-top-colors: #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac;
     -moz-border-right-colors: #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac;
     -moz-border-bottom-colors: #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac;
     -moz-border-left-colors: #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac;
+    -moz-user-focus: ignore;
 }
+
 .EmployeeBtn hbox {
     -moz-box-orient: vertical;
 }
+
 .EmployeeBtn image{
-    width: 87px;
     height: 68px;
+    width: 87px;
 }
+
 .EmployeeBtn description{
     background: #c4bdac;
 }
+
 .EmployeeBtn[disabled=true] {
-    -moz-appearance: none;
-    border: 1px solid #c4bdac !important;
     background: none;
+    border: 1px solid #c4bdac !important;
+    -moz-appearance: none;
 }
+
 .EmployeeBtn[disabled=false]:active {
     border: 7px solid #e4dcc9 !important;
     -moz-border-top-colors: #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9!important;
@@ -174,40 +197,55 @@
     -moz-border-bottom-colors: #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9!important;
     -moz-border-left-colors: #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9!important;
 }
+
 .EmployeeBtn[disabled=false]:active description{
     background: #e4dcc9;
 }
+
 .EmployeeUpBtn {
+    background: transparent url(../images/cp_employeeUpBtn.png) top left no-repeat;
+    border: none;
+    height: 25px;
     max-width:25px;
     min-width:25px;
-    height: 25px;
     width: 25px;
-    background: transparent url(../images/cp_employeeUpBtn.png) top left no-repeat;
     -moz-appearance: none;
-    -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
+    -moz-user-focus: ignore;
 }
+
 .EmployeeUpBtn[disabled=false]:active {
     background: transparent url(../images/cp_employeeUpBtn_a.png) top left no-repeat;
 }
+
+.EmployeeUpBtn[disabled=true] {
+    background: transparent url(../images/cp_employeeUpBtn_b.png) top left no-repeat;
+}
+
 .EmployeeUpBtn  description {
     display: none;
 }
+
 .EmployeeDownBtn {
+    background: transparent url(../images/cp_employeeDownBtn.png) bottom left no-repeat;
+    border: none;
+    height: 25px;
     max-width:25px;
     min-width:25px;
-    height: 25px;
     width: 25px;
-    background: transparent url(../images/cp_employeeDownBtn.png) bottom left no-repeat;
     -moz-appearance: none;
-    -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
+    -moz-user-focus: ignore;
 }
+
 .EmployeeDownBtn[disabled=false]:active {
     background: transparent url(../images/cp_employeeDownBtn_a.png) bottom left no-repeat;
 }
+
+.EmployeeDownBtn[disabled=true] {
+    background: transparent url(../images/cp_employeeDownBtn_b.png) bottom left no-repeat;
+}
+
 .EmployeeDownBtn  description {
     display: none;
 }
@@ -216,89 +254,112 @@
 .ActivityBox {
     margin: 30px 0 0 3px;
 }
+
 .ActivityTitle {
-    max-width: 119px;
-    max-height: 22px;
     color: #396c6d;
     font-size: 11pt;
     margin: 0 0 0 239px;
+    max-width: 119px;
+    max-height: 22px;
 }
+
 .ActivityScrollPanel {
     margin: 17px 0 0 14px;
 }
+
 .ActivityScrollPanel > .scrollablepanel-scrollbar {
     margin-left: 3px !important;
 }
+
 .ActivityBtn {
-	min-width:135px;
-    max-width:135px;
-    min-height:83px;
-    max-height:83px;
-    height: 83px;
-    width: 135px;
-    margin: 0px 13px 0px 0px;
-    padding: 0px;
-    color: black;
-    font-size: 11px;
-    overflow: hidden;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
     background: white;
     border: 0px solid white;
+    color: black;
+    font-size: 11px;
+    height: 83px;
+    margin: 0px 13px 0px 0px;
+    max-height:83px;
+    max-width:135px;
+    min-height:83px;
+	min-width:135px;
+    overflow: hidden;
+    padding: 0px;
+    width: 135px;
+    -moz-appearance: none;
     -moz-background-clip: border;
+    -moz-user-focus: ignore;
 }
+
 .ActivityBtn[disabled=true] {
     background: none;
     border: none;
     -moz-appearance: none;
 }
+
 .ActivityBtn hbox {
     -moz-box-orient: vertical;
 }
+
 .ActivityBtn image{
-    width: 121px;
     height: 60px;
-}
-.ActivityBtn .button-text{
     width: 121px;
-    height: 20px;
 }
+
+.ActivityBtn .button-text{
+    height: 20px;
+    width: 121px;
+}
+
 .ActivityBtn[disabled=false]:active {
     border: 1px solid #d1e1d0;
 }
+
 .ActivityUpBtn {
-    max-width:32px;
-    min-width:32px;
-    height: 32px;
-    width: 32px;
     background: transparent url(../images/cp_actUpBtn.png) 80% top no-repeat;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
     border: none;
     margin: 0 0 0 0px;
+    height: 32px;
+    max-width:32px;
+    min-width:32px;
+    width: 32px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
 }
+
 .ActivityUpBtn[disabled=false]:active {
     background: transparent url(../images/cp_actUpBtn_a.png) 80% top no-repeat;
 }
+
+.ActivityUpBtn[disabled=true] {
+    background: transparent url(../images/cp_actUpBtn_b.png) 80% top no-repeat;
+}
+
 .ActivityUpBtn  description {
     display: none;
 }
+
 .ActivityDownBtn {
+    background: transparent url(../images/cp_actDownBtn.png) 80% bottom no-repeat;
+    border: none;
+    height: 32px;
+    margin: 0 0 0 0px;
     max-width:32px;
     min-width:32px;
-    height: 32px;
     width: 32px;
-    background: transparent url(../images/cp_actDownBtn.png) 80% bottom no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
-    margin: 0 0 0 0px;
 }
+
 .ActivityDownBtn[disabled=false]:active {
     background: transparent url(../images/cp_actDownBtn_a.png) 80% bottom no-repeat;
 }
+
+.ActivityDownBtn[disabled=true] {
+    background: transparent url(../images/cp_actDownBtn_b.png) 80% bottom no-repeat;
+}
+
 .ActivityDownBtn  description {
     display: none;
 }
@@ -307,90 +368,112 @@
 .ToolsBox {
     margin: 43px 0 0 8px;
 }
+
 .ToolsTitle {
-    max-width: 119px;
-    max-height: 22px;
     color: #3e4428;
     font-size: 11pt;
     margin: 0 0 0 231px;
+    max-height: 22px;
+    max-width: 119px;
 }
+
 .ToolsScrollPanel {
     margin: 14px 0 0 0px;
     
 }
+
 .ToolsScrollPanel > .scrollablepanel-scrollbar {
     margin-left: 0px !important;
 }
+
 .ToolsBtn {
-	min-width:101px;
-    max-width:101px;
-    min-height:92px;
-    max-height:92px;
-    height: 92px;
-    width: 101px;
-    margin: 0px 6px 0px 0px;
-    padding: 0px;
-    color: black;
-    font-size: 11px;
-    overflow: hidden;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
     background: none;
     border: none;
+    color: black;
+    font-size: 11px;
+    height: 92px;
+    margin: 0px 6px 0px 0px;
+    max-height:92px;
+    max-width:101px;
+    min-height:92px;
+	min-width:101px;
+    overflow: hidden;
+    padding: 0px;
+    width: 101px;
+    -moz-appearance: none;
     -moz-background-clip: border;
+    -moz-user-focus: ignore;
     /*border: 1px solid;
     -moz-border-top-colors: #c4bdac;
     -moz-border-right-colors: #c4bdac;
     -moz-border-bottom-colors: #c4bdac;
     -moz-border-left-colors: #c4bdac;*/
 }
+
 .ToolsBtn hbox {
     -moz-box-orient: vertical;
 }
+
 .ToolsBtn image{
-    width: 66px;
     height: 66px;
+    width: 66px;
 }
+
 .ToolsBtn .button-text{
-    width: 88px;
     height: 22px;
+    width: 88px;
 }
+
 .ToolsBtn[disabled=false]:active {
     
 }
+
 .ToolsUpBtn {
+    background: transparent url(../images/cp_toolUpBtn.png) top left no-repeat;
+    border: none;
+    height: 25px;
+    margin: 0 0 0 0px;
     max-width:25px;
     min-width:25px;
-    height: 25px;
     width: 25px;
-    background: transparent url(../images/cp_toolUpBtn.png) top left no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
-    margin: 0 0 0 0px;
 }
+
 .ToolsUpBtn[disabled=false]:active {
     background: transparent url(../images/cp_toolUpBtn_a.png) top left no-repeat;
 }
-.ToolsUpBtn  description {
+
+.ToolsUpBtn[disabled=true] {
+    background: transparent url(../images/cp_toolUpBtn_b.png) top left no-repeat;
+}
+
+.ToolsUpBtn description {
     display: none;
 }
+
 .ToolsDownBtn {
+    background: transparent url(../images/cp_toolDownBtn.png) bottom left no-repeat;
+    border: none;
+    height: 25px;
+    margin: 0 0 0 0px;
     max-width:25px;
     min-width:25px;
-    height: 25px;
     width: 25px;
-    background: transparent url(../images/cp_toolDownBtn.png) bottom left no-repeat;
     -moz-appearance: none;
-    -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
-    margin: 0 0 0 0px;
+    -moz-user-focus: ignore;
 }
+
 .ToolsDownBtn[disabled=false]:active {
     background: transparent url(../images/cp_toolDownBtn_a.png) bottom left no-repeat;
 }
+
+.ToolsDownBtn[disabled=true] {
+    background: transparent url(../images/cp_toolDownBtn_b.png) bottom left no-repeat;
+}
+
 .ToolsDownBtn  description {
     display: none;
 }
@@ -399,116 +482,138 @@
 .SysBox {
     margin: 24px 0 0 14px;
 }
+
 .SysScrollPanel {
     max-width: 375px;    
 }
+
 .SysBtn {
-	min-width:102px;
-    max-width:102px;
-    min-height:88px;
-    max-height:88px;
-    height: 88px;
-    width: 102px;
-    margin: 0px 10px 0px 0px;
-    padding: 38px 11px 11px 9px;
-    color: #362f2d;
-    font-size: 11px;
-    overflow: hidden;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
     background: transparent url(../images/cp_mbtn.png) top left no-repeat;
     border: none;
+    color: #362f2d;
+    font-size: 11px;
+    height: 88px;
+    margin: 0px 10px 0px 0px;
+    max-height:88px;
+    max-width:102px;
+    min-height:88px;
+	min-width:102px;
+    overflow: hidden;
+    padding: 38px 11px 11px 9px;
+    width: 102px;
+    -moz-appearance: none;
     -moz-background-clip: border;
+    -moz-user-focus: ignore;
 }
+
 .SysBtn hbox {
     -moz-box-orient: vertical;
 }
+
 .SysBtn image{
     display: none;
 }
+
 .SysBtn[disabled=false]:active {
+    background: transparent url(../images/cp_mbtn_a.png) top left no-repeat;
     padding-top: 39px;
     padding-left: 13px;
-    background: transparent url(../images/cp_mbtn_a.png) top left no-repeat;
 }
+
 .SysBtn[disabled=true] {
 	color: #84736e;
 }
+
 .SysUpBtn {
+    background: transparent url(../images/cp_mUpbtn.png) top left no-repeat;
+    border: none;
+    height: 39px;
+    margin: 22px 0 0 2px;
     max-width:39px;
     min-width:39px;
-    height: 39px;
     width: 39px;
-    background: transparent url(../images/cp_mUpbtn.png) top left no-repeat;
     -moz-appearance: none;
-    -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
-    margin: 22px 0 0 2px;
+    -moz-user-focus: ignore;
 }
+
 .SysUpBtn[disabled=false]:active {
     background: transparent url(../images/cp_mUpbtn_a.png) top left no-repeat;
 }
+
+.SysUpBtn[disabled=true] {
+    background: transparent url(../images/cp_mUpbtn_b.png) top left no-repeat;
+}
+
 .SysUpBtn description {
     display: none;
 }
+
 .SysDownBtn {
+    background: transparent url(../images/cp_mDownbtn.png) bottom left no-repeat;
+    border: none;
+    height: 39px;
+    margin: 0 0 0 2px;
     max-width:39px; 
     min-width:39px;
-    height: 39px;
     width: 39px;
-    background: transparent url(../images/cp_mDownbtn.png) bottom left no-repeat;
     -moz-appearance: none;
-    -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
-    margin: 0 0 0 2px;
+    -moz-user-focus: ignore;
 }
+
 .SysDownBtn[disabled=false]:active {
     background: transparent url(../images/cp_mDownbtn_a.png) bottom left no-repeat;
 }
+
+.SysDownBtn[disabled=true] {
+    background: transparent url(../images/cp_mDownbtn_b.png) bottom left no-repeat;
+}
+
 .SysDownBtn  description {
     display: none;
 }
 
 /* exit */
 .ExitBtn {
-    min-width:75px;
-    max-width:75px;
-    min-height:94px;
-    max-height:94px;
-    height: 94px;
-    width: 75px;
-    padding: 0;
-    overflow: hidden;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    margin: 2px 20px;
     background: transparent url(../images/cp_exit.png) bottom left no-repeat;
     border: none;
+    height: 94px;
+    margin: 2px 20px;
+    max-height:94px;
+    max-width:75px;
+    min-height:94px;
+    min-width:75px;
+    overflow: hidden;
+    padding: 0;
+    width: 75px;
+    -moz-appearance: none;
     -moz-background-clip: border;
+    -moz-user-focus: ignore;
 }
+
 .ExitBtn:active {
     background: transparent url(../images/cp_exit_a.png) bottom left no-repeat;
 }
+
 .ExitBtn description, .ExitBtn label {
     display: none;
 }
 
 /*  Loading  */
 .loading {
-    border: none;
-    color: #514e48;
-    font-size: 18pt;
-    font-family: monospace;
-    font-weight: bold !important;
-    -moz-box-pack: center;
-    -moz-appearance: none;
     background-color: transparent;
     background-image: url(../images/loading.png);
     background-position: center center;
     background-repeat: no-repeat;
-    width: 415px;
-    margin-left: 192px;
+    border: none;
+    color: #514e48;
+    font-family: monospace;
+    font-size: 18pt;
+    font-weight: bold !important;
     height: 121px;
+    margin-left: 192px;
+    width: 415px;
+    -moz-box-pack: center;
+    -moz-appearance: none;
 }

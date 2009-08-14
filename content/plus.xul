@@ -331,12 +331,12 @@
                         <tabpanel flex="1" orient="vertical">
                             <label id="pluset" hidden="true" form="productForm" name="pluset"/>
                             <vbox flex="1" class="content-listbox">
-                                <viviscrollabletree id="plusetscrollabletree" flex="1"
+                                <viviscrollabletree id="plusetscrollabletree" flex="1" scrollUnit="line" scrollMode="cursor"
                                                     headers="&plus.header.label;,&plus.header.preset;,&plus.header.quantity;,&plus.header.baseprice;,&plus.header.group;,&plus.header.reduction;"
                                                     fields="label,preset,quantity,baseprice,linkgroup,reduction"
                                                     types=",,,,,checkbox"
                                                     hidecolumnpicker="true"
-                                                    class="plusetlist" treeClass="standard"
+                                                    class="custom-content-plusetlist" treeClass="standard"
                                                     scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
                                                     onselect="$do('selectSetItem',this.selectedIndex, 'Plus');">
                                     <vivibutton id="+" class="button-systool button-plus" onclick="event.stopPropagation()" oncommand="$do('addSetItem', null, 'Plus');" />

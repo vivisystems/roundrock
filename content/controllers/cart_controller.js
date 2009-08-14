@@ -9,6 +9,7 @@
         uses: ['Product'],
         
         _cartView: null,
+        _inDialog: false,
         _queuePool: null,
         _queueFile: "/var/tmp/cart_queue.txt",
         _queueSession: "cart_queue_pool",
@@ -26,6 +27,8 @@
             if (cmd != 'cancel') {
                 this._lastCancelInvoke = false;
             }
+            if (this._inDialog) return false;
+            
             return true;
         },
 
@@ -566,8 +569,6 @@
                 return;
             }
 
-            this._blockUI('blockui_panel', 'common_wait', _('Adding Item'), 1);
-
             // transaction is submit and close success
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 curTransaction = this._newTransaction();
@@ -583,9 +584,6 @@
                 // if qty not manually set, read from scale
                 if (GeckoJS.Session.get('cart_set_qty_value') == null) {
                     if (!this.readScale(null, item.tare)) {
-
-                        // unblockUI
-                        this._unblockUI('blockui_panel');
                         return;
                     }
                 }
@@ -637,9 +635,6 @@
 
                             this.modifyQty('plus', qty);
 
-                            // unblockUI
-                            this._unblockUI('blockui_panel');
-
                             return;
                         }
                     }
@@ -652,8 +647,6 @@
                     NotifyUtils.error(_('Price must be given to register sale of department [%S]', [item.name]));
                     this._clearAndSubtotal();
 
-                    // unblockUI
-                    this._unblockUI('blockui_panel');
                     return;
                 }
             }
@@ -663,8 +656,6 @@
                 if (item.setItemSelectionRequired) {
                     this._setItemSelectionDialog(curTransaction, item);
 
-                    // unblockUI
-                    this._unblockUI('blockui_panel');
                     return;
                 }
 
@@ -683,6 +674,7 @@
                 var cart = this._getCartlist();
                 
                 // wrap with chain method
+                this._inDialog = true;
                 next( function() {
                     if (addedItem.id == plu.id && !self._returnMode) {
 
@@ -726,16 +718,13 @@
                         self._clearAndSubtotal();
                     }
 
+                    this._inDialog = false;
                 });
 
             }
             else {
                 this._clearAndSubtotal();
             }
-
-            // unblockUI
-            this._unblockUI('blockui_panel');
-        //this._getCartlist().refresh();
         },
 	
         _setItemSelectionDialog: function (txn, item) {

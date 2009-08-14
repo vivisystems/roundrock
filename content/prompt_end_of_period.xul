@@ -42,31 +42,43 @@
                 <rows>
                     <row>
                         <vbox>
-                    		<button id="review" class="ZoomBtn" label="&shiftchange.button.review.this.shift;" default="false" oncommand="opener.$do('reviewShiftReport', null, 'ShiftChanges');"/>
+                    		<vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.this.shift;"
+                                        roles="acl_report_cashbyclerk" action="hide"
+                                        oncommand="opener.$do('reviewShiftReport', null, 'ShiftChanges');"/>
                     	</vbox>
                     	<vbox>
-		                    <button id="review" class="ZoomBtn" label="&shiftchange.button.review.all.shifts;" default="false" oncommand="opener.$do('reviewShiftReport', true, 'ShiftChanges');"/>
+		                    <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.all.shifts;"
+                                        roles="acl_report_cashbyclerk" action="hide"
+                                        oncommand="opener.$do('reviewShiftReport', true, 'ShiftChanges');"/>
 		                </vbox>
 		                <vbox>
-		                	<button id="review" class="ZoomBtn" label="&shiftchange.button.review.daily.sales;" default="false" oncommand="opener.$do('reviewDailySales', null, 'ShiftChanges');"/>
+		                	<vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.daily.sales;"
+                                        roles="acl_report_dailysalessummary" action="hide"
+                                        oncommand="opener.$do('reviewDailySales', null, 'ShiftChanges');"/>
 		                </vbox>
                     </row>
                     <row>
                     	<vbox>
-                    		<button id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;" default="false" oncommand="opener.$do('printShiftReport', null, 'ShiftChanges');"/>
+                    		<vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;"
+                                        roles="acl_report_cashbyclerk" action="hide"
+                                        oncommand="opener.$do('printShiftReport', null, 'ShiftChanges');"/>
                     	</vbox>
                     	<vbox>
-		                    <button id="print" class="PrintBtn" label="&shiftchange.button.print.all.shifts;" default="false" oncommand="opener.$do('printShiftReport', true, 'ShiftChanges');"/>
+		                    <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.all.shifts;"
+                                        roles="acl_report_cashbyclerk" action="hide"
+                                        oncommand="opener.$do('printShiftReport', true, 'ShiftChanges');"/>
 		                </vbox>
 		                <vbox>
-		                	<button id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales;" default="false" oncommand="opener.$do('printDailySales', null, 'ShiftChanges');"/>
+		                	<vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales;"
+                                        roles="acl_report_dailysalessummary" action="hide"
+                                        oncommand="opener.$do('printDailySales', null, 'ShiftChanges');"/>
 		                </vbox>
                     </row>
                 </rows>
             </grid>
             <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
-                <button id="login" label="&shiftchange.button.login;" disabled="false" default="false" oncommand="doOKButton();"/>
-            	<button id="poweroff" label="&shiftchange.button.poweroff;" disabled="false" default="true" oncommand="opener.$do('shutdownMachine', null, 'Main');"/>
+                <button id="login" label="&shiftchange.button.login;" disabled="false" oncommand="doOKButton();"/>
+            	<button id="poweroff" label="&shiftchange.button.poweroff;" disabled="false" oncommand="opener.$do('shutdownMachine', null, 'Main');"/>
             </hbox>
         </vbox>
     </vbox>

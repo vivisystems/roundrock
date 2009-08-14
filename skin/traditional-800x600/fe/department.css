@@ -67,6 +67,10 @@
     background-position: -32px 0;
 }
 
+.main-overlay .dept-scroll-up-button[disabled=true] {
+    background-position: -64px 0;
+}
+
 .main-overlay .dept-scroll-up-button label {
     display: none;
 }
@@ -91,6 +95,10 @@
 
 .main-overlay .dept-scroll-down-button[disabled=false]:active {
     background-position: -32px 0;
+}
+
+.main-overlay .dept-scroll-down-button[disabled=true] {
+    background-position: -64px 0;
 }
 
 .main-overlay .dept-scroll-down-button label {

@@ -675,7 +675,7 @@
                     return;
                 }
                 else if (action == 0) {
-                    this.modify();
+                    if (!this.modify()) return;
                 }
             }
             window.close();
@@ -974,6 +974,11 @@
                     } );
                 }
                 OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
+
+                return true;
+            }
+            else {
+                return false;
             }
         },
 

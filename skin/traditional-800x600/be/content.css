@@ -200,6 +200,10 @@
     background-position:-32px 0;
 }
 
+.container-be .scroll-up-button[disabled=true] {
+    background-position:-64px 0;
+}
+
 .container-be .scroll-up-button description {
     display: none;
 }
@@ -349,6 +353,10 @@
 
 .container-be .scroll-down-button[disabled=false]:active {
     background-position:-32px 0;
+}
+
+.container-be .scroll-down-button[disabled=true] {
+    background-position:-64px 0;
 }
 
 .container-be .scroll-down-button description {

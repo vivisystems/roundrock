@@ -95,8 +95,13 @@
 .ProductUpBtn hbox {
     -moz-box-orient: vertical;
 }
+
 .ProductUpBtn[disabled=false]:active {
     background: transparent url(../images/cp_prodUpBtn_a.png) center center no-repeat;
+}
+
+.ProductUpBtn[disabled=true] {
+    background: transparent url(../images/cp_prodUpBtn_b.png) center center no-repeat;
 }
 
 .ProductUpBtn  description {
@@ -117,6 +122,10 @@
 
 .ProductDownBtn[disabled=false]:active {
     background: transparent url(../images/cp_prodDownBtn_a.png) center center no-repeat;
+}
+
+.ProductDownBtn[disabled=true] {
+    background: transparent url(../images/cp_prodDownBtn_b.png) center center no-repeat;
 }
 
 .ProductDownBtn description {
@@ -219,6 +228,10 @@
     background: transparent url(../images/cp_employeeUpBtn_a.png) top left no-repeat;
 }
 
+.EmployeeUpBtn[disabled=true] {
+    background: transparent url(../images/cp_employeeUpBtn_b.png) top left no-repeat;
+}
+
 .EmployeeUpBtn  description {
     display: none;
 }
@@ -237,6 +250,10 @@
 
 .EmployeeDownBtn[disabled=false]:active {
     background: transparent url(../images/cp_employeeDownBtn_a.png) bottom left no-repeat;
+}
+
+.EmployeeDownBtn[disabled=true] {
+    background: transparent url(../images/cp_employeeDownBtn_b.png) bottom left no-repeat;
 }
 
 .EmployeeDownBtn description {
@@ -320,6 +337,10 @@
     background: transparent url(../images/cp_actUpBtn_a.png) right top no-repeat;
 }
 
+.ActivityUpBtn[disabled=true] {
+    background: transparent url(../images/cp_actUpBtn_b.png) right top no-repeat;
+}
+
 .ActivityUpBtn  description {
     display: none;
 }
@@ -339,6 +360,10 @@
 
 .ActivityDownBtn[disabled=false]:active {
     background: transparent url(../images/cp_actDownBtn_a.png) right bottom no-repeat;
+}
+
+.ActivityDownBtn[disabled=true] {
+    background: transparent url(../images/cp_actDownBtn_b.png) right bottom no-repeat;
 }
 
 .ActivityDownBtn  description {
@@ -417,6 +442,10 @@
     background: transparent url(../images/cp_toolUpBtn_a.png) top left no-repeat;
 }
 
+.ToolsUpBtn[disabled=true] {
+    background: transparent url(../images/cp_toolUpBtn_b.png) top left no-repeat;
+}
+
 .ToolsUpBtn  description {
     display: none;
 }
@@ -436,6 +465,10 @@
 
 .ToolsDownBtn[disabled=false]:active {
     background: transparent url(../images/cp_toolDownBtn_a.png) bottom left no-repeat;
+}
+
+.ToolsDownBtn[disabled=true] {
+    background: transparent url(../images/cp_toolDownBtn_b.png) bottom left no-repeat;
 }
 
 .ToolsDownBtn  description {
@@ -482,6 +515,7 @@
     background: transparent url(../images/cp_mbtn_a.png) top left no-repeat;
     padding: 51px 11px 11px 13px;
 }
+
 .SysBtn[disabled=true] {
 	color: #84736e;
 }
@@ -503,6 +537,10 @@
     background: transparent url(../images/cp_mUpbtn_a.png) top left no-repeat;
 }
 
+.SysUpBtn[disabled=true] {
+    background: transparent url(../images/cp_mUpbtn_b.png) top left no-repeat;
+}
+
 .SysUpBtn description {
     display: none;
 }
@@ -522,6 +560,10 @@
 
 .SysDownBtn[disabled=false]:active {
     background: transparent url(../images/cp_mDownbtn_a.png) bottom left no-repeat;
+}
+
+.SysDownBtn[disabled=true] {
+    background: transparent url(../images/cp_mDownbtn_b.png) bottom left no-repeat;
 }
 
 .SysDownBtn  description {

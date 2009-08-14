@@ -242,6 +242,7 @@
 }
 
 .button-iconic:not([disabled=true]) {
+    background-color: white;
     border: 2px solid black;
 }
 

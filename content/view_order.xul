@@ -56,8 +56,8 @@
             <spacer height="5px"/>
             <hbox flex="1">
                 <hbox flex="1" class="toolbar" toolbarmode="horizontal">
-                    <button id="void" label="&vieworder.button.void;" disabled="false" class="button-delete"
-                            oncommand="$do('voidSale', null, 'ViewOrder')"/>
+                    <vivibutton id="void" label="&vieworder.button.void;" disabled="false" class="button-delete" roles="acl_void_transactions" action="hide"
+                                oncommand="$do('voidSale', null, 'ViewOrder')"/>
                 </hbox>
                 <vbox pack="center" class="container-report">
                     <hbox class="ReportTool">

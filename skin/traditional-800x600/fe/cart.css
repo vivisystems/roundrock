@@ -47,6 +47,10 @@
     background-position: -32px 0;
 }
 
+.main-overlay .cart-scroll-up-button[disabled=true] {
+    background-position: -64px 0;
+}
+
 .main-overlay .cart-scroll-down-button {
     background: transparent url(../images/chatdown.png) 0 0 no-repeat;
     border: 0px solid;
@@ -58,6 +62,10 @@
 
 .main-overlay .cart-scroll-down-button[disabled=false]:active {
     background-position:-32px 0;
+}
+
+.main-overlay .cart-scroll-down-button[disabled=true] {
+    background-position: -64px 0;
 }
 
 .main-overlay .cart-scroll-up-button description,

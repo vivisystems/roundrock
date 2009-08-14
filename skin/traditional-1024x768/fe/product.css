@@ -86,6 +86,10 @@
     display: none;
 }
 
+.main-overlay .product-scroll-up-button[disabled=true] {
+    background-position: -80px 0;
+}
+
 .main-overlay .product-scroll-up-button description {
     display: none;
 }
@@ -106,6 +110,10 @@
 
 .main-overlay .product-scroll-down-button[disabled=false]:active {
     background-position: -40px 0;
+}
+
+.main-overlay .product-scroll-down-button[disabled=true] {
+    background-position: -80px 0;
 }
 
 .main-overlay .product-scroll-down-button label {

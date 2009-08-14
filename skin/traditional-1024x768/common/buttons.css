@@ -242,13 +242,14 @@
     display: none;
 }
 
-.button-iconic[disabled=false] {
+.button-iconic:not([disabled=true]) {
+    background-color: white;
     border: 2px solid black;
 }
 
 .button-iconic[disabled=true] {
     background-color: transparent;
-    border: 0px solid black;
+    border: 0px solid gray;
 }
 
 /*-----------------------------------------------------------------------------
