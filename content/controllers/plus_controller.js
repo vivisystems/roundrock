@@ -23,6 +23,8 @@
         _categoriesByNo: {},
         _categoryIndexByNo: {},
 
+        _cloningInProgress: false,
+
         createGroupPanel: function () {
 
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
@@ -1187,6 +1189,10 @@
             }
         },
 
+        stopCloning: function() {
+            this._cloningInProgress = false;
+        },
+
         clonePlu: function() {
             if (this._selectedIndex != null && this._selectedIndex > -1) {
 
@@ -1262,13 +1268,21 @@
                     if (doClone) {
 
                         // bring up progressbar
-                        var waitPanel = this._showWaitPanel(_('Please wait while product properties are cloned'));
+                        var msg = _('Please wait while product properties are cloned...');
+                        var max = inputObj.selectedItems.length;
+                        var waitPanel = this._showWaitPanel(msg, max);
+                        var progress = document.getElementById('progress');
+                        var caption = document.getElementById('wait_caption');
 
                         var productModel = new ProductModel();
+                        var step = max / 100;
+                        var count = 0;
+
+                        this._cloningInProgress = true;
 
                         // use transactoin
                         productModel.begin();
-                        for (var i = 0; i < inputObj.selectedItems.length; i++) {
+                        for (var i = 0; this._cloningInProgress && i < max; i++) {
                             // remove by rack , why need to update all fields ?
                             var oldData = targets[inputObj.selectedItems[i]];
                             //var newData = GREUtils.extend({}, oldData);
@@ -1327,7 +1341,12 @@
                                 // dont refreshUI rightnow
                                 this.updateSession('modify', newData, oldData, false);
                             }
-                            this.sleep(100);
+                            if (++count > step) {
+                                count = 0;
+                                progress.value = i;
+                                caption.label = msg + i + '/' + max;
+                                this.sleep(100);
+                            }
                         }
                         productModel.commit();
 
@@ -1336,7 +1355,15 @@
 
                         waitPanel.hidePopup();
 
-                        OsdUtils.info(_('Product [%S] cloned successfully', [product.name]));
+                        if (this._cloningInProgress) {
+                            OsdUtils.info(_('Product [%S] cloned successfully', [product.name]));
+                            this._cloningInProgress = false;
+                        }
+                        else {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                                  _('Clone Product'),
+                                                  _('You have cancelled product cloning while it is in progress. Some of the selected products may not have been cloned.'));
+                        }
                     }
                     else {
                         NotifyUtils.warn(_('You have not selected any properties to clone.'));
@@ -1381,15 +1408,22 @@
             }
         },
         
-        _showWaitPanel: function(message) {
-            var waitPanel = document.getElementById('wait_panel');
+        _showWaitPanel: function(message, max) {
+            var waitPanel = document.getElementById('interruptable_wait_panel');
             waitPanel.openPopupAtScreen(0, 0);
 
             var caption = document.getElementById( 'wait_caption' );
             caption.label = message;
 
+            var progressbar = document.getElementById('progress');
+            progressbar.max = max;
+            progressbar.value = 0;
+
+            var button = document.getElementById('cancel_wait');
+            button.setAttribute('oncommand', '$do("stopCloning", null, "Plus");');
+            
             // release CPU for progressbar ...
-            this.sleep(500);
+            this.sleep(100);
             return waitPanel;
         },
 

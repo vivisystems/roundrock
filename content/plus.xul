@@ -18,7 +18,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/interruptable_waiting_panel.xul"?>
 
 <window title="&plus.title;"
         hidechrome="true"
