@@ -160,7 +160,9 @@
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
                     if(req.status == 200) {
+
                         var result = GeckoJS.BaseObject.unserialize(req.responseText);
+                        
                         if (result.status == 'ok') {
                             data = result.value;
                         }
@@ -585,8 +587,10 @@
 
         setTableMark: function(table_no, markObj) {
 
-            var user = GeckoJS.Session.get('user') || {};
-            markObj.mark_user = user.username;
+            // var user = GeckoJS.Session.get('user') || {};
+            var user = this.Acl.getUserPrincipal();
+            // markObj.mark_user = user.username;
+            markObj.mark_user = user ? user.description : _('unknown user');
 
             var now = Math.round(Date.now().getTime() / 1000);
             markObj.start_time = now;
@@ -640,8 +644,10 @@
 
         setTableMarks: function(regionTables, markObj) {
 
-            var user = GeckoJS.Session.get('user') || {};
-            markObj.mark_user = user.username;
+            // var user = GeckoJS.Session.get('user') || {};
+            var user = this.Acl.getUserPrincipal();
+            // markObj.mark_user = user.username;
+            markObj.mark_user = user ? user.description : _('unknown user');
 
             var now = Math.round(Date.now().getTime() / 1000);
             markObj.start_time = now;
@@ -725,7 +731,7 @@
                 sequence: "" + checkObj.seq,
                 guests: checkObj.no_of_customers,
                 holdby: '',
-                clerk: checkObj.service_clerk,
+                clerk: checkObj.service_clerk_displayname,
                 booking: 0,
                 lock: false,
                 status: checkObj.status,
@@ -812,7 +818,7 @@
                             total: o.Order.total,
                             table_no: o.Order.table_no,
                             check_no: o.Order.check_no,
-                            clerk: o.Order.service_clerk,
+                            clerk: o.Order.service_clerk_displayname,
                             sequence: o.Order.sequence,
                             guests: o.Order.no_of_customers,
                             transaction_created: o.Order.transaction_created,
@@ -949,11 +955,14 @@
 
             if (remoteUrl) {
                 try {
+
                     var remote_options = this.requestRemoteService('GET', remoteUrl, null);
 
                     if (remote_options) {
                         options = remote_options.options;
+                        options.MinimumChargePlu = GeckoJS.BaseObject.serialize(options.MinimumChargePlu);
                         marksData = remote_options.marks;
+
                     }
 
                     this._connected = true;
@@ -991,6 +1000,8 @@
             var marksData = [];
 
             var options = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+            options.MinimumChargePlu = GeckoJS.BaseObject.unserialize(options.MinimumChargePlu);
+            // options.MinimumChargePlu = btoa(options.MinimumChargePlu);
 
             var tableMarks = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
             var marksData = [];
@@ -999,8 +1010,9 @@
             if (marksData.length <= 0) marksData = [];
 
             if (remoteUrl) {
+                var optDatas = {options: options, marks: marksData};
 
-                this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({options: options, marks: marksData}));
+                this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize(optDatas));
 
                 return ;
             }

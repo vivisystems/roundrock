@@ -122,7 +122,7 @@ pref("vivipos.fec.settings.controlpanels.product.plus.roles", "acl_manage_produc
 pref("vivipos.fec.settings.controlpanels.product.reports.icon", "chrome://viviecr/skin/icons/icon_reports.png");
 pref("vivipos.fec.settings.controlpanels.product.reports.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.settings.controlpanels.product.reports.path", "chrome://viviecr/content/reportPanel.xul");
-pref("vivipos.fec.settings.controlpanels.product.reports.roles", "acl_manage_reports");
+pref("vivipos.fec.settings.controlpanels.product.reports.roles", "");
 
 pref("vivipos.fec.settings.controlpanels.product.static_condiments.icon", "chrome://viviecr/skin/icons/icon_condiments.png");
 pref("vivipos.fec.settings.controlpanels.product.static_condiments.label", "chrome://viviecr/locale/messages.properties");

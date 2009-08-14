@@ -251,6 +251,81 @@ msgstr "Purchase History"
 
 ########################################################################
 #
+# List of Reports ACLs
+#
+########################################################################
+
+msgid "acl_report_attendancerecord"
+msgstr "Report - Attendance Record"
+
+msgid "acl_report_cashbyclerk"
+msgstr "Report - Shift Change Report"
+
+msgid "acl_report_cashdrawerreport"
+msgstr "Report - Cash Drawer Report"
+
+msgid "acl_report_cashdrawersummary"
+msgstr "Report - Cash Drawer Summary"
+
+msgid "acl_report_clerksalesreport"
+msgstr "Report - Clerk Sales"
+
+msgid "acl_report_dailysalesdetail"
+msgstr "Report - Sales - Detailed"
+
+msgid "acl_report_dailysales"
+msgstr "Report - Sales Report"
+
+msgid "acl_report_dailysalessummary"
+msgstr "Report - Daily Sales Summary"
+
+msgid "acl_report_departmentlist"
+msgstr "Report - Department List"
+
+msgid "acl_report_detailedtaxreport"
+msgstr "Report - Detailed Tax Report"
+
+msgid "acl_report_hourlysales"
+msgstr "Report - Hourly Sales"
+
+msgid "acl_report_orderannotation"
+msgstr "Report - Order Annotations"
+
+msgid "acl_report_orderstatus"
+msgstr "Report - Order Status Report"
+
+msgid "acl_report_productlist"
+msgstr "Report - Product List"
+
+msgid "acl_report_productsales"
+msgstr "Report - Product Sales"
+
+msgid "acl_report_promotionsummary"
+msgstr "Report - Promotion Summary"
+
+msgid "acl_report_salessummary"
+msgstr "Report - Sales Summary"
+
+msgid "acl_report_stocks"
+msgstr "Report - Stock Report"
+
+msgid "acl_report_userlist"
+msgstr "Report - Employee List"
+
+msgid "acl_report_run_yourorder"
+msgstr "Report - Create Custom Sales Reports"
+
+msgid "acl_report_yourorder"
+msgstr "Report - Custom Sales Report"
+
+msgid "acl_report_inventorycommitments"
+msgstr "Report - Stock Adjustments"
+
+msgid "acl_report_purchasehistory"
+msgstr "Report - Purchase History"
+
+########################################################################
+#
 # Register Display - Payments
 #
 ########################################################################

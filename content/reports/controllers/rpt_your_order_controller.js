@@ -456,6 +456,7 @@
                     var reportPanelPreference = GREUtils.extend( {}, this._reportPanelPreference ); // not doing so will bring about reference problem.
                     reportPanelPreference.label = label;
                     reportPanelPreference.key = newReportPrefKey;
+                    reportPanelPreference.roles = 'acl_report_yourorder';
                     GeckoJS.Configure.write( reportPanelPref, reportPanelPreference );
                     
                     // for selected fields.

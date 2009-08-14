@@ -835,16 +835,15 @@
             GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
             // @todo OSD
             OsdUtils.info(_('Options saved successfully'));
+
+            this._getTableStatusModel().setTableStatusOptions();
         },
 
         cloneSettingsFromMaster: function() {
             //
-
-
             if (GREUtils.Dialog.confirm(this.topmostWindow,
                         _('Clone options from master of table status'),
-                        _('The options of table status will be changed with options of master. Proceed?\n' +
-                            'Click OK to change options, \nor, click Cancel to abort.')) == true) {
+                        _('The options of table status will be changed with options of master. Proceed?\nClick OK to change options, \nor, click Cancel to abort.')) == true) {
 
 
                 var settings = this._getTableStatusModel().getTableStatusOptions();
@@ -861,8 +860,6 @@
                 NotifyUtils.warn(_('The options of table status is changed.'));
 
             }
-
-
 
         },
 

@@ -626,7 +626,7 @@
                 if (!n) return;
                 var v = this.getAttribute('default');
                 if (typeof v != 'undefined') {
-                    valObj[n] = v;
+                    valObj[n] = (this.tagName == 'checkbox') ? GeckoJS.String.parseBoolean(v) : v;
                 }
             });
             return valObj;
@@ -634,7 +634,9 @@
         },
 
         getInputData: function () {
-            return GeckoJS.FormHelper.serializeToObject('productForm', false);
+            var prod = GeckoJS.FormHelper.serializeToObject('productForm', false);
+
+            return this._convertInputData(prod);
         },
 
         resetInputData: function () {
@@ -703,6 +705,17 @@
                 }
             }
             return true;
+        },
+
+        _convertInputData: function(data) {
+            // convert checkbox values into boolean type
+            $('checkbox[form="productForm"]').each(function() {
+               var n = this.name || this.getAttribute('name');
+               if (n) {
+                   data[n] = GeckoJS.String.parseBoolean(data[n]);
+               }
+            });
+            return data;
         },
 
         _checkData: function (data) {
@@ -868,7 +881,6 @@
                     }
 
                     var newProduct = product.save(prodData);
-
                     // need to retrieve product id
                     if (newProduct != null) {
                         this.updateSession('add', newProduct);
