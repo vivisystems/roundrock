@@ -39,3 +39,4 @@
 <!ENTITY    function_customizer.groupbox.triggers.caption "Triggers">
 <!ENTITY    function_customizer.groupbox.types.caption "Types">
 <!ENTITY    function_customizer.groupbox.generaloptions.caption "General Options">
+<!ENTITY    function_customizer.groupbox.addons.caption "Addons">

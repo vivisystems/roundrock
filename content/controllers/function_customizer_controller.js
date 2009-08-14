@@ -47,7 +47,7 @@
                         let k = tmps[tmps.length-2]+'.'+tmps[tmps.length-1];
                         localeKey = k + ".label";
 
-                    }else if (elemId.indexOf('dev') == 0) {
+                    }else if (elemId.indexOf('dev') == 0 || elemId.indexOf('opt') == 0) {
                         localeKey = "";
                         let msg = document.getElementById(elemId).getAttribute('label');
                         let labelMsg = _('function_customizer.disable.label', [msg]);

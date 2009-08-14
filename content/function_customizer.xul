@@ -2,12 +2,16 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
+  <!ENTITY % extensionsDTD SYSTEM "chrome://mozapps/locale/extensions/extensions.dtd">
+  %extensionsDTD;
   <!ENTITY % FunctionCustomizer SYSTEM "chrome://viviecr/locale/function_customizer.dtd">
   %FunctionCustomizer;
   <!ENTITY % Devices SYSTEM "chrome://viviecr/locale/devices.dtd">
   %Devices;
   <!ENTITY % Sysprefs SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
   %Sysprefs;
+  <!ENTITY % extensionsSDKDTD SYSTEM "chrome://vivipos/locale/extensions.dtd">
+  %extensionsSDKDTD;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
@@ -352,14 +356,28 @@
                                     <tabpanel flex="1" orient="vertical">
 
                                         <groupbox>
+                                          <caption label="&function_customizer.groupbox.addons.caption;"/>
+
+                                            <checkbox id="optAddonsUpdate" value="true" label="&cmd.checkUpdatesAll.label;"
+                                                          form="toolsForm" name="optAddonsUpdate" default="false" />
+                                            <checkbox id="optAddonsSDKUpdate" value="true" label="&checkNewUpdates.label;"
+                                                          form="toolsForm" name="optAddonsSDKUpdate" default="false" />
+                                            <checkbox id="optAddonsExtensionsView" value="true" label="&extensions.label;"
+                                                          form="toolsForm" name="optAddonsExtensionsView" default="false" />
+                                            <checkbox id="optAddonsLocalesView" value="true" label="&locales.label;"
+                                                          form="toolsForm" name="optAddonsLocalesView" default="false" />
+                                            <checkbox id="optAddonsPluginsView" value="true" label="&plugins.label;"
+                                                          form="toolsForm" name="optAddonsPluginsView" default="false" />
+
+                                        </groupbox>
+
+                                        <groupbox>
                                           <caption label="&function_customizer.groupbox.generaloptions.caption;"/>
 
                                             <checkbox id="optFormatSettings" value="true" label="&category.formats;"
                                                           form="toolsForm" name="optFormatSettings" default="false" />
                                             <checkbox id="optTrainingMode" value="true" label="&category.training;"
                                                           form="toolsForm" name="optTrainingMode" default="false" />
-
-
                                         </groupbox>
 
                                     </tabpanel>

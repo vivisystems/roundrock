@@ -103,7 +103,12 @@
                 'devJournal': {type:'css', method:'hidden', selector: '#devicesXUL #journal-tab', checkForCss:'devJournal'},
 
                 'optTrainingMode': {type:'css', method:'hidden', selector: '#prefwin radio[pane="trainingSettingsPane"]', checkForCss:'optTrainingMode'},
-                'optFormatSettings': {type:'css', method:'hidden', selector: '#prefwin radio[pane="formatSettingsPane"]', checkForCss:'optFormatSettings'}
+                'optFormatSettings': {type:'css', method:'hidden', selector: '#prefwin radio[pane="formatSettingsPane"]', checkForCss:'optFormatSettings'},
+                'optAddonsUpdate': {type:'css', method:'hidden', selector: '#extensionsManager #addonContextMenu, #extensionsManager #checkUpdatesAllButton', checkForCss:'optAddonsUpdate'},
+                'optAddonsSDKUpdate': {type:'css', method:'hidden', selector: '#extensionsManager #checkSDKUpdateButton', checkForCss:'optAddonsSDKUpdate'},
+                'optAddonsExtensionsView': {type:'css', method:'hidden', selector: '#extensionsManager #extensions-view', checkForCss:'optAddonsExtensionsView'},
+                'optAddonsLocalesView': {type:'css', method:'hidden', selector: '#extensionsManager #locales-view', checkForCss:'optAddonsLocalesView'},
+                'optAddonsPluginsView': {type:'css', method:'hidden', selector: '#extensionsManager #plugins-view', checkForCss:'optAddonsPluginsView'}
 
             },
 
