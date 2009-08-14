@@ -66,7 +66,13 @@ class OrdersController extends AppController {
 	}
 
 	if ($orderObject) {
+                $order_id = $orderObject['Order']['id'];
+                
 		$setResult = $this->Order->saveOrder($orderObject);
+
+                $this->commitTransactionByOrder($order_id);
+
+
 	}else {
 		$setResult = false;
 	}
@@ -100,20 +106,58 @@ class OrdersController extends AppController {
 
     }
 
-    function unserializeOrder($order_id) {
-        $order = $this->Order->unserializeOrder($order_id);
+    function unserializeOrder($order_id, $machine_id) {
 
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $order
-        );
+        $lockFile = "/tmp/$order_id";
+
+        $r = $this->beginTransactionByOrder($order_id, $machine_id);
+
+        if ($r) {
+            
+            $order = $this->Order->unserializeOrder($order_id);
+
+            $result = array('status' => 'ok', 'code' => 200 ,
+                'value' => $order
+            );
+        }else {
+            
+            $lockedByMachineId = file_get_contents($lockFile);
+            $result = array('status' => 'ok', 'code' => 200 ,
+                'value' => array('LockedByMachineId'=>$lockedByMachineId)
+            );
+        }
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-//file_put_contents("/tmp/serializeOrder", $responseResult);
+file_put_contents("/tmp/serializeOrder", $responseResult);
         echo $responseResult;
 
-        
-
         exit;
+
+    }
+
+    function beginTransactionByOrder($order_id, $machine_id) {
+
+        $lockFile = "/tmp/$order_id";
+        if (!file_exists($lockFile)) {
+            file_put_contents($lockFile, $machine_id);
+            return true;
+        }
+
+        $lockedByMachineId = file_get_contents($lockFile);
+
+        if ($machine_id != $lockedByMachineId) return false;
+
+        return true;
+        
+    }
+
+    function commitTransactionByOrder($order_id) {
+
+        $lockFile = "/tmp/$order_id";
+
+        if (!file_exists($lockFile)) return true;
+
+        unlink($lockFile);
 
     }
 
