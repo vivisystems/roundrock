@@ -3,7 +3,7 @@
     /**
      * Class SplitCheckController
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'SplitCheck',
         _sourceCheck: null,
@@ -468,7 +468,15 @@
             // lastMidifiedTime
             origData.lastModifiedTime = origData.modified;
             origData.modified = Math.round(new Date().getTime() / 1000 );
-            order.saveOrder(origData);
+            var ret = order.saveOrder(origData);
+            if (!ret) {
+
+                GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Save Order Error'),
+                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation', [origData.sequence]));
+                
+                return false;
+            }
 
             // dispatch changeclerk event
             // this.getCartController().dispatchEvent('onStore', origData);
@@ -581,7 +589,9 @@
 
         }
 
-    });
+    };
+    
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

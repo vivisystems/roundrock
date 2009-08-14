@@ -9,6 +9,7 @@
         _tables: [],
         _regions: [],
 
+        _isBusy: false,
 
         _regionListDatas: null,
         _regionListObj: null,
@@ -154,28 +155,93 @@
         },
 
         autoCreateTables: function() {
+            if (this._isBusy) return;
+            this._isBusy = true;
 
-            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
-            var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
+            try {
+                var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+                var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
 
-            this.topmostWindow.openDialog(aURL, _('Add Tables'), features, _('Quick Adding New Tables'), '', _('Input total table count'), _('Number of seat per table'), inputObj);
-            if (inputObj.ok && inputObj.input0) {
-                var num = inputObj.input0 || 0;
-                var defaultSeats = inputObj.input1 || 2;
+                this.topmostWindow.openDialog(aURL, _('Add Tables'), features, _('Quick Adding New Tables'), '', _('Input total table count'), _('Number of seat per table'), inputObj);
+                if (inputObj.ok && inputObj.input0) {
+                    var num = inputObj.input0 || 0;
+                    var defaultSeats = inputObj.input1 || 2;
 
-                var tableModel = new TableModel();
+                    var tableModel = new TableModel();
 
-                tableModel.begin();
+                    tableModel.begin();
 
-                for(var no = 1; no <= num; no++) {
-                    var table_no = no;
-                    var table_name = 'T' + no;
-                    var seats = defaultSeats;
+                    for(var no = 1; no <= num; no++) {
+                        var table_no = no;
+                        var table_name = 'T' + no;
+                        var seats = defaultSeats;
 
-                    var newTable = {table_no: table_no, table_name: table_name, active: true, seats: seats};
+                        var newTable = {table_no: table_no, table_name: table_name, active: true, seats: seats};
 
 
+                        tableModel.id = '';
+                        newTable = tableModel.save(newTable);
+
+                        // add table_status
+                        var newTableStatus = {table_id:newTable.id, table_no: table_no};
+                        this._getTableStatusModel().id = '';
+                        newTableStatus = this._getTableStatusModel().save(newTableStatus);
+                    }
+
+                    tableModel.commit();
+                    delete tableModel;
+
+                    this.loadTables();
+
+                    this.selectTable(0);
+
+                    this._needRestart = true;
+
+                    // @todo OSD
+                    OsdUtils.info(_('total of [%S] new tables added successfully', [num]));
+                }
+            } catch (e) {}
+            finally {
+                this._isBusy = false;
+            }
+        },
+
+        addTable: function() {
+            if (this._isBusy) return;
+            this._isBusy = true;
+
+            try {
+                // no any table, batch create.
+                if (this._tableListDatas.length <= 0) {
+                    this.autoCreateTables();
+                    return;
+                }
+
+                var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+                var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
+
+                this.topmostWindow.openDialog(aURL, _('Add Table'), features, _('New Table'), '', _('Table Number'), _('Table Name'), inputObj);
+                if (inputObj.ok && inputObj.input0) {
+
+                    var table_no = inputObj.input0;
+                    if (table_no <= 0) {
+                        // @todo OSD
+                        NotifyUtils.warn(_('Table Number [%S] is invalid', [table_no]));
+                        return;
+                    }
+                    if (this.isDuplicate(table_no)) {
+                        // @todo OSD
+                        NotifyUtils.warn(_('Table Number [%S] has already been assigned', [table_no]));
+                        return;
+                    }
+
+                    var table_name = inputObj.input1;
+
+                    var newTable = {table_no: table_no, table_name: table_name, active: true, seats: 4};
+
+                    var tableModel = new TableModel();
                     tableModel.id = '';
                     newTable = tableModel.save(newTable);
 
@@ -183,336 +249,332 @@
                     var newTableStatus = {table_id:newTable.id, table_no: table_no};
                     this._getTableStatusModel().id = '';
                     newTableStatus = this._getTableStatusModel().save(newTableStatus);
-                }
 
-                tableModel.commit();
-                delete tableModel;
+                    this.loadTables();
 
-                this.loadTables();
+    //                this._tableListDatas.push(newTable);
+    //                this._tableListDatas = new GeckoJS.ArrayQuery(this._tableListDatas).orderBy('name asc');
 
-                this.selectTable(0);
-
-                this._needRestart = true;
-
-                // @todo OSD
-                OsdUtils.info(_('total of [%S] new tables added successfully', [num]));
-            }
-        },
-
-        addTable: function() {
-
-            // no any table, batch create.
-            if (this._tableListDatas.length <= 0) {
-                this.autoCreateTables();
-                return;
-            }
-
-            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
-            var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
-
-            this.topmostWindow.openDialog(aURL, _('Add Table'), features, _('New Table'), '', _('Table Number'), _('Table Name'), inputObj);
-            if (inputObj.ok && inputObj.input0) {
-
-                var table_no = inputObj.input0;
-                if (table_no <= 0) {
-                    // @todo OSD
-                    NotifyUtils.warn(_('Table Number [%S] is invalid', [table_no]));
-                    return;
-                }
-                if (this.isDuplicate(table_no)) {
-                    // @todo OSD
-                    NotifyUtils.warn(_('Table Number [%S] has already been assigned', [table_no]));
-                    return;
-                }
-
-                var table_name = inputObj.input1;
-
-                var newTable = {table_no: table_no, table_name: table_name, active: true, seats: 4};
-
-                var tableModel = new TableModel();
-                tableModel.id = '';
-                newTable = tableModel.save(newTable);
-
-                // add table_status
-                var newTableStatus = {table_id:newTable.id, table_no: table_no};
-                this._getTableStatusModel().id = '';
-                newTableStatus = this._getTableStatusModel().save(newTableStatus);
-
-                this.loadTables();
-
-//                this._tableListDatas.push(newTable);
-//                this._tableListDatas = new GeckoJS.ArrayQuery(this._tableListDatas).orderBy('name asc');
-
-                // loop through this._listDatas to find the newly added destination
-                var index
-                for (index = 0; index < this._tableListDatas.length; index++) {
-                    if (this._tableListDatas[index].table_no == table_no) {
-                        break;
+                    // loop through this._listDatas to find the newly added destination
+                    var index
+                    for (index = 0; index < this._tableListDatas.length; index++) {
+                        if (this._tableListDatas[index].table_no == table_no) {
+                            break;
+                        }
                     }
+
+    //                this.getTableListObj().treeBoxObject.rowCountChanged(index, 1);
+
+                    // make sure row is visible
+                    this.getTableListObj().treeBoxObject.ensureRowIsVisible(index);
+
+                    // select the new Table
+                    this.selectTable(index);
+
+                    this._needRestart = true;
+
+                    // switch to edit mode
+                    // this.editMode();
+
+                    // @todo OSD
+                    OsdUtils.info(_('Table [%S] added successfully', [table_no]));
                 }
-
-//                this.getTableListObj().treeBoxObject.rowCountChanged(index, 1);
-
-                // make sure row is visible
-                this.getTableListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                // select the new Table
-                this.selectTable(index);
-
-                this._needRestart = true;
-
-                // switch to edit mode
-                // this.editMode();
-
-                // @todo OSD
-                OsdUtils.info(_('Table [%S] added successfully', [table_no]));
+            } catch (e) {}
+            finally {
+                this._isBusy = false;
             }
         },
 
         modifyTable: function() {
-            var index = this.getTableListObj().selectedIndex;
-            var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
+            if (this._isBusy) return;
+            this._isBusy = true;
 
-            if (index > -1 && inputObj.id != '' && inputObj.table_no != '') {
-                // var table = this._tableListDatas[index];
-                var table = inputObj;
+            try {
+                var index = this.getTableListObj().selectedIndex;
+                var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
 
-                var tableModel = new TableModel();
-                tableModel.id = inputObj.id;
-                inputObj.active = GeckoJS.String.parseBoolean(inputObj.active);
-                if (inputObj.table_name)
+                if (index > -1 && inputObj.id != '' && inputObj.table_no != '') {
+                    // var table = this._tableListDatas[index];
+                    var table = inputObj;
 
-                var tables = tableModel.save(inputObj);
+                    var tableModel = new TableModel();
+                    tableModel.id = inputObj.id;
+                    inputObj.active = GeckoJS.String.parseBoolean(inputObj.active);
+                    if (inputObj.table_name)
 
-                // update table_status
-                /*
-                var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
-                var tableStatusModel = new TableStatusModel();
-                tableStatusModel.id = table.table_status_id;
-                newTableStatus = tableStatusModel.save(newTableStatus);
-                delete tableStatusModel;
-                */
-                var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
+                    var tables = tableModel.save(inputObj);
 
-                this._getTableStatusModel().id = table.table_status_id;
-                this._getTableStatusModel().save(newTableStatus);
+                    // update table_status
+                    /*
+                    var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
+                    var tableStatusModel = new TableStatusModel();
+                    tableStatusModel.id = table.table_status_id;
+                    newTableStatus = tableStatusModel.save(newTableStatus);
+                    delete tableStatusModel;
+                    */
+                    var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
 
-                this.loadTables();
+                    this._getTableStatusModel().id = table.table_status_id;
+                    this._getTableStatusModel().save(newTableStatus);
 
-                // loop through this._listDatas to find the newly modified destination
-                var newIndex;
-                for (newIndex = 0; newIndex < this._tableListDatas.length; newIndex++) {
-                    if (this._tableListDatas[newIndex].table_no == table.table_no) {
-                        break;
+                    this.loadTables();
+
+                    // loop through this._listDatas to find the newly modified destination
+                    var newIndex;
+                    for (newIndex = 0; newIndex < this._tableListDatas.length; newIndex++) {
+                        if (this._tableListDatas[newIndex].table_no == table.table_no) {
+                            break;
+                        }
                     }
+                    this.getTableListObj().treeBoxObject.invalidate();
+
+                    // make sure row is visible
+                    this.getTableListObj().treeBoxObject.ensureRowIsVisible(newIndex);
+
+                    // select the new customer
+                    this.selectTable(newIndex);
+
+                    this._needRestart = true;
+
+                    // @todo OSD
+                    OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
                 }
-                this.getTableListObj().treeBoxObject.invalidate();
-
-                // make sure row is visible
-                this.getTableListObj().treeBoxObject.ensureRowIsVisible(newIndex);
-
-                // select the new customer
-                this.selectTable(newIndex);
-
-                this._needRestart = true;
-
-                // @todo OSD
-                OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
+            } catch (e) {}
+            finally {
+                this._isBusy = false;
             }
         },
 
         deleteTable: function() {
-            var index = this.getTableListObj().selectedIndex;
-            if (index >= 0) {
-                var table = this._tableListDatas[index];
+            if (this._isBusy) return;
+            this._isBusy = true;
 
-                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete table [%S (%S)]', [table.table_no, table.table_name]),
-                                             _('Are you sure you want to delete table [%S (%S)]?', [table.table_no, table.table_name]))) {
-                    return;
+            try {
+                var index = this.getTableListObj().selectedIndex;
+                if (index >= 0) {
+                    var table = this._tableListDatas[index];
+
+                    if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete table [%S (%S)]', [table.table_no, table.table_name]),
+                                                 _('Are you sure you want to delete table [%S (%S)]?', [table.table_no, table.table_name]))) {
+                        return;
+                    }
+
+                    var tableModel = new TableModel();
+                    tableModel.del(table.id);
+                    delete tableModel;
+
+
+                    // update table_status
+                    /*
+                    var tableStatusModel = new TableStatusModel();
+                    tableStatusModel.del(table.table_status_id);
+                    delete tableStatusModel;
+                    */
+                    this._getTableStatusModel().del(table.table_status_id);
+
+                    this._tableListDatas.splice(index, 1);
+
+                    this.getTableListObj().treeBoxObject.rowCountChanged(index, -1);
+
+                    if (index >= this._tableListDatas.length) index = this._tableListDatas.length - 1;
+                    this.getTableListObj().treeBoxObject.ensureRowIsVisible(index);
+
+                    this.selectTable(index);
+
+                    this._needRestart = true;
+
+                    // this.searchMode();
+
+                    // @todo OSD
+                    OsdUtils.info(_('Table [%S (%S)] deleted successfully', [table.table_no, table.table_name]));
                 }
-                
-                var tableModel = new TableModel();
-                tableModel.del(table.id);
-                delete tableModel;
-
-
-                // update table_status
-                /*
-                var tableStatusModel = new TableStatusModel();
-                tableStatusModel.del(table.table_status_id);
-                delete tableStatusModel;
-                */
-                this._getTableStatusModel().del(table.table_status_id);
-
-                this._tableListDatas.splice(index, 1);
-
-                this.getTableListObj().treeBoxObject.rowCountChanged(index, -1);
-
-                if (index >= this._tableListDatas.length) index = this._tableListDatas.length - 1;
-                this.getTableListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                this.selectTable(index);
-
-                this._needRestart = true;
-
-                // this.searchMode();
-
-                // @todo OSD
-                OsdUtils.info(_('Table [%S (%S)] deleted successfully', [table.table_no, table.table_name]));
+            } catch (e) {}
+            finally {
+                this._isBusy = false;
             }
         },
 
         toggleTable: function() {
+            if (this._isBusy) return;
+            this._isBusy = true;
 
-            var index = this.getTableListObj().selectedIndex;
-            var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
+            try {
+                var index = this.getTableListObj().selectedIndex;
+                var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
 
-            if (index > -1 && inputObj.id != '' && inputObj.table_no != '' && inputObj.table_name != '') {
+                if (index > -1 && inputObj.id != '' && inputObj.table_no != '' && inputObj.table_name != '') {
 
-                var table_no = inputObj.table_no;
-                var tableModel = new TableModel();
-                tableModel.id = inputObj.id;
+                    var table_no = inputObj.table_no;
+                    var tableModel = new TableModel();
+                    tableModel.id = inputObj.id;
 
-                inputObj.active = !GeckoJS.String.parseBoolean(inputObj.active);
+                    inputObj.active = !GeckoJS.String.parseBoolean(inputObj.active);
 
-                var table = tableModel.save(inputObj);
+                    var table = tableModel.save(inputObj);
 
-                this.loadTables();
+                    this.loadTables();
 
-                // loop through this._listDatas to find the newly modified destination
-                var newIndex;
-                for (newIndex = 0; newIndex < this._tableListDatas.length; newIndex++) {
-                    if (this._tableListDatas[newIndex].table_no == table.table_no) {
-                        break;
+                    // loop through this._listDatas to find the newly modified destination
+                    var newIndex;
+                    for (newIndex = 0; newIndex < this._tableListDatas.length; newIndex++) {
+                        if (this._tableListDatas[newIndex].table_no == table.table_no) {
+                            break;
+                        }
                     }
+                    this.getTableListObj().treeBoxObject.invalidate();
+
+                    // make sure row is visible
+                    this.getTableListObj().treeBoxObject.ensureRowIsVisible(newIndex);
+
+                    // select the new customer
+                    this.selectTable(newIndex);
+
+                    this._needRestart = true;
+
+                    // @todo OSD
+                    OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
                 }
-                this.getTableListObj().treeBoxObject.invalidate();
-
-                // make sure row is visible
-                this.getTableListObj().treeBoxObject.ensureRowIsVisible(newIndex);
-
-                // select the new customer
-                this.selectTable(newIndex);
-
-                this._needRestart = true;
-
-                // @todo OSD
-                OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
+            } catch (e) {}
+            finally {
+                this._isBusy = false;
             }
         },
 
         addRegion: function() {
-            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
-            var inputObj = {input0:null, require0:true, numpad:true};
+            if (this._isBusy) return;
+            this._isBusy = true;
 
-            this.topmostWindow.openDialog(aURL, _('Add Region'), features, _('New Region'), '', _('Region Name'), '', inputObj);
-            if (inputObj.ok && inputObj.input0) {
+            try {
+                var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
+                var inputObj = {input0:null, require0:true, numpad:true};
 
-                var region_name = inputObj.input0;
+                this.topmostWindow.openDialog(aURL, _('Add Region'), features, _('New Region'), '', _('Region Name'), '', inputObj);
+                if (inputObj.ok && inputObj.input0) {
 
-                var newRegion = {name: region_name, image: ''};
+                    var region_name = inputObj.input0;
 
-                var regionModel = new TableRegionModel();
-                newRegion = regionModel.save(newRegion);
+                    var newRegion = {name: region_name, image: ''};
 
-                this._regionListDatas.push(newRegion);
-                this._regionListDatas = new GeckoJS.ArrayQuery(this._regionListDatas).orderBy('name asc');
+                    var regionModel = new TableRegionModel();
+                    newRegion = regionModel.save(newRegion);
 
-                // loop through this._listDatas to find the newly added destination
-                var index
-                for (index = 0; index < this._regionListDatas.length; index++) {
-                    if (this._regionListDatas[index].name == region_name) {
-                        break;
+                    this._regionListDatas.push(newRegion);
+                    this._regionListDatas = new GeckoJS.ArrayQuery(this._regionListDatas).orderBy('name asc');
+
+                    // loop through this._listDatas to find the newly added destination
+                    var index
+                    for (index = 0; index < this._regionListDatas.length; index++) {
+                        if (this._regionListDatas[index].name == region_name) {
+                            break;
+                        }
                     }
+                    this.getRegionListObj().treeBoxObject.rowCountChanged(index, 1);
+
+                    // make sure row is visible
+                    this.getRegionListObj().treeBoxObject.ensureRowIsVisible(index);
+
+                    // select the new Table
+                    this.selectRegion(index);
+
+                    // switch to edit mode
+                    // this.editMode();
+
+                    this.setRegionMenuItem();
+
+                    this._needRestart = true;
+
+                    // @todo OSD
+                    OsdUtils.info(_('Region [%S] added successfully', [region_name]));
                 }
-                this.getRegionListObj().treeBoxObject.rowCountChanged(index, 1);
-
-                // make sure row is visible
-                this.getRegionListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                // select the new Table
-                this.selectRegion(index);
-
-                // switch to edit mode
-                // this.editMode();
-
-                this.setRegionMenuItem();
-
-                this._needRestart = true;
-
-                // @todo OSD
-                OsdUtils.info(_('Region [%S] added successfully', [region_name]));
+            } catch (e) {}
+            finally {
+                this._isBusy = false;
             }
         },
 
         modifyRegion: function() {
-            var index = this.getRegionListObj().selectedIndex;
-            var inputObj = GeckoJS.FormHelper.serializeToObject('regionForm');
+            if (this._isBusy) return;
+            this._isBusy = true;
 
-            if (index > -1 && inputObj.id != '' && inputObj.name != '') {
+            try {
+                var index = this.getRegionListObj().selectedIndex;
+                var inputObj = GeckoJS.FormHelper.serializeToObject('regionForm');
 
-                var regionModel = new TableRegionModel();
-                regionModel.id = inputObj.id;
-                var region = regionModel.save(inputObj);
+                if (index > -1 && inputObj.id != '' && inputObj.name != '') {
 
-                this.loadRegions();
+                    var regionModel = new TableRegionModel();
+                    regionModel.id = inputObj.id;
+                    var region = regionModel.save(inputObj);
 
-                // loop through this._listDatas to find the newly modified destination
-                var newIndex;
-                for (newIndex = 0; newIndex < this._regionListDatas.length; newIndex++) {
-                    if (this._regionListDatas[newIndex].name == region.name) {
-                        break;
+                    this.loadRegions();
+
+                    // loop through this._listDatas to find the newly modified destination
+                    var newIndex;
+                    for (newIndex = 0; newIndex < this._regionListDatas.length; newIndex++) {
+                        if (this._regionListDatas[newIndex].name == region.name) {
+                            break;
+                        }
                     }
+                    this.getRegionListObj().treeBoxObject.invalidate();
+
+                    // make sure row is visible
+                    this.getRegionListObj().treeBoxObject.ensureRowIsVisible(newIndex);
+
+                    // select the new customer
+                    this.selectRegion(newIndex);
+
+                    this.setRegionMenuItem();
+
+                    this._needRestart = true;
+
+                    // @todo OSD
+                    OsdUtils.info(_('Region [%S] modified successfully', [inputObj.name]));
                 }
-                this.getRegionListObj().treeBoxObject.invalidate();
-
-                // make sure row is visible
-                this.getRegionListObj().treeBoxObject.ensureRowIsVisible(newIndex);
-
-                // select the new customer
-                this.selectRegion(newIndex);
-
-                this.setRegionMenuItem();
-
-                this._needRestart = true;
-
-                // @todo OSD
-                OsdUtils.info(_('Region [%S] modified successfully', [inputObj.name]));
+            } catch (e) {}
+            finally {
+                this._isBusy = false;
             }
         },
 
         deleteRegion: function() {
-            var index = this.getRegionListObj().selectedIndex;
-            if (index >= 0) {
-                var region = this._regionListDatas[index];
+            if (this._isBusy) return;
+            this._isBusy = true;
 
-                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete region [%S (%S)]', [region.name]),
-                                             _('Are you sure you want to delete region [%S]?', [region.name]))) {
-                    return;
+            try {
+                var index = this.getRegionListObj().selectedIndex;
+                if (index >= 0) {
+                    var region = this._regionListDatas[index];
+
+                    if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete region [%S (%S)]', [region.name]),
+                                                 _('Are you sure you want to delete region [%S]?', [region.name]))) {
+                        return;
+                    }
+
+                    var regionModel = new TableRegionModel();
+                    regionModel.del(region.id);
+
+                    this._regionListDatas.splice(index, 1);
+
+                    this.getRegionListObj().treeBoxObject.rowCountChanged(index, -1);
+
+                    if (index >= this._regionListDatas.length) index = this._regionListDatas.length - 1;
+                    this.getRegionListObj().treeBoxObject.ensureRowIsVisible(index);
+
+                    this.selectRegion(index);
+
+                    // this.searchMode();
+
+                    this.setRegionMenuItem();
+
+                    this._needRestart = true;
+
+                    // @todo OSD
+                    OsdUtils.info(_('Region [%S] deleted successfully', [region.name]));
                 }
-
-                var regionModel = new TableRegionModel();
-                regionModel.del(region.id);
-
-                this._regionListDatas.splice(index, 1);
-
-                this.getRegionListObj().treeBoxObject.rowCountChanged(index, -1);
-
-                if (index >= this._regionListDatas.length) index = this._regionListDatas.length - 1;
-                this.getRegionListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                this.selectRegion(index);
-
-                // this.searchMode();
-
-                this.setRegionMenuItem();
-
-                this._needRestart = true;
-
-                // @todo OSD
-                OsdUtils.info(_('Region [%S] deleted successfully', [region.name]));
+            } catch (e) {}
+            finally {
+                this._isBusy = false;
             }
         },
 
@@ -590,7 +652,7 @@
                 // @todo OSD
                 OsdUtils.info(_('Table status [%S] added successfully', [markName]));
 
-                this.seAutoMarkMenuItem();
+                this.setAutoMarkMenuItem();
             }
         },
 
@@ -611,7 +673,7 @@
                     this.getMarkListObj().treeBoxObject.ensureRowIsVisible(index);
                     OsdUtils.info(_('Table status [%S] modified successfully', [markName]));
 
-                    this.seAutoMarkMenuItem();
+                    this.setAutoMarkMenuItem();
                 }
                 else {
                     // shouldn't happen, but check anyways
@@ -639,7 +701,7 @@
                 if (index >= this._markListDatas.length) index = this._markListDatas.length - 1;
                 this.selectMark(index);
 
-                this.seAutoMarkMenuItem();
+                this.setAutoMarkMenuItem();
             }
         },
 
@@ -648,8 +710,7 @@
             var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
 
             GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableMarks', datastr);
-            // GeckoJS.Session.set('autoMarkTableAfterSubmitOrder', this.getAutoMarkTableAfterSubmitOrder());
-            // GeckoJS.Session.set('tableMarks', datas);
+
             GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
 
             this.loadMarks();
@@ -669,7 +730,7 @@
             // this.validateMarkForm();
         },
 
-        seAutoMarkMenuItem: function() {
+        setAutoMarkMenuItem: function() {
 
             var marks = this._markListDatas;
 
@@ -831,7 +892,9 @@
 
         saveSettings: function() {
             var settings = GeckoJS.FormHelper.serializeToObject('settingsForm');
+            
             this.saveTableSettings(settings);
+
             GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
             // @todo OSD
             OsdUtils.info(_('Options saved successfully'));
@@ -854,6 +917,10 @@
                 this.saveMarks();
 
                 GeckoJS.FormHelper.unserializeFromObject('settingsForm', options);
+
+                // wait for unserialize
+                this.sleep(100);
+                
                 this.saveSettings();
 
                 // @todo OSD
@@ -877,9 +944,13 @@
             this.selectTable(0);
             this.loadMarks();
             this.selectMark(0);
-            this.seAutoMarkMenuItem();
+            this.setAutoMarkMenuItem();
 
             this.validateForm();
+
+            if (this.isClient()) {
+                this.disableMainTab();
+            }
 
         },
 
@@ -940,6 +1011,53 @@
             delBtn.setAttribute('disabled', index == -1);
             toggleBtn.setAttribute('disabled', index == -1);
 
+        },
+
+        isClient: function () {
+            this.syncSettings = (new SyncSetting()).read();
+
+            if (this.syncSettings && this.syncSettings.active == 1 && this.syncSettings.table_active) {
+
+                var hostname = this.syncSettings.hostname || 'localhost';
+                if (hostname == 'localhost' || hostname == '127.0.0.1') return false;
+
+                return true;
+            }
+            return false;
+        },
+
+        disableEditFuncs: function() {
+            try {
+                document.getElementById('add_table').setAttribute('disabled', true);
+                document.getElementById('modify_table').setAttribute('disabled', true);
+                document.getElementById('delete_table').setAttribute('disabled', true);
+                document.getElementById('toggleactive_table').setAttribute('disabled', true);
+
+                document.getElementById('modify_region').setAttribute('disabled', true);
+                document.getElementById('modify_region').setAttribute('disabled', true);
+                document.getElementById('delete_region').setAttribute('disabled', true);
+
+                document.getElementById('modify_mark').setAttribute('disabled', true);
+                document.getElementById('modify_mark').setAttribute('disabled', true);
+                document.getElementById('delete_mark').setAttribute('disabled', true);
+            } catch (e) {
+                this.log('ERROR', this.dump(e));
+            }
+        },
+
+        disableMainTab: function() {
+            try {
+
+                document.getElementById('tab_tables').setAttribute('hidden', true);
+                document.getElementById('tab_regions').setAttribute('hidden', true);
+                document.getElementById('tab_bookings').setAttribute('hidden', true);
+                document.getElementById('tab_marks').setAttribute('hidden', true);
+
+                document.getElementById('main-tabbox').selectedIndex = 4;
+
+            } catch (e) {
+                this.log('ERROR', this.dump(e));
+            }
         }
 
     };

@@ -30,7 +30,7 @@
         <vbox flex="1" class="container-main layout-b">
             <label value="&mergecheck.title;" class="label-page-title"/>
             <separator class="groove"/>
-            <vbox class="block-40">
+            <vbox class="block-40" flex="1">
                 <hbox flex="1">
                     <vbox flex="1">
                         <hbox class="content-formbox">
