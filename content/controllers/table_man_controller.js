@@ -145,65 +145,53 @@
         isDuplicate: function(table_no) {
 
             var tableModel = new TableModel();
-//            var table = tableModel.findByIndex('first', {
-//                index: 'table_no',
-//                value: table_no
-//            });
             var table = tableModel.find('first', {conditions: "table_no='" + table_no + "'", recursive: 0});
 
             return (table != null);
         },
 
         autoCreateTables: function() {
-            if (this._isBusy) return;
-            this._isBusy = true;
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+            var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
 
-            try {
-                var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
-                var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
+            this.topmostWindow.openDialog(aURL, _('Add Tables'), features, _('Adding New Tables'), '', _('Number of New Tables'), _('Number of Seats per Table'), inputObj);
+            if (inputObj.ok && inputObj.input0) {
+                var num = inputObj.input0 || 0;
+                var defaultSeats = inputObj.input1 || 2;
 
-                this.topmostWindow.openDialog(aURL, _('Add Tables'), features, _('Quick Adding New Tables'), '', _('Input total table count'), _('Number of seat per table'), inputObj);
-                if (inputObj.ok && inputObj.input0) {
-                    var num = inputObj.input0 || 0;
-                    var defaultSeats = inputObj.input1 || 2;
+                var tableModel = new TableModel();
 
-                    var tableModel = new TableModel();
+                tableModel.begin();
 
-                    tableModel.begin();
+                for(var no = 1; no <= num; no++) {
+                    var table_no = no;
+                    var table_name = 'T' + no;
+                    var seats = defaultSeats;
 
-                    for(var no = 1; no <= num; no++) {
-                        var table_no = no;
-                        var table_name = 'T' + no;
-                        var seats = defaultSeats;
-
-                        var newTable = {table_no: table_no, table_name: table_name, active: true, seats: seats};
+                    var newTable = {table_no: table_no, table_name: table_name, active: true, seats: seats};
 
 
-                        tableModel.id = '';
-                        newTable = tableModel.save(newTable);
+                    tableModel.id = '';
+                    newTable = tableModel.save(newTable);
 
-                        // add table_status
-                        var newTableStatus = {table_id:newTable.id, table_no: table_no};
-                        this._getTableStatusModel().id = '';
-                        newTableStatus = this._getTableStatusModel().save(newTableStatus);
-                    }
-
-                    tableModel.commit();
-                    delete tableModel;
-
-                    this.loadTables();
-
-                    this.selectTable(0);
-
-                    this._needRestart = true;
-
-                    // @todo OSD
-                    OsdUtils.info(_('total of [%S] new tables added successfully', [num]));
+                    // add table_status
+                    var newTableStatus = {table_id:newTable.id, table_no: table_no};
+                    this._getTableStatusModel().id = '';
+                    newTableStatus = this._getTableStatusModel().save(newTableStatus);
                 }
-            } catch (e) {}
-            finally {
-                this._isBusy = false;
+
+                tableModel.commit();
+                delete tableModel;
+
+                this.loadTables();
+
+                this.selectTable(0);
+
+                this._needRestart = true;
+
+                // @todo OSD
+                OsdUtils.info(_('[%S] new tables added successfully', [num]));
             }
         },
 
@@ -215,6 +203,7 @@
                 // no any table, batch create.
                 if (this._tableListDatas.length <= 0) {
                     this.autoCreateTables();
+
                     return;
                 }
 
@@ -228,12 +217,12 @@
                     var table_no = inputObj.input0;
                     if (table_no <= 0) {
                         // @todo OSD
-                        NotifyUtils.warn(_('Table Number [%S] is invalid', [table_no]));
+                        NotifyUtils.warn(_('Table number [%S] is invalid', [table_no]));
                         return;
                     }
                     if (this.isDuplicate(table_no)) {
                         // @todo OSD
-                        NotifyUtils.warn(_('Table Number [%S] has already been assigned', [table_no]));
+                        NotifyUtils.warn(_('Table number [%S] has already been assigned', [table_no]));
                         return;
                     }
 
@@ -252,9 +241,6 @@
 
                     this.loadTables();
 
-    //                this._tableListDatas.push(newTable);
-    //                this._tableListDatas = new GeckoJS.ArrayQuery(this._tableListDatas).orderBy('name asc');
-
                     // loop through this._listDatas to find the newly added destination
                     var index
                     for (index = 0; index < this._tableListDatas.length; index++) {
@@ -262,8 +248,6 @@
                             break;
                         }
                     }
-
-    //                this.getTableListObj().treeBoxObject.rowCountChanged(index, 1);
 
                     // make sure row is visible
                     this.getTableListObj().treeBoxObject.ensureRowIsVisible(index);
@@ -273,11 +257,8 @@
 
                     this._needRestart = true;
 
-                    // switch to edit mode
-                    // this.editMode();
-
                     // @todo OSD
-                    OsdUtils.info(_('Table [%S] added successfully', [table_no]));
+                    OsdUtils.info(_('Table number [%S] added successfully', [table_no]));
                 }
             } catch (e) {}
             finally {
@@ -905,8 +886,8 @@
         cloneSettingsFromMaster: function() {
             //
             if (GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('Clone options from master of table status'),
-                        _('The options of table status will be changed with options of master. Proceed?\nClick OK to change options, \nor, click Cancel to abort.')) == true) {
+                        _('Clone Table Management Options'),
+                        _('Table management options will be cloned from the table status server.') + '\n\n' + _('Are you sure you want to proceed?') + '\n') == true) {
 
 
                 var settings = this._getTableStatusModel().getTableStatusOptions();
@@ -924,7 +905,7 @@
                 this.saveSettings();
 
                 // @todo OSD
-                NotifyUtils.warn(_('The options of table status is changed.'));
+                NotifyUtils.info(_('Table management options has been cloned from the table status server.'));
 
             }
 
@@ -959,9 +940,9 @@
             this._getTableStatusModel()._tableStatusLastTime = 0;
 
             if (this._needRestart) {
-                var restartMsg = _("Modifications of table and region require system restart to take effect.\n") +
-                                 _("The system will restart automatically after you return to the Main Screen.");
-                GREUtils.Dialog.alert(this.topmostWindow, _("Table Manage"), restartMsg);
+                var restartMsg = _('Modification of tables and regions requires system restart to take effect.') + '\n' +
+                                 _('The system will restart automatically after you return to the Main Screen.');
+                GREUtils.Dialog.alert(this.topmostWindow, _("Table Manager"), restartMsg);
                 GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
 
             }

@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-14 16:11+0800\n"
+"POT-Creation-Date: 2009-08-14 22:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2915,7 +2915,7 @@ msgstr ""
 #: ../..//content/controllers/plus_controller.js:1019
 #: ../..//content/controllers/promotions_manager_controller.js:359
 #: ../..//content/controllers/taxes_controller.js:246
-#: ../..//content/controllers/users_controller.js:255
+#: ../..//content/controllers/users_controller.js:254
 msgid "confirm delete %S"
 msgstr ""
 
@@ -2930,7 +2930,7 @@ msgstr ""
 #: ../..//content/controllers/pricelevelschedule_controller.js:155
 #: ../..//content/controllers/promotions_manager_controller.js:359
 #: ../..//content/controllers/taxes_controller.js:246
-#: ../..//content/controllers/users_controller.js:255
+#: ../..//content/controllers/users_controller.js:254
 msgid "Are you sure?"
 msgstr ""
 
@@ -2975,7 +2975,7 @@ msgstr ""
 #: ../..//content/controllers/storecontact_controller.js:176
 #: ../..//content/controllers/sync_settings_controller.js:143
 #: ../..//content/controllers/taxes_controller.js:88
-#: ../..//content/controllers/users_controller.js:418
+#: ../..//content/controllers/users_controller.js:417
 msgid "Exit"
 msgstr ""
 
@@ -3007,7 +3007,7 @@ msgstr ""
 #: ../..//content/controllers/storecontact_controller.js:178
 #: ../..//content/controllers/sync_settings_controller.js:145
 #: ../..//content/controllers/taxes_controller.js:90
-#: ../..//content/controllers/users_controller.js:420
+#: ../..//content/controllers/users_controller.js:419
 msgid "Save"
 msgstr ""
 
@@ -3035,7 +3035,7 @@ msgstr ""
 #: ../..//content/controllers/storecontact_controller.js:178
 #: ../..//content/controllers/sync_settings_controller.js:145
 #: ../..//content/controllers/taxes_controller.js:90
-#: ../..//content/controllers/users_controller.js:420
+#: ../..//content/controllers/users_controller.js:419
 msgid "Discard"
 msgstr ""
 
@@ -3053,7 +3053,7 @@ msgstr ""
 #: ../..//content/controllers/plus_controller.js:691
 #: ../..//content/controllers/plus_controller.js:704
 #: ../..//content/controllers/taxes_controller.js:106
-#: ../..//content/controllers/users_controller.js:399
+#: ../..//content/controllers/users_controller.js:398
 msgid "Discard Changes"
 msgstr ""
 
@@ -3694,7 +3694,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:1282
 #: ../..//content/controllers/print_controller.js:1202
 #: ../..//content/controllers/setup_wizard_controller.js:698
-#: ../..//content/controllers/shift_changes_controller.js:987
+#: ../..//content/controllers/shift_changes_controller.js:986
 #: ../..//content/controllers/stock_records_controller.js:727
 #: ../..//content/controllers/view_journal_controller.js:120
 #: ../..//content/controllers/view_order_controller.js:176
@@ -3722,7 +3722,7 @@ msgid "Total discount [%S] may not exceed user order discount limit [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2986
-#: ../..//content/controllers/shift_changes_controller.js:300
+#: ../..//content/controllers/shift_changes_controller.js:299
 msgid "Saving Order"
 msgstr ""
 
@@ -3912,7 +3912,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:996
 #: ../..//content/controllers/main_controller.js:1283
 #: ../..//content/controllers/setup_wizard_controller.js:699
-#: ../..//content/controllers/shift_changes_controller.js:988
+#: ../..//content/controllers/shift_changes_controller.js:987
 #: ../..//content/controllers/stock_records_controller.js:728
 #: ../..//content/controllers/stocks_controller.js:301
 #: ../..//content/controllers/view_journal_controller.js:121
@@ -5284,7 +5284,7 @@ msgstr ""
 #: ../..//content/controllers/plusearch_controller.js:154
 #: ../..//content/controllers/plusearch_controller.js:159
 #: ../..//content/controllers/stock_records_controller.js:124
-#: ../..//content/controllers/table_man_controller.js:848
+#: ../..//content/controllers/table_man_controller.js:829
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:72
 msgid "Product Search"
 msgstr ""
@@ -6239,7 +6239,7 @@ msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:1100
 #: ../..//content/controllers/select_table_controller.js:1102
-#: ../..//content/controllers/table_man_controller.js:810
+#: ../..//content/controllers/table_man_controller.js:791
 msgid "All Regions"
 msgstr ""
 
@@ -6358,7 +6358,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:294
-#: ../..//content/controllers/shift_changes_controller.js:706
+#: ../..//content/controllers/shift_changes_controller.js:705
 msgid "Shift Change"
 msgstr ""
 
@@ -6366,130 +6366,130 @@ msgstr ""
 msgid "Shift change is disabled in training mode"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:345
+#: ../..//content/controllers/shift_changes_controller.js:344
 msgid ""
 "An error was encountered while retrieving credit card and coupon payment "
 "records (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:373
+#: ../..//content/controllers/shift_changes_controller.js:372
 msgid ""
 "An error was encountered while retrieving giftcard payment records (error "
 "code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:400
+#: ../..//content/controllers/shift_changes_controller.js:399
 msgid ""
 "An error was encountered while retrieving check payment records (error code %"
 "S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:426
+#: ../..//content/controllers/shift_changes_controller.js:425
 msgid ""
 "An error was encountered while retrieving cash payment records (error code %"
 "S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:454
+#: ../..//content/controllers/shift_changes_controller.js:453
 msgid ""
 "An error was encountered while retrieving foreign cash payment records "
 "(error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:480
+#: ../..//content/controllers/shift_changes_controller.js:479
 msgid ""
 "An error was encountered while retrieving ledger payment records (error code "
 "%S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:508
+#: ../..//content/controllers/shift_changes_controller.js:507
 msgid ""
 "An error was encountered while retrieving orders by destinations (error code "
 "%S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:529
+#: ../..//content/controllers/shift_changes_controller.js:528
 msgid ""
 "An error was encountered while computing cash and ledger sums (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:547
+#: ../..//content/controllers/shift_changes_controller.js:546
 msgid ""
 "An error was encountered while computing amount of cash change given out "
 "(error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:567
+#: ../..//content/controllers/shift_changes_controller.js:566
 msgid ""
 "An error was encountered while computing total payments received (error code "
 "%S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:585
+#: ../..//content/controllers/shift_changes_controller.js:584
 msgid ""
 "An error was encountered while computing depoits received (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:604
+#: ../..//content/controllers/shift_changes_controller.js:603
 msgid ""
 "An error was encountered while computing refunds given out (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:622
+#: ../..//content/controllers/shift_changes_controller.js:621
 msgid "An error was encountered while computing sales revenue (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:642
+#: ../..//content/controllers/shift_changes_controller.js:641
 msgid ""
 "An error was encountered while computing ledger cash received (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:661
+#: ../..//content/controllers/shift_changes_controller.js:660
 msgid ""
 "An error was encountered while computing ledger cash paid (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:679
+#: ../..//content/controllers/shift_changes_controller.js:678
 msgid ""
 "An error was encountered while computing excess giftcard payments (error "
 "code %S)"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:735
+#: ../..//content/controllers/shift_changes_controller.js:734
 msgid "Invalid cash drawer change amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:739
+#: ../..//content/controllers/shift_changes_controller.js:738
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:815
+#: ../..//content/controllers/shift_changes_controller.js:814
 msgid ""
 "An error was encountered while saving shift change record; shift may not "
 "have been closed properly."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:848
+#: ../..//content/controllers/shift_changes_controller.js:847
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:849
+#: ../..//content/controllers/shift_changes_controller.js:848
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:875
+#: ../..//content/controllers/shift_changes_controller.js:874
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:876
+#: ../..//content/controllers/shift_changes_controller.js:875
 msgid "Shift Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:884
+#: ../..//content/controllers/shift_changes_controller.js:883
 msgid "Are you sure you want to print shift report?"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:899
+#: ../..//content/controllers/shift_changes_controller.js:898
 msgid "Are you sure you want to print daily sales report?"
 msgstr ""
 
@@ -6908,175 +6908,175 @@ msgstr ""
 msgid "No Promotion"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:166
+#: ../..//content/controllers/table_man_controller.js:158
 msgid "Add Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:166
-msgid "Quick Adding New Tables"
+#: ../..//content/controllers/table_man_controller.js:158
+msgid "Adding New Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:166
-msgid "Input total table count"
+#: ../..//content/controllers/table_man_controller.js:158
+msgid "Number of New Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:166
-msgid "Number of seat per table"
+#: ../..//content/controllers/table_man_controller.js:158
+msgid "Number of Seats per Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:202
-msgid "total of [%S] new tables added successfully"
+#: ../..//content/controllers/table_man_controller.js:194
+msgid "[%S] new tables added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:225
+#: ../..//content/controllers/table_man_controller.js:214
 msgid "Add Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:225
+#: ../..//content/controllers/table_man_controller.js:214
 msgid "New Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:225
+#: ../..//content/controllers/table_man_controller.js:214
 msgid "Table Number"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:225
+#: ../..//content/controllers/table_man_controller.js:214
 msgid "Table Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:231
-msgid "Table Number [%S] is invalid"
+#: ../..//content/controllers/table_man_controller.js:220
+msgid "Table number [%S] is invalid"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:236
-msgid "Table Number [%S] has already been assigned"
+#: ../..//content/controllers/table_man_controller.js:225
+msgid "Table number [%S] has already been assigned"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:280
-msgid "Table [%S] added successfully"
+#: ../..//content/controllers/table_man_controller.js:261
+msgid "Table number [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:340
-#: ../..//content/controllers/table_man_controller.js:435
+#: ../..//content/controllers/table_man_controller.js:321
+#: ../..//content/controllers/table_man_controller.js:416
 msgid "Table [%S (%S)] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:357
+#: ../..//content/controllers/table_man_controller.js:338
 msgid "confirm delete table [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:358
+#: ../..//content/controllers/table_man_controller.js:339
 msgid "Are you sure you want to delete table [%S (%S)]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:389
+#: ../..//content/controllers/table_man_controller.js:370
 msgid "Table [%S (%S)] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:452
+#: ../..//content/controllers/table_man_controller.js:433
 msgid "Add Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:452
+#: ../..//content/controllers/table_man_controller.js:433
 msgid "New Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:452
+#: ../..//content/controllers/table_man_controller.js:433
 msgid "Region Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:488
+#: ../..//content/controllers/table_man_controller.js:469
 msgid "Region [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:532
+#: ../..//content/controllers/table_man_controller.js:513
 msgid "Region [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:549
+#: ../..//content/controllers/table_man_controller.js:530
 msgid "confirm delete region [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:550
+#: ../..//content/controllers/table_man_controller.js:531
 msgid "Are you sure you want to delete region [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:573
+#: ../..//content/controllers/table_man_controller.js:554
 msgid "Region [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:625
+#: ../..//content/controllers/table_man_controller.js:606
 msgid "Add New Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:626
+#: ../..//content/controllers/table_man_controller.js:607
 msgid "New Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:626
+#: ../..//content/controllers/table_man_controller.js:607
 msgid "Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:633
+#: ../..//content/controllers/table_man_controller.js:614
 msgid "Table status [%S] already exists"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:653
+#: ../..//content/controllers/table_man_controller.js:634
 msgid "Table status [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:674
+#: ../..//content/controllers/table_man_controller.js:655
 msgid "Table status [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:680
+#: ../..//content/controllers/table_man_controller.js:661
 msgid "Table status must not be empty"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:690
+#: ../..//content/controllers/table_man_controller.js:671
 msgid "confirm delete table status [%S]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:690
+#: ../..//content/controllers/table_man_controller.js:671
 msgid "Are you sure you want to delete table status [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:698
+#: ../..//content/controllers/table_man_controller.js:679
 msgid "Table status [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:900
+#: ../..//content/controllers/table_man_controller.js:881
 msgid "Options saved successfully"
 msgstr ""
 
+#: ../..//content/controllers/table_man_controller.js:889
+msgid "Clone Table Management Options"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:890
+msgid "Table management options will be cloned from the table status server."
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:890
+msgid "Are you sure you want to proceed?"
+msgstr ""
+
 #: ../..//content/controllers/table_man_controller.js:908
-msgid "Clone options from master of table status"
+msgid "Table management options has been cloned from the table status server."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:909
+#: ../..//content/controllers/table_man_controller.js:943
 msgid ""
-"The options of table status will be changed with options of master. "
-"Proceed?\n"
-"Click OK to change options, \n"
-"or, click Cancel to abort."
+"Modification of tables and regions requires system restart to take effect."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:927
-msgid "The options of table status is changed."
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:962
-msgid ""
-"Modifications of table and region require system restart to take effect.\n"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:963
+#: ../..//content/controllers/table_man_controller.js:944
 msgid ""
 "The system will restart automatically after you return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:964
-msgid "Table Manage"
+#: ../..//content/controllers/table_man_controller.js:945
+msgid "Table Manager"
 msgstr ""
 
 #: ../..//content/controllers/taxes_controller.js:89
@@ -7255,50 +7255,50 @@ msgid ""
 "logs in"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:209
+#: ../..//content/controllers/users_controller.js:208
 msgid "The assigned drawer [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:224
+#: ../..//content/controllers/users_controller.js:223
 msgid "The assigned drawer [%S] is not yet enabled!"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:229
+#: ../..//content/controllers/users_controller.js:228
 msgid ""
 "Error detected in device manager; unable to verify cash drawer configuration"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:244
+#: ../..//content/controllers/users_controller.js:243
 msgid "[%S] is the default user and may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:248
+#: ../..//content/controllers/users_controller.js:247
 msgid "[%S] is the current user and may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:252
+#: ../..//content/controllers/users_controller.js:251
 msgid "[%S] may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:286
+#: ../..//content/controllers/users_controller.js:285
 msgid "Employee [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:311
+#: ../..//content/controllers/users_controller.js:310
 msgid "Select Access Group"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:333
+#: ../..//content/controllers/users_controller.js:332
 msgid "Select Default Job"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:400
+#: ../..//content/controllers/users_controller.js:399
 msgid ""
 "You have made changes to the current user. Are you sure you want to discard "
 "the changes?"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:419
+#: ../..//content/controllers/users_controller.js:418
 msgid "You have made changes to the current user. Save changes before exiting?"
 msgstr ""
 
