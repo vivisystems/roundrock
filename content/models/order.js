@@ -55,7 +55,7 @@
             var username = this.username ;
             var password = this.password ;
 
-            // this.log('DEBUG', 'requestRemoteService2 url: ' + reqUrl + ', with method: ' + method);
+            this.log('DEBUG', 'requestRemoteService2 url: ' + reqUrl + ', with method: ' + method);
 
             // for use asynchronize mode like synchronize mode
             // mozilla only
@@ -175,7 +175,7 @@
             var username = this.username ;
             var password = this.password ;
 
-            // this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with method: ' + type);
+            this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with method: ' + type);
 
             // set this reference to self for callback
             var self = this;
@@ -428,7 +428,8 @@
                         checksum += d.id + d.modified;
                     });
 
-                    if (data.status == 2) {
+                    var KeepEachTransaction = GeckoJS.Configure.read( "vivipos.fec.settings.KeepEachTransaction" );
+                    if (data.status == 2 || ( data.status == 1 && KeepEachTransaction ) ) {// We save the object of a finalized order to DB for the sake of reprinting checks.
 
                         data.checksum = GREUtils.CryptoHash.md5(checksum);
 
@@ -440,8 +441,10 @@
                     return true;
 
                 } catch(e) {
-                    this.log('ERROR',
-                             'record could not be saved to backup [' + e + ']\n' + this.dump(data));
+                    this.log(
+                        'ERROR',
+                        'record could not be saved to backup [' + e + ']\n' + this.dump(data)
+                    );
                 }
 
             }
@@ -817,7 +820,16 @@
             if (remoteUrl) {
                 try {
                     // orders = this.requestRemoteService('GET', remoteUrl + "/" + cond, null);
-                    orderObject = this.requestRemoteService2('GET', remoteUrl + "/" + order_id, null);
+                    var requestUrl = remoteUrl + "/" + order_id + '/' + this.syncSettings.machine_id;
+                    orderObject = this.requestRemoteService2('GET',requestUrl, null);
+                    this.log(this.dump(orderObject));
+
+                    // locked by remote machined
+                    if(orderObject.LockedByMachineId) {
+                        this.datasource.lastError = 98;
+                        this.datasource.lastErrorString = orderObject.LockedByMachineId;
+                    }
+
 /*
                     //@todo
                     order.forEach(function(o){
@@ -846,7 +858,7 @@
                 }
             }
 
-            if(orderObject) {
+            if(orderObject && orderObject['OrderObject']) {
                 // return GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(orderObject.object));
                 return GeckoJS.BaseObject.unserialize(orderObject['OrderObject'].object);
             }

@@ -11,6 +11,8 @@
     var __controller__ = {
 
         name: 'MultiBuyTypeSetting',
+        
+        _treeData: [],
 
         /*
          * initial promotions rules for register

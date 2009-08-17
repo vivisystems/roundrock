@@ -4022,12 +4022,21 @@
             //
             order_id = order_id;
 
-            var curTransaction = new Transaction();
+            this.log('Cart unserializeFromOrder: ' + order_id);
+            // use recovery mode , don't get seqno, again!! racklin
+            var curTransaction = new Transaction(true);
             curTransaction.unserializeFromOrder(order_id);
 
             if (curTransaction.data == null) {
-                NotifyUtils.error(_('The order object does not exist [%S]', [order_id]));
 
+                // temp
+                this.log(curTransaction.lastError);
+                if (curTransaction.lastError == 98) {
+                    NotifyUtils.error(_('The order object is locked by remote machine [%S]', [curTransaction.lastErrorString]));
+                }else {
+                    NotifyUtils.error(_('The order object does not exist [%S]', [order_id]));
+                }
+                
                 return false;
             }
 
@@ -4103,6 +4112,8 @@
 
             this._cancelReturn();
 
+            this.log('recall order: ' + no );
+
             return this.GuestCheck.recallByOrderNo(no);
         },
 
@@ -4111,6 +4122,8 @@
             this._getKeypadController().clearBuffer();
 
             this._cancelReturn();
+
+            this.log('recallTable order: ' + no );
 
             return this.GuestCheck.recallByTableNo(no);
         },
@@ -4121,6 +4134,8 @@
             this._getKeypadController().clearBuffer();
 
             this._cancelReturn();
+
+            this.log('recallCheck order: ' + no );
 
             return this.GuestCheck.recallByCheckNo(no);
         },

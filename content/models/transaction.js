@@ -109,7 +109,13 @@
             var order = new OrderModel();
             this.data = order.unserializeOrder(order_id);
 
+            if (this.data == null) {
+                this.lastError = order.lastError;
+                this.lastErrorString = order.lastErrorString;
+                return false;
+            }
             Transaction.events.dispatch('onUnserialize', this, this);
+            return true;
         },
 
         buildOrderSequence: function(seq) {

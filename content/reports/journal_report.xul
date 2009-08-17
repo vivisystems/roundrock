@@ -60,7 +60,7 @@
                                 <vbox></vbox>
                                 <vbox></vbox>
                                 <vbox>
-                                    <button id="execute" label="&journal.exportlist;" disabled="false" class="ExeBtn" oncommand="$do('exportFile', null, 'JournalReportController');"/>
+                                    <button id="export" label="&journal.exportlist;" disabled="false" class="ExeBtn" oncommand="$do('exportFile', null, 'JournalReportController');"/>
                                 </vbox>
                             </row>
 		                </rows>

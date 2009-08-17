@@ -148,10 +148,6 @@
                 }
 
                 var self = this;
-                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
-
-                // setting the flag be false means that the exporting has not finished yet.
-                //this._fileExportingFlag = false;
 
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );

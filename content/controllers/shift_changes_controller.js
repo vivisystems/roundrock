@@ -840,6 +840,8 @@
             if (doEndOfPeriod) {
                 // data cleanup
                 this.requestCommand('clearOrderData', null, 'Main');
+                this.requestCommand('clearOrderObjects', null, 'Main');
+                
 
                 // offer options to power off or restart and to print shift and day reports
                 var aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';

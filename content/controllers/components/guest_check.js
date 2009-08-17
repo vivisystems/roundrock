@@ -1169,6 +1169,7 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
         doRecallByCheck: function(order_id) {
 
+                this.log('doRecallByCheck : ' + order_id);
                 var curTransaction = this.unserializeFromOrder(order_id);
 
                 if (curTransaction == false) {

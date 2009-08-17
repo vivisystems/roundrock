@@ -19,10 +19,6 @@
          */
         initial: function() {
 
-            this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
-            this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
-
-
             this._deptscrollablepanel1 = document.getElementById('deptscrollablepanel1');
             this._deptPanelView1 =  new NSICategoriesView('deptscrollablepanel1');
 

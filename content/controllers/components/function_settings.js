@@ -110,7 +110,6 @@
                 'optAddonsExtensionsView': {type:'css', method:'hidden', selector: '#extensionsManager #extensions-view', checkForCss:'optAddonsExtensionsView'},
                 'optAddonsLocalesView': {type:'css', method:'hidden', selector: '#extensionsManager #locales-view', checkForCss:'optAddonsLocalesView'},
                 'optAddonsPluginsView': {type:'css', method:'hidden', selector: '#extensionsManager #plugins-view', checkForCss:'optAddonsPluginsView'}
-
             },
 
             systemsForm: {
@@ -126,32 +125,39 @@
                 'cpTouchCalibration': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.touch_calibration', acl:'acl_touch_settings', checkForAcl:'cpTouchCalibration'},
                 'cpXterm': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.xterm', acl:'acl_xterm', checkForAcl:'cpXterm'},
                 'cpJournal': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.journal', acl:'acl_manage_journal', checkForAcl:'cpJournal'},
-                'cpViewSystemLog': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.view_system_log', acl:'acl_view_system_log', checkForAcl:'cpViewSystemLog'}
+                'cpViewSystemLog': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.view_system_log', acl:'acl_view_system_log', checkForAcl:'cpViewSystemLog'},
+
+                'serviceSyncSettingsAdvTab': {type:'css', method:'hidden', selector: '#syncSettingsXUL #advanced-tab', checkForCss:'serviceSyncSettingsAdvTab'},
+                'serviceSyncSettingsTab': {type:'css', method:'hidden', selector: '#syncSettingsXUL #services-tab', checkForCss:'serviceSyncSettingsSeq,serviceSyncSettingsTable,serviceSyncSettingsStock,serviceSyncSettingsNtp'},
+                'serviceSyncSettingsSeq': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsSeqBox', checkForCss:'serviceSyncSettingsSeq'},
+                'serviceSyncSettingsTable': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsTableBox', checkForCss:'serviceSyncSettingsTable'},
+                'serviceSyncSettingsStock': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsStockBox', checkForCss:'serviceSyncSettingsStock'},
+                'serviceSyncSettingsNtp': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsNtpBox', checkForCss:'serviceSyncSettingsNtp'}
             },
             
             reportsForm: {
-                'rptAttendancerecord': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.attendancerecord'},
-                'rptCashbyclerk': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.cashbyclerk'},
-                'rptCashdrawerreport': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.cashdrawerreport'},
-                'rptCashdrawersummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.cashdrawersummary'},
-                'rptClerksalesreport': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.clerksalesreport'},
-                'rptDailysalesdetail': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.dailysalesdetail'},
-                'rptDailysales': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.dailysales'},
-                'rptDailysalessummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.dailysalessummary'},
-                'rptDepartmentlist': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.departmentlist'},
-                'rptDetailedtaxreport': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.detailedtaxreport'},
-                'rptHourlysales': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.hourlysales'},
-                'rptOrderannotation': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.orderannotation'},
-                'rptOrderstatus': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.orderstatus'},
-                'rptProductlist': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.productlist'},
-                'rptProductsales': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.productsales'},
-                'rptPromotionsummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.promotionsummary'},
-                'rptSalessummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.salessummary'},
-                'rptStocks': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.stocks'},
-                'rptInventorycommitments': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.inventorycommitments'},
-                'rptPurchasehistory': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.purchasehistory'},
-                'rptUserlist': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.userlist'},
-                'rptYourorder': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.yourorder'}
+                'rptAttendancerecord': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.attendancerecord', acl:'acl_report_attendancerecord', checkForAcl:'rptAttendancerecord'},
+                'rptCashbyclerk': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.cashbyclerk', acl:'acl_report_cashbyclerk', checkForAcl:'rptCashbyclerk'},
+                'rptCashdrawerreport': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.cashdrawerreport', acl:'acl_report_cashdrawerreport', checkForAcl:'rptCashdrawerreport'},
+                'rptCashdrawersummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.cashdrawersummary', acl:'acl_report_cashdrawersummary', checkForAcl:'rptCashdrawersummary'},
+                'rptClerksalesreport': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.clerksalesreport', acl:'acl_report_clerksalesreport', checkForAcl:'rptClerksalesreport'},
+                'rptDailysalesdetail': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.dailysalesdetail', acl:'acl_report_dailysalesdetail', checkForAcl:'rptDailysalesdetail'},
+                'rptDailysales': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.dailysales', acl:'acl_report_dailysales', checkForAcl:'rptDailysales'},
+                'rptDailysalessummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.dailysalessummary', acl:'acl_report_dailysalessummary', checkForAcl:'rptDailysalessummary'},
+                'rptDepartmentlist': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.departmentlist', acl:'acl_report_departmentlist', checkForAcl:'rptDepartmentlist'},
+                'rptDetailedtaxreport': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.detailedtaxreport', acl:'acl_report_detailedtaxreport', checkForAcl:'rptDetailedtaxreport'},
+                'rptHourlysales': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.hourlysales', acl:'acl_report_hourlysales', checkForAcl:'rptHourlysales'},
+                'rptOrderannotation': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.orderannotation', acl:'acl_report_orderannotation', checkForAcl:'rptOrderannotation'},
+                'rptOrderstatus': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.orderstatus', acl:'acl_report_orderstatus', checkForAcl:'rptOrderstatus'},
+                'rptProductlist': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.productlist', acl:'acl_report_productlist', checkForAcl:'rptProductlist'},
+                'rptProductsales': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.productsales', acl:'acl_report_productsales', checkForAcl:'rptProductsales'},
+                'rptPromotionsummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.promotionsummary', acl:'acl_report_promotionsummary', checkForAcl:'rptPromotionsummary'},
+                'rptSalessummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.salessummary', acl:'acl_report_salessummary', checkForAcl:'rptSalessummary'},
+                'rptStocks': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.stocks', acl:'acl_report_stocks', checkForAcl:'rptStocks'},
+                'rptInventorycommitments': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.inventorycommitments', acl:'acl_report_inventorycommitments', checkForAcl:'rptInventorycommitments'},
+                'rptPurchasehistory': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.purchasehistory', acl:'acl_report_purchasehistory', checkForAcl:'rptPurchasehistory'},
+                'rptUserlist': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.userlist', acl:'acl_report_userlist', checkForAcl:'rptUserlist'},
+                'rptYourorder': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.yourorder', acl:'acl_report_run_yourorder,acl_report_yourorder', checkForAcl:'rptYourorder'}
             },
 
             functionsForm: {

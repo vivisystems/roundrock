@@ -19,10 +19,6 @@
          */
         initial: function() {
 
-            this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
-            this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
-
-
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.findByIndex('all', {
                 index: 'routing',
