@@ -4023,30 +4023,7 @@
             //
             order_id = order_id;
 
-            this.log('Cart unserializeFromOrder: ' + order_id);
-            // use recovery mode , don't get seqno, again!! racklin
-            var curTransaction = new Transaction(true);
-            curTransaction.unserializeFromOrder(order_id);
-
-            if (curTransaction.data == null) {
-
-                // temp
-                this.log(curTransaction.lastError);
-                if (curTransaction.lastError == 98) {
-                    NotifyUtils.error(_('The order object is locked by remote machine [%S]', [curTransaction.lastErrorString]));
-                }else {
-                    NotifyUtils.error(_('The order object does not exist [%S]', [order_id]));
-                }
-                
-                return false;
-            }
-
-            if (curTransaction.data.status == 2) {
-                // set order status to process (0)
-                curTransaction.data.status = 0;
-
-                curTransaction.data.recall = 2;
-            }
+            var curTransaction = this.GuestCheck.unserializeFromOrder(order_id);
 
             this._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
@@ -4085,15 +4062,6 @@
             this._cancelReturn();
 
             var curTransaction = this._getTransaction();
-
-            /*
-            if (curTransaction) {
-                if (curTransaction.data.status == 0 && curTransaction.data.items_count != 0 && curTransaction.data.recall !=2) {
-                    NotifyUtils.warn(_('This order must be stored first'));
-                    return;
-                }
-            }
-            */
 
             var r = -1;
             if (no.length == 0) {

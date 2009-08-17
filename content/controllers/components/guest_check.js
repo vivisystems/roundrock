@@ -6,18 +6,6 @@
          * Component GuestCheck
          */
 
-        /*
-            // Session
-            vivipos_fec_price_level,
-            vivipos_fec_tax_total,
-            vivipos_fec_number_of_items,
-            vivipos_fec_order_sequence,
-            vivipos_fec_order_destination,
-            vivipos_fec_number_of_customers,
-            vivipos_fec_check_number,
-            vivipos_fec_table_number
-         */
-
         name: 'GuestCheck',
         _guestCheck: {},
         _tableStatusModel: null,
@@ -100,20 +88,6 @@
             var duplicate = 1;
             // print check
             this._printController.printChecks(txn, printer, autoPrint, duplicate);
-        },
-
-        syncClient: function() {
-            // sync data
-            try {
-                var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
-                var r = exec.run(["sync"], false);
-                exec.close();
-                return true;
-            }
-            catch (e) {
-                NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
-                return false;
-            }
         },
 
         handleTruncateTxnRecords: function(evt) {
@@ -579,83 +553,6 @@
             return "" + r;
         },
 
-        doSelectTableFuncs: function(inputObj) {
-this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
-            if (inputObj.ok && inputObj.index) {
-                var tables = inputObj.tables;
-                var id = inputObj.order_id;
-                var check_no = inputObj.check_no;
-                var tableObj = inputObj.tableObj;
-                
-                var idx = inputObj.index;
-                // var i = tables[idx].table_no;
-                var table_no = tableObj.table_no;
-
-                // var id = tables[idx].order_id;
-                // var destination = tables[idx].Table.destination;
-                var destination = tableObj.Table.destination;
-
-                switch (inputObj.action) {
-                    case 'RecallCheck':
-                        if (id) {
-                            if (!this._controller.unserializeFromOrder(id)) {
-                                //@todo OSD
-                                NotifyUtils.error(_('This order object does not exist [%S]', [id]));
-                                return -1
-                            }
-
-                            var curTransaction = null;
-                            curTransaction = this._controller._getTransaction();
-                            if (curTransaction) {
-
-                                if (curTransaction.data.status == 1) {
-                                    // @todo OSD
-                                    NotifyUtils.warn(_('This order is already finalized!'));
-                                    return -1;
-                                }
-                            } else {
-                                //@todo OSD
-                                NotifyUtils.error(_('This order object does not exist [%S]', [id]));
-                                return -1
-                            }
-                        } else if (check_no) {
-                            this.recallByCheckNo(check_no);
-                        } else {
-                            this.recallByTableNo(i);
-                        }
-
-                        break;
-                    case 'SplitCheck':
-                        break;
-                    case 'MergeCheck':
-                        break;
-                    case 'SelectTableNo':
-                        break;
-                    case 'ChangeClerk':
-                        break;
-                    case 'MergeTable':
-                        break;
-                    case 'TransTable':
-                        break;
-                }
-            }else {
-                /*
-                while (i <= 200) {
-                    if (!this._tableNoArray[i] || this._tableNoArray[i] == 0) {
-                        this._tableNoArray[i] = 1;
-                        break;
-                    }
-                    i++;
-                }
-                r = i;
-                */
-                return false;
-            }
-
-            // GeckoJS.Session.set('vivipos_fec_table_number', i);
-            return true;
-        },
-
         table: function(table_no, txn) {
             // read table settings...
             this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
@@ -736,10 +633,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
             }
         },
 
-        load: function () {
-            // this.log("GuestCheck load...");
-        },
-
         guest: function(num, txn) {
             if (!num) {
                 num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
@@ -795,11 +688,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
             return false;
 
-        },
-
-        removeTableStatus: function(checkObj) {
-            //
-            this._tableStatusModel.removeCheck(checkObj);
         },
 
         selOrderNo: function (){
@@ -1100,33 +988,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
         },
 
-        transferToOrderNo: function(no) {
-            this.transfer('OrderNo', no);
-        },
-
-        transferToCheckNo: function(no) {
-            this.transfer('CheckNo', no);
-        },
-
-        transferToTableNo: function(no) {
-            this.transfer('TableNo', no);
-        },
-
-        transfer: function(key, no) {
-            //this.log("DEBUG", "GuestCheck transfer...key:" + key + ",  no:" + no);
-            switch(key) {
-                case 'OrderNo':
-                    break;
-                case 'CheckNo':
-                    // this.mergeOrder(no, data);
-                    break;
-                case 'TableNo':
-                    break;
-                case 'AllCheck':
-                    break;
-            }
-        },
-
         doStore: function(oldTransaction) {
 
             if (oldTransaction.data.recall == 2) {
@@ -1374,7 +1235,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
             var curTransaction = null;
 
             curTransaction = this.doRecall(tableNo);
-            // curTransaction = this._controller._getTransaction();
 
             if (curTransaction) {
 
@@ -1633,10 +1493,19 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
         unserializeFromOrder: function(order_id) {
 
-            var curTransaction = new Transaction(true); // do not get new sequence
+            // use recovery mode , don't get seqno, again!! racklin
+            var curTransaction = new Transaction(true);
             curTransaction.unserializeFromOrder(order_id);
 
             if (curTransaction.data == null) {
+
+                // temp
+                this.log(curTransaction.lastError);
+                if (curTransaction.lastError == 98) {
+                    NotifyUtils.error(_('The order object is locked by remote machine [%S]', [curTransaction.lastErrorString]));
+                }else {
+                    NotifyUtils.error(_('The order object does not exist [%S]', [order_id]));
+                }
 
                 return false;
             }
