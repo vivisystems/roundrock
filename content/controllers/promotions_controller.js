@@ -96,26 +96,36 @@
             if(Transaction) {
                 // on Transaction object created
                 Transaction.events.addListener('onCreate', function(evt) {
+                    if (!evt || !evt.data) return;
+
                     self.prepareTransactionData(evt);
                     self.resetCurrentPromotions();
                 });
 
                 Transaction.events.addListener('onUnserialize', function(evt) {
+                    if (!evt || !evt.data) return;
+
                     self.appendTransactionDatas(evt.data);
                 });
                 
                 // on Transaction calcPromtions
                 Transaction.events.addListener('onCalcPromotions', function(evt) {
+                    if (!evt || !evt.data) return;
+                    
                     self.process();
                 });
 
                 // on Transaction add/modify item
                 Transaction.events.addListener('onCalcItemSubtotal', function(evt) {
+                    if (!evt || !evt.data) return;
+                    
                     self.appendTransactionData(evt.data);
                 });
 
                 // on Transaction void item
                 Transaction.events.addListener('afterVoidItem', function(evt) {
+                    if (!evt || !evt.data) return;
+                    
                     self.removeTransactionData(evt.data);
                 });
             }
@@ -310,7 +320,8 @@
 
         process: function() {
 
-            if(this._currentPromotions.length == 0) return;
+            if (this._currentPromotions.length == 0) return;
+            if (!this._transaction) return;
 
             //var profileStart = (new Date()).getTime();
             // triggers with time control for now
