@@ -22,7 +22,6 @@
                 <tr>
                     <th style="text-align: center;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Sequence' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Invoice Number' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Branch' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Terminal' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Status' )}</th>
@@ -35,7 +34,6 @@
                 <tr id="${detail.id}">
                     <td style="text-align: center;">${detail.created|unixTimeToString}</td>
                     <td style="text-align: center;" class="hyperlink">${detail.sequence}</td>
-                    <td style="text-align: center;">${detail.invoice_no|default:''}</td>
                     <td style="text-align: center;">${detail.branch}</td>
                     <td style="text-align: center;">${detail.terminal_no}</td>
                     <td style="text-align: center;">${detail.status}</td>
