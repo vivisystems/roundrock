@@ -10,6 +10,8 @@
   %Devices;
   <!ENTITY % Sysprefs SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
   %Sysprefs;
+  <!ENTITY % SyncSettings SYSTEM "chrome://viviecr/locale/sync_settings.dtd">
+  %SyncSettings;
   <!ENTITY % extensionsSDKDTD SYSTEM "chrome://vivipos/locale/extensions.dtd">
   %extensionsSDKDTD;
   ]>
@@ -606,6 +608,7 @@
                                 <tabbox id="systemsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
                                   <tabs id="systemsTabs">
                                     <tab label="&function_customizer.tab.controlpanel;"/>
+                                    <tab label="&function_customizer.tab.services;" />
                                     <!--tab label="&function_customizer.tab.others;"/-->
                                   </tabs>
                                   <tabpanels id="systemsTabpanels" flex="1">
@@ -639,8 +642,17 @@
                                                       form="systemsForm" name="cpViewSystemLog" default="false" />
                                     </tabpanel>
 
-                                    <!--tabpanel flex="1" orient="vertical">
-                                    </tabpanel-->
+                                    <tabpanel flex="1" orient="vertical">                                        
+                                            <checkbox id="serviceSyncSettingsTab" value="true" checked="true" hidden="true" form="systemsForm" name="serviceSyncSettingsTab" />
+                                            <checkbox id="serviceSyncSettingsSeq" value="true" label="&sync_settings.desc.sequence_hostname;"
+                                                          form="systemsForm" name="serviceSyncSettingsSeq" default="false" />
+                                            <checkbox id="serviceSyncSettingsTable" value="true" label="&sync_settings.desc.table_active;"
+                                                          form="systemsForm" name="serviceSyncSettingsTable" default="false" />
+                                            <checkbox id="serviceSyncSettingsStock" value="true" label="&sync_settings.desc.stock_hostname;"
+                                                          form="systemsForm" name="serviceSyncSettingsStock" default="false" />
+                                            <checkbox id="serviceSyncSettingsNtp" value="true" label="&sync_settings.desc.ntp_hostname;"
+                                                          form="systemsForm" name="serviceSyncSettingsNtp" default="false" />
+                                    </tabpanel>
 
                                   </tabpanels>
                                 </tabbox>                                
