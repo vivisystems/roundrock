@@ -304,10 +304,7 @@
             var async = false;
             var callback = null;
 
-            //this.log('DEBUG', 'decreaseStockRecords datas: ' + this.dump(datas));
-
             var remoteUrl = this.getRemoteServiceUrl('saveOrder');
-            // var remoteUrl = this.getRemoteService('saveOrder');
 
             if(remoteUrl) {
 
@@ -323,7 +320,6 @@
 
                 }
 
-                // var response_data = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize(datas));
                 var response_data = this.requestRemoteService('POST', remoteUrl, datas);
 
                 if (!response_data) {
@@ -822,7 +818,6 @@
                     // orders = this.requestRemoteService('GET', remoteUrl + "/" + cond, null);
                     var requestUrl = remoteUrl + "/" + order_id + '/' + this.syncSettings.machine_id;
                     orderObject = this.requestRemoteService2('GET',requestUrl, null);
-                    this.log(this.dump(orderObject));
 
                     // locked by remote machined
                     if(orderObject.LockedByMachineId) {
@@ -1121,54 +1116,28 @@
             return orders;
         },
 
-        getOrderChecksum: function(id) {
-            if (!id) return ""; // return "" is id not specify
-return true;
-            var ds = this.getDataSource();
-            if (!ds) return ""; // return "" if datasouce is null
+        commitTransactionByOrder: function(order_id) {
 
-            var checksum = "";
-            var datas = [];
+            var remoteUrl = this.getRemoteServiceUrl2('commitTransactionByOrder');
+            var orderObject = null;
 
-            //hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'],
+            if (remoteUrl) {
+                try {
+                    // orders = this.requestRemoteService('GET', remoteUrl + "/" + cond, null);
+                    var requestUrl = remoteUrl + "/" + order_id + '/' + this.syncSettings.machine_id;
+                    var responseText = this.requestRemoteService2('GET',requestUrl, null);
 
-            datas = ds.fetchAll("SELECT id,modified from orders where id = '"+id+"'");
-            datas.forEach(function (d) {
-              checksum += d.id + d.modified;
-            });
+                    this._connected = true;
+                }catch(e) {
+                    orderObject = {};
+                    this._connected = false;
 
-            datas = ds.fetchAll("SELECT id,modified from order_items where order_id = '"+id+"' ORDER BY id");
-            datas.forEach(function (d) {
-              checksum += d.id + d.modified;
-            });
+                }
 
-            datas = ds.fetchAll("SELECT id,modified from order_additions where order_id = '"+id+"' ORDER BY id");
-            datas.forEach(function (d) {
-              checksum += d.id + d.modified;
-            });
+            }
 
-            datas = ds.fetchAll("SELECT id,modified from order_payments where order_id = '"+id+"' ORDER BY id");
-            datas.forEach(function (d) {
-              checksum += d.id + d.modified;
-            });
-
-            datas = ds.fetchAll("SELECT id,modified from order_annotations where order_id = '"+id+"' ORDER BY id");
-            datas.forEach(function (d) {
-              checksum += d.id + d.modified;
-            });
-
-            datas = ds.fetchAll("SELECT id,modified from order_item_condiments where order_id = '"+id+"' ORDER BY id");
-            datas.forEach(function (d) {
-              checksum += d.id + d.modified;
-            });
-
-            datas = ds.fetchAll("SELECT id,modified from order_promotions where order_id = '"+id+"' ORDER BY id");
-            datas.forEach(function (d) {
-              checksum += d.id + d.modified;
-            });
-
-            return GREUtils.CryptoHash.md5(checksum);
         }
+        
     };
 
     var OrderModel = window.OrderModel =  AppModel.extend(__model__);

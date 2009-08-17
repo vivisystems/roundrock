@@ -771,9 +771,8 @@
 
         setRegionMenuItem: function() {
             var regionModel = new TableRegionModel();
-            var regions = regionModel.find('all', {
-                fields: ['id', 'name']
-                });
+            var regions = this._getTableStatusModel().getRegions();
+
             var regionObj = document.getElementById('table_region_menupopup');
             var defaultRegionObj = document.getElementById('default_region_menupopup');
 
@@ -883,6 +882,12 @@
             this._getTableStatusModel().setTableStatusOptions();
         },
 
+        cloneAllTableDatasFromMaster: function() {
+            // clone all table datas from master throught webservice.
+            // for regions, tables...
+            
+        },
+
         cloneSettingsFromMaster: function() {
             //
             if (GREUtils.Dialog.confirm(this.topmostWindow,
@@ -931,6 +936,8 @@
 
             if (this.isClient()) {
                 this.disableMainTab();
+            } else {
+                document.getElementById('clone_settings_from_master').setAttribute('hidden', true);
             }
 
         },

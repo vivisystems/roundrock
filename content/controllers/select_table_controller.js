@@ -595,13 +595,11 @@
                     this._hidePromptPanel('prompt_panel');
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._regionTables[v].table_no;
+
                         this._inputObj.index = v;
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
-                        // doOKButton();
-                        
-                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
                         cart.GuestCheck.doSelectTableNo(this._inputObj);
 
                         this._inputObj.action = '';
@@ -623,7 +621,7 @@
                     }
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._regionTables[v].table_no;
+
                         this._inputObj.index = v;
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
@@ -721,7 +719,6 @@
                                 if (!this._tableDock) {
                                     $.hidePanel('selectTablePanel', true);
                                 }
-                            
 
                             }
 
@@ -923,7 +920,7 @@
                     var tableName = this._regionTables[v].table_name;
                     if (GREUtils.Dialog.confirm(this.topmostWindow,
                         _('Clear Table Status'),
-                        _('You are now clearing table status of Table# %S (%S). Proceed?\nClick OK to clear, \nor, click Cancel to abort.', [tableNo,tableName])) == true) {
+                        _('You are now clearing table status of Table# %S (%S). Proceed? Click OK to clear, or, click Cancel to abort.', [tableNo,tableName])) == true) {
 
                         var table_no = this._regionTables[v].table_no;
                         var markObj = {};
@@ -982,7 +979,7 @@
                     var regionName = this._regionName[this._regionIndex];
                     if (GREUtils.Dialog.confirm(this.topmostWindow,
                         _('Clear all table status in region'),
-                        _('You are now clearing all table status of region [%S]. Proceed?\nClick OK to clear, \nor, click Cancel to abort.', [regionName])) == true) {
+                        _('You are now clearing all table status of region [%S]. Proceed? Click OK to clear, or, click Cancel to abort.', [regionName])) == true) {
 
                         var markObj = {};
                         this._isBusy = true;

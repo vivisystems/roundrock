@@ -6,18 +6,6 @@
          * Component GuestCheck
          */
 
-        /*
-            // Session
-            vivipos_fec_price_level,
-            vivipos_fec_tax_total,
-            vivipos_fec_number_of_items,
-            vivipos_fec_order_sequence,
-            vivipos_fec_order_destination,
-            vivipos_fec_number_of_customers,
-            vivipos_fec_check_number,
-            vivipos_fec_table_number
-         */
-
         name: 'GuestCheck',
         _guestCheck: {},
         _tableStatusModel: null,
@@ -102,18 +90,11 @@
             this._printController.printChecks(txn, printer, autoPrint, duplicate);
         },
 
-        syncClient: function() {
-            // sync data
-            try {
-                var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
-                var r = exec.run(["sync"], false);
-                exec.close();
-                return true;
-            }
-            catch (e) {
-                NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
-                return false;
-            }
+        _restoreOrder: function() {
+            // restore from backup after order was submited/stored
+            var order = new OrderModel();
+            order.restoreOrderFromBackup();
+            delete order;
         },
 
         handleTruncateTxnRecords: function(evt) {
@@ -201,7 +182,7 @@
 
                     if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
                         _('Order amount does not reach Minimum Charge'),
-                        _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\nClick OK to finalize this order by Minimum Charge, \nor, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
+                        _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed? Click OK to finalize this order by Minimum Charge, or, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
 
                         // @todo OSD
                         NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
@@ -244,11 +225,6 @@
         },
 
         handleTransTable: function(evt) {
-            //
-//            this._tableStatusModel.transTable(evt.data.data);
-//            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-//                    this._controller.newTable();
-//            }
 
         },
 
@@ -263,13 +239,11 @@
             this._tableStatusModel.addCheck(evt.data.data);
 
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                    this._controller.newTable();
+
+                    this.getNewTableNo();
             }
 
-            // restore from backup after order was submited/stored
-            var order = new OrderModel();
-            order.restoreOrderFromBackup();
-            delete order;
+            this._restoreOrder();
 
         },
 
@@ -278,7 +252,6 @@
             // is stored order?
             if (evt.data.data.recall == 2) {
 
-                // this._tableStatusModel.removeCheck(evt.data.data);
                 this._tableStatusModel.addCheck(evt.data.data);
 
                 // set autoMark
@@ -317,13 +290,11 @@
             }
 
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                    this._controller.newTable();
+
+                    this.getNewTableNo();
             }
 
-            // restore from backup after order was submited/stored
-            var order = new OrderModel();
-            order.restoreOrderFromBackup();
-            delete order;
+            this._restoreOrder();
             
         },
 
@@ -340,7 +311,7 @@
                 case '2':
                     if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
                         _('Print Splited Check'),
-                        _('Do you want to print splited Check#%S ?\nClick OK to print, \nor, click Cancel to abort.', [evt.data.data.check_no])) == true) {
+                        _('Do you want to print splited Check#%S ? Click OK to print, or, click Cancel to abort.', [evt.data.data.check_no])) == true) {
                         isPrint = true;
                     }
                     break;
@@ -348,10 +319,7 @@
 
             if (isPrint) this.printChecks(evt.data);
 
-            // restore from backup after order was submited/stored
-            var order = new OrderModel();
-            order.restoreOrderFromBackup();
-            delete order;
+            this._restoreOrder();
 
         },
 
@@ -368,7 +336,7 @@
                 case '2':
                     if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
                         _('Print Merged Check'),
-                        _('Do you want to print merged Check#%S ?\nClick OK to print, \nor, click Cancel to abort.', [evt.data.data.check_no])) == true) {
+                        _('Do you want to print merged Check#%S ? Click OK to print, or, click Cancel to abort.', [evt.data.data.check_no])) == true) {
                         isPrint = true;
                     }
                     break;
@@ -376,17 +344,24 @@
 
             if (isPrint) this.printChecks(evt.data);
 
-            // restore from backup after order was submited/stored
-            var order = new OrderModel();
-            order.restoreOrderFromBackup();
-            delete order;
+            this._restoreOrder();
 
         },
 
         handleCancel: function(evt) {
             //
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                    this._controller.newTable();
+                    // release lock order on master
+                    if (evt.data) {
+                        var curTransaction = evt.data;
+                        if (curTransaction.data.id) {
+                            var order = new OrderModel();
+                            order.commitTransactionByOrder(curTransaction.data.id);
+                            delete order;
+
+                        }
+                    }
+                    this.getNewTableNo();
             }
         },
 
@@ -399,7 +374,8 @@
             }
 
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                    this._controller.newTable();
+
+                    this.getNewTableNo();
             }
         },
 
@@ -409,21 +385,9 @@
                 this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
                 if (this._guestCheck.tableSettings.RequireCheckNo) {
 
-                    this._controller.newCheck(true);
+                    this.getNewCheckNo();
                 }
             }
-
-        },
-
-        getTableList: function() {
-            // if(this._tableList == null) {
-                var tableModel = new TableModel;
-                var tablelist = tableModel.find("all", {recursive: 0});
-                this._tableList = tablelist;
-                delete tableModel;
-            // }
-
-            return this._tableList;            
 
         },
 
@@ -518,6 +482,12 @@
                 r = false;
             }
 
+            // not allow to split when transaction has only one item
+            if (data.data.items_count == 1) {
+                NotifyUtils.warn(_('The order has only one item ; Cannot be split'));
+                r = false;
+            }
+
             return r;
         },
 
@@ -547,6 +517,15 @@
                     NotifyUtils.warn(_('The order must be stored first!'));
 
                     return;
+                } else {
+
+                    // release lock order on master
+                    if (curTransaction.data.id) {
+                        var order = new OrderModel();
+                        order.commitTransactionByOrder(curTransaction.data.id);
+                        delete order;
+                        
+                    }
                 }
             }
 
@@ -560,10 +539,8 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 isNewOrder: isNewOrder,
-                // tables: tables
                 tables: null
             };
-
 
             var dialog_data = [
                 inputObj
@@ -574,86 +551,7 @@
                 var r = $.popupPanel('selectTablePanel', dialog_data);
             } catch (e) {}
 
-            //return;
-
             return "" + r;
-        },
-
-        doSelectTableFuncs: function(inputObj) {
-this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
-            if (inputObj.ok && inputObj.index) {
-                var tables = inputObj.tables;
-                var id = inputObj.order_id;
-                var check_no = inputObj.check_no;
-                var tableObj = inputObj.tableObj;
-                
-                var idx = inputObj.index;
-                // var i = tables[idx].table_no;
-                var table_no = tableObj.table_no;
-
-                // var id = tables[idx].order_id;
-                // var destination = tables[idx].Table.destination;
-                var destination = tableObj.Table.destination;
-
-                switch (inputObj.action) {
-                    case 'RecallCheck':
-                        if (id) {
-                            if (!this._controller.unserializeFromOrder(id)) {
-                                //@todo OSD
-                                NotifyUtils.error(_('This order object does not exist [%S]', [id]));
-                                return -1
-                            }
-
-                            var curTransaction = null;
-                            curTransaction = this._controller._getTransaction();
-                            if (curTransaction) {
-
-                                if (curTransaction.data.status == 1) {
-                                    // @todo OSD
-                                    NotifyUtils.warn(_('This order is already finalized!'));
-                                    return -1;
-                                }
-                            } else {
-                                //@todo OSD
-                                NotifyUtils.error(_('This order object does not exist [%S]', [id]));
-                                return -1
-                            }
-                        } else if (check_no) {
-                            this.recallByCheckNo(check_no);
-                        } else {
-                            this.recallByTableNo(i);
-                        }
-
-                        break;
-                    case 'SplitCheck':
-                        break;
-                    case 'MergeCheck':
-                        break;
-                    case 'SelectTableNo':
-                        break;
-                    case 'ChangeClerk':
-                        break;
-                    case 'MergeTable':
-                        break;
-                    case 'TransTable':
-                        break;
-                }
-            }else {
-                /*
-                while (i <= 200) {
-                    if (!this._tableNoArray[i] || this._tableNoArray[i] == 0) {
-                        this._tableNoArray[i] = 1;
-                        break;
-                    }
-                    i++;
-                }
-                r = i;
-                */
-                return false;
-            }
-
-            // GeckoJS.Session.set('vivipos_fec_table_number', i);
-            return true;
         },
 
         table: function(table_no, txn) {
@@ -736,10 +634,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
             }
         },
 
-        load: function () {
-            // this.log("GuestCheck load...");
-        },
-
         guest: function(num, txn) {
             if (!num) {
                 num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
@@ -797,11 +691,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
         },
 
-        removeTableStatus: function(checkObj) {
-            //
-            this._tableStatusModel.removeCheck(checkObj);
-        },
-
         selOrderNo: function (){
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
@@ -847,17 +736,15 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
         },
 
         recall: function(key, no, silence, excludedOrderId) {
-            // this.log("DEBUG", "GuestCheck recall...key:" + key + ",  no:" + no + " , excludedOrderId:" + excludedOrderId);
+
             switch(key) {
                 case 'OrderNo':
-                    // @todo not implement...
-                    // var ord = this._tableStatusModel.getCheckList('OrderNo', no);
+
                     var ord = this.getCheckList('OrderNo', no);
 
                     if (ord && ord.length > 0) {
                         // AC 2009.04.29
                         var id = ord[0].id;
-                        // var id = ord[idx].order_id;
 
                         var status = ord[0].status;
 
@@ -914,18 +801,10 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
                     }
                     break;
                 case 'TableNo':
-                    /*
-                    var ordList = this._tableStatusModel.getCheckList('TableNo', no);
-                    var ord = [];
-                    ordList.forEach(function(o){
-                        ord.push(GeckoJS.BaseObject.unserialize(o.order_object));
-                    });
-                    */
+
                     var ord = this.getCheckList('TableNo', no);
 
                     if (ord && ord.length > 1) {
-                        //
-                        // alert(this.dump(ord));
 
                         var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
                         var screenheight = GeckoJS.Session.get('screenheight') || '600';
@@ -941,11 +820,8 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
-                            // return queues[idx].key;
-                            
-                            // AC 2009.04.29
+
                             var id = ord[idx].id;
-                            // var id = ord[idx].order_id;
 
                             var status = ord[idx].status;
                             var check_no = ord[idx].check_no;
@@ -1100,33 +976,7 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
         },
 
-        transferToOrderNo: function(no) {
-            this.transfer('OrderNo', no);
-        },
-
-        transferToCheckNo: function(no) {
-            this.transfer('CheckNo', no);
-        },
-
-        transferToTableNo: function(no) {
-            this.transfer('TableNo', no);
-        },
-
-        transfer: function(key, no) {
-            //this.log("DEBUG", "GuestCheck transfer...key:" + key + ",  no:" + no);
-            switch(key) {
-                case 'OrderNo':
-                    break;
-                case 'CheckNo':
-                    // this.mergeOrder(no, data);
-                    break;
-                case 'TableNo':
-                    break;
-                case 'AllCheck':
-                    break;
-            }
-        },
-
+        // recall order for internal use.
         doStore: function(oldTransaction) {
 
             if (oldTransaction.data.recall == 2) {
@@ -1167,9 +1017,9 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
             return false;
         },
 
+        // recall order for internal use.
         doRecallByCheck: function(order_id) {
 
-                this.log('doRecallByCheck : ' + order_id);
                 var curTransaction = this.unserializeFromOrder(order_id);
 
                 if (curTransaction == false) {
@@ -1189,6 +1039,7 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
             
         },
 
+        // recall order for internal use.
         doRecall: function(no, excludedOrderId) {
             var ord = this.getCheckList('TableNo', no);
 
@@ -1210,16 +1061,12 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
                 if (inputObj.ok && inputObj.index) {
                     var idx = inputObj.index;
-                    // return queues[idx].key;
 
-                    // AC 2009.04.29
                     var id = ord[idx].id;
-                    // var id = ord[idx].order_id;
 
                     var status = ord[idx].status;
-                    var check_no = ord[idx].check_no;
 
-                    var curTransaction = this.unserializeFromOrder(order_id);
+                    var curTransaction = this.unserializeFromOrder(id);
 
                     if (curTransaction == false) {
                         //@todo OSD
@@ -1238,9 +1085,8 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
                 }
 
             } else if (ord && ord.length > 0) {
-                // AC 2009.04.29
+
                 var order_id = ord[0].id;
-                // var id = ord[idx].order_id;
 
                 var status = ord[0].status;
                 var check_no = ord[0].check_no;
@@ -1263,7 +1109,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
                 return curTransaction;
             } else {
                 // @todo OSD
-                alert('no = ' + no);
                 NotifyUtils.warn(_('No order found for table number [%S]', [no]));
                 return false;
             }
@@ -1374,7 +1219,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
             var curTransaction = null;
 
             curTransaction = this.doRecall(tableNo);
-            // curTransaction = this._controller._getTransaction();
 
             if (curTransaction) {
 
@@ -1488,7 +1332,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
                     // clear cart
                     
-                    
                     if ( retMerge == -1) {
                         // clear recall check from cart
                        //  this._controller.cancel(true);
@@ -1585,20 +1428,12 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
         },
 
         doRecallCheck: function(inputObj) {
-            //
+            // from select table window recalled to cart
             if (inputObj.ok && inputObj.index) {
-                var tables = inputObj.tables;
                 var id = inputObj.order_id;
                 var check_no = inputObj.check_no;
                 var tableObj = inputObj.tableObj;
-
-                var idx = inputObj.index;
-                // var i = tables[idx].table_no;
                 var table_no = tableObj.table_no;
-
-                // var id = tables[idx].order_id;
-                // var destination = tables[idx].Table.destination;
-                var destination = tableObj.Table.destination;
 
                 if (id) {
 
@@ -1625,7 +1460,7 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
                 } else if (check_no) {
                     this.recallByCheckNo(check_no);
                 } else {
-                    this.recallByTableNo(i);
+                    this.recallByTableNo(table_no);
                 }
                 return true;
             }
@@ -1633,10 +1468,19 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
         unserializeFromOrder: function(order_id) {
 
-            var curTransaction = new Transaction(true); // do not get new sequence
+            // use recovery mode , don't get seqno, again!! racklin
+            var curTransaction = new Transaction(true);
             curTransaction.unserializeFromOrder(order_id);
 
             if (curTransaction.data == null) {
+
+                // temp
+                this.log(curTransaction.lastError);
+                if (curTransaction.lastError == 98) {
+                    NotifyUtils.error(_('The order object is locked by remote machine [%S]', [curTransaction.lastErrorString]));
+                }else {
+                    NotifyUtils.error(_('The order object does not exist [%S]', [order_id]));
+                }
 
                 return false;
             }
@@ -1688,9 +1532,9 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
             GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, 'merge_checks', aFeatures, inputObj);
 
-            // if (inputObj.ok) {
+
             if (inputObj.ok && inputObj.payit) {
-                // return queues[idx].key;
+
                 var id = inputObj.id;
                 var check_no = inputObj.check_no;
 
@@ -1711,7 +1555,7 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
                 return 2;
 
             }else {
-                // return null;
+
                 if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
                 }
@@ -1720,7 +1564,7 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
         },
 
         splitOrder: function(no, data) {
-            //this.log("DEBUG", "GuestCheck split check...no:" + no);
+
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
             var aURL = "chrome://viviecr/content/split_check.xul";
