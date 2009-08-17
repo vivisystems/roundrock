@@ -34,9 +34,9 @@
         <vbox class="EmptyArea" >
             <hbox flex="1">
                 <spacer class="LeftRegionMenuPadding"/>
-                <button id="btn_prior_region" class="button-execute" label="&selecttable.priorregion;" disabled="false"
+                <button id="btn_prior_region" class="button-fixed" label="&selecttable.priorregion;" disabled="false"
                         oncommand="$do('_menuPriorRegion', null, 'SelectTable');" />
-                <menulist id="table_region" class="RegionMenu" oncommand="$do('setRegion', this.value, 'SelectTable');">
+                <menulist id="table_region" flex="1" class="RegionMenu" oncommand="$do('setRegion', this.value, 'SelectTable');">
                     <menupopup id="table_region_menupopup">
 
                     </menupopup>
