@@ -20,8 +20,6 @@
                     
                     let localeKey = "";
 
-                    dump(elemId + '\n');
-                    
                     if (elemId.indexOf('cp') == 0) {
 
                         // control panel

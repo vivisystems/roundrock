@@ -127,6 +127,7 @@
                 'cpJournal': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.journal', acl:'acl_manage_journal', checkForAcl:'cpJournal'},
                 'cpViewSystemLog': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.view_system_log', acl:'acl_view_system_log', checkForAcl:'cpViewSystemLog'},
 
+                'serviceSyncSettingsAdvTab': {type:'css', method:'hidden', selector: '#syncSettingsXUL #advanced-tab', checkForCss:'serviceSyncSettingsAdvTab'},
                 'serviceSyncSettingsTab': {type:'css', method:'hidden', selector: '#syncSettingsXUL #services-tab', checkForCss:'serviceSyncSettingsSeq,serviceSyncSettingsTable,serviceSyncSettingsStock,serviceSyncSettingsNtp'},
                 'serviceSyncSettingsSeq': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsSeqBox', checkForCss:'serviceSyncSettingsSeq'},
                 'serviceSyncSettingsTable': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsTableBox', checkForCss:'serviceSyncSettingsTable'},
