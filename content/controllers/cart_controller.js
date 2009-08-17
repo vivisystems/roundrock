@@ -4025,10 +4025,11 @@
 
             var curTransaction = this.GuestCheck.unserializeFromOrder(order_id);
 
-            this._setTransactionToView(curTransaction);
-            curTransaction.updateCartView(-1, -1);
-            this._clearAndSubtotal();
-
+            if (curTransaction) {
+                this._setTransactionToView(curTransaction);
+                curTransaction.updateCartView(-1, -1);
+                this._clearAndSubtotal();
+            }
             return true;
 
         },
