@@ -27,7 +27,6 @@
             if (cmd != 'cancel') {
                 this._lastCancelInvoke = false;
             }
-            if (this._inDialog) return false;
             
             return true;
         },
@@ -539,6 +538,9 @@
 
         addItem: function(plu) {
 
+            // make sure we've completed previous addItem() call
+            if (this._inDialog) return;
+            
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
                 
@@ -722,7 +724,7 @@
                         self._clearAndSubtotal();
                     }
 
-                    this._inDialog = false;
+                    self._inDialog = false;
                 });
 
             }
