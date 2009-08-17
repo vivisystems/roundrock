@@ -26,7 +26,6 @@
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
 <!ENTITY general.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY general.ifprintwhiletraining "Print receipt and check while training?">
-<!ENTITY login.defaultlogin "Automatically log in default user">
 <!ENTITY general.quietcancel "Do not beep when cancelling orders">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">

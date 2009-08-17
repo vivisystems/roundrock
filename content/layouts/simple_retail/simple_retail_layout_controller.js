@@ -98,7 +98,7 @@
                 if (mainPanel) mainPanel.setAttribute('dir', bannerAtBottom ? 'reverse' : 'normal');
                 
                 if (this.bannerImageObj && this.bannerSrcBase) {
-                    this.bannerImageObj.src = this.bannerSrcBase + '?' + this._bannerImagecounter++;
+                    this.bannerImageObj.src = this.bannerSrcBase + '?' + this._bannerImageCounter++;
                 }
             }
             else {

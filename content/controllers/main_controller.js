@@ -610,7 +610,6 @@
 
         initialLogin: function () {
 
-            var defaultLogin = GeckoJS.Configure.read('vivipos.fec.settings.DefaultLogin');
             var defaultUserID = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
             var defaultUser = '';
 
@@ -622,7 +621,7 @@
                 var defaultUserRecord = userModel.findById(defaultUserID);
                 if (defaultUserRecord) defaultUser = defaultUserRecord.username;
             }
-            if (defaultLogin && defaultUser && defaultUser.length > 0) {
+            if (defaultUser && defaultUser.length > 0) {
                 this.Acl.securityCheck(defaultUser, 'dummy', false, true);
             }
 

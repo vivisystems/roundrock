@@ -459,6 +459,8 @@
         returnCartItem: function() {
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+            var itemTrans;
+            var itemDisplay;
 
             var exit = false;
 
@@ -481,13 +483,15 @@
                 exit = true;
             }
 
-            var itemTrans = curTransaction.getItemAt(index, true);
-            var itemDisplay = curTransaction.getDisplaySeqAt(index);
-            
-            if (!exit && itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
-                NotifyUtils.warn(_('The selected item [%S] is not a product and cannot be returned', [itemDisplay.name]));
+            if (!exit) {
+                itemTrans = curTransaction.getItemAt(index, true);
+                itemDisplay = curTransaction.getDisplaySeqAt(index);
 
-                exit = true;
+                if (!exit && itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+                    NotifyUtils.warn(_('The selected item [%S] is not a product and cannot be returned', [itemDisplay.name]));
+
+                    exit = true;
+                }
             }
 
             // locate product

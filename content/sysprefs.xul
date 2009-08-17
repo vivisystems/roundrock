@@ -234,7 +234,6 @@
             <preference id="pref_autodiscardcart" name="vivipos.fec.settings.autodiscardcart" type="bool"/>
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
             <preference id="pref_mustemptyqueue" name="vivipos.fec.settings.mustemptyqueue" type="bool"/>
-            <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool"/>
             <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool"/>
         </preferences>
         <vbox>
@@ -243,9 +242,6 @@
                     <column flex="1"/>
                 </columns>
                 <rows>
-                    <row>
-                        <checkbox id="defaultlogin" label="&login.defaultlogin;" preference="pref_defaultlogin"/>
-                    </row>
                     <row>
                         <checkbox id="allowquicklogin" label="&login.allowquicklogin;" preference="pref_allowquicklogin"/>
                     </row>
