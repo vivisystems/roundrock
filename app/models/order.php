@@ -93,11 +93,7 @@ class Order extends AppModel {
 
             $orderObject = $this->OrderObject->find('first', array("conditions" => $conditions));
 
-
-
             if($orderObject) {
-                // return GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(orderObject.object));
-                // return GeckoJS.BaseObject.unserialize(orderObject.object);
                 return $orderObject;
             }
 

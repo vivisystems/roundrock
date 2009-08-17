@@ -128,7 +128,7 @@ class OrdersController extends AppController {
         }
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-file_put_contents("/tmp/serializeOrder", $responseResult);
+// file_put_contents("/tmp/serializeOrder", $responseResult);
         echo $responseResult;
 
         exit;
