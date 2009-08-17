@@ -6,8 +6,6 @@
 
         uses: [ 'StockRecord', 'Product' ],
 
-        syncSettings: null,
-        
         _stocksByNo: {},
         _stocksById: {},
 
@@ -21,25 +19,22 @@
 
             var self = this;
             
-            this.syncSettings = (new SyncSetting()).read();
+            if (this.StockRecord.isRemote()) {
+                var hWin = this.showSyncingDialog();
 
-            this.hostname = this.syncSettings.stock_hostname;
+                // synchronize mode
+                this.StockRecord.syncAllStockRecords();
 
-            var hWin = this.showSyncingDialog();
-            this.sleep(1000);
+                if (hWin) {
+                    hWin.close();
+                    delete hWin;
+                }
 
-            // synchronize mode.
-            this.StockRecord.syncAllStockRecords();
-
-            if (hWin) {
-                hWin.close();
-                delete hWin;
+                if (this.StockRecord.lastStatus != 200) {
+                    this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
+                }
             }
             
-            if (this.StockRecord.lastStatus != 200) {
-                this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
-            }
-
             this.backgroundSyncing = false;
 
             // sync stockRecords if transaction create.
@@ -72,7 +67,6 @@
             var cartController = GeckoJS.Controller.getInstanceByName('Cart');
             if(cartController) {
                 this._cartController = cartController;
-                var self = this;
                 cartController.checkStock = function(action, qty, item, clearWarning) {
                     return self.checkStock(action, qty, item, clearWarning);
                 };
@@ -83,12 +77,9 @@
 
             }
 
-            // register cart'controller 's checkStock / decStock method.
-
         },
 
         destroy: function() {
-            // dump('stocks destroy \n');
             if (this.observer) this.observer.unregister();
         },
 

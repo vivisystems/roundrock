@@ -179,9 +179,9 @@
                                              readonly="true" wrap="true" multiline="true" rows="2"
                                              value="&sync_settings.desc.sequence_hostname;"/>
                                 </row>
-                                <row>
+                                <row hidden="true">
                                     <vbox>
-                                        <checkbox form="syncSettingForm" name="table_active" label="&sync_settings.label.table_active;"/>
+                                        <checkbox form="syncSettingForm" name="table_active" label="&sync_settings.label.table_active;" checked="false"/>
                                     </vbox>
                                     <textbox id="table_hostname_desc" flex="1" class="textbox-description"
                                              readonly="true" wrap="true" multiline="true" rows="2"

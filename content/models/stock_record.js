@@ -200,6 +200,10 @@
 
         },
 
+        isRemote: function() {
+            return this.getRemoteServiceUrl();
+        },
+
         syncAllStockRecords: function(async, callback) {
 
             async = async || false;

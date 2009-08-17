@@ -27,7 +27,23 @@
 
         initSearchCallback: function() {
             var plusearchController = GeckoJS.Controller.getInstanceByName('PluSearch');
-            var plusearchController = GeckoJS.
+            if (plusearchController) {
+
+                var self = this;
+                var cbFunction = function(evt) {
+                    var data = evt.data;
+                    if (data) {
+                        var plusearchListObj = document.getElementById('plusearchscrollablepanel');
+                        if (plusearchListObj) {
+                            plusearchListObj.selection.select(data.index);
+                        }
+
+                        self.selectPlu(data.index, true);
+                    }
+                };
+
+                plusearchController.addEventListener('selectPlu', cbFunction);
+            }
         },
 
         createGroupPanel: function () {
@@ -1149,13 +1165,13 @@
                 return -low // not found             },
         },
 
-        selectPlu: function(index) {
+        selectPlu: function(index, force) {
             var plusearchListObj = document.getElementById('plusearchscrollablepanel');
             var pid = document.getElementById('product_id').value;
             var datas = plusearchListObj.datasource._data;
             
             var plu = datas[index];
-            if (plu != null && plu.id != pid) {
+            if (force || (plu != null && plu.id != pid)) {
                 if (!this.confirmChangeProduct()) {
                     plusearchListObj.selectedIndex = -1;
                     plusearchListObj.selectedItems = [];
@@ -1172,7 +1188,7 @@
                 var catIndex = -1;
                 for (var i = 0; i < categoryIDs.length; i++) {
                     var cat_id = categoryIDs[i];
-                    if (cat_id && categoriesById[cat_id] && categoriesById[cat_id].no == plu.cate_no) {
+                    if (cat_id && categoriesById[cat_id] && categoriesById[cat_id].nalo == plu.cate_no) {
                         catIndex = i;
                         break;
                     }
@@ -1188,9 +1204,6 @@
                 var pluIndex = plus.indexOf(plu.id);
 
                 this.clickPluPanel(pluIndex);
-
-                // disable add/link button
-                document.getElementById('add_plu').setAttribute('disabled', true);
             }
         },
 
@@ -1308,6 +1321,9 @@
                                 newData.icon_only = product.icon_only;
                                 newData.manual_adjustment_only = product.manual_adjustment_only;
                                 newData.memo = product.memo;
+                                newData.scale = product.scale;
+                                newData.sale_unit = product.sale_unit;
+                                newData.tare = product.tare;
                             }
 
                             if (inputObj.cloneSettings['appearance']) {
