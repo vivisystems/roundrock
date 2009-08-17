@@ -6,10 +6,7 @@
 
         components: ['FunctionSettings'],
 
-        screenwidth: GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800,
-        screenheight: GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600,
         profD: GeckoJS.Configure.read('CORE.ProfD'),
-
 
         ready: function() {
 
@@ -50,7 +47,8 @@
                         let k = tmps[tmps.length-2]+'.'+tmps[tmps.length-1];
                         localeKey = k + ".label";
 
-                    }else if (elemId.indexOf('dev') == 0 || elemId.indexOf('opt') == 0) {
+                    }else if (elemId.indexOf('dev') == 0 || elemId.indexOf('opt') == 0
+                              || elemId.indexOf('service') == 0 ) {
                         localeKey = "";
                         let msg = document.getElementById(elemId).getAttribute('label');
                         let labelMsg = _('function_customizer.disable.label', [msg]);

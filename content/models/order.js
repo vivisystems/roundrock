@@ -424,7 +424,8 @@
                         checksum += d.id + d.modified;
                     });
 
-                    if (data.status == 2) {
+                    var KeepEachTransaction = GeckoJS.Configure.read( "vivipos.fec.settings.KeepEachTransaction" );
+                    if (data.status == 2 || ( data.status == 1 && KeepEachTransaction ) ) {// We save the object of a finalized order to DB for the sake of reprinting checks.
 
                         data.checksum = GREUtils.CryptoHash.md5(checksum);
 
@@ -436,8 +437,10 @@
                     return true;
 
                 } catch(e) {
-                    this.log('ERROR',
-                             'record could not be saved to backup [' + e + ']\n' + this.dump(data));
+                    this.log(
+                        'ERROR',
+                        'record could not be saved to backup [' + e + ']\n' + this.dump(data)
+                    );
                 }
 
             }
