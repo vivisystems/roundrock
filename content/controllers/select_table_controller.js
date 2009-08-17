@@ -595,13 +595,11 @@
                     this._hidePromptPanel('prompt_panel');
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._regionTables[v].table_no;
+
                         this._inputObj.index = v;
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
-                        // doOKButton();
-                        
-                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
                         cart.GuestCheck.doSelectTableNo(this._inputObj);
 
                         this._inputObj.action = '';
@@ -623,7 +621,7 @@
                     }
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._regionTables[v].table_no;
+
                         this._inputObj.index = v;
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
@@ -721,7 +719,6 @@
                                 if (!this._tableDock) {
                                     $.hidePanel('selectTablePanel', true);
                                 }
-                            
 
                             }
 

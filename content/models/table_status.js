@@ -468,23 +468,6 @@
 
         },
 
-        getTableList: function(reload) {
-            // GREUtils.log("DEBUG", "getTableList...");
-            reload = true;
-            if (!reload) {
-                // var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
-                if (tables) {
-                    return tables;
-                }
-            }
-            var tableModel = new TableModel();
-            var tableList = tableModel.find('all', {recursive: 2});
-
-            // GeckoJS.Session.set('vivipos_fec_guest_check_table_list', tableList);
-
-            return this._tableList = tableList;
-        },
-
         touchTableStatus: function(table_no) {
             // touch modified time...
             var remoteUrl = this.getRemoteService('touchTableStatus');
@@ -587,10 +570,10 @@
 
         setTableMark: function(table_no, markObj) {
 
-            // var user = GeckoJS.Session.get('user') || {};
-            var user = this.Acl.getUserPrincipal();
+            var user = GeckoJS.Session.get('user') || {};
             // markObj.mark_user = user.username;
-            markObj.mark_user = user ? user.description : _('unknown user');
+            markObj.mark_user = user ? user.displayname : _('unknown user');
+            
 
             var now = Math.round(Date.now().getTime() / 1000);
             markObj.start_time = now;
@@ -644,10 +627,9 @@
 
         setTableMarks: function(regionTables, markObj) {
 
-            // var user = GeckoJS.Session.get('user') || {};
-            var user = this.Acl.getUserPrincipal();
+            var user = GeckoJS.Session.get('user') || {};
             // markObj.mark_user = user.username;
-            markObj.mark_user = user ? user.description : _('unknown user');
+            markObj.mark_user = user ? user.displayname : _('unknown user');
 
             var now = Math.round(Date.now().getTime() / 1000);
             markObj.start_time = now;

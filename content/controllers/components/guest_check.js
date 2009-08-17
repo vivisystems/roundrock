@@ -90,6 +90,13 @@
             this._printController.printChecks(txn, printer, autoPrint, duplicate);
         },
 
+        _restoreOrder: function() {
+            // restore from backup after order was submited/stored
+            var order = new OrderModel();
+            order.restoreOrderFromBackup();
+            delete order;
+        },
+
         handleTruncateTxnRecords: function(evt) {
             //
             var r = this._tableStatusModel.begin();
@@ -218,11 +225,6 @@
         },
 
         handleTransTable: function(evt) {
-            //
-//            this._tableStatusModel.transTable(evt.data.data);
-//            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-//                    this._controller.newTable();
-//            }
 
         },
 
@@ -237,13 +239,11 @@
             this._tableStatusModel.addCheck(evt.data.data);
 
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                    this._controller.newTable();
+
+                    this.getNewTableNo();
             }
 
-            // restore from backup after order was submited/stored
-            var order = new OrderModel();
-            order.restoreOrderFromBackup();
-            delete order;
+            this._restoreOrder();
 
         },
 
@@ -252,7 +252,6 @@
             // is stored order?
             if (evt.data.data.recall == 2) {
 
-                // this._tableStatusModel.removeCheck(evt.data.data);
                 this._tableStatusModel.addCheck(evt.data.data);
 
                 // set autoMark
@@ -291,13 +290,11 @@
             }
 
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                    this._controller.newTable();
+
+                    this.getNewTableNo();
             }
 
-            // restore from backup after order was submited/stored
-            var order = new OrderModel();
-            order.restoreOrderFromBackup();
-            delete order;
+            this._restoreOrder();
             
         },
 
@@ -322,10 +319,7 @@
 
             if (isPrint) this.printChecks(evt.data);
 
-            // restore from backup after order was submited/stored
-            var order = new OrderModel();
-            order.restoreOrderFromBackup();
-            delete order;
+            this._restoreOrder();
 
         },
 
@@ -350,17 +344,24 @@
 
             if (isPrint) this.printChecks(evt.data);
 
-            // restore from backup after order was submited/stored
-            var order = new OrderModel();
-            order.restoreOrderFromBackup();
-            delete order;
+            this._restoreOrder();
 
         },
 
         handleCancel: function(evt) {
             //
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                    this._controller.newTable();
+                    // release lock order on master
+                    if (evt.data) {
+                        var curTransaction = evt.data;
+                        if (curTransaction.data.id) {
+                            var order = new OrderModel();
+                            order.commitTransactionByOrder(curTransaction.data.id);
+                            delete order;
+
+                        }
+                    }
+                    this.getNewTableNo();
             }
         },
 
@@ -373,7 +374,8 @@
             }
 
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                    this._controller.newTable();
+
+                    this.getNewTableNo();
             }
         },
 
@@ -383,21 +385,9 @@
                 this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
                 if (this._guestCheck.tableSettings.RequireCheckNo) {
 
-                    this._controller.newCheck(true);
+                    this.getNewCheckNo();
                 }
             }
-
-        },
-
-        getTableList: function() {
-            // if(this._tableList == null) {
-                var tableModel = new TableModel;
-                var tablelist = tableModel.find("all", {recursive: 0});
-                this._tableList = tablelist;
-                delete tableModel;
-            // }
-
-            return this._tableList;            
 
         },
 
@@ -492,6 +482,12 @@
                 r = false;
             }
 
+            // not allow to split when transaction has only one item
+            if (data.data.items_count == 1) {
+                NotifyUtils.warn(_('The order has only one item ; Cannot be split'));
+                r = false;
+            }
+
             return r;
         },
 
@@ -521,6 +517,15 @@
                     NotifyUtils.warn(_('The order must be stored first!'));
 
                     return;
+                } else {
+
+                    // release lock order on master
+                    if (curTransaction.data.id) {
+                        var order = new OrderModel();
+                        order.commitTransactionByOrder(curTransaction.data.id);
+                        delete order;
+                        
+                    }
                 }
             }
 
@@ -534,10 +539,8 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 isNewOrder: isNewOrder,
-                // tables: tables
                 tables: null
             };
-
 
             var dialog_data = [
                 inputObj
@@ -547,8 +550,6 @@
             try {
                 var r = $.popupPanel('selectTablePanel', dialog_data);
             } catch (e) {}
-
-            //return;
 
             return "" + r;
         },
@@ -735,17 +736,15 @@
         },
 
         recall: function(key, no, silence, excludedOrderId) {
-            // this.log("DEBUG", "GuestCheck recall...key:" + key + ",  no:" + no + " , excludedOrderId:" + excludedOrderId);
+
             switch(key) {
                 case 'OrderNo':
-                    // @todo not implement...
-                    // var ord = this._tableStatusModel.getCheckList('OrderNo', no);
+
                     var ord = this.getCheckList('OrderNo', no);
 
                     if (ord && ord.length > 0) {
                         // AC 2009.04.29
                         var id = ord[0].id;
-                        // var id = ord[idx].order_id;
 
                         var status = ord[0].status;
 
@@ -802,18 +801,10 @@
                     }
                     break;
                 case 'TableNo':
-                    /*
-                    var ordList = this._tableStatusModel.getCheckList('TableNo', no);
-                    var ord = [];
-                    ordList.forEach(function(o){
-                        ord.push(GeckoJS.BaseObject.unserialize(o.order_object));
-                    });
-                    */
+
                     var ord = this.getCheckList('TableNo', no);
 
                     if (ord && ord.length > 1) {
-                        //
-                        // alert(this.dump(ord));
 
                         var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
                         var screenheight = GeckoJS.Session.get('screenheight') || '600';
@@ -829,11 +820,8 @@
 
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
-                            // return queues[idx].key;
-                            
-                            // AC 2009.04.29
+
                             var id = ord[idx].id;
-                            // var id = ord[idx].order_id;
 
                             var status = ord[idx].status;
                             var check_no = ord[idx].check_no;
@@ -988,6 +976,7 @@
 
         },
 
+        // recall order for internal use.
         doStore: function(oldTransaction) {
 
             if (oldTransaction.data.recall == 2) {
@@ -1028,9 +1017,9 @@
             return false;
         },
 
+        // recall order for internal use.
         doRecallByCheck: function(order_id) {
 
-                this.log('doRecallByCheck : ' + order_id);
                 var curTransaction = this.unserializeFromOrder(order_id);
 
                 if (curTransaction == false) {
@@ -1050,6 +1039,7 @@
             
         },
 
+        // recall order for internal use.
         doRecall: function(no, excludedOrderId) {
             var ord = this.getCheckList('TableNo', no);
 
@@ -1071,16 +1061,12 @@
 
                 if (inputObj.ok && inputObj.index) {
                     var idx = inputObj.index;
-                    // return queues[idx].key;
 
-                    // AC 2009.04.29
                     var id = ord[idx].id;
-                    // var id = ord[idx].order_id;
 
                     var status = ord[idx].status;
-                    var check_no = ord[idx].check_no;
 
-                    var curTransaction = this.unserializeFromOrder(order_id);
+                    var curTransaction = this.unserializeFromOrder(id);
 
                     if (curTransaction == false) {
                         //@todo OSD
@@ -1099,9 +1085,8 @@
                 }
 
             } else if (ord && ord.length > 0) {
-                // AC 2009.04.29
+
                 var order_id = ord[0].id;
-                // var id = ord[idx].order_id;
 
                 var status = ord[0].status;
                 var check_no = ord[0].check_no;
@@ -1124,7 +1109,6 @@
                 return curTransaction;
             } else {
                 // @todo OSD
-                alert('no = ' + no);
                 NotifyUtils.warn(_('No order found for table number [%S]', [no]));
                 return false;
             }
@@ -1348,7 +1332,6 @@
 
                     // clear cart
                     
-                    
                     if ( retMerge == -1) {
                         // clear recall check from cart
                        //  this._controller.cancel(true);
@@ -1445,20 +1428,12 @@
         },
 
         doRecallCheck: function(inputObj) {
-            //
+            // from select table window recalled to cart
             if (inputObj.ok && inputObj.index) {
-                var tables = inputObj.tables;
                 var id = inputObj.order_id;
                 var check_no = inputObj.check_no;
                 var tableObj = inputObj.tableObj;
-
-                var idx = inputObj.index;
-                // var i = tables[idx].table_no;
                 var table_no = tableObj.table_no;
-
-                // var id = tables[idx].order_id;
-                // var destination = tables[idx].Table.destination;
-                var destination = tableObj.Table.destination;
 
                 if (id) {
 
@@ -1485,7 +1460,7 @@
                 } else if (check_no) {
                     this.recallByCheckNo(check_no);
                 } else {
-                    this.recallByTableNo(i);
+                    this.recallByTableNo(table_no);
                 }
                 return true;
             }
@@ -1557,9 +1532,9 @@
 
             GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, 'merge_checks', aFeatures, inputObj);
 
-            // if (inputObj.ok) {
+
             if (inputObj.ok && inputObj.payit) {
-                // return queues[idx].key;
+
                 var id = inputObj.id;
                 var check_no = inputObj.check_no;
 
@@ -1580,7 +1555,7 @@
                 return 2;
 
             }else {
-                // return null;
+
                 if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
                 }
@@ -1589,7 +1564,7 @@
         },
 
         splitOrder: function(no, data) {
-            //this.log("DEBUG", "GuestCheck split check...no:" + no);
+
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
             var aURL = "chrome://viviecr/content/split_check.xul";
