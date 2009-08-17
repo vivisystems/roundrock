@@ -337,6 +337,9 @@
         // handles payment events
         handleOpenDrawerEvent: function(evt) {
 
+            // if preventDefault at beforePayment, but called afterPayment.
+            if (!evt || !evt.data) return ;
+
             var eventType = 'payment';
 
             // on payment events, check if a submit event is coming

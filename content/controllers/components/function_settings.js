@@ -110,7 +110,6 @@
                 'optAddonsExtensionsView': {type:'css', method:'hidden', selector: '#extensionsManager #extensions-view', checkForCss:'optAddonsExtensionsView'},
                 'optAddonsLocalesView': {type:'css', method:'hidden', selector: '#extensionsManager #locales-view', checkForCss:'optAddonsLocalesView'},
                 'optAddonsPluginsView': {type:'css', method:'hidden', selector: '#extensionsManager #plugins-view', checkForCss:'optAddonsPluginsView'}
-
             },
 
             systemsForm: {
@@ -126,7 +125,14 @@
                 'cpTouchCalibration': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.touch_calibration', acl:'acl_touch_settings', checkForAcl:'cpTouchCalibration'},
                 'cpXterm': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.xterm', acl:'acl_xterm', checkForAcl:'cpXterm'},
                 'cpJournal': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.journal', acl:'acl_manage_journal', checkForAcl:'cpJournal'},
-                'cpViewSystemLog': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.view_system_log', acl:'acl_view_system_log', checkForAcl:'cpViewSystemLog'}
+                'cpViewSystemLog': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.view_system_log', acl:'acl_view_system_log', checkForAcl:'cpViewSystemLog'},
+
+                'serviceSyncSettingsAdvTab': {type:'css', method:'hidden', selector: '#syncSettingsXUL #advanced-tab', checkForCss:'serviceSyncSettingsAdvTab'},
+                'serviceSyncSettingsTab': {type:'css', method:'hidden', selector: '#syncSettingsXUL #services-tab', checkForCss:'serviceSyncSettingsSeq,serviceSyncSettingsTable,serviceSyncSettingsStock,serviceSyncSettingsNtp'},
+                'serviceSyncSettingsSeq': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsSeqBox', checkForCss:'serviceSyncSettingsSeq'},
+                'serviceSyncSettingsTable': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsTableBox', checkForCss:'serviceSyncSettingsTable'},
+                'serviceSyncSettingsStock': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsStockBox', checkForCss:'serviceSyncSettingsStock'},
+                'serviceSyncSettingsNtp': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsNtpBox', checkForCss:'serviceSyncSettingsNtp'}
             },
             
             reportsForm: {
