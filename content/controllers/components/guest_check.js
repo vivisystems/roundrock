@@ -182,7 +182,7 @@
 
                     if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
                         _('Order amount does not reach Minimum Charge'),
-                        _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\nClick OK to finalize this order by Minimum Charge, \nor, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
+                        _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed? Click OK to finalize this order by Minimum Charge, or, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
 
                         // @todo OSD
                         NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
@@ -311,7 +311,7 @@
                 case '2':
                     if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
                         _('Print Splited Check'),
-                        _('Do you want to print splited Check#%S ?\nClick OK to print, \nor, click Cancel to abort.', [evt.data.data.check_no])) == true) {
+                        _('Do you want to print splited Check#%S ? Click OK to print, or, click Cancel to abort.', [evt.data.data.check_no])) == true) {
                         isPrint = true;
                     }
                     break;
@@ -336,7 +336,7 @@
                 case '2':
                     if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
                         _('Print Merged Check'),
-                        _('Do you want to print merged Check#%S ?\nClick OK to print, \nor, click Cancel to abort.', [evt.data.data.check_no])) == true) {
+                        _('Do you want to print merged Check#%S ? Click OK to print, or, click Cancel to abort.', [evt.data.data.check_no])) == true) {
                         isPrint = true;
                     }
                     break;
