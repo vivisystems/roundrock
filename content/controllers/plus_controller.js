@@ -25,6 +25,11 @@
 
         _cloningInProgress: false,
 
+        initSearchCallback: function() {
+            var plusearchController = GeckoJS.Controller.getInstanceByName('PluSearch');
+            var plusearchController = GeckoJS.
+        },
+
         createGroupPanel: function () {
 
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
@@ -1136,7 +1141,7 @@
             while (low < high) {
                 var mid = Math.floor((low - (- high))/2);
                 (list[mid][path] < elem) ? low = mid + 1 : high = mid;
-            }
+            }s
             // high == low, using high or low depends on taste
             if ((low < N) && (list[low][path] == elem))
                 return low // found

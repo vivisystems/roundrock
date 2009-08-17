@@ -3366,7 +3366,6 @@
         },
 
         _getCondimentsDialog: function (condgroup, condiments) {
-
             var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
             // not initial , initial again!
             if (!condGroupsByPLU) {
@@ -3387,19 +3386,19 @@
             }else {
                 // check item selected condiments
                 //var condNames = GeckoJS.BaseObject.getKeys(condiments);
-                var condNames = condiments.map(function(c) {
+                var condNames = conds.map(function(c) {
                     return c.name
                 });
-                for (var i = 0; i < conds.length; i++) {
-                    if (condNames.indexOf(conds[i].name) > -1) {
-                        selectedItems.push(i);
+                for (var i = 0; i < condiments.length; i++) {
+                    var found = condNames.indexOf(condiments[i].name);
+                    if (found > -1) {
+                        selectedItems.push(found);
                     }
                     else {
                         additionalItems.push(condiments[i]);
                     }
                 }
             }
-            
             var dialog_data = {
                 conds: conds,
                 selectedItems: selectedItems,

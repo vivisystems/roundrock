@@ -12,6 +12,8 @@ function startup() {
 
     $do('createFilterRows', null, 'PluSearch');
 
+    $do('initSearchCallback', null, 'Plus');
+
     $('#imageBrowseBtn')[0].addEventListener('command', selectImages, false);
 	$('#imageRemoveBtn')[0].addEventListener('command', RemoveImage, false);
 

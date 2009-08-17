@@ -163,10 +163,12 @@
                 var product = this._listDatas[0];
                 
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
-                // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
                 if (window.arguments && window.arguments[0]) {
                     window.arguments[0].item = product;
                 }
+
+                // dispatch event
+                this.dispatchEvent('selectPlu', {index: 0, product: product});
             }else {
                 // reset?
             }
