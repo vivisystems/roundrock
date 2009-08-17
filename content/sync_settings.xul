@@ -33,7 +33,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
 
-    <vbox flex="1" class="container-be">
+    <vbox id="syncSettingsXUL" flex="1" class="container-be">
         <vbox flex="1" class="container-main">
 
             <tabbox flex="1" class="content-tabbox">
@@ -169,7 +169,7 @@
                                 <column flex="2"/>
                             </columns>
                             <rows>
-                                <row>
+                                <row id="syncSettingsSeqBox">
                                     <vbox>
                                         <label value="&sync_settings.label.sequence_hostname;"/>
                                         <textbox value="localhost"
@@ -179,7 +179,7 @@
                                              readonly="true" wrap="true" multiline="true" rows="2"
                                              value="&sync_settings.desc.sequence_hostname;"/>
                                 </row>
-                                <row>
+                                <row id="syncSettingsTableBox">
                                     <vbox>
                                         <checkbox form="syncSettingForm" name="table_active" label="&sync_settings.label.table_active;"/>
                                     </vbox>
@@ -187,7 +187,7 @@
                                              readonly="true" wrap="true" multiline="true" rows="2"
                                              value="&sync_settings.desc.table_active;"/>
                                 </row>
-                                <row>
+                                <row id="syncSettingsStockBox">
                                     <vbox>
                                         <label value="&sync_settings.label.stock_hostname;"/>
                                         <textbox value="localhost"
@@ -197,7 +197,7 @@
                                              readonly="true" wrap="true" multiline="true" rows="2"
                                              value="&sync_settings.desc.stock_hostname;"/>
                                 </row>
-                                <row>
+                                <row id="syncSettingsNtpBox">
                                     <vbox>
                                         <label value="&sync_settings.label.ntp_hostname;"/>
                                         <textbox value="localhost"
