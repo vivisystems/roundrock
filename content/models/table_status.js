@@ -52,20 +52,6 @@
 
         },
 
-        syncClient: function() {
-            // sync data
-            try {
-                var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
-                var r = exec.run(["sync"], false); // nonblock mode
-                exec.close();
-                return true;
-            }
-            catch (e) {
-                NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
-                return false;
-            }
-        },
-
         getLocalService: function(method,force_remote) {
             this.syncSettings = (new SyncSetting()).read();
 
@@ -98,9 +84,10 @@
             if (this.syncSettings && this.syncSettings.active == 1 && this.syncSettings.table_active) {
 
                 var hostname = this.syncSettings.hostname || 'localhost';
-                if ((hostname == 'localhost' || hostname == '127.0.0.1') && !force_remote) return false;
+
+                // always use webservice when network table service active
+                // if ((hostname == 'localhost' || hostname == '127.0.0.1') && !force_remote) return false;
                 
-                //  http://localhost:3000/sequences/getSequence/check_no
                 // check connection status
                 this.url = this.syncSettings.protocol + '://' +
                 hostname + ':' +
