@@ -3703,7 +3703,7 @@
             var annotationTypes = annotationController.getAllAnnotationTypes();
 
             var inputObj = {
-                input0: memo,
+                input0: memo || '',
                 require0: false,
                 annotations: annotationTypes
             };
