@@ -642,7 +642,9 @@
                                                       form="systemsForm" name="cpViewSystemLog" default="false" />
                                     </tabpanel>
 
-                                    <tabpanel flex="1" orient="vertical">                                        
+                                    <tabpanel flex="1" orient="vertical">
+                                            <checkbox id="serviceSyncSettingsAdvTab" value="true" label="&sync_settings.tablabel.advanced;"
+                                                          form="systemsForm" name="serviceSyncSettingsAdvTab" default="false" />
                                             <checkbox id="serviceSyncSettingsTab" value="true" checked="true" hidden="true" form="systemsForm" name="serviceSyncSettingsTab" />
                                             <checkbox id="serviceSyncSettingsSeq" value="true" label="&sync_settings.desc.sequence_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsSeq" default="false" />
