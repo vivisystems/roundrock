@@ -21,19 +21,40 @@
 
                 display_sequences: [],
 
+                /*
+                 * order_items,
+                 * summary cant recalc from items
+                 */
                 items: {},
-
                 items_count: 0,
-
                 items_summary: {},
 
+                /*
+                 * order_additions
+                 */
                 trans_discounts: {},
                 trans_surcharges: {},
 
+                /*
+                 * order_payments
+                 */
                 trans_payments: {},
 
+                /*
+                 * marker only exists in memory 
+                 */
                 markers: [],
 
+                /*
+                 * order_promotions 
+                 */
+                promotion_apply_items: [],
+                promotion_matched_items: [],
+                promotion_subtotal: 0,
+
+                /*
+                 * calculate fields
+                 */
                 total: 0,
                 remain: 0,
                 revalue_subtotal: 0,
@@ -44,8 +65,6 @@
                 discount_subtotal: 0,
                 payment_subtotal: 0,
                 
-                promotion_subtotal: 0,
-
                 price_modifier: 1,    // used to modify item subtotals
                 
                 rounding_prices: 'to-nearest-precision',
@@ -97,6 +116,32 @@
         },
 
         serialize: function() {
+
+            var f = new GeckoJS.File("/tmp/all.ser");
+            var f2 = new GeckoJS.File("/tmp/all2.ser");
+            var f3 = new GeckoJS.File("/tmp/all3.ser");
+
+            var s = GeckoJS.BaseObject.serialize(this.data);
+
+            // clone
+            var d2 = GeckoJS.BaseObject.unserialize(s);
+            delete d2.items;
+            delete d2.items_summary;
+            var s2 = (GREUtils.Gzip.deflate(GeckoJS.BaseObject.serialize(d2)));
+            var s3 = btoa(s2);
+
+            f.open("w");
+            f.write(s);
+            f.close();
+
+            f2.open("wb");
+            f2.write(s2);
+            f2.close();
+
+            f3.open("w");
+            f3.write(s3);
+            f3.close();
+
             return GeckoJS.BaseObject.serialize(this.data);
         },
 
@@ -2447,7 +2492,9 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-        //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+
+            this.serialize();
         },
 
 
