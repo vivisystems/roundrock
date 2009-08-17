@@ -3027,25 +3027,35 @@
                     return false;
                 }
 
-                oldTransaction.data.status = status;
-                this.dispatchEvent('afterSubmit', oldTransaction);
+                try {
+                    // dispatch event for devices or extensions.
 
-                //this.dispatchEvent('onClear', 0.00);
-                this._getKeypadController().clearBuffer();
-                this._cancelReturn(true);
+                    oldTransaction.data.status = status;
+                    this.dispatchEvent('afterSubmit', oldTransaction);
 
-                // clear register screen if needed
-                if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                    //this._cartView.empty();
-                    this.cartViewEmpty();
-                }
+                    //this.dispatchEvent('onClear', 0.00);
+                    this._getKeypadController().clearBuffer();
+                    this._cancelReturn(true);
 
-                if (status != 2) {
-                    if (status != 1) this.clearWarning();
-                    this.dispatchEvent('onSubmit', oldTransaction);
-                }
-                else {
-                    this.dispatchEvent('onGetSubtotal', oldTransaction);
+                    // clear register screen if needed
+                    if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                        //this._cartView.empty();
+                        this.cartViewEmpty();
+                    }
+
+                    if (status != 2) {
+                        if (status != 1) this.clearWarning();
+                        this.dispatchEvent('onSubmit', oldTransaction);
+                    }
+                    else {
+                        this.dispatchEvent('onGetSubtotal', oldTransaction);
+                    }
+
+                }finally{
+
+                    // finally commit the submit , and write transaction to databases(or to remote databases).
+                    oldTransaction.commit(status);
+                    
                 }
 
                 this._unblockUI('blockui_panel');

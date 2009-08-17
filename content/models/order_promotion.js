@@ -4,7 +4,8 @@
         include( 'chrome://viviecr/content/models/app.js' );
     }
     
-    var OrderPromotionModel = window.OrderPromotionModel =  AppModel.extend({
+    var __model__ = {
+        
         name: 'OrderPromotion',
 
         useDbConfig: 'order',
@@ -13,6 +14,33 @@
 
         behaviors: ['Sync', 'Training'],
 
-        autoRestoreFromBackup: true
-    });
+        autoRestoreFromBackup: true,
+
+        mappingTranToOrderPromotionsFields: function(data) {
+
+            var orderPromotions = [];
+
+            for (var idx in data.promotion_apply_items) {
+
+                let applyItem = data.promotion_apply_items[idx];
+
+                applyItem['order_id'] = data.id;
+                applyItem['promotion_id'] = applyItem['id'];
+                applyItem['discount_subtotal'] = applyItem['discount_subtotal'];
+                delete (applyItem['id']);
+
+                orderPromotions.push(applyItem);
+            }
+
+            return orderPromotions;
+
+        },
+
+        mappingOrderPromotionsFieldsToTran: function() {
+            
+        }
+    };
+
+    var OrderPromotionModel = window.OrderPromotionModel =  AppModel.extend(__model__);
+
 } )();

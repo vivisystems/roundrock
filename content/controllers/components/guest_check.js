@@ -322,7 +322,7 @@
 
             // restore from backup after order was submited/stored
             var order = new OrderModel();
-            order.restoreOrderFromBackup();
+            //order.restoreOrderFromBackup();
             delete order;
             
         },

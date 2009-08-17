@@ -115,36 +115,16 @@
 
         },
 
+        /**
+         * Transaction Serialization , only for recovery.
+         */
         serialize: function() {
-
-            var f = new GeckoJS.File("/tmp/all.ser");
-            var f2 = new GeckoJS.File("/tmp/all2.ser");
-            var f3 = new GeckoJS.File("/tmp/all3.ser");
-
-            var s = GeckoJS.BaseObject.serialize(this.data);
-
-            // clone
-            var d2 = GeckoJS.BaseObject.unserialize(s);
-            delete d2.items;
-            delete d2.items_summary;
-            var s2 = (GREUtils.Gzip.deflate(GeckoJS.BaseObject.serialize(d2)));
-            var s3 = btoa(s2);
-
-            f.open("w");
-            f.write(s);
-            f.close();
-
-            f2.open("wb");
-            f2.write(s2);
-            f2.close();
-
-            f3.open("w");
-            f3.write(s3);
-            f3.close();
-
             return GeckoJS.BaseObject.serialize(this.data);
         },
 
+        /**
+         * Transaction unserialization , only for recovery.
+         */
         unserialize: function(data) {
             this.data = GeckoJS.BaseObject.unserialize(data);
             Transaction.events.dispatch('onUnserialize', this, this);
@@ -325,6 +305,15 @@
             }
         },
 
+        commit: function(status) {
+
+            dump('commit \n');
+            var order = new OrderModel();
+            return order.commitSaveOrder(status) ? 1 : -1;
+
+        },
+
+
         cancel: function() {
 
             // set status = -1
@@ -346,6 +335,8 @@
             return this.process(status);
 
         },
+
+
 
         close: function() {
             this.data.closed = true;
