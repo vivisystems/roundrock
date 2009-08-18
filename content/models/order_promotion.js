@@ -27,6 +27,7 @@
                 applyItem['order_id'] = data.id;
                 applyItem['promotion_id'] = applyItem['id'];
                 applyItem['discount_subtotal'] = applyItem['discount_subtotal'];
+                
                 delete (applyItem['id']);
 
                 orderPromotions.push(applyItem);
@@ -36,7 +37,10 @@
 
         },
 
-        mappingOrderPromotionsFieldsToTran: function() {
+        mappingOrderPromotionsFieldsToTran: function(orderData, data) {
+
+            // promotions must be recalc .
+            return false;
             
         }
     };

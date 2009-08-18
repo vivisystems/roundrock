@@ -102,7 +102,7 @@
                 let orderId = item.order_id;
 
                 // name,current_qty,current_price,current_subtotal
-                let orderItem = {
+                let orderItem = data.items[itemIndex] || {
                     type: 'item', // item or category
                     index: itemIndex
                 };

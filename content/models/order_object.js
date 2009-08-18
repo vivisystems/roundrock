@@ -22,13 +22,13 @@
                 // clone data
                 var d2 = GeckoJS.BaseObject.unserialize(s);
 
-                delete d2.id;
+                //delete d2.id;
                 delete d2.seq;
 
                 delete d2.items;
-                delete d2.items_summary;
+                //delete d2.items_summary;
+                //delete d2.items_count;
 
-                delete d2.items_count;
                 delete d2.trans_discounts;
                 delete d2.trans_surcharges;
                 delete d2.trans_payments;
@@ -98,6 +98,29 @@
             if (!orderData.OrderObject || typeof orderData.OrderObject == 'undefined') return {};
 
             var obj = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(atob(orderData.OrderObject.object)));
+
+            if (!obj.display_sequences) return obj;
+            
+            // use createDisplaySeq
+            var items = {};
+            for (let seqIdx in obj.display_sequences) {
+
+                let seqData = obj.display_sequences[seqIdx];
+
+                if (seqData.type == 'item' || seqData.type == 'setitem') {
+                    items[seqData.index] = {id: seqData.id,
+                                            type: 'item',
+                                            no: seqData.no,
+                                            name: seqData.name,
+                                            alt_name1: seqData.alt_name1,
+                                            alt_name2: seqData.alt_name2,
+                                            destination: seqData.destination,
+                                            parent_index: seqData.parent_index ||'',
+                                            age_verification: seqData.age_verification,
+                                            price_modifier: seqData.price_modifier};
+                }
+            }
+            obj.items = items;
 
             return obj;
             

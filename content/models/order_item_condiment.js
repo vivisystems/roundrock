@@ -51,8 +51,32 @@
 
         },
 
-        mappingOrderItemCondimentsFieldsToTran: function() {
-            
+        mappingOrderItemCondimentsFieldsToTran: function(orderData, data) {
+
+            if (!orderData.OrderItemCondiment || typeof orderData.OrderItemCondiment == 'undefined') return false;
+
+            for (var idx in orderData.OrderItemCondiment) {
+
+                let condiment = orderData.OrderItemCondiment[idx];
+                let index = condiment.item_id;
+                
+                let item = data.items[index];
+                let subtotal = 0 ;
+                
+                if (!item) continue;
+
+                if (!item.condiments) item.condiments = {};
+
+                item.condiments[condiment.name] = {
+                       name: condiment.name,
+                       price: condiment.price,
+                       current_subtotal: condiment.price
+                };
+                item.current_condiment += condiment.price;
+
+            }
+
+            return true;
         }
 
     };

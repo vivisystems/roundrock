@@ -445,6 +445,8 @@
                     id: item.id,
                     no: item.no,
                     name: item.name,
+                    alt_name1: item.alt_name1,
+                    alt_name2: item.alt_name2,
                     destination: this.data.destination_prefix,
                     current_qty: item.current_qty,
                     current_price: item.current_price,
@@ -472,6 +474,7 @@
                     current_tax: '',
                     type: type,
                     index: index,
+                    parent_index: item.parent_index,
                     stock_status: item.stock_status,
                     age_verification: item.age_verification,
                     level: (level == null) ? 1 : level,
@@ -2485,7 +2488,6 @@
 
             this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
 
-            this.serialize();
         },
 
 

@@ -38,6 +38,20 @@
         },
 
         mappingOrderAnnotationsFieldsToTran: function(orderData, data) {
+
+            var annotations = {};
+
+            if (!orderData.OrderAnnotation || typeof orderData.OrderAnnotation == 'undefined') return false;
+
+            for (var idx in orderData.OrderAnnotation) {
+
+                let annotation = orderData.OrderAnnotation[idx];
+
+                annotations[annotation.type] = annotation.text;
+
+            }
+
+            data['annotations'] = annotations;
             
         }
 
