@@ -13,6 +13,7 @@ class StockRecord extends AppModel {
 
     }
 
+
     function setStockRecords($datas=array()) {
 
 
@@ -75,7 +76,7 @@ class StockRecord extends AppModel {
      * @param <type> $datas
      * @return <type> 
      */
-    function decreaseStockRecords($datas=array()) {
+    function decreaseStockRecords($datas=array(), $lastModifiedInventory) {
 
         $now = time();
         $sql = "" ;
@@ -84,19 +85,21 @@ class StockRecord extends AppModel {
 
         foreach ($datas as $d) {
 
+            if ($d <= $lastModifiedInventory) continue;
+            
             $ids[] = $d['id'];
 
             $sql .= "UPDATE stock_records SET quantity=quantity-".$d['quantity'].", modified='".$now."' WHERE id = '".$d['id']."' ;\n";
         }
 
         // check stock first
-        //$this->checkRecordsExists($ids);
+        $this->checkRecordsExists($ids);
 
         try {
 
             $datasource =& $this->getDataSource();
             $datasource->connection->beginTransaction();
-            $datasource->connection->exec($sqlExec);
+            $datasource->connection->exec($sql);
             $datasource->connection->commit();
 
         }  catch(Exception $e) {

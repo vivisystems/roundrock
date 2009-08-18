@@ -6,7 +6,7 @@ class StocksController extends AppController {
 
     var $name = 'Stocks';
 
-    var $uses = array('StockRecord');
+    var $uses = array('StockRecord','InventoryCommitment');
 
     var $components = array('SyncHandler', 'Security');
 
@@ -120,7 +120,10 @@ class StocksController extends AppController {
         $result = array('status' => 'error', 'code' => 400 );
 
         if (is_array($requests)) {
-            $this->StockRecord->decreaseStockRecords($requests);
+
+            $lastModifiedInventory = $this->InventoryCommitment->getLastModified();
+
+            $this->StockRecord->decreaseStockRecords($requests, $lastModifiedInventory);
         }
 
         $stocks = $this->StockRecord->getLastModifiedRecords($lastModified);
