@@ -36,7 +36,7 @@ else {
   delete TrimPath.PrecisionTaxes;
 {/eval}
 ,""
-"${_( '(rpt)Records Found' )}","${GeckoJS.BaseObject.getKeys(body).length|format:0}","","","","${_( '(rpt)Summary' ) + ':'}","${foot.summary.total|default:0|viviFormatPrices:true}","${foot.summary.discount_subtotal|default:0|viviFormatPrices:true}","${foot.summary.promotion_subtotal|default:0|viviFormatPrices:true}","${foot.summary.revalue_subtotal|default:0|viviFormatPrices:true}","${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}","${foot.summary.tax_subtotal|default:0|viviFormatTaxes:true}","${foot.summary.included_tax_subtotal|default:0|viviFormatTaxes:true}"{for tax in taxList}
+"${_( '(rpt)Records Found' )}","${GeckoJS.BaseObject.getKeys(body).length|format:0}","","","","${_( '(rpt)Summary' ) + ':'}","${foot.summary.total|default:0|viviFormatPrices:true}","${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}","${foot.summary.discount_subtotal|default:0|viviFormatPrices:true}","${foot.summary.promotion_subtotal|default:0|viviFormatPrices:true}","${foot.summary.revalue_subtotal|default:0|viviFormatPrices:true}","${foot.summary.tax_subtotal|default:0|viviFormatTaxes:true}","${foot.summary.included_tax_subtotal|default:0|viviFormatTaxes:true}"{for tax in taxList}
 {eval}
 if (tax.no in foot.summary) {
    item_subtotal = foot.summary[tax.no].item_subtotal;
