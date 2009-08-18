@@ -15,6 +15,8 @@
 
         uses: ['Promotion'],
 
+        components: ['Tax'],
+
         _activedPromotions: [],
         _currentPromotions: [],
         _triggerPrefs: {},
@@ -231,6 +233,7 @@
                             if(typeObj) {
                                 // set prefs define to object
                                 typeObj.setPrefs(self._typePrefs[promotion.type]);
+                                typeObj.setTaxNo(promotion.tax_no);
                                 self._activedTypes[Id] = typeObj;
                             }
                         }catch(e) {}
