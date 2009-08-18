@@ -111,7 +111,7 @@
 
         select: function(index) {
             //
-            var data = this._listDatas[index];
+            var data = this._listDatas ? this._listDatas[index] : null;
             if (data) {
                 GeckoJS.FormHelper.unserializeFromObject('productForm', data);
                 // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
