@@ -27,7 +27,7 @@
         saveOrder: function(data) {
 
             if (!data ) return true;
-            
+
             var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
 
             var result =  this.saveOrderToBackup(data, isTraining) || false;
@@ -47,8 +47,6 @@
 
         saveOrderToBackup: function(data, isTraining) {
 
-            dump('saveOrderToBackup \n'  );
-            
             var retObj;
 
                 try {
@@ -153,10 +151,8 @@
             if (r) r = this.OrderAnnotation.restoreFromBackup();
             if (r) r = this.OrderItemCondiment.restoreFromBackup();
             if (r) r = this.OrderPromotion.restoreFromBackup();
-
             if (r) r = this.OrderObject.restoreFromBackup();
 
-            this.readOrder('91e87084-302a-47da-aa44-bd5b581bb296');
         },
 
 
@@ -173,16 +169,16 @@
             // use unserialize first
             data = this.OrderObject.mappingOrderObjectsFieldsToTran(orderData, data);
 
-            this.log('readOrder restore:' + this.dump(data));
-
-
             this.mappingOrderFieldsToTran(orderData, data);            
             this.OrderItem.mappingOrderItemsFieldsToTran(orderData, data);
             this.OrderAddition.mappingOrderAdditionsFieldsToTran(orderData, data);
             this.OrderPayment.mappingOrderPaymentsFieldsToTran(orderData, data);
-            //this.OrderAnnotation.mappingOrderAnnotationsFieldsToTran(orderData, data);
+            this.OrderAnnotation.mappingOrderAnnotationsFieldsToTran(orderData, data);
+            this.OrderItemCondiment.mappingOrderItemCondimentsFieldsToTran(orderData, data);
+            this.OrderPromotion.mappingOrderPromotionsFieldsToTran(orderData, data);
 
-            this.log(this.dump(data));
+            this.log('DEBUG', 'readOrder '+ id + ': \n' + this.dump(data));
+            
             return data;
 
         },
