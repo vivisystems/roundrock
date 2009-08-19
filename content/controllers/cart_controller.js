@@ -715,6 +715,7 @@
 
                 } ).next( function() {
 
+                    alert('in final next');
                     // single item sale?
                     if (doSIS) {
                         self._addPayment('cash');
@@ -3417,7 +3418,7 @@
                     self._appendCondiments(selectedCondiments.concat(additionalItems), true);
                 }
                 else {
-                    this._clearAndSubtotal();
+                    self._clearAndSubtotal();
                 }
             });
 
