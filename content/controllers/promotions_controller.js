@@ -334,6 +334,8 @@
 
             // initial promotion discount and recursive 100
             var totalPromotionDiscount = 0 ;
+            var taxSubtotal = 0 ;
+            var taxIncludedSubtotal = 0 ;
             var maxRecursiveCount = 100;
             var promotionMatchedItems = [] ;
 
@@ -384,6 +386,8 @@
                                 
                                 // update promotiondiscount
                                 totalPromotionDiscount += typeObj.getDiscountSubtobal();
+                                taxSubtotal += typeObj.getDiscountTaxSubtotal();
+                                taxIncludedSubtotal += typeObj.getDiscountTaxIncludedSubtotal();
                                 
                             }
 
@@ -402,7 +406,7 @@
             //this.log('process End ' + (profileEnd - profileStart));
             //applyModel.getDiscountSubotal();
             // update
-            this.updateTransaction(totalPromotionDiscount, promotionMatchedItems);
+            this.updateTransaction(totalPromotionDiscount, taxSubtotal, taxIncludedSubtotal, promotionMatchedItems);
 
         },
 
@@ -481,7 +485,7 @@
            
         },
 
-        updateTransaction: function(totalPromotionDiscount, promotionMatchedItems) {
+        updateTransaction: function(totalPromotionDiscount, taxSubtotal, taxIncludedSubtotal, promotionMatchedItems) {
             
             var applyModel = this.getApplyModel();
 
@@ -490,6 +494,8 @@
             this._transaction['data']['promotion_subtotal'] = totalPromotionDiscount;
             this._transaction['data']['promotion_apply_items'] = applyItems;
             this._transaction['data']['promotion_matched_items'] = promotionMatchedItems;
+            this._transaction['data']['promotion_tax_subtotal'] = taxSubtotal;
+            this._transaction['data']['promotion_included_tax_subtotal'] = taxIncludedSubtotal;
 
             //this.log('updateTransaction' +  this.dump(applyItems) + this.dump(promotionMatchedItems));
         }

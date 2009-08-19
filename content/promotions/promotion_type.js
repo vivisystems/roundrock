@@ -22,7 +22,8 @@ var __klass__ = {
         this._cartItemModel = null;
         this._discountSubtobal = 0;
         this._taxNo = '';
-        this._taxSubtotal = 0;
+        this._taxSubtotal = false;
+        this._taxIncluedSubtotal = false;
 
     },
 
@@ -69,7 +70,8 @@ var __klass__ = {
     setup: function(trigger) {       
         this._trigger = trigger || null;
         this._discountSubtobal = 0;
-        this._taxSubtotal = 0;
+        this._taxSubtotal = false;
+        this._taxIncluedSubtotal = false;
     },
 
     getTrigger: function() {
@@ -113,13 +115,37 @@ var __klass__ = {
         var taxNo = this.getTaxNo();
         var taxComponent = this.getTaxComponent();
 
-        if (!taxNo || !taxComponent) return this._taxSubtotal;
+        if (!taxNo || !taxComponent) return 0;
 
-        var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtobal()), Math.abs(this.getDiscountSubtobal()), 1);
+        if (this._taxSubtotal === false) {
 
-        this._taxSubtotal =  taxChargeObj[taxNo].charge;
+            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtobal()), Math.abs(this.getDiscountSubtobal()), 1);
+
+            this._taxSubtotal =  taxChargeObj[taxNo].charge;
+            this._taxIncluedSubtotal =  taxChargeObj[taxNo].included;
+
+        }
 
         return this._taxSubtotal;
+    },
+
+    getDiscountTaxIncludedSubtotal: function() {
+
+        var taxNo = this.getTaxNo();
+        var taxComponent = this.getTaxComponent();
+
+        if (!taxNo || !taxComponent) return 0;
+
+        if (this._taxSubtotal === false) {
+
+            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtobal()), Math.abs(this.getDiscountSubtobal()), 1);
+            
+            this._taxSubtotal =  taxChargeObj[taxNo].charge;
+            this._taxIncluedSubtotal =  taxChargeObj[taxNo].included;
+
+        }
+
+        return this._taxIncluedSubtotal;
     },
 
 

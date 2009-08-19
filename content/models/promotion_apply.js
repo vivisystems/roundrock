@@ -29,7 +29,8 @@
             + trigger.getMatchedItemsSubtotal() +","
             + type.getDiscountSubtobal() +","
             + "'" + (type.getTaxNo()||'') +"'," // tax_name
-            + type.getDiscountTaxSubtotal()
+            + type.getDiscountTaxSubtotal() +","// current_tax
+            + type.getDiscountTaxIncludedSubtotal()  // included_tax
             + ")";
 
             var datasource = this.getDataSource();

@@ -136,6 +136,16 @@
                     summary.promotion_subtotal += data.Order.promotion_subtotal;
                     summary.revalue_subtotal += data.Order.revalue_subtotal;
                 }
+                
+                /**
+                 *@Mickey - After consulting Irving on August 19, 2009
+                 *We take only order discount/surcharge, which you can found in OrderAdditions, into account since we have no way to know
+                 *where the discount/surcharge amount comes from.
+                 *For instance, if two items were added into cart with 5% and 10% add-on tax repectively, and then we subtotaled the order, and applied a 10-dollar order discount,
+                 *then it's apparently that we don't know in what kind of ratio the discount should be shared by those two items, and so that we don't know
+                 *the decrement of total tax amount. For example, if we say that the order discount is entirely from the item with 10% add-on tax, then the total tax reduction goes to
+                 *10 * 0.1 = 1, on the other hand, if the discount is from the item with 5% add-on tax, then the tax reduction will be 10 * 0.05 = 5.
+                 */
 
                 // back item discount/surcharge out of order discount/surcharge totals
                 records[ oid ][ 'surcharge_subtotal' ] -= data.current_surcharge || 0;
