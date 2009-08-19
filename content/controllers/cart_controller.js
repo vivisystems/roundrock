@@ -715,7 +715,6 @@
 
                 } ).next( function() {
 
-                    alert('in final next');
                     // single item sale?
                     if (doSIS) {
                         self._addPayment('cash');
@@ -3521,7 +3520,7 @@
 
             var memo;
             if (typeof plu == 'object' || plu == null || plu == '') {
-                this._getMemoDialog(memoItem ? memoItem.memo : '');
+                return this._getMemoDialog(memoItem ? memoItem.memo : '');
             }
             else {
                 memo = GeckoJS.String.trim(plu);
