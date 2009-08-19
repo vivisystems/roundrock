@@ -2391,7 +2391,8 @@
             Transaction.events.dispatch('onCalcTotal', this.data, this);
 
             var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0, qty_subtotal=0;
-            var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0, promotion_subtotal=0;
+            var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0;
+            var promotion_subtotal=0;
 
             // item subtotal and grouping
             this.data.items_summary = {}; // reset summary
@@ -2450,6 +2451,9 @@
 
             promotion_subtotal = this.data.promotion_subtotal ;
 
+            tax_subtotal -= this.data.promotion_tax_subtotal;
+            included_tax_subtotal -= this.data.promotion_included_tax_subtotal;
+            
             total = this.getRoundedPrice(item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal);
             remain = total - payment_subtotal;
 
