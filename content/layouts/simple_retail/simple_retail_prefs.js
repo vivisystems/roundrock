@@ -54,8 +54,11 @@ function selectImage(targetId, targetFile) {
         file: ""
     };
 
+    var width = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+    var height = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+    
     args.wrappedJSObject = args;
-    GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,width=800,height=600", args);
+    GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,width=" + width + ",height=" + height, args);
 
     var aFile = "";
     if (args.result) {

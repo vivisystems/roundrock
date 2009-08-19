@@ -21,6 +21,8 @@ var __klass__ = {
         this._trigger = null;
         this._cartItemModel = null;
         this._discountSubtobal = 0;
+        this._taxNo = '';
+        this._taxSubtotal = 0;
 
     },
 
@@ -48,6 +50,18 @@ var __klass__ = {
         return this._prefs;
     },
 
+    setTaxNo: function(taxNo) {
+        this._taxNo = taxNo || '';
+    },
+
+    getTaxNo: function() {
+        return this._taxNo;
+    },
+
+    getTaxComponent: function() {
+        return ( this.getController().Tax || new TaxComponent() );
+    },
+
     startup: function() {
 
     },
@@ -55,6 +69,7 @@ var __klass__ = {
     setup: function(trigger) {       
         this._trigger = trigger || null;
         this._discountSubtobal = 0;
+        this._taxSubtotal = 0;
     },
 
     getTrigger: function() {
@@ -91,6 +106,20 @@ var __klass__ = {
 
     getDiscountSubtobal: function() {
         return this._discountSubtobal;
+    },
+
+    getDiscountTaxSubtotal: function() {
+
+        var taxNo = this.getTaxNo();
+        var taxComponent = this.getTaxComponent();
+
+        if (!taxNo || !taxComponent) return this._taxSubtotal;
+
+        var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtobal()), Math.abs(this.getDiscountSubtobal()), 1);
+
+        this._taxSubtotal =  taxChargeObj[taxNo].charge;
+
+        return this._taxSubtotal;
     },
 
 

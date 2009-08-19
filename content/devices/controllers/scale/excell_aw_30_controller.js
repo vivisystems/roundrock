@@ -100,15 +100,14 @@
 
         readScale: function(port, iterations, stables, tries) {
 
-            this.log('DEBUG', 'args: ' + port + ', ' + iterations + ', ' + stables + ', ' + tries);
+            //this.log('DEBUG', 'args: ' + port + ', ' + iterations + ', ' + stables + ', ' + tries);
             var weight;
-            var lastWeight;
             var tryCount = 0;
 
             // return weight only if the same weight has been read 3 times in a row
             weight = this.readScaleOnce(port, iterations);
 
-            this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
+            //this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
             while (weight != null) {
                 if (weight.value) {
                     return {value: weight.value, unit: weight.unit};
@@ -119,7 +118,7 @@
                     }
                 }
                 weight = this.readScaleOnce(port, iterations);
-                this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
+                //this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
             }
             // fail to read from scale, return immediately
 
@@ -133,7 +132,7 @@
             var count = 0;
             var buf = {};
 
-this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
+            //this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
             while (weightStr.length < 18 && count++ < iterations) {
                 var len = this.readSerialPort(port, buf, 19);
                 if (len > 0) {
@@ -153,7 +152,7 @@ this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
                         }
                     }
                 }
-                this.log('DEBUG', 'weightStr length: ' + weightStr.length + ', iterations: ' + count);
+                //this.log('DEBUG', 'weightStr length: ' + weightStr.length + ', iterations: ' + count);
             }
 
             if (weightStr.length >= 19) {
@@ -168,7 +167,7 @@ this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
                 else {
                     weight = {value: value, unit: unit};
                 }
-                this.log('DEBUG', 'scale value: ' + value + ', unit: ' + unit);
+                //this.log('DEBUG', 'scale value: ' + value + ', unit: ' + unit);
                 return weight;
             }
             //this.log('DEBUG', 'readScale: ' + this.dump(weight));

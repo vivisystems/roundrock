@@ -54,7 +54,7 @@
             });
         },
 
-        advSearch: function() {
+        advSearch: function(nofillform) {
             var lastItem = this._filterDatas[this._filterDatas.length - 1];
             var len = parseInt(lastItem.index) + parseInt(lastItem.length) - 1;
             var pattern = '';
@@ -76,7 +76,7 @@
                 }
             });
             // this.load(pattern);
-            this.searchPlu(pattern, searchMessage);
+            this.searchPlu(pattern, searchMessage, nofillform);
         },
 
         advClear: function() {
@@ -91,7 +91,7 @@
             var fields = [];
             var searchStr = this._queryStringPreprocessor(barcode);
 
-            var conditions = "products.no like '" + searchStr + (advanced ? "%" : ("%' or products.barcode like '" + searchStr + "%' or products.name like '%" + searchStr + "%'"));
+            var conditions = "products.no like '" + searchStr + (advanced ? "%'" : ("%' or products.barcode like '" + searchStr + "%' or products.name like '%" + searchStr + "%'"));
             var prodModel = new ProductModel();
             var datas = prodModel.find('all',{fields: fields, conditions: conditions, recursive: 1});
 
@@ -111,7 +111,7 @@
 
         select: function(index) {
             //
-            var data = this._listDatas[index];
+            var data = this._listDatas ? this._listDatas[index] : null;
             if (data) {
                 GeckoJS.FormHelper.unserializeFromObject('productForm', data);
                 // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
@@ -140,9 +140,13 @@
             }
         },
 
-        searchPlu: function (barcode, advanced) {
+        searchPlu: function (barcode, advanced, nofillform) {
             barcode = barcode.replace(/[_\xa0]+$/, '');
             if (barcode == "") return;
+
+            // reset form & list
+            this.getListObj().selection.clearSelection();
+            GeckoJS.FormHelper.reset('productForm');
 
             this.load(barcode, advanced);
             
@@ -162,15 +166,24 @@
             } else if (this._listDatas.length == 1) {
                 var product = this._listDatas[0];
                 
-                GeckoJS.FormHelper.unserializeFromObject('productForm', product);
-                // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
+                if (!nofillform) GeckoJS.FormHelper.unserializeFromObject('productForm', product);
                 if (window.arguments && window.arguments[0]) {
                     window.arguments[0].item = product;
                 }
+
+                // dispatch event
+                this.dispatchEvent('selectPlu', {index: 0, product: product});
             }else {
                 // reset?
             }
+
+        },
+
+        // this function performs a search without populating product form
+        searchPlu2: function(barcode) {
+            this.searchPlu(barcode, null, true);
         }
+        
     };
 
     GeckoJS.Controller.extend(__controller__);

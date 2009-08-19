@@ -610,7 +610,6 @@
 
         initialLogin: function () {
 
-            var defaultLogin = GeckoJS.Configure.read('vivipos.fec.settings.DefaultLogin');
             var defaultUserID = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
             var defaultUser = '';
 
@@ -622,7 +621,7 @@
                 var defaultUserRecord = userModel.findById(defaultUserID);
                 if (defaultUserRecord) defaultUser = defaultUserRecord.username;
             }
-            if (defaultLogin && defaultUser && defaultUser.length > 0) {
+            if (defaultUser && defaultUser.length > 0) {
                 this.Acl.securityCheck(defaultUser, 'dummy', false, true);
             }
 
@@ -1090,6 +1089,64 @@
                     this._dbError(e.errno, e.errstr, e.errmsg);
                 }
                 finally {
+                    waitPanel.hidePopup();
+                }
+            }
+        },
+        
+        clearOrderObjects: function( days ) {
+            // the number of days to retain
+            var retainDays = days || GeckoJS.Configure.read( "vivipos.fec.settings.OrderObjectRetaindays" ) || 0;
+
+            if ( retainDays > 0 ) {
+
+                var waitPanel = this._showWaitPanel(
+                    'wait_panel',
+                    'wait_caption',
+                    _( 'Removing expired order objects' ),
+                    500
+                );
+
+                try {
+                    var retainDate = Date.today().addDays( retainDays * -1 ).getTime() / 1000;
+
+                    // dispatch beforeClearOrderData event
+                    //this.dispatchEvent( 'beforeClearOrderObjects', retainDate );
+
+                    var orderModel = new OrderModel();
+                    var r = orderModel.restoreFromBackup();
+                    if ( !r ) {
+                        throw { 
+                           errno: orderModel.lastError,
+                           errstr: orderModel.lastErrorString,
+                           errmsg: _( 'An error was encountered while removing order objects (error code %S).', [ orderModel.lastError ] )
+                        };
+                    }
+
+                    var orderObjectModel = new OrderObjectModel();
+                    var sql =
+                        "DELETE " +
+                            "FROM order_objects " +
+                            "WHERE order_objects.order_id IN ( " +
+                                "SELECT id FROM orders WHERE orders.transaction_submitted <= '" + retainDate + "' AND orders.status <= '1' " +
+                            ");";
+                    r = orderObjectModel.execute( sql );
+                    if ( !r ) {
+                        throw {
+                           errno: orderObjectModel.lastError,
+                           errstr: orderObjectModel.lastErrorString,
+                           errmsg: _( 'An error was encountered while removing order objects (error code %S).', [ orderObjectModel.lastError ] ) 
+                        };
+                    }
+
+                    // dispatch afterClearOrderData event
+                    //this.dispatchEvent( 'afterClearOrderObjects', retainDate );
+
+                    delete orderModel;
+                    delete orderObjectModel
+                } catch ( e ) {
+                    this._dbError( e.errno, e.errstr, e.errmsg );
+                } finally {
                     waitPanel.hidePopup();
                 }
             }

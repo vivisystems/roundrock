@@ -221,7 +221,6 @@
 
         confirm: function(paythis) {
 
-            // var datasource = document.getElementById('sourcecheckscrollablepanel').datasource;
             var rows = document.getElementById('sourcecheckscrollablepanel').rowCount;
 
             if (rows > 0) {
@@ -253,7 +252,16 @@
             // lastMidifiedTime
             this._mergedCheck.lastModifiedTime = this._mergedCheck.modified;
             this._mergedCheck.modified = Math.round(new Date().getTime() / 1000 );
-            order.saveOrder(this._mergedCheck);
+            var ret = order.saveOrder(this._mergedCheck);
+            
+            if (!ret) {
+
+                GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Save Order Error'),
+                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation', [origData.sequence]));
+
+                return false;
+            }
 
             
 

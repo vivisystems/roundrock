@@ -62,3 +62,7 @@
     max-width: 18px;
     max-height: 18px;
 }
+
+.statusbarpanel-text {
+    display: none;
+}

@@ -44,6 +44,8 @@
 <!ENTITY    promotions_manager.label.select_trigger     "Select Trigger:">
 <!ENTITY    promotions_manager.label.select_type     "Select Type:">
 
+<!ENTITY    promotions_manager.label.taxrate "Tax Rate">
+
 <!ENTITY    promotions_detail.label.title     "Promotions Detail">
 <!ENTITY    promotions_detail.label.promotion_name     "Rule Name">
 <!ENTITY    promotions_detail.label.promotion_code     "Rule">

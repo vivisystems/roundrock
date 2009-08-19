@@ -527,10 +527,10 @@ richlistitem[selected] vbox > label:first-child {
     margin-top: 2px;
 }
 .datepicker-mainbox grid row {
-    padding: 2px;
+    padding: 1px;
 }
 .datepicker-mainbox grid column {
-    padding: 2px;
+    padding: 1px;
 }
 .datepicker-grid label[selected] {
     background: #c8e054;

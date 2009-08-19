@@ -145,7 +145,7 @@
             var count = 0;
             var buf = {};
 
-//this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
+            //this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
             while (weightStr.length < 29 && count++ < iterations) {
                 var len = this.readSerialPort(port, buf, 29);
                 if (len > 0) {

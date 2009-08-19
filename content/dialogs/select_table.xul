@@ -9,7 +9,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/dialogs/select_setitem.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_win.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_styles.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_status_btn.css" type="text/css"?>
@@ -34,14 +33,16 @@
     <vbox flex="1" class="maindialog">
         <vbox class="EmptyArea" >
             <hbox flex="1">
-                <spacer flex = "1" />
-                <button id="btn_prior_region" class="button-fixed" label="&selecttable.priorregion;" disabled="false"  oncommand="$do('_menuPriorRegion', null, 'SelectTable');" />
-                <menulist id="table_region" flex="1" oncommand="$do('setRegion', this.value, 'SelectTable');">
+                <spacer class="LeftRegionMenuPadding"/>
+                <button id="btn_prior_region" class="button-fixed" label="&selecttable.priorregion;" disabled="false"
+                        oncommand="$do('_menuPriorRegion', null, 'SelectTable');" />
+                <menulist id="table_region" flex="1" class="RegionMenu" oncommand="$do('setRegion', this.value, 'SelectTable');">
                     <menupopup id="table_region_menupopup">
 
                     </menupopup>
                 </menulist>
-                <button id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"  oncommand="$do('_menuNextRegion', null, 'SelectTable');" />
+                <button id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"
+                        oncommand="$do('_menuNextRegion', null, 'SelectTable');" />
             </hbox>
             <spacer flex="1" />
         </vbox>
@@ -72,11 +73,6 @@
             </vbox>
             <vbox class="RightBtns">
 
-                <!-- button class="selectcBtn2" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
-                <button class="splitcBtn2" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
-                <button class="mergecBtn2" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/ -->
-                <!-- button class="bookcBtn2" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/ -->
-
                 <button class="addMarkBtn" id="add_table_mark" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doMarkTable', null, 'SelectTable');"/>
                 <button class="clearMarkBtn" id="clear_table_mark" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doUnmarkTable', null, 'SelectTable');"/>
                 <button class="addMarksBtn" id="add_table_marks" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doMarkRegionTable', null, 'SelectTable');"/>
@@ -84,7 +80,6 @@
                 <spacer class="space" />
                 <hbox>
                     <spacer class="space2" />
-                <!-- button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" default="true" type="radio" group="func" oncommand="$do('doChangeClerk', null, 'SelectTable');"/ -->
                 </hbox>
             </vbox>
             <!-- spacer flex="1" / -->
@@ -121,16 +116,9 @@
             onpopupshown="$do('popupOrderPanel', null, 'SelectTable');"
             onpopuphidden="$do('hideOrderPanel', null, 'SelectTable');">
         <hbox flex="1" class="PromptPnlBg">
-            <!-- tabbox class="CheckTabbox" flex="1">
-            <tabs id="orders_tab">
-                <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
-                <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
-                <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
-            </tabs -->
 
             <html:div id="order_display_div" />
 
-            <!-- /tabbox -->
             <vbox flex="1" class="CheckBtns">
                 <button class="closecBtn" oncommand="$do('doCloseOrderPanel', null, 'SelectTable');"/>
                 <spacer height="30px" />
@@ -138,10 +126,8 @@
                 <button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
                 <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
                 <button class="changeBtn" id="trans_table" label="&selecttable.transtable;" type="radio" group="func" default="false" oncommand="$do('doTransTable', null, 'SelectTable');"/>
-                <!-- button class="bookcBtn" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/ -->
                 <spacer height="80px" />
                 <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" type="radio" group="func" default="false" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>
-                <!-- button class="clerkBtn" / -->
             </vbox>
         </hbox>
     </panel>

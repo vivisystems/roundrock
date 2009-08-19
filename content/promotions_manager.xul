@@ -96,6 +96,14 @@
                                                  form="promotionForm" name="alt_name2"/>
                                     </row>
                                     <row>
+                                        <label value="&promotions_manager.label.taxrate;"/>
+                                        <label id="tax_no" value="" hidden="true"
+                                               form="promotionForm" name="tax_no" default=""/>
+                                        <textbox id="tax_name" value='' disabled="true"
+                                                 onclick="$do('getRate', null,'PromotionsManager');" onfocus="this.select()"
+                                                 form="promotionForm" name="tax_name" class="button-item-c" />
+                                    </row>
+                                    <row>
                                         <label value="&promotions_manager.label.member;"/>
                                         <radiogroup id="member" orient="vertical"
                                                     form="promotionForm" name="member">

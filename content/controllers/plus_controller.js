@@ -25,6 +25,27 @@
 
         _cloningInProgress: false,
 
+        initSearchCallback: function() {
+            var plusearchController = GeckoJS.Controller.getInstanceByName('PluSearch');
+            if (plusearchController) {
+
+                var self = this;
+                var cbFunction = function(evt) {
+                    var data = evt.data;
+                    if (data) {
+                        var plusearchListObj = document.getElementById('plusearchscrollablepanel');
+                        if (plusearchListObj) {
+                            plusearchListObj.selection.select(data.index);
+                        }
+
+                        self.selectPlu(data.index, true);
+                    }
+                };
+
+                plusearchController.addEventListener('selectPlu', cbFunction);
+            }
+        },
+
         createGroupPanel: function () {
 
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
@@ -888,16 +909,14 @@
                         this.updateSession('add', newProduct);
                     }
 
-                    // newly added item is appended to end; jump cursor to end
-                    var index = this.productPanelView.data.length - 1;
+                    // locate newly added product
+                    var prods = this.productPanelView.data;
+                    for (var index = 0; index < prods.length; index++) {
+                        if (newProduct.id == prods[index]) break;
+                    }
 
-                    // index < 0 indicates that this category was previously empty
-                    // we need to manually select it again to make the panel display
-                    // the newly added product
-                    if (index < 0) {
-                        var catepanel = document.getElementById('catescrollablepanel');
-                        this.changePluPanel(catepanel.selectedIndex);
-                        index = 0;
+                    if (index == prods.length) {
+                        index = -1;
                     }
                     this._selectedIndex = -1;
                     this.clickPluPanel(index);
@@ -954,8 +973,17 @@
                 }
                 this.updateSession('modify', inputData, product);
 
+                // locate newly added product
+                var prods = this.productPanelView.data;
                 var newIndex = this._selectedIndex;
-                if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
+                if (product.id != prods[newIndex]) {
+                    // product's display order has changed, let's find its new position
+                    for (var newIndex = 0; newIndex < prods.length; newIndex++) {
+                        if (product.id == prods[newIndex]) break;
+                    }
+                }
+
+                if (newIndex == prods.length) newIndex = -1;
 
                 if (!this._setCateNo) {
                     // if current department is a product group, product may have been unlinked so we need to re-scan
@@ -1089,16 +1117,14 @@
            
             switch(action) {
                 case 'add':
-                    
                     var products = GeckoJS.Session.get('products');
                     if (products == null) {
-                        products = [data];
+                        products = [];
                         GeckoJS.Session.set('products', products);
                     }
                     else {
                         //products.push(data);
                     }
-
                     // update session 
                     this.Product.setProduct(data.id, data);
 
@@ -1136,7 +1162,7 @@
             while (low < high) {
                 var mid = Math.floor((low - (- high))/2);
                 (list[mid][path] < elem) ? low = mid + 1 : high = mid;
-            }
+            }s
             // high == low, using high or low depends on taste
             if ((low < N) && (list[low][path] == elem))
                 return low // found
@@ -1144,13 +1170,13 @@
                 return -low // not found             },
         },
 
-        selectPlu: function(index) {
+        selectPlu: function(index, force) {
             var plusearchListObj = document.getElementById('plusearchscrollablepanel');
             var pid = document.getElementById('product_id').value;
             var datas = plusearchListObj.datasource._data;
             
             var plu = datas[index];
-            if (plu != null && plu.id != pid) {
+            if (force || (plu != null && plu.id != pid)) {
                 if (!this.confirmChangeProduct()) {
                     plusearchListObj.selectedIndex = -1;
                     plusearchListObj.selectedItems = [];
@@ -1167,7 +1193,7 @@
                 var catIndex = -1;
                 for (var i = 0; i < categoryIDs.length; i++) {
                     var cat_id = categoryIDs[i];
-                    if (cat_id && categoriesById[cat_id] && categoriesById[cat_id].no == plu.cate_no) {
+                    if (cat_id && categoriesById[cat_id] && categoriesById[cat_id].nalo == plu.cate_no) {
                         catIndex = i;
                         break;
                     }
@@ -1183,9 +1209,6 @@
                 var pluIndex = plus.indexOf(plu.id);
 
                 this.clickPluPanel(pluIndex);
-
-                // disable add/link button
-                document.getElementById('add_plu').setAttribute('disabled', true);
             }
         },
 
@@ -1303,6 +1326,9 @@
                                 newData.icon_only = product.icon_only;
                                 newData.manual_adjustment_only = product.manual_adjustment_only;
                                 newData.memo = product.memo;
+                                newData.scale = product.scale;
+                                newData.sale_unit = product.sale_unit;
+                                newData.tare = product.tare;
                             }
 
                             if (inputObj.cloneSettings['appearance']) {

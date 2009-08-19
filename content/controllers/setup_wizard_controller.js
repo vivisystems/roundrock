@@ -256,6 +256,8 @@
             }
             catch (e) {
             }
+            this.hideSectorScreen();
+            
             return true;
         },
         

@@ -70,7 +70,7 @@
 
             if (plugroups != null && plugroups.length > 0) {
                 
-                NotifyUtils.warn(_('Duplicate Product Group name [%S]; Product Group not added.', [plugroup.name]));
+                NotifyUtils.warn(_('Duplicate product group name [%S]; Product group not added.', [plugroup.name]));
                 evt.preventDefault();
                 return ;
             }
@@ -110,7 +110,7 @@
 
                 document.getElementById('plugroup_name').focus();
 
-                OsdUtils.info(_('Product Group [%S] added successfully', [evt.data.name]));
+                OsdUtils.info(_('Product group [%S] added successfully', [evt.data.name]));
             }
 
         },
@@ -131,7 +131,7 @@
                     evt.preventDefault();
                     this._plugroupModified = false;
 
-                    NotifyUtils.warn(_('Duplicate Product Group name [%S]; Product group not modified.', [evt.data.name]));
+                    NotifyUtils.warn(_('Duplicate product group name [%S]; Product group not modified.', [evt.data.name]));
                 }
             }
         },
@@ -148,7 +148,7 @@
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
 
-                OsdUtils.info(_('Job [%S] modified successfully', [evt.data.name]));
+                OsdUtils.info(_('Product group [%S] modified successfully', [evt.data.name]));
             }
         },
 
@@ -213,7 +213,7 @@
 
             this.validateForm();
 
-            OsdUtils.info(_('Product Group [%S] removed successfully', [evt.data.name]));
+            OsdUtils.info(_('Product group [%S] removed successfully', [evt.data.name]));
         },
 
         afterScaffoldIndex: function(evt) {

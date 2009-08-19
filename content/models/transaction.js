@@ -2450,7 +2450,7 @@
 
             promotion_subtotal = this.data.promotion_subtotal ;
 
-            total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal;
+            total = this.getRoundedPrice(item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal);
             remain = total - payment_subtotal;
 
             // revalue

@@ -52,24 +52,10 @@
 
         },
 
-        syncClient: function() {
-            // sync data
-            try {
-                var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
-                var r = exec.run(["sync"], false); // nonblock mode
-                exec.close();
-                return true;
-            }
-            catch (e) {
-                NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
-                return false;
-            }
-        },
-
         getLocalService: function(method,force_remote) {
             this.syncSettings = (new SyncSetting()).read();
 
-            if (this.syncSettings && this.syncSettings.active == 1) {
+            if (this.syncSettings && this.syncSettings.active == '1') {
 
                 var hostname = 'localhost';
 
@@ -95,12 +81,13 @@
         getRemoteService: function(method,force_remote) {
             this.syncSettings = (new SyncSetting()).read();
 
-            if (this.syncSettings && this.syncSettings.active == 1 && this.syncSettings.table_active) {
+            if (this.syncSettings && this.syncSettings.active == '1' && this.syncSettings.table_active == '1') {
 
                 var hostname = this.syncSettings.hostname || 'localhost';
-                if ((hostname == 'localhost' || hostname == '127.0.0.1') && !force_remote) return false;
+
+                // always use webservice when network table service active
+                // if ((hostname == 'localhost' || hostname == '127.0.0.1') && !force_remote) return false;
                 
-                //  http://localhost:3000/sequences/getSequence/check_no
                 // check connection status
                 this.url = this.syncSettings.protocol + '://' +
                 hostname + ':' +
@@ -468,23 +455,6 @@
 
         },
 
-        getTableList: function(reload) {
-            // GREUtils.log("DEBUG", "getTableList...");
-            reload = true;
-            if (!reload) {
-                // var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
-                if (tables) {
-                    return tables;
-                }
-            }
-            var tableModel = new TableModel();
-            var tableList = tableModel.find('all', {recursive: 2});
-
-            // GeckoJS.Session.set('vivipos_fec_guest_check_table_list', tableList);
-
-            return this._tableList = tableList;
-        },
-
         touchTableStatus: function(table_no) {
             // touch modified time...
             var remoteUrl = this.getRemoteService('touchTableStatus');
@@ -587,10 +557,10 @@
 
         setTableMark: function(table_no, markObj) {
 
-            // var user = GeckoJS.Session.get('user') || {};
-            var user = this.Acl.getUserPrincipal();
+            var user = GeckoJS.Session.get('user') || {};
             // markObj.mark_user = user.username;
-            markObj.mark_user = user ? user.description : _('unknown user');
+            markObj.mark_user = user ? user.displayname : _('unknown user');
+            
 
             var now = Math.round(Date.now().getTime() / 1000);
             markObj.start_time = now;
@@ -644,10 +614,9 @@
 
         setTableMarks: function(regionTables, markObj) {
 
-            // var user = GeckoJS.Session.get('user') || {};
-            var user = this.Acl.getUserPrincipal();
+            var user = GeckoJS.Session.get('user') || {};
             // markObj.mark_user = user.username;
-            markObj.mark_user = user ? user.description : _('unknown user');
+            markObj.mark_user = user ? user.displayname : _('unknown user');
 
             var now = Math.round(Date.now().getTime() / 1000);
             markObj.start_time = now;

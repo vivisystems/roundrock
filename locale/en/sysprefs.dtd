@@ -26,7 +26,6 @@
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
 <!ENTITY general.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY general.ifprintwhiletraining "Print receipt and check while training?">
-<!ENTITY login.defaultlogin "Automatically log in default user">
 <!ENTITY general.quietcancel "Do not beep when cancelling orders">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
@@ -111,6 +110,8 @@
 <!ENTITY formats.autorevalueprices "Auto-Revalue subtotal prices">
 <!ENTITY formats.charsetselector "Import/Export Charset">
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
+<!ENTITY orderdata.orderobjectretaindays "Number of days to retain order objects">
+<!ENTITY orderdata.keepeachtransaction "Keep the transaction object of every completed order?">
 <!ENTITY orderdata.diskunused "Available disk space">
 <!ENTITY orderdata.orderweeklypack "Pack order data on">
 <!ENTITY orderdata.inventory.adjustment.retaindays "Number of days to retain inventory adjustment records">

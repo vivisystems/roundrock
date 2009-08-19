@@ -234,7 +234,6 @@
             <preference id="pref_autodiscardcart" name="vivipos.fec.settings.autodiscardcart" type="bool"/>
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
             <preference id="pref_mustemptyqueue" name="vivipos.fec.settings.mustemptyqueue" type="bool"/>
-            <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool"/>
             <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool"/>
         </preferences>
         <vbox>
@@ -243,9 +242,6 @@
                     <column flex="1"/>
                 </columns>
                 <rows>
-                    <row>
-                        <checkbox id="defaultlogin" label="&login.defaultlogin;" preference="pref_defaultlogin"/>
-                    </row>
                     <row>
                         <checkbox id="allowquicklogin" label="&login.allowquicklogin;" preference="pref_allowquicklogin"/>
                     </row>
@@ -265,7 +261,8 @@
 
     <prefpane id="orderDataSettingsPane" label="&category.orderdata;">
         <preferences>
-
+            <preference id="pref_keepeachtransaction" name="vivipos.fec.settings.KeepEachTransaction" type="bool"/>
+            <preference id="pref_orderobjectretaindays" name="vivipos.fec.settings.OrderObjectRetaindays" type="int"/>
             <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>
             <preference id="pref_orderweeklypack" name="vivipos.fec.settings.OrderWeeklyPack" type="int"/>
             <preference id="pref_inventory_adjustment_retaindays" name="vivipos.fec.settings.InventoryAdjustmentRetainDays" type="int"/>
@@ -283,6 +280,14 @@
                 <row>
                     <label value="&orderdata.diskunused;"/>
                     <label id="disk_unused" value="100MB"/>
+                </row>
+                <row>
+                    <label value="&orderdata.keepeachtransaction;"/>
+                    <checkbox preference="pref_keepeachtransaction" id="keepEachTransaction" checked="false"/>
+                </row>
+                <row>
+                    <label value="&orderdata.orderobjectretaindays;"/>
+                    <textbox preference="pref_orderobjectretaindays" id="orderObjectRetainDays" type="number" size="4" maxlength="4" min="0" max="9999"/>
                 </row>
                 <row>
                     <label value="&orderdata.orderretaindays;"/>

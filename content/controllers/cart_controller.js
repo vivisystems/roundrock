@@ -27,7 +27,6 @@
             if (cmd != 'cancel') {
                 this._lastCancelInvoke = false;
             }
-            if (this._inDialog) return false;
             
             return true;
         },
@@ -459,6 +458,8 @@
         returnCartItem: function() {
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+            var itemTrans;
+            var itemDisplay;
 
             var exit = false;
 
@@ -481,13 +482,15 @@
                 exit = true;
             }
 
-            var itemTrans = curTransaction.getItemAt(index, true);
-            var itemDisplay = curTransaction.getDisplaySeqAt(index);
-            
-            if (!exit && itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
-                NotifyUtils.warn(_('The selected item [%S] is not a product and cannot be returned', [itemDisplay.name]));
+            if (!exit) {
+                itemTrans = curTransaction.getItemAt(index, true);
+                itemDisplay = curTransaction.getDisplaySeqAt(index);
 
-                exit = true;
+                if (!exit && itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+                    NotifyUtils.warn(_('The selected item [%S] is not a product and cannot be returned', [itemDisplay.name]));
+
+                    exit = true;
+                }
             }
 
             // locate product
@@ -535,6 +538,9 @@
 
         addItem: function(plu) {
 
+            // make sure we've completed previous addItem() call
+            if (this._inDialog) return;
+            
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
                 
@@ -718,7 +724,7 @@
                         self._clearAndSubtotal();
                     }
 
-                    this._inDialog = false;
+                    self._inDialog = false;
                 });
 
             }
@@ -3376,7 +3382,6 @@
         },
 
         _getCondimentsDialog: function (condgroup, condiments) {
-
             var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
             // not initial , initial again!
             if (!condGroupsByPLU) {
@@ -3397,19 +3402,19 @@
             }else {
                 // check item selected condiments
                 //var condNames = GeckoJS.BaseObject.getKeys(condiments);
-                var condNames = condiments.map(function(c) {
+                var condNames = conds.map(function(c) {
                     return c.name
                 });
-                for (var i = 0; i < conds.length; i++) {
-                    if (condNames.indexOf(conds[i].name) > -1) {
-                        selectedItems.push(i);
+                for (var i = 0; i < condiments.length; i++) {
+                    var found = condNames.indexOf(condiments[i].name);
+                    if (found > -1) {
+                        selectedItems.push(found);
                     }
                     else {
                         additionalItems.push(condiments[i]);
                     }
                 }
             }
-            
             var dialog_data = {
                 conds: conds,
                 selectedItems: selectedItems,
@@ -3710,7 +3715,7 @@
             var annotationTypes = annotationController.getAllAnnotationTypes();
 
             var inputObj = {
-                input0: memo,
+                input0: memo || '',
                 require0: false,
                 annotations: annotationTypes
             };
@@ -4033,35 +4038,13 @@
             //
             order_id = order_id;
 
-            this.log('Cart unserializeFromOrder: ' + order_id);
-            // use recovery mode , don't get seqno, again!! racklin
-            var curTransaction = new Transaction(true);
-            curTransaction.unserializeFromOrder(order_id);
+            var curTransaction = this.GuestCheck.unserializeFromOrder(order_id);
 
-            if (curTransaction.data == null) {
-
-                // temp
-                this.log(curTransaction.lastError);
-                if (curTransaction.lastError == 98) {
-                    NotifyUtils.error(_('The order object is locked by remote machine [%S]', [curTransaction.lastErrorString]));
-                }else {
-                    NotifyUtils.error(_('The order object does not exist [%S]', [order_id]));
-                }
-                
-                return false;
+            if (curTransaction) {
+                this._setTransactionToView(curTransaction);
+                curTransaction.updateCartView(-1, -1);
+                this._clearAndSubtotal();
             }
-
-            if (curTransaction.data.status == 2) {
-                // set order status to process (0)
-                curTransaction.data.status = 0;
-
-                curTransaction.data.recall = 2;
-            }
-
-            this._setTransactionToView(curTransaction);
-            curTransaction.updateCartView(-1, -1);
-            this._clearAndSubtotal();
-
             return true;
 
         },
@@ -4095,15 +4078,6 @@
             this._cancelReturn();
 
             var curTransaction = this._getTransaction();
-
-            /*
-            if (curTransaction) {
-                if (curTransaction.data.status == 0 && curTransaction.data.items_count != 0 && curTransaction.data.recall !=2) {
-                    NotifyUtils.warn(_('This order must be stored first'));
-                    return;
-                }
-            }
-            */
 
             var r = -1;
             if (no.length == 0) {

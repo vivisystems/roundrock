@@ -6,7 +6,7 @@
  */
 
 .plugroup-button-color-default {
-    background: #848388 url(../images/departBtn1.png) top left repeat-x;
+    background: #848388 url(../images/departBtn1.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;
@@ -27,7 +27,7 @@
 }
 
 .plugroup-button-color-1 {
-    background: #354f66 url(../images/departBtn2.png) top left repeat-x;
+    background: #354f66 url(../images/departBtn2.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;
@@ -48,7 +48,7 @@
 }
 
 .plugroup-button-color-2 {
-    background: #a2a70f url(../images/departBtn3.png) top left repeat-x;
+    background: #a2a70f url(../images/departBtn3.png) top left repeat-x !important;
     border-width: 1px;
     -moz-border-top-colors: #a2a70f #bebebe;
     -moz-border-right-colors: #a2a70f #bebebe;
@@ -68,7 +68,7 @@
 }
 
 .plugroup-button-color-3 {
-    background: #790000 url(../images/departBtn4.png) top left repeat-x;
+    background: #790000 url(../images/departBtn4.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;
@@ -88,7 +88,7 @@
 }
 
 .plugroup-button-color-4 {
-    background: #555940 url(../images/departBtn5.png) top left repeat-x;
+    background: #555940 url(../images/departBtn5.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;
@@ -108,7 +108,7 @@
 }
 
 .plugroup-button-color-5 {
-    background: #603913 url(../images/departBtn6.png) top left repeat-x;
+    background: #603913 url(../images/departBtn6.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;
@@ -128,7 +128,7 @@
 }
 
 .plugroup-button-color-6 {
-    background: #ad355c url(../images/departBtn7.png) top left repeat-x;
+    background: #ad355c url(../images/departBtn7.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;
@@ -148,7 +148,7 @@
 }
 
 .plugroup-button-color-7 {
-    background: #a3620a url(../images/departBtn8.png) top left repeat-x;
+    background: #a3620a url(../images/departBtn8.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;
@@ -168,7 +168,7 @@
 }
 
 .plugroup-button-color-8 {
-    background: #5c2f75 url(../images/departBtn9.png) top left repeat-x;
+    background: #5c2f75 url(../images/departBtn9.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;
@@ -188,7 +188,7 @@
 }
 
 .plugroup-button-color-9 {
-    background: #213b6b url(../images/departBtn10.png) top left repeat-x;
+    background: #213b6b url(../images/departBtn10.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;
@@ -208,7 +208,7 @@
 }
 
 .plugroup-button-color-10 {
-    background: #534741 url(../images/departBtn11.png) top left repeat-x;
+    background: #534741 url(../images/departBtn11.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;
@@ -228,7 +228,7 @@
 }
 
 .plugroup-button-color-11 {
-    background: #294e39 url(../images/departBtn12.png) top left repeat-x;
+    background: #294e39 url(../images/departBtn12.png) top left repeat-x !important;
     border-width: 1px;
     color: #ffffff;
     -moz-appearance: none;

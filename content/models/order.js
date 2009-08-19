@@ -47,6 +47,8 @@
 
         saveOrderToBackup: function(data, isTraining) {
 
+            dump('saveOrderToBackup \n'  );
+            
             var retObj;
 
                 try {
@@ -154,6 +156,7 @@
 
             if (r) r = this.OrderObject.restoreFromBackup();
 
+            this.readOrder('91e87084-302a-47da-aa44-bd5b581bb296');
         },
 
 
@@ -172,13 +175,12 @@
 
             this.log('readOrder restore:' + this.dump(data));
 
+
             this.mappingOrderFieldsToTran(orderData, data);            
             this.OrderItem.mappingOrderItemsFieldsToTran(orderData, data);
             this.OrderAddition.mappingOrderAdditionsFieldsToTran(orderData, data);
             this.OrderPayment.mappingOrderPaymentsFieldsToTran(orderData, data);
-            this.OrderAnnotation.mappingOrderAnnotationsFieldsToTran(orderData, data);
-            this.OrderItemCondiment.mappingOrderItemCondimentsFieldsToTran(orderData, data);
-            this.OrderPromotion.mappingOrderPromotionsFieldsToTran(orderData, data);
+            //this.OrderAnnotation.mappingOrderAnnotationsFieldsToTran(orderData, data);
 
             this.log(this.dump(data));
             return data;

@@ -195,6 +195,7 @@
                             this._datas[index].filename += table[i] + ".sql ";
                             var exportScript = this._scriptDir + '/' + table[i] + ".exp";
                             var command = executable + " " + database + " < " + exportScript + " > " + this._exportDir + "/" + table[i] + ".sql";
+                            alert(command);
                             GREUtils.File.run("/bin/sh", [ '-c', command ], true);
                         }
                         break;
@@ -709,6 +710,7 @@
                             }
                             if(missingFile.length > 0) {
                                 NotifyUtils.error(_('The specified file(s) [%S] does not exist!', [missingFile]));
+                                waitPanel.hidePopup();
                                 return;
                             } else {
                                 //process the actual import here
@@ -1015,6 +1017,9 @@
                                             if(!self.isValidBooleanField(rowdata['routing'], true)) {
                                                 errorMsgs.push(_("Product Group item %S @ row %S requires a valid routing field", [pluGrpNm, i + 2]));
                                             }
+                                            if(!self.isValidNumberField(rowdata["display_order"], true)) {
+                                                errorMsgs.push(_("Product Group item %S @ row %S requires a valid display order value", [prodNm, i + 2]));
+                                            }
                                             if(rowdata['link_department'].length > 0) {
                                                 var _departmentNms = rowdata['link_department'].split(',');
                                                 _departmentNms.forEach(function(name) {
@@ -1195,6 +1200,9 @@
                                             if(!self.isValidNumberField(rowdata["append_empty_btns"], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid append empty buttons value", [prodNm, i + 2]));
                                             }
+                                            if(!self.isValidNumberField(rowdata["display_order"], true)) {
+                                                errorMsgs.push(_("Product item %S @ row %S requires a valid display order value", [prodNm, i + 2]));
+                                            }
                                             if(!self.isValidBooleanField(rowdata['scale'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid boolean scale value", [prodNm, i + 2]));
                                             }
@@ -1254,6 +1262,9 @@
                                                 if(!result[0]) {
                                                     errorMsgs.push(_("Department item %S @ row %S requires a valid tax rate", [cateNm, i + 2]));
                                                 }
+                                            }
+                                            if(!self.isValidNumberField(rowdata["display_order"], true)) {
+                                                errorMsgs.push(_("Department item %S @ row %S requires a valid display order value", [prodNm, i + 2]));
                                             }
                                             if(!self.isValidBooleanField(rowdata['scale'], true)) {
                                                 errorMsgs.push(_("Department item %S @ row %S requires a valid boolean scale value", [cateNm, i + 2]));
@@ -1431,6 +1442,9 @@
                                             if(!rowdata['font_size'] || rowdata['font_size'].length < 1 || rowdata['font_size'] == 'null') {
                                                 rowdata['font_size'] = "medium";
                                             }
+                                            if(!rowdata['display_order'] || rowdata['display_order'].length < 1 || rowdata['display_order'] == 'null') {
+                                                rowdata['display_order'] = "99999";
+                                            }
                                             //unpack link_department names into ids
                                             if(rowdata['link_department']) {
                                                 var _departmentNms = rowdata['link_department'].length > 0 ? rowdata['link_department'].split(',') : [];
@@ -1477,6 +1491,9 @@
                                             }
                                             if(!rowdata['sale_unit'] || rowdata['sale_unit'].length < 1 || rowdata['sale_unit'] == 'null') {
                                                 rowdata['sale_unit'] = "unit";
+                                            }
+                                            if(!rowdata['display_order'] || rowdata['display_order'].length < 1 || rowdata['display_order'] == 'null') {
+                                                rowdata['display_order'] = "99999";
                                             }
                                             if(!rowdata['rate'] || rowdata['rate'].length < 1 || rowdata['rate'] == 'null') {
                                                 rowdata['rate'] = self.getDefaultTaxRate();
@@ -1622,6 +1639,9 @@
                                             }
                                             if(!rowdata['rate'] || rowdata['rate'].length < 1) {
                                                 rowdata['rate'] = self.getDefaultTaxRate();
+                                            }
+                                            if(!rowdata['display_order'] || rowdata['display_order'].length < 1 || rowdata['display_order'] == 'null') {
+                                                rowdata['display_order'] = "99999";
                                             }
                                             break;
                                     }

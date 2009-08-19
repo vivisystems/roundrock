@@ -6,6 +6,11 @@
 .EmptyArea {
     height: 104px;
 }
+
+.RegionMenu {
+    width: 400px;
+}
+
 .MainPanel {
     margin-left: 0px;
 }

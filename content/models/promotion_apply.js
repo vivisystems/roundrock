@@ -28,8 +28,8 @@
             + trigger.getMatchedItemsQty() +","
             + trigger.getMatchedItemsSubtotal() +","
             + type.getDiscountSubtobal() +","
-            + "''," // tax_name
-            + "0"
+            + "'" + (type.getTaxNo()||'') +"'," // tax_name
+            + type.getDiscountTaxSubtotal()
             + ")";
 
             var datasource = this.getDataSource();

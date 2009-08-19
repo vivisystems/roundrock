@@ -25,7 +25,7 @@
         getRemoteServiceUrl: function(method) {
             this.syncSettings = (new SyncSetting()).read();
 
-            if (this.syncSettings && this.syncSettings.active == 1) {
+            if (this.syncSettings && this.syncSettings.active == '1') {
 
                 var hostname = this.syncSettings.sequence_hostname || 'localhost';
 

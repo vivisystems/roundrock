@@ -10,6 +10,9 @@
 
         uses: ['Promotion'],
 
+        screenwidth: GeckoJS.Session.get('screenwidth') || 800,
+        screenheight: GeckoJS.Session.get('screenheight') || 600,
+
         _activedPromotions: [],
         _activedTriggers: {},
         _activedTypes: {},
@@ -475,9 +478,29 @@
 
             this.refresh();
 
+        },
+
+        getRate: function () {
+
+            var rate = $('#tax_no').val();
+            var aURL = 'chrome://viviecr/content/select_tax.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var inputObj = {
+                rate: rate
+            };
+
+            var taxes = GeckoJS.Session.get('taxes');
+            if(taxes == null) taxes = this.Tax.getTaxList();
+
+            inputObj.taxes = taxes;
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_rate', features, inputObj);
+
+            if (inputObj.ok && inputObj.rate) {
+                $('#tax_no').val(inputObj.rate);
+                $('#tax_name').val(inputObj.name);
+            }
         }
-
-
 
     };
 

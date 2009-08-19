@@ -141,7 +141,7 @@
             dump(this.dump(setitemPlusets));
             */
 
-            dump('after product.forEach:  ' + (Date.now().getTime() - startTime) + '\n');
+            //dump('after product.forEach:  ' + (Date.now().getTime() - startTime) + '\n');
 
             GeckoJS.Session.add('productsById', byId);
             GeckoJS.Session.add('productsIndexesById', indexId);
@@ -267,10 +267,13 @@
 
                         if (oldProduct.cate_no != product.cate_no ||
                             oldProduct.visible != product.visible ||
+                            oldProduct.name != product.name ||
                             oldProduct.display_order != product.display_order) {
                             reordered = true;
-                            // remove old category from indexCateAll only if category or display_order has changed
-                            if (oldProduct.cate_no != product.cate_no || oldProduct.display_order != product.display_order) {
+                            // remove old category from indexCateAll if category, display_order, or name has changed since re-order is needed
+                            if (oldProduct.cate_no != product.cate_no ||
+                                oldProduct.display_order != product.display_order ||
+                                oldProduct.name != product.name) {
                                 var index = -1;
                                 for (var i = 0; i < indexCateAllArray.length; i++) {
                                     if (indexCateAllArray[i] == oldProduct.id) {
@@ -304,8 +307,10 @@
                                     indexCateAll[product.cate_no] = [];
                                 }
 
-                                // insert into indexCateAll if category or display_order has changed
-                                if (oldProduct.cate_no != product.cate_no || oldProduct.display_order != product.display_order) {
+                                // insert into indexCateAll if category, display_order, or name has changed
+                                if (oldProduct.cate_no != product.cate_no ||
+                                    oldProduct.display_order != product.display_order ||
+                                    oldProduct.name != product.name) {
                                     insertIndex = this.locateProductIndex(product, indexCateAll[(product.cate_no+"")]);
                                     indexCateAll[(product.cate_no+"")].splice(insertIndex, 0, product.id+"");
                                     //indexCateAll[(product.cate_no+"")].push((product.id+""));
@@ -327,7 +332,7 @@
                             }
                         }
 
-                        // support append empty buttons - only if
+                        // support append empty buttons
                         if (!reordered && oldProduct.append_empty_btns != product.append_empty_btns) {
                             var index = -1;
                             for (var i = 0; i < indexCateArray.length; i++) {
@@ -510,7 +515,6 @@
                 this.id = id;
                 this.save(new_product);
             }
-            
             // update session
             if (new_product) {
 
@@ -562,7 +566,6 @@
             var indexesById = GeckoJS.Session.get('productsIndexesById');
 
             if (this.isExists(id, useDb)) {
-
                 var oldProduct = GREUtils.extend({}, this.getProductById(id));
 
                 // remove product session.
