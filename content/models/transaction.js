@@ -2567,7 +2567,28 @@
             };
             // format display precision
             return Transaction.Number.format(tax, options);
+        },
+
+        getNumberOfCustomers: function() {
+            return this.data.no_of_customers;
+        },
+        
+        setNumberOfCustomers: function(num) {
+            num = isNaN(parseInt(num)) ? 1 : parseInt(num);
+            GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
+            this.data.no_of_customers = num;
+        },
+
+        getTableNo: function() {
+            return this.data.table_no;
+        },
+
+        setTableNo: function(tableNo) {
+            tableNo = tableNo || '';
+            //GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
+            this.data.table_no = tableNo;
         }
+
     };
 
 

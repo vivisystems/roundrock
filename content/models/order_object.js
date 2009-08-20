@@ -26,7 +26,7 @@
                 delete d2.seq;
 
                 delete d2.items;
-                //delete d2.items_summary;
+                delete d2.items_summary;
                 //delete d2.items_count;
 
                 delete d2.trans_discounts;
@@ -82,6 +82,7 @@
                 var s2 = GREUtils.Gzip.deflate(GeckoJS.BaseObject.serialize(d2));
 
                 dump(s2.length + '\n');
+                
                 var orderObj = {};
                 orderObj['id'] = data.id;
                 orderObj['order_id'] = data.id;

@@ -34,8 +34,12 @@
                 cart.addEventListener('afterAddCondiment', this.displayOnVFD, this);
                 cart.addEventListener('afterCancel', this.displayOnVFD, this);
 
-                cart.addEventListener('onQueue', this.displayOnVFD, this);
-                cart.addEventListener('onPullQueue', this.displayOnVFD, this);
+            }
+
+            var cartQueue = GeckoJS.Controller.getInstanceByName('Cart');
+            if(cartQueue) {
+                cartQueue.addEventListener('onQueue', this.displayOnVFD, this);
+                cartQueue.addEventListener('onPullQueue', this.displayOnVFD, this);
             }
 
             var self = this;

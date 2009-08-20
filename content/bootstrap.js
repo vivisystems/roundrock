@@ -10,6 +10,9 @@
 // include project locale properties
 GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties");
 
+// include utils
+include('chrome://viviecr/content/utils/syncbase_http_service.js');
+
 // include project models
 include('chrome://viviecr/content/models/app.js');
 

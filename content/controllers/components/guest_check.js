@@ -427,23 +427,6 @@
 
         },
 
-        selGuestNum: function (no){
-
-            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
-            var inputObj = {
-                input0:no, require0:true, numpad:true
-            };
-
-            GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, _('Select Number of Customers'), aFeatures, _('Select Number of Customers'), '', _('Number'), '', inputObj);
-
-            if (inputObj.ok && inputObj.input0) {
-                return inputObj.input0;
-            }
-
-            return no;
-
-        },
 
         selTableNum: function (no){
 
@@ -738,36 +721,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
         load: function () {
             // this.log("GuestCheck load...");
-        },
-
-        guest: function(num, txn) {
-            if (!num) {
-                num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
-                num = this.selGuestNum(num);
-            }
-
-            if (num >= 0) {
-                if (txn) {
-                    // no transaction in cart
-                    txn.data.no_of_customers = num;
-                } else {
-                    // Transaction in cart
-                    var curTransaction = null;
-                    curTransaction = this._controller._getTransaction();
-                    if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-
-                        curTransaction = this._controller._getTransaction(true);
-                        if (curTransaction == null) {
-                            NotifyUtils.warn(_('fatal error!!'));
-                            return; // fatal error ?
-                        }
-                    }
-                    GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
-                    curTransaction.data.no_of_customers = num;
-                }
-
-            }
-            return num;
         },
 
         getCheckList: function(key, no, notCheckStatus) {

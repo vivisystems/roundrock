@@ -91,6 +91,7 @@
         mappingOrderItemsFieldsToTran: function(orderData, data) {
 
             var items = {};
+            var items_summary = {};
 
             if (!orderData.OrderItem || typeof orderData.OrderItem == 'undefined') return items;          
 
@@ -140,9 +141,27 @@
                 }
 
                 items[itemIndex] = orderItem;
+                
+                // process summary
+                let itemSummary = items_summary[orderItem.id] || {
+                    id: orderItem.id, 
+                    name: orderItem.name,
+                    qty_subtotal: 0,
+                    subtotal: 0,
+                    discount_subtotal: 0,
+                    surcharge_subtotal: 0                    
+                };
+
+                itemSummary.qty_subtotal += orderItem.current_qty;
+                itemSummary.subtotal += orderItem.current_subtotal;
+                itemSummary.discount_subtotal += orderItem.current_discount;
+                itemSummary.surcharge_subtotal += orderItem.current_surcharge;
+
+                items_summary[orderItem.id] = itemSummary;
 
             }
             data.items = items;
+            data.items_summary = items_summary;
             return items;
             
         }

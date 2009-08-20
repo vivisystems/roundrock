@@ -110,7 +110,7 @@ pref("vivipos.fec.registry.function.programmable.giftcard.data", "");
 
 pref("vivipos.fec.registry.function.programmable.guestNum.access", "acl_guest_no");
 pref("vivipos.fec.registry.function.programmable.guestNum.command", "guestNum");
-pref("vivipos.fec.registry.function.programmable.guestNum.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.guestNum.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.guestNum.data", "");
 
 pref("vivipos.fec.registry.function.programmable.houseBon.access", "acl_register_housebon");
@@ -235,12 +235,12 @@ pref("vivipos.fec.registry.function.programmable.printerDashboard.data", "");
 
 pref("vivipos.fec.registry.function.programmable.pullqueue.access", "acl_pull_queue");
 pref("vivipos.fec.registry.function.programmable.pullqueue.command", "pullQueue");
-pref("vivipos.fec.registry.function.programmable.pullqueue.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.pullqueue.controller", "CartQueue");
 pref("vivipos.fec.registry.function.programmable.pullqueue.data", "");
 
 pref("vivipos.fec.registry.function.programmable.pushqueue.access", "acl_queue_order");
 pref("vivipos.fec.registry.function.programmable.pushqueue.command", "pushQueue");
-pref("vivipos.fec.registry.function.programmable.pushqueue.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.pushqueue.controller", "CartQueue");
 pref("vivipos.fec.registry.function.programmable.pushqueue.data", "");
 
 pref("vivipos.fec.registry.function.programmable.quantity.access", "acl_register_quantity");

@@ -4,19 +4,12 @@
 
         name: 'Cart',
 
-        components: ['Tax', 'GuestCheck', 'Barcode'],
+        components: ['Tax', 'Barcode', 'GuestCheck', 'CartUtils'],
 
         uses: ['Product'],
         
         _cartView: null,
         _inDialog: false,
-        _queuePool: null,
-        _queueFile: "/var/tmp/cart_queue.txt",
-        _queueSession: "cart_queue_pool",
-        _defaultQueueFile: "/var/tmp/cart_queue.txt",
-        _defaultQueueSession: "cart_queue_pool",
-        _trainingQueueFile: "/var/tmp/training_cart_queue.txt",
-        _trainingQueueSession: "training_cart_queue_pool",
         _returnMode: false,
         _returnPersist: false,
         _decStockBackUp: null,
@@ -72,6 +65,11 @@
                 }
             } ).register();
         },
+
+        destroy: function() {
+            if (this.observer) this.observer.unregister();
+        },
+
 
         sessionHandler: function(evt) {
             var txn = this._getTransaction();
@@ -343,7 +341,7 @@
         //GeckoJS.Session.remove('cart_set_price_value');
         //GeckoJS.Session.remove('cart_set_qty_value');
         },
-	
+
         _getCartlist: function() {
             return document.getElementById('cartList');
         },
@@ -3749,9 +3747,7 @@
         
         startTraining: function( isTraining ) {
             if ( isTraining ) {
-                this._queueFile = this._trainingQueueFile;
-                this._queueSession = this._trainingQueueSession;
-                
+
                 // We are not going to maintain stock in training mode.
                 this._decStockBackUp = this.decStock;
                 this.decStock = function() {
@@ -3762,555 +3758,13 @@
             } else {
                 // discard cart content
                 this.cancel(true);
-                
-                GeckoJS.Session.remove( this._queueSession );
-                this._queueFile = this._defaultQueueFile;
-                this._queueSession = this._defaultQueueSession;
-                
+                               
                 // Use the default stock-maintaining method.
                 this.decStock = this._decStockBackUp;
 
                 // clear screen
                 this.subtotal();
             }
-        },
-
-        removeQueueRecoveryFile: function() {
-            
-            // unserialize from fail recovery file
-            var file = new GeckoJS.File(this._queueFile);
-
-            if (!file.exists()) return false;
-
-            file.remove();
-        },
-
-        serializeQueueToRecoveryFile: function(queue) {
-
-            // save serialize to fail recovery file
-            var file = new GeckoJS.File(this._queueFile);
-            file.open("w");
-            file.write(GeckoJS.BaseObject.serialize(queue));
-            file.close();
-            delete file;
-
-        },
-
-        unserializeQueueFromRecoveryFile: function() {
-            
-            // unserialize from fail recovery file
-            var file = new GeckoJS.File(this._queueFile);
-
-            if (!file.exists()) return false;
-
-            var data = null;
-            file.open("r");
-            data = GeckoJS.BaseObject.unserialize(file.read());
-            file.close();
-            // file.remove();
-            delete file;
-
-            this._queuePool = data;
-            GeckoJS.Session.set(this._queueSession, this._queuePool);
-
-        },
-
-        _getQueuePool: function() {
-
-            this._queuePool = GeckoJS.Session.get(this._queueSession);
-            if (this._queuePool == null) {
-                this._queuePool = {
-                    user: {},
-                    data:{}
-                };
-                GeckoJS.Session.set(this._queueSession, this._queuePool);
-            }
-
-            return this._queuePool;
-            
-        },
-
-        _hasUserQueue: function(user) {
-
-            if (!user) return false;
-
-            var queuePool = this._getQueuePool();
-
-            var username = user.username;
-            
-            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'Array') {
-                return false;
-            } else {
-                return (queuePool.user[username].length >0);
-            }
-           
-        },
-
-        _removeUserQueue: function(user) {
-
-            /*if (!user) return false;
-
-            var queuePool = this._getQueuePool();
-
-            var username = user.username;
-
-            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'Array') {
-                return ;
-            }*/
-            
-            if ( !this._hasUserQueue( user ) )
-                return;
-
-            var removeCount = 0;
-            var queuePool = this._getQueuePool();
-            var username = user.username;
-
-            queuePool.user[username].forEach(function(key){
-
-                // just delete queue
-                if(queuePool.data[key]) delete queuePool.data[key];
-
-                removeCount++;
-                
-            }, this);
-
-            delete queuePool.user[username];
-
-            this.serializeQueueToRecoveryFile(queuePool);
-
-            return removeCount;
-
-        },
-
-        _removeQueueByKey: function(key) {
-
-            var queuePool = this._getQueuePool();
-
-            if (queuePool.data[key]) delete queuePool.data[key];
-            
-            for (var user in queuePool.user) {
-                var userQueues = queuePool.user[user];
-
-                var idx = GeckoJS.Array.inArray(key, userQueues);
-
-                if (idx != -1) {
-                    userQueues.splice(idx, 1);
-                }
-            }
-            this.serializeQueueToRecoveryFile(queuePool);
-        },
-
-        pushQueue: function(nowarning) {
-            
-            var curTransaction = this._getTransaction();
-
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this.ifHavingOpenedOrder() ) {
-                if (!nowarning) {
-                    NotifyUtils.warn(_('No order to queue'));
-                    this._clearAndSubtotal();
-                }
-                return;
-            }
-
-            if (curTransaction.data.recall == 2) {
-                if (!nowarning) {
-                    NotifyUtils.warn(_('Cannot queue the recalled order!!'));
-                    this._clearAndSubtotal();
-                }
-                return;
-            }
-            var user = this.Acl.getUserPrincipal();
-
-            var count = curTransaction.getItemsCount();
-            var key = '';
-            var queuePool = this._getQueuePool();
-
-            if (count > 0) {
-                key = new Date().toString('hh:mm:ss') + ':' + user.username;
-                
-                // queue
-                queuePool.data[key] = curTransaction.data;
-
-                // update user queue status
-                if(!queuePool.user[user.username]) queuePool.user[user.username] = [];
-                queuePool.user[user.username].push(key);
-
-                // only empty view ,
-                // next added item will auto create new transaction
-                curTransaction.emptyView();
-
-                this._getKeypadController().clearBuffer();
-
-                this.dispatchEvent('onQueue', curTransaction);
-
-                GeckoJS.Session.remove('current_transaction');
-                GeckoJS.Session.remove('cart_last_sell_item');
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
-
-                this.serializeQueueToRecoveryFile(queuePool);
-
-                Transaction.removeRecoveryFile();
-            }
-            else {
-                if (!nowarning) {
-                    NotifyUtils.warn(_('Order is not queued because it is empty'));
-                    this._clearAndSubtotal();
-                }
-                return;
-            }
-        
-        },
-
-        _getQueueIdDialog: function() {
-
-            var queuePool = this._getQueuePool();
-            var queues = [];
-            var confs = GeckoJS.Configure.read('vivipos.fec.settings');
-            
-            // check private queue
-            if (confs.PrivateQueue) {
-                var user = this.Acl.getUserPrincipal();
-                
-                if (user && user.username && queuePool.user[user.username]) {
-                    queuePool.user[user.username].forEach(function(key) {
-                        queues.push({
-                            key: key
-                        });
-                    });
-                }
-            }
-            else {
-                for(var key in queuePool.data) {
-                    queues.push({
-                        key: key
-                    });
-                }
-            }
-
-            var dialog_data = {
-                queues: queues,
-                queuePool: queuePool
-            };
-
-            return $.popupPanel('selectQueuesPanel', dialog_data);
-
-        },
-
-        pullQueue: function(data) {
-			
-            var self = this;
-
-            return this._getQueueIdDialog().next(function(evt){
-
-                var result = evt.data;
-
-                if (!result.ok) return;
-
-                var key = result.key;
-                var queuePool = self._getQueuePool();
-
-                // if has transaction push queue
-                self.pushQueue(true);
-
-                var data = queuePool.data[key];
-
-                // remove from list;
-                self._removeQueueByKey(key);
-
-                var curTransaction = new Transaction(true);
-                curTransaction.data = data ;
-
-                self._setTransactionToView(curTransaction);
-                curTransaction.updateCartView(-1, -1);
-
-                self._clearAndSubtotal();
-
-                self.serializeQueueToRecoveryFile(queuePool);
-
-                self.dispatchEvent('afterPullQueue', curTransaction);
-            });
-
-        },
-
-        unserializeFromOrder: function(order_id) {
-            //
-            order_id = order_id;
-
-            var curTransaction = this.GuestCheck.unserializeFromOrder(order_id);
-
-            if (curTransaction) {
-                this._setTransactionToView(curTransaction);
-                curTransaction.updateCartView(-1, -1);
-                this._clearAndSubtotal();
-            }
-            return true;
-
-        },
-
-        newCheck: function(autoCheckNo) {
-
-            if (autoCheckNo)
-                var no = '';
-            else {
-                var no = this._getKeypadController().getBuffer();
-                this._getKeypadController().clearBuffer();
-                this._cancelReturn();
-            }
-            var curTransaction = null;
-
-            var r = -1;
-            if (no.length == 0) {
-                r = this.GuestCheck.getNewCheckNo();
-            } else {
-                r = this.GuestCheck.check(no);
-            }
-
-            this._clearAndSubtotal();
-        },
-
-        newTable: function() {
-
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction = this._getTransaction();
-
-            var r = -1;
-            if (no.length == 0) {
-                r = this.GuestCheck.getNewTableNo();
-            } else {
-                r = this.GuestCheck.table(no);
-            }
-            if (r > 0) {
-                this._clearAndSubtotal();
-            }
-        },
-
-        recallOrder: function() {
-        	
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            this.log('recall order: ' + no );
-
-            return this.GuestCheck.recallByOrderNo(no);
-        },
-
-        recallTable: function() {
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            this.log('recallTable order: ' + no );
-
-            return this.GuestCheck.recallByTableNo(no);
-        },
-
-        recallCheck: function() {
-        	
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            this.log('recallCheck order: ' + no );
-
-            return this.GuestCheck.recallByCheckNo(no);
-        },
-
-        storeCheck: function() {
-        
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                return;
-            }
-
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                return;
-            }
-
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                return;
-            }
-
-            var modified = curTransaction.isModified();
-            if (modified) {
-                this.GuestCheck.store();
-
-                this.dispatchEvent('onStore', curTransaction);
-
-                this._getCartlist().refresh();
-            }
-            else {
-                NotifyUtils.warn(_('No change to store'));
-            }
-        },
-
-        guestNum: function(num) {
-            if (num)
-                var no = num;
-            else {
-                var no = this._getKeypadController().getBuffer();
-                this._getKeypadController().clearBuffer();
-                this._cancelReturn();
-            }
-            
-            var curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-
-                this._clearAndSubtotal();
-                return;
-            }
-
-            if (curTransaction == null) {
-                curTransaction = this._getTransaction(true);
-                if (curTransaction == null) {
-                    NotifyUtils.warn(_('fatal error!!'));
-                    this._clearAndSubtotal();
-                    return;
-                }
-            }
-
-            var r = this.GuestCheck.guest(no);
-            // curTransaction.data.no_of_customers = r;
-
-            this._clearAndSubtotal();
-        },
-
-        mergeCheck: function() {
-
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction;
-
-            curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                this._clearAndSubtotal();
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                this._clearAndSubtotal();
-                return;
-            }
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                this._clearAndSubtotal();
-                return;
-            }
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                this._clearAndSubtotal();
-                return;
-            }
-            var modified = curTransaction.isModified();
-            if (modified) {
-                NotifyUtils.warn(_('This order has been modified and must be stored first'));
-            // r = this.GuestCheck.store();
-            // this.dispatchEvent('onStore', curTransaction);
-            }
-
-            // r = this.GuestCheck.transferToCheckNo(no);
-            var r = this.GuestCheck.mergeOrder(no, curTransaction.data);
-        },
-
-        splitCheck: function() {
-        	
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction;
-            
-            curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                return;
-            }
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                return;
-            }
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                return;
-            }
-            var modified = curTransaction.isModified();
-            if (modified) {
-                NotifyUtils.warn(_('This order has been modified and must be stored first'));
-            // r = this.GuestCheck.store();
-            // this.dispatchEvent('onStore', curTransaction);
-            }
-
-            var r = this.GuestCheck.splitOrder(no, curTransaction.data);
-        },
-
-        transferTable: function(){
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction;
-
-            curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                return;
-            }
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                return;
-            }
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                return;
-            }
-            var modified = curTransaction.isModified();
-            if (modified) {
-                // rec    // XXXX why only rec?
-                NotifyUtils.warn(_('This order has been modified and must be stored first'));
-            // r = this.GuestCheck.store();
-            // this.dispatchEvent('onStore', curTransaction);
-            }
-
-            var r = this.GuestCheck.transferToTableNo(no);
         },
 
         recovery: function(data) {
@@ -4360,12 +3814,9 @@
             waitPanel.hidePopup();
             return waitPanel;
 
-        },
+        }
 
         
-        destroy: function() {
-            if (this.observer) this.observer.unregister();
-        }
     };
 
     GeckoJS.Controller.extend(__controller__);
