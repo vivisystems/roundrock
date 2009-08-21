@@ -180,6 +180,7 @@
                 // should still allow create to proceed; it's up to the upper layer to decide how to handle
                 // this error condition
                 SequenceModel.getSequence('order_no', true, function(seq) {
+                    seq = seq || -1 ;
                     self.data.seq = self.buildOrderSequence(seq);
                     GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
                 });

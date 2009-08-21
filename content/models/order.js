@@ -408,22 +408,12 @@
             }
             else {
                 try {
-                    
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    if (!this.execute("DELETE FROM " + this.table + " WHERE " + conditions)) {
-                        throw {errno: this.lastError,
-                               errstr: this.lastErrorString,
-                               errmsg: 'An error was encountered while removing orders (error code ' + this.lastError + '): ' + this.lastErrorString
-                        }
-                    }
 
                     // update progressbar...
                     GeckoJS.BaseObject.sleep(50);
 
                     // order items
-                    if (!this.OrderItem.execute("DELETE FROM " + this.OrderItem.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ITEMS.order_id)")) {
+                    if (!this.OrderItem.execute("DELETE FROM " + this.OrderItem.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {errno: this.OrderItem.lastError,
                                errstr: this.OrderItem.lastErrorString,
                                errmsg: 'An error was encountered while removing order items (error code ' + this.OrderItem.lastError + '): ' + this.OrderItem.lastErrorString
@@ -434,7 +424,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order item condiments
-                    if (!this.OrderItemCondiment.execute("DELETE FROM " + this.OrderItemCondiment.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ITEM_CONDIMENTS.order_id)")) {
+                    if (!this.OrderItemCondiment.execute("DELETE FROM " + this.OrderItemCondiment.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {errno: this.OrderItemCondiment.lastError,
                                errstr: this.OrderItemCondiment.lastErrorString,
                                errmsg: 'An error was encountered while removing order items (error code ' + this.OrderItemCondiment.lastError + '): ' + this.OrderItemCondiment.lastErrorString
@@ -445,7 +435,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order additions
-                    if (!this.OrderAddition.execute("DELETE FROM " + this.OrderAddition.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ADDITIONS.order_id)")) {
+                    if (!this.OrderAddition.execute("DELETE FROM " + this.OrderAddition.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {errno: this.OrderAddition.lastError,
                                errstr: this.OrderAddition.lastErrorString,
                                errmsg: 'An error was encountered while removing order additons (error code ' + this.OrderAddition.lastError + '): ' + this.OrderAddition.lastErrorString
@@ -456,7 +446,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order annotations
-                    if (!this.OrderAnnotation.execute("DELETE FROM " + this.OrderAnnotation.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ANNOTATIONS.order_id)")) {
+                    if (!this.OrderAnnotation.execute("DELETE FROM " + this.OrderAnnotation.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {errno: this.OrderAnnotation.lastError,
                                errstr: this.OrderAnnotation.lastErrorString,
                                errmsg: 'An error was encountered while removing order annotations (error code ' + this.OrderAnnotation.lastError + '): ' + this.OrderAnnotation.lastErrorString
@@ -467,7 +457,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order objects
-                    if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_OBJECTS.order_id)")) {
+                    if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {errno: this.OrderObject.lastError,
                                errstr: this.OrderObject.lastErrorString,
                                errmsg: 'An error was encountered while removing order objects (error code ' + this.OrderAddition.lastError + '): ' + this.OrderAddition.lastErrorString
@@ -478,7 +468,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order payments
-                    if (!this.OrderPayment.execute("DELETE FROM " + this.OrderPayment.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_PAYMENTS.order_id)")) {
+                    if (!this.OrderPayment.execute("DELETE FROM " + this.OrderPayment.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {errno: this.OrderPayment.lastError,
                                errstr: this.OrderPayment.lastErrorString,
                                errmsg: 'An error was encountered while removing order payments (error code ' + this.OrderPayment.lastError + '): ' + this.OrderPayment.lastErrorString
@@ -489,7 +479,8 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order receipts
-                    if (!this.OrderReceipt.execute("DELETE FROM " + this.OrderReceipt.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_RECEIPTS.order_id)")) {                            throw {errno: this.OrderReceipt.lastError,
+                    if (!this.OrderReceipt.execute("DELETE FROM " + this.OrderReceipt.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {errno: this.OrderReceipt.lastError,
                                errstr: this.OrderReceipt.lastErrorString,
                                errmsg: 'An error was encountered while removing order receipts (error code ' + this.OrderReceipt.lastError + '): ' + this.OrderReceipt.lastErrorString
                         }
@@ -499,9 +490,21 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order promotions
-                    if (!this.OrderPromotion.execute("DELETE FROM " + this.OrderPromotion.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_PROMOTIONS.order_id)")) {                            throw {errno: this.OrderPromotion.lastError,
+                    if (!this.OrderPromotion.execute("DELETE FROM " + this.OrderPromotion.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {errno: this.OrderPromotion.lastError,
                                errstr: this.OrderPromotion.lastErrorString,
                                errmsg: 'An error was encountered while removing order promotions (error code ' + this.OrderPromotion.lastError + '): ' + this.OrderPromotion.lastErrorString
+                        }
+                    }
+
+                    // order delete lastest
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    if (!this.execute("DELETE FROM " + this.table + " WHERE " + conditions)) {
+                        throw {errno: this.lastError,
+                               errstr: this.lastErrorString,
+                               errmsg: 'An error was encountered while removing orders (error code ' + this.lastError + '): ' + this.lastErrorString
                         }
                     }
 

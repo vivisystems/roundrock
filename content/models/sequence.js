@@ -82,10 +82,15 @@
             }) || {
                 id: "",
                 key: key,
-                value: 0
+                value: 0,
+                max_value: 0
             };
 
             seq.value++;
+
+            if (seq.max_value != 0 && seq.value > seq.max_value ) {
+                seq.value = 1;
+            }
 
             this.id = seq.id;
             if (!this.save(seq)) {
@@ -123,6 +128,9 @@
             }
 
             var remoteUrl = this.getHttpService().getRemoteServiceUrl('resetSequence');
+
+            // always reset localhost databases 2009.08.20 irving/frank
+            remoteUrl = false;
 
             var seq = -1;
             if (remoteUrl) {

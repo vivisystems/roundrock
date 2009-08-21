@@ -200,7 +200,7 @@
 
         },
 
-        isRemote: function() {
+        isRemoteService: function() {
             return this.getRemoteServiceUrl();
         },
 

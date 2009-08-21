@@ -16,8 +16,9 @@
         timeout: 30,
 
         lastReadyState: 0,
-
         lastStatus: 0,
+        lastResponseStatus: '',
+        lastResponseCode: 0,
 
         init: function() {
             
@@ -30,6 +31,10 @@
             }
 
             return this.syncSettings;
+        },
+
+        setSyncSettings: function(syncSettings) {
+            this.syncSettings = syncSettings;
         },
 
         getUsername: function() {
@@ -190,9 +195,16 @@
             // set vivipos web service basic authorization
             this.setAuthorizationHeader(req);
 
+            // reset status 
+            self.lastReadyState = 0;
+            self.lastStatus = 0;
+            self.resultStatus = '';
+            self.lastResponseStatus = '';
+            self.lastResponseCode = 0;
+
             // set readystatechange handler
             req.onreadystatechange = function (aEvt) {
-                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 self.lastReadyState = req.readyState;
                 self.lastStatus = req.status;
 
@@ -200,13 +212,19 @@
                     reqStatus.finish = true;
                     if (req.status == 200) {
                         try {
-                            dump('responseText = ' + req.responseText + '\n');
+
                             var result = self.parseResponseText(req.responseText);
-                            dump('result = ' + result + '\n');
+
+                            // set last status 
+                            self.lastResponseStatus = result.status;
+                            self.lastResponseCode = result.code;
+
+                            // set response data 
                             if (result.status == 'ok') {
                                 datas = result.response_data;
                             }
                         }catch(e) {
+
                             self.log('ERROR', 'requestRemoteService decode error ' + e );
                             dump('decode error ' + e ) ;
                         }
