@@ -150,6 +150,27 @@
             }
         },
 
+        getCellValue: function(row, col) {
+
+            var sResult;
+            var key;
+
+            try {
+                key = col.id;
+                if (key == 'row') {
+                    sResult = 1 + parseInt(row);
+                }
+                else
+                    sResult = this.data[row][key] || "";
+            }
+            catch (e) {
+                sResult =  "";
+            }
+            return sResult;
+
+        },
+
+
         getLevel: function(row) {
             return this.data[row].level;
         },

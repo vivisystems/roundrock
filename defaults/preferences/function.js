@@ -298,6 +298,11 @@ pref("vivipos.fec.registry.function.programmable.scale.command", "readScale");
 pref("vivipos.fec.registry.function.programmable.scale.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.scale.data", "");
 
+pref("vivipos.fec.registry.function.programmable.scrollcart.access", "");
+pref("vivipos.fec.registry.function.programmable.scrollcart.command", "scrollByLines");
+pref("vivipos.fec.registry.function.programmable.scrollcart.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.scrollcart.data", "");
+
 pref("vivipos.fec.registry.function.programmable.setdestination.access", "acl_set_destination");
 pref("vivipos.fec.registry.function.programmable.setdestination.command", "setDestination");
 pref("vivipos.fec.registry.function.programmable.setdestination.controller", "Destinations");

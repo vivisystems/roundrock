@@ -141,6 +141,7 @@
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_qty) {font-size: 13px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_price) {font-size: 13px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(destination) {font-size: 13px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(row) {font-size: 13px !important; font-weight: normal !important;}
 
 /*
 .cart-list treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
@@ -172,6 +173,11 @@
 .main-overlay .cart-list tree #tag {
     max-width: 15px;
     min-width: 15px;
+}
+
+.main-overlay .cart-list tree #row {
+    max-width: 20px;
+    min-width: 20px;
 }
 
 .main-overlay .cart-list tree #destination {

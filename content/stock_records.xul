@@ -43,6 +43,8 @@
                 <hbox>
                     <label value="&stockrecords.title;" class="label-page-title"/> -
                     <label id="adjustment_type" value="" class="label-page-title"/>
+                    <label id="records_shown" class="label-sub-title"/> /
+                    <label id="records_total" class="label-sub-title"/>
                 </hbox>
                 <vbox flex="1" class="content-listbox">
                     <vivitree id="stockrecordscrollablepanel" flex="1" rows="2" hidevscroll="true" class="standard custom-content-stock-records"

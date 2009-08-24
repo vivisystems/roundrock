@@ -3531,6 +3531,31 @@
 
         },
 
+        scrollByLines: function(data) {
+            var val = parseInt(data);
+            var cart = this._getCartlist();
+
+            if (!isNaN(val)) {
+                var mode = 'absolute';
+                if (data[0] == '+' || data[0] == '-')
+                    mode = 'relative';
+                
+                var newIndex;
+                var index = cart.selectedIndex;
+                if (index < 0) index = 0;
+
+                if (mode == 'absolute') {
+                    newIndex = val;
+                }
+                else if (mode == 'relative') {
+                    newIndex = index + val;
+                }
+                if (newIndex >= cart.rowCount) newIndex = cart.rowCount - 1;
+                if (newIndex < 0) newIndex = 0;
+                cart.selection.select(newIndex);
+                cart.ensureRowIsVisible(cart.selectedIndex);
+            }
+        },
 
         voidSale: function(id) {
             
