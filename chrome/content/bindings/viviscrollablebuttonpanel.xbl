@@ -163,6 +163,24 @@
         ]]>
         </body>
     </method>
+    
+    <method name="selectAll">
+        <body><![CDATA[
+
+            this.vivibuttonpanel.selectAll();
+
+        ]]>
+        </body>
+    </method>
+    
+    <method name="deselectAll">
+        <body><![CDATA[
+
+            this.vivibuttonpanel.deselectAll();
+
+        ]]>
+        </body>
+    </method>
 
     <method name="invalidate">
         <body><![CDATA[
