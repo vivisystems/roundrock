@@ -260,11 +260,15 @@
             var listObj = this.getListObj();
             var modifyBtn = document.getElementById('modify_acl_group');
             var deleteBtn = document.getElementById('delete_acl_group');
+            var selectAllBtn = document.getElementById('select_all');
+            var deselectAllBtn = document.getElementById('deselect_all');
             
             var btnpanel = this.getRoleListObj().vivibuttonpanel;
             if (listObj.selectedIndex == -1) {
                 modifyBtn.setAttribute('disabled', true);
                 deleteBtn.setAttribute('disabled', true);
+                selectAllBtn.setAttribute('disabled', true);
+                deselectAllBtn.setAttribute('disabled', true);
                 btnpanel.seltype = 'none';
             }
             else {
@@ -272,6 +276,8 @@
 
                 modifyBtn.setAttribute('disabled', group == 'admin');
                 deleteBtn.setAttribute('disabled', group == 'admin');
+                selectAllBtn.setAttribute('disabled', false);
+                deselectAllBtn.setAttribute('disabled', false);
                 btnpanel.seltype = 'multiple';
             }
         }

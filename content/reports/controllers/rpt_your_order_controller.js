@@ -410,25 +410,6 @@
             $.hidePanel( this._fieldPickerPanelId, true );
         },
         
-        selectAllFields: function() {
-            // select all fields on the field picker.
-            var fieldPickerScrollPanel = document.getElementById( this._fieldPickerScrollPanelId );
-            var selectedItems = fieldPickerScrollPanel.selectedItems;
-            
-            for ( var i = 0; i < fieldPickerScrollPanel.datasource.data.length; i ++ )
-                selectedItems[ i ] = i;
-            
-            fieldPickerScrollPanel.invalidate();
-        },
-        
-        deselectAllFields: function() {
-            // deselect all fields on the field picker.
-            var fieldPickerScrollPanel = document.getElementById( this._fieldPickerScrollPanelId );
-            
-            fieldPickerScrollPanel.selectedItems = [];
-            fieldPickerScrollPanel.invalidate();
-        },
-        
         saveSettings: function() {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
