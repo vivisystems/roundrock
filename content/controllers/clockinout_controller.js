@@ -11,7 +11,22 @@
         joblist: null,
         lastUser: null,
         publicAttendance: false,
-        
+        branch_id: null,
+
+        initial: function() {
+
+            // load users
+            this.loadUsers();
+
+            // load jobs
+            this.loadJobs();
+
+            // load branch id
+            var storeContact = GeckoJS.Session.get('storeContact');
+
+            this.branch_id = storeContact ? storeContact.branch_id : '';
+        },
+
         loadUsers: function () {
             var userModel = new UserModel();
             var users = userModel.find('all', {
@@ -149,7 +164,7 @@
                         return;
                     }
                     var clockstamp = new ClockStampModel();
-                    if (clockstamp.saveStamp('clockin', username, jobname, displayname)) {
+                    if (clockstamp.saveStamp('clockin', this.branch_id, username, jobname, displayname)) {
                         this._listSummary(username);
                         $('#user_password').val('');
                     }
@@ -200,7 +215,7 @@
                         return;
                     }
                     else if (last && !last.clockout) {
-                        if (!clockstamp.saveStamp('clockout', username)) {
+                        if (!clockstamp.saveStamp('clockout', this.branch_id, username)) {
                             this._dbError(clockstamp.lastError, clockstamp.lastErrorString,
                                           _('An error was encountered while clocking employee [%S] out (error code %S).', [displayname, clockstamp.lastError]));
                             NotifyUtils.error(_('Failed to clock user out.'));

@@ -5,12 +5,8 @@
      */
     function startup() {
         
-        var users;
-        var jobs;
-
-        $do('loadUsers', null, 'ClockInOut');
-        $do('loadJobs', null, 'ClockInOut');
-
+        $do('initial', null, 'ClockInOut');
+        
         $('#clearBtn')[0].addEventListener('command', clearUserPass, false);
         $('#delBtn')[0].addEventListener('command', delUserPass, false);
         $('#user_password').focus();
