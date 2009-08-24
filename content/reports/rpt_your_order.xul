@@ -219,7 +219,10 @@
                                                buttonClass="button-item-a"
                                                scrollUpClass="scroll-up-button"
                                                scrollDownClass="scroll-down-button">
-                        <spacer flex="1"/>
+                        <spacer flex="1" />
+                        <button id="select_all" oncommand="$do('selectAllFields', null, 'RptYourOrder');" class="button-iconic button-select-all"/>
+                        <button id="deselect_all" oncommand="$do('deselectAllFields', null, 'RptYourOrder');" class="button-iconic button-clear-all"/>
+                        <spacer flex="1" />
                     </viviscrollablebuttonpanel>
 		            <hbox id="dialogButtons" pack="end" class="exitbar">
                         <button id="ok" default="true" class="button-exit" oncommand="$do('dismissFieldPicker', null, 'RptYourOrder');"/>
