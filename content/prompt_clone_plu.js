@@ -8,6 +8,7 @@
         if (inputObj) {
             $('#title-caption')[0].value = inputObj.title;
             $('#targets-label')[0].value = inputObj.targetsLabel;
+            $('#total-count')[0].value = inputObj.targets.length;
 
             $('#targetscrollablepanel')[0].datasource = inputObj.targets;
         }
