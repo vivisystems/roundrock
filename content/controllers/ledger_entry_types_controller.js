@@ -199,7 +199,6 @@
         },
 
         select: function(index){
-
             if (index == this._selectedIndex && index != -1) return;
 
             if (!this.confirmChangeLedgerEntryType(index)) {
@@ -209,7 +208,8 @@
 
             this._selectedIndex = index;
             var entry_type = this._listDatas[index];
-            this.requestCommand('view', entry_type.id);
+            if ( index > -1 ) // if index is -1, then entry_type will be null.
+                this.requestCommand('view', entry_type.id);
             
             this.getListObj().selection.select(index);
             this.getListObj().treeBoxObject.ensureRowIsVisible(index);
