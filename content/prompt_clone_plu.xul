@@ -63,7 +63,7 @@
                 <label id="targets-label" value="" class="label-sub-title"/>
 
                 <vbox flex="1" class="content-listbox">
-                    <viviscrollabletree id="targetscrollablepanel" flex="1" treeClass="standard"
+                    <viviscrollabletree id="targetscrollablepanel" flex="1" treeClass="standard noscrollbar"
                                         headers="&cloneplu.target.name;"
                                         fields="name" seltype="multiple" hidecolumnpicker="true"
                                         oncommand="if (event.mode) this.selection.selectAll(); else this.selection.clearSelection()"
