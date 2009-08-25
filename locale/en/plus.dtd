@@ -49,6 +49,7 @@
 <!ENTITY plus.memo "Memo">
 <!ENTITY plus.minimum.sale.quantity "Minimum Sale Qty">
 <!ENTITY plus.scale.item "Scale item">
+<!ENTITY plus.scale.multiplier "Scale multiplier">
 <!ENTITY plus.scale.tare "Tare (in product unit)">
 <!ENTITY plus.sale.unit "Unit of Sale">
 <!ENTITY plus.sale.unit.individual "Individually">

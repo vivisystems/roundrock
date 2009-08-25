@@ -341,7 +341,6 @@
             if (categoriesByNo && categoriesByNo[item.cate_no]) {
                 item.cate_name = categoriesByNo[item.cate_no].name;
             }
-           
             // name,current_qty,current_price,current_subtotal
             var item2 = {
                 type: 'item', // item or category
@@ -356,6 +355,7 @@
 
                 index: index,
                 sale_unit: item.sale_unit,
+                scale_multiplier: item.scale_multiplier,
                 stock_status: item.stock_status,
                 age_verification: item.age_verification,
                 parent_index: parent_index,
