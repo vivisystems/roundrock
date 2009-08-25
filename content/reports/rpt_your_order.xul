@@ -212,14 +212,18 @@
     <vivipanel id="field_picker_panel" noautohide="false">
         <hbox flex="1" id="field_picker_box" class="container-dialog" pack="center" style="margin: 0; padding: 0;">
             <vbox flex="1" class="container-main">
-                <label value="&rptyourorder.fieldpicker;"/>
+                <label value="&rptyourorder.fieldpicker;" class="label-page-title"/>
                 <vbox pack="center" flex="1" class="content-buttonpanel">
                     <viviscrollablebuttonpanel id="fieldpickerscrollpanel" seltype="multiple" flex="1" cols="5" rows="6"
                                                labelField="name"
+                                               oncommand="if ( event.mode == 1 ) this.selectAll(); else if ( event.mode == 0 ) this.deselectAll();"
                                                buttonClass="button-item-a"
                                                scrollUpClass="scroll-up-button"
                                                scrollDownClass="scroll-down-button">
-                        <spacer flex="1"/>
+                        <spacer flex="1" />
+                        <button id="select_all" oncommand="event.mode = 1" class="button-iconic button-select-all"/>
+                        <button id="deselect_all" oncommand="event.mode = 0" class="button-iconic button-clear-all"/>
+                        <spacer flex="1" />
                     </viviscrollablebuttonpanel>
 		            <hbox id="dialogButtons" pack="end" class="exitbar">
                         <button id="ok" default="true" class="button-exit" oncommand="$do('dismissFieldPicker', null, 'RptYourOrder');"/>
