@@ -3,7 +3,7 @@
         <!-- dynamic created tabs -->
         <!-- tab linkedpanel="panel_{order.check_no}" label="C#{order.check_no}"/ -->
     </tabs>
-    <tabpanels >
+    <tabpanels>
 
 {for order in orders}
 <tabpanel id="panel_${order.check_no}">
@@ -194,8 +194,8 @@
         {else}
         <html:td colspan="3">&#160;&#160;&#160;&#160;&#160;&#160;${adjustment.surcharge_name}</html:td>
         <html:td style="width: 100px; text-align: right;">${adjustment.current_surcharge|viviFormatPrices:true}</html:td>
-    </html:tr>
         {/if}
+    </html:tr>
     {/for}
 {/if}
     <html:tr>
