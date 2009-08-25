@@ -166,7 +166,10 @@
                 });
                 if (oldlength != this._records.length) reset = true;
             }
-            
+
+            document.getElementById('records_shown').value = this._records.length;
+            document.getElementById('records_total').value = this._listData.length;
+
             if (reset || this._panelView == null) {
                 this._panelView = new GeckoJS.NSITreeViewArray(this._records);
                 this.getListObj().datasource = this._panelView;

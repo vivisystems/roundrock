@@ -49,6 +49,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+            GeckoJS.Session.remove('cart_set_qty_source');
 
             // catch changes to price level and store it in txn.data
             var events = GeckoJS.Session.getInstance().events;
@@ -168,6 +169,13 @@
                     evt.preventDefault();
                     return;
                 }
+            }
+
+            // quantity must be greater than zero
+            if (sellQty <= 0) {
+                NotifyUtils.warn(_('Quantity must be greater than zero'));
+                evt.preventDefault();
+                return;
             }
 
             // retrieve set items only if SetItem is set
@@ -340,8 +348,8 @@
             this._cartView.setTransaction(transaction);
             GeckoJS.Session.set('current_transaction', transaction);
             GeckoJS.Session.remove('cart_last_sell_item');
-        //GeckoJS.Session.remove('cart_set_price_value');
-        //GeckoJS.Session.remove('cart_set_qty_value');
+            //GeckoJS.Session.remove('cart_set_price_value');
+            //GeckoJS.Session.remove('cart_set_qty_value');
         },
 	
         _getCartlist: function() {
@@ -609,12 +617,16 @@
                 }
             }
 
+            var qty = GeckoJS.Session.get('cart_set_qty_value');
+            if (qty == null) qty = 1;
+            
+            if (item.scale_multiplier > 0 && GeckoJS.Session.get('cart_set_qty_source') == 'scale') {
+                qty = this.setQty(qty * item.scale_multiplier);
+            }
+
             // if item's unit of sale is individually, we convert qty to integer
             if (item.sale_unit == 'unit') {
-                var qtyCheck = GeckoJS.Session.get('cart_set_qty_value');
-                if (qtyCheck != null) {
-                    this.setQty(qtyCheck, true);
-                }
+                qty = this.setQty(qty, true);
             }
             
             // if we are not in return mode, check if new item is the same as current item. if they are the same,
@@ -627,9 +639,6 @@
                     var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
 
                     var price = GeckoJS.Session.get('cart_set_price_value');
-                    var qty = GeckoJS.Session.get('cart_set_qty_value');
-
-                    if (qty == null) qty = 1;
 
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (currentItem.no == plu.no &&
@@ -639,6 +648,8 @@
                             ((price == null) || (currentItem.current_price == price)) &&
                             currentItem.tax_name == plu.rate) {
 
+                            // need to clear quantity source so scale multipler is not applied again
+                            GeckoJS.Session.remove('cart_set_qty_source');
                             this.modifyQty('plus', qty);
 
                             return;
@@ -666,7 +677,7 @@
                 }
 
                 if (this._returnMode) {
-                    var newqty = 0 - (GeckoJS.Session.get('cart_set_qty_value') || 1);
+                    var newqty = 0 - (qty || 1);
                     GeckoJS.Session.set('cart_set_qty_value', newqty);
                 }
                 var addedItem = curTransaction.appendItem(item);
@@ -1088,9 +1099,13 @@
             }
 
             if (itemDisplay.type == 'item') {
+                // convert newQuantity to proper magnitude if item is scale item and multiplier is non-zero
+                if (itemTrans.scale_multiplier > 0 && GeckoJS.Session.get('cart_set_qty_source') == 'scale') {
+                    newQuantity = this.setQty(newQuantity * itemTrans.scale_multiplier);
+                }
                 // convert newQuantity to whole numbers if unit of sale is 'unit'
                 if (itemTrans.sale_unit == 'unit' && newQuantity != null) {
-                    this.setQty(newQuantity, true);
+                    newQuantity = this.setQty(newQuantity, true);
                 }
             }
             else if (itemDisplay.type == 'condiment') {
@@ -1248,32 +1263,52 @@
             }
 
             var qty = itemTrans.current_qty;
-            var newQty = Math.abs(qty + 0);
+            var newQty = Math.abs(qty);
             if (delta == null || isNaN(delta)) {
                 delta = 1;
             }
             switch(action) {
                 case 'plus':
-                    newQty = newQty+delta;
+                    newQty = parseFloat(newQty + delta);
                     break;
                 case 'minus':
                     newQty = (newQty - delta > 0) ? (newQty - delta) : newQty;
                     break;
             }
             if (qty < 0) newQty = 0 - newQty;
+            if (itemTrans.sale_unit == 'unit') {
+                newQty = parseInt(newQty);
+            }
+            else {
+                // @hack: irving
+                // to get around JS's arithmetic precision imperfections,
+                // we record'the precisions of qty and delta, and
+                // convert newQty to the higher precision of the two,
+                var qtyPrecision = this._getPrecision(qty);
+                var deltaPrecision = this._getPrecision(delta);
+                newQty = newQty.toFixed( qtyPrecision > deltaPrecision ? qtyPrecision : deltaPrecision);
+            }
+            
             if (newQty != qty) {
                 GeckoJS.Session.set('cart_set_qty_value', newQty);
                 this.modifyItem();
             }
             else {
-                NotifyUtils.warn(_('Quantity may not be less than 1'));
+                NotifyUtils.warn(_('Quantity must be greater than zero'));
                 this._clearAndSubtotal();
             }
+        },
+
+        _getPrecision: function(val) {
+            var index = (val+'').indexOf('.');
+            if (index == -1) return 0;
+            else return ((val+'').length - index - 1);
         },
 
         _clearAndSubtotal: function() {
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+            GeckoJS.Session.remove('cart_set_qty_source');
 
             this.subtotal();
         },
@@ -2665,6 +2700,7 @@
 
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+            GeckoJS.Session.remove('cart_set_qty_source');
             
             return $.popupPanel('paymentDetailsPanel', dialog_data);
 
@@ -2680,7 +2716,8 @@
 
             tare = parseFloat(tare);
             if (isNaN(tare)) tare = 0;
-
+this.setQty(1.234, false, 'scale');
+return
             var scaleController = GeckoJS.Controller.getInstanceByName('Scale');
             if (scaleController) {
                 var weight = scaleController.readScale(number);
@@ -2704,7 +2741,7 @@
                                               _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
                     }
                     else {
-                        this.setQty(qty);
+                        this.setQty(qty, false, 'scale');
                         NotifyUtils.info(_('Weight read from scale') + ' :' + qty + ' ' + weight.unit);
                         GREUtils.Sound.play('chrome://viviecr/content/sounds/beep1.wav');
                         return true;
@@ -2714,7 +2751,7 @@
             return false;
         },
 
-        setQty: function(qty, force_int) {
+        setQty: function(qty, force_int, source) {
 
             var qty0;
 
@@ -2725,8 +2762,10 @@
 
             if (isNaN(qty0)) qty0 = 1;
             GeckoJS.Session.set('cart_set_qty_value', qty0);
+            if (source) GeckoJS.Session.set('cart_set_qty_source', source);
             this.dispatchEvent('onSetQty', qty0);
-		
+            
+            return qty0;
         },
 	
         setPrice: function(price) {
@@ -2823,6 +2862,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+            GeckoJS.Session.remove('cart_set_qty_source');
 
             var curTransaction = this._getTransaction();
 
@@ -2914,6 +2954,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+            GeckoJS.Session.remove('cart_set_qty_source');
 
             if (curTransaction.data.recall != 2) {
                 this.dispatchEvent('afterCancel', curTransaction);
@@ -2943,6 +2984,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+            GeckoJS.Session.remove('cart_set_qty_source');
 
             var oldTransaction = this._getTransaction();
             
@@ -3531,6 +3573,31 @@
 
         },
 
+        scrollByLines: function(data) {
+            var val = parseInt(data);
+            var cart = this._getCartlist();
+
+            if (!isNaN(val)) {
+                var mode = 'absolute';
+                if (data[0] == '+' || data[0] == '-')
+                    mode = 'relative';
+                
+                var newIndex;
+                var index = cart.selectedIndex;
+                if (index < 0) index = 0;
+
+                if (mode == 'absolute') {
+                    newIndex = val;
+                }
+                else if (mode == 'relative') {
+                    newIndex = index + val;
+                }
+                if (newIndex >= cart.rowCount) newIndex = cart.rowCount - 1;
+                if (newIndex < 0) newIndex = 0;
+                cart.selection.select(newIndex);
+                cart.ensureRowIsVisible(cart.selectedIndex);
+            }
+        },
 
         voidSale: function(id) {
             
@@ -3941,6 +4008,7 @@
                 GeckoJS.Session.remove('cart_last_sell_item');
                 GeckoJS.Session.remove('cart_set_price_value');
                 GeckoJS.Session.remove('cart_set_qty_value');
+                GeckoJS.Session.remove('cart_set_qty_source');
 
                 this.serializeQueueToRecoveryFile(queuePool);
 

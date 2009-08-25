@@ -391,6 +391,24 @@ msgstr "Other"
 ########################################################################
 
 #################
+# Scroll Cart
+#################
+
+msgid "vivipos.fec.registry.function.programmable.scrollcart.desc"
+msgstr ""
+"This function is used to scroll shopping cart or to go to a specific "
+"row. The parameter field must be set to a number. If a '+' or '-' "
+"preceeds the number, the number indicates the number of rows to scroll "
+"forward (+) or backward (-). Otherwise, the number indicates the row to "
+"scroll to."
+
+msgid "vivipos.fec.registry.function.programmable.scrollcart.label"
+msgstr "Scroll Cart"
+
+msgid "vivipos.fec.registry.function.programmable.scrollcart.name"
+msgstr "Scroll Cart"
+
+#################
 # Training Mode
 #################
 

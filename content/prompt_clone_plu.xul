@@ -27,7 +27,7 @@
     
     <vbox flex="1" class="container-dialog">
         <vbox flex="1" class="container-main">
-            <groupbox flex="1" orient="vertical">
+            <vbox flex="1" orient="vertical">
                 <label id="title-caption" value="" class="label-page-title"/>
 
                 <separator class="groove" style="margin: 5px 0 5px 0"/>
@@ -60,14 +60,20 @@
 
                 <separator class="groove" style="margin: 5px 0 5px 0"/>
 
-                <label id="targets-label" value="" class="label-sub-title"/>
+                <hbox>
+                    <label id="targets-label" value="" class="label-sub-title"/>
+                    <spacer flex="1"/>
+                    <label id="selected-count" value="0" class="label-sub-title"/>
+                    <label value="/" class="label-sub-title"/>
+                    <label id="total-count" class="label-sub-title"/>
+                </hbox>
 
                 <vbox flex="1" class="content-listbox">
-                    <viviscrollabletree id="targetscrollablepanel" flex="1" treeClass="standard"
+                    <viviscrollabletree id="targetscrollablepanel" flex="1" treeClass="standard noscrollbar"
                                         headers="&cloneplu.target.name;"
                                         fields="name" seltype="multiple" hidecolumnpicker="true"
-                                        oncommand="if (event.mode) this.selection.selectAll(); else this.selection.clearSelection()"
-                                        onselect="$('#ok')[0].setAttribute('disabled', this.selectedItems.length == 0)"
+                                        oncommand="if (event.mode) this.selection.selectAll(); else this.selection.clearSelection(); document.getElementById('selected-count').value=this.selectedItems.length;"
+                                        onselect="$('#ok')[0].setAttribute('disabled', this.selectedItems.length == 0); document.getElementById('selected-count').value=this.selectedItems.length;"
                                         scrollUpClass="scroll-up-button"
                                         scrollDownClass="scroll-down-button">
                         <spacer flex="1" />
@@ -76,7 +82,7 @@
                         <spacer flex="1" />
                     </viviscrollabletree>
                 </vbox>
-            </groupbox>
+            </vbox>
             <hbox>
                 <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
                     <button id="ok" label="&dialog.okButton.label;" disabled="true" default="true" oncommand="doOKButton();"/>

@@ -298,15 +298,6 @@
                                         <row module="productsScaleAttr">
                                             <checkbox id="scale" checked="false" label="&plus.scale.item;"
                                                       form="productForm" name="scale" default="false"/>
-                                        </row>
-                                        <row module="productsScaleAttr">
-                                            <vbox>
-                                                <label value="&plus.scale.tare;" control="tare"/>
-                                                <vivitextbox id="tare" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity"
-                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                                             onfocusoninput="select()"
-                                                             form="productForm" name="tare" default="0"/>
-                                            </vbox>
                                             <vbox>
                                                 <label value="&plus.sale.unit;"/>
                                                 <menulist id="sale_unit" value="unit"
@@ -324,6 +315,22 @@
                                                         <menuitem label="&plus.sale.unit.gallon;" value="gal"/>
                                                     </menupopup>
                                                 </menulist>
+                                            </vbox>
+                                        </row>
+                                        <row module="productsScaleAttr">
+                                            <vbox>
+                                                <label value="&plus.scale.multiplier;" control="multiplier"/>
+                                                <vivitextbox id="multiplier" type="number" decimalplaces="Infinity" min="0" max="Infinity"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             onfocusoninput="select()"
+                                                             form="productForm" name="scale_multiplier" default="0"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.scale.tare;" control="tare"/>
+                                                <vivitextbox id="tare" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             onfocusoninput="select()"
+                                                             form="productForm" name="tare" default="0"/>
                                             </vbox>
                                         </row>
                                         <row module="productsMemoAttr">
