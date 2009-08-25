@@ -2716,8 +2716,7 @@
 
             tare = parseFloat(tare);
             if (isNaN(tare)) tare = 0;
-this.setQty(1.234, false, 'scale');
-return
+
             var scaleController = GeckoJS.Controller.getInstanceByName('Scale');
             if (scaleController) {
                 var weight = scaleController.readScale(number);
@@ -2741,7 +2740,7 @@ return
                                               _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
                     }
                     else {
-                        this.setQty(qty, false, 'scale');
+                        this.setQty(qty, false, 'scale', true);
                         NotifyUtils.info(_('Weight read from scale') + ' :' + qty + ' ' + weight.unit);
                         GREUtils.Sound.play('chrome://viviecr/content/sounds/beep1.wav');
                         return true;
@@ -2751,7 +2750,7 @@ return
             return false;
         },
 
-        setQty: function(qty, force_int, source) {
+        setQty: function(qty, force_int, source, show) {
 
             var qty0;
 
@@ -2763,7 +2762,8 @@ return
             if (isNaN(qty0)) qty0 = 1;
             GeckoJS.Session.set('cart_set_qty_value', qty0);
             if (source) GeckoJS.Session.set('cart_set_qty_source', source);
-            this.dispatchEvent('onSetQty', qty0);
+            
+            if (show) this.dispatchEvent('onSetQty', qty0);
             
             return qty0;
         },

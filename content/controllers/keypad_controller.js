@@ -88,7 +88,7 @@
                 case 'X':
                 case '*':
                     if (!this._numberOnly && this.getBuffer().length > 0 ) {
-                        this.getCartController().setQty(this.getBuffer());
+                        this.getCartController().setQty(this.getBuffer(), false, '', true);
                         this.clearBuffer();
                     }
                     break;
