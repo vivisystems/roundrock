@@ -45,10 +45,10 @@
                     </tabpanel>
                           
                     <tabpanel flex="1" orient="vertical">
-                        <vivikbmaps id="kbmap" type="button" cols="5" rows="6" flex="1"
+                        <vivikbmaps id="kbmap" type="button" cols="5" rows="5" flex="1"
                                     label="&localekeyboard.keyboard.select;" popTitle="&localekeyboard.keyboard.title;"
-                                    buttonClass="button-selections" kbmapButtonClass="button-execute"
-                                    popupwidth="800" popupheight="600"
+                                    buttonClass="custom-content-button-kbmap" kbmapButtonClass="button-execute"
+                                    toolbarClass="exitbar" cancelClass="button-exit"
                                     oncommand="$do('selectKbmap', null, 'LocaleKeyboard');"
                                     scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                         <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"
