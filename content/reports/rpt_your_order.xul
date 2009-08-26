@@ -226,6 +226,8 @@
                         <spacer flex="1" />
                     </viviscrollablebuttonpanel>
 		            <hbox id="dialogButtons" pack="end" class="exitbar">
+		                <button id="save" class="button-save" default="true" oncommand="$do('dismissFieldPickerAndSave', null, 'RptYourOrder');"/>
+		                <spacer flex="1" />
                         <button id="ok" default="true" class="button-exit" oncommand="$do('dismissFieldPicker', null, 'RptYourOrder');"/>
                     </hbox>
                 </vbox>
