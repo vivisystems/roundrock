@@ -138,13 +138,10 @@
                                                     <menuitem label="&plus.sale.unit.individual;" value="unit"/>
                                                     <menuitem label="&plus.sale.unit.gram;" value="g"/>
                                                     <menuitem label="&plus.sale.unit.kilogram;" value="kg"/>
+                                                    <menuitem label="&plus.sale.unit.milligram;" value="mg"/>
                                                     <menuitem label="&plus.sale.unit.ounce;" value="oz"/>
                                                     <menuitem label="&plus.sale.unit.pound;" value="lb"/>
-                                                    <menuitem label="&plus.sale.unit.milliliter;" value="ml"/>
-                                                    <menuitem label="&plus.sale.unit.liter;" value="l"/>
-                                                    <menuitem label="&plus.sale.unit.pint;" value="pt"/>
-                                                    <menuitem label="&plus.sale.unit.quart;" value="qt"/>
-                                                    <menuitem label="&plus.sale.unit.gallon;" value="gal"/>
+                                                    <menuitem label="&plus.sale.unit.carat;" value="ct"/>
                                                 </menupopup>
                                             </menulist>
                                         </vbox>

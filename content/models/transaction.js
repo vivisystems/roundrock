@@ -356,6 +356,7 @@
                 index: index,
                 sale_unit: item.sale_unit,
                 scale_multiplier: item.scale_multiplier,
+                scale_precision: item.scale_precision,
                 stock_status: item.stock_status,
                 age_verification: item.age_verification,
                 parent_index: parent_index,
@@ -614,7 +615,7 @@
                         itemDisplay.current_qty += 'X';
                     }
                     else {
-                        itemDisplay.current_qty += item.sale_unit;
+                        itemDisplay.current_qty += ' ' + item.sale_unit;
                     }
                 }
             }

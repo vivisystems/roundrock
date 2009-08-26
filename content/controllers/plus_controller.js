@@ -659,6 +659,10 @@
         getInputData: function () {
             var prod = GeckoJS.FormHelper.serializeToObject('productForm', false);
 
+            var saleUnitIndex = document.getElementById('sale_unit').selectedIndex;
+            if (saleUnitIndex == -1) {
+                prod.sale_unit = document.getElementById('sale_unit').value;
+            }
             return this._convertInputData(prod);
         },
 
@@ -672,6 +676,13 @@
             GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
 
             if (valObj) {
+                // sale unit may not be one of the predefined units, if so, add it to the top of the menu
+                var saleUnitMenu = document.getElementById('sale_unit');
+                if (saleUnitMenu.selectedIndex == -1 && valObj.sale_unit != '') {
+                    saleUnitMenu.insertItemAt(0, valObj.sale_unit, valObj.sale_unit);
+                    saleUnitMenu.value = valObj.sale_unit;
+                }
+                
                 var sPluDir = GeckoJS.Session.get('pluimage_directory');
                 var aDstFile = sPluDir + valObj.no + ".png";
 
@@ -1329,6 +1340,8 @@
                                 newData.scale = product.scale;
                                 newData.sale_unit = product.sale_unit;
                                 newData.tare = product.tare;
+                                newData.scale_multiplier = product.scale_multiplier;
+                                newData.scale_precision = product.scale_precision;
                             }
 
                             if (inputObj.cloneSettings['appearance']) {

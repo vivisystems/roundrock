@@ -50,18 +50,16 @@
 <!ENTITY plus.minimum.sale.quantity "Minimum Sale Qty">
 <!ENTITY plus.scale.item "Scale item">
 <!ENTITY plus.scale.multiplier "Scale multiplier">
+<!ENTITY plus.scale.precision "Weight decimal places">
 <!ENTITY plus.scale.tare "Tare (in product unit)">
 <!ENTITY plus.sale.unit "Unit of Sale">
 <!ENTITY plus.sale.unit.individual "Individually">
 <!ENTITY plus.sale.unit.gram "Gram">
+<!ENTITY plus.sale.unit.milligram "Milligram">
 <!ENTITY plus.sale.unit.kilogram "Kilogram">
 <!ENTITY plus.sale.unit.ounce "Ounce">
 <!ENTITY plus.sale.unit.pound "Pound">
-<!ENTITY plus.sale.unit.milliliter "Milliliter">
-<!ENTITY plus.sale.unit.liter "Liter">
-<!ENTITY plus.sale.unit.pint "Pint">
-<!ENTITY plus.sale.unit.quart "Quart">
-<!ENTITY plus.sale.unit.gallon "Gallon">
+<!ENTITY plus.sale.unit.carat "Carat">
 <!ENTITY plus.location "Stock Location">
 
 <!ENTITY plus.header.label "Label">

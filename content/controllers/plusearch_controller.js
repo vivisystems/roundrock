@@ -117,6 +117,13 @@
                 // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
                 var inputObj = window.arguments[0];
                 inputObj.item = data;
+
+                var saleUnitMenu = document.getElementById('sale_unit');
+                if (saleUnitMenu.selectedIndex == -1 && data.sale_unit != '') {
+                    saleUnitMenu.insertItemAt(0, data.sale_unit, data.sale_unit);
+                    saleUnitMenu.value = data.sale_unit;
+                }
+
             }
         },
 
@@ -166,7 +173,7 @@
             } else if (this._listDatas.length == 1) {
                 var product = this._listDatas[0];
                 
-                if (!nofillform) GeckoJS.FormHelper.unserializeFromObject('productForm', product);
+                if (!nofillform) this.select(0);
                 if (window.arguments && window.arguments[0]) {
                     window.arguments[0].item = product;
                 }

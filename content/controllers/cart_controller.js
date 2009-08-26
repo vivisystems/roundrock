@@ -21,6 +21,15 @@
         _returnPersist: false,
         _decStockBackUp: null,
 
+        _weightConversionTable: {
+            kg : {kg: 1,         g: 1000,    mg: 1000000, oz: 35.2739,      lb: 2.20462,       ct: 5000},
+            g  : {kg: 0.001,     g: 1,       mg: 1000,    oz: 0.0352739,    lb: 0.00220462,    ct: 5},
+            mg : {kg: 0.000001,  g: 0.001,   mg: 1,       oz: 0.0000352739, lb: 0.00000220462, ct: 0.005},
+            oz : {kg: 0.0283495, g: 28.3495, mg: 28349.5, oz: 1,            lb: 0.062499,      ct: 141.747},
+            lb : {kg: 0.453592,  g: 453.592, mg: 453592,  oz: 16,           lb: 1,             ct: 2267.961},
+            ct : {kg: 0.0002,    g: 0.2,     mg: 200,     oz: 0.007054,     lb: 0.000440875,   ct: 1}
+        },
+        
         beforeFilter: function(evt) {
 
             var cmd = evt.data;
@@ -49,7 +58,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-            GeckoJS.Session.remove('cart_set_qty_source');
+            GeckoJS.Session.remove('cart_set_qty_unit');
 
             // catch changes to price level and store it in txn.data
             var events = GeckoJS.Session.getInstance().events;
@@ -334,7 +343,34 @@
             
             return curTransaction;
         },
-        
+
+        _convertWeight: function(w, sourceUnit, targetUnit, multiplier, precision) {
+            precision = parseInt(precision);
+            if (isNaN(precision) || precision < 0) precision = 2;
+
+            var converted = false;
+            if (sourceUnit != null && sourceUnit != '' && sourceUnit != 'unit' ||
+                targetUnit != null && targetUnit != '' && targetUnit != 'unit') {
+                
+                var src = sourceUnit.toLowerCase();
+                var tgt = targetUnit.toLowerCase();
+                var cList = this._weightConversionTable[src];
+
+                if (cList) {
+                    var factor = parseFloat(cList[tgt]);
+                    if (factor != null && !isNaN(factor)) {
+                        w *= factor;
+                        converted = true;
+                    }
+                }
+            }
+
+            if (!converted && multiplier > 0)
+                w *= multiplier;
+
+            return parseFloat(w.toFixed(precision));
+        },
+
         ifHavingOpenedOrder: function() {
             var curTransaction = this._getTransaction();
 
@@ -618,12 +654,13 @@
             }
 
             var qty = GeckoJS.Session.get('cart_set_qty_value');
+            var unit = GeckoJS.Session.get('cart_set_qty_unit');
             if (qty == null) qty = 1;
             
-            if (item.scale_multiplier > 0 && GeckoJS.Session.get('cart_set_qty_source') == 'scale') {
-                qty = this.setQty(qty * item.scale_multiplier);
+            if (unit != null && unit != '') {
+                qty = this.setQty(this._convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
             }
-
+            
             // if item's unit of sale is individually, we convert qty to integer
             if (item.sale_unit == 'unit') {
                 qty = this.setQty(qty, true);
@@ -649,7 +686,7 @@
                             currentItem.tax_name == plu.rate) {
 
                             // need to clear quantity source so scale multipler is not applied again
-                            GeckoJS.Session.remove('cart_set_qty_source');
+                            GeckoJS.Session.remove('cart_set_qty_unit');
                             this.modifyQty('plus', qty);
 
                             return;
@@ -1100,8 +1137,9 @@
 
             if (itemDisplay.type == 'item') {
                 // convert newQuantity to proper magnitude if item is scale item and multiplier is non-zero
-                if (itemTrans.scale_multiplier > 0 && GeckoJS.Session.get('cart_set_qty_source') == 'scale') {
-                    newQuantity = this.setQty(newQuantity * itemTrans.scale_multiplier);
+                var unit = GeckoJS.Session.get('cart_set_qty_unit');
+                if (unit != null && unit != '') {
+                    newQuantity = this.setQty(this._convertWeight(newQuantity, unit, itemTrans.sale_unit, itemTrans.scale_multiplier, itemTrans.scale_precision));
                 }
                 // convert newQuantity to whole numbers if unit of sale is 'unit'
                 if (itemTrans.sale_unit == 'unit' && newQuantity != null) {
@@ -1308,7 +1346,7 @@
         _clearAndSubtotal: function() {
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-            GeckoJS.Session.remove('cart_set_qty_source');
+            GeckoJS.Session.remove('cart_set_qty_unit');
 
             this.subtotal();
         },
@@ -2700,7 +2738,7 @@
 
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-            GeckoJS.Session.remove('cart_set_qty_source');
+            GeckoJS.Session.remove('cart_set_qty_unit');
             
             return $.popupPanel('paymentDetailsPanel', dialog_data);
 
@@ -2719,7 +2757,8 @@
 
             var scaleController = GeckoJS.Controller.getInstanceByName('Scale');
             if (scaleController) {
-                var weight = scaleController.readScale(number);
+                //var weight = scaleController.readScale(number);
+                weight = {value: 1.0, unit: 'KG'};
 
                 if (weight == -1) {
                     // configuration error; alert already posted; do nothing here
@@ -2740,7 +2779,7 @@
                                               _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
                     }
                     else {
-                        this.setQty(qty, false, 'scale', true);
+                        this.setQty(qty, false, weight.unit, true);
                         NotifyUtils.info(_('Weight read from scale') + ' :' + qty + ' ' + weight.unit);
                         GREUtils.Sound.play('chrome://viviecr/content/sounds/beep1.wav');
                         return true;
@@ -2750,7 +2789,7 @@
             return false;
         },
 
-        setQty: function(qty, force_int, source, show) {
+        setQty: function(qty, force_int, unit, show) {
 
             var qty0;
 
@@ -2761,7 +2800,7 @@
 
             if (isNaN(qty0)) qty0 = 1;
             GeckoJS.Session.set('cart_set_qty_value', qty0);
-            if (source) GeckoJS.Session.set('cart_set_qty_source', source);
+            if (unit) GeckoJS.Session.set('cart_set_qty_unit', unit);
             
             if (show) this.dispatchEvent('onSetQty', qty0);
             
@@ -2862,7 +2901,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-            GeckoJS.Session.remove('cart_set_qty_source');
+            GeckoJS.Session.remove('cart_set_qty_unit');
 
             var curTransaction = this._getTransaction();
 
@@ -2954,7 +2993,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-            GeckoJS.Session.remove('cart_set_qty_source');
+            GeckoJS.Session.remove('cart_set_qty_unit');
 
             if (curTransaction.data.recall != 2) {
                 this.dispatchEvent('afterCancel', curTransaction);
@@ -2984,7 +3023,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-            GeckoJS.Session.remove('cart_set_qty_source');
+            GeckoJS.Session.remove('cart_set_qty_unit');
 
             var oldTransaction = this._getTransaction();
             
@@ -4005,7 +4044,7 @@
                 GeckoJS.Session.remove('cart_last_sell_item');
                 GeckoJS.Session.remove('cart_set_price_value');
                 GeckoJS.Session.remove('cart_set_qty_value');
-                GeckoJS.Session.remove('cart_set_qty_source');
+                GeckoJS.Session.remove('cart_set_qty_unit');
 
                 this.serializeQueueToRecoveryFile(queuePool);
 

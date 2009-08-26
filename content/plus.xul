@@ -300,24 +300,28 @@
                                                       form="productForm" name="scale" default="false"/>
                                             <vbox>
                                                 <label value="&plus.sale.unit;"/>
-                                                <menulist id="sale_unit" value="unit"
+                                                <menulist id="sale_unit" value="unit" editable="true"
                                                           form="productForm" name="sale_unit" default="unit">
                                                     <menupopup>
                                                         <menuitem label="&plus.sale.unit.individual;" value="unit"/>
-                                                        <menuitem label="&plus.sale.unit.gram;" value="g"/>
-                                                        <menuitem label="&plus.sale.unit.kilogram;" value="kg"/>
-                                                        <menuitem label="&plus.sale.unit.ounce;" value="oz"/>
-                                                        <menuitem label="&plus.sale.unit.pound;" value="lb"/>
-                                                        <menuitem label="&plus.sale.unit.milliliter;" value="ml"/>
-                                                        <menuitem label="&plus.sale.unit.liter;" value="l"/>
-                                                        <menuitem label="&plus.sale.unit.pint;" value="pt"/>
-                                                        <menuitem label="&plus.sale.unit.quart;" value="qt"/>
-                                                        <menuitem label="&plus.sale.unit.gallon;" value="gal"/>
+                                                        <menuitem label="&plus.sale.unit.gram; (g)" value="g"/>
+                                                        <menuitem label="&plus.sale.unit.kilogram; (kg)" value="kg"/>
+                                                        <menuitem label="&plus.sale.unit.milligram; (mg)" value="mg"/>
+                                                        <menuitem label="&plus.sale.unit.ounce; (oz)" value="oz"/>
+                                                        <menuitem label="&plus.sale.unit.pound; (lb)" value="lb"/>
+                                                        <menuitem label="&plus.sale.unit.carat; (ct)" value="ct"/>
                                                     </menupopup>
                                                 </menulist>
                                             </vbox>
                                         </row>
                                         <row module="productsScaleAttr">
+                                            <vbox>
+                                                <label value="&plus.scale.precision;" control="precision"/>
+                                                <vivitextbox id="precision" type="number" decimalplaces="0" min="0" max="9"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             onfocusoninput="select()"
+                                                             form="productForm" name="scale_precision" default="2"/>
+                                            </vbox>
                                             <vbox>
                                                 <label value="&plus.scale.multiplier;" control="multiplier"/>
                                                 <vivitextbox id="multiplier" type="number" decimalplaces="Infinity" min="0" max="Infinity"
@@ -325,6 +329,8 @@
                                                              onfocusoninput="select()"
                                                              form="productForm" name="scale_multiplier" default="0"/>
                                             </vbox>
+                                        </row>
+                                        <row module="productsScaleAttr">
                                             <vbox>
                                                 <label value="&plus.scale.tare;" control="tare"/>
                                                 <vivitextbox id="tare" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity"
