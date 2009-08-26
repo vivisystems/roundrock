@@ -3706,9 +3706,11 @@
                         // insert refund payments
                         for (var i = 0; r && i < inputObj.refunds.length; i++) {
                             var payment = inputObj.refunds[i];
+                            
+                            // doing so ensures the model will save this payment in insertion mode.
+                            paymentModel.id = payment.id = '';
 
                             // reverse amount, origin_amount, change
-                            payment.id = '';
                             payment.order_id = order.id;
                             payment.amount = - payment.amount;
                             payment.origin_amount = payment.amount;
@@ -3729,6 +3731,7 @@
 
                             // save payment record
                             r = paymentModel.savePayment(payment);
+                            
                             if (!r) {
                                 throw {
                                     errno: paymentModel.lastError,
