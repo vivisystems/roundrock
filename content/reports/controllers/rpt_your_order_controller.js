@@ -398,7 +398,11 @@
         },
         
         dismissFieldPicker: function() {
-            // save the chosen fields.
+            $.hidePanel( this._fieldPickerPanelId, true );
+        },
+        
+        dismissFieldPickerAndSave: function() {
+            // save the chosen fields and leave.
             var fieldPickerScrollPanel = document.getElementById( this._fieldPickerScrollPanelId );
             var selectedItems = fieldPickerScrollPanel.selectedItems;
             
@@ -407,7 +411,7 @@
                 GeckoJS.BaseObject.serialize( selectedItems )
             );
 
-            $.hidePanel( this._fieldPickerPanelId, true );
+            this.dismissFieldPicker();
         },
         
         saveSettings: function() {
