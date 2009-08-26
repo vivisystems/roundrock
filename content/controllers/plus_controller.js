@@ -1173,7 +1173,7 @@
             while (low < high) {
                 var mid = Math.floor((low - (- high))/2);
                 (list[mid][path] < elem) ? low = mid + 1 : high = mid;
-            }s
+            }
             // high == low, using high or low depends on taste
             if ((low < N) && (list[low][path] == elem))
                 return low // found
@@ -1204,7 +1204,7 @@
                 var catIndex = -1;
                 for (var i = 0; i < categoryIDs.length; i++) {
                     var cat_id = categoryIDs[i];
-                    if (cat_id && categoriesById[cat_id] && categoriesById[cat_id].nalo == plu.cate_no) {
+                    if (cat_id && categoriesById[cat_id] && categoriesById[cat_id].no == plu.cate_no) {
                         catIndex = i;
                         break;
                     }
