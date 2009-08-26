@@ -9,6 +9,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/datetime.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 
@@ -39,8 +40,9 @@
                         <vividatetimepicker id="datetime" type="embed"/>
                     </tabpanel>
                     <tabpanel flex="1" orient="vertical">
-                        <vivitimezones id="timezones" flex="1" type="button" cols="5" rows="6"
-                                       buttonClass="button-selections" timezoneButtonClass="button-execute"
+                        <vivitimezones id="timezones" flex="1" type="button" cols="5" rows="5"
+                                       buttonClass="custom-content-button-timezone" timezoneButtonClass="button-execute"
+                                       toolbarClass="exitbar" cancelClass="button-exit"
                                        btnLabel="&datetime.timezone.select;" popTitle="&datetime.timezone.title;"
                                        scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                     </tabpanel>

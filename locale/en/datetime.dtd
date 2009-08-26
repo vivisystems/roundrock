@@ -1,4 +1,4 @@
 <!ENTITY datetime.title "Date, Time and Time Zone">
-<!ENTITY datetime.timezone.title "Time Zone">
+<!ENTITY datetime.timezone.title "Time Zones">
 <!ENTITY datetime.datetime.title "Date and Time">
 <!ENTITY datetime.timezone.select "Change">
