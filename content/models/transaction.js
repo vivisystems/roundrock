@@ -43,7 +43,7 @@
                 surcharge_subtotal: 0,
                 discount_subtotal: 0,
                 payment_subtotal: 0,
-                
+
                 promotion_subtotal: 0,
                 promotion_apply_items: null,
                 promotion_matched_items: null,
