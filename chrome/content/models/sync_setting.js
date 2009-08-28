@@ -174,4 +174,22 @@ SyncSetting.prototype.createSchema = function() {
 
 };
 
+/**
+ * read sync_settings
+ *
+ * @public
+ * @static
+ * @function
+ * @name SyncSetting.read
+ * @return {Object}
+ */
+SyncSetting.read = function SyncSettingRead() {
+
+    if (SyncSetting._setting) return SyncSetting._setting;
+
+    return (new SyncSetting()).read();
+
+};
+
+
 })();
