@@ -2423,7 +2423,6 @@
             tax_subtotal -= promotion_tax_subtotal;
             included_tax_subtotal -= promotion_included_tax_subtotal;
 
-            alert(item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal);
             total = this.getRoundedPrice(item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal);
             remain = total - payment_subtotal;
 
