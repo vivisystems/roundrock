@@ -17,6 +17,7 @@
         _busy: false,
         _importFolder: 'database_import',
         _exportFolder: 'database_export',
+        _needRestart: false,
 
         select: function(index) {
             var button = document.getElementById('importBtn');
@@ -732,7 +733,7 @@
                             NotifyUtils.info(_('Data import from file [%S] finished!', [this._datas[index].filename]));
 
                             // restart vivipos
-                            GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+                            this._needRestart = true;
 
                             return;
                         }catch (e) {
@@ -1787,7 +1788,7 @@
                 NotifyUtils.info(_('Import of [%S] from file [%S] finished!', [this._datas[index].name, fileName]));
 
                 // restart vivipos
-                GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+                this._needRestart = true;
             }
             catch (e) {
 
@@ -2124,6 +2125,13 @@
             waitPanel.openPopupAtScreen(0, 0);
 
             return waitPanel;
+        },
+
+        doExit: function() {
+            if (this._needRestart) {
+                GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+            }
+            doOKButton();
         }
 
     };
