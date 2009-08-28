@@ -284,7 +284,23 @@
         ]]>  
         </body>
     </method>
-
+    
+    <method name="selectAll">
+        <body><![CDATA[
+            for ( var i = 0; i < this.rowCount; i++ )
+                this.selectedItems[ i ] = i;
+            this.refresh();
+        ]]>
+        </body>
+    </method>
+    
+    <method name="deselectAll">
+        <body><![CDATA[
+            this.selectedItems = [];
+            this.refresh();
+        ]]>
+        </body>
+    </method>
 
     <method name="setDatasource">
         <parameter name="datasource"/>

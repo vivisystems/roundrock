@@ -35,8 +35,8 @@
 
             </xul:hbox>
 
-            <xul:panel anonid="kbmaps-panel" position="overlap" xbl:inherits="class=popupClass">
-                <xul:vbox flex="1">
+            <xul:panel anonid="kbmaps-panel" position="overlap">
+                <xul:vbox flex="1" xbl:inherits="class=popupClass">
                     <xul:label xbl:inherits="value=popTitle" />
                     <xul:viviscrollablebuttonpanel anonid="kbmaps-buttonpanel" flex="1"
                                                    cols="4" rows="4" labelField="label" imageField="image"
@@ -45,6 +45,9 @@
                                                    xbl:inherits="cols,rows,class=panelClass,buttonClass,scrollUpClass,scrollDownClass">
                         <xul:spacer flex="1" />
                     </xul:viviscrollablebuttonpanel>
+                    <xul:hbox xbl:inherits="class=toolbarClass">
+                        <xul:button oncommand="hideKbmapPanel()" xbl:inherits="label=cancelLabel,class=cancelClass"/>
+                    </xul:hbox>
                 </xul:vbox>
             </xul:panel>
         </content>
