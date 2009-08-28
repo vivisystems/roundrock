@@ -14,165 +14,33 @@
 
         _cachedRecords: null,
 
-        syncSettings: null,
-
         lastModified: 0,
-
-        timeout: 30,
-
-        lastReadyState: 0,
-
-        lastStatus: 0,
 
         autoRestoreFromBackup: true,
 
-        getRemoteServiceUrl: function(method) {
+        httpService: null,
 
-            this.syncSettings = (new SyncSetting()).read();
+        getHttpService: function() {
 
-            if (this.syncSettings && this.syncSettings.active == '1') {
-
-                var hostname = this.syncSettings.stock_hostname || 'localhost';
-
-                if (hostname == 'localhost' || hostname == '127.0.0.1') return false;
-
-                //  http://localhost:3000/stocks/checkStock/
-                // check connection status
-                this.url = this.syncSettings.protocol + '://' +
-                hostname + ':' +
-                this.syncSettings.port + '/' +
-                'stocks/' + method;
-
-                this.username = 'vivipos';
-                this.password = this.syncSettings.password ;
-
-                return this.url;
-
-            }else {
-                return false;
-            }
-        },
-
-        requestRemoteService: function(type, url, data, async, callback) {
-
-            var reqUrl = url ;
-            type = type || 'GET';
-
-            async = async || false;
-            callback = (typeof callback == 'function') ?  callback : null;
-
-            var username = this.username ;
-            var password = this.password ;
-
-            this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with method: ' + type);
-
-            // set this reference to self for callback
-            var self = this;
-            // for use asynchronize mode like synchronize mode
-            // mozilla only
-            var reqStatus = {};
-            reqStatus.finish = false;
-
-            var req = new XMLHttpRequest();
-
-            req.mozBackgroundRequest = true;
-
-            /* Request Timeout guard */
-            var timeoutSec = this.syncSettings.timeout * 1000;
-            var timeout = null;
-            timeout = setTimeout(function() {
-
-                try {
-                    self.log('WARN', 'requestRemoteService url: ' + reqUrl +'  timeout, call req.abort');
-                    req.abort();
-                }
-                catch(e) {
-                    self.log('ERROR', 'requestRemoteService timeout exception ' + e );
-                }
-            }, timeoutSec);
-
-            /* Start Request with http basic authorization */
-            var datas = null;
-
-            req.open(type, reqUrl, true/*, username, password*/);
-
-            // dump('request url: ' + reqUrl + '\n');
-
-            req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
-
-            req.onreadystatechange = function (aEvt) {
-                // dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
-                self.lastReadyState = req.readyState;
-                self.lastStatus = req.status;
-
-                if (req.readyState == 4) {
-                    reqStatus.finish = true;
-                    if (req.status == 200) {
-                        try {
-                            var result = GeckoJS.BaseObject.unserialize(req.responseText);
-                            if (result.status == 'ok') {
-                                datas = result.response_data;
-                            }
-                        }catch(e) {
-                            self.log('ERROR', 'requestRemoteService decode error ' + e );
-                            dump('decode error ' + e ) ;
-                        }
-                    }
-                    // clear resources
-                    if (async) {
-                        // status 0 -- timeout
-                        if (callback) {
-                            callback.call(this, datas);
-                        }
-                        if (timeout) clearTimeout(timeout);
-                        if (req) delete req;
-                        if (reqStatus) delete reqStatus;
-                    }
-                }
-            };
-
-            var request_data = null;
-            if (data) {
-                req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');                 
-                request_data = 'request_data=' + encodeURIComponent(GeckoJS.BaseObject.serialize(data));
-            }
-            
             try {
-                // Bypassing the cache
-                req.channel.loadFlags |= Components.interfaces.nsIRequest.LOAD_BYPASS_CACHE;
-                req.send(request_data);
-
-                if (!async) {
-                    // block ui until request finish or timeout
-                    
-                    var now = Date.now().getTime();
-
-                    var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                    while (!reqStatus.finish) {
-
-                        if (Date.now().getTime() > (now+timeoutSec)) break;
-                        
-                        thread.processNextEvent(true);
-                    }
+                if (!this.httpService) {
+                    var syncSettings = SyncSetting.read();
+                    this.httpService = new SyncbaseHttpService();
+                    this.httpService.setSyncSettings(syncSettings);
+                    this.httpService.setHostname(syncSettings.stock_hostname);
+                    this.httpService.setController('stocks');
                 }
-
             }catch(e) {
-                this.log('ERROR', 'requestRemoteService req.send error ' + e );
-            }finally {
-
-                if (!async) {
-                    if (timeout) clearTimeout(timeout);
-                    if (req) delete req;
-                    if (reqStatus) delete reqStatus;
-                }
-
+                this.log('error ' + e);
             }
-            if (callback && !async) {
-                callback.call(this, datas);
-            }
-            return datas;
 
+            return this.httpService;
         },
+
+        isRemoteService: function() {
+            return this.getHttpService().isRemoteService();
+        },
+
 
         getLastModifiedRecords: function(lastModified) {
             
@@ -200,10 +68,6 @@
 
         },
 
-        isRemoteService: function() {
-            return this.getRemoteServiceUrl();
-        },
-
         syncAllStockRecords: function(async, callback) {
 
             async = async || false;
@@ -222,7 +86,7 @@
             this.getLastModifiedRecords(this.lastModified);
 
             // sync remote stock record to cached .
-            var remoteUrl = this.getRemoteServiceUrl('getLastModifiedRecords');
+            var remoteUrl = this.getHttpService().getRemoteServiceUrl('getLastModifiedRecords');
 
             if(remoteUrl) {
                 
@@ -258,9 +122,9 @@
                 };
 
                 if (async) {
-                    this.requestRemoteService('GET', requestUrl, null, async, cb);
+                    this.getHttpService().requestRemoteService('GET', requestUrl, null, async, cb) || null ;
                 }else {
-                    var remoteStockResults = this.requestRemoteService('GET', requestUrl, null, async, callback);
+                    var remoteStockResults = this.getHttpService().requestRemoteService('GET', requestUrl, null, async, callback) || null ;
                     cb.call(self, remoteStockResults);
                 }
 
@@ -380,13 +244,14 @@
 
             //this.log('DEBUG', 'decreaseStockRecords datas: ' + this.dump(datas));
 
-            var remoteUrl = this.getRemoteServiceUrl('decreaseStockRecords');
+            var remoteUrl = this.getHttpService().getRemoteServiceUrl('decreaseStockRecords');
 
             if(remoteUrl) {
 
                 var requestUrl = remoteUrl + '/' + this.lastModified;
-                
-                var response_data = this.requestRemoteService('POST', requestUrl, datas, async, callback);
+
+                var request_data = GeckoJS.BaseObject.serialize(datas);
+                var response_data = this.getHttpService().requestRemoteService('POST', requestUrl, request_data, async, callback) || null ;
 
                 if (response_data) {
                     var remoteStocks;

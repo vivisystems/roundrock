@@ -176,13 +176,35 @@
             this.data.terminal_no = GeckoJS.Session.get('terminal_no');
 
             if (!recoveryMode) {
+
                 // SequenceModel will always return a value; even if an error occurred (return value of -1), we
                 // should still allow create to proceed; it's up to the upper layer to decide how to handle
                 // this error condition
-                SequenceModel.getSequence('order_no', true, function(seq) {
-                    seq = seq || -1 ;
-                    self.data.seq = self.buildOrderSequence(seq);
+
+                let requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo');
+                var seqKey = 'order_no';
+                if(requireCheckNo) seqKey +=',check_no';
+                
+                SequenceModel.getSequence(seqKey, true, function(seq) {
+                    let arKeys = seqKey.split(',');
+                    let arSeqs = String(seq).split(',');
+                    let order_no = -1 ;
+                    let check_no = -1 ;
+                    
+                    if (arKeys.length == 1) {
+                        order_no = seq || -1 ;
+                    }else {
+                        order_no = parseInt(arSeqs[0]) || -1 ;
+                        check_no = parseInt(arSeqs[1]) || -1 ;
+                    }
+
+                    self.data.seq = self.buildOrderSequence(order_no);
                     GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
+
+                    // update checkno
+                    if (check_no != -1 ) {
+                        self.setCheckNo(check_no);
+                    }
                 });
             }
             
@@ -315,10 +337,10 @@
         },
 
 
-        cancel: function() {
+        cancel: function(discard) {
 
             // set status = -1
-            var r = this.process(-1);
+            var r = this.process(-1, discard);
 
             //this.emptyView();
 
@@ -329,7 +351,17 @@
             return (this.data.status  == -1);
         },
 
+        /**
+         * Submit Transaction to Order databases.
+         *
+         * @param {Number} status   0 = Transaction in Memory
+         *                          1 = Success Order and finished payment.
+         *                          2 = Store Order
+         *                          -1 = Canceled Order
+         * @return {Number} submited status.
+         */
         submit: function(status) {
+
 
             if (typeof(status) == 'undefined') status = 1;
 
@@ -2586,9 +2618,20 @@
 
         setTableNo: function(tableNo) {
             tableNo = tableNo || '';
-            //GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
+            GeckoJS.Session.set('vivipos_fec_table_number', tableNo);
             this.data.table_no = tableNo;
+        },
+
+        getCheckNo: function() {
+            return this.data.check_no;
+        },
+
+        setCheckNo: function(checkNo) {
+            checkNo = isNaN(parseInt(checkNo)) ? -1 : parseInt(checkNo);
+            GeckoJS.Session.set('vivipos_fec_check_number', checkNo);
+            this.data.check_no = checkNo;
         }
+
 
     };
 

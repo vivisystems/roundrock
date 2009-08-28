@@ -1,19 +1,34 @@
 (function() {
 
-    var __class__ = {
+    /**
+     * PHP Sync Base Http WebService .(PURE Javascript function)
+     *
+     * Use: Basic authorization
+     *
+     * Request params: request_data
+     * Response param: response_data
+     * 
+     */
 
-        name: 'SyncbaseHttpService',
+    var __class__ = function() {
 
-        syncSettings: null,
+        this.name = 'SyncbaseHttpService'
+    };
+
+    __class__.prototype = {
+
+        syncSettings: false,
 
         username: false,
         password: false,
 
-        hostname: '',
+        protocol: 'http',
+        port: 80,      
+        hostname: 'localhost',
         controller: '',
         action: '',
-
-        timeout: 30,
+        active: 0,
+        timeout: 60,
 
         lastReadyState: 0,
         lastStatus: 0,
@@ -25,16 +40,24 @@
         },
 
         getSyncSettings: function() {
-
-            if (!this.syncSettings) {
-                this.syncSettings = (new SyncSetting()).read();
-            }
-
-            return this.syncSettings;
+            return this.syncSettings || {};
         },
 
         setSyncSettings: function(syncSettings) {
-            this.syncSettings = syncSettings;
+            // using syncSettings to setup default
+            if (typeof syncSettings == 'object') {
+
+                this.syncSettings = syncSettings ;
+
+                // this.setUsername(syncSettings.username); always vivipos
+                this.setPassword(syncSettings.password);
+                this.setProtocol(syncSettings.protocol);
+                this.setHostname(syncSettings.hostname);
+                this.setPort(syncSettings.port);
+                this.setActive(syncSettings.active);
+                this.setTimeout(syncSettings.timeout);
+            }
+
         },
 
         getUsername: function() {
@@ -46,7 +69,7 @@
         },
 
         getPassword: function() {
-            return (this.password || this.getSyncSettings().password || '123456');
+            return (this.password || '123456');
         },
 
         setPassword: function(password) {
@@ -54,19 +77,11 @@
         },
 
         getProtocol: function() {
-
-            var protocol = this.getSyncSettings().protocol || 'http';
-
-            return protocol;
-            
+            return (this.protocol || 'http');
         },
 
-        getPort: function() {
-
-            var port = this.getSyncSettings().port || '80';
-
-            return port;
-
+        setProtocol: function(protocol) {
+            this.protocol = protocol || 'http';
         },
 
         getHostname: function() {
@@ -75,6 +90,14 @@
 
         setHostname: function(hostname) {
             this.hostname = hostname || '';
+        },
+
+        getPort: function() {
+            return (this.port || 80);
+        },
+
+        setPort: function(port) {
+            this.port = isNaN(parseInt(port)) ? 80 : parseInt(port);
         },
 
         getController: function() {
@@ -93,17 +116,32 @@
             this.action = action || '';
         },
 
-        isRemoteService: function() {
-            this.syncSettings = this.getSyncSettings();
-            var hostname = this.getHostname();
+        isActive: function() {
+            return ( parseInt(this.active) != 0 );
+        },
 
-            if (!this.syncSettings || this.syncSettings.active == '0' || hostname == 'localhost' || hostname == '127.0.0.1') {
-                // local service
+        setActive: function(active) {
+            this.active = parseInt(active);
+        },
+
+        isLocalhost: function() {
+            var hostname = this.getHostname();
+            return (hostname == 'localhost' || hostname == '127.0.0.1');
+        },
+
+        getTimeout: function() {
+            return (this.timeout || 60);
+        },
+
+        setTimeout: function(timeout) {
+            this.timeout = parseInt(timeout);
+        },
+
+        isRemoteService: function() {
+            if (!this.isActive() || this.isLocalhost()) {
                 return false;
             }
-
             return true;
-
         },
 
         
@@ -119,7 +157,6 @@
 
             if (!this.isRemoteService()) return false;
             
-            this.syncSettings = this.getSyncSettings();
             var hostname = this.getHostname();
             var protocol = this.getProtocol();
             var port = this.getPort();
@@ -172,7 +209,7 @@
             req.mozBackgroundRequest = true;
 
             /* Request Timeout guard */
-            var timeoutSec = this.syncSettings.timeout * 1000;
+            var timeoutSec = this.getTimeout() * 1000;
             var timeout = setTimeout(function() {
 
                 try {
@@ -271,7 +308,7 @@
                 }
 
             }catch(e) {
-                this.log('ERROR', 'requestRemoteService req.send error ' + e );
+                dump('requestRemoteService req.send error ' + e  + '\n');
             }finally {
 
                 if (!async) {
@@ -294,6 +331,7 @@
 
     };
 
-    var SyncbaseHttpService = window.SyncbaseHttpService = GeckoJS.BaseObject.extend('SyncbaseHttpService', __class__);
+    var SyncbaseHttpService = window.SyncbaseHttpService = __class__;
+        //GeckoJS.BaseObject.extend('SyncbaseHttpService', __class__);
 
 })() ;

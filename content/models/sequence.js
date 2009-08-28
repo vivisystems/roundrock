@@ -26,8 +26,9 @@
 
             try {
                 if (!this.httpService) {
+                    var syncSettings = SyncSetting.read();
                     this.httpService = new SyncbaseHttpService();
-                    var syncSettings = this.httpService.getSyncSettings();
+                    this.httpService.setSyncSettings(syncSettings);
                     this.httpService.setHostname(syncSettings.sequence_hostname);
                     this.httpService.setController('sequences');
                 }
@@ -74,30 +75,40 @@
 
         },
 
-        getLocalSequence: function(key ) {
+        getLocalSequence: function(keys ) {
 
-            var seq = this.findByIndex('first', {
-                index: 'key',
-                value: key
-            }) || {
-                id: "",
-                key: key,
-                value: 0,
-                max_value: 0
-            };
+            var arKeys = keys.split(',');
+            var result = [] ;
 
-            seq.value++;
+            arKeys.forEach(function(key) {
 
-            if (seq.max_value != 0 && seq.value > seq.max_value ) {
-                seq.value = 1;
-            }
+                let seq = this.findByIndex('first', {
+                    index: 'key',
+                    value: key
+                }) || {
+                    id: "",
+                    key: key,
+                    value: 0,
+                    max_value: 0
+                };
 
-            this.id = seq.id;
-            if (!this.save(seq)) {
-                this.saveToBackup(seq);
-            }
+                seq.value++;
 
-            return seq.value;
+                if (seq.max_value != 0 && seq.value > seq.max_value ) {
+                    seq.value = 1;
+                }
+
+                this.id = seq.id;
+                if (!this.save(seq)) {
+                    this.saveToBackup(seq);
+                }
+
+                result.push(seq.value);
+
+            }, this);
+
+            return result.join(',');
+
 
         },
 
@@ -116,7 +127,7 @@
         resetSequence: function(key, value, async, callback) {
 
             var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
-            if (isTraining) return;
+            if (isTraining) return 1;
 
             key = key || "default";
 

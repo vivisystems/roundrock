@@ -4,7 +4,7 @@
 
         name: 'Cart',
 
-        components: ['Tax', 'Barcode', 'GuestCheck', 'CartUtils'],
+        components: ['Tax', 'Barcode', 'CartUtils'],
 
         uses: ['Product'],
         

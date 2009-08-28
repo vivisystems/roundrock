@@ -3,8 +3,9 @@
     if(typeof AppModel == 'undefined') {
         include( 'chrome://viviecr/content/models/app.js' );
     }
-    
-    var TableModel = window.TableModel = AppModel.extend({
+
+    var __model__ = {
+
         name: 'Table',
 
         useDbConfig: 'table',
@@ -16,32 +17,136 @@
         
         hasMany: ['TableBooking'],
 
-        behaviors: ['Sync', 'Training']
-    /*
-        createDBTables: function() {
+        behaviors: ['Training'],
 
-            var sql_tables = 'CREATE TABLE "tables" ("id" VARCHAR,"table_no" INTEGER,"table_name" VARCHAR,"table_region_id" VARCHAR,"seats" INTEGER,"active" BOOL,"tag" VARCHAR)';
-            var sql_table_regions = 'CREATE TABLE "table_regions" ("id" VARCHAR, "name" VARCHAR, "image" VARCHAR)';
-            var sql_table_bookings = 'CREATE TABLE "table_bookings" ("id" VARCHAR,"table_id" VARCHAR,"booking" INTEGER,"contact" VARCHAR,"telephone" VARCHAR,"address" VARCHAR,"note" VARCHAR, "table_no" INTEGER)';
-            var sql_table_statuses = 'CREATE TABLE "table_statuses" ("id" VARCHAR, "table_no" INTEGER, "table_name" VARCHAR, "seats" INTEGER, "active" BOOL, "status" INTEGER, "tag" VARCHAR, "service_time" INTEGER, "booking" INTEGER, "host_by" INTEGER)';
+        lastModified: 0,
+        
+        httpService: null,
 
-            var regionModel = new TableRegionModel;
-            var bookingModel = new TableBookingModel;
-            var statusModel = new TableStatusModel;
+        getHttpService: function() {
+
+            try {
+                if (!this.httpService) {
+                    var syncSettings = SyncSetting.read();
+                    this.httpService = new SyncbaseHttpService();
+                    this.httpService.setSyncSettings(syncSettings);
+                    this.httpService.setHostname(syncSettings.table_hostname);
+                    this.httpService.setController('tables');
+                }
+            }catch(e) {
+                this.log('error ' + e);
+            }
+
+            return this.httpService;
+        },
+
+        isRemoteService: function() {
+            return this.getHttpService().isRemoteService();
+        },
+
+        getTables: function(useDb) {
+
+            useDb = useDb || false;
+
+            var tables = null;
+
+            if (!useDb) {
+                tables = GeckoJS.Session.get('tables');
+            }
+
+            if (tables == null) {
+
+                if (this.isRemoteService()) {
+                    var remoteUrl = this.getHttpService().getRemoteServiceUrl('getTables');
+                    var requestUrl = remoteUrl ;
+                    tables = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
+                    // update tables to database;
+                    this.updateRemoteTables(tables);
+                }else {
+                    tables = this.find('all', {recursive: 0});
+                }
+
+                if (tables != null) {
+                    GeckoJS.Session.add('tables', tables);
+                }
+            }
+
+            return tables;
+
+        },
+
+        updateRemoteTables: function(tables) {
+
+            if (!tables) return false;
+
+            var r = false;
+
+            r = this.begin();
+
+
+            if (r) {
+
+                // remove all local tables
+                var datasource = this.getDataSource();
+                datasource.executeSimpleSQL("DELETE FROM " + this.table);
+
+                // save all not update timestamp
+                this.saveAll(tables, false);
+                
+                r = this.commit();
+            }
+
+            this.log('r = ' + r) ;
+            return r;
+
+        },
+
+
+        getTableById: function(id, useDb) {
+
+            useDb = useDb || false;
+
+            var tables = this.getTables(useDb);
+
+            var aqTables = new GeckoJS.ArrayQuery(tables);
+
+            var result = aqTables.filter("id='"+id+"'");
+
+            return (result.length > 0) ? result[0] : null;
+
+        },
+
+        getTableByNo: function(no, useDb) {
+
+            useDb = useDb || false;
+
+            var tables = this.getTables(useDb);
+
+            var aqTables = new GeckoJS.ArrayQuery(tables);
+
+            var result = aqTables.filter("table_no='"+no+"'");
+
+            return (result.length > 0) ? result[0] : null;
+
+        },
+
+        getTablesByRegionId: function(regionId, useDb) {
+
+            useDb = useDb || false;
+
+            var tables = this.getTables(useDb);
+
+            var aqTables = new GeckoJS.ArrayQuery(tables);
+
+            var result = aqTables.filter("table_region_id='"+regionId+"'");
             
-            GREUtils.log(GeckoJS.BaseObject.dump(this.schema().fields));
-            GREUtils.log(GeckoJS.BaseObject.dump(regionModel.schema().fields));
-            GREUtils.log(GeckoJS.BaseObject.dump(bookingModel.schema().fields));
-            GREUtils.log(GeckoJS.BaseObject.dump(statusModel.schema().fields));
+            return result;
 
-            if (this.schema().fields == false) this.execute(sql_tables);
-            if (regionModel.schema().fields == false) this.execute(sql_tables);
-            if (bookingModel.schema().fields == false) this.execute(sql_tables);
-            if (statusModel.schema().fields == false) this.execute(sql_tables);
-    //        for (var v in this.schema().fields) {
-    //            tpl[v] = true;
-    //        }
         }
-    */
-    });
+
+    };
+
+
+    var TableModel = window.TableModel = AppModel.extend(__model__);
+
 } )();
