@@ -222,15 +222,11 @@
             var cb = null;
 
             try {
-                // setting the flag be false means that the exporting has not finished yet.
-                //this._fileExportingFlag = false;
-                
-                // Doing so to prevent the timeout dialog from prompting during the execution.
-            	
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
                 if ( !media_path ) {
                     NotifyUtils.info( _( 'Media not found!! Please attach a USB thumb drive...' ) );
+                    this._enableButton( true );
                     return;
                 }
 
@@ -271,15 +267,11 @@
             var cb = null;
         		
             try {
-                // Doing so to prevent the timeout dialog from prompting during the execution.
-
-                // setting the flag be false means that the exporting has not finished yet.
-                //this._fileExportingFlag = false;
-            	
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
                 if ( !media_path ) {
                     NotifyUtils.info( _( 'Media not found!! Please attach a USB thumb drive...' ) );
+                    this._enableButton( true );
                     return;
                 }
 
@@ -365,8 +357,6 @@
         
         print: function( paperProperties ) {
             try {
-                // Doing so to prevent the timeout dialog from prompting during the execution.
-
                 this._enableButton( false );
 
                 var waitPanel = this._showWaitingPanel();

@@ -1,3 +1,5 @@
+"${head.title}"
+
 "${head.store.name}"
 "${head.store.branch}"
 "${_( '(rpt)Telephone' ) + ':'}","${head.store.telephone1}"
