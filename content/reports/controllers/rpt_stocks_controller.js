@@ -2,7 +2,6 @@
     /**
      * RptStocks Controller
      */
-     
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     var __controller__ = {
@@ -14,7 +13,8 @@
         _set_reportRecords: function( limit ) {
 
             limit = parseInt( limit );
-            if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
+            if ( isNaN( limit ) || limit <= 0 )
+                limit = this._stdLimit;
 
             var department = document.getElementById( 'department' ).value;
             var sortby = document.getElementById( 'sortby' ).value;
@@ -88,7 +88,7 @@
             
             sql =
                 "SELECT " + fields.join( ", " ) + " FROM products p LEFT JOIN stock_records s ON ( p.no = s.id ) " +
-                "WHERE " + conditions + " ORDER BY " + orderby + " LIMIT " + this._csvLimit + ";";
+                "WHERE " + conditions + " ORDER BY " + orderby + " LIMIT " + limit + ";";
             var prodRecords = prod.getDataSource().fetchAll( sql );
             
             sql = "DETACH inventory;";
