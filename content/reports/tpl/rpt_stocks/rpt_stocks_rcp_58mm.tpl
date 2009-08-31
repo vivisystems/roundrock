@@ -32,6 +32,10 @@ ${plu.max_stock - plu.stock|right:24}
 ${_( '(rpt)Records Found' ) + ':'|left:16}${category.plu.length|format:0|right:8}
 ------------------------
 {/for}
+{if rowLimitExcess}
+${_( '(rpt)Row Limit Excess' )}
+------------------------
+{/if}
 ${foot.gen_time}
 [&CR]
 [&CR]

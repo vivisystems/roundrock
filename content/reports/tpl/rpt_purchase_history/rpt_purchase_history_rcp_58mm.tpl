@@ -46,6 +46,10 @@ ${_( '(rpt)Records Found' ) + ': '|left:24}
 ${numRecord|format:0|right:24}
 {/for}
 ------------------------
+{if rowLimitExcess}
+${_( '(rpt)Row Limit Excess' )}
+------------------------
+{/if}
 ${foot.gen_time}
 [&CR]
 [&CR]
