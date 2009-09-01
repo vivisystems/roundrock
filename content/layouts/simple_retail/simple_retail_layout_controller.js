@@ -129,7 +129,10 @@
                     // make panel visible to let changes take effect
                     $.popupPanel('selectCondimentPanel', {});
                     $.hidePanel('selectCondimentPanel', {});
-                    condPanel.vivibuttonpanel.resizeButtons();// this line bring about an error when initial is true.
+
+                    if (condRows > 0 && condCols > 0) {
+                        condPanel.vivibuttonpanel.resizeButtons();// this line bring about an error when initial is true.
+                    }
                 }
             }
 

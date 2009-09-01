@@ -1,5 +1,6 @@
-[&QSON]${head.store.name|center:15}[&QSOFF]
-[&DWON]${head.store.branch|center:14}[&DWOFF]
+[&INIT]
+[&QSON]${head.store.name|center:12}[&QSOFF]
+[&DWON]${head.store.branch|center:12}[&DWOFF]
 ${head.store.telephone1|center:24}
 
 ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
@@ -31,6 +32,10 @@ ${plu.max_stock - plu.stock|right:24}
 ${_( '(rpt)Records Found' ) + ':'|left:16}${category.plu.length|format:0|right:8}
 ------------------------
 {/for}
+{if rowLimitExcess}
+${_( '(rpt)Row Limit Excess' )}
+------------------------
+{/if}
 ${foot.gen_time}
 [&CR]
 [&CR]

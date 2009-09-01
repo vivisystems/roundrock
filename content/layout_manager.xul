@@ -127,7 +127,7 @@
                                        buttonClass="button-item-a"
                                        scrollUpClass="scroll-up-button"
                                        scrollDownClass="scroll-down-button">
-                  <spacer flex="1" />
+                  <spacer flex="1"/>
             </viviscrollablebuttonpanel>
         </vbox>
     </prefpane>

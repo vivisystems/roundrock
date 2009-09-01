@@ -68,12 +68,12 @@
             <hbox>
                 <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                     <button id="importBtn" disabled="true" label="&importexport.import;"
-                            oncommand="$do('importData', 'departments', 'ImportExport');" />
+                            oncommand="$do('importData', null, 'ImportExport');" />
                     <button id="exportBtn" disabled="true" label="&importexport.export;"
-                            oncommand="$do('exportData', 'departments', 'ImportExport');" />
+                            oncommand="$do('exportData', null, 'ImportExport');" />
                 </hbox>
                 <hbox id="dialogButtons" pack="end" class="exitbar">
-                    <button id="ok" default="true" class="button-exit" oncommand="doOKButton();"/>
+                    <button id="ok" default="true" class="button-exit" oncommand="$do('doExit', null, 'ImportExport');"/>
                 </hbox>
             </hbox>
         </vbox>

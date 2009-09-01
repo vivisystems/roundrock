@@ -1,5 +1,6 @@
-[&QSON]${head.store.name|center:15}[&QSOFF]
-[&DWON]${head.store.branch|center:14}[&DWOFF]
+[&INIT]
+[&QSON]${head.store.name|center:12}[&QSOFF]
+[&DWON]${head.store.branch|center:12}[&DWOFF]
 ${head.store.telephone1|center:24}
 
 ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
@@ -45,6 +46,10 @@ ${_( '(rpt)Records Found' ) + ': '|left:24}
 ${numRecord|format:0|right:24}
 {/for}
 ------------------------
+{if rowLimitExcess}
+${_( '(rpt)Row Limit Excess' )}
+------------------------
+{/if}
 ${foot.gen_time}
 [&CR]
 [&CR]
