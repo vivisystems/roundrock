@@ -255,6 +255,8 @@
         process: function(status, discard) {
             var self = this;
 
+            discard = discard || false;
+
             // backup origin status if saveOrder error.
             var orgStatus = this.data.status;
 
@@ -328,20 +330,23 @@
             }
         },
 
-        commit: function(status) {
+        commit: function() {
 
             dump('commit \n');
             var order = new OrderModel();
-            return order.commitSaveOrder(status) ? 1 : -1;
+            return order.commitSaveOrder() ? 1 : -1;
 
         },
 
-
+        /**
+         * cancel or discard cancel.
+         * 
+         * @param {Boolean} discard
+         */
         cancel: function(discard) {
 
             // set status = -1
             var r = this.process(-1, discard);
-
             //this.emptyView();
 
             return r;

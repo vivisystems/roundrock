@@ -2865,9 +2865,10 @@
 
                     var quiet = GeckoJS.Configure.read('vivipos.fec.settings.quietcancel') || false;
                     if(!quiet) GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
-                //GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+                    
                 }catch(e) {                  
                 }
+                
                 // prevent onCancel event dispatch
                 this.dispatchedEvents['onCancel'] = true;
                 this._lastCancelInvoke = now;
@@ -2876,43 +2877,51 @@
             this._lastCancelInvoke = now;
 
             this.dispatchEvent('beforeCancel', curTransaction);
-            
-            // if the order has been stored, then it cannot be cancelled; it must be voided instead
-            if (curTransaction.data.recall == 2) {
-                
-                // determine if new items have been added
-                if (!curTransaction.isModified() || forceCancel ||
-                    GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('confirm cancel'),
-                        _('Are you sure you want to discard changes made to this order?'))) {
 
-                    var ret = curTransaction.process(-1, true);
-                    if (ret == -1) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Data Operation Error'),
-                        _('Failed to cancel order due to data operation error.'));
+            try {
+                // if the order has been stored, then it cannot be cancelled; it must be voided instead
+                if (curTransaction.data.recall == 2) {
 
-                        NotifyUtils.error('Failed to cancel order due to data operation error.')
+                    // determine if new items have been added
+                    if (!curTransaction.isModified() || forceCancel ||
+                        GREUtils.Dialog.confirm(this.topmostWindow,
+                            _('confirm cancel'),
+                            _('Are you sure you want to discard changes made to this order?'))) {
+
+                        var ret = curTransaction.cancel(true);
+                        if (ret == -1) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation Error'),
+                            _('Failed to cancel order due to data operation error.'));
+
+                            NotifyUtils.error('Failed to cancel order due to data operation error.')
+                        }
+                        //this._cartView.empty();
+                        this.cartViewEmpty();
+
+                        this.clear();
                     }
-                    //this._cartView.empty();
-                    this.cartViewEmpty();
-
-                    this.clear();
+                    else {
+                        this.dispatchEvent('onCancel', curTransaction);
+                    }
                 }
                 else {
-                    this.dispatchEvent('onCancel', curTransaction);
+
+                    curTransaction.cancel();
+                    this.cartViewEmpty();
+
                 }
-            }
-            else {
-                curTransaction.cancel();
-                this.cartViewEmpty();
+                
+            }finally {
+
+                GeckoJS.Session.remove('current_transaction');
+                GeckoJS.Session.remove('cart_last_sell_item');
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                curTransaction.commit();
             }
             
-            GeckoJS.Session.remove('current_transaction');
-            GeckoJS.Session.remove('cart_last_sell_item');
-            GeckoJS.Session.remove('cart_set_price_value');
-            GeckoJS.Session.remove('cart_set_qty_value');
-
             if (curTransaction.data.recall != 2) {
                 this.dispatchEvent('afterCancel', curTransaction);
             }

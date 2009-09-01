@@ -231,7 +231,7 @@
                 // update Table No
                 curTransaction.setTableNo(no);
                 cart._clearAndSubtotal();
-
+                
             }else {
                 NotifyUtils.warn(_('[%S] is an invalid table number. Table number must be defined through table manager; Please input another table number.', [no]));
             }
