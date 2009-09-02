@@ -63,5 +63,11 @@
     </table>
     <br />
 {/for}
+{if rowLimitExcess}
+    <div>
+		<p class="caption" style="text-align: center">${_( '(rpt)There are too many reocrds to display.' )}</p>
+		<p class="caption" style="text-align: center">${_( '(rpt)To scrutinize the complete record set, please export the .csv file.' )}</p>
+	</div>
+{/if}
 </div>
 <br />

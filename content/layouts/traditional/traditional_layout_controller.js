@@ -139,65 +139,71 @@
                 }
             }
             
-            if (deptPanel &&
-                (initial ||
-                 (deptPanel.getAttribute('rows') != departmentRows) ||
-                 (deptPanel.getAttribute('cols') != departmentCols) ||
-                 (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
-                 (deptPanel.datasource.plugroupsFirst != showPlugroupsFirst) ||
-                 (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
-                 (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
-                 (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar))) {
+            if (deptPanel) {
+                if (initial ||
+                    (deptPanel.getAttribute('rows') != departmentRows) ||
+                    (deptPanel.getAttribute('cols') != departmentCols) ||
+                    (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
+                    (deptPanel.datasource.plugroupsFirst != showPlugroupsFirst) ||
+                    (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
+                    (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
+                    (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar)) {
 
-                deptPanel.setAttribute('rows', departmentRows);
-                deptPanel.setAttribute('cols', departmentCols);
-                deptPanel.setAttribute('buttonHeight', departmentButtonHeight);
+                    deptPanel.setAttribute('rows', departmentRows);
+                    deptPanel.setAttribute('cols', departmentCols);
+                    deptPanel.setAttribute('buttonHeight', departmentButtonHeight);
 
-                if (cropDeptLabel) deptPanel.setAttribute('crop', 'end');
-                else deptPanel.removeAttribute('crop');
+                    if (cropDeptLabel) deptPanel.setAttribute('crop', 'end');
+                    else deptPanel.removeAttribute('crop');
 
-                if ((departmentRows > 0) && (departmentCols > 0) && (departmentButtonHeight > 0)) {
-                    deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
-                    deptPanel.setAttribute('hidden', false);
-                    deptPanel.initGrid();
+                    if ((departmentRows > 0) && (departmentCols > 0) && (departmentButtonHeight > 0)) {
+                        deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
+                        deptPanel.setAttribute('hidden', false);
+                        deptPanel.initGrid();
 
-                    deptPanel.datasource.refreshView();
-                    deptPanel.vivibuttonpanel.refresh();
+                        deptPanel.datasource.refreshView();
+                        deptPanel.vivibuttonpanel.refresh();
+                    }
+                    else {
+                        deptPanel.setAttribute('hidden', true);
+                    }
                 }
-                else {
-                    deptPanel.setAttribute('hidden', true);
+
+                if (departmentRows > 0 && departmentCols > 0 && departmentButtonHeight > 0) {
+                    deptPanel.vivibuttonpanel.resizeButtons();
                 }
             }
 
-            if (pluPanel &&
-                (initial ||
-                 (pluPanel.getAttribute('rows') != pluRows) ||
-                 (pluPanel.getAttribute('cols') != pluCols) ||
-                 (cropPLULabel && (pluPanel.getAttribute('crop') != 'end')) ||
-                 (!cropPLULabel && (pluPanel.getAttribute('crop') == 'end')) ||
-                 (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar))) {
+            if (pluPanel) {
+                if (initial ||
+                    (pluPanel.getAttribute('rows') != pluRows) ||
+                    (pluPanel.getAttribute('cols') != pluCols) ||
+                    (cropPLULabel && (pluPanel.getAttribute('crop') != 'end')) ||
+                    (!cropPLULabel && (pluPanel.getAttribute('crop') == 'end')) ||
+                    (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar)) {
 
-                pluPanel.setAttribute('rows', pluRows);
-                pluPanel.setAttribute('cols', pluCols);
+                    pluPanel.setAttribute('rows', pluRows);
+                    pluPanel.setAttribute('cols', pluCols);
 
-                if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
-                else pluPanel.removeAttribute('crop');
+                    if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
+                    else pluPanel.removeAttribute('crop');
 
-                if ((pluRows > 0) && (pluCols > 0)) {
-                    pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
-                    pluPanel.setAttribute('hidden', false);
-                    pluPanel.initGrid();
-                    
-                    pluPanel.vivibuttonpanel.refresh();
+                    if ((pluRows > 0) && (pluCols > 0)) {
+                        pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
+                        pluPanel.setAttribute('hidden', false);
+                        pluPanel.initGrid();
+
+                        pluPanel.vivibuttonpanel.refresh();
+                    }
+                    else {
+                        pluPanel.setAttribute('hidden', true);
+                    }
                 }
-                else {
-                    pluPanel.setAttribute('hidden', true);
+                
+                if (pluRows > 0 && pluCols > 0) {
+                    pluPanel.vivibuttonpanel.resizeButtons();
                 }
-
             }
-
-            if (deptPanel) deptPanel.vivibuttonpanel.resizeButtons();
-            if (pluPanel) pluPanel.vivibuttonpanel.resizeButtons();
 
             if (fnPanel && !fnPanelContainer.hidden) {
                 fnPanel.setAttribute('hideScrollbar', hideFPScrollbar)

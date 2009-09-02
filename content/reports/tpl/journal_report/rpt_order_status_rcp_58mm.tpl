@@ -1,5 +1,6 @@
-[&QSON]${head.store.name|center:15}[&QSOFF]
-[&DWON]${head.store.branch|center:14}[&DWOFF]
+[&INIT]
+[&QSON]${head.store.name|center:12}[&QSOFF]
+[&DWON]${head.store.branch|center:12}[&DWOFF]
 ${head.store.telephone1|center:24}
 [&CR]
 ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}

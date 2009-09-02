@@ -1,5 +1,6 @@
-[&QSON]${head.store.name|center:15}[&QSOFF]
-[&DWON]${head.store.branch|center:15}[&DWOFF]
+[&INIT]
+[&QSON]${head.store.name|center:21}[&QSOFF]
+[&DWON]${head.store.branch|center:21}[&DWOFF]
 ${head.store.telephone1|center:42}
 Terminal: ${head.store.terminal_no|left:10} Clerk: ${head.clerk_displayname|left:14}
 ${head.start_time} ~ ${head.end_time}

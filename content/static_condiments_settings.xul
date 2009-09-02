@@ -99,7 +99,7 @@
                             <checkbox id="supportSoldout" label="&condiment.support_soldout.label;"
                                       form="staticCondimentForm" name="supportSoldout"/>
                             <checkbox id="linktoPlu" label="&condiment.linkto_plu.label;"
-                                      form="staticCondimentForm" name="supportSoldout"/>
+                                      form="staticCondimentForm" name="linktoPlu"/>
                         </row>
                         <row>
                             <spacer/>
