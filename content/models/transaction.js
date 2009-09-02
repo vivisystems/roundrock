@@ -1891,7 +1891,7 @@
         },
 
 
-        appendPayment: function(type, amount, origin_amount, memo1, memo2){
+        appendPayment: function(type, amount, origin_amount, memo1, memo2, isGroupable){
 
             var prevRowCount = this.data.display_sequences.length;
 
@@ -1902,7 +1902,8 @@
                 amount: this.getRoundedPrice(amount),
                 origin_amount: origin_amount,
                 memo1: memo1,
-                memo2: memo2
+                memo2: memo2,
+                is_groupable: isGroupable
             };
 
             var itemDisplay = this.createDisplaySeq(paymentId, paymentItem, 'payment');

@@ -2602,7 +2602,7 @@
             this._clearAndSubtotal();
         },
 
-        _addPayment: function(type, amount, origin_amount, memo1, memo2) {
+        _addPayment: function(type, amount, origin_amount, memo1, memo2, isGroupable) {
 
             var curTransaction = this._getTransaction();
             var returnMode = this._returnMode;
@@ -2685,6 +2685,7 @@
                 type: type,
                 amount: amount,
                 origin_amount: origin_amount,
+                is_groupable: isGroupable,
                 transaction: curTransaction
             };
 
@@ -2692,7 +2693,7 @@
                 var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
 
                 if (beforeResult) {
-                    var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
+                    var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, isGroupable);
                     paymentedItem.seq = curTransaction.data.seq;
                     paymentedItem.order_id = curTransaction.data.id;
                 }
@@ -3296,7 +3297,13 @@
             this.dispatchEvent('afterPreFinalize', curTransaction);
         },
 
-        cash: function(amount) {
+        cash: function(argString) {
+	    var argArray = String(argString).split(',');
+	    var isGroupable = false;
+            var amount = parseInt( argArray[0], 10 );
+
+	    if (argArray.length == 2)
+		isGroupable = argArray[1];
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer(true);
@@ -3305,8 +3312,8 @@
             if (buf.length>0) {
                 if (!amount) amount = parseFloat(buf);
             }
-
-            this._addPayment('cash', amount);
+                
+            this._addPayment('cash', amount, null, null, null, isGroupable);
         },
 
         insertCondiment: function(params) {
