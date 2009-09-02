@@ -659,6 +659,10 @@
         getInputData: function () {
             var prod = GeckoJS.FormHelper.serializeToObject('productForm', false);
 
+            var saleUnitIndex = document.getElementById('sale_unit').selectedIndex;
+            if (saleUnitIndex == -1) {
+                prod.sale_unit = document.getElementById('sale_unit').value;
+            }
             return this._convertInputData(prod);
         },
 
@@ -672,6 +676,13 @@
             GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
 
             if (valObj) {
+                // sale unit may not be one of the predefined units, if so, add it to the top of the menu
+                var saleUnitMenu = document.getElementById('sale_unit');
+                if (saleUnitMenu.selectedIndex == -1 && valObj.sale_unit != '') {
+                    saleUnitMenu.insertItemAt(0, valObj.sale_unit, valObj.sale_unit);
+                    saleUnitMenu.value = valObj.sale_unit;
+                }
+                
                 var sPluDir = GeckoJS.Session.get('pluimage_directory');
                 var aDstFile = sPluDir + valObj.no + ".png";
 
@@ -1162,7 +1173,7 @@
             while (low < high) {
                 var mid = Math.floor((low - (- high))/2);
                 (list[mid][path] < elem) ? low = mid + 1 : high = mid;
-            }s
+            }
             // high == low, using high or low depends on taste
             if ((low < N) && (list[low][path] == elem))
                 return low // found
@@ -1193,7 +1204,7 @@
                 var catIndex = -1;
                 for (var i = 0; i < categoryIDs.length; i++) {
                     var cat_id = categoryIDs[i];
-                    if (cat_id && categoriesById[cat_id] && categoriesById[cat_id].nalo == plu.cate_no) {
+                    if (cat_id && categoriesById[cat_id] && categoriesById[cat_id].no == plu.cate_no) {
                         catIndex = i;
                         break;
                     }
@@ -1329,6 +1340,8 @@
                                 newData.scale = product.scale;
                                 newData.sale_unit = product.sale_unit;
                                 newData.tare = product.tare;
+                                newData.scale_multiplier = product.scale_multiplier;
+                                newData.scale_precision = product.scale_precision;
                             }
 
                             if (inputObj.cloneSettings['appearance']) {

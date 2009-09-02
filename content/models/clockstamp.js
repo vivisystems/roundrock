@@ -27,7 +27,7 @@
             return result;
         },
 
-        saveStamp: function(type, username, job, displayname) {
+        saveStamp: function(type, branch_id, username, job, displayname) {
 
             var data = {};
             var today = new Date();
@@ -37,6 +37,7 @@
             if (!displayname) displayname = username;
             data['username'] = username;
             data['displayname'] = displayname;
+            data['branch_id'] = branch_id;
 
             switch (type) {
                 case "clockin":

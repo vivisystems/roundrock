@@ -9,3 +9,4 @@
 <!ENTITY    cart.button.plus      "+">
 <!ENTITY    cart.button.minus     "-">
 <!ENTITY    cart.button.payments  "Payments">
+<!ENTITY    cart.item.row         "Row Number">

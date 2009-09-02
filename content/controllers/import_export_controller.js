@@ -17,6 +17,7 @@
         _busy: false,
         _importFolder: 'database_import',
         _exportFolder: 'database_export',
+        _needRestart: false,
 
         select: function(index) {
             var button = document.getElementById('importBtn');
@@ -195,7 +196,6 @@
                             this._datas[index].filename += table[i] + ".sql ";
                             var exportScript = this._scriptDir + '/' + table[i] + ".exp";
                             var command = executable + " " + database + " < " + exportScript + " > " + this._exportDir + "/" + table[i] + ".sql";
-                            alert(command);
                             GREUtils.File.run("/bin/sh", [ '-c', command ], true);
                         }
                         break;
@@ -728,17 +728,17 @@
                             }
                             waitPanel.hidePopup();
                             this._datas[index].imported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
-                            this.getListObj().vivitree.refresh();
+                            this.getListObj().refresh();
 
                             NotifyUtils.info(_('Data import from file [%S] finished!', [this._datas[index].filename]));
 
                             // restart vivipos
-                            GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+                            this._needRestart = true;
 
                             return;
                         }catch (e) {
                             waitPanel.hidePopup();
-                            GREUtils.Dialog.alert(this.topmostWindow, _('Database Import Error'), _(e));
+                            GREUtils.Dialog.alert(this.topmostWindow, _('Database Import Error'), e);
                         }
                 }
                 case 'license': {
@@ -1788,7 +1788,7 @@
                 NotifyUtils.info(_('Import of [%S] from file [%S] finished!', [this._datas[index].name, fileName]));
 
                 // restart vivipos
-                GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+                this._needRestart = true;
             }
             catch (e) {
 
@@ -2125,6 +2125,13 @@
             waitPanel.openPopupAtScreen(0, 0);
 
             return waitPanel;
+        },
+
+        doExit: function() {
+            if (this._needRestart) {
+                GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+            }
+            doOKButton();
         }
 
     };

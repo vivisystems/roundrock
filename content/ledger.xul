@@ -72,7 +72,7 @@
                                 <label id="ledger_sale_period" hidden="true" form="ledger_recordForm" name="terminal_no" value=""/>
                                 <label id="ledger_service_clerk" hidden="true" form="ledger_recordForm" name="service_clerk" value=""/>
                                 <label id="ledger_service_clerk_displayname" hidden="true" form="ledger_recordForm" name="service_clerk_displayname" value=""/>
-                                <grid flex="1" class="data-form">
+                                <grid flex="1">
                                     <columns>
                                         <column flex="1"/>
                                         <column flex="1"/>

@@ -107,7 +107,7 @@
                     return;
                 }
 
-                this._listDatas.push({name: destName, pricelevel: '', prefix: '', customerInfo: false});
+                this._listDatas.push({name: destName, pricelevel: '', prefix: ''});
 
                 this.saveDestinations();
 
@@ -132,7 +132,6 @@
                 if (inputObj.name != null && inputObj.name.length > 0) {
                     this._listDatas[index].pricelevel = inputObj.pricelevel;
                     this._listDatas[index].prefix = GeckoJS.String.trim(inputObj.prefix);
-                    this._listDatas[index].customerInfo = inputObj.customerInfo;
 
                     this.saveDestinations();
 
@@ -223,8 +222,6 @@
             var pricelevelMenu = document.getElementById('destination_pricelevel');
             var prefixTextbox = document.getElementById('destination_prefix');
 
-            var customerInfoCheckbox = document.getElementById('destination_customer_info');
-
             var panel = this.getListObj();
             var dest = this._listDatas[panel.selectedIndex];
             if (dest) {
@@ -234,7 +231,6 @@
                 modifyBtn.setAttribute('disabled', false);
                 pricelevelMenu.removeAttribute('disabled');
                 prefixTextbox.removeAttribute('disabled');
-                customerInfoCheckbox.removeAttribute('disabled');
 
                 var dflt = (defaultDest == dest.name);
 
@@ -245,7 +241,6 @@
                 modifyBtn.setAttribute('disabled', true);
                 pricelevelMenu.setAttribute('disabled', true);
                 prefixTextbox.setAttribute('disabled', true);
-                customerInfoCheckbox.setAttribute('disabled', true);
 
                 setdefaultBtn.setAttribute('hidden', true);
                 cleardefaultBtn.setAttribute('hidden', true);
