@@ -101,6 +101,7 @@
         },
 
         openJournalDialogByKey: function( key, value ) {
+            alert('hi');
             var aURL = 'chrome://viviecr/content/view_journal.xul';
             var aName = _( 'Journal Details' );
             var aArguments = {
@@ -137,6 +138,95 @@
         },
 
         exportFile: function() {
+            try {
+                this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+                this._journalPath = this._dataPath + "/journal/";
+
+                var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
+                if ( !media_path ) {
+                    NotifyUtils.info( _( 'Media not found!! Please attach a USB thumb drive...' ) );
+                    return;
+                }
+
+                var self = this;
+
+                this._enableButton( false );
+                var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
+                if ( !media_path ) {
+                    NotifyUtils.info( _( 'Media not found!! Please attach a USB thumb drive...' ) );
+                    return;
+                }
+
+                var waitPanel = this._showWaitingPanel();
+                var progress = document.getElementById( this._progress_bar_id );
+                var caption = document.getElementById( this.getCaptionId() );
+
+                var start = document.getElementById('start_date').value;
+                var end = document.getElementById('end_date').value;
+
+                start = parseInt(start / 1000, 10);
+                end = parseInt(end / 1000, 10);
+
+                var fields = [
+                'journal.id',
+                'journal.preview_file'
+                ];
+
+                var conditions = "journal.created >='" + start + "' AND journal.created <='" + end + "'";
+
+                var orderby = 'journal.created';
+
+                var journal = new JournalModel();
+
+                var records = journal.find( 'all', {
+                    fields: fields,
+                    conditions: conditions,
+                    order: orderby,
+                    recursive: -1
+                } );
+
+                var cur = 1;
+
+                records.forEach( function( record ) {
+                    delete record.Journal;
+                    var previewFileName = self._journalPath + record.preview_file;
+                    var previewFile = new GeckoJS.File(previewFileName);
+                    previewFile.open("rb");
+                    var previewContent = GREUtils.Gzip.inflate(previewFile.read());
+                    previewFile.close();
+
+                    var targetFileName = media_path + '/' + record.preview_file;
+                    var targetFile = new GeckoJS.File(targetFileName, true);
+                    targetFile.open("w");
+                    var previewHeader = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>head.title</title><LINK rel="stylesheet" type="text/css" href="../reports/style/rpt_receipt.css" /></head><body id="abody" class="report">';
+                    var previewFooter = '</body></html>';
+                    previewContent = previewHeader + previewContent + previewFooter;
+                    var result = targetFile.write(previewContent);
+                    targetFile.close();
+
+                    if(result == 0) {
+                        GREUtils.Dialog.alert( this.topmostWindow, '', _( "There was a problem saving file!" ) );
+                    }
+                    self.sleep( 10 );
+                    if( caption ) {
+                        if( caption.label.match( /\(.*\)/ ) ) {
+                            caption.label = caption.label.replace( /\(.*\)/, '('+cur+'/'+records.length+')' );
+                        }else {
+                            caption.label += ' (' + cur +'/'+records.length +')';
+                        }
+                    }
+                    progress.value = parseInt( cur / records.length * 100 );
+                    cur++;
+                }, this);
+
+                if ( waitPanel != undefined )
+                    self._dismissWaitingPanel();
+            } catch ( e ) {
+                this.log(e);
+            }
+        },
+
+        multiPrint: function() {
             try {
                 this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
                 this._journalPath = this._dataPath + "/journal/";

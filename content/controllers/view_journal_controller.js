@@ -76,6 +76,7 @@
         },
 
         printJournal: function() {
+            alert('hi');
             try {
                 var id = this._journalId;
 

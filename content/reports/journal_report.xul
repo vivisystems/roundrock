@@ -63,6 +63,13 @@
                                     <button id="export" label="&journal.exportlist;" disabled="false" class="ExeBtn" oncommand="$do('exportFile', null, 'JournalReportController');"/>
                                 </vbox>
                             </row>
+                            <row>
+                                <vbox></vbox>
+                                <vbox></vbox>
+                                <vbox>
+                                    <button id="multiprint" label="&journal.multiprint;" disabled="false" class="ExeBtn" oncommand="$do('multiPrint', null, 'JournalReportController');"/>
+                                </vbox>
+                            </row>
 		                </rows>
 		            </grid>
 		            </hbox>
