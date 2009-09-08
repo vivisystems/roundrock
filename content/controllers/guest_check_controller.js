@@ -277,31 +277,49 @@
             return true;
         },
 
+        /**
+         * openSplitPaymentDialog
+         *
+         * @param {Array} splitPayments  default splited payemnts
+	 * @param {Number} total
+         * @return {Array} splited payments
+         */
+        openSplitPaymentDialog: function (splitPayments, total){
 
-        splitPayment: function(type, amount) {
-            
-            type = type || 'guestnum';
+            var aURL = 'chrome://viviecr/content/prompt_splitpayment.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=640,height=480';
+            var inputObj = {
+		disablecancelbtn: true,
+		total: total,
+                input:splitPayments
+            };
 
-            switch(type) {
-                
-                default:
-                case 'guestnum':
-                    return this.splitPaymentByGuestNum(amount);
-                    break;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Split Payments'), aFeatures, _('Split Payments'), inputObj);
 
-                case 'amount':
-                    return this.splitPaymentByAmount(amount);
-                    break;
+            if (inputObj.ok && inputObj.input) {
+                return inputObj.input;
             }
-            
+
+            return splitPayments;
         },
 
-        splitPaymentByAmount: function(amount) {
 
-            
+        /**
+	 * splitPayment is shortcut and mean splitPaymentByGustNum
+	 */
+        splitPayment: function(amount) {
 
+            var no = this.getKeypadController().getBuffer();
+            this.getKeypadController().clearBuffer();
+
+	    amount = parseInt(amount || no || 0) ;
+
+            return this.splitPaymentByGuestNum(amount);
         },
 
+	/**
+	 * splitPaymentByGustNum
+	 */
         splitPaymentByGuestNum: function(guestNum) {
             
             var cart = this.getCartController();
@@ -318,22 +336,27 @@
 
             var arPayments = [];
 
-            var amount = curTransaction.getRoundedPrice(remainTotal/guestNum);
-            var subtotal = 0;
+            var remain = remainTotal;
 
-            for (let i = 0; i < guestNum; i++) {
+            for (let i = 1; i <= guestNum; i++) {
 
                 // last one
-                if ( i == (guestNum-1)) {
-                    arPayments[i] = remainTotal-subtotal;
+                if ( i == (guestNum)) {
+                    arPayments[i-1] = remain;
                 }else {
-                    arPayments[i] = amount;
-                    subtotal += amount;
+		    let amount = curTransaction.getRoundedPrice(remain/(guestNum-i+1));
+                    arPayments[i-1] = amount;
+		    remain-=amount;
                 }
             }
 
+	    // open confirm dialog
+	    arPayments = this.openSplitPaymentDialog(arPayments, remainTotal);
+
+	    // set transaction has splitpayment mode.
             curTransaction.setSplitPayments(true);
 
+	    // add payment amount to cart
             arPayments.forEach(function(pAmount) {
                 cart._addPayment('cash', pAmount);
             });

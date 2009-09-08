@@ -412,3 +412,8 @@ pref("vivipos.fec.registry.function.programmable.voidItem.access", "acl_void_car
 pref("vivipos.fec.registry.function.programmable.voidItem.command", "voidItem");
 pref("vivipos.fec.registry.function.programmable.voidItem.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.voidItem.data", "");
+
+pref("vivipos.fec.registry.function.programmable.splitPayment.access", "acl_split_check");
+pref("vivipos.fec.registry.function.programmable.splitPayment.command", "splitPayment");
+pref("vivipos.fec.registry.function.programmable.splitPayment.controller", "GuestCheck");
+pref("vivipos.fec.registry.function.programmable.splitPayment.data", "");
