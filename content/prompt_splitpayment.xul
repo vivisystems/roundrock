@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Numberpad SYSTEM "chrome://viviecr/locale/numberpad.dtd">
+  %Numberpad;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&dialog.prompt.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <keyset id="keyset_extensions">
+        <!--key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/-->
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+
+    <script type="application/x-javascript" src="chrome://viviecr/content/prompt_splitpayment.js" />
+    <script type="application/x-javascript">
+        var GeckoJS = opener.GeckoJS;
+        var GREUtils = opener.GREUtils;
+    </script>
+    <vbox class="container-dialog" flex="1">
+        <vbox class="container-main" flex="1">
+            <groupbox flex="1">
+                <caption id="dialog-caption" label="" class="label-page-title"/>
+                <label id="text0" value="" />
+                <grid id="main-grid" class="data-form">
+                    <columns>
+                        <column flex="1"/>
+                    </columns>
+                    <rows id="main-rows">
+                    </rows>
+                </grid>
+            </groupbox>
+            <spacer id="single-line-spacer" flex="1"/>
+            <hbox>
+                <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                    <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
+                    <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
+                </hbox>
+                <hbox pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="opener.VirtualKeyboard.toggle()"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
+    
+</window>
