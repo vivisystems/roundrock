@@ -76,7 +76,6 @@
         },
 
         printJournal: function() {
-            alert('hi');
             try {
                 var id = this._journalId;
 
@@ -93,6 +92,9 @@
                     var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file);
                     prnFile.open("rb");
                     var template = GREUtils.Gzip.inflate(prnFile.read());
+                    var re = new RegExp('\\[\\&' + 'PC' + '\\]', 'g');
+                    template = template.replace(re,'');
+                    this.log(this.dump(template));return;
                     prnFile.close();
                 }
 
