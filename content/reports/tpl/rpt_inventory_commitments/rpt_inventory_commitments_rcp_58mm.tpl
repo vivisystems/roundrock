@@ -55,6 +55,10 @@ ${commitment.summary.subtotal|default:0|viviFormatPrices:true|right:24}
 {/if}
 {/for}
 ------------------------
+{if rowLimitExcess}
+${_( '(rpt)Row Limit Excess' )}
+------------------------
+{/if}
 ${foot.gen_time}
 [&CR]
 [&CR]

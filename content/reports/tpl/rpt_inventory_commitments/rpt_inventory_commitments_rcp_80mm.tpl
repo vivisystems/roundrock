@@ -39,6 +39,10 @@ ${_( '(rpt)Purchase Subtotal' + ':' )|left:16}${commitment.summary.subtotal|defa
 {/if}
 {/for}
 ------------------------------------------
+{if rowLimitExcess}
+${_( '(rpt)Row Limit Excess' )}
+------------------------------------------
+{/if}
 ${foot.gen_time}
 [&CR]
 [&CR]

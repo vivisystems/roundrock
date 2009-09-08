@@ -47,6 +47,13 @@
             var sql = "ATTACH '" + productDB + "' AS vivipos;";
             inventoryCommitmentModel.execute( sql );
             
+            // Calculate the number of rows in the database.
+            sql = "SELECT COUNT( ic.id ) AS numRows " + " FROM inventory_commitments ic JOIN inventory_records ir ON ( " +
+            	"ic.id = ir.commitment_id ) JOIN products p ON ( ir.product_no = p.no ) WHERE " + conditions +
+            	/*" GROUP BY " + groupby + */" ORDER BY " + orderby + ";";
+            var numRows = inventoryCommitmentModel.getDataSource().fetchAll( sql );
+            numRows = numRows[ 0 ].numRows;
+            alert( numRows );
             sql =
             	"SELECT " + fields.join( ", " ) + " FROM inventory_commitments ic JOIN inventory_records ir ON ( " +
             	"ic.id = ir.commitment_id ) JOIN products p ON ( ir.product_no = p.no ) WHERE " + conditions +
@@ -163,6 +170,8 @@
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             //this._reportRecords.head.terminal_no = terminalNo;
+            
+            this._reportRecords.rowLimitExcess = numRows > limit;
 		    
             this._reportRecords.body = tplRecords;
         },
@@ -183,7 +192,7 @@
         },
         
         exportCsv: function() {
-            this._super( this, true );
+            this._super( this );
         },
 
         load: function() {

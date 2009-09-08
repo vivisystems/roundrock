@@ -15,9 +15,13 @@ ${_( '(rpt)Stock Level' ) + ':'|left:14}${plu.stock|format:0|right:6}  ${_( '(rp
 ${_( '(rpt)High Watermark' ) + ':'|left:14}${plu.max_stock|format:0|right:6}  ${_( '(rpt)Recommended Purchase Quantity' ) + ':'|left:14}${plu.max_stock - plu.stock|format:0|right:6}
 {/for}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ': '|left:16}${category.plu.length|format:0|left: 26}
+${_( '(rpt)Records Found' ) + ': '|left:16}${category.plu.length|format:0|left:26}
 ------------------------------------------
 {/for}
+{if rowLimitExcess}
+${_( '(rpt)Row Limit Excess' )}
+------------------------------------------
+{/if}
 ${foot.gen_time}
 [&CR]
 [&CR]

@@ -33,6 +33,10 @@ ${_( '(rpt)Total' ) + ':'|left:16}${product.total|default:0|viviFormatPrices:tru
 ${_( '(rpt)Records Found' ) + ': '|left:16}${numRecord|format:0|right:26}
 {/for}
 ------------------------------------------
+{if rowLimitExcess}
+${_( '(rpt)Row Limit Excess' )}
+------------------------------------------
+{/if}
 ${foot.gen_time}
 [&CR]
 [&CR]
