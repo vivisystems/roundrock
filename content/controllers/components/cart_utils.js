@@ -1,5 +1,6 @@
 (function() {
 
+
     var __component__ = {
 
         name: 'CartUtils',
@@ -43,7 +44,7 @@
 
         dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
-            GREUtils.Dialog.alert(this.topmostWindow,
+            GREUtils.Dialog.alert(this.controller.topmostWindow,
                 _('Data Operation Error'),
                 errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },
@@ -73,15 +74,8 @@
 
         }
 
-
     };
-
-    __component__.prototype.__defineGetter__('topmostWindow', function(){
-        return this.controller.topmostWindow;
-    });
-
 
     var CartUtilsComponent = window.CartUtilsComponent = GeckoJS.Component.extend(__component__);
 
 })();
-

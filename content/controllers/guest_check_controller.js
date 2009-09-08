@@ -5,8 +5,8 @@
         name: 'GuestCheck',
 
         components: ['CartUtils'],
-        uses: ['Table'],
         
+        uses: ['Table'],
 
         _cartController: null,
 
@@ -185,6 +185,8 @@
          */
         newTable: function(no, tableSelector) {
 
+            this.splitPaymentByGuestNum();
+
             no = no || '';
             tableSelector = tableSelector || false;
             tableSelector = true;
@@ -276,13 +278,68 @@
         },
 
 
+        splitPayment: function(type, amount) {
+            
+            type = type || 'guestnum';
 
+            switch(type) {
+                
+                default:
+                case 'guestnum':
+                    return this.splitPaymentByGuestNum(amount);
+                    break;
 
+                case 'amount':
+                    return this.splitPaymentByAmount(amount);
+                    break;
+            }
+            
+        },
 
+        splitPaymentByAmount: function(amount) {
 
+            
 
+        },
 
+        splitPaymentByGuestNum: function(guestNum) {
+            
+            var cart = this.getCartController();
+            var curTransaction = cart._getTransaction();
+            
+            guestNum = guestNum || curTransaction.getNumberOfCustomers() || 0 ;
 
+            if (guestNum <= 0) {
+                this.guestNum();
+                guestNum = curTransaction.getNumberOfCustomers() || 0 ;
+            }
+
+            var remainTotal =  curTransaction.getRemainTotal();
+
+            var arPayments = [];
+
+            var amount = curTransaction.getRoundedPrice(remainTotal/guestNum);
+            var subtotal = 0;
+
+            for (let i = 0; i < guestNum; i++) {
+
+                // last one
+                if ( i == (guestNum-1)) {
+                    arPayments[i] = remainTotal-subtotal;
+                }else {
+                    arPayments[i] = amount;
+                    subtotal += amount;
+                }
+            }
+
+            curTransaction.setSplitPayments(true);
+
+            arPayments.forEach(function(pAmount) {
+                cart._addPayment('cash', pAmount);
+            });
+           
+
+        },
 
 
         recallOrder: function() {

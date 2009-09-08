@@ -150,7 +150,7 @@ pref("vivipos.fec.registry.function.programmable.newCheck.data", "");
 
 pref("vivipos.fec.registry.function.programmable.newTable.access", "acl_new_table");
 pref("vivipos.fec.registry.function.programmable.newTable.command", "newTable");
-pref("vivipos.fec.registry.function.programmable.newTable.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.newTable.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.newTable.data", "");
 
 pref("vivipos.fec.registry.function.programmable.opendrawer1.access", "acl_open_cashdrawer_1");

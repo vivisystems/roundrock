@@ -544,10 +544,7 @@
         },
 
         addItem: function(plu) {
-
-            // make sure we've completed previous addItem() call
-            if (this._inDialog) return;
-            
+           
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
                 
@@ -690,8 +687,6 @@
                 var self = this;
                 var cart = this._getCartlist();
                 
-                // wrap with chain method
-                this._inDialog = true;
                 next( function() {
                     if (addedItem.id == plu.id && !self._returnMode) {
 
@@ -735,7 +730,6 @@
                         self._clearAndSubtotal();
                     }
 
-                    self._inDialog = false;
                 });
 
             }
@@ -3433,6 +3427,12 @@
         },
 
         _getCondimentsDialog: function (condgroup, condiments) {
+
+            var self = this;
+
+            // make sure we've completed previous addItem() call
+            if (this._inDialog) return;
+
             var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
             // not initial , initial again!
             if (!condGroupsByPLU) {
@@ -3471,8 +3471,13 @@
                 selectedItems: selectedItems,
                 hideSoldout: GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false
             };
-            var self = this;
+            
+            self._inDialog = true;
+
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
+                
+                self._inDialog = false;
+                
                 var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
                     self._appendCondiments(selectedCondiments.concat(additionalItems), true);
@@ -3788,6 +3793,9 @@
 
         _getMemoDialog: function (memo) {
 
+            // make sure we've completed previous addItem() call
+            if (this._inDialog) return;
+
             var self = this;
 
             var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
@@ -3807,7 +3815,12 @@
             inputObj
             ];
 
+            self._inDialog = true;
+
             return $.popupPanel('promptAddMemoPanel', data).next( function(evt){
+
+                self._inDialog = false;
+                
                 var result = evt.data;
                 
                 if (result.ok && result.input0) {
@@ -3867,6 +3880,35 @@
         },
 
         /**
+         * use cart queue controller
+         */
+        pushQueue: function(nowarning) {
+            this.requestCommand('pushQueue', nowarning, 'CartQueue');
+        },
+
+        /**
+         * use cart queue controller
+         */
+        pullQueue: function(data) {
+            this.requestCommand('pullQueue', data, 'CartQueue');
+        },
+
+
+        /**
+         * use guest_check controller
+         */
+        guestNum: function(num) {
+            return this.requestCommand('guestNum', num, 'GuestCheck');
+        },
+
+        /**
+         * use guest_check controller
+         */
+        recallCheck: function() {
+            return this.requestCommand('recallCheck', null, 'GuestCheck');
+        },
+
+        /**
          * use cartutils implement
          */
         _dbError: function(errno, errstr, errmsg) {
@@ -3887,7 +3929,6 @@
             return this.CartUtils.unblockUI(panel);
         }
 
-        
     };
 
     GeckoJS.Controller.extend(__controller__);

@@ -38,6 +38,7 @@
                 /*
                  * order_payments
                  */
+                split_payments: false,
                 trans_payments: {},
 
                 /*
@@ -51,6 +52,8 @@
                 promotion_apply_items: [],
                 promotion_matched_items: [],
                 promotion_subtotal: 0,
+                promotion_tax_subtotal: 0,
+                promotion_included_tax_subtotal: 0,
 
                 /*
                  * calculate fields
@@ -64,12 +67,6 @@
                 surcharge_subtotal: 0,
                 discount_subtotal: 0,
                 payment_subtotal: 0,
-
-                promotion_subtotal: 0,
-                promotion_apply_items: null,
-                promotion_matched_items: null,
-                promotion_tax_subtotal: 0,
-                promotion_included_tax_subtotal: 0,
 
                 price_modifier: 1,    // used to modify item subtotals
                 
@@ -2621,7 +2618,7 @@
         },
 
         getNumberOfCustomers: function() {
-            return this.data.no_of_customers;
+            return this.data.no_of_customers || 0;
         },
         
         setNumberOfCustomers: function(num) {
@@ -2648,6 +2645,14 @@
             checkNo = isNaN(parseInt(checkNo)) ? -1 : parseInt(checkNo);
             GeckoJS.Session.set('vivipos_fec_check_number', checkNo);
             this.data.check_no = checkNo;
+        },
+
+        setSplitPayments: function(splitPayment) {
+            this.data.split_payments = splitPayment || false;
+        },
+
+        isSplitPayments: function() {
+            return (this.data.split_payments || false);
         }
 
 
