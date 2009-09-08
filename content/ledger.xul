@@ -131,6 +131,7 @@
                             <columns>
                                 <column flex="1"/>
                                 <column flex="1"/>
+                                <column flex="1"/>
                             </columns>
                             <rows>
                                 <row>
@@ -140,18 +141,18 @@
                                                  onfocus="this.select()" oninput="$do('validateForm', this.value, 'LedgerEntryTypes')"
                                                  form="ledger_entry_typeForm" name="type"/>
                                     </vbox>
-                                    <vbox>
-                                        <hbox>
-                                            <label flex="1" value="&ledger.entry.mode;"/>
-                                            <radiogroup id="entry_mode" orient="horizontal" value="IN" flex="1"
-                                                        form="ledger_entry_typeForm" name="mode" default="IN">
-                                                <radio id="entry_mode_in" selected="true" value="IN" flex="1" label="&ledger.entry.mode.in;"/>
-                                                <radio id="entry_mode_out" value="OUT" flex="1" label="&ledger.entry.mode.out;"/>
-                                            </radiogroup>
+                                    <vbox flex="1">
+                                        <hbox pack="center" flex="1">
+                                            <label value="&ledger.entry.mode;"/>
                                         </hbox>
-                                        <checkbox flex="1" label="&ledger.entry.drawer.change;"
-                                                  form="ledger_entry_typeForm" name="drawer_change" default="false"/>
+                                        <radiogroup id="entry_mode" orient="horizontal" value="IN" flex="1"
+                                                    form="ledger_entry_typeForm" name="mode" default="IN">
+                                            <radio id="entry_mode_in" selected="true" value="IN" flex="1" label="&ledger.entry.mode.in;"/>
+                                            <radio id="entry_mode_out" value="OUT" flex="1" label="&ledger.entry.mode.out;"/>
+                                        </radiogroup>
                                     </vbox>
+                                    <checkbox flex="1" label="&ledger.entry.drawer.change;"
+                                              form="ledger_entry_typeForm" name="drawer_change" default="false"/>
                                 </row>
                             </rows>
                         </grid>

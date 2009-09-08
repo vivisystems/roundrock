@@ -34,14 +34,17 @@
             
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
-            var inputObj = {input0:null, require0:true};
+            var inputObj = {input0:null, require0:true,
+                            radioItems: [{label: _('(ledgerEntryType)IN'), value: 'IN'},
+                                         {label: _('(ledgerEntryType)OUT'), value: 'OUT', selected: true}]};
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Product Group'), aFeatures,
                                        _('New Ledger Entry Type'), '', _('Ledger Entry Type'), '', inputObj);
                                        
             if (inputObj.ok && inputObj.input0) {
                 ledgerType.type = inputObj.input0;
-                ledgerType.mode = 'OUT';
+                ledgerType.mode = inputObj.radio;
+                ledgerType.drawer_change = false;
             } else {
                 evt.preventDefault();
                 return ;
@@ -66,12 +69,6 @@
                 if (dupType) {
                     NotifyUtils.warn(_('Transaction type [%S] already exists', [type]));
                     evt.preventDefault();
-                }
-                else {
-                    // check if used for drawer change; if yes, then set other transaction types of the same mode to no
-                    if (evt.data.drawer_change) {
-                        this.clearDrawerChange(evt.data.mode);
-                    }
                 }
             }
         },
