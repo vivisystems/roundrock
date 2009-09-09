@@ -83,9 +83,6 @@ var options;
                     inputObj.ok = true;
                     return true;
                 }
-                else {
-                    alert('cash change: [' + inputObj.amount + ']');
-                }
             },
 
             function(){

@@ -36,7 +36,7 @@
             <vbox flex="1">
                 <vbox flex="1">
                     <label value="&prompt.shiftchangeblindly.reportedcash;"/>
-                    <vivitextbox id="reportedcash" flex="1" value="0" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                    <vivitextbox id="reportedcash" type="number" flex="1" value="0" decimalplaces="Infinity" min="-Infinity" max="Infinity"
                                  numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                  oninputonfocus="select()"/>
                 </vbox>
