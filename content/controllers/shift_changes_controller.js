@@ -225,6 +225,7 @@
             var lastShiftNumber = this._getShiftNumber();
             var endOfPeriod = this._getEndOfPeriod();
             var endOfShift = this._getEndOfShift();
+            var disableShiftChange = GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange');
             var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
             var isNewSalePeriod = false;
             var updateShiftMarker = true;
@@ -281,11 +282,13 @@
                     }
                 }
             }
-            // display current shift / last shift information
-            this._ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
-                              lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
 
-            this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
+            if (!disableShiftChange) {
+                // display current shift / last shift information
+                this._ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
+                                  lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
+                this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
+            }
         },
         
         shiftChange: function() {
@@ -752,8 +755,8 @@
                             sale_period: salePeriod,
                             shift_number: shiftNumber
                         };
+                        
                         entryType = ledgerEntryTypeController.getDrawerChangeType('IN');
-
                         moneyInLedgerEntry = {
                             type: entryType.type,
                             mode: entryType.mode,

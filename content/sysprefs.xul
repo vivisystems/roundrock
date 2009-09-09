@@ -234,6 +234,8 @@
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
             <preference id="pref_mustemptyqueue" name="vivipos.fec.settings.mustemptyqueue" type="bool"/>
             <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool"/>
+            <preference id="pref_disableshiftchange" name="vivipos.fec.settings.DisableShiftChange" type="bool"/>
+            <preference id="pref_checksaleperiod" name="vivipos.fec.settings.CheckSalePeriod" type="bool"/>
         </preferences>
         <vbox>
             <grid class="data-form data-form-options">
@@ -252,6 +254,12 @@
                     </row>
                     <row>
                         <checkbox id="autodiscardqueue" label="&login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
+                    </row>
+                    <row>
+                        <checkbox id="disableshiftchange" label="&login.disableshiftchange;" preference="pref_disableshiftchange"/>
+                    </row>
+                    <row>
+                        <checkbox id="checksaleperiod" label="&login.checksaleperiod;" preference="pref_checksaleperiod"/>
                     </row>
                 </rows>
             </grid>

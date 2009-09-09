@@ -31,6 +31,8 @@
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
+<!ENTITY login.disableshiftchange "Disable shift change">
+<!ENTITY login.checksaleperiod "Check sale period on every order">
 <!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.banneratbottom "Place banner at screen bottom">
 <!ENTITY layout.bannerheight "Banner height">

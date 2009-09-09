@@ -95,42 +95,54 @@
 
             </vbox>
 
-            <spacer height="5px"/>
-            <separator class="groove"/>
-            <spacer height="10px"/>
+            <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="hide"
+                             orient="vertical">
+                <spacer height="5px"/>
+                <separator class="groove"/>
+                <spacer height="10px"/>
 
-            <hbox flex="1" align="center">
-                <caption label="&prompt.shiftchange.drawer.change;"/>
-                <spacer flex="1"/>
-                <vivibutton id="opendrawer" label="&prompt.shiftchange.open.drawer;" default="false" class="button-fixed"
-                            oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
-                <spacer width="10px"/>
-            </hbox>
-            <hbox class="AddAccount">
-                <vbox flex="1">
-                    <label value="&prompt.shiftchange.amount;"/>
-                    <vivitextbox id="drawer_amount" flex="1" type="number" value="0" decimalplaces="Infinity" min="-Infinity" max="Infinity"
-                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                 oninputonfocus="select()"/>
-                </vbox>
-                <spacer width="10px"/>
-                <vbox flex="1">
-                    <label value="&prompt.shiftchange.description;"/>
-                    <textbox id="description" flex="1" onfocus="select()" value=""/>
-                </vbox>
-            </hbox>
-
+                <hbox flex="1" align="center">
+                    <caption label="&prompt.shiftchange.drawer.change;"/>
+                    <spacer flex="1"/>
+                    <vivibutton id="opendrawer" label="&prompt.shiftchange.open.drawer;" default="false" class="button-fixed"
+                                oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
+                    <spacer width="10px"/>
+                </hbox>
+                <hbox class="AddAccount">
+                    <vbox flex="1">
+                        <label value="&prompt.shiftchange.amount;"/>
+                        <vivitextbox id="drawer_amount" flex="1" type="number" value="0" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                     oninputonfocus="select()"/>
+                    </vbox>
+                    <spacer width="10px"/>
+                    <vbox flex="1">
+                        <label value="&prompt.shiftchange.description;"/>
+                        <textbox id="description" flex="1" onfocus="select()" value=""/>
+                    </vbox>
+                </hbox>
+            </isoptionenabled>
+            
             <spacer height="10px"/>
 
             <hbox>
                 <hbox id="dialogButtons" pack="start" flex="1" class="toolbar" toolbarmode="horizontal">
-                    <vivibutton id="ok" label="&prompt.shiftchange.change.shift;" disabled="false" default="true"
-                                roles="acl_change_shift" action="hide"
-                                oncommand="if (confirmEndShift()) doOKButton();"/>
-                    <spacer flex="1"/>
+                    <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="hide"
+                                     flex="1" orient="horizontal">
+                        <vivibutton id="ok" label="&prompt.shiftchange.change.shift;" disabled="false" default="true"
+                                    roles="acl_change_shift" action="hide"
+                                    oncommand="if (confirmEndShift()) doOKButton();"/>
+                        <spacer flex="1"/>
+                    </isoptionenabled>
                     <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" disabled="false" default="false"
                                 roles="acl_end_sale_period" action="hide"
                                 oncommand="if (confirmEndSalePeriod()) doOKButton('end')"/>
+                    <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="display"
+                                     flex="1" orient="horizontal">
+                        <spacer flex="1"/>
+                        <vivibutton id="opendrawer" label="&prompt.shiftchange.open.drawer;" default="false"
+                                    oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
+                    </isoptionenabled>
                 </hbox>
                 <hbox id="dialogButtons" pack="end" class="exitbar">
                     <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
