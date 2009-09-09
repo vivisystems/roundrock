@@ -5,6 +5,10 @@
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
     include( 'chrome://viviecr/content/models/journal.js' );
+    include( 'chrome://viviecr/content/devices/deviceTemplate.js' );
+    include( 'chrome://viviecr/content/devices/deviceTemplateUtils.js' );
+    include( 'chrome://viviecr/content/reports/template.js' );
+    include( 'chrome://viviecr/content/reports/template_ext.js' );
 
     var __controller__ = {
 
@@ -217,6 +221,86 @@
                     progress.value = parseInt( cur / records.length * 100 );
                     cur++;
                 }, this);
+
+                if ( waitPanel != undefined )
+                    self._dismissWaitingPanel();
+            } catch ( e ) {
+                this.log(e);
+            }
+        },
+
+        multiPrint: function() {
+            try {
+                this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+                this._journalPath = this._dataPath + "/journal/";
+
+                var self = this;
+
+                var waitPanel = this._showWaitingPanel();
+                var progress = document.getElementById( this._progress_bar_id );
+                var caption = document.getElementById( this.getCaptionId() );
+
+                var start = document.getElementById('start_date').value;
+                var end = document.getElementById('end_date').value;
+
+                start = parseInt(start / 1000, 10);
+                end = parseInt(end / 1000, 10);
+
+                var fields = [
+                'journal.id',
+                'journal.prn_file'
+                ];
+
+                var conditions = "journal.created >='" + start + "' AND journal.created <='" + end + "'";
+
+                var orderby = 'journal.created';
+
+                var journal = new JournalModel();
+
+                var records = journal.find( 'all', {
+                    fields: fields,
+                    conditions: conditions,
+                    order: orderby,
+                    recursive: -1
+                } );
+
+                var mass_template = '';
+                var count = 1;
+                var partialCut = new RegExp('\\[\\&' + 'PC' + '\\]', 'g');
+                var fullCut = new RegExp('\\[\\&' + 'FC' + '\\]', 'g');
+                var total = records.length;
+
+
+                records.forEach( function( record ) {
+                    var prnFile = new GeckoJS.File(self._journalPath + record.prn_file);
+                    prnFile.open("rb");
+                    var template = GREUtils.Gzip.inflate(prnFile.read());
+                    if (count < total) {
+                        template = template.replace(partialCut,'');
+                        template = template.replace(fullCut, '');
+                    }
+                    mass_template = mass_template + template;
+                    prnFile.close();
+                    count++;
+                }, this);
+                
+                var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                var printController = mainWindow.GeckoJS.Controller.getInstanceByName('Print');
+
+                var deviceController = mainWindow.GeckoJS.Controller.getInstanceByName('Devices');
+                var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
+                var printerChoice = selectedDevices['journal-print-template'];
+
+                var encoding = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-encoding'];
+                var port = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-port'];
+                var portspeed = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-portspeed'];
+                var handshaking = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-handshaking'];
+                var devicemodel = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-devicemodel'];
+                var devicenumber = printerChoice;
+                var copies = 1;
+
+                _templateModifiers(TrimPath, encoding);
+                printController.printSlip('report', null, mass_template, port, portspeed, handshaking, devicemodel, encoding, devicenumber, copies);
 
                 if ( waitPanel != undefined )
                     self._dismissWaitingPanel();

@@ -49,6 +49,10 @@
                 o.starttime = d.toString('yy/MM/dd HH:mm');
                 d.setTime( o.endtime * 1000 );
                 o.endtime = d.toString('yy/MM/dd HH:mm');
+                
+                if ( !o.reported_cash ) {
+                    o.reported_cash = "N/A";
+                }
             });
             
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.cashbyclerk.label' );

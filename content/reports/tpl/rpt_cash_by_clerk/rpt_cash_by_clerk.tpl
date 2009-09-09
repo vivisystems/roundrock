@@ -30,6 +30,7 @@
                     <th style="text-align: right;">${_( '(rpt)Shift' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Balance' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Cash' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Reported Cash' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Net Sales' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Giftcard Excess' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Deposit' )}</th>
@@ -48,6 +49,7 @@
                 	<td style="text-align: right;">${master.shift_number}</td>
                 	<td style="text-align: right;">${master.balance|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.cash|default:0|viviFormatPrices:true}</td>
+                	<td style="text-align: right;">${master.reported_cash|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.sales|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.excess|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.deposit|default:0|viviFormatPrices:true}</td>
@@ -75,7 +77,7 @@
 {/for}
 						</table>
 					</td>
-					<td colspan="5" style="vertical-align: top;">
+					<td colspan="6" style="vertical-align: top;">
 						<table style="width: 100%;">
 							<tr class="fields" style="color: gray; font-style: italic;">
 								<th style="text-align: left;">${_( '(rpt)Destination' )}</th>
