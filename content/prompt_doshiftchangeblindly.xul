@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % PromptDoShiftChangeBlindly SYSTEM "chrome://viviecr/locale/prompt_doshiftchangeblindly.dtd">
+  %PromptDoShiftChangeBlindly;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/shiftchange.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window id="do_shift_change"
+        title="&prompt.shiftchangeblindly.title;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        hidechrome="true"
+        >
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript">
+        var GeckoJS = opener.GeckoJS;
+        var GREUtils = opener.GREUtils;
+    </script>
+    <script type="application/x-javascript" src="chrome://viviecr/content/prompt_doshiftchangeblindly.js"/>
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()"/>
+    </keyset>
+
+    <hbox flex="1" class="container-dialog">
+        <vbox flex="1" class="container-main">
+            <label value="&prompt.shiftchangeblindly.title;" class="label-page-title"/>
+            <vbox flex="1">
+                <vbox flex="1">
+                    <label value="&prompt.shiftchangeblindly.reportedcash;"/>
+                    <vivitextbox id="reportedcash" flex="1" value="0" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                 oninputonfocus="select()"/>
+                </vbox>
+            </vbox>
+
+            <spacer height="5px"/>
+            <separator class="groove"/>
+            <spacer height="10px"/>
+
+            <hbox flex="1" align="center">
+                <caption label="&prompt.shiftchangeblindly.drawer.change;"/>
+                <spacer flex="1"/>
+                <vivibutton id="opendrawer" label="&prompt.shiftchangeblindly.open.drawer;" default="false" class="button-fixed"
+                            oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
+                <spacer width="10px"/>
+            </hbox>
+            <vbox class="AddAccount">
+                <vbox flex="1">
+                    <label value="&prompt.shiftchangeblindly.amount;"/>
+                    <vivitextbox id="drawer_amount" flex="1" type="number" value="0" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                 oninputonfocus="select()"/>
+                </vbox>
+                <vbox flex="1">
+                    <label value="&prompt.shiftchangeblindly.description;"/>
+                    <textbox id="description" flex="1" onfocus="select()" value=""/>
+                </vbox>
+            </vbox>
+
+            <spacer height="10px"/>
+
+            <hbox>
+                <hbox id="dialogButtons" pack="start" flex="1" class="toolbar" toolbarmode="horizontal">
+                    <vivibutton id="ok" label="&prompt.shiftchangeblindly.change.shift;" disabled="false" default="true"
+                                roles="acl_change_shift" action="hide"
+                                oncommand="if (confirmEndShift()) doOKButton();"/>
+                    <spacer flex="1"/>
+                    <vivibutton id="close" label="&prompt.shiftchangeblindly.end.sale.period;" disabled="false" default="false"
+                                roles="acl_end_sale_period" action="hide"
+                                oncommand="if (confirmEndSalePeriod()) doOKButton('end')"/>
+                </hbox>
+                <hbox id="dialogButtons" pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    <button id="cancel" disabled="false" default="false" class="button-exit" oncommand="doCancelButton();"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </hbox>
+</window>
