@@ -2,8 +2,8 @@ content viviecr content/ xpcnativewrappers=yes
 
 overlay chrome://vivipos/content/mainUIOverlay.xul chrome://viviecr/content/overlay.xul
 
-skin viviecr traditional-800x600/1.0 skin/traditional-800x600/
-skin viviecr traditional-1024x768/1.0 skin/traditional-1024x768/
+skin viviecr jcm-800x600/1.0 skin/jcm-800x600/
+skin viviecr jcm-1024x768/1.0 skin/jcm-1024x768/
 override chrome://global/skin/dialog.css chrome://viviecr/skin/overrides/dialog.css
 override chrome://global/skin/scrollbars.css chrome://viviecr/skin/overrides/scrollbars.css
 
