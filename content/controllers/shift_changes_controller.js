@@ -126,7 +126,9 @@
             var aArguments = {current_sale_period: newSalePeriod,
                               current_shift_number: newShiftNumber,
                               last_sale_period: lastSalePeriod,
-                              last_shift_number: lastShiftNumber};
+                              last_shift_number: lastShiftNumber,
+                              GeckoJS: GeckoJS,
+                              GREUtils: GREUtils};
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
 
             var win = this.topmostWindow;
@@ -745,7 +747,7 @@
                 this._unblockUI('blockui_panel');
                 return;
             }
-
+            
             if (inputObj.ok) {
 
                 // cancel current transaction

@@ -24,14 +24,15 @@
 <!ENTITY general.ageverificationack "Require clerk acknowledgement for age verification">
 <!ENTITY general.autosetdecimalpoint "Adjust for decimal point automatically">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
-<!ENTITY general.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY general.ifprintwhiletraining "Print receipt and check while training?">
 <!ENTITY general.quietcancel "Do not beep when cancelling orders">
-<!ENTITY general.requireamountofreportedcash "Require entry of drawer cash before shift change">
+<!ENTITY login.requireamountofreportedcash "Require entry of drawer cash before shift change">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
+<!ENTITY login.hidesaleperiod "Hide sale period">
+<!ENTITY login.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY login.disableshiftchange "Disable shift change">
 <!ENTITY login.checksaleperiod "Check sale period on every order">
 <!ENTITY layout.registeratleft "Place register screen on the left">

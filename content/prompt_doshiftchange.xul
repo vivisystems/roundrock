@@ -108,7 +108,7 @@
                                 oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
                     <spacer width="10px"/>
                 </hbox>
-                <hbox class="AddAccount">
+                <hbox>
                     <vbox flex="1">
                         <label value="&prompt.shiftchange.amount;"/>
                         <vivitextbox id="drawer_amount" flex="1" type="number" value="0" decimalplaces="Infinity" min="-Infinity" max="Infinity"

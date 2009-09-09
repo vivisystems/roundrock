@@ -21,3 +21,4 @@
 <!ENTITY prompt.shiftchange.change.shift "Change Shift">
 <!ENTITY prompt.shiftchange.end.sale.period "End Sale Period">
 <!ENTITY prompt.shiftchange.open.drawer "Open Drawer">
+<!ENTITY prompt.shiftchange.reportedcash "Cash in the Drawer">

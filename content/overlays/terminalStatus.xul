@@ -13,17 +13,22 @@
                                    keys="terminal_no"
                                    valueClass="console-message-value"
                                    />
-                <viviuserlabel id="current_user" class="console-current-user"/>
-                <vivisessionstatus id="sale_period" flex="1"
-                                   class="console-sale-period"
-                                   columns="1"
-                                   crop="end"
-                                   nolabels="true"
-                                   noseparator="true"
-                                   keys="sale_period_string"
-                                   valueClass="console-message-value"
-                                 />
-                <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="hide">
+                <viviuserlabel id="current_user" class="console-current-user" flex="1"/>
+
+                <isoptionenabled id="option_sale_period" option="vivipos.fec.settings.HideSalePeriod" action="hide"
+                                 flex="1" orient="horizontal">
+                    <vivisessionstatus id="sale_period" flex="1"
+                                       class="console-sale-period"
+                                       columns="1"
+                                       crop="end"
+                                       nolabels="true"
+                                       noseparator="true"
+                                       keys="sale_period_string"
+                                       valueClass="console-message-value"
+                                     />
+                </isoptionenabled>
+                <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="hide"
+                                 flex="1" orient="horizontal">
                     <vivisessionstatus id="shift_number" flex="1"
                                        class="console-sale-period"
                                        columns="1"
