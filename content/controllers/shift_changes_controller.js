@@ -739,6 +739,7 @@
             }
             catch(e) {
                 this._dbError(e.errno, e.errstr, e.errmsg);
+                this._unblockUI('blockui_panel');
                 return;
             }
 
@@ -798,7 +799,7 @@
 
                         // append to shiftChangeDetails
                         var newChangeDetail = {type: 'ledger',
-                                               name: entryType.type,
+                                               name: moneyOutLedgerEntry.type,
                                                amount: 0 - amt,
                                                count: 1};
 
