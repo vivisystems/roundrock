@@ -119,23 +119,28 @@ class StocksController extends AppController {
 
         $result = array('status' => 'error', 'code' => 400 );
 
+        $decreaseResult = false;
+
         if (is_array($requests)) {
 
             $lastModifiedInventory = $this->InventoryCommitment->getLastModified();
 
-            $this->StockRecord->decreaseStockRecords($requests, $lastModifiedInventory);
+            $decreaseResult = $this->StockRecord->decreaseStockRecords($requests, $lastModifiedInventory);
         }
 
-        $stocks = $this->StockRecord->getLastModifiedRecords($lastModified);
+        if ($decreaseResult) {
 
-        if (is_array($stocks)) {
+            $stocks = $this->StockRecord->getLastModifiedRecords($lastModified);
 
-            $result = array('status' => 'ok', 'code' => 200 );
-            //$result['response_data'] = $stocks;
-            // $result['response_data'] = $stocks;
-            $result['response_data'] = $this->SyncHandler->prepareResponse($stocks, 'bgz_json');
+            if (is_array($stocks)) {
+
+                $result = array('status' => 'ok', 'code' => 200 );
+                //$result['response_data'] = $stocks;
+                // $result['response_data'] = $stocks;
+                $result['response_data'] = $this->SyncHandler->prepareResponse($stocks, 'bgz_json');
 
 
+            }
         }
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json');

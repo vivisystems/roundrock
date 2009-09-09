@@ -87,6 +87,19 @@ class DboSqlite3 extends DboSource {
 		'binary' => array('name' => 'blob'),
 		'boolean' => array('name' => 'boolean')
 	);
+
+/**
+ * Index of basic SQL commands
+ *
+ * @var array
+ * @access protected
+ */
+	var $_commands = array(
+		'begin'	   => 'BEGIN EXCLUSIVE',
+		'commit'   => 'COMMIT',
+		'rollback' => 'ROLLBACK'
+	);
+
 	var $last_error = null;
 	var $pdo_statement = null;
 	var $rows = null;

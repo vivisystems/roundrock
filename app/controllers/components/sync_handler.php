@@ -723,7 +723,7 @@ class SyncHandlerComponent extends Object {
                 $datasource->execute("UPDATE sync_remote_machines SET last_synced=0 WHERE ( last_synced <= ". $maxDelId . " or last_synced > " . $maxId . ")");
 
                 // vacuum database
-                //$datasource->execute("VACUUM");
+                $datasource->execute("VACUUM");
 
             }
 

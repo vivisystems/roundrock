@@ -61,7 +61,8 @@ class SequencesController extends AppController {
         $value = $this->Sequence->getSequence($key);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $value
+            'value' => $value,
+            'response_data' => $value
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -78,7 +79,8 @@ class SequencesController extends AppController {
         $value = $this->Sequence->setSequence($key, $value);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $value
+            'value' => $value,
+            'response_data' => $value
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -96,7 +98,8 @@ class SequencesController extends AppController {
         $value = $this->Sequence->resetSequence($key, $value);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $value
+            'value' => $value,
+            'response_data' => $value
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
