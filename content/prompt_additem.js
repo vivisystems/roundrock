@@ -89,6 +89,30 @@ var options;
             menu.selectedIndex = selectedIndex;
         }
 
+        // To construct a radio group, please assign an array to inputObj.radioItems; the array is consisted of objects bearing fields value, label, and selected.
+        // The last object whose 'selected' property is true will be considered the default selected radio item.
+        if (!('radioItems' in inputObj)) {
+            document.getElementById('radiorow').hidden = true;
+        }
+        else {
+            var radiogroup = document.getElementById('radiogroup');
+
+            if ( inputObj.radioItems ) {
+                var items = inputObj.radioItems;
+                for ( var i = 0; i < items.length; i++ ) {
+                    var item = items[ i ];
+                    var radio = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:radio");
+                    radio.setAttribute('value', item.value);
+                    radio.setAttribute('label', item.label);
+                    radio.setAttribute('flex', 1);
+                    radiogroup.appendChild(radio);
+                    if ( item.selected ) {
+                        radiogroup.selectedIndex = i;
+                    }
+                }
+            }
+        }
+
         if (multiline) {
             // set main-grid and main-rows to flex
             document.getElementById('main-grid').setAttribute('flex', 1);
@@ -138,6 +162,7 @@ var options;
                 inputObj.input0 = GeckoJS.String.trim(document.getElementById('input0').value);
                 inputObj.input1 = GeckoJS.String.trim(document.getElementById('input1').value);
                 inputObj.menu = document.getElementById('menu').value;
+                inputObj.radio = document.getElementById('radiogroup').value;
                 inputObj.ok = true;
                 return true;
             },

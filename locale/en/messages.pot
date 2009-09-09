@@ -2324,12 +2324,6 @@ msgstr "IN"
 msgid "(ledgerEntryType)OUT"
 msgstr "OUT"
 
-msgid "(ledgerEntryType)Y"
-msgstr "Yes"
-
-msgid "(ledgerEntryType)N"
-msgstr "No"
-
 msgid "(rpt)Change"
 msgstr "Change"
 

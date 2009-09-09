@@ -712,6 +712,12 @@
 
                 var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+                
+                var requestReportingAmountCash = GeckoJS.Configure.read( "vivipos.fec.settings.RequireAmountOfReportedCash" );
+                if ( requestReportingAmountCash ) {
+                    aURL = 'chrome://viviecr/content/prompt_doshiftchangeblindly.xul';
+                    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=460,height=360';
+                }
 
                 inputObj = {
                     shiftChangeDetails: shiftChangeDetails,
@@ -735,7 +741,7 @@
                 this._dbError(e.errno, e.errstr, e.errmsg);
                 return;
             }
-            
+
             if (inputObj.ok) {
 
                 // cancel current transaction
@@ -833,7 +839,8 @@
                     terminal_no: GeckoJS.Session.get('terminal_no'),
                     sale_period: this._getSalePeriod(),
                     shift_number: this._getShiftNumber(),
-                    shiftChangeDetails: shiftChangeDetails
+                    shiftChangeDetails: shiftChangeDetails,
+                    reported_cash: inputObj.reportedCash
                 };
 
                 if (!shiftChangeModel.saveShiftChange(shiftChangeRecord)) {

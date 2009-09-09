@@ -16,6 +16,7 @@ ${_( '(rpt)Terminal' ) + ':'|left:12}${master.terminal_no|right:30}
 ${_( '(rpt)Shift' ) + ':'|left:12}${master.shift_number|right:30}
 ${_( '(rpt)Balance' ) + ':'|left:12}${master.balance|default:0|viviFormatPrices:true|right:30}
 ${_( '(rpt)Cash' ) + ':'|left:12}${master.cash|default:0|viviFormatPrices:true|right:30}
+${_( '(rpt)Reported Cash' ) + ':'|left:12}${master.reported_cash|default:0|viviFormatPrices:true|right:30}
 ${_( '(rpt)Net Sales' ) + ':'|left:12}${master.sales|default:0|viviFormatPrices:true|right:30}
 ${_( '(rpt)Giftcard Excess' ) + ':'|left:12}${master.excess|default:0|viviFormatPrices:true|right:30}
 ${_( '(rpt)Deposit' ) + ':'|left:12}${master.deposit|default:0|viviFormatPrices:true|right:30}
