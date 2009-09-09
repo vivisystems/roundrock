@@ -25,6 +25,9 @@
         var options = window.arguments[0];
         function startup() {
             document.getElementById('message').value = options.message;
+            if (GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange')) {
+                document.getElementById('column1').hidden = true;
+            }
         }
 
         window.addEventListener('load', startup, false);
@@ -35,12 +38,12 @@
             <label id="message" value="" class="label-page-title"/>
     		<grid flex="1" class="container-report">
                 <columns>
-                    <column flex="1"/>
+                    <column id="column1" flex="1"/>
                     <column flex="1"/>
                     <column flex="1"/>
                 </columns>
                 <rows>
-                    <row>
+                    <row flex="1">
                         <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="hide" flex="1">
                             <vbox flex="1">
                                 <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.this.shift;" flex="1"
@@ -59,7 +62,7 @@
                                         oncommand="opener.$do('reviewDailySales', null, 'ShiftChanges');"/>
 		                </vbox>
                     </row>
-                    <row>
+                    <row flex="1">
                         <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="hide" flex="1">
                             <vbox flex="1">
                                 <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;" flex="1"
@@ -80,7 +83,7 @@
                     </row>
                 </rows>
             </grid>
-            <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+            <hbox pack="center" class="toolbar" toolbarmode="horizontal">
                 <button id="login" label="&shiftchange.button.login;" disabled="false" oncommand="doOKButton();"/>
             	<button id="poweroff" label="&shiftchange.button.poweroff;" disabled="false" oncommand="opener.$do('shutdownMachine', null, 'Main');"/>
             </hbox>
