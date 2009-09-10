@@ -67,7 +67,7 @@ ${_( '(rpt)force_condiment' ) + ': '|left:30}${plu.force_condiment|boolToLetter|
 ${_( '(rpt)age_verification' ) + ': '|left:30}${plu.age_verification|boolToLetter|right:12}
 ${_( '(rpt)single' ) + ': '|left:30}${plu.single|boolToLetter|right:12}
 ${_( '(rpt)visible' ) + ': '|left:30}${plu.visible|boolToLetter|right:12}
-${_( '(rpt)icon_only' ) + ': '|left:30}${plu.icon_only|boolToLetter|right:12}
+${_( '(rpt)display_mode' ) + ': '|left:30}${plu.display_mode|right:12}
 {/for}
 ------------------------------------------
 ${_( '(rpt)Records Found' ) + ': '|left:30}${category.count|format:0|right:12}
