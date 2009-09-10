@@ -9,7 +9,7 @@
 
   <binding id="isoptionenabled">
     <content >
-      <xul:box anonid="checkoptionContainer" inherits="class,flex,pack,align,orient,collapsed,hidden">
+      <xul:box anonid="checkoptionContainer" xbl:inherits="class,flex,pack,align,orient,collapsed,hidden">
       <children/>
       </xul:box>
     </content>
@@ -73,9 +73,9 @@
         <destructor><![CDATA[
             //window.removeEventListener('DOMContentLoaded', this.ready, true);
             window.removeEventListener('load', this.ready, true);
-        
+
             if (this.events) {
-                this.events.removeListener('change', this.changeHandler);
+                this.events.removeListener('write', this.changeHandler);
                 this.events.removeListener('remove', this.removeHandler);
                 this.events.removeListener('clear', this.clearHandler);
             }
