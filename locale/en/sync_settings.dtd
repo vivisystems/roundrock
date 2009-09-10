@@ -33,6 +33,8 @@
 <!ENTITY sync_settings.label.sale_period_hostname "Sale Period Service">
 <!ENTITY sync_settings.desc.sale_period_hostname "This service controls the sale period for a cluster of terminals. Please enter the hostname or IP address of the server, or localhost if the service is not needed.">
 
+<!ENTITY sync_settings.label.advance_sale_period "Advance Sale Period after Closing">
+
 <!ENTITY sync_settings.label.table_active "Enable Clustered Table Service">
 <!ENTITY sync_settings.desc.table_active "Activate clustered table service. The server is the same host as synchronization server.">
 

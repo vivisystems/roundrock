@@ -20,8 +20,6 @@
     
         autoRestoreFromBackup: true,
 
-        timeout: 15,
-        
         getRemoteServiceUrl: function(method) {
             this.syncSettings = (new SyncSetting()).read();
 

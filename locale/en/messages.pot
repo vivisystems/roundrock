@@ -2699,6 +2699,15 @@ msgstr "Sample Receipt 24c condensed"
 msgid "vivipos.fec.registry.templates.receipt-sample-condensed-32c.label"
 msgstr "Sample Receipt 32c condensed"
 
+msgid "vivipos.fec.registry.templates.queue-ticket-24c.label"
+msgstr "Queue Ticket 24c"
+
+msgid "vivipos.fec.registry.templates.queue-ticket-32c.label"
+msgstr "Queue Ticket 32c"
+
+msgid "vivipos.fec.registry.templates.queue-ticket-42c.label"
+msgstr "Queue Ticket 42c"
+
 msgid "vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.label"
 msgstr "Sample HTML Receipt 24c condensed"
 

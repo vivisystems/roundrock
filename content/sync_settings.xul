@@ -184,6 +184,8 @@
                                         <label value="&sync_settings.label.sale_period_hostname;"/>
                                         <textbox value="localhost"
                                                  form="syncSettingForm" name="sale_period_hostname"/>
+                                        <spacer flex="1"/>
+                                        <checkbox form="syncSettingForm" name="advance_sale_period" label="&sync_settings.label.advance_sale_period;" checked="false"/>
                                     </vbox>
                                     <textbox id="sale_period_hostname_desc" flex="1" class="textbox-description"
                                              readonly="true" wrap="true" multiline="true" rows="2"

@@ -2,6 +2,8 @@
 
     var __controller__ = {
 
+        uses: ['ShiftMarker'],
+
         name: 'ShiftChanges',
 
         _listObj: null,
@@ -10,7 +12,7 @@
 
         initial: function() {
             // set current sales period and shift number
-            this._updateSession();
+            var currentShift = this._updateSession();
             
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
@@ -22,29 +24,28 @@
                 main.addEventListener('afterClearOrderData', this.expireData, this);
                 main.addEventListener('afterTruncateTxnRecords', this.truncateData, this);
             }
-        },
 
-        _queryStringPreprocessor: function( s ) {
-            var re = /\'/g;
-            return s.replace( re, '\'\'' );
+            if (currentShift != null && currentShift.sale_period == -1) {
+                // warn if sale period cannot be retrieved
+                GREUtils.Dialog.alert(null,
+                                      _('Shift Change'),
+                                      _('Failed to determine current sale period. ')
+                                      + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+            }
         },
 
         _getShiftMarker: function() {
-            shift = GeckoJS.Session.get('current_shift');
+            var shift = GeckoJS.Session.get('current_shift');
             if (!shift) {
-                var shiftMarkerModel = new ShiftMarkerModel();
-                var terminalNo = GeckoJS.Session.get('terminal_no');
-                var shift = shiftMarkerModel.find('first', {
-                    conditions: "terminal_no = '" + this._queryStringPreprocessor(terminalNo) +  "'",
-                    recursive: 0
-                });
-                if (parseInt(shiftMarkerModel.lastError) != 0) {
-                    this._dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
-                                  _('An error was encountered while retrieving shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
-                    return;
+                shift = this.ShiftMarker.getMarker();
+                if (parseInt(this.ShiftMarker.lastError) != 0) {
+                    this._dbError(this.ShiftMarker.lastError, this.ShiftMarker.lastErrorString,
+                                  _('An error was encountered while retrieving shift change configuration (error code %S).', [this.ShiftMarker.lastError]));
+                    return null;
                 }
+                
+                GeckoJS.Session.set('current_shift', shift);
             }
-            GeckoJS.Session.set('current_shift', shift);
             return shift;
         },
 
@@ -69,6 +70,7 @@
         _updateSession: function(currentShift) {
             var shiftNumber = '';
             var salePeriod = '';
+            var salePeriodStr;
 
             if (!currentShift) {
                 currentShift = this._getShiftMarker();
@@ -77,16 +79,30 @@
             if (currentShift) {
                 shiftNumber = currentShift.shift_number;
                 salePeriod = currentShift.sale_period;
+
+                if (shiftNumber != '') shiftNumber = parseInt(shiftNumber);
+                if (salePeriod != '') salePeriod = parseInt(salePeriod);
             }
+
+            if (salePeriod == '') {
+                salePeriodStr = '';
+            }
+            else if (salePeriod < 0) {
+                salePeriodStr = '-1';
+            }
+            else {
+                salePeriodStr = new Date(salePeriod * 1000).toLocaleDateString();
+            }
+
             GeckoJS.Session.set('current_shift', currentShift);
             GeckoJS.Session.set('shift_number', shiftNumber);
             GeckoJS.Session.set('sale_period', salePeriod);
-            GeckoJS.Session.set('sale_period_string',
-                                salePeriod == '' ? '' : new Date(salePeriod * 1000).toLocaleDateString());
+            GeckoJS.Session.set('sale_period_string', salePeriodStr);
+
+            return currentShift;
         },
 
         _setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
-            var shiftMarkerModel = new ShiftMarkerModel();
 
             shiftNumber = parseInt(shiftNumber);
             salePeriod = parseInt(salePeriod);
@@ -104,12 +120,12 @@
             // update shift marker if it already exists
             if (shift) {
                 newShiftMarker.id = shift.id;
-                shiftMarkerModel.id = shift.id;
+                this.ShiftMarker.id = shift.id;
             }
-            var r = shiftMarkerModel.saveMarker(newShiftMarker);
+            var r = this.ShiftMarker.saveMarker(newShiftMarker);
             if (!r) {
-                this._dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
-                              _('An error was encountered while updating shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
+                this._dbError(this.ShiftMarker.lastError, this.ShiftMarker.lastErrorString,
+                              _('An error was encountered while updating shift change configuration (error code %S).', [this.ShiftMarker.lastError]));
             }
             else {
                 // update shift
@@ -205,8 +221,7 @@
                            errmsg: _('An error was encountered while removing all shift change details (error code %S).', [model.lastError])};
                 }
 
-                model = new ShiftMarkerModel();
-                r = model.truncate();
+                r = this.ShiftMarker.truncate();
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -228,7 +243,6 @@
             var endOfPeriod = this._getEndOfPeriod();
             var endOfShift = this._getEndOfShift();
             var disableShiftChange = GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange');
-            var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
             var isNewSalePeriod = false;
             var updateShiftMarker = true;
             
@@ -274,21 +288,13 @@
 
             // need to catch exceptions
             if (updateShiftMarker) {
-                if (this._setShift(newSalePeriod, newShiftNumber, false, false)) {
-
-                    // reset sequence if necessary
-                    if (resetSequence && isNewSalePeriod) {
-
-                        // get sequence format and length
-                        SequenceModel.resetSequence('order_no', 0);
-                    }
-                }
+                this._setShift(newSalePeriod, newShiftNumber, false, false);
             }
 
             if (!disableShiftChange) {
                 // display current shift / last shift information
-                this._ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
-                                  lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
+                this._ShiftDialog((newSalePeriod > 0) ? new Date(newSalePeriod * 1000).toLocaleDateString() : newSalePeriod, newShiftNumber,
+                                  (lastSalePeriod == '' || lastSalePeriod < 0) ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber);
                 this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
             }
         },
@@ -878,10 +884,10 @@
             }
 
             if (doEndOfPeriod) {
+
                 // data cleanup
                 this.requestCommand('clearOrderData', null, 'Main');
-                this.requestCommand('clearOrderObjects', null, 'Main');
-                
+                this.requestCommand('clearOrderObjects', null, 'Main');                
 
                 // offer options to power off or restart and to print shift and day reports
                 var aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
