@@ -554,6 +554,22 @@ msgid "vivipos.fec.registry.function.programmable.checkcopy.name"
 msgstr "Issue Check Copy"
 
 #####################
+# Print Document Check
+#####################
+
+msgid "vivipos.fec.registry.function.programmable.printdocument.desc"
+msgstr ""
+"This function prints a document on a designated check printer. The "
+"parameter must be set to 1, 2, 3, or 4, indicating the printer to "
+"print the document on."
+
+msgid "vivipos.fec.registry.function.programmable.printdocument.label"
+msgstr "Print Document"
+
+msgid "vivipos.fec.registry.function.programmable.printdocument.name"
+msgstr "Print Document"
+
+#####################
 # Shift Price Level
 #####################
 
