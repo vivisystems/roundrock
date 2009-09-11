@@ -1,0 +1,103 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Front End Condiment Panel
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .condscrollablepanel {
+	margin: 0px;
+	padding: 0px;
+	-moz-appearance: none;
+	-moz-background-clip: border;
+}
+
+.main-overlay .condscrollablepanel vivibuttonpanel vivibutton {
+	margin: 4px;
+}
+
+/*-----------------------------------------------------------------------------
+ * condiment buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .button-condiment {
+    border-width: 1px !important;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+}
+
+.main-overlay .button-condiment[disabled=true] {
+    background-color: #e1dfdb;
+    border: none;
+}
+
+.main-overlay .button-condiment hbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-box-orient: vertical;
+}
+
+.main-overlay .button-condiment description {
+    text-wrap: normal;
+    word-wrap: break-word;
+}
+
+/*-----------------------------------------------------------------------------
+ *  scroll buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .cond-scroll-up-button {
+    background: transparent url(../images/departUp.png) 0 0 no-repeat;
+    border: 0px;
+    margin: 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px 0px 0px 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+.main-overlay .cond-scroll-up-button[disabled=false]:active {
+    background-position:-40px 0;
+}
+
+.main-overlay .cond-scroll-up-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .cond-scroll-up-button description {
+    display: none;
+}
+
+.main-overlay .cond-scroll-down-button {
+    border: 0px;
+    background: transparent url(../images/departDown.png) 0 0 no-repeat;
+    min-height: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+.main-overlay .cond-scroll-down-button[disabled=false]:active {
+    background-position:-40px 0;
+}
+
+.main-overlay .cond-scroll-down-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .cond-scroll-down-button description {
+    display: none;
+}

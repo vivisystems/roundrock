@@ -1,0 +1,14 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Main Screen Input line
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .main-input-line {
+    font-family: monospace;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    padding: 3px 10px;
+    -moz-appearance: none;
+}

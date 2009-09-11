@@ -1,0 +1,77 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Main Screen Styles
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .main-panel  {
+    background-color: #f2faff;
+    border: 0px solid red;
+    height: 600px;
+    width: 800px;
+}
+
+.main-overlay .top-panel {
+    max-height: 224px;
+    min-height: 224px;
+    height: 224px;
+}
+
+.main-overlay .top-right-panel {
+    max-width: 400px;
+    min-width: 400px;
+    width: 400px;
+}
+
+.main-overlay .top-left-panel {
+    max-width: 400px;
+    min-width: 400px;
+    width: 400px;
+}
+
+.main-overlay .bottom-panel {
+    max-height: 336px;
+    min-height: 336px;
+    height: 336px;
+}
+
+.main-overlay .bottom-right-panel {
+    max-width: 340px;
+    min-width: 340px;
+    width: 340px;
+}
+
+.main-overlay .bottom-left-panel {
+    max-width: 454px;
+    min-width: 454px;
+    width: 454px;
+}
+
+.main-overlay .function-toolbar {
+    width: 40px;
+}
+
+.main-overlay .main-wait-panel {
+    background: white none center center no-repeat;
+    height: 140px;
+    margin: 230px 100px 230px 100px;
+    width: 600px;
+}
+
+.main-overlay .main-wait-dialog {
+    background: white;
+    border: 3px solid #c1ab8e;
+    margin: 8px;
+    padding: 4px;
+    -moz-border-radius: 8px;
+}
+
+#statusbar-display .statusbarpanel-text {
+    display: none;
+}
+
+#customerPanelContainer {
+    border: 2px ridge;
+    margin: 2px;
+}
