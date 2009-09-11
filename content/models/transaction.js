@@ -108,6 +108,8 @@
                 batchCount: 0,
                 closed: false,
 
+                recall: 0,
+
                 created: '',
                 modified: '',
                 lastModifiedTime: ''
@@ -333,11 +335,16 @@
             }
         },
 
-        commit: function() {
+        /**
+         * commit order from backup to REAL Database.
+         * @param {Number} status   order status
+         */
+        commit: function(status) {
 
             dump('commit \n');
+
             var order = new OrderModel();
-            return order.commitSaveOrder() ? 1 : -1;
+            return order.commitSaveOrder(this.data) ? 1 : -1;
 
         },
 

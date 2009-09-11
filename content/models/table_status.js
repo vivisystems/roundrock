@@ -679,45 +679,6 @@
 
         addCheck: function(checkObj) {
 
-            return ;
-
-            
-            var index = -1;
-            var i = 0;
-
-            this._tableStatusList.forEach(function(o){
-                //
-                if (o.table_no == checkObj.table_no) {
-                    index = i;
-                }
-                i++;
-            })
-
-            var tableObj = {
-                order_id: checkObj.id,
-                check_no: checkObj.check_no,
-                table_no: checkObj.table_no,
-                sequence: "" + checkObj.seq,
-                guests: checkObj.no_of_customers,
-                holdby: '',
-                clerk: checkObj.service_clerk_displayname,
-                booking: 0,
-                lock: false,
-                status: checkObj.status,
-                terminal_no: checkObj.terminal_no,
-                transaction_created: checkObj.created,
-                checksum: checkObj.checksum,
-
-                total: checkObj.total,
-
-//                table_id: (index > -1) ? this._tableStatusList[index].table_id : '',
-                table_status_id: (index > -1) ? this._tableStatusList[index].id : ''
-
-            };
-
-            // this.setTableStatus2( this.genTableStatusObj(tableObj));
-            this.setTableStatus( tableObj);
-
         },
 
         setTableStatus: function(tableStatusObj) {

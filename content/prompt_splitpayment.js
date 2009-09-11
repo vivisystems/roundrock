@@ -50,7 +50,7 @@ var options;
     window.recalc = function recalc() {
 
         var arPayments = [];
-        var vivitexts = document.getElementsByTagName('vivitextbox');
+        var vivitexts = document.getElementsByTagName('textbox');
         var total = inputObj.total;
         var remain = total ;
 
@@ -92,7 +92,7 @@ var options;
 		let row = document.createElement('row');
 		let hbox = document.createElement('hbox');
 		let label = document.createElement('label');
-		let textbox = document.createElement('vivitextbox');
+		let textbox = document.createElement('textbox');
 
 		hbox.appendChild(label);
 		hbox.appendChild(textbox);
@@ -129,3 +129,11 @@ var options;
     options = inputObj;
 })();
 
+function clearFocusedElement(target) {
+    var focused;
+    if (target) {
+        focused = document.getElementById(target);
+    }
+    if (!focused) focused = document.commandDispatcher.focusedElement;
+    if (focused.tagName == 'html:input' || focused.tagName == 'textbox') focused.value = '';
+}

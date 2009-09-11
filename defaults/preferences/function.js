@@ -145,7 +145,7 @@ pref("vivipos.fec.registry.function.programmable.modifyitem.data", "");
 
 pref("vivipos.fec.registry.function.programmable.newCheck.access", "acl_new_check");
 pref("vivipos.fec.registry.function.programmable.newCheck.command", "newCheck");
-pref("vivipos.fec.registry.function.programmable.newCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.newCheck.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.newCheck.data", "");
 
 pref("vivipos.fec.registry.function.programmable.newTable.access", "acl_new_table");
@@ -246,7 +246,7 @@ pref("vivipos.fec.registry.function.programmable.pushqueue.data", "");
 pref("vivipos.fec.registry.function.programmable.quantity.access", "acl_register_quantity");
 pref("vivipos.fec.registry.function.programmable.quantity.command", "sendCharcode");
 pref("vivipos.fec.registry.function.programmable.quantity.controller", "Keypad");
-pref("vivipos.fec.registry.function.programmable.quantity.data", "X");
+pref("vivipos.fec.registry.function.programmable.quantity.data", "*");
 
 pref("vivipos.fec.registry.function.programmable.quicksignoff.access", "");
 pref("vivipos.fec.registry.function.programmable.quicksignoff.command", "quickUserSwitch");
@@ -350,7 +350,7 @@ pref("vivipos.fec.registry.function.programmable.stockAdjustment.data", "");
 
 pref("vivipos.fec.registry.function.programmable.storeCheck.access", "acl_store_check");
 pref("vivipos.fec.registry.function.programmable.storeCheck.command", "storeCheck");
-pref("vivipos.fec.registry.function.programmable.storeCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.storeCheck.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.storeCheck.data", "");
 
 pref("vivipos.fec.registry.function.programmable.subtotal.access", "acl_register_sub_total");

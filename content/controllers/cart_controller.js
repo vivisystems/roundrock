@@ -337,6 +337,8 @@
         ifHavingOpenedOrder: function() {
             var curTransaction = this._getTransaction();
 
+            dump( !curTransaction.isSubmit() ) ;
+            dump( !curTransaction.isCancel() ) ;
             if( curTransaction && !curTransaction.isSubmit() && !curTransaction.isCancel() )
                 return true;
             return false;
@@ -347,8 +349,8 @@
             this._cartView.setTransaction(transaction);
             GeckoJS.Session.set('current_transaction', transaction);
             GeckoJS.Session.remove('cart_last_sell_item');
-            //GeckoJS.Session.remove('cart_set_price_value');
-            //GeckoJS.Session.remove('cart_set_qty_value');
+        //GeckoJS.Session.remove('cart_set_price_value');
+        //GeckoJS.Session.remove('cart_set_qty_value');
         },
 
         _getCartlist: function() {
@@ -1002,7 +1004,7 @@
                     }
                     else {
                         NotifyUtils.warn(_('Department [%S] (%S) is not a sale department',
-                                         [dept.name, deptno]));
+                            [dept.name, deptno]));
                     }
                 }
                 else {
@@ -2717,7 +2719,7 @@
                 var weight = scaleController.readScale(number);
 
                 if (weight == -1) {
-                    // configuration error; alert already posted; do nothing here
+                // configuration error; alert already posted; do nothing here
                 }
                 else if (weight == null) {
                     GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No reading from scale: please make sure scale is powered on and properly connected'));
@@ -2731,8 +2733,8 @@
                     
                     if (isNaN(qty) || qty <= 0) {
                         GREUtils.Dialog.alert(this.topmostWindow,
-                                              _('Scale'),
-                                              _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
+                            _('Scale'),
+                            _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
                     }
                     else {
                         this.setQty(qty, false, weight.unit, true);
@@ -2919,6 +2921,7 @@
                 // if the order has been stored, then it cannot be cancelled; it must be voided instead
                 if (curTransaction.data.recall == 2) {
 
+                    // XXX need rewrite 
                     // determine if new items have been added
                     if (!curTransaction.isModified() || forceCancel ||
                         GREUtils.Dialog.confirm(this.topmostWindow,
@@ -2926,42 +2929,35 @@
                             _('Are you sure you want to discard changes made to this order?'))) {
 
                         var ret = curTransaction.cancel(true);
+
                         if (ret == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Data Operation Error'),
-                            _('Failed to cancel order due to data operation error.'));
+                                _('Data Operation Error'),
+                                _('Failed to cancel order due to data operation error.'));
 
                             NotifyUtils.error('Failed to cancel order due to data operation error.')
                         }
-                        //this._cartView.empty();
-                        this.cartViewEmpty();
-
-                        this.clear();
-                    }
-                    else {
-                        this.dispatchEvent('onCancel', curTransaction);
+                        this.dispatchEvent('afterCancel', curTransaction);
                     }
                 }
                 else {
+                    // normal cancel, commit to databases.
 
                     curTransaction.cancel();
-                    this.cartViewEmpty();
+
+                    this.dispatchEvent('afterCancel', curTransaction);
+
+                    curTransaction.commit();
 
                 }
                 
-            }finally {
-
-                GeckoJS.Session.remove('current_transaction');
-                GeckoJS.Session.remove('cart_last_sell_item');
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
-
-                curTransaction.commit();
+            }catch(e) {
+                this.log('WARN', 'Error Cancel order ');
             }
-            
-            if (curTransaction.data.recall != 2) {
-                this.dispatchEvent('afterCancel', curTransaction);
-            }
+
+            this.cartViewEmpty();
+            this.clear();
+
             this.dispatchEvent('onCancel', curTransaction);
         },
 	
@@ -3004,7 +3000,7 @@
             if (status == 1) {
                 var user = GeckoJS.Session.get('user');
                 var adjustment_amount = oldTransaction.data.trans_discount_subtotal + oldTransaction.data.trans_surcharge_subtotal +
-                                        oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
+                oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
                 if (adjustment_amount > 0) {
                     // check if order surcharge exceed user limit
                     var surcharge_limit = parseInt(user.order_surcharge_limit);
@@ -3012,7 +3008,7 @@
                         var surcharge_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, surcharge_limit, user.order_surcharge_limit_type);
                         if (adjustment_amount > surcharge_limit_amount) {
                             NotifyUtils.warn(_('Total surcharge [%S] may not exceed user order surcharge limit [%S]',
-                                               [adjustment_amount, surcharge_limit_amount]));
+                                [adjustment_amount, surcharge_limit_amount]));
                             return false;
                         }
                     }
@@ -3025,7 +3021,7 @@
                         var discount_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, discount_limit, user.order_discount_limit_type);
                         if (adjustment_amount > discount_limit_amount) {
                             NotifyUtils.warn(_('Total discount [%S] may not exceed user order discount limit [%S]',
-                                               [adjustment_amount, discount_limit_amount]));
+                                [adjustment_amount, discount_limit_amount]));
                             return false;
                         }
                     }
@@ -3054,6 +3050,8 @@
 
                 }
 
+
+                // save transaction to order databases.
                 var submitStatus = parseInt(oldTransaction.submit(status));
 
                 /*
@@ -3094,6 +3092,19 @@
                         this.cartViewEmpty();
                     }
 
+                }finally{
+
+                    // finally commit the submit , and write transaction to databases(or to remote databases).
+                    var commitStatus = oldTransaction.commit(status);
+
+                    if (commitStatus == -1) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation Error'),
+                            _('This order could not be commited . Please check the network connectivity to the terminal designated as the master.'));
+                        this._unblockUI('blockui_panel');
+                        return false;
+                    }
+
                     if (status != 2) {
                         if (status != 1) this.clearWarning();
                         this.dispatchEvent('onSubmit', oldTransaction);
@@ -3101,11 +3112,6 @@
                     else {
                         this.dispatchEvent('onGetSubtotal', oldTransaction);
                     }
-
-                }finally{
-
-                    // finally commit the submit , and write transaction to databases(or to remote databases).
-                    oldTransaction.commit(status);
                     
                 }
 
@@ -3233,12 +3239,6 @@
                             // dispatch onSubmit event here manually since submit() won't do it for us
                             this.dispatchEvent('onStore', curTransaction);
 
-                            // dispatch onSubmit event here manually since submit() won't do it for us
-                            self.dispatchEvent('onSubmit', curTransaction);
-
-                            // dispatch onStore event here to update order status
-                            this.dispatchEvent('onStore', curTransaction);
-
                             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
 
                             this.dispatchEvent('afterPreFinalize', curTransaction);
@@ -3262,9 +3262,6 @@
 
             // dispatch onSubmit event here manually since submit() won't do it for us
             this.dispatchEvent('onStore', curTransaction);
-
-            // dispatch onStore event here to update order status
-            this.dispatchEvent('onSubmit', curTransaction);
 
             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
 
@@ -3623,6 +3620,9 @@
             }
         },
 
+        /**
+         * XXX Need rewrite
+         */
         voidSale: function(id) {
             
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
@@ -3906,6 +3906,13 @@
          */
         recallCheck: function() {
             return this.requestCommand('recallCheck', null, 'GuestCheck');
+        },
+
+        /**
+         * use guest_check controller
+         */
+        recallOrder: function() {
+            return this.requestCommand('recallOrder', null, 'GuestCheck');
         },
 
         /**

@@ -103,7 +103,7 @@
                 let orderId = item.order_id;
 
                 // name,current_qty,current_price,current_subtotal
-                let orderItem = data.items[itemIndex] || {
+                let orderItem =  (data.items ? data.items[itemIndex] : false ) || {
                     type: 'item', // item or category
                     index: itemIndex
                 };
@@ -162,8 +162,16 @@
             }
             data.items = items;
             data.items_summary = items_summary;
+            if (!data.display_sequences) {
+                this.rebuildDisplaySequences(data);
+            }
             return items;
             
+        },
+
+        // XXX not yet!
+        rebuildDisplaySequences: function(data) {
+
         }
         
     };

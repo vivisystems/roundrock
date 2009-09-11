@@ -79,7 +79,7 @@
                 delete d2.no_of_customers;
                 delete d2.terminal_no;
 
-                var s2 = GREUtils.Gzip.deflate(GeckoJS.BaseObject.serialize(d2));
+                var s2 = btoa(GREUtils.Gzip.deflate(GeckoJS.BaseObject.serialize(d2)));
 
                 dump(s2.length + '\n');
                 
@@ -99,10 +99,10 @@
             
             if (!orderData.OrderObject || typeof orderData.OrderObject == 'undefined') return {};
 
-            var obj = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(orderData.OrderObject.object));
+            var obj = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(atob(orderData.OrderObject.object)));
 
-            if (!obj.display_sequences) return obj;
-            
+            if (!obj.display_sequences) return {};
+
             // use createDisplaySeq
             var items = {};
             for (let seqIdx in obj.display_sequences) {

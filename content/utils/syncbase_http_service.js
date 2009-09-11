@@ -29,6 +29,7 @@
         action: '',
         active: 0,
         timeout: 60,
+        force: false,
 
         lastReadyState: 0,
         lastStatus: 0,
@@ -124,6 +125,14 @@
             this.active = parseInt(active);
         },
 
+        isForce: function() {
+           return this.force; 
+        },
+
+        setForce: function(force) {
+            this.force = (force || false);
+        },
+
         isLocalhost: function() {
             var hostname = this.getHostname();
             return (hostname == 'localhost' || hostname == '127.0.0.1');
@@ -138,7 +147,7 @@
         },
 
         isRemoteService: function() {
-            if (!this.isActive() || this.isLocalhost()) {
+            if (!this.isActive() || (this.isLocalhost() && !this.isForce())) {
                 return false;
             }
             return true;
@@ -241,7 +250,7 @@
 
             // set readystatechange handler
             req.onreadystatechange = function (aEvt) {
-                //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+//                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 self.lastReadyState = req.readyState;
                 self.lastStatus = req.status;
 
@@ -249,7 +258,6 @@
                     reqStatus.finish = true;
                     if (req.status == 200) {
                         try {
-
                             var result = self.parseResponseText(req.responseText);
 
                             // set last status 
