@@ -4,49 +4,7 @@
 
         name: 'Layout',
 
-        _layout: {},
-        _selectedLayout: '',
-
-        loadOverlay: function() {
-
-            var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
-            var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
-
-            var layoutOverlayUri = 'chrome://viviecr/content/layouts/traditional.xul';
-
-            if (layouts[selectedLayout]) {
-                layoutOverlayUri = layouts[selectedLayout]['overlay_uri'] || layoutOverlayUri;
-            }
-
-            //GREUtils.log('selectedLayout = ' + selectedLayout + ', overlay_uri = ' + layoutOverlayUri);
-
-            var observer = {
-                observe : function (subject, topic, data) {
-                    if (topic == 'xul-overlay-merged') {
-                        // load functional panels;
-                        document.loadOverlay('chrome://viviecr/content/bootstrap_mainscreen_overlays.xul', null);
-                    }
-                }
-            };
-
-            try {
-                document.loadOverlay(layoutOverlayUri, observer);
-            }catch(e) {
-                if (layoutOverlayUri != 'chrome://viviecr/content/layouts/traditional.xul') {
-                    // try load default
-                    document.loadOverlay('chrome://viviecr/content/layouts/traditional.xul', observer);
-                }
-            }
-            
-        },
-    
         initial: function() {
-            
-            var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
-            var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
-
-            this._selectedLayout = selectedLayout;
-            this._layout = layouts[selectedLayout];
 
             this.resetLayout(true);
 
@@ -63,7 +21,8 @@
         },
 
         toggleFunctionPanel: function (state) {
-            var fnPanel = document.getElementById('functionPanelContainer');
+            var fnPanel = document.getElementById('functionpanel');
+            var fnPanelContainer = document.getElementById('functionPanelContainer');
             var toolbar = document.getElementById('toolbar');
             var toggleBtn = document.getElementById('togglefunctionpanel');
             var clockinBtn = document.getElementById('clockin');
@@ -71,12 +30,12 @@
             var vkbBtn = document.getElementById('vkb');
             var spacer = document.getElementById('spacer');
             var cartSidebar = document.getElementById('cartsidebar');
-            var isHidden = fnPanel.getAttribute('hidden') || 'false';
+            var isHidden = fnPanelContainer.getAttribute('hidden') || 'false';
             var hidePanel = (state == null || state == '') ? (isHidden == 'false') : state;
-            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.ShowToolbar') || false;
+            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowToolbar') || false;
 
             if (hidePanel) {
-                if (fnPanel && (isHidden != 'true')) {
+                if (fnPanelContainer && (isHidden != 'true')) {
                     // relocate toolbar buttons to cartSidebar if showToolbar is on
                     if (cartSidebar) {
                         if (showToolbar) {
@@ -88,13 +47,13 @@
                         cartSidebar.appendChild(toggleBtn);
                     }
 
-                    fnPanel.setAttribute('hidden', 'true');
+                    fnPanelContainer.setAttribute('hidden', 'true');
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'true');
             }
             else {
                 // if already visible then don't change
-                if (fnPanel && (isHidden == 'true')) {
+                if (fnPanelContainer && (isHidden == 'true')) {
                     // return toolbar buttons to toolbar
 
                     if (toolbar) {
@@ -107,13 +66,14 @@
                         if (toggleBtn) toolbar.appendChild(toggleBtn);
                     }
 
-                    fnPanel.setAttribute('hidden', 'false');
+                    fnPanelContainer.setAttribute('hidden', 'false');
+                    fnPanel.width = fnPanel.boxObject.width;
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'false');
             }
         },
 
-        resizePanels: function (disabled_features, initial) {
+        resizePanels: function (initial) {
             // resizing product/function panels
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
@@ -148,16 +108,16 @@
             var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
             if (fnCols == null) fnCols = 4;
 
-            var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
-            var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
-            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
             var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
-            var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
-            var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
+            var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideDeptScrollbar');
+            var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HidePLUScrollbar');
+            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideFPScrollbar');
+
+            var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.CropDeptLabel') || false;
+            var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.CropPLULabel') || false;
 
             // not all layout supports fnHeight
             var fnHeight = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.height') || 200;
-            if (GeckoJS.Array.inArray("fnheightFeature", disabled_features) != -1) fnHeight = 0;
 
             if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
 
@@ -178,11 +138,7 @@
                     condPanel.vivibuttonpanel.resizeButtons();// this line bring about an error when initial is true.
                 }
             }
-/*
-            if (deptPanel && (deptPanel.datasource.plugroupsFirst != showPlugroupsFirst)) {
-                deptPanel.datasource.refreshView(false);
-            }
-*/
+            
             if (deptPanel &&
                 (initial ||
                  (deptPanel.getAttribute('rows') != departmentRows) ||
@@ -205,10 +161,8 @@
                     deptPanel.setAttribute('hidden', false);
                     deptPanel.initGrid();
 
-                    // @hack to allow vivibuttons to be fully instantiated
-                    this.sleep(100);
-                    
-                    deptPanel.datasource.refreshView(true);
+                    deptPanel.datasource.refreshView();
+                    deptPanel.vivibuttonpanel.refresh();
                 }
                 else {
                     deptPanel.setAttribute('hidden', true);
@@ -234,9 +188,6 @@
                     pluPanel.setAttribute('hidden', false);
                     pluPanel.initGrid();
                     
-                    // @hack to allow vivibuttons to be fully instantiated
-                    this.sleep(100);
-                    
                     pluPanel.vivibuttonpanel.refresh();
                 }
                 else {
@@ -248,7 +199,7 @@
             if (deptPanel) deptPanel.vivibuttonpanel.resizeButtons();
             if (pluPanel) pluPanel.vivibuttonpanel.resizeButtons();
 
-            if (fnPanel) {
+            if (fnPanel && !fnPanelContainer.hidden) {
                 fnPanel.setAttribute('hideScrollbar', hideFPScrollbar)
                 fnPanel._showHideScrollbar(hideFPScrollbar);
 
@@ -270,35 +221,29 @@
                         fnPanel.setAttribute('height', fnHeight);
                     }
                     fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
-                    //fnPanel.setAttribute('width', fnWidth);
                 }
+                fnPanel.width = fnPanel.boxObject.width;
             }
         },
         
         resetLayout: function (initial) {
-            var layout = this._layout ;
-            var disabled_features = layout ? (layout['disabled_features'] || "").split(",") : [];
 
             // not any layout templates support it
-            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
-            if (GeckoJS.Array.inArray("RegisterAtLeft", disabled_features) != -1) registerAtLeft = false;
+            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.RegisterAtLeft') || false;
+            var productPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.ProductPanelOnTop') || false;
+            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowToolbar') || false;
+            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox') || false;
 
-            var productPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.ProductPanelOnTop') || false;
-            if (GeckoJS.Array.inArray("ProductPanelOnTop", disabled_features) != -1) productPanelOnTop = false;
-
-            var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.CheckTrackingMode') || false;
-            var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false;
-            var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.HideTagColumn') || false;
-            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.ShowToolbar') || false;
-            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.HideBottomBox') || false;
+            var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.layout.CheckTrackingMode') || false;
+            var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideSoldOutButtons') || false;
             
             var hbox = document.getElementById('mainPanel');
             var bottombox = document.getElementById('vivipos-bottombox');
             var productPanel = document.getElementById('leftPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
-            var fnPanel = document.getElementById('functionPanel');
-            var toolbarPanel = document.getElementById('functionPanelContainer');
+            var fnPanel = document.getElementById('functionpanel');
+            var fnPanelContainer = document.getElementById('functionPanelContainer');
             var toolbar = document.getElementById('toolbar');
             var cartList = document.getElementById('cartList');
             var checkTrackingStatus = document.getElementById('vivipos_fec_check_tracking_status');
@@ -314,64 +259,60 @@
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
-            if (toolbarPanel) {
-                toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
-            }
+            if (fnPanelContainer) fnPanelContainer.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (toolbar) {
+                if (showToolbar) {
+                    fnPanel.setAttribute('hidden', true);
+                    fnPanel.width = 0;
+                }
                 toolbar.setAttribute('hidden', showToolbar ? 'false' : 'true');
+                fnPanel.removeAttribute('hidden');
             }
             if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
             if (checkTrackingStatus) {
                 checkTrackingStatus.setAttribute('hidden', checkTrackingMode ? 'false' : 'true');
             }
 
-            // display tag field
-            var headers = cartList.getAttribute('headers');
-            var fields = cartList.getAttribute('fields');
-            if (hideTag) {
-                if (headers.split(',').length == 6) {
-                    headers = headers.substring(headers.indexOf(',') + 1);
-                    fields = fields.substring(fields.indexOf(',') + 1);
-                    cartList.setAttribute('headers', headers);
-                    cartList.setAttribute('fields', fields);
+            // cart display fields
+            var defaults = cartList.getAttribute('defaultfields') || '';
+            var cartFields = GeckoJS.Configure.read('vivipos.fec.settings.layout.CartDisplayFields') || defaults;
+            var headers = cartList.getAttribute('headerlist') || '';
+            var fields = cartList.getAttribute('fieldlist') || '';
+            var headerArray = headers.split(',');
+            var fieldArray = fields.split(',');
+            var displayArray = cartFields.split(',');
 
-                    cartList.vivitree.initTreecols();
-                }
-            }
-            else {
-                if (headers.split(',').length == 5) {
-                    headers = '"",' + headers;
-                    fields = 'tag,' + fields;
-                    cartList.setAttribute('headers', headers);
-                    cartList.setAttribute('fields', fields);
+            var selectedHeaders = '';
+            var selectedFields = '';
 
-                    cartList.vivitree.initTreecols();
-                }
+            if (fieldArray.length > 0) {
+                fieldArray.forEach(function(f, i) {
+                    if (displayArray.indexOf(f) > -1) {
+                        selectedHeaders += ((selectedHeaders == '' ? '' : ',') + headerArray[i]);
+                        selectedFields += ((selectedFields == '' ? '' : ',') + fieldArray[i]);
+                    }
+                });
             }
+            cartList.setAttribute('headers', selectedHeaders);
+            cartList.setAttribute('fields', selectedFields);
+
+            cartList.vivitree.initTreecols();
+
             // display sold out buttons
             if (soldOutCategory) soldOutCategory.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
             if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
 
-            this.resizePanels(disabled_features, initial);
+            this.resizePanels(initial);
         }
 
     };
 
     GeckoJS.Controller.extend(__controller__);
 
-    window.addEventListener('ViviposStartup', function() {
-        // trip, invoke directly
-        __controller__.loadOverlay.apply(__controller__);
-
-    }, false);
-
     // register onload
     window.addEventListener('load', function() {
-        var main = GeckoJS.Controller.getInstanceByName('Main');
-        if(main) main.addEventListener('afterInitial', function() {
-            main.requestCommand('initial', null, 'Layout');
-        });
+        var layout = GeckoJS.Controller.getInstanceByName('Layout');
+        if (layout) layout.initial();
 
     }, false);
 })();
-

@@ -1331,10 +1331,9 @@
                                 newData.auto_maintain_stock = product.auto_maintain_stock;
                                 newData.return_stock = product.return_stock;
                                 newData.force_memo = product.force_memo;
-                                newData.visible = product.visible;
                                 newData.single = product.single;
+                                newData.visible = product.visible;
                                 newData.age_verification = product.age_verification;
-                                newData.icon_only = product.icon_only;
                                 newData.manual_adjustment_only = product.manual_adjustment_only;
                                 newData.memo = product.memo;
                                 newData.scale = product.scale;
@@ -1347,6 +1346,7 @@
                             if (inputObj.cloneSettings['appearance']) {
                                 modified = true;
 
+                                newData.display_mode = product.display_mode;
                                 newData.button_color = product.button_color;
                                 newData.font_size = product.font_size;
                             }

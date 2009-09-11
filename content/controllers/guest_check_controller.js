@@ -576,27 +576,36 @@
         },
 
 
+        /**
+         * recall by Table NO
+         *
+         * @param {String} tableNo
+         */
         recallTable: function(tableNo) {
 
             tableNo = tableNo || '';
-            if (checkNo.length == 0) {
-                checkNo = this.getKeypadController().getBuffer() || '';
+            if (tableNo.length == 0) {
+                tableNo = this.getKeypadController().getBuffer() || '';
                 this.getKeypadController().clearBuffer();
             }
-            // checkNo = '999';
-            if (checkNo.length == 0 ) {
-                NotifyUtils.error(_('This order object does not exist [%S]', [checkNo]));
+            // tableNo = '999';
+            if (tableNo.length == 0 ) {
+                NotifyUtils.error(_('This order object does not exist [%S]', [tableNo]));
                 return false;
             }
 
             var o = new OrderModel();
-            var orderId = o.getOrdersSummary("table_no='"+checkNo+"' AND status=2", true);
+            var orders = o.getOrdersSummary("table_no='"+tableNo+"' AND status=2", true);
 
-            if (orderId) {
-                return this.recallOrder(orderId);
-            }else {
+            if (orders.length == 0) {
                 NotifyUtils.error(_('This order object does not exist [%S]', [checkNo]));
                 return false;
+            }
+
+            // select orders
+            if (orders.length > 1) {
+            }else {
+                return this.recallOrder(orders[0].Order.id);
             }
 
         },
@@ -606,7 +615,6 @@
         /**
          * XXX need rewrite
          */
-
         mergeCheck: function() {
 
             var no = this._getKeypadController().getBuffer();

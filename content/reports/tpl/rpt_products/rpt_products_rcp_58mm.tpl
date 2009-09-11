@@ -108,8 +108,8 @@ ${_( '(rpt)single' ) + ': '}
 ${plu.single|boolToLetter|right:24}
 ${_( '(rpt)visible' ) + ': '}
 ${plu.visible|boolToLetter|right:24}
-${_( '(rpt)icon_only' ) + ': '}
-${plu.icon_only|boolToLetter|right:24}
+${_( '(rpt)display_mode' ) + ': '}
+${plu.display_mode|right:24}
 {/for}
 ------------------------
 ${_( '(rpt)Records Found' ) + ':'|left:24}

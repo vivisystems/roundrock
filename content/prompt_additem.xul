@@ -58,6 +58,9 @@
                                 <textbox id="input1" flex="1" value="" oninput="validateInput()" onfocus="select()"/>
                             </vbox>
                         </row>
+                        <row id="radiorow">
+                            <radiogroup id="radiogroup" orient="horizontal" flex="1"/>
+                        </row>
                     </rows>
                 </grid>
             </groupbox>

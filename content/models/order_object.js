@@ -81,7 +81,7 @@
 
                 var s2 = btoa(GREUtils.Gzip.deflate(GeckoJS.BaseObject.serialize(d2)));
 
-                dump(s2.length + '\n');
+                //dump(s2.length + '\n');
                 
                 var orderObj = {};
                 orderObj['id'] = data.id;

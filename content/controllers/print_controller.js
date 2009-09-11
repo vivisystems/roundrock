@@ -748,6 +748,50 @@
             }
         },
 
+        // handle user initiated non-transaction document printing requests
+        printDocument: function(printer) {
+            var device = this.getDeviceController();
+
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
+
+            if (printer == null) {
+                NotifyUtils.warn(_('Target check printer not specified'));
+                return;
+            }
+            
+            // check device settings
+            switch (device.isDeviceEnabled('check', printer)) {
+                case -2:
+                    NotifyUtils.warn(_('The specified check printer [%S] is not configured', [printer]));
+                    return;
+
+                case -1:
+                    NotifyUtils.warn(_('Invalid check printer [%S]', [printer]));
+                    return;
+
+                case 0:
+                    NotifyUtils.warn(_('The specified check printer [%S] is not enabled', [printer]));
+                    return;
+            }
+
+            var enabledDevices = device.getEnabledDevices('check', printer);
+            if (enabledDevices != null) {
+                var template = enabledDevices[0].template;
+                var port = enabledDevices[0].port;
+                var portspeed = enabledDevices[0].portspeed;
+                var handshaking = enabledDevices[0].handshaking;
+                var devicemodel = enabledDevices[0].devicemodel;
+                var encoding = enabledDevices[0].encoding;
+
+                _templateModifiers(TrimPath, encoding);
+
+                this.printSlip('check', {}, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
+            }
+        },
+
         // handles user initiated receipt requests
         printReport: function(type, tpl, data) {
             var device = this.getDeviceController();

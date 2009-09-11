@@ -125,21 +125,28 @@
                 btn.disabled = true;
             }
 
-            // display icon only?
-            var icon_only = this.getCellValue(row,{
-                id: 'icon_only'
+            // display text and/or icon?
+            var display_mode = this.getCellValue(row,{
+                id: 'display_mode'
             });
-            var imageExists = (this.getImageSrc(row,{id: 'no'}) != null);
 
-            if (imageExists) {
-                if (icon_only) {
-                    classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label button-large-image';
-                    //$(btn).addClass('nolabelbtn largeimagebtn');
-                }
+            if (display_mode == 2) {
+                // text only
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
             }
             else {
-                classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
-                //$(btn).addClass('noimagebtn');
+                var imageExists = (this.getImageSrc(row,{id: 'no'}) != null);
+
+                if (imageExists) {
+                    if (display_mode == 1) {
+                        classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label button-large-image';
+                        //$(btn).addClass('nolabelbtn largeimagebtn');
+                    }
+                }
+                else {
+                    classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
+                    //$(btn).addClass('noimagebtn');
+                }
             }
 
             if (classStr.length > 0) {

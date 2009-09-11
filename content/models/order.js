@@ -336,58 +336,11 @@
                 if(result) orders = result;
             }
 
-//            this.log(this.dump(orders));
+            // this.log(this.dump(orders));
             return orders;
    
         },
 
-
-        /**
-         * XXX need rewrite
-         */
-        updateOrderMaster: function(data, updateTimestamp) {
-
-            var async = false;
-            var callback = null;
-
-            var remoteUrl = this.getRemoteServiceUrl('updateOrderMaster');
-
-            if(remoteUrl) {
-
-                var response_data = this.requestRemoteService('POST', remoteUrl, data);
-
-                if (!response_data) {
-                    // save order fail...
-                    this.log('ERROR',
-                        'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
-
-                    return false;
-                }
-
-                return true;
-
-
-            }else {
-
-                this.id = data.id;
-                var r = this.save(data, updateTimestamp);
-                if (!r) {
-                    this.log('ERROR',
-                        'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
-
-                    //@db saveToBackup
-                    r = this.saveToBackup(data, updateTimestamp);
-                    if (r) {
-                        this.log('ERROR', 'order master saved to backup');
-                    }
-                    else {
-                        this.log('ERROR',
-                            'order master could not be saved to backup\n' +  this.dump(data));
-                    }
-                }
-                return r;
-            }
-        },
 
         mappingTranToOrderFields: function(data) {
 
@@ -468,82 +421,6 @@
                         break;
                 }
             }
-        },
-
-        serializeOrder: function (data) {
-
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
-            var obj = GeckoJS.BaseObject.serialize(data);
-
-            var orderObj = {
-                id: data.id,
-                order_id: data.id,
-                object: obj
-            };
-
-            this.OrderObject.id = orderObj.id;
-
-            if (isTraining) {
-                return this.OrderObject.save(orderObj);
-            }
-            else {
-                return this.OrderObject.saveToBackup(orderObj);
-            }
-
-        },
-
-        unserializeOrder: function (order_id) {
-
-            var remoteUrl = this.getRemoteServiceUrl2('unserializeOrder');
-            var orderObject = null;
-
-            if (remoteUrl) {
-                try {
-                    // orders = this.requestRemoteService('GET', remoteUrl + "/" + cond, null);
-                    var requestUrl = remoteUrl + "/" + order_id + '/' + this.syncSettings.machine_id;
-                    orderObject = this.requestRemoteService2('GET',requestUrl, null);
-                    this.log(this.dump(orderObject));
-
-                    // locked by remote machined
-                    if(orderObject.LockedByMachineId) {
-                        this.datasource.lastError = 98;
-                        this.datasource.lastErrorString = orderObject.LockedByMachineId;
-                    }
-
-                    /*
-                    //@todo
-                    order.forEach(function(o){
-                        var item = GREUtils.extend({}, o.Order);
-                        for (var key in item) {
-                            o[key] = item[key];
-                        }
-                    });
-*/
-                    this._connected = true;
-                }catch(e) {
-                    orderObject = {};
-                    this._connected = false;
-
-                }
-
-            }else {
-
-                try {
-                    orderObject = this.OrderObject.find('first', {
-                        conditions:"order_id='"+order_id+"'"
-                    });
-
-                }catch(e) {
-                    dump(e);
-                }
-            }
-
-            if(orderObject && orderObject['OrderObject']) {
-                // return GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(orderObject.object));
-                return GeckoJS.BaseObject.unserialize(orderObject['OrderObject'].object);
-            }
-
-            return null;
         },
 
         beforeSave: function(evt) {
@@ -710,6 +587,126 @@
 
         timeout: 15,
         _orderLastTime: 0,
+
+        updateOrderMaster: function(data, updateTimestamp) {
+
+            var async = false;
+            var callback = null;
+
+            var remoteUrl = this.getRemoteServiceUrl('updateOrderMaster');
+
+            if(remoteUrl) {
+
+                var response_data = this.requestRemoteService('POST', remoteUrl, data);
+
+                if (!response_data) {
+                    // save order fail...
+                    this.log('ERROR',
+                        'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
+
+                    return false;
+                }
+
+                return true;
+
+
+            }else {
+
+                this.id = data.id;
+                var r = this.save(data, updateTimestamp);
+                if (!r) {
+                    this.log('ERROR',
+                        'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
+
+                    //@db saveToBackup
+                    r = this.saveToBackup(data, updateTimestamp);
+                    if (r) {
+                        this.log('ERROR', 'order master saved to backup');
+                    }
+                    else {
+                        this.log('ERROR',
+                            'order master could not be saved to backup\n' +  this.dump(data));
+                    }
+                }
+                return r;
+            }
+        },
+
+        serializeOrder: function (data) {
+
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+            var obj = GeckoJS.BaseObject.serialize(data);
+
+            var orderObj = {
+                id: data.id,
+                order_id: data.id,
+                object: obj
+            };
+
+            this.OrderObject.id = orderObj.id;
+
+            if (isTraining) {
+                return this.OrderObject.save(orderObj);
+            }
+            else {
+                return this.OrderObject.saveToBackup(orderObj);
+            }
+
+        },
+
+        unserializeOrder: function (order_id) {
+
+            var remoteUrl = this.getRemoteServiceUrl2('unserializeOrder');
+            var orderObject = null;
+
+            if (remoteUrl) {
+                try {
+                    // orders = this.requestRemoteService('GET', remoteUrl + "/" + cond, null);
+                    var requestUrl = remoteUrl + "/" + order_id + '/' + this.syncSettings.machine_id;
+                    orderObject = this.requestRemoteService2('GET',requestUrl, null);
+                    this.log(this.dump(orderObject));
+
+                    // locked by remote machined
+                    if(orderObject.LockedByMachineId) {
+                        this.datasource.lastError = 98;
+                        this.datasource.lastErrorString = orderObject.LockedByMachineId;
+                    }
+
+                    /*
+                    //@todo
+                    order.forEach(function(o){
+                        var item = GREUtils.extend({}, o.Order);
+                        for (var key in item) {
+                            o[key] = item[key];
+                        }
+                    });
+*/
+                    this._connected = true;
+                }catch(e) {
+                    orderObject = {};
+                    this._connected = false;
+
+                }
+
+            }else {
+
+                try {
+                    orderObject = this.OrderObject.find('first', {
+                        conditions:"order_id='"+order_id+"'"
+                    });
+
+                }catch(e) {
+                    dump(e);
+                }
+            }
+
+            if(orderObject && orderObject['OrderObject']) {
+                // return GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(orderObject.object));
+                return GeckoJS.BaseObject.unserialize(orderObject['OrderObject'].object);
+            }
+
+            return null;
+        },
 
         getRemoteServiceUrl2: function(method,force_remote) {
             this.syncSettings = (new SyncSetting()).read();

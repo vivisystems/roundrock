@@ -228,6 +228,11 @@ pref("vivipos.fec.registry.function.programmable.printcheck.command", "issueChec
 pref("vivipos.fec.registry.function.programmable.printcheck.controller", "Print");
 pref("vivipos.fec.registry.function.programmable.printcheck.data", "");
 
+pref("vivipos.fec.registry.function.programmable.printdocument.access", "acl_issue_check");
+pref("vivipos.fec.registry.function.programmable.printdocument.command", "printDocument");
+pref("vivipos.fec.registry.function.programmable.printdocument.controller", "Print");
+pref("vivipos.fec.registry.function.programmable.printdocument.data", "");
+
 pref("vivipos.fec.registry.function.programmable.printerDashboard.access", "acl_printer_dashboard");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.command", "printerDashboard");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.controller", "Main");
@@ -260,17 +265,17 @@ pref("vivipos.fec.registry.function.programmable.reboot.data", "");
 
 pref("vivipos.fec.registry.function.programmable.recallCheck.access", "acl_recall_check");
 pref("vivipos.fec.registry.function.programmable.recallCheck.command", "recallCheck");
-pref("vivipos.fec.registry.function.programmable.recallCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.recallCheck.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.recallCheck.data", "");
 
 pref("vivipos.fec.registry.function.programmable.recallTable.access", "acl_recall_check");
 pref("vivipos.fec.registry.function.programmable.recallTable.command", "recallTable");
-pref("vivipos.fec.registry.function.programmable.recallTable.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.recallTable.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.recallTable.data", "");
 
 pref("vivipos.fec.registry.function.programmable.recallOrder.access", "acl_recall_check");
 pref("vivipos.fec.registry.function.programmable.recallOrder.command", "recallOrder");
-pref("vivipos.fec.registry.function.programmable.recallOrder.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.recallOrder.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.recallOrder.data", "");
 
 pref("vivipos.fec.registry.function.programmable.receipt.access", "acl_issue_post_receipt");

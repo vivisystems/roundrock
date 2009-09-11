@@ -427,6 +427,33 @@
                 //alert(this.dump(localCashDetails));
                 //this.log(this.dump(localCashDetails));
 
+                // next, we collect payment totals for the payments registered by pressing the function button with a fixed value.
+                fields = ['order_payments.amount as "OrderPayment.name"',
+                          '( "   - " || order_payments.name ) as "OrderPayment.type"',
+                          'COUNT(order_payments.name) as "OrderPayment.count"',
+                          'SUM(order_payments.amount) as "OrderPayment.amount"'];
+                conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                             ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                             ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND order_payments.name = "cash" AND order_payments.memo1 IS NULL AND order_payments.is_groupable = "1"';
+                groupby = 'order_payments.amount, order_payments.name';
+                orderby = 'order_payments.amount, order_payments.name';
+                var valueFixedCashPayment = orderPayment.find('all', {fields: fields,
+                                                                 conditions: conditions,
+                                                                 group: groupby,
+                                                                 order: orderby,
+                                                                 recursive: 0,
+                                                                 limit: this._limit
+                                                                });
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving value-fixed cash payment records (error code %S)', [orderPayment.lastError])};
+
+                //alert(this.dump(valueFixedCashPayment));
+                //this.log(this.dump(valueFixedCashPayment));
+
+
                 // next, we collect payment totals for cash in foreign denominations
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
                           'order_payments.name as "OrderPayment.type"',
@@ -680,11 +707,17 @@
                 var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
 
                 // don't include destination details yet
-                var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))));
-                shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
+                var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(valueFixedCashPayment.concat(foreignCashDetails.concat(ledgerDetails))))));
+                //shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
                 var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+                
+                var requestReportingAmountCash = GeckoJS.Configure.read( "vivipos.fec.settings.RequireAmountOfReportedCash" );
+                if ( requestReportingAmountCash ) {
+                    aURL = 'chrome://viviecr/content/prompt_doshiftchangeblindly.xul';
+                    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=460,height=360';
+                }
 
                 inputObj = {
                     shiftChangeDetails: shiftChangeDetails,
@@ -706,9 +739,10 @@
             }
             catch(e) {
                 this._dbError(e.errno, e.errstr, e.errmsg);
+                this._unblockUI('blockui_panel');
                 return;
             }
-            
+
             if (inputObj.ok) {
 
                 // cancel current transaction
@@ -765,7 +799,7 @@
 
                         // append to shiftChangeDetails
                         var newChangeDetail = {type: 'ledger',
-                                               name: entryType.type,
+                                               name: moneyOutLedgerEntry.type,
                                                amount: 0 - amt,
                                                count: 1};
 
@@ -806,7 +840,8 @@
                     terminal_no: GeckoJS.Session.get('terminal_no'),
                     sale_period: this._getSalePeriod(),
                     shift_number: this._getShiftNumber(),
-                    shiftChangeDetails: shiftChangeDetails
+                    shiftChangeDetails: shiftChangeDetails,
+                    reported_cash: inputObj.reportedCash
                 };
 
                 if (!shiftChangeModel.saveShiftChange(shiftChangeRecord)) {
