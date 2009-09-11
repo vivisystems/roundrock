@@ -35,7 +35,7 @@
             <label value="&prompt.shiftchange.title;" class="label-page-title"/>
             <vbox>
                 <label value="&prompt.shiftchange.reportedcash;"/>
-                <vivitextbox id="reportedcash" type="number" flex="1" value="0" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                <vivitextbox id="reportedcash" type="number" flex="1" value="0" decimalplaces="Infinity" min="0" max="Infinity"
                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                              oninputonfocus="select()"/>
             </vbox>
@@ -55,7 +55,7 @@
                 </hbox>
                 <vbox flex="1">
                     <label value="&prompt.shiftchange.amount;"/>
-                    <vivitextbox id="drawer_amount" flex="1" type="number" value="0" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                    <vivitextbox id="drawer_amount" flex="1" type="number" value="0" decimalplaces="Infinity" min="0" max="Infinity"
                                  numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                  oninputonfocus="select()"/>
                 </vbox>

@@ -96,7 +96,6 @@
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
 
             req.onreadystatechange = function (aEvt) {
-                //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
                     if (req.status == 200) {

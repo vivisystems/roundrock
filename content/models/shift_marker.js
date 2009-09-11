@@ -151,6 +151,16 @@
             return sp;
         },
 
+        isSalePeriodHandler: function() {
+            if (this.getRemoteServiceUrl('getSalePeriod')) {
+                return this.getRemoteServiceUrl('advanceSalePeriod');
+            }
+            else {
+                // sale period handled locally
+                return true;
+            }
+        },
+
         getMarker: function(async, callback) {
 
             async = async || false;
@@ -175,18 +185,27 @@
             if (remoteUrl) {
                 if (!shift) {
                     // no local shift marker, create one
-                    shift = {end_of_period: false,
+                    shift = {shift_number: 1,
                              end_of_shift: false
                             };
                 }
                 //@testing begin
-                else {
+                else if (false) {
                     alert('sp from remote: ' + sp + ', replaced with ' + shift.sale_period);
                     sp = shift.sale_period;
                 }
                 //@testing end
+                // if sale period has changed, reset shift number to 1
+                if (sp < 0) {
+                    shift.shift_number = '';
+                    shift.end_of_shift = false;
+                }
+                else if (sp != shift.sale_period) {
+                    shift.shift_number = 1;
+                    shift.end_of_shift = false;
+                }
                 shift.sale_period = sp;
-                if (sp < 0) shift.shift_number = '';
+                shift.end_of_period = false;
             }
             return shift;
         },
@@ -215,30 +234,15 @@
             }
             else {
 
-                // if closing sale period, check if we need to advance sale period and reset sequence number
-                if (data.end_of_period) {
-                    // advance sale period
-                    if (remoteUrl) {
-                        var sp = this.requestRemoteService(remoteUrl, async, callback);
-                        if (sp == -1) {
-                            this.log('ERROR',
-                                     'An error was encountered while advancing remote sale period');
-                            this.datasource.lastError = -301;
-                            this.datasource.lastErrorString = _('An error was encountered while advancing remote sale period');
-                            return;
-                        }
-
-                        // reset order sequence number
-                        if (GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod')) {
-                            var seq = SequenceModel.resetSequence('order_no', 0);
-                            if (seq == -1) {
-                                this.log('ERROR',
-                                         'An error was encountered while resetting remote sequence number');
-                                this.datasource.lastError = -302;
-                                this.datasource.lastErrorString = _('An error was encountered while resetting remote sequence number');
-                                return;
-                            }
-                        }
+                // if closing sale period, check if we need to advance sale period
+                if (data.end_of_period && remoteUrl) {
+                    var sp = this.requestRemoteService(remoteUrl, async, callback);
+                    if (sp == -1) {
+                        this.log('ERROR',
+                                 'An error was encountered while advancing remote sale period');
+                        this.datasource.lastError = -301;
+                        this.datasource.lastErrorString = _('An error was encountered while advancing remote sale period');
+                        return;
                     }
                 }
             }

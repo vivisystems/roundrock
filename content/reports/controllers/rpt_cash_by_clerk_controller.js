@@ -32,7 +32,7 @@
             if (terminalNo.length > 0)
                 conditions += " AND shift_changes.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
 
-            var groupby;
+            var groupby = 'shift_changes.terminal_no, shift_changes.sale_period, shift_changes.shift_number';
 
             var orderby = 'shift_changes.sale_period, shift_changes.terminal_no';
 

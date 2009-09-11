@@ -171,11 +171,14 @@ msgstr "Stock Service"
 msgid "sync_settings.ntp_hostname"
 msgstr "NTP Service"
 
+msgid "sync_settings.sale_period_hostname"
+msgstr "Sale Period Service"
+
 msgid "sync_settings.status.connected"
 msgstr "Connected"
 
 msgid "sync_settings.status.disconnect"
-msgstr "Disconnect"
+msgstr "Disconnected"
 
 ########################################################################
 #

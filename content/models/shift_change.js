@@ -4,7 +4,8 @@
         include( 'chrome://viviecr/content/models/app.js' );
     }
     
-    var ShiftChangeModel = window.ShiftChangeModel = AppModel.extend({
+    var __model__ = {
+        
         name: 'ShiftChange',
 
         useDbConfig: 'order',
@@ -14,9 +15,30 @@
         hasMany: ['ShiftChangeDetail'],
 
         behaviors: ['Sync', 'Training'],
-        
+
+        removeShiftChange: function(terminal_no, sale_period, shift_number) {
+            var masterRecords = this.find('all', {fields: 'id',
+                                                  conditions: 'terminal_no = "' + terminal_no + '" and sale_period = ' + sale_period + ' and shift_number = ' + shift_number,
+                                                  recursive: 2,
+                                                  limit: 300000});
+            if (masterRecords && masterRecords.length > 0) {
+                masterRecords.forEach(function(rec) {
+                    this.del(rec.id);
+
+                    if (rec.ShiftChangeDetail) {
+                        rec.ShiftChangeDetail.forEach(function(d) {
+                            this.ShiftChangeDetail.del(d.id);
+                        }, this);
+                    }
+                }, this);
+            }
+        },
+
         saveShiftChange: function(data) {
             if(!data) return true;
+
+            // need to remove existing shift change information with the same terminal, sale period, and shift number
+            this.removeShiftChange(data.terminal_no, data.sale_period, data.shift_number);
 
             var s;
             var r = this.saveShiftChangeMaster(data);
@@ -58,5 +80,7 @@
             return r;
         }
 
-    });
+    };
+
+    var ShiftChangeModel = window.ShiftChangeModel = AppModel.extend( __model__ );
 } )();

@@ -104,6 +104,8 @@
 
         _setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
 
+            var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
+            
             shiftNumber = parseInt(shiftNumber);
             salePeriod = parseInt(salePeriod);
             
@@ -116,6 +118,23 @@
             };
 
             var shift = this._getShiftMarker();
+
+            // @note irving 2009-09-11
+            //
+            // we shall attempt to reset order sequence first; if reset fails, then we terminate the updateShiftMarker process.
+            // this allows the user to re-attempt sequence resets without advancing shift markers unnecessarily
+
+
+            // reset sequence if necessary
+            if (resetSequence && endOfPeriod && this.ShiftMarker.isSalePeriodHandler()) {
+
+                // get sequence format and length
+                if (SequenceModel.resetSequence('order_no', 0) == -1) {
+                    this._dbError(-302, _('Sequence number reset failed'),
+                                        _('An error was encountered while resetting order sequence for sale period change (error code -302)'));
+                    return;
+                }
+            }
 
             // update shift marker if it already exists
             if (shift) {
@@ -148,8 +167,9 @@
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
 
             var win = this.topmostWindow;
-            if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+            if (win.document.documentElement.id == 'viviposMainWindow' && !win.boxObject) {
                 win = null;
+            }
             GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
         },
 
@@ -243,7 +263,6 @@
             var endOfPeriod = this._getEndOfPeriod();
             var endOfShift = this._getEndOfShift();
             var disableShiftChange = GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange');
-            var isNewSalePeriod = false;
             var updateShiftMarker = true;
             
             // no last shift?
@@ -251,8 +270,6 @@
                 // insert new sale period with today's date;
                 newSalePeriod = new Date().clearTime() / 1000;
                 newShiftNumber = 1;
-
-                isNewSalePeriod = true;
             }
 
             // is last shift the end of the last sale period
@@ -270,8 +287,6 @@
                 }
                 newSalePeriod = newSalePeriod.getTime() / 1000;
                 newShiftNumber = 1;
-
-                isNewSalePeriod = true;
             }
             // has last shift ended?
             else if (endOfShift) {
@@ -1030,7 +1045,10 @@
 
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', errmsg + '\nDatabase Error [' +  errno + ']: [' + errstr + ']');
-            GREUtils.Dialog.alert(this.topmostWindow,
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow' && !win.document.window.boxObject)
+                win = null;
+            GREUtils.Dialog.alert(win,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
