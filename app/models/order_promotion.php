@@ -6,6 +6,19 @@ class OrderPromotion extends AppModel {
     var $useDbConfig = 'order';
 
     var $actsAs = array('Sync');
+
+    function saveOrderPromotions ($promotions) {
+        $this->begin();
+
+        foreach ($promotions  as $promotion) {
+            $this->id = $promotion['id'];
+            $this->save($promotion);
+        }
+
+        $this->commit();
+
+    }
+
 }
 
 ?>

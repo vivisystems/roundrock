@@ -12,6 +12,112 @@ class Order extends AppModel {
 
     var $actsAs = array('Sync');
 
+
+    function unbindHasManyModels(){
+        $this->unbindModel(array('hasMany' => array('OrderItem', 'OrderAddition', 'OrderPayment', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion')));
+    }
+
+    function saveOrders($orders) {
+
+        $this->begin();
+
+        foreach ($orders as $order) {
+            $this->id = $order['id'];
+            $this->save($order);
+        }
+
+        $this->commit();
+    }
+
+    function saveOrdersFromBackupFormat($datas) {
+       
+            // save order to database
+            if (!empty($datas['Order'])) {
+            // save order
+                $orders = json_decode($datas['Order'], true);
+                if (is_array($orders)) {
+                    $this->saveOrders(array_values($orders));
+                }
+
+            }
+
+            // save order_items to database
+            if (!empty($datas['OrderItem'])) {
+            // save order_items
+                $orderItems = json_decode($datas['OrderItem'], true);
+                if (is_array($orderItems)) {
+                    $this->OrderItem->saveOrderItems(array_values($orderItems));
+                }
+
+            }
+
+            // save order_additions to database
+            if (!empty($datas['OrderAddition'])) {
+            // save order_additions
+                $orderAdditions = json_decode($datas['OrderAddition'], true);
+                if (is_array($orderAdditions)) {
+                    $this->OrderAddition->saveOrderAdditions(array_values($orderAdditions));
+                }
+
+            }
+
+            // save order_payments to database
+            if (!empty($datas['OrderPayment'])) {
+            // save order_payments
+                $orderPayments = json_decode($datas['OrderPayment'], true);
+                if (is_array($orderPayments)) {
+                    $this->OrderPayment->saveOrderPayments(array_values($orderPayments));
+                }
+
+            }
+
+            // save order_annotations to database
+            if (!empty($datas['OrderAnnotation'])) {
+            // save order_annotations
+                $orderAnnotations = json_decode($datas['OrderAnnotation'], true);
+                if (is_array($orderAnnotations)) {
+                    $this->OrderAnnotation->saveOrderAnnotation(array_values($orderAnnotations));
+                }
+            }
+
+            // save order_item_condiments to database
+            if (!empty($datas['OrderItemCondiment'])) {
+            // save order_item_condiments
+                $orderItemCondiments = json_decode($datas['OrderItemCondiment'], true);
+                if (is_array($orderItemCondiments)) {
+                    $this->OrderItemCondiment->saveOrderItemCondiments(array_values($orderItemCondiments));
+                }
+            }
+
+            // save order_promotions to database
+            if (!empty($datas['OrderPromotion'])) {
+            // save order_promotions
+                $orderPromotions = json_decode($datas['OrderPromotion'], true);
+                if (is_array($orderPromotions)) {
+                    $this->OrderPromotion->saveOrderPromotions(array_values($orderPromotions));
+                }
+            }
+
+            // save order_objects to database
+            if (!empty($datas['OrderObject'])) {
+            // save order_objects
+                $orderObjects = json_decode($datas['OrderObject'], true);
+                if (is_array($orderObjects)) {
+                    $this->OrderObject->saveOrderObjects(array_values($orderObjects));
+                }
+            }
+
+    }
+
+
+    function readOrderToBackupFormat($orderId) {
+
+        $this->id = $orderId ;
+        $order = $this->read();
+        return $order;
+
+    }
+
     function saveOrder($data) {
 
         // if ($this->lockTable( array('WRITE', array('order', 'OrderItem', 'OrderAddition', 'OrderPayment', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion')))) {

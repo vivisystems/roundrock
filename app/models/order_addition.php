@@ -7,6 +7,18 @@ class OrderAddition extends AppModel {
 
     var $actsAs = array('Sync');
 
+    function saveOrderAdditions($additions) {
+        $this->begin();
+
+        foreach ($additions as $addition) {
+            $this->id = $addition['id'];
+            $this->save($addition);
+        }
+
+        $this->commit();
+    }
+
+
 }
 
 ?>

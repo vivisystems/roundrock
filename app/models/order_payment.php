@@ -6,6 +6,19 @@ class OrderPayment extends AppModel {
     var $useDbConfig = 'order';
     var $actsAs = array('Sync');
 
+    function saveOrderPayments($payments) {
+
+        $this->begin();
+
+        foreach ($payments as $payment) {
+            $this->id = $payment['id'];
+            $this->save($payment);
+        }
+
+        $this->commit();
+
+    }
+
     function savePayment($data) {
 
         try {

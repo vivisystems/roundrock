@@ -6,6 +6,17 @@ class OrderAnnotation extends AppModel {
     var $useDbConfig = 'order';
 
     var $actsAs = array('Sync');
+
+    function saveOrderAnnotations ($annotations) {
+        $this->begin();
+
+        foreach ($annotations as $annotation) {
+            $this->id = $annotation['id'];
+            $this->save($annotation);
+        }
+
+        $this->commit();
+    }
 }
 
 ?>

@@ -55,31 +55,45 @@ class OrdersController extends AppController {
         exit;
     }
 
-    function saveOrder($data) {
+    /**
+     * Save Orders from vivipos client 
+     * 
+     * USE Backup formats
+     * 
+     */
+    function saveOrdersFromBackupFormat() {
 
         $orderObject = array();
 
-	if($_REQUEST['request_data']) {
-		$orderObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+        if(!empty($_REQUEST['request_data'])) {
+            // for debug
+            file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']);
+            $request_data = $_REQUEST['request_data'];
 
-		// file_put_contents("/tmp/saveOrder", serialize($orderObject));
-	}
+        }else {
+            $request_data = "{}";
+            // for debug
+            $request_data = file_get_contents("/tmp/saveOrder.req");
+        }
 
-	if ($orderObject) {
-                $order_id = $orderObject['Order']['id'];
-                
-		$setResult = $this->Order->saveOrder($orderObject);
+        $datas = json_decode($request_data, true);
 
-                $this->commitTransactionByOrder($order_id);
+        $orderModel = new Order();
 
+        $result = true;
 
-	}else {
-		$setResult = false;
-	}
+        try {
+            
+            $orderModel->saveOrdersFromBackupFormat($datas);
+
+        }catch (Exception $e) {
+
+            $result = false;
+        }
+
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'response_data' => $setResult,
-            'value' => $setResult
+            'response_data' => $result
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -88,6 +102,90 @@ class OrdersController extends AppController {
 
         exit;
     }
+
+
+    function readOrderToBackupFormat($orderId) {
+
+        $orderModel = new Order();
+        $result = null;
+
+        try {
+
+            $result = $orderModel->readOrderToBackupFormat($orderId);
+
+        }catch (Exception $e) {
+
+            $result = null;
+        }
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $result
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+
+    }
+
+
+    function getOrderId() {
+
+        $result = null;
+
+       if(!empty($_REQUEST['request_data'])) {
+            $conditions = $_REQUEST['request_data'];
+            $orderModel = new Order();
+            $condition = array('conditions' => $conditions, 'recursive' =>-1 , 'fields' => 'id' );
+            $order = $orderModel->find('first', $condition);
+            if($order) {
+                $result = $order['Order']['id'];
+            }
+        }
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $result
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+
+    }
+
+    function getOrdersSummary() {
+
+        $result = null;
+
+       if(!empty($_REQUEST['request_data'])) {
+            $conditions = $_REQUEST['request_data'];
+//            $conditions = "orders.check_no='999' AND orders.status=2";
+            $conditions = str_replace("orders.", "Order.", $conditions);
+            $orderModel = new Order();
+            // $orderModel->unbindHasManyModels();
+            $condition = array('conditions' => $conditions, 'recursive' =>0 );
+            $orders = $orderModel->find('all', $condition);
+            if($orders) {
+                $result = $orders;
+            }
+       }
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $result
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+
+    }
+
 
     function getCheckList($conditions) {
 
@@ -98,7 +196,7 @@ class OrdersController extends AppController {
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-// file_put_contents("/tmp/getCheckList", $responseResult);
+        // file_put_contents("/tmp/getCheckList", $responseResult);
         echo $responseResult;
 
         exit;
@@ -113,14 +211,14 @@ class OrdersController extends AppController {
         $r = $this->beginTransactionByOrder($order_id, $machine_id);
 
         if ($r) {
-            
+
             $order = $this->Order->unserializeOrder($order_id);
 
             $result = array('status' => 'ok', 'code' => 200 ,
                 'value' => $order
             );
         }else {
-            
+
             $lockedByMachineId = file_get_contents($lockFile);
             $result = array('status' => 'ok', 'code' => 200 ,
                 'value' => array('LockedByMachineId'=>$lockedByMachineId)
@@ -128,7 +226,7 @@ class OrdersController extends AppController {
         }
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-// file_put_contents("/tmp/serializeOrder", $responseResult);
+        // file_put_contents("/tmp/serializeOrder", $responseResult);
         echo $responseResult;
 
         exit;
@@ -148,7 +246,7 @@ class OrdersController extends AppController {
         if ($machine_id != $lockedByMachineId) return false;
 
         return true;
-        
+
     }
 
     function commitTransactionByOrder($order_id) {
@@ -164,17 +262,17 @@ class OrdersController extends AppController {
     function savePayment($data) {
         $orderObject = array();
 
-	if($_REQUEST['request_data']) {
-		$paymentObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+        if($_REQUEST['request_data']) {
+            $paymentObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
 
-		// file_put_contents("/tmp/savePayment", serialize($paymentObject));
-	}
+        // file_put_contents("/tmp/savePayment", serialize($paymentObject));
+        }
 
-	if ($paymentObject) {
-		$setResult = $this->OrderPayment->savePayment($paymentObject);
-	}else {
-		$setResult = false;
-	}
+        if ($paymentObject) {
+            $setResult = $this->OrderPayment->savePayment($paymentObject);
+        }else {
+            $setResult = false;
+        }
 
         $result = array('status' => 'ok', 'code' => 200 ,
             'response_data' => $setResult,
@@ -193,17 +291,17 @@ class OrdersController extends AppController {
     function saveLedgerPayment($data) {
         $orderObject = array();
 
-	if($_REQUEST['request_data']) {
-		$paymentObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+        if($_REQUEST['request_data']) {
+            $paymentObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
 
-		// file_put_contents("/tmp/saveLedgerPayment", serialize($paymentObject));
-	}
+        // file_put_contents("/tmp/saveLedgerPayment", serialize($paymentObject));
+        }
 
-	if ($paymentObject) {
-		$setResult = $this->OrderPayment->saveLedgerPayment($paymentObject);
-	}else {
-		$setResult = false;
-	}
+        if ($paymentObject) {
+            $setResult = $this->OrderPayment->saveLedgerPayment($paymentObject);
+        }else {
+            $setResult = false;
+        }
 
         $result = array('status' => 'ok', 'code' => 200 ,
             'response_data' => $setResult,
@@ -223,17 +321,17 @@ class OrdersController extends AppController {
 
         $orderObject = array();
 
-	if($_REQUEST['request_data']) {
-		$orderObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+        if($_REQUEST['request_data']) {
+            $orderObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
 
-		// file_put_contents("/tmp/updateOrderMaster", serialize($orderObject));
-	}
+        // file_put_contents("/tmp/updateOrderMaster", serialize($orderObject));
+        }
 
-	if ($orderObject) {
-		$setResult = $this->Order->updateOrderMaster($orderObject);
-	}else {
-		$setResult = false;
-	}
+        if ($orderObject) {
+            $setResult = $this->Order->updateOrderMaster($orderObject);
+        }else {
+            $setResult = false;
+        }
 
         $result = array('status' => 'ok', 'code' => 200 ,
             'response_data' => $setResult,
