@@ -12,40 +12,16 @@
     width: 800px;
 }
 
-.main-overlay .top-panel {
-    max-height: 224px;
-    min-height: 224px;
-    height: 224px;
+.main-overlay .right-panel {
+    max-width: 350px;
+    min-width: 350px;
+    width: 350px;
 }
 
-.main-overlay .top-right-panel {
-    max-width: 400px;
-    min-width: 400px;
-    width: 400px;
-}
-
-.main-overlay .top-left-panel {
-    max-width: 400px;
-    min-width: 400px;
-    width: 400px;
-}
-
-.main-overlay .bottom-panel {
-    max-height: 336px;
-    min-height: 336px;
-    height: 336px;
-}
-
-.main-overlay .bottom-right-panel {
-    max-width: 340px;
-    min-width: 340px;
-    width: 340px;
-}
-
-.main-overlay .bottom-left-panel {
-    max-width: 454px;
-    min-width: 454px;
-    width: 454px;
+.main-overlay .left-panel {
+    max-width: 450px;
+    min-width: 450px;
+    width: 450px;
 }
 
 .main-overlay .function-toolbar {

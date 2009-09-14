@@ -246,6 +246,10 @@
                                                       form="productForm" name="manual_adjustment_only" default="false"/>
 
                                         </row>
+                                        <row>
+                                            <checkbox id="non_discountable" value="false" label="&plus.non.discountable;"
+                                                      form="productForm" name="non_discountable" default="false"/>
+                                        </row>
                                     </rows>
                                 </grid>
                             </vbox>

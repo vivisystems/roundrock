@@ -40,33 +40,21 @@
 
     <box id="main-container">
 
-        <box id="mainPanel" flex="1" class="main-panel" orient="vertical">
-
-            <box id="topPanel" flex="0" class="top-panel">
-                <box id="topLeftPanel" flex="0" orient="vertical" class="top-left-panel">
-                    <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
-                </box>
-
-                <box id="topRightPanel" flex="0" class="top-right-panel" orient="vertical">
-                    <box id="vfdPanelContainer" flex="1" panel="&layout.panel.vfd;"/>
-                </box>
+        <box id="mainPanel" flex="1" class="main-panel" orient="horizontal">
+            <box id="leftPanel" flex="0" orient="vertical" class="left-panel">
+                <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
+                <box id="categoryPanelContainer" flex="0" panel="&layout.panel.departments;"/>
+                <box id="productPanelContainer" flex="1" panel="&layout.panel.products;" />
+                 <box id="staticCondimentsPanelContainer" panel=""/>
             </box>
 
-            <box id="bottomPanel" flex="0" orient="horizontal" class="bottom-panel">
-                <box id="bottomLeftPanel" flex="0" orient="vertical" class="bottom-left-panel">
-                    <box id="categoryPanelContainer" flex="0" panel="&layout.panel.departments;"/>
-                    <box id="productPanelContainer" flex="1" panel="&layout.panel.products;" />
-                     <box id="staticCondimentsPanelContainer" panel=""/>
-                </box>
-
-                <box id="bottomRightPanel" flex="0" class="bottom-right-panel" orient="vertical">
-                    <box id="customerPanelContainer" flex="0" panel=""/>
-                    <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
-                    <box id="promotionsStatusPanelContainer" flex="0"/>
-                    <box id="functionPanelContainer" flex="0" panel="&layout.panel.function;"/>
-                </box>
+            <box id="rightPanel" flex="0" class="right-panel" orient="vertical">
+                <box id="vfdPanelContainer" flex="1" panel="&layout.panel.vfd;"/>
+                <box id="customerPanelContainer" flex="0" panel=""/>
+                <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
+                <box id="promotionsStatusPanelContainer" flex="0"/>
+                <box id="functionPanelContainer" flex="0" panel="&layout.panel.function;"/>
             </box>
-
         </box>
 
     </box>

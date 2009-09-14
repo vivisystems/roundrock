@@ -3298,12 +3298,12 @@
         },
 
         cash: function(argString) {
-	    var argArray = String(argString).split(',');
-	    var isGroupable = false;
+            var argArray = String(argString).split(',');
+            var isGroupable = false;
             var amount = parseInt( argArray[0], 10 );
 
-	    if (argArray.length == 2)
-		isGroupable = argArray[1];
+            if (argArray.length == 2)
+                isGroupable = argArray[1];
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer(true);

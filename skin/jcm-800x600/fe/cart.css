@@ -125,8 +125,8 @@
     height: 28px;
 }
 
-.main-overlay .cart-list treechildren::-moz-tree-cell-text(batchMarker) {font-size: 16px; font-weight: bolder;}
-.main-overlay .cart-list treechildren::-moz-tree-cell-text(selected) {font-size: 16px; font-weight: bolder;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(batchMarker) {font-size: 12px; font-weight: bolder;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(selected) {font-size: 12px; font-weight: bolder;}
 
 .main-overlay .cart-list treechildren::-moz-tree-row(selected) {background-color: #5b758c; }
 .main-overlay .cart-list treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
