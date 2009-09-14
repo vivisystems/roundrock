@@ -106,9 +106,10 @@
                 if(!this.checkDevices()) {
 
                     var win = this.topmostWindow;
-                    if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+                    if (win.document.documentElement.id == 'viviposMainWindow'
+                        && win.document.documentElement.boxObject.screenX < 0) {
                         win = null;
-                    
+                    }
                     GREUtils.Dialog.alert(win, _('Journal Error'), _('No electronic journal preview template detected.  Electronic journal entry will not be recorded properly if a preview template is not installed.'));
                     evt.preventDefault();
                 }

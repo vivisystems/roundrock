@@ -234,9 +234,10 @@
                 // dump('length = '+self.data.seq.length+' \n');
             }
             
-            if (self.data.seq.length == 0) {
+            if (self.data.seq.length == 0 || self.data.seq == -1) {
                 // maybe from recovery
                 self.data.seq = self.buildOrderSequence(SequenceModel.getSequence('order_no', false));
+                GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
             }
 
             if (self.data.seq == '-1') {

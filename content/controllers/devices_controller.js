@@ -43,8 +43,10 @@
             if (warn) {
                 var win = this.topmostWindow;
 
-                if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+                if (win.document.documentElement.id == 'viviposMainWindow'
+                    && win.document.documentElement.boxObject.screenX < 0) {
                     win = null;
+                }
 
                 var statusResult = this.checkStatusAll();
 

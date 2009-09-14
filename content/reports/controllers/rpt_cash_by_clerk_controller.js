@@ -32,7 +32,7 @@
             if (terminalNo.length > 0)
                 conditions += " AND shift_changes.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
 
-            var groupby = 'shift_changes.terminal_no, shift_changes.sale_period, shift_changes.shift_number';
+            var groupby = '';
 
             var orderby = 'shift_changes.sale_period, shift_changes.terminal_no';
 
@@ -49,10 +49,6 @@
                 o.starttime = d.toString('yy/MM/dd HH:mm');
                 d.setTime( o.endtime * 1000 );
                 o.endtime = d.toString('yy/MM/dd HH:mm');
-                
-                if ( !o.reported_cash ) {
-                    o.reported_cash = "N/A";
-                }
             });
             
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.cashbyclerk.label' );

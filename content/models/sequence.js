@@ -11,6 +11,10 @@
 
         resetSequence: function(key, value, async, callback) {
             return (new this).resetSequence(key, value, async, callback);
+        },
+
+        removeSequence: function(key) {
+            return (new this).removeSequence(key);
         }
     };
 
@@ -253,6 +257,20 @@
                     callback.call(this, seq.value);
                 }
                 return seq.value;
+            }
+        },
+
+        removeSequence: function(key) {
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+            if (isTraining) return;
+
+            key = key || "default";
+            var seq = this.findByIndex('first', {
+                index: 'key',
+                value: key
+            });
+            if (seq) {
+                return this.del(seq.id);
             }
         }
     }

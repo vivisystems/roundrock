@@ -308,7 +308,9 @@
         _newTransaction: function() {
             
             // dispatch event
-            this.dispatchEvent('beforeNewTransaction', null);
+            if (!this.dispatchEvent('beforeNewTransaction', null)) {
+                return;
+            };
 
             try {
                 var curTransaction = new Transaction();
@@ -2530,6 +2532,12 @@
             if (ledgerEntryTypeModel.lastError) {
                 this._dbError(ledgerEntryTypeModel.lastError, ledgerEntryTypeModel.lastErrorString,
                     _('An error was encountered while retrieving ledger entry types (error code %s)', [ledgerEntryTypeModel.lastError]));
+                this._clearAndSubtotal();
+                return;
+            }
+
+            var beforeResult = this.dispatchEvent('beforeLedgerEntry', null);
+            if (!beforeResult) {
                 this._clearAndSubtotal();
                 return;
             }

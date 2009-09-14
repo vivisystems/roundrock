@@ -28,13 +28,13 @@
 
                 if (hostname.toLowerCase() == 'localhost' || hostname == '127.0.0.1') return false;
 
-                if (method == 'advanceSalePeriod' && this.syncSettings.advance_sale_period != '0') return false;
+                if (method == 'setSequence' && this.syncSettings.advance_sale_period != '1') return false;
                 
                 // check connection status
                 this.url = this.syncSettings.protocol + '://' +
                 hostname + ':' +
                 this.syncSettings.port + '/' +
-                'saleperiod/' + method;
+                'sequences/' + method;
 
                 this.username = 'vivipos';
                 this.password = this.syncSettings.password ;
@@ -46,7 +46,11 @@
             }
         },
 
-        requestRemoteService: function(reqUrl, async, callback) {
+        requestRemoteService: function(url, key, value, async, callback) {
+
+            var reqUrl = url + '/' + key;
+
+            if (value != null) reqUrl += '/' + value;
 
             async = async || false;
             callback = (typeof callback == 'function') ?  callback : null;
@@ -55,7 +59,7 @@
             var username = this.username ;
             var password = this.password ;
 
-            this.log('DEBUG', 'requestRemoteService url: ' + reqUrl);
+            this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with key: ' + key);
 
             // set this reference to self for callback
             var self = this;
@@ -152,8 +156,8 @@
         },
 
         isSalePeriodHandler: function() {
-            if (this.getRemoteServiceUrl('getSalePeriod')) {
-                return this.getRemoteServiceUrl('advanceSalePeriod');
+            if (this.getRemoteServiceUrl('getDateSequence')) {
+                return this.getRemoteServiceUrl('setSequence');
             }
             else {
                 // sale period handled locally
@@ -161,19 +165,25 @@
             }
         },
 
-        getMarker: function(async, callback) {
+        getClusterSalePeriod: function() {
 
-            async = async || false;
-            callback = (typeof callback == 'function') ?  callback : null;
+            var remoteUrl = this.getRemoteServiceUrl('getDateSequence');
 
-            var remoteUrl = this.getRemoteServiceUrl('getSalePeriod');
-            var sp;
-
-            // get remote sale period, if needed
+            // get sale period from remote service
             if (remoteUrl) {
-                sp = this.requestRemoteService(remoteUrl, async, callback);
+                return this.requestRemoteService(remoteUrl, 'sale_period');
             }
-            
+            else
+                return false;
+        },
+
+        advanceClusterSalePeriod: function(newSalePeriod) {
+            var remoteUrl = this.getRemoteServiceUrl('setSequence');
+            return this.requestRemoteService(remoteUrl, 'sale_period', newSalePeriod);
+        },
+
+        getMarker: function() {
+
             var terminalNo = GeckoJS.Session.get('terminal_no');
 
             // get local shift marker
@@ -182,41 +192,11 @@
                 recursive: 0
             });
 
-            if (remoteUrl) {
-                if (!shift) {
-                    // no local shift marker, create one
-                    shift = {shift_number: 1,
-                             end_of_shift: false
-                            };
-                }
-                //@testing begin
-                else if (false) {
-                    alert('sp from remote: ' + sp + ', replaced with ' + shift.sale_period);
-                    sp = shift.sale_period;
-                }
-                //@testing end
-                // if sale period has changed, reset shift number to 1
-                if (sp < 0) {
-                    shift.shift_number = '';
-                    shift.end_of_shift = false;
-                }
-                else if (sp != shift.sale_period) {
-                    shift.shift_number = 1;
-                    shift.end_of_shift = false;
-                }
-                shift.sale_period = sp;
-                shift.end_of_period = false;
-            }
             return shift;
         },
 
-        saveMarker: function(data, async, callback) {
+        saveMarker: function(data) {
 
-            async = async || false;
-            callback = (typeof callback == 'function') ?  callback : null;
-
-            var remoteUrl = this.getRemoteServiceUrl('advanceSalePeriod');
-            
             var r = this.save(data);
             if (!r) {
                 this.log('ERROR',
@@ -230,20 +210,6 @@
                 else {
                     this.log('ERROR',
                              'record could not be saved to backup' + this.dump(data));
-                }
-            }
-            else {
-
-                // if closing sale period, check if we need to advance sale period
-                if (data.end_of_period && remoteUrl) {
-                    var sp = this.requestRemoteService(remoteUrl, async, callback);
-                    if (sp == -1) {
-                        this.log('ERROR',
-                                 'An error was encountered while advancing remote sale period');
-                        this.datasource.lastError = -301;
-                        this.datasource.lastErrorString = _('An error was encountered while advancing remote sale period');
-                        return;
-                    }
                 }
             }
             return r;
