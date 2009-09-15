@@ -793,13 +793,17 @@
                 var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(valueFixedCashPayment.concat(foreignCashDetails.concat(ledgerDetails))))));
                 //shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
-                var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-                
-                var requestReportingAmountCash = GeckoJS.Configure.read( "vivipos.fec.settings.RequireAmountOfReportedCash" );
-                if ( requestReportingAmountCash ) {
+                var aURL;
+                var features;
+
+                var requireCashDeclaration = GeckoJS.Configure.read( "vivipos.fec.settings.RequireCashDeclaration" );
+                if ( requireCashDeclaration ) {
                     aURL = 'chrome://viviecr/content/prompt_doshiftchangeblindly.xul';
                     features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=450';
+                }
+                else {
+                    aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
+                    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
                 }
 
                 inputObj = {

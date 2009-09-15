@@ -5,6 +5,7 @@
      */
     function startup() {
 
+        // initialize rounding policy selection menus
         var rt = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
         var rp = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
 
@@ -13,7 +14,12 @@
         
         var rtNode = document.getElementById('roundingtaxes');
         if (rtNode) rtNode.value = rt;
-        
+
+        // initialize revalue policy selection menu
+        var rv = GeckoJS.Configure.read('vivipos.fec.settings.AutoRevaluePrices') || 'none';
+        var rvNode = document.getElementById('autorevalueprices');
+        if (rvNode) rvNode.value = rv;
+
         //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;

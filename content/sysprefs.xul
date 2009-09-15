@@ -115,8 +115,7 @@
             <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
             <preference id="pref_sequencetrackssaleperiod" name="vivipos.fec.settings.SequenceTracksSalePeriod" type="bool"/>
             <preference id="pref_sequencenumberlength" name="vivipos.fec.settings.SequenceNumberLength" type="int"/>
-            <preference id="pref_revalueprices" name="vivipos.fec.settings.RevaluePrices" type="int"/>
-            <preference id="pref_autorevalueprices" name="vivipos.fec.settings.AutoRevaluePrices" type="bool"/>
+            <preference id="pref_revaluefactor" name="vivipos.fec.settings.RevalueFactor" type="int"/>
 
 
         </preferences>
@@ -148,12 +147,6 @@
                             <menulist id="roundingprices" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingPrices', this.value)">
                                 <menupopup>
                                     <menuitem label="&formats.rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                                    <!--
-                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
-                                    <menuitem label="&formats.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
-                                    <menuitem label="&formats.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
-                                    <menuitem label="&formats.rounding.to-nearest-dime;" value="to-nearest-dime"/>
-                                    -->
                                     <menuitem label="&formats.rounding.always-round-up;" value="always-round-up"/>
                                     <menuitem label="&formats.rounding.always-round-down;" value="always-round-down"/>
                                 </menupopup>
@@ -164,12 +157,6 @@
                             <menulist id="roundingtaxes" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
                                 <menupopup>
                                     <menuitem label="&formats.rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                                    <!--
-                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
-                                    <menuitem label="&formats.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
-                                    <menuitem label="&formats.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
-                                    <menuitem label="&formats.rounding.to-nearest-dime;" value="to-nearest-dime"/>
-                                    -->
                                     <menuitem label="&formats.rounding.always-round-up;" value="always-round-up"/>
                                     <menuitem label="&formats.rounding.always-round-down;" value="always-round-down"/>
                                 </menupopup>
@@ -197,10 +184,24 @@
                         </vbox>
                     </row>
                     <row>
-                        <checkbox id="autorevalueprices" label="&formats.autorevalueprices;" preference="pref_autorevalueprices"/>
                         <vbox>
-                            <label control="revalueprices" value="&formats.revalueprices;"/>
-                            <textbox preference="pref_revalueprices" id="revalueprices" type="number" min="0"/>
+                            <label control="autorevalueprices" value="&formats.revalue.policies;"/>
+                            <menulist id="autorevalueprices" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.AutoRevaluePrices', this.value)">
+                                <menupopup>
+                                    <menuitem label="&formats.revalue.none;" value="none"/>
+                                    <menuitem label="&formats.revalue.round-down-to-factor;" value="round-down-to-factor"/>
+                                    <menuitem label="&formats.revalue.round-up-to-factor;" value="round-up-to-factor"/>
+                                    <menuitem label="&formats.revalue.round-to-5-cents;" value="round-to-5-cents"/>
+                                    <menuitem label="&formats.revalue.round-to-10-cents-up;" value="round-to-10-cents-up"/>
+                                    <menuitem label="&formats.revalue.round-to-10-cents-down;" value="round-to-10-cents-down"/>
+                                    <menuitem label="&formats.revalue.round-to-25-cents;" value="round-to-25-cents"/>
+                                    <menuitem label="&formats.revalue.round-to-50-cents;" value="round-to-50-cents"/>
+                                </menupopup>
+                            </menulist>
+                        </vbox>
+                        <vbox>
+                            <label control="revaluefactor" value="&formats.revalue.factor;"/>
+                            <textbox preference="pref_revaluefactor" id="revaluefactor" type="number" min="0"/>
                         </vbox>
                     </row>
                     <row>
@@ -226,7 +227,7 @@
             <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool"/>
             <preference id="pref_hidesaleperiod" name="vivipos.fec.settings.HideSalePeriod" type="bool"/>
             <preference id="pref_disableshiftchange" name="vivipos.fec.settings.DisableShiftChange" type="bool"/>
-            <preference id="pref_requireamountofreportedcash" name="vivipos.fec.settings.RequireAmountOfReportedCash" type="bool"/>
+            <preference id="pref_requirecashdeclaration" name="vivipos.fec.settings.RequireCashDeclaration" type="bool"/>
             <preference id="pref_checksaleperiod" name="vivipos.fec.settings.CheckSalePeriod" type="bool"/>
             <preference id="pref_maxsaleperiodleaddays" name="vivipos.fec.settings.MaxSalePeriodLeadDays" type="int"/>
         </preferences>
@@ -255,7 +256,7 @@
                         <checkbox id="disableshiftchange" label="&login.disableshiftchange;" preference="pref_disableshiftchange"/>
                     </row>
                     <row>
-                        <checkbox id="pref_requireamountofreportedcash" label="&login.requireamountofreportedcash;" preference="pref_requireamountofreportedcash"/>
+                        <checkbox id="requirecashdeclaration" label="&login.requirecashdeclaration;" preference="pref_requirecashdeclaration"/>
                     </row>
                     <row>
                         <checkbox id="checksaleperiod" label="&login.checksaleperiod;" preference="pref_checksaleperiod"/>

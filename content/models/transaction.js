@@ -188,7 +188,7 @@
             this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
             this.data.autorevalue = GeckoJS.Configure.read('vivipos.fec.settings.AutoRevaluePrices') || false;
-            this.data.revalueprices = GeckoJS.Configure.read('vivipos.fec.settings.RevaluePrices');
+            this.data.revaluefactor = GeckoJS.Configure.read('vivipos.fec.settings.RevalueFactor');
 
             this.recoveryMode = recoveryMode;
 
@@ -2351,6 +2351,81 @@
             Transaction.events.dispatch('onCalcItemsTax', items, this);
         },
 
+        calcRevalue: function(total, policy, factor) {
+
+            this.log('DEBUG', 'total,policy,factor: ' + total + ',' + policy + ',' + factor);
+            var revalue_subtotal = 0;
+            var roundedTotal;
+
+            switch(policy) {
+                case 'round-down-to-factor':
+                    if(factor != 0) {
+                        if(total>=0) {
+                            revalue_subtotal = 0 - parseFloat(total % factor);
+                        }else {
+                            revalue_subtotal = parseFloat((0 - total) % factor);
+                        }
+                    }
+                    break;
+
+                case 'round-up-to-factor':
+                    if(factor != 0) {
+                        if(total>=0) {
+                            revalue_subtotal = parseFloat(total % factor);
+                            if (revalue_subtotal != 0)
+                                revalue_subtotal = factor - revalue_subtotal;
+                        }else {
+                            revalue_subtotal = parseFloat((0 - total) % factor);
+                            if (revalue_subtotal != 0)
+                                revalue_subtotal -= factor;
+                        }
+                    }
+                    break;
+
+                case 'round-to-5-cents':
+                    roundedTotal = Transaction.Number.round(Math.abs(total), 3, 'to-nearest-half');
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'round-to-10-cents-up':
+                    roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-nickel');
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'round-to-10-cents-down':
+                    var x = Math.abs(total) * 10;
+                    var y = parseInt(x);
+                    var r = x - y;
+                    if (r > 0.5) {
+                        roundedTotal = ++y / 10
+                    }
+                    else {
+                        roundedTotal = y / 10;
+                    }
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'round-to-25-cents':
+                    roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-quarter');
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'round-to-50-cents':
+                    roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-half');
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'none':
+                default:
+                    revalue_subtotal = 0;
+                    break;
+            }
+            return revalue_subtotal;
+        },
 
         calcTotal: function() {
 
@@ -2426,20 +2501,10 @@
             included_tax_subtotal -= promotion_included_tax_subtotal;
 
             total = this.getRoundedPrice(item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal);
-            remain = total - payment_subtotal;
 
-            // revalue
-            if(this.data.autorevalue && this.data.revalueprices != 0) {
-                if(total>=0) {
-                    this.data.revalue_subtotal = 0 - parseFloat(total % this.data.revalueprices);
-                }else {
-                    this.data.revalue_subtotal = parseFloat((0 - total) % this.data.revalueprices);
-                    if (this.data.revalue_subtotal != 0)
-                        this.data.revalue_subtotal -= this.data.revalueprices;
-                }
-                total = total + this.data.revalue_subtotal;
-                remain = total - payment_subtotal;
-            }
+            this.data.revalue_subtotal = this.calcRevalue(total, this.data.autorevalue, this.data.revaluefactor);
+            total = total + this.data.revalue_subtotal;
+            remain = total - payment_subtotal;
 
             this.data.total = this.getRoundedPrice(total);
             this.data.remain = this.getRoundedPrice(remain);
