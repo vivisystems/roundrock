@@ -3114,12 +3114,11 @@
                     return false;
                 }
 
-                oldTransaction.data.status = status;
-                this.dispatchEvent('afterSubmit', oldTransaction);
-
-                //this.dispatchEvent('onClear', 0.00);
                 this._getKeypadController().clearBuffer();
                 this._cancelReturn(true);
+
+                oldTransaction.data.status = status;
+                this.dispatchEvent('afterSubmit', oldTransaction);
 
                 // clear register screen if needed
                 if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
