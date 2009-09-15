@@ -28,8 +28,6 @@
 
                 if (hostname.toLowerCase() == 'localhost' || hostname == '127.0.0.1') return false;
 
-                if (method == 'setSequence' && this.syncSettings.advance_sale_period != '1') return false;
-                
                 // check connection status
                 this.url = this.syncSettings.protocol + '://' +
                 hostname + ':' +
@@ -165,21 +163,34 @@
             }
         },
 
-        getClusterSalePeriod: function() {
+        getClusterSalePeriod: function(async, callback) {
+
+            async = async || false;
+            callback = (typeof callback == 'function') ?  callback : null;
 
             var remoteUrl = this.getRemoteServiceUrl('getDateSequence');
 
+            this.log('DEBUG', 'retrieving cluster sale period: ' + remoteUrl);
+            
             // get sale period from remote service
             if (remoteUrl) {
-                return this.requestRemoteService(remoteUrl, 'sale_period');
+                var sp = this.requestRemoteService(remoteUrl, 'sale_period', null, async, callback);
+                this.log('DEBUG', 'cluster sale period retrieved: ' + sp);
+                return sp;
             }
-            else
+            else {
                 return false;
+            }
         },
 
         advanceClusterSalePeriod: function(newSalePeriod) {
             var remoteUrl = this.getRemoteServiceUrl('setSequence');
-            return this.requestRemoteService(remoteUrl, 'sale_period', newSalePeriod);
+            if (remoteUrl) {
+                return this.requestRemoteService(remoteUrl, 'sale_period', newSalePeriod);
+            }
+            else {
+                return false;
+            }
         },
 
         getMarker: function() {

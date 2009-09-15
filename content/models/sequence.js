@@ -13,6 +13,14 @@
             return (new this).resetSequence(key, value, async, callback);
         },
 
+        getLocalSequence: function(key) {
+            return (new this).getLocalSequence(key);
+        },
+
+        resetLocalSequence: function(key, value) {
+            return (new this).resetLocalSequence(key, value);
+        },
+
         removeSequence: function(key) {
             return (new this).removeSequence(key);
         }
@@ -185,24 +193,7 @@
 
                 }else {
                     
-                    seq = this.findByIndex('first', {
-                        index: 'key',
-                        value: key
-                    }) ||
-
-                    {
-                        id: "",
-                        key: key,
-                        value: 0
-                    };
-
-                    seq.value++;
-
-                    this.id = seq.id;
-                    if (!this.save(seq)) {
-                        this.saveToBackup(seq);
-                    }
-
+                    seq = this.getLocalSequence(key);
                 }
 
                 if (callback) {
@@ -237,21 +228,7 @@
 
             }else {
             
-                seq = this.findByIndex('first', {
-                    index: 'key',
-                    value: key
-                }) ||
-
-                {
-                    id: "",
-                    key: key,
-                    value: 0
-                };
-                seq.value = value;
-                this.id = seq.id;
-                if (!this.save(seq)) {
-                    this.saveToBackup(seq);
-                }
+                seq = this.resetLocalSequence(key, value);
 
                 if (callback) {
                     callback.call(this, seq.value);
@@ -272,6 +249,47 @@
             if (seq) {
                 return this.del(seq.id);
             }
+        },
+
+        getLocalSequence: function(key) {
+            var seq = this.findByIndex('first', {
+                index: 'key',
+                value: key
+            }) ||
+
+            {
+                id: "",
+                key: key,
+                value: 0
+            };
+
+            seq.value++;
+
+            this.id = seq.id;
+            if (!this.save(seq)) {
+                this.saveToBackup(seq);
+            }
+
+            return seq;
+        },
+
+        resetLocalSequence: function(key, value) {
+            var seq = this.findByIndex('first', {
+                index: 'key',
+                value: key
+            }) ||
+
+            {
+                id: "",
+                key: key,
+                value: 0
+            };
+            seq.value = value;
+            this.id = seq.id;
+            if (!this.save(seq)) {
+                this.saveToBackup(seq);
+            }
+            return seq;
         }
     }
 

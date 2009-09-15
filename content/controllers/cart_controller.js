@@ -2542,6 +2542,9 @@
                 return;
             }
 
+            // amount must be given on input line
+            var amount = parseFloat(buf);
+
             // if entry type is given, make sure it is defined, and retrieve its mode
             if (entryType) {
                 var found = false;;
@@ -2556,20 +2559,13 @@
                     var user = this.Acl.getUserPrincipal();
                     var userDisplayName = user ? user.description : _('unknown user');
 
-                    // amount must be given on input line
-                    var amount = parseFloat(buf);
-                    if (isNaN(amount)) {
-                        NotifyUtils.warn(_('Please enter an amount first'));
-                        this._clearAndSubtotal();
-                        return;
-                    }
-
                     inputObj.ok = true;
                     inputObj.description = '';
                     inputObj.type = inputObj.entry_types[i].type;
                     inputObj.mode = inputObj.entry_types[i].mode;
-                    inputObj.amount = amount;
+                    inputObj.amount = isNaN(amount) ? null : amount;
                     inputObj.display_name = userDisplayName;
+                    inputObj.entry_types = [inputObj.entry_types[i]];
                 }
                 else {
                     NotifyUtils.warn(_('Specified ledger entry type [%S] is not defined', [entryType]));
@@ -2577,7 +2573,8 @@
                     return;
                 }
             }
-            else {
+
+            if (!entryType || inputObj.amount == null) {
                 var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
 
