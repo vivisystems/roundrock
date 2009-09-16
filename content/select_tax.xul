@@ -34,7 +34,7 @@
             <caption label="&selecttax.title;" class="label-page-title"/>
             <label id="rate" hidden="true" value=""/>
             <hbox flex="1" class="content-buttonpanel">
-                <viviscrollablebuttonpanel id="taxscrollablepanel" flex="1" cols="3" rows="6" labelField="name"
+                <viviscrollablebuttonpanel id="taxscrollablepanel" flex="1" cols="3" rows="6" labelField="name" seltype="toggle"
                                            buttonClass="button-item-a"
                                            scrollUpClass="scroll-up-button"
                                            scrollDownClass="scroll-down-button"

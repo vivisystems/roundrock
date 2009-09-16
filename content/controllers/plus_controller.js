@@ -340,7 +340,7 @@
             inputObj.taxes = taxes;
             
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_rate', aFeatures, inputObj);
-            if (inputObj.ok && inputObj.rate) {
+            if (inputObj.ok) {
                 $('#rate').val(inputObj.rate);
                 $('#rate_name').val(inputObj.name);
             }

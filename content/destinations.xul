@@ -19,12 +19,14 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
     
-    <script type="application/x-javascript" src="chrome://viviecr/content/destinations.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/components/tax.js"/>
+
+    <script type="application/x-javascript" src="chrome://viviecr/content/destinations.js"/>
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
 
     <vbox flex="1" class="container-be layout-be">
@@ -33,17 +35,18 @@
                 <label value="&destinations.title;" class="label-page-title"/>
                 <hbox flex="1" class="content-listbox">
                     <vivitree id="destscrollablepanel" flex="1" hidecolumnpicker="true" class="standard"
-                              headers="&destinations.default;,&destinations.name;,&destinations.pricelevel;,&destinations.prefix;"
-                              fields="default,name,pricelevel,prefix"
-                              types="checkbox,,,,checkbox"
+                              headers="&destinations.default;,&destinations.name;,&destinations.prefix;,&destinations.tax;,&destinations.pricelevel;"
+                              fields="default,name,prefix,taxname,pricelevel"
+                              types="checkbox,,,,"
                               onselect="$do('select',this.selectedIndex, 'Destinations');"/>
                 </hbox>
             </vbox>
 
             <grid class="data-form">
                 <columns>
-                    <column flex="1"/>
-                    <column flex="1"/>
+                    <column class="column-fixed-4"/>
+                    <column class="column-fixed-4"/>
+                    <column class="column-fixed-4"/>
                     <column flex="1"/>
                 </columns>
                 <rows>
@@ -56,6 +59,15 @@
                         <vbox>
                             <label control="destination_prefix" value="&destinations.prefix;"/>
                             <textbox id="destination_prefix" form="destinationForm" name="prefix" default=""/>
+                        </vbox>
+                        <vbox>
+                            <label control="destination_taxno" value="&destinations.tax;"/>
+                            <label id="destination_taxname" form="destinationForm" name="taxname" default="" hidden="true"/>
+                            <menulist id="destination_taxno" form="destinationForm" name="taxno" default="">
+                                <menupopup id="destination_taxno-popup">
+                                    <menuitem label="" value=""/>
+                                </menupopup>
+                            </menulist>
                         </vbox>
                         <vbox>
                             <label control="destination_pricelevel" value="&destinations.pricelevel;"/>
@@ -80,15 +92,15 @@
             </grid>
             <hbox>
                 <hbox flex="1" class="toolbar" toolbarmode="horizontal">
-                    <button id="add_destination"  label="&destinations.add;" disabled="false" class="button-add" oncommand="$do('addDestination', null, 'Destinations');"   />
-                    <button id="modify_destination"  label="&destinations.modify;" disabled="false" class="button-modify" oncommand="$do('modifyDestination', null, 'Destinations');"   />
+                    <button id="add_destination"  label="&destinations.add;" disabled="false" class="button-add" oncommand="$do('addDestination', null, 'Destinations');"  />
+                    <button id="modify_destination"  label="&destinations.modify;" disabled="false" class="button-modify" oncommand="$do('modifyDestination', null, 'Destinations');"  />
                     <spacer flex="1"/>
                     <button id="set_default" label="&destinations.setdefault;" hidden="true" class="button-setdefault"
-                            oncommand="$do('setDefaultDestination', null, 'Destinations');" />
+                            oncommand="$do('setDefaultDestination', null, 'Destinations');"/>
                     <button id="clear_default" label="&destinations.cleardefault;" hidden="true" class="button-cleardefault"
-                            oncommand="$do('clearDefaultDestination', null, 'Destinations');" />
+                            oncommand="$do('clearDefaultDestination', null, 'Destinations');"/>
                     <spacer flex="1"/>
-                    <button id="delete_destination"  label="&destinations.delete;" disabled="false" class="button-delete" oncommand="$do('deleteDestination', null, 'Destinations');"   />
+                    <button id="delete_destination"  label="&destinations.delete;" disabled="false" class="button-delete" oncommand="$do('deleteDestination', null, 'Destinations');"  />
                 </hbox>
                 <hbox id="dialogButtons" pack="end" class="exitbar">
                     <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>

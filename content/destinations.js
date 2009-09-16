@@ -9,7 +9,7 @@
      */
     function startup() {
 
-        $do('load', null, 'Destinations');
+        $do('load', true, 'Destinations');
 
     };
 
