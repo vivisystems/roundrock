@@ -24,7 +24,7 @@
             // initialize main thread
             this._main = GREUtils.Thread.getMainThread();
 
-            // add event listener for onSubmit & onStore events
+            // add event listener for onSubmit / afterSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
                 cart.addEventListener('afterSubmit', this.handleSubmitEvent, this);
@@ -225,7 +225,6 @@
 
         // invoke getTemplateData on device controller to retrieve the content of a specific template
         getTemplateData: function(template, useCache) {
-            //@todo DEBUG
             useCache = false;
             var device = this.getDeviceController();
             if (device != null) {
@@ -360,9 +359,6 @@
                 }
             }
             
-            // @todo delay saving order to database til after print jobs have all been scheduled
-            //this.scheduleOrderCommit(txn);
-
             // clear dashboard settings
             this.resetDashboardSettings();
         },
@@ -1157,57 +1153,6 @@
                 this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
             }
             
-        },
-
-        scheduleOrderCommit: function(txn) {
-
-            // set up main thread callback to dispatch event
-            var orderCommit = function(txn) {
-                this._commitTxn = txn;
-            }
-
-            var self = this;
-
-            orderCommit.prototype = {
-                run: function() {
-                    // restore order from backup
-                    var model = new OrderModel();
-                    //model.restoreOrderFromBackup();
-                },
-
-                QueryInterface: function(iid) {
-                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-                        return this;
-                    }
-                    throw Components.results.NS_ERROR_NO_INTERFACE;
-                }
-            }
-
-            var runnable = {
-                run: function() {
-                    try {
-                        // dispatch commitOrder event indirectly through the main thread
-
-                        if (self._main) {
-                            self._main.dispatch(new orderCommit(txn), self._worker.DISPATCH_NORMAL);
-                        }
-
-
-                    }catch(e) {
-                        return false;
-                    }
-                },
-
-                QueryInterface: function(iid) {
-                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-                        return this;
-                    }
-                    throw Components.results.NS_ERROR_NO_INTERFACE;
-                }
-            };
-
-            this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
-
         },
 
         dashboard: function () {

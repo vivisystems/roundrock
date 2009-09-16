@@ -21,19 +21,43 @@
 
                 display_sequences: [],
 
+                /*
+                 * order_items,
+                 * summary cant recalc from items
+                 */
                 items: {},
-
                 items_count: 0,
-
                 items_summary: {},
 
+                /*
+                 * order_additions
+                 */
                 trans_discounts: {},
                 trans_surcharges: {},
 
+                /*
+                 * order_payments
+                 */
+                split_payments: false,
                 trans_payments: {},
 
+                /*
+                 * marker only exists in memory 
+                 */
                 markers: [],
 
+                /*
+                 * order_promotions 
+                 */
+                promotion_apply_items: [],
+                promotion_matched_items: [],
+                promotion_subtotal: 0,
+                promotion_tax_subtotal: 0,
+                promotion_included_tax_subtotal: 0,
+
+                /*
+                 * calculate fields
+                 */
                 total: 0,
                 remain: 0,
                 revalue_subtotal: 0,
@@ -43,12 +67,6 @@
                 surcharge_subtotal: 0,
                 discount_subtotal: 0,
                 payment_subtotal: 0,
-
-                promotion_subtotal: 0,
-                promotion_apply_items: null,
-                promotion_matched_items: null,
-                promotion_tax_subtotal: 0,
-                promotion_included_tax_subtotal: 0,
 
                 price_modifier: 1,    // used to modify item subtotals
                 
@@ -90,6 +108,8 @@
                 batchCount: 0,
                 closed: false,
 
+                recall: 0,
+
                 created: '',
                 modified: '',
                 lastModifiedTime: ''
@@ -100,10 +120,16 @@
 
         },
 
+        /**
+         * Transaction Serialization , only for recovery.
+         */
         serialize: function() {
             return GeckoJS.BaseObject.serialize(this.data);
         },
 
+        /**
+         * Transaction unserialization , only for recovery.
+         */
         unserialize: function(data) {
             this.data = GeckoJS.BaseObject.unserialize(data);
             Transaction.events.dispatch('onUnserialize', this, this);
@@ -155,12 +181,35 @@
             this.data.terminal_no = GeckoJS.Session.get('terminal_no');
 
             if (!recoveryMode) {
+
                 // SequenceModel will always return a value; even if an error occurred (return value of -1), we
                 // should still allow create to proceed; it's up to the upper layer to decide how to handle
                 // this error condition
-                SequenceModel.getSequence('order_no', true, function(seq) {
-                    self.data.seq = self.buildOrderSequence(seq);
+
+                let requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo');
+                var seqKey = 'order_no';
+                if(requireCheckNo) seqKey +=',check_no';
+                
+                SequenceModel.getSequence(seqKey, true, function(seq) {
+                    let arKeys = seqKey.split(',');
+                    let arSeqs = String(seq).split(',');
+                    let order_no = -1 ;
+                    let check_no = -1 ;
+                    
+                    if (arKeys.length == 1) {
+                        order_no = seq || -1 ;
+                    }else {
+                        order_no = parseInt(arSeqs[0]) || -1 ;
+                        check_no = parseInt(arSeqs[1]) || -1 ;
+                    }
+
+                    self.data.seq = self.buildOrderSequence(order_no);
                     GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
+
+                    // update checkno
+                    if (check_no != -1 ) {
+                        self.setCheckNo(check_no);
+                    }
                 });
             }
             
@@ -211,6 +260,8 @@
         process: function(status, discard) {
             var self = this;
 
+            discard = discard || false;
+
             // backup origin status if saveOrder error.
             var orgStatus = this.data.status;
 
@@ -231,7 +282,7 @@
                     
                     thread.processNextEvent(true);
                 }
-                // dump('length = '+self.data.seq.length+' \n');
+            // dump('length = '+self.data.seq.length+' \n');
             }
             
             if (self.data.seq.length == 0) {
@@ -284,11 +335,26 @@
             }
         },
 
-        cancel: function() {
+        /**
+         * commit order from backup to REAL Database.
+         * @param {Number} status   order status
+         */
+        commit: function(status) {
+
+            var order = new OrderModel();
+            return order.commitSaveOrder(this.data) ? 1 : -1;
+
+        },
+
+        /**
+         * cancel or discard cancel.
+         * 
+         * @param {Boolean} discard
+         */
+        cancel: function(discard) {
 
             // set status = -1
-            var r = this.process(-1);
-
+            var r = this.process(-1, discard);
             //this.emptyView();
 
             return r;
@@ -298,13 +364,24 @@
             return (this.data.status  == -1);
         },
 
+        /**
+         * Submit Transaction to Order databases.
+         *
+         * @param {Number} status   0 = Transaction in Memory
+         *                          1 = Success Order and finished payment.
+         *                          2 = Store Order
+         *                          -1 = Canceled Order
+         * @return {Number} submited status.
+         */
         submit: function(status) {
+
 
             if (typeof(status) == 'undefined') status = 1;
 
             return this.process(status);
 
         },
+
 
         close: function() {
             this.data.closed = true;
@@ -414,6 +491,8 @@
                     id: item.id,
                     no: item.no,
                     name: item.name,
+                    alt_name1: item.alt_name1,
+                    alt_name2: item.alt_name2,
                     destination: this.data.destination_prefix,
                     current_qty: item.current_qty,
                     current_price: item.current_price,
@@ -441,6 +520,7 @@
                     current_tax: '',
                     type: type,
                     index: index,
+                    parent_index: item.parent_index,
                     stock_status: item.stock_status,
                     age_verification: item.age_verification,
                     level: (level == null) ? 1 : level,
@@ -852,8 +932,8 @@
                     if (itemTrans.current_qty < 0 && sellQty > 0) sellQty = 0 - sellQty;
 
                     sellPrice = (GeckoJS.Session.get('cart_set_price_value') != null)
-                        ? GeckoJS.Session.get('cart_set_price_value')
-                        : (GeckoJS.Session.get('cart_set_qty_value') != null) ? sellPrice : null;
+                    ? GeckoJS.Session.get('cart_set_price_value')
+                    : (GeckoJS.Session.get('cart_set_qty_value') != null) ? sellPrice : null;
 
                     sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
                 }
@@ -1007,9 +1087,9 @@
                         // update condiment display
                         this.data.display_sequences[index] = condimentItemDisplay2 ;
 
-                        // update item condiment subtotal
-                        //var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item the condiment is attached to
-                        //targetDisplayItem.current_subtotal = itemDisplay2.current_subtotal;
+                    // update item condiment subtotal
+                    //var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item the condiment is attached to
+                    //targetDisplayItem.current_subtotal = itemDisplay2.current_subtotal;
                     }
                 }
                 // case 3: modifying set item condiment
@@ -1039,9 +1119,9 @@
                         // update condiment display
                         this.data.display_sequences[index] = condimentItemDisplay2 ;
 
-                        // update item condiment subtotal
-                        //var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item the condiment is attached to
-                        //targetDisplayItem.current_subtotal = itemDisplay2.current_subtotal;
+                    // update item condiment subtotal
+                    //var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item the condiment is attached to
+                    //targetDisplayItem.current_subtotal = itemDisplay2.current_subtotal;
                     }
                 }
             }
@@ -1124,7 +1204,7 @@
                 this.calcPromotions();
 
                 this.calcItemsTax(itemRemoved, true);
-                //this.calcItemsTax();
+            //this.calcItemsTax();
 
             }else {
 
@@ -1252,7 +1332,7 @@
 
                 this.calcItemsTax(itemTrans);
                 
-                //this.calcTotal();
+            //this.calcTotal();
 
             }
 
@@ -1301,7 +1381,7 @@
                 return rate;
             }
             else if (type == '%') {
-               return amount * rate / 100;
+                return amount * rate / 100;
             }
             else
                 return amount;
@@ -1337,7 +1417,7 @@
                     var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
                     if (discount_amount > item_discount_limit_amount) {
                         NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
-                                           [discount_amount, item_discount_limit_amount]));
+                            [discount_amount, item_discount_limit_amount]));
                         return;
                     }
                 }
@@ -1472,7 +1552,7 @@
                     var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
                     if (surcharge_amount > surcharge_limit_amount) {
                         NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
-                                           [surcharge_amount, surcharge_limit_amount]));
+                            [surcharge_amount, surcharge_limit_amount]));
                         return;
                     }
                 }
@@ -2315,7 +2395,7 @@
             for(var itemIndex in items ) {
                 var item = items[itemIndex];
 
-            /*
+                /*
             tax_name: item.rate,
             tax_rate: null,
             tax_type: null,
@@ -2529,6 +2609,7 @@
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
             this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+
         },
 
 
@@ -2604,7 +2685,47 @@
             };
             // format display precision
             return Transaction.Number.format(tax, options);
+        },
+
+        getNumberOfCustomers: function() {
+            return this.data.no_of_customers || 0;
+        },
+        
+        setNumberOfCustomers: function(num) {
+            num = isNaN(parseInt(num)) ? 1 : parseInt(num);
+            GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
+            this.data.no_of_customers = num;
+        },
+
+        getTableNo: function() {
+            return this.data.table_no;
+        },
+
+        setTableNo: function(tableNo) {
+            tableNo = tableNo || '';
+            GeckoJS.Session.set('vivipos_fec_table_number', tableNo);
+            this.data.table_no = tableNo;
+        },
+
+        getCheckNo: function() {
+            return this.data.check_no;
+        },
+
+        setCheckNo: function(checkNo) {
+            checkNo = isNaN(parseInt(checkNo)) ? -1 : parseInt(checkNo);
+            GeckoJS.Session.set('vivipos_fec_check_number', checkNo);
+            this.data.check_no = checkNo;
+        },
+
+        setSplitPayments: function(splitPayment) {
+            this.data.split_payments = splitPayment || false;
+        },
+
+        isSplitPayments: function() {
+            return (this.data.split_payments || false);
         }
+
+
     };
 
 
@@ -2655,8 +2776,8 @@
     };
 
     Transaction.serializeToRecoveryFile = function(transaction) {
-		if ( GeckoJS.Session.get( "isTraining" ) )
-			return;
+        if ( GeckoJS.Session.get( "isTraining" ) )
+            return;
 			
         var filename = "/var/tmp/cart_transaction.txt";
 

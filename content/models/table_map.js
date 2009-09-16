@@ -27,6 +27,7 @@
             var tableOrderObj = {
 
             }
+
             var tableOrderModel = new TableOrderModel();
             tableOrderModel.save(statusObj);
         }

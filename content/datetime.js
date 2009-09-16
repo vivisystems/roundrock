@@ -48,8 +48,6 @@
                     GeckoJS.Observer.notify(null, 'restart-clock', this);
                 }
                 catch (e) {
-                    //@todo OSD
-
                     NotifyUtils.warn(_('Failed to set date/time'));
                 }
                 return true;

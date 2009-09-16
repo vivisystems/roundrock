@@ -34,8 +34,12 @@
                 cart.addEventListener('afterAddCondiment', this.displayOnVFD, this);
                 cart.addEventListener('afterCancel', this.displayOnVFD, this);
 
-                cart.addEventListener('onQueue', this.displayOnVFD, this);
-                cart.addEventListener('onPullQueue', this.displayOnVFD, this);
+            }
+
+            var cartQueue = GeckoJS.Controller.getInstanceByName('Cart');
+            if(cartQueue) {
+                cartQueue.addEventListener('onQueue', this.displayOnVFD, this);
+                cartQueue.addEventListener('onPullQueue', this.displayOnVFD, this);
             }
 
             var self = this;
@@ -327,7 +331,6 @@
                             if (devicemodelName == null) devicemodelName = 'unknown';
                             if (portName == null) portName = 'unknown';
 
-                            //@todo OSD
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
                         return printed;
