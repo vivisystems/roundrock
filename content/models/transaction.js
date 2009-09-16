@@ -1465,7 +1465,7 @@
                     }
                 }
 
-                var remainder = this.getRemainTotal();
+                var remainder = this.getRemainTotal() - this.data.revalue_subtotal;
                 if (discountItem.discount_type == '$') {
                     discountItem.current_discount = discount.amount;
                 }
@@ -1474,9 +1474,11 @@
                     if (discount.pretax == null) discount.pretax = false;
 
                     if (discount.pretax) {
-                        discountItem.current_discount = parseFloat(itemDisplay.current_price) * discountItem.discount_rate;
+                        remainder = this.getRemainTotal() - this.data.revalue_subtotal - this.data.tax_subtotal;
+                        discountItem.current_discount = remainder * discountItem.discount_rate;
                     }
                     else {
+                        remainder = this.getRemainTotal() - this.data.revalue_subtotal;
                         discountItem.discount_name += '*';
                         discountItem.current_discount = remainder * discountItem.discount_rate;
                     }
@@ -1595,17 +1597,20 @@
                     }
                 }
 
+                var remainder;
                 if (surchargeItem.surcharge_type == '$') {
                     surchargeItem.current_surcharge = this.getRoundedPrice(surcharge.amount);
                 }else {
                     // percentage order surcharge is pretax?
                     if (surcharge.pretax == null) surcharge.pretax = false;
                     if (surcharge.pretax) {
-                        surchargeItem.current_surcharge = this.getRoundedPrice(parseFloat(itemDisplay.current_price) * surchargeItem.surcharge_rate);
+                        remainder = this.getRemainTotal() - this.data.revalue_subtotal - this.data.tax_subtotal;
+                        surchargeItem.current_surcharge = this.getRoundedPrice(remainder * surchargeItem.surcharge_rate);
                     }
                     else {
+                        remainder = this.getRemainTotal() - this.data.revalue_subtotal;
                         surchargeItem.surcharge_name += '*';
-                        surchargeItem.current_surcharge = this.getRoundedPrice(this.getRemainTotal() * surchargeItem.surcharge_rate);
+                        surchargeItem.current_surcharge = this.getRoundedPrice(remainder * surchargeItem.surcharge_rate);
                     }
                 }
 
@@ -1714,8 +1719,7 @@
                 type: type
             };
 
-            var remain = this.getRemainTotal();
-
+            var remain = this.getRemainTotal() - this.data.revalue_subtotal;
             var subtotal = 0;
             if (type == 'tray') {
                 var preSubtotal = this.data.markers[this.data.markers.length-1] || 0;

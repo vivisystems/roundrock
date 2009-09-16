@@ -1715,7 +1715,7 @@
                 surchargeName = '+' + surchargeAmount + '%';
             }
 
-            this._addSurcharge(surchargeAmount, '%', surchargeName, false);
+            this._addSurcharge(surchargeAmount, '%', surchargeName, pretax);
         },
 
 
@@ -1725,7 +1725,6 @@
 
 
         _addSurcharge: function(surchargeAmount, surchargeType, name, pretax) {
-
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
