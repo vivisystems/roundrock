@@ -302,7 +302,51 @@
 
 
     /**
- * Get an Tax by no<br/>
+ * Get an Tax by id<br/>
+ * <br/>
+ *
+ * @public
+ * @function
+ * @param {String} id
+ * @return {Object} tax Object
+ */
+    TaxComponent.prototype.getTaxById = function(id) {
+
+        // use cache first
+        var taxesById = GeckoJS.Session.get('taxesById');
+        if(taxesById != null) {
+            if(taxesById[id]) return taxesById[id];
+        }
+
+        // find from model
+        var taxModel = new this.taxModel;
+
+        var tax = taxModel.findById(id, 2);
+
+        // reformat object for CombineTax
+        if (tax && tax.CombineTax) {
+
+            var combineTaxes = GeckoJS.Array.objectExtract(tax.CombineTax, "{n}.combine_tax_id");
+            var newCombineTaxes = [];
+
+            combineTaxes.forEach(function(ctid) {
+                var cTax = taxModel.findById(ctid);
+                delete cTax['CombineTax'];
+                if (cTax) newCombineTaxes.push(cTax);
+            });
+
+            tax['CombineTax'] = newCombineTaxes;
+        }
+
+        delete taxModel;
+
+        return tax;
+
+    };
+
+
+    /**
+ * Get an Tax by name<br/>
  * <br/>
  *
  * @public

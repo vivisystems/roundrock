@@ -93,20 +93,33 @@
                 case 'change':
                     key = evt.getData().key;
                     if (key == 'vivipos_fec_price_level') {
-                        txn.data.price_level = evt.getData().value;
-                        Transaction.serializeToRecoveryFile(txn);
+                        if (txn.data.price_level != evt.getData().value) {
+                            txn.data.price_level = evt.getData().value;
+                            Transaction.serializeToRecoveryFile(txn);
+                        }
+                    }
+                    else if (key == 'defaultTaxNo') {
+                        if (txn.data.default_taxno != evt.getData().value) {
+                            txn.data.default_taxno = evt.getData().value;
+                            Transaction.serializeToRecoveryFile(txn);
+                        };
                     }
                     break;
 
                 case 'remove':
                     key = evt.getData().key;
                     if (key == 'vivipos_fec_price_level') {
-                        delete txn.data.price_level;
+                        if ('price_level' in txn.data) {
+                            delete txn.data.price_level;
+                            Transaction.serializeToRecoveryFile(txn);
+                        }
                     }
-                    break;
-
-                case 'remove':
-                    delete txn.data.price_level;
+                    else if (key == 'defaultTaxNo') {
+                        if ('defaultTaxNo' in txn.data) {
+                            delete txn.data.default_taxno;
+                            Transaction.serializeToRecoveryFile(txn);
+                        }
+                    }
                     break;
             }
         },
@@ -321,6 +334,13 @@
             // check pricelevel schedule
             this.requestCommand('schedule', null, 'Pricelevel');
 
+            // set default tax
+            var defaultTaxId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+            var defaultTax = this.Tax.getTaxById(defaultTaxId);
+
+            if (defaultTax) GeckoJS.Session.set('defaultTaxNo', defaultTax.no);
+            else GeckoJS.Session.remove('defaultTaxNo');
+            
             // dispatch event
             this.dispatchEvent('newTransaction', curTransaction);
             
@@ -629,6 +649,12 @@
             // check if has buffer
             if (buf.length>0) {
                 this.setPrice(buf);
+            }
+
+            // if product tax is not defined, use Session defaultTax if available
+            if (!item.rate) {
+                var defaultTaxNo = GeckoJS.Session.get('defaultTaxNo');
+                if (defaultTaxNo) item.rate = defaultTaxNo;
             }
 
             // check if scale item
@@ -4436,6 +4462,12 @@
                 var priceLevel = data.price_level;
                 if (priceLevel) {
                     $do('change', priceLevel, 'Pricelevel');
+                }
+
+                // restore default tax no
+                var defaultTaxNo = data.default_taxno;
+                if (defaultTaxNo) {
+                    GeckoJS.Session.set('defaultTaxNo', defaultTaxNo);
                 }
                 this._clearAndSubtotal();
             }

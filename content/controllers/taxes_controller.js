@@ -423,6 +423,8 @@
             var tax = this._listDatas[selectedIndex];
             GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', tax.id);
 
+            GeckoJS.Session.set('defaultTaxNo', tax.no);
+
             listObj.refresh();
             this.validateForm();
         },
@@ -431,6 +433,8 @@
             var listObj = this.getListObj();
 
             GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', '');
+
+            GeckoJS.Session.remove('defaultTaxNo');
 
             listObj.refresh();
             this.validateForm();

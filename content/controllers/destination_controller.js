@@ -3,7 +3,10 @@
     var __controller__ = {
 
         name: 'Destinations',
-	
+
+        components: ['Tax'],
+
+        _taxNames: {},
         _listObj: null,
         _listView: null,
         _listDatas: [],
@@ -69,8 +72,18 @@
             return this._listObj;
         },
 
-        load: function () {
+        load: function (init) {
 
+            // populate tax menu
+            if (init) {
+                var taxes = this.Tax.getTaxList();
+                var taxMenu = this.document.getElementById('destination_taxno');
+
+                taxes.forEach(function(tax) {
+                    taxMenu.appendItem(tax.name + ' (' + tax.no + ')', tax.no);
+                    this._taxNames[tax.no] = tax.name;
+                }, this)
+            }
             if (this._listDatas.length <= 0) {
                 var datas = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
                 if (datas != null) this._listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
@@ -107,7 +120,7 @@
                     return;
                 }
 
-                this._listDatas.push({name: destName, pricelevel: '', prefix: ''});
+                this._listDatas.push({name: destName, pricelevel: '', prefix: '', taxno: '', taxname: ''});
 
                 this.saveDestinations();
 
@@ -130,6 +143,8 @@
             var index = this.getListObj().selectedIndex;
             if (index > -1) {
                 if (inputObj.name != null && inputObj.name.length > 0) {
+                    this._listDatas[index].taxno = inputObj.taxno;
+                    this._listDatas[index].taxname = this._taxNames[inputObj.taxno];
                     this._listDatas[index].pricelevel = inputObj.pricelevel;
                     this._listDatas[index].prefix = GeckoJS.String.trim(inputObj.prefix);
 
@@ -220,6 +235,7 @@
             var setdefaultBtn = document.getElementById('set_default');
             var cleardefaultBtn = document.getElementById('clear_default');
             var pricelevelMenu = document.getElementById('destination_pricelevel');
+            var taxMenu = document.getElementById('destination_taxno');
             var prefixTextbox = document.getElementById('destination_prefix');
 
             var panel = this.getListObj();
@@ -230,6 +246,7 @@
                 deleteBtn.setAttribute('disabled', false);
                 modifyBtn.setAttribute('disabled', false);
                 pricelevelMenu.removeAttribute('disabled');
+                taxMenu.removeAttribute('disabled');
                 prefixTextbox.removeAttribute('disabled');
 
                 var dflt = (defaultDest == dest.name);
@@ -240,6 +257,7 @@
                 deleteBtn.setAttribute('disabled', true);
                 modifyBtn.setAttribute('disabled', true);
                 pricelevelMenu.setAttribute('disabled', true);
+                taxMenu.setAttribute('disabled', true);
                 prefixTextbox.setAttribute('disabled', true);
 
                 setdefaultBtn.setAttribute('hidden', true);
@@ -354,6 +372,11 @@
                     }
                 }
 
+                // set default tax if available
+                if (dest.taxno) {
+                    GeckoJS.Session.set('defaultTaxNo', dest.taxno);
+                }
+                
                 // set txn destination
                 txn.data.destination = dest.name;
 
