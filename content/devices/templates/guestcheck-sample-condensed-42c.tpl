@@ -2,7 +2,7 @@
 [&REVON][&QSON]${'GUEST CHECK'|center:21}[&QSOFF][&REVOFF]
 [&DHON]${store.name|center:42}[&DHOFF]
 [&DHON]${store.branch|center:42}[&DHOFF]
-${store.telephone1|center:42}
+[&RESET]${store.telephone1|center:42}
 ${'Opened:'|left:10} ${(new Date(order.created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 ${'Printed:'|left:10} ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 ${'Terminal:'|left:10} ${order.terminal_no|left:9} ${'Clerk:'|left:6} ${order.proceeds_clerk_displayname|left:14}

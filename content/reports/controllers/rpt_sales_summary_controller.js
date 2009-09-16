@@ -72,12 +72,14 @@
             var conditions = "orders." + this._periodtype + ">='" + start +
             "' AND orders." + this._periodtype + "<='" + end +
             "' AND orders.status='1'";
-                            
+
+            var groupby;
+
             if ( this._terminalNo.length > 0 ) {
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
-                var groupby = 'orders.terminal_no,"Order.Hour"';
+                groupby = 'orders.terminal_no,"Order.Hour"';
             } else {
-                var groupby = '"Order.Hour"';
+                groupby = '"Order.Hour"';
             }
             
             if ( this._shiftno.length > 0 )
@@ -299,20 +301,22 @@
             'order_payments.memo1',
             'sum( order_payments.change) as "change"',
             'sum( order_payments.amount) as "amount"',
-            'sum( order_payments.origin_amount ) as "origin_amount"'
+            'sum( ifnull(order_payments.origin_amount, 0) ) as "origin_amount"'
             ];
 
             var conditions = "orders." + this._periodtype + ">='" + start +
             "' AND orders." + this._periodtype + "<='" + end +
             "' AND orders.status='1'";
 
+            var groupby, orderby;
+
             if ( this._terminalNo.length > 0 ) {
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
-                var groupby = 'orders.terminal_no, order_payments.name, order_payments.memo1';
-                var orderby = 'orders.terminal_no, order_payments.name';
+                groupby = 'orders.terminal_no, order_payments.name, order_payments.memo1';
+                orderby = 'orders.terminal_no, order_payments.name';
             } else {
-                var groupby = 'order_payments.name, order_payments.memo1';
-                var orderby = 'order_payments.name';
+                groupby = 'order_payments.name, order_payments.memo1';
+                orderby = 'order_payments.name';
             }
             
             if ( this._shiftno.length > 0 )
@@ -334,7 +338,7 @@
             } );
             */
             var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
-            
+
             var paymentList = {};
             var giftcardExcess;
             var cashChange = 0;
@@ -752,7 +756,7 @@
                 data.push( result );
             } );
             
-            var fields = [
+            fields = [
             discountOrSurcharge + '_name',
             'count( * ) as num_rows',
             'sum( current_' + discountOrSurcharge + ' ) as amount',

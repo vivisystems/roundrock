@@ -26,7 +26,7 @@
     GeckoJS.Session.set('queue-counter', counter - -1);
 {/eval}
 [&QSON]${'Ticket: '|left:8}${counter|right:4}[&QSOFF]
-[&CR]
+[&RESET]
 ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')|center:24}
 [&CR]
 [&CR]

@@ -4,7 +4,7 @@
 {/if}
 [&QSON]${store.name|center:21}[&QSOFF]
 [&DWON]${store.branch|center:21}[&DWOFF]
-${store.telephone1|center:42}
+[&RESET]${store.telephone1|center:42}
 ${'Opened:'|left:10}${(new Date(order.created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 ${'Printed:'|left:10}${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 ${'Terminal:'|left:10}${order.terminal_no|left:10} ${'Clerk:'|left:6}${order.proceeds_clerk_displayname|left:15}
@@ -37,7 +37,7 @@ ${'CHANGE:'|left:15} ${(0 - order.remain)|viviFormatPrices:true|right:26}
 ------------------------------------------
 [&CR]
 ${'Thank you for shopping at ' + store.name +'!'|center:42}
-[&CR]
+[&RESET]
 [&CR]
 [&CR]
 [&CR]
