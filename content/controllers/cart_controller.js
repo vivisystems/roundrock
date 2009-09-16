@@ -4,31 +4,16 @@
 
         name: 'Cart',
 
-        components: ['Tax', 'GuestCheck', 'Barcode'],
+        components: ['Tax', 'Barcode', 'CartUtils'],
 
         uses: ['Product'],
         
         _cartView: null,
         _inDialog: false,
-        _queuePool: null,
-        _queueFile: "/var/tmp/cart_queue.txt",
-        _queueSession: "cart_queue_pool",
-        _defaultQueueFile: "/var/tmp/cart_queue.txt",
-        _defaultQueueSession: "cart_queue_pool",
-        _trainingQueueFile: "/var/tmp/training_cart_queue.txt",
-        _trainingQueueSession: "training_cart_queue_pool",
         _returnMode: false,
         _returnPersist: false,
         _decStockBackUp: null,
 
-        _weightConversionTable: {
-            kg : {kg: 1,         g: 1000,    mg: 1000000, oz: 35.2739,      lb: 2.20462,       ct: 5000},
-            g  : {kg: 0.001,     g: 1,       mg: 1000,    oz: 0.0352739,    lb: 0.00220462,    ct: 5},
-            mg : {kg: 0.000001,  g: 0.001,   mg: 1,       oz: 0.0000352739, lb: 0.00000220462, ct: 0.005},
-            oz : {kg: 0.0283495, g: 28.3495, mg: 28349.5, oz: 1,            lb: 0.062499,      ct: 141.747},
-            lb : {kg: 0.453592,  g: 453.592, mg: 453592,  oz: 16,           lb: 1,             ct: 2267.961},
-            ct : {kg: 0.0002,    g: 0.2,     mg: 200,     oz: 0.007054,     lb: 0.000440875,   ct: 1}
-        },
         
         beforeFilter: function(evt) {
 
@@ -82,6 +67,11 @@
                 }
             } ).register();
         },
+
+        destroy: function() {
+            if (this.observer) this.observer.unregister();
+        },
+
 
         sessionHandler: function(evt) {
             var txn = this._getTransaction();
@@ -366,36 +356,11 @@
             return curTransaction;
         },
 
-        _convertWeight: function(w, sourceUnit, targetUnit, multiplier, precision) {
-            precision = parseInt(precision);
-            if (isNaN(precision) || precision < 0) precision = 2;
-
-            var converted = false;
-            if (sourceUnit != null && sourceUnit != '' && sourceUnit != 'unit' ||
-                targetUnit != null && targetUnit != '' && targetUnit != 'unit') {
-                
-                var src = sourceUnit.toLowerCase();
-                var tgt = targetUnit.toLowerCase();
-                var cList = this._weightConversionTable[src];
-
-                if (cList) {
-                    var factor = parseFloat(cList[tgt]);
-                    if (factor != null && !isNaN(factor)) {
-                        w *= factor;
-                        converted = true;
-                    }
-                }
-            }
-
-            if (!converted && multiplier > 0)
-                w *= multiplier;
-
-            return parseFloat(w.toFixed(precision));
-        },
-
         ifHavingOpenedOrder: function() {
             var curTransaction = this._getTransaction();
 
+            dump( !curTransaction.isSubmit() ) ;
+            dump( !curTransaction.isCancel() ) ;
             if( curTransaction && !curTransaction.isSubmit() && !curTransaction.isCancel() )
                 return true;
             return false;
@@ -406,10 +371,10 @@
             this._cartView.setTransaction(transaction);
             GeckoJS.Session.set('current_transaction', transaction);
             GeckoJS.Session.remove('cart_last_sell_item');
-            //GeckoJS.Session.remove('cart_set_price_value');
-            //GeckoJS.Session.remove('cart_set_qty_value');
+        //GeckoJS.Session.remove('cart_set_price_value');
+        //GeckoJS.Session.remove('cart_set_qty_value');
         },
-	
+
         _getCartlist: function() {
             return document.getElementById('cartList');
         },
@@ -603,10 +568,7 @@
         },
 
         addItem: function(plu) {
-
-            // make sure we've completed previous addItem() call
-            if (this._inDialog) return;
-            
+           
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
                 
@@ -686,7 +648,7 @@
             if (qty == null) qty = 1;
             
             if (unit != null && unit != '') {
-                qty = this.setQty(this._convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+                qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
             }
             
             // if item's unit of sale is individually, we convert qty to integer
@@ -755,8 +717,6 @@
                 var self = this;
                 var cart = this._getCartlist();
                 
-                // wrap with chain method
-                this._inDialog = true;
                 next( function() {
                     if (addedItem.id == plu.id && !self._returnMode) {
 
@@ -800,7 +760,6 @@
                         self._clearAndSubtotal();
                     }
 
-                    self._inDialog = false;
                 });
 
             }
@@ -1073,7 +1032,7 @@
                     }
                     else {
                         NotifyUtils.warn(_('Department [%S] (%S) is not a sale department',
-                                         [dept.name, deptno]));
+                            [dept.name, deptno]));
                     }
                 }
                 else {
@@ -1167,7 +1126,7 @@
                 // convert newQuantity to proper magnitude if item is scale item and multiplier is non-zero
                 var unit = GeckoJS.Session.get('cart_set_qty_unit');
                 if (unit != null && unit != '') {
-                    newQuantity = this.setQty(this._convertWeight(newQuantity, unit, itemTrans.sale_unit, itemTrans.scale_multiplier, itemTrans.scale_precision));
+                    newQuantity = this.setQty(this.CartUtils.convertWeight(newQuantity, unit, itemTrans.sale_unit, itemTrans.scale_multiplier, itemTrans.scale_precision));
                 }
                 // convert newQuantity to whole numbers if unit of sale is 'unit'
                 if (itemTrans.sale_unit == 'unit' && newQuantity != null) {
@@ -1758,7 +1717,7 @@
                 surchargeName = '+' + surchargeAmount + '%';
             }
 
-            this._addSurcharge(surchargeAmount, '%', surchargeName, false);
+            this._addSurcharge(surchargeAmount, '%', surchargeName, pretax);
         },
 
 
@@ -1768,7 +1727,6 @@
 
 
         _addSurcharge: function(surchargeAmount, surchargeType, name, pretax) {
-
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
@@ -2792,7 +2750,7 @@
                 var weight = scaleController.readScale(number);
 
                 if (weight == -1) {
-                    // configuration error; alert already posted; do nothing here
+                // configuration error; alert already posted; do nothing here
                 }
                 else if (weight == null) {
                     GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No reading from scale: please make sure scale is powered on and properly connected'));
@@ -2806,8 +2764,8 @@
                     
                     if (isNaN(qty) || qty <= 0) {
                         GREUtils.Dialog.alert(this.topmostWindow,
-                                              _('Scale'),
-                                              _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
+                            _('Scale'),
+                            _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
                     }
                     else {
                         this.setQty(qty, false, weight.unit, true);
@@ -2977,9 +2935,10 @@
 
                     var quiet = GeckoJS.Configure.read('vivipos.fec.settings.quietcancel') || false;
                     if(!quiet) GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
-                //GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+                    
                 }catch(e) {                  
                 }
+                
                 // prevent onCancel event dispatch
                 this.dispatchedEvents['onCancel'] = true;
                 this._lastCancelInvoke = now;
@@ -2988,47 +2947,48 @@
             this._lastCancelInvoke = now;
 
             this.dispatchEvent('beforeCancel', curTransaction);
-            
-            // if the order has been stored, then it cannot be cancelled; it must be voided instead
-            if (curTransaction.data.recall == 2) {
-                
-                // determine if new items have been added
-                if (!curTransaction.isModified() || forceCancel ||
-                    GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('confirm cancel'),
-                        _('Are you sure you want to discard changes made to this order?'))) {
 
-                    var ret = curTransaction.process(-1, true);
-                    if (ret == -1) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Data Operation Error'),
-                        _('Failed to cancel order due to data operation error.'));
+            try {
+                // if the order has been stored, then it cannot be cancelled; it must be voided instead
+                if (curTransaction.data.recall == 2) {
 
-                        NotifyUtils.error('Failed to cancel order due to data operation error.')
+                    // XXX need rewrite 
+                    // determine if new items have been added
+                    if (!curTransaction.isModified() || forceCancel ||
+                        GREUtils.Dialog.confirm(this.topmostWindow,
+                            _('confirm cancel'),
+                            _('Are you sure you want to discard changes made to this order?'))) {
+
+                        var ret = curTransaction.cancel(true);
+
+                        if (ret == -1) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('Failed to cancel order due to data operation error.'));
+
+                            NotifyUtils.error('Failed to cancel order due to data operation error.')
+                        }
+                        this.dispatchEvent('afterCancel', curTransaction);
                     }
-                    //this._cartView.empty();
-                    this.cartViewEmpty();
-
-                    this.clear();
                 }
                 else {
-                    this.dispatchEvent('onCancel', curTransaction);
-                }
-            }
-            else {
-                curTransaction.cancel();
-                this.cartViewEmpty();
-            }
-            
-            GeckoJS.Session.remove('current_transaction');
-            GeckoJS.Session.remove('cart_last_sell_item');
-            GeckoJS.Session.remove('cart_set_price_value');
-            GeckoJS.Session.remove('cart_set_qty_value');
-            GeckoJS.Session.remove('cart_set_qty_unit');
+                    // normal cancel, commit to databases.
 
-            if (curTransaction.data.recall != 2) {
-                this.dispatchEvent('afterCancel', curTransaction);
+                    curTransaction.cancel();
+
+                    this.dispatchEvent('afterCancel', curTransaction);
+
+                    curTransaction.commit();
+
+                }
+                
+            }catch(e) {
+                this.log('WARN', 'Error Cancel order ');
             }
+
+            this.cartViewEmpty();
+            this.clear();
+
             this.dispatchEvent('onCancel', curTransaction);
         },
 	
@@ -3071,7 +3031,7 @@
             if (status == 1) {
                 var user = GeckoJS.Session.get('user');
                 var adjustment_amount = oldTransaction.data.trans_discount_subtotal + oldTransaction.data.trans_surcharge_subtotal +
-                                        oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
+                oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
                 if (adjustment_amount > 0) {
                     // check if order surcharge exceed user limit
                     var surcharge_limit = parseInt(user.order_surcharge_limit);
@@ -3079,7 +3039,7 @@
                         var surcharge_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, surcharge_limit, user.order_surcharge_limit_type);
                         if (adjustment_amount > surcharge_limit_amount) {
                             NotifyUtils.warn(_('Total surcharge [%S] may not exceed user order surcharge limit [%S]',
-                                               [adjustment_amount, surcharge_limit_amount]));
+                                [adjustment_amount, surcharge_limit_amount]));
                             return false;
                         }
                     }
@@ -3092,7 +3052,7 @@
                         var discount_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, discount_limit, user.order_discount_limit_type);
                         if (adjustment_amount > discount_limit_amount) {
                             NotifyUtils.warn(_('Total discount [%S] may not exceed user order discount limit [%S]',
-                                               [adjustment_amount, discount_limit_amount]));
+                                [adjustment_amount, discount_limit_amount]));
                             return false;
                         }
                     }
@@ -3121,6 +3081,8 @@
 
                 }
 
+
+                // save transaction to order databases.
                 var submitStatus = parseInt(oldTransaction.submit(status));
 
                 /*
@@ -3148,21 +3110,39 @@
                 this._getKeypadController().clearBuffer();
                 this._cancelReturn(true);
 
-                oldTransaction.data.status = status;
-                this.dispatchEvent('afterSubmit', oldTransaction);
+                try {
+                    // dispatch event for devices or extensions.
 
-                // clear register screen if needed
-                if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                    //this._cartView.empty();
-                    this.cartViewEmpty();
-                }
+                    oldTransaction.data.status = status;
+                    this.dispatchEvent('afterSubmit', oldTransaction);
 
-                if (status != 2) {
-                    if (status != 1) this.clearWarning();
-                    this.dispatchEvent('onSubmit', oldTransaction);
-                }
-                else {
-                    this.dispatchEvent('onGetSubtotal', oldTransaction);
+                    // clear register screen if needed
+                    if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                        //this._cartView.empty();
+                        this.cartViewEmpty();
+                    }
+
+                }finally{
+
+                    // finally commit the submit , and write transaction to databases(or to remote databases).
+                    var commitStatus = oldTransaction.commit(status);
+
+                    if (commitStatus == -1) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation Error'),
+                            _('This order could not be commited . Please check the network connectivity to the terminal designated as the master.'));
+                        this._unblockUI('blockui_panel');
+                        return false;
+                    }
+
+                    if (status != 2) {
+                        if (status != 1) this.clearWarning();
+                        this.dispatchEvent('onSubmit', oldTransaction);
+                    }
+                    else {
+                        this.dispatchEvent('onGetSubtotal', oldTransaction);
+                    }
+                    
                 }
 
                 this._unblockUI('blockui_panel');
@@ -3289,12 +3269,6 @@
                             // dispatch onSubmit event here manually since submit() won't do it for us
                             this.dispatchEvent('onStore', curTransaction);
 
-                            // dispatch onSubmit event here manually since submit() won't do it for us
-                            self.dispatchEvent('onSubmit', curTransaction);
-
-                            // dispatch onStore event here to update order status
-                            this.dispatchEvent('onStore', curTransaction);
-
                             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
 
                             this.dispatchEvent('afterPreFinalize', curTransaction);
@@ -3318,9 +3292,6 @@
 
             // dispatch onSubmit event here manually since submit() won't do it for us
             this.dispatchEvent('onStore', curTransaction);
-
-            // dispatch onStore event here to update order status
-            this.dispatchEvent('onSubmit', curTransaction);
 
             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
 
@@ -3489,6 +3460,12 @@
         },
 
         _getCondimentsDialog: function (condgroup, condiments) {
+
+            var self = this;
+
+            // make sure we've completed previous addItem() call
+            if (this._inDialog) return;
+
             var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
             // not initial , initial again!
             if (!condGroupsByPLU) {
@@ -3527,8 +3504,13 @@
                 selectedItems: selectedItems,
                 hideSoldout: GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false
             };
-            var self = this;
+            
+            self._inDialog = true;
+
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
+                
+                self._inDialog = false;
+                
                 var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
                     self._appendCondiments(selectedCondiments.concat(additionalItems), true);
@@ -3674,6 +3656,9 @@
             }
         },
 
+        /**
+         * XXX Need rewrite
+         */
         voidSale: function(id) {
             
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
@@ -3844,6 +3829,9 @@
 
         _getMemoDialog: function (memo) {
 
+            // make sure we've completed previous addItem() call
+            if (this._inDialog) return;
+
             var self = this;
 
             var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
@@ -3863,7 +3851,12 @@
             inputObj
             ];
 
+            self._inDialog = true;
+
             return $.popupPanel('promptAddMemoPanel', data).next( function(evt){
+
+                self._inDialog = false;
+                
                 var result = evt.data;
                 
                 if (result.ok && result.input0) {
@@ -3884,9 +3877,7 @@
         
         startTraining: function( isTraining ) {
             if ( isTraining ) {
-                this._queueFile = this._trainingQueueFile;
-                this._queueSession = this._trainingQueueSession;
-                
+
                 // We are not going to maintain stock in training mode.
                 this._decStockBackUp = this.decStock;
                 this.decStock = function() {
@@ -3897,556 +3888,13 @@
             } else {
                 // discard cart content
                 this.cancel(true);
-                
-                GeckoJS.Session.remove( this._queueSession );
-                this._queueFile = this._defaultQueueFile;
-                this._queueSession = this._defaultQueueSession;
-                
+                               
                 // Use the default stock-maintaining method.
                 this.decStock = this._decStockBackUp;
 
                 // clear screen
                 this.subtotal();
             }
-        },
-
-        removeQueueRecoveryFile: function() {
-            
-            // unserialize from fail recovery file
-            var file = new GeckoJS.File(this._queueFile);
-
-            if (!file.exists()) return false;
-
-            file.remove();
-        },
-
-        serializeQueueToRecoveryFile: function(queue) {
-
-            // save serialize to fail recovery file
-            var file = new GeckoJS.File(this._queueFile);
-            file.open("w");
-            file.write(GeckoJS.BaseObject.serialize(queue));
-            file.close();
-            delete file;
-
-        },
-
-        unserializeQueueFromRecoveryFile: function() {
-            
-            // unserialize from fail recovery file
-            var file = new GeckoJS.File(this._queueFile);
-
-            if (!file.exists()) return false;
-
-            var data = null;
-            file.open("r");
-            data = GeckoJS.BaseObject.unserialize(file.read());
-            file.close();
-            // file.remove();
-            delete file;
-
-            this._queuePool = data;
-            GeckoJS.Session.set(this._queueSession, this._queuePool);
-
-        },
-
-        _getQueuePool: function() {
-
-            this._queuePool = GeckoJS.Session.get(this._queueSession);
-            if (this._queuePool == null) {
-                this._queuePool = {
-                    user: {},
-                    data:{}
-                };
-                GeckoJS.Session.set(this._queueSession, this._queuePool);
-            }
-
-            return this._queuePool;
-            
-        },
-
-        _hasUserQueue: function(user) {
-
-            if (!user) return false;
-
-            var queuePool = this._getQueuePool();
-
-            var username = user.username;
-            
-            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'Array') {
-                return false;
-            } else {
-                return (queuePool.user[username].length >0);
-            }
-           
-        },
-
-        _removeUserQueue: function(user) {
-
-            /*if (!user) return false;
-
-            var queuePool = this._getQueuePool();
-
-            var username = user.username;
-
-            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'Array') {
-                return ;
-            }*/
-            
-            if ( !this._hasUserQueue( user ) )
-                return;
-
-            var removeCount = 0;
-            var queuePool = this._getQueuePool();
-            var username = user.username;
-
-            queuePool.user[username].forEach(function(key){
-
-                // just delete queue
-                if(queuePool.data[key]) delete queuePool.data[key];
-
-                removeCount++;
-                
-            }, this);
-
-            delete queuePool.user[username];
-
-            this.serializeQueueToRecoveryFile(queuePool);
-
-            return removeCount;
-
-        },
-
-        _removeQueueByKey: function(key) {
-
-            var queuePool = this._getQueuePool();
-
-            if (queuePool.data[key]) delete queuePool.data[key];
-            
-            for (var user in queuePool.user) {
-                var userQueues = queuePool.user[user];
-
-                var idx = GeckoJS.Array.inArray(key, userQueues);
-
-                if (idx != -1) {
-                    userQueues.splice(idx, 1);
-                }
-            }
-            this.serializeQueueToRecoveryFile(queuePool);
-        },
-
-        pushQueue: function(nowarning) {
-            
-            var curTransaction = this._getTransaction();
-
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this.ifHavingOpenedOrder() ) {
-                if (!nowarning) {
-                    NotifyUtils.warn(_('No order to queue'));
-                    this._clearAndSubtotal();
-                }
-                return;
-            }
-
-            if (curTransaction.data.recall == 2) {
-                if (!nowarning) {
-                    NotifyUtils.warn(_('Cannot queue the recalled order!!'));
-                    this._clearAndSubtotal();
-                }
-                return;
-            }
-            var user = this.Acl.getUserPrincipal();
-
-            var count = curTransaction.getItemsCount();
-            var key = '';
-            var queuePool = this._getQueuePool();
-
-            if (count > 0) {
-                key = new Date().toString('hh:mm:ss') + ':' + user.username;
-                
-                // queue
-                queuePool.data[key] = curTransaction.data;
-
-                // update user queue status
-                if(!queuePool.user[user.username]) queuePool.user[user.username] = [];
-                queuePool.user[user.username].push(key);
-
-                // only empty view ,
-                // next added item will auto create new transaction
-                curTransaction.emptyView();
-
-                this._getKeypadController().clearBuffer();
-
-                this.dispatchEvent('onQueue', curTransaction);
-
-                GeckoJS.Session.remove('current_transaction');
-                GeckoJS.Session.remove('cart_last_sell_item');
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
-                GeckoJS.Session.remove('cart_set_qty_unit');
-
-                this.serializeQueueToRecoveryFile(queuePool);
-
-                Transaction.removeRecoveryFile();
-            }
-            else {
-                if (!nowarning) {
-                    NotifyUtils.warn(_('Order is not queued because it is empty'));
-                    this._clearAndSubtotal();
-                }
-                return;
-            }
-        
-        },
-
-        _getQueueIdDialog: function() {
-
-            var queuePool = this._getQueuePool();
-            var queues = [];
-            var confs = GeckoJS.Configure.read('vivipos.fec.settings');
-            
-            // check private queue
-            if (confs.PrivateQueue) {
-                var user = this.Acl.getUserPrincipal();
-                
-                if (user && user.username && queuePool.user[user.username]) {
-                    queuePool.user[user.username].forEach(function(key) {
-                        queues.push({
-                            key: key
-                        });
-                    });
-                }
-            }
-            else {
-                for(var key in queuePool.data) {
-                    queues.push({
-                        key: key
-                    });
-                }
-            }
-
-            var dialog_data = {
-                queues: queues,
-                queuePool: queuePool
-            };
-
-            return $.popupPanel('selectQueuesPanel', dialog_data);
-
-        },
-
-        pullQueue: function(data) {
-			
-            var self = this;
-
-            return this._getQueueIdDialog().next(function(evt){
-
-                var result = evt.data;
-
-                if (!result.ok) return;
-
-                var key = result.key;
-                var queuePool = self._getQueuePool();
-
-                // if has transaction push queue
-                self.pushQueue(true);
-
-                var data = queuePool.data[key];
-
-                // remove from list;
-                self._removeQueueByKey(key);
-
-                var curTransaction = new Transaction(true);
-                curTransaction.data = data ;
-
-                self._setTransactionToView(curTransaction);
-                curTransaction.updateCartView(-1, -1);
-
-                self._clearAndSubtotal();
-
-                self.serializeQueueToRecoveryFile(queuePool);
-
-                self.dispatchEvent('afterPullQueue', curTransaction);
-            });
-
-        },
-
-        unserializeFromOrder: function(order_id) {
-            //
-            order_id = order_id;
-
-            var curTransaction = this.GuestCheck.unserializeFromOrder(order_id);
-
-            if (curTransaction) {
-                this._setTransactionToView(curTransaction);
-                curTransaction.updateCartView(-1, -1);
-                this._clearAndSubtotal();
-            }
-            return true;
-
-        },
-
-        newCheck: function(autoCheckNo) {
-
-            if (autoCheckNo)
-                var no = '';
-            else {
-                var no = this._getKeypadController().getBuffer();
-                this._getKeypadController().clearBuffer();
-                this._cancelReturn();
-            }
-            var curTransaction = null;
-
-            var r = -1;
-            if (no.length == 0) {
-                r = this.GuestCheck.getNewCheckNo();
-            } else {
-                r = this.GuestCheck.check(no);
-            }
-
-            this._clearAndSubtotal();
-        },
-
-        newTable: function() {
-
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction = this._getTransaction();
-
-            var r = -1;
-            if (no.length == 0) {
-                r = this.GuestCheck.getNewTableNo();
-            } else {
-                r = this.GuestCheck.table(no);
-            }
-            if (r > 0) {
-                this._clearAndSubtotal();
-            }
-        },
-
-        recallOrder: function() {
-        	
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            this.log('recall order: ' + no );
-
-            return this.GuestCheck.recallByOrderNo(no);
-        },
-
-        recallTable: function() {
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            this.log('recallTable order: ' + no );
-
-            return this.GuestCheck.recallByTableNo(no);
-        },
-
-        recallCheck: function() {
-        	
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            this.log('recallCheck order: ' + no );
-
-            return this.GuestCheck.recallByCheckNo(no);
-        },
-
-        storeCheck: function() {
-        
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                return;
-            }
-
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                return;
-            }
-
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                return;
-            }
-
-            var modified = curTransaction.isModified();
-            if (modified) {
-                this.GuestCheck.store();
-
-                this.dispatchEvent('onStore', curTransaction);
-
-                this._getCartlist().refresh();
-            }
-            else {
-                NotifyUtils.warn(_('No change to store'));
-            }
-        },
-
-        guestNum: function(num) {
-            if (num)
-                var no = num;
-            else {
-                var no = this._getKeypadController().getBuffer();
-                this._getKeypadController().clearBuffer();
-                this._cancelReturn();
-            }
-            
-            var curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-
-                this._clearAndSubtotal();
-                return;
-            }
-
-            if (curTransaction == null) {
-                curTransaction = this._getTransaction(true);
-                if (curTransaction == null) {
-                    NotifyUtils.warn(_('fatal error!!'));
-                    this._clearAndSubtotal();
-                    return;
-                }
-            }
-
-            var r = this.GuestCheck.guest(no);
-            // curTransaction.data.no_of_customers = r;
-
-            this._clearAndSubtotal();
-        },
-
-        mergeCheck: function() {
-
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction;
-
-            curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                this._clearAndSubtotal();
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                this._clearAndSubtotal();
-                return;
-            }
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                this._clearAndSubtotal();
-                return;
-            }
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                this._clearAndSubtotal();
-                return;
-            }
-            var modified = curTransaction.isModified();
-            if (modified) {
-                NotifyUtils.warn(_('This order has been modified and must be stored first'));
-            // r = this.GuestCheck.store();
-            // this.dispatchEvent('onStore', curTransaction);
-            }
-
-            // r = this.GuestCheck.transferToCheckNo(no);
-            var r = this.GuestCheck.mergeOrder(no, curTransaction.data);
-        },
-
-        splitCheck: function() {
-        	
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction;
-            
-            curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                return;
-            }
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                return;
-            }
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                return;
-            }
-            var modified = curTransaction.isModified();
-            if (modified) {
-                NotifyUtils.warn(_('This order has been modified and must be stored first'));
-            // r = this.GuestCheck.store();
-            // this.dispatchEvent('onStore', curTransaction);
-            }
-
-            var r = this.GuestCheck.splitOrder(no, curTransaction.data);
-        },
-
-        transferTable: function(){
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction;
-
-            curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                return;
-            }
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                return;
-            }
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                return;
-            }
-            var modified = curTransaction.isModified();
-            if (modified) {
-                // rec    // XXXX why only rec?
-                NotifyUtils.warn(_('This order has been modified and must be stored first'));
-            // r = this.GuestCheck.store();
-            // this.dispatchEvent('onStore', curTransaction);
-            }
-
-            var r = this.GuestCheck.transferToTableNo(no);
         },
 
         recovery: function(data) {
@@ -4473,41 +3921,63 @@
             }
         },
 
+        /**
+         * use cart queue controller
+         */
+        pushQueue: function(nowarning) {
+            this.requestCommand('pushQueue', nowarning, 'CartQueue');
+        },
+
+        /**
+         * use cart queue controller
+         */
+        pullQueue: function(data) {
+            this.requestCommand('pullQueue', data, 'CartQueue');
+        },
+
+
+        /**
+         * use guest_check controller
+         */
+        guestNum: function(num) {
+            return this.requestCommand('guestNum', num, 'GuestCheck');
+        },
+
+        /**
+         * use guest_check controller
+         */
+        recallCheck: function() {
+            return this.requestCommand('recallCheck', null, 'GuestCheck');
+        },
+
+        /**
+         * use guest_check controller
+         */
+        recallOrder: function() {
+            return this.requestCommand('recallOrder', null, 'GuestCheck');
+        },
+
+        /**
+         * use cartutils implement
+         */
         _dbError: function(errno, errstr, errmsg) {
-            this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
-            GREUtils.Dialog.alert(this.topmostWindow,
-                _('Data Operation Error'),
-                errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+            this.CartUtils.dbError(errno, errstr, errmsg);
         },
 
+        /**
+         * use cartutils implement
+         */
         _blockUI: function(panel, caption, title, sleepTime) {
-
-            sleepTime = typeof sleepTime =='undefined' ?  0 : sleepTime;
-            var waitPanel = document.getElementById(panel);
-            var waitCaption = document.getElementById(caption);
-
-            if (waitCaption) waitCaption.setAttribute("label", title);
-
-            waitPanel.openPopupAtScreen(0, 0);
-
-            if (sleepTime > 0) this.sleep(sleepTime);
-            return waitPanel;
-            
+            return this.CartUtils.blockUI(panel, caption, title, sleepTime);
         },
 
+        /**
+         * use cartutils implement
+         */
         _unblockUI: function(panel) {
-
-            var waitPanel = document.getElementById(panel);
-
-            waitPanel.hidePopup();
-            return waitPanel;
-
-        },
-
-        
-        destroy: function() {
-            if (this.observer) this.observer.unregister();
+            return this.CartUtils.unblockUI(panel);
         }
+
     };
 
     GeckoJS.Controller.extend(__controller__);

@@ -5,6 +5,7 @@
     }
     
     var TableBookingModel = window.TableBookingModel = AppModel.extend({
+        
         name: 'TableBooking',
 
         useDbConfig: 'table',
@@ -12,5 +13,6 @@
         belongsTo: ['Table'],
 
         behaviors: ['Sync', 'Training']
+        
     });
 } )();

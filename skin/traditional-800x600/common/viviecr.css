@@ -107,6 +107,9 @@
  * Standard vivitree
  *-----------------------------------------------------------------------------
  */
+vivitree treechildren {
+    color: black;
+}
 
 vivitree[class=standard] {
     margin: 4px;

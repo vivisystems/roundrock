@@ -103,7 +103,6 @@
                 // switch to edit mode
                 // this.editMode();
 
-                // @todo OSD
                 OsdUtils.info(_('Booking added successfully'));
             }
         },
@@ -142,7 +141,6 @@
                 // select the new customer
                 this.selectBooking(newIndex);
 
-                // @todo OSD
                 OsdUtils.info(_('Booking [%S] modified successfully', [inputObj.contact]));
             }
         },
@@ -174,7 +172,6 @@
 
                 this.getBookingListObj().treeBoxObject.invalidate();
 
-                // @todo OSD
                 OsdUtils.info(_('Booking [%S (%S)] deleted successfully', [inputObj.contact, inputObj.table_no]));
 
             }

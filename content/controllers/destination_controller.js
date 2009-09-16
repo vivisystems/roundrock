@@ -115,7 +115,6 @@
 
                 var dupNames = new GeckoJS.ArrayQuery(this._listDatas).filter('name = \'' + destName + '\'');
                 if (dupNames.length > 0) {
-                    // @todo OSD
                     NotifyUtils.warn(_('Destination [%S] already exists', [destName]));
                     return;
                 }
@@ -133,7 +132,6 @@
                     }
                 }
 
-                // @todo OSD
                 OsdUtils.info(_('Destination [%S] added successfully', [destName]));
             }
         },
@@ -178,7 +176,6 @@
                 this._listDatas.splice(index, 1);
                 this.saveDestinations();
 
-                // @todo OSD
                 OsdUtils.info(_('Destination [%S] deleted successfully', [destName]));
 
                 index = this.getListObj().selectedIndex;

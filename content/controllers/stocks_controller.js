@@ -19,7 +19,7 @@
 
             var self = this;
             
-            if (this.StockRecord.isRemote()) {
+            if (this.StockRecord.isRemoteService()) {
                 var hWin = this.showSyncingDialog();
 
                 // synchronize mode

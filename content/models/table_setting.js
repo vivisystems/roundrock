@@ -4,14 +4,12 @@
         include( 'chrome://viviecr/content/models/app.js' );
     }
     
-    var TableRegionModel = window.TableRegionModel = AppModel.extend({
-        name: 'TableRegion',
+    var TableSettingModel = window.TableSettingModel = AppModel.extend({
+        name: 'TableSetting',
 
         useDbConfig: 'table',
 
-    //    hasMany: ['Table'],
-
-        behaviors: ['Sync', 'Training'],
+        behaviors: ['Training'],
 
         httpService: null,
 
@@ -23,7 +21,7 @@
                     this.httpService = new SyncbaseHttpService();
                     this.httpService.setSyncSettings(syncSettings);
                     this.httpService.setHostname(syncSettings.table_hostname);
-                    this.httpService.setController('table_regions');
+                    this.httpService.setController('table_settings');
                 }
             }catch(e) {
                 this.log('error ' + e);
@@ -36,40 +34,43 @@
             return this.getHttpService().isRemoteService();
         },
 
-        getTableRegions: function(useDb) {
+        getTableSettings: function(useDb) {
 
             useDb = useDb || false;
 
-            var table_regions = null;
+            var table_settings = null;
 
             if (!useDb) {
-                table_regions = GeckoJS.Session.get('table_regions');
+                table_settings = GeckoJS.Session.get('table_settings');
             }
 
-            if (table_regions == null) {
+            if (table_settings == null) {
 
                 if (this.isRemoteService()) {
-                    var remoteUrl = this.getHttpService().getRemoteServiceUrl('getTableRegions');
+                    var remoteUrl = this.getHttpService().getRemoteServiceUrl('getTableSettings');
                     var requestUrl = remoteUrl ;
-                    table_regions = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
+                    table_settings = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
                     // update tables to database;
-                    this.updateRemoteTableRegions(table_regions);
+                    this.updateRemoteTableSettings(table_settings);
                 }else {
-                    table_regions = this.find('all', {recursive: 0});
+                    table_settings = this.find('all', {recursive: 0});
                 }
 
-                if (table_regions != null) {
-                    GeckoJS.Session.add('tables', table_regions);
+                if (table_settings != null) {
+                    return this.setTableSettingsToSession(table_settings);
                 }
             }
 
-            return table_regions;
+            return table_settings;
 
         },
 
-        updateRemoteTableRegions: function(table_regions) {
+        /**
+         * Update remove table settings to local.
+         */
+        updateRemoteTableSettings: function(table_settings) {
 
-            if (!table_regions) return false;
+            if (!table_settings) return false;
 
             var r = false;
 
@@ -83,7 +84,7 @@
                 datasource.executeSimpleSQL("DELETE FROM " + this.table);
 
                 // save all not update timestamp
-                this.saveAll(table_regions, false);
+                this.saveAll(table_settings, false);
 
                 r = this.commit();
             }
@@ -91,7 +92,17 @@
             this.log('r = ' + r) ;
             return r;
 
+        },
+
+        setTableSettingsToSession: function(table_settings) {
+            let hashedSettings = {};
+            table_settings.forEach(function(s) {
+                hashedSettings[s.key] = s.value;
+            });
+            GeckoJS.Session.add('table_settings', hashedSettings);
+            return hashedSettings;
         }
+
 
     });
 } )();

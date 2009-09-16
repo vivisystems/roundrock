@@ -579,14 +579,12 @@
                 case 'SelectTableNo':
 
                     if (selTable.hostby) {
-                        // @todo OSD
                         NotifyUtils.error(_('This table is hosted by Table#%S !!', [selTable.hostby]));
                         this._isBusy = false;
                         return;
                     }
 
                     if (selTable.mark && selTable.mark_op_deny) {
-                        // @todo OSD
                         NotifyUtils.error(_('This table status is marked as [%S] and can not be selected !!', [selTable.mark]));
                         this._isBusy = false;
                         return;
@@ -614,7 +612,6 @@
                     break;
                 case 'RecallCheck':
                     if (!selTable.sequence) {
-                        // @todo OSD
                         NotifyUtils.error(_('This table is empty!!'));
                         this._isBusy = false;
                         return;
@@ -640,7 +637,6 @@
                     break;
                 case 'SplitCheck':
                     if (!selTable.sequence) {
-                        // @todo OSD
                         NotifyUtils.error(_('This table is empty!!'));
                         this._isBusy = false;
                         return;
@@ -684,7 +680,6 @@
                     break;
                 case 'MergeCheck':
                     if (!selTable.sequence) {
-                        // @todo OSD
                         NotifyUtils.error(_('This table is empty!!'));
                         this._isBusy = false;
                         return;
@@ -759,14 +754,12 @@
                 case 'TransTable':
 
                     if (selTable.hostby) {
-                        // @todo OSD
                         NotifyUtils.error(_('This table is hosted by Table#%S !!', [selTable.hostby]));
                         this._isBusy = false;
                         return;
                     }
 
                     if (selTable.mark && selTable.mark_op_deny) {
-                        // @todo OSD
                         NotifyUtils.error(_('This table status is marked as [%S] and can not be selected !!', [selTable.mark]));
                         this._isBusy = false;
                         return;
@@ -807,7 +800,6 @@
 
                     } else {
                         if (!selTable.sequence) {
-                            // @todo OSD
                             NotifyUtils.error(_('This table is empty!!'));
                             this._isBusy = false;
                             return;
@@ -841,7 +833,6 @@
                         // allow empty table as host table
                         /*
                         if (!selTable.sequence) {
-                            // @todo OSD
                             NotifyUtils.error(_('This table is empty!!'));
                             return;
                         }
@@ -858,7 +849,6 @@
                 case 'UnmergeTable':
 
                     if (!selTable.hostby) {
-                        // @todo OSD
                         NotifyUtils.error(_('This table had not been hold!!'));
                         this._isBusy = false;
                         return;
@@ -928,7 +918,6 @@
                         this._tableStatusModel.setTableMark(table_no, markObj);
                         document.getElementById('tableScrollablepanel').invalidate();
 
-                        // @todo OSD
                         NotifyUtils.warn(_('Table status of Table# %S (%S) is cleared.', [tableNo,tableName]));
 
                     }
@@ -988,7 +977,6 @@
 
                         document.getElementById('tableScrollablepanel').invalidate();
 
-                        // @todo OSD
                         NotifyUtils.warn(_('All table status of region [%S] are cleared.', [regionName]));
 
                     }

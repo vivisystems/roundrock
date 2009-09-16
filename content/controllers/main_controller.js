@@ -59,6 +59,7 @@
             
             //this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
+            this.requestCommand('initial', null, 'CartQueue');
 
             var deptNode = document.getElementById('catescrollablepanel');
             deptNode.selectedIndex = 0;
@@ -93,7 +94,7 @@
             this.dispatchEvent('afterInitial', null);
 
             // recover queued orders
-            this.requestCommand('unserializeQueueFromRecoveryFile', null, 'Cart');
+            this.requestCommand('unserializeQueueFromRecoveryFile', null, 'CartQueue');
 
             // check transaction fail
             var recovered = false;
@@ -614,9 +615,6 @@
             var defaultUserID = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
             var defaultUser = '';
 
-            //@todo work-around Object reference bug - fixed
-            //var roles= this.Acl.getGroupList();
-
             if (defaultUserID) {
                 var userModel = new UserModel();
                 var defaultUserRecord = userModel.findById(defaultUserID);
@@ -677,7 +675,6 @@
                         if (user) {
                             this.setClerk();
 
-                            //@todo quick user switch successful
                             OsdUtils.info(user.description + _(' logged in'));
                         }
                         else {
@@ -748,7 +745,6 @@
                 }
 
                 if (users == null || users.length == 0) {
-                    //@todo silent user switch successful
                     NotifyUtils.error(_('User [%S] does not exist!', [newUser]));
                     return;
                 }
@@ -774,7 +770,6 @@
                     if (user) {
                         this.setClerk();
 
-                        //@todo silent user switch successful
                         OsdUtils.info(user.description + _(' logged in'));
                     }
                     else {
@@ -782,12 +777,10 @@
                     }
                 }
                 else {
-                    // @todo error message for login failure
                     NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                 }
             }
             else {
-                // @todo no password
                 NotifyUtils.warn(_('Please enter passcode first.'));
             }
         },
@@ -805,6 +798,7 @@
             var shiftReportOnSignOff = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonsignoff');
             var shiftReportOnQuickSwitch = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonquickswitch');
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
             var txn = GeckoJS.Session.get('current_transaction');
             var cartEmpty = (txn == null) || (txn.isSubmit()) || (txn.getItemsCount() <= 0);
             var principal = this.Acl.getUserPrincipal();
@@ -841,7 +835,7 @@
                         responseDiscardCart = 1;
                     }
                     var responseDiscardQueue = 1; // 0: keep; 1: discard'
-                    var promptDiscardQueue = !autoDiscardQueue && (responseDiscardCart != 0) && cart._hasUserQueue(principal);
+                    var promptDiscardQueue = !autoDiscardQueue && (responseDiscardCart != 0) && cartQueue._hasUserQueue(principal);
 
                     if (promptDiscardQueue) {
                         if (mustEmptyQueue) {
@@ -881,7 +875,6 @@
                     responseDiscardQueue = (autoDiscardQueue || mustEmptyQueue) ? 1 : 0;
                 }
 
-                // @todo
                 // print shift report
                 if ((shiftReportOnSignOff && !quickSignoff) || (shiftReportOnQuickSwitch && quickSignoff)) {
                 }
@@ -891,13 +884,13 @@
                         $do('cancel', true, 'Cart');
                     }
                     else {
-                        $do('pushQueue', null, 'Cart');
+                        $do('pushQueue', null, 'CartQueue');
                     }
                 }
                 $do('clear', null, 'Cart');
 
                 if (responseDiscardQueue == 1) {
-                    cart._removeUserQueue(principal);
+                    cartQueue._removeUserQueue(principal);
                 }
 
                 this.Acl.invalidate();
@@ -962,8 +955,9 @@
 
                         // remove cart queue recovery file
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                        if (cart) {
-                            cart.removeQueueRecoveryFile();
+                        var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
+                        if (cartQueue) {
+                            cartQueue.removeQueueRecoveryFile();
                         }
 
                         // truncate order related tables
