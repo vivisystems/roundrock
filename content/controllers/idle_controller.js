@@ -9,6 +9,8 @@
 
             if (topic == 'idle') {
 
+                var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
+                
                 // gc force
                 try {
 

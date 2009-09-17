@@ -291,8 +291,9 @@
                 //this.log('DEBUG', 'no last SP, new SP: ' + newSalePeriod);
             }
 
-            // is last shift the end of the last sale period
-            else if (endOfPeriod) {
+            // is last shift the end of the last sale period?
+            // if newSalePeriod is the same as last sale period, treat end of sale period as end of shift
+            else if (endOfPeriod && (newSalePeriod != lastSalePeriod)) {
 
                 if (newSalePeriod == null) {
                     // set current sale period to the greater of

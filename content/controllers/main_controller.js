@@ -48,7 +48,7 @@
 
             // put up waiting dialog
             var alertWin = this.showAlertDialog();
-            this.sleep(1000);
+            this.sleep(500);
             
             this.createPluPanel();
 
@@ -125,6 +125,12 @@
                 }
             }
 
+            // listen for onIdle event
+            var idleController = GeckoJS.Controller.getInstanceByName('Idle');
+            if (idleController) {
+                idleController.addEventListener('onIdle', this.idleHandler, this);
+            }
+
             if (!recovered) {
                 this.requestCommand('initialLogin', null, 'Main');
             }
@@ -137,6 +143,22 @@
                 }
                 catch(err) {
                 }
+        },
+
+        idleHandler: function(evt) {
+            if ( !this._isTraining ) {
+                var signOff = GeckoJS.Configure.read('vivipos.fec.settings.SignOffWhenIdle');
+                if (signOff) {
+
+                    // make sure top most window is Vivipos Main window
+                    var win = this.topmostWindow;
+                    if (win.document.documentElement.id == 'viviposMainWindow'
+                        && win.document.documentElement.boxObject.screenX >= 0) {
+                        this.signOff(true);
+                        this.ChangeUserDialog();
+                    }
+                }
+            }
         },
 
         showAlertDialog: function() {

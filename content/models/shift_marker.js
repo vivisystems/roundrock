@@ -155,7 +155,7 @@
 
         isSalePeriodHandler: function() {
             if (this.getRemoteServiceUrl('getDateSequence')) {
-                return this.getRemoteServiceUrl('setSequence');
+                return this.syncSettings.advance_sale_period == '1';
             }
             else {
                 // sale period handled locally

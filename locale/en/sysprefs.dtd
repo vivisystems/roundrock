@@ -35,6 +35,7 @@
 <!ENTITY login.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY login.disableshiftchange "Disable shift change">
 <!ENTITY login.checksaleperiod "Check sale period on every order">
+<!ENTITY login.signoffwhenidle "Sign off when idle (queue and cart content will be discarded)">
 <!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.banneratbottom "Place banner at screen bottom">
 <!ENTITY layout.bannerheight "Banner height">

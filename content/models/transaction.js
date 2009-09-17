@@ -202,7 +202,7 @@
                         order_no = parseInt(arSeqs[0]) || -1 ;
                         check_no = parseInt(arSeqs[1]) || -1 ;
                     }
-
+                    
                     self.data.seq = self.buildOrderSequence(order_no);
                     GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
 

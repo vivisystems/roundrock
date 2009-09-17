@@ -88,7 +88,7 @@
         },
 
         getLocalSequence: function(keys ) {
-
+            
             var arKeys = keys.split(',');
             var result = [] ;
 
@@ -185,28 +185,6 @@
             if (seq) {
                 return this.del(seq.id);
             }
-        },
-
-        getLocalSequence: function(key) {
-            var seq = this.findByIndex('first', {
-                index: 'key',
-                value: key
-            }) ||
-
-            {
-                id: "",
-                key: key,
-                value: 0
-            };
-
-            seq.value++;
-
-            this.id = seq.id;
-            if (!this.save(seq)) {
-                this.saveToBackup(seq);
-            }
-
-            return seq;
         },
 
         resetLocalSequence: function(key, value) {
