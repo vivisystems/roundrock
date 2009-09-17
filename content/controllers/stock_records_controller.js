@@ -90,7 +90,7 @@
 
             if (this.StockRecord.lastError != 0) {
                 this._dbError(this.StockRecord.lastError, this.StockRecord.lastErrorString,
-                              _('An error was encountered while retrieving stock records (error code %S).', [this.StockRecord.lastError]));
+                              _('An error was encountered while retrieving stock records (error code %S) [message #1601].', [this.StockRecord.lastError]));
             }
             this._listData = stockRecords;
             
@@ -279,13 +279,13 @@
                 var products = ds.fetchAll(sql);
                 if (ds.lastError != 0) {
                     this._dbError(ds.lastError, ds.lastErrorString,
-                                  _('An error was encountered while retrieving products (error code %S).', [ds.lastError]));
+                                  _('An error was encountered while retrieving products (error code %S) [message #1602].', [ds.lastError]));
                 }
 
                 if (products.length > 0) {
                 	if (!stockRecordModel.insertNewRecords(products)) {
                         this._dbError(stockRecordModel.lastError, stockRecordModel.lastErrorString,
-                                      _('An error was encountered while inserting product stock records (error code %S).', [stockRecordModel.lastError]));
+                                      _('An error was encountered while inserting product stock records (error code %S) [message #1603].', [stockRecordModel.lastError]));
                     }
                 }
 
@@ -316,7 +316,7 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all stock records (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all stock records (error code %S) [message #1604].', [model.lastError])};
                 }
 
                 model = new InventoryRecordModel();
@@ -324,7 +324,7 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all stock adjustment details (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all stock adjustment details (error code %S) [message #1605].', [model.lastError])};
                 }
 
                 model = new InventoryCommitmentModel();
@@ -332,7 +332,7 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: ('An error was encountered while removing stock adjustment records (error code %S).', [model.lastError])};
+                           errmsg: ('An error was encountered while removing stock adjustment records (error code %S) [message #1606].', [model.lastError])};
                 }
 
                 model.execute('VACUUM');
@@ -355,14 +355,14 @@
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup stock adjustment records (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring backup stock adjustment records (error code %S) [message #1607].', [model.lastError])};
                     }
 
                     r = model.execute('delete from inventory_commitments where created <= ' + retainDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring stock adjustment records (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring stock adjustment records (error code %S) [message #1608].', [model.lastError])};
                     }
 
                     model = new InventoryRecordModel();
@@ -370,14 +370,14 @@
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup stock adjustment details (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring backup stock adjustment details (error code %S) [message #1609].', [model.lastError])};
                     }
 
                     r = model.execute('delete from inventory_records where not exists (select 1 from inventory_commitments where inventory_commitments.id == inventory_records.commitment_id)') && r;
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring stock adjustment details (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring stock adjustment details (error code %S) [message #1610].', [model.lastError])};
                     }
                 }
                 catch(e) {
@@ -591,7 +591,7 @@
                 })) {
                 waitPanel.hidePopup();
                 this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
-                              _('An error was encountered while saving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
+                              _('An error was encountered while saving stock adjustment records (error code %S) [message #1611].', [inventoryCommitmentModel.lastError]));
                 return;
             }
             
@@ -624,7 +624,7 @@
             var stockRecordModel = new StockRecordModel();
             if (!stockRecordModel.setAll(stockRecords, doInventory)) {
                 this._dbError(stockRecordModel.lastError, stockRecordModel.lastErrorString,
-                              _('An error was encountered while saving stock records (error code %S).', [stockRecordModel.lastError]));
+                              _('An error was encountered while saving stock records (error code %S) [message #1612].', [stockRecordModel.lastError]));
                 waitPanel.hidePopup();
                 return;
             }
@@ -632,7 +632,7 @@
             var inventoryRecordModel = new InventoryRecordModel();
             if (!inventoryRecordModel.setAll(records, doInventory)) {
                 this._dbError(inventoryRecordModel.lastError, inventoryRecordModel.lastErrorString,
-                              _('An error was encountered while saving stock adjustment details (error code %S).', [inventoryRecordModel.lastError]));
+                              _('An error was encountered while saving stock adjustment details (error code %S) [message #1613].', [inventoryRecordModel.lastError]));
                 waitPanel.hidePopup();
                 return;
             }
@@ -728,7 +728,7 @@
             this.log('ERROR', errmsg + '\nDatabase Error [' +  errno + ']: [' + errstr + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
     };
     

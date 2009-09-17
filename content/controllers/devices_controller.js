@@ -888,12 +888,12 @@
                   var PE = Components.classes["@mozilla.org/gfx/printerenumerator;1"]
                                   .getService(Components.interfaces.nsIPrinterEnumerator);
 
-                  var enum = PE.printerNameList;
+                  var printerList = PE.printerNameList;
 
                   do {
-                    var printer = enum.getNext();
+                    var printer = printerList.getNext();
                     printers.push(printer);
-                  } while( enum.hasMore()) ;
+                  } while( printerList.hasMore()) ;
 
 
             }catch(e) {

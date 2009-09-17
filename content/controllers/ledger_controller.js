@@ -82,14 +82,14 @@
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup ledger activity logs (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring backup ledger activity logs (error code %S) [messages #801].', [model.lastError])};
                     }
 
                     r = model.execute('delete from ledger_records where created <= ' + expireDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring ledger activity logs (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring ledger activity logs (error code %S) [messages #802].', [model.lastError])};
                     }
 
                     model = new LedgerReceiptModel();
@@ -97,14 +97,14 @@
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup ledger receipts (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring backup ledger receipts (error code %S) [messages #803].', [model.lastError])};
                     }
 
                     r = model.execute('delete from ledger_receipts where created <= ' + expireDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring ledger receipts (error code %S).', [model.lastError])}
+                               errmsg: _('An error was encountered while expiring ledger receipts (error code %S) [messages #804].', [model.lastError])}
                     }
                 }
                 catch(e) {
@@ -121,14 +121,14 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all backup ledger activity logs (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all backup ledger activity logs (error code %S) [messages #805].', [model.lastError])};
                 }
 
                 r = model.truncate();
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all ledger activity logs (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all ledger activity logs (error code %S) [messages #806].', [model.lastError])};
                 }
 
                 model = new LedgerReceiptModel();
@@ -136,14 +136,14 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all backup ledger receipts (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all backup ledger receipts (error code %S) [messages #807].', [model.lastError])};
                 }
 
                 r = model.truncate();
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while revmoing all ledger receipts (error code %S).', [model.lastError])}
+                           errmsg: _('An error was encountered while revmoing all ledger receipts (error code %S) [messages #808].', [model.lastError])}
                 }
             }
             catch(e) {
@@ -163,7 +163,7 @@
             if (!r) {
                 // failed to save record to db/backup
                 this._dbError(model.lastError, model.lastErrorString,
-                              _('An error was encountered while saving ledger entry (error code %S).', [model.lastError]));
+                              _('An error was encountered while saving ledger entry (error code %S) [messages #809].', [model.lastError]));
                 return false;
             }
             inputObj.id = r.id;
@@ -175,7 +175,7 @@
             if (!r) {
                 // failed to save record to db/backup
                 this._dbError(model.lastError, model.lastErrorString,
-                              _('An error was encountered while saving ledger payment records (error code %S).', [model.lastError]));
+                              _('An error was encountered while saving ledger payment records (error code %S) [messages #810].', [model.lastError]));
                 return false;
             }
             else {
@@ -215,7 +215,7 @@
             var model = this.Scaffold.ScaffoldModel;
             if (parseInt(model.lastError) != 0) {
                 this._dbError(model.lastError, model.lastErrorString,
-                              _('An error was encountered while retrieving ledger records (error code %S).', [model.lastError]));
+                              _('An error was encountered while retrieving ledger records (error code %S) [messages #811].', [model.lastError]));
             }
             else {
                 this._listDatas = evt.data;
@@ -308,7 +308,7 @@
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
 
 

@@ -470,7 +470,7 @@
 
                 GREUtils.Dialog.alert(this.topmostWindow,
                         _('Save Order Error'),
-                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation', [origData.sequence]));
+                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation [message #1501].', [origData.sequence]));
                 
                 return false;
             }

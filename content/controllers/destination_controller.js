@@ -162,6 +162,7 @@
                     return false;
                 }
             }
+            return true;
         },
 
         deleteDestination: function(){

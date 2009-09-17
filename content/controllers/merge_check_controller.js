@@ -241,7 +241,7 @@
 
                 GREUtils.Dialog.alert(this.topmostWindow,
                         _('Save Order Error'),
-                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation', [origData.sequence]));
+                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation [message #1101].', [this._sourceCheck.sequence]));
 
                 return false;
             }
@@ -258,7 +258,7 @@
 
                 GREUtils.Dialog.alert(this.topmostWindow,
                         _('Save Order Error'),
-                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation', [origData.sequence]));
+                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation [message #1102].', [this._mergedCheck.sequence]));
 
                 return false;
             }

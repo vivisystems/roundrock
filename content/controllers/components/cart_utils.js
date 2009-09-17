@@ -46,7 +46,7 @@
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.controller.topmostWindow,
                 _('Data Operation Error'),
-                errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },
 
         blockUI: function(panel, caption, title, sleepTime) {

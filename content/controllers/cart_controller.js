@@ -7,7 +7,9 @@
         components: ['Tax', 'Barcode', 'CartUtils'],
 
         uses: ['Product'],
-        
+
+        code: 'CT',
+
         _cartView: null,
         _inDialog: false,
         _returnMode: false,
@@ -556,7 +558,7 @@
                 else {
                     GREUtils.Dialog.alert(this.topmostWindow,
                         _('Memory Error'),
-                        _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation', [itemDisplay.name]));
+                        _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation [message #101].', [itemDisplay.name]));
                     exit = true;
                 }
             }
@@ -2515,7 +2517,7 @@
             });
             if (ledgerEntryTypeModel.lastError) {
                 this._dbError(ledgerEntryTypeModel.lastError, ledgerEntryTypeModel.lastErrorString,
-                    _('An error was encountered while retrieving ledger entry types (error code %s)', [ledgerEntryTypeModel.lastError]));
+                    _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
                 this._clearAndSubtotal();
                 return;
             }
@@ -2964,9 +2966,12 @@
                         if (ret == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
-                                _('Failed to cancel order due to data operation error.'));
-
-                            NotifyUtils.error('Failed to cancel order due to data operation error.')
+                                _('Failed to cancel order due to data operation error [message #102].'));
+                        }
+                        else if (ret == -3) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('Failed to cancel order because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #103].'));
                         }
                         this.dispatchEvent('afterCancel', curTransaction);
                     }
@@ -3096,7 +3101,7 @@
                     if (submitStatus == -3) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Data Operation Error'),
-                            _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence master.'));
+                            _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #104].'));
                     }
                     else {
                         NotifyUtils.error('Failed to submit order due to data operation error.')
@@ -3130,7 +3135,7 @@
                     if (commitStatus == -1) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Data Operation Error'),
-                            _('This order could not be commited . Please check the network connectivity to the terminal designated as the master.'));
+                            _('This order could not be committed . Please check the network connectivity to the terminal designated as the synchronization server [message #105].'));
                         this._unblockUI('blockui_panel');
                         return false;
                     }
@@ -3672,7 +3677,7 @@
 
             if (parseInt(orderModel.lastError) != 0) {
                 this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                    _('An error was encountered while retrieving order payment records (error code %S).', [orderModel.lastError]));
+                    _('An error was encountered while retrieving order payment records (error code %S) [message #107].', [orderModel.lastError]));
                 return false;
             }
 
@@ -3757,7 +3762,7 @@
                                 throw {
                                     errno: paymentModel.lastError,
                                     errstr: paymentModel.lastErrorString,
-                                    errmsg: _('An error was encountered while saving refund payment (error code %S)', [paymentModel.lastError])
+                                    errmsg: _('An error was encountered while saving refund payment (error code %S) [message #108].', [paymentModel.lastError])
                                 };
                             }
 
@@ -3784,7 +3789,7 @@
                             throw {
                                 errno: orderModel.lastError,
                                 errstr: orderModel.lastErrorString,
-                                errmsg: _('An error was encountered while updating order status (error code %S)', [orderModel.lastError])
+                                errmsg: _('An error was encountered while updating order status (error code %S) [message #109].', [orderModel.lastError])
                             };
                         }
 
@@ -3807,7 +3812,7 @@
                             throw {
                                 errno: 0,
                                 errstr: '',
-                                errmsg: 'An error was encountered while updating stock level'
+                                errmsg: 'An error was encountered while updating stock level [message #110].'
                             };
                         }
 

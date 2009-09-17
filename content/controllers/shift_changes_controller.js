@@ -133,7 +133,7 @@
             var r = this.ShiftMarker.saveMarker(newShiftMarker);
             if (!r) {
                 this._dbError(this.ShiftMarker.lastError, this.ShiftMarker.lastErrorString,
-                              _('An error was encountered while updating shift change configuration (error code %S).', [this.ShiftMarker.lastError]));
+                              _('An error was encountered while updating shift change configuration (error code %S) [message #1402].', [this.ShiftMarker.lastError]));
             }
             else {
                 // update shift
@@ -181,14 +181,14 @@
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup shift change records (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring backup shift change records (error code %S) [message #1403].', [model.lastError])};
                     }
 
                     r = model.execute('delete from shift_changes where created <= ' + expireDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring shift change records (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring shift change records (error code %S) [message #1404].', [model.lastError])};
                     }
 
                     model = new ShiftChangeDetailModel();
@@ -196,14 +196,14 @@
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup shift change details (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring backup shift change details (error code %S) [message #1405].', [model.lastError])};
                     }
 
                     r = model.execute('delete from shift_change_details where not exists (select 1 from shift_changes where shift_changes.id == shift_change_details.shift_change_id)') && r;
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring shift change details (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring shift change details (error code %S) [message #1406].', [model.lastError])};
                     }
                 }
                 catch(e) {
@@ -220,7 +220,7 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all shift change records (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all shift change records (error code %S) [message #1407].', [model.lastError])};
                 }
 
                 model = new ShiftChangeDetailModel();
@@ -228,14 +228,14 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all shift change details (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all shift change details (error code %S) [message #1408].', [model.lastError])};
                 }
 
                 r = this.ShiftMarker.truncate();
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: ('An error was encountered while removing shift change marker (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing shift change marker (error code %S) [message #1409].', [model.lastError])};
                 }
                 r = SequenceModel.removeSequence('sale_period');
             }
@@ -280,7 +280,7 @@
                 newSalePeriod = clusterSalePeriod;
             }
 
-            this.log('DEBUG', 'cluster SP: ' + clusterSalePeriod + ', new SP: ' + newSalePeriod);
+            //this.log('DEBUG', 'cluster SP: ' + clusterSalePeriod + ', new SP: ' + newSalePeriod);
             // no last shift?
             if (lastSalePeriod == '') {
                 // insert new sale period with today's date;
@@ -288,7 +288,7 @@
                     newSalePeriod = new Date().clearTime() / 1000;
                 }
                 newShiftNumber = 1;
-                this.log('DEBUG', 'no last SP, new SP: ' + newSalePeriod);
+                //this.log('DEBUG', 'no last SP, new SP: ' + newSalePeriod);
             }
 
             // is last shift the end of the last sale period
@@ -308,14 +308,14 @@
                     newSalePeriod = newSalePeriod.getTime() / 1000;
                 }
                 newShiftNumber = 1;
-                this.log('DEBUG', 'last SP closed, new SP: ' + newSalePeriod);
+                //this.log('DEBUG', 'last SP closed, new SP: ' + newSalePeriod);
             }
             // has last shift ended?
             else {
                 if (disableShiftChange) {
                     newShiftNumber = lastShiftNumber;
                     if (newSalePeriod == null || lastSalePeriod == newSalePeriod) updateShiftMarker = false;
-                    this.log('DEBUG', 'shift change disabled, sale period changed: ' + updateShiftMarker);
+                    //this.log('DEBUG', 'shift change disabled, sale period changed: ' + updateShiftMarker);
                 }
                 else {
                     if (newSalePeriod != null && newSalePeriod != lastSalePeriod) {
@@ -343,7 +343,7 @@
                             else {
                                 newShiftNumber = lastShiftNumber + 1;
                             }
-                            this.log('DEBUG', 'last shift closed, new SP: ' + newSalePeriod + ', new Shift: ' + newShiftNumber);
+                            //this.log('DEBUG', 'last shift closed, new SP: ' + newSalePeriod + ', new Shift: ' + newShiftNumber);
                         }
                         // continue last shift
                         else {
@@ -351,7 +351,7 @@
                             newShiftNumber = lastShiftNumber;
 
                             updateShiftMarker = false;
-                            this.log('DEBUG', 'continue last shift, new SP: ' + newSalePeriod + ', new Shift: ' + newShiftNumber);
+                            //this.log('DEBUG', 'continue last shift, new SP: ' + newSalePeriod + ', new Shift: ' + newShiftNumber);
                         }
                     }
                 }
@@ -424,7 +424,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving credit card and coupon payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving credit card and coupon payment records (error code %S) [message #1410].', [orderPayment.lastError])};
 
                 //alert(this.dump(creditcardCouponDetails));
                 //this.log(this.dump(creditcardCouponDetails));
@@ -452,7 +452,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving giftcard payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving giftcard payment records (error code %S) [message #1411].', [orderPayment.lastError])};
 
                 //alert(this.dump(giftcardDetails));
                 //this.log(this.dump(giftcardDetails));
@@ -479,7 +479,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving check payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving check payment records (error code %S) [message #1412].', [orderPayment.lastError])};
 
                 //alert(this.dump(checkDetails));
                 //this.log(this.dump(checkDetails));
@@ -505,7 +505,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving cash payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving cash payment records (error code %S) [message #1413].', [orderPayment.lastError])};
 
                 //alert(this.dump(localCashDetails));
                 //this.log(this.dump(localCashDetails));
@@ -531,7 +531,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving value-fixed cash payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving value-fixed cash payment records (error code %S) [message #1414].', [orderPayment.lastError])};
 
                 //alert(this.dump(valueFixedCashPayment));
                 //this.log(this.dump(valueFixedCashPayment));
@@ -560,7 +560,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving foreign cash payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving foreign cash payment records (error code %S) [message #1415].', [orderPayment.lastError])};
 
                 //alert(this.dump(foreignCashDetails));
                 //this.log(this.dump(foreignCashDetails));
@@ -586,7 +586,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving ledger payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving ledger payment records (error code %S) [message #1416].', [orderPayment.lastError])};
 
                 //alert(this.dump(ledgerDetails));
                 //this.log(this.dump(ledgerDetails));
@@ -614,7 +614,7 @@
                 if (parseInt(orderModel.lastError) != 0)
                     throw {errno: orderModel.lastError,
                            errstr: orderModel.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving orders by destinations (error code %S)', [orderModel.lastError])};
+                           errmsg: _('An error was encountered while retrieving orders by destinations (error code %S) [message #1417].', [orderModel.lastError])};
 
                 //alert(this.dump(destDetails));
                 //this.log(this.dump(ledgerDetails));
@@ -635,7 +635,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing cash and ledger sums (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing cash and ledger sums (error code %S) [message #1418].', [orderPayment.lastError])};
 
                 var cashReceived = (cashDetails && cashDetails.amount != null) ? cashDetails.amount : 0;
 
@@ -653,7 +653,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing amount of cash change given out (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing amount of cash change given out (error code %S) [message #1419].', [orderPayment.lastError])};
 
                 var cashGiven = (changeDetails && changeDetails.cash_change != null) ? changeDetails.cash_change : 0;
 
@@ -673,7 +673,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing total payments received (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing total payments received (error code %S) [message #1420].', [orderPayment.lastError])};
 
                 var paymentsReceived = (paymentTotal && paymentTotal.amount != null) ? paymentTotal.amount : 0;
 
@@ -691,7 +691,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing depoits received (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing depoits received (error code %S) [message #1421].', [orderPayment.lastError])};
 
                 var deposits = (depositTotal && depositTotal.amount != null) ? depositTotal.amount : 0;
 
@@ -710,7 +710,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing refunds given out (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing refunds given out (error code %S) [message #1422].', [orderPayment.lastError])};
 
                 var refunds = (refundTotal && refundTotal.amount != null) ? Math.abs(refundTotal.amount) : 0;
 
@@ -728,7 +728,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing sales revenue (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing sales revenue (error code %S) [message #1423].', [orderPayment.lastError])};
 
                 var salesRevenue = (salesTotal && salesTotal.amount != null) ? salesTotal.amount : 0;
                 var credit = salesRevenue - (paymentsReceived - deposits + refunds);
@@ -748,7 +748,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing ledger cash received (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing ledger cash received (error code %S) [message #1424].', [orderPayment.lastError])};
 
                 var ledgerInTotal = (ledgerInBalance && ledgerInBalance.amount != null) ? ledgerInBalance.amount : 0;
 
@@ -767,7 +767,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing ledger cash paid (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing ledger cash paid (error code %S) [message #1425].', [orderPayment.lastError])};
 
                 var ledgerOutTotal = (ledgerOutBalance && ledgerOutBalance.amount != null) ? ledgerOutBalance.amount : 0;
 
@@ -785,7 +785,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing excess giftcard payments (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing excess giftcard payments (error code %S) [message #1426].', [orderPayment.lastError])};
 
                 var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
 
@@ -933,7 +933,7 @@
 
                 if (!shiftChangeModel.saveShiftChange(shiftChangeRecord)) {
                     this._dbError(shiftChangeModel.lastError, shiftChangeModel.lastErrorString,
-                                  _('An error was encountered while saving shift change record; shift may not have been closed properly.'));
+                                  _('An error was encountered while saving shift change record; shift may not have been closed properly [message #1427]..'));
                     return;
                 }
 
@@ -941,7 +941,7 @@
 
                     // closing sale period, check if we need to advance cluster sale period
                     var handleSalePeriod = this.ShiftMarker.isSalePeriodHandler();
-                    this.log('DEBUG', 'sale period handler? ' + handleSalePeriod);
+                    //this.log('DEBUG', 'sale period handler? ' + handleSalePeriod);
                     if (handleSalePeriod) {
                         // @note irving 2009-09-11
                         //
@@ -975,7 +975,7 @@
                             newSalePeriod = lastSalePeriodPlusOne;
                         }
                         var newSalePeriodTime = newSalePeriod.getTime() / 1000;
-                        this.log('DEBUG', 'advancing sale period to ' + newSalePeriodTime + ':' + newSalePeriod);
+                        //this.log('DEBUG', 'advancing sale period to ' + newSalePeriodTime + ':' + newSalePeriod);
 
                         var r = this.ShiftMarker.advanceClusterSalePeriod(newSalePeriodTime);
                         if (!r) {
@@ -1136,7 +1136,7 @@
         },
 
         retrieveClusterSalePeriod: function(evt) {
-            this.log('DEBUG', 'triggered on event ' + evt.type);
+            //this.log('DEBUG', 'triggered on event ' + evt.type);
 
             var txn = evt.data;
             if (!txn) return;
@@ -1146,7 +1146,7 @@
                 var self = this;
                 var r = this.ShiftMarker.getClusterSalePeriod(true, function(sp) {
                     txn.data.cluster_sp = sp;
-                    self.log('DEBUG', 'cluster sale period: ' + sp);
+                    //self.log('DEBUG', 'cluster sale period: ' + sp);
                 });
 
                 if (!r) {
@@ -1158,7 +1158,7 @@
 
         verifyClusterSalePeriod: function(evt) {
 
-            this.log('DEBUG', 'triggered on event ' + evt.type);
+            //this.log('DEBUG', 'triggered on event ' + evt.type);
 
             // check if sale period is in sync with cluster sale period
             var checkSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.CheckSalePeriod') || false;
@@ -1202,7 +1202,7 @@
                     var clusterSalePeriod = txn.data.cluster_sp;
                     var currentSalePeriod = GeckoJS.Session.get('sale_period');
 
-                    this.log('DEBUG', 'cluster SP: ' + clusterSalePeriod + ', local SP: ' + currentSalePeriod);
+                    //this.log('DEBUG', 'cluster SP: ' + clusterSalePeriod + ', local SP: ' + currentSalePeriod);
                     if (clusterSalePeriod) {
                         if (clusterSalePeriod == -1) {
                             evt.preventDefault();
@@ -1239,7 +1239,7 @@
                             }
                         }
                         else {
-                            this.log('DEBUG', 'sale period verified for event: ' + evt.type);
+                            //this.log('DEBUG', 'sale period verified for event: ' + evt.type);
                         }
                     }
                 }
@@ -1279,7 +1279,7 @@
             }
             GREUtils.Dialog.alert(win,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
     };
 

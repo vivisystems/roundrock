@@ -567,7 +567,7 @@
 
                 if (parseInt(userModel.lastError) != 0) {
                     this._dbError(userModel.lastError, userModel.lastErrorString,
-                                  _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                                  _('An error was encountered while retrieving employees (error code %S) [message #1001].', [userModel.lastError]));
                     return;
                 }
 
@@ -727,7 +727,7 @@
 
             if (parseInt(userModel.lastError) != 0) {
                 this._dbError(userModel.lastError, userModel.lastErrorString,
-                              _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                              _('An error was encountered while retrieving employees (error code %S) [message #1002].', [userModel.lastError]));
                 return;
             }
             
@@ -740,7 +740,7 @@
 
                 if (parseInt(userModel.lastError) != 0) {
                     this._dbError(userModel.lastError, userModel.lastErrorString,
-                                  _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                                  _('An error was encountered while retrieving employees (error code %S) [message #1003].', [userModel.lastError]));
                     return;
                 }
 
@@ -986,7 +986,7 @@
                         if (!r) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                                   _('Data Operation Error'),
-                                                  _('An error was encountered while attempting to remove all transaction records.') + '\n' +
+                                                  _('An error was encountered while attempting to remove all transaction records [message #1011].') + '\n\n' +
                                                   _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
                         }
                         else {
@@ -1039,14 +1039,14 @@
                     if (!r) {
                         throw {errno: order.lastError,
                                errstr: order.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S).', [order.lastError])};
+                               errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S) [message #1004].', [order.lastError])};
                     }
 
                     r = order.removeOrders(conditions);
                     if (!r) {
                         throw {errno: order.lastError,
                                errstr: order.lastErrorString,
-                               errmsg: _('An error was encountered while expiring sales activity logs (error code %S).', [order.lastError])};
+                               errmsg: _('An error was encountered while expiring sales activity logs (error code %S) [message #1005].', [order.lastError])};
                     }
 
                     // remove clock stamps
@@ -1055,14 +1055,14 @@
                     if (!r) {
                         throw {errno: clockstamp.lastError,
                                errstr: clockstamp.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S).', [clockstamp.lastError])};
+                               errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S) [message #1006].', [clockstamp.lastError])};
                     }
 
                     r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
                     if (!r) {
                         throw {errno: clockstamp.lastError,
                                errstr: clockstamp.lastErrorString,
-                               errmsg: _('An error was encountered while expiring employee attendance records (error code %S).', [clockstamp.lastError])};
+                               errmsg: _('An error was encountered while expiring employee attendance records (error code %S) [message #1007].', [clockstamp.lastError])};
                     }
 
                     // dispatch afterClearOrderData event
@@ -1114,7 +1114,7 @@
                         throw { 
                            errno: orderModel.lastError,
                            errstr: orderModel.lastErrorString,
-                           errmsg: _( 'An error was encountered while removing order objects (error code %S).', [ orderModel.lastError ] )
+                           errmsg: _( 'An error was encountered while removing order objects (error code %S) [message #1008].', [ orderModel.lastError ] )
                         };
                     }
 
@@ -1130,7 +1130,7 @@
                         throw {
                            errno: orderObjectModel.lastError,
                            errstr: orderObjectModel.lastErrorString,
-                           errmsg: _( 'An error was encountered while removing order objects (error code %S).', [ orderObjectModel.lastError ] ) 
+                           errmsg: _( 'An error was encountered while removing order objects (error code %S) [message #1009].', [ orderObjectModel.lastError ] )
                         };
                     }
 
@@ -1166,7 +1166,7 @@
                                                                       recursive: 0});
                 if (inventoryCommitmentModel.lastError != 0) {
                     this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
-                                  _('An error was encountered while retrieving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
+                                  _('An error was encountered while retrieving stock adjustment records (error code %S) [message #1010].', [inventoryCommitmentModel.lastError]));
                     suppliers = null;
                 }
 
@@ -1332,7 +1332,7 @@
             this.log('ERROR', 'Database exception: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },
 
         FunctionCustomizerDialog: function() {
