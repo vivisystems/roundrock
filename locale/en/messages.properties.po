@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-09-17 15:54+0800\n"
+"POT-Creation-Date: 2009-09-17 17:12+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5097,23 +5097,42 @@ msgid ""
 "the changes?"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:112
+#: ../..//content/controllers/journal_controller.js:113
+#: ../..//content/controllers/journal_controller.js:200
 msgid "Journal Error"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:112
+#: ../..//content/controllers/journal_controller.js:113
 msgid ""
 "No electronic journal preview template detected.  Electronic journal entry "
 "will not be recorded properly if a preview template is not installed "
 "[message #701]."
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:178
+#: ../..//content/controllers/journal_controller.js:179
 msgid "Journal Controller submitOrder error: %S"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:195
-msgid "Journal save error: %S"
+#: ../..//content/controllers/journal_controller.js:201
+msgid ""
+"An error was encountered while saving journal entry (error code %S) "
+"[messages #702]."
+msgstr ""
+
+#: ../..//content/controllers/journal_controller.js:202
+#: ../..//content/controllers/ledger_controller.js:311
+#: ../..//content/controllers/list_orders_controller.js:192
+#: ../..//content/controllers/main_controller.js:989
+#: ../..//content/controllers/main_controller.js:1334
+#: ../..//content/controllers/setup_wizard_controller.js:701
+#: ../..//content/controllers/shift_changes_controller.js:1024
+#: ../..//content/controllers/stock_records_controller.js:731
+#: ../..//content/controllers/stocks_controller.js:293
+#: ../..//content/controllers/view_order_controller.js:177
+#: ../..//content/controllers/components/cart_utils.js:49
+msgid ""
+"Please restart the machine, and if the problem persists, please contact "
+"technical support immediately."
 msgstr ""
 
 #: ../..//content/controllers/layout_manager_controller.js:221
@@ -5202,21 +5221,6 @@ msgstr ""
 msgid ""
 "An error was encountered while retrieving ledger records (error code %S) "
 "[messages #811]."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:311
-#: ../..//content/controllers/list_orders_controller.js:192
-#: ../..//content/controllers/main_controller.js:989
-#: ../..//content/controllers/main_controller.js:1334
-#: ../..//content/controllers/setup_wizard_controller.js:701
-#: ../..//content/controllers/shift_changes_controller.js:1024
-#: ../..//content/controllers/stock_records_controller.js:731
-#: ../..//content/controllers/stocks_controller.js:293
-#: ../..//content/controllers/view_order_controller.js:177
-#: ../..//content/controllers/components/cart_utils.js:49
-msgid ""
-"Please restart the machine, and if the problem persists, please contact "
-"technical support immediately."
 msgstr ""
 
 #: ../..//content/controllers/ledger_entry_types_controller.js:41
