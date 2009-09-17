@@ -198,7 +198,7 @@
 
                 GREUtils.Dialog.alert(win,
                                       _('Journal Error'),
-                                      _('An error was encountered while saving journal entry (error code %S) [messages #702].', [journalModel.lastError])
+                                      _('An error was encountered while saving journal entry (error code %S) [message #702].', [journalModel.lastError])
                                           + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
             }
         },
