@@ -24,6 +24,8 @@
                 // notification-daemon has memory leak restart it.
                 GREUtils.File.run('/etc/X11/Xsession.d/70notification-daemon', [], true);
 
+                this.log('DEBUG', 'idle triggered');
+                
                 this.dispatchEvent('onIdle', {subject: subject, topic: topic , data: data});
 
             }else if (topic == 'back'){

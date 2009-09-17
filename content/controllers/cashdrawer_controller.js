@@ -248,7 +248,7 @@
             if (!model.saveAccessRecord(accessRecord)) {
                 // failed to save record to db/backup
                 this._dbError(model.lastError, model.lastErrorString,
-                              _('An error was encountered while saving cashdrawer access record (error code %S).', [model.lastError]));
+                              _('An error was encountered while saving cashdrawer access record (error code %S) [message #205].', [model.lastError]));
             }
         },
 
@@ -331,7 +331,7 @@
             this.log('ERROR', 'Database error: ' + errstr + ' [' + errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         },
 
         // handles payment events
@@ -398,14 +398,14 @@
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup cashdrawer activity logs (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring backup cashdrawer activity logs (error code %S) [message #201].', [model.lastError])};
                     }
 
                     r = model.execute('delete from cashdrawer_records where created <= ' + expireDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring cashdrawer activity logs (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring cashdrawer activity logs (error code %S) [message #202].', [model.lastError])};
                     }
                 }
                 catch(e) {
@@ -421,14 +421,14 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all backup cashdrawer activity logs (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all backup cashdrawer activity logs (error code %S) [message #203].', [model.lastError])};
                 }
 
                 r = model.truncate();
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all cashdrawer activity logs (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all cashdrawer activity logs (error code %S) [message #204].', [model.lastError])};
                 }
             }
             catch(e) {

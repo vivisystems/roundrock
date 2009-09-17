@@ -289,7 +289,8 @@
             
             GREUtils.Dialog.alert(win,
                 _('Stock Server Connection Error'),
-                _('Connection to Stock Server Error (%S)',[status])+'\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                _('Failed to connect to stock services (error code %S). Please check the network connectivity to the terminal designated as the stock server [message #1701].',[status])
+                    +'\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
 
     };

@@ -208,7 +208,9 @@
                     targetFile.close();
 
                     if(result == 0) {
-                        GREUtils.Dialog.alert( this.topmostWindow, '', _( "There was a problem saving file!" ) );
+                        GREUtils.Dialog.alert( this.topmostWindow, 
+                                               _('Journal Export'),
+                                               _( "An error was encountered while saving the journal export. Please ensure that space is available on the external USB thumb drive [messge #2001]." ) );
                     }
                     self.sleep( 10 );
                     if( caption ) {

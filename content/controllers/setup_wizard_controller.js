@@ -428,7 +428,7 @@
 
             if (parseInt(model.lastError) != 0) {
                 this._dbError(model.lastError, model.lastErrorString,
-                              _('An error was encountered while retrieving user accounts (error code %S).', [model.lastError]));
+                              _('An error was encountered while retrieving user accounts (error code %S) [message #1301].', [model.lastError]));
                 return;
             }
             
@@ -621,7 +621,7 @@
 
             if (parseInt(model.lastError) != 0) {
                 this._dbError(model.lastError, model.lastErrorString,
-                              _('An error was encountered while accessing administrator account (error code %S).', [model.lastError]));
+                              _('An error was encountered while accessing administrator account (error code %S) [message #1302].', [model.lastError]));
                 return;
             }
             if (admin) {
@@ -629,7 +629,7 @@
                 model.id = admin.id;
                 if (!model.save(admin)) {
                     this._dbError(model.lastError, model.lastErrorString,
-                                  _('An error was encountered while updating administrator password (error code %S).', [model.lastError]));
+                                  _('An error was encountered while updating administrator password (error code %S) [message #1303].', [model.lastError]));
                     return;
                 }
                 this.Acl.changeUserPassword('superuser', this.adminPassword);
@@ -642,7 +642,7 @@
 
             if (parseInt(model.lastError) != 0) {
                 this._dbError(model.lastError, model.lastErrorString,
-                              _('An error was encountered while accessing store information (error code %S).', [model.lastError]));
+                              _('An error was encountered while accessing store information (error code %S) [message #1304].', [model.lastError]));
                 return;
             }
             if (!store) store = {};
@@ -655,7 +655,7 @@
 
             if (!model.save(store)) {
                 this._dbError(model.lastError, model.lastErrorString,
-                              _('An error was encountered while updating store information (error code %S).', [model.lastError]));
+                              _('An error was encountered while updating store information (error code %S) [message #1305].', [model.lastError]));
                 return;
             }
             // 6. update terminal number in sync settings
@@ -698,7 +698,7 @@
             this.log('ERROR', errmsg + '\nDatabase Error [' +  errno + ']: [' + errstr + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
     };
 

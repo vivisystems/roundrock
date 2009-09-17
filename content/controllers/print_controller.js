@@ -279,7 +279,7 @@
             
             if (parseInt(orderReceiptModel.lastError) != 0) {
                 this._dbError(orderReceiptModel.lastError, orderReceiptModel.lastErrorString,
-                              _('An error was encountered while checking if receipt has been printed (error code %S)', [orderReceiptModel.lastError]));
+                              _('An error was encountered while checking if receipt has been printed (error code %S) [message #1201].', [orderReceiptModel.lastError]));
             }
             return receipt;
         },
@@ -299,7 +299,7 @@
             if (!r) {
                 // failed to save record to db/backup
                 this._dbError(orderReceiptModel.lastError, orderReceiptModel.lastErrorString,
-                              _('An error was encountered while saving order receipt log (error code %S).', [orderReceiptModel.lastError]));
+                              _('An error was encountered while saving order receipt log (error code %S) [message #1202].', [orderReceiptModel.lastError]));
             }
         },
 
@@ -315,7 +315,7 @@
             if (!r) {
                 // failed to save record to db/backup
                 this._dbError(ledgerReceiptModel.lastError, ledgerReceiptModel.lastErrorString,
-                              _('An error was encountered while saving ledger receipt log (error code %S).', [ledgerReceiptModel.lastError]));
+                              _('An error was encountered while saving ledger receipt log (error code %S) [message #1203].', [ledgerReceiptModel.lastError]));
             }
         },
 
@@ -1002,7 +1002,7 @@
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
-            //this.log(GeckoJS.BaseObject.dump(result));
+            this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //
@@ -1189,7 +1189,7 @@
             this.log('ERROR', 'Database error: ' + errstr + ' [' + errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         }
 
     };

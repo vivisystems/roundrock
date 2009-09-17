@@ -923,12 +923,12 @@
                     this._tableStatusModel.rollback();
 
                     this.dbError(errNo, errMsg,
-                        _('An error was encountered while attempting to remove all table status records (error code %S).', [errNo]));
+                        _('An error was encountered while attempting to remove all table status records (error code %S) [message #501].', [errNo]));
                 }
             }
             else {
                 this.dbError(this._tableStatusModel.lastError, this._tableStatusModel.lastErrorString,
-                    _('An error was encountered while attempting to remove all table status records (error code %S).', this._tableStatusModel.lastError));
+                    _('An error was encountered while attempting to remove all table status records (error code %S) [message #502].', this._tableStatusModel.lastError));
             }
         },
 

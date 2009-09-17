@@ -738,7 +738,7 @@
                             return;
                         }catch (e) {
                             waitPanel.hidePopup();
-                            GREUtils.Dialog.alert(this.topmostWindow, _('Database Import Error'), e);
+                            GREUtils.Dialog.alert(this.topmostWindow, _('Database Import Error'), e + '\n\n' + _('[message #601]'));
                         }
                 }
                 case 'license': {

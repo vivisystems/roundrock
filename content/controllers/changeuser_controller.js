@@ -22,7 +22,7 @@
 
             if (parseInt(userModel.lastError) != 0) {
                 this._dbError(userModel.lastError, userModel.lastErrorString,
-                             _('An error was encountered while retrieving employee records (error code %S).', [userModel.lastError]));
+                             _('An error was encountered while retrieving employee records (error code %S) [message #301].', [userModel.lastError]));
             }
 
             for (var i = 0; i < users.length; i++) {
@@ -118,7 +118,7 @@
             this.log('WARN', 'Database error: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         }
 
     };

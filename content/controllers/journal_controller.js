@@ -109,7 +109,7 @@
                     if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
                         win = null;
                     
-                    GREUtils.Dialog.alert(win, _('Journal Error'), _('No electronic journal preview template detected.  Electronic journal entry will not be recorded properly if a preview template is not installed.'));
+                    GREUtils.Dialog.alert(win, _('Journal Error'), _('No electronic journal preview template detected.  Electronic journal entry will not be recorded properly if a preview template is not installed [message #701].'));
                     evt.preventDefault();
                 }
             } catch (e) {

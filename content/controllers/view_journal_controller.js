@@ -31,7 +31,8 @@
                     this.displayJournal(journal);
                 }
             }catch(e) {
-                this.log('ViewJournal load error:  ' + e);
+                // this branch should not be reachable...
+                this.log('ERROR', 'ViewJournal load error:  ' + e);
             }
         },
 
@@ -71,7 +72,11 @@
 
                 
             } catch (e) {
-                this.log('ERROR', 'ViewJournal displayJournal error:  ' + e);
+                this.log('ERROR', 'displayJournal error:  ' + e);
+
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Journal Display Error'),
+                                      _('An error was encountered while attempting to display journal. Please restart the machine, and if the problem persists, please contact technical support immediately [message #1801].'));
             }
         },
 
@@ -113,16 +118,13 @@
                 _templateModifiers(TrimPath, encoding);
                 printController.printSlip('report', null, template, port, portspeed, handshaking, devicemodel, encoding, devicenumber, copies);
             }catch(e) {
-                this.dump(e);
-            }
-        },
+                this.log('ERROR', 'printJournal error:  ' + e);
 
-        _dbError: function(errno, errstr, errmsg) {
-            this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
-            GREUtils.Dialog.alert(this.topmostWindow,
-                                  _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
-        },
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Journal Display Error'),
+                                      _('An error was encountered while attempting to print journal. Please restart the machine, and if the problem persists, please contact technical support immediately [message #1802].'));
+            }
+        }
 
     };
 
