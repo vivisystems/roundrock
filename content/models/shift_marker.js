@@ -57,7 +57,7 @@
             var username = this.username ;
             var password = this.password ;
 
-            this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with key: ' + key);
+            //this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with key: ' + key);
 
             // set this reference to self for callback
             var self = this;
@@ -170,12 +170,12 @@
 
             var remoteUrl = this.getRemoteServiceUrl('getDateSequence');
 
-            this.log('DEBUG', 'retrieving cluster sale period: ' + remoteUrl);
+            //this.log('DEBUG', 'retrieving cluster sale period: ' + remoteUrl);
             
             // get sale period from remote service
             if (remoteUrl) {
                 var sp = this.requestRemoteService(remoteUrl, 'sale_period', null, async, callback);
-                this.log('DEBUG', 'cluster sale period retrieved: ' + sp);
+                //this.log('DEBUG', 'cluster sale period retrieved: ' + sp);
                 return sp;
             }
             else {

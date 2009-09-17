@@ -361,8 +361,8 @@
         ifHavingOpenedOrder: function() {
             var curTransaction = this._getTransaction();
 
-            dump( !curTransaction.isSubmit() ) ;
-            dump( !curTransaction.isCancel() ) ;
+            if (curTransaction) dump( !curTransaction.isSubmit() ) ;
+            if (curTransaction) dump( !curTransaction.isCancel() ) ;
             if( curTransaction && !curTransaction.isSubmit() && !curTransaction.isCancel() )
                 return true;
             return false;
