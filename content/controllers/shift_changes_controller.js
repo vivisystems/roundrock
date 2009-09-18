@@ -27,7 +27,7 @@
 
             // add event listener for cart controller events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            if(main) {
+            if(cart) {
                 cart.addEventListener('newTransaction', this.retrieveClusterSalePeriod, this);
                 cart.addEventListener('beforeSubmit', this.verifyClusterSalePeriod, this);
                 cart.addEventListener('beforeLedgerEntry', this.verifyClusterSalePeriod, this);
@@ -51,8 +51,11 @@
                                   _('An error was encountered while retrieving shift change configuration (error code %S).', [this.ShiftMarker.lastError]));
                     return null;
                 }
-                
-                GeckoJS.Session.set('current_shift', shift);
+
+                if (shift) {
+                    this.log('DEBUG', 'saving shift into session: ' + this.dump(shift));
+                    GeckoJS.Session.set('current_shift', shift);
+                }
             }
             return shift;
         },
@@ -102,7 +105,11 @@
                 salePeriodStr = new Date(salePeriod * 1000).toLocaleDateString();
             }
 
-            GeckoJS.Session.set('current_shift', currentShift);
+            // only store valid shift marker into session
+            if (salePeriod != -1 && salePeriod != '') {
+                GeckoJS.Session.set('current_shift', currentShift);
+                //this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
+            }
             GeckoJS.Session.set('shift_number', shiftNumber);
             GeckoJS.Session.set('sale_period', salePeriod);
             GeckoJS.Session.set('sale_period_string', salePeriodStr);
@@ -164,11 +171,21 @@
         },
 
         _getSalePeriod: function() {
-            return GeckoJS.Session.get('sale_period');
+            var shift = GeckoJS.Session.get('current_shift');
+            if (shift) {
+                return shift.sale_period;
+            }
+            else
+                return '';
         },
 
         _getShiftNumber: function() {
-            return GeckoJS.Session.get('shift_number');
+            var shift = GeckoJS.Session.get('current_shift');
+            if (shift) {
+                return shift.shift_number;
+            }
+            else
+                return '';
         },
 
         // remove expired shift change
@@ -319,7 +336,7 @@
                     //this.log('DEBUG', 'shift change disabled, sale period changed: ' + updateShiftMarker);
                 }
                 else {
-                    if (newSalePeriod != null && newSalePeriod != lastSalePeriod) {
+                    if (newSalePeriod != null && newSalePeriod != lastSalePeriod && lastSalePeriod != -1) {
                         // check if sale period has changed
                         // if changed, put up warning to close sale period immediately and
                         // continue with previous shift
@@ -349,7 +366,12 @@
                         // continue last shift
                         else {
                             newSalePeriod = lastSalePeriod;
-                            newShiftNumber = lastShiftNumber;
+                            if (isNaN(parseInt(lastShiftNumber))) {
+                                lastShiftNumber = 1;
+                            }
+                            else {
+                                newShiftNumber = lastShiftNumber;
+                            }
 
                             updateShiftMarker = false;
                             //this.log('DEBUG', 'continue last shift, new SP: ' + newSalePeriod + ', new Shift: ' + newShiftNumber);
@@ -358,7 +380,6 @@
                 }
             }
 
-            // need to catch exceptions
             if (updateShiftMarker) {
                 this._setShift(newSalePeriod, newShiftNumber, false, false);
             }
@@ -954,12 +975,7 @@
 
                             // get sequence format and length
                             if (SequenceModel.resetSequence('order_no', 0) == -1) {
-                                var win = this.topmostWindow;
-                                if (win.document.documentElement.id == 'viviposMainWindow'
-                                    && win.document.documentElement.boxObject.screenX < 0) {
-                                    win = null;
-                                }
-                                GREUtils.Dialog.alert(win,
+                                GREUtils.Dialog.alert(this.topmostWindow,
                                     _('Shift Change Error'),
                                     _('Failed to close sale period because cluster sequence number could not be reset. Please check the network connectivity to the terminal designated as the sale period master.'));
                                 return;
@@ -983,12 +999,7 @@
                             SequenceModel.resetLocalSequence('sale_period', newSalePeriodTime);
                         }
                         else if (r == -1) {
-                            var win = this.topmostWindow;
-                            if (win.document.documentElement.id == 'viviposMainWindow'
-                                && win.document.documentElement.boxObject.screenX < 0) {
-                                win = null;
-                            }
-                            GREUtils.Dialog.alert(win,
+                            GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Shift Change Error'),
                                 _('Failed to close sale period because cluster sale period could not be updated. Please check the network connectivity to the terminal designated as the sale period master.'));
                             return;
@@ -1144,10 +1155,8 @@
 
             var checkSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.CheckSalePeriod') || false;
             if (checkSalePeriod) {
-                var self = this;
                 var r = this.ShiftMarker.getClusterSalePeriod(true, function(sp) {
                     txn.data.cluster_sp = sp;
-                    //self.log('DEBUG', 'cluster sale period: ' + sp);
                 });
 
                 if (!r) {
@@ -1208,7 +1217,7 @@
                         if (clusterSalePeriod == -1) {
                             evt.preventDefault();
                             GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Shift Change Error'),
+                                _('Shift Error'),
                                 _('Failed to verify current sale period. Please check the network connectivity to the terminal designated as the sale period master. You are strongly advised to resolve this issue before executing any further transactions on this terminal.'));
                         }
                         else if (clusterSalePeriod != currentSalePeriod) {
@@ -1226,7 +1235,7 @@
                                     };
                                     evt.preventDefault();
                                     GREUtils.Dialog.alert(this.topmostWindow,
-                                        _('Shift Change Error'),
+                                        _('Shift Error'),
                                         _('Failed to verify current sale period. Please check the network connectivity to the terminal designated as the sale period master. You are strongly advised to resolve this issue before executing any further transactions on this terminal.'));
                                 }
                                 this._updateSession(shift_marker);
@@ -1234,7 +1243,7 @@
                             else {
                                 evt.preventDefault();
                                 GREUtils.Dialog.alert(this.topmostWindow,
-                                    _('Shift Change Warning'),
+                                    _('Shift Warning'),
                                     _("This terminal's sale period [%S (%S)] appears to be out of sync with the cluster sale period [%S (%S)]. Please close the sale period on this terminal immediately to avoid recording transactions in the wrong sale period.",
                                       [new Date(currentSalePeriod * 1000).toLocaleDateString(), currentSalePeriod, new Date(clusterSalePeriod * 1000).toLocaleDateString(), clusterSalePeriod]));
                             }
@@ -1244,6 +1253,15 @@
                         }
                     }
                 }
+            }
+            
+            // verify that a valid shift marker exists
+            var shift = GeckoJS.Session.get('current_shift');
+            if (!shift) {
+                evt.preventDefault();
+                GREUtils.Dialog.alert(this.topmostWindow,
+                    _('Shift Error'),
+                    _('A valid sale period has not been set for this terminal. Please resolve this issue before executing any further transactions on this terminal.'));
             }
         },
 
