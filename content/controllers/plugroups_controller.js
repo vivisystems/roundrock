@@ -420,6 +420,7 @@
             var routingCheckbox = document.getElementById('routing');
             var colorpicker = document.getElementById('plugroup_button_color');
             var fontsizepicker = document.getElementById('plugroup_font_size');
+            var nonDiscountCheckbox = document.getElementById('non_discountable');
 
             var tab1 = document.getElementById('tab1');
             var tab2 = document.getElementById('tab2');
@@ -436,6 +437,7 @@
                 fontsizepicker.setAttribute('disabled', false);
                 visibleCheckbox.setAttribute('disabled', false);
                 routingCheckbox.setAttribute('disabled', false);
+                nonDiscountCheckbox.setAttribute('disabled', false);
                 tab1.removeAttribute('disabled');
                 tab2.removeAttribute('disabled');
             }
@@ -446,6 +448,7 @@
                 delBtn.setAttribute('disabled', true);
                 visibleCheckbox.setAttribute('disabled', true);
                 routingCheckbox.setAttribute('disabled', true);
+                nonDiscountCheckbox.setAttribute('disabled', true);
                 colorpicker.setAttribute('disabled', true);
                 fontsizepicker.setAttribute('disabled', true);
                 tab1.setAttribute('disabled', true);

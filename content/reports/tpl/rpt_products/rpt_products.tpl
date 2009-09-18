@@ -116,7 +116,7 @@
                                 <td/>
                                 <td colspan="3" style="text-align: left;">${_( '(rpt)single' ) + ': '}${plu.single|boolToLetter}</td>
                                 <td colspan="3" style="text-align: left;">${_( '(rpt)visible' ) + ': '}${plu.visible|boolToLetter}</td>
-                                <td colspan="3" style="text-align: left;">${_( '(rpt)icon_only' ) + ': '}${plu.icon_only|boolToLetter}</td>
+                                <td colspan="3" style="text-align: left;">${_( '(rpt)display_mode' ) + ': '}${plu.display_mode}</td>
                             </tr>
                         </table>
                     </td>

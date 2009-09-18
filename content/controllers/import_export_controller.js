@@ -337,7 +337,7 @@
                                                 'button_color',
                                                 'font_size',
                                                 'age_verification',
-                                                'icon_only',
+                                                'display_mode',
                                                 'alt_name1',
                                                 'alt_name2',
                                                 'manual_adjustment_only',
@@ -1153,6 +1153,9 @@
                                             if(!self.isValidNumberField(rowdata['min_sale_qty'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid minimum sale quantity value", [prodNm, i + 2]));
                                             }
+                                            if(!self.isValidNumberField(rowdata['display_mode'], true)) {
+                                                errorMsgs.push(_("Product item %S @ row %S requires a valid display mode value", [prodNm, i + 2]));
+                                            }
                                             for(var x = 1;x < 10;x++) {
                                                 if(!self.isValidBooleanField(rowdata["level_enable" + x], true)) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid level enable %S", [prodNm, i + 2, x]));
@@ -1190,9 +1193,6 @@
                                             }
                                             if(!self.isValidBooleanField(rowdata['age_verification'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid age verification value", [prodNm, i + 2]));
-                                            }
-                                            if(!self.isValidBooleanField(rowdata['icon_only'], true)) {
-                                                errorMsgs.push(_("Product item %S @ row %S requires a valid icon only value", [prodNm, i + 2]));
                                             }
                                             if(!self.isValidBooleanField(rowdata['manual_adjustment_only'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid manual adjustment only value", [prodNm, i + 2]));
@@ -1628,8 +1628,8 @@
                                             if(!rowdata['age_verification'] || rowdata['age_verification'].length < 1 || rowdata['age_verification'] == 'null') {
                                                 rowdata['age_verification'] = "0";
                                             }
-                                            if(!rowdata['icon_only'] || rowdata['icon_only'].length < 1 || rowdata['icon_only'] == 'null') {
-                                                rowdata['icon_only'] = "0";
+                                            if(!rowdata['display_mode'] || rowdata['display_mode'].length < 1 || rowdata['display_mode'] == 'null') {
+                                                rowdata['display_mode'] = "0";
                                             }
                                             if(!rowdata['manual_adjustment_only'] || rowdata['manual_adjustment_only'].length < 1 || rowdata['manual_adjustment_only'] == 'null') {
                                                 rowdata['manual_adjustment_only'] = "0";

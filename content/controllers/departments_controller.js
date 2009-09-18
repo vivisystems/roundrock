@@ -364,6 +364,7 @@
                 document.getElementById('dept_button_color').setAttribute('disabled', true);
                 document.getElementById('dept_font_size').setAttribute('disabled', true);
                 document.getElementById('rate_name').setAttribute('disabled', true);
+                document.getElementById('non_discountable').setAttribute('disabled', true);
 
                 document.getElementById('modify_dept').setAttribute('disabled', true);
                 document.getElementById('delete_dept').setAttribute('disabled', true);
@@ -380,6 +381,7 @@
                 document.getElementById('scale').setAttribute('disabled', false);
                 document.getElementById('dept_button_color').setAttribute('disabled', false);
                 document.getElementById('dept_font_size').setAttribute('disabled', false);
+                document.getElementById('non_discountable').setAttribute('disabled', false);
 
                 document.getElementById('modify_dept').setAttribute('disabled', (cond_name.length < 1));
                 document.getElementById('delete_dept').setAttribute('disabled', false);

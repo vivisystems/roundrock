@@ -98,6 +98,10 @@
                                             <checkbox id="routing" flex="1" value="true" label="&plugroups.routing;"
                                                       form="plugroupForm" name="routing" default="false"/>
                                         </row>
+                                        <row>
+                                            <checkbox id="non_discountable" value="false" label="&plugroups.non.discountable;"
+                                                      form="plugroupForm" name="non_discountable" default="false"/>
+                                        </row>
                                     </rows>
                                 </grid>
                                 

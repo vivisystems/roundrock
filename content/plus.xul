@@ -439,22 +439,31 @@
                         <tabpanel flex="1" >
                             <vbox flex="1">
                                 <vbox id="productsAppearanceImageBox">
-                                <checkbox id="icon_only" value="false" label="&plus.display.icon.only;"
-                                                      form="productForm" name="icon_only" default="false"/>
-                                <hbox pack="center" align="center" class="content-buttonpanel">
-                                    <spacer flex="1"/>
-                                    <hbox class="custom-content-product-image-area">
-                                        <image id="pluimage" class="custom-content-product-image"/>
+                                    <hbox align="center" class="content-formbox">
+                                        <label value="&plus.display.label;"/>
+                                        <menulist id="display_mode" value="0" flex="1"
+                                                  form="productForm" name="display_mode" default="0">
+                                            <menupopup>
+                                                <menuitem label="&plus.display.textandicon;" value="0"/>
+                                                <menuitem label="&plus.display.icononly;" value="1"/>
+                                                <menuitem label="&plus.display.textonly;" value="2"/>
+                                            </menupopup>
+                                        </menulist>
                                     </hbox>
-                                    <spacer flex="1"/>
-                                    <vbox>
-                                        <button id="imageBrowseBtn" class="button-execute" label="&plus.button.action.add.icon;"
-                                                image="chrome://viviecr/skin/images/add.png"/>
-                                        <button id="imageRemoveBtn" class="button-execute" label="&plus.button.action.remove.icon;"
-                                                image="chrome://viviecr/skin/images/cancel.png"/>
-                                    </vbox>
-                                    <spacer flex="1"/>
-                                </hbox>
+                                    <hbox pack="center" align="center" class="content-buttonpanel">
+                                        <spacer flex="1"/>
+                                        <hbox class="custom-content-product-image-area">
+                                            <image id="pluimage" class="custom-content-product-image"/>
+                                        </hbox>
+                                        <spacer flex="1"/>
+                                        <vbox>
+                                            <button id="imageBrowseBtn" class="button-execute" label="&plus.button.action.add.icon;"
+                                                    image="chrome://viviecr/skin/images/add.png"/>
+                                            <button id="imageRemoveBtn" class="button-execute" label="&plus.button.action.remove.icon;"
+                                                    image="chrome://viviecr/skin/images/cancel.png"/>
+                                        </vbox>
+                                        <spacer flex="1"/>
+                                    </hbox>
                                 </vbox>
                                 <hbox class="custom-container-button-color-fontsize-picker">
                                     

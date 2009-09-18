@@ -33,8 +33,8 @@
 
             if (products == null) {
 
-                products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,display_order,icon_only,button_color,font_size,sale_unit,append_empty_btns,link_group,cond_group,0 as 'imageCounter' FROM products ORDER BY cate_no, display_order, name, no ");
-                //products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,icon_only,button_color,font_size,append_empty_btns FROM products ORDER BY cate_no, display_order, name, no ");
+                products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,display_order,display_mode,button_color,font_size,sale_unit,append_empty_btns,link_group,cond_group,0 as 'imageCounter' FROM products ORDER BY cate_no, display_order, name, no ");
+                //products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,display_mode,button_color,font_size,append_empty_btns FROM products ORDER BY cate_no, display_order, name, no ");
 
             }
             //dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
@@ -712,6 +712,37 @@
             }
 
             return product;
+        },
+
+        isNonDiscountable: function(id, useDb) {
+            //if category or product group is non-discountable, product is non-discountable
+            //else check product's eligibility thereafter
+            var result = false;
+            useDb = useDb || false;
+            var product = this.getProductById(id, useDb);
+            
+            if (product.link_group && product.link_group.length > 0) {
+                var plugroupModel = new PlugroupModel();
+                var groups = product.link_group.split(',');
+
+                groups.forEach(function(groupId) {
+                    var group = plugroupModel.find('first', 'id="' + groupId + '"');
+                    if(group.non_discountable)
+                        result = true;
+                });
+            }
+
+            var categoryModel = new CategoryModel();
+            var category = categoryModel.find('first', 'no="' + product.cate_no + '"');
+            if(category.non_discountable)
+                result = true;
+
+            if(result == false) {
+                if(product.non_discountable)
+                    result = true;
+            }
+
+            return result;
         }
 
     };

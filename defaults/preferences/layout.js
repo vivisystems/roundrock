@@ -8,7 +8,6 @@ pref("vivipos.fec.registry.layouts.traditional.resolutions", "800x600,1024x768")
 pref("vivipos.fec.registry.layouts.traditional.disabled_features", "");
 pref("vivipos.fec.registry.layouts.traditional.skin", "traditional-${width}x${height}/1.0");
 
-
 pref("vivipos.fec.registry.layouts.jcm.label", "jcm");
 pref("vivipos.fec.registry.layouts.jcm.desc", "jcm");
 pref("vivipos.fec.registry.layouts.jcm.overlay_uri", "chrome://viviecr/content/layouts/jcm/jcm.xul");
@@ -16,7 +15,6 @@ pref("vivipos.fec.registry.layouts.jcm.icon", "chrome://viviecr/content/layouts/
 pref("vivipos.fec.registry.layouts.jcm.resolutions", "800x600,1024x768");
 pref("vivipos.fec.registry.layouts.jcm.disabled_features", "");
 pref("vivipos.fec.registry.layouts.jcm.skin", "jcm-${width}x${height}/1.0");
-
 
 pref("vivipos.fec.registry.layouts.simple_retail.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.simple_retail.desc", "chrome://viviecr/locale/messages.properties");

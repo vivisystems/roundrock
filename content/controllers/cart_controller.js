@@ -1539,6 +1539,35 @@
             this._addDiscount(discountAmount, '%', discountName, pretax);
         },
 
+        addMassDiscountByPercentage: function(args, pretax) {
+            var discountAmount;
+            var discountName;
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) discountAmount = argList[0];
+                if (argList.length > 1) discountName = argList[1];
+            }
+
+            if (pretax == null) pretax = false;
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this._cancelReturn();
+
+            if ((discountAmount == null || discountAmount == '') && buf.length>0) {
+                discountAmount = buf;
+            }
+
+            if (discountName == null || discountName == '') {
+                discountName = '-' + discountAmount + '%';
+            }
+
+            this._addMassDiscount(discountAmount, '%', discountName, pretax);
+        },
+
 
         addPretaxDiscountByPercentage: function(args) {
             this.addDiscountByPercentage(args, true);
@@ -1673,6 +1702,100 @@
             this.dispatchEvent('beforeAddDiscount', discountItem);
 
             var discountedItem = curTransaction.appendDiscount(index, discountItem);
+
+            this.dispatchEvent('afterAddDiscount', discountedItem);
+
+            this._clearAndSubtotal();
+        },
+
+        _addMassDiscount: function(discountAmount, discountType, discountName) {
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+            if( !this.ifHavingOpenedOrder() ) {
+                NotifyUtils.warn(_('Not an open order; cannot add discount'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            // check if transaction is closed
+            if (curTransaction.isClosed()) {
+                NotifyUtils.warn(_('This order is being finalized and discount may not be registered'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            if(index <0) {
+                NotifyUtils.warn(_('Please select an item'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Discount may not be registered against stored items'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            discountAmount = discountAmount || false;
+            discountName = discountName || '';
+            var discountTax = 0;
+
+            var itemTrans = curTransaction.getItemAt(index);
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+
+            if (itemDisplay.type != 'subtotal') {
+                NotifyUtils.warn(_('Mass discount can only be registered against subtotals'));
+
+                this._clearAndSubtotal();
+                return;
+            } else {
+                var cartLength = curTransaction.data.display_sequences.length;
+                if (itemDisplay.hasSurcharge) {
+                    NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else if (itemDisplay.hasDiscount) {
+                    NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else if (index < cartLength - 1) {
+                    NotifyUtils.warn(_('Cannot apply discount to [%S]. It is not the last registered item', [itemDisplay.name]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+            }
+
+            // check percentage or fixed number
+            if(discountType == '%') {
+                // percentage
+                discountAmount = parseFloat(discountAmount) / 100;
+            }else {
+                // fixed number
+                discountAmount = parseFloat(discountAmount);
+
+            }
+
+            var discountItem = {
+                type: discountType,
+                name: discountName,
+                amount: discountAmount,
+                tax_amount: discountTax
+            };
+            this.dispatchEvent('beforeAddDiscount', discountItem);
+
+            var discountedItem = curTransaction.appendMassDiscount(index, discountItem);
 
             this.dispatchEvent('afterAddDiscount', discountedItem);
 
