@@ -1,65 +1,20 @@
 <?php
 
-App::import('Core', array('HttpSocket','CakeLog'));
-
 class OrdersController extends AppController {
 
     var $name = 'Orders';
 
-    var $uses = array('Order','OrderItem','OrderAddition','OrderPayment','OrderAnnotation','OrderItemCondiment','OrderPromotion','OrderObject');
+    var $uses = array('Order','OrderItem','OrderAddition','OrderPayment',
+    'OrderAnnotation','OrderItemCondiment','OrderPromotion','OrderObject',
+    'TableOrderLock');
 
     var $components = array('SyncHandler', 'Security');
 
-    var $syncSettings = array();
-
-    function beforeFilter() {
-
-        $this->syncSettings =& Configure::read('sync_settings');
-
-        $sync_settings =& $this->syncSettings;
-
-        $password = "rachir";
-        if ($sync_settings != null) {
-            $password = $sync_settings['password'];
-        }
-
-        $this->Security->loginOptions = array(
-            'type'=>'basic',
-            'realm'=>'VIVIPOS_API Realm'
-            // 'prompt'=> false
-        );
-        $this->Security->loginUsers = array(
-            'vivipos'=> $password
-        );
-
-        $this->Security->requireLogin();
-
-    }
 
     /**
-     * machine authorization with http basic authorization.
+     * Save Orders from vivipos client
      *
-     * @param string $client_machine_id
-     */
-    function auth($client_machine_id="") {
-
-        $sync_settings =& $this->syncSettings;
-
-        // return server's machine_id
-        if ($sync_settings != null) {
-            echo trim($sync_settings['machine_id']);
-
-        }else {
-            echo "";
-        }
-        exit;
-    }
-
-    /**
-     * Save Orders from vivipos client 
-     * 
      * USE Backup formats
-     * 
      */
     function saveOrdersFromBackupFormat() {
 
@@ -69,7 +24,6 @@ class OrdersController extends AppController {
             // for debug
             file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']);
             $request_data = $_REQUEST['request_data'];
-
         }else {
             $request_data = "{}";
             // for debug
@@ -78,43 +32,59 @@ class OrdersController extends AppController {
 
         $datas = json_decode($request_data, true);
 
-        $orderModel = new Order();
-
         $result = true;
+        $machineId = $this->SyncHandler->getRequestClientMachineId();
 
         try {
-            
-            $orderModel->saveOrdersFromBackupFormat($datas);
+
+            $this->Order->saveOrdersFromBackupFormat($datas);
+
+            // store or save , release order lock by machine id
+            $this->TableOrderLock->releaseOrderLocksByMachineId($machineId);
 
         }catch (Exception $e) {
-
             $result = false;
         }
-
 
         $result = array('status' => 'ok', 'code' => 200 ,
             'response_data' => $result
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
         echo $responseResult;
-
         exit;
     }
 
 
+    /**
+     * readOrderToBackupFormat
+     *
+     * called from vivipos client recallOrder and lock
+     *
+     * @param <type> $orderId
+     */
     function readOrderToBackupFormat($orderId) {
 
-        $orderModel = new Order();
         $result = null;
+        $machineId = $this->SyncHandler->getRequestClientMachineId();
 
         try {
 
-            $result = $orderModel->readOrderToBackupFormat($orderId);
+            $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
+
+            if (!$locked) {
+                $result = $this->Order->readOrderToBackupFormat($orderId);
+
+                // lock order by recalled machineｓ
+                if(!empty($result)) {
+                    $this->TableOrderLock->setOrderLock($orderId, $machineId);
+                }
+
+            }else {
+                $result = $this->TableOrderLock->getOrderLock($orderId);
+            }
 
         }catch (Exception $e) {
-
             $result = null;
         }
 
@@ -123,19 +93,43 @@ class OrdersController extends AppController {
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
         echo $responseResult;
-
         exit;
-
     }
+
+
+    /**
+     * releaseOrderLock
+     * 
+     * @param <type> $orderId 
+     */
+    function releaseOrderLock($orderId) {
+
+        try {
+
+            $result = true;
+            $this->TableOrderLock->releaseOrderLock($orderId);
+
+        }catch (Exception $e) {
+            $result = null;
+        }
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $result
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+        echo $responseResult;
+        exit;
+    }
+
 
 
     function getOrderId() {
 
         $result = null;
 
-       if(!empty($_REQUEST['request_data'])) {
+        if(!empty($_REQUEST['request_data'])) {
             $conditions = $_REQUEST['request_data'];
             $orderModel = new Order();
             $condition = array('conditions' => $conditions, 'recursive' =>-1 , 'fields' => 'id' );
@@ -157,13 +151,17 @@ class OrdersController extends AppController {
 
     }
 
+    
+    /**
+     * getOrdersSummary
+     */
     function getOrdersSummary() {
 
         $result = null;
 
-       if(!empty($_REQUEST['request_data'])) {
+        if(!empty($_REQUEST['request_data'])) {
             $conditions = $_REQUEST['request_data'];
-//            $conditions = "orders.check_no='999' AND orders.status=2";
+            //            $conditions = "orders.check_no='999' AND orders.status=2";
             $conditions = str_replace("orders.", "Order.", $conditions);
             $orderModel = new Order();
             // $orderModel->unbindHasManyModels();
@@ -172,7 +170,7 @@ class OrdersController extends AppController {
             if($orders) {
                 $result = $orders;
             }
-       }
+        }
 
         $result = array('status' => 'ok', 'code' => 200 ,
             'response_data' => $result
@@ -187,165 +185,59 @@ class OrdersController extends AppController {
     }
 
 
-    function getCheckList($conditions) {
+    /**
+     * voidOrder
+     * 
+     * @param <type> $orderId 
+     */
+    function voidOrder($orderId) {
 
-        $orders = $this->Order->getCheckList($conditions);
+        $result = null;
+        $machineId = $this->SyncHandler->getRequestClientMachineId();
 
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $this->SyncHandler->prepareResponse($orders, 'bgz_json')// $orders
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-        // file_put_contents("/tmp/getCheckList", $responseResult);
-        echo $responseResult;
-
-        exit;
-
-
-    }
-
-    function unserializeOrder($order_id, $machine_id) {
-
-        $lockFile = "/tmp/$order_id";
-
-        $r = $this->beginTransactionByOrder($order_id, $machine_id);
-
-        if ($r) {
-
-            $order = $this->Order->unserializeOrder($order_id);
-
-            $result = array('status' => 'ok', 'code' => 200 ,
-                'value' => $order
-            );
+        if(!empty($_REQUEST['request_data'])) {
+            // for debug
+            file_put_contents("/tmp/voidOrder.req", $_REQUEST['request_data']);
+            $request_data = $_REQUEST['request_data'];
         }else {
-
-            $lockedByMachineId = file_get_contents($lockFile);
-            $result = array('status' => 'ok', 'code' => 200 ,
-                'value' => array('LockedByMachineId'=>$lockedByMachineId)
-            );
+            $request_data = "{}";
+            // for debug
+            $request_data = file_get_contents("/tmp/voidOrder.req");
         }
 
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-        // file_put_contents("/tmp/serializeOrder", $responseResult);
-        echo $responseResult;
+        $data = json_decode($request_data, true);
 
-        exit;
+        try {
 
-    }
+            $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
 
-    function beginTransactionByOrder($order_id, $machine_id) {
+            if (!$locked) {
 
-        $lockFile = "/tmp/$order_id";
-        if (!file_exists($lockFile)) {
-            file_put_contents($lockFile, $machine_id);
-            return true;
-        }
+                $result = $this->Order->voidOrder($orderId, $data);
 
-        $lockedByMachineId = file_get_contents($lockFile);
+                // lock order by recalled machineｓ
+                if(!empty($result)) {
+                    $this->TableOrderLock->setOrderLock($orderId, $machineId);
+                }
 
-        if ($machine_id != $lockedByMachineId) return false;
+            }else {
+                $result = false ;
+            }
 
-        return true;
-
-    }
-
-    function commitTransactionByOrder($order_id) {
-
-        $lockFile = "/tmp/$order_id";
-
-        if (!file_exists($lockFile)) return true;
-
-        unlink($lockFile);
-
-    }
-
-    function savePayment($data) {
-        $orderObject = array();
-
-        if($_REQUEST['request_data']) {
-            $paymentObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
-
-        // file_put_contents("/tmp/savePayment", serialize($paymentObject));
-        }
-
-        if ($paymentObject) {
-            $setResult = $this->OrderPayment->savePayment($paymentObject);
-        }else {
-            $setResult = false;
+        }catch (Exception $e) {
+            $result = false;
         }
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'response_data' => $setResult,
-            'value' => $setResult
+            'response_data' => $result
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
         echo $responseResult;
-
-
-
         exit;
+
     }
 
-    function saveLedgerPayment($data) {
-        $orderObject = array();
-
-        if($_REQUEST['request_data']) {
-            $paymentObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
-
-        // file_put_contents("/tmp/saveLedgerPayment", serialize($paymentObject));
-        }
-
-        if ($paymentObject) {
-            $setResult = $this->OrderPayment->saveLedgerPayment($paymentObject);
-        }else {
-            $setResult = false;
-        }
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'response_data' => $setResult,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-
-
-        exit;
-    }
-
-    function updateOrderMaster($data) {
-
-        $orderObject = array();
-
-        if($_REQUEST['request_data']) {
-            $orderObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
-
-        // file_put_contents("/tmp/updateOrderMaster", serialize($orderObject));
-        }
-
-        if ($orderObject) {
-            $setResult = $this->Order->updateOrderMaster($orderObject);
-        }else {
-            $setResult = false;
-        }
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'response_data' => $setResult,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-
-
-        exit;
-    }
 
 }
 ?>

@@ -1,7 +1,5 @@
 <?php
 
-App::import('Core', array('HttpSocket','CakeLog'));
-
 class SyncsController extends AppController {
 
     var $name = 'Syncs';
@@ -10,74 +8,6 @@ class SyncsController extends AppController {
 	
     var $components = array('SyncHandler', 'Security');
 
-    var $syncSettings = array();
-
-    function beforeFilter() {
-
-        if ($this->action == 'truncate') return true;
-        
-        $this->syncSettings =& Configure::read('sync_settings');
-
-        $sync_settings =& $this->syncSettings;
-
-        $password = "rachir";
-        if ($sync_settings != null) {
-            $password = $sync_settings['password'];
-        }
-
-        $this->Security->loginOptions = array(
-			'type'=>'basic',
-			'realm'=>'VIVIPOS_API Realm'
-            // 'prompt'=> false
-        );
-        $this->Security->loginUsers = array(
-			'vivipos'=> $password
-        );
-
-        $this->Security->requireLogin();
-
-    }
-
-    function db4log($message) {
-
-        $filename = Configure::read('sync_logfile');
-        
-        if (file_exists($filename)) {
-            $id = dba_open($filename, "wl", "db4");
-        }else {
-            $id = dba_open($filename, "cl", "db4");
-        }
-       
-        if (!$id) {
-                // echo "dba_open failed\n";
-                return ;
-        }
-
-        $key = time();
-        dba_replace($key, $message, $id);
-
-        dba_close($id);
-
-    }
-
-    /**
-     * machine authorization with http basic authorization.
-     *
-     * @param string $client_machine_id
-     */
-    function auth($client_machine_id="") {
-
-        $sync_settings =& $this->syncSettings;
-        
-        // return server's machine_id
-        if ($sync_settings != null) {
-            echo trim($sync_settings['machine_id']);
-
-        }else {
-            echo "";
-        }
-        exit;
-    }
 
     /**
      * get all new datas and generate sql to client
@@ -100,8 +30,6 @@ class SyncsController extends AppController {
                    'data' => $datas
 
             );
-
-            //$this->db4log($client_machine_id . " pull success");
 
         }catch (Exception $e) {
 
@@ -140,8 +68,6 @@ class SyncsController extends AppController {
                    'success' => true,
                    'data' => $requests
             );
-
-            //$this->db4log($client_machine_id . " pull_commit success");
 
         }catch (Exception $e) {
 
@@ -186,8 +112,6 @@ class SyncsController extends AppController {
                    'success' => true,
                    'data' => $saveResult
             );
-
-            //$this->db4log($client_machine_id . " push success");
 
         }catch(Exception $e) {
 
