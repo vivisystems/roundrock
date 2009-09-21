@@ -1524,6 +1524,77 @@
             return resultItem;
         },
 
+        appendMassDiscount: function(discount) {
+            var lastItemDispIndex;
+            var discount_amount;
+            var resultItem = [];
+
+            var prevRowCount = this.data.display_sequences.length;
+
+            var transItems = this.data.items;
+            var self = this;
+
+            for(var index in transItems) {
+                if (index != null) {
+                    var item = transItems[index];
+                    if(item.type == 'item') {
+                        
+                        discount_amount = item.current_subtotal * discount.amount;
+
+                        // rounding discount
+                        item.current_discount = self.getRoundedPrice(item.current_discount);
+
+                        // check if discount amount exceeds user item discount limit
+                        var user = GeckoJS.Session.get('user');
+                        var item_discount_limit = parseInt(user.item_discount_limit);
+                        if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
+                            var item_discount_limit_amount = self._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
+                            if (discount_amount > item_discount_limit_amount) {
+                                NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
+                                    [discount_amount, item_discount_limit_amount]));
+                                return;
+                            }
+                        }
+
+                        if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
+                            // discount too much
+                            NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
+                                [self.formatPrice(self.getRoundedPrice(discount_amount)),
+                                item.current_subtotal]));
+                            return;
+                        }
+                        item.current_discount = 0 - discount_amount;
+                        item.discount_name =  discount.name;
+                        item.discount_rate =  discount.amount;
+                        item.discount_type =  '%';
+                        item.hasDiscount = true;
+
+                        // create data object to push in items array
+                        var itemDisplay = self.createDisplaySeq(item.index, item, 'discount');
+
+                        // find the display index of the last entry associated with the item
+                        lastItemDispIndex = self.getLastDisplaySeqByIndex(item.index)
+
+                        self.data.display_sequences.splice(++lastItemDispIndex,0,itemDisplay);
+
+                        self.calcPromotions();
+
+                        self.calcItemsTax(item);
+
+                        resultItem.push(item);
+                    }
+                }
+            }
+
+            var currentRowCount = this.data.display_sequences.length;
+
+            this.calcTotal();
+
+            this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
+
+            return resultItem;
+        },
+
         appendSurcharge: function(index, surcharge){
 
             var item = this.getItemAt(index);
@@ -2515,7 +2586,7 @@
 
             //var profileStart = (new Date()).getTime();
 
-            this.log('DEBUG', "onCalcTotal " + this.dump(this.data));
+            //this.log('DEBUG', "onCalcTotal " + this.dump(this.data));
             Transaction.events.dispatch('onCalcTotal', this.data, this);
 
             var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0, qty_subtotal=0;
@@ -2613,7 +2684,7 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
 
         },
 

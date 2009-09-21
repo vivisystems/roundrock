@@ -93,6 +93,16 @@ pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.comm
 pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.data", "");
 
+pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.access", "acl_register_mass_discount");
+pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.command", "addMassDiscountByPercentage");
+pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.data", "");
+
+pref("vivipos.fec.registry.function.programmable.massSurchargeByPercentage.access", "acl_register_mass_surcharge");
+pref("vivipos.fec.registry.function.programmable.massSurchargeByPercentage.command", "addMassSurchargeByPercentage");
+pref("vivipos.fec.registry.function.programmable.massSurchargeByPercentage.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.massSurchargeByPercentage.data", "");
+
 pref("vivipos.fec.registry.function.programmable.dispatch.access", "acl_internal_access");
 pref("vivipos.fec.registry.function.programmable.dispatch.command", "dispatch");
 pref("vivipos.fec.registry.function.programmable.dispatch.controller", "Main");

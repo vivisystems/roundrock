@@ -1533,6 +1533,32 @@
             this.addDiscountByPercentage(args, true);
         },
 
+        addMassDiscountByPercentage: function(args) {
+            var discountAmount;
+            var discountName;
+
+            if(args !=null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) discountAmount = argList[0];
+                if (argList.length > 0) discountName = argList[1];
+            }
+
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this._cancelReturn();
+
+            if ((discountAmount == null || discountAmount == '') && buf.length>0) {
+                discountAmount = buf;
+            }
+
+            if (discountName == null || discountName == '') {
+                discountName = '-' + discountAmount + '%';
+            }
+
+            this._addMassDiscount(discountAmount, discountName);
+        },
+
 
         _addDiscount: function(discountAmount, discountType, discountName, pretax) {
 
@@ -1668,6 +1694,61 @@
             this._clearAndSubtotal();
         },
 
+        _addMassDiscount: function(discountAmount, discountName) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+            if( !this.ifHavingOpenedOrder() ) {
+                NotifyUtils.warn(_('Not an open order; cannot add discount'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            // check if transaction is closed
+            if (curTransaction.isClosed()) {
+                NotifyUtils.warn(_('This order is being finalized and discount may not be registered'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Discount may not be registered against stored items'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            discountAmount = discountAmount || false;
+            discountName = discountName || '';
+
+            if (discountAmount == null || isNaN(discountAmount) || !discountAmount) {
+                NotifyUtils.warn(_('Please enter the discount percentage'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            // check percentage or fixed number
+            discountAmount = parseFloat(discountAmount) / 100;
+
+            var discountItem = {
+                name: discountName,
+                amount: discountAmount
+            };
+            this.dispatchEvent('beforeAddDiscount', discountItem);
+
+            var discountedItem = curTransaction.appendMassDiscount(discountItem);
+
+            this.dispatchEvent('afterAddDiscount', discountedItem);
+
+            this._clearAndSubtotal();
+        },
+
         addSurchargeByNumber: function(args) {
             // args is a list of up to 2 comma separated arguments: amount, label
             var surchargeAmount;
@@ -1725,6 +1806,33 @@
 
         addPretaxSurchargeByPercentage: function(args) {
             this.addSurchargeByPercentage(args, true);
+        },
+
+        addMassSurchargeByPercentage: function(args) {
+            var surchargeAmount;
+            var surchargeName;
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) surchargeAmount = argList[0];
+                if (argList.length > 1) surchargeName = argList[1];
+            }
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this._cancelReturn();
+
+            if ((surchargeAmount == null || surchargeAmount == '') && buf.length>0) {
+                surchargeAmount = buf;
+            }
+
+            if (surchargeName == null || surchargeName == '') {
+                surchargeName = '+' + surchargeAmount + '%';
+            }
+
+            this._addMassSurcharge(surchargeAmount, surchargeName);
         },
 
 
@@ -1857,6 +1965,9 @@
             this._clearAndSubtotal();
         },
 
+        _addMassSurcharge: function() {
+
+        },
 
         addMarker: function(type) {
             type = type || _('subtotal');
