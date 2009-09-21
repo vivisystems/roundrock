@@ -53,7 +53,7 @@
                 }
 
                 if (shift) {
-                    this.log('DEBUG', 'saving shift into session: ' + this.dump(shift));
+                    //this.log('DEBUG', 'saving shift into session: ' + this.dump(shift));
                     GeckoJS.Session.set('current_shift', shift);
                 }
             }
