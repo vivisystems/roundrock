@@ -1,17 +1,6 @@
 (function(){
 
-    // include models
-    include('chrome://viviecr/content/models/table.js');
-    include('chrome://viviecr/content/models/table_region.js');
-    include('chrome://viviecr/content/models/table_booking.js');
-    include('chrome://viviecr/content/models/table_status.js');
-    include('chrome://viviecr/content/models/table_order.js');
-    // include('chrome://viviecr/content/models/table_map.js');
-
-    // include controllers  and register itself
-
-    include('chrome://viviecr/content/controllers/table_man_controller.js');
-    include('chrome://viviecr/content/controllers/table_book_controller.js');
+    //include('chrome://viviecr/content/controllers/table_book_controller.js');
 
     /**
      * Controller Startup
@@ -19,14 +8,12 @@
     function startup() {
 
         $do('load', null, 'TableMan');
-        $do('load', null, 'TableBook');
 
         $('#imageBrowseBtn')[0].addEventListener('command', selectImages, false);
         $('#imageRemoveBtn')[0].addEventListener('command', RemoveImage, false);
 
-        //document.getElementById('tablesMap').initSlides();
 
-    };
+    }
 
 
 /**
@@ -103,5 +90,3 @@ function RemoveImage() {
     window.addEventListener('load', startup, false);
 
 })();
-
-

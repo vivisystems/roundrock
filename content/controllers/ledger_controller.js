@@ -159,7 +159,8 @@
 
             // save ledger entry
             var model = new LedgerRecordModel();
-            var r = model.saveLedgerEntry(inputObj);
+            model.create();
+            var r = model.save(inputObj);
             if (!r) {
                 // failed to save record to db/backup
                 this._dbError(model.lastError, model.lastErrorString,
@@ -170,7 +171,8 @@
             
             var paymentRecord = this._createPaymentEntry(r);
             model = new OrderPaymentModel();
-            r = model.saveLedgerPayment(paymentRecord);
+            model.create();
+            r = model.save(paymentRecord);
 
             if (!r) {
                 // failed to save record to db/backup

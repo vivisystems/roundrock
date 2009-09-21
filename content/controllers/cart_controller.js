@@ -3268,12 +3268,12 @@
         },
 
         cash: function(argString) {
-	    var argArray = String(argString).split(',');
-	    var isGroupable = false;
+            var argArray = String(argString).split(',');
+            var isGroupable = false;
             var amount = parseInt( argArray[0], 10 );
 
-	    if (argArray.length == 2)
-		isGroupable = argArray[1];
+            if (argArray.length == 2)
+                isGroupable = argArray[1];
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer(true);
@@ -3626,7 +3626,9 @@
         },
 
         /**
-         * XXX Need rewrite
+         * voidSale
+         *
+         * @todo Need rewrite
          */
         voidSale: function(id) {
             
@@ -3636,24 +3638,24 @@
 
             // load data
             var orderModel = new OrderModel();
-            // var order = orderModel.findById(id, 2);
-            var orders = orderModel.getCheckList("OrderId", id);
 
-            if (parseInt(orderModel.lastError) != 0) {
-                this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                    _('An error was encountered while retrieving order payment records (error code %S).', [orderModel.lastError]));
-                return false;
-            }
+            let orderData = this.Order.readOrder(orderId, true); // recall use master service's datas.
 
-            if (!orders || orders.length == 0) {
+            if (!orderData) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
                     _('Failed to void: the selected order no longer exists'));
                 return false;
             }
 
-            var order = orders[0];
-            if (order.status < 1) {
+            if (orderData.TableOrderLock) {
+                GREUtils.Dialog.alert(this.topmostWindow,
+                    _('Void Sale'),
+                    _('This order is already locked by other terminal. [%S,%S]',  [orderData.TableOrderLock.machine_id, orderData.TableOrderLock.machine_addr]));
+                return false;
+            }
+
+            if (orderData.Order.status < 1) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
                     _('Failed to void: the selected order is not stored or finalized'));
@@ -3667,17 +3669,17 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
             var inputObj = {
-                payments: order.OrderPayment,
-                paidTotal: order.payment_subtotal - order.change,
-                sequence: order.sequence,
-                roundingPrices: order.rounding_prices,
-                precisionPrices: order.precision_prices
+                payments: orderData.OrderPayment,
+                paidTotal: orderData.Order.payment_subtotal - orderData.Order.change,
+                sequence: orderData.Order.sequence,
+                roundingPrices: orderData.Order.rounding_prices,
+                precisionPrices: orderData.Order.precision_prices
             };
             
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Payment Refund'), features, inputObj);
 
             if (inputObj.ok) {
-                if (this.dispatchEvent('beforeVoidSale', order)) {
+                if (this.dispatchEvent('beforeVoidSale', orderData)) {
 
                     var user = new GeckoJS.AclComponent().getUserPrincipal();
 
@@ -3687,13 +3689,16 @@
 
                     var terminalNo = GeckoJS.Session.get('terminal_no');
 
-                    var paymentModel = new OrderPaymentModel();
                     var refundTotal = 0;
 
                     var r = true;
 
                     try {
                         // insert refund payments
+                        var order = GREUtils.extend({}, orderData.Order);
+                        order['items'] = [];
+                        order['refundPayments'] = [];
+                        
                         for (var i = 0; r && i < inputObj.refunds.length; i++) {
                             var payment = inputObj.refunds[i];
                             
@@ -3701,7 +3706,7 @@
                             paymentModel.id = payment.id = '';
 
                             // reverse amount, origin_amount, change
-                            payment.order_id = order.id;
+                            payment.order_id = orderData.Order.id;
                             payment.amount = - payment.amount;
                             payment.origin_amount = payment.amount;
                             payment.change = 0;
@@ -3720,15 +3725,7 @@
                             payment.terminal_no = terminalNo;
 
                             // save payment record
-                            r = paymentModel.savePayment(payment);
-                            
-                            if (!r) {
-                                throw {
-                                    errno: paymentModel.lastError,
-                                    errstr: paymentModel.lastErrorString,
-                                    errmsg: _('An error was encountered while saving refund payment (error code %S)', [paymentModel.lastError])
-                                };
-                            }
+                            order['refundPayments'].push(payment);
 
                             refundTotal += payment.amount;
                         }
@@ -3747,30 +3744,23 @@
                         order.void_sale_period = salePeriod;
                         order.void_shift_number = shiftNumber;
 
-                        orderModel.id = order.id;
-                        r = orderModel.updateOrderMaster(order);
-                        if (!r) {
-                            throw {
-                                errno: orderModel.lastError,
-                                errstr: orderModel.lastErrorString,
-                                errmsg: _('An error was encountered while updating order status (error code %S)', [orderModel.lastError])
-                            };
-                        }
-
-                        for (var o in order.OrderItem) {
+                        for (var o in orderData.OrderItem) {
 
                             // look up corresponding product and set the product id into the item; also reverse quantity
-                            var item = order.OrderItem[o];
+                            var item = orderData.OrderItem[o];
                             var productId = barcodesIndexes[item.product_no];
 
                             item.current_qty = - item.current_qty;
                             item.id = productId;
+
+                            order.items.push(item);
+
                         }
-                        order.items = order.OrderItem;
+
+                        // call remote service to void Order
+                        orderModel.voidOrder(id, order, true); // force remote service
 
                         // restore stock
-                        //var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
-                        //alert('before updating stock level');
                         r = this.decStock(order);
                         if (!r) {
                             throw {

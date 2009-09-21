@@ -19,8 +19,9 @@
 
         syncSettings: false,
 
-        username: false,
-        password: false,
+        machineId: '',
+        username: '',
+        password: '',
 
         protocol: 'http',
         port: 80,      
@@ -51,6 +52,7 @@
                 this.syncSettings = syncSettings ;
 
                 // this.setUsername(syncSettings.username); always vivipos
+                this.setMachineId(syncSettings.machine_id);
                 this.setPassword(syncSettings.password);
                 this.setProtocol(syncSettings.protocol);
                 this.setHostname(syncSettings.hostname);
@@ -61,12 +63,20 @@
 
         },
 
+        getMachineId: function() {
+            return (this.machineId || 'vivipos');
+        },
+
+        setMachineId: function(machineId) {
+            this.machineId = machineId || '';
+        },
+
         getUsername: function() {
             return (this.username || 'vivipos');
         },
 
         setUsername: function(username) {
-            this.username = username || false;
+            this.username = username || 'vivipos';
         },
 
         getPassword: function() {
@@ -74,7 +84,7 @@
         },
 
         setPassword: function(password) {
-            this.password = password || false;
+            this.password = password || '';
         },
 
         getProtocol: function() {
@@ -158,8 +168,10 @@
 
             var username = this.getUsername() ;
             var password = this.getPassword() ;
+            var machineId = this.getMachineId();
 
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
+            req.setRequestHeader('X-Vivipos-Machine-Id', machineId);
         },
 
         getRemoteServiceUrl: function(action) {
@@ -250,7 +262,7 @@
 
             // set readystatechange handler
             req.onreadystatechange = function (aEvt) {
-//                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 self.lastReadyState = req.readyState;
                 self.lastStatus = req.status;
 

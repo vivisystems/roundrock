@@ -6,13 +6,14 @@
 
         components: ['CartUtils'],
         
-        uses: ['Table', 'TableSetting'],
+        uses: ['Order', 'TableSetting', 'TableRegion', 'TableMark', 'Table', 'TableStatus'],
 
         _cartController: null,
 
+        tableSettings: null,
 
         initial: function() {
-            dump('GuestCheck initial \n');
+
             // add cart events
             var cart = this.getCartController();
             if(cart) {
@@ -26,6 +27,9 @@
                 // check minimum charge and table no and guests before addPayment...
                 cart.addEventListener('beforeAddPayment', this.onCartBeforeAddPayment, this);
 
+                // check afterCancel for release lock
+                cart.addEventListener('afterCancel', this.onCartAfterCancel, this);
+
             }
 
             var main = this.getMainController();
@@ -34,7 +38,8 @@
                 main.addEventListener('afterTruncateTxnRecords', this.onMainTruncateTxnRecords, this);
             }
 
-            let tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
+            this.tableSettings = this.TableSetting.getTableSettings();
+            
         },
 
 
@@ -72,6 +77,7 @@
             return GeckoJS.Controller.getInstanceByName('Keypad');
         },
 
+
         /**
          * Get PrintController
          *
@@ -80,7 +86,6 @@
         getPrintController: function() {
             return GeckoJS.Controller.getInstanceByName('Print');
         },
-
 
 
         /**
@@ -99,6 +104,7 @@
 
         },
 
+
         /**
          * openGuestNumDialog
          *
@@ -107,6 +113,7 @@
          */
         openGuestNumDialog: function (no){
 
+            no = no || '';
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
             var inputObj = {
@@ -123,6 +130,32 @@
 
             return no;
         },
+
+
+        /**
+         * open Check No Dialog
+         */
+        openCheckNoDialog: function (no){
+
+            no = no || '';
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
+            var inputObj = {
+                input0:no,
+                require0:true,
+                numpad:true
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Check Number'), aFeatures, _('Select Check Number'), '', _('Number'), '', inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                no = inputObj.input0;
+            }
+
+            return no;
+
+        },
+
 
         /**
          * open Table No Dialog
@@ -161,10 +194,10 @@
 
         },
 
+
         /**
          * popupTableSelectorPanel
          *
-         * @todo
          */
         popupTableSelectorPanel: function() {
 
@@ -184,6 +217,39 @@
             } catch (e) {}
 
             return '';
+
+        },
+
+
+        /**
+         * open Select Checks Dialog
+         *
+         */
+        openSelectChecksDialog: function (orders){
+
+                var tableSettings = this.TableSetting.getTableSettings();
+
+                var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+                var screenheight = GeckoJS.Session.get('screenheight') || '600';
+
+                var orderId = '';
+                var aURL = 'chrome://viviecr/content/select_checks.xul';
+                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+                var inputObj = {
+                    tableSettings: tableSettings,
+                    orders: orders,
+                    excludedOrderId: ""
+                };
+                
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_checks', aFeatures, inputObj);
+
+                if (inputObj.ok && inputObj.order_id) {
+                    orderId = inputObj.order_id;
+                }
+
+                delete inputObj;
+                
+                return orderId;
 
         },
 
@@ -240,7 +306,6 @@
 
             no = no || '';
             tableSelector = tableSelector || false;
-            tableSelector = true;
            
             var cart = this.getCartController();
             var curTransaction = cart._getTransaction(true); // autocreate
@@ -329,6 +394,7 @@
             return true;
         },
 
+
         /**
          * openSplitPaymentDialog
          *
@@ -370,6 +436,7 @@
 
             return this.splitPaymentByGuestNum(amount);
         },
+
 
         /**
          * splitPaymentByGustNum
@@ -465,7 +532,6 @@
 
                 cart.dispatchEvent('onWarning', _('STORED'));
 
-                // @todo OSD
                 NotifyUtils.warn(_('This order has been stored!!'));
 
                 cart._getCartlist().refresh();
@@ -491,28 +557,35 @@
                 orderId = this.getKeypadController().getBuffer() || '';
                 this.getKeypadController().clearBuffer();
             }
-            // orderId = '9a35400d-bfdd-46d6-85fe-8e462ee74388';
 
             if (orderId.length == 0 ) {
+                // use recallCheck mode and select dialog
+                return this.recallCheck("-1");
+            }
+
+            let orderData = this.Order.readOrder(orderId, true); // recall use master service's datas.
+            //this.log(this.dump(orderData));
+
+            if (!orderData) {
                 NotifyUtils.error(_('This order object does not exist [%S]', [orderId]));
                 return false;
             }
-            var o = new OrderModel();
 
-            let data = o.readOrder(orderId, true); // recall use master service's datas.
-
-            if (!data) {
-                NotifyUtils.error(_('This order object does not exist [%S]', [orderId]));
+            if (orderData.TableOrderLock) {
+                NotifyUtils.error(_('This order is already locked by other terminal. [%S,%S]', [orderData.TableOrderLock.machine_id, orderData.TableOrderLock.machine_addr]));
+                this.log(_('This order is already locked by other terminal. [%S,%S]', [orderData.TableOrderLock.machine_id, orderData.TableOrderLock.machine_addr]));
                 return false;
             }
-            if (data.status == 1) {
-                // @todo OSD
+
+            if (orderData.Order.status == 1) {
                 NotifyUtils.warn(_('This order is already finalized!'));
                 return false;
             }
 
+            // check okay, convert to transaction data
+            let data = this.Order.mappingOrderDataToTranData(orderData);
+           
             if (data.display_sequences == undefined) {
-                // @todo order_object been delete
                 NotifyUtils.error(_('This order object can not recall [%S]', [orderId]));
                 return false;
             }
@@ -534,7 +607,7 @@
             cart._clearAndSubtotal();
 
             // display to onscreen VFD
-            cart.dispatchEvent('onWarning', _('RECALL# %S', [orderId]));
+            cart.dispatchEvent('onWarning', _('RECALL# %S', [data.seq]));
 
             return true;
 
@@ -553,14 +626,19 @@
                 checkNo = this.getKeypadController().getBuffer() || '';
                 this.getKeypadController().clearBuffer();
             }
-            checkNo = '999';
-            if (checkNo.length == 0 ) {
-                NotifyUtils.error(_('This order object does not exist [%S]', [checkNo]));
-                return false;
+            
+            if (checkNo.length == 0) {
+                checkNo = this.openCheckNoDialog(checkNo);
             }
 
-            var o = new OrderModel();
-            var orders = o.getOrdersSummary("Order.check_no='"+checkNo+"' AND Order.status=2", true);
+            var conditions = "" ;
+            if (checkNo.length == 0 || checkNo == "-1") {
+                conditions = "orders.status=2";
+            }else {
+                conditions = "orders.check_no='"+checkNo+"' AND orders.status=2";
+            }
+
+            var orders = this.Order.getOrdersSummary(conditions, true);
 
             if (orders.length == 0) {
                 NotifyUtils.error(_('This order object does not exist [%S]', [checkNo]));
@@ -568,11 +646,18 @@
             }
 
             // select orders
+            var orderId = "";
             if (orders.length > 1) {
+                orderId = this.openSelectChecksDialog(orders);
             }else {
-                return this.recallOrder(orders[0].Order.id);
+                orderId = orders[0].Order.id ;
             }
 
+            if(orderId.length>0) {
+                return this.recallOrder(orderId);
+            }else {
+                return false;
+            }
         },
 
 
@@ -588,17 +673,22 @@
                 tableNo = this.getKeypadController().getBuffer() || '';
                 this.getKeypadController().clearBuffer();
             }
-            // tableNo = '999';
+
             if (tableNo.length == 0 ) {
-                NotifyUtils.error(_('This order object does not exist [%S]', [tableNo]));
-                return false;
+                tableNo = this.openTableNumDialog(false);
             }
 
-            var o = new OrderModel();
-            var orders = o.getOrdersSummary("table_no='"+tableNo+"' AND status=2", true);
+            var conditions = "" ;
+            if (tableNo.length == 0 ) {
+                conditions = "orders.status=2";
+            }else {
+                conditions = "orders.table_no='"+tableNo+"' AND orders.status=2";
+            }
+
+            var orders = this.Order.getOrdersSummary(conditions, true);
 
             if (orders.length == 0) {
-                NotifyUtils.error(_('This order object does not exist [%S]', [checkNo]));
+                NotifyUtils.error(_('This order object does not exist [%S]', [tableNo]));
                 return false;
             }
 
@@ -611,9 +701,208 @@
         },
 
 
+        /**
+         * onCartBeforeAddpayment
+         *
+         * Check the minimum charge and add PLU
+         *
+         * @todo if destination is outside don't check it.
+         *
+         * @param {Object) evt
+         */
+        onCartBeforeAddPayment: function(evt) {
+
+            // let destination = getXXXX;
+            var isCheckTableMinimumCharge = true;
+            var table_no = evt.data.transaction.data.table_no;
+            var guests = evt.data.transaction.data.no_of_customers;
+
+            if (isCheckTableMinimumCharge && this.tableSettings.RequestMinimumCharge && table_no) {
+                //
+                var minimum_charge_per_table = this.tableSettings.GlobalMinimumChargePerTable;
+                var minimum_charge_per_guest = this.tableSettings.GlobalMinimumChargePerGuest;
+
+                var total = evt.data.transaction.data.total;
+                switch (this.tableSettings.MinimumChargeFor)  {
+                    case "1":
+                        // original
+                        total = evt.data.transaction.data.item_subtotal;
+                        break;
+                    /*
+                    case "2":
+                        // before revalue
+                        total = total - evt.data.transaction.data.revalue_subtotal;
+                        break;
+
+                    case "3":
+                        // before promote
+                        total = total - evt.data.transaction.data.promotion_subtotal;
+                        break;
+                    */
+                    default:
+                        // final total
+                        // total = evt.data.transaction.data.total;
+                        break;
+
+                }
+
+                var table = this.Table.getTableByNo(table_no);
+
+                if (table) {
+                    // set minimum charge
+                    minimum_charge_per_table = table.minimum_charge_per_table || minimum_charge_per_table;
+                    minimum_charge_per_guest = table.minimum_charge_per_guest || minimum_charge_per_guest;
+                }
+
+                var minimum_charge = Math.max(minimum_charge_per_table, minimum_charge_per_guest * guests);
+
+                if (total < minimum_charge) {
+
+                    if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
+                        _('Order amount does not reach Minimum Charge'),
+                        _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\nClick OK to finalize this order by Minimum Charge, \nor, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
+
+                        NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
+                    } else {
+
+                        var product = GeckoJS.BaseObject.unserialize(this.tableSettings.MinimumChargePlu);
+
+                        if (product) {
+                            var cart = this.getCartController();
+                            cart.setPrice(minimum_charge - total);
+                            cart.addItem(product);
+
+                            NotifyUtils.warn(_('Add difference (%S) to finalize this order by Minimum Charge.', [minimum_charge - total]));
+                        } else {
+                            NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
+                        }
+
+                    }
+
+                    evt.preventDefault();
+
+                }
+            }
+        },
+
 
         /**
-         * XXX need rewrite
+         * onCartBeforeSubmit
+         *
+         * Check table_no or guestNum
+         *
+         * @todo if destination is outside , don't check it.
+         *
+         * @param {Object} evt
+         */
+        onCartBeforeSubmit: function(evt) {
+
+            // let destination = getXXXX;
+            var isCheckTableNo = true;
+            var isCheckGuestNum = true;
+
+            if (isCheckTableNo && this.tableSettings.RequireTableNo && !evt.data.txn.data.table_no) {
+                this.newTable('');
+            }
+
+            if (isCheckGuestNum && this.tableSettings.RequireGuestNum && !evt.data.txn.data.no_of_customers) {
+                this.guestNum(-1);
+            }
+
+        },
+
+
+        /**
+         * onCartAfterSubmit
+         *
+         * @param {Object} evt
+         */
+        onCartAfterSubmit: function(evt) {
+
+            if (this.tableSettings.TableWinAsFirstWin) {
+                this.openTableNumDialog(true);
+            }
+
+        },
+
+
+        /**
+         * onCartAfterCancel
+         * 
+         * release lock if transaction is recalled
+         *
+         * @param {Object} evt
+         */
+        onCartAfterCancel: function(evt) {
+            
+            let transaction = evt.data;
+
+            // recall order, release lock
+            if (transaction.data.recall == 2) {
+                let orderId = transaction.data.id;
+
+                let result = this.Order.releaseOrderLock(orderId);
+            }
+            
+        },
+
+
+        /**
+         * onMainFirstLoad
+         *
+         * @param {Object} evt
+         */
+        onMainFirstLoad: function(evt) {
+
+            if (this.tableSettings.TableWinAsFirstWin) {
+                this.openTableNumDialog(true);
+            }
+            
+        },
+
+
+        /**
+         * onMainTruncateTxnRecords
+         *
+         * @param {Object} evt
+         */
+        onMainTruncateTxnRecords: function(evt) {
+
+            var r = this.TableStatus.begin();
+
+            if (r) {
+
+                r = this.TableStatus.execute('delete from table_orders');
+                if (r) r = this.TableStatus.execute('delete from table_bookings');
+
+                // truncate sync tables
+                if (r) r = this.TableStatus.execute('delete from syncs');
+                if (r) r = this.TableStatus.execute('delete from sync_remote_machines');
+
+                if (r) r = this.TableStatus.commit();
+
+                if (!r) {
+                    var errNo = this.TableStatus.lastError;
+                    var errMsg = this.TableStatus.lastErrorString;
+
+                    this.TableStatus.rollback();
+
+                    this.dbError(errNo, errMsg,
+                        _('An error was encountered while attempting to remove all table status records (error code %S).', [errNo]));
+                }
+            }
+            else {
+                this.dbError(this.TableStatus.lastError, this.TableStatus.lastErrorString,
+                    _('An error was encountered while attempting to remove all table status records (error code %S).', this.TableStatus.lastError));
+            }
+        },
+
+
+
+        /**
+         * mergeCheck
+         *
+         * @todo need rewrite
          */
         mergeCheck: function() {
 
@@ -657,6 +946,12 @@
             var r = this.GuestCheck.mergeOrder(no, curTransaction.data);
         },
 
+
+        /**
+         * splitCheck
+         *
+         * @todo need rewrite
+         */
         splitCheck: function() {
 
             var no = this._getKeypadController().getBuffer();
@@ -694,6 +989,12 @@
             var r = this.GuestCheck.splitOrder(no, curTransaction.data);
         },
 
+
+        /**
+         * transferTable 
+         *
+         * @todo need rewrite
+         */
         transferTable: function(){
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
@@ -730,222 +1031,6 @@
 
             var r = this.GuestCheck.transferToTableNo(no);
         },
-
-        unserializeFromOrder: function(order_id) {
-            //
-            order_id = order_id;
-
-            var curTransaction = this.GuestCheck.unserializeFromOrder(order_id);
-
-            if (curTransaction) {
-                this._setTransactionToView(curTransaction);
-                curTransaction.updateCartView(-1, -1);
-                this._clearAndSubtotal();
-            }
-            return true;
-
-        },
-
-        onCartBeforeAddPayment: function(evt) {
-            return true;
-
-            //
-            if (this._guestCheck.tableSettings.RequireTableNo && !evt.data.transaction.data.table_no) {
-                this.table(this.selTableNum(''));
-            }
-
-            if (this._guestCheck.tableSettings.RequireGuestNum && !evt.data.transaction.data.no_of_customers) {
-                this.guest('');
-            }
-
-            if (this._guestCheck.tableSettings.RequestMinimumCharge) {
-                //
-                var minimum_charge_per_table = this._guestCheck.tableSettings.GlobalMinimumChargePerTable;
-                var minimum_charge_per_guest = this._guestCheck.tableSettings.GlobalMinimumChargePerGuest;
-                var table_no = evt.data.transaction.data.table_no;
-                var guests = evt.data.transaction.data.no_of_customers;
-
-                var total = evt.data.transaction.data.total;
-                switch (this._guestCheck.tableSettings.MinimumChargeFor)  {
-                    case "1":
-                        // original
-                        total = evt.data.transaction.data.item_subtotal;
-                        break;
-                    /*
-                    case "2":
-                        // before revalue
-                        total = total - evt.data.transaction.data.revalue_subtotal;
-                        break;
-
-                    case "3":
-                        // before promote
-                        total = total - evt.data.transaction.data.promotion_subtotal;
-                        break;
-                    */
-                    default:
-                        // final total
-                        // total = evt.data.transaction.data.total;
-                        break;
-
-                }
-
-
-                var tables = this._tableStatusModel.getTableStatusList();
-                var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + table_no + "'");
-
-                if (tableObj.length > 0) {
-                    // set minimum charge
-                    minimum_charge_per_table = tableObj[0].Table.minimum_charge_per_table || minimum_charge_per_table;
-                    minimum_charge_per_guest = tableObj[0].Table.minimum_charge_per_guest || minimum_charge_per_guest;
-                }
-
-                var minimum_charge = Math.max(minimum_charge_per_table, minimum_charge_per_guest * guests);
-
-                if (total < minimum_charge) {
-
-                    if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
-                        _('Order amount does not reach Minimum Charge'),
-                        _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\nClick OK to finalize this order by Minimum Charge, \nor, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
-
-                        // @todo OSD
-                        NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
-
-                    } else {
-
-                        var product = GeckoJS.BaseObject.unserialize(this._guestCheck.tableSettings.MinimumChargePlu);
-
-                        if (product) {
-                            this._controller.setPrice(minimum_charge - total);
-                            this._controller.addItem(product);
-
-                            // @todo OSD
-                            NotifyUtils.warn(_('Add difference (%S) to finalize this order by Minimum Charge.', [minimum_charge - total]));
-
-                        } else {
-                            // @todo OSD
-                            NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
-
-                        }
-
-                    }
-
-                    evt.preventDefault();
-
-                }
-            }
-        },
-
-        onCartBeforeSubmit: function(evt) {
-            return true;
-
-            if (this._guestCheck.tableSettings.RequireTableNo && !evt.data.txn.data.table_no) {
-                this.table(this.selTableNum(''), evt.data.txn);
-            }
-
-            if (this._guestCheck.tableSettings.RequireGuestNum && !evt.data.txn.data.no_of_customers) {
-                this.guest('', evt.data.txn);
-            }
-
-        },
-
-        onCartAfterSubmit: function(evt) {
-            return true;
-
-            // is stored order?
-            if (evt.data.data.recall == 2) {
-
-                // this._tableStatusModel.removeCheck(evt.data.data);
-                this._tableStatusModel.addCheck(evt.data.data);
-
-                // set autoMark
-                var autoMark = GeckoJS.Session.get('autoMarkAfterSubmitOrder') || {};
-
-                if (autoMark['name'] == null) {
-
-                    this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
-                    var markName = this._guestCheck.tableSettings.AutoMarkAfterSubmit;
-
-                    if (markName && markName.length > 0) {
-                        var datas = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
-                        if (datas != null) {
-                            var marks = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
-                            var markObj = new GeckoJS.ArrayQuery(marks).filter("name = '" + markName + "'");
-
-                            if (markObj && markObj.length > 0) {
-                                autoMark = markObj[0];
-                                GeckoJS.Session.set('autoMarkAfterSubmitOrder', autoMark);
-
-                            } else {
-                                autoMark = {};
-                            }
-
-                        }
-                    }
-                };
-
-                if (autoMark['name'] != null) {
-
-                    var table_no = evt.data.data.table_no;
-
-                    this._tableStatusModel.setTableMark(table_no, autoMark);
-                }
-
-            }
-
-            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                this._controller.newTable();
-            }
-
-            // restore from backup after order was submited/stored
-            var order = new OrderModel();
-            //order.restoreOrderFromBackup();
-            delete order;
-
-        },
-
-        onMainTruncateTxnRecords: function(evt) {
-            return true;
-            //
-            var r = this._tableStatusModel.begin();
-            if (r) {
-                r = this._tableStatusModel.execute('delete from table_orders');
-                if (r) r = this._tableStatusModel.execute('delete from table_bookings');
-
-                // truncate sync tables
-                if (r) r = this._tableStatusModel.execute('delete from syncs');
-                if (r) r = this._tableStatusModel.execute('delete from sync_remote_machines');
-
-                if (r) r = this._tableStatusModel.commit();
-                if (!r) {
-                    var errNo = this._tableStatusModel.lastError;
-                    var errMsg = this._tableStatusModel.lastErrorString;
-
-                    this._tableStatusModel.rollback();
-
-                    this.dbError(errNo, errMsg,
-                        _('An error was encountered while attempting to remove all table status records (error code %S).', [errNo]));
-                }
-            }
-            else {
-                this.dbError(this._tableStatusModel.lastError, this._tableStatusModel.lastErrorString,
-                    _('An error was encountered while attempting to remove all table status records (error code %S).', this._tableStatusModel.lastError));
-            }
-        },
-
-        onMainFirstLoad: function(evt) {
-            return true;
-            //
-            if (this._firstRun) {
-                this._firstRun = false;
-                $do('load', null, 'SelectTable');
-
-            }
-
-            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
-                this._controller.newTable();
-            }
-        },
-
 
 
         destroy: function() {

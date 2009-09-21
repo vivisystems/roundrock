@@ -5,6 +5,7 @@
     }
     
     var TableSettingModel = window.TableSettingModel = AppModel.extend({
+
         name: 'TableSetting',
 
         useDbConfig: 'table',
@@ -34,9 +35,19 @@
             return this.getHttpService().isRemoteService();
         },
 
-        getTableSettings: function(useDb) {
+        /**
+         * get Table Settings
+         * 
+         * Table Settings is special case:
+         * each clients own settings of self, but can load master settings.
+         * 
+         * @param {Boolean} useDb   force use db or cached settings.
+         * @param {Boolean} useRemote   force use remote or local settings
+         */
+        getTableSettings: function(useDb, useRemote) {
 
             useDb = useDb || false;
+            useRemote = useRemote || false;
 
             var table_settings = null;
 
@@ -46,18 +57,22 @@
 
             if (table_settings == null) {
 
-                if (this.isRemoteService()) {
+                if (this.isRemoteService() && useRemote) {
                     var remoteUrl = this.getHttpService().getRemoteServiceUrl('getTableSettings');
                     var requestUrl = remoteUrl ;
-                    table_settings = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
-                    // update tables to database;
-                    this.updateRemoteTableSettings(table_settings);
+                    table_settings = this.getHttpService().requestRemoteService('GET', requestUrl) || null ;
+
+                    if (table_settings) {
+                        table_settings = this.setTableSettingsToSession(table_settings);
+                        // save tables to database;
+                        this.saveTableSettings(table_settings);
+                    }
+
                 }else {
                     table_settings = this.find('all', {recursive: 0});
-                }
-
-                if (table_settings != null) {
-                    return this.setTableSettingsToSession(table_settings);
+                    if (table_settings) {
+                        table_settings = this.setTableSettingsToSession(table_settings);
+                    }
                 }
             }
 
@@ -66,16 +81,15 @@
         },
 
         /**
-         * Update remove table settings to local.
+         * save table settings to local.
          */
-        updateRemoteTableSettings: function(table_settings) {
+        saveTableSettings: function(table_settings) {
 
             if (!table_settings) return false;
 
             var r = false;
 
             r = this.begin();
-
 
             if (r) {
 
@@ -84,12 +98,14 @@
                 datasource.executeSimpleSQL("DELETE FROM " + this.table);
 
                 // save all not update timestamp
-                this.saveAll(table_settings, false);
+                for (var s in table_settings) {
+                    this.id = s ;
+                    this.save({id: s, value:table_settings[s]}); 
+                }
 
                 r = this.commit();
             }
 
-            this.log('r = ' + r) ;
             return r;
 
         },
@@ -97,7 +113,7 @@
         setTableSettingsToSession: function(table_settings) {
             let hashedSettings = {};
             table_settings.forEach(function(s) {
-                hashedSettings[s.key] = s.value;
+                hashedSettings[s.TableSetting.id] = s.TableSetting.value;
             });
             GeckoJS.Session.add('table_settings', hashedSettings);
             return hashedSettings;

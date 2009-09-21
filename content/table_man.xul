@@ -11,7 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/table_man.css" type="text/css"?>
 
-<?xul-overlay href="chrome://viviecr/content/overlays/tableBookOverlay.xul" ?>
+<!--?xul-overlay href="chrome://viviecr/content/overlays/tableBookOverlay.xul" ?-->
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 
@@ -21,6 +21,10 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript;version=1.7"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/helpers/nsi_tables_view.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/table_man_controller.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/helpers/nsi_tables_view.js"/>
     <script type="application/x-javascript" src="chrome://viviecr/content/table_man.js"/>
     <script type="application/x-javascript" src="chrome://viviecr/content/libs/jquery.flow.ex.1.2.js"/>
 
@@ -30,20 +34,19 @@
 
     <vbox class="container-be" flex="1">
         <vbox flex="1" class="container-main">
-            <tabbox flex="1" class="content-tabbox" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
+            <tabbox flex="1" class="content-tabbox">
                 <tabs id="main-tabbox">
                     <tab id="tab_tables" label="&tableman.tab.tables;"/>
                     <tab id="tab_regions" label="&tableman.tab.regions;"/>
-                    <tab id="tab_bookings" label="&tableman.tab.bookings;"/>
                     <tab id="tab_marks" label="&tableman.tab.marks;"/>
                     <tab id="tab_tableoptions" label="&tableman.tab.tableoptions;"/>
                     <tab id="tab_tablemap" label="&tableman.tab.tablemap;" hidden="true"/>
                 </tabs>
-                <tabpanels flex="1">
+                <tabpanels id="main-tabpanels" flex="1">
 
                     <!-- Tables Panel -->
 
-                    <tabpanel id="panel_table" flex="1" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_table" flex="1">
                         <textbox id="table_id" name="id"
                                  form="tableForm" readonly="true" hidden="true"/>
                         <textbox id="table_active"
@@ -145,7 +148,7 @@
 
                     <!-- Regions Panel -->
 
-                    <tabpanel id="panel_region" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_region">
                         <textbox id="region_id" readonly="true" hidden="true" form="regionForm" name="id"/>
                         
                         <vbox flex="1">
@@ -204,15 +207,9 @@
                         </vbox>
                     </tabpanel>
                     
-                    <!-- Table Booking Panel -->
-
-                    <tabpanel id="panel_book" oncommand="event.stopPropagation()">
-                        <box id="tableBookContainer" flex="1"/>
-                    </tabpanel>
-
                     <!-- Table Marks Panel -->
 
-                    <tabpanel id="panel_mark" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_mark">
                         <textbox id="region_id" readonly="true" hidden="true"
                                  form="regionForm" name="id"/>
 
@@ -270,9 +267,9 @@
 
                     <!-- Table Settings Panel -->
 
-                    <tabpanel id="panel_table_settings" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_table_settings">
                         <vbox flex="1">
-                            <tabbox flex="1" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
+                            <tabbox flex="1">
                                 <tabs id="options-tabbox">
                                     <tab id="tab_options1" label="&tableman.tab.tableoptions.1;"/>
                                     <tab id="tab_options2" label="&tableman.tab.tableoptions.2;"/>
@@ -385,7 +382,7 @@
                                                     </vbox>
                                                     <vbox>
                                                         <label control="mark_automark" value="&tableman.mark.automarkaftersubmit;"/>
-                                                        <menulist id="mark_automark" form="settingsForm" name="AutoMarkAfterSubmit">
+                                                        <menulist id="automark_after_submit" form="settingsForm" name="AutoMarkAfterSubmit">
                                                             <menupopup id="automark_after_submit_menupopup">
                                                             </menupopup>
                                                         </menulist>
@@ -488,7 +485,7 @@
 
                     <!-- Table Map Panel -->
 
-                    <tabpanel id="panel_map" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_map">
                         <textbox id="supplier_id" name="id" form="supplierForm" readonly="true" hidden="true"/>
                         <textbox id="supplier_no" name="no" form="supplierForm" readonly="true" hidden="true"/>
 
@@ -513,7 +510,6 @@
                         </vbox>
                     </tabpanel>
 
-                    
 
                 </tabpanels>
 

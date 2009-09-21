@@ -60,22 +60,41 @@
                     var remoteUrl = this.getHttpService().getRemoteServiceUrl('getTables');
                     var requestUrl = remoteUrl ;
                     tables = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
+
+                    // extractObject
+                    tables = GeckoJS.Array.objectExtract(tables, "{n}.Table");
+
                     // update tables to database;
-                    this.updateRemoteTables(tables);
+                    this.saveTables(tables);
                 }else {
-                    tables = this.find('all', {recursive: 0});
+                    tables = this.find('all', {recursive: 0, order: 'table_no asc'});
+
+                    // extractObject
+                    tables = GeckoJS.Array.objectExtract(tables, "{n}.Table");
                 }
 
-                if (tables != null) {
-                    GeckoJS.Session.add('tables', tables);
-                }
+                this.setTablesToSession(tables);
             }
 
             return tables;
 
         },
 
-        updateRemoteTables: function(tables) {
+        /**
+         * set tables to sessions and cached by id , region
+         *
+         * @return {Array} tables
+         */
+        setTablesToSession: function(tables) {
+            
+            if(!tables) return null;
+
+            GeckoJS.Session.add('tables', tables);
+
+            return tables;
+        },
+
+        saveTables: function(tables) {
 
             if (!tables) return false;
 
@@ -96,8 +115,58 @@
                 r = this.commit();
             }
 
-            this.log('r = ' + r) ;
             return r;
+
+        },
+
+
+        addTable: function(data) {
+
+            let table_no = data.table_no;
+            if(!table_no || table_no.length == 0) return false;
+
+            let count = this.find('count', {conditions: "table_no='"+table_no+"'"});
+
+            if(count>0) return false;
+
+            this.create();
+
+            let result = this.save(data);
+
+            return result;
+
+        },
+
+
+
+        updateTable: function(id, data) {
+
+            this.id = id;
+            var result = this.save(data);
+
+            return result;
+
+        },
+
+
+        removeTable: function(id) {
+
+            var result = this.remove(id);
+            
+            return result;
+        },
+
+
+        toggleTable: function(id) {
+
+            let table = this.find('first', {conditions: "id='"+id+"'", recursive:0});
+            if (table) {
+                this.id = id;
+                var data = {active: !table.active};
+                return this.save(data);
+            } else {
+                return false;
+            }
 
         },
 
