@@ -23,6 +23,16 @@
         // force autodiscardcart & autodiscardqueue when sign off when idle is true
         processSignOffWhenIdle(GeckoJS.Configure.read('vivipos.fec.settings.SignOffWhenIdle'));
 
+        // initialize stored order policy when changing shift
+        var sc = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenShiftChange') || 'none';
+        var scNode = document.getElementById('storedorderwhenshiftchange');
+        if (scNode) scNode.value = sc;
+
+        // initialize stored order policy when changing shift
+        var sp = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenEndPeriod') || 'none';
+        var spNode = document.getElementById('storedorderwhenendperiod');
+        if (spNode) spNode.value = sp;
+
         //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;

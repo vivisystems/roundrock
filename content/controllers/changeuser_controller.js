@@ -95,7 +95,9 @@
             }
 
             if (this.Acl.getUserPrincipal()) {
-                opener.$do('setClerk', null, 'Main');
+                var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                mainWindow.$do('setClerk', null, 'Main');
                 window.close();
             }
         },

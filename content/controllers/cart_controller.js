@@ -3453,6 +3453,7 @@
                     return d;
                 }
                 else if (immediateMode && condiments) {
+                    alert('immediate: ' + this.dump(condiments));
                     this._appendCondiments(condiments, false);
                 }
                 else {
@@ -3677,7 +3678,7 @@
 
             if (parseInt(orderModel.lastError) != 0) {
                 this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                    _('An error was encountered while retrieving order payment records (error code %S) [message #107].', [orderModel.lastError]));
+                    _('An error was encountered while retrieving order records (error code %S) [message #107].', [orderModel.lastError]));
                 return false;
             }
 

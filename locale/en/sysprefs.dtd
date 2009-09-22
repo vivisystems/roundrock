@@ -36,6 +36,11 @@
 <!ENTITY login.disableshiftchange "Disable shift change">
 <!ENTITY login.checksaleperiod "Check sale period on every order">
 <!ENTITY login.signoffwhenidle "Sign off when idle (queue and cart content will be discarded)">
+<!ENTITY login.storedorderwhenshiftchange "Stored order policy when changing shift">
+<!ENTITY login.storedorderwhenendperiod "Stored order policy when ending sale period">
+<!ENTITY login.storedorder.none "No action">
+<!ENTITY login.storedorder.alert "Warn if stored orders exist">
+<!ENTITY login.storedorder.force "Force closing of stored orders">
 <!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.banneratbottom "Place banner at screen bottom">
 <!ENTITY layout.bannerheight "Banner height">

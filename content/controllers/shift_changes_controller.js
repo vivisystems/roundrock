@@ -961,6 +961,30 @@
 
                 if (inputObj.end) {
 
+                    // check stored order policy, apply if appropriate
+                    var policy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenEndPeriod') || 'none';
+                    var storedOrders = orderModel.getCheckList();
+
+                    if (parseInt(orderModel.lastError) != 0) {
+                        this._dbError(orderModel.lastError, orderModel.lastErrorString,
+                            _('An error was encountered while retrieving order records (error code %S) [message #1428].', [orderModel.lastError]));
+                        return;
+                    }
+
+                    if (storedOrders && storedOrders.length > 0) {
+                        if (policy == 'alert') {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Shift Change'),
+                                _('Note: one or more orders are still open.'));
+                        }
+                        else if (policy == 'force') {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Shift Change'),
+                                _('You may not end the current sale period while orders are still open.'));
+                            return;
+                        }
+                    }
+
                     // closing sale period, check if we need to advance cluster sale period
                     var handleSalePeriod = this.ShiftMarker.isSalePeriodHandler();
                     //this.log('DEBUG', 'sale period handler? ' + handleSalePeriod);
@@ -1012,6 +1036,30 @@
                     doEndOfPeriod = true;
                 }
                 else {
+                    // check stored order policy, apply if appropriate
+                    var policy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenShiftChange') || 'none';
+                    var storedOrders = orderModel.getCheckList();
+
+                    if (parseInt(orderModel.lastError) != 0) {
+                        this._dbError(orderModel.lastError, orderModel.lastErrorString,
+                            _('An error was encountered while retrieving order records (error code %S) [message #1428].', [orderModel.lastError]));
+                        return;
+                    }
+
+                    if (storedOrders && storedOrders.length > 0) {
+                        if (policy == 'alert') {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Shift Change'),
+                                _('Note: one or more orders are still open.'));
+                        }
+                        else if (policy == 'force') {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Shift Change'),
+                                _('You may not close the current shift while orders are still open.'));
+                            return;
+                        }
+                    }
+
                     // mark end of shift
                     if (!this._setEndOfShift()) return;
 

@@ -96,7 +96,12 @@
                     break;
 
                 case 'name':
-                    prop.AppendElement(aserv.getAtom('treecellProduct'));
+                    if (data.type == 'condiment') {
+                        prop.AppendElement(aserv.getAtom('treecellCondiment'));
+                    }
+                    else {
+                        prop.AppendElement(aserv.getAtom('treecellProduct'));
+                    }
                     break;
 
                 case 'current_qty':

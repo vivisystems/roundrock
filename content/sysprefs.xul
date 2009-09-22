@@ -262,6 +262,30 @@
                     </row>
                     <row>
                         <vbox>
+                            <label value="&login.storedorderwhenshiftchange;"/>
+                            <menulist id="storedorderwhenshiftchange" flex="1"
+                                      oncommand="GeckoJS.Configure.write('vivipos.fec.settings.StoredOrderWhenShiftChange', this.value);">
+                                <menupopup id="storedorderwhenshiftchange-popup">
+                                    <menuitem label="&login.storedorder.none;" value="none"/>
+                                    <menuitem label="&login.storedorder.alert;" value="alert"/>
+                                    <menuitem label="&login.storedorder.force;" value="force"/>
+                                </menupopup>
+                            </menulist>
+                        </vbox>
+                        <vbox>
+                            <label value="&login.storedorderwhenendperiod;"/>
+                            <menulist id="storedorderwhenendperiod" flex="1"
+                                      oncommand="GeckoJS.Configure.write('vivipos.fec.settings.StoredOrderWhenEndPeriod', this.value);">
+                                <menupopup id="storedorderwhenendperiod-popup">
+                                    <menuitem label="&login.storedorder.none;" value="none"/>
+                                    <menuitem label="&login.storedorder.alert;" value="alert"/>
+                                    <menuitem label="&login.storedorder.force;" value="force"/>
+                                </menupopup>
+                            </menulist>
+                        </vbox>
+                    </row>
+                    <row>
+                        <vbox>
                             <label control="maxsaleperiodleaddays" value="&login.maxsaleperiodleaddays;"/>
                             <textbox preference="pref_maxsaleperiodleaddays" id="maxsaleperiodleaddays" type="number" min="1"/>
                         </vbox>

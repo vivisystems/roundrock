@@ -168,7 +168,9 @@
             var panel = this.getListObj();
             var view = panel.datasource;
             var name = view.data[panel.selectedIndex].name;
-            var device = opener.opener.GeckoJS.Controller.getInstanceByName('Devices');
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+            .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var device = mainWindow.GeckoJS.Controller.getInstanceByName('Devices');
             
             if (this.hasTaggedProducts(evt.data.id)) {
                 NotifyUtils.error(_('[%S] has one or more products and may not be deleted', [name]));

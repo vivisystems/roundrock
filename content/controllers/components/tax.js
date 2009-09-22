@@ -583,12 +583,13 @@
             case "COMBINE":
                 var totalCharge = 0;
                 var totalIncluded = 0;
-                if (unitprice >= taxObject['threshold'] && taxObject.CombineTax != null) {
+                taxAmount[no]['combine'] = {};
+                if (taxObject.CombineTax != null) {
 
                     // foreach combine taxes
                     taxObject.CombineTax.forEach(function(cTaxObj){
                         var cTaxAmount = this.calcTaxAmount(cTaxObj['no'], amount, unitprice, qty);
-                        taxAmount[no][cTaxObj.name] = {
+                        taxAmount[no]['combine'][cTaxObj.name] = {
                             charge: cTaxAmount[cTaxObj.no].charge || 0,
                             included: cTaxAmount[cTaxObj.no].included || 0,
                             tax: cTaxObj
