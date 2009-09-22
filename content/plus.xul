@@ -24,7 +24,7 @@
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-            
+
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
 
   <!-- include models -->
@@ -127,7 +127,7 @@
             <vbox flex="1" class="container-right">
 
                 <tabbox flex="1" crop="right" class="content-tabbox">
-                    
+
                     <arrowscrollbox orient="horizontal" flex="1" class="content-arrow-scrollbox">
                         <tabs id="tabs" >
                             <tab id="tab1" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
@@ -245,6 +245,10 @@
                                             <checkbox id="manual_adjustment_only" value="false" label="&plus.manual.adjustment.only;"
                                                       form="productForm" name="manual_adjustment_only" default="false"/>
 
+                                        </row>
+                                        <row>
+                                            <checkbox id="non_discountable" value="false" label="&plus.non.discountable;"
+                                                      form="productForm" name="non_discountable" default="false"/>
                                         </row>
                                     </rows>
                                 </grid>
@@ -371,7 +375,7 @@
                                     <vivibutton id="down" class="button-systool button-down" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', 1, 'Plus');"/>
                                 </viviscrollabletree>
                             </vbox>
-                            
+
                             <hbox align="center" class="content-box">
                                 <grid class="data-form-2" flex="1">
                                     <columns>
@@ -462,7 +466,7 @@
                                     </hbox>
                                 </vbox>
                                 <hbox class="custom-container-button-color-fontsize-picker">
-                                    
+
                                     <vbox id="productsAppearanceColorBox" flex="1">
                                         <label value="&plus.button.color;" class="label-sub-title"/>
                                         <hbox pack="center" align="center" flex="1">
@@ -675,7 +679,7 @@
 
                     </tabpanels>
                 </tabbox>
-                
+
                 <hbox flex="1">
                     <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <button id="add_plu" label="&plus.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Plus');" />
@@ -687,9 +691,9 @@
                     <hbox pack="center" class="exitbar">
                         <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                         <button id="close" default="true" class="button-exit" oncommand="$do('exit', null, 'Plus');"/>
-                    </hbox>    
+                    </hbox>
                 </hbox>
-                
+
             </vbox>
 
         </hbox>

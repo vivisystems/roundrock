@@ -16,19 +16,19 @@
         _returnPersist: false,
         _decStockBackUp: null,
 
-        
+
         beforeFilter: function(evt) {
 
             var cmd = evt.data;
             if (cmd != 'cancel') {
                 this._lastCancelInvoke = false;
             }
-            
+
             return true;
         },
 
         initial: function() {
-            
+
             if (this._cartView == null ) {
                 this._cartView = new NSICartView('cartList');
             }
@@ -54,7 +54,7 @@
                 events.addListener('remove', this.sessionHandler, this);
                 events.addListener('clear', this.sessionHandler, this);
             }
-            
+
             // add Observer for startTrainingMode event.
             var self = this;
             this.observer = GeckoJS.Observer.newInstance( {
@@ -119,7 +119,7 @@
         beforeAddBuffer: function () {
 
             var self = this;
-            
+
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var curTransaction = cart._getTransaction();
             if (curTransaction == null) return;
@@ -136,7 +136,7 @@
         },
 
         cartViewEmpty: function() {
-            this._cartView.empty();           
+            this._cartView.empty();
             this.dispatchEvent('onCartViewEmpty', null);
         },
 
@@ -210,7 +210,7 @@
             // first check main item
             if (!cart._returnMode)
                 if (!cart.checkStock("addItem", sellQty, item)) evt.preventDefault();
-                
+
             // if set items are present, check each one individually
             setItems.forEach(function(setitem) {
                 var productId = barcodesIndexes[setitem.preset_no];
@@ -249,7 +249,7 @@
             // check if age verification required
             if ( !evt._cancel) {
                 if (!cart._returnMode && (item.age_verification || setItemsAgeVerificationRequired)) {
-                    var obj = { 
+                    var obj = {
                         item: item
                     };
 
@@ -311,7 +311,7 @@
         },
 
         _newTransaction: function() {
-            
+
             // dispatch event
             if (!this.dispatchEvent('beforeNewTransaction', null)) {
                 return;
@@ -320,7 +320,7 @@
             try {
                 var curTransaction = new Transaction();
             }catch(e) {}
-            
+
             this._setTransactionToView(curTransaction);
 
             // check pricelevel schedule
@@ -332,10 +332,10 @@
 
             if (defaultTax) GeckoJS.Session.set('defaultTaxNo', defaultTax.no);
             else GeckoJS.Session.remove('defaultTaxNo');
-            
+
             // dispatch event
             this.dispatchEvent('newTransaction', curTransaction);
-            
+
             return curTransaction;
         },
 
@@ -345,8 +345,8 @@
 
             var curTransaction = GeckoJS.Session.get('current_transaction');
 
-            
-            // null 
+
+            // null
             if (curTransaction == null){
                 if(autoCreate) return this._newTransaction();
                 return null;
@@ -354,7 +354,7 @@
 
             // has submit
             if (curTransaction.isSubmit() && autoCreate ) return this._newTransaction();
-            
+
             return curTransaction;
         },
 
@@ -570,10 +570,10 @@
         },
 
         addItem: function(plu) {
-           
+
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
-                
+
             var currentIndex = this._cartView.getSelectedIndex();
             var item = GREUtils.extend({}, plu);
             var curTransaction = this._getTransaction(true);
@@ -609,7 +609,7 @@
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 curTransaction = this._newTransaction();
             }
-            
+
             // check if has buffer
             if (buf.length>0) {
                 this.setPrice(buf);
@@ -648,20 +648,20 @@
             var qty = GeckoJS.Session.get('cart_set_qty_value');
             var unit = GeckoJS.Session.get('cart_set_qty_unit');
             if (qty == null) qty = 1;
-            
+
             if (unit != null && unit != '') {
                 qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
             }
-            
+
             // if item's unit of sale is individually, we convert qty to integer
             if (item.sale_unit == 'unit') {
                 qty = this.setQty(qty, true);
             }
-            
+
             // if we are not in return mode, check if new item is the same as current item. if they are the same,
             // collapse it into the current item if no surcharge/discount/marker has
             // been applied to the current item and price/tax status are the same
-            
+
             if (curTransaction && !this._returnMode) {
                 if (!curTransaction.isLocked(currentIndex)) {
                     var currentItem = curTransaction.getItemAt(currentIndex);
@@ -696,7 +696,7 @@
                     return;
                 }
             }
-            
+
             if (this.dispatchEvent('beforeAddItem', item)) {
                 // check if set item selection is needed
                 if (item.setItemSelectionRequired) {
@@ -718,7 +718,7 @@
 
                 var self = this;
                 var cart = this._getCartlist();
-                
+
                 next( function() {
                     if (addedItem.id == plu.id && !self._returnMode) {
 
@@ -738,7 +738,7 @@
                             }
 
                         }).next( function() {
-				 
+
                             if (plu.force_memo) {
 
                                 // need to move cursor to addedItem
@@ -748,7 +748,7 @@
                             }
 
                         });
-                        
+
                     }
 
                 } ).next( function() {
@@ -769,7 +769,7 @@
                 this._clearAndSubtotal();
             }
         },
-	
+
         _setItemSelectionDialog: function (txn, item) {
 
             // start at first set item where preset_no == null and linkgroup_id != null
@@ -787,7 +787,7 @@
             pluset.forEach(function(setitem) {
                 setitem.product_no = '';
             });
-            
+
             var dialog_data = {
                 pluset: pluset,
                 name: item.name,
@@ -937,7 +937,7 @@
                     removedSetItems.forEach(function(item) {
                         txn.data.items_summary[item.id].qty_subtotal += item.current_qty;
                     });
-                    
+
                     if (outOfStock) {
                         self._clearAndSubtotal();
                         return;
@@ -982,12 +982,12 @@
 
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 
-            var event = { 
+            var event = {
                 error: false,
                 barcode: barcode,
                 product: null
             };
-            
+
             if (!barcodesIndexes || !barcodesIndexes[barcode]) {
                 // barcode notfound
                 event.error = true;
@@ -999,7 +999,7 @@
                 event.product = product;
             }
             this.dispatchEvent('beforeItemByBarcode', event);
-            
+
             if (!event.error) {
 
                 // NON-PLU13
@@ -1019,7 +1019,7 @@
             }
             this.dispatchEvent('afterItemByBarcode', event);
         },
-	
+
         addDeptByNumber: function(deptno) {
 
             if (deptno != null && deptno.length > 0) {
@@ -1153,7 +1153,7 @@
                     this._clearAndSubtotal();
                     return ;
                 }
-                
+
                 // check if price is entered
                 if (buf.length <= 0) {
                     NotifyUtils.warn(_('Cannot modify condiment price; no price entered'));
@@ -1189,10 +1189,10 @@
                 this._setItemModifyDialog(curTransaction, itemTrans, itemDisplay);
                 return;
             }
-            
+
             var modifyPrice = (newPrice != null && newPrice != itemTrans.current_price);
             var modifyQuantity = (newQuantity != null && newQuantity != itemTrans.current_qty);
-            
+
             if (modifyPrice && !this.Acl.isUserInRole('acl_modify_price')) {
                 NotifyUtils.warn(_('Not authorized to modify price'));
 
@@ -1206,7 +1206,7 @@
                 this._clearAndSubtotal();
                 return;
             }
-            
+
             // check if zero preset price is allowed
             var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
 
@@ -1228,9 +1228,9 @@
                 this.dispatchEvent('afterModifyItem', [modifiedItem, itemDisplay]);
             }
             this._clearAndSubtotal();
-			
+
         },
-	
+
 
         modifyQty: function(action, delta) {
 
@@ -1315,7 +1315,7 @@
                 var deltaPrecision = this._getPrecision(delta);
                 newQty = newQty.toFixed( qtyPrecision > deltaPrecision ? qtyPrecision : deltaPrecision);
             }
-            
+
             if (newQty != qty) {
                 GeckoJS.Session.set('cart_set_qty_value', newQty);
                 this.modifyItem();
@@ -1528,6 +1528,35 @@
             this._addDiscount(discountAmount, '%', discountName, pretax);
         },
 
+        addMassDiscountByPercentage: function(args, pretax) {
+            var discountAmount;
+            var discountName;
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) discountAmount = argList[0];
+                if (argList.length > 1) discountName = argList[1];
+            }
+
+            if (pretax == null) pretax = false;
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this._cancelReturn();
+
+            if ((discountAmount == null || discountAmount == '') && buf.length>0) {
+                discountAmount = buf;
+            }
+
+            if (discountName == null || discountName == '') {
+                discountName = '-' + discountAmount + '%';
+            }
+
+            this._addMassDiscount(discountAmount, '%', discountName, pretax);
+        },
+
 
         addPretaxDiscountByPercentage: function(args) {
             this.addDiscountByPercentage(args, true);
@@ -1583,7 +1612,7 @@
 
             if(index <0) {
                 NotifyUtils.warn(_('Please select an item'));
-                
+
                 this._clearAndSubtotal();
                 return;
             }
@@ -1668,7 +1697,7 @@
                 this._clearAndSubtotal();
                 return;
             }
-            
+
             // check percentage or fixed number
             if(discountType == '%') {
                 // percentage
@@ -1718,17 +1747,17 @@
 
             if (discountAmount == null || isNaN(discountAmount) || !discountAmount) {
                 NotifyUtils.warn(_('Please enter the discount percentage'));
-
                 this._clearAndSubtotal();
                 return;
             }
 
-            // check percentage or fixed number
             discountAmount = parseFloat(discountAmount) / 100;
 
             var discountItem = {
+                type: discountType,
                 name: discountName,
                 amount: discountAmount
+
             };
             this.dispatchEvent('beforeAddDiscount', discountItem);
 
@@ -1865,7 +1894,7 @@
 
             var itemTrans = curTransaction.getItemAt(index);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
-            
+
             if (pretax && itemDisplay.type != 'subtotal') {
                 NotifyUtils.warn(_('Pretax surcharge can only be registered against subtotals'));
 
@@ -2033,7 +2062,7 @@
             this.dispatchEvent('beforeAddMarker', type);
 
             var markerItem = curTransaction.appendMarker(index, type);
-            
+
             this.dispatchEvent('afterAddMarker', markerItem);
 
             this._clearAndSubtotal();
@@ -2045,7 +2074,7 @@
             if (name == null || name.length == 0) name = _('House Bon');
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
-            
+
             this._getKeypadController().clearBuffer();
             this._cancelReturn();
 
@@ -2158,11 +2187,11 @@
             ];
 
             return $.popupPanel('creditcardRemarkPanel', dialog_data);
-            
+
         },
 
         _getCouponDialog: function (data) {
-            
+
             var self = this;
 
             var inputObj = {
@@ -2254,7 +2283,7 @@
             var payment = parseFloat(buf);
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
-            
+
             if (this._returnMode) {
                 if (payment == null || payment == 0 || isNaN(payment)) {
                     // if amount no given, set amount to amount paid
@@ -2678,7 +2707,7 @@
                         break;
                     }
                 }
-                
+
                 if (found) {
                     var user = this.Acl.getUserPrincipal();
                     var userDisplayName = user ? user.description : _('unknown user');
@@ -2794,7 +2823,7 @@
                 this.addMarker('total');
             //this._getCartlist().refresh();
             }
-            
+
             type = type || 'cash';
             amount = amount || false;
 
@@ -2860,7 +2889,7 @@
                 payment.name = _(payment.name.toUpperCase());
                 payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
             }
-            
+
             var dialog_data = [
             _('Payment Details'),
             payments
@@ -2869,7 +2898,7 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
             GeckoJS.Session.remove('cart_set_qty_unit');
-            
+
             return $.popupPanel('paymentDetailsPanel', dialog_data);
 
         },
@@ -2901,7 +2930,7 @@
                 else {
                     var qty = parseFloat(weight.value);
                     if (!isNaN(qty)) qty -= tare;
-                    
+
                     if (isNaN(qty) || qty <= 0) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Scale'),
@@ -2930,12 +2959,12 @@
             if (isNaN(qty0)) qty0 = 1;
             GeckoJS.Session.set('cart_set_qty_value', qty0);
             if (unit) GeckoJS.Session.set('cart_set_qty_unit', unit);
-            
+
             if (show) this.dispatchEvent('onSetQty', qty0);
-            
+
             return qty0;
         },
-	
+
         setPrice: function(price) {
 
             var newprice = parseFloat(price);
@@ -2947,7 +2976,7 @@
         shiftTax: function(taxNo) {
 
             taxNo = taxNo || false;
-          
+
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
@@ -3026,7 +3055,7 @@
         },
 
         clear: function() {
-            
+
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -3060,7 +3089,7 @@
             // cancel cart but save
             var curTransaction = this._getTransaction();
             if (!this.ifHavingOpenedOrder()) {
-                
+
                 this.clear();
 
                 // let dispatcher don't auto dispatch onCancel
@@ -3075,10 +3104,10 @@
 
                     var quiet = GeckoJS.Configure.read('vivipos.fec.settings.quietcancel') || false;
                     if(!quiet) GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
-                    
-                }catch(e) {                  
+
+                }catch(e) {
                 }
-                
+
                 // prevent onCancel event dispatch
                 this.dispatchedEvents['onCancel'] = true;
                 this._lastCancelInvoke = now;
@@ -3092,7 +3121,7 @@
                 // if the order has been stored, then it cannot be cancelled; it must be voided instead
                 if (curTransaction.data.recall == 2) {
 
-                    // XXX need rewrite 
+                    // XXX need rewrite
                     // determine if new items have been added
                     if (!curTransaction.isModified() || forceCancel ||
                         GREUtils.Dialog.confirm(this.topmostWindow,
@@ -3124,7 +3153,7 @@
                     curTransaction.commit();
 
                 }
-                
+
             }catch(e) {
                 this.log('WARN', 'Error Cancel order ');
             }
@@ -3134,11 +3163,11 @@
 
             this.dispatchEvent('onCancel', curTransaction);
         },
-	
+
         subtotal: function() {
             var oldTransaction = this._getTransaction();
             this._cancelReturn();
-            
+
             //if (oldTransaction == null || oldTransaction.isCancel() || oldTransaction.isSubmit()) {
             if (oldTransaction == null) {
                 this.dispatchEvent('onGetSubtotal', null);
@@ -3160,7 +3189,7 @@
             GeckoJS.Session.remove('cart_set_qty_unit');
 
             var oldTransaction = this._getTransaction();
-            
+
             if(oldTransaction == null) return false;
 
             if (status == null) status = 1;
@@ -3285,7 +3314,7 @@
                     else {
                         this.dispatchEvent('onGetSubtotal', oldTransaction);
                     }
-                    
+
                 }
 
                 this._unblockUI('blockui_panel');
@@ -3303,7 +3332,7 @@
 
         // pre-finalize the order by closing it
         preFinalize: function(args) {
-        	
+
             var curTransaction = this._getTransaction();
 
             //if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
@@ -3333,7 +3362,7 @@
             // if destination is given, items in cart are first validated to make sure
             // their destinations match the given destination
             if (args != null && args != '') {
-                
+
                 var argList = args.split(',');
                 var dest = argList[0];
 
@@ -3442,21 +3471,21 @@
         },
 
         cash: function(argString) {
-	    var argArray = String(argString).split(',');
-	    var isGroupable = false;
+            var argArray = String(argString).split(',');
+            var isGroupable = false;
             var amount = parseInt( argArray[0], 10 );
 
-	    if (argArray.length == 2)
-		isGroupable = argArray[1];
+            if (argArray.length == 2)
+                isGroupable = argArray[1];
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
-            
+
             if (buf.length>0) {
                 if (!amount) amount = parseFloat(buf);
             }
-                
+
             this._addPayment('cash', amount, null, null, null, isGroupable);
         },
 
@@ -3536,7 +3565,7 @@
             }
 
             var condimentItem = null;
-            
+
             if (plu && plu.force_condiment) {
                 condimentItem = plu;
             }else {
@@ -3596,7 +3625,7 @@
                 else {
                     return this._getCondimentsDialog(condimentItem.cond_group, condiments);
                 }
-                
+
             }
             return d;
 
@@ -3647,13 +3676,13 @@
                 selectedItems: selectedItems,
                 hideSoldout: GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false
             };
-            
+
             self._inDialog = true;
 
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
-                
+
                 self._inDialog = false;
-                
+
                 var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
                     self._appendCondiments(selectedCondiments.concat(additionalItems), true);
@@ -3700,7 +3729,7 @@
                     condDisplayIndex = curTransaction.getFirstCondimentIndex(item);
                     condDisplayItem = curTransaction.getDisplaySeqAt(condDisplayIndex);
                     condDisplayItem.open = true;
-                        
+
                     if (collapseCondiments) {
                         curTransaction.collapseCondiments(condDisplayIndex);
 
@@ -3745,7 +3774,7 @@
             }
 
             var memoItem = null;
-            
+
             if (typeof plu == 'object' && plu.force_memo) {
                 memoItem = plu;
             }else {
@@ -3768,7 +3797,7 @@
                 memo = GeckoJS.String.trim(plu);
                 curTransaction.appendMemo(index, memo);
                 this._clearAndSubtotal();
-            }           
+            }
             return d;
 
         },
@@ -3781,7 +3810,7 @@
                 var mode = 'absolute';
                 if (data[0] == '+' || data[0] == '-')
                     mode = 'relative';
-                
+
                 var newIndex;
                 var index = cart.selectedIndex;
                 if (index < 0) index = 0;
@@ -3803,7 +3832,7 @@
          * XXX Need rewrite
          */
         voidSale: function(id) {
-            
+
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 
             if (!id) return false;
@@ -3847,7 +3876,7 @@
                 roundingPrices: order.rounding_prices,
                 precisionPrices: order.precision_prices
             };
-            
+
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Payment Refund'), features, inputObj);
 
             if (inputObj.ok) {
@@ -3870,7 +3899,7 @@
                         // insert refund payments
                         for (var i = 0; r && i < inputObj.refunds.length; i++) {
                             var payment = inputObj.refunds[i];
-                            
+
                             // doing so ensures the model will save this payment in insertion mode.
                             paymentModel.id = payment.id = '';
 
@@ -3888,14 +3917,14 @@
 
                             // @irving for backward compatibility, don't set memo1 if it's empty
                             if (payment.memo1 == '') delete payment.memo1;
-                            
+
                             payment.sale_period = salePeriod;
                             payment.shift_number = shiftNumber;
                             payment.terminal_no = terminalNo;
 
                             // save payment record
                             r = paymentModel.savePayment(payment);
-                            
+
                             if (!r) {
                                 throw {
                                     errno: paymentModel.lastError,
@@ -3999,9 +4028,9 @@
             return $.popupPanel('promptAddMemoPanel', data).next( function(evt){
 
                 self._inDialog = false;
-                
+
                 var result = evt.data;
-                
+
                 if (result.ok && result.input0) {
 
                     var index = self._cartView.getSelectedIndex();
@@ -4017,7 +4046,7 @@
             });
 
         },
-        
+
         startTraining: function( isTraining ) {
             if ( isTraining ) {
 
@@ -4031,7 +4060,7 @@
             } else {
                 // discard cart content
                 this.cancel(true);
-                               
+
                 // Use the default stock-maintaining method.
                 this.decStock = this._decStockBackUp;
 
@@ -4045,7 +4074,7 @@
             if(data) {
                 var transaction = new Transaction(true);
                 transaction.data = data ;
-                
+
                 this._setTransactionToView(transaction);
                 transaction.updateCartView(-1, -1);
 

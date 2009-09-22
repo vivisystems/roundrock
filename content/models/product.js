@@ -38,7 +38,7 @@
 
             }
             //dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
-            
+
             return products;
 
         },
@@ -150,7 +150,7 @@
             GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
             GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
             GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
-            
+
         /*
             this.log(this.dump(GeckoJS.Session.get('productsById')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
@@ -401,7 +401,7 @@
                             newgroups.forEach(function(group) {
 
                                 if (group == -1) return;
-                                
+
                                 if (typeof indexLinkGroup[group] == 'undefined') {
                                     indexLinkGroup[group] = [];
                                     indexLinkGroupAll[group] = [];
@@ -489,7 +489,7 @@
                         }
                         break;
                 }
-            
+
             }catch(e) {
                 this.log('ERROR', 'updateProductSession Error');
             }
@@ -507,7 +507,7 @@
 
             var product = null;
             var oldProduct = null;
-            
+
             var mode = 'create';
 
 
@@ -526,7 +526,7 @@
                     indexesById[id] = (newLength-1);
 
                     mode = 'create';
-                    
+
                 }else {
                     mode = 'update';
                     // clone old product
@@ -582,7 +582,7 @@
             }
 
             return false;
-            
+
         },
 
         setProductById: function (id, new_product, useDb) {
