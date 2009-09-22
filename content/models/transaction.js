@@ -570,25 +570,6 @@
                     index: index,
                     level: (level == null) ? 0 : level
                 });
-            }else if (type == 'mass_discount') {
-                if (item.discount_name != null && item.discount_name.length > 0) {
-                    dispName = _(item.discount_name);
-                }
-                else {
-                    dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
-                }
-                itemDisplay = GREUtils.extend(itemDisplay, {
-                    id: null,
-                    no: item.no,
-                    name: dispName,
-                    current_qty: item.discountable_tax,
-                    current_price: item.current_discount,
-                    current_subtotal: '',
-                    current_tax: '',
-                    type: type,
-                    index: index,
-                    level: (level == null) ? 0 : level
-                });
             }else if (type == 'surcharge') {
                 if (item.surcharge_name && item.surcharge_name.length > 0) {
                     dispName = _(item.surcharge_name);
@@ -1436,7 +1417,6 @@
                         discount_amount = item.current_subtotal * discount.amount;
                     }
 
-<<<<<<< HEAD:content/models/transaction.js
                     // rounding discount
                     item.current_discount = this.getRoundedPrice(item.current_discount);
 
@@ -1457,16 +1437,7 @@
                         NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
                             [this.formatPrice(this.getRoundedPrice(discount_amount)),
                             item.current_subtotal]));
-=======
-                // check if discount amount exceeds user item discount limit
-                var user = GeckoJS.Session.get('user');
-                var item_discount_limit = parseInt(user.item_discount_limit);
-                if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
-                    var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
-                    if (discount_amount > item_discount_limit_amount) {
-                        NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
-                            [discount_amount, item_discount_limit_amount]));
->>>>>>> master:content/models/transaction.js
+
                         return;
                     }
                     item.current_discount = 0 - discount_amount;
