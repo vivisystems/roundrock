@@ -2437,7 +2437,7 @@
 
         calcRevalue: function(total, policy, factor) {
 
-            this.log('DEBUG', 'total,policy,factor: ' + total + ',' + policy + ',' + factor);
+            //this.log('DEBUG', 'total,policy,factor: ' + total + ',' + policy + ',' + factor);
             var revalue_subtotal = 0;
             var roundedTotal;
 
@@ -2515,7 +2515,7 @@
 
             //var profileStart = (new Date()).getTime();
 
-            this.log('DEBUG', "onCalcTotal " + this.dump(this.data));
+            //this.log('DEBUG', "onCalcTotal " + this.dump(this.data));
             Transaction.events.dispatch('onCalcTotal', this.data, this);
 
             var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0, qty_subtotal=0;
@@ -2613,7 +2613,7 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
 
         },
 

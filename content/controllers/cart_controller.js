@@ -3539,6 +3539,47 @@
                 var item = curTransaction.getItemAt(index, true);
                 if (item) {
 
+                    if (!replace && item.condiments) {
+                        //  ensure that single selection behavior is not violated
+                        var condGroupCache = {};
+                        var condGroupsById = GeckoJS.Session.get('condGroupsById');
+                        var filteredCondiments = [];
+                        
+                        selectedCondiments.forEach(function(cond) {
+
+                            if (condGroupCache[cond.condiment_group_id] == null) {
+                                // check if this condiment group is single selection and has already been selected
+                                var condGroup = condGroupsById[cond.condiment_group_id];
+                                if (!condGroup || condGroup.seltype != 'single') {
+                                    condGroupCache[cond.condiment_group_id] = false;
+                                }
+                                else {
+                                    // group is single selection, check if selection exists
+                                    var groupCondiments = condGroup.Condiment;
+                                    var exists = false;
+                                    for (var i = 0; i < groupCondiments.length; i++) {
+                                        if (groupCondiments[i].name in item.condiments) {
+                                            exists = condGroup.name;
+                                            break;
+                                        }
+                                    }
+                                    condGroupCache[cond.condiment_group_id] = exists;
+                                }
+
+                            }
+
+                            if (condGroupCache[cond.condiment_group_id]) {
+                                NotifyUtils.warn(_('Condiment [%S] not added because another condiment from same group [%S] already exists',
+                                                   [cond.name, condGroupCache[cond.condiment_group_id]]));
+                            }
+                            else {
+                                filteredCondiments.push(cond);
+                            }
+                        }, this);
+
+                        selectedCondiments = filteredCondiments;
+                    }
+                    
                     // expand condiments if collapsed
 
                     // get first condiment display item
