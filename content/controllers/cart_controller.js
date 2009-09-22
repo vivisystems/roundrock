@@ -1695,8 +1695,6 @@
         },
 
         _addMassDiscount: function(discountAmount, discountName) {
-
-            var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
@@ -1710,14 +1708,6 @@
             // check if transaction is closed
             if (curTransaction.isClosed()) {
                 NotifyUtils.warn(_('This order is being finalized and discount may not be registered'));
-
-                this._clearAndSubtotal();
-                return;
-            }
-
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Discount may not be registered against stored items'));
 
                 this._clearAndSubtotal();
                 return;
@@ -1965,8 +1955,45 @@
             this._clearAndSubtotal();
         },
 
-        _addMassSurcharge: function() {
+        _addMassSurcharge: function(surchargeAmount, name) {
+            var curTransaction = this._getTransaction();
 
+            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+            if( !this.ifHavingOpenedOrder() ) {
+                NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            // check if transaction is closed
+            if (curTransaction.isClosed()) {
+                NotifyUtils.warn(_('This order is being finalized and surcharge may not be registered'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            surchargeAmount = surchargeAmount || false;
+
+            if (surchargeAmount == null || isNaN(surchargeAmount) || !surchargeAmount) {
+                NotifyUtils.warn(_('Please enter the surcharge percentage'));
+                this._clearAndSubtotal();
+                return;
+            }
+
+            surchargeAmount = parseFloat(surchargeAmount) / 100;
+            var surchargeItem = {
+                name: name,
+                amount: surchargeAmount
+            };
+            this.dispatchEvent('beforeAddSurcharge', surchargeItem);
+
+            var surchargedItem = curTransaction.appendMassSurcharge(surchargeItem);
+
+            this.dispatchEvent('afterAddSurcharge', surchargedItem);
+
+            this._clearAndSubtotal();
         },
 
         addMarker: function(type) {

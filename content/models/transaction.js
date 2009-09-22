@@ -1533,11 +1533,13 @@
 
             var transItems = this.data.items;
             var self = this;
+            var productModel = new ProductModel();
 
             for(var index in transItems) {
                 if (index != null) {
                     var item = transItems[index];
-                    if(item.type == 'item') {
+                    var non_discountable = productModel.isNonDiscountable(item.id, false);
+                    if(item.type == 'item' && non_discountable == false && item.hasDiscount == false && item.hasMarker == false) {
                         
                         discount_amount = item.current_subtotal * discount.amount;
 
@@ -1582,6 +1584,8 @@
                         self.calcItemsTax(item);
 
                         resultItem.push(item);
+                    } else {
+                        lastItemDispIndex = self.getLastDisplaySeqByIndex(item.index)
                     }
                 }
             }
@@ -1716,6 +1720,71 @@
             return resultItem;
         },
 
+        appendMassSurcharge: function(surcharge) {
+            var lastItemDispIndex;
+            var surcharge_amount;
+            var resultItem = [];
+
+            var prevRowCount = this.data.display_sequences.length;
+
+            var transItems = this.data.items;
+            var self = this;
+
+            for(var index in transItems) {
+                if (index != null) {
+                    var item = transItems[index];
+                    if (item.type == 'item' && item.hasDiscount == false && item.hasMarker == false) {
+
+                        surcharge_amount = item.current_subtotal * surcharge.amount;
+
+                        // rounding surcharge
+                        surcharge_amount = this.getRoundedPrice(surcharge_amount);
+
+                        // check if discount amount exceeds user limit
+                        var user = GeckoJS.Session.get('user');
+                        var surcharge_limit = parseInt(user.item_surcharge_limit);
+                        if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
+                            var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
+                            if (surcharge_amount > surcharge_limit_amount) {
+                                NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
+                                    [surcharge_amount, surcharge_limit_amount]));
+                                return;
+                            }
+                        }
+
+                        item.surcharge_name = surcharge.name;
+                        item.surcharge_rate = surcharge.amount;
+                        item.surcharge_type = '%';
+                        item.current_surcharge = surcharge_amount;
+                        item.hasSurcharge = true;
+
+                        // create data object to push in items array
+                        var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
+
+                        // find the display index of the last entry associated with the item
+                        lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
+
+                        this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
+
+                        this.calcPromotions();
+
+                        this.calcItemsTax(item);
+
+                        resultItem.push(item);
+
+                    } else {
+                        lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
+                    }
+                }
+            }
+            var currentRowCount = this.data.display_sequences.length;
+
+            this.calcTotal();
+
+            this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
+
+            return resultItem;
+        },
 
         shiftTax: function(index, taxIndex){
 

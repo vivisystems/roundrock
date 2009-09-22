@@ -712,6 +712,37 @@
             }
 
             return product;
+        },
+
+        isNonDiscountable: function(id, useDb) {
+            //if category or product group is non-discountable, product is non-discountable
+            //else check product's eligibility thereafter
+            var result = false;
+            useDb = useDb || false;
+            var product = this.getProductById(id, useDb);
+
+            if (product.link_group && product.link_group.length > 0) {
+                var plugroupModel = new PlugroupModel();
+                var groups = product.link_group.split(',');
+
+                groups.forEach(function(groupId) {
+                    var group = plugroupModel.find('first', 'id="' + groupId + '"');
+                    if(group.non_discountable)
+                        result = true;
+                });
+            }
+
+            var categoryModel = new CategoryModel();
+            var category = categoryModel.find('first', 'no="' + product.cate_no + '"');
+            if(category.non_discountable)
+                result = true;
+
+            if(result == false) {
+                if(product.non_discountable)
+                    result = true;
+            }
+
+            return result;
         }
 
     };
