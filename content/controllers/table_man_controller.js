@@ -190,7 +190,6 @@
 
                 this._needRestart = true;
 
-                // @todo OSD
                 OsdUtils.info(_('[%S] new tables added successfully', [num]));
             }
         },
@@ -216,12 +215,10 @@
 
                     var table_no = inputObj.input0;
                     if (table_no <= 0) {
-                        // @todo OSD
                         NotifyUtils.warn(_('Table number [%S] is invalid', [table_no]));
                         return;
                     }
                     if (this.isDuplicate(table_no)) {
-                        // @todo OSD
                         NotifyUtils.warn(_('Table number [%S] has already been assigned', [table_no]));
                         return;
                     }
@@ -257,7 +254,6 @@
 
                     this._needRestart = true;
 
-                    // @todo OSD
                     OsdUtils.info(_('Table number [%S] added successfully', [table_no]));
                 }
             } catch (e) {}
@@ -317,7 +313,6 @@
 
                     this._needRestart = true;
 
-                    // @todo OSD
                     OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
                 }
             } catch (e) {}
@@ -366,7 +361,6 @@
 
                     // this.searchMode();
 
-                    // @todo OSD
                     OsdUtils.info(_('Table [%S (%S)] deleted successfully', [table.table_no, table.table_name]));
                 }
             } catch (e) {}
@@ -412,7 +406,6 @@
 
                     this._needRestart = true;
 
-                    // @todo OSD
                     OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
                 }
             } catch (e) {}
@@ -465,7 +458,6 @@
 
                     this._needRestart = true;
 
-                    // @todo OSD
                     OsdUtils.info(_('Region [%S] added successfully', [region_name]));
                 }
             } catch (e) {}
@@ -509,7 +501,6 @@
 
                     this._needRestart = true;
 
-                    // @todo OSD
                     OsdUtils.info(_('Region [%S] modified successfully', [inputObj.name]));
                 }
             } catch (e) {}
@@ -550,7 +541,6 @@
 
                     this._needRestart = true;
 
-                    // @todo OSD
                     OsdUtils.info(_('Region [%S] deleted successfully', [region.name]));
                 }
             } catch (e) {}
@@ -610,7 +600,6 @@
 
                 var dupNames = new GeckoJS.ArrayQuery(this._markListDatas).filter('name = \'' + markName + '\'');
                 if (dupNames.length > 0) {
-                    // @todo OSD
                     NotifyUtils.warn(_('Table status [%S] already exists', [markName]));
                     return;
                 }
@@ -630,7 +619,6 @@
                     }
                 }
                 
-                // @todo OSD
                 OsdUtils.info(_('Table status [%S] added successfully', [markName]));
 
                 this.setAutoMarkMenuItem();
@@ -675,7 +663,6 @@
                 this._markListDatas.splice(index, 1);
                 this.saveMarks();
 
-                // @todo OSD
                 OsdUtils.info(_('Table status [%S] deleted successfully', [markName]));
 
                 index = this.getMarkListObj().selectedIndex;
@@ -876,7 +863,7 @@
             this.saveTableSettings(settings);
 
             GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
-            // @todo OSD
+
             OsdUtils.info(_('Options saved successfully'));
 
             this._getTableStatusModel().setTableStatusOptions();
@@ -909,7 +896,6 @@
                 
                 this.saveSettings();
 
-                // @todo OSD
                 NotifyUtils.info(_('Table management options has been cloned from the table status server.'));
 
             }

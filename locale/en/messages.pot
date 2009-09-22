@@ -171,11 +171,14 @@ msgstr "Stock Service"
 msgid "sync_settings.ntp_hostname"
 msgstr "NTP Service"
 
+msgid "sync_settings.sale_period_hostname"
+msgstr "Sale Period Service"
+
 msgid "sync_settings.status.connected"
 msgstr "Connected"
 
 msgid "sync_settings.status.disconnect"
-msgstr "Disconnect"
+msgstr "Disconnected"
 
 ########################################################################
 #
@@ -742,6 +745,22 @@ msgstr "-%"
 msgid "vivipos.fec.registry.function.programmable.discountByPercentage.name"
 msgstr "Discount"
 
+##########################
+# Mass Discount By Percentage
+##########################
+
+msgid "vivipos.fec.registry.function.programmable.massDiscountByPercentage.desc"
+msgstr ""
+"This function registers a percentage-based discount to every cart item that is discountable. The parameter field can "
+"be used to program a preset percentage and label (separated by comma.) If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
+
+msgid "vivipos.fec.registry.function.programmable.massDiscountByPercentage.label"
+msgstr "x-%"
+
+msgid "vivipos.fec.registry.function.programmable.massDiscountByPercentage.name"
+msgstr "Mass Discount"
+
 ######################
 # Discount By Amount
 ######################
@@ -773,6 +792,22 @@ msgstr "+%"
 
 msgid "vivipos.fec.registry.function.programmable.surchargeByPercentage.name"
 msgstr "Surcharge"
+
+##########################
+# Mass Surcharge By Percentage
+##########################
+
+msgid "vivipos.fec.registry.function.programmable.massSurchargeByPercentage.desc"
+msgstr ""
+"This function registers a percentage-based surcharge to every cart item that is discountable. The parameter field can "
+"be used to program a preset percentage and label (separated by comma.) If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
+
+msgid "vivipos.fec.registry.function.programmable.massSurchargeByPercentage.label"
+msgstr "x+%"
+
+msgid "vivipos.fec.registry.function.programmable.massSurchargeByPercentage.name"
+msgstr "Mass Surcharge"
 
 #######################
 # Surcharge By Amount
@@ -2811,6 +2846,16 @@ msgstr "confirm disable function customizer"
 
 msgid "function_customizer.remove_confirm"
 msgstr "Do you want to disable [Function Customizer] for the future using?"
+
+########################################################################
+#
+# Split Payments
+#
+########################################################################
+
+msgid "Split Payments"
+msgstr "Split Payments"
+
 
 ########################################################################
 #

@@ -16,6 +16,78 @@
 
         autoRestoreFromBackup: true,
 
+
+        mappingTranToOrderPaymentsFields: function(data) {
+
+            var orderPayments = [];
+            var i = 0;
+            var len = GeckoJS.BaseObject.getKeys(data.trans_payments).length;
+            
+            for (var iid in data.trans_payments) {
+                i++;
+                let payment = data.trans_payments[iid];
+
+                let orderPayment = GREUtils.extend({}, payment);
+
+                orderPayment['id'] = iid;
+                orderPayment['order_id'] = data.id;
+                orderPayment['order_items_count'] = data.items_count;
+                orderPayment['order_total'] = data.total;
+
+                orderPayment['service_clerk'] = data.service_clerk;
+                orderPayment['proceeds_clerk'] = data.proceeds_clerk;
+
+                orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
+                orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
+
+                orderPayment['sale_period'] = data.sale_period;
+                orderPayment['shift_number'] = data.shift_number;
+                orderPayment['terminal_no'] = data.terminal_no;
+
+                // calculate change only if the order is being finalized
+                if (i == len && data.status == 1) {
+                    orderPayment['change'] = Math.abs(data.remain);
+                } else {
+                    orderPayment['change'] = 0;
+                }
+
+                orderPayments.push(orderPayment);
+
+            }
+
+            return orderPayments;
+
+        },
+
+        mappingOrderPaymentsFieldsToTran: function(orderData, data) {
+
+            var payments = {};
+
+            data['trans_payments'] = payments;
+
+            if (!orderData.OrderPayment || typeof orderData.OrderPayment == 'undefined') return payments;
+
+            for (var idx in orderData.OrderPayment) {
+
+                let payment = orderData.OrderPayment[idx];
+                let paymentIndex = payment.id;
+
+                payments[paymentIndex] = {
+                    'id': payment.id,
+                    'name': payment.name,
+                    'amount': payment.amount,
+                    'origin_amount': payment.origin_amount,
+                    'memo1': payment.memo1,
+                    'memo2': payment.memo2
+                };
+                
+            }
+            
+            data['trans_payments'] = payments;
+
+            return payments;
+        },
+
         getRemoteServiceUrl: function(method) {
 
             this.syncSettings = (new SyncSetting()).read();

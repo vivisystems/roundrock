@@ -32,17 +32,6 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-
-  <!-- include components -->
-  <script src="chrome://viviecr/content/controllers/components/function_settings.js" type="application/x-javascript"/>
-
-  <!-- include controller -->
-  <script src="chrome://viviecr/content/controllers/function_customizer_controller.js" type="application/x-javascript"/>
-
-  <!-- include startup script -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/function_customizer.js" />
-
     <keyset id="keyset_extensions">
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
@@ -744,5 +733,16 @@
 
     <!-- overlay the waiting panel. -->
     <popupset id="dialogs"/>
+
+
+  <!-- Put JavaScript at bottom -->
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+  <!-- include components -->
+  <script src="chrome://viviecr/content/controllers/components/function_settings.js" type="application/x-javascript"/>
+  <!-- include controller -->
+  <script src="chrome://viviecr/content/controllers/function_customizer_controller.js" type="application/x-javascript"/>
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/function_customizer.js" />
+
 
 </window>

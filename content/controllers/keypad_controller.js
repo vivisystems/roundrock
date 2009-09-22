@@ -76,16 +76,77 @@
             this.keypress();
         },
 
-        keypress: function() {
-            var evt = this.data;
+        keypress: function(evt) {
+
+            evt = evt || this.data;
 		
+            if (evt.originalTarget) {
+                if (evt.originalTarget.tagName.indexOf('input') != -1) return false;
+            }
+
             var charPress = String.fromCharCode(evt.charCode);
             var keyCode = evt.keyCode;
 
+            switch(keyCode) {
+                // ESCAPE
+                case 27:
+                    if (this.target == 'Cart') {
+                        this.getCartController().clear();
+                        this.clearBuffer();
+                    }
+                    else {
+                        this.getMainController().clear();
+                    }
+                    return true;
+                    break;
+
+                // TAB
+                case 0x09:
+                    if (!this._numberOnly) {
+                        this.getCartController().setPrice(this.getBuffer());
+                        this.clearBuffer();
+                    }
+                    return true;
+                    break;
+
+                // END
+                case 35:
+                    if (!this._numberOnly) {
+                        this.getCartController().addMarker('subtotal');
+                    }
+                    return true;
+                    break;
+                // BACKSPACE
+                case 8:
+                    if (this.buf.length > 0) {
+                        this.buf = this.buf.substring(0, this.buf.length - 1);
+                        this.addBuffer('');
+                    }
+                    return true;
+                    break;
+
+                // ENTER
+                case 13:
+                    if (this.target == 'Cart') {
+                        var cart = this.getCartController();
+                        cart.data = this.getBuffer();
+                        this.clearBuffer();
+                        this.getCartController().addItemByBarcode(cart.data);
+                    }
+                    else {
+                        this.getMainController().enter();
+                    }
+                    return true;
+                    break;
+
+            }
+
+
+            if (evt.ctrlKey || evt.altKey || evt.metaKey || (evt.charCode == 0) ) return;
+
+
             switch(charPress) {
 			
-                case 'x':
-                case 'X':
                 case '*':
                     if (!this._numberOnly && this.getBuffer().length > 0 ) {
                         this.getCartController().setQty(this.getBuffer(), false, '', true);
@@ -101,6 +162,8 @@
                 case '.':
                     if(!this._numberOnly && this.getBuffer().indexOf('.') == -1) this.addBuffer(charPress);
                     break;
+
+                default:
                 case '1':
                 case '2':
                 case '3':
@@ -113,58 +176,22 @@
                     this.addBuffer(charPress);
                     break;
             }
+            return true;
 
-            switch(keyCode) {
-                // ESCAPE
-                case 27:
-                    if (this.target == 'Cart') {
-                        this.getCartController().clear();
-                        this.clearBuffer();
-                    }
-                    else {
-                        this.getMainController().clear();
-                    }
-                    break;
-			
-                // TAB
-                case 0x09:
-                    if (!this._numberOnly) {
-                        this.getCartController().setPrice(this.getBuffer());
-                        this.clearBuffer();
-                    }
-                    break;
-			
-                // END
-                case 35:
-                    if (!this._numberOnly) {
-                        this.getCartController().addMarker('subtotal');
-                    }
-                    break;
-                // BACKSPACE
-                case 8:
-                    if (this.buf.length > 0) {
-                        this.buf = this.buf.substring(0, this.buf.length - 1);
-                        this.addBuffer('');
-                    }
-                    break;
-
-                // ENTER
-                case 13:
-                    if (this.target == 'Cart') {
-                        var cart = this.getCartController();
-                        cart.data = this.getBuffer();
-                        this.clearBuffer();
-                        this.getCartController().addItemByBarcode(cart.data);
-                    }
-                    else {
-                        this.getMainController().enter();
-                    }
-                    break;
-			
-            }
         }
+
     };
 
     GeckoJS.Controller.extend(__controller__);
+
+   // mainWindow self register guest check initial
+    var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+
+    if (mainWindow === window) {
+        var keypadController = GeckoJS.Controller.getInstanceByName('Keypad');
+        window.addEventListener('keypress', function(event) {
+            keypadController.keypress(event);
+        }, false);
+    }
 
 })();

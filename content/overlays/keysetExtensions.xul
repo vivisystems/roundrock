@@ -11,7 +11,7 @@
     <key id="key_controlPanel" key="o" oncommand="$do('ControlPanelDialog', null, 'Main');" modifiers="control"/>
     <key id="key_packageBuilder" key="b" oncommand="$do('PackageBuilderDialog', null, 'Main');" modifiers="control,alt"/>
     <key id="key_functionCustomizer" key="f" oncommand="$do('FunctionCustomizerDialog', null, 'Main');" modifiers="control,alt"/>
-    <key id="key_enter" keycode="VK_RETURN" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');"/>
+    <!--key id="key_enter" keycode="VK_RETURN" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');"/>
     <key id="key_num0" key="0" oncommand="$do('keypress', {charCode: 48}, 'Keypad');"/>
     <key id="key_num1" key="1" oncommand="$do('keypress', {charCode: 49}, 'Keypad');"/>
     <key id="key_num2" key="2" oncommand="$do('keypress', {charCode: 50}, 'Keypad');"/>
@@ -24,7 +24,7 @@
     <key id="key_num9" key="9" oncommand="$do('keypress', {charCode: 57}, 'Keypad');"/>
     <key id="key_dot" key="." oncommand="$do('keypress', {charCode: 46}, 'Keypad');"/>   
     <key id="key_tab" keycode="VK_TAB" oncommand="$do('keypress', {keyCode: 0x09}, 'Keypad');"/>
-    <key id="key_back" keycode="VK_BACK" oncommand="$do('keypress', {keyCode: 0x08}, 'Keypad');"/>
+    <key id="key_back" keycode="VK_BACK" oncommand="$do('keypress', {keyCode: 0x08}, 'Keypad');"/-->
   </keyset>
 
 </overlay>

@@ -35,7 +35,7 @@
 
             if (parseInt(userModel.lastError) != 0) {
                 this._dbError(userModel.lastError, userModel.lastErrorString,
-                              _('An error was encountered while retrieving employee records (error code %S).', [userModel.lastError]));
+                              _('An error was encountered while retrieving employee records (error code %S) [message #401].', [userModel.lastError]));
             }
 
             var userpanel = document.getElementById('userscrollablepanel');
@@ -56,7 +56,7 @@
             
             if (parseInt(jobModel.lastError) != 0) {
                 this._dbError(jobModel.lastError, jobModel.lastErrorString,
-                              _('An error was encountered while retrieving jobs (error code %S).', [jobModel.lastError]));
+                              _('An error was encountered while retrieving jobs (error code %S) [message #402].', [jobModel.lastError]));
             }
 
             if (jobs) {
@@ -298,7 +298,7 @@
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the terminal, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the terminal, and if the problem persists, please contact technical support immediately.'));
         }
     };
 

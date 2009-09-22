@@ -17,20 +17,707 @@
 
         autoRestoreFromBackup: true,
 
+        httpService: null,
+
+        getHttpService: function() {
+
+            try {
+                if (!this.httpService) {
+                    var syncSettings = SyncSetting.read();
+                    this.httpService = new SyncbaseHttpService();
+                    this.httpService.setSyncSettings(syncSettings);
+                    this.httpService.setHostname(syncSettings.table_hostname); // XXX table or order services ??
+                    this.httpService.setForce(true);
+                    this.httpService.setController('orders');
+                }
+            }catch(e) {
+                this.log('error ' + e);
+            }
+
+            return this.httpService;
+        },
+
+
+        /**
+         * return:
+         *
+         *   true  - if successfully saved to backup
+         *   false - if save to backup failed
+         */
+        saveOrder: function(data) {
+
+            if (!data ) return true;
+
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+
+            var result =  this.saveOrderToBackup(data, isTraining) || false;
+
+            return result;
+
+        },
+
+        /**
+         * commitSaveOrder
+         *
+         * if status == 2  (store)   || recall == 2 (recall from store)
+         * 
+         * Force USE TABLE Flow.
+         *
+         * @param {Object} data   transaction object
+         */
+        commitSaveOrder: function(data) {
+
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+            if (isTraining) return true;
+
+            if (data.status == 2 || data.recall == 2) {
+                // XXXX call table service to save order to remote.
+                return this.restoreOrderFromBackupToRemote();
+            }else {
+                return this.restoreOrderFromBackup();
+            }
+
+        },
+
+        saveOrderToBackup: function(data, isTraining) {
+
+            var retObj;
+
+            try {
+                    
+                if (isTraining) {
+                    retObj = this.save(this.mappingTranToOrderFields(data));
+                }
+                else {
+                    retObj = this.saveToBackup(this.mappingTranToOrderFields(data));
+                }
+                if (!retObj) {
+                    throw 'Order';
+                }
+
+                if (isTraining) {
+                    retObj = this.OrderItem.saveAll(this.OrderItem.mappingTranToOrderItemsFields(data));
+                }
+                else {
+                    retObj = this.OrderItem.saveToBackup(this.OrderItem.mappingTranToOrderItemsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderItem';
+                }
+
+                if (isTraining) {
+                    retObj = this.OrderAddition.saveAll(this.OrderAddition.mappingTranToOrderAdditionsFields(data));
+                }
+                else {
+                    retObj = this.OrderAddition.saveToBackup(this.OrderAddition.mappingTranToOrderAdditionsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderAddition';
+                }
+
+                if (isTraining) {
+                    retObj = this.OrderPayment.saveAll(this.OrderPayment.mappingTranToOrderPaymentsFields(data));
+                }
+                else {
+                    retObj = this.OrderPayment.saveToBackup(this.OrderPayment.mappingTranToOrderPaymentsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderPayment';
+                }
+
+                if (isTraining) {
+                    retObj = this.OrderAnnotation.saveAll(this.OrderAnnotation.mappingTranToOrderAnnotationsFields(data));
+                }
+                else {
+                    retObj = this.OrderAnnotation.saveToBackup(this.OrderAnnotation.mappingTranToOrderAnnotationsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderAnnotation';
+                }
+                    
+                if (isTraining) {
+                    retObj = this.OrderItemCondiment.saveAll(this.OrderItemCondiment.mappingTranToOrderItemCondimentsFields(data));
+                }
+                else {
+                    retObj = this.OrderItemCondiment.saveToBackup(this.OrderItemCondiment.mappingTranToOrderItemCondimentsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderItemCondiment';
+                }
+
+                if (isTraining) {
+                    retObj = this.OrderPromotion.saveAll(this.OrderPromotion.mappingTranToOrderPromotionsFields(data));
+                }
+                else {
+                    retObj = this.OrderPromotion.saveToBackup(this.OrderPromotion.mappingTranToOrderPromotionsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderPromotion';
+                }
+
+                if (isTraining) {
+                    retObj = this.OrderObject.save(this.OrderObject.mappingTranToOrderObjectsFields(data));
+                }
+                else {
+                    retObj = this.OrderObject.saveToBackup(this.OrderObject.mappingTranToOrderObjectsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderPromotion';
+                }
+
+                return true;
+
+            } catch(e) {
+                this.log('ERROR',
+                    'record could not be saved to backup [' + e + ']\n' + this.dump(data));
+            }
+            return false;
+
+        },
+
+        /**
+         * Restore order and order* from backup to REAL databases
+         * 
+         * @return {Boolean} return true if success
+         */
+        restoreOrderFromBackup: function() {
+
+            var r = this.restoreFromBackup();
+
+            if (r) r = this.OrderItem.restoreFromBackup();
+            if (r) r = this.OrderAddition.restoreFromBackup();
+            if (r) r = this.OrderPayment.restoreFromBackup();
+            if (r) r = this.OrderAnnotation.restoreFromBackup();
+            if (r) r = this.OrderItemCondiment.restoreFromBackup();
+            if (r) r = this.OrderPromotion.restoreFromBackup();
+            if (r) r = this.OrderObject.restoreFromBackup();
+
+            return r;
+
+        },
+
+        /**
+         * Restore order and orders from backup to REMOTE Services server
+         * 
+         * @return {Boolean} return true if success
+         */
+        restoreOrderFromBackupToRemote: function() {
+
+            var datas = {};
+
+            datas['Order'] = this.getBackupContent();
+            datas['OrderItem'] = this.OrderItem.getBackupContent();
+            datas['OrderAddition'] = this.OrderAddition.getBackupContent();
+            datas['OrderPayment'] = this.OrderPayment.getBackupContent();
+            datas['OrderAnnotation'] = this.OrderAnnotation.getBackupContent();
+            datas['OrderItemCondiment'] = this.OrderItemCondiment.getBackupContent();
+            datas['OrderPromotion'] = this.OrderPromotion.getBackupContent();
+            datas['OrderObject'] = this.OrderObject.getBackupContent();
+
+            var requestUrl = this.getHttpService().getRemoteServiceUrl('saveOrdersFromBackupFormat');
+            var request_data = (GeckoJS.BaseObject.serialize(datas));
+            //            dump('length = ' + request_data.length +'\n');
+
+            var response_data = this.getHttpService().requestRemoteService('POST', requestUrl, request_data) || null ;
+
+            // alway remove backup, if fault , use Waning dialg and drop store .
+            if (true /*response_data*/) {
+                this.removeBackupFile();
+                this.OrderItem.removeBackupFile();
+                this.OrderAddition.removeBackupFile();
+                this.OrderPayment.removeBackupFile();
+                this.OrderAnnotation.removeBackupFile();
+                this.OrderItemCondiment.removeBackupFile();
+                this.OrderPromotion.removeBackupFile();
+                this.OrderObject.removeBackupFile();
+            }
+            return response_data;
+
+        },
+
+
+        /**
+         * read order from local databases and mapping to transaction object 's data.
+         * 
+         * @param {String} id   order's uuid
+         * @param {Boolean} isRemote    use local database or remote services
+         * @return {Object} object for transaction.data
+         */
+        readOrder: function(id, isRemote) {
+
+            isRemote = isRemote || false;
+            if (!id ) return null;
+
+            var data = {};
+            var orderData = null;
+
+            if (isRemote) {
+                var requestUrl = this.getHttpService().getRemoteServiceUrl('readOrderToBackupFormat') + '/' + id;
+                orderData = this.getHttpService().requestRemoteService('GET', requestUrl) || false ;
+            }else {
+                orderData = this.find('first', {
+                    conditions: "orders.id='"+id+"'",
+                    recursive: 2
+                }) || false;
+            }
+
+            if (!orderData) return null;
+
+            // use unserialize first
+            data = this.OrderObject.mappingOrderObjectsFieldsToTran(orderData, data);
+
+            this.mappingOrderFieldsToTran(orderData, data);
+            this.OrderItem.mappingOrderItemsFieldsToTran(orderData, data);
+            this.OrderAddition.mappingOrderAdditionsFieldsToTran(orderData, data);
+            this.OrderPayment.mappingOrderPaymentsFieldsToTran(orderData, data);
+            this.OrderAnnotation.mappingOrderAnnotationsFieldsToTran(orderData, data);
+            this.OrderItemCondiment.mappingOrderItemCondimentsFieldsToTran(orderData, data);
+            this.OrderPromotion.mappingOrderPromotionsFieldsToTran(orderData, data);
+
+            this.log('DEBUG', 'readOrder '+ id + ': \n' + this.dump(data));
+            
+            return data;
+
+        },
+
+        /**
+         * get Order Id (uuid)
+         *
+         * @param {String} conditions
+         * @param {Boolean} isRemote    use local database or remote services
+         * @return {String} order's id  or null
+         */
+        getOrderId: function(conditions, isRemote) {
+
+            isRemote = isRemote || false;
+            if (!conditions) return null;
+
+            var orderId = null;
+
+            if (isRemote) {
+                var requestUrl = this.getHttpService().getRemoteServiceUrl('getOrderId') ;
+                orderId = this.getHttpService().requestRemoteService('POST', requestUrl, conditions) || null ;
+            }else {
+                let order = this.find('first', {
+                    fields: 'id',
+                    conditions: conditions,
+                    recursive: 0
+                }) || null;
+                if(order) orderId = order.Order.id;
+            }
+
+            return orderId ;
+        },
+
+
+        /**
+         * get Order Id (uuid)
+         *
+         * @param {String} conditions
+         * @param {Boolean} isRemote    use local database or remote service
+         * @return {String} order's id  or null
+         */
+        getOrdersSummary: function (conditions, isRemote) {
+
+            isRemote = isRemote || false;
+            if (!conditions) return null;
+
+            var orders = [];
+
+            if (isRemote) {
+                var requestUrl = this.getHttpService().getRemoteServiceUrl('getOrdersSummary') ;
+                result = this.getHttpService().requestRemoteService('POST', requestUrl, conditions) || null ;
+                if (result) orders = result;
+            }else {
+                let result = this.find('all', {
+                    conditions: conditions,
+                    recursive: 1
+                }) || null;
+                if(result) orders = result;
+            }
+
+            // this.log(this.dump(orders));
+            return orders;
+   
+        },
+
+
+        mappingTranToOrderFields: function(data) {
+
+            var orderData = {};
+
+            // process mapping
+            for (var key in data) {
+                switch(key) {
+                    case 'seq':
+                        orderData['sequence'] = "" + data[key];
+                        break;
+
+                    case 'remain':
+                        if (data[key] < 0)
+                            orderData['change'] = Math.abs(data[key]);
+                        else
+                            orderData['change'] = 0;
+                        break;
+
+                    case 'created':
+                        orderData['transaction_created'] = data[key];
+                        break;
+
+                    case 'modified':
+                        orderData['transaction_submitted'] = data[key];
+                        break;
+
+                    case 'items':
+                    case 'display_sequences':
+                    case 'items_summary':
+                    case 'trans_discounts':
+                    case 'trans_surcharges':
+                    case 'trans_payments':
+                    case 'markers':
+                        break;
+                    default:
+                        orderData[key] = data[key];
+                        break;
+                }
+            }
+
+            return orderData;
+
+        },
+
+        mappingOrderFieldsToTran: function(orderData, data) {
+            // process mapping
+            for (var key in orderData.Order) {
+                switch(key) {
+                    case 'sequence':
+                        data['seq'] = orderData.Order['sequence'];
+                        break;
+                    /*
+                    case 'change':
+                        data['remain'] =  orderData.Order['change'];
+                        break;
+                    */
+
+                    case 'transaction_created':
+                        data['created'] = orderData.Order['transaction_created'];
+                        break;
+
+                    case 'transaction_submitted':
+                        data['modified'] = orderData.Order['transaction_submitted'];
+                        break;
+
+                    case 'items':
+                    case 'display_sequences':
+                    case 'items_summary':
+                    case 'trans_discounts':
+                    case 'trans_surcharges':
+                    case 'trans_payments':
+                    case 'markers':
+                        break;
+
+                    default:
+                        data[key] = orderData.Order[key];
+                        break;
+                }
+            }
+        },
+
+        beforeSave: function(evt) {
+            return true;
+        },
+
+        removeOrders: function(conditions) {
+            // use execute sql statement to prevent sync...
+
+            // use transaction to improve performance
+            if (!this.begin()) {
+                this.log('ERROR', 'An error was encountered while preparing to remove expired orders (error code ' + this.lastError + '): ' + this.lastErrorString);
+                return false;
+            }
+            else {
+                try {
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order items
+                    if (!this.OrderItem.execute("DELETE FROM " + this.OrderItem.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {
+                            errno: this.OrderItem.lastError,
+                            errstr: this.OrderItem.lastErrorString,
+                            errmsg: 'An error was encountered while removing order items (error code ' + this.OrderItem.lastError + '): ' + this.OrderItem.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order item condiments
+                    if (!this.OrderItemCondiment.execute("DELETE FROM " + this.OrderItemCondiment.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {
+                            errno: this.OrderItemCondiment.lastError,
+                            errstr: this.OrderItemCondiment.lastErrorString,
+                            errmsg: 'An error was encountered while removing order items (error code ' + this.OrderItemCondiment.lastError + '): ' + this.OrderItemCondiment.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order additions
+                    if (!this.OrderAddition.execute("DELETE FROM " + this.OrderAddition.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {
+                            errno: this.OrderAddition.lastError,
+                            errstr: this.OrderAddition.lastErrorString,
+                            errmsg: 'An error was encountered while removing order additons (error code ' + this.OrderAddition.lastError + '): ' + this.OrderAddition.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order annotations
+                    if (!this.OrderAnnotation.execute("DELETE FROM " + this.OrderAnnotation.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {
+                            errno: this.OrderAnnotation.lastError,
+                            errstr: this.OrderAnnotation.lastErrorString,
+                            errmsg: 'An error was encountered while removing order annotations (error code ' + this.OrderAnnotation.lastError + '): ' + this.OrderAnnotation.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order objects
+                    if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {
+                            errno: this.OrderObject.lastError,
+                            errstr: this.OrderObject.lastErrorString,
+                            errmsg: 'An error was encountered while removing order objects (error code ' + this.OrderAddition.lastError + '): ' + this.OrderAddition.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order payments
+                    if (!this.OrderPayment.execute("DELETE FROM " + this.OrderPayment.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {
+                            errno: this.OrderPayment.lastError,
+                            errstr: this.OrderPayment.lastErrorString,
+                            errmsg: 'An error was encountered while removing order payments (error code ' + this.OrderPayment.lastError + '): ' + this.OrderPayment.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order receipts
+                    if (!this.OrderReceipt.execute("DELETE FROM " + this.OrderReceipt.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {
+                            errno: this.OrderReceipt.lastError,
+                            errstr: this.OrderReceipt.lastErrorString,
+                            errmsg: 'An error was encountered while removing order receipts (error code ' + this.OrderReceipt.lastError + '): ' + this.OrderReceipt.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order promotions
+                    if (!this.OrderPromotion.execute("DELETE FROM " + this.OrderPromotion.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {
+                            errno: this.OrderPromotion.lastError,
+                            errstr: this.OrderPromotion.lastErrorString,
+                            errmsg: 'An error was encountered while removing order promotions (error code ' + this.OrderPromotion.lastError + '): ' + this.OrderPromotion.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order delete lastest
+                    if (!this.execute("DELETE FROM " + this.table + " WHERE " + conditions)) {
+                        throw {
+                            errno: this.lastError,
+                            errstr: this.lastErrorString,
+                            errmsg: 'An error was encountered while removing orders (error code ' + this.lastError + '): ' + this.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    if (!this.commit()) {
+                        throw {
+                            errno: this.lastError,
+                            errstr: this.lastErrorString,
+                            errmsg: 'An error was encountered while completing removal of expired orders (error code ' + this.lastError + '): ' + this.lastErrorString
+                        }
+                    }
+                    return true;
+                }
+                catch(e) {
+                    this.rollback();
+
+                    this.log('ERROR', e.errmsg);
+
+                    this.lastError = e.lastError;
+                    this.lastErrorString = e.lastErrorString;
+
+                    return false;
+                }
+            }
+        },
+
+
+
+
+
+
+
+
+
+
+
+        /*
+         * NEED REWRITE
+         */
+
         timeout: 15,
         _orderLastTime: 0,
+
+        updateOrderMaster: function(data, updateTimestamp) {
+
+            var async = false;
+            var callback = null;
+
+            var remoteUrl = this.getRemoteServiceUrl('updateOrderMaster');
+
+            if(remoteUrl) {
+
+                var response_data = this.requestRemoteService('POST', remoteUrl, data);
+
+                if (!response_data) {
+                    // save order fail...
+                    this.log('ERROR',
+                        'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
+
+                    return false;
+                }
+
+                return true;
+
+
+            }else {
+
+                this.id = data.id;
+                var r = this.save(data, updateTimestamp);
+                if (!r) {
+                    this.log('ERROR',
+                        'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
+
+                    //@db saveToBackup
+                    r = this.saveToBackup(data, updateTimestamp);
+                    if (r) {
+                        this.log('ERROR', 'order master saved to backup');
+                    }
+                    else {
+                        this.log('ERROR',
+                            'order master could not be saved to backup\n' +  this.dump(data));
+                    }
+                }
+                return r;
+            }
+        },
+
+        serializeOrder: function (data) {
+
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+            var obj = GeckoJS.BaseObject.serialize(data);
+
+            var orderObj = {
+                id: data.id,
+                order_id: data.id,
+                object: obj
+            };
+
+            this.OrderObject.id = orderObj.id;
+
+            if (isTraining) {
+                return this.OrderObject.save(orderObj);
+            }
+            else {
+                return this.OrderObject.saveToBackup(orderObj);
+            }
+
+        },
+
+        unserializeOrder: function (order_id) {
+
+            var remoteUrl = this.getRemoteServiceUrl2('unserializeOrder');
+            var orderObject = null;
+
+            if (remoteUrl) {
+                try {
+                    // orders = this.requestRemoteService('GET', remoteUrl + "/" + cond, null);
+                    var requestUrl = remoteUrl + "/" + order_id + '/' + this.syncSettings.machine_id;
+                    orderObject = this.requestRemoteService2('GET',requestUrl, null);
+                    this.log(this.dump(orderObject));
+
+                    // locked by remote machined
+                    if(orderObject.LockedByMachineId) {
+                        this.datasource.lastError = 98;
+                        this.datasource.lastErrorString = orderObject.LockedByMachineId;
+                    }
+
+                    /*
+                    //@todo
+                    order.forEach(function(o){
+                        var item = GREUtils.extend({}, o.Order);
+                        for (var key in item) {
+                            o[key] = item[key];
+                        }
+                    });
+*/
+                    this._connected = true;
+                }catch(e) {
+                    orderObject = {};
+                    this._connected = false;
+
+                }
+
+            }else {
+
+                try {
+                    orderObject = this.OrderObject.find('first', {
+                        conditions:"order_id='"+order_id+"'"
+                    });
+
+                }catch(e) {
+                    dump(e);
+                }
+            }
+
+            if(orderObject && orderObject['OrderObject']) {
+                // return GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(orderObject.object));
+                return GeckoJS.BaseObject.unserialize(orderObject['OrderObject'].object);
+            }
+
+            return null;
+        },
 
         getRemoteServiceUrl2: function(method,force_remote) {
             this.syncSettings = (new SyncSetting()).read();
 
-            if (this.syncSettings && this.syncSettings.active == '1' && this.syncSettings.table_active == '1') {
+            if (this.syncSettings && this.syncSettings.active == 1 && this.syncSettings.table_active) {
 
                 // var hostname = this.syncSettings.table_hostname || 'localhost';
                 var hostname = this.syncSettings.hostname || 'localhost';
-                
-                // always use webservice when network table service active
-                // if ((hostname == 'localhost' || hostname == '127.0.0.1') && !force_remote) return false;
+                if ((hostname == 'localhost' || hostname == '127.0.0.1') && !force_remote) return false;
 
+                //  http://localhost:3000/sequences/getSequence/check_no
                 // check connection status
                 this.url = this.syncSettings.protocol + '://' +
                 hostname + ':' +
@@ -75,7 +762,7 @@
                     req.abort();
 
                 }catch(e) {
-                    // dump('timeout exception ' + e + "\n");
+                // dump('timeout exception ' + e + "\n");
                 }
             }, timeoutSec);
 
@@ -127,7 +814,7 @@
 
             }catch(e) {
                 data = [];
-                // dump('send exception ' + e + "\n");
+            // dump('send exception ' + e + "\n");
             }finally {
                 if(timeout) clearTimeout(timeout);
                 if(req)                 delete req;
@@ -142,12 +829,11 @@
 
             this.syncSettings = (new SyncSetting()).read();
 
-            if (this.syncSettings && this.syncSettings.active == '1' && this.syncSettings.table_active == '1') {
+            if (this.syncSettings && this.syncSettings.active == 1 && this.syncSettings.table_active) {
 
                 var hostname = this.syncSettings.hostname || 'localhost';
 
-                // always use webservice when network table service active
-                // if (hostname == 'localhost' || hostname == '127.0.0.1') return false;
+                if (hostname == 'localhost' || hostname == '127.0.0.1') return false;
 
                 //  http://localhost:3000/stocks/checkStock/
                 // check connection status
@@ -289,732 +975,10 @@
 
         },
 
+
         /**
-         * return:
-         *
-         *   true  - if successfully saved to backup
-         *   false - if save to backup failed
+         * XXX need rewrite
          */
-        saveOrder: function(data) {
-
-            if (!data ) return true;
-            
-            var retObj;
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
-
-
-            var async = false;
-            var callback = null;
-
-            var remoteUrl = this.getRemoteServiceUrl('saveOrder');
-
-            if(remoteUrl) {
-
-                var datas = {
-                    Order              : this.mappingTranToOrderFields(data),
-                    OrderItem          : this.mappingTranToOrderItemsFields(data),
-                    OrderAddition      : this.mappingTranToOrderAdditionsFields(data),
-                    OrderPayment       : this.mappingTranToOrderPaymentsFields(data),
-                    OrderAnnotation    : this.mappingTranToOrderAnnotationsFields(data),
-                    OrderItemCondiment : this.mappingTranToOrderItemCondimentsFields(data),
-                    OrderPromotion     : this.mappingTranToOrderPromotionsFields(data),
-                    OrderObject        : this.mappingTranToOrderObjectFields(data)
-
-                }
-
-                var response_data = this.requestRemoteService('POST', remoteUrl, datas);
-
-                if (!response_data) {
-                    // save order fail...
-                    return false;
-                }
-
-                return true;
-
-
-            }else {
-
-                var checksum = "";
-
-                try {
-                    if (isTraining) {
-                        retObj = this.save(this.mappingTranToOrderFields(data));
-                    }
-                    else {
-                        retObj = this.saveToBackup(this.mappingTranToOrderFields(data));
-                    }
-                    if (!retObj) {
-                        throw 'Order';
-                    }
-                    checksum += retObj.id + retObj.modified;
-
-                    if (isTraining) {
-                        retObj = this.OrderItem.saveAll(this.mappingTranToOrderItemsFields(data));
-                    }
-                    else {
-                        retObj = this.OrderItem.saveToBackup(this.mappingTranToOrderItemsFields(data));
-                    }
-                    if (!retObj) {
-                        throw 'OrderItem';
-                    }
-                    (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
-                        checksum += d.id + d.modified;
-                    });
-
-                    if (isTraining) {
-                        retObj = this.OrderAddition.saveAll(this.mappingTranToOrderAdditionsFields(data));
-                    }
-                    else {
-                        retObj = this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
-                    }
-                    if (!retObj) {
-                        throw 'OrderAddition';
-                    }
-                    (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
-                        checksum += d.id + d.modified;
-                    });
-
-                    if (isTraining) {
-                        retObj = this.OrderPayment.saveAll(this.mappingTranToOrderPaymentsFields(data));
-                    }
-                    else {
-                        retObj = this.OrderPayment.saveToBackup(this.mappingTranToOrderPaymentsFields(data));
-                    }
-                    if (!retObj) {
-                        throw 'OrderPayment';
-                    }
-                    (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
-                        checksum += d.id + d.modified;
-                    });
-
-                    if (isTraining) {
-                        retObj = this.OrderAnnotation.saveAll(this.mappingTranToOrderAnnotationsFields(data));
-                    }
-                    else {
-                        retObj = this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
-                    }
-                    if (!retObj) {
-                        throw 'OrderAnnotation';
-                    }
-                    (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
-                        checksum += d.id + d.modified;
-                    });
-
-                    if (isTraining) {
-                        retObj = this.OrderItemCondiment.saveAll(this.mappingTranToOrderItemCondimentsFields(data));
-                    }
-                    else {
-                        retObj = this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
-                    }
-                    if (!retObj) {
-                        throw 'OrderItemCondiment';
-                    }
-                    (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
-                        checksum += d.id + d.modified;
-                    });
-
-                    if (isTraining) {
-                        retObj = this.OrderPromotion.saveAll(this.mappingTranToOrderPromotionsFields(data));
-                    }
-                    else {
-                        retObj = this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
-                    }
-                    if (!retObj) {
-                        throw 'OrderPromotion';
-                    }
-                    (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
-                        checksum += d.id + d.modified;
-                    });
-
-                    var KeepEachTransaction = GeckoJS.Configure.read( "vivipos.fec.settings.KeepEachTransaction" );
-                    if (data.status == 2 || ( data.status == 1 && KeepEachTransaction ) ) {// We save the object of a finalized order to DB for the sake of reprinting checks.
-
-                        data.checksum = GREUtils.CryptoHash.md5(checksum);
-
-                        if (!this.serializeOrder(data)) {
-                            throw 'OrderObject';
-                        }
-                        this.log(data.id + ': ' + data.checksum);
-                    }
-                    return true;
-
-                } catch(e) {
-                    this.log(
-                        'ERROR',
-                        'record could not be saved to backup [' + e + ']\n' + this.dump(data)
-                    );
-                }
-
-            }
-            return false;
-        },
-
-        restoreOrderFromBackup: function() {
-
-            var r = this.restoreFromBackup();
-
-            if (r) r = this.OrderItem.restoreFromBackup();
-            if (r) r = this.OrderAddition.restoreFromBackup();
-            if (r) r = this.OrderPayment.restoreFromBackup();
-            if (r) r = this.OrderAnnotation.restoreFromBackup();
-            if (r) r = this.OrderItemCondiment.restoreFromBackup();
-            if (r) r = this.OrderPromotion.restoreFromBackup();
-
-            if (r) r = this.OrderObject.restoreFromBackup();
-
-            return r;
-        },
-
-        updateOrderMaster: function(data, updateTimestamp) {
-
-            var async = false;
-            var callback = null;
-
-            var remoteUrl = this.getRemoteServiceUrl('updateOrderMaster');
-
-            if(remoteUrl) {
-
-                var response_data = this.requestRemoteService('POST', remoteUrl, data);
-
-                if (!response_data) {
-                    // save order fail...
-                    this.log('ERROR',
-                             'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
-
-                    return false;
-                }
-
-                return true;
-
-
-            }else {
-
-                this.id = data.id;
-                var r = this.save(data, updateTimestamp);
-                if (!r) {
-                    this.log('ERROR',
-                             'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
-
-                    //@db saveToBackup
-                    r = this.saveToBackup(data, updateTimestamp);
-                    if (r) {
-                        this.log('ERROR', 'order master saved to backup');
-                    }
-                    else {
-                        this.log('ERROR',
-                                 'order master could not be saved to backup\n' +  this.dump(data));
-                    }
-                }
-                return r;
-            }
-        },
-
-        mappingTranToOrderFields: function(data) {
-
-            var orderData = {};
-
-            // process mapping
-            for (var key in data) {
-                switch(key) {
-                    case 'seq':
-                        orderData['sequence'] = "" + data[key];
-                        break;
-
-                    case 'remain':
-                        if (data[key] < 0)
-                            orderData['change'] = Math.abs(data[key]);
-                        else
-                            orderData['change'] = 0;
-                        break;
-
-                    case 'created':
-                        orderData['transaction_created'] = data[key];
-                        break;
-
-                    case 'modified':
-                        orderData['transaction_submitted'] = data[key];
-                        break;
-
-                    case 'items':
-                    case 'display_sequences':
-                    case 'items_summary':
-                    case 'trans_discounts':
-                    case 'trans_surcharges':
-                    case 'trans_payments':
-                    case 'markers':
-                        break;
-                    default:
-                        orderData[key] = data[key];
-                        break;
-                }
-            }
-
-            return orderData;
-
-        },
-
-        mappingTranToOrderItemsFields: function(data) {
-
-            var orderItems = [];
-
-            for (var iid in data.items) {
-
-                var item = data.items[iid];
-
-                var orderItem = {};
-                orderItem['id'] = iid;
-                orderItem['order_id'] = data.id;
-
-                for (var key in item) {
-
-
-                    switch(key) {
-                        case 'cate_id':
-                        case 'id':
-                            // orderItem['product_id'] = item[key];
-                            break;
-                        case 'no':
-                            orderItem['product_no'] = item[key];
-                            break;
-                        case 'name':
-                            orderItem['product_name'] = item[key];
-                            break;
-                        case 'barcode':
-                            orderItem['product_barcode'] = item[key];
-                            break;
-                        case 'condiments':
-                            orderItem['condiments'] = GeckoJS.BaseObject.getKeys(item[key]).join(',');
-                            break;
-                        case 'hasDiscount':
-                            orderItem['has_discount'] = item[key];
-                            break;
-                        case 'hasSurcharge':
-                            orderItem['has_surcharge'] = item[key];
-                            break;
-                        case 'hasMarker':
-                            orderItem['has_marker'] = item[key];
-                            break;
-                        case 'parent_index':
-                            if (item[key] != null && item[key] != '') {
-                                orderItem['parent_no'] = data.items[item[key]].no;
-                            }
-                            break;
-                        case 'type':
-                        case 'index':
-                            break;
-
-                        case 'current_qty':
-                            if (item['sale_unit'] == 'unit') {
-                                orderItem['current_qty'] = item['current_qty'];
-                                orderItem['weight'] = 0.0;
-                            }
-                            else {
-                                orderItem['current_qty'] = 1;
-                                orderItem['weight'] = item['current_qty'];
-                            }
-                            break;
-
-                        default:
-                            orderItem[key] = item[key];
-                            break;
-                    }
-                }
-
-                orderItems.push(orderItem);
-            }
-            return orderItems;
-
-        },
-
-        mappingTranToOrderItemCondimentsFields: function(data) {
-
-            var orderItemCondiments = [];
-
-            for (var iid in data.items) {
-
-                var item = data.items[iid];
-
-                for (var cond in item.condiments) {
-
-                    var orderItemCondiment = {};
-
-                    orderItemCondiment['item_id'] = iid;
-                    orderItemCondiment['order_id'] = data.id;
-
-                    var condiment = item.condiments[cond];
-
-                    for (var key in condiment) {
-                        switch(key) {
-                            case 'id':
-                            case 'current_subtotal':
-                                break;
-
-                            default:
-                                orderItemCondiment[key] = condiment[key];
-                                break;
-                        }
-                    }
-                    orderItemCondiments.push(orderItemCondiment);
-                }
-            }
-            return orderItemCondiments;
-
-        },
-
-        mappingTranToOrderAdditionsFields: function(data) {
-
-            var orderAdditions = [];
-
-            for (var iid in data.trans_discounts) {
-
-                var discount = data.trans_discounts[iid];
-
-                var orderAddition = GREUtils.extend({}, discount);
-
-                orderAddition['id'] = iid;
-                orderAddition['order_id'] = data.id;
-                orderAddition['order_item_count'] = data.item_count;
-                orderAddition['order_item_total'] = data.item_count;
-
-                orderAdditions.push(orderAddition);
-
-            }
-
-            for (var iid2 in data.trans_surcharges) {
-                var surcharge = data.trans_surcharges[iid2];
-
-                var orderAddition = GREUtils.extend({}, surcharge);
-
-                orderAddition['id'] = iid2;
-                orderAddition['order_id'] = data.id;
-
-                orderAdditions.push(orderAddition);
-
-            }
-
-            return orderAdditions;
-
-        },
-
-        mappingTranToOrderPromotionsFields: function(data) {
-
-            var orderPromotions = [];
-
-            for (var idx in data.promotion_apply_items) {
-
-                var applyItem = data.promotion_apply_items[idx];
-
-                applyItem['order_id'] = data.id;
-                applyItem['promotion_id'] = applyItem['id'];
-                applyItem['discount_subtotal'] = applyItem['discount_subtotal'];
-                delete (applyItem['id']);
-
-                orderPromotions.push(applyItem);
-            }
-
-            return orderPromotions;
-
-        },
-
-        mappingTranToOrderAnnotationsFields: function(data) {
-
-            var orderAnnotations = [];
-
-            for (var idx in data.annotations) {
-
-                var annotationItem = {};
-
-                annotationItem['order_id'] = data.id;
-                annotationItem['type'] = idx;
-                annotationItem['text'] = data.annotations[idx];
-                delete (annotationItem['id']);
-                
-                orderAnnotations.push(annotationItem);
-            }
-
-            return orderAnnotations;
-
-        },
-
-        mappingTranToOrderPaymentsFields: function(data) {
-
-            var orderPayments = [];
-            var i = 0;
-            var len = GeckoJS.BaseObject.getKeys(data.trans_payments).length;
-            for (var iid in data.trans_payments) {
-                i++;
-                var payment = data.trans_payments[iid];
-
-                var orderPayment = GREUtils.extend({}, payment);
-
-                orderPayment['id'] = iid;
-                orderPayment['order_id'] = data.id;
-                orderPayment['order_items_count'] = data.items_count;
-                orderPayment['order_total'] = data.total;
-
-                orderPayment['service_clerk'] = data.service_clerk;
-                orderPayment['proceeds_clerk'] = data.proceeds_clerk;
-
-                orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
-                orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
-
-                orderPayment['sale_period'] = data.sale_period;
-                orderPayment['shift_number'] = data.shift_number;
-                orderPayment['terminal_no'] = data.terminal_no;
-
-                // calculate change only if the order is being finalized
-                if (i == len && data.status == 1) {
-                    orderPayment['change'] = Math.abs(data.remain);
-                } else {
-                    orderPayment['change'] = 0;
-                }
-
-                orderPayments.push(orderPayment);
-
-            }
-
-            return orderPayments;
-
-        },
-
-        mappingTranToOrderObjectFields: function(data) {
-
-            var orderObj = {};
-            orderObj['id'] = data.id;
-            orderObj['order_id'] = data.id;
-            orderObj['object'] = data;
-
-            return orderObj;
-
-        },
-
-        serializeOrder: function (data) {
-
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
-            var obj = GeckoJS.BaseObject.serialize(data);
-
-            var orderObj = {
-                id: data.id,
-                order_id: data.id,
-                object: obj
-            };
-
-            this.OrderObject.id = orderObj.id;
-
-            if (isTraining) {
-                return this.OrderObject.save(orderObj);
-            }
-            else {
-                return this.OrderObject.saveToBackup(orderObj);
-            }
-
-        },
-
-        unserializeOrder: function (order_id) {
-
-            var remoteUrl = this.getRemoteServiceUrl2('unserializeOrder');
-            var orderObject = null;
-
-            if (remoteUrl) {
-                try {
-                    // orders = this.requestRemoteService('GET', remoteUrl + "/" + cond, null);
-                    var requestUrl = remoteUrl + "/" + order_id + '/' + this.syncSettings.machine_id;
-                    orderObject = this.requestRemoteService2('GET',requestUrl, null);
-
-                    // locked by remote machined
-                    if(orderObject.LockedByMachineId) {
-                        this.datasource.lastError = 98;
-                        this.datasource.lastErrorString = orderObject.LockedByMachineId;
-                    }
-
-/*
-                    //@todo
-                    order.forEach(function(o){
-                        var item = GREUtils.extend({}, o.Order);
-                        for (var key in item) {
-                            o[key] = item[key];
-                        }
-                    });
-*/
-                    this._connected = true;
-                }catch(e) {
-                    orderObject = {};
-                    this._connected = false;
-
-                }
-
-            }else {
-
-                try {
-                    orderObject = this.OrderObject.find('first', {
-                        conditions:"order_id='"+order_id+"'"
-                    });
-
-                }catch(e) {
-                    dump(e);
-                }
-            }
-
-            if(orderObject && orderObject['OrderObject']) {
-                // return GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(orderObject.object));
-                return GeckoJS.BaseObject.unserialize(orderObject['OrderObject'].object);
-            }
-
-            return null;
-        },
-
-        beforeSave: function(evt) {
-            return true;
-        },
-
-        removeOrders: function(conditions) {
-            // use execute sql statement to prevent sync...
-
-            // use transaction to improve performance
-            if (!this.begin()) {
-                this.log('ERROR', 'An error was encountered while preparing to remove expired orders (error code ' + this.lastError + '): ' + this.lastErrorString);
-                return false;
-            }
-            else {
-                try {
-                    
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    if (!this.execute("DELETE FROM " + this.table + " WHERE " + conditions)) {
-                        throw {errno: this.lastError,
-                               errstr: this.lastErrorString,
-                               errmsg: 'An error was encountered while removing orders (error code ' + this.lastError + '): ' + this.lastErrorString
-                        }
-                    }
-
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    // order items
-                    if (!this.OrderItem.execute("DELETE FROM " + this.OrderItem.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ITEMS.order_id)")) {
-                        throw {errno: this.OrderItem.lastError,
-                               errstr: this.OrderItem.lastErrorString,
-                               errmsg: 'An error was encountered while removing order items (error code ' + this.OrderItem.lastError + '): ' + this.OrderItem.lastErrorString
-                        }
-                    }
-
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    // order item condiments
-                    if (!this.OrderItemCondiment.execute("DELETE FROM " + this.OrderItemCondiment.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ITEM_CONDIMENTS.order_id)")) {
-                        throw {errno: this.OrderItemCondiment.lastError,
-                               errstr: this.OrderItemCondiment.lastErrorString,
-                               errmsg: 'An error was encountered while removing order items (error code ' + this.OrderItemCondiment.lastError + '): ' + this.OrderItemCondiment.lastErrorString
-                        }
-                    }
-
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    // order additions
-                    if (!this.OrderAddition.execute("DELETE FROM " + this.OrderAddition.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ADDITIONS.order_id)")) {
-                        throw {errno: this.OrderAddition.lastError,
-                               errstr: this.OrderAddition.lastErrorString,
-                               errmsg: 'An error was encountered while removing order additons (error code ' + this.OrderAddition.lastError + '): ' + this.OrderAddition.lastErrorString
-                        }
-                    }
-
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    // order annotations
-                    if (!this.OrderAnnotation.execute("DELETE FROM " + this.OrderAnnotation.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ANNOTATIONS.order_id)")) {
-                        throw {errno: this.OrderAnnotation.lastError,
-                               errstr: this.OrderAnnotation.lastErrorString,
-                               errmsg: 'An error was encountered while removing order annotations (error code ' + this.OrderAnnotation.lastError + '): ' + this.OrderAnnotation.lastErrorString
-                        }
-                    }
-
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    // order objects
-                    if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_OBJECTS.order_id)")) {
-                        throw {errno: this.OrderObject.lastError,
-                               errstr: this.OrderObject.lastErrorString,
-                               errmsg: 'An error was encountered while removing order objects (error code ' + this.OrderAddition.lastError + '): ' + this.OrderAddition.lastErrorString
-                        }
-                    }
-
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    // order payments
-                    if (!this.OrderPayment.execute("DELETE FROM " + this.OrderPayment.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_PAYMENTS.order_id)")) {
-                        throw {errno: this.OrderPayment.lastError,
-                               errstr: this.OrderPayment.lastErrorString,
-                               errmsg: 'An error was encountered while removing order payments (error code ' + this.OrderPayment.lastError + '): ' + this.OrderPayment.lastErrorString
-                        }
-                    }
-
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    // order receipts
-                    if (!this.OrderReceipt.execute("DELETE FROM " + this.OrderReceipt.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_RECEIPTS.order_id)")) {                            throw {errno: this.OrderReceipt.lastError,
-                               errstr: this.OrderReceipt.lastErrorString,
-                               errmsg: 'An error was encountered while removing order receipts (error code ' + this.OrderReceipt.lastError + '): ' + this.OrderReceipt.lastErrorString
-                        }
-                    }
-
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    // order promotions
-                    if (!this.OrderPromotion.execute("DELETE FROM " + this.OrderPromotion.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_PROMOTIONS.order_id)")) {                            throw {errno: this.OrderPromotion.lastError,
-                               errstr: this.OrderPromotion.lastErrorString,
-                               errmsg: 'An error was encountered while removing order promotions (error code ' + this.OrderPromotion.lastError + '): ' + this.OrderPromotion.lastErrorString
-                        }
-                    }
-
-                    // update progressbar...
-                    GeckoJS.BaseObject.sleep(50);
-
-                    if (!this.commit()) {
-                        throw {errno: this.lastError,
-                               errstr: this.lastErrorString,
-                               errmsg: 'An error was encountered while completing removal of expired orders (error code ' + this.lastError + '): ' + this.lastErrorString
-                        }
-                    }
-                    return true;
-                }
-                catch(e) {
-                    this.rollback();
-
-                    this.log('ERROR', e.errmsg);
-
-                    this.lastError = e.lastError;
-                    this.lastErrorString = e.lastErrorString;
-
-                    return false;
-                }
-            }
-        },
-
-        _convertOrderDataType: function(orderObj) {
-
-            this.OrderItem.convertDataTypes( orderObj.OrderItem);
-            this.OrderAddition.convertDataTypes( orderObj.OrderAddition);
-            if (orderObj.OrderAddition.length == 0) delete orderObj.OrderAddition;
-            this.OrderPayment.convertDataTypes( orderObj.OrderPayment);
-            if (orderObj.OrderPayment.length == 0) delete orderObj.OrderPayment;
-            this.OrderAnnotation.convertDataTypes( orderObj.OrderAnnotation);
-            if (orderObj.OrderAnnotation.length == 0) delete orderObj.OrderAnnotation;
-            this.OrderItemCondiment.convertDataTypes( orderObj.OrderItemCondiment);
-            if (orderObj.OrderItemCondiment.length == 0) delete orderObj.OrderItemCondiment;
-            this.OrderPromotion.convertDataTypes( orderObj.OrderPromotion);
-            if (orderObj.OrderPromotion.length == 0) delete orderObj.OrderPromotion;
-
-            return this.convertDataTypes( orderObj.Order);
-        },
-
         getCheckList: function(key, no, lastModified) {
             //
             var self = this;
@@ -1048,7 +1012,7 @@
             } else if (key != 'OrderId') {
                 conditions += " AND Order.status='2'";
             }
-            
+
             var remoteUrl = this.getRemoteServiceUrl2('getCheckList');
             var orders = null;
 
@@ -1108,38 +1072,20 @@
 
                 var fields = null;
 
-                orders = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
+                orders = order.find('all', {
+                    fields: fields,
+                    conditions: conditions,
+                    recursive: 2
+                });
             }
 
             if (orders && orders.length > 0)
-            this._orderLastTime = orders[orders.length - 1].modified;
+                this._orderLastTime = orders[orders.length - 1].modified;
 
             delete (order);
             return orders;
-        },
-
-        commitTransactionByOrder: function(order_id) {
-
-            var remoteUrl = this.getRemoteServiceUrl2('commitTransactionByOrder');
-            var orderObject = null;
-
-            if (remoteUrl) {
-                try {
-                    // orders = this.requestRemoteService('GET', remoteUrl + "/" + cond, null);
-                    var requestUrl = remoteUrl + "/" + order_id + '/' + this.syncSettings.machine_id;
-                    var responseText = this.requestRemoteService2('GET',requestUrl, null);
-
-                    this._connected = true;
-                }catch(e) {
-                    orderObject = {};
-                    this._connected = false;
-
-                }
-
-            }
-
         }
-        
+
     };
 
     var OrderModel = window.OrderModel =  AppModel.extend(__model__);

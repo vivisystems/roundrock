@@ -173,7 +173,6 @@
                 inputObj.index = document.getElementById('checkScrollablepanel').value;
 
                 if (checkViews[inputObj.index].block_item) {
-                    // @todo OSD
                     NotifyUtils.warn(_('Can not select this order!!'));
 
                     return false;

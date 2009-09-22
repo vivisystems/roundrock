@@ -77,14 +77,12 @@
             var selectedItems = document.getElementById('sourcecheckscrollablepanel').selectedItems;
 
             if (selectedItems.length <= 0) {
-                // @todo OSD
                 NotifyUtils.warn(_('Please select source items to split'));
                 return;
             }
 
             //
             if (selectedItems.length == this._sourceItems.length) {
-                // @todo OSD
                 NotifyUtils.warn(_('Can not split all items'));
                 return;
             }
@@ -436,7 +434,6 @@
                 // @todo must rewrite...
                 if (seq == '-1') {
                     // can't get sequence
-                    // @todo OSD
                     NotifyUtils.error(_("can't get sequence"));
                     return false;
                 }
@@ -473,7 +470,7 @@
 
                 GREUtils.Dialog.alert(this.topmostWindow,
                         _('Save Order Error'),
-                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation', [origData.sequence]));
+                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation [message #1501].', [origData.sequence]));
                 
                 return false;
             }
@@ -504,9 +501,6 @@
 
             });
             
-            
-            
-            // @todo OSD
             NotifyUtils.info(_('Check# %S has been successfully split to Check# %S', [this._sourceCheck.check_no, check_no_list.join(',')]));
 
             if (index >= 0)

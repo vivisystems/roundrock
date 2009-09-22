@@ -2,6 +2,8 @@
 
     var __controller__ = {
 
+        uses: ['ShiftMarker'],
+
         name: 'ShiftChanges',
 
         _listObj: null,
@@ -10,41 +12,48 @@
 
         initial: function() {
             // set current sales period and shift number
-            this._updateSession();
+            var currentShift = this._updateSession();
             
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
-            // add event listener for onUpdateOptions events
+            // add event listener for main controller events
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
                 main.addEventListener('onSetClerk', this.startShift, this);
                 main.addEventListener('afterClearOrderData', this.expireData, this);
                 main.addEventListener('afterTruncateTxnRecords', this.truncateData, this);
             }
-        },
 
-        _queryStringPreprocessor: function( s ) {
-            var re = /\'/g;
-            return s.replace( re, '\'\'' );
+            // add event listener for cart controller events
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            if(main) {
+                cart.addEventListener('newTransaction', this.retrieveClusterSalePeriod, this);
+                cart.addEventListener('beforeSubmit', this.verifyClusterSalePeriod, this);
+                cart.addEventListener('beforeLedgerEntry', this.verifyClusterSalePeriod, this);
+            }
+
+            if (currentShift != null && currentShift.sale_period == -1) {
+                // warn if sale period cannot be retrieved
+                GREUtils.Dialog.alert(null,
+                                      _('Shift Change'),
+                                      _('Failed to determine current sale period. ')
+                                      + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+            }
         },
 
         _getShiftMarker: function() {
-            shift = GeckoJS.Session.get('current_shift');
+            var shift = GeckoJS.Session.get('current_shift');
             if (!shift) {
-                var shiftMarkerModel = new ShiftMarkerModel();
-                var terminalNo = GeckoJS.Session.get('terminal_no');
-                var shift = shiftMarkerModel.find('first', {
-                    conditions: "terminal_no = '" + this._queryStringPreprocessor(terminalNo) +  "'",
-                    recursive: 0
-                });
-                if (parseInt(shiftMarkerModel.lastError) != 0) {
-                    this._dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
-                                  _('An error was encountered while retrieving shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
-                    return;
+                shift = this.ShiftMarker.getMarker();
+                if (parseInt(this.ShiftMarker.lastError) != 0) {
+                    this._dbError(this.ShiftMarker.lastError, this.ShiftMarker.lastErrorString,
+                                  _('An error was encountered while retrieving shift change configuration (error code %S).', [this.ShiftMarker.lastError]));
+                    return null;
                 }
+                
+                GeckoJS.Session.set('current_shift', shift);
             }
-            GeckoJS.Session.set('current_shift', shift);
             return shift;
         },
 
@@ -69,6 +78,7 @@
         _updateSession: function(currentShift) {
             var shiftNumber = '';
             var salePeriod = '';
+            var salePeriodStr;
 
             if (!currentShift) {
                 currentShift = this._getShiftMarker();
@@ -77,16 +87,30 @@
             if (currentShift) {
                 shiftNumber = currentShift.shift_number;
                 salePeriod = currentShift.sale_period;
+
+                if (shiftNumber != '') shiftNumber = parseInt(shiftNumber);
+                if (salePeriod != '') salePeriod = parseInt(salePeriod);
             }
+
+            if (salePeriod == '') {
+                salePeriodStr = '';
+            }
+            else if (salePeriod < 0) {
+                salePeriodStr = '-1';
+            }
+            else {
+                salePeriodStr = new Date(salePeriod * 1000).toLocaleDateString();
+            }
+
             GeckoJS.Session.set('current_shift', currentShift);
             GeckoJS.Session.set('shift_number', shiftNumber);
             GeckoJS.Session.set('sale_period', salePeriod);
-            GeckoJS.Session.set('sale_period_string',
-                                salePeriod == '' ? '' : new Date(salePeriod * 1000).toLocaleDateString());
+            GeckoJS.Session.set('sale_period_string', salePeriodStr);
+
+            return currentShift;
         },
 
         _setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
-            var shiftMarkerModel = new ShiftMarkerModel();
 
             shiftNumber = parseInt(shiftNumber);
             salePeriod = parseInt(salePeriod);
@@ -104,12 +128,12 @@
             // update shift marker if it already exists
             if (shift) {
                 newShiftMarker.id = shift.id;
-                shiftMarkerModel.id = shift.id;
+                this.ShiftMarker.id = shift.id;
             }
-            var r = shiftMarkerModel.saveMarker(newShiftMarker);
+            var r = this.ShiftMarker.saveMarker(newShiftMarker);
             if (!r) {
-                this._dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
-                              _('An error was encountered while updating shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
+                this._dbError(this.ShiftMarker.lastError, this.ShiftMarker.lastErrorString,
+                              _('An error was encountered while updating shift change configuration (error code %S) [message #1402].', [this.ShiftMarker.lastError]));
             }
             else {
                 // update shift
@@ -126,12 +150,16 @@
             var aArguments = {current_sale_period: newSalePeriod,
                               current_shift_number: newShiftNumber,
                               last_sale_period: lastSalePeriod,
-                              last_shift_number: lastShiftNumber};
+                              last_shift_number: lastShiftNumber,
+                              GeckoJS: GeckoJS,
+                              GREUtils: GREUtils};
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
 
             var win = this.topmostWindow;
-            if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
+            }
             GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
         },
 
@@ -153,14 +181,14 @@
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup shift change records (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring backup shift change records (error code %S) [message #1403].', [model.lastError])};
                     }
 
                     r = model.execute('delete from shift_changes where created <= ' + expireDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring shift change records (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring shift change records (error code %S) [message #1404].', [model.lastError])};
                     }
 
                     model = new ShiftChangeDetailModel();
@@ -168,14 +196,14 @@
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup shift change details (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring backup shift change details (error code %S) [message #1405].', [model.lastError])};
                     }
 
                     r = model.execute('delete from shift_change_details where not exists (select 1 from shift_changes where shift_changes.id == shift_change_details.shift_change_id)') && r;
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring shift change details (error code %S).', [model.lastError])};
+                               errmsg: _('An error was encountered while expiring shift change details (error code %S) [message #1406].', [model.lastError])};
                     }
                 }
                 catch(e) {
@@ -192,7 +220,7 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all shift change records (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all shift change records (error code %S) [message #1407].', [model.lastError])};
                 }
 
                 model = new ShiftChangeDetailModel();
@@ -200,16 +228,16 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while removing all shift change details (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all shift change details (error code %S) [message #1408].', [model.lastError])};
                 }
 
-                model = new ShiftMarkerModel();
-                r = model.truncate();
+                r = this.ShiftMarker.truncate();
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: ('An error was encountered while removing shift change marker (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing shift change marker (error code %S) [message #1409].', [model.lastError])};
                 }
+                r = SequenceModel.removeSequence('sale_period');
             }
             catch(e) {
                 this._dbError(e.errno, e.errstr, e.errmsg);
@@ -225,67 +253,122 @@
             var lastShiftNumber = this._getShiftNumber();
             var endOfPeriod = this._getEndOfPeriod();
             var endOfShift = this._getEndOfShift();
-            var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
-            var isNewSalePeriod = false;
+            var clusterSalePeriod = this.ShiftMarker.getClusterSalePeriod();
+            var disableShiftChange = GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange');
             var updateShiftMarker = true;
+
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX < 0) {
+                win = null;
+            }
             
+            // check if cluster sale period is available
+            if (clusterSalePeriod == -1) {
+                GREUtils.Dialog.alert(win,
+                    _('Shift Change Error'),
+                    _('Failed to start shift because current sale period could not be determined. Please check the network connectivity to the terminal designated as the sale period master and sign in again after the issue has been resolved.'));
+
+                this._updateSession({sale_period: -1,
+                                     shift_number: '',
+                                     end_of_period: false,
+                                     end_of_shift: false});
+
+                return;
+            }
+            else if (!isNaN(parseInt(clusterSalePeriod))) {
+                newSalePeriod = clusterSalePeriod;
+            }
+
+            //this.log('DEBUG', 'cluster SP: ' + clusterSalePeriod + ', new SP: ' + newSalePeriod);
             // no last shift?
             if (lastSalePeriod == '') {
                 // insert new sale period with today's date;
-                newSalePeriod = new Date().clearTime() / 1000;
+                if (newSalePeriod == null) {
+                    newSalePeriod = new Date().clearTime() / 1000;
+                }
                 newShiftNumber = 1;
-
-                isNewSalePeriod = true;
+                //this.log('DEBUG', 'no last SP, new SP: ' + newSalePeriod);
             }
 
-            // is last shift the end of the last sale period
-            else if (endOfPeriod) {
+            // is last shift the end of the last sale period?
+            // if newSalePeriod is the same as last sale period, treat end of sale period as end of shift
+            else if (endOfPeriod && (newSalePeriod != lastSalePeriod)) {
 
-                // set current sale period to the greater of
-                // today's date and last sale period + 1 day
-                var today = new Date().clearTime();
-                var lastSalePeriodPlusOne = new Date(lastSalePeriod * 1000).add({days: 1}).clearTime();
-                if (lastSalePeriod == '' || (today > lastSalePeriodPlusOne)) {
-                    newSalePeriod = today;
+                if (newSalePeriod == null) {
+                    // set current sale period to the greater of
+                    // today's date and last sale period + 1 day
+                    var today = new Date().clearTime();
+                    var lastSalePeriodPlusOne = new Date(lastSalePeriod * 1000).add({days: 1}).clearTime();
+                    if (lastSalePeriod == '' || (today > lastSalePeriodPlusOne)) {
+                        newSalePeriod = today;
+                    }
+                    else {
+                        newSalePeriod = lastSalePeriodPlusOne;
+                    }
+                    newSalePeriod = newSalePeriod.getTime() / 1000;
                 }
-                else {
-                    newSalePeriod = lastSalePeriodPlusOne;
-                }
-                newSalePeriod = newSalePeriod.getTime() / 1000;
                 newShiftNumber = 1;
-
-                isNewSalePeriod = true;
+                //this.log('DEBUG', 'last SP closed, new SP: ' + newSalePeriod);
             }
             // has last shift ended?
-            else if (endOfShift) {
-                newSalePeriod = lastSalePeriod;
-                newShiftNumber = lastShiftNumber + 1;
-            }
-            // continue last shift
             else {
-                newSalePeriod = lastSalePeriod;
-                newShiftNumber = lastShiftNumber;
+                if (disableShiftChange) {
+                    newShiftNumber = lastShiftNumber;
+                    if (newSalePeriod == null || lastSalePeriod == newSalePeriod) updateShiftMarker = false;
+                    //this.log('DEBUG', 'shift change disabled, sale period changed: ' + updateShiftMarker);
+                }
+                else {
+                    if (newSalePeriod != null && newSalePeriod != lastSalePeriod) {
+                        // check if sale period has changed
+                        // if changed, put up warning to close sale period immediately and
+                        // continue with previous shift
 
-                updateShiftMarker = false;
+                        GREUtils.Dialog.alert(win,
+                            _('Shift Change Warning'),
+                            _("This terminal's sale period [%S (%S)] appears to be out of sync with the cluster sale period [%S (%S)]. Please close the sale period on this terminal immediately to avoid recording transactions in the wrong sale period.",
+                              [new Date(lastSalePeriod * 1000).toLocaleDateString(), lastSalePeriod, new Date(newSalePeriod * 1000).toLocaleDateString(), newSalePeriod]));
+                        updateShiftMarker = false;
+                        newSalePeriod = lastSalePeriod;
+                        newShiftNumber = lastShiftNumber;
+                    }
+                    else {
+
+                        if (endOfShift) {
+
+                            newSalePeriod = lastSalePeriod;
+
+                            if (isNaN(parseInt(lastShiftNumber))) {
+                                lastShiftNumber = 1;
+                            }
+                            else {
+                                newShiftNumber = lastShiftNumber + 1;
+                            }
+                            //this.log('DEBUG', 'last shift closed, new SP: ' + newSalePeriod + ', new Shift: ' + newShiftNumber);
+                        }
+                        // continue last shift
+                        else {
+                            newSalePeriod = lastSalePeriod;
+                            newShiftNumber = lastShiftNumber;
+
+                            updateShiftMarker = false;
+                            //this.log('DEBUG', 'continue last shift, new SP: ' + newSalePeriod + ', new Shift: ' + newShiftNumber);
+                        }
+                    }
+                }
             }
 
             // need to catch exceptions
             if (updateShiftMarker) {
-                if (this._setShift(newSalePeriod, newShiftNumber, false, false)) {
-
-                    // reset sequence if necessary
-                    if (resetSequence && isNewSalePeriod) {
-
-                        // get sequence format and length
-                        SequenceModel.resetSequence('order_no', 0);
-                    }
-                }
+                this._setShift(newSalePeriod, newShiftNumber, false, false);
             }
-            // display current shift / last shift information
-            this._ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
-                              lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
 
-            this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
+            if (!disableShiftChange) {
+                // display current shift / last shift information
+                this._ShiftDialog((newSalePeriod > 0) ? new Date(newSalePeriod * 1000).toLocaleDateString() : newSalePeriod, newShiftNumber,
+                                  (lastSalePeriod == '') ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber);
+                this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
+            }
         },
         
         shiftChange: function() {
@@ -302,7 +385,8 @@
             var shiftNumber = this._getShiftNumber();
             var terminal_no = GeckoJS.Session.get('terminal_no');
             var salePeriodLeadDays = GeckoJS.Configure.read('vivipos.fec.settings.MaxSalePeriodLeadDays') || 1;
-
+            var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
+            
             var inputObj = {ok: false};
 
             var orderPayment = new OrderPaymentModel();
@@ -341,7 +425,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving credit card and coupon payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving credit card and coupon payment records (error code %S) [message #1410].', [orderPayment.lastError])};
 
                 //alert(this.dump(creditcardCouponDetails));
                 //this.log(this.dump(creditcardCouponDetails));
@@ -369,7 +453,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving giftcard payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving giftcard payment records (error code %S) [message #1411].', [orderPayment.lastError])};
 
                 //alert(this.dump(giftcardDetails));
                 //this.log(this.dump(giftcardDetails));
@@ -396,7 +480,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving check payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving check payment records (error code %S) [message #1412].', [orderPayment.lastError])};
 
                 //alert(this.dump(checkDetails));
                 //this.log(this.dump(checkDetails));
@@ -422,7 +506,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving cash payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving cash payment records (error code %S) [message #1413].', [orderPayment.lastError])};
 
                 //alert(this.dump(localCashDetails));
                 //this.log(this.dump(localCashDetails));
@@ -448,7 +532,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving value-fixed cash payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving value-fixed cash payment records (error code %S) [message #1414].', [orderPayment.lastError])};
 
                 //alert(this.dump(valueFixedCashPayment));
                 //this.log(this.dump(valueFixedCashPayment));
@@ -477,7 +561,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving foreign cash payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving foreign cash payment records (error code %S) [message #1415].', [orderPayment.lastError])};
 
                 //alert(this.dump(foreignCashDetails));
                 //this.log(this.dump(foreignCashDetails));
@@ -503,7 +587,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving ledger payment records (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving ledger payment records (error code %S) [message #1416].', [orderPayment.lastError])};
 
                 //alert(this.dump(ledgerDetails));
                 //this.log(this.dump(ledgerDetails));
@@ -531,7 +615,7 @@
                 if (parseInt(orderModel.lastError) != 0)
                     throw {errno: orderModel.lastError,
                            errstr: orderModel.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving orders by destinations (error code %S)', [orderModel.lastError])};
+                           errmsg: _('An error was encountered while retrieving orders by destinations (error code %S) [message #1417].', [orderModel.lastError])};
 
                 //alert(this.dump(destDetails));
                 //this.log(this.dump(ledgerDetails));
@@ -552,7 +636,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing cash and ledger sums (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing cash and ledger sums (error code %S) [message #1418].', [orderPayment.lastError])};
 
                 var cashReceived = (cashDetails && cashDetails.amount != null) ? cashDetails.amount : 0;
 
@@ -570,7 +654,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing amount of cash change given out (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing amount of cash change given out (error code %S) [message #1419].', [orderPayment.lastError])};
 
                 var cashGiven = (changeDetails && changeDetails.cash_change != null) ? changeDetails.cash_change : 0;
 
@@ -590,7 +674,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing total payments received (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing total payments received (error code %S) [message #1420].', [orderPayment.lastError])};
 
                 var paymentsReceived = (paymentTotal && paymentTotal.amount != null) ? paymentTotal.amount : 0;
 
@@ -608,7 +692,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing depoits received (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing depoits received (error code %S) [message #1421].', [orderPayment.lastError])};
 
                 var deposits = (depositTotal && depositTotal.amount != null) ? depositTotal.amount : 0;
 
@@ -627,7 +711,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing refunds given out (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing refunds given out (error code %S) [message #1422].', [orderPayment.lastError])};
 
                 var refunds = (refundTotal && refundTotal.amount != null) ? Math.abs(refundTotal.amount) : 0;
 
@@ -645,7 +729,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing sales revenue (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing sales revenue (error code %S) [message #1423].', [orderPayment.lastError])};
 
                 var salesRevenue = (salesTotal && salesTotal.amount != null) ? salesTotal.amount : 0;
                 var credit = salesRevenue - (paymentsReceived - deposits + refunds);
@@ -665,7 +749,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing ledger cash received (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing ledger cash received (error code %S) [message #1424].', [orderPayment.lastError])};
 
                 var ledgerInTotal = (ledgerInBalance && ledgerInBalance.amount != null) ? ledgerInBalance.amount : 0;
 
@@ -684,7 +768,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing ledger cash paid (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing ledger cash paid (error code %S) [message #1425].', [orderPayment.lastError])};
 
                 var ledgerOutTotal = (ledgerOutBalance && ledgerOutBalance.amount != null) ? ledgerOutBalance.amount : 0;
 
@@ -702,7 +786,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing excess giftcard payments (error code %S)', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing excess giftcard payments (error code %S) [message #1426].', [orderPayment.lastError])};
 
                 var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
 
@@ -710,13 +794,17 @@
                 var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(valueFixedCashPayment.concat(foreignCashDetails.concat(ledgerDetails))))));
                 //shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
-                var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-                
-                var requestReportingAmountCash = GeckoJS.Configure.read( "vivipos.fec.settings.RequireAmountOfReportedCash" );
-                if ( requestReportingAmountCash ) {
+                var aURL;
+                var features;
+
+                var requireCashDeclaration = GeckoJS.Configure.read( "vivipos.fec.settings.RequireCashDeclaration" );
+                if ( requireCashDeclaration ) {
                     aURL = 'chrome://viviecr/content/prompt_doshiftchangeblindly.xul';
-                    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=460,height=360';
+                    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=450';
+                }
+                else {
+                    aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
+                    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
                 }
 
                 inputObj = {
@@ -742,7 +830,7 @@
                 this._unblockUI('blockui_panel');
                 return;
             }
-
+            
             if (inputObj.ok) {
 
                 // cancel current transaction
@@ -786,8 +874,8 @@
                             sale_period: salePeriod,
                             shift_number: shiftNumber
                         };
+                        
                         entryType = ledgerEntryTypeController.getDrawerChangeType('IN');
-
                         moneyInLedgerEntry = {
                             type: entryType.type,
                             mode: entryType.mode,
@@ -846,17 +934,68 @@
 
                 if (!shiftChangeModel.saveShiftChange(shiftChangeRecord)) {
                     this._dbError(shiftChangeModel.lastError, shiftChangeModel.lastErrorString,
-                                  _('An error was encountered while saving shift change record; shift may not have been closed properly.'));
+                                  _('An error was encountered while saving shift change record; shift may not have been closed properly [message #1427]..'));
                     return;
                 }
 
-                // save money out ledger entry
-                if (moneyOutLedgerEntry)
-                    if (!ledgerController.saveLedgerEntry(moneyOutLedgerEntry)) return;
-
                 if (inputObj.end) {
 
-                    // mark end of sale period
+                    // closing sale period, check if we need to advance cluster sale period
+                    var handleSalePeriod = this.ShiftMarker.isSalePeriodHandler();
+                    //this.log('DEBUG', 'sale period handler? ' + handleSalePeriod);
+                    if (handleSalePeriod) {
+                        // @note irving 2009-09-11
+                        //
+                        // we shall attempt to reset order sequence first; if reset fails, then we terminate the updateShiftMarker process.
+                        // this allows the user to re-attempt sequence resets without advancing shift markers unnecessarily
+
+                        // reset sequence if necessary
+                        if (resetSequence) {
+
+                            // get sequence format and length
+                            if (SequenceModel.resetSequence('order_no', 0) == -1) {
+                                var win = this.topmostWindow;
+                                if (win.document.documentElement.id == 'viviposMainWindow'
+                                    && win.document.documentElement.boxObject.screenX < 0) {
+                                    win = null;
+                                }
+                                GREUtils.Dialog.alert(win,
+                                    _('Shift Change Error'),
+                                    _('Failed to close sale period because cluster sequence number could not be reset. Please check the network connectivity to the terminal designated as the sale period master.'));
+                                return;
+                            }
+                        }
+
+                        var newSalePeriod;
+                        var lastSalePeriodPlusOne = new Date(salePeriod * 1000).add({days: 1}).clearTime();
+
+                        if (salePeriod == '' || (today > lastSalePeriodPlusOne)) {
+                            newSalePeriod = today;
+                        }
+                        else {
+                            newSalePeriod = lastSalePeriodPlusOne;
+                        }
+                        var newSalePeriodTime = newSalePeriod.getTime() / 1000;
+                        //this.log('DEBUG', 'advancing sale period to ' + newSalePeriodTime + ':' + newSalePeriod);
+
+                        var r = this.ShiftMarker.advanceClusterSalePeriod(newSalePeriodTime);
+                        if (!r) {
+                            SequenceModel.resetLocalSequence('sale_period', newSalePeriodTime);
+                        }
+                        else if (r == -1) {
+                            var win = this.topmostWindow;
+                            if (win.document.documentElement.id == 'viviposMainWindow'
+                                && win.document.documentElement.boxObject.screenX < 0) {
+                                win = null;
+                            }
+                            GREUtils.Dialog.alert(win,
+                                _('Shift Change Error'),
+                                _('Failed to close sale period because cluster sale period could not be updated. Please check the network connectivity to the terminal designated as the sale period master.'));
+                            return;
+                        }
+                    }
+                    
+                    // mark end of sale period locally
                     if (!this._setEndOfPeriod()) return;
 
                     doEndOfPeriod = true;
@@ -869,14 +1008,18 @@
 
                     if (moneyInLedgerEntry)
                         if (!ledgerController.saveLedgerEntry(moneyInLedgerEntry)) return;
+
+                    // save money out ledger entry
+                    if (moneyOutLedgerEntry)
+                        if (!ledgerController.saveLedgerEntry(moneyOutLedgerEntry)) return;
                 }
             }
 
             if (doEndOfPeriod) {
+
                 // data cleanup
                 this.requestCommand('clearOrderData', null, 'Main');
-                this.requestCommand('clearOrderObjects', null, 'Main');
-                
+                this.requestCommand('clearOrderObjects', null, 'Main');                
 
                 // offer options to power off or restart and to print shift and day reports
                 var aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
@@ -993,6 +1136,117 @@
             }
         },
 
+        retrieveClusterSalePeriod: function(evt) {
+            //this.log('DEBUG', 'triggered on event ' + evt.type);
+
+            var txn = evt.data;
+            if (!txn) return;
+
+            var checkSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.CheckSalePeriod') || false;
+            if (checkSalePeriod) {
+                var self = this;
+                var r = this.ShiftMarker.getClusterSalePeriod(true, function(sp) {
+                    txn.data.cluster_sp = sp;
+                    //self.log('DEBUG', 'cluster sale period: ' + sp);
+                });
+
+                if (!r) {
+                    // sale period is local
+                    txn.data.cluster_sp = null;
+                }
+            }
+        },
+
+        verifyClusterSalePeriod: function(evt) {
+
+            //this.log('DEBUG', 'triggered on event ' + evt.type);
+
+            // check if sale period is in sync with cluster sale period
+            var checkSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.CheckSalePeriod') || false;
+            if (checkSalePeriod) {
+
+                var txn;
+                if (evt.type == 'beforeLedgerEntry') {
+                    txn = {data: {cluster_sp: -1}};
+                }
+                else {
+                    txn = evt.data.txn;
+                }
+
+                // force and waiting to get cluster sale period
+                if (typeof txn.data.cluster_sp == 'undefined') {
+
+                    var timeoutGuardSec = txn.syncSettings.timeout * 1000;
+                    var timeoutGuardNow = Date.now().getTime();
+
+                    // block ui until request finish or timeout
+                    var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
+                    while (typeof txn.data.cluster_sp == 'undefined' && thread.hasPendingEvents()) {
+
+                        if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) {
+                            txn.data.cluster_sp = -1;
+                            break;
+                        }
+
+                        thread.processNextEvent(true);
+                    }
+                    // dump('length = '+self.data.seq.length+' \n');
+                }
+
+                if ('cluster_sp' in txn.data) {
+
+                    // try again if previous attempt failed due to network/server issues
+                    if (txn.data.cluster_sp == -1) {
+                        txn.data.cluster_sp = this.ShiftMarker.getClusterSalePeriod();
+                    }
+
+                    var clusterSalePeriod = txn.data.cluster_sp;
+                    var currentSalePeriod = GeckoJS.Session.get('sale_period');
+
+                    //this.log('DEBUG', 'cluster SP: ' + clusterSalePeriod + ', local SP: ' + currentSalePeriod);
+                    if (clusterSalePeriod) {
+                        if (clusterSalePeriod == -1) {
+                            evt.preventDefault();
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Shift Change Error'),
+                                _('Failed to verify current sale period. Please check the network connectivity to the terminal designated as the sale period master. You are strongly advised to resolve this issue before executing any further transactions on this terminal.'));
+                        }
+                        else if (clusterSalePeriod != currentSalePeriod) {
+                            var disableShiftChange = GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange');
+                            if (disableShiftChange) {
+                                // update current shift silently
+                                var shift_marker = this._getShiftMarker();
+                                if (shift_marker) {
+                                    shift_marker.sale_period = clusterSalePeriod;
+                                }
+                                else {
+                                    shift_marker = {
+                                        sale_period: -1,
+                                        shift_number: ''
+                                    };
+                                    evt.preventDefault();
+                                    GREUtils.Dialog.alert(this.topmostWindow,
+                                        _('Shift Change Error'),
+                                        _('Failed to verify current sale period. Please check the network connectivity to the terminal designated as the sale period master. You are strongly advised to resolve this issue before executing any further transactions on this terminal.'));
+                                }
+                                this._updateSession(shift_marker);
+                            }
+                            else {
+                                evt.preventDefault();
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Shift Change Warning'),
+                                    _("This terminal's sale period [%S (%S)] appears to be out of sync with the cluster sale period [%S (%S)]. Please close the sale period on this terminal immediately to avoid recording transactions in the wrong sale period.",
+                                      [new Date(currentSalePeriod * 1000).toLocaleDateString(), currentSalePeriod, new Date(clusterSalePeriod * 1000).toLocaleDateString(), clusterSalePeriod]));
+                            }
+                        }
+                        else {
+                            //this.log('DEBUG', 'sale period verified for event: ' + evt.type);
+                        }
+                    }
+                }
+            }
+        },
+
         _blockUI: function(panel, caption, title, sleepTime) {
 
             sleepTime = typeof sleepTime =='undefined' ?  0 : sleepTime;
@@ -1019,9 +1273,14 @@
 
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', errmsg + '\nDatabase Error [' +  errno + ']: [' + errstr + ']');
-            GREUtils.Dialog.alert(this.topmostWindow,
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX < 0) {
+                win = null;
+            }
+            GREUtils.Dialog.alert(win,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
     };
 

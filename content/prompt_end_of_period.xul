@@ -44,7 +44,7 @@
                 </columns>
                 <rows>
                     <row flex="1">
-                        <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="hide" flex="1">
+                        <isoptionenabled option="vivipos.fec.settings.DisableShiftChange" action="hide" flex="1">
                             <vbox flex="1">
                                 <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.this.shift;" flex="1"
                                             roles="acl_report_cashbyclerk" action="hide"
@@ -63,7 +63,7 @@
 		                </vbox>
                     </row>
                     <row flex="1">
-                        <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="hide" flex="1">
+                        <isoptionenabled option="vivipos.fec.settings.DisableShiftChange" action="hide" flex="1">
                             <vbox flex="1">
                                 <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;" flex="1"
                                             roles="acl_report_cashbyclerk" action="hide"

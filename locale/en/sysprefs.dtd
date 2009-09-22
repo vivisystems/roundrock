@@ -24,14 +24,18 @@
 <!ENTITY general.ageverificationack "Require clerk acknowledgement for age verification">
 <!ENTITY general.autosetdecimalpoint "Adjust for decimal point automatically">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
-<!ENTITY general.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY general.ifprintwhiletraining "Print receipt and check while training?">
 <!ENTITY general.quietcancel "Do not beep when cancelling orders">
-<!ENTITY general.requireamountofreportedcash "Require entry of drawer cash before shift change">
+<!ENTITY login.requirecashdeclaration "Require cash declaration before shift change">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
+<!ENTITY login.hidesaleperiod "Hide sale period">
+<!ENTITY login.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
+<!ENTITY login.disableshiftchange "Disable shift change">
+<!ENTITY login.checksaleperiod "Check sale period on every order">
+<!ENTITY login.signoffwhenidle "Sign off when idle (queue and cart content will be discarded)">
 <!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.banneratbottom "Place banner at screen bottom">
 <!ENTITY layout.bannerheight "Banner height">
@@ -107,8 +111,16 @@
 <!ENTITY formats.rounding.always-round-down "always round down">
 <!ENTITY formats.sequence.date.format "Sequence date format">
 <!ENTITY formats.sequence.number.length "Sequence number length">
-<!ENTITY formats.revalueprices "Rounding value to use for Revalue Prices">
-<!ENTITY formats.autorevalueprices "Auto-Revalue subtotal prices">
+<!ENTITY formats.revalue.none "none">
+<!ENTITY formats.revalue.round-down-to-factor "round down to factor">
+<!ENTITY formats.revalue.round-up-to-factor "round up to factor">
+<!ENTITY formats.revalue.round-to-5-cents "round to 5 cents">
+<!ENTITY formats.revalue.round-to-10-cents-down "round to 10 cents (round down 5 cents)">
+<!ENTITY formats.revalue.round-to-10-cents-up "round to 10 cents (round up 5 cents)">
+<!ENTITY formats.revalue.round-to-25-cents "round to 25 cents">
+<!ENTITY formats.revalue.round-to-50-cents "round to 50 cents">
+<!ENTITY formats.revalue.factor "Factor for revaluing prices">
+<!ENTITY formats.revalue.policies "Revalue policy">
 <!ENTITY formats.charsetselector "Import/Export Charset">
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
 <!ENTITY orderdata.orderobjectretaindays "Number of days to retain order objects">

@@ -5,6 +5,7 @@
      */
     function startup() {
 
+        // initialize rounding policy selection menus
         var rt = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
         var rp = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
 
@@ -13,7 +14,15 @@
         
         var rtNode = document.getElementById('roundingtaxes');
         if (rtNode) rtNode.value = rt;
-        
+
+        // initialize revalue policy selection menu
+        var rv = GeckoJS.Configure.read('vivipos.fec.settings.AutoRevaluePrices') || 'none';
+        var rvNode = document.getElementById('autorevalueprices');
+        if (rvNode) rvNode.value = rv;
+
+        // force autodiscardcart & autodiscardqueue when sign off when idle is true
+        processSignOffWhenIdle(GeckoJS.Configure.read('vivipos.fec.settings.SignOffWhenIdle'));
+
         //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
@@ -92,6 +101,24 @@ function rebuildDatabases() {
 
     // unpopup progressbar
     this.dismissWaitingPanel();
+}
+
+function processSignOffWhenIdle(value) {
+    var discardCartObj = document.getElementById('autodiscardcart');
+    var discardQueueObj = document.getElementById('autodiscardqueue');
+
+    if (value) {
+        GeckoJS.Configure.write('vivipos.fec.settings.autodiscardcart', true);
+        GeckoJS.Configure.write('vivipos.fec.settings.autodiscardqueue', true);
+
+        discardCartObj.disabled = true;
+        discardQueueObj.disabled = true;
+
+    }
+    else {
+        discardCartObj.disabled = false;
+        discardQueueObj.disabled = false;
+    }
 }
 
 function showWaitingPanel(message) {

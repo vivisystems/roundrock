@@ -44,14 +44,14 @@
                     <tab id="services-tab" label="&sync_settings.tablabel.services;"/>
                 </tabs>
 
-                <tabpanels>
+                <tabpanels flex="1">
                     <tabpanel id="basic-panel" orient="vertical">
-                        <vbox class="content-formbox" flex="1">
+                        <vbox class="content-formbox">
                             <checkbox form="syncSettingForm" name="active" label="&sync_settings.label.active;"/>
                         </vbox>
-                        <grid class="data-form-2" flex="1">
+                        <grid class="data-form-2">
                             <columns>
-                                <column  flex="1"/>
+                                <column flex="1"/>
                                 <column flex="1"/>
                             </columns>
                             <rows>
@@ -104,11 +104,11 @@
                         
                     </tabpanel>
 
-                    <tabpanel id="advanced-panel" orient="horizontal">
+                    <tabpanel id="advanced-panel" orient="vertical">
 	        
-                        <grid class="data-form-2" flex="1">
+                        <grid class="data-form-2">
                             <columns>
-                                <column  flex="1"/>
+                                <column flex="1"/>
                                 <column flex="2"/>
                             </columns>
                             <rows>
@@ -161,15 +161,15 @@
 
                     </tabpanel>
 
-                    <tabpanel id="services-panel" orient="vertical">
+                    <tabpanel id="services-panel" orient="vertical" flex="1">
 
-                        <grid flex="1" class="data-form">
+                        <grid flex="1" class="data-form-2">
                             <columns>
-                                <column  flex="1"/>
+                                <column flex="1"/>
                                 <column flex="2"/>
                             </columns>
                             <rows>
-                                <row id="syncSettingsSeqBox">
+                                <row id="syncSettingsSeqBox" flex="1">
                                     <vbox>
                                         <label value="&sync_settings.label.sequence_hostname;"/>
                                         <textbox value="localhost"
@@ -179,7 +179,19 @@
                                              readonly="true" wrap="true" multiline="true" rows="2"
                                              value="&sync_settings.desc.sequence_hostname;"/>
                                 </row>
-                                <row id="syncSettingsTableBox" hidden="true">
+                                <row id="syncSettingsSalePeriodBox" flex="1">
+                                    <vbox>
+                                        <label value="&sync_settings.label.sale_period_hostname;"/>
+                                        <textbox value="localhost"
+                                                 form="syncSettingForm" name="sale_period_hostname"/>
+                                        <spacer flex="1"/>
+                                        <checkbox form="syncSettingForm" name="advance_sale_period" label="&sync_settings.label.advance_sale_period;" checked="false"/>
+                                    </vbox>
+                                    <textbox id="sale_period_hostname_desc" flex="1" class="textbox-description"
+                                             readonly="true" wrap="true" multiline="true" rows="2"
+                                             value="&sync_settings.desc.sale_period_hostname;"/>
+                                </row>
+                                <row id="syncSettingsTableBox" flex="1">
                                     <vbox>
                                         <checkbox form="syncSettingForm" name="table_active" label="&sync_settings.label.table_active;" checked="false"/>
                                     </vbox>
@@ -187,7 +199,7 @@
                                              readonly="true" wrap="true" multiline="true" rows="2"
                                              value="&sync_settings.desc.table_active;"/>
                                 </row>
-                                <row id="syncSettingsStockBox">
+                                <row id="syncSettingsStockBox" flex="1">
                                     <vbox>
                                         <label value="&sync_settings.label.stock_hostname;"/>
                                         <textbox value="localhost"
@@ -197,7 +209,7 @@
                                              readonly="true" wrap="true" multiline="true" rows="2"
                                              value="&sync_settings.desc.stock_hostname;"/>
                                 </row>
-                                <row id="syncSettingsNtpBox">
+                                <row id="syncSettingsNtpBox" flex="1">
                                     <vbox>
                                         <label value="&sync_settings.label.ntp_hostname;"/>
                                         <textbox value="localhost"

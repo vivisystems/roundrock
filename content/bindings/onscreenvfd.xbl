@@ -53,7 +53,9 @@
 
                 this.keypadevents = GeckoJS.Controller.getInstanceByName('Keypad').events;
                 this.cartevents = GeckoJS.Controller.getInstanceByName('Cart').events;
+                this.cartQueueEvents = GeckoJS.Controller.getInstanceByName('CartQueue').events;
                 this.mainevents = GeckoJS.Controller.getInstanceByName('Main').events;
+
 
                 var self = this;
 
@@ -225,10 +227,11 @@
                 this.cartevents.addListener('onClear', this.onClear, this);
                 this.cartevents.addListener('onCancel', this.onCancel, this);
                 this.cartevents.addListener('afterCancel', this.afterCancel, this);
-                this.cartevents.addListener('onQueue', this.onQueue, this);
                 this.cartevents.addListener('afterSubmit', this.afterSubmit, this);
                 this.cartevents.addListener('onWarning', this.onWarning, this);
 
+                this.cartQueueEvents.addListener('onQueue', this.onQueue, this);
+                
                 this.mainevents.addListener('onEnterPassword', this.onEnterPassword, this);
                 this.mainevents.addListener('onExitPassword', this.onExitPassword, this);
 
@@ -280,9 +283,11 @@
                     this.cartevents.removeListener('onClear', this.onClear);
                     this.cartevents.removeListener('onCancel', this.onCancel);
                     this.cartevents.removeListener('afterCancel', this.afterCancel);
-                    this.cartevents.removeListener('onQueue', this.onQueue);
                     this.cartevents.removeListener('afterSubmit', this.afterSubmit);
                     this.cartevents.removeListener('onWarning', this.onWarning);
+                }
+                if (this.cartQueueEvents){
+                    this.cartQueueEvents.removeListener('onQueue', this.onQueue);
                 }
                 if (this.mainevents) {
                     this.mainevents.removeListener('onEnterPassword', this.onEnterPassword);
@@ -291,7 +296,6 @@
 
                 this.observer.unregister();
 
-                //window.removeEventListener('DOMContentLoaded', this.ready, true);
                 window.removeEventListener('load', this.ready, true);
 
             ]]>

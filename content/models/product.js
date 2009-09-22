@@ -720,7 +720,7 @@
             var result = false;
             useDb = useDb || false;
             var product = this.getProductById(id, useDb);
-            
+
             if (product.link_group && product.link_group.length > 0) {
                 var plugroupModel = new PlugroupModel();
                 var groups = product.link_group.split(',');
