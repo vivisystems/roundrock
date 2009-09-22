@@ -2957,6 +2957,9 @@
             this.cartViewEmpty();
             this.clear();
 
+            // cancel success and commit
+            this.dispatchEvent('onCancelSuccess', curTransaction);
+
             this.dispatchEvent('onCancel', curTransaction);
         },
 	
@@ -3050,35 +3053,37 @@
                 }
 
 
-                // save transaction to order databases.
-                var submitStatus = parseInt(oldTransaction.submit(status));
-
-                /*
-                 *   1: success
-                 *   null: input data is null
-                 *   -1: save to backup failed
-                 *   -3: can't get sequence .
-                 */
-                if (submitStatus == -1 || submitStatus == -3 ) {
-
-                    if (submitStatus == -3) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Data Operation Error'),
-                            _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence master.'));
-                    }
-                    else {
-                        NotifyUtils.error('Failed to submit order due to data operation error.')
-                    }
-                    // unblockUI
-                    this._unblockUI('blockui_panel');
-
-                    return false;
-                }
 
                 try {
-                    // dispatch event for devices or extensions.
+                    // save transaction to order databases.
+                    var submitStatus = parseInt(oldTransaction.submit(status));
 
+                    /*
+                     *   1: success
+                     *   null: input data is null
+                     *   -1: save to backup failed
+                     *   -3: can't get sequence .
+                     */
+                    if (submitStatus == -1 || submitStatus == -3 ) {
+
+                        if (submitStatus == -3) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence master.'));
+                        }
+                        else {
+                            NotifyUtils.error('Failed to submit order due to data operation error.')
+                        }
+                        // unblockUI
+                        this._unblockUI('blockui_panel');
+
+                        return false;
+                    }
+
+                    // assign data status
                     oldTransaction.data.status = status;
+
+                    // dispatch event for devices or extensions.
                     this.dispatchEvent('afterSubmit', oldTransaction);
 
                     //this.dispatchEvent('onClear', 0.00);
@@ -3115,6 +3120,9 @@
                 }
 
                 this._unblockUI('blockui_panel');
+
+                // dispatch success event
+                this.dispatchEvent('onSubmitSuccess', oldTransaction);
 
             }
             else {
@@ -3627,8 +3635,6 @@
 
         /**
          * voidSale
-         *
-         * @todo Need rewrite
          */
         voidSale: function(id) {
             

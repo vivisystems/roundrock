@@ -6,6 +6,18 @@
 
     /**
      * TableStatus Model
+     *
+     * mark / non mark  => yellow color1 / color2
+     *
+     * merge table -> blue 
+     *
+     * order -> non order color0
+     *       -> has order red color
+     *
+     * booking -> book field appear
+     * 
+     * time field -> expire time -> red bgcolor
+     *
      */
     var __model__ = {
 

@@ -9,7 +9,7 @@
 
         useDbConfig: 'table',
 
-    //    hasMany: ['Table'],
+        //    hasMany: ['Table'],
 
         behaviors: ['Training'],
 
@@ -59,15 +59,17 @@
                     // update tables to local database;
                     this.saveTableRegions(table_regions);
                 }else {
-                    table_regions = this.find('all', {recursive: 0, order: 'name asc'});
+                    table_regions = this.find('all', {
+                        recursive: 0,
+                        order: 'name asc'
+                    });
 
                     // extractObject
                     table_regions = GeckoJS.Array.objectExtract(table_regions, "{n}.TableRegion");
                 }
 
-                if (table_regions != null) {
-                    GeckoJS.Session.add('table_regions', table_regions);
-                }
+                this.setTableRegionsToSession(table_regions);
+
             }
 
             return table_regions;
@@ -75,11 +77,11 @@
         },
 
         addTableRegion: function(data) {
-           // XXX need to check duplicate
-           this.create();
-           var result = this.save(data);
+            // XXX need to check duplicate
+            this.create();
+            var result = this.save(data);
 
-           return result;
+            return result;
         },
 
         updateTableRegion: function(id, data) {
@@ -91,10 +93,11 @@
         },
 
         removeTableRegion: function(id) {
-            // XXX need to check is tables in this region.
-           var result = this.remove(id);
 
-           return result;
+            // XXX need to check is tables in this region.
+            var result = this.remove(id);
+
+            return result;
         },
 
         saveTableRegions: function(table_regions) {
@@ -120,6 +123,12 @@
 
             return r;
 
+        },
+
+        setTableRegionsToSession: function(table_regions) {
+            if (table_regions != null) {
+                GeckoJS.Session.add('table_regions', table_regions);
+            }
         }
 
     });

@@ -21,14 +21,12 @@
                 // check table no and guests before submit...
                 cart.addEventListener('beforeSubmit', this.onCartBeforeSubmit, this);
 
-                // check minimum charge and table no and guests after submit...
-                cart.addEventListener('afterSubmit', this.onCartAfterSubmit, this);
-
                 // check minimum charge and table no and guests before addPayment...
                 cart.addEventListener('beforeAddPayment', this.onCartBeforeAddPayment, this);
 
-                // check afterCancel for release lock
-                cart.addEventListener('afterCancel', this.onCartAfterCancel, this);
+                // popup table select panel
+                cart.addEventListener('onSubmitSuccess', this.onCartOnSubmitSuccess, this);
+                cart.addEventListener('onCancelSuccess', this.onCartOnCancelSuccess, this);
 
             }
 
@@ -39,7 +37,29 @@
             }
 
             this.tableSettings = this.TableSetting.getTableSettings();
-            
+
+            // table window is first win
+            if (this.tableSettings.TableWinAsFirstWin) {
+
+                var alertWin = this.showAlertDialog();
+                this.sleep(1000);
+
+                // load regions and tables in session.
+                let regions = this.TableRegion.getTableRegions();
+                this.log(this.dump(regions));
+
+                let tables = this.Table.getTables();
+                this.log(this.dump(tables));
+
+                if (alertWin) {
+                    alertWin.close();
+                    delete alertWin;
+                }
+                
+                // just popup table selector
+                this.popupTableSelectorPanel();
+            }
+
         },
 
 
@@ -159,38 +179,26 @@
 
         /**
          * open Table No Dialog
-         * 
-         * @param {Boolean} tableSelector  use numberpad or table selector
          */
-        openTableNumDialog: function (tableSelector){
+        openTableNumDialog: function (){
 
-            tableSelector = tableSelector || false;
+            var no = '';
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
+            var inputObj = {
+                input0:'',
+                require0:true,
+                numpad:true,
+                disablecancelbtn:true
+            };
 
-            if ( tableSelector ) {
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Number'), aFeatures, _('Select Table Number'), '', _('Number'), '', inputObj);
 
-                return this.popupTableSelectorPanel();
-                
-            }else {
-
-                var no = '';
-                var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
-                var inputObj = {
-                    input0:'',
-                    require0:true,
-                    numpad:true,
-                    disablecancelbtn:true
-                };
-
-                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Number'), aFeatures, _('Select Table Number'), '', _('Number'), '', inputObj);
-
-                if (inputObj.ok && inputObj.input0) {
-                    no = inputObj.input0;
-                }
-
-                return no;
-
+            if (inputObj.ok && inputObj.input0) {
+                no = inputObj.input0;
             }
+
+            return no;
 
         },
 
@@ -227,29 +235,29 @@
          */
         openSelectChecksDialog: function (orders){
 
-                var tableSettings = this.TableSetting.getTableSettings();
+            var tableSettings = this.TableSetting.getTableSettings();
 
-                var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
-                var screenheight = GeckoJS.Session.get('screenheight') || '600';
+            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+            var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
-                var orderId = '';
-                var aURL = 'chrome://viviecr/content/select_checks.xul';
-                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
-                var inputObj = {
-                    tableSettings: tableSettings,
-                    orders: orders,
-                    excludedOrderId: ""
-                };
+            var orderId = '';
+            var aURL = 'chrome://viviecr/content/select_checks.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var inputObj = {
+                tableSettings: tableSettings,
+                orders: orders,
+                excludedOrderId: ""
+            };
                 
-                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_checks', aFeatures, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_checks', aFeatures, inputObj);
 
-                if (inputObj.ok && inputObj.order_id) {
-                    orderId = inputObj.order_id;
-                }
+            if (inputObj.ok && inputObj.order_id) {
+                orderId = inputObj.order_id;
+            }
 
-                delete inputObj;
+            delete inputObj;
                 
-                return orderId;
+            return orderId;
 
         },
 
@@ -300,20 +308,26 @@
          * Set Table no to transaction object
          *
          * @param {Number} no  table no
-         * @param {Boolean} tableSelector  use table selector or numberpad dialog
+         * @param {Boolean} useNumberPad  use numberpad dialog
          */
-        newTable: function(no, tableSelector) {
+        newTable: function(no, useNumberPad) {
 
             no = no || '';
-            tableSelector = tableSelector || false;
-           
+            useNumberPad = useNumberPad || false;
+
             var cart = this.getCartController();
             var curTransaction = cart._getTransaction(true); // autocreate
+            this.log(this.dump(curTransaction));
 
             if (! cart.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; unable to store'));
                 cart._clearAndSubtotal();
                 return '';
+            }
+
+            if (!useNumberPad) {
+                // popup panel and return
+                return this.popupTableSelectorPanel();
             }
 
             if (no.length == 0) {              
@@ -325,7 +339,7 @@
             // use callback to select table.
             if (no.length == 0) {
                 // popup dialog
-                no = this.openTableNumDialog(tableSelector) ;
+                no = this.openTableNumDialog() ;
             }
 
             // maybe use tableSelector or not select
@@ -664,6 +678,9 @@
         /**
          * recall by Table NO
          *
+         * alias as recallCheck but use tableNo..
+         * this function is for quick service.
+         *
          * @param {String} tableNo
          */
         recallTable: function(tableNo) {
@@ -693,9 +710,17 @@
             }
 
             // select orders
+            var orderId = "";
             if (orders.length > 1) {
+                orderId = this.openSelectChecksDialog(orders);
             }else {
-                return this.recallOrder(orders[0].Order.id);
+                orderId = orders[0].Order.id ;
+            }
+
+            if(orderId.length>0) {
+                return this.recallOrder(orderId);
+            }else {
+                return false;
             }
 
         },
@@ -802,7 +827,7 @@
             var isCheckGuestNum = true;
 
             if (isCheckTableNo && this.tableSettings.RequireTableNo && !evt.data.txn.data.table_no) {
-                this.newTable('');
+                this.newTable('', true);
             }
 
             if (isCheckGuestNum && this.tableSettings.RequireGuestNum && !evt.data.txn.data.no_of_customers) {
@@ -813,14 +838,18 @@
 
 
         /**
-         * onCartAfterSubmit
+         * onCartOnSubmitSuccess
          *
          * @param {Object} evt
          */
-        onCartAfterSubmit: function(evt) {
+        onCartOnSubmitSuccess: function(evt) {
 
             if (this.tableSettings.TableWinAsFirstWin) {
-                this.openTableNumDialog(true);
+                // newTable always create new transaction object
+                //this.newTable();
+
+                // just popup table selector
+                this.popupTableSelectorPanel();
             }
 
         },
@@ -833,7 +862,7 @@
          *
          * @param {Object} evt
          */
-        onCartAfterCancel: function(evt) {
+        onCartOnCancelSuccess: function(evt) {
             
             let transaction = evt.data;
 
@@ -843,7 +872,15 @@
 
                 let result = this.Order.releaseOrderLock(orderId);
             }
-            
+
+            if (this.tableSettings.TableWinAsFirstWin) {
+                // newTable always create new transaction object
+                //this.newTable();
+
+                // just popup table selector
+                this.popupTableSelectorPanel();
+            }
+
         },
 
 
@@ -855,7 +892,11 @@
         onMainFirstLoad: function(evt) {
 
             if (this.tableSettings.TableWinAsFirstWin) {
-                this.openTableNumDialog(true);
+                // newTable always create new transaction object
+                //this.newTable();
+
+                // just popup table selector
+                this.popupTableSelectorPanel();
             }
             
         },
@@ -1033,8 +1074,29 @@
         },
 
 
+        /**
+         * showAlertDialog
+         */
+        showAlertDialog: function() {
+
+            var width = 600;
+            var height = 120;
+
+            var aURL = 'chrome://viviecr/content/alert_table_initialization.xul';
+            var aName = _('Table Initialization');
+            var aArguments = {};
+            var aFeatures = 'chrome,dialog,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
+
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+                win = null;
+
+            var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
+
+            return alertWin;
+        },
+
         destroy: function() {
-            dump('destroy \n');
         }
 
 

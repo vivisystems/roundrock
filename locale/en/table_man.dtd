@@ -96,3 +96,4 @@
 <!ENTITY tableman.tableoptions.printmergecheck.auto "Print automatically">
 <!ENTITY tableman.tableoptions.printmergecheck.confirm "Confirm before print">
 
+<!ENTITY tableman.initialization.label "Initializing Tables...">
