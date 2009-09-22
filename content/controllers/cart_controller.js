@@ -1754,7 +1754,6 @@
             discountAmount = parseFloat(discountAmount) / 100;
 
             var discountItem = {
-                type: discountType,
                 name: discountName,
                 amount: discountAmount
 

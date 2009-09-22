@@ -1567,11 +1567,8 @@
                 }
 
                 var remainder = this.getDiscountableRemainTotal();
-                var discountable_tax = this.getDiscountableTax();
                 discountItem.discount_name += '*';
                 discountItem.current_discount = remainder * discountItem.discount_rate;
-                discountItem.discountable_tax = this.getRoundedTax(0 - discountable_tax * discountItem.discount_rate);
-                discountItem.tax_discount = this.getRoundedTax(discountable_tax * discountItem.discount_rate);
                 if (discountItem.current_discount > remainder && remainder > 0) {
                     // discount too much
                     NotifyUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
@@ -2822,11 +2819,10 @@
             promotion_tax_subtotal = isNaN(parseInt(this.data.promotion_tax_subtotal)) ? 0 : parseInt(this.data.promotion_tax_subtotal);
             promotion_included_tax_subtotal = isNaN(parseInt(this.data.promotion_included_tax_subtotal)) ? 0 : parseInt(this.data.promotion_included_tax_subtotal);
 
-            tax_subtotal -= (promotion_tax_subtotal + tax_discount_subtotal);
+            tax_subtotal -= promotion_tax_subtotal;
             included_tax_subtotal -= promotion_included_tax_subtotal;
 
             total = this.getRoundedPrice(item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal);
-            discountable_total = this.getRoundedPrice(discountable_item_subtotal);
             remain = total - payment_subtotal;
 
             // revalue
@@ -2839,9 +2835,7 @@
                         this.data.revalue_subtotal -= this.data.revalueprices;
                 }
                 total = total + this.data.revalue_subtotal;
-                discountable_total = discountable_total + this.data.revalue_subtotal;
                 remain = total - payment_subtotal;
-                discountable_remain = discountable_total - payment_subtotal;
             }
             this.data.revalue_subtotal = this.calcRevalue(total, this.data.autorevalue, this.data.revaluefactor);
             total = total + this.data.revalue_subtotal;
