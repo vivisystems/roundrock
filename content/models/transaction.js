@@ -2439,7 +2439,7 @@
 
         calcRevalue: function(total, policy, factor) {
 
-            this.log('DEBUG', 'total,policy,factor: ' + total + ',' + policy + ',' + factor);
+            //this.log('DEBUG', 'total,policy,factor: ' + total + ',' + policy + ',' + factor);
             var revalue_subtotal = 0;
             var roundedTotal;
 
