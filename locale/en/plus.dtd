@@ -39,6 +39,7 @@
 <!ENTITY plus.single.item.sale "Single Item Sale">
 <!ENTITY plus.visible "Show on menu">
 <!ENTITY plus.require.age.verification "Require age verification">
+<!ENTITY plus.non.discountable "Non-discountable">
 <!ENTITY plus.display.label "Product button display mode">
 <!ENTITY plus.display.textandicon "Display name and icon (0)">
 <!ENTITY plus.display.icononly "Display icon only (1)">
