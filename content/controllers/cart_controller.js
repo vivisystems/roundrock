@@ -3453,7 +3453,6 @@
                     return d;
                 }
                 else if (immediateMode && condiments) {
-                    alert('immediate: ' + this.dump(condiments));
                     this._appendCondiments(condiments, false);
                 }
                 else {

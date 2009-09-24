@@ -41,6 +41,8 @@
 <!ENTITY login.storedorder.none "No action">
 <!ENTITY login.storedorder.alert "Warn if stored orders exist">
 <!ENTITY login.storedorder.force "Force closing of stored orders">
+<!ENTITY login.defaultchangeindrawer "Default drawer change">
+<!ENTITY login.allowchangewhenendperiod "Allow drawer change when ending sale period">
 <!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.banneratbottom "Place banner at screen bottom">
 <!ENTITY layout.bannerheight "Banner height">

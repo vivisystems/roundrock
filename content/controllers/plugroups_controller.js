@@ -148,6 +148,8 @@
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
 
+                this._selectedIndex = index;
+
                 OsdUtils.info(_('Product group [%S] modified successfully', [evt.data.name]));
             }
         },

@@ -463,12 +463,6 @@
             var dep = this.depPanelView.getCurrentIndexData(index);
             var catepanel = document.getElementById('catescrollablepanel');
 
-            // we first update catepanel's current selection
-            if (catepanel.selectedIndex != index) {
-                catepanel.selectedIndex = index;
-                catepanel.selectedItems = [index];
-            }
-            
             if (dep) {
                 var soldOutButton = document.getElementById('catescrollablepanel-soldout');
                 if (soldOutButton && soldOutButton.checkState) {
@@ -501,17 +495,22 @@
 
                         // make sure we have a price
                         // @irving - 7/6/09: this check is moved to cart.addItem
-                        //if(!isNaN(price)) {
+                        // @irving - 9/23/09: if no price is given, no register action is performed
+                        if(!isNaN(price)) {
                             dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
-                        /*
                         }
+                        /*
                         else {
                             NotifyUtils.error(_('Price must be given to register sale of department [%S]', [dep.name]));
                             return;
                         }
                         */
                     }
+
+                    // update catepanel's current selection
+                    catepanel.selectedIndex = index;
+                    catepanel.selectedItems = [index];
 
                     // change pluview panel
                     var clearBuf = GeckoJS.Configure.read("vivipos.fec.settings.ChangeDepartmentClearBuffer") || false;

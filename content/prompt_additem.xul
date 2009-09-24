@@ -22,11 +22,10 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
     </keyset>
 
-    <script type="application/x-javascript" src="chrome://viviecr/content/prompt_additem.js" />
-    <script type="application/x-javascript">
-        var GeckoJS = opener.GeckoJS;
-        var GREUtils = opener.GREUtils;
-    </script>
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+
+  <script type="application/x-javascript" src="chrome://viviecr/content/prompt_additem.js" />
+  
     <vbox class="container-dialog" flex="1">
         <vbox class="container-main" flex="1">
             <groupbox flex="1">

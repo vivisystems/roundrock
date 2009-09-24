@@ -166,15 +166,16 @@
         // product is to be inserted, in the order of display_name, name, no
         locateProductIndex: function(product, list) {
             var productsById = GeckoJS.Session.get('productsById');
-            var display_order = product.display_order;
+            var display_order = parseFloat(product.display_order);
             var name = product.name;
             var no = product.no;
 
             for (var i = 0; i < list.length; i++) {
                 var target = productsById[list[i]];
                 if (target) {
-                    if (display_order < target.display_order) break;
-                    else if (display_order == target.display_order) {
+                    var target_display_order = parseFloat(target.display_order);
+                    if (display_order < target_display_order) break;
+                    else if (display_order == target_display_order) {
                         if (name < target.name) break;
                         else if (name == target.name) {
                             if (no <= target.no) break;

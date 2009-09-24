@@ -65,17 +65,30 @@
             return (shift) ? shift.end_of_shift : false;
         },
 
+        _getCashEntry: function() {
+            var shift = GeckoJS.Session.get('current_shift');
+            if (shift) {
+                var entry = shift.end_of_shift_cash;
+                if (entry != null) {
+                    entry = GeckoJS.BaseObject.unserialize(entry);
+                }
+                return entry;
+            }
+            else
+                return false;
+        },
+
         _getEndOfPeriod: function() {
             var shift = GeckoJS.Session.get('current_shift');
             return (shift) ? shift.end_of_period : false;
         },
 
-        _setEndOfShift: function() {
-            return this._setShift(this._getSalePeriod(), this._getShiftNumber(), false, true);
+        _setEndOfShift: function(cashEntry) {
+            return this._setShift(this._getSalePeriod(), this._getShiftNumber(), false, true, cashEntry);
         },
 
-        _setEndOfPeriod: function() {
-            return this._setShift(this._getSalePeriod(), this._getShiftNumber(), true, true);
+        _setEndOfPeriod: function(cashEntry) {
+            return this._setShift(this._getSalePeriod(), this._getShiftNumber(), true, true, cashEntry);
         },
 
         _updateSession: function(currentShift) {
@@ -117,17 +130,19 @@
             return currentShift;
         },
 
-        _setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
+        _setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift, cashEntry) {
 
             shiftNumber = parseInt(shiftNumber);
             salePeriod = parseInt(salePeriod);
+            var cashEntryData = (cashEntry == null ? '' : GeckoJS.BaseObject.serialize(cashEntry));
             
             var newShiftMarker = {
                 terminal_no: GeckoJS.Session.get('terminal_no'),
                 sale_period: salePeriod,
                 shift_number: shiftNumber,
                 end_of_period: endOfPeriod,
-                end_of_shift: endOfShift
+                end_of_shift: endOfShift,
+                end_of_shift_cash: cashEntryData
             };
 
             var shift = this._getShiftMarker();
@@ -168,6 +183,24 @@
                 win = null;
             }
             GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
+        },
+
+        _DrawerChangeDialog: function() {
+
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=500,height=500';
+            var title = _('Verify Drawer Change');
+            var inputObj = {
+                input0:null, require0:true, disablecancelbtn:true, numberOnly0: true, numpad: true
+            };
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX < 0) {
+                win = null;
+            }
+            GREUtils.Dialog.openWindow(win, aURL, title, aFeatures, title, '', _('Enter amount of cash in drawer'), '', inputObj);
+
+            return inputObj.input0;
         },
 
         _getSalePeriod: function() {
@@ -270,10 +303,11 @@
             var lastShiftNumber = this._getShiftNumber();
             var endOfPeriod = this._getEndOfPeriod();
             var endOfShift = this._getEndOfShift();
+            var cashEntry = this._getCashEntry();
             var clusterSalePeriod = this.ShiftMarker.getClusterSalePeriod();
             var disableShiftChange = GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange');
             var updateShiftMarker = true;
-
+            
             var win = this.topmostWindow;
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
@@ -381,6 +415,62 @@
             }
 
             if (updateShiftMarker) {
+                //this.log('DEBUG', 'updating shift marker ');
+
+                // since either shift or sale period has changed, let's check
+                // if there is pending ledger IN entry to be recorded
+
+                var warnOnChangeDiscrepancy = false;
+                if (cashEntry && !isNaN(cashEntry.amount) && parseFloat(cashEntry.amount) > 0) {
+                    var ledgerMemo = '';
+
+                    // prompt user to enter cash drawer amount
+                    var userAmount = this._DrawerChangeDialog();
+                    var recordedAmount = parseFloat(cashEntry.amount);
+                    var deltaEntry;
+                    
+                    userAmount = parseFloat(userAmount);
+                    if (isNaN(userAmount)) userAmount = 0;
+
+                    // alert user if declared cash amount is different from recorded amount
+                    ledgerMemo = _('Drawer change on record [%S], user reported change [%S]', [recordedAmount, userAmount]);
+                    var mode;
+                    var amount;
+                    if (userAmount > recordedAmount) {
+                        mode = 'IN';
+                        amount = userAmount - recordedAmount;
+                    }
+                    else {
+                        mode = 'OUT';
+                        amount = recordedAmount - userAmount;
+                    }
+                    if (userAmount != recordedAmount) {
+                        deltaEntry = {
+                            type: _('(Ledger Type)Drawer Change Discrepancy'),
+                            mode: mode,
+                            description: ledgerMemo,
+                            amount: amount,
+                            sale_period: newSalePeriod,
+                            shift_number: newShiftNumber
+                        };
+
+                        warnOnChangeDiscrepancy = _('IMPORTANT!') + '\n\n' +
+                                                   _('Cash reported [%S]', [userAmount]) + '\n' +
+                                                   _('Cash recorded from last shift [%S]', [recordedAmount]) + '\n\n' +
+                                                   _('Please report the discrepancy to your supervisor immediately!');
+                    }
+
+                    // record ledger entry
+                    cashEntry.sale_period = newSalePeriod;
+                    cashEntry.shift_number = newShiftNumber;
+
+                    var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
+                    if (!ledgerController.saveLedgerEntry(cashEntry)) return;
+                    if (deltaEntry && !ledgerController.saveLedgerEntry(deltaEntry)) return;
+                }
+
+                //this.log('DEBUG', 'drawer change verified');
+
                 this._setShift(newSalePeriod, newShiftNumber, false, false);
             }
 
@@ -388,8 +478,18 @@
                 // display current shift / last shift information
                 this._ShiftDialog((newSalePeriod > 0) ? new Date(newSalePeriod * 1000).toLocaleDateString() : newSalePeriod, newShiftNumber,
                                   (lastSalePeriod == '') ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber);
-                this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
             }
+
+            if (warnOnChangeDiscrepancy) {
+                var win = this.topmostWindow;
+                if (win.document.documentElement.id == 'viviposMainWindow'
+                    && win.document.documentElement.boxObject.screenX < 0) {
+                    win = null;
+                }
+                GREUtils.Dialog.alert(win, _('Drawer Change Error'), warnOnChangeDiscrepancy);
+            }
+
+            this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
         },
         
         shiftChange: function() {
@@ -407,6 +507,7 @@
             var terminal_no = GeckoJS.Session.get('terminal_no');
             var salePeriodLeadDays = GeckoJS.Configure.read('vivipos.fec.settings.MaxSalePeriodLeadDays') || 1;
             var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
+            var allowChangeWhenEndPeriod = GeckoJS.Configure.read('vivipos.fec.settings.AllowChangeWhenEndPeriod');
             
             var inputObj = {ok: false};
 
@@ -818,7 +919,9 @@
                 var aURL;
                 var features;
 
-                var requireCashDeclaration = GeckoJS.Configure.read( "vivipos.fec.settings.RequireCashDeclaration" );
+                var requireCashDeclaration = GeckoJS.Configure.read('vivipos.fec.settings.RequireCashDeclaration');
+                var defaultChangeInDrawer = GeckoJS.Configure.read('vivipos.fec.settings.DefaultChangeInDrawer');
+
                 if ( requireCashDeclaration ) {
                     aURL = 'chrome://viviecr/content/prompt_doshiftchangeblindly.xul';
                     features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=450';
@@ -839,7 +942,9 @@
                     ledgerInTotal: ledgerInTotal,
                     ledgerOutTotal: ledgerOutTotal,
                     giftcardExcess: giftcardExcess,
-                    canEndSalePeriod: canEndSalePeriod
+                    canEndSalePeriod: canEndSalePeriod,
+                    defaultChangeInDrawer: defaultChangeInDrawer,
+                    allowChangeWhenEndPeriod: allowChangeWhenEndPeriod
                 };
                 
                 this._unblockUI('blockui_panel');
@@ -867,7 +972,7 @@
                 var moneyOutLedgerEntry;
                 var moneyInLedgerEntry;
 
-                if (inputObj.end) {
+                if (inputObj.end && !allowChangeWhenEndPeriod) {
                     amt = 0;
                 }
                 else {
@@ -901,9 +1006,7 @@
                             type: entryType.type,
                             mode: entryType.mode,
                             description: inputObj.description,
-                            amount: amt,
-                            sale_period: salePeriod,
-                            shift_number: parseInt(shiftNumber) + 1
+                            amount: amt
                         };
 
                         // append to shiftChangeDetails
@@ -1030,8 +1133,12 @@
                         }
                     }
                     
+                    // save money out ledger entry
+                    if (moneyOutLedgerEntry)
+                        if (!ledgerController.saveLedgerEntry(moneyOutLedgerEntry)) return;
+                    
                     // mark end of sale period locally
-                    if (!this._setEndOfPeriod()) return;
+                    if (!this._setEndOfPeriod(moneyInLedgerEntry)) return;
 
                     doEndOfPeriod = true;
                 }
@@ -1061,12 +1168,9 @@
                     }
 
                     // mark end of shift
-                    if (!this._setEndOfShift()) return;
+                    if (!this._setEndOfShift(moneyInLedgerEntry)) return;
 
                     doEndOfShift = true;
-
-                    if (moneyInLedgerEntry)
-                        if (!ledgerController.saveLedgerEntry(moneyInLedgerEntry)) return;
 
                     // save money out ledger entry
                     if (moneyOutLedgerEntry)
