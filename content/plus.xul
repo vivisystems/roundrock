@@ -249,6 +249,8 @@
                                         <row>
                                             <checkbox id="non_discountable" value="false" label="&plus.non.discountable;"
                                                       form="productForm" name="non_discountable" default="false"/>
+                                            <checkbox id="non_surchargeable" value="false" label="&plus.non.surchargeable;"
+                                                      form="productForm" name="non_surchargeable" default="false"/>
                                         </row>
                                     </rows>
                                 </grid>

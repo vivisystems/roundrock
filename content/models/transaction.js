@@ -478,7 +478,8 @@
 
                 price_modifier: priceModifier,
 
-                non_discountable: item.non_discountable
+                non_discountable: item.non_discountable,
+                non_surchargeable: item.non_surchargeable
             };
 
             return item2;
@@ -1461,10 +1462,11 @@
                     resultItem = item;
 
                 } else {
-                    alert('This product cannot be discounted');
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Discount Error'),
+                        _('This product cannot be discounted'));
                     return;
                 }
-
             }else if (itemDisplay.type == 'subtotal'){
 
                 var discountItem = {
@@ -1516,77 +1518,6 @@
 
                 // create data object to push in items array
                 var newItemDisplay = this.createDisplaySeq(discountIndex, discountItem, 'trans_discount');
-                newItemDisplay.subtotal_index = index;
-
-                // find the display index of the last entry associated with the item
-                lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
-
-                this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
-
-                this.calcPromotions();
-
-                // this.calcItemsTax();
-
-                resultItem = discountItem;
-            }
-
-            var currentRowCount = this.data.display_sequences.length;
-
-            this.calcTotal();
-
-            this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
-
-            return resultItem;
-        },
-
-        appendMassDiscount: function(index, discount) {
-
-            var item = this.getItemAt(index);
-            var itemDisplay = this.getDisplaySeqAt(index); // last seq
-            var itemIndex = itemDisplay.index;
-            var lastItemDispIndex;
-            var discount_amount;
-            var resultItem;
-
-            var prevRowCount = this.data.display_sequences.length;
-
-            if (itemDisplay.type == 'subtotal'){
-
-                var discountItem = {
-                    discount_name: discount.name,
-                    discount_rate: discount.amount,
-                    discount_type: discount.type,
-                    hasMarker: false
-                };
-                // warn if refunds are present
-                for (var checkItemIndex in this.data.items ) {
-                    var checkitem = this.data.items[checkItemIndex];
-                    if (checkitem.type == 'item' && checkitem.current_qty < 0) {
-                        NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
-                    }
-                }
-
-                var remainder = this.getDiscountableRemainTotal();
-                discountItem.discount_name += '*';
-                discountItem.current_discount = remainder * discountItem.discount_rate;
-                if (discountItem.current_discount > remainder && remainder > 0) {
-                    // discount too much
-                    NotifyUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
-                        [this.formatPrice(this.getRoundedPrice(discountItem.current_discount)),
-                        remainder]));
-                    return;
-                }
-                discountItem.current_discount = this.getRoundedPrice(0 - discountItem.current_discount);
-
-
-                var discountIndex = GeckoJS.String.uuid();
-                this.data.mass_discounts[discountIndex] = discountItem;
-
-                // mark subtotal as having surcharge applied
-                itemDisplay.hasDiscount = true;
-
-                // create data object to push in items array
-                var newItemDisplay = this.createDisplaySeq(discountIndex, discountItem, 'mass_discount');
                 newItemDisplay.subtotal_index = index;
 
                 // find the display index of the last entry associated with the item
@@ -1700,46 +1631,57 @@
 
             if (item && item.type == 'item') {
 
-                if (surcharge.type == '$') {
-                    surcharge_amount = surcharge.amount;
-                }else {
-                    surcharge_amount = item.current_subtotal * surcharge.amount;
-                }
+                var productModel = new ProductModel();
+                var non_surchargeable = productModel.isNonSurchargeable(item.id, false);
 
-                // rounding surcharge
-                surcharge_amount = this.getRoundedPrice(surcharge_amount);
+                if(non_surchargeable == false) {
 
-                // check if discount amount exceeds user limit
-                var user = GeckoJS.Session.get('user');
-                var surcharge_limit = parseInt(user.item_surcharge_limit);
-                if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
-                    var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
-                    if (surcharge_amount > surcharge_limit_amount) {
-                        NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
-                            [surcharge_amount, surcharge_limit_amount]));
-                        return;
+                    if (surcharge.type == '$') {
+                        surcharge_amount = surcharge.amount;
+                    }else {
+                        surcharge_amount = item.current_subtotal * surcharge.amount;
                     }
+
+                    // rounding surcharge
+                    surcharge_amount = this.getRoundedPrice(surcharge_amount);
+
+                    // check if discount amount exceeds user limit
+                    var user = GeckoJS.Session.get('user');
+                    var surcharge_limit = parseInt(user.item_surcharge_limit);
+                    if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
+                        var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
+                        if (surcharge_amount > surcharge_limit_amount) {
+                            NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
+                                [surcharge_amount, surcharge_limit_amount]));
+                            return;
+                        }
+                    }
+
+                    item.surcharge_name = surcharge.name;
+                    item.surcharge_rate = surcharge.amount;
+                    item.surcharge_type = surcharge.type;
+                    item.current_surcharge = surcharge_amount;
+                    item.hasSurcharge = true;
+
+                    // create data object to push in items array
+                    var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
+
+                    // find the display index of the last entry associated with the item
+                    lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
+
+                    this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
+
+                    this.calcPromotions();
+
+                    this.calcItemsTax(item);
+
+                    resultItem = item;
+                } else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Surcharge Error'),
+                        _('This product cannot be surcharged'));
+                    return;
                 }
-
-                item.surcharge_name = surcharge.name;
-                item.surcharge_rate = surcharge.amount;
-                item.surcharge_type = surcharge.type;
-                item.current_surcharge = surcharge_amount;
-                item.hasSurcharge = true;
-
-                // create data object to push in items array
-                var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
-
-                // find the display index of the last entry associated with the item
-                lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
-
-                this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
-
-                this.calcPromotions();
-
-                this.calcItemsTax(item);
-
-                resultItem = item;
 
             }else if (itemDisplay.type == 'subtotal'){
 
@@ -1815,11 +1757,13 @@
 
             var transItems = this.data.items;
             var self = this;
+            var productModel = new ProductModel();
 
             for(var index in transItems) {
                 if (index != null) {
                     var item = transItems[index];
-                    if (item.type == 'item' && item.hasDiscount == false && item.hasMarker == false) {
+                    var non_surchargeable = productModel.isNonSurchargeable(item.id, false);
+                    if (item.type == 'item' && non_surchargeable == false && item.hasSurcharge == false && item.hasMarker == false) {
 
                         surcharge_amount = item.current_subtotal * surcharge.amount;
 
@@ -2758,9 +2702,6 @@
 
                 // don't include set items in calculations
                 if (!item.parent_index) {
-                    var productModel = new ProductModel();
-                    var non_discountable = (productModel.isNonDiscountable(item.id, false) || item.hasDiscount) ? true : false;
-
                     tax_subtotal += parseFloat(item.current_tax);
                     included_tax_subtotal += parseFloat(item.included_tax);
 

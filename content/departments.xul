@@ -90,10 +90,6 @@
                                 <checkbox id="scale" checked="false" label="&departments.scale;"
                                           form="deptForm" name="scale" default="0"/>
                             </vbox>
-                            <vbox>
-                                <checkbox id="non_discountable" value="false" label="&departments.non.discountable;"
-                                          form="deptForm" name="non_discountable" default="false"/>
-                            </vbox>
                         </row>
 
                         <row>
@@ -105,7 +101,14 @@
                                          onclick="$do('getRate', null,'Departments');" onfocus="this.select()"
                                          form="deptForm" name="rate_name" default=""/>
                             </vbox>
-
+                            <vbox>
+                                <checkbox id="non_discountable" value="false" label="&departments.non.discountable;"
+                                          form="deptForm" name="non_discountable" default="false"/>
+                            </vbox>
+                            <vbox>
+                                <checkbox id="non_surchargeable" value="false" label="&departments.non.surchargeable;"
+                                          form="deptForm" name="non_surchargeable" default="false"/>
+                            </vbox>
                        </row>
                         <row>
                             <vbox>
