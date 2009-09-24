@@ -70,14 +70,12 @@
                                          onfocus="this.select()"
                                          form="deptForm" name="no"/>
                             </vbox>
-                            <vbox>
+                            <hbox>
                                 <checkbox id="dept_visible" value="1" label="&departments.visible;"
                                           form="deptForm" name="visible" default="1"/>
-                            </vbox>
-                            <vbox>
                                 <checkbox id="dept_cansale" value="0" label="&departments.sale;"
                                           form="deptForm" name="cansale" default="0"/>
-                            </vbox>
+                            </hbox>
                         </row>
                         <row>
                             <vbox>
@@ -101,14 +99,12 @@
                                          onclick="$do('getRate', null,'Departments');" onfocus="this.select()"
                                          form="deptForm" name="rate_name" default=""/>
                             </vbox>
-                            <vbox>
+                            <hbox>
                                 <checkbox id="non_discountable" value="false" label="&departments.non.discountable;"
                                           form="deptForm" name="non_discountable" default="false"/>
-                            </vbox>
-                            <vbox>
                                 <checkbox id="non_surchargeable" value="false" label="&departments.non.surchargeable;"
                                           form="deptForm" name="non_surchargeable" default="false"/>
-                            </vbox>
+                            </hbox>
                        </row>
                         <row>
                             <vbox>

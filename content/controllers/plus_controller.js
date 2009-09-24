@@ -1341,6 +1341,8 @@
                                 newData.tare = product.tare;
                                 newData.scale_multiplier = product.scale_multiplier;
                                 newData.scale_precision = product.scale_precision;
+                                newData.non_discountable = product.non_discountable;
+                                newData.non_surchargeable = product.non_surchargeable;
                             }
 
                             if (inputObj.cloneSettings['appearance']) {
