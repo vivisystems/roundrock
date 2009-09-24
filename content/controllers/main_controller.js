@@ -495,17 +495,17 @@
 
                         // make sure we have a price
                         // @irving - 7/6/09: this check is moved to cart.addItem
-                        // @irving - 9/23/09: if no price is given, no register action is performed
+                        // @irving - 9/23/09: if no price is given, check if the selected department
+                        //                    contains visible products. If not, notify user of error;
+                        //                    otherwise, switch to the selected department
                         if(!isNaN(price)) {
                             dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
                         }
-                        /*
-                        else {
+                        else if (this.pluPanelView.getProductCount(index, true) == 0) {
                             NotifyUtils.error(_('Price must be given to register sale of department [%S]', [dep.name]));
                             return;
                         }
-                        */
                     }
 
                     // update catepanel's current selection
