@@ -586,16 +586,75 @@
                 taxAmount[no]['combine'] = {};
                 if (taxObject.CombineTax != null) {
 
-                    // foreach combine taxes
+                    // compute included tax
+                    // @irving 2009-09-24:
+                    // the threshold parameter is ignored for included tax within a combined tax
+                    // we sum up all the included charges and rates
+                    var includedChargeAmount = 0;
+                    var includedRate = 0;
+                    var includedRateTaxes = [];
+                    var includedRateAmount = 0;
+
                     taxObject.CombineTax.forEach(function(cTaxObj){
-                        var cTaxAmount = this.calcTaxAmount(cTaxObj['no'], amount, unitprice, qty);
-                        taxAmount[no]['combine'][cTaxObj.name] = {
-                            charge: cTaxAmount[cTaxObj.no].charge || 0,
-                            included: cTaxAmount[cTaxObj.no].included || 0,
-                            tax: cTaxObj
+                        if (cTaxObj.type == 'INCLUDED') {
+                            var rate = parseFloat(cTaxObj['rate']);
+                            if (cTaxObj['rate_type'] == '$') {
+                                var taxCharge = qty * rate || 0;
+                                taxAmount[no]['combine'][cTaxObj.name] = {
+                                    charge: 0,
+                                    included: taxCharge,
+                                    tax: cTaxObj
+                                }
+                                includedChargeAmount += taxCharge;
+                            }else {
+                                includedRate += rate;
+                                includedRateTaxes.push(cTaxObj);
+                            }
                         }
-                        totalCharge += cTaxAmount[cTaxObj.no].charge || 0;
-                        totalIncluded += cTaxAmount[cTaxObj.no].included || 0;
+                    }, this);
+
+                    // compute amount of rate-based included taxes
+                    if (includedRateTaxes.length > 0) {
+                        var amount1 = amount - includedChargeAmount;
+
+                        // compute total included tax charge
+                        var includedRateAmount = amount1 - ( amount1 / (100 + includedRate) * 100);
+
+                        // allocate included tax amount to individual rate-based included taxes
+                        var allocatedTaxAmount = 0;
+                        for (var i = 0; i < includedRateTaxes.length - 1; i++) {
+                            var cTaxObj = includedRateTaxes[i];
+                            var partialIncludedAmount = cTaxObj.rate * includedRateAmount / includedRate;
+                            taxAmount[no]['combine'][cTaxObj.name] = {
+                                charge: 0,
+                                included: partialIncludedAmount,
+                                tax: cTaxObj
+                            }
+                            allocatedTaxAmount += partialIncludedAmount;
+                        }
+
+                       var cTaxObj = includedRateTaxes[i];
+                       taxAmount[no]['combine'][cTaxObj.name] = {
+                           charge: 0,
+                           included: includedRateAmount - allocatedTaxAmount,
+                           tax: cTaxObj
+                       }
+                    }
+
+                    var totalIncluded = includedRateAmount + includedChargeAmount;
+                    var addonBasis = amount - totalIncluded;
+
+                    // foreach component tax of type 'add-on'
+                    taxObject.CombineTax.forEach(function(cTaxObj){
+                        if (cTaxObj.type == 'ADDON') {
+                            var cTaxAmount = this.calcTaxAmount(cTaxObj['no'], addonBasis, unitprice, qty);
+                            taxAmount[no]['combine'][cTaxObj.name] = {
+                                charge: cTaxAmount[cTaxObj.no].charge || 0,
+                                included: cTaxAmount[cTaxObj.no].included || 0,
+                                tax: cTaxObj
+                            }
+                            totalCharge += cTaxAmount[cTaxObj.no].charge || 0;
+                        }
                     }, this);
                 }
                 taxAmount[no]['charge'] = totalCharge;

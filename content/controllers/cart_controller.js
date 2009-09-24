@@ -668,14 +668,13 @@
                     var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
 
                     var price = GeckoJS.Session.get('cart_set_price_value');
-
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (currentItem.no == plu.no &&
                             !currentItem.hasDiscount &&
                             !currentItem.hasSurcharge &&
                             !currentItem.hasMarker &&
                             ((price == null) || (currentItem.current_price == price)) &&
-                            currentItem.tax_name == plu.rate) {
+                            currentItem.tax_name == item.rate) {
 
                             // need to clear quantity source so scale multipler is not applied again
                             GeckoJS.Session.remove('cart_set_qty_unit');
@@ -1498,7 +1497,7 @@
             this._addDiscount(discountAmount, '$', discountName, false);
         },
 
-        addDiscountByPercentage: function(args, pretax) {
+        addDiscountByPercentage: function(args) {
             // args is a list of up to 2 comma separated arguments: amount, label
             var discountAmount;
             var discountName;
@@ -1508,8 +1507,6 @@
                 if (argList.length > 0) discountAmount = argList[0];
                 if (argList.length > 1) discountName = argList[1];
             }
-
-            if (pretax == null) pretax = false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1525,16 +1522,11 @@
                 discountName = '-' + discountAmount + '%';
             }
 
-            this._addDiscount(discountAmount, '%', discountName, pretax);
+            this._addDiscount(discountAmount, '%', discountName);
         },
 
 
-        addPretaxDiscountByPercentage: function(args) {
-            this.addDiscountByPercentage(args, true);
-        },
-
-
-        _addDiscount: function(discountAmount, discountType, discountName, pretax) {
+        _addDiscount: function(discountAmount, discountType, discountName) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -1575,13 +1567,6 @@
 
             var itemTrans = curTransaction.getItemAt(index);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
-
-            if (pretax && itemDisplay.type != 'subtotal') {
-                NotifyUtils.warn(_('Pretax discount can only be registered against subtotals'));
-
-                this._clearAndSubtotal();
-                return;
-            }
 
             if (itemTrans != null && itemTrans.type == 'item') {
                 if (itemTrans.hasDiscount) {
@@ -1656,8 +1641,7 @@
             var discountItem = {
                 type: discountType,
                 name: discountName,
-                amount: discountAmount,
-                pretax: (pretax == null) ? false : pretax
+                amount: discountAmount
             };
             this.dispatchEvent('beforeAddDiscount', discountItem);
 
@@ -1692,7 +1676,7 @@
             this._addSurcharge(surchargeAmount, '$', surchargeName, false);
         },
 
-        addSurchargeByPercentage: function(args, pretax) {
+        addSurchargeByPercentage: function(args) {
             // args is a list of up to 2 comma separated arguments: amount, label
             var surchargeAmount;
             var surchargeName;
@@ -1702,8 +1686,6 @@
                 if (argList.length > 0) surchargeAmount = argList[0];
                 if (argList.length > 1) surchargeName = argList[1];
             }
-
-            if (pretax == null) pretax = false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1719,16 +1701,11 @@
                 surchargeName = '+' + surchargeAmount + '%';
             }
 
-            this._addSurcharge(surchargeAmount, '%', surchargeName, pretax);
+            this._addSurcharge(surchargeAmount, '%', surchargeName);
         },
 
 
-        addPretaxSurchargeByPercentage: function(args) {
-            this.addSurchargeByPercentage(args, true);
-        },
-
-
-        _addSurcharge: function(surchargeAmount, surchargeType, name, pretax) {
+        _addSurcharge: function(surchargeAmount, surchargeType, name) {
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
@@ -1768,12 +1745,6 @@
             var itemTrans = curTransaction.getItemAt(index);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
             
-            if (pretax && itemDisplay.type != 'subtotal') {
-                NotifyUtils.warn(_('Pretax surcharge can only be registered against subtotals'));
-
-                this._clearAndSubtotal();
-                return;
-            }
             if (itemTrans != null && itemTrans.type == 'item') {
 
                 if (itemTrans.hasDiscount) {
@@ -1845,8 +1816,7 @@
             var surchargeItem = {
                 name: name,
                 type: surchargeType,
-                amount: surchargeAmount,
-                pretax: (pretax == null) ? false : pretax
+                amount: surchargeAmount
             };
             this.dispatchEvent('beforeAddSurcharge', surchargeItem);
 

@@ -35,12 +35,14 @@ var options;
             else if (col.id == "amount" || col.id == 'excess_amount' || col.id == 'change') {
 
                 var amt = this.data[row][col.id];
-                try {
-                    if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
-                        return '';
+                if (col.id != "amount") {
+                    try {
+                        if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
+                            return '';
+                        }
                     }
+                    catch (e) {}
                 }
-                catch (e) {}
                 // text = this.data[row].amount;
                 text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
                 text = GeckoJS.NumberHelper.format(text, {places: precision_prices});

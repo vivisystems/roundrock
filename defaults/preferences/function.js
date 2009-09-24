@@ -88,11 +88,6 @@ pref("vivipos.fec.registry.function.programmable.discountByPercentage.command", 
 pref("vivipos.fec.registry.function.programmable.discountByPercentage.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.discountByPercentage.data", "");
 
-pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.access", "acl_register_pretax_discount");
-pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.command", "addPretaxDiscountByPercentage");
-pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.data", "");
-
 pref("vivipos.fec.registry.function.programmable.dispatch.access", "acl_internal_access");
 pref("vivipos.fec.registry.function.programmable.dispatch.command", "dispatch");
 pref("vivipos.fec.registry.function.programmable.dispatch.controller", "Main");
@@ -372,11 +367,6 @@ pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.access", 
 pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.command", "addSurchargeByPercentage");
 pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.data", "");
-
-pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.access", "acl_register_pretax_surcharge");
-pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.command", "addPretaxSurchargeByPercentage");
-pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.data", "");
 
 pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
 pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");

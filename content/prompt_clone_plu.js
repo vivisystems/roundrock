@@ -17,8 +17,24 @@
                 inputObj.selectedItems = $('#targetscrollablepanel')[0].selectedItems;
                 inputObj.cloneSettings = GeckoJS.FormHelper.serializeToObject('settingsForm');
 
-                inputObj.ok = true;
-                return true;
+                // make sure at least one settings group is selected
+                var selected = false;
+                var values = GeckoJS.BaseObject.getValues(inputObj.cloneSettings);
+                for (var i = 0; i < values.length; i++) {
+                    if (values[i]) {
+                        selected = true;
+                        break;
+                    }
+                }
+
+                if (selected) {
+                    inputObj.ok = true;
+                    return true;
+                }
+                else {
+                    GREUtils.Dialog.alert(window, _('Clone Product'), _('Please select at least one group of settings to clone'));
+                    return false;
+                }
             },
             function(){
                 inputObj.ok = false;

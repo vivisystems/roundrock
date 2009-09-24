@@ -1471,18 +1471,9 @@
                     discountItem.current_discount = discount.amount;
                 }
                 else {
-                    // percentage order surcharge is pretax?
-                    if (discount.pretax == null) discount.pretax = false;
-
-                    if (discount.pretax) {
-                        remainder = this.getRemainTotal() - this.data.revalue_subtotal - this.data.tax_subtotal;
-                        discountItem.current_discount = remainder * discountItem.discount_rate;
-                    }
-                    else {
-                        remainder = this.getRemainTotal() - this.data.revalue_subtotal;
-                        discountItem.discount_name += '*';
-                        discountItem.current_discount = remainder * discountItem.discount_rate;
-                    }
+                    remainder = this.getRemainTotal() - this.data.revalue_subtotal;
+                    discountItem.discount_name += '*';
+                    discountItem.current_discount = remainder * discountItem.discount_rate;
                 }
                 if (discountItem.current_discount > remainder && remainder > 0) {
                     // discount too much
@@ -1602,17 +1593,9 @@
                 if (surchargeItem.surcharge_type == '$') {
                     surchargeItem.current_surcharge = this.getRoundedPrice(surcharge.amount);
                 }else {
-                    // percentage order surcharge is pretax?
-                    if (surcharge.pretax == null) surcharge.pretax = false;
-                    if (surcharge.pretax) {
-                        remainder = this.getRemainTotal() - this.data.revalue_subtotal - this.data.tax_subtotal;
-                        surchargeItem.current_surcharge = this.getRoundedPrice(remainder * surchargeItem.surcharge_rate);
-                    }
-                    else {
-                        remainder = this.getRemainTotal() - this.data.revalue_subtotal;
-                        surchargeItem.surcharge_name += '*';
-                        surchargeItem.current_surcharge = this.getRoundedPrice(remainder * surchargeItem.surcharge_rate);
-                    }
+                    remainder = this.getRemainTotal() - this.data.revalue_subtotal;
+                    surchargeItem.surcharge_name += '*';
+                    surchargeItem.current_surcharge = this.getRoundedPrice(remainder * surchargeItem.surcharge_rate);
                 }
 
                 var surchargeIndex = GeckoJS.String.uuid();
@@ -2400,12 +2383,6 @@
             for(var itemIndex in items ) {
                 var item = items[itemIndex];
 
-                /*
-            tax_name: item.rate,
-            tax_rate: null,
-            tax_type: null,
-            current_tax: 0,
-            */
                 if (item.parent_index == null && !isRemove) {
                     var tax = Transaction.Tax.getTax(item.tax_name);
                     if(tax) {
@@ -2415,22 +2392,74 @@
                         var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
                         var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge), item.current_price, item.current_qty);
 
-                        // @todo total only or summary ?
-                        item.current_tax =  taxChargeObj[item.tax_name].charge;
-                        item.included_tax = taxChargeObj[item.tax_name].included;
+                        // rounding tax
+                        item.current_tax =  this.getRoundedTax(taxChargeObj[item.tax_name].charge);
+                        item.included_tax = this.getRoundedTax(taxChargeObj[item.tax_name].included);
 
-                        this.log('DEBUG', 'taxChargeObj: ' + this.dump(taxChargeObj));
+                        if (taxChargeObj[item.tax_name].combine) {
+                            item.tax_details = taxChargeObj[item.tax_name].combine;
+                            
+                            // round individual tax components
+                            var includedCTaxes = [];
+                            var addonCTaxes = [];
+
+                            for (var key in item.tax_details) {
+                                var cTaxObj = item.tax_details[key];
+                                if (cTaxObj.tax.type == 'INCLUDED') {
+                                    includedCTaxes.push(cTaxObj);
+                                }
+                                else {
+                                    addonCTaxes.push(cTaxObj);
+                                }
+                            };
+                            // process add-on taxes
+                            if (addonCTaxes.length > 0) {
+                                var addonSum = 0;
+                                for (var i = 0; i < addonCTaxes.length - 1; i++) {
+                                    addonCTaxes[i].charge = this.getRoundedTax(addonCTaxes[i].charge);
+                                    addonSum += addonCTaxes[i].charge;
+                                }
+
+                                addonCTaxes[i].charge = this.getRoundedTax(item.current_tax - addonSum);
+                            }
+
+                            // process included taxes
+                            if (includedCTaxes.length > 0) {
+                                var includedSum = 0;
+                                for (var j = 0; j < includedCTaxes.length - 1; j++) {
+                                    includedCTaxes[j].included = this.getRoundedTax(includedCTaxes[j].included);
+                                    includedSum += includedCTaxes[j].included;
+                                }
+
+                                includedCTaxes[j].included = this.getRoundedTax(item.included_tax - includedSum);
+                            }
+                        }
+                        else {
+                            item.tax_details = {};
+                            item.tax_details[item.tax_name] = {
+                                charge: item.current_tax,
+                                included: item.included_tax,
+                                tax: tax
+                            };
+                        }
                     }else {
                         item.current_tax = 0;
                         item.included_tax = 0;
                     }
 
-                    // rounding tax
-                    // @don't round tax here - irving 4/28/2009
-                    item.current_tax = this.getRoundedTax(item.current_tax);
-                    item.included_tax = this.getRoundedTax(item.included_tax);
-                    if (toTaxCharge < 0) item.current_tax = 0 - item.current_tax;
+                    if (toTaxCharge < 0) {
+                        item.current_tax = 0 - item.current_tax;
+                        item.included_tax = 0 - item.included_tax;
+
+                        // process combined taxes, if any
+                        for (var key in item.tax_details) {
+                            var cTaxObj = item.tax_details[key];
+                            cTaxObj.charge = 0 - cTaxObj.charge;
+                            cTaxObj.included = 0 - cTaxObj.included;
+                        };
+                    }
                 }
+                this.log('DEBUG', 'item details: ' + this.dump(item));
             }
 
             //this.log('DEBUG', 'dispatchEvent onCalcItemsTax ' + items);
@@ -2526,6 +2555,7 @@
 
             // item subtotal and grouping
             this.data.items_summary = {}; // reset summary
+            this.data.items_tax_details = {};
             for(var itemIndex in this.data.items ) {
                 var item = this.data.items[itemIndex];
 
@@ -2539,6 +2569,23 @@
                     item_subtotal += parseFloat(item.current_subtotal);
 
                     qty_subtotal += (item.sale_unit == 'unit') ? item.current_qty : 1;
+
+                    // summarize tax details
+                    if (item.tax_details) {
+                        for (var key in item.tax_details) {
+                            let taxDetails = item.tax_details[key];
+
+                            if (!(key in this.data.items_tax_details)) {
+                                this.data.items_tax_details[key] = {
+                                    tax_subtotal: 0,
+                                    included_tax_subtotal: 0
+                                }
+                            }
+
+                            this.data.items_tax_details[key].tax_subtotal += parseFloat(taxDetails.charge);
+                            this.data.items_tax_details[key].included_tax_subtotal += parseFloat(taxDetails.included);
+                        }
+                    }
                 }
 
                 // summary it
@@ -2561,6 +2608,13 @@
                     sumItem.surcharge_subtotal += parseFloat(item.current_surcharge);
                 }
                 this.data.items_summary[item_id] = sumItem;
+            }
+
+            // round tax details
+            for (var tax in this.data.items_tax_details) {
+                let taxDetails = this.data.items_tax_details[tax];
+                taxDetails.tax_subtotal = this.getRoundedTax(taxDetails.tax_subtotal);
+                taxDetails.included_tax_subtotal = this.getRoundedTax(taxDetails.included_tax_subtotal);
             }
 
             // trans subtotal
@@ -2588,7 +2642,7 @@
 
             total = this.getRoundedPrice(item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal);
 
-            this.data.revalue_subtotal = this.calcRevalue(total, this.data.autorevalue, this.data.revaluefactor);
+            this.data.revalue_subtotal = this.getRoundedPrice(this.calcRevalue(total, this.data.autorevalue, this.data.revaluefactor));
             total = total + this.data.revalue_subtotal;
             remain = total - payment_subtotal;
 
@@ -2615,7 +2669,7 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-            //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
 
         },
 

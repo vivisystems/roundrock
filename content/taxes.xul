@@ -103,14 +103,12 @@
                                             <label value="&taxes.rate;" control="tax_rate"/>
                                             <vivitextbox id="tax_rate" value="" type="number" min="0" decimalplaces="Infinity"
                                                          numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                                         oninput="$do('validateForm', null, 'Taxes')" onfocus="this.select()"
                                                          form="taxForm" name="rate" default="0"/>
                                         </vbox>
                                         <vbox>
                                             <label value="&taxes.threshold;" control="tax_threshold"/>
                                             <vivitextbox id="tax_threshold" value="" type="number" min="0" decimalplaces="Infinity"
                                                          numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                                         oninput="$do('validateForm', null, 'Taxes')" onfocus="this.select()"
                                                          form="taxForm" name="threshold" default="0"/>
                                         </vbox>
                                     </row>
