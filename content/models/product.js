@@ -38,7 +38,7 @@
 
             }
             //dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
-            
+
             return products;
 
         },
@@ -150,7 +150,7 @@
             GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
             GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
             GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
-            
+
         /*
             this.log(this.dump(GeckoJS.Session.get('productsById')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
@@ -402,7 +402,7 @@
                             newgroups.forEach(function(group) {
 
                                 if (group == -1) return;
-                                
+
                                 if (typeof indexLinkGroup[group] == 'undefined') {
                                     indexLinkGroup[group] = [];
                                     indexLinkGroupAll[group] = [];
@@ -490,7 +490,7 @@
                         }
                         break;
                 }
-            
+
             }catch(e) {
                 this.log('ERROR', 'updateProductSession Error');
             }
@@ -508,7 +508,7 @@
 
             var product = null;
             var oldProduct = null;
-            
+
             var mode = 'create';
 
 
@@ -527,7 +527,7 @@
                     indexesById[id] = (newLength-1);
 
                     mode = 'create';
-                    
+
                 }else {
                     mode = 'update';
                     // clone old product
@@ -583,7 +583,7 @@
             }
 
             return false;
-            
+
         },
 
         setProductById: function (id, new_product, useDb) {
@@ -713,6 +713,88 @@
             }
 
             return product;
+        },
+
+        isNonDiscountable: function(id, useDb) {
+            //if category or product group is non-discountable, product is non-discountable
+            //else check product's eligibility thereafter
+            var result = false;
+            useDb = useDb || false;
+            var product = this.getProductById(id, useDb);
+
+            if(product) {
+                if (product.link_group && product.link_group.length > 0) {
+                    var plugroupModel = new PlugroupModel();
+                    var groups = product.link_group.split(',');
+
+                    groups.forEach(function(groupId) {
+                        var group = plugroupModel.find('first', 'id="' + groupId + '"');
+                        if(group.non_discountable)
+                            result = true;
+                    });
+                }
+
+                var categoryModel = new CategoryModel();
+                var category = categoryModel.find('first', 'no="' + product.cate_no + '"');
+                if(category.non_discountable)
+                    result = true;
+
+                if(result == false) {
+                    if(product.non_discountable)
+                        result = true;
+                }
+            } else {
+                //in the event of a department sale
+                var categoryModel = new CategoryModel();
+                var category = categoryModel.find('first', 'id="' + id + '"');
+                if(category.non_discountable)
+                    result = true;
+                else
+                    result = false;
+            }
+
+            return result;
+        },
+
+        isNonSurchargeable: function(id, useDb) {
+            //if category or product group is non-discountable, product is non-discountable
+            //else check product's eligibility thereafter
+            var result = false;
+            useDb = useDb || false;
+            var product = this.getProductById(id, useDb);
+
+            if(product) {
+                if (product.link_group && product.link_group.length > 0) {
+                    var plugroupModel = new PlugroupModel();
+                    var groups = product.link_group.split(',');
+
+                    groups.forEach(function(groupId) {
+                        var group = plugroupModel.find('first', 'id="' + groupId + '"');
+                        if(group.non_surchargeable)
+                            result = true;
+                    });
+                }
+
+                var categoryModel = new CategoryModel();
+                var category = categoryModel.find('first', 'no="' + product.cate_no + '"');
+                if(category.non_surchargeable)
+                    result = true;
+
+                if(result == false) {
+                    if(product.non_surchargeable)
+                        result = true;
+                }
+            } else {
+                //in the event of a department sale
+                var categoryModel = new CategoryModel();
+                var category = categoryModel.find('first', 'id="' + id + '"');
+                if(category.non_surchargeable)
+                    result = true;
+                else
+                    result = false;
+            }
+
+            return result;
         }
 
     };

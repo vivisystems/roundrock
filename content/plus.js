@@ -77,7 +77,7 @@ function selectImages() {
 	if (!GREUtils.File.exists(aSrcFile))
 	        return false;
 	var aDstFile = sPluDir + no + '.png';
-    
+
     if (GREUtils.File.exists(aDstFile)) GREUtils.File.remove(aDstFile);
 	GREUtils.File.copy(aSrcFile, aDstFile);
 
@@ -89,7 +89,7 @@ function selectImages() {
 
     // update product button
     $('#prodscrollablepanel')[0].refresh();
-    
+
 	return aDstFile;
 };
 
