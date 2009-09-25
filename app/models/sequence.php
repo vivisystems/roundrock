@@ -4,7 +4,7 @@ App::import('Core', array('CakeLog'));
 class Sequence extends AppModel {
     var $name = 'Sequence';
 
-    function getSequence($keys = 'default') {
+    function getSequence($keys = 'default', $initial = 1, $increment = true) {
 
         $result = array();
         $arKeys = explode(",", $keys);
@@ -19,19 +19,21 @@ class Sequence extends AppModel {
                 $id = $data['Sequence']['id'];
                 $value = $data['Sequence']['value'];
                 $maxValue = $data['Sequence']['max_value'];
-                $value++;
-                if ($maxValue != 0 && $value > $maxValue) {
-                    $value = 1;
-                }
-                $this->id = $id;
-                $success = $this->save(array('value'=>$value));
-                if(!$success) {
-                    // try again
-                    CakeLog::write('warning', 'Error update sequence to ' . $value );
-                    $this->save(array('value'=>$value));
-                }
+                if ($increment) {
+		    $value++;
+		    if ($maxValue != 0 && $value > $maxValue) {
+			$value = 1;
+		    }
+		    $this->id = $id;
+		    $success = $this->save(array('value'=>$value));
+		    if(!$success) {
+			// try again
+			CakeLog::write('warning', 'Error update sequence to ' . $value );
+			$this->save(array('value'=>$value));
+		    }
+		}
             }else {
-                $value = 1;
+                $value = $initial;
                 $this->create();
                 $newData = array('id'=> String::uuid() , 'key'=> $key, 'value'=>$value, 'max_value'=>0);
                 $success = $this->save($newData);
@@ -79,6 +81,16 @@ class Sequence extends AppModel {
 
         return $this->setSequence($key, $value);
         
+    }
+
+    function removeSequence($key = 'default') {
+        $data = $this->findByKey($key);
+
+        if ($data) {
+            return $this->delete($data['Sequence']['id']);
+        }
+        else
+            return -1;
     }
 }
 

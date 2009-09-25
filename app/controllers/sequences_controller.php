@@ -111,6 +111,40 @@ class SequencesController extends AppController {
 
     }
 
+    function removeSequence ( $key ) {
+
+        $value = $this->Sequence->removeSequence($key);
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'value' => $value,
+            'response_data' => $value
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+    }
+
+    function getDateSequence ( $key, $initial ) {
+
+        if ($initial == null) $initial = mktime(0, 0, 0);
+
+        $value = $this->Sequence->getSequence($key, $initial, false);
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'value' => $value,
+            'response_data' => $value
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+    }
+
     function test () {
         print_r($this->Order->find('first'));
         exit;
