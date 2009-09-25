@@ -37,7 +37,7 @@
             <hbox flex="1">
                 <hbox flex="1" class="content-buttonpanel block-50">
                     <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="2" rows="4"  seltype="single"
-                                               labelField="check_no"
+                                               labelField="id"
                                                buttonClass="button-item-a"
                                                buttonTagName="table_status_std_btn"
                                                scrollUpClass="scroll-up-button"
