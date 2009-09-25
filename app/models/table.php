@@ -86,6 +86,30 @@ class Table extends AppModel {
     }
 
 
+    /**
+     * voidOrder
+     *
+     * @param <type> $datas
+     * @return <type>
+     */
+    function voidOrder($orderId, $datas) {
+
+        if (empty($orderId) || empty($datas['table_no'])) return false ;
+
+        $arOrders = array();
+
+        $arOrders[0] = datas;
+
+        // save table order
+        $this->TableOrder->updateOrders($arOrders, $this->getTableNoToIds());
+
+        // update table status 's order count
+        $this->TableStatus->updateStatusByOrders($arOrders, $this->getTableNoToIds());
+
+    // maintaince expire mark
+
+    }
+
 }
 
 ?>
