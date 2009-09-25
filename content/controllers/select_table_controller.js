@@ -509,10 +509,9 @@
             let status = 0;
             let command = 'newTable';
 
+            // check status or not active or op_deny
             if (tableStatus) {
-                // check status
-                // not active or op_deny
-                if ((!tableStatus.Table.active && tableStatus.TableStatus.order_count == 0) || tableStatus.TableStatus.status == 2
+                if ((!table.active && tableStatus.TableStatus.order_count == 0) || tableStatus.TableStatus.status == 2
                     || (tableStatus.TableStatus.status == 3 && tableStatus.TableStatus.mark_op_deny) ) {
 
                     command = 'denyTable';
@@ -521,6 +520,9 @@
                 }
                 active = tableStatus.Table.active ? 1 : 0;
                 status = tableStatus.TableStatus.status;
+            }else if (!table.active) {
+                command = 'denyTable';
+                active = 0
             }
 
             switch (command) {
@@ -634,6 +636,9 @@
                     NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                     return ;
                 }
+            }else if (!table.active) {
+                    NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, 0, 0]));
+                    return ;
             }
 
             // set master id
@@ -746,6 +751,9 @@
                     NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                     return ;
                 }
+            }else if (!table.active) {
+                    NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, 0, 0]));
+                    return ;
             }
 
             var markId = this.openSelectMarkDialog(table);
