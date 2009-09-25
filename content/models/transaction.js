@@ -475,19 +475,11 @@
 
                 stock_maintained: false,
                 destination: GeckoJS.Session.get('vivipos_fec_order_destination'),
-<<<<<<< HEAD:content/models/transaction.js
-                
-=======
 
->>>>>>> master:content/models/transaction.js
                 price_modifier: priceModifier,
 
-<<<<<<< HEAD:content/models/transaction.js
-                non_discountable: item.non_discountable
-=======
                 non_discountable: item.non_discountable,
                 non_surchargeable: item.non_surchargeable
->>>>>>> master:content/models/transaction.js
             };
 
             return item2;
@@ -574,25 +566,6 @@
                     current_qty: '',
                     current_price: '',
                     current_subtotal: item.current_discount,
-                    current_tax: '',
-                    type: type,
-                    index: index,
-                    level: (level == null) ? 0 : level
-                });
-            }else if (type == 'mass_discount') {
-                if (item.discount_name != null && item.discount_name.length > 0) {
-                    dispName = _(item.discount_name);
-                }
-                else {
-                    dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
-                }
-                itemDisplay = GREUtils.extend(itemDisplay, {
-                    id: null,
-                    no: item.no,
-                    name: dispName,
-                    current_qty: item.discountable_tax,
-                    current_price: item.current_discount,
-                    current_subtotal: '',
                     current_tax: '',
                     type: type,
                     index: index,
@@ -1434,45 +1407,10 @@
                 //check if item is flagged as non-discountable
                 var productModel = new ProductModel();
                 var non_discountable = productModel.isNonDiscountable(item.id, false);
-<<<<<<< HEAD:content/models/transaction.js
-                
+
                 if(non_discountable == false) {
-=======
->>>>>>> master:content/models/transaction.js
 
-<<<<<<< HEAD:content/models/transaction.js
-=======
-                if(non_discountable == false) {
->>>>>>> master:content/models/transaction.js
 
-<<<<<<< HEAD:content/models/transaction.js
-                    if (discount.type == '$') {
-                        discount_amount = discount.amount;
-                    }
-                    else {
-                        discount_amount = item.current_subtotal * discount.amount;
-                    }
-
-<<<<<<< HEAD:content/models/transaction.js
-                    // rounding discount
-                    item.current_discount = this.getRoundedPrice(item.current_discount);
-
-                    // check if discount amount exceeds user item discount limit
-                    var user = GeckoJS.Session.get('user');
-                    var item_discount_limit = parseInt(user.item_discount_limit);
-                    if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
-                        var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
-                        if (discount_amount > item_discount_limit_amount) {
-                            NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
-                                               [discount_amount, item_discount_limit_amount]));
-                            return;
-                        }
-                    }
-=======
->>>>>>> master:content/models/transaction.js
-
-<<<<<<< HEAD:content/models/transaction.js
-=======
                     if (discount.type == '$') {
                         discount_amount = discount.amount;
                     }
@@ -1495,26 +1433,12 @@
                         }
                     }
 
->>>>>>> master:content/models/transaction.js
                     if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
                         // discount too much
                         NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
                             [this.formatPrice(this.getRoundedPrice(discount_amount)),
                             item.current_subtotal]));
-<<<<<<< HEAD:content/models/transaction.js
-=======
-                // check if discount amount exceeds user item discount limit
-                var user = GeckoJS.Session.get('user');
-                var item_discount_limit = parseInt(user.item_discount_limit);
-                if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
-                    var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
-                    if (discount_amount > item_discount_limit_amount) {
-                        NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
-                            [discount_amount, item_discount_limit_amount]));
->>>>>>> master:content/models/transaction.js
-=======
 
->>>>>>> master:content/models/transaction.js
                         return;
                     }
                     item.current_discount = 0 - discount_amount;
@@ -1534,16 +1458,6 @@
                     this.calcPromotions();
 
                     this.calcItemsTax(item);
-<<<<<<< HEAD:content/models/transaction.js
-
-                    resultItem = item;
-
-                } else {
-                    alert('This product cannot be discounted');
-                    return;
-                }
-=======
->>>>>>> master:content/models/transaction.js
 
                     resultItem = item;
 
@@ -1599,83 +1513,6 @@
 
                 // find the display index of the last entry associated with the item
                 lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
-<<<<<<< HEAD:content/models/transaction.js
-
-                this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
-
-                this.calcPromotions();
-
-                // this.calcItemsTax();
-
-                resultItem = discountItem;
-            }
-
-            var currentRowCount = this.data.display_sequences.length;
-
-            this.calcTotal();
-
-            this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
-
-            return resultItem;
-        },
-
-        appendMassDiscount: function(index, discount) {
-
-            var item = this.getItemAt(index);
-            var itemDisplay = this.getDisplaySeqAt(index); // last seq
-            var itemIndex = itemDisplay.index;
-            var lastItemDispIndex;
-            var discount_amount;
-            var resultItem;
-
-            var prevRowCount = this.data.display_sequences.length;
-
-            if (itemDisplay.type == 'subtotal'){
-
-                var discountItem = {
-                    discount_name: discount.name,
-                    discount_rate: discount.amount,
-                    discount_type: discount.type,
-                    hasMarker: false
-                };
-                // warn if refunds are present
-                for (var checkItemIndex in this.data.items ) {
-                    var checkitem = this.data.items[checkItemIndex];
-                    if (checkitem.type == 'item' && checkitem.current_qty < 0) {
-                        NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
-                    }
-                }
-
-                var remainder = this.getDiscountableRemainTotal();
-                var discountable_tax = this.getDiscountableTax();
-                discountItem.discount_name += '*';
-                discountItem.current_discount = remainder * discountItem.discount_rate;
-                discountItem.discountable_tax = this.getRoundedTax(0 - discountable_tax * discountItem.discount_rate);
-                discountItem.tax_discount = this.getRoundedTax(discountable_tax * discountItem.discount_rate);
-                if (discountItem.current_discount > remainder && remainder > 0) {
-                    // discount too much
-                    NotifyUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
-                        [this.formatPrice(this.getRoundedPrice(discountItem.current_discount)),
-                        remainder]));
-                    return;
-                }
-                discountItem.current_discount = this.getRoundedPrice(0 - discountItem.current_discount);
-
-
-                var discountIndex = GeckoJS.String.uuid();
-                this.data.mass_discounts[discountIndex] = discountItem;
-
-                // mark subtotal as having surcharge applied
-                itemDisplay.hasDiscount = true;
-
-                // create data object to push in items array
-                var newItemDisplay = this.createDisplaySeq(discountIndex, discountItem, 'mass_discount');
-                newItemDisplay.subtotal_index = index;
-
-                // find the display index of the last entry associated with the item
-                lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
-=======
->>>>>>> master:content/models/transaction.js
 
                 this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
 
@@ -2733,7 +2570,7 @@
 
                         if (taxChargeObj[item.tax_name].combine) {
                             item.tax_details = taxChargeObj[item.tax_name].combine;
-                            
+
                             // round individual tax components
                             var includedCTaxes = [];
                             var addonCTaxes = [];
@@ -2895,9 +2732,6 @@
 
                 // don't include set items in calculations
                 if (!item.parent_index) {
-                    var productModel = new ProductModel();
-                    var non_discountable = (productModel.isNonDiscountable(item.id, false) || item.hasDiscount) ? true : false;
-
                     tax_subtotal += parseFloat(item.current_tax);
                     included_tax_subtotal += parseFloat(item.included_tax);
 
@@ -2980,35 +2814,13 @@
             promotion_tax_subtotal = isNaN(parseInt(this.data.promotion_tax_subtotal)) ? 0 : parseInt(this.data.promotion_tax_subtotal);
             promotion_included_tax_subtotal = isNaN(parseInt(this.data.promotion_included_tax_subtotal)) ? 0 : parseInt(this.data.promotion_included_tax_subtotal);
 
-            tax_subtotal -= (promotion_tax_subtotal + tax_discount_subtotal);
+            tax_subtotal -= promotion_tax_subtotal;
             included_tax_subtotal -= promotion_included_tax_subtotal;
 
             total = this.getRoundedPrice(item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal);
-<<<<<<< HEAD:content/models/transaction.js
-            discountable_total = this.getRoundedPrice(discountable_item_subtotal);
-=======
->>>>>>> master:content/models/transaction.js
             remain = total - payment_subtotal;
 
-<<<<<<< HEAD:content/models/transaction.js
-            // revalue
-            if(this.data.autorevalue && this.data.revalueprices != 0) {
-                if(total>=0) {
-                    this.data.revalue_subtotal = 0 - parseFloat(total % this.data.revalueprices);
-                }else {
-                    this.data.revalue_subtotal = parseFloat((0 - total) % this.data.revalueprices);
-                    if (this.data.revalue_subtotal != 0)
-                        this.data.revalue_subtotal -= this.data.revalueprices;
-                }
-                total = total + this.data.revalue_subtotal;
-                discountable_total = discountable_total + this.data.revalue_subtotal;
-                remain = total - payment_subtotal;
-                discountable_remain = discountable_total - payment_subtotal;
-            }
-            this.data.revalue_subtotal = this.calcRevalue(total, this.data.autorevalue, this.data.revaluefactor);
-=======
             this.data.revalue_subtotal = this.getRoundedPrice(this.calcRevalue(total, this.data.autorevalue, this.data.revaluefactor));
->>>>>>> master:content/models/transaction.js
             total = total + this.data.revalue_subtotal;
             remain = total - payment_subtotal;
 
@@ -3035,11 +2847,7 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-<<<<<<< HEAD:content/models/transaction.js
-            //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
-=======
             this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
->>>>>>> master:content/models/transaction.js
         },
 
 
@@ -3058,7 +2866,7 @@
 
             return this.data.remain;
         },
-        
+
         getPaymentSubtotal: function(format) {
             format = format || false;
 

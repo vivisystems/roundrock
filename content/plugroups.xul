@@ -101,11 +101,8 @@
                                         <row>
                                             <checkbox id="non_discountable" value="false" label="&plugroups.non.discountable;"
                                                       form="plugroupForm" name="non_discountable" default="false"/>
-<<<<<<< HEAD:content/plugroups.xul
-=======
                                             <checkbox id="non_surchargeable" value="false" label="&plugroups.non.surchargeable;"
                                                       form="plugroupForm" name="non_surchargeable" default="false"/>
->>>>>>> master:content/plugroups.xul
                                         </row>
                                     </rows>
                                 </grid>

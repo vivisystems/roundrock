@@ -6,10 +6,7 @@
 <!ENTITY plugroups.routing "Used to Route Orders">
 <!ENTITY plugroups.display_order "Display Order">
 <!ENTITY plugroups.non.discountable "Non-discountable">
-<<<<<<< HEAD:locale/en/plugroups.dtd
-=======
 <!ENTITY plugroups.non.surchargeable "Non-surchargeable">
->>>>>>> master:locale/en/plugroups.dtd
 <!ENTITY plugroups.button.color "Button Color">
 <!ENTITY plugroups.font.size "Font Size">
 <!ENTITY plugroups.links.department "Departments">
