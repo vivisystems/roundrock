@@ -6,7 +6,7 @@ class OrdersController extends AppController {
 
     var $uses = array('Order','OrderItem','OrderAddition','OrderPayment',
     'OrderAnnotation','OrderItemCondiment','OrderPromotion','OrderObject',
-    'TableOrderLock', 'Table', 'TableSetting');
+    'TableOrderLock', 'Table', 'TableSetting', 'TableMark');
 
     var $components = array('SyncHandler', 'Security');
 
@@ -22,12 +22,12 @@ class OrdersController extends AppController {
 
         if(!empty($_REQUEST['request_data'])) {
             // for debug
-            //file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']);
+//            file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']);
             $request_data = $_REQUEST['request_data'];
         }else {
             $request_data = "{}";
             // for debug
-            //$request_data = file_get_contents("/tmp/saveOrder.req");
+  //          $request_data = file_get_contents("/tmp/saveOrder.req");
         }
 
         $datas = json_decode($request_data, true);

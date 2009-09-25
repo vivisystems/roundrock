@@ -68,7 +68,7 @@ class TableStatus extends AppModel {
                 'modified' => (double)(microtime(true)*1000) );
 
             // check if customers is zero
-            if ($sum_customers <= 0 ) {
+            if ($sum_customers <= 0 && $order_count <= 0) {
                 $data['status'] = 0;
 
                 // process automark after submit
