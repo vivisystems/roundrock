@@ -14,7 +14,11 @@
                 return;
             }
 
-            this._files = new GeckoJS.Dir.readDir(dir, {type: "d"}).sort(function(a, b) {if (a.leafName < b.leafName) return 1; else if (a.leafName > b.leafName) return -1; else return 0;});
+            this._files = new GeckoJS.Dir.readDir(dir, {
+                type: "d"
+            }).sort(function(a, b) {
+                if (a.leafName < b.leafName) return 1; else if (a.leafName > b.leafName) return -1; else return 0;
+            });
 
             this._files.forEach(function(o){
                 var str = o.leafName;
@@ -33,7 +37,11 @@
                     var timestr = _(str);
                 }
                 var typestr = '';
-                self._data.push({time: timestr, type: typestr, dir: str});
+                self._data.push({
+                    time: timestr,
+                    type: typestr,
+                    dir: str
+                });
 
             });            
         }
@@ -154,7 +162,7 @@
             // return;
             // opener.opener.vivipos.suspendSavePreference = true;
             GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
-            // GeckoJS.Observer.notify(null, 'prepare-to-quit', this);
+        // GeckoJS.Observer.notify(null, 'prepare-to-quit', this);
         },
 
         _showWaitPanel: function(message) {
@@ -178,6 +186,9 @@
 
             var args = [];
             if (withProfile) args.push('with-profile');
+
+            // log user process
+            this.log('WARN', 'backupToLocal withProfile: [' + withProfile +']');
 
             if (this.execute(this._scriptPath + "backup.sh", args)) {
                 this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
@@ -209,6 +220,9 @@
                 // do copy from local to stick
                 // var param = "-fr " + this._localbackupDir + dir + " " + this._stickbackupDir + dir;
                 var param = ["-fr", this._localbackupDir + dir, this._stickbackupDir];
+
+                // log user process
+                this.log('WARN', 'backupToStick file: [' + dir +']');
 
                 if (this.execute("/bin/cp", param)) {
                     this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
@@ -245,8 +259,13 @@
                 if (withSystem) confirmMessage += "\n\n" + _("restore_with_system.confirm_message");
 
                 if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Restore"), confirmMessage )) {
+
+                    // log user process
+                    this.log('WARN', 'restoreFromLocal file: [' + dir + '] withSystem: [' + withSystem +']');
+
                     this.sleep(100);
                     if (this.execute(this._scriptPath + "restore.sh", args )) {
+                        this.reloadPrefs();
                         this._restart();
                         NotifyUtils.info(_('<Restore from Local backup> is done!!'));
                     }
@@ -287,8 +306,12 @@
                 
                 if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Restore"), confirmMessage)) {
 
+                    // log user process
+                    this.log('WARN', 'restoreFromStick file: [' + dir + '] withSystem: [' + withSystem +']');
+
                     this.sleep(100);
                     if (this.execute(this._scriptPath + "restore.sh", args)){
+                        this.reloadPrefs();
                         this._restart();
                         NotifyUtils.info(_('<Restore from Stick> is done!!'));
                     }
@@ -300,6 +323,18 @@
             this._busy = false;
             this.setButtonState();
             waitPanel.hidePopup();
+        },
+
+        reloadPrefs: function() {
+            try {
+                var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+                // read prefs.js or user.js
+                mPrefService.readUserPrefs(null);
+                this.sleep(500);
+                mPrefService.savePrefFile(null);
+            }catch(e) {
+                this.log('ERROR', 'Error reload prefs.js');
+            }
         },
 
         load: function() {
@@ -323,7 +358,7 @@
         },
 
         select: function(index){
-            //
+        //
         }
     };
 
