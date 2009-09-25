@@ -10,21 +10,15 @@
 
         document.getElementById('title').setAttribute('value', inputObj.title);
         document.getElementById('description').value = inputObj.description;
-        var marksData = [];
-        
-        var datas = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
-        if (datas != null)
-            marksData = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
-        if (marksData.length <= 0) marksData = [];
+        var marksData = inputObj.marks;
         
         var index = -1;
-        // var marksData = inputObj.marksData;
         var panel = document.getElementById('markscrollablepanel');
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(marksData);
 
         panel.datasource = window.viewHelper;
         panel.selectedIndex = index;
-        panel.selectedItems = [index];
+        panel.selectedItems = [];
 
         doSetOKCancel(
             function(){
@@ -32,6 +26,7 @@
                 var index = panel.selectedIndex;
                 inputObj.markObj = marksData[index];
                 inputObj.name = marksData[index].name;
+                inputObj.id = marksData[index].id;
                 inputObj.index = index;
                 inputObj.ok = true;
 

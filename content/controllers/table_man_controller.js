@@ -546,7 +546,6 @@
                     var mark_name = inputObj.input0.replace('\'', '"', 'g');
 
                     var newMark = {
-                        id: mark_name,
                         name: mark_name,
                         period: 0,
                         opdeny: false
@@ -598,7 +597,8 @@
                 var index = this.getMarkListObj().selectedIndex;
                 if (index > -1 && inputObj.name != null && inputObj.name.length > 0) {
 
-                    var success = this.TableMark.updateTableMark(inputObj.name, inputObj);
+                    var orgMark = this.getMarkListObj().datasource.data[index];
+                    var success = this.TableMark.updateTableMark(orgMark.id, inputObj);
 
                     if (success) {
                         // reload regions
@@ -647,7 +647,7 @@
                     if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete table status [%S]', [mark.name]), _('Are you sure you want to delete table status [%S]?', [mark.name]))) {
                         return;
                     }
-                    var success = this.TableMark.removeTableMark(mark.name);
+                    var success = this.TableMark.removeTableMark(mark.id);
 
                     if (success) {
 
@@ -681,9 +681,6 @@
 
             this.setAutoMarkMenuItem();
 
-            // XXX
-            //GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
-
             return marks;
 
         },
@@ -701,7 +698,7 @@
             autoMarkObj.removeAllItems();
 
             marks.forEach(function(data){
-                autoMarkObj.appendItem(data.name, data.name);
+                autoMarkObj.appendItem(data.name, data.id);
             });
 
         },
@@ -746,7 +743,7 @@
             defaultRegionObj.removeAllItems();
 
             // append all regions
-            defaultRegionObj.appendItem(_('All Regions'),'');
+            defaultRegionObj.appendItem(_('All Regions'),'ALL');
 
             regions.forEach(function(data){
                 regionObj.appendItem(data.name, data.id);
@@ -991,6 +988,7 @@
             // settings
             if(this.TableSetting.isRemoteService()) {
             // can edit always
+                document.getElementById('automark_after_submit').setAttribute('disabled', true);
             }else {
                 document.getElementById('clone_settings_from_master').setAttribute('hidden', true);
             }

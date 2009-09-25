@@ -12,14 +12,9 @@
 
         belongsTo: ['TableRegion'],
 
-        hasOne: [{
-            name: 'TableStatus',
-            'primaryKey': 'table_no',
-            'foreignKey': 'table_no'
-        }],
-        // hasOne: ['TableStatus'],
+        hasOne: ['TableStatus'],
         
-        hasMany: ['TableBooking'],
+        hasMany: ['TableBooking','TableOrder'],
 
         behaviors: ['Training'],
 

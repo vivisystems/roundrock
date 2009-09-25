@@ -48,6 +48,8 @@
 
             if (table_regions == null) {
 
+                this.log('getTableRegions from db or services');
+
                 if (this.isRemoteService()) {
                     var remoteUrl = this.getHttpService().getRemoteServiceUrl('getTableRegions');
                     var requestUrl = remoteUrl ;

@@ -6,7 +6,7 @@
 
         name: 'NSIOrdersCheckListView',
 
-        _tableSettings: null,
+        tableSettings: null,
 
         init: function(data) {
 
@@ -14,11 +14,11 @@
         },
 
         setTableSettings: function(settings) {
-            this._tableSettings = settings;
+            this.tableSettings = settings;
         },
 
         getTableSettings: function() {
-            return this._tableSettings;            
+            return this.tableSettings;            
         },
 
         getCellText: function(row,col) {

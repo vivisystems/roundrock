@@ -400,7 +400,10 @@
             if (isRemote) {
                 var requestUrl = this.getHttpService().getRemoteServiceUrl('getOrdersSummary') ;
                 result = this.getHttpService().requestRemoteService('POST', requestUrl, conditions) || null ;
-                if (result) orders = result;
+                if (result) {
+                    // orders = result;
+                    orders = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(atob(result)));
+                }
             }else {
                 let result = this.find('all', {
                     conditions: conditions,

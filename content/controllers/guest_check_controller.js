@@ -6,7 +6,7 @@
 
         components: ['CartUtils'],
         
-        uses: ['Order', 'TableSetting', 'TableRegion', 'TableMark', 'Table', 'TableStatus'],
+        uses: ['Order', 'TableSetting', 'Table'],
 
         _cartController: null,
 
@@ -32,9 +32,9 @@
 
             var main = this.getMainController();
             if (main) {
-                main.addEventListener('onFirstLoad', this.onMainFirstLoad, this);
                 main.addEventListener('afterTruncateTxnRecords', this.onMainTruncateTxnRecords, this);
             }
+
 
             this.tableSettings = this.TableSetting.getTableSettings();
 
@@ -45,19 +45,21 @@
                 this.sleep(1000);
 
                 // load regions and tables in session.
-                let regions = this.TableRegion.getTableRegions();
-                this.log(this.dump(regions));
+                let regions = this.Table.TableRegion.getTableRegions();
 
                 let tables = this.Table.getTables();
-                this.log(this.dump(tables));
+
+                // prefetch tables status with orders
+                this.Table.TableStatus.getTablesStatus(true);
 
                 if (alertWin) {
                     alertWin.close();
                     delete alertWin;
                 }
                 
+//                alert('test');
                 // just popup table selector
-                this.popupTableSelectorPanel();
+//                this.popupTableSelectorPanel();
             }
 
         },
@@ -231,7 +233,6 @@
 
         /**
          * open Select Checks Dialog
-         *
          */
         openSelectChecksDialog: function (orders){
 
@@ -317,7 +318,6 @@
 
             var cart = this.getCartController();
             var curTransaction = cart._getTransaction(true); // autocreate
-            this.log(this.dump(curTransaction));
 
             if (! cart.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; unable to store'));
@@ -325,7 +325,7 @@
                 return '';
             }
 
-            if (!useNumberPad) {
+            if (no.length == 0 && !useNumberPad) {
                 // popup panel and return
                 return this.popupTableSelectorPanel();
             }
@@ -343,7 +343,7 @@
             }
 
             // maybe use tableSelector or not select
-            if (no.length == 0) return '';
+            if (no.length == 0) return false;
             
             // get table define
             var table = this.Table.getTableByNo(no);
@@ -364,9 +364,13 @@
                 // update Table No
                 curTransaction.setTableNo(no);
                 cart._clearAndSubtotal();
+
+                return true;
                 
             }else {
                 NotifyUtils.warn(_('[%S] is an invalid table number. Table number must be defined through table manager; Please input another table number.', [no]));
+
+                return false;
             }
             
         },
@@ -578,7 +582,6 @@
             }
 
             let orderData = this.Order.readOrder(orderId, true); // recall use master service's datas.
-            //this.log(this.dump(orderData));
 
             if (!orderData) {
                 NotifyUtils.error(_('This order object does not exist [%S]', [orderId]));
@@ -939,6 +942,15 @@
         },
 
 
+        /**
+         * transferTable
+         *
+         * @todo need rewrite
+         */
+        changeClerk: function(){
+
+        },
+
 
         /**
          * mergeCheck
@@ -947,44 +959,6 @@
          */
         mergeCheck: function() {
 
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction;
-
-            curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                this._clearAndSubtotal();
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                this._clearAndSubtotal();
-                return;
-            }
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                this._clearAndSubtotal();
-                return;
-            }
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                this._clearAndSubtotal();
-                return;
-            }
-            var modified = curTransaction.isModified();
-            if (modified) {
-                NotifyUtils.warn(_('This order has been modified and must be stored first'));
-            // r = this.GuestCheck.store();
-            // this.dispatchEvent('onStore', curTransaction);
-            }
-
-            // r = this.GuestCheck.transferToCheckNo(no);
-            var r = this.GuestCheck.mergeOrder(no, curTransaction.data);
         },
 
 
@@ -995,39 +969,6 @@
          */
         splitCheck: function() {
 
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            var curTransaction;
-
-            curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                return;
-            }
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                return;
-            }
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                return;
-            }
-            var modified = curTransaction.isModified();
-            if (modified) {
-                NotifyUtils.warn(_('This order has been modified and must be stored first'));
-            // r = this.GuestCheck.store();
-            // this.dispatchEvent('onStore', curTransaction);
-            }
-
-            var r = this.GuestCheck.splitOrder(no, curTransaction.data);
         },
 
 
@@ -1037,40 +978,7 @@
          * @todo need rewrite
          */
         transferTable: function(){
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
 
-            this._cancelReturn();
-
-            var curTransaction;
-
-            curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return;
-            }
-
-            if (curTransaction.data.status == 1) {
-                NotifyUtils.warn(_('This order has been submitted'));
-                return;
-            }
-            if (curTransaction.data.closed) {
-                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                return;
-            }
-            if (curTransaction.data.items_count == 0) {
-                NotifyUtils.warn(_('This order is empty'));
-                return;
-            }
-            var modified = curTransaction.isModified();
-            if (modified) {
-                // rec    // XXXX why only rec?
-                NotifyUtils.warn(_('This order has been modified and must be stored first'));
-            // r = this.GuestCheck.store();
-            // this.dispatchEvent('onStore', curTransaction);
-            }
-
-            var r = this.GuestCheck.transferToTableNo(no);
         },
 
 
@@ -1109,6 +1017,7 @@
 
     if (mainWindow === window) {
         window.addEventListener('load', function() {
+
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
                 main.addEventListener('onInitial', function() {
@@ -1128,6 +1037,5 @@
 
         }, false);
     }
-
 
 })();

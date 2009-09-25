@@ -131,10 +131,6 @@
             //extractObject
             let table_marks2 = GeckoJS.Array.objectExtract(table_marks, '{n}.TableMark');
 
-            // XXX remapping id to name fields for backward compatible
-            table_marks2.forEach(function(mark) {
-                mark.name = mark.id ;
-            });
             GeckoJS.Session.add('table_marks', table_marks2);
             return table_marks2;
             
