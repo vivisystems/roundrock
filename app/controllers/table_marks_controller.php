@@ -1,24 +1,23 @@
 <?php
 
-class PromotionsController extends AppController {
+class TableMarksController extends AppController {
 
-    var $name = 'Promotions';
+    var $name = 'TableMarks';
 
-    var $uses = array('Promotion');
+    var $uses = array('TableMark');
 	
     var $components = array('SyncHandler', 'Security');
 
 
     /**
-     * getPromotion
-     * @param <type> $key 
+     * getTableMarks
      */
-    function getPromotion ($key) {
+    function getTableMarks() {
 
-        $value = $this->Promotion->getPromotions();
+        $marks = $this->TableMark->getMarks();
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $value
+            'response_data' => $marks
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -26,10 +25,7 @@ class PromotionsController extends AppController {
         echo $responseResult;
 
         exit;
-
-
     }
-
 
 }
 ?>

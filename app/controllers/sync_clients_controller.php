@@ -1,7 +1,5 @@
 <?php
 
-App::import('Core', array('HttpSocket','CakeLog'));
-
 class SyncClientsController extends AppController {
 
     var $name = 'SyncClients';
@@ -10,7 +8,7 @@ class SyncClientsController extends AppController {
 	
     var $components = array('SyncHandler');
 
-    var $syncSettings = array();
+//    var $syncSettings = array();
 
     var $authURL = "";
 
@@ -23,7 +21,7 @@ class SyncClientsController extends AppController {
 
     function beforeFilter() {
 
-        $this->syncSettings =& Configure::read('sync_settings');
+//        $this->syncSettings =& Configure::read('sync_settings');
 
         $baseURI = $this->syncSettings['protocol'] . '://' .
         $this->syncSettings['hostname'] . ':' .

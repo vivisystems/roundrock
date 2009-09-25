@@ -1,24 +1,23 @@
 <?php
 
-class PromotionsController extends AppController {
+class TableRegionsController extends AppController {
 
-    var $name = 'Promotions';
+    var $name = 'TableRegions';
 
-    var $uses = array('Promotion');
+    var $uses = array('TableRegion');
 	
     var $components = array('SyncHandler', 'Security');
 
 
     /**
-     * getPromotion
-     * @param <type> $key 
+     * getTableRegions
      */
-    function getPromotion ($key) {
+    function getTableRegions() {
 
-        $value = $this->Promotion->getPromotions();
+        $regions = $this->TableRegion->getRegions();
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $value
+            'response_data' => $regions
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -26,10 +25,7 @@ class PromotionsController extends AppController {
         echo $responseResult;
 
         exit;
-
-
     }
-
 
 }
 ?>

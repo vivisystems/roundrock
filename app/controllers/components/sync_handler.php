@@ -18,47 +18,74 @@ class SyncHandlerComponent extends Object {
  * @access public
  */
     var $enabled = true;
-/**
- * Holds the copy of SyncSettings
- *
- * @var array
- * @access public
- */
+    /**
+     * Holds the copy of SyncSettings
+     *
+     * @var array
+     * @access public
+     */
     var $syncSettings = array();
 
 
     var $uses = array('Sync', 'SyncRemoteMachine');
 
-/**
- * Constructor.
- *
- */
+    /**
+     * Constructor.
+     *
+     */
     function __construct() {
         parent::__construct();
     }
-/**
- * Initializes the component, gets a reference to Controller::$parameters.
- *
- * @param object $controller A reference to the controller
- * @return void
- * @access public
- */
+    /**
+     * Initializes the component, gets a reference to Controller::$parameters.
+     *
+     * @param object $controller A reference to the controller
+     * @return void
+     * @access public
+     */
     function initialize(&$controller) {
         App::import('Model', 'Sync');
         App::import('Model', 'SyncRemoteMachine');
         App::import('Core', array('HttpSocket','CakeLog'));
 
         $this->syncSettings =& Configure::read('sync_settings');
-    }
-/**
- * The startup method
- *
- * @param object $controller A reference to the controller
- * @return void
- * @access public
- */
-    function startup(&$controller) {
 
+        // set syncSettings to controller
+        $controller->syncSettings =& $this->syncSettings ;
+
+        // if also have security component
+        if($controller->Security != null) {
+
+            $password = "rachir";
+            if ($this->syncSettings != null) {
+                $password = $this->syncSettings['password'];
+            }else {
+                $password = "rachir";
+            }
+
+            $controller->Security->loginOptions = array(
+                'type'=>'basic',
+                'realm'=>'VIVIPOS_API Realm'
+                // 'prompt'=> false
+            );
+            $controller->Security->loginUsers = array(
+                'vivipos'=> $password
+            );
+        }
+
+    }
+    
+    /**
+     * The startup method
+     *
+     * @param object $controller A reference to the controller
+     * @return void
+     * @access public
+     */
+    function startup(&$controller) {
+        if ($controller->Security != null) {
+            $controller->Security->requireLogin();            
+        }
     }
 
 
@@ -104,15 +131,15 @@ class SyncHandlerComponent extends Object {
             $lastSynced = $data['SyncRemoteMachine']['last_synced'];
         }else {
             if ($direction == 'pull') {
-                // change cursor to last insert id
+            // change cursor to last insert id
                 $sync = new Sync(false, null, $dbConfig); // id , table, ds
                 $lastSync = $sync->find('first', array('order' => array('Sync.id DESC')) );
                 $lastSynced = ($lastSync) ? $lastSync['Sync']['id'] : 0;
 
                 // insert machine setting
                 $this->setLastSynced($machine_id, $dbConfig, $lastSynced);
-                //$syncRemoteMachine->create();
-                //$syncRemoteMachine->save(array('machine_id'=>$machine_id, 'last_synced'=>$lastSynced));
+            //$syncRemoteMachine->create();
+            //$syncRemoteMachine->save(array('machine_id'=>$machine_id, 'last_synced'=>$lastSynced));
 
             }else {
                 $lastSynced = 0;
@@ -330,24 +357,24 @@ class SyncHandlerComponent extends Object {
 
     }
 
-/**
- * get datas
- *
- * data structure
- *
- * [ds] = array (
- *          datasource: ds,
- *          count: x,
- *          last_synced: y,
- *          sql: str
- *        );
- * [ds2] = array( .....);
- *
- * @param string $client_machine_id
- */
+    /**
+     * get datas
+     *
+     * data structure
+     *
+     * [ds] = array (
+     *          datasource: ds,
+     *          count: x,
+     *          last_synced: y,
+     *          sql: str
+     *        );
+     * [ds2] = array( .....);
+     *
+     * @param string $client_machine_id
+     */
     function getData($machine_id, $direction="pull", $client_settings=array()) {
 
-        // set php time limit to unlimimted
+    // set php time limit to unlimimted
         set_time_limit(0);
 
         $my_machine_id = $this->syncSettings['machine_id'];
@@ -420,24 +447,24 @@ class SyncHandlerComponent extends Object {
     }
 
 
-/**
- * save datas
- *
- * data structure
- *
- * [ds] = array (
- *          datasource: ds,
- *          count: x,
- *          last_synced: y,
- *          sql: str
- *        );
- * [ds2] = array( .....);
- *
- * @param string $client_machine_id
- */
+    /**
+     * save datas
+     *
+     * data structure
+     *
+     * [ds] = array (
+     *          datasource: ds,
+     *          count: x,
+     *          last_synced: y,
+     *          sql: str
+     *        );
+     * [ds2] = array( .....);
+     *
+     * @param string $client_machine_id
+     */
     function saveData($machine_id, &$datas) {
 
-        // set php time limit to unlimimted
+    // set php time limit to unlimimted
         set_time_limit(0);
 
         $my_machine_id = $this->syncSettings['machine_id'];
@@ -471,13 +498,13 @@ class SyncHandlerComponent extends Object {
 
             }  catch(Exception $e) {
 
-                    CakeLog::write('warning', 'Exception saveData to ' . $dbConfig . "\n" .
-                                          '  Exception: ' . $e->getMessage() . "\n" .
-                                          '  SQL: ' . $data['sql'] . "\n\n");
+                CakeLog::write('warning', 'Exception saveData to ' . $dbConfig . "\n" .
+                    '  Exception: ' . $e->getMessage() . "\n" .
+                    '  SQL: ' . $data['sql'] . "\n\n");
 
-                    // always rollback
-                    $datasource->connection->rollback();
-                    $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => 0 , 'last_synced' => 0);
+                // always rollback
+                $datasource->connection->rollback();
+                $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => 0 , 'last_synced' => 0);
 
             }
 
@@ -488,13 +515,13 @@ class SyncHandlerComponent extends Object {
 
 
 
-/**
- * get server datas to client
- *
- * <client call pull>
- *
- * @param string $client_machine_id
- */
+    /**
+     * get server datas to client
+     *
+     * <client call pull>
+     *
+     * @param string $client_machine_id
+     */
     function getServerData($client_machine_id, $client_settings) {
 
         $datas = $this->getData($client_machine_id, "pull", $client_settings);
@@ -513,9 +540,9 @@ class SyncHandlerComponent extends Object {
      */
     function saveServerData($server_machine_id, &$datas) {
 
-        //$my_machine_id = $this->syncSettings['machine_id'];
+    //$my_machine_id = $this->syncSettings['machine_id'];
 
-        // write debug
+    // write debug
         CakeLog::write('debug', 'saveServerData from ' . $server_machine_id );
 
         $result = $this->saveData($server_machine_id, $datas);
@@ -534,7 +561,7 @@ class SyncHandlerComponent extends Object {
      */
     function getClientData($server_machine_id) {
 
-        // write debug
+    // write debug
         CakeLog::write('debug', 'getClientData for ' . $server_machine_id );
 
         $datas = $this->getData($server_machine_id, "push");
@@ -561,7 +588,14 @@ class SyncHandlerComponent extends Object {
 
     }
 
-
+    /**
+     * get Request Client Machine Id
+     *
+     * @return string  client's machine id or empty string
+     */
+    function getRequestClientMachineId() {
+        return env('HTTP_X_VIVIPOS_MACHINE_ID');
+    }
 
     /**
      *
@@ -583,7 +617,7 @@ class SyncHandlerComponent extends Object {
                 break;
 
             case 'bgz_json':
-                // base64 gzip json
+            // base64 gzip json
                 $response = base64_encode(gzdeflate(rawurlencode(json_encode($result))));
                 break;
         }

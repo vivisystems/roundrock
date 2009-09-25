@@ -1,194 +1,50 @@
 <?php
 
-App::import('Core', array('HttpSocket','CakeLog'));
-
 class TableStatusController extends AppController {
 
     var $name = 'TableStatus';
 
-    var $uses = array('Sequence','TableStatus','Table','TableRegion','TableBooking','TableOrder');
-    // var $uses = array('Sequence','TableStatus');
-	
+    var $uses = array('Table','TableSetting', 'TableStatus', 'TableMark', 'Order');
+
     var $components = array('SyncHandler', 'Security');
-
-    var $syncSettings = array();
-
-    function beforeFilter() {
-
-        $this->syncSettings =& Configure::read('sync_settings');
-
-        $sync_settings =& $this->syncSettings;
-
-        $password = "rachir";
-        if ($sync_settings != null) {
-            $password = $sync_settings['password'];
-        }
-
-        $this->Security->loginOptions = array(
-			'type'=>'basic',
-			'realm'=>'VIVIPOS_API Realm'
-            // 'prompt'=> false
-        );
-        $this->Security->loginUsers = array(
-			'vivipos'=> $password
-        );
-
-        $this->Security->requireLogin();
-
-    }
-
-function index() {
-
-	}
-
 
 
     /**
-     * machine authorization with http basic authorization.
-     *
-     * @param string $client_machine_id
+     * get tables
      */
-    function auth($client_machine_id="") {
+    function getTablesStatus($lastModified) {
 
-        $sync_settings =& $this->syncSettings;
+    // clear expire status
+        $this->TableStatus->clearExpireStatuses();
+        $tables_status = $this->TableStatus->getTablesStatusWithOrdersSummary($lastModified);
 
-        // return server's machine_id
-        if ($sync_settings != null) {
-            echo trim($sync_settings['machine_id']);
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $this->SyncHandler->prepareResponse($tables_status, 'bgz_json')
+        );
 
-        }else {
-            echo "";
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+    }
+
+
+    /**
+     * mergeTable
+     * @param <type> $masterTableId
+     * @param <type> $slaveTableId 
+     */
+    function mergeTable($masterTableId, $slaveTableId) {
+
+        if (empty($masterTableId) || empty($slaveTableId)) {
+            exit;
         }
-        exit;
-    }
 
-
-    function getTableStatusList($condition="") {
-
-        $tables = $this->TableStatus->getTableStatusList();
+        $this->TableStatus->mergeTable($masterTableId, $slaveTableId);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $tables
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-
-    }
-
-    function setTableStatus2() {
-
-		$tableObject = array();
-		if($_REQUEST['request_data']) {
-			$tableObject = json_decode($_REQUEST['request_data'], true);
-			file_put_contents("/tmp/setTableStatus", serialize($tableObject));
-		}
-
-		if ($tableObject) {
-			$setResult = $this->TableStatus->setTableStatus($tableObject);
-		}else {
-			$setResult = false;
-		}
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-        
-    }
-    
-    function getTableStatuses($condition="") {
-
-        $tables = $this->TableStatus->getTableStatuses($condition);
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $tables
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-
-    }
-
-    
-    function setTableStatus() {
-
-	$tableObject = array();
-	if($_REQUEST['request_data']) {
-		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
-
-		file_put_contents("/tmp/setTableStatus", serialize($tableObject));
-	}
-
-	if ($tableObject) {
-		$setResult = $this->TableStatus->setTableStatus($tableObject);
-	}else {
-		$setResult = false;
-	}
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-        
-    }
-    
-    function setTableHostBy($table_no=-1, $holdTableNo=-1) {
-    		
-	$setResult = $this->TableStatus->setTableHostBy($table_no, $holdTableNo);
-	
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-    }
-    
-    function touchTableStatus($table_no=-1) {
-    		
-	$setResult = $this->TableStatus->touchTableStatus($table_no);
-	
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-    }
-    
-    function removeCheck($table_no, $order_id) {
-
-	$setResult = $this->TableStatus->removeCheck($table_no, $order_id);
-	
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
+            'response_data' => true
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -198,12 +54,21 @@ function index() {
         exit;
     }
 
-    function getTableOrderCheckSum($order_id) {
 
-        $getResult = $this->TableStatus->getTableOrderCheckSum($order_id);
+    /**
+     * unmergeTable
+     * @param <type> $tableId 
+     */
+    function unmergeTable($tableId) {
+
+        if (empty($tableId)) {
+            exit;
+        }
+
+        $this->TableStatus->unmergeTable($tableId);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $getResult
+            'response_data' => true
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -213,23 +78,23 @@ function index() {
         exit;
     }
 
-    function transTable() {
 
-	$tableObject = array();
-	if($_REQUEST['request_data']) {
-		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+    /**
+     * markTable
+     * @param <type> $tableId
+     * @param <type> $markId
+     * @param <type> $clerk 
+     */
+    function markTable($tableId, $markId, $clerk) {
 
-		file_put_contents("/tmp/transTable", serialize($tableObject));
-	}
+        if (empty($tableId) || empty($markId)) {
+            exit;
+        }
 
-	if ($tableObject) {
-		$setResult = $this->TableStatus->transTable($tableObject);
-	}else {
-		$setResult = false;
-	}
+        $this->TableStatus->markTable($tableId, $markId, $clerk);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
+            'response_data' => true
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -237,129 +102,23 @@ function index() {
         echo $responseResult;
 
         exit;
-
-
     }
 
-    function getTableOrders($condition="") {
 
-        $orders = $this->TableStatus->getTableOrders($condition);
+    /**
+     * unmarkTable
+     * @param <type> $tableId
+     */
+    function unmarkTable($tableId) {
+
+        if (empty($tableId)) {
+            exit;
+        }
+
+        $this->TableStatus->unmarkTable($tableId);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $orders
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-
-    }
-
-    function setTableMark() {
-
-	$tableObject = array();
-	if($_REQUEST['request_data']) {
-		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
-
-		file_put_contents("/tmp/setTableMark", serialize($tableObject));
-	}
-
-	if ($tableObject) {
-                $table_no = $tableObject['table_no'];
-                $markObj = $tableObject['markObj'];
-		$setResult = $this->TableStatus->setTableMark($table_no, $markObj);
-	}else {
-		$setResult = false;
-	}
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-
-    }
-
-    function setTableMarks() {
-
-	$tableObject = array();
-	if($_REQUEST['request_data']) {
-		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
-
-		file_put_contents("/tmp/setTableMarks", serialize($tableObject));
-	}
-
-	if ($tableObject) {
-                $tables = $tableObject['tables'];
-                $markObj = $tableObject['markObj'];
-		$setResult = $this->TableStatus->setTableMarks($tables, $markObj);
-	}else {
-		$setResult = false;
-	}
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-
-    }
-
-    function getRegions() {
-
-        $fields = array('TableRegion.id','TableRegion.name');
-        $regions = $this->TableRegion->find('all', array("fields" => $fields, "recursive" => 0));
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $regions
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-        
-        exit;
-
-
-    }
-    
-    function setTableStatusOptions() {
-
-        $table_status_prefs = array();
-	if($_REQUEST['request_data']) {
-		$table_status_prefs = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
-
-		file_put_contents("/tmp/tableStatusPrefs", serialize($table_status_prefs));
-	}
-        
-        $result = array('status' => 'ok', 'code' => 200);
-        
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-        
-        exit;
-    }
-
-    function getTableStatusOptions() {
-
-        $table_status_prefs = unserialize(file_get_contents("/tmp/tableStatusPrefs"));
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $table_status_prefs
+            'response_data' => true
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
