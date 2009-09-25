@@ -174,9 +174,11 @@
             req.setRequestHeader('X-Vivipos-Machine-Id', machineId);
         },
 
-        getRemoteServiceUrl: function(action) {
+        getRemoteServiceUrl: function(action, force) {
 
-            if (!this.isRemoteService()) return false;
+            force = force || false;
+
+            if (!this.isRemoteService() && !force) return false;
             
             var hostname = this.getHostname();
             var protocol = this.getProtocol();
@@ -215,7 +217,7 @@
             async = async || false;
             callback = (typeof callback == 'function') ?  callback : null;
 
-            dump( 'requestRemoteService url: ' + reqUrl + ', with method: ' + method);
+            dump( 'requestRemoteService url: ' + reqUrl + ', with method: ' + method + '\n');
 
             // set this reference to self for callback
             var self = this;

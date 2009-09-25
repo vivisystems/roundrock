@@ -36,7 +36,7 @@
             }
 
 
-            this.tableSettings = this.TableSetting.getTableSettings();
+            this.tableSettings = this.TableSetting.getTableSettings() || {};
 
             // table window is first win
             if (this.tableSettings.TableWinAsFirstWin) {
@@ -58,7 +58,6 @@
                 }
                 
             }
-            GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', (this.tableSettings.RequireCheckNo || false) );
 
         },
 
