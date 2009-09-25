@@ -93,7 +93,11 @@
             var items = {};
             var items_summary = {};
 
-            if (!orderData.OrderItem || typeof orderData.OrderItem == 'undefined') return items;          
+            if (!orderData.OrderItem || typeof orderData.OrderItem == 'undefined') {
+                data.items = items;
+                data.items_summary = items_summary ;
+                return items;
+            }
 
             for (var idx in orderData.OrderItem) {
 

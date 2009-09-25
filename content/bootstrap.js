@@ -54,6 +54,8 @@ include('chrome://viviecr/content/models/user.js');
 include('chrome://viviecr/content/models/promotion.js');
 
 include('chrome://viviecr/content/models/table.js');
+include('chrome://viviecr/content/models/table_setting.js');
+include('chrome://viviecr/content/models/table_mark.js');
 include('chrome://viviecr/content/models/table_region.js');
 include('chrome://viviecr/content/models/table_booking.js');
 include('chrome://viviecr/content/models/table_status.js');

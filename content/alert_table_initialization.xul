@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % StockRecords SYSTEM "chrome://viviecr/locale/table_man.dtd">
+  %StockRecords;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&tableman.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  
+    <vbox flex="1" class="container-dialog container-wait-dialog">
+        <vbox flex="1" class="container-main">
+            <label id="dialog-caption" value="&tableman.initialization.label;" class="label-page-title"/>
+            <!--
+            <spacer style="height: 20px;"/>
+            <progressmeter id="progress" mode="undetermined" value="0"/>
+            <spacer style="height: 20px;"/>
+            -->
+        </vbox>
+    </vbox>
+    
+</window>

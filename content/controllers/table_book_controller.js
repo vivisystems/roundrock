@@ -86,7 +86,7 @@
                 this._bookingListDatas = new GeckoJS.ArrayQuery(this._bookingListDatas).orderBy('booking asc');
 
                 // loop through this._listDatas to find the newly added destination
-                var index
+                var index;
                 for (index = 0; index < this._bookingListDatas.length; index++) {
                     if (this._bookingListDatas[index].id == newBooking.id) {
                         break;

@@ -10,6 +10,8 @@
 
         _keypadController: null,
 
+        _mainController: null,
+
         _inputBox: null,
 
         initial: function() {
@@ -20,7 +22,7 @@
             var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
 
             // register listener for main controller event 'onUpdateOptions'
-            var mainController = this._keypadController = GeckoJS.Controller.getInstanceByName('Main');
+            var mainController = this._mainController = GeckoJS.Controller.getInstanceByName('Main');
             if (mainController) {
                 mainController.addEventListener('onUpdateOptions', this.updateDecimalPoint, this);
             }
@@ -32,6 +34,24 @@
 
             this.updateDecimalPoint();
         },
+
+        getCartController: function() {
+            if (!this._cartController) {
+                this._cartController = GeckoJS.Controller.getInstanceByName('Cart'); 
+            }
+            return this._cartController;
+            
+        },
+
+
+        getKeypadController: function() {
+            return this._keypadController;
+        },
+
+        getMainController: function() {
+            return this._mainController;
+        },
+
 
         updateDecimalPoint: function() {
 
@@ -73,6 +93,20 @@
             }
         },
 
+        onChange: function(text) {
+            var keypad = this.getKeypadController();
+            keypad.buf = text;
+            if (keypad.target == 'Cart') {
+                var cart = this.getCartController();
+                cart.data = keypad.getBuffer();
+                keypad.clearBuffer();
+                cart.addItemByBarcode(cart.data);
+            }
+            else {
+                this.getMainController().enter();
+            }
+        },
+
         detectFontWidth: function() {
 
             var h = document.getElementById("detectFontContainer");
@@ -107,7 +141,7 @@
 
                 inputBox.removeEventListener('input', function(evt){
 
-                }, true);
+                    }, true);
 
             }
 
@@ -124,7 +158,7 @@
         window.addEventListener('load', function() {
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
-                    main.requestCommand('initial', null, 'InputLine');
+                main.requestCommand('initial', null, 'InputLine');
             }
 
         }, false);

@@ -1,7 +1,12 @@
 .maindialog {
-    background: white url(../images/Tablebgjpg.jpg) center center no-repeat;
     width: 1024px;
     height: 768px;
+
+    background-attachment: fixed;
+    background-color: white;
+    background-image: url(../images/Tablebgjpg.jpg);
+    background-position: 0 0
+
 }
 .EmptyArea {
     height: 138px;
@@ -93,11 +98,21 @@
 .unmergeBtn {
     background: transparent url(../icons/unmergeTable.png) center center no-repeat !important;
 }
+.unmergeBtn[checked] {
+    background: transparent url(../icons/unmergeTable_selected.png) center center no-repeat !important;
+}
 .selectBtn {
     background: transparent url(../icons/selectTable.png) center center no-repeat !important;
 }
+.selectBtn[checked] {
+    background: transparent url(../icons/selectTable_selected.png) center center no-repeat !important;
+}
+
 .changeBtn {
     background: transparent url(../icons/changeTable.png) center center no-repeat !important;
+}
+.newTableBtn {
+    background: transparent url(../icons/newTable.png) center center no-repeat !important;
 }
 .mergecBtn2 {
     background: transparent url(../icons/mergeCheck2.png) center center no-repeat !important;
@@ -114,8 +129,14 @@
 .addMarkBtn {
     background: transparent url(../icons/addMark.png) center center no-repeat !important;
 }
+.addMarkBtn[checked] {
+    background: transparent url(../icons/addMark_selected.png) center center no-repeat !important;
+}
 .clearMarkBtn {
     background: transparent url(../icons/clearMark.png) center center no-repeat !important;
+}
+.clearMarkBtn[checked] {
+    background: transparent url(../icons/clearMark_selected.png) center center no-repeat !important;
 }
 .addMarksBtn {
     background: transparent url(../icons/addMarks.png) center center no-repeat !important;
@@ -274,6 +295,10 @@
   padding: 22px 35px 12px 45px;
 }
 
+.PromptBox2 {
+  padding: 2px 80px;
+}
+
 .MsgPnl {
     -moz-appearance: none;
     border: none;
@@ -281,6 +306,11 @@
     height: 160px;
     background: transparent url(../images/msgbg.gif) center center no-repeat;
 }
+.MsgPnl2 {
+    -moz-appearance: none;
+    background: transparent url(../images/msgbg2.png) center center repeat;
+}
+
 .CancelBtn {
     -moz-appearance: none;
     background: none;

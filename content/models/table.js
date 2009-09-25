@@ -12,10 +12,9 @@
 
         belongsTo: ['TableRegion'],
 
-        hasOne: [{name: 'TableStatus', 'primaryKey': 'table_no', 'foreignKey': 'table_no'}],
-        // hasOne: ['TableStatus'],
+        hasOne: ['TableStatus'],
         
-        hasMany: ['TableBooking'],
+        hasMany: ['TableBooking','TableOrder'],
 
         behaviors: ['Training'],
 
@@ -44,6 +43,10 @@
             return this.getHttpService().isRemoteService();
         },
 
+
+        /**
+         *
+         */
         getTables: function(useDb) {
 
             useDb = useDb || false;
@@ -60,22 +63,80 @@
                     var remoteUrl = this.getHttpService().getRemoteServiceUrl('getTables');
                     var requestUrl = remoteUrl ;
                     tables = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
+
+                    // extractObject
+                    tables = GeckoJS.Array.objectExtract(tables, "{n}.Table");
+
                     // update tables to database;
-                    this.updateRemoteTables(tables);
+                    this.saveTables(tables);
                 }else {
-                    tables = this.find('all', {recursive: 0});
+                    tables = this.find('all', {
+                        recursive: 0,
+                        order: 'table_no asc'
+                    });
+
+                    // extractObject
+                    tables = GeckoJS.Array.objectExtract(tables, "{n}.Table");
                 }
 
-                if (tables != null) {
-                    GeckoJS.Session.add('tables', tables);
-                }
+                this.setTablesToSession(tables);
             }
 
             return tables;
 
         },
 
-        updateRemoteTables: function(tables) {
+
+ 
+
+        /**
+         * set tables to sessions and cached by id , region
+         *
+         * @return {Array} tables
+         */
+        setTablesToSession: function(tables) {
+            
+            if(!tables) return null;
+
+            let tablesByRegion = {};
+            let tablesById = {};
+            let tablesByNo = {};
+
+            tables.forEach(function(table) {
+                let id = table.id;
+                let no = table.table_no;
+                let rid = table.table_region_id;
+
+                if (id) {
+                    tablesById[id] = table;
+                }
+
+                if (no) {
+                    tablesByNo[no] = table;
+                }
+
+                if(rid) {
+                    if(!tablesByRegion[rid]) {
+                        tablesByRegion[rid] = [];
+                    }
+                    tablesByRegion[rid].push(table);
+                }
+
+            }, this);
+
+            GeckoJS.Session.add('tables', tables);
+            GeckoJS.Session.add('tablesByRegion', tablesByRegion);
+            GeckoJS.Session.add('tablesById', tablesById);
+            GeckoJS.Session.add('tablesByNo', tablesByNo);
+
+            return tables;
+        },
+
+
+        /**
+         * 
+         */
+        saveTables: function(tables) {
 
             if (!tables) return false;
 
@@ -96,51 +157,175 @@
                 r = this.commit();
             }
 
-            this.log('r = ' + r) ;
             return r;
 
         },
 
 
-        getTableById: function(id, useDb) {
+        /**
+         * 
+         */
+        addTable: function(data) {
 
-            useDb = useDb || false;
+            let table_no = data.table_no;
+            if(!table_no || table_no.length == 0) return false;
 
-            var tables = this.getTables(useDb);
+            let count = this.find('count', {
+                conditions: "table_no='"+table_no+"'"
+                });
 
-            var aqTables = new GeckoJS.ArrayQuery(tables);
+            if(count>0) return false;
 
-            var result = aqTables.filter("id='"+id+"'");
+            this.create();
 
-            return (result.length > 0) ? result[0] : null;
+            let result = this.save(data);
 
-        },
-
-        getTableByNo: function(no, useDb) {
-
-            useDb = useDb || false;
-
-            var tables = this.getTables(useDb);
-
-            var aqTables = new GeckoJS.ArrayQuery(tables);
-
-            var result = aqTables.filter("table_no='"+no+"'");
-
-            return (result.length > 0) ? result[0] : null;
+            return result;
 
         },
 
-        getTablesByRegionId: function(regionId, useDb) {
 
-            useDb = useDb || false;
+        /**
+         * 
+         */
+        updateTable: function(id, data) {
 
-            var tables = this.getTables(useDb);
+            this.id = id;
+            var result = this.save(data);
 
-            var aqTables = new GeckoJS.ArrayQuery(tables);
+            return result;
 
-            var result = aqTables.filter("table_region_id='"+regionId+"'");
+        },
+
+
+        /**
+         * 
+         */
+        removeTable: function(id) {
+
+            var result = this.remove(id);
             
             return result;
+        },
+
+
+        /**
+         * 
+         */
+        toggleTable: function(id) {
+
+            let table = this.find('first', {
+                conditions: "id='"+id+"'",
+                recursive:0
+            });
+            if (table) {
+                this.id = id;
+                var data = {
+                    active: !table.active
+                    };
+                return this.save(data);
+            } else {
+                return false;
+            }
+
+        },
+
+
+        /**
+         * 
+         */
+       getTablesById: function (useDb) {
+            useDb = useDb || false;
+
+            var tables = null;
+
+            if (!useDb) {
+                tables = GeckoJS.Session.get('tablesById');
+            }
+
+            if (tables == null) {
+               this.getTables(true);
+               tables = GeckoJS.Session.get('tablesById');
+            }
+
+            return tables;
+        },
+
+
+        /**
+         * 
+         */
+        getTablesByNo: function (useDb) {
+            useDb = useDb || false;
+
+            var tables = null;
+
+            if (!useDb) {
+                tables = GeckoJS.Session.get('tablesByNo');
+            }
+
+            if (tables == null) {
+               this.getTables(true);
+               tables = GeckoJS.Session.get('tablesByNo');
+            }
+
+            return tables;
+        },
+
+
+        /**
+         * 
+         */
+        getTablesByRegion: function (useDb) {
+           useDb = useDb || false;
+
+            var tables = null;
+
+            if (!useDb) {
+                tables = GeckoJS.Session.get('tablesByRegion');
+            }
+
+            if (tables == null) {
+               this.getTables(true);
+               tables = GeckoJS.Session.get('tablesByRegion');
+            }
+
+            return tables;
+        },
+
+
+        /**
+         * 
+         */
+        getTableById: function(id, useDb) {
+
+            var tables = this.getTablesById(useDb);
+
+            return tables[id] || null;
+
+        },
+
+
+        /**
+         * 
+         */
+        getTableByNo: function(no, useDb) {
+
+            var tables = this.getTablesByNo(useDb);
+
+            return tables[no] || null;
+
+        },
+
+    
+        /**
+         * 
+         */
+        getTablesByRegionId: function(regionId, useDb) {
+
+            var tables = this.getTablesByRegion(useDb);
+
+            return tables[regionId] || [] ;
 
         }
 

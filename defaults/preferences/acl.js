@@ -133,3 +133,4 @@ pref("vivipos.fec.acl.roles.acl_report_purchasehistory", "acl_report_purchasehis
 pref("vivipos.fec.acl.roles.acl_report_userlist", "acl_report_userlist");
 pref("vivipos.fec.acl.roles.acl_report_run_yourorder", "acl_report_run_yourorder");
 pref("vivipos.fec.acl.roles.acl_report_yourorder", "acl_report_yourorder");
+pref("vivipos.fec.acl.roles.acl_report_yourorder", "acl_view_system_log");

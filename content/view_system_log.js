@@ -12,7 +12,7 @@
      */
     function startup() {
         $do('load', inputObj, 'ViewSystemLog');
-    };
+    }
 
     window.addEventListener('load', startup, false);
 
