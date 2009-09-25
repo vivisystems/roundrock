@@ -161,20 +161,7 @@
             // active ?
             if (!table.active && table_status==0) table_status = 2;
 
-            // status 2 is opdeny, for active and merged table
-            if (table_status == 2) {
-                    if(!table.active) {
-                        seq = _('Not Active');
-                        clerk = '';
-                    }else if (hostby)  {
-                        seq = _('Host Table') + ':' + hostby;
-                    }
-                    btn.seq_no = seq;
-            }else if (table_status == 3) {
-                    seq = _('Status') + ':' + mark;
-                    btn.seq_no = seq;
-                    clerk = mark_user;
-            }
+            
             
             btn.checks = (checks > 0) ? "+"+checks : '';
             btn.seq_no = tableSettings.DisplaySeqNo ? seq : '';
@@ -190,6 +177,20 @@
             btn.setTableStatus(table_status);
             btn.setCapacityStatus(capacity_status);
 
+            // status 2 is opdeny, for active and merged table
+            if (table_status == 2) {
+                if(!table.active) {
+                    seq = _('Not Active');
+                    clerk = '';
+                }else if (hostby)  {
+                    seq = _('Host Table') + ':' + hostby;
+                }
+                btn.seq_no = seq;
+            }else if (table_status == 3) {
+                seq = _('Status') + ':' + mark;
+                btn.seq_no = seq;
+                clerk = mark_user;
+            }
             // set attribute for period time
             btn.setAttribute('transaction_created', transaction_created);
             btn.setAttribute('table_status', table_status);

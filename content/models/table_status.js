@@ -154,7 +154,7 @@
 
             if (tablesStatus == null) {
                 this.getTablesStatus(true);
-                tablesStatus = GeckoJS.Session.get('tablesStatusById');
+                tablesStatus = GeckoJS.Session.get('tablesStatusById') || {};
             }
 
             return tablesStatus;
@@ -175,7 +175,7 @@
 
             if (tablesStatus == null) {
                 this.getTablesStatus(true);
-                tablesStatus = GeckoJS.Session.get('tablesStatusByNo');
+                tablesStatus = GeckoJS.Session.get('tablesStatusByNo') || {};
             }
 
             return tablesStatus;
@@ -196,7 +196,7 @@
 
             if (tablesStatus == null) {
                 this.getTables(true);
-                tablesStatus = GeckoJS.Session.get('tablesStatusByRegion');
+                tablesStatus = GeckoJS.Session.get('tablesStatusByRegion') || [];
             }
 
             return tablesStatus;
