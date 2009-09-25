@@ -932,7 +932,7 @@
                     this.TableStatus.rollback();
 
                     this.dbError(errNo, errMsg,
-                        _('An error was encountered while attempting to remove all table status records (error code %S).', [errNo]));
+                        _('An error was encountered while attempting to remove all table status records (error code %S) [message #501].', [errNo]));
                 }
             }
             else {

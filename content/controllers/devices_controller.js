@@ -43,8 +43,10 @@
             if (warn) {
                 var win = this.topmostWindow;
 
-                if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+                if (win.document.documentElement.id == 'viviposMainWindow'
+                    && win.document.documentElement.boxObject.screenX < 0) {
                     win = null;
+                }
 
                 var statusResult = this.checkStatusAll();
 
@@ -886,12 +888,12 @@
                   var PE = Components.classes["@mozilla.org/gfx/printerenumerator;1"]
                                   .getService(Components.interfaces.nsIPrinterEnumerator);
 
-                  var enum = PE.printerNameList;
+                  var printerList = PE.printerNameList;
 
                   do {
-                    var printer = enum.getNext();
+                    var printer = printerList.getNext();
                     printers.push(printer);
-                  } while( enum.hasMore()) ;
+                  } while( printerList.hasMore()) ;
 
 
             }catch(e) {

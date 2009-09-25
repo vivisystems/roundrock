@@ -203,7 +203,6 @@
                         _('Order amount does not reach Minimum Charge'),
                         _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\nClick OK to finalize this order by Minimum Charge, \nor, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
 
-                        // @todo OSD
                         NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
 
                     } else {
@@ -214,11 +213,9 @@
                             this._controller.setPrice(minimum_charge - total);
                             this._controller.addItem(product);
 
-                            // @todo OSD
                             NotifyUtils.warn(_('Add difference (%S) to finalize this order by Minimum Charge.', [minimum_charge - total]));
 
                         } else {
-                            // @todo OSD
                             NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
                             
                         }
@@ -582,7 +579,6 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
                     case 'RecallCheck':
                         if (id) {
                             if (!this._controller.unserializeFromOrder(id)) {
-                                //@todo OSD
                                 NotifyUtils.error(_('This order object does not exist [%S]', [id]));
                                 return -1
                             }
@@ -592,12 +588,10 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
                             if (curTransaction) {
 
                                 if (curTransaction.data.status == 1) {
-                                    // @todo OSD
                                     NotifyUtils.warn(_('This order is already finalized!'));
                                     return -1;
                                 }
                             } else {
-                                //@todo OSD
                                 NotifyUtils.error(_('This order object does not exist [%S]', [id]));
                                 return -1
                             }

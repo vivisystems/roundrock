@@ -48,7 +48,7 @@
 
             // put up waiting dialog
             var alertWin = this.showAlertDialog();
-            this.sleep(1000);
+            this.sleep(500);
             
             this.createPluPanel();
 
@@ -125,6 +125,12 @@
                 }
             }
 
+            // listen for onIdle event
+            var idleController = GeckoJS.Controller.getInstanceByName('Idle');
+            if (idleController) {
+                idleController.addEventListener('onIdle', this.idleHandler, this);
+            }
+
             if (!recovered) {
                 this.requestCommand('initialLogin', null, 'Main');
             }
@@ -139,6 +145,22 @@
                 }
         },
 
+        idleHandler: function(evt) {
+            if ( !this._isTraining ) {
+                var signOff = GeckoJS.Configure.read('vivipos.fec.settings.SignOffWhenIdle');
+                if (signOff) {
+
+                    // make sure top most window is Vivipos Main window
+                    var win = this.topmostWindow;
+                    if (win.document.documentElement.id == 'viviposMainWindow'
+                        && win.document.documentElement.boxObject.screenX >= 0) {
+                        this.signOff(true);
+                        this.ChangeUserDialog();
+                    }
+                }
+            }
+        },
+
         showAlertDialog: function() {
 
             var width = 600;
@@ -150,9 +172,10 @@
             var aFeatures = 'chrome,dialog,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
 
             var win = this.topmostWindow;
-            if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
-
+            }
             var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
 
             return alertWin;
@@ -440,12 +463,6 @@
             var dep = this.depPanelView.getCurrentIndexData(index);
             var catepanel = document.getElementById('catescrollablepanel');
 
-            // we first update catepanel's current selection
-            if (catepanel.selectedIndex != index) {
-                catepanel.selectedIndex = index;
-                catepanel.selectedItems = [index];
-            }
-            
             if (dep) {
                 var soldOutButton = document.getElementById('catescrollablepanel-soldout');
                 if (soldOutButton && soldOutButton.checkState) {
@@ -478,17 +495,22 @@
 
                         // make sure we have a price
                         // @irving - 7/6/09: this check is moved to cart.addItem
-                        //if(!isNaN(price)) {
+                        // @irving - 9/23/09: if no price is given, check if the selected department
+                        //                    contains visible products. If not, notify user of error;
+                        //                    otherwise, switch to the selected department
+                        if(!isNaN(price)) {
                             dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
-                        /*
                         }
-                        else {
+                        else if (this.pluPanelView.getProductCount(index, true) == 0) {
                             NotifyUtils.error(_('Price must be given to register sale of department [%S]', [dep.name]));
                             return;
                         }
-                        */
                     }
+
+                    // update catepanel's current selection
+                    catepanel.selectedIndex = index;
+                    catepanel.selectedItems = [index];
 
                     // change pluview panel
                     var clearBuf = GeckoJS.Configure.read("vivipos.fec.settings.ChangeDepartmentClearBuffer") || false;
@@ -566,7 +588,7 @@
 
                 if (parseInt(userModel.lastError) != 0) {
                     this._dbError(userModel.lastError, userModel.lastErrorString,
-                                  _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                                  _('An error was encountered while retrieving employees (error code %S) [message #1001].', [userModel.lastError]));
                     return;
                 }
 
@@ -613,9 +635,6 @@
 
             var defaultUserID = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
             var defaultUser = '';
-
-            //@todo work-around Object reference bug - fixed
-            //var roles= this.Acl.getGroupList();
 
             if (defaultUserID) {
                 var userModel = new UserModel();
@@ -677,7 +696,6 @@
                         if (user) {
                             this.setClerk();
 
-                            //@todo quick user switch successful
                             OsdUtils.info(user.description + _(' logged in'));
                         }
                         else {
@@ -730,7 +748,7 @@
 
             if (parseInt(userModel.lastError) != 0) {
                 this._dbError(userModel.lastError, userModel.lastErrorString,
-                              _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                              _('An error was encountered while retrieving employees (error code %S) [message #1002].', [userModel.lastError]));
                 return;
             }
             
@@ -743,12 +761,11 @@
 
                 if (parseInt(userModel.lastError) != 0) {
                     this._dbError(userModel.lastError, userModel.lastErrorString,
-                                  _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                                  _('An error was encountered while retrieving employees (error code %S) [message #1003].', [userModel.lastError]));
                     return;
                 }
 
                 if (users == null || users.length == 0) {
-                    //@todo silent user switch successful
                     NotifyUtils.error(_('User [%S] does not exist!', [newUser]));
                     return;
                 }
@@ -774,7 +791,6 @@
                     if (user) {
                         this.setClerk();
 
-                        //@todo silent user switch successful
                         OsdUtils.info(user.description + _(' logged in'));
                     }
                     else {
@@ -782,12 +798,10 @@
                     }
                 }
                 else {
-                    // @todo error message for login failure
                     NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                 }
             }
             else {
-                // @todo no password
                 NotifyUtils.warn(_('Please enter passcode first.'));
             }
         },
@@ -882,7 +896,6 @@
                     responseDiscardQueue = (autoDiscardQueue || mustEmptyQueue) ? 1 : 0;
                 }
 
-                // @todo
                 // print shift report
                 if ((shiftReportOnSignOff && !quickSignoff) || (shiftReportOnQuickSwitch && quickSignoff)) {
                 }
@@ -994,7 +1007,7 @@
                         if (!r) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                                   _('Data Operation Error'),
-                                                  _('An error was encountered while attempting to remove all transaction records.') + '\n' +
+                                                  _('An error was encountered while attempting to remove all transaction records [message #1011].') + '\n\n' +
                                                   _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
                         }
                         else {
@@ -1047,14 +1060,14 @@
                     if (!r) {
                         throw {errno: order.lastError,
                                errstr: order.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S).', [order.lastError])};
+                               errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S) [message #1004].', [order.lastError])};
                     }
 
                     r = order.removeOrders(conditions);
                     if (!r) {
                         throw {errno: order.lastError,
                                errstr: order.lastErrorString,
-                               errmsg: _('An error was encountered while expiring sales activity logs (error code %S).', [order.lastError])};
+                               errmsg: _('An error was encountered while expiring sales activity logs (error code %S) [message #1005].', [order.lastError])};
                     }
 
                     // remove clock stamps
@@ -1063,14 +1076,14 @@
                     if (!r) {
                         throw {errno: clockstamp.lastError,
                                errstr: clockstamp.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S).', [clockstamp.lastError])};
+                               errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S) [message #1006].', [clockstamp.lastError])};
                     }
 
                     r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
                     if (!r) {
                         throw {errno: clockstamp.lastError,
                                errstr: clockstamp.lastErrorString,
-                               errmsg: _('An error was encountered while expiring employee attendance records (error code %S).', [clockstamp.lastError])};
+                               errmsg: _('An error was encountered while expiring employee attendance records (error code %S) [message #1007].', [clockstamp.lastError])};
                     }
 
                     // dispatch afterClearOrderData event
@@ -1122,7 +1135,7 @@
                         throw { 
                            errno: orderModel.lastError,
                            errstr: orderModel.lastErrorString,
-                           errmsg: _( 'An error was encountered while removing order objects (error code %S).', [ orderModel.lastError ] )
+                           errmsg: _( 'An error was encountered while removing order objects (error code %S) [message #1008].', [ orderModel.lastError ] )
                         };
                     }
 
@@ -1138,7 +1151,7 @@
                         throw {
                            errno: orderObjectModel.lastError,
                            errstr: orderObjectModel.lastErrorString,
-                           errmsg: _( 'An error was encountered while removing order objects (error code %S).', [ orderObjectModel.lastError ] ) 
+                           errmsg: _( 'An error was encountered while removing order objects (error code %S) [message #1009].', [ orderObjectModel.lastError ] )
                         };
                     }
 
@@ -1174,7 +1187,7 @@
                                                                       recursive: 0});
                 if (inventoryCommitmentModel.lastError != 0) {
                     this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
-                                  _('An error was encountered while retrieving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
+                                  _('An error was encountered while retrieving stock adjustment records (error code %S) [message #1010].', [inventoryCommitmentModel.lastError]));
                     suppliers = null;
                 }
 
@@ -1340,7 +1353,7 @@
             this.log('ERROR', 'Database exception: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },
 
         FunctionCustomizerDialog: function() {

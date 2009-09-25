@@ -410,7 +410,7 @@
 	    
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
-            return s.replace( re, '\'\'' );
+            return (s == null || s.length == 0) ? '' : s.replace( re, '\'\'' );
         },
 	    
         _openOrderDialogByID: function( id ) {
@@ -476,8 +476,8 @@
                     } else {
                         // check fileSize and diskSpaceAvailable
                         if ( nsTmpfile.fileSize > nsTargetDir.diskSpaceAvailable ) {
-                            GREUtils.Dialog.alert( this.topmostWindow, '', _( "The thumb drive has no enough free space!" ) );
-                            throw new Exception( "The thumb drive has no enough free space!" );
+                            GREUtils.Dialog.alert( this.topmostWindow, '', _( "The thumb drive does not have enough free space!" ) );
+                            throw new Exception( "The thumb drive does not have enough free space!" );
                         }
 
                         GREUtils.File.copy( nsTmpfile, targetDir );

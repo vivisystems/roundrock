@@ -106,10 +106,11 @@
                 if(!this.checkDevices()) {
 
                     var win = this.topmostWindow;
-                    if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+                    if (win.document.documentElement.id == 'viviposMainWindow'
+                        && win.document.documentElement.boxObject.screenX < 0)
                         win = null;
                     
-                    GREUtils.Dialog.alert(win, _('Journal Error'), _('No electronic journal preview template detected.  Electronic journal entry will not be recorded properly if a preview template is not installed.'));
+                    GREUtils.Dialog.alert(win, _('Journal Error'), _('No electronic journal preview template detected.  Electronic journal entry will not be recorded properly if a preview template is not installed [message #701].'));
                     evt.preventDefault();
                 }
             } catch (e) {
@@ -189,10 +190,16 @@
         saveJournal: function(journal) {
             var journalModel = new JournalModel();
 
-            try {
-                journal = journalModel.save(journal);
-            }catch(e) {
-                this.log('ERROR', _('Journal save error: %S', [GeckoJS.BaseObject.dump(e)]));
+            if (!journalModel.saveJournal(journal)) {
+                var win = this.topmostWindow;
+                if (win.document.documentElement.id == 'viviposMainWindow'
+                    && win.document.documentElement.boxObject.screenX < 0)
+                    win = null;
+
+                GREUtils.Dialog.alert(win,
+                                      _('Journal Error'),
+                                      _('An error was encountered while saving journal entry (error code %S) [message #702].', [journalModel.lastError])
+                                          + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
             }
         },
 

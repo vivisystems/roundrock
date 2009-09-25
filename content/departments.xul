@@ -30,7 +30,7 @@
   <!-- include views -->
   <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
-  
+
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/departments_controller.js" type="application/x-javascript"/>
 
@@ -70,8 +70,12 @@
                                          onfocus="this.select()"
                                          form="deptForm" name="no"/>
                             </vbox>
-                            <checkbox id="dept_visible" value="1" label="&departments.visible;"
-                                      form="deptForm" name="visible" default="1"/>
+                            <hbox>
+                                <checkbox id="dept_visible" value="1" label="&departments.visible;"
+                                          form="deptForm" name="visible" default="1"/>
+                                <checkbox id="dept_cansale" value="0" label="&departments.sale;"
+                                          form="deptForm" name="cansale" default="0"/>
+                            </hbox>
                         </row>
                         <row>
                             <vbox>
@@ -80,8 +84,10 @@
                                          oninput="$do('validateForm', null, 'Departments')" onfocus="this.select()"
                                          form="deptForm" name="name"/>
                             </vbox>
-                            <checkbox id="dept_cansale" value="0" label="&departments.sale;"
-                                      form="deptForm" name="cansale" default="0"/>
+                            <vbox>
+                                <checkbox id="scale" checked="false" label="&departments.scale;"
+                                          form="deptForm" name="scale" default="0"/>
+                            </vbox>
                         </row>
 
                         <row>
@@ -93,10 +99,12 @@
                                          onclick="$do('getRate', null,'Departments');" onfocus="this.select()"
                                          form="deptForm" name="rate_name" default=""/>
                             </vbox>
-                            <vbox>
-                                <checkbox id="scale" checked="false" label="&departments.scale;"
-                                          form="deptForm" name="scale" default="0"/>
-                            </vbox>
+                            <hbox>
+                                <checkbox id="non_discountable" value="false" label="&departments.non.discountable;"
+                                          form="deptForm" name="non_discountable" default="false"/>
+                                <checkbox id="non_surchargeable" value="false" label="&departments.non.surchargeable;"
+                                          form="deptForm" name="non_surchargeable" default="false"/>
+                            </hbox>
                        </row>
                         <row>
                             <vbox>
@@ -160,7 +168,7 @@
             </vbox>
         </hbox>
     </vbox>
-    
-    
+
+
 
 </window>

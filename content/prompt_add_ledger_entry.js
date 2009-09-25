@@ -23,8 +23,10 @@
         };
 
         document.getElementById('typescrollablepanel').datasource = window.viewHelper ;
-        document.getElementById('typescrollablepanel').selectedIndex = 0;
-        document.getElementById('typescrollablepanel').selectedItems = [0];
+
+        if (types.length == 1) {
+            document.getElementById('typescrollablepanel').selection.select(0);
+        }
        
         document.getElementById('cancel').setAttribute('disabled', false);
 

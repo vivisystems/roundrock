@@ -15,7 +15,7 @@
 
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
-            return s.replace( re, '\'\'' );
+            return (s == null || s.length == 0) ? '' : s.replace( re, '\'\'' );
         },
 
         load: function(inputObj) {
@@ -54,7 +54,7 @@
             var order = orderModel.findById(id, 2);
             if (parseInt(orderModel.lastError) != 0) {
                 this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                              _('An error was encountered while retrieving details of the selected order (error code %S).', [orderModel.lastError]));
+                              _('An error was encountered while retrieving details of the selected order (error code %S) [message #1901].', [orderModel.lastError]));
                 return;
             }
 
@@ -174,7 +174,7 @@
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
     };
 

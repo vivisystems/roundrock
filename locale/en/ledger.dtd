@@ -23,6 +23,7 @@
 <!ENTITY ledger.entry.amount "Amount">
 
 <!ENTITY ledger.entry.heading.date "Date">
+<!ENTITY ledger.entry.heading.clerk "Clerk">
 <!ENTITY ledger.entry.heading.type "Type">
 <!ENTITY ledger.entry.heading.description "Description">
 <!ENTITY ledger.entry.heading.mode "Mode">

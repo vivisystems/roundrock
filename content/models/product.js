@@ -38,7 +38,7 @@
 
             }
             //dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
-            
+
             return products;
 
         },
@@ -150,7 +150,7 @@
             GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
             GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
             GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
-            
+
         /*
             this.log(this.dump(GeckoJS.Session.get('productsById')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
@@ -166,15 +166,16 @@
         // product is to be inserted, in the order of display_name, name, no
         locateProductIndex: function(product, list) {
             var productsById = GeckoJS.Session.get('productsById');
-            var display_order = product.display_order;
+            var display_order = parseFloat(product.display_order);
             var name = product.name;
             var no = product.no;
 
             for (var i = 0; i < list.length; i++) {
                 var target = productsById[list[i]];
                 if (target) {
-                    if (display_order < target.display_order) break;
-                    else if (display_order == target.display_order) {
+                    var target_display_order = parseFloat(target.display_order);
+                    if (display_order < target_display_order) break;
+                    else if (display_order == target_display_order) {
                         if (name < target.name) break;
                         else if (name == target.name) {
                             if (no <= target.no) break;
@@ -401,7 +402,7 @@
                             newgroups.forEach(function(group) {
 
                                 if (group == -1) return;
-                                
+
                                 if (typeof indexLinkGroup[group] == 'undefined') {
                                     indexLinkGroup[group] = [];
                                     indexLinkGroupAll[group] = [];
@@ -489,7 +490,7 @@
                         }
                         break;
                 }
-            
+
             }catch(e) {
                 this.log('ERROR', 'updateProductSession Error');
             }
@@ -507,7 +508,7 @@
 
             var product = null;
             var oldProduct = null;
-            
+
             var mode = 'create';
 
 
@@ -526,7 +527,7 @@
                     indexesById[id] = (newLength-1);
 
                     mode = 'create';
-                    
+
                 }else {
                     mode = 'update';
                     // clone old product
@@ -582,7 +583,7 @@
             }
 
             return false;
-            
+
         },
 
         setProductById: function (id, new_product, useDb) {
@@ -712,6 +713,88 @@
             }
 
             return product;
+        },
+
+        isNonDiscountable: function(id, useDb) {
+            //if category or product group is non-discountable, product is non-discountable
+            //else check product's eligibility thereafter
+            var result = false;
+            useDb = useDb || false;
+            var product = this.getProductById(id, useDb);
+
+            if(product) {
+                if (product.link_group && product.link_group.length > 0) {
+                    var plugroupModel = new PlugroupModel();
+                    var groups = product.link_group.split(',');
+
+                    groups.forEach(function(groupId) {
+                        var group = plugroupModel.find('first', 'id="' + groupId + '"');
+                        if(group.non_discountable)
+                            result = true;
+                    });
+                }
+
+                var categoryModel = new CategoryModel();
+                var category = categoryModel.find('first', 'no="' + product.cate_no + '"');
+                if(category.non_discountable)
+                    result = true;
+
+                if(result == false) {
+                    if(product.non_discountable)
+                        result = true;
+                }
+            } else {
+                //in the event of a department sale
+                var categoryModel = new CategoryModel();
+                var category = categoryModel.find('first', 'id="' + id + '"');
+                if(category.non_discountable)
+                    result = true;
+                else
+                    result = false;
+            }
+
+            return result;
+        },
+
+        isNonSurchargeable: function(id, useDb) {
+            //if category or product group is non-discountable, product is non-discountable
+            //else check product's eligibility thereafter
+            var result = false;
+            useDb = useDb || false;
+            var product = this.getProductById(id, useDb);
+
+            if(product) {
+                if (product.link_group && product.link_group.length > 0) {
+                    var plugroupModel = new PlugroupModel();
+                    var groups = product.link_group.split(',');
+
+                    groups.forEach(function(groupId) {
+                        var group = plugroupModel.find('first', 'id="' + groupId + '"');
+                        if(group.non_surchargeable)
+                            result = true;
+                    });
+                }
+
+                var categoryModel = new CategoryModel();
+                var category = categoryModel.find('first', 'no="' + product.cate_no + '"');
+                if(category.non_surchargeable)
+                    result = true;
+
+                if(result == false) {
+                    if(product.non_surchargeable)
+                        result = true;
+                }
+            } else {
+                //in the event of a department sale
+                var categoryModel = new CategoryModel();
+                var category = categoryModel.find('first', 'id="' + id + '"');
+                if(category.non_surchargeable)
+                    result = true;
+                else
+                    result = false;
+            }
+
+            return result;
         }
 
     };

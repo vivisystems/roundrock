@@ -14,7 +14,7 @@
         for (var selectedIndex=0; selectedIndex<taxes.length; selectedIndex++) {
             if(taxes[selectedIndex].no ==rate) break;
         }
-        if(selectedIndex ==taxes.length) selectedIndex = 0;
+        if(selectedIndex == taxes.length) selectedIndex = -1;
 
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(taxes);
 
@@ -25,14 +25,18 @@
         doSetOKCancel(
             function(){
 
-                var index = document.getElementById('taxscrollablepanel').selectedIndex ;
+                var items = document.getElementById('taxscrollablepanel').selectedItems;
 
-                if (index == -1) {
-                    inputObj.ok = false;
-                    return false;
+                if (items.length == 0) {
+                    inputObj.rate = '';
+                    inputObj.name = '';
                 }
-                inputObj.rate = taxes[index].no;
-                inputObj.name = taxes[index].name;
+                else {
+                    var index = items[0];
+                    
+                    inputObj.rate = taxes[index].no;
+                    inputObj.name = taxes[index].name;
+                }
                 inputObj.ok = true;
                 return true;
             },

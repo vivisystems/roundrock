@@ -55,7 +55,7 @@
                 }
             }
             else {
-                OsdUtils.info(_('No changed to save'));
+                OsdUtils.info(_('No changes to save'));
                 return false;
             }
         },

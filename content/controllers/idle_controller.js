@@ -4,11 +4,15 @@
 
         name: 'Idle',
 
+        lastIdleTime: -1,
+
         // implement observe for idle
         observe: function(subject, topic, data) {
 
             if (topic == 'idle') {
 
+                var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
+                
                 // gc force
                 try {
 
@@ -36,23 +40,46 @@
 
         register: function () {
 
-            var idleTime = GeckoJS.Configure.read("vivipos.fec.settings.idle.time") || 60;
+            if (this.lastIdleTime == -1) {
+                
+                var idleTime = GeckoJS.Configure.read("vivipos.fec.settings.idle.time") || 60; // one minute
 
-            var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
-            
-            idleService.addIdleObserver(this, idleTime); // one minute
+                var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
 
+                idleService.addIdleObserver(this, idleTime);
+
+                this.lastIdleTime = idleTime;
+            }
+            else {
+                this.log('WARN', 'Idle service already registered, please unregister existing service first');
+            }
 
         },
 
         unregister: function () {
 
-            var idleTime = GeckoJS.Configure.read("vivipos.fec.settings.idle.time") || 60;
+            if (this.lastIdleTime != -1) {
+                var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
 
-            var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
+                idleService.removeIdleObserver(this, this.lastIdleTime);
 
-            idleService.removeIdleObserver(this, idleTime); // one minute
+                this.lastIdleTime = -1;
+            }
 
+        },
+
+        updateIdleTime: function(evt) {
+            // re-register with new idle time if different from old idle time
+            
+            var idleTime = GeckoJS.Configure.read("vivipos.fec.settings.idle.time") || 60; // one minute
+            var idleController = GeckoJS.Controller.getInstanceByName('Idle');
+
+            if (idleController) {
+                if (idleTime != idleController.lastIdleTime) {
+                    idleController.unregister();
+                    idleController.register();
+                }
+            }
         }
 
 
@@ -68,6 +95,13 @@
         
         if (idleController) {
             idleController.register();
+        }
+
+        // listen for 'updateOptions' event
+        var mainController = GeckoJS.Controller.getInstanceByName('Main');
+
+        if (mainController) {
+            mainController.addEventListener('onUpdateOptions', idleController.updateIdleTime);
         }
     }
 

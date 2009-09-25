@@ -331,7 +331,6 @@
                             if (devicemodelName == null) devicemodelName = 'unknown';
                             if (portName == null) portName = 'unknown';
 
-                            //@todo OSD
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
                         return printed;

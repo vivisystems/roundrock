@@ -17,6 +17,7 @@
 
             settings.machine_id = settings.machine_id || GeckoJS.Session.get('terminal_no');
             settings.active = GeckoJS.String.parseBoolean(settings.active);
+            settings.advance_sale_period = GeckoJS.String.parseBoolean(settings.advance_sale_period);
             settings.table_active = GeckoJS.String.parseBoolean(settings.table_active);
             settings.pull_order = GeckoJS.String.parseBoolean(settings.pull_order);
 

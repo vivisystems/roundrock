@@ -270,8 +270,10 @@
             var aFeatures = 'chrome,dialog,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
 
             var win = this.topmostWindow;
-            if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
+            }
 
             var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
 
@@ -284,12 +286,14 @@
         _serverError: function(state, status, hostname) {
             this.log('ERROR', 'Stock Server error: ' + state + ' [' +  status + '] at ' + hostname);
             var win = this.topmostWindow;
-            if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
-            
+            }
             GREUtils.Dialog.alert(win,
                 _('Stock Server Connection Error'),
-                _('Connection to Stock Server Error (%S)',[status])+'\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                _('Failed to connect to stock services (error code %S). Please check the network connectivity to the terminal designated as the stock server [message #1701].',[status])
+                    +'\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
 
     };

@@ -11,6 +11,9 @@
         document.getElementById('last_sale_period').value = inputObj.last_sale_period;
         document.getElementById('last_shift_number').value = inputObj.last_shift_number;
 
+        if (GeckoJS.Configure.read('vivipos.fec.settings.HideSalePeriod')) {
+            document.getElementById('column1').hidden = true;
+        }
     };
 
     window.addEventListener('load', startup, false);

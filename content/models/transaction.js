@@ -33,6 +33,7 @@
                  * order_additions
                  */
                 trans_discounts: {},
+                mass_discounts: {},
                 trans_surcharges: {},
 
                 /*
@@ -42,12 +43,12 @@
                 trans_payments: {},
 
                 /*
-                 * marker only exists in memory 
+                 * marker only exists in memory
                  */
                 markers: [],
 
                 /*
-                 * order_promotions 
+                 * order_promotions
                  */
                 promotion_apply_items: [],
                 promotion_matched_items: [],
@@ -69,7 +70,7 @@
                 payment_subtotal: 0,
 
                 price_modifier: 1,    // used to modify item subtotals
-                
+
                 rounding_prices: 'to-nearest-precision',
                 precision_prices: 0,
                 rounding_taxes: 'to-nearest-precision',
@@ -175,7 +176,7 @@
             var self = this;
 
             this.syncSettings = (new SyncSetting()).read();
-            
+
             this.data.id = GeckoJS.String.uuid();
 
             this.data.terminal_no = GeckoJS.Session.get('terminal_no');
@@ -189,13 +190,13 @@
                 let requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo');
                 var seqKey = 'order_no';
                 if(requireCheckNo) seqKey +=',check_no';
-                
+
                 SequenceModel.getSequence(seqKey, true, function(seq) {
                     let arKeys = seqKey.split(',');
                     let arSeqs = String(seq).split(',');
                     let order_no = -1 ;
                     let check_no = -1 ;
-                    
+
                     if (arKeys.length == 1) {
                         order_no = seq || -1 ;
                     }else {
@@ -212,7 +213,7 @@
                     }
                 });
             }
-            
+
             GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers);
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -237,7 +238,7 @@
             this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
             this.data.autorevalue = GeckoJS.Configure.read('vivipos.fec.settings.AutoRevaluePrices') || false;
-            this.data.revalueprices = GeckoJS.Configure.read('vivipos.fec.settings.RevaluePrices');
+            this.data.revaluefactor = GeckoJS.Configure.read('vivipos.fec.settings.RevalueFactor');
 
             this.recoveryMode = recoveryMode;
 
@@ -249,7 +250,7 @@
             }else {
                 this.Product = new ProductModel();
             }
-            
+
             Transaction.events.dispatch('onCreate', this, this);
         },
 
@@ -279,15 +280,16 @@
                 while (self.data.seq.length == 0 && thread.hasPendingEvents()) {
 
                     if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) break;
-                    
+
                     thread.processNextEvent(true);
                 }
             // dump('length = '+self.data.seq.length+' \n');
             }
-            
-            if (self.data.seq.length == 0) {
+
+            if (self.data.seq.length == 0 || self.data.seq == -1) {
                 // maybe from recovery
                 self.data.seq = self.buildOrderSequence(SequenceModel.getSequence('order_no', false));
+                GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
             }
 
             if (self.data.seq == '-1') {
@@ -316,14 +318,14 @@
 
             this.data.lastModifiedTime = this.data.modified;
             this.data.modified = Math.round(new Date().getTime() / 1000 );
-                       
+
             // remove recovery file
             Transaction.removeRecoveryFile();
 
             if (!discard) {
 
                 this.lockItems();
-                
+
                 // order save in main thread
                 var order = new OrderModel();
                 if (this.data.status == 1 && this.data.no_of_customers == '') {
@@ -348,7 +350,7 @@
 
         /**
          * cancel or discard cancel.
-         * 
+         *
          * @param {Boolean} discard
          */
         cancel: function(discard) {
@@ -473,9 +475,13 @@
 
                 stock_maintained: false,
                 destination: GeckoJS.Session.get('vivipos_fec_order_destination'),
-                
-                price_modifier: priceModifier
+
+                price_modifier: priceModifier,
+
+                non_discountable: item.non_discountable,
+                non_surchargeable: item.non_surchargeable
             };
+
             return item2;
         },
 
@@ -746,7 +752,6 @@
         },
 
         appendItem: function(item){
-
             //var profileStart = (new Date()).getTime();
 
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
@@ -1083,7 +1088,7 @@
                         if ('open' in condimentItem) {
                             condimentItemDisplay2.open = condimentItem.open;
                         }
-                        
+
                         // update condiment display
                         this.data.display_sequences[index] = condimentItemDisplay2 ;
 
@@ -1130,7 +1135,7 @@
             this.calcItemSubtotal(itemModified);
 
             this.calcPromotions();
-            
+
             this.calcItemsTax(itemModified);
 
             this.calcTotal();
@@ -1233,7 +1238,7 @@
                     subtotal.hasDiscount = false;
                     delete this.data.trans_discounts[itemIndex];
                 }
-                
+
                 if (itemDisplay.type == 'trans_surcharge') {
                     var subtotal = this.getDisplaySeqAt(itemDisplay.subtotal_index);
                     subtotal.hasSurcharge = false;
@@ -1275,7 +1280,7 @@
                     this.calcItemSubtotal(itemTrans);
 
                 }
-                
+
                 if (itemDisplay.type == 'payment') {
                     // make sure payment has not been subtotalled
                     var displayItems = this.data.display_sequences;
@@ -1331,7 +1336,7 @@
                 this.calcPromotions();
 
                 this.calcItemsTax(itemTrans);
-                
+
             //this.calcTotal();
 
             }
@@ -1369,7 +1374,7 @@
                 condiment_subtotal += setitem.current_condiment;
                 setmenu_subtotal += setitem.current_qty * setitem.current_price;
             });
-            
+
             item.current_subtotal = this.getRoundedPrice((subtotal + setmenu_subtotal + condiment_subtotal) * item.price_modifier);
             itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
 
@@ -1399,56 +1404,69 @@
             var prevRowCount = this.data.display_sequences.length;
 
             if (item && item.type == 'item') {
+                //check if item is flagged as non-discountable
+                var productModel = new ProductModel();
+                var non_discountable = productModel.isNonDiscountable(item.id, false);
 
-                if (discount.type == '$') {
-                    discount_amount = discount.amount;
-                }
-                else {
-                    discount_amount = item.current_subtotal * discount.amount;
-                }
+                if(non_discountable == false) {
 
-                // rounding discount
-                item.current_discount = this.getRoundedPrice(item.current_discount);
 
-                // check if discount amount exceeds user item discount limit
-                var user = GeckoJS.Session.get('user');
-                var item_discount_limit = parseInt(user.item_discount_limit);
-                if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
-                    var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
-                    if (discount_amount > item_discount_limit_amount) {
-                        NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
-                            [discount_amount, item_discount_limit_amount]));
+                    if (discount.type == '$') {
+                        discount_amount = discount.amount;
+                    }
+                    else {
+                        discount_amount = item.current_subtotal * discount.amount;
+                    }
+
+                    // rounding discount
+                    item.current_discount = this.getRoundedPrice(item.current_discount);
+
+                    // check if discount amount exceeds user item discount limit
+                    var user = GeckoJS.Session.get('user');
+                    var item_discount_limit = parseInt(user.item_discount_limit);
+                    if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
+                        var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
+                        if (discount_amount > item_discount_limit_amount) {
+                            NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
+                                               [discount_amount, item_discount_limit_amount]));
+                            return;
+                        }
+                    }
+
+                    if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
+                        // discount too much
+                        NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
+                            [this.formatPrice(this.getRoundedPrice(discount_amount)),
+                            item.current_subtotal]));
+
                         return;
                     }
-                }
-            
-                if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
-                    // discount too much
-                    NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
-                        [this.formatPrice(this.getRoundedPrice(discount_amount)),
-                        item.current_subtotal]));
+                    item.current_discount = 0 - discount_amount;
+                    item.discount_name =  discount.name;
+                    item.discount_rate =  discount.amount;
+                    item.discount_type =  discount.type;
+                    item.hasDiscount = true;
+
+                    // create data object to push in items array
+                    var itemDisplay = this.createDisplaySeq(item.index, item, 'discount');
+
+                    // find the display index of the last entry associated with the item
+                    lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
+
+                    this.data.display_sequences.splice(++lastItemDispIndex,0,itemDisplay);
+
+                    this.calcPromotions();
+
+                    this.calcItemsTax(item);
+
+                    resultItem = item;
+
+                } else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Discount Error'),
+                        _('This product cannot be discounted'));
                     return;
                 }
-                item.current_discount = 0 - discount_amount;
-                item.discount_name =  discount.name;
-                item.discount_rate =  discount.amount;
-                item.discount_type =  discount.type;
-                item.hasDiscount = true;
-
-                // create data object to push in items array
-                var itemDisplay = this.createDisplaySeq(item.index, item, 'discount');
-
-                // find the display index of the last entry associated with the item
-                lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
-
-                this.data.display_sequences.splice(++lastItemDispIndex,0,itemDisplay);
-
-                this.calcPromotions();
-                
-                this.calcItemsTax(item);
-
-                resultItem = item;
-
             }else if (itemDisplay.type == 'subtotal'){
 
                 var discountItem = {
@@ -1465,21 +1483,14 @@
                     }
                 }
 
-                var remainder = this.getRemainTotal();
+                var remainder = this.getRemainTotal() - this.data.revalue_subtotal;
                 if (discountItem.discount_type == '$') {
                     discountItem.current_discount = discount.amount;
                 }
                 else {
-                    // percentage order surcharge is pretax?
-                    if (discount.pretax == null) discount.pretax = false;
-
-                    if (discount.pretax) {
-                        discountItem.current_discount = parseFloat(itemDisplay.current_price) * discountItem.discount_rate;
-                    }
-                    else {
-                        discountItem.discount_name += '*';
-                        discountItem.current_discount = remainder * discountItem.discount_rate;
-                    }
+                    remainder = this.getRemainTotal() - this.data.revalue_subtotal;
+                    discountItem.discount_name += '*';
+                    discountItem.current_discount = remainder * discountItem.discount_rate;
                 }
                 if (discountItem.current_discount > remainder && remainder > 0) {
                     // discount too much
@@ -1501,7 +1512,7 @@
                 newItemDisplay.subtotal_index = index;
 
                 // find the display index of the last entry associated with the item
-                lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex)
+                lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
 
                 this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
 
@@ -1510,6 +1521,80 @@
                 // this.calcItemsTax();
 
                 resultItem = discountItem;
+            }
+
+            var currentRowCount = this.data.display_sequences.length;
+
+            this.calcTotal();
+
+            this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
+
+            return resultItem;
+        },
+
+        appendMassDiscount: function(discount) {
+            var lastItemDispIndex;
+            var discount_amount;
+            var resultItem = [];
+
+            var prevRowCount = this.data.display_sequences.length;
+
+            var transItems = this.data.items;
+            var self = this;
+            var productModel = new ProductModel();
+
+            for(var index in transItems) {
+                if (index != null) {
+                    var item = transItems[index];
+                    var non_discountable = productModel.isNonDiscountable(item.id, false);
+                    if(item.type == 'item' && non_discountable == false
+                       && item.hasDiscount == false && item.hasSurcharge == false && item.hasMarker == false) {
+
+                        discount_amount = item.current_subtotal * discount.amount;
+
+                        // rounding discount
+                        item.current_discount = self.getRoundedPrice(item.current_discount);
+
+                        // check if discount amount exceeds user item discount limit
+                        var user = GeckoJS.Session.get('user');
+                        var item_discount_limit = parseInt(user.item_discount_limit);
+                        if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
+                            var item_discount_limit_amount = self._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
+                            if (discount_amount > item_discount_limit_amount) {
+                                NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
+                                    [discount_amount, item_discount_limit_amount]));
+                                return;
+                            }
+                        }
+
+                        if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
+                            // discount too much
+                            NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
+                                [self.formatPrice(self.getRoundedPrice(discount_amount)),
+                                item.current_subtotal]));
+                            return;
+                        }
+                        item.current_discount = 0 - discount_amount;
+                        item.discount_name =  discount.name;
+                        item.discount_rate =  discount.amount;
+                        item.discount_type =  '%';
+                        item.hasDiscount = true;
+
+                        // create data object to push in items array
+                        var itemDisplay = self.createDisplaySeq(item.index, item, 'discount');
+
+                        // find the display index of the last entry associated with the item
+                        lastItemDispIndex = self.getLastDisplaySeqByIndex(item.index)
+
+                        self.data.display_sequences.splice(++lastItemDispIndex,0,itemDisplay);
+
+                        self.calcPromotions();
+
+                        self.calcItemsTax(item);
+
+                        resultItem.push(item);
+                    }
+                }
             }
 
             var currentRowCount = this.data.display_sequences.length;
@@ -1536,46 +1621,57 @@
 
             if (item && item.type == 'item') {
 
-                if (surcharge.type == '$') {
-                    surcharge_amount = surcharge.amount;
-                }else {
-                    surcharge_amount = item.current_subtotal * surcharge.amount;
-                }
+                var productModel = new ProductModel();
+                var non_surchargeable = productModel.isNonSurchargeable(item.id, false);
 
-                // rounding surcharge
-                surcharge_amount = this.getRoundedPrice(surcharge_amount);
+                if(non_surchargeable == false) {
 
-                // check if discount amount exceeds user limit
-                var user = GeckoJS.Session.get('user');
-                var surcharge_limit = parseInt(user.item_surcharge_limit);
-                if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
-                    var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
-                    if (surcharge_amount > surcharge_limit_amount) {
-                        NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
-                            [surcharge_amount, surcharge_limit_amount]));
-                        return;
+                    if (surcharge.type == '$') {
+                        surcharge_amount = surcharge.amount;
+                    }else {
+                        surcharge_amount = item.current_subtotal * surcharge.amount;
                     }
+
+                    // rounding surcharge
+                    surcharge_amount = this.getRoundedPrice(surcharge_amount);
+
+                    // check if discount amount exceeds user limit
+                    var user = GeckoJS.Session.get('user');
+                    var surcharge_limit = parseInt(user.item_surcharge_limit);
+                    if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
+                        var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
+                        if (surcharge_amount > surcharge_limit_amount) {
+                            NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
+                                [surcharge_amount, surcharge_limit_amount]));
+                            return;
+                        }
+                    }
+
+                    item.surcharge_name = surcharge.name;
+                    item.surcharge_rate = surcharge.amount;
+                    item.surcharge_type = surcharge.type;
+                    item.current_surcharge = surcharge_amount;
+                    item.hasSurcharge = true;
+
+                    // create data object to push in items array
+                    var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
+
+                    // find the display index of the last entry associated with the item
+                    lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
+
+                    this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
+
+                    this.calcPromotions();
+
+                    this.calcItemsTax(item);
+
+                    resultItem = item;
+                } else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Surcharge Error'),
+                        _('This product cannot be surcharged'));
+                    return;
                 }
-
-                item.surcharge_name = surcharge.name;
-                item.surcharge_rate = surcharge.amount;
-                item.surcharge_type = surcharge.type;
-                item.current_surcharge = surcharge_amount;
-                item.hasSurcharge = true;
-
-                // create data object to push in items array
-                var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
-
-                // find the display index of the last entry associated with the item
-                lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
-
-                this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
-
-                this.calcPromotions();
-
-                this.calcItemsTax(item);
-
-                resultItem = item;
 
             }else if (itemDisplay.type == 'subtotal'){
 
@@ -1595,18 +1691,13 @@
                     }
                 }
 
+                var remainder;
                 if (surchargeItem.surcharge_type == '$') {
                     surchargeItem.current_surcharge = this.getRoundedPrice(surcharge.amount);
                 }else {
-                    // percentage order surcharge is pretax?
-                    if (surcharge.pretax == null) surcharge.pretax = false;
-                    if (surcharge.pretax) {
-                        surchargeItem.current_surcharge = this.getRoundedPrice(parseFloat(itemDisplay.current_price) * surchargeItem.surcharge_rate);
-                    }
-                    else {
-                        surchargeItem.surcharge_name += '*';
-                        surchargeItem.current_surcharge = this.getRoundedPrice(this.getRemainTotal() * surchargeItem.surcharge_rate);
-                    }
+                    remainder = this.getRemainTotal() - this.data.revalue_subtotal;
+                    surchargeItem.surcharge_name += '*';
+                    surchargeItem.current_surcharge = this.getRoundedPrice(remainder * surchargeItem.surcharge_rate);
                 }
 
                 var surchargeIndex = GeckoJS.String.uuid();
@@ -1639,6 +1730,72 @@
             return resultItem;
         },
 
+        appendMassSurcharge: function(surcharge) {
+            var lastItemDispIndex;
+            var surcharge_amount;
+            var resultItem = [];
+
+            var prevRowCount = this.data.display_sequences.length;
+
+            var transItems = this.data.items;
+            var self = this;
+            var productModel = new ProductModel();
+
+            for(var index in transItems) {
+                if (index != null) {
+                    var item = transItems[index];
+                    var non_surchargeable = productModel.isNonSurchargeable(item.id, false);
+                    if (item.type == 'item' && non_surchargeable == false
+                        && item.hasSurcharge == false && item.hasDiscount == false && item.hasMarker == false) {
+
+                        surcharge_amount = item.current_subtotal * surcharge.amount;
+
+                        // rounding surcharge
+                        surcharge_amount = this.getRoundedPrice(surcharge_amount);
+
+                        // check if discount amount exceeds user limit
+                        var user = GeckoJS.Session.get('user');
+                        var surcharge_limit = parseInt(user.item_surcharge_limit);
+                        if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
+                            var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
+                            if (surcharge_amount > surcharge_limit_amount) {
+                                NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
+                                    [surcharge_amount, surcharge_limit_amount]));
+                                return;
+                            }
+                        }
+
+                        item.surcharge_name = surcharge.name;
+                        item.surcharge_rate = surcharge.amount;
+                        item.surcharge_type = '%';
+                        item.current_surcharge = surcharge_amount;
+                        item.hasSurcharge = true;
+
+                        // create data object to push in items array
+                        var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
+
+                        // find the display index of the last entry associated with the item
+                        lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
+
+                        this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
+
+                        this.calcPromotions();
+
+                        this.calcItemsTax(item);
+
+                        resultItem.push(item);
+
+                    }
+                }
+            }
+            var currentRowCount = this.data.display_sequences.length;
+
+            this.calcTotal();
+
+            this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
+
+            return resultItem;
+        },
 
         shiftTax: function(index, taxIndex){
 
@@ -1714,8 +1871,7 @@
                 type: type
             };
 
-            var remain = this.getRemainTotal();
-
+            var remain = this.getRemainTotal() - this.data.revalue_subtotal;
             var subtotal = 0;
             if (type == 'tray') {
                 var preSubtotal = this.data.markers[this.data.markers.length-1] || 0;
@@ -1773,7 +1929,7 @@
             var displayIndex = replace ? this.getDisplayIndexByIndex(itemIndex) : index;
 
             if (item.type == 'item') {
-                
+
                 if (condiments.length >0) {
 
                     if (replace && item.condiments != null && item.condiments != {}) {
@@ -1842,7 +1998,7 @@
                 this.calcItemSubtotal(targetItem);
 
                 this.calcPromotions();
-                
+
                 this.calcItemsTax(targetItem);
                 this.calcTotal();
             }
@@ -2042,9 +2198,13 @@
                 case 'trans_discount':
                     item = this.data.trans_discounts[itemIndex];
                     break;
-                    
+
                 case 'trans_surcharge':
                     item = this.data.trans_surcharges[itemIndex];
+                    break;
+
+                case 'mass_discount':
+                    item = this.data.items[itemIndex];
                     break;
 
             }
@@ -2395,12 +2555,6 @@
             for(var itemIndex in items ) {
                 var item = items[itemIndex];
 
-                /*
-            tax_name: item.rate,
-            tax_rate: null,
-            tax_type: null,
-            current_tax: 0,
-            */
                 if (item.parent_index == null && !isRemove) {
                     var tax = Transaction.Tax.getTax(item.tax_name);
                     if(tax) {
@@ -2410,32 +2564,160 @@
                         var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
                         var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge), item.current_price, item.current_qty);
 
-                        // @todo total only or summary ?
-                        item.current_tax =  taxChargeObj[item.tax_name].charge;
-                        item.included_tax = taxChargeObj[item.tax_name].included;
+                        // rounding tax
+                        item.current_tax =  this.getRoundedTax(taxChargeObj[item.tax_name].charge);
+                        item.included_tax = this.getRoundedTax(taxChargeObj[item.tax_name].included);
+
+                        if (taxChargeObj[item.tax_name].combine) {
+                            item.tax_details = taxChargeObj[item.tax_name].combine;
+                            
+                            // round individual tax components
+                            var includedCTaxes = [];
+                            var addonCTaxes = [];
+
+                            for (var key in item.tax_details) {
+                                var cTaxObj = item.tax_details[key];
+                                if (cTaxObj.tax.type == 'INCLUDED') {
+                                    includedCTaxes.push(cTaxObj);
+                                }
+                                else {
+                                    addonCTaxes.push(cTaxObj);
+                                }
+                            };
+                            // process add-on taxes
+                            if (addonCTaxes.length > 0) {
+                                var addonSum = 0;
+                                for (var i = 0; i < addonCTaxes.length - 1; i++) {
+                                    addonCTaxes[i].charge = this.getRoundedTax(addonCTaxes[i].charge);
+                                    addonSum += addonCTaxes[i].charge;
+                                }
+
+                                addonCTaxes[i].charge = this.getRoundedTax(item.current_tax - addonSum);
+                            }
+
+                            // process included taxes
+                            if (includedCTaxes.length > 0) {
+                                var includedSum = 0;
+                                for (var j = 0; j < includedCTaxes.length - 1; j++) {
+                                    includedCTaxes[j].included = this.getRoundedTax(includedCTaxes[j].included);
+                                    includedSum += includedCTaxes[j].included;
+                                }
+
+                                includedCTaxes[j].included = this.getRoundedTax(item.included_tax - includedSum);
+                            }
+                        }
+                        else {
+                            item.tax_details = {};
+                            item.tax_details[item.tax_name] = {
+                                charge: item.current_tax,
+                                included: item.included_tax,
+                                tax: tax
+                            };
+                        }
                     }else {
                         item.current_tax = 0;
                         item.included_tax = 0;
                     }
 
-                    // rounding tax
-                    // @don't round tax here - irving 4/28/2009
-                    item.current_tax = this.getRoundedTax(item.current_tax);
-                    item.included_tax = this.getRoundedTax(item.included_tax);
-                    if (toTaxCharge < 0) item.current_tax = 0 - item.current_tax;
+                    if (toTaxCharge < 0) {
+                        item.current_tax = 0 - item.current_tax;
+                        item.included_tax = 0 - item.included_tax;
+
+                        // process combined taxes, if any
+                        for (var key in item.tax_details) {
+                            var cTaxObj = item.tax_details[key];
+                            cTaxObj.charge = 0 - cTaxObj.charge;
+                            cTaxObj.included = 0 - cTaxObj.included;
+                        };
+                    }
                 }
+                //this.log('DEBUG', 'item details: ' + this.dump(item));
             }
 
             //this.log('DEBUG', 'dispatchEvent onCalcItemsTax ' + items);
             Transaction.events.dispatch('onCalcItemsTax', items, this);
         },
 
+        calcRevalue: function(total, policy, factor) {
+
+            //this.log('DEBUG', 'total,policy,factor: ' + total + ',' + policy + ',' + factor);
+            var revalue_subtotal = 0;
+            var roundedTotal;
+
+            switch(policy) {
+                case 'round-down-to-factor':
+                    if(factor != 0) {
+                        if(total>=0) {
+                            revalue_subtotal = 0 - parseFloat(total % factor);
+                        }else {
+                            revalue_subtotal = parseFloat((0 - total) % factor);
+                        }
+                    }
+                    break;
+
+                case 'round-up-to-factor':
+                    if(factor != 0) {
+                        if(total>=0) {
+                            revalue_subtotal = parseFloat(total % factor);
+                            if (revalue_subtotal != 0)
+                                revalue_subtotal = factor - revalue_subtotal;
+                        }else {
+                            revalue_subtotal = parseFloat((0 - total) % factor);
+                            if (revalue_subtotal != 0)
+                                revalue_subtotal -= factor;
+                        }
+                    }
+                    break;
+
+                case 'round-to-5-cents':
+                    roundedTotal = Transaction.Number.round(Math.abs(total), 3, 'to-nearest-half');
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'round-to-10-cents-up':
+                    roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-nickel');
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'round-to-10-cents-down':
+                    var x = Math.abs(total) * 10;
+                    var y = parseInt(x);
+                    var r = x - y;
+                    if (r > 0.5) {
+                        roundedTotal = ++y / 10
+                    }
+                    else {
+                        roundedTotal = y / 10;
+                    }
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'round-to-25-cents':
+                    roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-quarter');
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'round-to-50-cents':
+                    roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-half');
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'none':
+                default:
+                    revalue_subtotal = 0;
+                    break;
+            }
+            return revalue_subtotal;
+        },
 
         calcTotal: function() {
-
             //var profileStart = (new Date()).getTime();
 
-            this.log('DEBUG', "onCalcTotal " + this.dump(this.data));
+            //this.log('DEBUG', "onCalcTotal " + this.dump(this.data));
             Transaction.events.dispatch('onCalcTotal', this.data, this);
 
             var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0, qty_subtotal=0;
@@ -2444,6 +2726,7 @@
 
             // item subtotal and grouping
             this.data.items_summary = {}; // reset summary
+            this.data.items_tax_details = {};
             for(var itemIndex in this.data.items ) {
                 var item = this.data.items[itemIndex];
 
@@ -2457,6 +2740,23 @@
                     item_subtotal += parseFloat(item.current_subtotal);
 
                     qty_subtotal += (item.sale_unit == 'unit') ? item.current_qty : 1;
+
+                    // summarize tax details
+                    if (item.tax_details) {
+                        for (var key in item.tax_details) {
+                            let taxDetails = item.tax_details[key];
+
+                            if (!(key in this.data.items_tax_details)) {
+                                this.data.items_tax_details[key] = {
+                                    tax_subtotal: 0,
+                                    included_tax_subtotal: 0
+                                }
+                            }
+
+                            this.data.items_tax_details[key].tax_subtotal += parseFloat(taxDetails.charge);
+                            this.data.items_tax_details[key].included_tax_subtotal += parseFloat(taxDetails.included);
+                        }
+                    }
                 }
 
                 // summary it
@@ -2481,10 +2781,23 @@
                 this.data.items_summary[item_id] = sumItem;
             }
 
+            // round tax details
+            for (var tax in this.data.items_tax_details) {
+                let taxDetails = this.data.items_tax_details[tax];
+                taxDetails.tax_subtotal = this.getRoundedTax(taxDetails.tax_subtotal);
+                taxDetails.included_tax_subtotal = this.getRoundedTax(taxDetails.included_tax_subtotal);
+            }
+
             // trans subtotal
             for(var transDisIndex in this.data.trans_discounts ) {
                 var disItem = this.data.trans_discounts[transDisIndex];
                 trans_discount_subtotal += parseFloat(disItem.current_discount);
+            }
+
+            for(var massDisIndex in this.data.mass_discounts) {
+                var massItem = this.data.mass_discounts[massDisIndex];
+                tax_discount_subtotal += parseFloat(massItem.tax_discount);
+                item_subtotal += parseFloat(massItem.current_discount);
             }
 
             for(var transSurIndex in this.data.trans_surcharges ) {
@@ -2507,18 +2820,9 @@
             total = this.getRoundedPrice(item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal);
             remain = total - payment_subtotal;
 
-            // revalue
-            if(this.data.autorevalue && this.data.revalueprices != 0) {
-                if(total>=0) {
-                    this.data.revalue_subtotal = 0 - parseFloat(total % this.data.revalueprices);
-                }else {
-                    this.data.revalue_subtotal = parseFloat((0 - total) % this.data.revalueprices);
-                    if (this.data.revalue_subtotal != 0)
-                        this.data.revalue_subtotal -= this.data.revalueprices;
-                }
-                total = total + this.data.revalue_subtotal;
-                remain = total - payment_subtotal;
-            }
+            this.data.revalue_subtotal = this.getRoundedPrice(this.calcRevalue(total, this.data.autorevalue, this.data.revaluefactor));
+            total = total + this.data.revalue_subtotal;
+            remain = total - payment_subtotal;
 
             this.data.total = this.getRoundedPrice(total);
             this.data.remain = this.getRoundedPrice(remain);
@@ -2544,7 +2848,6 @@
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
             this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
-
         },
 
 
@@ -2625,7 +2928,7 @@
         getNumberOfCustomers: function() {
             return this.data.no_of_customers || 0;
         },
-        
+
         setNumberOfCustomers: function(num) {
             num = isNaN(parseInt(num)) ? 1 : parseInt(num);
             GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
@@ -2706,14 +3009,14 @@
         file.close();
         file.remove();
         delete file;
-        
+
         return data;
     };
 
     Transaction.serializeToRecoveryFile = function(transaction) {
         if ( GeckoJS.Session.get( "isTraining" ) )
             return;
-			
+
         var filename = "/var/tmp/cart_transaction.txt";
 
         // save serialize to fail recovery file

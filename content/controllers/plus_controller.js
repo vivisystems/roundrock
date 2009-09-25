@@ -340,7 +340,7 @@
             inputObj.taxes = taxes;
             
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_rate', aFeatures, inputObj);
-            if (inputObj.ok && inputObj.rate) {
+            if (inputObj.ok) {
                 $('#rate').val(inputObj.rate);
                 $('#rate_name').val(inputObj.name);
             }
@@ -1341,6 +1341,8 @@
                                 newData.tare = product.tare;
                                 newData.scale_multiplier = product.scale_multiplier;
                                 newData.scale_precision = product.scale_precision;
+                                newData.non_discountable = product.non_discountable;
+                                newData.non_surchargeable = product.non_surchargeable;
                             }
 
                             if (inputObj.cloneSettings['appearance']) {

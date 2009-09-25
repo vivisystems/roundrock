@@ -50,6 +50,35 @@
 
         },
 
+        getProductCount: function(catindex, visibleOnly) {
+            var cate = this._cateView.getCurrentIndexData(catindex);
+
+            if(!cate) return 0;
+
+            var categories, products;
+
+            if (visibleOnly) {
+                if(typeof cate['no'] == 'undefined') {
+                    // group
+                    categories = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                    products = categories[cate.id] || [];
+                }else {
+                    categories = GeckoJS.Session.get('productsIndexesByCate');
+                    products = categories[cate.no] || [];
+                }
+            }else {
+
+                if(typeof cate['no'] == 'undefined') {
+                    // group
+                    categories = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+                    products = categories[cate.id] || [];
+                }else {
+                    categories = GeckoJS.Session.get('productsIndexesByCateAll');
+                    products = categories[cate.no] || [];
+                }
+            }
+            return products.length;
+        },
 
         setCatePanelIndex: function(index) {
 

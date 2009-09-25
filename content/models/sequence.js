@@ -11,6 +11,18 @@
 
         resetSequence: function(key, value, async, callback) {
             return (new this).resetSequence(key, value, async, callback);
+        },
+
+        getLocalSequence: function(key) {
+            return (new this).getLocalSequence(key);
+        },
+
+        resetLocalSequence: function(key, value) {
+            return (new this).resetLocalSequence(key, value);
+        },
+
+        removeSequence: function(key) {
+            return (new this).removeSequence(key);
         }
     };
 
@@ -76,7 +88,7 @@
         },
 
         getLocalSequence: function(keys ) {
-
+            
             var arKeys = keys.split(',');
             var result = [] ;
 
@@ -108,7 +120,6 @@
             }, this);
 
             return result.join(',');
-
 
         },
 
@@ -153,27 +164,46 @@
 
             }else {
             
-                seq = this.findByIndex('first', {
-                    index: 'key',
-                    value: key
-                }) ||
-
-                {
-                    id: "",
-                    key: key,
-                    value: 0
-                };
-                seq.value = value;
-                this.id = seq.id;
-                if (!this.save(seq)) {
-                    this.saveToBackup(seq);
-                }
+                seq = this.resetLocalSequence(key, value);
 
                 if (callback) {
                     callback.call(this, seq.value);
                 }
                 return seq.value;
             }
+        },
+
+        removeSequence: function(key) {
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+            if (isTraining) return;
+
+            key = key || "default";
+            var seq = this.findByIndex('first', {
+                index: 'key',
+                value: key
+            });
+            if (seq) {
+                return this.del(seq.id);
+            }
+        },
+
+        resetLocalSequence: function(key, value) {
+            var seq = this.findByIndex('first', {
+                index: 'key',
+                value: key
+            }) ||
+
+            {
+                id: "",
+                key: key,
+                value: 0
+            };
+            seq.value = value;
+            this.id = seq.id;
+            if (!this.save(seq)) {
+                this.saveToBackup(seq);
+            }
+            return seq;
         }
     }
 

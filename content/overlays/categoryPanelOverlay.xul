@@ -16,7 +16,7 @@
                                        buttonClass="button-department"
                                        scrollUpClass="dept-scroll-up-button"
                                        scrollDownClass="dept-scroll-down-button"
-                                       seltype="single" >
+                                       seltype="none" >
                 <spacer flex="1"/>
                 <vivibutton id="catescrollablepanel-top" class="button-gotop" flex="0" hidden="true"
                             oncommand="this.parentNode.datasource.navigateTop(); this.hidden = true; event.stopPropagation()"/>

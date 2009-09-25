@@ -225,7 +225,6 @@
 
         // invoke getTemplateData on device controller to retrieve the content of a specific template
         getTemplateData: function(template, useCache) {
-            //@todo DEBUG
             useCache = false;
             var device = this.getDeviceController();
             if (device != null) {
@@ -280,7 +279,7 @@
             
             if (parseInt(orderReceiptModel.lastError) != 0) {
                 this._dbError(orderReceiptModel.lastError, orderReceiptModel.lastErrorString,
-                              _('An error was encountered while checking if receipt has been printed (error code %S)', [orderReceiptModel.lastError]));
+                              _('An error was encountered while checking if receipt has been printed (error code %S) [message #1201].', [orderReceiptModel.lastError]));
             }
             return receipt;
         },
@@ -300,7 +299,7 @@
             if (!r) {
                 // failed to save record to db/backup
                 this._dbError(orderReceiptModel.lastError, orderReceiptModel.lastErrorString,
-                              _('An error was encountered while saving order receipt log (error code %S).', [orderReceiptModel.lastError]));
+                              _('An error was encountered while saving order receipt log (error code %S) [message #1202].', [orderReceiptModel.lastError]));
             }
         },
 
@@ -316,7 +315,7 @@
             if (!r) {
                 // failed to save record to db/backup
                 this._dbError(ledgerReceiptModel.lastError, ledgerReceiptModel.lastErrorString,
-                              _('An error was encountered while saving ledger receipt log (error code %S).', [ledgerReceiptModel.lastError]));
+                              _('An error was encountered while saving ledger receipt log (error code %S) [message #1203].', [ledgerReceiptModel.lastError]));
             }
         },
 
@@ -360,9 +359,6 @@
                 }
             }
             
-            // @todo delay saving order to database til after print jobs have all been scheduled
-            //this.scheduleOrderCommit(txn);
-
             // clear dashboard settings
             this.resetDashboardSettings();
         },
@@ -1159,57 +1155,6 @@
             
         },
 
-        scheduleOrderCommit: function(txn) {
-
-            // set up main thread callback to dispatch event
-            var orderCommit = function(txn) {
-                this._commitTxn = txn;
-            }
-
-            var self = this;
-
-            orderCommit.prototype = {
-                run: function() {
-                    // restore order from backup
-                    var model = new OrderModel();
-                    //model.restoreOrderFromBackup();
-                },
-
-                QueryInterface: function(iid) {
-                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-                        return this;
-                    }
-                    throw Components.results.NS_ERROR_NO_INTERFACE;
-                }
-            }
-
-            var runnable = {
-                run: function() {
-                    try {
-                        // dispatch commitOrder event indirectly through the main thread
-
-                        if (self._main) {
-                            self._main.dispatch(new orderCommit(txn), self._worker.DISPATCH_NORMAL);
-                        }
-
-
-                    }catch(e) {
-                        return false;
-                    }
-                },
-
-                QueryInterface: function(iid) {
-                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-                        return this;
-                    }
-                    throw Components.results.NS_ERROR_NO_INTERFACE;
-                }
-            };
-
-            this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
-
-        },
-
         dashboard: function () {
             var aURL = 'chrome://viviecr/content/printer_dashboard.xul';
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
@@ -1244,7 +1189,7 @@
             this.log('ERROR', 'Database error: ' + errstr + ' [' + errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
+                                  errmsg + '\n\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         }
 
     };

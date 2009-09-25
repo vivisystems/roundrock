@@ -13,6 +13,7 @@ var options;
     var ledgerOutTotal = inputObj.ledgerOutTotal;
     var cashNet = inputObj.cashNet;
     var canEndSalePeriod = inputObj.canEndSalePeriod;
+    var defaultChangeInDrawer = inputObj.defaultChangeInDrawer;
 
     options = inputObj;
 
@@ -34,12 +35,14 @@ var options;
             else if (col.id == "amount" || col.id == 'excess_amount' || col.id == 'change') {
 
                 var amt = this.data[row][col.id];
-                try {
-                    if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
-                        return '';
+                if (col.id != "amount") {
+                    try {
+                        if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
+                            return '';
+                        }
                     }
+                    catch (e) {}
                 }
-                catch (e) {}
                 // text = this.data[row].amount;
                 text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
                 text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
@@ -61,6 +64,9 @@ var options;
         document.getElementById('excess').value = giftcardExcess.toFixed(precision_prices);
         
         document.getElementById('cancel').setAttribute('disabled', false);
+
+        if (defaultChangeInDrawer != null && !isNaN(defaultChangeInDrawer))
+            document.getElementById('drawer_amount').value = parseFloat(defaultChangeInDrawer);
 
         document.getElementById('drawer_amount').textbox.select();
 
@@ -100,8 +106,18 @@ var options;
 function confirmEndSalePeriod() {
     var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
     var amount = parseFloat(document.getElementById('drawer_amount').value);
-    if (!isNaN(amount) && amount != 0) {
+    var allowChangeWhenEndPeriod = options.allowChangeWhenEndPeriod;
+    
+    if (!isNaN(amount) && amount != 0 && !allowChangeWhenEndPeriod) {
         GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Change may not be left in the drawer at the end of sale period'));
+        return false;
+    }
+    else if (!isNaN(amount) && amount < 0) {
+        GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Drawer change may not be negative'));
+        return false;
+    }
+    else if (options.cashNet < amount) {
+        GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Drawer change may not exceed available cash'));
         return false;
     }
     else {
@@ -121,6 +137,10 @@ function confirmEndShift() {
     var amount = parseFloat(document.getElementById('drawer_amount').value);
     if (!isNaN(amount) && amount < 0) {
         GREUtils.Dialog.alert(topwin, _('confirm shift change'), _('Drawer change may not be negative'));
+        return false;
+    }
+    else if (options.cashNet < amount) {
+        GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Drawer change may not exceed available cash'));
         return false;
     }
     else {

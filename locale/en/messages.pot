@@ -171,11 +171,14 @@ msgstr "Stock Service"
 msgid "sync_settings.ntp_hostname"
 msgstr "NTP Service"
 
+msgid "sync_settings.sale_period_hostname"
+msgstr "Sale Period Service"
+
 msgid "sync_settings.status.connected"
 msgstr "Connected"
 
 msgid "sync_settings.status.disconnect"
-msgstr "Disconnect"
+msgstr "Disconnected"
 
 ########################################################################
 #
@@ -742,6 +745,22 @@ msgstr "-%"
 msgid "vivipos.fec.registry.function.programmable.discountByPercentage.name"
 msgstr "Discount"
 
+##########################
+# Mass Discount By Percentage
+##########################
+
+msgid "vivipos.fec.registry.function.programmable.massDiscountByPercentage.desc"
+msgstr ""
+"This function registers a percentage-based discount to every cart item that is discountable. The parameter field can "
+"be used to program a preset percentage and label (separated by comma.) If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
+
+msgid "vivipos.fec.registry.function.programmable.massDiscountByPercentage.label"
+msgstr "x-%"
+
+msgid "vivipos.fec.registry.function.programmable.massDiscountByPercentage.name"
+msgstr "Mass Discount"
+
 ######################
 # Discount By Amount
 ######################
@@ -773,6 +792,22 @@ msgstr "+%"
 
 msgid "vivipos.fec.registry.function.programmable.surchargeByPercentage.name"
 msgstr "Surcharge"
+
+##########################
+# Mass Surcharge By Percentage
+##########################
+
+msgid "vivipos.fec.registry.function.programmable.massSurchargeByPercentage.desc"
+msgstr ""
+"This function registers a percentage-based surcharge to every cart item that is discountable. The parameter field can "
+"be used to program a preset percentage and label (separated by comma.) If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
+
+msgid "vivipos.fec.registry.function.programmable.massSurchargeByPercentage.label"
+msgstr "x+%"
+
+msgid "vivipos.fec.registry.function.programmable.massSurchargeByPercentage.name"
+msgstr "Mass Surcharge"
 
 #######################
 # Surcharge By Amount
@@ -1239,39 +1274,6 @@ msgstr "Add Condiment"
 
 msgid "vivipos.fec.registry.function.programmable.addcondiment.name"
 msgstr "Add Condiment"
-
-##################################
-# Pretax Surcharge By Percentage
-##################################
-
-msgid "vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.desc"
-msgstr ""
-"This function registers a pretax order surcharge by percentage. The "
-"parameter field can be used to program a preset percentage and label (separated by comma.) If no preset "
-"percentage is programmed, the surcharge percentage is read from the input "
-"line."
-
-msgid "vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.label"
-msgstr "Pretax Order Surcharge"
-
-msgid "vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.name"
-msgstr "Pretax Order Surcharge"
-
-#################################
-# Pretax Discount By Percentage
-#################################
-
-msgid "vivipos.fec.registry.function.programmable.discountPretaxByPercentage.desc"
-msgstr ""
-"This function registers a pretax order discount by percentage. The parameter "
-"field can be used to program a preset percentage and label (separated by comma.) If no preset percentage is "
-"programmed, the discount percentage is read from the input line."
-
-msgid "vivipos.fec.registry.function.programmable.discountPretaxByPercentage.label"
-msgstr "Pretax Order Discount"
-
-msgid "vivipos.fec.registry.function.programmable.discountPretaxByPercentage.name"
-msgstr "Pretax Order Discount"
 
 #######################
 # Open Cash Drawer #1
@@ -1896,12 +1898,6 @@ msgstr "Modify Condiment Price"
 
 msgid "acl_manage_locale_keyboard"
 msgstr "Change Language and Keyboard Mapping"
-
-msgid "acl_register_pretax_discount"
-msgstr "Register Order Discounts Pretax"
-
-msgid "acl_register_pretax_surcharge"
-msgstr "Register Order Surcharges Pretax"
 
 msgid "acl_manage_reports"
 msgstr "Run Reports"

@@ -155,7 +155,8 @@ var options;
         document.getElementById('input1').value = inputObj.input1;
 
         // document.getElementById('cancel').setAttribute('disabled', false);
-        document.getElementById('cancel').setAttribute('disabled', ('disablecancelbtn' in inputObj));
+        var disablecancelbtn = ('disablecancelbtn' in inputObj);
+        document.getElementById('cancel').setAttribute('hidden', disablecancelbtn);
 
         doSetOKCancel(
             function(){
@@ -168,7 +169,7 @@ var options;
             },
             function(){
                 inputObj.ok = false;
-                return true;
+                return !disablecancelbtn;
             }
         );
 
@@ -237,8 +238,8 @@ function validateInput() {
     if ('alphanumeric0' in options) alphanumeric0 = options.alphanumeric0;
     if ('alphanumeric1' in options) alphanumeric1 = options.alphanumeric1;
 
-    var input0 = document.getElementById('input0').value;
-    var input1 = document.getElementById('input1').value;
+    var input0 = document.getElementById('input0').value || '';
+    var input1 = document.getElementById('input1').value || '';
 
     var trimmed0 = GeckoJS.String.trim(input0);
     var trimmed1 = GeckoJS.String.trim(input1);

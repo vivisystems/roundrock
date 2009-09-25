@@ -5,6 +5,8 @@
 <!ENTITY plugroups.visible "Show on Menu">
 <!ENTITY plugroups.routing "Used to Route Orders">
 <!ENTITY plugroups.display_order "Display Order">
+<!ENTITY plugroups.non.discountable "Non-discountable">
+<!ENTITY plugroups.non.surchargeable "Non-surchargeable">
 <!ENTITY plugroups.button.color "Button Color">
 <!ENTITY plugroups.font.size "Font Size">
 <!ENTITY plugroups.links.department "Departments">

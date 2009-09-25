@@ -3,6 +3,7 @@ var options;
 (function(){
     var inputObj = window.arguments[0];
     var canEndSalePeriod = inputObj.canEndSalePeriod;
+    var defaultChangeInDrawer = inputObj.defaultChangeInDrawer;
 
     options = inputObj;
 
@@ -11,6 +12,9 @@ var options;
      */
     function startup() {
         document.getElementById('cancel').setAttribute('disabled', false);
+
+        if (defaultChangeInDrawer != null && !isNaN(defaultChangeInDrawer))
+            document.getElementById('drawer_amount').value = parseFloat(defaultChangeInDrawer);
 
         document.getElementById('reportedcash').textbox.select();
 
@@ -51,9 +55,20 @@ var options;
 
 function confirmEndSalePeriod() {
     var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
+    var reportedcash = parseFloat(document.getElementById('reportedcash').value);
     var amount = parseFloat(document.getElementById('drawer_amount').value);
-    if (!isNaN(amount) && amount != 0) {
+    var allowChangeWhenEndPeriod = options.allowChangeWhenEndPeriod;
+
+    if (!isNaN(amount) && amount != 0 && !allowChangeWhenEndPeriod) {
         GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Change may not be left in the drawer at the end of sale period'));
+        return false;
+    }
+    else if (!isNaN(amount) && amount < 0) {
+        GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Drawer change may not be negative'));
+        return false;
+    }
+    else if (reportedcash < amount) {
+        GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Drawer change may not exceed declared cash'));
         return false;
     }
     else {
@@ -70,9 +85,15 @@ function confirmEndSalePeriod() {
 
 function confirmEndShift() {
     var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
+    var reportedcash = parseFloat(document.getElementById('reportedcash').value);
     var amount = parseFloat(document.getElementById('drawer_amount').value);
+    
     if (!isNaN(amount) && amount < 0) {
         GREUtils.Dialog.alert(topwin, _('confirm shift change'), _('Drawer change may not be negative'));
+        return false;
+    }
+    else if (reportedcash < amount) {
+        GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Drawer change may not exceed declared cash'));
         return false;
     }
     else {
