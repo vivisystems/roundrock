@@ -6,7 +6,7 @@ class OrdersController extends AppController {
 
     var $uses = array('Order','OrderItem','OrderAddition','OrderPayment',
     'OrderAnnotation','OrderItemCondiment','OrderPromotion','OrderObject',
-    'TableOrderLock');
+    'TableOrderLock', 'Table', 'TableSetting');
 
     var $components = array('SyncHandler', 'Security');
 
@@ -22,12 +22,12 @@ class OrdersController extends AppController {
 
         if(!empty($_REQUEST['request_data'])) {
             // for debug
-            file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']);
+            //file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']);
             $request_data = $_REQUEST['request_data'];
         }else {
             $request_data = "{}";
             // for debug
-            $request_data = file_get_contents("/tmp/saveOrder.req");
+            //$request_data = file_get_contents("/tmp/saveOrder.req");
         }
 
         $datas = json_decode($request_data, true);
@@ -38,6 +38,9 @@ class OrdersController extends AppController {
         try {
 
             $this->Order->saveOrdersFromBackupFormat($datas);
+
+            // update table orders and status
+            $this->Table->updateOrdersFromBackupFormat($datas);
 
             // store or save , release order lock by machine id
             $this->TableOrderLock->releaseOrderLocksByMachineId($machineId);
@@ -157,7 +160,7 @@ class OrdersController extends AppController {
      */
     function getOrdersSummary() {
 
-        $result = null;
+        $orders = null;
 
         if(!empty($_REQUEST['request_data'])) {
             $conditions = $_REQUEST['request_data'];
@@ -167,13 +170,10 @@ class OrdersController extends AppController {
             // $orderModel->unbindHasManyModels();
             $condition = array('conditions' => $conditions, 'recursive' =>0 );
             $orders = $orderModel->find('all', $condition);
-            if($orders) {
-                $result = $orders;
-            }
         }
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'response_data' => $result
+            'response_data' => $this->SyncHandler->prepareResponse($orders, 'bgz_json')
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -197,12 +197,12 @@ class OrdersController extends AppController {
 
         if(!empty($_REQUEST['request_data'])) {
             // for debug
-            file_put_contents("/tmp/voidOrder.req", $_REQUEST['request_data']);
+            //file_put_contents("/tmp/voidOrder.req", $_REQUEST['request_data']);
             $request_data = $_REQUEST['request_data'];
         }else {
             $request_data = "{}";
             // for debug
-            $request_data = file_get_contents("/tmp/voidOrder.req");
+            //$request_data = file_get_contents("/tmp/voidOrder.req");
         }
 
         $data = json_decode($request_data, true);

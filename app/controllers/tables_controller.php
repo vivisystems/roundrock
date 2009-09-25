@@ -4,7 +4,7 @@ class TablesController extends AppController {
 
     var $name = 'Tables';
 
-    var $uses = array('Table');
+    var $uses = array('Table','TableSetting');
 	
     var $components = array('SyncHandler', 'Security');
 

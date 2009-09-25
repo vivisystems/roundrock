@@ -4,142 +4,22 @@ class TableStatusController extends AppController {
 
     var $name = 'TableStatus';
 
-    var $uses = array('Sequence','TableStatus','Table','TableRegion','TableBooking','TableOrder');
-    // var $uses = array('Sequence','TableStatus');
-	
+    var $uses = array('Table','TableSetting', 'TableStatus', 'TableMark', 'Order');
+
     var $components = array('SyncHandler', 'Security');
 
 
     /**
-     * getTableStatusList
-     * @param <type> $condition 
+     * get tables
      */
-    function getTableStatusList($condition="") {
+    function getTablesStatus($lastModified) {
 
-        $tables = $this->TableStatus->getTableStatusList();
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $tables
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-
-    }
-
-    function setTableStatus2() {
-
-		$tableObject = array();
-		if($_REQUEST['request_data']) {
-			$tableObject = json_decode($_REQUEST['request_data'], true);
-			file_put_contents("/tmp/setTableStatus", serialize($tableObject));
-		}
-
-		if ($tableObject) {
-			$setResult = $this->TableStatus->setTableStatus($tableObject);
-		}else {
-			$setResult = false;
-		}
+    // clear expire status
+        $this->TableStatus->clearExpireStatuses();
+        $tables_status = $this->TableStatus->getTablesStatusWithOrdersSummary($lastModified);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-        
-    }
-    
-    function getTableStatuses($condition="") {
-
-        $tables = $this->TableStatus->getTableStatuses($condition);
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $tables
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-
-    }
-
-    
-    function setTableStatus() {
-
-	$tableObject = array();
-	if($_REQUEST['request_data']) {
-		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
-
-		file_put_contents("/tmp/setTableStatus", serialize($tableObject));
-	}
-
-	if ($tableObject) {
-		$setResult = $this->TableStatus->setTableStatus($tableObject);
-	}else {
-		$setResult = false;
-	}
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-        
-    }
-    
-    function setTableHostBy($table_no=-1, $holdTableNo=-1) {
-    		
-	$setResult = $this->TableStatus->setTableHostBy($table_no, $holdTableNo);
-	
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-    }
-    
-    function touchTableStatus($table_no=-1) {
-    		
-	$setResult = $this->TableStatus->touchTableStatus($table_no);
-	
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-    }
-    
-    function removeCheck($table_no, $order_id) {
-
-	$setResult = $this->TableStatus->removeCheck($table_no, $order_id);
-	
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
+            'response_data' => $this->SyncHandler->prepareResponse($tables_status, 'bgz_json')
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -149,12 +29,22 @@ class TableStatusController extends AppController {
         exit;
     }
 
-    function getTableOrderCheckSum($order_id) {
 
-        $getResult = $this->TableStatus->getTableOrderCheckSum($order_id);
+    /**
+     * mergeTable
+     * @param <type> $masterTableId
+     * @param <type> $slaveTableId 
+     */
+    function mergeTable($masterTableId, $slaveTableId) {
+
+        if (empty($masterTableId) || empty($slaveTableId)) {
+            exit;
+        }
+
+        $this->TableStatus->mergeTable($masterTableId, $slaveTableId);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $getResult
+            'response_data' => true
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -164,23 +54,21 @@ class TableStatusController extends AppController {
         exit;
     }
 
-    function transTable() {
 
-	$tableObject = array();
-	if($_REQUEST['request_data']) {
-		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+    /**
+     * unmergeTable
+     * @param <type> $tableId 
+     */
+    function unmergeTable($tableId) {
 
-		file_put_contents("/tmp/transTable", serialize($tableObject));
-	}
+        if (empty($tableId)) {
+            exit;
+        }
 
-	if ($tableObject) {
-		$setResult = $this->TableStatus->transTable($tableObject);
-	}else {
-		$setResult = false;
-	}
+        $this->TableStatus->unmergeTable($tableId);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
+            'response_data' => true
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -188,16 +76,25 @@ class TableStatusController extends AppController {
         echo $responseResult;
 
         exit;
-
-
     }
 
-    function getTableOrders($condition="") {
 
-        $orders = $this->TableStatus->getTableOrders($condition);
+    /**
+     * markTable
+     * @param <type> $tableId
+     * @param <type> $markId
+     * @param <type> $clerk 
+     */
+    function markTable($tableId, $markId, $clerk) {
+
+        if (empty($tableId) || empty($markId)) {
+            exit;
+        }
+
+        $this->TableStatus->markTable($tableId, $markId, $clerk);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $orders
+            'response_data' => true
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -205,112 +102,23 @@ class TableStatusController extends AppController {
         echo $responseResult;
 
         exit;
-
-
     }
 
-    function setTableMark() {
 
-	$tableObject = array();
-	if($_REQUEST['request_data']) {
-		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+    /**
+     * unmarkTable
+     * @param <type> $tableId
+     */
+    function unmarkTable($tableId) {
 
-		file_put_contents("/tmp/setTableMark", serialize($tableObject));
-	}
+        if (empty($tableId)) {
+            exit;
+        }
 
-	if ($tableObject) {
-                $table_no = $tableObject['table_no'];
-                $markObj = $tableObject['markObj'];
-		$setResult = $this->TableStatus->setTableMark($table_no, $markObj);
-	}else {
-		$setResult = false;
-	}
+        $this->TableStatus->unmarkTable($tableId);
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-
-    }
-
-    function setTableMarks() {
-
-	$tableObject = array();
-	if($_REQUEST['request_data']) {
-		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
-
-		file_put_contents("/tmp/setTableMarks", serialize($tableObject));
-	}
-
-	if ($tableObject) {
-                $tables = $tableObject['tables'];
-                $markObj = $tableObject['markObj'];
-		$setResult = $this->TableStatus->setTableMarks($tables, $markObj);
-	}else {
-		$setResult = false;
-	}
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $setResult
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-
-    }
-
-    function getRegions() {
-
-        $fields = array('TableRegion.id','TableRegion.name');
-        $regions = $this->TableRegion->find('all', array("fields" => $fields, "recursive" => 0));
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $regions
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-        
-        exit;
-
-
-    }
-    
-    function setTableStatusOptions() {
-
-        $table_status_prefs = array();
-	if($_REQUEST['request_data']) {
-		$table_status_prefs = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
-
-		file_put_contents("/tmp/tableStatusPrefs", serialize($table_status_prefs));
-	}
-        
-        $result = array('status' => 'ok', 'code' => 200);
-        
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-        
-        exit;
-    }
-
-    function getTableStatusOptions() {
-
-        $table_status_prefs = unserialize(file_get_contents("/tmp/tableStatusPrefs"));
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $table_status_prefs
+            'response_data' => true
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type

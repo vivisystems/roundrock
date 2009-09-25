@@ -1,243 +1,270 @@
 <?php
-
+/**
+ * TableStatus Model
+ *
+ */
 class TableStatus extends AppModel {
     var $name = 'TableStatus';
     var $useDbConfig = 'table';
-    
-    var $belongsTo = array('Table' =>  
-                            array('className'  => 'Table',  
-                                  'conditions' => '',  
-                                  'order'      => '',  
-                                  'foreignKey' => 'table_id'  
-                            )  
-                      );
 
-    var $hasMany = array('TableBooking');
+    var $belongsTo = array('Table');
+    var $hasMany = array('TableOrder'=>array('foreignKey'=>'table_id', 'order'=>'transaction_created'));
 
 
-	function getTableStatuses($lastModified) {
-		
-		// $lastModified = 0; //1243000000;
-		// $conditions = "modified > '" . $lastModified . "'";
-                $conditions = "Table.active AND modified > '" . $lastModified . "'";
+    /**
+     * updateStatusByOrders
+     *
+     * @param <type> $orders
+     * @param <type> $tableNoToIds
+     */
+    function updateStatusByOrders($orders, $tableNoToIds) {
+        $this->begin();
 
-                $tableStatus = $this->find('all', array("conditions" => $conditions, "recursive" => 3, "order"=>array('TableStatus.table_no')));
-		
-		$tables = array();
-		if ($tableStatus) {
-			$tables = Set::classicExtract($tableStatus, '{n}.TableStatus');
+        foreach ($orders as $order) {
 
-		}
-		
+            $status = $order['status'];
+            $table_no = $order['table_no'];
+            $table_id = $tableNoToIds[$order['table_no']];
 
-		return $tableStatus;
+            $this->updateOrderStatusById($table_id, $table_no);
 
-	}
-	
-	function setTableStatus($tableObject) {
-	
-		$table_no = $tableObject['table_no'];
-	
-		$conditions = "TableStatus.table_no='" . $table_no . "'";
-
-		$tableStatusObjTmp = $this->find('first', array("conditions" => $conditions));
-		
-		// tableStatus record exist
-		if ($tableStatusObjTmp) {
-
-		    // update tableStatus record
-		    $this->id = $tableStatusObjTmp['TableStatus']['id'];
-		    
-		    $tableStatusObjTmp['TableStatus']['modified'] = null;
-		    
-		    $retObj = $this->save($tableStatusObjTmp);
-		    
-                }
-
-		return true;
-
-	}
-
-        function _removeOldFinishedTableOrder() {
-            //
-            $rmTime = time() - 86400; // one day ago...
-
-            // $conditions = "TableOrder.order_id='" . $order_id . "'";
-            $conditions = array("TableOrder.status<>2 AND TableOrder.modified<'" . rmTime . "'");
-		
-            // $retObj = $this->TableOrder->deleteAll(array("conditions" => $conditions));
-            $retObj = $this->TableOrder->deleteAll($conditions);
-
-            return $retObj;
         }
-	
-	function setTableHostBy($table_no, $holdTableNo) {
 
-		$conditions = "TableStatus.table_no='" . $table_no . "'";
+        $this->commit();
+    }
 
-		$tableStatusObjTmp = $this->find('first', array("conditions" => $conditions));
 
-		if ($holdTableNo == $table_no) {
-		    $tableStatusObjTmp['TableStatus']['hostby'] = '';
-		}
-		else {
-		    $tableStatusObjTmp['TableStatus']['hostby'] = $holdTableNo;
-		}
+    function updateOrderStatusById($table_id, $table_no=false) {
+        if (empty($table_id)) return false;
 
-		// tableStatus record exist
-		if ($tableStatusObjTmp) {
+        if (empty($table_no)) {
+            $tableIdToNos = $this->Table->getTableIdToNos();
+            $table_no = $tableIdToNos[$table_id];
+        }
 
-		    // update tableStatus record
-		    $this->id = $tableStatusObjTmp['TableStatus']['id'];
-		    $tableStatusObjTmp['TableStatus']['modified'] = null;
-		    $retObj = $this->save($tableStatusObjTmp);
+        $result = $this->query("SELECT count(id), sum(no_of_customers), sum(total) FROM table_orders where table_id='".$table_id."'");
 
-		}
-
-		return true;
-
-	}
-	
-	
-	function touchTableStatus($table_no) {
-            // touch modified time...
-            $conditions = "TableStatus.table_no='" . $table_no . "'";
-            $tableStatusObjTmp = $this->find('first', array("conditions" => $conditions));
-
-            // @todo maintain status field...
-            if ($tableStatusObjTmp) {
-		$this->id = $tableStatusObjTmp['TableStatus']['id'];
-		$tableStatusObjTmp['TableStatus']['modified'] = null;
-		$retObj = $this->save($tableStatusObjTmp);
-                
+        if($result[0][0]) {
+            $order_count = 0;
+            $sum_total = 0.0;
+            $sum_customers = 0;
+            foreach($result[0][0] as $key => $value) {
+                switch ($key) {
+                    case 'count(id)':
+                        $order_count = $value;
+                        break;
+                    case 'sum(no_of_customers)':
+                        $sum_customers = $value;
+                        break;
+                    case 'sum(total)':
+                        $sum_total = $value;
+                        break;
+                }
             }
-            return true;
-        }
-        
-        function removeCheck($table_no, $order_id) {
 
-            // $conditions = "TableOrder.order_id='" . $order_id . "'";
-            $conditions = "TableOrder.id='" . $order_id . "'";
-		
-            // $retObj = $this->TableOrder->deleteAll(array("conditions" => $conditions));
-            $retObj = $this->TableOrder->deleteAll(array("TableOrder.order_id" => $order_id));
+            // need to update status data
+            $data = array('id' => $table_id, 'table_id' => $table_id, 'table_no'=>$table_no, 'order_count'=>$order_count,
+                'sum_total' => $sum_total, 'sum_customer' => $sum_customers,
+                'modified' => (double)(microtime(true)*1000) );
 
-            $this->touchTableStatus($table_no);
+            // check if customers is zero
+            if ($sum_customers <= 0 ) {
+                $data['status'] = 0;
 
-            return $retObj;
-
-        }
-
-        function getTableOrderCheckSum($order_id) {
-            // $conditions = "TableOrder.order_id='" . $order_id . "'";
-            $conditions = "TableOrder.id='" . $order_id . "'";
-
-            $tableOrder = $this->TableOrder->find('all', array("conditions" => $conditions, "recursive" => 0));
-
-            return $tableOrder;
-        }
-
-        function transTable($tableObject) {
-
-            $this->setTableStatus($tableObject);
-
-            $this->touchTableStatus($tableObject["org_table_no"]);
-
-        }
-
-        function getTableOrders($lastModified) {
-
-		// $lastModified = 0; //1243000000;
-		$conditions = "modified > '" . $lastModified . "'";
-
-                $tableOrder = $this->TableOrder->find('all', array("conditions" => $conditions, "recursive" => 0, "order"=>array('TableOrder.modified')));
-                // $tableStatus = $this->find('all');
-
-		$orders = array();
-		if ($tableOrder) {
-			$orders = Set::classicExtract($tableStatus, '{n}.TableOrder');
-
-		}
-
-
-		return $tableOrder;
-
-	}
-
-        function setTableMark($table_no, $markObj) {
-
-		$conditions = "TableStatus.table_no='" . $table_no . "'";
-
-		$tableStatusObjTmp = $this->find('first', array("conditions" => $conditions));
-
-		// tableStatus record exist
-		if ($tableStatusObjTmp) {
-
-		    // update tableStatus record
-		    $this->id = $tableStatusObjTmp['TableStatus']['id'];
-                    $tableStatusObjTmp['TableStatus']['modified'] = null;
-
-		    if ($markObj['name']) {
-                        $tableStatusObjTmp['TableStatus']['start_time'] = $markObj['start_time'];
-                        $tableStatusObjTmp['TableStatus']['end_time'] = $markObj['end_time'];
-                        $tableStatusObjTmp['TableStatus']['mark_user'] = $markObj['mark_user'];
-                        $tableStatusObjTmp['TableStatus']['mark'] = $markObj['name'];
-                        $tableStatusObjTmp['TableStatus']['mark_op_deny'] = $markObj['opdeny'];
-                    } else {
-                        $tableStatusObjTmp['TableStatus']['start_time'] = 0;
-                        $tableStatusObjTmp['TableStatus']['end_time'] = 0;
-                        $tableStatusObjTmp['TableStatus']['mark_user'] = '';
-                        $tableStatusObjTmp['TableStatus']['mark'] = '';
-                        $tableStatusObjTmp['TableStatus']['mark_op_deny'] = false;
-                    }
-
-		    $retObj = $this->save($tableStatusObjTmp);
-
+                // process automark after submit
+                $tableMark = new TableMark();
+                $mark = $tableMark->getAutoMarkAfterSubmit();
+                if($mark) {
+                    $data['mark'] = $mark['name'];
+                    $data['mark_op_deny'] = $mark['opdeny'];
+                    $data['start_time'] = time();
+                    $data['end_time'] = time() + $mark['period']*60;
+                    $data['status'] = 3;
                 }
 
-		return true;
+            }else {
+                $data['status'] = 1;
+                $data['mark'] = '';
+                $data['mark_op_deny'] = 0;
+                $data['start_time'] = time();
+                $data['end_time'] = time() + 86400 ; // XXX fake time
+            }
 
-	}
+            $this->id = $table_id;
+            $this->save($data);
+        }
+    }
 
-        function setTableMarks($tables, $markObj) {
-                $this->begin();
-                foreach ($tables as $table_no) {
 
-                    $conditions = "TableStatus.table_no='" . $table_no . "'";
+    /**
+     * clearExpireStatuses
+     */
+    function clearExpireStatuses() {
 
-                    $tableStatusObjTmp = $this->find('first', array("conditions" => $conditions));
+        $now = time();
+        $this->begin();
 
-                    // tableStatus record exist
-                    if ($tableStatusObjTmp) {
+        $result = $this->find('all', array('conditions'=>"end_time <= $now AND status=3", 'recursive'=>-1));
+        foreach($result as $value) {
+            $status = $value['TableStatus'];
+            if ($status['sum_customers'] == 0) {
+            // reset to available
+                $data = array('status'=>0, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
+                    'start_time'=>time(), 'end_time'=>time()+86400,
+                    'modified' => (double)(microtime(true)*1000));
+                $this->id = $status['id'];
+                $this->save($data);
+            }
+        }
 
-                        // update tableStatus record
-                        $this->id = $tableStatusObjTmp['TableStatus']['id'];
-                        $tableStatusObjTmp['TableStatus']['modified'] = null;
+        $this->commit();
+    }
 
-                        if ($markObj['name']) {
-                            $tableStatusObjTmp['TableStatus']['start_time'] = $markObj['start_time'];
-                            $tableStatusObjTmp['TableStatus']['end_time'] = $markObj['end_time'];
-                            $tableStatusObjTmp['TableStatus']['mark_user'] = $markObj['mark_user'];
-                            $tableStatusObjTmp['TableStatus']['mark'] = $markObj['name'];
-                            $tableStatusObjTmp['TableStatus']['mark_op_deny'] = $markObj['opdeny'];
-                        } else {
-                            $tableStatusObjTmp['TableStatus']['start_time'] = 0;
-                            $tableStatusObjTmp['TableStatus']['end_time'] = 0;
-                            $tableStatusObjTmp['TableStatus']['mark_user'] = '';
-                            $tableStatusObjTmp['TableStatus']['mark'] = '';
-                            $tableStatusObjTmp['TableStatus']['mark_op_deny'] = false;
-                        }
 
-                        $retObj = $this->save($tableStatusObjTmp);
 
-                    }
+    /**
+     * getTablesStatus from lastModified
+     *
+     * @param <type> $lastModified
+     * @return <type>
+     */
+    function getTablesStatus($lastModified) {
 
-                }
-                $this->commit();
 
-		return true;
+        $result = $this->find('all', array('conditions'=>"modified > $lastModified", 'recursive'=>1));
 
-	}
+        return $result;
+
+    }
+
+    /**
+     * getTablesStatus from lastModified
+     *
+     * @param <type> $lastModified
+     * @return <type>
+     */
+    function getTablesStatusWithOrdersSummary($lastModified) {
+
+
+        $result = $this->getTablesStatus($lastModified);
+
+        if (!$result) return $result;
+        $orderModel = new Order();
+
+        $tableCount = count($result);
+
+        for ($i=0; $i < $tableCount ; $i++) {
+            if (!is_array($result[$i]['TableOrder']) || count($result[$i]['TableOrder']) == 0) continue;
+
+            $orderIds = Set::classicExtract($result[$i]['TableOrder'], '{n}.id');
+            if (count($orderIds) == 0) continue;
+
+            $conditions = "Order.id IN ('" . implode("','", $orderIds) . "')";
+            $condition = array('conditions' => $conditions, 'recursive' =>0 );
+            $orders = $orderModel->find('all', $condition);
+            $ordersById = Set::combine($orders, '{n}.Order.id', '{n}');
+
+            $result[$i]['OrdersById'] = $ordersById;
+        }
+
+        return $result;
+
+    }
+
+
+    /**
+     * mergeTable
+     *
+     * @param <type> $masterTableId
+     * @param <type> $slaveTableId
+     */
+    function mergeTable($masterTableId, $slaveTableId) {
+
+        $masterTable = $this->Table->find('first', array('conditions'=> array("id"=>$masterTableId), 'fields'=>'table_no', 'recursive'=>-1));
+        $slaveTable = $this->Table->find('first', array('conditions'=> array("id"=>$slaveTableId), 'fields'=>'table_no', 'recursive'=>-1));
+
+        if (!$masterTable || !$slaveTable ) return false;
+
+        $masterTableNo = $masterTable['Table']['table_no'];
+        $slaveTableNo = $slaveTable['Table']['table_no'];
+
+        $data = array('id'=> $slaveTableId, 'table_id'=> $slaveTableId, 'table_no'=> $slaveTableNo,
+            'status'=>2, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
+            'start_time'=>time(), 'end_time'=>time()+86400,
+            'hostby'=> $masterTableNo,
+            'modified' => (double)(microtime(true)*1000)
+        );
+
+        $this->id = $slaveTableId;
+        $this->save($data);
+
+        return true;
+    }
+
+    /**
+     * unmergeTable
+     *
+     * @param <type> $table_id
+     * @return <type>
+     */
+    function unmergeTable($table_id) {
+
+        $data = array('status'=>0, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
+            'start_time'=>time(), 'end_time'=>time()+86400,
+            'hostby'=> 0,
+            'modified' => (double)(microtime(true)*1000));
+
+        $this->id = $table_id;
+        $this->save($data);
+
+        return true;
+    }
+
+    /**
+     * markTable
+     *
+     * @param <type> $tableId
+     * @param <type> $markId
+     * @param <type> $clerk
+     * @return <type>
+     */
+    function markTable($tableId, $markId, $clerk) {
+
+        $table = $this->Table->find('first', array('conditions'=> array("id"=>$tableId), 'fields'=>'table_no', 'recursive'=>-1));
+
+        if (!$table) return false;
+
+        $tableMark = new TableMark();
+        $mark = $tableMark->getMarkById($markId);
+
+        if (!$mark) return false;
+
+        $tableNo = $table['Table']['table_no'];
+
+        $data = array('id'=> $tableId, 'table_id'=> $tableId, 'table_no'=> $tableNo,
+            'status'=>3, 'mark' => $mark['name'] , 'mark_op_deny'=> $mark['opdeny'], 'mark_user'=> $clerk,
+            'start_time'=>time(), 'end_time'=>time() + $mark['period']*60,
+            'modified' => (double)(microtime(true)*1000)
+        );
+
+        $this->id = $tableId;
+        $this->save($data);
+
+        return true;
+
+    }
+
+    /**
+     * unmarkTable
+     *
+     * @param <type> $tableId
+     * @return <type>
+     */
+    function unmarkTable($tableId) {
+
+        return $this->unmergeTable($tableId);
+
+    }
 
 }
 
