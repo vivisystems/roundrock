@@ -245,6 +245,7 @@
                 accessRecord.clerk = user.username;
                 accessRecord.clerk_displayname = user.description;
             }
+            
             if (!model.saveAccessRecord(accessRecord)) {
                 // failed to save record to db/backup
                 this._dbError(model.lastError, model.lastErrorString,
@@ -372,6 +373,8 @@
         // handles ledger entry events
         handleLedgerEntryEvent: function(evt) {
 
+            if (!evt || !evt.data || evt.data.nodraweraction) return;
+            
             var eventType = 'ledger';
 
             // 1. get user's assigned drawer (or null)

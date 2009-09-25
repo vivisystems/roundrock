@@ -57,12 +57,8 @@
                     delete alertWin;
                 }
                 
-                // for backware compatible
-                GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', (this.tableSettings.RequireCheckNo || false) );
-//                alert('test');
-                // just popup table selector
-//                this.popupTableSelectorPanel();
             }
+            GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', (this.tableSettings.RequireCheckNo || false) );
 
         },
 

@@ -187,17 +187,24 @@
 
         _DrawerChangeDialog: function() {
 
+            // open drawer first
+            var cashdrawerController = GeckoJS.Controller.getInstanceByName('CashDrawer');
+            cashdrawerController.openDrawerForShiftChange();
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=500,height=500';
             var title = _('Verify Drawer Change');
             var inputObj = {
-                input0:null, require0:true, disablecancelbtn:true, numberOnly0: true, numpad: true
+                input0:null, require0:true, disablecancelbtn:true, numberOnly0: true, numpad: true,
+                useraction: function() {cashdrawerController.openDrawerForShiftChange();},
+                useractionLabel: _('Open Drawer')
             };
             var win = this.topmostWindow;
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
             }
+
             GREUtils.Dialog.openWindow(win, aURL, title, aFeatures, title, '', _('Enter amount of cash in drawer'), '', inputObj);
 
             return inputObj.input0;
@@ -451,7 +458,8 @@
                             description: ledgerMemo,
                             amount: amount,
                             sale_period: newSalePeriod,
-                            shift_number: newShiftNumber
+                            shift_number: newShiftNumber,
+                            nodraweraction: true
                         };
 
                         warnOnChangeDiscrepancy = _('IMPORTANT!') + '\n\n' +
@@ -474,12 +482,6 @@
                 this._setShift(newSalePeriod, newShiftNumber, false, false);
             }
 
-            if (!disableShiftChange) {
-                // display current shift / last shift information
-                this._ShiftDialog((newSalePeriod > 0) ? new Date(newSalePeriod * 1000).toLocaleDateString() : newSalePeriod, newShiftNumber,
-                                  (lastSalePeriod == '') ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber);
-            }
-
             if (warnOnChangeDiscrepancy) {
                 var win = this.topmostWindow;
                 if (win.document.documentElement.id == 'viviposMainWindow'
@@ -487,6 +489,12 @@
                     win = null;
                 }
                 GREUtils.Dialog.alert(win, _('Drawer Change Error'), warnOnChangeDiscrepancy);
+            }
+
+            if (!disableShiftChange) {
+                // display current shift / last shift information
+                this._ShiftDialog((newSalePeriod > 0) ? new Date(newSalePeriod * 1000).toLocaleDateString() : newSalePeriod, newShiftNumber,
+                                  (lastSalePeriod == '') ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber);
             }
 
             this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
@@ -998,7 +1006,8 @@
                             description: inputObj.description,
                             amount: amt,
                             sale_period: salePeriod,
-                            shift_number: shiftNumber
+                            shift_number: shiftNumber,
+                            nodraweraction: true
                         };
                         
                         entryType = ledgerEntryTypeController.getDrawerChangeType('IN');
@@ -1006,7 +1015,8 @@
                             type: entryType.type,
                             mode: entryType.mode,
                             description: inputObj.description,
-                            amount: amt
+                            amount: amt,
+                            nodraweraction: true
                         };
 
                         // append to shiftChangeDetails
