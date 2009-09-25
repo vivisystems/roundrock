@@ -417,6 +417,34 @@
    
         },
 
+        /**
+         * getOrdersCount
+         *
+         * @param {String} conditions
+         * @param {Boolean} isRemote    use local database or remote service
+         * @return {String} order's id  or null
+         */
+        getOrdersCount: function (conditions, isRemote) {
+
+            isRemote = isRemote || false;
+            if (!conditions) return null;
+
+            var count = 0;
+
+            if (isRemote) {
+                var requestUrl = this.getHttpService().getRemoteServiceUrl('getOrdersCount') ;
+                count = this.getHttpService().requestRemoteService('POST', requestUrl, conditions) || null ;
+            }else {
+                count = this.find('count', {
+                    conditions: conditions,
+                    recursive: 1
+                }) || null;
+            }
+
+            this.log(this.dump(count));
+            return count;
+
+        },
 
         mappingTranToOrderFields: function(data) {
 

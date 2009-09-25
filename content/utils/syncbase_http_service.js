@@ -157,7 +157,7 @@
         },
 
         isRemoteService: function() {
-            if (!this.isActive() || (this.isLocalhost() && !this.isForce())) {
+            if ((!this.isActive() || this.isLocalhost()) && !this.isForce()) {
                 return false;
             }
             return true;
