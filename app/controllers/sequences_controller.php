@@ -5,13 +5,13 @@ class SequencesController extends AppController {
     var $name = 'Sequences';
 
     var $uses = array('Sequence', 'Order');
-	
+
     var $components = array('SyncHandler', 'Security');
 
 
     /**
      * getSequence
-     * @param <type> $key 
+     * @param <type> $key
      */
     function getSequence ($key) {
 
@@ -31,6 +31,11 @@ class SequencesController extends AppController {
 
     }
 
+    /**
+     * setSequence
+     * @param <type> $key
+     * @param <type> $value
+     */
     function setSequence ($key, $value) {
 
         $value = $this->Sequence->setSequence($key, $value);
@@ -50,6 +55,35 @@ class SequencesController extends AppController {
     }
 
 
+    /**
+     * setSequenceMaxValue
+     * @param <type> $key
+     * @param <type> $value 
+     */
+    function setSequenceMaxValue ($key, $value) {
+
+        $value = $this->Sequence->setSequenceMaxValue($key, $value);
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'value' => $value,
+            'response_data' => $value
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+
+
+    }
+
+
+    /**
+     * resetSequence
+     * @param <type> $key
+     * @param <type> $value 
+     */
     function resetSequence ($key, $value) {
 
         $value = $this->Sequence->resetSequence($key, $value);
@@ -66,11 +100,6 @@ class SequencesController extends AppController {
         exit;
 
 
-    }
-
-    function test () {
-        print_r($this->Order->find('first'));
-        exit;
     }
 
 }
