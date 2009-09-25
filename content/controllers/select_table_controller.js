@@ -33,12 +33,6 @@
 
         _blockRefreshTableStatus: false,
 
-        _tableDock: false,
-        _tableDockLeft: 0,
-        _tableDockTop: 0,
-        _tableDockWidth: 400,
-        _tableDockHeight: 400,
-
 
         getTableSettings: function() {
             if(!this.tableSettings) {
@@ -103,8 +97,8 @@
 
             // first time popup...
             if (promptPanel.boxObject.width == 0) {
-                x = this._popupX;
-                y = this._popupY;
+                x = this._popupX || 40;
+                y = this._popupY || 10 ;
                 promptPanel.openPopupAtScreen(x, y, false);
                 this.sleep(100);
             } else {
