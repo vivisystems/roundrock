@@ -20,7 +20,7 @@
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-            
+
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
 
   <!-- include models -->
@@ -55,7 +55,7 @@
                     </viviscrollablebuttonpanel>
                 </hbox>
             </vbox>
-            
+
             <vbox flex="1" class="container-right">
                 <tabbox  flex="1" crop="right" class="content-tabbox">
                     <tabs id="tabs" >
@@ -101,10 +101,15 @@
                                         <row>
                                             <checkbox id="non_discountable" value="false" label="&plugroups.non.discountable;"
                                                       form="plugroupForm" name="non_discountable" default="false"/>
+<<<<<<< HEAD:content/plugroups.xul
+=======
+                                            <checkbox id="non_surchargeable" value="false" label="&plugroups.non.surchargeable;"
+                                                      form="plugroupForm" name="non_surchargeable" default="false"/>
+>>>>>>> master:content/plugroups.xul
                                         </row>
                                     </rows>
                                 </grid>
-                                
+
                                 <hbox id="productGroupsAppearanceBox" flex="1" class="custom-container-button-color-fontsize-picker">
                                     <vbox id="productGroupsAppearanceColorBox" flex="1">
                                         <label value="&plugroups.button.color;" class="label-sub-title"/>

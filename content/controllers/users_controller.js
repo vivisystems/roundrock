@@ -194,7 +194,9 @@
             var device;
             // use try just in case opener or opener.opener no longer exists
             try {
-                device = opener.opener.GeckoJS.Controller.getInstanceByName('Devices');
+                var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                device = mainWindow.GeckoJS.Controller.getInstanceByName('Devices');
             }
             catch(e) {}
             

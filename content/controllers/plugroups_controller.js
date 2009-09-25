@@ -148,6 +148,8 @@
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
 
+                this._selectedIndex = index;
+
                 OsdUtils.info(_('Product group [%S] modified successfully', [evt.data.name]));
             }
         },
@@ -168,7 +170,9 @@
             var panel = this.getListObj();
             var view = panel.datasource;
             var name = view.data[panel.selectedIndex].name;
-            var device = opener.opener.GeckoJS.Controller.getInstanceByName('Devices');
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+            .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var device = mainWindow.GeckoJS.Controller.getInstanceByName('Devices');
             
             if (this.hasTaggedProducts(evt.data.id)) {
                 NotifyUtils.error(_('[%S] has one or more products and may not be deleted', [name]));
@@ -420,7 +424,8 @@
             var routingCheckbox = document.getElementById('routing');
             var colorpicker = document.getElementById('plugroup_button_color');
             var fontsizepicker = document.getElementById('plugroup_font_size');
-            var nonDiscountCheckbox = document.getElementById('non_discountable');
+            var nondiscountableCheckbox = document.getElementById('non_discountable');
+            var nonsurchargeableCheckbox = document.getElementById('non_surchargeable');
 
             var tab1 = document.getElementById('tab1');
             var tab2 = document.getElementById('tab2');
@@ -437,7 +442,9 @@
                 fontsizepicker.setAttribute('disabled', false);
                 visibleCheckbox.setAttribute('disabled', false);
                 routingCheckbox.setAttribute('disabled', false);
-                nonDiscountCheckbox.setAttribute('disabled', false);
+                nondiscountableCheckbox.setAttribute('disabled', false);
+                nonsurchargeableCheckbox.setAttribute('disabled', false);
+
                 tab1.removeAttribute('disabled');
                 tab2.removeAttribute('disabled');
             }
@@ -448,9 +455,10 @@
                 delBtn.setAttribute('disabled', true);
                 visibleCheckbox.setAttribute('disabled', true);
                 routingCheckbox.setAttribute('disabled', true);
-                nonDiscountCheckbox.setAttribute('disabled', true);
                 colorpicker.setAttribute('disabled', true);
                 fontsizepicker.setAttribute('disabled', true);
+                nondiscountableCheckbox.setAttribute('disabled', true);
+                nonsurchargeableCheckbox.setAttribute('disabled', true);
                 tab1.setAttribute('disabled', true);
                 tab2.setAttribute('disabled', true);
             }

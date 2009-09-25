@@ -228,12 +228,14 @@
             <preference id="pref_hidesaleperiod" name="vivipos.fec.settings.HideSalePeriod" type="bool"/>
             <preference id="pref_disableshiftchange" name="vivipos.fec.settings.DisableShiftChange" type="bool"/>
             <preference id="pref_requirecashdeclaration" name="vivipos.fec.settings.RequireCashDeclaration" type="bool"/>
+            <preference id="pref_defaultchangeindrawer" name="vivipos.fec.settings.DefaultChangeInDrawer" type="int"/>
+            <preference id="pref_allowchangewhenendperiod" name="vivipos.fec.settings.AllowChangeWhenEndPeriod" type="bool"/>
             <preference id="pref_checksaleperiod" name="vivipos.fec.settings.CheckSalePeriod" type="bool"/>
             <preference id="pref_signoffwhenidle" name="vivipos.fec.settings.SignOffWhenIdle" type="bool"/>
             <preference id="pref_maxsaleperiodleaddays" name="vivipos.fec.settings.MaxSalePeriodLeadDays" type="int"/>
         </preferences>
         <vbox>
-            <grid class="data-form data-form-options">
+            <grid class="data-form data-form-options1">
                 <columns>
                     <column class="column-fixed-2"/>
                     <column flex="1"/>
@@ -251,7 +253,6 @@
                         <checkbox id="signoffwhenidle" label="&login.signoffwhenidle;" preference="pref_signoffwhenidle"
                                   oncommand="processSignOffWhenIdle(this.checked)"/>
                     </row>
-                    <row/>
                     <row>
                         <checkbox id="hidesaleperiod" label="&login.hidesaleperiod;" preference="pref_hidesaleperiod"/>
                         <checkbox id="disableshiftchange" label="&login.disableshiftchange;" preference="pref_disableshiftchange"/>
@@ -259,6 +260,38 @@
                     <row>
                         <checkbox id="requirecashdeclaration" label="&login.requirecashdeclaration;" preference="pref_requirecashdeclaration"/>
                         <checkbox id="checksaleperiod" label="&login.checksaleperiod;" preference="pref_checksaleperiod"/>
+                    </row>
+                    <row>
+                        <checkbox id="allowchangewhenendperiod" label="&login.allowchangewhenendperiod;" preference="pref_allowchangewhenendperiod"/>
+                        <vbox>
+                            <label control="defaultchangeindrawer" value="&login.defaultchangeindrawer;"/>
+                            <textbox preference="pref_defaultchangeindrawer" id="defaultchangeindrawer"
+                                     type="number" min="0" max="Infinity"/>
+                        </vbox>
+                    </row>
+                    <row>
+                        <vbox>
+                            <label value="&login.storedorderwhenshiftchange;"/>
+                            <menulist id="storedorderwhenshiftchange" flex="1"
+                                      oncommand="GeckoJS.Configure.write('vivipos.fec.settings.StoredOrderWhenShiftChange', this.value);">
+                                <menupopup id="storedorderwhenshiftchange-popup">
+                                    <menuitem label="&login.storedorder.none;" value="none"/>
+                                    <menuitem label="&login.storedorder.alert;" value="alert"/>
+                                    <menuitem label="&login.storedorder.force;" value="force"/>
+                                </menupopup>
+                            </menulist>
+                        </vbox>
+                        <vbox>
+                            <label value="&login.storedorderwhenendperiod;"/>
+                            <menulist id="storedorderwhenendperiod" flex="1"
+                                      oncommand="GeckoJS.Configure.write('vivipos.fec.settings.StoredOrderWhenEndPeriod', this.value);">
+                                <menupopup id="storedorderwhenendperiod-popup">
+                                    <menuitem label="&login.storedorder.none;" value="none"/>
+                                    <menuitem label="&login.storedorder.alert;" value="alert"/>
+                                    <menuitem label="&login.storedorder.force;" value="force"/>
+                                </menupopup>
+                            </menulist>
+                        </vbox>
                     </row>
                     <row>
                         <vbox>

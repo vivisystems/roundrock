@@ -92,12 +92,12 @@ pref("vivipos.fec.registry.portspeeds", "2400, 4800, 9600, 19200, 38400, 57600, 
 
 pref("vivipos.fec.registry.devicemodels.fec-f632.label", "FEC F632");
 pref("vivipos.fec.registry.devicemodels.fec-f632.type", "receipt,check,report");
-pref("vivipos.fec.registry.devicemodels.fec-f632.path", "chrome://viviecr/content/devices/commands/zonerich-ab58mk.cmd");
+pref("vivipos.fec.registry.devicemodels.fec-f632.path", "chrome://viviecr/content/devices/commands/fecf632.cmd");
 pref("vivipos.fec.registry.devicemodels.fec-f632.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
 
 pref("vivipos.fec.registry.devicemodels.zonerich-AB-58MK.label", "Zonerich AB-58MK");
 pref("vivipos.fec.registry.devicemodels.zonerich-AB-58MK.type", "receipt,check,report");
-pref("vivipos.fec.registry.devicemodels.zonerich-AB-58MK.path", "chrome://viviecr/content/devices/commands/fecf632.cmd");
+pref("vivipos.fec.registry.devicemodels.zonerich-AB-58MK.path", "chrome://viviecr/content/devices/commands/zonerich-ab-58mk.cmd");
 pref("vivipos.fec.registry.devicemodels.zonerich-AB-58MK.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,UTF-8=UTF-8");
 
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.label", "Epson TM-T88IV");

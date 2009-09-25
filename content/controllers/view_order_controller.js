@@ -15,7 +15,7 @@
 
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
-            return s.replace( re, '\'\'' );
+            return (s == null || s.length == 0) ? '' : s.replace( re, '\'\'' );
         },
 
         load: function(inputObj) {

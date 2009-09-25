@@ -7,12 +7,12 @@ pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.access", "ac
 pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.command", "addCondiment");
 pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.data", "");
- 
+
 pref("vivipos.fec.registry.function.programmable.addmemo.access", "acl_register_plus");
 pref("vivipos.fec.registry.function.programmable.addmemo.command", "addMemo");
 pref("vivipos.fec.registry.function.programmable.addmemo.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.addmemo.data", "");
- 
+
 pref("vivipos.fec.registry.function.programmable.annotate.access", "acl_annotate,acl_view_annotations");
 pref("vivipos.fec.registry.function.programmable.annotate.command", "AnnotateDialog");
 pref("vivipos.fec.registry.function.programmable.annotate.controller", "Main");
@@ -22,7 +22,7 @@ pref("vivipos.fec.registry.function.programmable.cancel.access", "acl_cancel_ord
 pref("vivipos.fec.registry.function.programmable.cancel.command", "cancel");
 pref("vivipos.fec.registry.function.programmable.cancel.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.cancel.data", "");
- 
+
 pref("vivipos.fec.registry.function.programmable.cash.access", "acl_open_cash");
 pref("vivipos.fec.registry.function.programmable.cash.command", "cash");
 pref("vivipos.fec.registry.function.programmable.cash.controller", "Cart");
@@ -87,11 +87,6 @@ pref("vivipos.fec.registry.function.programmable.discountByPercentage.access", "
 pref("vivipos.fec.registry.function.programmable.discountByPercentage.command", "addDiscountByPercentage");
 pref("vivipos.fec.registry.function.programmable.discountByPercentage.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.discountByPercentage.data", "");
-
-pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.access", "acl_register_pretax_discount");
-pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.command", "addPretaxDiscountByPercentage");
-pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.data", "");
 
 pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.access", "acl_register_mass_discount");
 pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.command", "addMassDiscountByPercentage");
@@ -382,11 +377,6 @@ pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.access", 
 pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.command", "addSurchargeByPercentage");
 pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.data", "");
-
-pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.access", "acl_register_pretax_surcharge");
-pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.command", "addPretaxSurchargeByPercentage");
-pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.data", "");
 
 pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
 pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");

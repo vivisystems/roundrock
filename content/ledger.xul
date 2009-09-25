@@ -50,8 +50,8 @@
                     <tabpanel orient="vertical" flex="1">
                         <vbox flex="1" class="content-listbox">
                             <vivitree id="entryscrollablepanel" flex="1" class="standard"
-                                      headers="&ledger.entry.heading.date;,&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.amount;"
-                                      fields="created,type,mode,amount"
+                                      headers="&ledger.entry.heading.date;,&ledger.entry.heading.clerk;,&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.amount;"
+                                      fields="created,service_clerk_displayname,type,mode,amount"
                                       onselect="$do('select',this.selectedIndex, 'LedgerRecords');"/>
                             <spacer height="5px"/>
                             <hbox align="center">

@@ -249,6 +249,7 @@
             try {
                 this.Tax.removeTax(tax.no);
 
+                this._selectedIndex = -1;
                 if (selectedIndex >= this._listDatas.length - 1) {
                     selectedIndex--;
                 }
