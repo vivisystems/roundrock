@@ -9,7 +9,7 @@
 
   <binding id="isuserinrole">
     <content >
-      <xul:box anonid="checkroleContainer" inherits="class,flex,pack,align,orient,collapsed,hidden">
+      <xul:box anonid="checkroleContainer" xbl:inherits="class,flex,pack,align,orient,collapsed,hidden">
       <children/>
       </xul:box>
     </content>
