@@ -21,13 +21,13 @@ class OrdersController extends AppController {
         $orderObject = array();
 
         if(!empty($_REQUEST['request_data'])) {
-            // for debug
-//            file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']);
+        // for debug
+            file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']);
             $request_data = $_REQUEST['request_data'];
         }else {
             $request_data = "{}";
             // for debug
-  //          $request_data = file_get_contents("/tmp/saveOrder.req");
+            $request_data = file_get_contents("/tmp/saveOrder.req");
         }
 
         $datas = json_decode($request_data, true);
@@ -103,8 +103,8 @@ class OrdersController extends AppController {
 
     /**
      * releaseOrderLock
-     * 
-     * @param <type> $orderId 
+     *
+     * @param <type> $orderId
      */
     function releaseOrderLock($orderId) {
 
@@ -154,7 +154,7 @@ class OrdersController extends AppController {
 
     }
 
-    
+
     /**
      * getOrdersSummary
      */
@@ -166,10 +166,8 @@ class OrdersController extends AppController {
             $conditions = $_REQUEST['request_data'];
             //            $conditions = "orders.check_no='999' AND orders.status=2";
             $conditions = str_replace("orders.", "Order.", $conditions);
-            $orderModel = new Order();
-            // $orderModel->unbindHasManyModels();
             $condition = array('conditions' => $conditions, 'recursive' =>0 );
-            $orders = $orderModel->find('all', $condition);
+            $orders = $this->Order->find('all', $condition);
         }
 
         $result = array('status' => 'ok', 'code' => 200 ,
@@ -186,9 +184,36 @@ class OrdersController extends AppController {
 
 
     /**
+     * getOrdersCount
+     */
+    function getOrdersCount() {
+
+        $count = 0;
+
+        if(!empty($_REQUEST['request_data'])) {
+            $conditions = $_REQUEST['request_data'];
+            $conditions = str_replace("orders.", "Order.", $conditions);
+            $condition = array('conditions' => $conditions, 'recursive' =>0 );
+            $count = $this->Order->find('count', $condition);
+        }
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $count
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+
+    }
+
+
+    /**
      * voidOrder
-     * 
-     * @param <type> $orderId 
+     *
+     * @param <type> $orderId
      */
     function voidOrder($orderId) {
 
@@ -196,13 +221,13 @@ class OrdersController extends AppController {
         $machineId = $this->SyncHandler->getRequestClientMachineId();
 
         if(!empty($_REQUEST['request_data'])) {
-            // for debug
-            //file_put_contents("/tmp/voidOrder.req", $_REQUEST['request_data']);
+        // for debug
+        //file_put_contents("/tmp/voidOrder.req", $_REQUEST['request_data']);
             $request_data = $_REQUEST['request_data'];
         }else {
             $request_data = "{}";
-            // for debug
-            //$request_data = file_get_contents("/tmp/voidOrder.req");
+        // for debug
+        //$request_data = file_get_contents("/tmp/voidOrder.req");
         }
 
         $data = json_decode($request_data, true);
@@ -215,10 +240,101 @@ class OrdersController extends AppController {
 
                 $result = $this->Order->voidOrder($orderId, $data);
 
-                // lock order by recalled machineｓ
-                if(!empty($result)) {
-                    $this->TableOrderLock->setOrderLock($orderId, $machineId);
-                }
+                // update table orders and status
+                $this->Table->voidOrder($orderId, $data);
+
+            }else {
+                $result = false ;
+            }
+
+        }catch (Exception $e) {
+            $result = false;
+        }
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $result
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+        echo $responseResult;
+        exit;
+
+    }
+
+    /**
+     * transferTable
+     *
+     * @param <type> $orderId
+     */
+    function transferTable($orderId, $orgTableId, $newTableId) {
+
+        $result = null;
+        $machineId = $this->SyncHandler->getRequestClientMachineId();
+
+        try {
+
+            $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
+
+            if (!$locked) {
+
+                $result = $this->Order->transferTable($orderId, $orgTableId, $newTableId);
+
+                // update table orders and status
+                $this->Table->transferTable($orderId, $orgTableId, $newTableId);
+
+            }else {
+                $result = false ;
+            }
+
+        }catch (Exception $e) {
+            $result = false;
+        }
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $result
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+        echo $responseResult;
+        exit;
+
+    }
+
+    /**
+     * changeClerk
+     *
+     * @param <type> $orderId
+     */
+    function changeClerk($orderId) {
+
+        $result = null;
+        $machineId = $this->SyncHandler->getRequestClientMachineId();
+
+        if(!empty($_REQUEST['request_data'])) {
+        // for debug
+        //file_put_contents("/tmp/changeClerk.req", $_REQUEST['request_data']);
+            $request_data = $_REQUEST['request_data'];
+        }else {
+            $request_data = "{}";
+        // for debug
+        //$request_data = file_get_contents("/tmp/changeClerk.req");
+        }
+
+        $data = json_decode($request_data, true);
+
+        try {
+
+            $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
+            $locked = false; // debug
+
+            if (!$locked) {
+
+                $this->Order->changeClerk($orderId, $data);
+
+                // update table orders and status
+                $this->Table->changeClerk($orderId, $data);
+
+                $result = true;
 
             }else {
                 $result = false ;

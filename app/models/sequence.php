@@ -4,6 +4,12 @@ App::import('Core', array('CakeLog'));
 class Sequence extends AppModel {
     var $name = 'Sequence';
 
+
+    /**
+     * getSequence
+     * @param <type> $keys
+     * @return <type> 
+     */
     function getSequence($keys = 'default', $initial = 1, $increment = true) {
 
         $result = array();
@@ -54,6 +60,13 @@ class Sequence extends AppModel {
 
     }
 
+
+    /**
+     * setSequence
+     * @param <type> $key
+     * @param <type> $value
+     * @return <type> 
+     */
     function setSequence($key = 'default', $value = 0) {
 
         $this->begin();
@@ -77,6 +90,43 @@ class Sequence extends AppModel {
 
     }
 
+
+    /**
+     * setSequenceMaxValue
+     * @param <type> $key
+     * @param <type> $value
+     * @return <type> 
+     */
+    function setSequenceMaxValue($key = 'default', $value = 0) {
+
+        $this->begin();
+        
+        $data = $this->findByKey($key);
+
+        if ($data) {
+            $id = $data['Sequence']['id'];
+            $this->id = $id;
+            $this->save(array('max_value'=>$value));
+
+        }else {
+            $this->create();
+            $newData = array('id'=> String::uuid() , 'key'=> $key, 'value'=>'0', 'max_value'=>$value);
+            $this->save($newData);
+        }
+
+        $this->commit();
+
+        return $value;
+
+    }
+    
+
+    /**
+     * resetSequence
+     * @param <type> $key
+     * @param <type> $value
+     * @return <type> 
+     */
     function resetSequence($key = 'default', $value = 0) {
 
         return $this->setSequence($key, $value);
