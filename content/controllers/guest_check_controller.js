@@ -36,7 +36,7 @@
             }
 
 
-            this.tableSettings = this.TableSetting.getTableSettings();
+            this.tableSettings = this.TableSetting.getTableSettings() || {};
 
             // table window is first win
             if (this.tableSettings.TableWinAsFirstWin) {
@@ -941,12 +941,21 @@
 
 
         /**
-         * transferTable
+         * changeClerk
          *
-         * @todo need rewrite
          */
-        changeClerk: function(){
+        changeClerk: function(orderId){
 
+            var user = this.Acl.getUserPrincipal();
+            var order = {
+                id: orderId,
+                service_clerk: user.username,
+                service_clerk_displayname: user.description
+            };
+
+            var result = this.Order.changeClerk(orderId, order);
+
+            return result;
         },
 
 
@@ -973,9 +982,16 @@
         /**
          * transferTable 
          *
-         * @todo need rewrite
          */
-        transferTable: function(){
+        transferTable: function(data){
+            
+            var orderId = data.orderId || '';
+            var orgTableId = data.orgTableId || '';
+            var newTableId = data.newTableId || '';
+
+            var result = this.Order.transferTable(orderId, orgTableId, newTableId);
+
+            return result;
 
         },
 

@@ -1076,8 +1076,7 @@
 
                     // check stored order policy, apply if appropriate
                     let policy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenEndPeriod') || 'none';
-                    //let storedOrders = orderModel.getCheckList();
-                    let storedOrders = [];
+                    let storedOrdersCount = orderModel.getOrdersCount('orders.status=2', true);
 
                     if (parseInt(orderModel.lastError) != 0) {
                         this._dbError(orderModel.lastError, orderModel.lastErrorString,
@@ -1085,7 +1084,7 @@
                         return;
                     }
 
-                    if (storedOrders && storedOrders.length > 0) {
+                    if (storedOrdersCount > 0) {
                         if (policy == 'alert') {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Shift Change'),
@@ -1156,8 +1155,8 @@
                 else {
                     // check stored order policy, apply if appropriate
                     let policy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenShiftChange') || 'none';
-                    //let storedOrders = orderModel.getCheckList();
-                    let storedOrders = [];
+                    //let storedOrdersCount = orderModel.getOrdersCount('orders.status=2', true);
+                    let storedOrdersCount = 0;
 
                     if (parseInt(orderModel.lastError) != 0) {
                         this._dbError(orderModel.lastError, orderModel.lastErrorString,
@@ -1165,7 +1164,7 @@
                         return;
                     }
 
-                    if (storedOrders && storedOrders.length > 0) {
+                    if (storedOrdersCount > 0) {
                         if (policy == 'alert') {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Shift Change'),

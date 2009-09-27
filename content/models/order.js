@@ -432,6 +432,64 @@
    
         },
 
+        /**
+         * getOrdersCount
+         *
+         * @param {String} conditions
+         * @param {Boolean} isRemote    use local database or remote service
+         * @return {String} order's id  or null
+         */
+        getOrdersCount: function (conditions, isRemote) {
+
+            isRemote = isRemote || false;
+            if (!conditions) return null;
+
+            var count = 0;
+
+            if (isRemote) {
+                var requestUrl = this.getHttpService().getRemoteServiceUrl('getOrdersCount') ;
+                count = this.getHttpService().requestRemoteService('POST', requestUrl, conditions) || null ;
+            }else {
+                count = this.find('count', {
+                    conditions: conditions,
+                    recursive: 1
+                }) || null;
+            }
+
+            if (count != null) this.log('DEBUG', this.dump(count));
+            return count;
+
+        },
+
+        /**
+         * transferTable
+         *
+         * @return {Boolean} success
+         */
+        transferTable: function(orderId, orgTableId, newTableId) {
+
+           if (!orderId || !orgTableId || !newTableId) return false;
+           
+           var requestUrl = this.getHttpService().getRemoteServiceUrl('transferTable' + '/' + orderId + '/' + orgTableId + '/' + newTableId);
+           var result = this.getHttpService().requestRemoteService('GET', requestUrl) || false ;
+
+           return result;
+        },
+
+        /**
+         * changeClerk
+         *
+         * @return {Boolean} success
+         */
+        changeClerk: function(orderId, order) {
+
+           if (!orderId || !order) return false;
+
+           var requestUrl = this.getHttpService().getRemoteServiceUrl('changeClerk' + '/' + orderId);
+           var result = this.getHttpService().requestRemoteService('POST', requestUrl, order) || false ;
+
+           return result;
+        },
 
         mappingTranToOrderFields: function(data) {
 

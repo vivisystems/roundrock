@@ -87,6 +87,56 @@
 
         },
 
+        setSequence: function(key, value) {
+            key = key || "default";
+            value = value || 0;
+            
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+
+            // discard training mode.
+            if (isTraining) return true;
+
+            var result = false;
+            var remoteUrl = this.getHttpService().getRemoteServiceUrl('setSequence');
+
+            if (remoteUrl) {
+
+                remoteUrl += '/'+key+'/'+value;
+                result = this.getHttpService().requestRemoteService('GET', remoteUrl) || false ;
+
+            } else {
+                result = this.setLocalSequence(key, value);
+            }
+            return result;
+
+        },
+
+        setSequenceMaxValue: function(key, value) {
+            
+             key = key || "default";
+            value = value || 0;
+
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+
+            // discard training mode.
+            if (isTraining) return true;
+
+            var result = false;
+            var remoteUrl = this.getHttpService().getRemoteServiceUrl('setSequenceMaxValue');
+
+            if (remoteUrl) {
+
+                remoteUrl += '/'+key+'/'+value;
+                result = this.getHttpService().requestRemoteService('GET', remoteUrl) || false ;
+
+            } else {
+                result = this.setLocalSequenceMaxValue(key, value);
+            }
+            return result;
+
+           
+        },
+
         getLocalSequence: function(keys ) {
             
             var arKeys = keys.split(',');
@@ -127,12 +177,57 @@
         getTraningSequence: function(key) {
             
             // training mode not update seq to real database.
-            var seq = GeckoJS.Session.get( "TRAINING_" + key) || {value: 0};
+            var seq = GeckoJS.Session.get( "TRAINING_" + key) || {
+                value: 0
+            };
             seq.value++;
             GeckoJS.Session.set( "TRAINING_" + key, seq);
             
             return seq.value;
             
+        },
+
+
+        setLocalSequence: function(key, value) {
+            
+            let seq = this.findByIndex('first', {
+                index: 'key',
+                value: key
+            }) || {
+                id: "",
+                key: key,
+                value: 0,
+                max_value: 0
+            };
+            seq.value = value;
+
+            let result = true;
+            this.id = seq.id;
+            result = this.save(seq);
+
+            return result;
+
+        },
+
+        setLocalSequenceMaxValue: function(key, value) {
+
+            let seq = this.findByIndex('first', {
+                index: 'key',
+                value: key
+            }) || {
+                id: "",
+                key: key,
+                value: 0,
+                max_value: 0
+            };
+            seq.max_value = value;
+
+            let result = true;
+            this.id = seq.id;
+            result = this.save(seq);
+
+            return result;
+
         },
 
         resetSequence: function(key, value, async, callback) {

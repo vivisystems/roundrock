@@ -824,6 +824,7 @@
             // get form values , only checked
             var settings = this.Form.serializeToObject('settingsForm', true);
             this.TableSetting.saveTableSettings(settings);
+
             
         },
 
@@ -835,14 +836,26 @@
             // save table_settings
             this.saveTableSettings();
 
+            // reload setting
+            var tableSettings = this.TableSetting.getTableSettings(true);
 
-            // XXX auto mark save marks
-            // GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
+            // update setting to configure system.
+            try {
+                // set requireCheckNo to configure
+                let requireCheckNo = ( tableSettings.RequireCheckNo ? true : false) || false  ;
+                GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', requireCheckNo );
+
+                // set check_no sequence max value
+                let maxCheckNo = tableSettings.MaxCheckNo || 100;
+                if (requireCheckNo) {
+                    let seqModel = new SequenceModel();
+                    seqModel.setSequenceMaxValue('check_no', maxCheckNo);
+                }
+            }catch(e) {
+            }
 
             OsdUtils.info(_('Options saved successfully'));
 
-        // XXX reset status ?
-        //            this._getTableStatusModel().setTableStatusOptions();
         },
 
         cloneSettingsFromMaster: function() {
@@ -987,7 +1000,7 @@
 
             // settings
             if(this.TableSetting.isRemoteService()) {
-            // can edit always
+                // can edit always
                 document.getElementById('automark_after_submit').setAttribute('disabled', true);
             }else {
                 document.getElementById('clone_settings_from_master').setAttribute('hidden', true);

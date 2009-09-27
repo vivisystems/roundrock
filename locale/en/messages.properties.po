@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-09-28 00:55+0800\n"
+"POT-Creation-Date: 2009-09-28 01:21+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3744,7 +3744,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:1356
 #: ../..//content/controllers/print_controller.js:1191
 #: ../..//content/controllers/setup_wizard_controller.js:700
-#: ../..//content/controllers/shift_changes_controller.js:1464
+#: ../..//content/controllers/shift_changes_controller.js:1463
 #: ../..//content/controllers/stock_records_controller.js:730
 #: ../..//content/controllers/view_order_controller.js:176
 #: ../..//content/controllers/components/cart_utils.js:48
@@ -4493,8 +4493,8 @@ msgstr ""
 #: ../..//content/controllers/export_locale_controller.js:68
 #: ../..//content/controllers/package_builder_controller.js:354
 #: ../..//content/controllers/stock_records_controller.js:664
-#: ../..//content/controllers/systembackup_controller.js:196
-#: ../..//content/controllers/systembackup_controller.js:266
+#: ../..//content/controllers/systembackup_controller.js:207
+#: ../..//content/controllers/systembackup_controller.js:285
 msgid "Media not found!! Please attach the USB thumb drive..."
 msgstr ""
 
@@ -4681,7 +4681,7 @@ msgid ""
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:992
+#: ../..//content/controllers/guest_check_controller.js:1008
 msgid "Table Initialization"
 msgstr ""
 
@@ -4748,7 +4748,7 @@ msgstr ""
 
 #: ../..//content/controllers/image_manager_controller.js:77
 #: ../..//content/controllers/import_export_controller.js:58
-#: ../..//content/controllers/systembackup_controller.js:147
+#: ../..//content/controllers/systembackup_controller.js:155
 #: ../..//content/reports/controllers/components/csv_export.js:17
 msgid "Failed to execute command (%S)."
 msgstr ""
@@ -5107,7 +5107,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:1357
 #: ../..//content/controllers/setup_wizard_controller.js:701
 #: ../..//content/controllers/shift_changes_controller.js:41
-#: ../..//content/controllers/shift_changes_controller.js:1465
+#: ../..//content/controllers/shift_changes_controller.js:1464
 #: ../..//content/controllers/stock_records_controller.js:731
 #: ../..//content/controllers/stocks_controller.js:296
 #: ../..//content/controllers/view_order_controller.js:177
@@ -6305,78 +6305,102 @@ msgstr ""
 msgid "All Regions"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:402
+#: ../..//content/controllers/select_table_controller.js:405
 msgid "Select Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:402
+#: ../..//content/controllers/select_table_controller.js:405
 msgid "Please select a table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:407
-#: ../..//content/controllers/select_table_controller.js:413
+#: ../..//content/controllers/select_table_controller.js:410
+#: ../..//content/controllers/select_table_controller.js:416
 msgid "Merge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:407
+#: ../..//content/controllers/select_table_controller.js:410
 msgid "Please select the master table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:413
+#: ../..//content/controllers/select_table_controller.js:416
 msgid "Please select the table merge to [%S]..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:417
+#: ../..//content/controllers/select_table_controller.js:420
 msgid "Unmerge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:417
+#: ../..//content/controllers/select_table_controller.js:420
 msgid "Please select the table to unmerge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:421
+#: ../..//content/controllers/select_table_controller.js:425
 msgid "Book Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:421
+#: ../..//content/controllers/select_table_controller.js:425
 msgid "Please select a table to book..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:425
+#: ../..//content/controllers/select_table_controller.js:429
 msgid "Add Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:425
+#: ../..//content/controllers/select_table_controller.js:429
 msgid "Please select the table to mark status..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:429
+#: ../..//content/controllers/select_table_controller.js:434
 msgid "Clear Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:429
+#: ../..//content/controllers/select_table_controller.js:434
 msgid "Please select the table to clear status..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:530
-#: ../..//content/controllers/select_table_controller.js:531
-#: ../..//content/controllers/select_table_controller.js:630
-#: ../..//content/controllers/select_table_controller.js:634
-#: ../..//content/controllers/select_table_controller.js:649
-#: ../..//content/controllers/select_table_controller.js:684
-#: ../..//content/controllers/select_table_controller.js:745
-#: ../..//content/controllers/select_table_controller.js:749
-#: ../..//content/controllers/select_table_controller.js:792
-msgid "Table [%S] Not available.Status: [%S], Active: [%S]"
+#: ../..//content/controllers/select_table_controller.js:439
+msgid "Trans Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:719
-#: ../..//content/controllers/select_table_controller.js:722
+#: ../..//content/controllers/select_table_controller.js:439
+msgid "Please select the table to be transfered..."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:543
+msgid "Table [%S] Not available to select. Status: [%S], Active: [%S]"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:646
+#: ../..//content/controllers/select_table_controller.js:650
+#: ../..//content/controllers/select_table_controller.js:665
+msgid "Table [%S] Not available to merge. Status: [%S], Active: [%S]"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:703
+msgid "Table [%S] Not available to unmerge. Status: [%S], Active: [%S]"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:741
+#: ../..//content/controllers/select_table_controller.js:744
 msgid "Select Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:720
+#: ../..//content/controllers/select_table_controller.js:742
 msgid "You are now marking table status of Table# %S (%S)"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:767
+#: ../..//content/controllers/select_table_controller.js:771
+msgid "Table [%S] Not available to mark. Status: [%S], Active: [%S]"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:817
+msgid "Table [%S] Not available to ummark. Status: [%S], Active: [%S]"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:898
+#: ../..//content/controllers/select_table_controller.js:902
+msgid "Table [%S] Not available to transfer. Status: [%S], Active: [%S]"
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:66
@@ -6449,10 +6473,10 @@ msgstr ""
 #: ../..//content/controllers/shift_changes_controller.js:39
 #: ../..//content/controllers/shift_changes_controller.js:506
 #: ../..//content/controllers/shift_changes_controller.js:960
-#: ../..//content/controllers/shift_changes_controller.js:1091
-#: ../..//content/controllers/shift_changes_controller.js:1096
-#: ../..//content/controllers/shift_changes_controller.js:1171
-#: ../..//content/controllers/shift_changes_controller.js:1176
+#: ../..//content/controllers/shift_changes_controller.js:1090
+#: ../..//content/controllers/shift_changes_controller.js:1095
+#: ../..//content/controllers/shift_changes_controller.js:1170
+#: ../..//content/controllers/shift_changes_controller.js:1175
 msgid "Shift Change"
 msgstr ""
 
@@ -6531,8 +6555,8 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:327
-#: ../..//content/controllers/shift_changes_controller.js:1117
-#: ../..//content/controllers/shift_changes_controller.js:1141
+#: ../..//content/controllers/shift_changes_controller.js:1116
+#: ../..//content/controllers/shift_changes_controller.js:1140
 msgid "Shift Change Error"
 msgstr ""
 
@@ -6548,7 +6572,7 @@ msgid "Shift Change Warning"
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:387
-#: ../..//content/controllers/shift_changes_controller.js:1411
+#: ../..//content/controllers/shift_changes_controller.js:1410
 msgid ""
 "This terminal's sale period [%S (%S)] appears to be out of sync with the "
 "cluster sale period [%S (%S)]. Please close the sale period on this terminal "
@@ -6703,72 +6727,72 @@ msgid ""
 "have been closed properly [message #1427].."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1084
-#: ../..//content/controllers/shift_changes_controller.js:1164
+#: ../..//content/controllers/shift_changes_controller.js:1083
+#: ../..//content/controllers/shift_changes_controller.js:1163
 msgid ""
 "An error was encountered while retrieving order records (error code %S) "
 "[message #1428]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1092
-#: ../..//content/controllers/shift_changes_controller.js:1172
+#: ../..//content/controllers/shift_changes_controller.js:1091
+#: ../..//content/controllers/shift_changes_controller.js:1171
 msgid "Note: one or more orders are still open."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1097
+#: ../..//content/controllers/shift_changes_controller.js:1096
 msgid "You may not end the current sale period while orders are still open."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1118
+#: ../..//content/controllers/shift_changes_controller.js:1117
 msgid ""
 "Failed to close sale period because cluster sequence number could not be "
 "reset. Please check the network connectivity to the terminal designated as "
 "the sale period master."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1142
+#: ../..//content/controllers/shift_changes_controller.js:1141
 msgid ""
 "Failed to close sale period because cluster sale period could not be "
 "updated. Please check the network connectivity to the terminal designated as "
 "the sale period master."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1177
+#: ../..//content/controllers/shift_changes_controller.js:1176
 msgid "You may not close the current shift while orders are still open."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1202
+#: ../..//content/controllers/shift_changes_controller.js:1201
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1203
+#: ../..//content/controllers/shift_changes_controller.js:1202
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1229
+#: ../..//content/controllers/shift_changes_controller.js:1228
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1230
+#: ../..//content/controllers/shift_changes_controller.js:1229
 msgid "Shift Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1238
+#: ../..//content/controllers/shift_changes_controller.js:1237
 msgid "Are you sure you want to print shift report?"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1253
+#: ../..//content/controllers/shift_changes_controller.js:1252
 msgid "Are you sure you want to print daily sales report?"
+msgstr ""
+
+#: ../..//content/controllers/shift_changes_controller.js:1383
+#: ../..//content/controllers/shift_changes_controller.js:1401
+#: ../..//content/controllers/shift_changes_controller.js:1426
+msgid "Shift Error"
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1384
 #: ../..//content/controllers/shift_changes_controller.js:1402
-#: ../..//content/controllers/shift_changes_controller.js:1427
-msgid "Shift Error"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:1385
-#: ../..//content/controllers/shift_changes_controller.js:1403
 msgid ""
 "Failed to verify current sale period. Please check the network connectivity "
 "to the terminal designated as the sale period master. You are strongly "
@@ -6776,11 +6800,11 @@ msgid ""
 "this terminal."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1410
+#: ../..//content/controllers/shift_changes_controller.js:1409
 msgid "Shift Warning"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1428
+#: ../..//content/controllers/shift_changes_controller.js:1427
 msgid ""
 "A valid sale period has not been set for this terminal. Please resolve this "
 "issue before executing any further transactions on this terminal."
@@ -7092,67 +7116,67 @@ msgid ""
 "exiting?"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:175
+#: ../..//content/controllers/systembackup_controller.js:183
 msgid "Backing Up Data to Local Storage"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:184
+#: ../..//content/controllers/systembackup_controller.js:195
 msgid "<Backup to Local> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:200
+#: ../..//content/controllers/systembackup_controller.js:211
 msgid "Copying Backup Data to External Storage"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:215
+#: ../..//content/controllers/systembackup_controller.js:229
 msgid "<Copy Backup to Stick> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:218
+#: ../..//content/controllers/systembackup_controller.js:232
 msgid "Please select a local backup first"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:230
+#: ../..//content/controllers/systembackup_controller.js:244
 msgid "Restoring Data from Local Backup"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:244
+#: ../..//content/controllers/systembackup_controller.js:258
 msgid "Do you want to restore [%S] from local backup?"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:244
-#: ../..//content/controllers/systembackup_controller.js:285
+#: ../..//content/controllers/systembackup_controller.js:258
+#: ../..//content/controllers/systembackup_controller.js:304
 msgid ""
 "If you execute restore now, the system will restart automatically after you "
 "return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:247
-#: ../..//content/controllers/systembackup_controller.js:288
+#: ../..//content/controllers/systembackup_controller.js:261
+#: ../..//content/controllers/systembackup_controller.js:307
 msgid "Confirm Restore"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:251
+#: ../..//content/controllers/systembackup_controller.js:270
 msgid "<Restore from Local backup> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:255
+#: ../..//content/controllers/systembackup_controller.js:274
 msgid "Please select an external backup to restore from"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:271
+#: ../..//content/controllers/systembackup_controller.js:290
 msgid "Restoring Data from External Backup"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:285
+#: ../..//content/controllers/systembackup_controller.js:304
 msgid "Do you want to restore [%S] from external USB storage?"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:293
+#: ../..//content/controllers/systembackup_controller.js:316
 msgid "<Restore from Stick> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:297
+#: ../..//content/controllers/systembackup_controller.js:320
 msgid "Please select a local backup to restore from"
 msgstr ""
 
@@ -7349,33 +7373,33 @@ msgstr ""
 msgid "Table status [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:842
+#: ../..//content/controllers/table_man_controller.js:857
 msgid "Options saved successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:851
+#: ../..//content/controllers/table_man_controller.js:864
 msgid "Clone Table Management Options"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:852
+#: ../..//content/controllers/table_man_controller.js:865
 msgid "Table management options will be cloned from the table status server."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:852
+#: ../..//content/controllers/table_man_controller.js:865
 msgid "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:900
+#: ../..//content/controllers/table_man_controller.js:913
 msgid ""
 "Modification of tables and regions requires system restart to take effect."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:901
+#: ../..//content/controllers/table_man_controller.js:914
 msgid ""
 "The system will restart automatically after you return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:902
+#: ../..//content/controllers/table_man_controller.js:915
 msgid "Table Manager"
 msgstr ""
 
