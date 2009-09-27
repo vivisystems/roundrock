@@ -69,6 +69,7 @@
 <!ENTITY tableman.tableoptions.maxcheckno "Maximum check number:">
 <!ENTITY tableman.tableoptions.tablerefreshfrequence "Update frequency (seconds):">
 <!ENTITY tableman.tableoptions.quickselecttableno "Direct access main screen when clicking empty table">
+<!ENTITY tableman.tableoptions.staydownaction "Staydown selected action">
 
 <!ENTITY tableman.tableoptions.minimumchargeoptions "Minimum Charge:">
 <!ENTITY tableman.tableoptions.requestminimumcharge "Force Minimum Charge">

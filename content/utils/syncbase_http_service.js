@@ -203,9 +203,15 @@
         },
 
         encodeRequestData: function(data) {
-            
+
+            let result = '';
             // use encodeComponentURI
-            return encodeURIComponent(data)
+            if (typeof data == 'object') {
+                result = JSON.stringify(data);
+            }else {
+                result = encodeURIComponent(data) ;
+            }
+            return result;
            
         },
 

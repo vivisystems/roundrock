@@ -446,6 +446,36 @@
 
         },
 
+        /**
+         * transferTable
+         *
+         * @return {Boolean} success
+         */
+        transferTable: function(orderId, orgTableId, newTableId) {
+
+           if (!orderId || !orgTableId || !newTableId) return false;
+           
+           var requestUrl = this.getHttpService().getRemoteServiceUrl('transferTable' + '/' + orderId + '/' + orgTableId + '/' + newTableId);
+           var result = this.getHttpService().requestRemoteService('GET', requestUrl) || false ;
+
+           return result;
+        },
+
+        /**
+         * changeClerk
+         *
+         * @return {Boolean} success
+         */
+        changeClerk: function(orderId, order) {
+
+           if (!orderId || !order) return false;
+
+           var requestUrl = this.getHttpService().getRemoteServiceUrl('changeClerk' + '/' + orderId);
+           var result = this.getHttpService().requestRemoteService('POST', requestUrl, order) || false ;
+
+           return result;
+        },
+
         mappingTranToOrderFields: function(data) {
 
             var orderData = {};
