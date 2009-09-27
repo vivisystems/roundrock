@@ -456,7 +456,7 @@
                 }) || null;
             }
 
-            if (count != null) this.log('DEBUG', this.dump(count));
+            this.log('DEBUG', (count == null ? '' : this.dump(count)));
             return count;
 
         },
