@@ -16,7 +16,10 @@ if (is_dir($dir)) {
 
 			$out_file = $dir . str_replace(".txt", ".lic", $file);
 		
-			preg_match('/license stub= (.*)$/', $content, $m);
+            if(!preg_match('/license stub= (.*)$/', $content, $m)) {
+                // maybe 1.2
+                preg_match('/license_stub=(.*)$/', $content, $m);
+            };
 
 			$out = shell_exec("echo " . trim($m[1]) . " | ./getSystemLicense > " . $out_file);
 
