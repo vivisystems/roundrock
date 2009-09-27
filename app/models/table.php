@@ -34,7 +34,7 @@ class Table extends AppModel {
         return $this->_tableNoToIds;
     }
 
-    
+
     /**
      * getTableIdToNos mapping array
      *
@@ -92,13 +92,13 @@ class Table extends AppModel {
      * @param <type> $datas
      * @return <type>
      */
-    function voidOrder($orderId, $datas) {
+    function voidOrder($orderId, $data) {
 
-        if (empty($orderId) || empty($datas['table_no'])) return false ;
+        if (empty($orderId) || empty($data['table_no'])) return false ;
 
         $arOrders = array();
 
-        $arOrders[0] = datas;
+        $arOrders[0] = $data;
 
         // save table order
         $this->TableOrder->updateOrders($arOrders, $this->getTableNoToIds());
@@ -108,6 +108,44 @@ class Table extends AppModel {
 
     // maintaince expire mark
 
+    }
+
+
+    function transferTable($orderId, $orgTableId, $newTableId) {
+
+        if (empty($orderId) || empty($orgTableId) || empty($newTableId)) return false ;
+
+        $tableIdToNos = $this->getTableIdToNos();
+
+        $orgTableNo = $tableIdToNos[$orgTableId];
+        $newTableNo = $tableIdToNos[$newTableId];
+
+        $arOrders = array();
+        $arOrders[0] = array('status'=>2, 'id'=>$orderId, 'table_id'=>$newTableId, 'table_no'=>$newTableNo);
+
+        // save table order
+        $this->TableOrder->updateOrders($arOrders, $this->getTableNoToIds());
+
+        $arOrders[1] = array('status'=>0, 'id'=>'', 'table_id'=>$orgTableId, 'table_no'=>$orgTableNo);
+
+        // update table status 's order count
+        $this->TableStatus->updateStatusByOrders($arOrders, $this->getTableNoToIds());
+    }
+
+    
+    function changeClerk($orderId, $data) {
+        if (empty($orderId) || empty($data)) return false ;
+
+        $order = $this->TableOrder->findById($orderId);
+        
+        $arOrders = array();
+        $arOrders[0] = array_merge($order['TableOrder'], $data);
+
+        // save table order
+        $this->TableOrder->updateOrders($arOrders, $this->getTableNoToIds());
+
+        // update table status 's order count
+        $this->TableStatus->updateStatusByOrders($arOrders, $this->getTableNoToIds());
     }
 
 }

@@ -235,13 +235,106 @@ class OrdersController extends AppController {
         try {
 
             $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
-            
+
             if (!$locked) {
 
                 $result = $this->Order->voidOrder($orderId, $data);
 
                 // update table orders and status
-                $this->Table->voidOrder($orderId, $datas);
+                $this->Table->voidOrder($orderId, $data);
+
+            }else {
+                $result = false ;
+            }
+
+        }catch (Exception $e) {
+            $result = false;
+        }
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $result
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+        echo $responseResult;
+        exit;
+
+    }
+
+    /**
+     * transferTable
+     *
+     * @param <type> $orderId
+     */
+    function transferTable($orderId, $orgTableId, $newTableId) {
+
+        $result = null;
+        $machineId = $this->SyncHandler->getRequestClientMachineId();
+
+        try {
+
+            $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
+
+            if (!$locked) {
+
+                $result = $this->Order->transferTable($orderId, $orgTableId, $newTableId);
+
+                // update table orders and status
+                $this->Table->transferTable($orderId, $orgTableId, $newTableId);
+
+            }else {
+                $result = false ;
+            }
+
+        }catch (Exception $e) {
+            $result = false;
+        }
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $result
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+        echo $responseResult;
+        exit;
+
+    }
+
+    /**
+     * changeClerk
+     *
+     * @param <type> $orderId
+     */
+    function changeClerk($orderId) {
+
+        $result = null;
+        $machineId = $this->SyncHandler->getRequestClientMachineId();
+
+        if(!empty($_REQUEST['request_data'])) {
+        // for debug
+        //file_put_contents("/tmp/changeClerk.req", $_REQUEST['request_data']);
+            $request_data = $_REQUEST['request_data'];
+        }else {
+            $request_data = "{}";
+        // for debug
+        //$request_data = file_get_contents("/tmp/changeClerk.req");
+        }
+
+        $data = json_decode($request_data, true);
+
+        try {
+
+            $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
+            $locked = false; // debug
+
+            if (!$locked) {
+
+                $this->Order->changeClerk($orderId, $data);
+
+                // update table orders and status
+                $this->Table->changeClerk($orderId, $data);
+
+                $result = true;
 
             }else {
                 $result = false ;

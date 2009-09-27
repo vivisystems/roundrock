@@ -233,6 +233,42 @@ class Order extends AppModel {
         return $result;
     }
 
+    /**
+     *
+     * @param <type> $id
+     * @param <type> $data
+     * @return <type>
+     */
+    function transferTable($orderId, $orgTableId, $newTableId) {
+
+        $tableModel = new Table();
+        $tableIdToNos = $tableModel->getTableIdToNos();
+
+        $orgTableNo = $tableIdToNos[$orgTableId];
+        $newTableNo = $tableIdToNos[$newTableId];
+
+        $this->id = $orderId;
+        $this->save(array('table_no'=>$newTableNo));
+
+        return $result;
+    }
+
+    /**
+     * changeClerk
+     * @param <type> $id
+     * @param <type> $data
+     * @return <type>
+     */
+    function changeClerk($id, $data) {
+
+        // update order
+        $this->id = $id;
+        $result = $this->save($data);
+
+        return $result;
+    }
+
+
 }
 
 ?>
