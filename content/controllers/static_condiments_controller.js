@@ -100,7 +100,7 @@
 
             var selectedCondGroup = GeckoJS.Configure.read('vivipos.fec.settings.static_condiments.condiment_group') || condGroup || '';
 
-            var condGroupsById = GeckoJS.Session.get('condGroupsById');
+            var condGroupsById = GeckoJS.Session.get('condGroupsById') || {};
 
             var viewHelper = new NSICondimentsView();
             viewHelper.supportSoldout = true;

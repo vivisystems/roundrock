@@ -10,7 +10,7 @@
         useDbConfig: 'order',
 
         belongsTo: ['Order'],
-        
+
         behaviors: ['Sync', 'Training'],
 
         autoRestoreFromBackup: true,
@@ -177,7 +177,7 @@
         rebuildDisplaySequences: function(data) {
 
         }
-        
+
     };
 
     var OrderItemModel = window.OrderItemModel =  AppModel.extend(__model__);

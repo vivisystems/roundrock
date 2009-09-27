@@ -600,7 +600,7 @@
                             var rate = parseFloat(cTaxObj['rate']);
                             if (cTaxObj['rate_type'] == '$') {
                                 var taxCharge = qty * rate || 0;
-                                taxAmount[no]['combine'][cTaxObj.name] = {
+                                taxAmount[no]['combine'][cTaxObj.no] = {
                                     charge: 0,
                                     included: taxCharge,
                                     tax: cTaxObj
@@ -625,7 +625,7 @@
                         for (var i = 0; i < includedRateTaxes.length - 1; i++) {
                             var cTaxObj = includedRateTaxes[i];
                             var partialIncludedAmount = cTaxObj.rate * includedRateAmount / includedRate;
-                            taxAmount[no]['combine'][cTaxObj.name] = {
+                            taxAmount[no]['combine'][cTaxObj.no] = {
                                 charge: 0,
                                 included: partialIncludedAmount,
                                 tax: cTaxObj
@@ -634,7 +634,7 @@
                         }
 
                        var cTaxObj = includedRateTaxes[i];
-                       taxAmount[no]['combine'][cTaxObj.name] = {
+                       taxAmount[no]['combine'][cTaxObj.no] = {
                            charge: 0,
                            included: includedRateAmount - allocatedTaxAmount,
                            tax: cTaxObj
@@ -648,7 +648,7 @@
                     taxObject.CombineTax.forEach(function(cTaxObj){
                         if (cTaxObj.type == 'ADDON') {
                             var cTaxAmount = this.calcTaxAmount(cTaxObj['no'], addonBasis, unitprice, qty);
-                            taxAmount[no]['combine'][cTaxObj.name] = {
+                            taxAmount[no]['combine'][cTaxObj.no] = {
                                 charge: cTaxAmount[cTaxObj.no].charge || 0,
                                 included: cTaxAmount[cTaxObj.no].included || 0,
                                 tax: cTaxObj
@@ -679,7 +679,7 @@
 
                             if (charge > 0) {
                                 totalCharge += charge;
-                                taxAmount['combine'][cTaxObj.name] = {
+                                taxAmount['combine'][cTaxObj.no] = {
                                     charge: charge,
                                     tax: cTaxObj
                                 };

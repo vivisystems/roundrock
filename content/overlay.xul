@@ -19,74 +19,74 @@
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript;version=1.7"/>
 
   <!-- include front-end views -->
-  <script src='chrome://viviecr/content/helpers/nsi_products_view.js'/>
-  <script src='chrome://viviecr/content/helpers/nsi_plus_view.js'/>
-  <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
-  <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
-  <script src='chrome://viviecr/content/helpers/nsi_condiments_view.js'/>
-  <script src='chrome://viviecr/content/helpers/nsi_cart_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_products_view.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/helpers/nsi_plus_view.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/helpers/nsi_categories_view.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/helpers/nsi_departments_view.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/helpers/nsi_condiments_view.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/helpers/nsi_cart_view.js' type="application/x-javascript;version=1.7"/>
 
   <!-- front-end components -->
-  <script src='chrome://viviecr/content/controllers/components/barcode.js'/>
-  <script src='chrome://viviecr/content/controllers/components/tax.js'/>
-  <script src='chrome://viviecr/content/controllers/components/cart_utils.js'/>
-  <script src='chrome://viviecr/content/controllers/components/guest_check.js'/>
+  <script src='chrome://viviecr/content/controllers/components/barcode.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/components/tax.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/components/cart_utils.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/components/guest_check.js' type="application/x-javascript;version=1.7"/>
   
   <!-- include base controller -->
-  <script src='chrome://viviecr/content/controller/app_controller.js'/>
+  <script src='chrome://viviecr/content/controller/app_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- front-end UI controllers -->
-  <script src='chrome://viviecr/content/controllers/main_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/main_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/cart_controller.js' type='application/x-javascript;version=1.8'/>
   <script src='chrome://viviecr/content/controllers/cart_queue_controller.js' type='application/x-javascript;version=1.8'/>
   <script src='chrome://viviecr/content/controllers/guest_check_controller.js' type='application/x-javascript;version=1.8'/>
-  <script src='chrome://viviecr/content/controllers/keypad_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/layout_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/keypad_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/layout_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- function controllers -->
   <script src='chrome://viviecr/content/controllers/pricelevelschedule_controller.js' type='application/x-javascript;version=1.7'/>
-  <script src='chrome://viviecr/content/controllers/pricelevel_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/condiments_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/currencysetup_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/destination_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/storecontact_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/annotation_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/shift_changes_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/plus_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/ledger_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/ledger_entry_types_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/stocks_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/training_mode_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/nonplu_setting_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/stock_records_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/pricelevel_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/condiments_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/currencysetup_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/destination_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/storecontact_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/annotation_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/shift_changes_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/plus_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/ledger_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/ledger_entry_types_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/stocks_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/training_mode_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/nonplu_setting_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/stock_records_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- report controllers for reports to be generated from front-end -->
-  <script src='chrome://viviecr/content/reports/controllers/rpt_cash_by_clerk_controller.js'/>
-  <script src='chrome://viviecr/content/reports/controllers/rpt_sales_summary_controller.js'/>
+  <script src='chrome://viviecr/content/reports/controllers/rpt_cash_by_clerk_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/reports/controllers/rpt_sales_summary_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- electronic journal controller-->
-  <script src='chrome://viviecr/content/controllers/journal_controller.js' />
+  <script src='chrome://viviecr/content/controllers/journal_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- device controllers -->
-  <script src='chrome://viviecr/content/controllers/devices_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/print_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/printer_dashboard_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/vfd_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/cashdrawer_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/gpio_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/scale_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/devices_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/print_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/printer_dashboard_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/vfd_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/cashdrawer_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/gpio_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/scale_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- scale drivers -->
-  <script src='chrome://viviecr/content/devices/controllers/scale/mt_tiger_ii_controller.js'/>
-  <script src='chrome://viviecr/content/devices/controllers/scale/excell_aw_30_controller.js'/>
+  <script src='chrome://viviecr/content/devices/controllers/scale/mt_tiger_ii_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/devices/controllers/scale/excell_aw_30_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- services controller -->
-  <script src='chrome://viviecr/content/controllers/idle_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/idle_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- promotions controller -->
-  <script src='chrome://viviecr/content/controllers/promotions_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/promotions_controller.js' type="application/x-javascript;version=1.7"/>
 
-  <script src="chrome://viviecr/content/overlay.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/overlay.js" type="application/x-javascript;version=1.7"/>
 
     <box id="main-container" class="main-overlay">
 

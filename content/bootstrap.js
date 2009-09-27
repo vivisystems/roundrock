@@ -30,6 +30,7 @@ include("chrome://viviecr/content/models/inventory_commitment.js");
 
 include('chrome://viviecr/content/models/order.js');
 include('chrome://viviecr/content/models/order_item.js');
+include('chrome://viviecr/content/models/order_item_tax.js');
 include('chrome://viviecr/content/models/order_addition.js');
 include('chrome://viviecr/content/models/order_payment.js');
 include('chrome://viviecr/content/models/order_object.js');

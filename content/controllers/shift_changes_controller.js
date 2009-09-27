@@ -1075,8 +1075,9 @@
                 if (inputObj.end) {
 
                     // check stored order policy, apply if appropriate
-                    var policy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenEndPeriod') || 'none';
-                    var storedOrders = orderModel.getCheckList();
+                    let policy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenEndPeriod') || 'none';
+                    //let storedOrders = orderModel.getCheckList();
+                    let storedOrders = [];
 
                     if (parseInt(orderModel.lastError) != 0) {
                         this._dbError(orderModel.lastError, orderModel.lastErrorString,
@@ -1154,8 +1155,9 @@
                 }
                 else {
                     // check stored order policy, apply if appropriate
-                    var policy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenShiftChange') || 'none';
-                    var storedOrders = orderModel.getCheckList();
+                    let policy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenShiftChange') || 'none';
+                    //let storedOrders = orderModel.getCheckList();
+                    let storedOrders = [];
 
                     if (parseInt(orderModel.lastError) != 0) {
                         this._dbError(orderModel.lastError, orderModel.lastErrorString,
