@@ -188,7 +188,9 @@
             if (withProfile) args.push('with-profile');
 
             // log user process
-            this.log('WARN', 'backupToLocal withProfile: [' + withProfile +']');
+            this.log('FATAL', 'backupToLocal withProfile: [' + withProfile +']');
+
+            this.flushPrefs(); // flush it.
 
             if (this.execute(this._scriptPath + "backup.sh", args)) {
                 this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
@@ -222,7 +224,7 @@
                 var param = ["-fr", this._localbackupDir + dir, this._stickbackupDir];
 
                 // log user process
-                this.log('WARN', 'backupToStick file: [' + dir +']');
+                this.log('FATAL', 'backupToStick file: [' + dir +']');
 
                 if (this.execute("/bin/cp", param)) {
                     this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
@@ -261,11 +263,13 @@
                 if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Restore"), confirmMessage )) {
 
                     // log user process
-                    this.log('WARN', 'restoreFromLocal file: [' + dir + '] withSystem: [' + withSystem +']');
+                    this.log('FATAL', 'restoreFromLocal file: [' + dir + '] withSystem: [' + withSystem +']');
 
                     this.sleep(100);
+
+                    this.flushPrefs(); // flush it.
+                    
                     if (this.execute(this._scriptPath + "restore.sh", args )) {
-                        this.reloadPrefs();
                         this._restart();
                         NotifyUtils.info(_('<Restore from Local backup> is done!!'));
                     }
@@ -307,11 +311,13 @@
                 if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Restore"), confirmMessage)) {
 
                     // log user process
-                    this.log('WARN', 'restoreFromStick file: [' + dir + '] withSystem: [' + withSystem +']');
+                    this.log('FATAL', 'restoreFromStick file: [' + dir + '] withSystem: [' + withSystem +']');
 
                     this.sleep(100);
+
+                    this.flushPrefs(); // flush it.
+
                     if (this.execute(this._scriptPath + "restore.sh", args)){
-                        this.reloadPrefs();
                         this._restart();
                         NotifyUtils.info(_('<Restore from Stick> is done!!'));
                     }
@@ -325,13 +331,12 @@
             waitPanel.hidePopup();
         },
 
-        reloadPrefs: function() {
+        flushPrefs: function() {
             try {
                 var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
-                // read prefs.js or user.js
-                mPrefService.readUserPrefs(null);
-                this.sleep(500);
+                // mPrefService.readUserPrefs(null);
                 mPrefService.savePrefFile(null);
+                this.sleep(500);
             }catch(e) {
                 this.log('ERROR', 'Error reload prefs.js');
             }

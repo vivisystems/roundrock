@@ -3107,7 +3107,6 @@
                 // if the order has been stored, then it cannot be cancelled; it must be voided instead
                 if (curTransaction.data.recall == 2) {
 
-                    // XXX need rewrite
                     // determine if new items have been added
                     if (!curTransaction.isModified() || forceCancel ||
                         GREUtils.Dialog.confirm(this.topmostWindow,

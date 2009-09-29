@@ -100,21 +100,6 @@
         </hbox>
     </vbox>
 
-    <!--panel id="prompt_panel" position="overlap" noautohide="true" class="MsgPnl">
-        <hbox flex="1" >
-            <vbox class="PromptBox" flex="1">
-                <label id="prompt_1" value="prompt 1" class="PromptLabel1" />
-                <label id="prompt_2" value="prompt 2" class="PromptLabel2" />
-                <label id="prompt_3" value="prompt 3" class="PromptLabel2" />
-                <spacer flex="1" />
-                <label id="prompt_4" value="prompt 4" class="PromptLabel3" />
-            </vbox>
-            <vbox pack="end">
-                <button class="CancelBtn" label="Cancel" oncommand="$do('doClosePromptPanel', null, 'SelectTable');"/>
-            </vbox>
-        </hbox>
-    </panel-->
-
     <panel id="order_display_panel" position="after_start" noautohide="true" class="PromptPnl"
            onpopupshown="document.getElementById('orders_tab').selectedIndex=0;" >
 
