@@ -550,6 +550,7 @@
         var taxAmount = {}; taxAmount[no] = {
             charge: 0,
             included: 0,
+            taxable: 0,
             tax: taxObject
         };
 
@@ -563,8 +564,8 @@
             default:
             case "INCLUDED":
                 taxAmount[no]['charge'] = 0;
+                var included = 0;
                 if (unitprice >= taxObject['threshold']) {
-                    var included = 0;
                     if (taxObject['rate_type'] == '$') {
                         included = qty * taxObject['rate'];
                     }else {
@@ -573,9 +574,11 @@
                     }
                     if (included > 0) taxAmount[no]['included'] = included;
                 }
+                taxAmount[no]['taxable'] = amount - included;
                 break;
                 
             case "ADDON":
+                taxAmount[no]['taxable'] = amount;
                 if (unitprice >= taxObject['threshold']) {
                     var charge = 0;
                     if (taxObject['rate_type'] == '$') {
@@ -610,6 +613,7 @@
                                 taxAmount[no]['combine'][cTaxObj.no] = {
                                     charge: 0,
                                     included: taxCharge,
+                                    taxable: amount,
                                     tax: cTaxObj
                                 }
                                 includedChargeAmount += taxCharge;
@@ -635,6 +639,7 @@
                             taxAmount[no]['combine'][cTaxObj.no] = {
                                 charge: 0,
                                 included: partialIncludedAmount,
+                                taxable: amount1 - includedRateAmount,
                                 tax: cTaxObj
                             }
                             allocatedTaxAmount += partialIncludedAmount;
@@ -644,6 +649,7 @@
                        taxAmount[no]['combine'][cTaxObj.no] = {
                            charge: 0,
                            included: includedRateAmount - allocatedTaxAmount,
+                           taxable: amount1 - includedRateAmount,
                            tax: cTaxObj
                        }
                     }
@@ -658,6 +664,7 @@
                             taxAmount[no]['combine'][cTaxObj.no] = {
                                 charge: cTaxAmount[cTaxObj.no].charge || 0,
                                 included: cTaxAmount[cTaxObj.no].included || 0,
+                                taxable: addonBasis,
                                 tax: cTaxObj
                             }
                             totalCharge += cTaxAmount[cTaxObj.no].charge || 0;

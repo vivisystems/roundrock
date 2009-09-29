@@ -42,6 +42,7 @@
                     orderItemTax['tax_threshold'] = tax.threshold;
                     orderItemTax['tax_subtotal'] = taxDetails.charge;
                     orderItemTax['included_tax_subtotal'] = taxDetails.included;
+                    orderItemTax['taxable_amount'] = taxDetails.taxable;
 
                     orderItemTaxes.push(orderItemTax);
                 }
@@ -71,6 +72,7 @@
                     promotionTax['tax_threshold'] = tax.threshold;
                     promotionTax['tax_subtotal'] = taxDetails.charge;
                     promotionTax['included_tax_subtotal'] = taxDetails.included;
+                    promotionTax['taxable_amount'] = taxDetails.taxable;
 
                     orderItemTaxes.push(promotionTax);
                 }
@@ -95,6 +97,7 @@
                 orderTax['tax_subtotal'] = taxDetails.tax_subtotal;
                 orderTax['included_tax_subtotal'] = taxDetails.included_tax_subtotal;
                 orderTax['item_count'] = taxDetails.item_count;
+                orderTax['taxable_amount'] = taxDetails.taxable_amount;
 
                 orderItemTaxes.push(orderTax);
             }

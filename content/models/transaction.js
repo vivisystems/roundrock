@@ -2544,6 +2544,7 @@
                             item.tax_details[item.tax_name] = {
                                 charge: item.current_tax,
                                 included: item.included_tax,
+                                taxable: taxChargeObj[item.tax_name].taxable,
                                 tax: tax
                             };
                         }
@@ -2684,7 +2685,8 @@
                                     tax: taxDetails.tax,
                                     tax_subtotal: 0,
                                     included_tax_subtotal: 0,
-                                    item_count: 0
+                                    item_count: 0,
+                                    taxable_amount: 0
                                 }
                             }
 
@@ -2696,6 +2698,7 @@
                             }
                             this.data.items_tax_details[key].tax_subtotal += parseFloat(taxDetails.charge);
                             this.data.items_tax_details[key].included_tax_subtotal += parseFloat(taxDetails.included);
+                            this.data.items_tax_details[key].taxable_amount += parseFloat(taxDetails.taxable);
                         }
                     }
                 }
