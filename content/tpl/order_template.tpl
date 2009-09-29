@@ -249,7 +249,7 @@
     <tr>
         <td>&nbsp;&nbsp;${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : _(payment.name)}</td>
         <td colspan="2">${(payment.memo1 != null && payment.memo1 != '') ? _(payment.name) : ''}</td>
-        <td style="text-align: right;">${payment.origin_amount|viviFormatPrices:true}</td>
+        <td style="text-align: right;">${(payment.origin_amount != null && payment.origin_amount != '') ? payment.origin_amount : ''|viviFormatPrices:true}</td>
         <td style="text-align: right;">${payment.amount|viviFormatPrices:true}</td>
         <td/>
     </tr>
