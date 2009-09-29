@@ -2863,8 +2863,8 @@
             }
 
             var dialog_data = [
-                                _('Payment Details'),
-                                paymentList
+            _('Payment Details'),
+            paymentList
             ];
 
             GeckoJS.Session.remove('cart_set_price_value');
@@ -3199,8 +3199,8 @@
                         var surcharge_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, surcharge_limit, user.order_surcharge_limit_type);
                         if (adjustment_amount > surcharge_limit_amount) {
                             NotifyUtils.warn(_('Total surcharge [%S] may not exceed user order surcharge limit [%S]',
-                                               [oldTransaction.formatPrice(adjustment_amount),
-                                                oldTransaction.formatPrice(surcharge_limit_amount)]));
+                                [oldTransaction.formatPrice(adjustment_amount),
+                                oldTransaction.formatPrice(surcharge_limit_amount)]));
                             return false;
                         }
                     }
@@ -3213,8 +3213,8 @@
                         var discount_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, discount_limit, user.order_discount_limit_type);
                         if (adjustment_amount > discount_limit_amount) {
                             NotifyUtils.warn(_('Total discount [%S] may not exceed user order discount limit [%S]',
-                                               [oldTransaction.formatPrice(adjustment_amount),
-                                                oldTransaction.formatPrice(discount_limit_amount)]));
+                                [oldTransaction.formatPrice(adjustment_amount),
+                                oldTransaction.formatPrice(discount_limit_amount)]));
                             return false;
                         }
                     }
@@ -3245,9 +3245,11 @@
 
 
 
+                var submitStatus = -99; // initial value
+                
                 try {
                     // save transaction to order databases.
-                    var submitStatus = parseInt(oldTransaction.submit(status));
+                    submitStatus = parseInt(oldTransaction.submit(status));
 
                     /*
                      *   1: success
@@ -3274,8 +3276,8 @@
                     // assign data status
                     oldTransaction.data.status = status;
 
-                this._getKeypadController().clearBuffer();
-                //this._cancelReturn(true);
+                    this._getKeypadController().clearBuffer();
+                    //this._cancelReturn(true);
 
                     // dispatch event for devices or extensions.
                     this.dispatchEvent('afterSubmit', oldTransaction);
@@ -3288,25 +3290,37 @@
 
                 }finally{
 
+                    if (submitStatus == -99) {
+                        // fatal error at submit. and will cause commit error
+                        this.log('ERROR', 'Error on Transaction.submit(' + status + ') (' + submitStatus + ')');
+                    }
+
                     // finally commit the submit , and write transaction to databases(or to remote databases).
-                    var commitStatus = oldTransaction.commit(status);
+                    var commitStatus = -99 ;
+                    
+                    try {
+                        // commit order data to local databases or remote.
+                        commitStatus = oldTransaction.commit(status);
 
-                    if (commitStatus == -1) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Data Operation Error'),
-                            _('This order could not be committed . Please check the network connectivity to the terminal designated as the synchronization server [message #105].'));
-                        this._unblockUI('blockui_panel');
-                        return false;
-                    }
+                        if (commitStatus == -1) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('This order could not be committed . Please check the network connectivity to the terminal designated as the synchronization server [message #105].'));
+                            this._unblockUI('blockui_panel');
+                            return false;
+                        }
 
-                    if (status != 2) {
-                        if (status != 1) this.clearWarning();
-                        this.dispatchEvent('onSubmit', oldTransaction);
+                        if (status != 2) {
+                            if (status != 1) this.clearWarning();
+                            this.dispatchEvent('onSubmit', oldTransaction);
+                        }
+                        else {
+                            this.dispatchEvent('onGetSubtotal', oldTransaction);
+                        }
+                    }catch(e) {
+                        // fatal error at submit. and will cause commit error
+                        this.log('ERROR', 'Error on Transaction.commit(' + status + ') (' + commitStatus + ')');
                     }
-                    else {
-                        this.dispatchEvent('onGetSubtotal', oldTransaction);
-                    }
-
                 }
 
                 this._unblockUI('blockui_panel');
@@ -3732,7 +3746,7 @@
 
                             if (condGroupCache[cond.condiment_group_id]) {
                                 NotifyUtils.warn(_('Condiment [%S] not added because another condiment from same group [%S] already exists',
-                                                   [cond.name, condGroupCache[cond.condiment_group_id]]));
+                                    [cond.name, condGroupCache[cond.condiment_group_id]]));
                             }
                             else {
                                 filteredCondiments.push(cond);
