@@ -149,8 +149,14 @@
                     self.updateView();
                 };
 
+                this.onCartViewEmpty = function(evt) {
+                    self._num_items = 0
+                    self.updateView();
+                };
+
                 this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
                 this.cartevents.addListener('afterCancel', this.afterCancel, this);
+                this.cartevents.addListener('onCartViewEmpty', this.onCartViewEmpty, this);
 
                 self.updateView();
 
