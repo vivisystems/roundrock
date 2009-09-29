@@ -10924,7 +10924,7 @@ GeckoJS.BaseModel.prototype.exists = function(reset) {
     /* endif DEBUG */
 
     this.__exists = this.find('count', {
-        conditions: this.escapeField(this.primaryKey) + "='" +this.id + "'",
+        conditions: this.primaryKey + "='" +this.id + "'",
         recursive: 0
     }) > 0;
 
