@@ -565,6 +565,16 @@
             let tableStatus = this.Table.TableStatus.getTableStatusById(table_id);
             let table_no = table.table_no;
 
+            try {
+                let ordersId = GeckoJS.BaseObject.getKeys(tableStatus.OrdersById);
+                if (!tableStatus || tableStatus.TableOrder.length != ordersId.length) {
+                   NotifyUtils.error(_('Table [%S] Not available to view order.',[table_no]));
+                }
+            }catch(e) {
+                   NotifyUtils.error(_('Table [%S] Not available to view order.',[table_no]));
+                   return;
+            }
+
             // unserialize orderObject 
             for(var id in tableStatus.OrdersById) {
                 
@@ -578,6 +588,7 @@
                     tableStatus.OrdersById[id].TransactionData = {};
                 }
             }
+
 
             let doc = document.getElementById('order_display_div');
             let result = '';
@@ -620,7 +631,7 @@
             }catch(e){
                 // XXX notify fatal error message.
                 // alert(e);
-                this.log('ERROR', 'executeSelectTableOrder and InnerHtml');
+                this.log('ERROR', 'executeSelectTableOrder and InnerHtml\n' + result + this.dump(tableStatus));
                 return false;
             }
             return true;
@@ -874,7 +885,10 @@
             let orgTable = this._actionData ? this._actionData : null;
 
             // set orgTable,order_id to _actionData
-            this._actionData = {orgTable: orgTable, orderId: order_id};
+            this._actionData = {
+                orgTable: orgTable,
+                orderId: order_id
+            };
 
             this.hideOrderDisplayPanel();
 
@@ -904,7 +918,11 @@
             }
 
             // call guest_check transferTable
-            this.requestCommand('transferTable', {orderId: orderId, orgTableId: orgTableId, newTableId: table_id}, 'GuestCheck');
+            this.requestCommand('transferTable', {
+                orderId: orderId,
+                orgTableId: orgTableId,
+                newTableId: table_id
+            }, 'GuestCheck');
 
 
             // set action and prompt label.
