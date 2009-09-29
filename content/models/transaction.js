@@ -2683,10 +2683,17 @@
                                 this.data.items_tax_details[key] = {
                                     tax: taxDetails.tax,
                                     tax_subtotal: 0,
-                                    included_tax_subtotal: 0
+                                    included_tax_subtotal: 0,
+                                    item_count: 0
                                 }
                             }
 
+                            if (item.sale_unit == 'unit') {
+                                this.data.items_tax_details[key].item_count += parseInt(item.current_qty);
+                            }
+                            else {
+                                this.data.items_tax_details[key].item_count++;
+                            }
                             this.data.items_tax_details[key].tax_subtotal += parseFloat(taxDetails.charge);
                             this.data.items_tax_details[key].included_tax_subtotal += parseFloat(taxDetails.included);
                         }
@@ -2808,7 +2815,7 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-            //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
         },
 
 

@@ -115,7 +115,6 @@ var __klass__ = {
     getDiscountTaxSubtotal: function() {
 
         var defaultTax = GeckoJS.Session.get('defaultTaxNo');
-        alert('defaultTax: ' + defaultTax);
         var taxNo = this.getTaxNo() || defaultTax;
         var taxComponent = this.getTaxComponent();
 
@@ -138,7 +137,6 @@ var __klass__ = {
     getDiscountTaxIncludedSubtotal: function() {
 
         var defaultTax = GeckoJS.Session.get('defaultTaxNo');
-        alert('defaultTax: ' + defaultTax);
         var taxNo = this.getTaxNo() || defaultTax;
         var taxComponent = this.getTaxComponent();
 
@@ -160,7 +158,6 @@ var __klass__ = {
     getDiscountTaxDetails: function() {
 
         var defaultTax = GeckoJS.Session.get('defaultTaxNo');
-        alert('defaultTax: ' + defaultTax);
         var taxNo = this.getTaxNo() || defaultTax;
         var taxComponent = this.getTaxComponent();
 

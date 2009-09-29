@@ -94,6 +94,7 @@
                 orderTax['tax_threshold'] = tax.threshold;
                 orderTax['tax_subtotal'] = taxDetails.tax_subtotal;
                 orderTax['included_tax_subtotal'] = taxDetails.included_tax_subtotal;
+                orderTax['item_count'] = taxDetails.item_count;
 
                 orderItemTaxes.push(orderTax);
             }
@@ -121,6 +122,7 @@
 
                     tax_details['tax_subtotal'] = parseFloat(taxDetailsData.tax_subtotal);
                     tax_details['included_tax_subtotal'] = parseFloat(taxDetailsData.included_tax_subtotal);
+                    tax_details['item_count'] = parseInt(taxDetailsData.item_count);
                     tax_details['tax'] = {
                         no: taxDetailsData.tax_no,
                         name: taxDetailsData.tax_name,

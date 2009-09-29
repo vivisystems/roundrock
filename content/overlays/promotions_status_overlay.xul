@@ -10,7 +10,7 @@
 
     <box id="promotionsStatusPanelContainer" orient="vertical">
         <promotions_status id="promotions_status" dir="reverse" autohide="true" type="summary" value=""
-                           boxClass="promotions-vbox" labelClass="promotions-label"
+                           boxClass="promotions-vbox" titleClass="promotions-title" appliesClass="promotions-applies"
                            subtotalClass="promotions-subtotal" treeClass="promotions-tree" treeDetailClass="promotions-details"/>
     </box>
 
