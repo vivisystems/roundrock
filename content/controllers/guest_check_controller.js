@@ -58,6 +58,7 @@
                 }
                 
             }
+            GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', (this.tableSettings.RequireCheckNo || false) );
 
         },
 
@@ -909,31 +910,31 @@
          */
         onMainTruncateTxnRecords: function(evt) {
 
-            var r = this.TableStatus.begin();
+            var r = this.Table.begin();
 
             if (r) {
 
-                r = this.TableStatus.execute('delete from table_orders');
-                if (r) r = this.TableStatus.execute('delete from table_bookings');
+                r = this.Table.execute('delete from table_orders');
+                if (r) r = this.Table.execute('delete from table_bookings');
 
                 // truncate sync tables
-                if (r) r = this.TableStatus.execute('delete from syncs');
-                if (r) r = this.TableStatus.execute('delete from sync_remote_machines');
+                if (r) r = this.Table.execute('delete from syncs');
+                if (r) r = this.Table.execute('delete from sync_remote_machines');
 
-                if (r) r = this.TableStatus.commit();
+                if (r) r = this.Table.commit();
 
                 if (!r) {
-                    var errNo = this.TableStatus.lastError;
-                    var errMsg = this.TableStatus.lastErrorString;
+                    var errNo = this.Table.lastError;
+                    var errMsg = this.Table.lastErrorString;
 
-                    this.TableStatus.rollback();
+                    this.Table.rollback();
 
                     this.dbError(errNo, errMsg,
                         _('An error was encountered while attempting to remove all table status records (error code %S) [message #501].', [errNo]));
                 }
             }
             else {
-                this.dbError(this.TableStatus.lastError, this.TableStatus.lastErrorString,
+                this.dbError(this.Table.lastError, this.Table.lastErrorString,
                     _('An error was encountered while attempting to remove all table status records (error code %S).', this.TableStatus.lastError));
             }
         },

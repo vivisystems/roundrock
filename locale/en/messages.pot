@@ -383,9 +383,27 @@ msgstr "Other"
 
 ########################################################################
 #
-# Register Display - Payments
+# Report Display - Payments
 #
 ########################################################################
+
+msgid "(rpt)cash"
+msgstr "Cash"
+
+msgid "(rpt)giftcard"
+msgstr "Giftcard"
+
+msgid "(rpt)coupon"
+msgstr "Coupon"
+
+msgid "(rpt)check"
+msgstr "Check"
+
+msgid "(rpt)creditcard"
+msgstr "Credit Card"
+
+msgid "(rpt)ledger"
+msgstr "Ledger"
 
 ########################################################################
 #

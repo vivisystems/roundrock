@@ -990,6 +990,7 @@
                         r = (new OrderPaymentModel()).truncate() && r;
                         r = (new OrderObjectModel()).truncate() && r;
                         r = (new OrderItemModel()).truncate() && r;
+                        r = (new OrderItemTaxModel()).truncate() && r;
                         r = (new OrderItemCondimentModel()).truncate() && r;
                         r = (new OrderAnnotationModel()).truncate() && r;
                         r = (new OrderAdditionModel()).truncate() && r;
