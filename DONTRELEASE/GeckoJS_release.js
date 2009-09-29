@@ -12915,73 +12915,77 @@ GeckoJS.DatasourceJsonFile.prototype._queryAssociations = function(model, datas,
 
     recursive = typeof recursive != 'undefined' ? recursive : 1;
 
-    var self = this;
-    var results = new Array();
-    var schema = model.schema();
+    try {
+        var self = this;
+        var results = new Array();
+        var schema = model.schema();
 
-    /* ifdef DEBUG 
-    this.log('DEBUG', '_queryAssociations > ' + model.table);
-    /* endif DEBUG */
+        /* ifdef DEBUG 
+        this.log('DEBUG', '_queryAssociations > ' + model.table);
+        /* endif DEBUG */
 
-    datas.forEach( function (d){
+        datas.forEach( function (d){
 
-        // shadow clone object
-        var data = GeckoJS.BaseObject.clone(d);
+            // shadow clone object
+            var data = GeckoJS.BaseObject.clone(d);
         
-        // process belongsTo
-        if(typeof schema.associations['belongsTo'] == 'object') {
-            for (var assocName in schema.associations['belongsTo']) {
-                var assocSchema = schema.associations['belongsTo'][assocName];
-                var foreignKey = assocSchema.foreignKey;
+            // process belongsTo
+            if(typeof schema.associations['belongsTo'] == 'object') {
+                for (var assocName in schema.associations['belongsTo']) {
+                    var assocSchema = schema.associations['belongsTo'][assocName];
+                    var foreignKey = assocSchema.foreignKey;
                 
-                var foreignValue = data[foreignKey];
+                    var foreignValue = data[foreignKey];
 
-                if(typeof foreignValue != 'undefined') {
-                    var assocModel = model._getAssociationModel(assocName);
-                    data[assocName] = assocModel.find('id', {
-                        conditions: foreignValue,
-                        recursive: 0
-                    });
+                    if(typeof foreignValue != 'undefined') {
+                        var assocModel = model._getAssociationModel(assocName);
+                        data[assocName] = assocModel.find('id', {
+                            conditions: foreignValue,
+                            recursive: 0
+                        });
+                    }
                 }
             }
-        }
 
-        // process hasOne
-        if(typeof schema.associations['hasOne'] == 'object') {
-            for (var assocName2 in schema.associations['hasOne']) {
-                var foreignKey2 = schema.foreignKey;
-                var foreignValue2 = data.id;
+            // process hasOne
+            if(typeof schema.associations['hasOne'] == 'object') {
+                for (var assocName2 in schema.associations['hasOne']) {
+                    var foreignKey2 = schema.foreignKey;
+                    var foreignValue2 = data.id;
 
-                if(typeof foreignValue2 != 'undefined') {
-                    var assocModel2 = model._getAssociationModel(assocName2);
-                    data[assocName2] = assocModel2.find('first', {
-                        conditions: foreignKey2 + " = '"+foreignValue2 + "'",
-                        recursive: 0
-                    });
+                    if(typeof foreignValue2 != 'undefined') {
+                        var assocModel2 = model._getAssociationModel(assocName2);
+                        data[assocName2] = assocModel2.find('first', {
+                            conditions: foreignKey2 + " = '"+foreignValue2 + "'",
+                            recursive: 0
+                        });
+                    }
                 }
             }
-        }
 
 
-        // process hasMany
-        if(typeof schema.associations['hasMany'] == 'object') {
-            for (var assocName3 in schema.associations['hasMany']) {
-                var foreignKey3 = schema.foreignKey;
-                var foreignValue3 = data.id;
+            // process hasMany
+            if(typeof schema.associations['hasMany'] == 'object') {
+                for (var assocName3 in schema.associations['hasMany']) {
+                    var foreignKey3 = schema.foreignKey;
+                    var foreignValue3 = data.id;
 
-                if(typeof foreignValue3 != 'undefined') {
-                    var assocModel3 = model._getAssociationModel(assocName3);
-                    data[assocName3] = assocModel3.find('all', {
-                        conditions: foreignKey3 + " = '"+foreignValue3 +"'",
-                        recursive: 0
-                    });
+                    if(typeof foreignValue3 != 'undefined') {
+                        var assocModel3 = model._getAssociationModel(assocName3);
+                        data[assocName3] = assocModel3.find('all', {
+                            conditions: foreignKey3 + " = '"+foreignValue3 +"'",
+                            recursive: 0
+                        });
+                    }
                 }
             }
-        }
 
-        results.push(data);
-    });
-    delete datas;
+            results.push(data);
+        });
+        delete datas;
+    }catch($e){
+        this.log("ERROR","GeckoJS.DatasourceJsonFile: An error occurred executing the _queryAssociations \n" , e);
+    }
     
     return results;
 };
@@ -13311,7 +13315,14 @@ GeckoJS.DatasourceJsonFile.prototype.truncate = function (model) {
 GeckoJS.DatasourceJsonFile.prototype.describe = function(model) {
 
     // return sqlite style 
-    return {id: {name: 'id', type: 'VARCHAR', notnull: 1, pk: 1}};
+    return {
+        id: {
+            name: 'id',
+            type: 'VARCHAR',
+            notnull: 1,
+            pk: 1
+        }
+        };
 
 };
 

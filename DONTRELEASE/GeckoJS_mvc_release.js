@@ -3383,7 +3383,7 @@ GeckoJS.NumberHelper.round = function (value, precision, policy, table) {
     if (isNaN(value) || isNaN(precision)) return value;
     
     var p = Math.round(precision);
-    var result = value * Math.pow(10, p);
+    var result = value.toFixed(12) * Math.pow(10, p);
     if (p > 0) result = result.toFixed(12);
     
     switch(policy) {
@@ -3393,17 +3393,15 @@ GeckoJS.NumberHelper.round = function (value, precision, policy, table) {
             break;
             
         case 'to-nearest-half':
-            //result = Math.round(result * .2) * 10 / 2;
-            result = Math.round(result * .2) * 5;
+            result = Math.round(result * 0.02) * 50;
             break;
             
         case 'to-nearest-quarter':
-            result = Math.round(result * .4) * 10 / 4;
+            result = Math.round(result * 0.04) * 25;
             break;
             
         case 'to-nearest-nickel':
-            //result = Math.round(result * .1) * 10 / 10;
-            result = Math.round(result * .1);
+            result = Math.round(result * 0.1) * 10;
             break;
             
         case 'always-round-up':
