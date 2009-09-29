@@ -21,13 +21,11 @@ class OrdersController extends AppController {
         $orderObject = array();
 
         if(!empty($_REQUEST['request_data'])) {
-        // for debug
-            file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']);
+            //file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']); // for debug
             $request_data = $_REQUEST['request_data'];
         }else {
             $request_data = "{}";
-            // for debug
-            $request_data = file_get_contents("/tmp/saveOrder.req");
+            //$request_data = file_get_contents("/tmp/saveOrder.req"); // for debug
         }
 
         $datas = json_decode($request_data, true);
