@@ -398,9 +398,8 @@
         },
 
         // handles user initiated receipt requests
-        issueReceipt: function(printer, duplicate) {
+        issueReceipt: function(printer, duplicate, txn) {
             var deviceController = this.getDeviceController();
-            var cart = GeckoJS.Controller.getInstanceByName('Cart');
 
             if (deviceController == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -408,7 +407,11 @@
             }
 
             // check transaction status
-            var txn = cart._getTransaction();
+
+            if (!txn) {
+                let cart = GeckoJS.Controller.getInstanceByName('Cart');
+                txn = cart._getTransaction();
+            }
             if (txn == null) {
 
                 NotifyUtils.warn(_('Not an open order; cannot issue receipt'));
@@ -432,7 +435,7 @@
             // we need to keep track of receipt by terminal no, sequence, and batchCount
 
             // check device settings
-            printer = GeckoJS.String.trim(printer);
+            if (printer != null) printer = GeckoJS.String.trim(printer);
             if (printer == null || printer == '') {
                 switch (deviceController.isDeviceEnabled('receipt', null)) {
                     case -2:
@@ -464,8 +467,8 @@
             this.printReceipts(txn, printer, 0, duplicate);
         },
 
-        issueReceiptCopy: function(printer) {
-            this.issueReceipt(printer, true);
+        issueReceiptCopy: function(printer, txn) {
+            this.issueReceipt(printer, true, txn);
         },
 
         // print on all enabled receipt printers
@@ -848,16 +851,18 @@
             }
 
             // expand data with storeContact and terminal_no
-	        if (data) {
+            if (data) {
                 data.customer = GeckoJS.Session.get('current_customer');
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
-                var user = this.Acl.getUserPrincipal();
-                if (user) {
-                    data.user = user.username;
-                    data.display_name = user.description;
+                if (!data.user) {
+                    let user = this.Acl.getUserPrincipal();
+                    if (user) {
+                        data.user = user.username;
+                        data.display_name = user.description;
+                    }
                 }
-	        }
+            }
 
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed
@@ -880,7 +885,7 @@
             //if (data && data.ledger) this.log(this.dump(data.ledger));
 
             // check if item is linked to this printer and set 'linked' accordingly
-            if (data && data.order) {
+            if (data && data.order && deviceType == 'check') {
                 var empty = true;
                 var routingGroups = data.routingGroups;
 

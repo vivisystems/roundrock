@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-09-29 16:12+0800\n"
+"POT-Creation-Date: 2009-09-29 17:43+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3742,11 +3742,11 @@ msgstr ""
 #: ../..//content/controllers/list_orders_controller.js:191
 #: ../..//content/controllers/main_controller.js:1017
 #: ../..//content/controllers/main_controller.js:1363
-#: ../..//content/controllers/print_controller.js:1191
+#: ../..//content/controllers/print_controller.js:1196
 #: ../..//content/controllers/setup_wizard_controller.js:700
 #: ../..//content/controllers/shift_changes_controller.js:1463
 #: ../..//content/controllers/stock_records_controller.js:730
-#: ../..//content/controllers/view_order_controller.js:176
+#: ../..//content/controllers/view_order_controller.js:223
 #: ../..//content/controllers/components/cart_utils.js:48
 msgid "Data Operation Error"
 msgstr ""
@@ -3911,14 +3911,14 @@ msgstr ""
 #: ../..//content/controllers/cashdrawer_controller.js:150
 #: ../..//content/controllers/cashdrawer_controller.js:458
 #: ../..//content/controllers/cashdrawer_controller.js:482
-#: ../..//content/controllers/print_controller.js:406
-#: ../..//content/controllers/print_controller.js:480
-#: ../..//content/controllers/print_controller.js:542
-#: ../..//content/controllers/print_controller.js:623
-#: ../..//content/controllers/print_controller.js:686
-#: ../..//content/controllers/print_controller.js:712
-#: ../..//content/controllers/print_controller.js:752
-#: ../..//content/controllers/print_controller.js:796
+#: ../..//content/controllers/print_controller.js:405
+#: ../..//content/controllers/print_controller.js:483
+#: ../..//content/controllers/print_controller.js:545
+#: ../..//content/controllers/print_controller.js:626
+#: ../..//content/controllers/print_controller.js:689
+#: ../..//content/controllers/print_controller.js:715
+#: ../..//content/controllers/print_controller.js:755
+#: ../..//content/controllers/print_controller.js:799
 #: ../..//content/controllers/scale_controller.js:55
 #: ../..//content/controllers/vfd_controller.js:179
 msgid "Error in device manager! Please check your device configuration"
@@ -3943,20 +3943,20 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:263
-#: ../..//content/controllers/print_controller.js:846
+#: ../..//content/controllers/print_controller.js:849
 #: ../..//content/controllers/vfd_controller.js:253
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:326
-#: ../..//content/controllers/print_controller.js:1115
+#: ../..//content/controllers/print_controller.js:1120
 #: ../..//content/controllers/vfd_controller.js:334
 msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:335
 #: ../..//content/controllers/changeuser_controller.js:123
-#: ../..//content/controllers/print_controller.js:1192
+#: ../..//content/controllers/print_controller.js:1197
 msgid ""
 "Please restart the terminal, and if the problem persists, contact technical "
 "support immediately."
@@ -4601,6 +4601,7 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:584
 #: ../..//content/controllers/guest_check_controller.js:658
 #: ../..//content/controllers/guest_check_controller.js:708
+#: ../..//content/controllers/view_order_controller.js:143
 #: ../..//content/controllers/components/guest_check.js:582
 #: ../..//content/controllers/components/guest_check.js:595
 #: ../..//content/controllers/components/guest_check.js:813
@@ -5110,7 +5111,7 @@ msgstr ""
 #: ../..//content/controllers/shift_changes_controller.js:1464
 #: ../..//content/controllers/stock_records_controller.js:731
 #: ../..//content/controllers/stocks_controller.js:296
-#: ../..//content/controllers/view_order_controller.js:177
+#: ../..//content/controllers/view_order_controller.js:224
 #: ../..//content/controllers/components/cart_utils.js:49
 msgid ""
 "Please restart the machine, and if the problem persists, please contact "
@@ -5326,7 +5327,7 @@ msgid "(view)terminal"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:105
-#: ../..//content/controllers/view_order_controller.js:69
+#: ../..//content/controllers/view_order_controller.js:70
 #: ../..//content/tpl/journal_template.tpl:18
 #: ../..//content/tpl/order_display_template.orig.tpl:29
 #: ../..//content/tpl/order_display_template.tpl:29
@@ -5339,7 +5340,7 @@ msgid "(view)voided"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:109
-#: ../..//content/controllers/view_order_controller.js:73
+#: ../..//content/controllers/view_order_controller.js:74
 #: ../..//content/tpl/journal_template.tpl:14
 #: ../..//content/tpl/order_display_template.orig.tpl:25
 #: ../..//content/tpl/order_display_template.tpl:25
@@ -5350,7 +5351,7 @@ msgid "(view)cancelled"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:113
-#: ../..//content/controllers/view_order_controller.js:77
+#: ../..//content/controllers/view_order_controller.js:78
 #: ../..//content/tpl/journal_template.tpl:6
 #: ../..//content/tpl/order_display_template.orig.tpl:17
 #: ../..//content/tpl/order_display_template.tpl:17
@@ -5361,7 +5362,7 @@ msgid "(view)completed"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:117
-#: ../..//content/controllers/view_order_controller.js:81
+#: ../..//content/controllers/view_order_controller.js:82
 #: ../..//content/tpl/journal_template.tpl:10
 #: ../..//content/tpl/order_display_template.orig.tpl:21
 #: ../..//content/tpl/order_display_template.tpl:21
@@ -5483,7 +5484,7 @@ msgid "Product Search"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:332
-#: ../..//content/controllers/print_controller.js:1163
+#: ../..//content/controllers/print_controller.js:1168
 msgid "Printer Dashboard"
 msgstr ""
 
@@ -6080,110 +6081,110 @@ msgid ""
 "[message #1203]."
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:414
+#: ../..//content/controllers/print_controller.js:417
 msgid "Not an open order; cannot issue receipt"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:420
+#: ../..//content/controllers/print_controller.js:423
 msgid "The order has not been finalized; cannot issue receipt"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:426
+#: ../..//content/controllers/print_controller.js:429
 msgid "No new payment made; cannot issue receipt"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:439
+#: ../..//content/controllers/print_controller.js:442
 msgid "You have not configured any receipt printers"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:444
+#: ../..//content/controllers/print_controller.js:447
 msgid "All receipt printers are disabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:451
-#: ../..//content/controllers/print_controller.js:718
+#: ../..//content/controllers/print_controller.js:454
+#: ../..//content/controllers/print_controller.js:721
 msgid "The specified receipt printer [%S] is not configured"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:455
-#: ../..//content/controllers/print_controller.js:722
+#: ../..//content/controllers/print_controller.js:458
+#: ../..//content/controllers/print_controller.js:725
 msgid "Invalid receipt printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:459
-#: ../..//content/controllers/print_controller.js:726
+#: ../..//content/controllers/print_controller.js:462
+#: ../..//content/controllers/print_controller.js:729
 msgid "The specified receipt printer [%S] is not enabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:525
-#: ../..//content/controllers/print_controller.js:1088
+#: ../..//content/controllers/print_controller.js:528
+#: ../..//content/controllers/print_controller.js:1093
 msgid "A receipt has already been issued for this order on printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:550
+#: ../..//content/controllers/print_controller.js:553
 msgid "Not an open order; cannot issue check"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:556
+#: ../..//content/controllers/print_controller.js:559
 msgid "Cannot issue check on a canceled order"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:562
+#: ../..//content/controllers/print_controller.js:565
 msgid "Order has not been stored yet; cannot issue check"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:568
+#: ../..//content/controllers/print_controller.js:571
 msgid "Nothing has been registered yet; cannot issue check"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:576
-#: ../..//content/controllers/print_controller.js:592
+#: ../..//content/controllers/print_controller.js:579
+#: ../..//content/controllers/print_controller.js:595
 msgid "You have not configured any check printers"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:581
+#: ../..//content/controllers/print_controller.js:584
 msgid "All check printers are disabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:596
-#: ../..//content/controllers/print_controller.js:768
+#: ../..//content/controllers/print_controller.js:599
+#: ../..//content/controllers/print_controller.js:771
 msgid "Invalid check printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:600
-#: ../..//content/controllers/print_controller.js:772
+#: ../..//content/controllers/print_controller.js:603
+#: ../..//content/controllers/print_controller.js:775
 msgid "The specified check printer [%S] is not enabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:757
+#: ../..//content/controllers/print_controller.js:760
 msgid "Target check printer not specified"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:764
+#: ../..//content/controllers/print_controller.js:767
 msgid "The specified check printer [%S] is not configured"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:805
+#: ../..//content/controllers/print_controller.js:808
 msgid "The specified report/label printer [%S] is not configured"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:809
+#: ../..//content/controllers/print_controller.js:812
 msgid "Invalid report/label printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:813
+#: ../..//content/controllers/print_controller.js:816
 msgid "The specified report/label printer [%S] is not enabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:840
+#: ../..//content/controllers/print_controller.js:843
 msgid "Error in Print controller; no worker thread available!"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:958
+#: ../..//content/controllers/print_controller.js:963
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:965
+#: ../..//content/controllers/print_controller.js:970
 msgid "Error in parsing template [%S]!"
 msgstr ""
 
@@ -6370,36 +6371,41 @@ msgstr ""
 msgid "Table [%S] Not available to select. Status: [%S], Active: [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:646
-#: ../..//content/controllers/select_table_controller.js:650
-#: ../..//content/controllers/select_table_controller.js:665
+#: ../..//content/controllers/select_table_controller.js:571
+#: ../..//content/controllers/select_table_controller.js:574
+msgid "Table [%S] Not available to view order."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:657
+#: ../..//content/controllers/select_table_controller.js:661
+#: ../..//content/controllers/select_table_controller.js:676
 msgid "Table [%S] Not available to merge. Status: [%S], Active: [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:703
+#: ../..//content/controllers/select_table_controller.js:714
 msgid "Table [%S] Not available to unmerge. Status: [%S], Active: [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:741
-#: ../..//content/controllers/select_table_controller.js:744
+#: ../..//content/controllers/select_table_controller.js:752
+#: ../..//content/controllers/select_table_controller.js:755
 msgid "Select Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:742
+#: ../..//content/controllers/select_table_controller.js:753
 msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:767
-#: ../..//content/controllers/select_table_controller.js:771
+#: ../..//content/controllers/select_table_controller.js:778
+#: ../..//content/controllers/select_table_controller.js:782
 msgid "Table [%S] Not available to mark. Status: [%S], Active: [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:817
+#: ../..//content/controllers/select_table_controller.js:828
 msgid "Table [%S] Not available to ummark. Status: [%S], Active: [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:898
-#: ../..//content/controllers/select_table_controller.js:902
+#: ../..//content/controllers/select_table_controller.js:912
+#: ../..//content/controllers/select_table_controller.js:916
 msgid "Table [%S] Not available to transfer. Status: [%S], Active: [%S]"
 msgstr ""
 
@@ -7653,18 +7659,30 @@ msgid ""
 "immediately [message #1802]."
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:57
+#: ../..//content/controllers/view_order_controller.js:58
 msgid ""
 "An error was encountered while retrieving details of the selected order "
 "(error code %S) [message #1901]."
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:109
+#: ../..//content/controllers/view_order_controller.js:113
 msgid "Order not found"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:115
+#: ../..//content/controllers/view_order_controller.js:119
 msgid "Are you sure you want to print this order?"
+msgstr ""
+
+#: ../..//content/controllers/view_order_controller.js:136
+msgid "Are you sure you want to issue a receipt copy for this order?"
+msgstr ""
+
+#: ../..//content/controllers/view_order_controller.js:148
+msgid "Reprint Receipt"
+msgstr ""
+
+#: ../..//content/controllers/view_order_controller.js:149
+msgid "Only completed and voided orders may be reprinted"
 msgstr ""
 
 #: ../..//content/controllers/components/guest_check.js:114
