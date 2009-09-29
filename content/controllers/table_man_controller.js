@@ -843,7 +843,7 @@
             try {
                 // set requireCheckNo to configure
                 let requireCheckNo = ( tableSettings.RequireCheckNo ? true : false) || false  ;
-                GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', requireCheckNo );
+                GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', requireCheckNo, false );
 
                 // set check_no sequence max value
                 let maxCheckNo = tableSettings.MaxCheckNo || 100;
