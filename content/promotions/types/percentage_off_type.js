@@ -18,7 +18,7 @@
 
             var discount =  (0 - parseFloat(subtotal * value / 100));
 
-            this.setDiscountSubtobal(discount);
+            this.setDiscountSubtotal(discount);
 
             return true;
         }

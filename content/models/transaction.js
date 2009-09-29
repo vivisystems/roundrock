@@ -2495,7 +2495,7 @@
                         item.tax_type = tax.type;
 
                         var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
-                        var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge), item.current_price, item.current_qty);
+                        var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge), item.current_price, item.current_qty, this.data.precision_taxes, this.data.rounding_taxes);
 
                         // rounding tax
                         item.current_tax =  this.getRoundedTax(taxChargeObj[item.tax_name].charge);
@@ -2715,23 +2715,10 @@
                 this.data.items_summary[item_id] = sumItem;
             }
 
-            // round tax details
-            for (var tax in this.data.items_tax_details) {
-                let taxDetails = this.data.items_tax_details[tax];
-                taxDetails.tax_subtotal = this.getRoundedTax(taxDetails.tax_subtotal);
-                taxDetails.included_tax_subtotal = this.getRoundedTax(taxDetails.included_tax_subtotal);
-            }
-
             // trans subtotal
             for(var transDisIndex in this.data.trans_discounts ) {
                 var disItem = this.data.trans_discounts[transDisIndex];
                 trans_discount_subtotal += parseFloat(disItem.current_discount);
-            }
-
-            for(var massDisIndex in this.data.mass_discounts) {
-                var massItem = this.data.mass_discounts[massDisIndex];
-                tax_discount_subtotal += parseFloat(massItem.tax_discount);
-                item_subtotal += parseFloat(massItem.current_discount);
             }
 
             for(var transSurIndex in this.data.trans_surcharges ) {
@@ -2745,9 +2732,49 @@
             }
 
             promotion_subtotal = this.data.promotion_subtotal ;
-            promotion_tax_subtotal = isNaN(parseInt(this.data.promotion_tax_subtotal)) ? 0 : parseInt(this.data.promotion_tax_subtotal);
-            promotion_included_tax_subtotal = isNaN(parseInt(this.data.promotion_included_tax_subtotal)) ? 0 : parseInt(this.data.promotion_included_tax_subtotal);
+            promotion_tax_subtotal = isNaN(parseFloat(this.data.promotion_tax_subtotal)) ? 0 : parseFloat(this.data.promotion_tax_subtotal);
+            promotion_included_tax_subtotal = isNaN(parseFloat(this.data.promotion_included_tax_subtotal)) ? 0 : parseFloat(this.data.promotion_included_tax_subtotal);
 
+            // group promotion taxes
+            this.data.promotions_tax_details = {};
+            for(var promoIndex in this.data.promotion_apply_items ) {
+                let item = this.data.promotion_apply_items[promoIndex];
+
+                // summarize tax details
+                if (item.tax_details) {
+                    for (var key in item.tax_details) {
+                        let taxDetails = item.tax_details[key];
+
+                        if (!(key in this.data.promotions_tax_details)) {
+                            this.data.promotions_tax_details[key] = {
+                                tax: taxDetails.tax,
+                                tax_subtotal: 0,
+                                included_tax_subtotal: 0
+                            }
+                        }
+
+                        this.data.promotions_tax_details[key].tax_subtotal += parseFloat(taxDetails.charge);
+                        this.data.promotions_tax_details[key].included_tax_subtotal += parseFloat(taxDetails.included);
+
+                    }
+                }
+            }
+
+            // deduct promotion tax totals from item tax totals
+            for (var key in this.data.promotions_tax_details) {
+                if (key in this.data.items_tax_details) {
+                    this.data.items_tax_details[key].tax_subtotal -= this.data.promotions_tax_details[key].tax_subtotal;
+                    this.data.items_tax_details[key].included_tax_subtotal -= this.data.promotions_tax_details[key].included_tax_subtotal;
+                }
+                else {
+                    this.data.items_tax_details[key] = {
+                        tax_subtotal: 0 - this.data.promotions_tax_details[key].tax_subtotal,
+                        included_tax_subtotal: 0 - this.data.promotions_tax_details[key].included_tax_subtotal,
+                        tax: this.data.promotions_tax_details[key].tax
+                    }
+                }
+            }
+            
             tax_subtotal -= promotion_tax_subtotal;
             included_tax_subtotal -= promotion_included_tax_subtotal;
 

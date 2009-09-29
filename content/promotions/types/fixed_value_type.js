@@ -33,7 +33,7 @@
                     break;
             }
 
-            this.setDiscountSubtobal(discount);
+            this.setDiscountSubtotal(discount);
 
             return true;
 

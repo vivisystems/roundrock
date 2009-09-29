@@ -519,8 +519,10 @@
                     
                     // is this group linked to other departments/groups?
                     if (dep.link_department || dep.link_group) {
-                        var categoryIndexes = [];
-                        var plugroupIndexes = [];
+                        let categoryIndexes = [];
+                        let plugroupIndexes = [];
+                        let departmentIndexes = [];
+                        let plugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
 
                         if (dep.link_department) {
                             categoryIndexes = dep.link_department.split(',');
@@ -529,7 +531,12 @@
                         if (dep.link_group) {
                             plugroupIndexes = dep.link_group.split(',');
                         }
-                        var departmentIndexes = categoryIndexes.concat(plugroupIndexes)
+                        if (plugroupsFirst) {
+                            departmentIndexes = plugroupIndexes.concat(categoryIndexes);
+                        }
+                        else {
+                            departmentIndexes = categoryIndexes.concat(plugroupIndexes);
+                        }
 
                         this.depPanelView.navigateDown(departmentIndexes);
 
@@ -1170,7 +1177,7 @@
         },
         
         stockAdjustment: function (backend) {
-            var isMaster = (new StockRecordModel()).getRemoteServiceUrl('auth') === false;
+            var isMaster = (new StockRecordModel()).isRemoteService() === false;
             var isTraining = GeckoJS.Session.get("isTraining");
             var inputObj = {};
 

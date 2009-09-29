@@ -380,15 +380,15 @@
                                 }
 
                                 // save promotion rule to in-memory table
-                                //this.log('appendItem ' + typeObj.getDiscountSubtobal());
+                                //this.log('appendItem ' + typeObj.getDiscountSubtotal());
                                 applyModel.appendItem(promotion, triggerObj, typeObj);
                                 promotionMatchedItems.push(triggerObj.getMatchedItems());
                                 
                                 // update promotiondiscount
-                                totalPromotionDiscount += typeObj.getDiscountSubtobal();
+                                totalPromotionDiscount += typeObj.getDiscountSubtotal();
                                 taxSubtotal += typeObj.getDiscountTaxSubtotal();
                                 taxIncludedSubtotal += typeObj.getDiscountTaxIncludedSubtotal();
-                                
+
                             }
 
                         }

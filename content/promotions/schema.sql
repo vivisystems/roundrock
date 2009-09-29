@@ -17,7 +17,8 @@ CREATE  TABLE IF NOT EXISTS "main"."promotion_applies" (
 "discount_subtotal" FLOAT,
 "tax_name" VARCHAR,
 "current_tax" FLOAT,
-"included_tax" FLOAT
+"included_tax" FLOAT,
+"tax_details" VARCHAR
 );
 
 CREATE  TABLE IF NOT EXISTS "main"."promotion_cart_items" (
