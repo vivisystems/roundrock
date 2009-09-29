@@ -76,9 +76,7 @@
 
             if (data.status == 2 || data.recall == 2) {
                 // XXXX call table service to save order to remote.
-                // @DEBUG
-                //return this.restoreOrderFromBackupToRemote();
-                return this.restoreOrderFromBackup();
+                return this.restoreOrderFromBackupToRemote();
             }else {
                 return this.restoreOrderFromBackup();
             }
@@ -272,8 +270,8 @@
             if (!id ) return null;
 
             var orderData = null;
-//@DEBUG
-            if (false && forceRemote) {
+
+            if (forceRemote) {
                 var requestUrl = this.getHttpService().getRemoteServiceUrl('readOrderToBackupFormat') + '/' + id;
                 orderData = this.getHttpService().requestRemoteService('GET', requestUrl) || false ;
             }else {
