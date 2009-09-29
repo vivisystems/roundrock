@@ -496,9 +496,15 @@
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_rate', features, inputObj);
 
-            if (inputObj.ok && inputObj.rate) {
-                $('#tax_no').val(inputObj.rate);
-                $('#tax_name').val(inputObj.name);
+            if (inputObj.ok) {
+                if (inputObj.rate) {
+                    $('#tax_no').val(inputObj.rate);
+                    $('#tax_name').val(inputObj.name);
+                }
+                else {
+                    $('#tax_no').val('');
+                    $('#tax_name').val('');
+                }
             }
         }
 

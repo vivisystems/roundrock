@@ -214,7 +214,7 @@
                 });
             }
 
-            GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers);
+            GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers || '');
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
 
@@ -2892,7 +2892,7 @@
 
         setNumberOfCustomers: function(num) {
             num = isNaN(parseInt(num)) ? 1 : parseInt(num);
-            GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
+            GeckoJS.Session.set('vivipos_fec_number_of_customers', num || '');
             this.data.no_of_customers = num;
         },
 
