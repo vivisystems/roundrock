@@ -1155,7 +1155,8 @@
                 // direct invoke run function and set runnable to this context
                 runnable.run.apply(runnable);
             }else {
-                this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
+                //this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
+                runnable.run.apply(runnable);
             }
             
         },

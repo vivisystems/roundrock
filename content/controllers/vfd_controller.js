@@ -356,8 +356,8 @@
 
         },
         
-		destroy: function() {
-        	if (this.observer) this.observer.unregister();
+        destroy: function() {
+            if (this.observer) this.observer.unregister();
     	}
     };
 
