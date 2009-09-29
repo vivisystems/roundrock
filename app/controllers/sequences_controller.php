@@ -100,7 +100,7 @@ class SequencesController extends AppController {
         exit;
     }
 
-    function getDateSequence ( $key, $initial ) {
+    function getDateSequence ( $key, $initial = null ) {
 
         if ($initial == null) $initial = mktime(0, 0, 0);
 
