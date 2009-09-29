@@ -8,11 +8,17 @@ class OrderAnnotation extends AppModel {
     var $actsAs = array('Sync');
 
     function saveOrderAnnotations ($annotations) {
+
         $this->begin();
 
-        foreach ($annotations as $annotation) {
-            $this->id = $annotation['id'];
-            $this->save($annotation);
+        try {
+            foreach ($annotations as $annotation) {
+                $this->id = $annotation['id'];
+                $this->save($annotation);
+            }
+        }catch(Exception $e) {
+            CakeLog::write('error', 'Exception saveOrderAnnotations \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
         }
 
         $this->commit();

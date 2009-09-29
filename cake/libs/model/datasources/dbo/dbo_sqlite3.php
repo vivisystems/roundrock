@@ -136,6 +136,7 @@ class DboSqlite3 extends DboSource {
             }
         }
         catch(PDOException $e) {
+            CakeLog::write('error', 'error connect: ' .  $e->getMessage());
             $this->last_error = array('Error connecting to database.',$e->getMessage());
         }
         return $this->connected;

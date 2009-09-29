@@ -10,44 +10,17 @@ class OrderPayment extends AppModel {
 
         $this->begin();
 
-        foreach ($payments as $payment) {
-            $this->id = $payment['id'];
-            $this->save($payment);
+        try {
+            foreach ($payments as $payment) {
+                $this->id = $payment['id'];
+                $this->save($payment);
+            }
+        }catch(Exception $e) {
+            CakeLog::write('error', 'Exception saveOrderPayments \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
         }
 
         $this->commit();
-
-    }
-
-    function savePayment($data) {
-
-        try {
-
-            $r = $this->save(data);
-
-        }catch (Exception $e) {
-
-            CakeLog::write('error', 'An error was encountered while saving payment ' .
-                                  '  Exception: ' . $e->getMessage() . "\n" );
-        }
-
-        return $r;
-
-    }
-
-    function saveLedgerPayment($data) {
-
-        try {
-
-            $r = $this->save(data);
-
-        }catch (Exception $e) {
-
-            CakeLog::write('error', 'An error was encountered while saving ledger payment ' .
-                                  '  Exception: ' . $e->getMessage() . "\n" );
-        }
-
-        return $r;
 
     }
 

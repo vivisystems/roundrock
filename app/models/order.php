@@ -23,15 +23,20 @@ class Order extends AppModel {
 
     /**
      *
-     * @param <type> $orders 
+     * @param <type> $orders
      */
     function saveOrders($orders) {
 
         $this->begin();
 
-        foreach ($orders as $order) {
-            $this->id = $order['id'];
-            $this->save($order);
+        try {
+            foreach ($orders as $order) {
+                $this->id = $order['id'];
+                $this->save($order);
+            }
+        }catch(Exception $e) {
+            CakeLog::write('error', 'Exception saveOrders \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
         }
 
         $this->commit();
@@ -90,7 +95,7 @@ class Order extends AppModel {
         // save order_annotations
             $orderAnnotations = json_decode($datas['OrderAnnotation'], true);
             if (is_array($orderAnnotations)) {
-                $this->OrderAnnotation->saveOrderAnnotation(array_values($orderAnnotations));
+                $this->OrderAnnotation->saveOrderAnnotations(array_values($orderAnnotations));
             }
         }
 
@@ -129,14 +134,14 @@ class Order extends AppModel {
                 $this->OrderItemTax->saveOrderItemTaxes(array_values($orderItemTaxes));
             }
         }
-        
+
     }
 
 
     /**
      *
      * @param <type> $orderId
-     * @return <type> 
+     * @return <type>
      */
     function readOrderToBackupFormat($orderId) {
 
@@ -151,11 +156,11 @@ class Order extends AppModel {
      *
      * @param <type> $id
      * @param <type> $data
-     * @return <type> 
+     * @return <type>
      */
     function voidOrder($id, $data) {
 
-        // update order
+    // update order
         $this->id = $id;
         $result = $this->save($data);
 
@@ -196,7 +201,7 @@ class Order extends AppModel {
      */
     function changeClerk($id, $data) {
 
-        // update order
+    // update order
         $this->id = $id;
         $result = $this->save($data);
 

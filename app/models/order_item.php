@@ -12,15 +12,20 @@ class OrderItem extends AppModel {
 
         $this->begin();
 
-        foreach ($items as $item) {
-            $this->id = $item['id'];
-            $this->save($item);
+        try {
+            foreach ($items as $item) {
+                $this->id = $item['id'];
+                $this->save($item);
+            }
+        }catch(Exception $e) {
+            CakeLog::write('error', 'Exception saveOrderItems \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
         }
 
         $this->commit();
-        
+
     }
-    
+
 }
 
 ?>

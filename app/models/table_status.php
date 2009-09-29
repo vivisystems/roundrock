@@ -18,16 +18,22 @@ class TableStatus extends AppModel {
      * @param <type> $tableNoToIds
      */
     function updateStatusByOrders($orders, $tableNoToIds) {
+
         $this->begin();
 
-        foreach ($orders as $order) {
+        try {
+            foreach ($orders as $order) {
 
-            $status = $order['status'];
-            $table_no = $order['table_no'];
-            $table_id = $tableNoToIds[$order['table_no']];
+                $status = $order['status'];
+                $table_no = $order['table_no'];
+                $table_id = $tableNoToIds[$order['table_no']];
 
-            $this->updateOrderStatusById($table_id, $table_no);
+                $this->updateOrderStatusById($table_id, $table_no);
 
+            }
+        }catch(Exception $e) {
+            CakeLog::write('error', 'Exception updateStatusByOrders \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
         }
 
         $this->commit();
@@ -102,21 +108,26 @@ class TableStatus extends AppModel {
     function clearExpireStatuses() {
 
         $now = time();
+        
         $this->begin();
 
-        $result = $this->find('all', array('conditions'=>"end_time <= $now AND status=3", 'recursive'=>-1));
-        foreach($result as $value) {
-            $status = $value['TableStatus'];
-            if ($status['sum_customers'] == 0) {
-            // reset to available
-                $data = array('status'=>0, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
-                    'start_time'=>time(), 'end_time'=>time()+86400,
-                    'modified' => (double)(microtime(true)*1000));
-                $this->id = $status['id'];
-                $this->save($data);
+        try {
+            $result = $this->find('all', array('conditions'=>"end_time <= $now AND status=3", 'recursive'=>-1));
+            foreach($result as $value) {
+                $status = $value['TableStatus'];
+                if ($status['sum_customers'] == 0) {
+                // reset to available
+                    $data = array('status'=>0, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
+                        'start_time'=>time(), 'end_time'=>time()+86400,
+                        'modified' => (double)(microtime(true)*1000));
+                    $this->id = $status['id'];
+                    $this->save($data);
+                }
             }
+        }catch(Exception $e) {
+            CakeLog::write('error', 'Exception clearExpireStatuses \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
         }
-
         $this->commit();
     }
 

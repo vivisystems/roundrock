@@ -3,7 +3,7 @@
  * Sync behavior class.
  */
 class SyncBehavior extends ModelBehavior {
-    
+
     var $config = "";
     var $syncModel = null;
 
@@ -15,7 +15,7 @@ class SyncBehavior extends ModelBehavior {
      * @access public
      */
     function setup(&$model, $config = array()) {
-        
+
         if (is_string($config)) {
             $this->config = $config;
         }else {
@@ -35,7 +35,7 @@ class SyncBehavior extends ModelBehavior {
         }
 
         $this->syncModel->setDataSource($model->useDbConfig);
-        
+
         return $this->syncModel;
 
     }
@@ -73,7 +73,7 @@ class SyncBehavior extends ModelBehavior {
      */
     function afterSave(&$model, $created) {
 
-        // check if not active
+    // check if not active
         if(!$this->isActive()) return;
 
         $machineId = $this->getMachineId();
@@ -94,8 +94,14 @@ class SyncBehavior extends ModelBehavior {
             $data['crud'] = 'create';
         }
 
-        $sync->create();
-        $sync->save($data);
+        try {
+            $sync->create();
+            $sync->save($data);
+        }catch(Exception $e) {
+            CakeLog::write('error', 'sync Exception afterSave \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
+        }
+
 
         return true;
 
@@ -108,7 +114,7 @@ class SyncBehavior extends ModelBehavior {
      */
     function afterDelete(&$model) {
 
-        // check if not active
+    // check if not active
         if(!$this->isActive()) return;
 
         $machineId = $this->getMachineId();
@@ -125,8 +131,13 @@ class SyncBehavior extends ModelBehavior {
             'method_table' => $model->table
         );
 
-        $sync->create();
-        $sync->save($data);
+        try {
+            $sync->create();
+            $sync->save($data);
+        }catch(Exception $e) {
+            CakeLog::write('error', 'sync Exception afterDelete \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
+        }
 
         return true;
 
