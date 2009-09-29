@@ -76,7 +76,9 @@
 
             if (data.status == 2 || data.recall == 2) {
                 // XXXX call table service to save order to remote.
-                return this.restoreOrderFromBackupToRemote();
+                // @DEBUG
+                //return this.restoreOrderFromBackupToRemote();
+                return this.restoreOrderFromBackup();
             }else {
                 return this.restoreOrderFromBackup();
             }
@@ -90,7 +92,7 @@
 
             var retObj;
 
-            try {
+            //try {
                     
                 if (isTraining) {
                     retObj = this.save(this.mappingTranToOrderFields(data));
@@ -183,11 +185,12 @@
                 }
 
                 return true;
-
+/*
             } catch(e) {
                 this.log('ERROR',
                     'record could not be saved to backup [' + e + ']\n' + this.dump(data));
             }
+            */
             return false;
 
         },
@@ -236,7 +239,6 @@
             var requestUrl = this.getHttpService().getRemoteServiceUrl('saveOrdersFromBackupFormat');
             var request_data = (GeckoJS.BaseObject.serialize(datas));
             //            dump('length = ' + request_data.length +'\n');
-            this.log('DEBUG', 'request data: ' + request_data);
 
             var success = this.getHttpService().requestRemoteService('POST', requestUrl, request_data) || null ;
 
@@ -270,8 +272,8 @@
             if (!id ) return null;
 
             var orderData = null;
-
-            if (forceRemote) {
+//@DEBUG
+            if (false && forceRemote) {
                 var requestUrl = this.getHttpService().getRemoteServiceUrl('readOrderToBackupFormat') + '/' + id;
                 orderData = this.getHttpService().requestRemoteService('GET', requestUrl) || false ;
             }else {
@@ -318,12 +320,12 @@
 
             this.mappingOrderFieldsToTran(orderData, data);
             this.OrderItem.mappingOrderItemsFieldsToTran(orderData, data);
-            this.OrderItemTax.mappingOrderItemTaxesFieldsToTran(orderData, data);
             this.OrderAddition.mappingOrderAdditionsFieldsToTran(orderData, data);
             this.OrderPayment.mappingOrderPaymentsFieldsToTran(orderData, data);
             this.OrderAnnotation.mappingOrderAnnotationsFieldsToTran(orderData, data);
             this.OrderItemCondiment.mappingOrderItemCondimentsFieldsToTran(orderData, data);
             this.OrderPromotion.mappingOrderPromotionsFieldsToTran(orderData, data);
+            this.OrderItemTax.mappingOrderItemTaxesFieldsToTran(orderData, data);
 
 //            this.log('DEBUG', 'readOrder '+ id + ': \n' + this.dump(data));
 

@@ -27,10 +27,11 @@
             + trigger.getMatchedAmount() +","
             + trigger.getMatchedItemsQty() +","
             + trigger.getMatchedItemsSubtotal() +","
-            + type.getDiscountSubtobal() +","
+            + type.getDiscountSubtotal() +","
             + "'" + (type.getTaxNo()||'') +"'," // tax_name
             + type.getDiscountTaxSubtotal() +","// current_tax
-            + type.getDiscountTaxIncludedSubtotal()  // included_tax
+            + type.getDiscountTaxIncludedSubtotal() +"," // included_tax
+            + "'"+GeckoJS.BaseObject.serialize(type.getDiscountTaxDetails())+"'" // tax details
             + ")";
 
             var datasource = this.getDataSource();
@@ -89,8 +90,15 @@
         getApplyItems: function() {
 
             var sql = "SELECT * FROM promotion_applies";
-            return this.getDataSource().fetchAll(sql);
-            
+            var applyItems = this.getDataSource().fetchAll(sql);
+
+            if (applyItems && applyItems.length > 0) {
+                applyItems.forEach(function(promotion) {
+                    promotion.tax_details = GeckoJS.BaseObject.unserialize(promotion.tax_details);
+                }, this)
+            }
+
+            return applyItems;
         }
 
 

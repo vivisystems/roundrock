@@ -32,7 +32,7 @@
 
             //this.log('amount off discount = ' + discount);
 
-            this.setDiscountSubtobal(discount);
+            this.setDiscountSubtotal(discount);
             
             return true;
         }
