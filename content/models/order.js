@@ -193,6 +193,20 @@
 
         },
 
+        updateOrderMaster: function(data, isTraining) {
+
+            var retObj;
+
+            if (isTraining) {
+                retObj = this.save(data);
+            }
+            else {
+                retObj = this.saveToBackup(data);
+            }
+            return retObj;
+
+        },
+
         /**
          * Restore order and order* from backup to REAL databases
          * 

@@ -15,13 +15,14 @@
     -moz-user-input: none;
 }
 
-.promotions-label {
+.promotions-title {
     background-color: transparent;
     border-width: 0px;
     color: #f49b1d;
     font-family: monospace;
     font-size: 15pt;
     font-weight: bold !important;
+    width: 250px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;
@@ -35,6 +36,22 @@
     font-family: monospace;
     font-size: 15pt;
     font-weight: bold !important;
+    text-align: right;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.promotions-applies {
+    background-color: transparent;
+    border-width: 0px;
+    color: #f49b1d;
+    font-family: monospace;
+    font-size: 15pt;
+    font-weight: bold !important;
+    text-align: right;
+    width: 80px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;
