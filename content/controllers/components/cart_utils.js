@@ -52,23 +52,31 @@
         blockUI: function(panel, caption, title, sleepTime) {
 
             sleepTime = typeof sleepTime =='undefined' ?  0 : sleepTime;
-            var waitPanel = document.getElementById(panel);
+            var topwin = this.controller.topmostWindow;
+            var waitPanel;
+
+            if (topwin) {
+                waitPanel = topwin.document.getElementById(panel);
+            }
+            else {
+                waitPanel = document.getElementById(panel);
+            }
             var waitCaption = document.getElementById(caption);
 
             if (waitCaption) waitCaption.setAttribute("label", title);
 
-            waitPanel.openPopupAtScreen(0, 0);
+            if (waitPanel) {
+                waitPanel.openPopupAtScreen(0, 0);
+                if (sleepTime > 0) this.sleep(sleepTime);
+            }
 
-            if (sleepTime > 0) this.sleep(sleepTime);
             return waitPanel;
 
         },
 
-        unblockUI: function(panel) {
+        unblockUI: function(waitPanel) {
 
-            var waitPanel = document.getElementById(panel);
-
-            waitPanel.hidePopup();
+            if (waitPanel) waitPanel.hidePopup();
 
             return waitPanel;
 

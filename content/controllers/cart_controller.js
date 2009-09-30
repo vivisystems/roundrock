@@ -3223,7 +3223,7 @@
             }
 
             // blockUI when saving...
-            this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
+            var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
 
             if (this.dispatchEvent('beforeSubmit', {
                 status: status,
@@ -3268,7 +3268,7 @@
                             NotifyUtils.error('Failed to submit order due to data operation error.')
                         }
                         // unblockUI
-                        this._unblockUI('blockui_panel');
+                        this._unblockUI(waitPanel);
 
                         return false;
                     }
@@ -3307,7 +3307,7 @@
                                 _('Data Operation Error'),
                                 _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
                             this.dispatchEvent('commitOrderError', commitStatus);
-                            this._unblockUI('blockui_panel');
+                            this._unblockUI(waitPanel);
                             return false;
                         }
 
@@ -3324,7 +3324,7 @@
                     }
                 }
 
-                this._unblockUI('blockui_panel');
+                this._unblockUI(waitPanel);
 
                 // dispatch success event
                 this.dispatchEvent('onSubmitSuccess', oldTransaction);
@@ -3334,7 +3334,7 @@
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
 
                 // unblockUI
-                this._unblockUI('blockui_panel');
+                this._unblockUI(waitPanel);
             }
             return true;
         },
@@ -3905,7 +3905,12 @@
                 return false;
             }
 
+            // blockUI when access remote service
+            var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
+
             let remoteOrderData = orderModel.readOrder(id, true); // recall use master service's datas.
+
+            this._unblockUI(waitPanel);
 
             if (remoteOrderData) {
                 if (remoteOrderData.TableOrderLock) {
@@ -3954,9 +3959,15 @@
                 precisionPrices: orderData.Order.precision_prices
             };
 
+            var waitPanel;
+
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Payment Refund'), features, inputObj);
 
+            // blockUI when saving...
+            waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
+
             if (inputObj.ok) {
+
                 if (this.dispatchEvent('beforeVoidSale', orderData)) {
 
                     var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -4061,6 +4072,7 @@
                             _('Void Sale'),
                             _('Transaction [%S] successfully voided', [order.sequence]));
 
+                        this._unblockUI(waitPanel);
                         return true;
                     }
                     catch(e) {
@@ -4071,6 +4083,9 @@
             if (remoteOrderData) {
                 orderModel.releaseOrderLock(id);
             }
+            
+            this._unblockUI(waitPanel);
+
             return false;
         },
 

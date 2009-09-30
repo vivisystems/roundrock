@@ -75,4 +75,6 @@
         </vbox>
     </vbox>
 
+    <vivipanel id="blockui_panel" position="overlap" noautohide="true" pack="center" align="center"/>
+    
 </window>

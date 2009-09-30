@@ -2818,7 +2818,7 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
         },
 
 
