@@ -12,6 +12,7 @@
         _orderData: null,
         _orders: [],
         _index: -1,
+        _locked: false,
 
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
@@ -50,7 +51,6 @@
             var report = document.getElementById('report');
             var orderObj = document.getElementById('order');
             
-            // load data
             var orderModel = new OrderModel();
             var order = orderModel.findById(id, 2);
             if (parseInt(orderModel.lastError) != 0) {
@@ -58,8 +58,9 @@
                               _('An error was encountered while retrieving details of the selected order (error code %S) [message #1901].', [orderModel.lastError]));
                 return;
             }
-
+            
             if (order) {
+this.log('DEBUG', this.dump(order));
                 // display order status
                 var branch = (order.branch == null || order.branch == '') ? ((order.branch_id == null || order.branch_id == '') ? '' : order.branch_id)
                                                                           : order.branch + ((order.branch_id == null || order.branch_id == '') ? '' : ' (' + order.branch_id + ')');

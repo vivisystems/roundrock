@@ -186,7 +186,7 @@
 {if order.OrderAddition}
     {for adjustment in order.OrderAddition}
     <tr>
-        {if adjustment.discount_name != null}
+        {if adjustment.discount_name != ''}
         <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${adjustment.discount_name}</td>
         <td style="width: 100px; text-align: right;">${adjustment.current_discount|viviFormatPrices:true}</td>
         <td/>

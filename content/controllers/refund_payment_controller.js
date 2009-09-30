@@ -22,6 +22,10 @@
         },
 
         formatPrice: function(price) {
+            if (parseFloat(price) == 0) {
+                return '';
+            }
+            
             var options = {
                 decimals: this._decimals,
                 thousands: this._thousands,

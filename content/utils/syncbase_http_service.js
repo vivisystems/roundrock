@@ -279,7 +279,7 @@
                     if (req.status == 200) {
                         try {
                             var result = self.parseResponseText(req.responseText);
-
+                            
                             // set last status 
                             self.lastResponseStatus = result.status;
                             self.lastResponseCode = result.code;

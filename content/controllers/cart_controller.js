@@ -2651,7 +2651,7 @@
             });
             if (ledgerEntryTypeModel.lastError) {
                 this._dbError(ledgerEntryTypeModel.lastError, ledgerEntryTypeModel.lastErrorString,
-                    _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
+                              _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
                 this._clearAndSubtotal();
                 return;
             }
@@ -3305,7 +3305,8 @@
                         if (commitStatus == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
-                                _('This order could not be committed . Please check the network connectivity to the terminal designated as the synchronization server [message #105].'));
+                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
+                            this.dispatchEvent('commitOrderError', commitStatus);
                             this._unblockUI('blockui_panel');
                             return false;
                         }
@@ -3890,7 +3891,12 @@
             // load data
             var orderModel = new OrderModel();
 
-            let orderData = orderModel.readOrder(id, true); // recall use master service's datas.
+            let orderData = orderModel.findById(id);
+            if (parseInt(orderModel.lastError) != 0) {
+                this._dbError(orderModel.lastError, orderModel.lastErrorString,
+                    _('An error was encountered while retrieving order record (error code %s) [message #107].', [orderModel.lastError]));
+                return false;
+            }
 
             if (!orderData) {
                 GREUtils.Dialog.alert(this.topmostWindow,
@@ -3899,17 +3905,38 @@
                 return false;
             }
 
-            if (orderData.TableOrderLock) {
-                GREUtils.Dialog.alert(this.topmostWindow,
-                    _('Void Sale'),
-                    _('This order is already locked by other terminal. [%S,%S]',  [orderData.TableOrderLock.machine_id, orderData.TableOrderLock.machine_addr]));
-                return false;
-            }
+            let remoteOrderData = orderModel.readOrder(id, true); // recall use master service's datas.
 
+            if (remoteOrderData) {
+                if (remoteOrderData.TableOrderLock) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Void Sale'),
+                        _('This order is already locked by other terminal. [%S,%S]',  [remoteOrderData.TableOrderLock.machine_id, remoteOrderData.TableOrderLock.machine_addr]));
+                    return false;
+                }
+
+                // make sure remote order has same status and is not more recent than local order
+                if (orderData.Order.status != remoteOrderData.Order.status) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Void Sale'),
+                        _('Failed to void: the status of the selected order has been changed by another terminal'));
+                    orderModel.releaseOrderLock(id);
+                    return false;
+                }
+                else if (orderData.Order.modified < remoteOrderData.Order.modified) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Void Sale'),
+                        _('Failed to void: the selected order has been modified by another terminal'));
+                    orderModel.releaseOrderLock(id);
+                    return false;
+                }
+            }
+            
             if (orderData.Order.status < 1) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
                     _('Failed to void: the selected order is not stored or finalized'));
+                orderModel.releaseOrderLock(id);
                 return false;
             }
 
@@ -3953,8 +3980,8 @@
                         for (var i = 0; r && i < inputObj.refunds.length; i++) {
                             var payment = inputObj.refunds[i];
 
-                            // doing so ensures the model will save this payment in insertion mode.
-                            paymentModel.id = payment.id = '';
+                            // need to assign uuid to ensure that payments share the same uuid locally and remotely
+                            payment.id = GeckoJS.String.uuid();
 
                             // reverse amount, origin_amount, change
                             payment.order_id = orderData.Order.id;
@@ -4009,15 +4036,22 @@
                         }
 
                         // call remote service to void Order
-                        orderModel.voidOrder(id, order, true); // force remote service
+                        r = orderModel.voidOrder(id, order, true); // force remote service
+                        if (!r) {
+                            throw {
+                                errno: 109,
+                                errstr: 'Failed to update order to voided status',
+                                errmsg: _('An error was encountered while changing order status to voided [message #109].')
+                            };
+                        }
 
                         // restore stock
                         r = this.decStock(order);
                         if (!r) {
                             throw {
-                                errno: 0,
-                                errstr: '',
-                                errmsg: 'An error was encountered while updating stock level [message #110].'
+                                errno: 110,
+                                errstr: 'Failed to update stock level while voiding sale',
+                                errmsg: _('An error was encountered while updating stock level [message #110].')
                             };
                         }
 
@@ -4033,6 +4067,9 @@
                         this._dbError(e.errno, e.errstr, e.errmsg);
                     }
                 }
+            }
+            if (remoteOrderData) {
+                orderModel.releaseOrderLock(id);
             }
             return false;
         },

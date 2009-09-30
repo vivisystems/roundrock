@@ -42,6 +42,10 @@
             return this.getHttpService().isRemoteService();
         },
         
+        isLocalhost: function() {
+            return this.getHttpService().isLocalhost();
+        },
+
         /**
          * return:
          *
@@ -256,11 +260,13 @@
 
             //if fault , use Waning dialg and drop store .
             if (success) {
-                this.removeBackupFile();
+                this.restoreFromBackup();
+                //this.removeBackupFile();
                 this.OrderItem.removeBackupFile();
                 this.OrderItemTax.removeBackupFile();
                 this.OrderAddition.removeBackupFile();
-                this.OrderPayment.removeBackupFile();
+                this.OrderPayment.restoreFromBackup();
+                //this.OrderPayment.removeBackupFile();
                 this.OrderAnnotation.removeBackupFile();
                 this.OrderItemCondiment.removeBackupFile();
                 this.OrderPromotion.removeBackupFile();
@@ -349,22 +355,23 @@
          * void order from local databases or remote services
          *
          * @param {String} id   order's uuid
-         * @param {Boolean} forceRemote    force use local database or remote services
+         * @param {Boolean} updateRemote    whether to update remote services
          * @return {Object} object for transaction.data || OrderLock object for locked info
          */
-        voidOrder: function(id, data, forceRemote) {
+        voidOrder: function(id, data, updateRemote) {
 
-            forceRemote = forceRemote || false;
+            updateRemote = updateRemote || false;
             if (!id ) return false;
-            var result = false;
+            var result = true;
 
-            if (forceRemote) {
-
+            if (updateRemote) {
                 var requestUrl = this.getHttpService().getRemoteServiceUrl('voidOrder') + '/' + id;
                 var request_data = (GeckoJS.BaseObject.serialize(data));
                 result = this.getHttpService().requestRemoteService('POST', requestUrl, request_data) || false ;
 
-            }else {
+            }
+
+            if (result && this.isLocalhost()) {
 
                 // update order
                 this.id = id;
@@ -372,8 +379,8 @@
 
                 // update refund payments
                 for (let i in data.refundPayments) {
-                      this.OrderPayment.create();
-                      this.OrderPayment.save(data.refundPayments[i]);
+                    this.OrderPayment.id = data.refundPayments[i].id;
+                    this.OrderPayment.save(data.refundPayments[i]);
                 }
             }
 
@@ -428,7 +435,7 @@
 
             if (isRemote) {
                 var requestUrl = this.getHttpService().getRemoteServiceUrl('getOrdersSummary') ;
-                result = this.getHttpService().requestRemoteService('POST', requestUrl, conditions) || null ;
+                let result = this.getHttpService().requestRemoteService('POST', requestUrl, conditions) || null ;
                 if (result) {
                     // orders = result;
                     orders = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(atob(result)));

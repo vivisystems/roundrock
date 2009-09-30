@@ -34,8 +34,6 @@
                 'orders.shift_number as "Order.shift_number"',
                 'orders.total as "Order.total"',
                 'orders.invoice_no as "Order.invoice_no"',
-                'orders.discount_subtotal as "Order.discount_subtotal"',
-                'orders.surcharge_subtotal as "Order.surcharge_subtotal"',
                 'orders.tax_subtotal as "Order.tax_subtotal"',
                 'orders.included_tax_subtotal as "Order.included_tax_subtotal"',
                 'orders.promotion_subtotal as "Order.promotion_subtotal"',
@@ -58,29 +56,16 @@
             var rowCount = orderModel.find('count', {
                 fields: fields,
                 conditions: conditions,
-                recursive: 1
+                recursive: 0
             });
             
             var orders = orderModel.find( 'all', {
                 fields: fields,
                 conditions: conditions,
-                recursive: 1,
+                recursive: 2,
                 order: orderby,
                 limit: limit
             } );
-
-            // retrieve taxes
-            fields = [
-                't.order_id',
-                't.tax_no',
-                't.tax_name',
-                't.tax_type',
-                't.tax_subtotal',
-                't.included_tax_subtotal',
-                't.taxable_amount'
-            ];
-            var orderItemTaxModel = new OrderItemTaxModel();
-            var taxes = orderItemTaxModel.getDataSource().fetchAll('SELECT ' + fields.join(',') + ' FROM order_item_taxes t INNER JOIN orders ON ("orders"."id" = "t"."order_id" ) WHERE ' + conditions + ' AND t.order_item_id = "" AND t.promotion_id = "" LIMIT 0, ' + limit);
 
             var summary = {
                 total: 0,
@@ -95,14 +80,28 @@
 
             // summarize orders
             var records = {};
-            orders.forEach( function( data ) {
-                let (oid = data.id) {
-                    records[ oid ] = GREUtils.extend( {}, data );
-                    records[ oid ][ 'surcharge_subtotal' ] = data.Order.surcharge_subtotal;
-                    records[ oid ][ 'discount_subtotal' ] = data.Order.discount_subtotal;
-                    records[ oid ][ 'taxes' ] = {};
+            var taxList = [];
+            var taxesByNo = {};
 
+            orders.forEach( function( data ) {
+                var oid = data.id;
+
+                records[ oid ] = GREUtils.extend( {}, data );
+                records[ oid ][ 'surcharge_subtotal' ] = data.Order.surcharge_subtotal;
+                records[ oid ][ 'discount_subtotal' ] = data.Order.discount_subtotal;
+                records[ oid ][ 'taxes' ] = {};
+                
+                // compute order discount
+                let adjustments = data.OrderAddition || [];
+                let discountTotal = 0, surchargeTotal = 0;
+                for (let i = 0; i < adjustments.length; i++) {
+                    let adjustment = adjustments[i];
+                    discountTotal += adjustment.current_discount;
+                    surchargeTotal += adjustment.current_surcharge;
                 }
+
+                records[ oid ].Order.discount_subtotal = records[ oid ].discount_subtotal = discountTotal;
+                records[ oid ].Order.surcharge_subtotal = records[ oid ].surcharge_subtotal = surchargeTotal;
                 
                 summary.total += data.Order.total;
                 summary.tax_subtotal += data.Order.tax_subtotal;
@@ -111,55 +110,45 @@
                 summary.discount_subtotal += data.Order.discount_subtotal;
                 summary.promotion_subtotal += data.Order.promotion_subtotal;
                 summary.revalue_subtotal += data.Order.revalue_subtotal;
-            });
 
-            // group taxes
+                // group taxes
+                let taxes = data.OrderItemTax;
+                for (let i = 0; i < taxes.length; i++) {
+                    let tax = taxes[i], tax_amount;
+                    if (tax.tax_type == 'INCLUDED') {
+                        tax_amount = tax.included_tax_subtotal;
+                    }
+                    else {
+                        tax_amount = tax.tax_subtotal;
+                    }
+                    records[ oid ][ 'taxes' ][ tax.tax_no ] = {
+                        tax_subtotal: tax_amount,
+                        item_subtotal: tax.taxable_amount
+                    }
 
-            var taxList = [];
-            var taxesByNo = {};
-
-            taxes.forEach( function( tax ) {
-                if ( records[ tax.order_id ] ) {
-                    let (record = records[ tax.order_id ][ 'taxes' ], tax_amount) {
-                        if (tax.tax_type == 'INCLUDED') {
-                            tax_amount = tax.included_tax_subtotal;
-                            record[tax.tax_no] = {
-                                tax_subtotal: tax_amount,
-                                item_subtotal: tax.taxable_amount
-                            }
-                        }
-                        else {
-                            tax_amount = tax.tax_subtotal;
-                            record[tax.tax_no] = {
-                                tax_subtotal: tax_amount,
-                                item_subtotal: tax.taxable_amount
-                            }
-                        }
-
-                        // tax summary
-                        if (!(tax.tax_no in summary.taxes)) {
-                            summary.taxes[tax.tax_no] = {
-                                tax_subtotal: tax_amount,
-                                item_subtotal: tax.taxable_amount
-                            }
-                        }
-                        else {
-                            summary.taxes[tax.tax_no].tax_subtotal += tax_amount;
-                            summary.taxes[tax.tax_no].item_subtotal += tax.taxable_amount;
-                        }
-
-                        // add to tax list
-                        if (!(tax.tax_no in taxesByNo)) {
-                            taxList.push({
-                                no: tax.tax_no,
-                                name: tax.tax_name
-                            });
-                            taxesByNo[tax.tax_no] = 1;
+                    // tax summary
+                    if (!(tax.tax_no in summary.taxes)) {
+                        summary.taxes[tax.tax_no] = {
+                            tax_subtotal: tax_amount,
+                            item_subtotal: tax.taxable_amount
                         }
                     }
+                    else {
+                        summary.taxes[tax.tax_no].tax_subtotal += tax_amount;
+                        summary.taxes[tax.tax_no].item_subtotal += tax.taxable_amount;
+                    }
+
+                    // add to tax list
+                    if (!(tax.tax_no in taxesByNo)) {
+                        taxList.push({
+                            no: tax.tax_no,
+                            name: tax.tax_name
+                        });
+                        taxesByNo[tax.tax_no] = 1;
+                    }
                 }
-            }, this );
-            
+            }, this);
+
             if ( sortby != 'all' ) {
                 records = GeckoJS.BaseObject.getValues(records);
                 records.sort(

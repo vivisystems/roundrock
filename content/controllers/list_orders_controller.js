@@ -7,6 +7,8 @@
 
         name: 'ListOrders',
 
+        uses: 'Order',
+
         _inputData: null,
 
         _orders: [],
