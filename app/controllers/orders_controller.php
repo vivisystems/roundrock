@@ -77,7 +77,7 @@ class OrdersController extends AppController {
                 $result = $this->Order->readOrderToBackupFormat($orderId);
 
                 // lock order by recalled machineｓ
-                if(!empty($result)) {
+                if(!empty($result) || true ) {  // always locked rack/irving 090930
                     $this->TableOrderLock->setOrderLock($orderId, $machineId);
                 }
 
@@ -240,6 +240,10 @@ class OrdersController extends AppController {
 
                 // update table orders and status
                 $this->Table->voidOrder($orderId, $data);
+
+                // always release lock
+                $this->TableOrderLock->releaseOrderLock($orderId);
+
 
             }else {
                 $result = false ;
