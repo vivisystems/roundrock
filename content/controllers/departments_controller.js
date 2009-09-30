@@ -64,9 +64,15 @@
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_rate', features, inputObj);
 
-            if (inputObj.ok && inputObj.rate) {
-                $('#rate').val(inputObj.rate);
-                $('#rate_name').val(inputObj.name);
+            if (inputObj.ok) {
+                if (inputObj.rate) {
+                    $('#rate').val(inputObj.rate);
+                    $('#rate_name').val(inputObj.name);
+                }
+                else {
+                    $('#rate').val('');
+                    $('#rate_name').val('');
+                }
             }
         },
 
