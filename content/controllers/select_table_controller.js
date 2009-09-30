@@ -880,6 +880,10 @@
             }
         },
 
+
+        /**
+         * transferTable - called by orderdisplay popup panel
+         */
         transferTable: function(order_id) {
 
             let orgTable = this._actionData ? this._actionData : null;
@@ -897,6 +901,10 @@
 
         },
 
+
+        /**
+         * executeTransferTable -- check status and call GuestCheck 's transferTable
+         */
         executeTransferTable: function(table_id) {
             
             let table = this.Table.getTableById(table_id);
@@ -933,6 +941,10 @@
 
         },
 
+
+        /**
+         * changeClerk -- called by orderdisplay popup panel
+         */
         changeClerk: function(orderId) {
             
             this.hideOrderDisplayPanel();
@@ -948,6 +960,30 @@
             
         },
 
+
+        /**
+         * openTableBookDialog
+         */
+        openTableBookDialog: function (){
+
+            var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
+            var screenheight = GeckoJS.Session.get('screenheight') || 600;
+
+            var aURL = 'chrome://viviecr/content/table_book.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+
+            var inputObj = {};
+            
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'table_book', aFeatures, inputObj);
+
+            return true;
+
+        },
+        
+
+        /**
+         *  initial function when DOM loaded.
+         */
         load: function(evt) {
 
             var tableSettings = this.getTableSettings();

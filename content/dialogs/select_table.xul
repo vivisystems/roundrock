@@ -76,10 +76,12 @@
                 <button class="clearMarkBtn" id="unmarkTableBtn" label="&selecttable.bookingtable;" type="radio" group="func" oncommand="$do('setAction', 'unmarkTable', 'SelectTable');"/>
             </vbox>
             <vbox class="RightBtns">
-
+                <hbox>
+                    <spacer class="space2" style="min-height: 40px;" />
+                </hbox>
                 <button class="addMarksBtn" id="add_table_marks" label="&selecttable.bookingtable;" hidden="true" type="radio" group="func2" oncommand="$do('doMarkRegionTable', null, 'SelectTable');"/>
                 <button class="clearMarksBtn" id="clear_table_marks" label="&selecttable.bookingtable;" hidden="true" type="radio" group="func2" oncommand="$do('doUnmarkRegionTable', null, 'SelectTable');"/>
-                <button class="bookcBtn2" id="bookingTableBtn" label="&selecttable.bookingtable;" hidden="true" group="func2" oncommand="$do('setAction', 'bookingTable', 'SelectTable');"/>
+                <button class="bookcBtn2" id="bookingTableBtn" label="&selecttable.bookingtable;" group="func2" oncommand="$do('openTableBookDialog', null, 'SelectTable');"/>
                 <spacer class="space" />
                 <hbox>
                     <spacer class="space2" />

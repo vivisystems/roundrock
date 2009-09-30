@@ -15,9 +15,6 @@
         _tableStatusModel: null,
         _cart: null,
 
-        initial: function () {
-            //
-        },
 
         getCartController: function() {
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
@@ -243,35 +240,18 @@
         },
 
         load: function() {
-            //
-            if (window.arguments) {
-                var inputObj = window.arguments[0];
-            } else {
-                inputObj = {
-                    table_id: document.getElementById('table_id').value,
-                    table_no: document.getElementById('current_table_no').value,
-                    table_name: document.getElementById('current_table_name').value,
-                    table_status_id: document.getElementById('table_status_id').value
-                }
-            }
+            
+            document.getElementById('booking_table_title').setAttribute('label', _('Book Table', []));
+            
+            $.installPanel('selectTablePanel',  {css: {top: '0px', left: '0px'}});
 
-            this.setTableId(inputObj.table_id);
-            this.setTableNo(inputObj.table_no);
-            this.setTableName(inputObj.table_name);
-            this.setTableStatusId(inputObj.table_status_id);
+            this.loadBookings();
 
-            document.getElementById('booking_table_title').setAttribute('label', _('Book Table# %S - %S', [this._table_no, this._table_name]));
+        },
 
-            var settings = this.readTableSettings();
-            GeckoJS.FormHelper.unserializeFromObject('settingsForm', settings);
-
-            // remove old booking
-            this.removeOldBooking();
-
-            this.loadBookings(this._table_id);
-            this.selectBooking(0);
-
-
+        viewTableBook: function() {
+            $.popupPanel('selectTablePanel');
+            
         },
 
         validateForm: function() {

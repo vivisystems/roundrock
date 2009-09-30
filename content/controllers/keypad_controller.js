@@ -81,7 +81,7 @@
             evt = evt || this.data;
 		
             if (evt.originalTarget) {
-                if (evt.originalTarget.tagName.indexOf('input') != -1) return false;
+                if (evt.originalTarget.tagName.indexOf('input') != -1 || evt.originalTarget.tagName.indexOf('textarea') != -1 || evt.originalTarget.tagName.indexOf('textbox') != -1) return false;
             }
 
             var charPress = String.fromCharCode(evt.charCode);

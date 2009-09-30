@@ -9,8 +9,8 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_win.css" type="text/css"?>
 
-<?xul-overlay href="chrome://viviecr/content/overlays/tableBookOverlay.xul" ?>
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 
@@ -21,15 +21,73 @@
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/table_book.js" />
-
-    <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('search_ok').click()" />
-    </keyset>
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/table_book_controller.js"/>
 
     <vbox class="container-be" flex="1">
         <vbox flex="1" class="container-main">
-            <box id="tableBookContainer" flex="1"/>
+
+            <box id="tableBookContainer" flex="1">
+
+                <textbox id="booking_id" readonly="true" hidden="true" form="bookingForm" name="id"/>
+                <textbox id="booking_table_id" readonly="true" hidden="true" form="bookingForm" name="table_id"/>
+                <textbox id="booking_table_no" readonly="true" hidden="true" form="bookingForm" name="table_no"/>
+                <textbox id="booking_table_status_id" readonly="true" hidden="true" form="bookingForm" name="table_status_id"/>
+                <vbox flex="1">
+                    <caption id="booking_table_title" label=""/>
+                    <vbox flex="1">
+                        <vbox pack="start" flex="1" class="content-listbox">
+                            <vivitree id="bookingscrollabletree" flex="1"
+                              headers="&tableman.booking.booking;,&tableman.booking.contact;,&tableman.booking.telephone;,&tableman.booking.tableno;"
+                              fields="booking,contact,telephone"
+                              onselect="$do('selectBooking',this.selectedIndex, 'TableBook');"
+                              class="standard"
+                              scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
+                            <hbox>
+                                <label value="&tableman.booking.count;"/>
+                                <label id="booking_count"/>
+                            </hbox>
+                        </vbox>
+                    </vbox>
+                    <hbox>
+                        <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                            <button id="add_book" label="&tableman.button.add;" hidden="false" class="button-add" oncommand="$do('addBooking', null, 'TableBook');"/>
+                            <button id="modify_book" label="&tableman.button.modify;" hidden="false" class="button-modify" oncommand="$do('modifyBooking', null, 'TableBook');"/>
+                            <spacer flex="1"/>
+                            <button id="delete_book" label="&tableman.button.delete;" hidden="false" class="button-delete" oncommand="$do('deleteBooking', null, 'TableBook');"/>
+                        </hbox>
+                        <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                            <button id="view_table_book" label="&tableman.button.viewtablebook;" hidden="false" class="button-view" oncommand="$do('viewTableBook', null, 'TableBook');" />
+                        </hbox>
+                        <hbox id="search_dialogButtons" pack="center" class="exitbar">
+                            <button id="search_vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                            <button id="search_ok" default="true" class="button-exit" oncommand="doOKButton();"/>
+                        </hbox>
+                    </hbox>
+                </vbox>
+            </box>
+
         </vbox>
     </vbox>
-
+    
+    <popupset id="dialogs">
+        <vivipanel id="selectTablePanel" noautohide="false" class="container-dialog">
+            <vbox class="maindialog">
+            <vbox class="container-be" flex="1" id="addPanel">
+                <vbox flex="1" class="container-main">
+                    <hbox>dddd</hbox>
+                    <spacer flex="1"/>
+<hbox>
+                        <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                            <button id="delete_book" label="&tableman.button.delete;" hidden="false" class="button-delete" oncommand="$do('deleteBooking', null, 'TableBook');"/>
+                        </hbox>
+                        <hbox id="search_dialogButtons" pack="center" class="exitbar">
+                            <button id="search_vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                            <button id="search_ok" default="true" class="button-exit" oncommand="doOKButton();"/>
+                        </hbox>
+                    </hbox>
+                </vbox>
+            </vbox>
+            </vbox>
+        </vivipanel>
+    </popupset>
 </window>

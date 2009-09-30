@@ -582,6 +582,8 @@
 
             if (!orderData) {
                 NotifyUtils.error(_('This order object does not exist [%S]', [orderId]));
+                // release for other machine use.
+                this.Order.releaseOrderLock(orderId);
                 return false;
             }
 
@@ -593,6 +595,8 @@
 
             if (orderData.Order.status == 1) {
                 NotifyUtils.warn(_('This order is already finalized!'));
+                // release for other machine use.
+                this.Order.releaseOrderLock(orderId);
                 return false;
             }
 
@@ -601,6 +605,8 @@
            
             if (data.display_sequences == undefined) {
                 NotifyUtils.error(_('This order object can not recall [%S]', [orderId]));
+                // release for other machine use.
+                this.Order.releaseOrderLock(orderId);
                 return false;
             }
 
