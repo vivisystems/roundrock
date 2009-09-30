@@ -1276,6 +1276,7 @@
             var count = parseInt(paramList[0]) || 1;
             var items = parseInt(paramList[1]) || 1;
             var resume = parseInt(paramList[2]) || 0;
+            var store = parseInt(paramList[3]) || 0;
             var customers = GeckoJS.Session.get('customers') || [];
             var products = GeckoJS.Session.get('products') || [];
             var numProds = products.length;
@@ -1342,8 +1343,14 @@
                     // delay
                     this.sleep(100 + 100 * Math.random());
                 }
-                // finalize order with cash
-                cart.cash();
+
+                if (store) {
+                    // store 
+                    cart.storeCheck();
+                }else {
+                    // finalize order with cash
+                    cart.cash();
+                }
 
                 // update progress bar
                 progressBar.value = (i + 1) * 100 / count;

@@ -4168,6 +4168,13 @@
         },
 
         /**
+         * use guest_check controller
+         */
+        storeCheck: function() {
+            return this.requestCommand('storeCheck', null, 'GuestCheck');
+        },
+
+        /**
          * use cartutils implement
          */
         _dbError: function(errno, errstr, errmsg) {
