@@ -605,6 +605,7 @@
                     var includedRateTaxes = [];
                     var includedRateAmount = 0;
 
+                    // first compute all included fixed charges
                     taxObject.CombineTax.forEach(function(cTaxObj){
                         if (cTaxObj.type == 'INCLUDED') {
                             var rate = parseFloat(cTaxObj['rate']);
@@ -613,7 +614,6 @@
                                 taxAmount[no]['combine'][cTaxObj.no] = {
                                     charge: 0,
                                     included: taxCharge,
-                                    taxable: amount,
                                     tax: cTaxObj
                                 }
                                 includedChargeAmount += taxCharge;
@@ -654,20 +654,24 @@
                        }
                     }
 
-                    var totalIncluded = includedRateAmount + includedChargeAmount;
-                    var addonBasis = amount - totalIncluded;
+                    totalIncluded = includedRateAmount + includedChargeAmount;
+                    var pretaxAmount = amount - totalIncluded;
 
-                    // foreach component tax of type 'add-on'
                     taxObject.CombineTax.forEach(function(cTaxObj){
+                        // foreach component tax of type 'add-on', compute add on tax
                         if (cTaxObj.type == 'ADDON') {
-                            var cTaxAmount = this.calcTaxAmount(cTaxObj['no'], addonBasis, unitprice, qty, precision, rounding);
+                            var cTaxAmount = this.calcTaxAmount(cTaxObj['no'], pretaxAmount, unitprice, qty, precision, rounding);
                             taxAmount[no]['combine'][cTaxObj.no] = {
                                 charge: cTaxAmount[cTaxObj.no].charge || 0,
                                 included: cTaxAmount[cTaxObj.no].included || 0,
-                                taxable: addonBasis,
+                                taxable: pretaxAmount,
                                 tax: cTaxObj
                             }
                             totalCharge += cTaxAmount[cTaxObj.no].charge || 0;
+                        }
+                        else if (cTaxObj.type == 'INCLUDED') {
+                            // foreach component tax of type 'included', update taxable amount
+                            taxAmount[no]['combine'][cTaxObj.no].taxable = pretaxAmount;
                         }
                     }, this);
                 }
