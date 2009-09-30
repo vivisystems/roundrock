@@ -927,6 +927,17 @@
                 var aURL;
                 var features;
 
+                // check stored order policy, apply if appropriate
+                let closePeriodPolicy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenEndPeriod') || 'none';
+                let shiftChangePolicy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenShiftChange') || 'none';
+                let storedOrderCount = orderModel.getOrdersCount('orders.status=2', true);
+
+                if (parseInt(orderModel.lastError) != 0) {
+                    this._dbError(orderModel.lastError, orderModel.lastErrorString,
+                        _('An error was encountered while retrieving order records (error code %S) [message #1428].', [orderModel.lastError]));
+                    return;
+                }
+
                 var requireCashDeclaration = GeckoJS.Configure.read('vivipos.fec.settings.RequireCashDeclaration');
                 var defaultChangeInDrawer = GeckoJS.Configure.read('vivipos.fec.settings.DefaultChangeInDrawer');
 
@@ -938,6 +949,9 @@
                     aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
                     features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
                 }
+
+                // check for open transaction
+                var cart = GeckoJS.Controller.getInstanceByName('Cart');
 
                 inputObj = {
                     shiftChangeDetails: shiftChangeDetails,
@@ -952,7 +966,11 @@
                     giftcardExcess: giftcardExcess,
                     canEndSalePeriod: canEndSalePeriod,
                     defaultChangeInDrawer: defaultChangeInDrawer,
-                    allowChangeWhenEndPeriod: allowChangeWhenEndPeriod
+                    allowChangeWhenEndPeriod: allowChangeWhenEndPeriod,
+                    shiftChangePolicy: shiftChangePolicy,
+                    closePeriodPolicy: closePeriodPolicy,
+                    storedOrderCount: storedOrderCount,
+                    transactionOpen: cart.ifHavingOpenedOrder()
                 };
                 
                 this._unblockUI('blockui_panel');
@@ -1073,31 +1091,6 @@
                 }
 
                 if (inputObj.end) {
-
-                    // check stored order policy, apply if appropriate
-                    let policy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenEndPeriod') || 'none';
-                    let storedOrdersCount = orderModel.getOrdersCount('orders.status=2', true);
-
-                    if (parseInt(orderModel.lastError) != 0) {
-                        this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                            _('An error was encountered while retrieving order records (error code %S) [message #1428].', [orderModel.lastError]));
-                        return;
-                    }
-
-                    if (storedOrdersCount > 0) {
-                        if (policy == 'alert') {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Shift Change'),
-                                _('Note: one or more orders are still open.'));
-                        }
-                        else if (policy == 'force') {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Shift Change'),
-                                _('You may not end the current sale period while orders are still open.'));
-                            return;
-                        }
-                    }
-
                     // closing sale period, check if we need to advance cluster sale period
                     var handleSalePeriod = this.ShiftMarker.isSalePeriodHandler();
                     //this.log('DEBUG', 'sale period handler? ' + handleSalePeriod);
@@ -1153,31 +1146,6 @@
                     doEndOfPeriod = true;
                 }
                 else {
-                    // check stored order policy, apply if appropriate
-                    let policy = GeckoJS.Configure.read('vivipos.fec.settings.StoredOrderWhenShiftChange') || 'none';
-                    //let storedOrdersCount = orderModel.getOrdersCount('orders.status=2', true);
-                    let storedOrdersCount = 0;
-
-                    if (parseInt(orderModel.lastError) != 0) {
-                        this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                            _('An error was encountered while retrieving order records (error code %S) [message #1428].', [orderModel.lastError]));
-                        return;
-                    }
-
-                    if (storedOrdersCount > 0) {
-                        if (policy == 'alert') {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Shift Change'),
-                                _('Note: one or more orders are still open.'));
-                        }
-                        else if (policy == 'force') {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Shift Change'),
-                                _('You may not close the current shift while orders are still open.'));
-                            return;
-                        }
-                    }
-
                     // mark end of shift
                     if (!this._setEndOfShift(moneyInLedgerEntry)) return;
 
