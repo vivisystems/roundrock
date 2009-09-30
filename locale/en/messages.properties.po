@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-09-30 11:23+0800\n"
+"POT-Creation-Date: 2009-09-30 12:20+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2948,19 +2948,19 @@ msgstr ""
 msgid "Lost Status"
 msgstr ""
 
-#: ../..//content/sysprefs.js:58
+#: ../..//content/sysprefs.js:55
 msgid "Do not pack"
 msgstr ""
 
-#: ../..//content/sysprefs.js:102
+#: ../..//content/sysprefs.js:99
 msgid "Rebuilding databases..."
 msgstr ""
 
-#: ../..//content/sysprefs.js:165
+#: ../..//content/sysprefs.js:144
 msgid "General Options"
 msgstr ""
 
-#: ../..//content/sysprefs.js:165
+#: ../..//content/sysprefs.js:144
 msgid "General options saved"
 msgstr ""
 

@@ -250,8 +250,7 @@
                         <checkbox id="autodiscardqueue" label="&login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
                     </row>
                     <row>
-                        <checkbox id="signoffwhenidle" label="&login.signoffwhenidle;" preference="pref_signoffwhenidle"
-                                  oncommand="processSignOffWhenIdle(this.checked)"/>
+                        <checkbox id="signoffwhenidle" label="&login.signoffwhenidle;" preference="pref_signoffwhenidle"/>
                     </row>
                     <row>
                         <checkbox id="hidesaleperiod" label="&login.hidesaleperiod;" preference="pref_hidesaleperiod"/>
