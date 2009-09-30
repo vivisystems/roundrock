@@ -913,8 +913,14 @@
 
             if (r) {
 
-                r = this.Table.execute('delete from table_orders');
+                r = this.Table.execute('delete from tables');
+                if (r) r = this.Table.execute('delete from table_regions');
+                if (r) r = this.Table.execute('delete from table_settings');
+                if (r) r = this.Table.execute('delete from table_orders');
+                if (r) r = this.Table.execute('delete from table_order_locks');
+                if (r) r = this.Table.execute('delete from table_marks');
                 if (r) r = this.Table.execute('delete from table_bookings');
+                if (r) r = this.Table.execute('delete from table_statuses');
 
                 // truncate sync tables
                 if (r) r = this.Table.execute('delete from syncs');
