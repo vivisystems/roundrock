@@ -298,6 +298,10 @@
                                                         <checkbox id="requireGuestNum" label="&tableman.tableoptions.requireguestnum;" form="settingsForm" name="RequireGuestNum"/>
                                                     </row>
                                                     <row>
+                                                        <checkbox id="staydownAction" label="&tableman.tableoptions.staydownaction;" form="settingsForm" name="StaydownAction"/>
+                                                        <spacer />
+                                                    </row>
+                                                    <row>
                                                         <vbox>
                                                             <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
                                                             <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="5" max="999"

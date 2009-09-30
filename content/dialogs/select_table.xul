@@ -69,21 +69,17 @@
                 </viviscrollablebuttonpanel>
             </hbox>
             <vbox class="TableBtns" flex="1">
-                <button class="selectBtn" id="selectTableBtn" label="&selecttable.selectno;" group="func" oncommand="$do('setAction', 'selectTable', 'SelectTable');"/>
-                <button class="mergeBtn" id="mergeTableBtn" label="&selecttable.mergetable;" group="func" oncommand="$do('setAction', 'mergeTable', 'SelectTable');"/>
-                <button class="unmergeBtn" id="unmergeTableBtn" label="&selecttable.unmergetable;" group="func" oncommand="$do('setAction', 'unmergeTable', 'SelectTable');"/>
-                <!-- button class="changeBtn" id="trans_table" label="&selecttable.transtable;" default="true" type="radio" group="func" oncommand="$do('doTransTable', null, 'SelectTable');"/ -->
-                <button class="bookcBtn2" id="bookingTableBtn" label="&selecttable.bookingtable;" hidden="true" group="func" oncommand="$do('setAction', 'bookingTable', 'SelectTable');"/>
-
-                
-                <!-- button class="bookcBtn2" / -->
+                <button class="selectBtn" id="selectTableBtn" label="&selecttable.selectno;" checked="checked" type="radio" group="func" oncommand="$do('setAction', 'selectTable', 'SelectTable');"/>
+                <button class="mergeBtn" id="mergeTableBtn" label="&selecttable.mergetable;" type="radio" group="func" oncommand="$do('setAction', 'mergeTable', 'SelectTable');"/>
+                <button class="unmergeBtn" id="unmergeTableBtn" label="&selecttable.unmergetable;" type="radio" group="func" oncommand="$do('setAction', 'unmergeTable', 'SelectTable');"/>
+                <button class="addMarkBtn" id="markTableBtn" label="&selecttable.bookingtable;" type="radio" group="func" oncommand="$do('setAction', 'markTable', 'SelectTable');"/>
+                <button class="clearMarkBtn" id="unmarkTableBtn" label="&selecttable.bookingtable;" type="radio" group="func" oncommand="$do('setAction', 'unmarkTable', 'SelectTable');"/>
             </vbox>
             <vbox class="RightBtns">
 
-                <button class="addMarkBtn" id="markTableBtn" label="&selecttable.bookingtable;" group="func" oncommand="$do('setAction', 'markTable', 'SelectTable');"/>
-                <button class="clearMarkBtn" id="unmarkTableBtn" label="&selecttable.bookingtable;" group="func" oncommand="$do('setAction', 'unmarkTable', 'SelectTable');"/>
-                <!--button class="addMarksBtn" id="add_table_marks" label="&selecttable.bookingtable;" hidden="true" type="radio" group="func" oncommand="$do('doMarkRegionTable', null, 'SelectTable');"/>
-                <button class="clearMarksBtn" id="clear_table_marks" label="&selecttable.bookingtable;" hidden="true" type="radio" group="func" oncommand="$do('doUnmarkRegionTable', null, 'SelectTable');"/-->
+                <button class="addMarksBtn" id="add_table_marks" label="&selecttable.bookingtable;" hidden="true" type="radio" group="func2" oncommand="$do('doMarkRegionTable', null, 'SelectTable');"/>
+                <button class="clearMarksBtn" id="clear_table_marks" label="&selecttable.bookingtable;" hidden="true" type="radio" group="func2" oncommand="$do('doUnmarkRegionTable', null, 'SelectTable');"/>
+                <button class="bookcBtn2" id="bookingTableBtn" label="&selecttable.bookingtable;" hidden="true" group="func2" oncommand="$do('setAction', 'bookingTable', 'SelectTable');"/>
                 <spacer class="space" />
                 <hbox>
                     <spacer class="space2" />
@@ -104,21 +100,6 @@
         </hbox>
     </vbox>
 
-    <!--panel id="prompt_panel" position="overlap" noautohide="true" class="MsgPnl">
-        <hbox flex="1" >
-            <vbox class="PromptBox" flex="1">
-                <label id="prompt_1" value="prompt 1" class="PromptLabel1" />
-                <label id="prompt_2" value="prompt 2" class="PromptLabel2" />
-                <label id="prompt_3" value="prompt 3" class="PromptLabel2" />
-                <spacer flex="1" />
-                <label id="prompt_4" value="prompt 4" class="PromptLabel3" />
-            </vbox>
-            <vbox pack="end">
-                <button class="CancelBtn" label="Cancel" oncommand="$do('doClosePromptPanel', null, 'SelectTable');"/>
-            </vbox>
-        </hbox>
-    </panel-->
-
     <panel id="order_display_panel" position="after_start" noautohide="true" class="PromptPnl"
            onpopupshown="document.getElementById('orders_tab').selectedIndex=0;" >
 
@@ -133,10 +114,10 @@
                 <button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" oncommand="$do('recallOrder', document.getElementById('orders_tab').value, 'SelectTable');"/>
                 <!--button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
                 <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/-->
-                <button class="changeBtn" id="trans_table" label="&selecttable.transtable;" hidden="true" oncommand="$do('doTransTable', null, 'SelectTable');"/>
+                <button class="changeBtn" id="trans_table" label="&selecttable.transtable;" oncommand="$do('transferTable',  document.getElementById('orders_tab').value, 'SelectTable');"/>
                 <button class="newTableBtn" id="newTableBtn" label="&selecttable.transtable;" oncommand="$do('newTable', document.getElementById('order_selected_table_id').value, 'SelectTable');"/>
                 <spacer height="80px" />
-                <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" hidden="true" oncommand="$do('changeClerk', null, 'SelectTable');"/>
+                <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" oncommand="$do('changeClerk', document.getElementById('orders_tab').value, 'SelectTable');"/>
             </vbox>
         </hbox>
     </panel>

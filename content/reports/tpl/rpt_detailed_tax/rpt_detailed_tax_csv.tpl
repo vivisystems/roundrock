@@ -20,9 +20,9 @@
 ,""
 "'${item.Order.terminal_no}","'${item.Order.sale_period|unixTimeToString:'saleperiod'}","'${item.Order.shift_number}","'${item.Order.time|unixTimeToString}","'${item.Order.sequence}","'${item.Order.invoice_no|default:''}","${item.Order.total|default:0|viviFormatPrices:true}","${item.surcharge_subtotal|default:0|viviFormatPrices:true}","${item.discount_subtotal|default:0|viviFormatPrices:true}","${item.Order.promotion_subtotal|default:0|viviFormatPrices:true}","${item.Order.revalue_subtotal|default:0|viviFormatPrices:true}","${item.Order.tax_subtotal|default:0|viviFormatTaxes:true}","${item.Order.included_tax_subtotal|default:0|viviFormatTaxes:true}"{for tax in taxList}
 {eval}
-if (tax.no in item) {
-   item_subtotal = item[tax.no].item_subtotal;
-   tax_subtotal = item[tax.no].tax_subtotal;
+if (item.taxes && tax.no in item.taxes) {
+   item_subtotal = item.taxes[tax.no].item_subtotal;
+   tax_subtotal = item.taxes[tax.no].tax_subtotal;
 }
 else {
    item_subtotal = 0;
@@ -40,9 +40,9 @@ else {
 ,""
 "${_( '(rpt)Records Found' )}","${GeckoJS.BaseObject.getKeys(body).length|format:0}","","","","${_( '(rpt)Summary' ) + ':'}","${foot.summary.total|default:0|viviFormatPrices:true}","${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}","${foot.summary.discount_subtotal|default:0|viviFormatPrices:true}","${foot.summary.promotion_subtotal|default:0|viviFormatPrices:true}","${foot.summary.revalue_subtotal|default:0|viviFormatPrices:true}","${foot.summary.tax_subtotal|default:0|viviFormatTaxes:true}","${foot.summary.included_tax_subtotal|default:0|viviFormatTaxes:true}"{for tax in taxList}
 {eval}
-if (tax.no in foot.summary) {
-   item_subtotal = foot.summary[tax.no].item_subtotal;
-   tax_subtotal = foot.summary[tax.no].tax_subtotal;
+if (foot.summary.taxes && tax.no in foot.summary.taxes) {
+   item_subtotal = foot.summary.taxes[tax.no].item_subtotal;
+   tax_subtotal = foot.summary.taxes[tax.no].tax_subtotal;
 }
 else {
    item_subtotal = 0;

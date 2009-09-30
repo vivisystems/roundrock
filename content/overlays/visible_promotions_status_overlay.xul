@@ -10,7 +10,7 @@
 
     <box id="visiblePromotionsStatusPanelContainer" orient="vertical">
         <promotions_status id="promotions_status" dir="normal" autohide="false" type="detail" value=""
-                           boxClass="promotions-vbox" labelClass="promotions-label"
+                           boxClass="promotions-vbox" titleClass="promotions-title" appliesClass="promotions-applies"
                            subtotalClass="promotions-subtotal" treeClass="promotions-tree" treeDetailClass="promotions-details"/>
     </box>
 

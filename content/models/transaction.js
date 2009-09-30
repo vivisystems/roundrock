@@ -214,7 +214,7 @@
                 });
             }
 
-            GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers);
+            GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers || '');
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
 
@@ -1392,6 +1392,19 @@
                 return amount;
         },
 
+        _computeIncludedFixedTaxes: function(item) {
+            this.log('DEBUG', 'computing included fixed taxes: ' + this.dump(item));
+            var taxes = 0;
+            for (var taxno in item.tax_details) {
+                let taxDetails = item.tax_details[taxno];
+                let tax = taxDetails.tax;
+                if (tax.type == 'INCLUDED' && tax.rate_type == '$') {
+                    taxes += taxDetails.included;
+                }
+            }
+            return taxes;
+        },
+
         appendDiscount: function(index, discount){
 
             var item = this.getItemAt(index);
@@ -1415,20 +1428,22 @@
                         discount_amount = discount.amount;
                     }
                     else {
-                        discount_amount = item.current_subtotal * discount.amount;
+                        let fixedTaxes = this._computeIncludedFixedTaxes(item);
+                        discount_amount = (item.current_subtotal - fixedTaxes) * discount.amount;
                     }
 
                     // rounding discount
-                    item.current_discount = this.getRoundedPrice(item.current_discount);
+                    discount_amount = this.getRoundedPrice(discount_amount);
 
                     // check if discount amount exceeds user item discount limit
                     var user = GeckoJS.Session.get('user');
-                    var item_discount_limit = parseInt(user.item_discount_limit);
+                    var item_discount_limit = parseFloat(user.item_discount_limit);
                     if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
                         var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
                         if (discount_amount > item_discount_limit_amount) {
                             NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
-                                               [discount_amount, item_discount_limit_amount]));
+                                               [this.formatPrice(discount_amount),
+                                                this.formatPrice(item_discount_limit_amount)]));
                             return;
                         }
                     }
@@ -1436,11 +1451,12 @@
                     if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
                         // discount too much
                         NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
-                            [this.formatPrice(this.getRoundedPrice(discount_amount)),
-                            item.current_subtotal]));
+                            [this.formatPrice(discount_amount),
+                             this.formatPrice(item.current_subtotal)]));
 
                         return;
                     }
+
                     item.current_discount = 0 - discount_amount;
                     item.discount_name =  discount.name;
                     item.discount_rate =  discount.amount;
@@ -1448,12 +1464,12 @@
                     item.hasDiscount = true;
 
                     // create data object to push in items array
-                    var itemDisplay = this.createDisplaySeq(item.index, item, 'discount');
+                    let discountDisplay = this.createDisplaySeq(item.index, item, 'discount');
 
                     // find the display index of the last entry associated with the item
                     lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
 
-                    this.data.display_sequences.splice(++lastItemDispIndex,0,itemDisplay);
+                    this.data.display_sequences.splice(++lastItemDispIndex,0,discountDisplay);
 
                     this.calcPromotions();
 
@@ -1488,18 +1504,21 @@
                     discountItem.current_discount = discount.amount;
                 }
                 else {
-                    remainder = this.getRemainTotal() - this.data.revalue_subtotal;
                     discountItem.discount_name += '*';
                     discountItem.current_discount = remainder * discountItem.discount_rate;
                 }
+
+                remainder = this.getRoundedPrice(remainder);
+                discountItem.current_discount = this.getRoundedPrice(discountItem.current_discount);
+
                 if (discountItem.current_discount > remainder && remainder > 0) {
                     // discount too much
                     NotifyUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
-                        [this.formatPrice(this.getRoundedPrice(discountItem.current_discount)),
-                        remainder]));
+                        [this.formatPrice(discountItem.current_discount),
+                         this.formatPrice(remainder)]));
                     return;
                 }
-                discountItem.current_discount = this.getRoundedPrice(0 - discountItem.current_discount);
+                discountItem.current_discount = 0 - discountItem.current_discount;
 
                 var discountIndex = GeckoJS.String.uuid();
                 this.data.trans_discounts[discountIndex] = discountItem;
@@ -1508,13 +1527,13 @@
                 itemDisplay.hasDiscount = true;
 
                 // create data object to push in items array
-                var newItemDisplay = this.createDisplaySeq(discountIndex, discountItem, 'trans_discount');
-                newItemDisplay.subtotal_index = index;
+                let discountDisplay = this.createDisplaySeq(discountIndex, discountItem, 'trans_discount');
+                discountDisplay.subtotal_index = index;
 
                 // find the display index of the last entry associated with the item
                 lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
 
-                this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
+                this.data.display_sequences.splice(++lastItemDispIndex,0,discountDisplay);
 
                 this.calcPromotions();
 
@@ -1533,77 +1552,30 @@
         },
 
         appendMassDiscount: function(discount) {
-            var lastItemDispIndex;
-            var discount_amount;
-            var resultItem = [];
 
-            var prevRowCount = this.data.display_sequences.length;
-
+            var resultItems = [];
             var transItems = this.data.items;
-            var self = this;
             var productModel = new ProductModel();
 
             for(var index in transItems) {
                 if (index != null) {
                     var item = transItems[index];
                     var non_discountable = productModel.isNonDiscountable(item.id, false);
-                    if(item.type == 'item' && non_discountable == false
+                    if(item.type == 'item' && item.parent_index == null && non_discountable == false
                        && item.hasDiscount == false && item.hasSurcharge == false && item.hasMarker == false) {
 
-                        discount_amount = item.current_subtotal * discount.amount;
-
-                        // rounding discount
-                        item.current_discount = self.getRoundedPrice(item.current_discount);
-
-                        // check if discount amount exceeds user item discount limit
-                        var user = GeckoJS.Session.get('user');
-                        var item_discount_limit = parseInt(user.item_discount_limit);
-                        if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
-                            var item_discount_limit_amount = self._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
-                            if (discount_amount > item_discount_limit_amount) {
-                                NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
-                                    [discount_amount, item_discount_limit_amount]));
-                                return;
-                            }
+                        let displayIndex = this.getDisplayIndexByIndex(index);
+                        let result = this.appendDiscount(displayIndex, discount);
+                        if (result) {
+                            resultItems.push(result);
                         }
-
-                        if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
-                            // discount too much
-                            NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
-                                [self.formatPrice(self.getRoundedPrice(discount_amount)),
-                                item.current_subtotal]));
-                            return;
+                        else {
+                            break;
                         }
-                        item.current_discount = 0 - discount_amount;
-                        item.discount_name =  discount.name;
-                        item.discount_rate =  discount.amount;
-                        item.discount_type =  '%';
-                        item.hasDiscount = true;
-
-                        // create data object to push in items array
-                        var itemDisplay = self.createDisplaySeq(item.index, item, 'discount');
-
-                        // find the display index of the last entry associated with the item
-                        lastItemDispIndex = self.getLastDisplaySeqByIndex(item.index)
-
-                        self.data.display_sequences.splice(++lastItemDispIndex,0,itemDisplay);
-
-                        self.calcPromotions();
-
-                        self.calcItemsTax(item);
-
-                        resultItem.push(item);
                     }
                 }
             }
-
-            var currentRowCount = this.data.display_sequences.length;
-
-            this.calcTotal();
-
-            this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
-
-            return resultItem;
+            return resultItems;
         },
 
         appendSurcharge: function(index, surcharge){
@@ -1617,8 +1589,6 @@
 
             var prevRowCount = this.data.display_sequences.length;
 
-            var displayIndex = lastItemDispIndex;
-
             if (item && item.type == 'item') {
 
                 var productModel = new ProductModel();
@@ -1629,7 +1599,8 @@
                     if (surcharge.type == '$') {
                         surcharge_amount = surcharge.amount;
                     }else {
-                        surcharge_amount = item.current_subtotal * surcharge.amount;
+                        let fixedTaxes = this._computeIncludedFixedTaxes(item);
+                        surcharge_amount = (item.current_subtotal - fixedTaxes) * surcharge.amount;
                     }
 
                     // rounding surcharge
@@ -1637,12 +1608,13 @@
 
                     // check if discount amount exceeds user limit
                     var user = GeckoJS.Session.get('user');
-                    var surcharge_limit = parseInt(user.item_surcharge_limit);
+                    var surcharge_limit = parseFloat(user.item_surcharge_limit);
                     if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
                         var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
                         if (surcharge_amount > surcharge_limit_amount) {
                             NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
-                                [surcharge_amount, surcharge_limit_amount]));
+                                               [this.formatPrice(surcharge_amount),
+                                                this.formatPrice(surcharge_limit_amount)]));
                             return;
                         }
                     }
@@ -1654,12 +1626,12 @@
                     item.hasSurcharge = true;
 
                     // create data object to push in items array
-                    var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
+                    var surchargeDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
 
                     // find the display index of the last entry associated with the item
                     lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
 
-                    this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
+                    this.data.display_sequences.splice(++lastItemDispIndex,0,surchargeDisplay);
 
                     this.calcPromotions();
 
@@ -1707,13 +1679,13 @@
                 itemDisplay.hasSurcharge = true;
 
                 // create data object to push in items array
-                var newItemDisplay = this.createDisplaySeq(surchargeIndex, surchargeItem, 'trans_surcharge');
-                newItemDisplay.subtotal_index = index;
+                let surchargeDisplay = this.createDisplaySeq(surchargeIndex, surchargeItem, 'trans_surcharge');
+                surchargeDisplay.subtotal_index = index;
 
                 // find the display index of the last entry associated with the item
                 lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex)
 
-                this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
+                this.data.display_sequences.splice(++lastItemDispIndex,0,surchargeDisplay);
 
                 this.calcPromotions();
                 //this.calcItemsTax();
@@ -1731,70 +1703,31 @@
         },
 
         appendMassSurcharge: function(surcharge) {
-            var lastItemDispIndex;
-            var surcharge_amount;
-            var resultItem = [];
 
-            var prevRowCount = this.data.display_sequences.length;
-
+            var resultItems = [];
             var transItems = this.data.items;
-            var self = this;
             var productModel = new ProductModel();
 
             for(var index in transItems) {
                 if (index != null) {
                     var item = transItems[index];
                     var non_surchargeable = productModel.isNonSurchargeable(item.id, false);
-                    if (item.type == 'item' && non_surchargeable == false
+                    if (item.type == 'item' && item.parent_index == null && non_surchargeable == false
                         && item.hasSurcharge == false && item.hasDiscount == false && item.hasMarker == false) {
 
-                        surcharge_amount = item.current_subtotal * surcharge.amount;
 
-                        // rounding surcharge
-                        surcharge_amount = this.getRoundedPrice(surcharge_amount);
-
-                        // check if discount amount exceeds user limit
-                        var user = GeckoJS.Session.get('user');
-                        var surcharge_limit = parseInt(user.item_surcharge_limit);
-                        if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
-                            var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
-                            if (surcharge_amount > surcharge_limit_amount) {
-                                NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
-                                    [surcharge_amount, surcharge_limit_amount]));
-                                return;
-                            }
+                        let displayIndex = this.getDisplayIndexByIndex(index);
+                        let result = this.appendSurcharge(displayIndex, surcharge);
+                        if (result) {
+                            resultItems.push(result);
                         }
-
-                        item.surcharge_name = surcharge.name;
-                        item.surcharge_rate = surcharge.amount;
-                        item.surcharge_type = '%';
-                        item.current_surcharge = surcharge_amount;
-                        item.hasSurcharge = true;
-
-                        // create data object to push in items array
-                        var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
-
-                        // find the display index of the last entry associated with the item
-                        lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
-
-                        this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
-
-                        this.calcPromotions();
-
-                        this.calcItemsTax(item);
-
-                        resultItem.push(item);
-
+                        else {
+                            break;
+                        }
                     }
                 }
             }
-            var currentRowCount = this.data.display_sequences.length;
-
-            this.calcTotal();
-
-            this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
-
-            return resultItem;
+            return resultItems;
         },
 
         shiftTax: function(index, taxIndex){
@@ -2562,7 +2495,7 @@
                         item.tax_type = tax.type;
 
                         var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
-                        var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge), item.current_price, item.current_qty);
+                        var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge), item.current_price, item.current_qty, this.data.precision_taxes, this.data.rounding_taxes);
 
                         // rounding tax
                         item.current_tax =  this.getRoundedTax(taxChargeObj[item.tax_name].charge);
@@ -2611,6 +2544,7 @@
                             item.tax_details[item.tax_name] = {
                                 charge: item.current_tax,
                                 included: item.included_tax,
+                                taxable: taxChargeObj[item.tax_name].taxable,
                                 tax: tax
                             };
                         }
@@ -2748,13 +2682,23 @@
 
                             if (!(key in this.data.items_tax_details)) {
                                 this.data.items_tax_details[key] = {
+                                    tax: taxDetails.tax,
                                     tax_subtotal: 0,
-                                    included_tax_subtotal: 0
+                                    included_tax_subtotal: 0,
+                                    item_count: 0,
+                                    taxable_amount: 0
                                 }
                             }
 
+                            if (item.sale_unit == 'unit') {
+                                this.data.items_tax_details[key].item_count += parseInt(item.current_qty);
+                            }
+                            else {
+                                this.data.items_tax_details[key].item_count++;
+                            }
                             this.data.items_tax_details[key].tax_subtotal += parseFloat(taxDetails.charge);
                             this.data.items_tax_details[key].included_tax_subtotal += parseFloat(taxDetails.included);
+                            this.data.items_tax_details[key].taxable_amount += parseFloat(taxDetails.taxable);
                         }
                     }
                 }
@@ -2781,23 +2725,10 @@
                 this.data.items_summary[item_id] = sumItem;
             }
 
-            // round tax details
-            for (var tax in this.data.items_tax_details) {
-                let taxDetails = this.data.items_tax_details[tax];
-                taxDetails.tax_subtotal = this.getRoundedTax(taxDetails.tax_subtotal);
-                taxDetails.included_tax_subtotal = this.getRoundedTax(taxDetails.included_tax_subtotal);
-            }
-
             // trans subtotal
             for(var transDisIndex in this.data.trans_discounts ) {
                 var disItem = this.data.trans_discounts[transDisIndex];
                 trans_discount_subtotal += parseFloat(disItem.current_discount);
-            }
-
-            for(var massDisIndex in this.data.mass_discounts) {
-                var massItem = this.data.mass_discounts[massDisIndex];
-                tax_discount_subtotal += parseFloat(massItem.tax_discount);
-                item_subtotal += parseFloat(massItem.current_discount);
             }
 
             for(var transSurIndex in this.data.trans_surcharges ) {
@@ -2811,9 +2742,49 @@
             }
 
             promotion_subtotal = this.data.promotion_subtotal ;
-            promotion_tax_subtotal = isNaN(parseInt(this.data.promotion_tax_subtotal)) ? 0 : parseInt(this.data.promotion_tax_subtotal);
-            promotion_included_tax_subtotal = isNaN(parseInt(this.data.promotion_included_tax_subtotal)) ? 0 : parseInt(this.data.promotion_included_tax_subtotal);
+            promotion_tax_subtotal = isNaN(parseFloat(this.data.promotion_tax_subtotal)) ? 0 : parseFloat(this.data.promotion_tax_subtotal);
+            promotion_included_tax_subtotal = isNaN(parseFloat(this.data.promotion_included_tax_subtotal)) ? 0 : parseFloat(this.data.promotion_included_tax_subtotal);
 
+            // group promotion taxes
+            this.data.promotions_tax_details = {};
+            for(var promoIndex in this.data.promotion_apply_items ) {
+                let item = this.data.promotion_apply_items[promoIndex];
+
+                // summarize tax details
+                if (item.tax_details) {
+                    for (var key in item.tax_details) {
+                        let taxDetails = item.tax_details[key];
+
+                        if (!(key in this.data.promotions_tax_details)) {
+                            this.data.promotions_tax_details[key] = {
+                                tax: taxDetails.tax,
+                                tax_subtotal: 0,
+                                included_tax_subtotal: 0
+                            }
+                        }
+
+                        this.data.promotions_tax_details[key].tax_subtotal += parseFloat(taxDetails.charge);
+                        this.data.promotions_tax_details[key].included_tax_subtotal += parseFloat(taxDetails.included);
+
+                    }
+                }
+            }
+
+            // deduct promotion tax totals from item tax totals
+            for (var key in this.data.promotions_tax_details) {
+                if (key in this.data.items_tax_details) {
+                    this.data.items_tax_details[key].tax_subtotal -= this.data.promotions_tax_details[key].tax_subtotal;
+                    this.data.items_tax_details[key].included_tax_subtotal -= this.data.promotions_tax_details[key].included_tax_subtotal;
+                }
+                else {
+                    this.data.items_tax_details[key] = {
+                        tax_subtotal: 0 - this.data.promotions_tax_details[key].tax_subtotal,
+                        included_tax_subtotal: 0 - this.data.promotions_tax_details[key].included_tax_subtotal,
+                        tax: this.data.promotions_tax_details[key].tax
+                    }
+                }
+            }
+            
             tax_subtotal -= promotion_tax_subtotal;
             included_tax_subtotal -= promotion_included_tax_subtotal;
 
@@ -2847,7 +2818,7 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
         },
 
 
@@ -2931,7 +2902,7 @@
 
         setNumberOfCustomers: function(num) {
             num = isNaN(parseInt(num)) ? 1 : parseInt(num);
-            GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
+            GeckoJS.Session.set('vivipos_fec_number_of_customers', num || '');
             this.data.no_of_customers = num;
         },
 

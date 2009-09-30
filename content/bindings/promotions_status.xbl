@@ -15,16 +15,16 @@
             <xul:vbox flex="1" anonid="box" class="promotions-vbox" xbl:inherits="class=boxClass,pack,width,height,disabled,flex,dir" >
                 <xul:grid flex="1" >
                     <xul:columns>
-                        <xul:column />
+                        <xul:column/>
                         <xul:column flex="1"/>
-                        <xul:column flex="1"/>
-                        <xul:column />
+                        <xul:column/>
+                        <xul:column/>
                     </xul:columns>
                     <xul:rows>
-                        <xul:row align="center" >
-                            <xul:textbox anonid="title_label" disabled="true" class="promotions-label" xbl:inherits="class=labelClass,value"></xul:textbox>
+                        <xul:row>
+                            <xul:textbox anonid="title_label" disabled="true" class="promotions-title" xbl:inherits="class=titleClass,value"></xul:textbox>
                             <xul:textbox anonid="subtotal_label" disabled="true" class="promotions-subtotal" xbl:inherits="class=subtotalClass,value"></xul:textbox>
-                            <xul:textbox anonid="applies_label" disabled="true" class="promotions-label" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="applies_label" disabled="true" class="promotions-applies" xbl:inherits="class=appliesClass,value"></xul:textbox>
                             <xul:box class="promotion-icon" onclick="popupDetailPanel()">
                             <xul:image style="width:36px; height:36px;" xbl:inherits="class" anonid="image" src="chrome://viviecr/skin/icons/icon_list.png"/>
                             </xul:box>
@@ -149,8 +149,17 @@
                     self.updateView();
                 };
 
+                this.onClear = function(evt) {
+                    var transaction = evt ? evt.data : null;
+                    if(transaction == null || transaction.isSubmit() || transaction.isCancel()) {
+                        self._num_items = 0
+                        self.updateView();
+                    }
+                };
+
                 this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
                 this.cartevents.addListener('afterCancel', this.afterCancel, this);
+                this.cartevents.addListener('onClear', this.onClear, this);
 
                 self.updateView();
 

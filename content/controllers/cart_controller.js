@@ -2850,16 +2850,21 @@
             // if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
             var payments = curTransaction.getPayments();
+            var paymentList = [];
             for (var key in payments) {
-                var payment = payments[key];
+                // clone a copy of payment
+                var payment = GREUtils.extend({}, payments[key]);
+
                 payment.amount = curTransaction.formatPrice(payment.amount);
                 payment.name = _(payment.name.toUpperCase());
                 payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
+
+                paymentList.push(payment);
             }
 
             var dialog_data = [
             _('Payment Details'),
-            payments
+            paymentList
             ];
 
             GeckoJS.Session.remove('cart_set_price_value');
@@ -2979,8 +2984,8 @@
             }
 
             var itemTrans = curTransaction.getItemAt(index);
-            if (itemTrans == null || itemTrans.type != 'item') {
-                var displayItem = curTransaction.getDisplaySeqAt(index);
+            var displayItem = curTransaction.getDisplaySeqAt(index);
+            if (displayItem == null || displayItem.type != 'item') {
                 NotifyUtils.warn(_('This operation cannot be performed on [%S]', [displayItem.name]));
 
                 this._clearAndSubtotal();
@@ -2989,6 +2994,20 @@
 
             if (itemTrans.hasMarker) {
                 NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            if (itemTrans.hasDiscount) {
+                NotifyUtils.warn(_('Please void discount on item [%S] first', [itemTrans.name]));
+
+                this._clearAndSubtotal();
+                return;
+            }
+            
+            if (itemTrans.hasSurcharge) {
+                NotifyUtils.warn(_('Please void surcharge on item [%S] first', [itemTrans.name]));
 
                 this._clearAndSubtotal();
                 return;
@@ -3088,7 +3107,6 @@
                 // if the order has been stored, then it cannot be cancelled; it must be voided instead
                 if (curTransaction.data.recall == 2) {
 
-                    // XXX need rewrite
                     // determine if new items have been added
                     if (!curTransaction.isModified() || forceCancel ||
                         GREUtils.Dialog.confirm(this.topmostWindow,
@@ -3176,12 +3194,13 @@
                 oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
                 if (adjustment_amount > 0) {
                     // check if order surcharge exceed user limit
-                    var surcharge_limit = parseInt(user.order_surcharge_limit);
+                    var surcharge_limit = parseFloat(user.order_surcharge_limit);
                     if (!isNaN(surcharge_limit) && surcharge_limit > 0) {
                         var surcharge_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, surcharge_limit, user.order_surcharge_limit_type);
                         if (adjustment_amount > surcharge_limit_amount) {
                             NotifyUtils.warn(_('Total surcharge [%S] may not exceed user order surcharge limit [%S]',
-                                [adjustment_amount, surcharge_limit_amount]));
+                                [oldTransaction.formatPrice(adjustment_amount),
+                                oldTransaction.formatPrice(surcharge_limit_amount)]));
                             return false;
                         }
                     }
@@ -3189,12 +3208,13 @@
                 else if (adjustment_amount < 0) {
                     // check if order discount exceed user limit
                     adjustment_amount = 0 - adjustment_amount;
-                    var discount_limit = parseInt(user.order_discount_limit);
+                    var discount_limit = parseFloat(user.order_discount_limit);
                     if (!isNaN(discount_limit) && discount_limit > 0) {
                         var discount_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, discount_limit, user.order_discount_limit_type);
                         if (adjustment_amount > discount_limit_amount) {
                             NotifyUtils.warn(_('Total discount [%S] may not exceed user order discount limit [%S]',
-                                [adjustment_amount, discount_limit_amount]));
+                                [oldTransaction.formatPrice(adjustment_amount),
+                                oldTransaction.formatPrice(discount_limit_amount)]));
                             return false;
                         }
                     }
@@ -3225,9 +3245,11 @@
 
 
 
+                var submitStatus = -99; // initial value
+                
                 try {
                     // save transaction to order databases.
-                    var submitStatus = parseInt(oldTransaction.submit(status));
+                    submitStatus = parseInt(oldTransaction.submit(status));
 
                     /*
                      *   1: success
@@ -3254,8 +3276,8 @@
                     // assign data status
                     oldTransaction.data.status = status;
 
-                this._getKeypadController().clearBuffer();
-                //this._cancelReturn(true);
+                    this._getKeypadController().clearBuffer();
+                    //this._cancelReturn(true);
 
                     // dispatch event for devices or extensions.
                     this.dispatchEvent('afterSubmit', oldTransaction);
@@ -3268,25 +3290,37 @@
 
                 }finally{
 
+                    if (submitStatus == -99) {
+                        // fatal error at submit. and will cause commit error
+                        this.log('ERROR', 'Error on Transaction.submit(' + status + ') (' + submitStatus + ')');
+                    }
+
                     // finally commit the submit , and write transaction to databases(or to remote databases).
-                    var commitStatus = oldTransaction.commit(status);
+                    var commitStatus = -99 ;
+                    
+                    try {
+                        // commit order data to local databases or remote.
+                        commitStatus = oldTransaction.commit(status);
 
-                    if (commitStatus == -1) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Data Operation Error'),
-                            _('This order could not be committed . Please check the network connectivity to the terminal designated as the synchronization server [message #105].'));
-                        this._unblockUI('blockui_panel');
-                        return false;
-                    }
+                        if (commitStatus == -1) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('This order could not be committed . Please check the network connectivity to the terminal designated as the synchronization server [message #105].'));
+                            this._unblockUI('blockui_panel');
+                            return false;
+                        }
 
-                    if (status != 2) {
-                        if (status != 1) this.clearWarning();
-                        this.dispatchEvent('onSubmit', oldTransaction);
+                        if (status != 2) {
+                            if (status != 1) this.clearWarning();
+                            this.dispatchEvent('onSubmit', oldTransaction);
+                        }
+                        else {
+                            this.dispatchEvent('onGetSubtotal', oldTransaction);
+                        }
+                    }catch(e) {
+                        // fatal error at submit. and will cause commit error
+                        this.log('ERROR', 'Error on Transaction.commit(' + status + ') (' + commitStatus + ')');
                     }
-                    else {
-                        this.dispatchEvent('onGetSubtotal', oldTransaction);
-                    }
-
                 }
 
                 this._unblockUI('blockui_panel');
@@ -3448,7 +3482,7 @@
         cash: function(argString) {
             var argArray = String(argString).split(',');
             var isGroupable = false;
-            var amount = parseInt( argArray[0], 10 );
+            var amount = parseFloat( argArray[0], 10 );
 
             if (argArray.length == 2)
                 isGroupable = argArray[1];
@@ -3712,7 +3746,7 @@
 
                             if (condGroupCache[cond.condiment_group_id]) {
                                 NotifyUtils.warn(_('Condiment [%S] not added because another condiment from same group [%S] already exists',
-                                                   [cond.name, condGroupCache[cond.condiment_group_id]]));
+                                    [cond.name, condGroupCache[cond.condiment_group_id]]));
                             }
                             else {
                                 filteredCondiments.push(cond);
@@ -3856,7 +3890,7 @@
             // load data
             var orderModel = new OrderModel();
 
-            let orderData = this.Order.readOrder(orderId, true); // recall use master service's datas.
+            let orderData = orderModel.readOrder(id, true); // recall use master service's datas.
 
             if (!orderData) {
                 GREUtils.Dialog.alert(this.topmostWindow,
@@ -4131,6 +4165,13 @@
          */
         recallOrder: function() {
             return this.requestCommand('recallOrder', null, 'GuestCheck');
+        },
+
+        /**
+         * use guest_check controller
+         */
+        storeCheck: function() {
+            return this.requestCommand('storeCheck', null, 'GuestCheck');
         },
 
         /**

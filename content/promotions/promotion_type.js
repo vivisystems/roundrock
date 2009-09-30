@@ -20,10 +20,11 @@ var __klass__ = {
         this._prefs = {};
         this._trigger = null;
         this._cartItemModel = null;
-        this._discountSubtobal = 0;
+        this._discountSubtotal = 0;
         this._taxNo = '';
         this._taxSubtotal = false;
-        this._taxIncluedSubtotal = false;
+        this._taxIncludedSubtotal = false;
+        this._taxDetails = null;
 
     },
 
@@ -69,9 +70,10 @@ var __klass__ = {
 
     setup: function(trigger) {       
         this._trigger = trigger || null;
-        this._discountSubtobal = 0;
+        this._discountSubtotal = 0;
         this._taxSubtotal = false;
-        this._taxIncluedSubtotal = false;
+        this._taxIncludedSubtotal = false;
+        this._taxChargeObj = false;
     },
 
     getTrigger: function() {
@@ -101,28 +103,31 @@ var __klass__ = {
     /**
      * Type must implement this method
      */
-    setDiscountSubtobal: function(discountSubtobal) {
-        discountSubtobal = discountSubtobal || 0 ;
-        this._discountSubtobal = discountSubtobal;
+    setDiscountSubtotal: function(discountSubtotal) {
+        discountSubtotal = discountSubtotal || 0 ;
+        this._discountSubtotal = discountSubtotal;
     },
 
-    getDiscountSubtobal: function() {
-        return this._discountSubtobal;
+    getDiscountSubtotal: function() {
+        return this._discountSubtotal;
     },
 
     getDiscountTaxSubtotal: function() {
 
-        var taxNo = this.getTaxNo();
+        var defaultTax = GeckoJS.Session.get('defaultTaxNo');
+        var taxNo = this.getTaxNo() || defaultTax;
         var taxComponent = this.getTaxComponent();
 
         if (!taxNo || !taxComponent) return 0;
 
         if (this._taxSubtotal === false) {
 
-            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtobal()), Math.abs(this.getDiscountSubtobal()), 1);
+            var txn = this.getTransaction();
+            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtotal()), Math.abs(this.getDiscountSubtotal()), 1, txn.data.precision_taxes, txn.data.rounding_taxes);
 
             this._taxSubtotal =  taxChargeObj[taxNo].charge;
-            this._taxIncluedSubtotal =  taxChargeObj[taxNo].included;
+            this._taxIncludedSubtotal =  taxChargeObj[taxNo].included;
+            this._taxDetails = taxChargeObj[taxNo].tax_details;
 
         }
 
@@ -131,21 +136,44 @@ var __klass__ = {
 
     getDiscountTaxIncludedSubtotal: function() {
 
-        var taxNo = this.getTaxNo();
+        var defaultTax = GeckoJS.Session.get('defaultTaxNo');
+        var taxNo = this.getTaxNo() || defaultTax;
         var taxComponent = this.getTaxComponent();
 
         if (!taxNo || !taxComponent) return 0;
 
         if (this._taxSubtotal === false) {
 
-            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtobal()), Math.abs(this.getDiscountSubtobal()), 1);
+            var txn = this.getTransaction();
+            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtotal()), Math.abs(this.getDiscountSubtotal()), 1, txn.data.precision_taxes, txn.data.rounding_taxes);
             
             this._taxSubtotal =  taxChargeObj[taxNo].charge;
-            this._taxIncluedSubtotal =  taxChargeObj[taxNo].included;
-
+            this._taxIncludedSubtotal =  taxChargeObj[taxNo].included;
+            this._taxDetails = taxChargeObj[taxNo].tax_details;
         }
 
-        return this._taxIncluedSubtotal;
+        return this._taxIncludedSubtotal;
+    },
+
+    getDiscountTaxDetails: function() {
+
+        var defaultTax = GeckoJS.Session.get('defaultTaxNo');
+        var taxNo = this.getTaxNo() || defaultTax;
+        var taxComponent = this.getTaxComponent();
+
+        if (!taxNo || !taxComponent) return 0;
+
+        if (this._taxSubtotal === false) {
+
+            var txn = this.getTransaction();
+            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtotal()), Math.abs(this.getDiscountSubtotal()), 1, txn.data.precision_taxes, txn.data.rounding_taxes);
+
+            this._taxSubtotal =  taxChargeObj[taxNo].charge;
+            this._taxIncludedSubtotal =  taxChargeObj[taxNo].included;
+            this._taxDetails = taxChargeObj[taxNo].tax_details;
+        }
+
+        return this._taxDetails;
     },
 
 

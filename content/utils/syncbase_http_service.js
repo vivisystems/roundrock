@@ -157,7 +157,7 @@
         },
 
         isRemoteService: function() {
-            if (!this.isActive() || (this.isLocalhost() && !this.isForce())) {
+            if ((!this.isActive() || this.isLocalhost()) && !this.isForce()) {
                 return false;
             }
             return true;
@@ -174,9 +174,11 @@
             req.setRequestHeader('X-Vivipos-Machine-Id', machineId);
         },
 
-        getRemoteServiceUrl: function(action) {
+        getRemoteServiceUrl: function(action, force) {
 
-            if (!this.isRemoteService()) return false;
+            force = force || false;
+
+            if (!this.isRemoteService() && !force) return false;
             
             var hostname = this.getHostname();
             var protocol = this.getProtocol();
@@ -201,9 +203,15 @@
         },
 
         encodeRequestData: function(data) {
-            
+
+            let result = '';
             // use encodeComponentURI
-            return encodeURIComponent(data)
+            if (typeof data == 'object') {
+                result = JSON.stringify(data);
+            }else {
+                result = encodeURIComponent(data) ;
+            }
+            return result;
            
         },
 
@@ -215,7 +223,7 @@
             async = async || false;
             callback = (typeof callback == 'function') ?  callback : null;
 
-            dump( 'requestRemoteService url: ' + reqUrl + ', with method: ' + method);
+            dump( 'requestRemoteService url: ' + reqUrl + ', with method: ' + method + '\n');
 
             // set this reference to self for callback
             var self = this;

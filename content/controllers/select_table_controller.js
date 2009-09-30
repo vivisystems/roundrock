@@ -160,7 +160,7 @@
                 regionObj.appendItem(data.name, data.id);
             });
 
-            var defaultRegion = this.tableSettings.DefaultRegion;
+            var defaultRegion = this.tableSettings.DefaultRegion || 'ALL';
             regionObj.value = defaultRegion;
             
         },
@@ -379,7 +379,10 @@
             $('button[group="func"]').each(function(btn) {
                 this.removeAttribute('checked');
             });
-            document.getElementById(action+'Btn').setAttribute('checked', true);
+
+            let btn = document.getElementById(action+'Btn');
+            
+            if(btn) btn.setAttribute('checked', true);
 
         },
 
@@ -415,6 +418,7 @@
                 case 'unmergeTable':
                     this.setActionButtonChecked(action);
                     this.setPromptLabel('*** ' + _('Unmerge Table') + ' ***', _('Please select the table to unmerge...'), 2);
+                    this._actionData = null;
                     break;
                 case 'bookingTable':
                     this.setActionButtonChecked(action);
@@ -423,10 +427,16 @@
                 case 'markTable':
                     this.setActionButtonChecked(action);
                     this.setPromptLabel('*** ' + _('Add Table Status') + ' ***', _('Please select the table to mark status...'), 2);
+                    this._actionData = null;
                     break;
                 case 'unmarkTable':
                     this.setActionButtonChecked(action);
                     this.setPromptLabel('*** ' + _('Clear Table Status') + ' ***', _('Please select the table to clear status...'), 2);
+                    this._actionData = null;
+                    break;
+                case 'transferTable':
+                    this.setActionButtonChecked(action);
+                    this.setPromptLabel('*** ' + _('Trans Table') + ' ***', _('Please select the table to be transfered...'), 2);
                     break;
             }
         },
@@ -482,6 +492,9 @@
                 case 'unmarkTable':
                     this.executeUnmarkTable(table_id);
                     break;
+                case 'transferTable':
+                    this.executeTransferTable(table_id);
+                    break;
             }
 
             return true;
@@ -527,8 +540,7 @@
 
                 case 'denyTable':
                     // XXX deny Table, notify message ?
-                    NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, status, active]));
-                    this.log('DEBUG', _('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, status, active]));
+                    NotifyUtils.warn(_('Table [%S] Not available to select. Status: [%S], Active: [%S]',[ table_no, status, active]));
                     break;
 
                 case 'selectTableOrder':
@@ -553,6 +565,16 @@
             let tableStatus = this.Table.TableStatus.getTableStatusById(table_id);
             let table_no = table.table_no;
 
+            try {
+                let ordersId = GeckoJS.BaseObject.getKeys(tableStatus.OrdersById);
+                if (!tableStatus || tableStatus.TableOrder.length != ordersId.length) {
+                   NotifyUtils.error(_('Table [%S] Not available to view order.',[table_no]));
+                }
+            }catch(e) {
+                   NotifyUtils.error(_('Table [%S] Not available to view order.',[table_no]));
+                   return;
+            }
+
             // unserialize orderObject 
             for(var id in tableStatus.OrdersById) {
                 
@@ -566,6 +588,7 @@
                     tableStatus.OrdersById[id].TransactionData = {};
                 }
             }
+
 
             let doc = document.getElementById('order_display_div');
             let result = '';
@@ -596,18 +619,19 @@
                     
                     tableStatus.TableOrder.forEach(function(order){
                         var tab = document.createElement("tab");
-                        tab.setAttribute('label', 'CC#' + order.check_no);
+                        tab.setAttribute('label', 'C#' + order.check_no);
                         tab.setAttribute('value', order.id);
                         tabs.appendChild(tab);
                     });
 
                     document.getElementById('order_selected_table_id').value = table_id;
                 }
+                this._actionData = table;
                 this.popupOrderDisplayPanel();
             }catch(e){
                 // XXX notify fatal error message.
                 // alert(e);
-                this.log('ERROR', 'executeSelectTableOrder and InnerHtml');
+                this.log('ERROR', 'executeSelectTableOrder and InnerHtml\n' + result + this.dump(tableStatus));
                 return false;
             }
             return true;
@@ -622,17 +646,20 @@
             let tableStatus = this.Table.TableStatus.getTableStatusById(table_id);
             let table_no = table.table_no;
             let action = this.getAction();
+            var masterTableId = (this._actionData ? this._actionData.id : '');
+            var slaveTableId = table_id;
 
             if (tableStatus) {
                 if ((!tableStatus.Table.active && tableStatus.TableStatus.order_count == 0) || tableStatus.TableStatus.status == 2
-                    || (tableStatus.TableStatus.status == 3 && tableStatus.TableStatus.mark_op_deny) ) {
+                    || (tableStatus.TableStatus.status == 3 && tableStatus.TableStatus.mark_op_deny)
+                    || (masterTableId==slaveTableId) ) {
 
-                    NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                    NotifyUtils.warn(_('Table [%S] Not available to merge. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                     return ;
                 }
-            }else if (!table.active) {
-                    NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, 0, 0]));
-                    return ;
+            }else if (!table.active || (masterTableId==slaveTableId) ) {
+                NotifyUtils.warn(_('Table [%S] Not available to merge. Status: [%S], Active: [%S]',[ table_no, 0, 0]));
+                return ;
             }
 
             // set master id
@@ -646,19 +673,22 @@
                 case 'mergeTableSlave':
                     if (tableStatus && tableStatus.TableStatus.status != 0) {
                         // check available
-                        NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                        NotifyUtils.warn(_('Table [%S] Not available to merge. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                         return;
                     }
-                    var masterTableId = this._actionData.id;
-                    var slaveTableId = table_id;
+                    masterTableId = this._actionData.id;
+                    slaveTableId = table_id;
                     break;
             }
 
             // merge table
             this.Table.TableStatus.mergeTable(masterTableId, slaveTableId);
 
-            // set action to select ??
-            this.setAction('selectTable');
+            if (this.tableSettings.StaydownAction) {
+                this.setAction('mergeTable');
+            }else {
+                this.setAction('selectTable');
+            }
 
             // refresh
             this.refreshTableStatus();
@@ -681,15 +711,18 @@
             }
 
             if (status == 0) {
-                NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                NotifyUtils.warn(_('Table [%S] Not available to unmerge. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                 return ;
             }
 
             // unmerge table
             this.Table.TableStatus.unmergeTable(table_id);
 
-            // set action to select ??
-            this.setAction('selectTable');
+            if (this.tableSettings.StaydownAction) {
+                this.setAction('unmergeTable');
+            }else {
+                this.setAction('selectTable');
+            }
 
             // refresh
             this.refreshTableStatus();
@@ -742,12 +775,12 @@
                 if ((!tableStatus.Table.active && tableStatus.TableStatus.order_count == 0) || tableStatus.TableStatus.status == 2
                     || (tableStatus.TableStatus.status == 1) ) {
 
-                    NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                    NotifyUtils.warn(_('Table [%S] Not available to mark. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                     return ;
                 }
             }else if (!table.active) {
-                    NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, 0, 0]));
-                    return ;
+                NotifyUtils.warn(_('Table [%S] Not available to mark. Status: [%S], Active: [%S]',[ table_no, 0, 0]));
+                return ;
             }
 
             var markId = this.openSelectMarkDialog(table);
@@ -766,8 +799,11 @@
             // mark table
             this.Table.TableStatus.markTable(table_id, markId, clerk);
 
-            // set action to select ??
-            this.setAction('selectTable');
+            if (this.tableSettings.StaydownAction) {
+                this.setAction('markTable');
+            }else {
+                this.setAction('selectTable');
+            }
 
             // refresh
             this.refreshTableStatus();
@@ -789,15 +825,18 @@
             }
 
             if (status != 3) {
-                NotifyUtils.warn(_('Table [%S] Not available.Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                NotifyUtils.warn(_('Table [%S] Not available to ummark. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                 return ;
             }
 
             // unmark table
             this.Table.TableStatus.unmarkTable(table_id);
 
-            // set action to select ??
-            this.setAction('selectTable');
+            if (this.tableSettings.StaydownAction) {
+                this.setAction('unmarkTable');
+            }else {
+                this.setAction('selectTable');
+            }
 
             // refresh
             this.refreshTableStatus();
@@ -815,6 +854,7 @@
             this.hideOrderDisplayPanel();
             
             this.requestCommand('recallOrder', order_id, 'GuestCheck');
+
             // dockMode ?
             if (!this.isDock()) {
                 this.hidenTableSelectorPanel();
@@ -833,12 +873,80 @@
             let table_no = table.table_no;
 
             this.requestCommand('newTable', table_no, 'GuestCheck');
+            
             // dockMode ?
             if (!this.isDock()) {
                 this.hidenTableSelectorPanel();
             }
         },
 
+        transferTable: function(order_id) {
+
+            let orgTable = this._actionData ? this._actionData : null;
+
+            // set orgTable,order_id to _actionData
+            this._actionData = {
+                orgTable: orgTable,
+                orderId: order_id
+            };
+
+            this.hideOrderDisplayPanel();
+
+            // set Action and prompt label
+            this.setAction('transferTable');
+
+        },
+
+        executeTransferTable: function(table_id) {
+            
+            let table = this.Table.getTableById(table_id);
+            let tableStatus = this.Table.TableStatus.getTableStatusById(table_id);
+            let table_no = table.table_no;
+            let orderId = this._actionData.orderId ;
+            let orgTableId = this._actionData.orgTable ? this._actionData.orgTable.id : '';
+
+            let isSameTable = (table_id == orgTableId);
+
+            if (tableStatus) {
+                if ((!tableStatus.Table.active && tableStatus.TableStatus.order_count == 0) || tableStatus.TableStatus.status == 2 || isSameTable) {
+                    NotifyUtils.warn(_('Table [%S] Not available to transfer. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                    return ;
+                }
+            }else if (!table.active || isSameTable) {
+                NotifyUtils.warn(_('Table [%S] Not available to transfer. Status: [%S], Active: [%S]',[ table_no, 0, 0]));
+                return ;
+            }
+
+            // call guest_check transferTable
+            this.requestCommand('transferTable', {
+                orderId: orderId,
+                orgTableId: orgTableId,
+                newTableId: table_id
+            }, 'GuestCheck');
+
+
+            // set action and prompt label.
+            this.setAction('selectTable');
+
+            // refresh
+            this.refreshTableStatus();
+
+        },
+
+        changeClerk: function(orderId) {
+            
+            this.hideOrderDisplayPanel();
+
+            // call guest_check transferTable
+            this.requestCommand('changeClerk', orderId, 'GuestCheck');
+
+            // set action and prompt label.
+            this.setAction('selectTable');
+            
+            // refresh
+            this.refreshTableStatus();
+            
+        },
 
         load: function(evt) {
 

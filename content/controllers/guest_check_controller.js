@@ -36,7 +36,7 @@
             }
 
 
-            this.tableSettings = this.TableSetting.getTableSettings();
+            this.tableSettings = this.TableSetting.getTableSettings() || {};
 
             // table window is first win
             if (this.tableSettings.TableWinAsFirstWin) {
@@ -57,11 +57,8 @@
                     delete alertWin;
                 }
                 
-//                alert('test');
-                // just popup table selector
-//                this.popupTableSelectorPanel();
             }
-
+            GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', (this.tableSettings.RequireCheckNo || false), false );
         },
 
 
@@ -912,43 +909,58 @@
          */
         onMainTruncateTxnRecords: function(evt) {
 
-            var r = this.TableStatus.begin();
+            var r = this.Table.begin();
 
             if (r) {
 
-                r = this.TableStatus.execute('delete from table_orders');
-                if (r) r = this.TableStatus.execute('delete from table_bookings');
+                r = this.Table.execute('delete from tables');
+                if (r) r = this.Table.execute('delete from table_regions');
+                if (r) r = this.Table.execute('delete from table_settings');
+                if (r) r = this.Table.execute('delete from table_orders');
+                if (r) r = this.Table.execute('delete from table_order_locks');
+                if (r) r = this.Table.execute('delete from table_marks');
+                if (r) r = this.Table.execute('delete from table_bookings');
+                if (r) r = this.Table.execute('delete from table_statuses');
 
                 // truncate sync tables
-                if (r) r = this.TableStatus.execute('delete from syncs');
-                if (r) r = this.TableStatus.execute('delete from sync_remote_machines');
+                if (r) r = this.Table.execute('delete from syncs');
+                if (r) r = this.Table.execute('delete from sync_remote_machines');
 
-                if (r) r = this.TableStatus.commit();
+                if (r) r = this.Table.commit();
 
                 if (!r) {
-                    var errNo = this.TableStatus.lastError;
-                    var errMsg = this.TableStatus.lastErrorString;
+                    var errNo = this.Table.lastError;
+                    var errMsg = this.Table.lastErrorString;
 
-                    this.TableStatus.rollback();
+                    this.Table.rollback();
 
                     this.dbError(errNo, errMsg,
                         _('An error was encountered while attempting to remove all table status records (error code %S) [message #501].', [errNo]));
                 }
             }
             else {
-                this.dbError(this.TableStatus.lastError, this.TableStatus.lastErrorString,
+                this.dbError(this.Table.lastError, this.Table.lastErrorString,
                     _('An error was encountered while attempting to remove all table status records (error code %S).', this.TableStatus.lastError));
             }
         },
 
 
         /**
-         * transferTable
+         * changeClerk
          *
-         * @todo need rewrite
          */
-        changeClerk: function(){
+        changeClerk: function(orderId){
 
+            var user = this.Acl.getUserPrincipal();
+            var order = {
+                id: orderId,
+                service_clerk: user.username,
+                service_clerk_displayname: user.description
+            };
+
+            var result = this.Order.changeClerk(orderId, order);
+
+            return result;
         },
 
 
@@ -975,9 +987,16 @@
         /**
          * transferTable 
          *
-         * @todo need rewrite
          */
-        transferTable: function(){
+        transferTable: function(data){
+            
+            var orderId = data.orderId || '';
+            var orgTableId = data.orgTableId || '';
+            var newTableId = data.newTableId || '';
+
+            var result = this.Order.transferTable(orderId, orgTableId, newTableId);
+
+            return result;
 
         },
 

@@ -519,8 +519,10 @@
                     
                     // is this group linked to other departments/groups?
                     if (dep.link_department || dep.link_group) {
-                        var categoryIndexes = [];
-                        var plugroupIndexes = [];
+                        let categoryIndexes = [];
+                        let plugroupIndexes = [];
+                        let departmentIndexes = [];
+                        let plugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
 
                         if (dep.link_department) {
                             categoryIndexes = dep.link_department.split(',');
@@ -529,7 +531,12 @@
                         if (dep.link_group) {
                             plugroupIndexes = dep.link_group.split(',');
                         }
-                        var departmentIndexes = categoryIndexes.concat(plugroupIndexes)
+                        if (plugroupsFirst) {
+                            departmentIndexes = plugroupIndexes.concat(categoryIndexes);
+                        }
+                        else {
+                            departmentIndexes = categoryIndexes.concat(plugroupIndexes);
+                        }
 
                         this.depPanelView.navigateDown(departmentIndexes);
 
@@ -990,6 +997,7 @@
                         r = (new OrderPaymentModel()).truncate() && r;
                         r = (new OrderObjectModel()).truncate() && r;
                         r = (new OrderItemModel()).truncate() && r;
+                        r = (new OrderItemTaxModel()).truncate() && r;
                         r = (new OrderItemCondimentModel()).truncate() && r;
                         r = (new OrderAnnotationModel()).truncate() && r;
                         r = (new OrderAdditionModel()).truncate() && r;
@@ -1169,7 +1177,7 @@
         },
         
         stockAdjustment: function (backend) {
-            var isMaster = (new StockRecordModel()).getRemoteServiceUrl('auth') === false;
+            var isMaster = (new StockRecordModel()).isRemoteService() === false;
             var isTraining = GeckoJS.Session.get("isTraining");
             var inputObj = {};
 
@@ -1268,6 +1276,7 @@
             var count = parseInt(paramList[0]) || 1;
             var items = parseInt(paramList[1]) || 1;
             var resume = parseInt(paramList[2]) || 0;
+            var store = parseInt(paramList[3]) || 0;
             var customers = GeckoJS.Session.get('customers') || [];
             var products = GeckoJS.Session.get('products') || [];
             var numProds = products.length;
@@ -1334,8 +1343,14 @@
                     // delay
                     this.sleep(100 + 100 * Math.random());
                 }
-                // finalize order with cash
-                cart.cash();
+
+                if (store) {
+                    // store 
+                    cart.storeCheck();
+                }else {
+                    // finalize order with cash
+                    cart.cash();
+                }
 
                 // update progress bar
                 progressBar.value = (i + 1) * 100 / count;

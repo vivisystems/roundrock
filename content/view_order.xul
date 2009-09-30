@@ -24,6 +24,9 @@
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
 
+  <!-- include component -->
+  <script src="chrome://viviecr/content/controllers/components/tax.js" type="application/x-javascript"/>
+
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/view_order_controller.js" type="application/x-javascript"/>
 
@@ -61,7 +64,8 @@
                 </hbox>
                 <vbox pack="center" class="container-report">
                     <hbox class="ReportTool">
-                        <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="$do('exportRcp', null, 'ViewOrder')"/>
+                        <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="$do('reprintReceipt', null, 'ViewOrder')"/>
+                        <vivibutton id="report" disabled="true" class="PrintReportBtn" oncommand="$do('exportRcp', null, 'ViewOrder')"/>
                     </hbox>
                 </vbox>
                 <hbox id="dialogButtons" class="exitbar">

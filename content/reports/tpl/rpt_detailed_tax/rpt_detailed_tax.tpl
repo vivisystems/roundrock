@@ -49,7 +49,7 @@
   TrimPath.RoundingTaxes = item.Order.rounding_taxes;
   TrimPath.PrecisionTaxes = item.Order.precision_taxes;
 {/eval}
-            <tr id="${item.order_id}">
+            <tr id="${item.id}">
                 <td style="text-align: left;">${item.Order.terminal_no}</td>
                 <td style="text-align: left;">${item.Order.sale_period|unixTimeToString:'saleperiod'}</td>
                 <td style="text-align: left;">${item.Order.shift_number}</td>
@@ -65,9 +65,9 @@
                 <td style="text-align: right;">${item.Order.included_tax_subtotal|default:0|viviFormatTaxes:true}</td>
 {for tax in taxList}
 {eval}
-if (tax.no in item) {
-   item_subtotal = item[tax.no].item_subtotal;
-   tax_subtotal = item[tax.no].tax_subtotal;
+if (item.taxes && (tax.no in item.taxes)) {
+   item_subtotal = item.taxes[tax.no].item_subtotal;
+   tax_subtotal = item.taxes[tax.no].tax_subtotal;
 }
 else {
    item_subtotal = 0;
@@ -88,20 +88,20 @@ else {
 {/eval}
         <tfoot>
             <tr>
-				<td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' )}: ${foot.rowCount|default:0|format:0} <br/>${_( '(rpt)Records Displayed' )}: ${GeckoJS.BaseObject.getKeys(body).length|format:0}</td>
-				<td colspan="4" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
-				<td style="text-align: right;">${foot.summary.total|default:0|viviFormatPrices:true}</td>
+                <td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' )}: ${foot.rowCount|default:0|format:0} <br/>${_( '(rpt)Records Displayed' )}: ${GeckoJS.BaseObject.getKeys(body).length|format:0}</td>
+                <td colspan="4" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
+                <td style="text-align: right;">${foot.summary.total|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
-				<td style="text-align: right;">${foot.summary.discount_subtotal|default:0|viviFormatPrices:true}</td>
-				<td style="text-align: right;">${foot.summary.promotion_subtotal|default:0|viviFormatPrices:true}</td>
-				<td style="text-align: right;">${foot.summary.revalue_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary.promotion_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary.revalue_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${foot.summary.tax_subtotal|default:0|viviFormatTaxes:true}</td>
                 <td style="text-align: right;">${foot.summary.included_tax_subtotal|default:0|viviFormatTaxes:true}</td>
 {for tax in taxList}
 {eval}
-if (tax.no in foot.summary) {
-   item_subtotal = foot.summary[tax.no].item_subtotal;
-   tax_subtotal = foot.summary[tax.no].tax_subtotal;
+if (foot.summary.taxes && tax.no in foot.summary.taxes) {
+   item_subtotal = foot.summary.taxes[tax.no].item_subtotal;
+   tax_subtotal = foot.summary.taxes[tax.no].tax_subtotal;
 }
 else {
    item_subtotal = 0;

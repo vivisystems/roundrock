@@ -47,6 +47,7 @@
             var bw = document.getElementById('preview_frame');
             var doc = bw.contentWindow.document.getElementById( 'abody' );
             var print = document.getElementById('print');
+            var report = document.getElementById('report');
             var orderObj = document.getElementById('order');
             
             // load data
@@ -100,7 +101,10 @@
                 if (doc) {
                     doc.innerHTML = result;
 
-                    print.setAttribute('disabled', false);
+                    report.setAttribute('disabled', false);
+                    if (order.status == -2 || order.status == 1) {
+                        print.setAttribute('disabled', false);
+                    }
                 }
 
                 this._orderId = id;
@@ -112,8 +116,8 @@
         },
 
         exportRcp: function() {
-        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print this order?' ) ) )
-        		return;
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print this order?' ) ) )
+                return;
 
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                 .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
@@ -126,6 +130,49 @@
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 
             rcp.printReport( 'report', tpl, this._orderData );
+        },
+
+        reprintReceipt: function() {
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to issue a receipt copy for this order?' ) ) )
+                return;
+
+            let orderModel = new OrderModel();
+            let orderData = orderModel.readOrder(this._orderId, true); // recall use master service's datas.
+
+            if (!orderData) {
+                NotifyUtils.error(_('This order object does not exist [%S]', [this._orderId]));
+                return false;
+            }
+
+            if (orderData.Order.status != 1 && orderData.Order.status != -2) {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Reprint Receipt'),
+                                      _('Only completed and voided orders may be reprinted'));
+                return false;
+            }
+
+            let data = orderModel.mappingOrderDataToTranData(orderData);
+
+            this.log('DEBUG', this.dump(data));
+
+            var txn = new Transaction(true);
+            txn.data  = data;
+
+            // temporarily remove customer from Session
+            let customer = GeckoJS.Session.get('current_customer');
+            if (customer) {
+                GeckoJS.Session.remove('current_customer');
+            }
+
+            let mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            let rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+
+            rcp.issueReceiptCopy(null, txn);
+
+            // restore customer
+            if (customer) {
+                GeckoJS.Session.set('current_customer', customer);
+            }
         },
 
         voidSale: function() {

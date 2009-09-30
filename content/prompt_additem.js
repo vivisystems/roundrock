@@ -25,6 +25,16 @@ var options;
             document.getElementById('row0').setAttribute('flex', 0);
         }
 
+        // open cashdrawer?
+        if ('useraction' in inputObj) {
+            var btn = document.getElementById('useraction-btn');
+            btn.label = inputObj.useractionLabel;
+            window.UserAction = inputObj.useraction;
+        }
+        else {
+            document.getElementById('useraction-btn').setAttribute('hidden', true);
+        }
+
         // fixed length?
         if ('fixedLength0' in inputObj) {
             var fixedLength0 = parseInt(inputObj.fixedLength0);

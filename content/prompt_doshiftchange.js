@@ -107,7 +107,30 @@ function confirmEndSalePeriod() {
     var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
     var amount = parseFloat(document.getElementById('drawer_amount').value);
     var allowChangeWhenEndPeriod = options.allowChangeWhenEndPeriod;
-    
+
+    // first check for transaction in cart
+    if (options.transactionOpen) {
+        GREUtils.Dialog.alert(this.topmostWindow,
+            _('Shift Change'),
+            _('You may not end the current sale period while there are registered items in the cart'));
+        return;
+    }
+
+    // next check for stored orders
+    if (options.storedOrderCount > 0) {
+        if (options.closePeriodPolicy == 'alert') {
+            GREUtils.Dialog.alert(this.topmostWindow,
+                _('Shift Change'),
+                _('Alert! one or more orders are still open'));
+        }
+        else if (options.closePeriodPolicy == 'force') {
+            GREUtils.Dialog.alert(this.topmostWindow,
+                _('Shift Change'),
+                _('You may not end the current sale period while orders are still open'));
+            return;
+        }
+    }
+
     if (!isNaN(amount) && amount != 0 && !allowChangeWhenEndPeriod) {
         GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Change may not be left in the drawer at the end of sale period'));
         return false;
@@ -135,6 +158,30 @@ function confirmEndSalePeriod() {
 function confirmEndShift() {
     var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
     var amount = parseFloat(document.getElementById('drawer_amount').value);
+
+    // first check for transaction in cart
+    if (options.transactionOpen) {
+        GREUtils.Dialog.alert(this.topmostWindow,
+            _('Shift Change'),
+            _('You may not end the current shift while there are registered items in the cart'));
+        return;
+    }
+
+    // next check for stored orders
+    if (options.storedOrderCount > 0) {
+        if (options.shiftChangePolicy == 'alert') {
+            GREUtils.Dialog.alert(this.topmostWindow,
+                _('Shift Change'),
+                _('Alert! one or more orders are still open'));
+        }
+        else if (options.shiftChangePolicy == 'force') {
+            GREUtils.Dialog.alert(this.topmostWindow,
+                _('Shift Change'),
+                _('You may not close the current shift while orders are still open'));
+            return false;
+        }
+    }
+
     if (!isNaN(amount) && amount < 0) {
         GREUtils.Dialog.alert(topwin, _('confirm shift change'), _('Drawer change may not be negative'));
         return false;

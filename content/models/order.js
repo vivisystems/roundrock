@@ -10,7 +10,7 @@
 
         useDbConfig: 'order',
 
-        hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'],
+        hasMany: ['OrderItem', 'OrderItemTax', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'],
 
         hasOne: ['OrderObject'],
 
@@ -90,7 +90,7 @@
 
             var retObj;
 
-            try {
+            //try {
                     
                 if (isTraining) {
                     retObj = this.save(this.mappingTranToOrderFields(data));
@@ -110,6 +110,16 @@
                 }
                 if (!retObj) {
                     throw 'OrderItem';
+                }
+
+                if (isTraining) {
+                    retObj = this.OrderItemTax.saveAll(this.OrderItemTax.mappingTranToOrderItemTaxesFields(data));
+                }
+                else {
+                    retObj = this.OrderItemTax.saveToBackup(this.OrderItemTax.mappingTranToOrderItemTaxesFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderItemTax';
                 }
 
                 if (isTraining) {
@@ -173,12 +183,27 @@
                 }
 
                 return true;
-
+/*
             } catch(e) {
                 this.log('ERROR',
                     'record could not be saved to backup [' + e + ']\n' + this.dump(data));
             }
+            */
             return false;
+
+        },
+
+        updateOrderMaster: function(data, isTraining) {
+
+            var retObj;
+
+            if (isTraining) {
+                retObj = this.save(data);
+            }
+            else {
+                retObj = this.saveToBackup(data);
+            }
+            return retObj;
 
         },
 
@@ -192,6 +217,7 @@
             var r = this.restoreFromBackup();
 
             if (r) r = this.OrderItem.restoreFromBackup();
+            if (r) r = this.OrderItemTax.restoreFromBackup();
             if (r) r = this.OrderAddition.restoreFromBackup();
             if (r) r = this.OrderPayment.restoreFromBackup();
             if (r) r = this.OrderAnnotation.restoreFromBackup();
@@ -214,6 +240,7 @@
 
             datas['Order'] = this.getBackupContent();
             datas['OrderItem'] = this.OrderItem.getBackupContent();
+            datas['OrderItemTax'] = this.OrderItemTax.getBackupContent();
             datas['OrderAddition'] = this.OrderAddition.getBackupContent();
             datas['OrderPayment'] = this.OrderPayment.getBackupContent();
             datas['OrderAnnotation'] = this.OrderAnnotation.getBackupContent();
@@ -223,7 +250,7 @@
 
             var requestUrl = this.getHttpService().getRemoteServiceUrl('saveOrdersFromBackupFormat');
             var request_data = (GeckoJS.BaseObject.serialize(datas));
-            //            dump('length = ' + request_data.length +'\n');
+            // dump('length = ' + request_data.length +'\n');
 
             var success = this.getHttpService().requestRemoteService('POST', requestUrl, request_data) || null ;
 
@@ -231,6 +258,7 @@
             if (success) {
                 this.removeBackupFile();
                 this.OrderItem.removeBackupFile();
+                this.OrderItemTax.removeBackupFile();
                 this.OrderAddition.removeBackupFile();
                 this.OrderPayment.removeBackupFile();
                 this.OrderAnnotation.removeBackupFile();
@@ -309,6 +337,7 @@
             this.OrderAnnotation.mappingOrderAnnotationsFieldsToTran(orderData, data);
             this.OrderItemCondiment.mappingOrderItemCondimentsFieldsToTran(orderData, data);
             this.OrderPromotion.mappingOrderPromotionsFieldsToTran(orderData, data);
+            this.OrderItemTax.mappingOrderItemTaxesFieldsToTran(orderData, data);
 
 //            this.log('DEBUG', 'readOrder '+ id + ': \n' + this.dump(data));
 
@@ -417,6 +446,64 @@
    
         },
 
+        /**
+         * getOrdersCount
+         *
+         * @param {String} conditions
+         * @param {Boolean} isRemote    use local database or remote service
+         * @return {String} order's id  or null
+         */
+        getOrdersCount: function (conditions, isRemote) {
+
+            isRemote = isRemote || false;
+            if (!conditions) return null;
+
+            var count = 0;
+
+            if (isRemote) {
+                var requestUrl = this.getHttpService().getRemoteServiceUrl('getOrdersCount') ;
+                count = this.getHttpService().requestRemoteService('POST', requestUrl, conditions) || null ;
+            }else {
+                count = this.find('count', {
+                    conditions: conditions,
+                    recursive: 1
+                }) || null;
+            }
+
+            this.log('DEBUG', (count == null ? '' : this.dump(count)));
+            return count;
+
+        },
+
+        /**
+         * transferTable
+         *
+         * @return {Boolean} success
+         */
+        transferTable: function(orderId, orgTableId, newTableId) {
+
+           if (!orderId || !orgTableId || !newTableId) return false;
+           
+           var requestUrl = this.getHttpService().getRemoteServiceUrl('transferTable' + '/' + orderId + '/' + orgTableId + '/' + newTableId);
+           var result = this.getHttpService().requestRemoteService('GET', requestUrl) || false ;
+
+           return result;
+        },
+
+        /**
+         * changeClerk
+         *
+         * @return {Boolean} success
+         */
+        changeClerk: function(orderId, order) {
+
+           if (!orderId || !order) return false;
+
+           var requestUrl = this.getHttpService().getRemoteServiceUrl('changeClerk' + '/' + orderId);
+           var result = this.getHttpService().requestRemoteService('POST', requestUrl, order) || false ;
+
+           return result;
+        },
 
         mappingTranToOrderFields: function(data) {
 
@@ -513,12 +600,23 @@
             }
             else {
                 try {
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
 
+                    // order item taxes
+                    if (!this.OrderItemTax.execute("DELETE FROM " + this.OrderItemTax.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
+                        throw {
+                            errno: this.OrderItemTax.lastError,
+                            errstr: this.OrderItemTax.lastErrorString,
+                            errmsg: 'An error was encountered while removing order item taxes (error code ' + this.OrderItem.lastError + '): ' + this.OrderItem.lastErrorString
+                        }
+                    }
+                    
                     // update progressbar...
                     GeckoJS.BaseObject.sleep(50);
 
                     // order items
-                    if (!this.OrderItem.execute("DELETE FROM " + this.OrderItem.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderItem.execute("DELETE FROM " + this.OrderItem.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {
                             errno: this.OrderItem.lastError,
                             errstr: this.OrderItem.lastErrorString,
@@ -530,7 +628,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order item condiments
-                    if (!this.OrderItemCondiment.execute("DELETE FROM " + this.OrderItemCondiment.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderItemCondiment.execute("DELETE FROM " + this.OrderItemCondiment.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {
                             errno: this.OrderItemCondiment.lastError,
                             errstr: this.OrderItemCondiment.lastErrorString,
@@ -542,7 +640,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order additions
-                    if (!this.OrderAddition.execute("DELETE FROM " + this.OrderAddition.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderAddition.execute("DELETE FROM " + this.OrderAddition.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {
                             errno: this.OrderAddition.lastError,
                             errstr: this.OrderAddition.lastErrorString,
@@ -554,7 +652,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order annotations
-                    if (!this.OrderAnnotation.execute("DELETE FROM " + this.OrderAnnotation.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderAnnotation.execute("DELETE FROM " + this.OrderAnnotation.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {
                             errno: this.OrderAnnotation.lastError,
                             errstr: this.OrderAnnotation.lastErrorString,
@@ -566,7 +664,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order objects
-                    if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {
                             errno: this.OrderObject.lastError,
                             errstr: this.OrderObject.lastErrorString,
@@ -578,7 +676,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order payments
-                    if (!this.OrderPayment.execute("DELETE FROM " + this.OrderPayment.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderPayment.execute("DELETE FROM " + this.OrderPayment.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {
                             errno: this.OrderPayment.lastError,
                             errstr: this.OrderPayment.lastErrorString,
@@ -590,7 +688,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order receipts
-                    if (!this.OrderReceipt.execute("DELETE FROM " + this.OrderReceipt.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderReceipt.execute("DELETE FROM " + this.OrderReceipt.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {
                             errno: this.OrderReceipt.lastError,
                             errstr: this.OrderReceipt.lastErrorString,
@@ -602,7 +700,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order promotions
-                    if (!this.OrderPromotion.execute("DELETE FROM " + this.OrderPromotion.table + " WHERE order_id = (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderPromotion.execute("DELETE FROM " + this.OrderPromotion.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
                         throw {
                             errno: this.OrderPromotion.lastError,
                             errstr: this.OrderPromotion.lastErrorString,

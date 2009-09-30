@@ -213,7 +213,7 @@
 
         load: function(data) {
 
-            var isMaster = this.StockRecord.getRemoteServiceUrl('auth') === false;
+            var isMaster = this.StockRecord.isRemoteService() === false;
             var isTraining = GeckoJS.Session.get("isTraining");
             
             if (isMaster && !isTraining) {

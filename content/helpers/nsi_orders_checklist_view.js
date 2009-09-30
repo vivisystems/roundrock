@@ -68,11 +68,11 @@
 
             btn.table_no = table_no ;
             btn.checks = "";
-            btn.seq_no = tableSettings.DisplaySeqNo ? seq : '';
-            btn.booking = seq ;
-            btn.check_no = tableSettings.DisplayCheckNo ? check_no : '';
-            btn.subtotal = tableSettings.DisplayTotal ? subtotal : '';
-            btn.capacity = tableSettings.DisplayCapacity ? capacity : '';
+            btn.seq_no = /*tableSettings.DisplaySeqNo ? */ (seq || '');
+            btn.booking = "";
+            btn.check_no = /*tableSettings.DisplayCheckNo ?*/ (check_no || '');
+            btn.subtotal = /*tableSettings.DisplayTotal ? */ (subtotal || '');
+            btn.capacity = ""; //tableSettings.DisplayCapacity ? capacity : '';
             btn.clerk = clerk;
             btn.period = (new Date(transaction_created)).toString("HH:mm");
 

@@ -45,9 +45,9 @@ ${_( '(rpt)Included Tax' ) + ':'|left:24}
 ${item.Order.included_tax_subtotal|default:0|viviFormatTaxes:true|right:24}
 {for tax in taxList}
 {eval}
-if (tax.no in item) {
-   item_subtotal = item[tax.no].item_subtotal;
-   tax_subtotal = item[tax.no].tax_subtotal;
+if (item.taxes && tax.no in item.taxes) {
+   item_subtotal = item.taxes[tax.no].item_subtotal;
+   tax_subtotal = item.taxes[tax.no].tax_subtotal;
 }
 else {
    item_subtotal = 0;
@@ -89,9 +89,9 @@ ${_( '(rpt)Included Tax' ) + ':'|left:24}
 ${foot.summary.included_tax_subtotal|default:0|viviFormatTaxes:true|right:24}
 {for tax in taxList}
 {eval}
-if (tax.no in foot.summary) {
-   item_subtotal = foot.summary[tax.no].item_subtotal;
-   tax_subtotal = foot.summary[tax.no].tax_subtotal;
+if (foot.summary.taxes && tax.no in foot.summary.taxes) {
+   item_subtotal = foot.summary.taxes[tax.no].item_subtotal;
+   tax_subtotal = foot.summary.taxes[tax.no].tax_subtotal;
 }
 else {
    item_subtotal = 0;
