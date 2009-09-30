@@ -226,6 +226,14 @@
         var $el = $(el);
 
         var opts = $el.data('popupPanel.opts');
+
+        if (typeof opts == 'undefined') {
+            // not installed 
+            install(el);
+            // reget again.
+            opts = $el.data('popupPanel.opts');
+        }
+
         var onPopupShownCB = $el.data('popupPanel.popupshown');
         var onPopupHiddenCB = $el.data('popupPanel.popuphidden');
 
