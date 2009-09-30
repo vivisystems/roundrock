@@ -165,9 +165,9 @@ class Order extends AppModel {
         $result = $this->save($data);
 
         // update refund payments
-        for ($i = 0; $i < $data['refundPayments']; $i++) {
-            $this->OrderPayment->create();
-            $this->OrderPayment->save($data['refundPayments'][i]);
+        foreach ($data['refundPayments'] as $refund) {
+            $this->OrderPayment->id = $refund->id;
+            $this->OrderPayment->save($refund);
         }
 
         return $result;
