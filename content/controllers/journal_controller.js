@@ -114,21 +114,26 @@
                     evt.preventDefault();
                 }
             } catch (e) {
+                this.log('ERROR', _('Journal Controller cartStatus error: %S', [GeckoJS.BaseObject.dump(e)]));
             }
         },
 
         voidOrder: function(evt) {
             if(!this.isTraining) {
-                var txn = evt;
-                var order_id = txn.data.id;
-                var journal = this.getJournalByOrderId(order_id);
+                try {
+                    var txn = evt;
+                    var order_id = txn.data.id;
+                    var journal = this.getJournalByOrderId(order_id);
 
-                journal.void_clerk_displayname = txn.data.void_clerk_displayname;
-                journal.void_time = parseInt(new Date().getTime() / 1000);
-                journal.void_terminal_no = GeckoJS.Session.get('terminal_no');
-                journal.status = txn.data.status;
+                    journal.void_clerk_displayname = txn.data.void_clerk_displayname;
+                    journal.void_time = parseInt(new Date().getTime() / 1000);
+                    journal.void_terminal_no = GeckoJS.Session.get('terminal_no');
+                    journal.status = txn.data.status;
 
-                this.saveJournal(journal);
+                    this.saveJournal(journal);
+                } catch (e) {
+                    this.log('ERROR', _('Journal Controller voidOrder error: %S', [GeckoJS.BaseObject.dump(e)]));
+                }
             }
         },
 
