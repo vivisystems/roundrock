@@ -60,7 +60,6 @@
             }
             
             if (order) {
-this.log('DEBUG', this.dump(order));
                 // display order status
                 var branch = (order.branch == null || order.branch == '') ? ((order.branch_id == null || order.branch_id == '') ? '' : order.branch_id)
                                                                           : order.branch + ((order.branch_id == null || order.branch_id == '') ? '' : ' (' + order.branch_id + ')');

@@ -82,7 +82,7 @@
             var records = {};
             var taxList = [];
             var taxesByNo = {};
-
+this.log('DEBUG', this.dump(orders));
             orders.forEach( function( data ) {
                 var oid = data.id;
 
@@ -115,36 +115,39 @@
                 let taxes = data.OrderItemTax;
                 for (let i = 0; i < taxes.length; i++) {
                     let tax = taxes[i], tax_amount;
-                    if (tax.tax_type == 'INCLUDED') {
-                        tax_amount = tax.included_tax_subtotal;
-                    }
-                    else {
-                        tax_amount = tax.tax_subtotal;
-                    }
-                    records[ oid ][ 'taxes' ][ tax.tax_no ] = {
-                        tax_subtotal: tax_amount,
-                        item_subtotal: tax.taxable_amount
-                    }
+                    if (!tax.order_item_id && !tax.promotion_id) {
+                        if (tax.tax_type == 'INCLUDED') {
+                            tax_amount = tax.included_tax_subtotal;
+                        }
+                        else {
+                            tax_amount = tax.tax_subtotal;
+                        }
 
-                    // tax summary
-                    if (!(tax.tax_no in summary.taxes)) {
-                        summary.taxes[tax.tax_no] = {
+                        records[ oid ][ 'taxes' ][ tax.tax_no ] = {
                             tax_subtotal: tax_amount,
                             item_subtotal: tax.taxable_amount
                         }
-                    }
-                    else {
-                        summary.taxes[tax.tax_no].tax_subtotal += tax_amount;
-                        summary.taxes[tax.tax_no].item_subtotal += tax.taxable_amount;
-                    }
 
-                    // add to tax list
-                    if (!(tax.tax_no in taxesByNo)) {
-                        taxList.push({
-                            no: tax.tax_no,
-                            name: tax.tax_name
-                        });
-                        taxesByNo[tax.tax_no] = 1;
+                        // tax summary
+                        if (!(tax.tax_no in summary.taxes)) {
+                            summary.taxes[tax.tax_no] = {
+                                tax_subtotal: tax_amount,
+                                item_subtotal: tax.taxable_amount
+                            }
+                        }
+                        else {
+                            summary.taxes[tax.tax_no].tax_subtotal += tax_amount;
+                            summary.taxes[tax.tax_no].item_subtotal += tax.taxable_amount;
+                        }
+
+                        // add to tax list
+                        if (!(tax.tax_no in taxesByNo)) {
+                            taxList.push({
+                                no: tax.tax_no,
+                                name: tax.tax_name
+                            });
+                            taxesByNo[tax.tax_no] = 1;
+                        }
                     }
                 }
             }, this);
