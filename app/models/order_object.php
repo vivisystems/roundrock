@@ -5,7 +5,7 @@ class OrderObject extends AppModel {
     var $name = 'OrderObject';
     var $useDbConfig = 'order';
 
-    //    var $actsAs = array('Sync');
+    var $actsAs = array('Sync');
 
 
     function saveOrderObjects($objects) {
