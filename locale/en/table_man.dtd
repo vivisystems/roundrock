@@ -31,6 +31,7 @@
 <!ENTITY tableman.booking.telephone "Telephone">
 <!ENTITY tableman.booking.address "Address">
 <!ENTITY tableman.booking.note "Note">
+<!ENTITY tableman.booking.tableno "T.No">
 
 <!ENTITY tableman.mark.name "Name">
 <!ENTITY tableman.mark.period "Duration (Minutes)">
@@ -47,6 +48,7 @@
 <!ENTITY tableman.button.savesettings "Save">
 <!ENTITY tableman.button.addtables "Add Tables">
 <!ENTITY tableman.button.clonesettingsfrommaster "Clone Master">
+<!ENTITY tableman.button.viewtablebook "View Table Book">
 
 <!ENTITY tableman.properties "Properties:">
 <!ENTITY tableman.no "No:">
