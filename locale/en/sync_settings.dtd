@@ -35,8 +35,8 @@
 
 <!ENTITY sync_settings.label.advance_sale_period "Advance Sale Period after Closing">
 
-<!ENTITY sync_settings.label.table_active "Enable Clustered Table Service">
-<!ENTITY sync_settings.desc.table_active "Activate clustered table service. The server is the same host as synchronization server.">
+<!ENTITY sync_settings.label.table_hostname "Table Service">
+<!ENTITY sync_settings.desc.table_hostname "Table service. The server is the same host as synchronization server.">
 
 <!ENTITY sync_settings.label.stock_hostname "Stock Control Service">
 <!ENTITY sync_settings.desc.stock_hostname "This service provides real-time stock control. Please enter the hostname or IP address of the server, or localhost if the service is not needed.">
