@@ -35,10 +35,11 @@
                 timeField = 'transaction_submitted';
             }
             var fields = [
-            				'orders.' + timeField,
+                            'orders.' + timeField,
                             'orders.terminal_no',
                             'orders.status',
                             'SUM("orders"."total") AS "Order.HourTotal"',
+                            'SUM("orders"."item_subtotal") AS "Order.HourGross"',
                             'STRFTIME("%Y-%m-%d",DATETIME("orders"."' + timeField + '", "unixepoch", "localtime")) AS "Order.Date"',
                             'STRFTIME("%H",DATETIME("orders"."' + timeField + '", "unixepoch", "localtime")) AS "Order.Hour"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
@@ -93,6 +94,7 @@
             }
 
             var HourTotal = 0;
+            var HourGross = 0;
             var OrderNum = 0;
             var Guests = 0;
             var ItemsCount = 0;
@@ -102,8 +104,12 @@
                 o.NetPerOrder = (o.OrderNum > 0) ? o.HourTotal / o.OrderNum : 0;
                 o.NetPerGuest = (o.Guests > 0) ? o.HourTotal / o.Guests : 0;
 
+                o.GrossPerOrder = (o.OrderNum > 0) ? o.HourGross / o.OrderNum : 0;
+                o.GrossPerGuest = (o.Guests > 0) ? o.HourGross / o.Guests : 0;
+
                 // sum
                 HourTotal += o.HourTotal;
+                HourGross += o.HourGross;
                 OrderNum += o.OrderNum;
                 Guests += o.Guests;
                 ItemsCount += o.ItemsCount;
@@ -115,19 +121,21 @@
             //HourTotal = GeckoJS.NumberHelper.round(HourTotal, precision_prices, rounding_prices) || 0;
             //HourTotal = HourTotal.toFixed(precision_prices);
 
-			this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.hourlysales.label' );
-			this._reportRecords.head.start_time = start_str;
-			this._reportRecords.head.end_time = end_str;
-			this._reportRecords.head.terminal_no = terminalNo;
-			
-			this._reportRecords.body = records;
-			
-			this._reportRecords.foot.HourTotal = HourTotal;
-			this._reportRecords.foot.OrderNum = OrderNum;
-			this._reportRecords.foot.Guests = Guests;
-			this._reportRecords.foot.ItemsCount = ItemsCount;
-			this._reportRecords.foot.NetPerOrder = (OrderNum > 0) ? HourTotal / OrderNum : 0;
-			this._reportRecords.foot.NetPerGuest = (Guests > 0) ? HourTotal / Guests : 0;
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.hourlysales.label' );
+            this._reportRecords.head.start_time = start_str;
+            this._reportRecords.head.end_time = end_str;
+            this._reportRecords.head.terminal_no = terminalNo;
+
+            this._reportRecords.body = records;
+
+            this._reportRecords.foot.HourTotal = HourTotal;
+            this._reportRecords.foot.OrderNum = OrderNum;
+            this._reportRecords.foot.Guests = Guests;
+            this._reportRecords.foot.ItemsCount = ItemsCount;
+            this._reportRecords.foot.NetPerOrder = (OrderNum > 0) ? HourTotal / OrderNum : 0;
+            this._reportRecords.foot.NetPerGuest = (Guests > 0) ? HourTotal / Guests : 0;
+            this._reportRecords.foot.GrossPerOrder = (OrderNum > 0) ? HourGross / OrderNum : 0;
+            this._reportRecords.foot.GrossPerGuest = (Guests > 0) ? HourGross / Guests : 0;
         },
 
         exportCsv: function() {

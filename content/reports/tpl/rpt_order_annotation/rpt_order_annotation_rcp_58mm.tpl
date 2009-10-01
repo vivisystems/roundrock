@@ -47,7 +47,7 @@ ${_( '(rpt)Revalue' ) + ':'|left:24}
 ${order.revalue_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'|left:24}
 ${order.tax_subtotal|viviFormatTaxes:true|right:24}
-${_( '(rpt)Net Sales' ) + ':'|left:24}
+${_( '(rpt)Total' ) + ':'|left:24}
 ${order.total|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'|left:24}
 ${order.payment|viviFormatPrices:true|right:24}
@@ -72,7 +72,7 @@ ${_( '(rpt)Revalue' ) + ':'|left:24}
 ${types.summary.revalue_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'|left:24}
 ${types.summary.tax_subtotal|viviFormatTaxes:true|right:24}
-${_( '(rpt)Net Sales' ) + ':'|left:24}
+${_( '(rpt)Total' ) + ':'|left:24}
 ${types.summary.total|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'|left:24}
 ${types.summary.payment|viviFormatPrices:true|right:24}

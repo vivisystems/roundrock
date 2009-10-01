@@ -28,7 +28,8 @@
                 <th style="text-align: center;">${_( '(rpt)Time' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Sequence' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Invoice Number' )}</th>
-                <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Total' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Gross Sales' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Order Surcharge' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Order Discount' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>
@@ -57,8 +58,9 @@
                 <td style="text-align: left;" class="hyperlink">${item.Order.sequence}</td>
                 <td style="text-align: left;">${item.Order.invoice_no|default:''}</td>
                 <td style="text-align: right;">${item.Order.total|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${item.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${item.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.Order.item_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.trans_surcharge_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.trans_discount_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.Order.promotion_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.Order.revalue_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.Order.tax_subtotal|default:0|viviFormatTaxes:true}</td>
@@ -91,8 +93,9 @@ else {
                 <td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' )}: ${foot.rowCount|default:0|format:0} <br/>${_( '(rpt)Records Displayed' )}: ${GeckoJS.BaseObject.getKeys(body).length|format:0}</td>
                 <td colspan="4" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
                 <td style="text-align: right;">${foot.summary.total|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${foot.summary.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary.item_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary.trans_surcharge_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary.trans_discount_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${foot.summary.promotion_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${foot.summary.revalue_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${foot.summary.tax_subtotal|default:0|viviFormatTaxes:true}</td>

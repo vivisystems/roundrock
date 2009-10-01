@@ -18,15 +18,17 @@
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
 
-            var fields = 	'strftime( "%Y-%m-%d", o.' + periodType + ', "unixepoch", "localtime" ) as date, ' +
-            'sum( o.item_subtotal ) as gross, ' +
-            'sum( op.discount_subtotal ) as promotion_subtotal, ' +
-            'op.promotion_id as promotion_id, ' +
-            'op.name as promotion_name, ' +
-            'op.code as promotion_code, ' +
-            'count( op.id ) as matched_count, ' +
-            'sum( op.matched_items_qty ) as matched_items_qty, ' +
-            'sum( op.matched_items_subtotal ) as matched_items_subtotal';
+            var fields = 'strftime( "%Y-%m-%d", o.' + periodType + ', "unixepoch", "localtime" ) as date, ' +
+                         'sum( o.item_subtotal ) as gross, ' +
+                         'sum( op.discount_subtotal ) as promotion_subtotal, ' +
+                         'op.promotion_id as promotion_id, ' +
+                         'op.name as promotion_name, ' +
+                         'op.code as promotion_code, ' +
+                         'sum( op.current_tax ) as tax_subtotal, ' +
+                         'sum( op.included_tax ) as included_tax_subtotal, ' +
+                         'count( op.id ) as matched_count, ' +
+                         'sum( op.matched_items_qty ) as matched_items_qty, ' +
+                         'sum( op.matched_items_subtotal ) as matched_items_subtotal';
                             
             var conditions = "o." + periodType + ">='" + start +
             "' and o." + periodType + "<='" + end + "' and o.status = 1";
@@ -46,16 +48,18 @@
             var subquery = 	'SELECT ' + fields + ' FROM orders o INNER JOIN order_promotions op ON (o.id= op.order_id) ' +
             ' WHERE ' + conditions + ' GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT -1';
             				
-            var s_fields =  's.date as date, ' +
-            'sum( s.gross ) as gross, ' +
-            'sum( s.promotion_subtotal ) as promotion_subtotal, ' +
-            's.promotion_id as promotion_id, ' +
-            's.promotion_name as promotion_name, ' +
-            's.promotion_code as promotion_code, ' +
-            'sum( s.matched_count ) as matched_count, ' +
-            'sum( s.matched_items_qty ) as matched_items_qty, ' +
-            'sum( s.matched_items_subtotal ) as matched_items_subtotal, ' +
-            'count( s.promotion_id ) as order_count';
+            var s_fields = 's.date as date, ' +
+                           'sum( s.gross ) as gross, ' +
+                           'sum( s.promotion_subtotal ) as promotion_subtotal, ' +
+                           's.promotion_id as promotion_id, ' +
+                           's.promotion_name as promotion_name, ' +
+                           's.promotion_code as promotion_code, ' +
+                           'sum( 0 - s.tax_subtotal ) as tax_subtotal, ' +
+                           'sum( 0 - s.included_tax_subtotal ) as included_tax_subtotal, ' +
+                           'sum( s.matched_count ) as matched_count, ' +
+                           'sum( s.matched_items_qty ) as matched_items_qty, ' +
+                           'sum( s.matched_items_subtotal ) as matched_items_subtotal, ' +
+                           'count( s.promotion_id ) as order_count';
             
             var s_orderby = sortBy;				
             // for sorting.
@@ -96,6 +100,8 @@
                         gross: 0,
                         order_count: 0,
                         promotion_subtotal: 0,
+                        tax_subtotal: 0,
+                        included_tax_subtotal: 0,
                         matched_count: 0,
                         matched_amount: 0,
                         matched_items_qty: 0,
@@ -122,6 +128,8 @@
                             gross: 0,
                             order_count: 0,
                             promotion_subtotal: 0,
+                            tax_subtotal: 0,
+                            included_tax_subtotal: 0,
                             matched_count: 0,
                             matched_amount: 0,
                             matched_items_qty: 0,

@@ -35,7 +35,7 @@
                     <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Revalue' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Add-on Tax' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Payment' )}</th>
                 </tr>
             </thead>

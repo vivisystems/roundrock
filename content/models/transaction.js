@@ -33,7 +33,6 @@
                  * order_additions
                  */
                 trans_discounts: {},
-                mass_discounts: {},
                 trans_surcharges: {},
 
                 /*
@@ -66,7 +65,11 @@
                 tax_subtotal: 0,
                 included_tax_subtotal: 0,
                 surcharge_subtotal: 0,
+                trans_surcharge_subtotal: 0,
+                item_surcharge_subtotal: 0,
                 discount_subtotal: 0,
+                trans_discount_subtotal: 0,
+                item_discount_subtotal: 0,
                 payment_subtotal: 0,
 
                 price_modifier: 1,    // used to modify item subtotals

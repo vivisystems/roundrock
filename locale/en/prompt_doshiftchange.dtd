@@ -4,7 +4,7 @@
 <!ENTITY prompt.shiftchange.deposit  "Deposit">
 <!ENTITY prompt.shiftchange.refund  "Refund">
 <!ENTITY prompt.shiftchange.credit  "Credit">
-<!ENTITY prompt.shiftchange.sales  "Sales Total">
+<!ENTITY prompt.shiftchange.sales  "Total">
 <!ENTITY prompt.shiftchange.ledger.in  "Non-sale In">
 <!ENTITY prompt.shiftchange.ledger.out  "Non-sale Out">
 <!ENTITY prompt.shiftchange.excess  "Excess Giftcard Payment">

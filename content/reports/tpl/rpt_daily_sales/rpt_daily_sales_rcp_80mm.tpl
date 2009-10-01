@@ -30,7 +30,7 @@ ${'    ' + _( '(rpt)Surcharge' ) + ': '|left:19}${detail.surcharge_subtotal|defa
 ${'    ' + _( '(rpt)Discount' ) + ': '|left:19}${detail.discount_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Promotion' ) + ': '|left:19}${detail.promotion_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Revalue' ) + ': '|left:19}${detail.revalue_subtotal|default:0|viviFormatPrices:true|right:22}
-${'    ' + _( '(rpt)Net Sales' ) + ': '|left:19}${detail.total|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Total' ) + ': '|left:19}${detail.total|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Payment' ) + ': '|left:19}${detail.payment|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Cash' ) + ': '|left:19}${detail.cash|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Check' ) + ': '|left:19}${detail.check|default:0|viviFormatPrices:true|right:22}
@@ -58,7 +58,7 @@ ${'    ' + _( '(rpt)Surcharge' ) + ': '|left:19}${foot.foot_datas.surcharge_subt
 ${'    ' + _( '(rpt)Discount' ) + ': '|left:19}${foot.foot_datas.discount_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Promotion' ) + ': '|left:19}${foot.foot_datas.promotion_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Revalue' ) + ': '|left:19}${foot.foot_datas.revalue_subtotal|default:0|viviFormatPrices:true|right:22}
-${'    ' + _( '(rpt)Net Sales' ) + ': '|left:19}${foot.foot_datas.total|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Total' ) + ': '|left:19}${foot.foot_datas.total|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Payment' ) + ': '|left:19}${foot.foot_datas.payment|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Cash' ) + ': '|left:19}${foot.foot_datas.cash|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Check' ) + ': '|left:19}${foot.foot_datas.check|default:0|viviFormatPrices:true|right:22}

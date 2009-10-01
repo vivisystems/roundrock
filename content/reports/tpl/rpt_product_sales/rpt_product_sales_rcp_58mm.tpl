@@ -18,7 +18,7 @@ ${_( '(rpt)Product Number' ) + ':'|left:24}
 ${item.product_no|right:24}
 ${_( '(rpt)Product Name' ) + ':'|left:24}
 ${item.product_name|right:24}
-${_( '(rpt)Average Price' ) + ':'|left:24}
+${_( '(rpt)Average Net Price' ) + ':'|left:24}
 ${item.avg_price|viviFormatPrices:true|right:24}
 ${_( '(rpt)Quantities Sold' ) + ':'|left:24}
 ${item.qty|format:0|right:24}

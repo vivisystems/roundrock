@@ -37,7 +37,7 @@
                     <th style="text-align: center;">${_( '(rpt)Discount' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Revalue' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Payment' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Cash' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Check' )}</th>

@@ -33,7 +33,14 @@
                 'orders.sale_period as "Order.sale_period"',
                 'orders.shift_number as "Order.shift_number"',
                 'orders.total as "Order.total"',
+                'orders.item_subtotal as "Order.item_subtotal"',
                 'orders.invoice_no as "Order.invoice_no"',
+                'orders.surcharge_subtotal as "Order.surcharge_subtotal"',
+                'orders.item_surcharge_subtotal as "Order.item_surcharge_subtotal"',
+                'orders.trans_surcharge_subtotal as "Order.trans_surcharge_subtotal"',
+                'orders.discount_subtotal as "Order.discount_subtotal"',
+                'orders.item_discount_subtotal as "Order.item_discount_subtotal"',
+                'orders.trans_discount_subtotal as "Order.trans_discount_subtotal"',
                 'orders.tax_subtotal as "Order.tax_subtotal"',
                 'orders.included_tax_subtotal as "Order.included_tax_subtotal"',
                 'orders.promotion_subtotal as "Order.promotion_subtotal"',
@@ -69,10 +76,15 @@
 
             var summary = {
                 total: 0,
+                item_subtotal: 0,
                 tax_subtotal: 0,
                 included_tax_subtotal: 0,
                 surcharge_subtotal: 0,
+                trans_surcharge_subtotal: 0,
+                item_surcharge_subtotal: 0,
                 discount_subtotal: 0,
+                trans_discount_subtotal: 0,
+                item_discount_subtotal: 0,
                 promotion_subtotal: 0,
                 revalue_subtotal: 0,
                 taxes: {}
@@ -82,7 +94,7 @@
             var records = {};
             var taxList = [];
             var taxesByNo = {};
-this.log('DEBUG', this.dump(orders));
+            
             orders.forEach( function( data ) {
                 var oid = data.id;
 
@@ -90,24 +102,17 @@ this.log('DEBUG', this.dump(orders));
                 records[ oid ][ 'surcharge_subtotal' ] = data.Order.surcharge_subtotal;
                 records[ oid ][ 'discount_subtotal' ] = data.Order.discount_subtotal;
                 records[ oid ][ 'taxes' ] = {};
-                
-                // compute order discount
-                let adjustments = data.OrderAddition || [];
-                let discountTotal = 0, surchargeTotal = 0;
-                for (let i = 0; i < adjustments.length; i++) {
-                    let adjustment = adjustments[i];
-                    discountTotal += adjustment.current_discount;
-                    surchargeTotal += adjustment.current_surcharge;
-                }
-
-                records[ oid ].Order.discount_subtotal = records[ oid ].discount_subtotal = discountTotal;
-                records[ oid ].Order.surcharge_subtotal = records[ oid ].surcharge_subtotal = surchargeTotal;
-                
+                                
                 summary.total += data.Order.total;
+                summary.item_subtotal += data.Order.item_subtotal;
                 summary.tax_subtotal += data.Order.tax_subtotal;
                 summary.included_tax_subtotal += data.Order.included_tax_subtotal;
                 summary.surcharge_subtotal += data.Order.surcharge_subtotal;
+                summary.item_surcharge_subtotal += data.Order.item_surcharge_subtotal;
+                summary.trans_surcharge_subtotal += data.Order.trans_surcharge_subtotal;
                 summary.discount_subtotal += data.Order.discount_subtotal;
+                summary.item_discount_subtotal += data.Order.item_discount_subtotal;
+                summary.trans_discount_subtotal += data.Order.trans_discount_subtotal;
                 summary.promotion_subtotal += data.Order.promotion_subtotal;
                 summary.revalue_subtotal += data.Order.revalue_subtotal;
 

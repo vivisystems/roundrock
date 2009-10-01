@@ -17,44 +17,7 @@ if (typeof(TrimPath) != 'undefined') {
         $T.parseTemplate_etc.modifierDef['round'] = function (value, precision, policy) {
             precision = typeof precision != 'undefined' ? precision : 0;
             policy = policy || 'to-nearest-precision';
-
-            if (isNaN(value) || isNaN(precision)) return value;
-	    
-            var p = Math.round(precision);
-            var result = value * Math.pow(10, p);
-	    
-            switch(policy) {
-		
-                case 'to-nearest-precision':
-                    result = Math.round(result);
-                    break;
-		    
-                case 'to-nearest-half':
-                    result = Math.round(result * 2) / 2;
-                    break;
-		    
-                case 'to-nearest-quarter':
-                    result = Math.round(result * 4) / 4;
-                    break;
-		    
-                case 'to-nearest-nickel':
-                    result = Math.round(result * 10) / 10;
-                    break;
-		    
-                case 'to-nearest-dime':
-                    result = Math.round(result * 20) / 20;
-                    break;
-		    
-                case 'always-round-up':
-                    result = Math.round(result + 0.5);
-                    break;
-		    
-                case 'always-round-down':
-                    result = Math.floor(result);
-                    break;
-            }
-            var result2 = (result * Math.pow(10, -p));
-            return (precision>=0) ? parseFloat(result2.toFixed(precision)) : result2;
+            return GeckoJS.NumberHelper.round(value, precision, policy);
         };
 
         // format modifier

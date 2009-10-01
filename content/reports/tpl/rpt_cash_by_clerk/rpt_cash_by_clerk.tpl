@@ -31,7 +31,7 @@
                     <th style="text-align: right;">${_( '(rpt)Balance' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Cash' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Declared Cash' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Net Sales' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Giftcard Excess' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Deposit' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Refund' )}</th>

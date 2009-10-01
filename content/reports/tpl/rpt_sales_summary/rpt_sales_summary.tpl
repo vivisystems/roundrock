@@ -32,7 +32,7 @@
                         <th style="text-align: right;">${_( '(rpt)Discount' )}</td>
                         <th style="text-align: right;">${_( '(rpt)Promotion' )}</td>
                         <th style="text-align: right;">${_( '(rpt)Revalue' )}</td>
-                        <th style="text-align: right;">${_( '(rpt)Net Sales' )}</td>
+                        <th style="text-align: right;">${_( '(rpt)Total' )}</td>
                     </tr>
                 </thead>
                 <tr>
@@ -90,15 +90,15 @@
                         <td style="text-align: right;">${body.sales_summary.AvgGrossSalesPerGuest|default:0|viviFormatPrices:true}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Net Sales' ) + ':'}</td>
+                        <td style="text-align: left;">${_( '(rpt)Total' ) + ':'}</td>
                         <td style="text-align: right;">${body.sales_summary.NetSales|default:0|viviFormatPrices:true}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Net Sales/Order' ) + ':'}</td>
+                        <td style="text-align: left;">${_( '(rpt)Total/Order' ) + ':'}</td>
                         <td style="text-align: right;">${body.sales_summary.AvgNetSales|default:0|viviFormatPrices:true}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Net Sales/Guest' ) + ':'}</td>
+                        <td style="text-align: left;">${_( '(rpt)Total/Guest' ) + ':'}</td>
                         <td style="text-align: right;">${body.sales_summary.AvgNetSalesPerGuest|default:0|viviFormatPrices:true}</td>
                     </tr>
                     <tr>

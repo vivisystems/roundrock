@@ -24,7 +24,7 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${body.sales_summary.RevalueSubtotal|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Net Sales' ) + ':'}
+${_( '(rpt)Total' ) + ':'}
 ${body.sales_summary.NetSales|default:0|viviFormatPrices:true|right:24}
 ------------------------
 ${_( '(rpt)Sales Summary' )}
@@ -43,11 +43,11 @@ ${_( '(rpt)Gross Sales/Order' ) + ':'}
 ${body.sales_summary.AvgGrossSales|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Gross Sales/Guest' ) + ':'}
 ${body.sales_summary.AvgGrossSalesPerGuest|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Net Sales' ) + ':'}
+${_( '(rpt)Total' ) + ':'}
 ${body.sales_summary.NetSales|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Net Sales/Order' ) + ':'}
+${_( '(rpt)Total/Order' ) + ':'}
 ${body.sales_summary.AvgNetSales|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Net Sales/Guest' ) + ':'}
+${_( '(rpt)Total/Guest' ) + ':'}
 ${body.sales_summary.AvgNetSalesPerGuest|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Number of Guests/Order' ) + ':'}
 ${body.sales_summary.AvgGuests|default:0|format:2|right:24}
