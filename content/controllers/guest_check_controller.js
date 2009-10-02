@@ -261,6 +261,28 @@
 
 
         /**
+         * open split check Dialog
+         */
+        openSplitCheckDialog: function (){
+
+            var tableSettings = this.TableSetting.getTableSettings();
+
+            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+            var screenheight = GeckoJS.Session.get('screenheight') || '600';
+
+            var orderId = '';
+            var aURL = "chrome://viviecr/content/split_check.xul";
+            var aName = _("Split Check");
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var inputObj = {
+                tableSettings: tableSettings,
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, inputObj);
+
+        },
+
+        /**
          * Set Number of customers to transaction object
          *
          * @param {Number} num  default number of customers
@@ -975,8 +997,9 @@
          *
          * @todo need rewrite
          */
-        mergeCheck: function() {
+        mergeCheck: function(orderId) {
 
+            alert('guestcheck merge ' + orderId);
         },
 
 
@@ -985,8 +1008,12 @@
          *
          * @todo need rewrite
          */
-        splitCheck: function() {
+        splitCheck: function(orderId) {
 
+            alert('guestcheck split ' + orderId);
+
+            this.openSplitCheckDialog();
+            
         },
 
 
