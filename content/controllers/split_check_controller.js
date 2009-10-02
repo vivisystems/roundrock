@@ -556,30 +556,14 @@
 
             var inputObj = window.arguments[0];
 
-            this._sourceCheck = inputObj.sourceCheck;
+            this._sourceCheck = inputObj.transaction;
 
-            for (var k in this._sourceCheck.items) {
-// this.log("k:" + k + " , " + this._sourceCheck.items[k].name);
-                this._sourceItemIdxById.push(k);
-            }
+//            document.getElementById('source_check_no').value = this._sourceCheck.check_no;
+//            document.getElementById('source_table_no').value = this._sourceCheck.table_no;
 
-            document.getElementById('source_check_no').value = this._sourceCheck.check_no;
-            document.getElementById('source_table_no').value = this._sourceCheck.table_no;
-
-            this._sourceItems = GeckoJS.BaseObject.getValues(this._sourceCheck.items);
-            // this._sourceItems = this._sourceCheck.items;
-//this.log("sourceItems:::");
-//this.log(this.dump(this._sourceItems));
-//this.log("sourceCheckItems:::");
-//this.log(this.dump(this._sourceCheck.items));
-//this.log("sourceCheck:::");
-//this.log(this.dump(this._sourceCheck));
-            this._sourceItems.forEach(function(o){
-                o.selected = false;
-            });
-
-            var panelView = new GeckoJS.NSITreeViewArray(this._sourceItems);
-            document.getElementById('sourcecheckscrollablepanel').datasource = panelView;
+            var panelView = new NSISimpleCartView('sourcecheckscrollablepanel');
+            panelView.setTransaction(this._sourceCheck);
+//            document.getElementById('sourcecheckscrollablepanel').datasource = panelView;
 
         }
 

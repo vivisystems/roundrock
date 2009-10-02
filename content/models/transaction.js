@@ -9,7 +9,9 @@
 
         name: 'Transaction',
 
-        init: function(recoveryMode) {
+        init: function(recoveryMode, backgroundMode) {
+
+            this.backgroundMode = backgroundMode || false;
 
             this.view = null,
 
@@ -28,6 +30,7 @@
                 items: {},
                 items_count: 0,
                 items_summary: {},
+                items_stock_maintained: {},
 
                 /*
                  * order_additions
@@ -124,6 +127,11 @@
 
         },
 
+        setBackgroundMode: function(backgroundMode) {
+            this.backgroundMode = backgroundMode || false;
+        },
+
+
         /**
          * Transaction Serialization , only for recovery.
          */
@@ -208,7 +216,7 @@
                     }
 
                     self.data.seq = self.buildOrderSequence(order_no);
-                    GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
+                    if(!self.backgroundMode) GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
 
                     // update checkno
                     if (check_no != -1 ) {
@@ -217,7 +225,7 @@
                 });
             }
 
-            GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers || '');
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers || '');
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
 
@@ -292,7 +300,7 @@
             if (self.data.seq.length == 0 || self.data.seq == -1) {
                 // maybe from recovery
                 self.data.seq = self.buildOrderSequence(SequenceModel.getSequence('order_no', false));
-                GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
+                if(!self.backgroundMode) GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
             }
 
             if (self.data.seq == '-1') {
@@ -408,12 +416,14 @@
 
         updateCartView: function(prevRowCount, currentRowCount, cursorIndex) {
 
+            if(this.backgroundMode) return ;
+            
             this.view.data = this.data.display_sequences;
             this.view.rowCountChanged(prevRowCount, currentRowCount, cursorIndex);
 
             //GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
-            GeckoJS.Session.set('vivipos_fec_number_of_items', this.data.qty_subtotal);
-            GeckoJS.Session.set('vivipos_fec_tax_total', this.formatTax(this.getRoundedTax(this.data.tax_subtotal)));
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_items', this.data.qty_subtotal);
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_tax_total', this.formatTax(this.getRoundedTax(this.data.tax_subtotal)));
         },
 
         createItemDataObj: function(index, item, sellQty, sellPrice, parent_index) {
@@ -731,7 +741,7 @@
             sellQty: item.current_qty*/
             };
 
-            GeckoJS.Session.set('cart_last_sell_item', lastSellItem);
+            if(!this.backgroundMode) GeckoJS.Session.set('cart_last_sell_item', lastSellItem);
         },
 
         checkSellPrice: function(item) {
@@ -1445,8 +1455,8 @@
                         var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
                         if (discount_amount > item_discount_limit_amount) {
                             NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
-                                               [this.formatPrice(discount_amount),
-                                                this.formatPrice(item_discount_limit_amount)]));
+                                [this.formatPrice(discount_amount),
+                                this.formatPrice(item_discount_limit_amount)]));
                             return;
                         }
                     }
@@ -1455,7 +1465,7 @@
                         // discount too much
                         NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
                             [this.formatPrice(discount_amount),
-                             this.formatPrice(item.current_subtotal)]));
+                            this.formatPrice(item.current_subtotal)]));
 
                         return;
                     }
@@ -1518,7 +1528,7 @@
                     // discount too much
                     NotifyUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
                         [this.formatPrice(discountItem.current_discount),
-                         this.formatPrice(remainder)]));
+                        this.formatPrice(remainder)]));
                     return;
                 }
                 discountItem.current_discount = 0 - discountItem.current_discount;
@@ -1565,7 +1575,7 @@
                     var item = transItems[index];
                     var non_discountable = productModel.isNonDiscountable(item.id, false);
                     if(item.type == 'item' && item.parent_index == null && non_discountable == false
-                       && item.hasDiscount == false && item.hasSurcharge == false && item.hasMarker == false) {
+                        && item.hasDiscount == false && item.hasSurcharge == false && item.hasMarker == false) {
 
                         let displayIndex = this.getDisplayIndexByIndex(index);
                         let result = this.appendDiscount(displayIndex, discount);
@@ -1616,8 +1626,8 @@
                         var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
                         if (surcharge_amount > surcharge_limit_amount) {
                             NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
-                                               [this.formatPrice(surcharge_amount),
-                                                this.formatPrice(surcharge_limit_amount)]));
+                                [this.formatPrice(surcharge_amount),
+                                this.formatPrice(surcharge_limit_amount)]));
                             return;
                         }
                     }
@@ -2568,7 +2578,7 @@
                         };
                     }
                 }
-                //this.log('DEBUG', 'item details: ' + this.dump(item));
+            //this.log('DEBUG', 'item details: ' + this.dump(item));
             }
 
             //this.log('DEBUG', 'dispatchEvent onCalcItemsTax ' + items);
@@ -2818,10 +2828,10 @@
             Transaction.events.dispatch('afterCalcTotal', this.data, this);
 
             Transaction.serializeToRecoveryFile(this);
-            //var profileEnd = (new Date()).getTime();
-            //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
+        //var profileEnd = (new Date()).getTime();
+        //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-            //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
         },
 
 
@@ -2905,7 +2915,7 @@
 
         setNumberOfCustomers: function(num) {
             num = isNaN(parseInt(num)) ? 1 : parseInt(num);
-            GeckoJS.Session.set('vivipos_fec_number_of_customers', num || '');
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_customers', num || '');
             this.data.no_of_customers = num;
         },
 
@@ -2915,7 +2925,7 @@
 
         setTableNo: function(tableNo) {
             tableNo = tableNo || '';
-            GeckoJS.Session.set('vivipos_fec_table_number', tableNo);
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_table_number', tableNo);
             this.data.table_no = tableNo;
         },
 
@@ -2925,7 +2935,7 @@
 
         setCheckNo: function(checkNo) {
             checkNo = isNaN(parseInt(checkNo)) ? -1 : parseInt(checkNo);
-            GeckoJS.Session.set('vivipos_fec_check_number', checkNo);
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_check_number', checkNo);
             this.data.check_no = checkNo;
         },
 

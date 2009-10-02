@@ -263,22 +263,23 @@
         /**
          * open split check Dialog
          */
-        openSplitCheckDialog: function (){
-
-            var tableSettings = this.TableSetting.getTableSettings();
+        openSplitCheckDialog: function (transaction){
 
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
-            var orderId = '';
             var aURL = "chrome://viviecr/content/split_check.xul";
             var aName = _("Split Check");
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            
             var inputObj = {
-                tableSettings: tableSettings,
+                transaction: transaction,
+                splited_trans: []
             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, inputObj);
+
+            return true;
 
         },
 
@@ -582,24 +583,15 @@
 
 
         /**
-         * recall order by order id
+         * getTransactionByOrderId
          *
          * @param {String} orderId   order uuid
-         * @return {Boolean} true if success
+         * @return {Object} for transaction.data object
          */
-        recallOrder: function(orderId) {
+        getTransactionDataByOrderId: function(orderId) {
 
-            orderId = orderId || '';
-            if (orderId.length == 0) {
-                orderId = this.getKeypadController().getBuffer() || '';
-                this.getKeypadController().clearBuffer();
-            }
-
-            if (orderId.length == 0 ) {
-                // use recallCheck mode and select dialog
-                return this.recallCheck("-1");
-            }
-
+            if (orderId.length == 0) return false;
+            
             let orderData = this.Order.readOrder(orderId, true); // recall use master service's datas.
 
             if (!orderData) {
@@ -624,7 +616,7 @@
 
             // check okay, convert to transaction data
             let data = this.Order.mappingOrderDataToTranData(orderData);
-           
+
             if (data.display_sequences == undefined) {
                 NotifyUtils.error(_('This order object can not recall [%S]', [orderId]));
                 // release for other machine use.
@@ -632,8 +624,35 @@
                 return false;
             }
 
-            // set status to recall
-            // and udpate status to open status.
+            return data;
+
+        },
+
+
+        /**
+         * recall order by order id
+         *
+         * @param {String} orderId   order uuid
+         * @return {Boolean} true if success
+         */
+        recallOrder: function(orderId) {
+
+            orderId = orderId || '';
+            if (orderId.length == 0) {
+                orderId = this.getKeypadController().getBuffer() || '';
+                this.getKeypadController().clearBuffer();
+            }
+
+            if (orderId.length == 0 ) {
+                // use recallCheck mode and select dialog
+                return this.recallCheck("-1");
+            }
+
+            let data = this.getTransactionDataByOrderId(orderId);
+
+            if(!data) return false;
+
+            // set status to recall and udpate status to open status.
             data.recall = data.status;
             data.status = 0 ;
 
@@ -1010,9 +1029,32 @@
          */
         splitCheck: function(orderId) {
 
-            alert('guestcheck split ' + orderId);
+            let data = this.getTransactionDataByOrderId(orderId);
+            
+            if (!data) return false;
 
-            this.openSplitCheckDialog();
+            let canSplit = true;
+            let message = "";
+
+            if(parseFloat(data['payment_subtotal']) > 0) {
+                canSplit = false;
+                message = _('This order has been payment, can not be split!');
+            }
+            if(parseFloat(data['trans_discount_subtotal']) > 0 || parseFloat(data['trans_surcharge_subtotal']) > 0) {
+                canSplit = false;
+                message = _('This order has discounts or surcharge , can not be split!');
+            }
+
+            if (!canSplit) {
+                this.Order.releaseOrderLock(orderId);
+                NotifyUtils.error(message);
+                return false;
+            }
+
+            let transaction = new Transaction(true, true);
+            transaction.data = data ;
+
+            this.openSplitCheckDialog(transaction);
             
         },
 
