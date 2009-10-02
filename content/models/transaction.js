@@ -2904,7 +2904,7 @@
         },
 
         setNumberOfCustomers: function(num) {
-            num = isNaN(parseInt(num)) ? 1 : parseInt(num);
+            num = isNaN(parseInt(num)) ? (1+'') : (parseInt(num)+'');
             GeckoJS.Session.set('vivipos_fec_number_of_customers', num || '');
             this.data.no_of_customers = num;
         },
@@ -2914,7 +2914,7 @@
         },
 
         setTableNo: function(tableNo) {
-            tableNo = tableNo || '';
+            tableNo = tableNo ? (parseInt(tableNo)+'') : '';
             GeckoJS.Session.set('vivipos_fec_table_number', tableNo);
             this.data.table_no = tableNo;
         },
@@ -2924,7 +2924,7 @@
         },
 
         setCheckNo: function(checkNo) {
-            checkNo = isNaN(parseInt(checkNo)) ? -1 : parseInt(checkNo);
+            checkNo = isNaN(parseInt(checkNo)) ? (-1 +'') : (parseInt(checkNo)+'');
             GeckoJS.Session.set('vivipos_fec_check_number', checkNo);
             this.data.check_no = checkNo;
         },
