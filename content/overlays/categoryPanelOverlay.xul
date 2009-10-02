@@ -13,6 +13,7 @@
             <viviscrollablebuttonpanel id="catescrollablepanel" dir="reverse" flex="1" cols="3" rows="2" labelField="name" imageField="no"
                                        oncommand="$do('changePluPanel',this.selectedIndex, 'Main');"
                                        class="catescrollablepanel"
+                                       contentType="all"
                                        buttonClass="button-department"
                                        scrollUpClass="dept-scroll-up-button"
                                        scrollDownClass="dept-scroll-down-button"

@@ -13,6 +13,8 @@
             var plugroupModel = new PlugroupModel();
             var plugroups = plugroupModel.find('all', {order: 'display_order, name'});
 
+            var domNode = document.getElementById(domId);
+            this.contentType = domNode ? (domNode.getAttribute('contentType') || 'all') : 'all';
 
             var visiblePlugroups = [], allPlugroups = [], plugroupsById= {};
             if (plugroups) plugroups.forEach(function(plugroup) {
@@ -75,15 +77,41 @@
             
             var departmentsIndexes;
             if (this.hideInvisible) {
-                if (this.plugroupsFirst)
-                    departmentsIndexes = GeckoJS.Session.get('visiblePlugroups').concat(GeckoJS.Session.get('categoriesIndexes'));
-                else
-                    departmentsIndexes = GeckoJS.Session.get('categoriesIndexes').concat(GeckoJS.Session.get('visiblePlugroups'));
-            }else {
-                if (this.plugroupsFirst)
-                    departmentsIndexes = GeckoJS.Session.get('allPlugroups').concat(GeckoJS.Session.get('categoriesIndexesAll'));
-                else
-                    departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll').concat(GeckoJS.Session.get('allPlugroups'));
+                switch(this.contentType) {
+                    case 'plugroup':
+                        departmentsIndexes = GeckoJS.Session.get('visiblePlugroups');
+                        break;
+
+                    case 'department':
+                        departmentsIndexes = GeckoJS.Session.get('categoriesIndexes');
+                        break;
+
+                    default:
+                        if (this.plugroupsFirst)
+                            departmentsIndexes = GeckoJS.Session.get('visiblePlugroups').concat(GeckoJS.Session.get('categoriesIndexes'));
+                        else
+                            departmentsIndexes = GeckoJS.Session.get('categoriesIndexes').concat(GeckoJS.Session.get('visiblePlugroups'));
+                        break;
+                }
+
+            }
+            else {
+                switch(this.contentType) {
+                    case 'plugroup':
+                        departmentsIndexes = GeckoJS.Session.get('allPlugroups');
+                        break;
+
+                    case 'department':
+                        departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll');
+                        break;
+
+                    default:
+                        if (this.plugroupsFirst)
+                            departmentsIndexes = GeckoJS.Session.get('allPlugroups').concat(GeckoJS.Session.get('categoriesIndexesAll'));
+                        else
+                            departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll').concat(GeckoJS.Session.get('allPlugroups'));
+                        break;
+                }
             }
             this._data = departmentsIndexes;
             try {
