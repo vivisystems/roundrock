@@ -1741,10 +1741,13 @@
             };
             this.dispatchEvent('beforeAddDiscount', discountItem);
 
-            var discountedItem = curTransaction.appendMassDiscount(discountItem);
+            var discountedItems = curTransaction.appendMassDiscount(discountItem);
 
-            this.dispatchEvent('afterAddDiscount', discountedItem);
+            this.dispatchEvent('afterAddDiscount', discountedItems);
 
+            if (!discountedItems || discountedItems.length == 0) {
+                NotifyUtils.warn(_('No applicable item to discount'));
+            }
             this._clearAndSubtotal();
         },
 
@@ -1985,10 +1988,13 @@
             };
             this.dispatchEvent('beforeAddSurcharge', surchargeItem);
 
-            var surchargedItem = curTransaction.appendMassSurcharge(surchargeItem);
+            var surchargedItems = curTransaction.appendMassSurcharge(surchargeItem);
 
-            this.dispatchEvent('afterAddSurcharge', surchargedItem);
+            this.dispatchEvent('afterAddSurcharge', surchargedItems);
 
+            if (!surchargedItems || surchargedItems.length == 0) {
+                NotifyUtils.warn(_('No applicable item to add surcharge'));
+            }
             this._clearAndSubtotal();
         },
 
@@ -3231,9 +3237,9 @@
             })) {
 
                 // save order unless the order is being finalized (i.e. status == 1)
-                if (status == 1) {
+                if (status == 1 || status == 2) {
                     var user = this.Acl.getUserPrincipal();
-                    if ( user != null ) {
+                    if ( user != null && status == 1) {
                         oldTransaction.data.proceeds_clerk = user.username;
                         oldTransaction.data.proceeds_clerk_displayname = user.description;
                     }

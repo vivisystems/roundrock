@@ -879,7 +879,7 @@
             }
 
             //@debug
-            //if (data && data.order) this.log('duplicate: ' + data.duplicate + ': ' + this.dump(data.order));
+            if (data && data.order) this.log('duplicate: ' + data.duplicate + ': ' + this.dump(data.order));
             //if (data && data.customer) this.log(this.dump(data.customer));
             //if (data && data.store) this.log(this.dump(data.store));
             //if (data && data.ledger) this.log(this.dump(data.ledger));
@@ -968,7 +968,7 @@
                 }
                 catch(e) {
                     NotifyUtils.error(_('Error in parsing template [%S]!', [template]));
-                    this.log(e);
+                    this.log('ERROR', 'Error in parsing template [' + template + ']: ' + e);
                     return;
                 }
             }
@@ -1007,7 +1007,7 @@
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
-            //this.log(GeckoJS.BaseObject.dump(result));
+            this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

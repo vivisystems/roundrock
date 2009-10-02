@@ -45,7 +45,14 @@
             if (layouts[selectedLayout]) {
                 prefsOverlayUri = layouts[selectedLayout]['prefs_overlay_uri'] || prefsOverlayUri;
             }
-            document.loadOverlay(prefsOverlayUri, observer);
+            try {
+                document.loadOverlay(prefsOverlayUri, observer);
+            }
+            catch(e) {
+                this.log('ERROR', 'error loading layout preference uril [' + prefsOverlayUri + ']: ' + this.dump(e));
+                GREUtils.Dialog.alert(this.topmostWindow, _('Layout Preference Error'),
+                                      _('Failed to load preference panel(s) for selected layout'));
+            }
             //displayPane.src = prefsOverlayUri;
 
             // always start on first pane to avoid XUL bug where displayPane is not rendered

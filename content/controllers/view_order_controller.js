@@ -152,6 +152,7 @@
 
             let data = orderModel.mappingOrderDataToTranData(orderData);
 
+            this.log('DEBUG', this.dump(orderData));
             this.log('DEBUG', this.dump(data));
 
             var txn = new Transaction(true);

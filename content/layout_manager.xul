@@ -62,7 +62,7 @@
                 <column flex="1"/>
             </columns>
             <rows>
-                <row>
+                <row id="depPanelFeature" feature="hidden">
                     <label value="&layout.department.label;"/>
                     <vbox>
                         <label control="deprows" value="&layout.department.rows;"/>
