@@ -60,6 +60,7 @@
                             if (item[key] != null && item[key] != '') {
                                 orderItem['parent_no'] = data.items[item[key]].no;
                             }
+                            orderItem[key] = item[key];
                             break;
                         case 'type':
                         case 'index':

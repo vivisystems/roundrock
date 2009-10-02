@@ -174,9 +174,12 @@
                     var ordItem = obj.items[ o ];
                     
                     var item = this.Product.getProductById(ordItem.id);
-                    if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
+                    if ( !ordItem.stock_maintained && item && item.auto_maintain_stock ) {
                         
-                        datas.push({id: item.no+'', quantity: ordItem.current_qty, modified: now});
+                        // if returning item, check if returns may be re-stocked
+                        if (ordItem.current_qty > 0 || item.return_stock) {
+                            datas.push({id: item.no+'', quantity: ordItem.current_qty, modified: now});
+                        }
 
                         // stock had maintained
                         ordItem.stock_maintained = true;

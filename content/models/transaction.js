@@ -802,8 +802,8 @@
             // create data object to push in items array
             var setitems = [];
             if (item.SetItem != null && item.SetItem.length > 0) {
-                // invoke Product controller to get
                 setitems = item.SetItem;
+                itemAdded.has_setitems = true;
             }
 
             var self = this;
