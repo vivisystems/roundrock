@@ -114,11 +114,13 @@
                 <button class="closecBtn" oncommand="document.getElementById('order_display_panel').hidePopup();"/>
                 <spacer height="30px" />
                 <button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" oncommand="$do('recallOrder', document.getElementById('orders_tab').value, 'SelectTable');"/>
-                <!--button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
-                <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/-->
+                <spacer height="10px" />
+                <button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" oncommand="$do('splitCheck', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" oncommand="$do('mergeCheck', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                <spacer height="10px" />
                 <button class="changeBtn" id="trans_table" label="&selecttable.transtable;" oncommand="$do('transferTable',  document.getElementById('orders_tab').value, 'SelectTable');"/>
                 <button class="newTableBtn" id="newTableBtn" label="&selecttable.transtable;" oncommand="$do('newTable', document.getElementById('order_selected_table_id').value, 'SelectTable');"/>
-                <spacer height="80px" />
+                <spacer height="20px" />
                 <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" oncommand="$do('changeClerk', document.getElementById('orders_tab').value, 'SelectTable');"/>
             </vbox>
         </hbox>

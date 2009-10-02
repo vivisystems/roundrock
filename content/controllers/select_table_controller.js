@@ -962,6 +962,42 @@
 
 
         /**
+         * splitCheck -- called by orderdisplay popup panel
+         */
+        splitCheck: function(orderId) {
+
+            this.hideOrderDisplayPanel();
+            
+            // call guest_check transferTable
+            this.requestCommand('splitCheck', orderId, 'GuestCheck');
+
+            // set action and prompt label.
+            this.setAction('selectTable');
+
+            // refresh
+            this.refreshTableStatus();
+
+        },
+
+        /**
+         * mergeCheck -- called by orderdisplay popup panel
+         */
+        mergeCheck: function(orderId) {
+
+            this.hideOrderDisplayPanel();
+
+            // call guest_check transferTable
+            this.requestCommand('mergeCheck', orderId, 'GuestCheck');
+
+            // set action and prompt label.
+            this.setAction('selectTable');
+
+            // refresh
+            this.refreshTableStatus();
+
+        },
+        
+        /**
          * openTableBookDialog
          */
         openTableBookDialog: function (){

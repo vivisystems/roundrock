@@ -24,3 +24,11 @@
 #targetcheckscrollablepanel #current_price {
     text-align: right;
 }
+
+.main-overlay .cart-list scrollbar {
+    display: block;
+}
+
+.main-overlay .cart-list .tree-scrollable-columns {
+    max-height: 0px;
+}

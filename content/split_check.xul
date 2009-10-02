@@ -10,6 +10,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/cart.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/split_check.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
@@ -20,6 +21,7 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
             
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/helpers/nsi_simple_cart_view.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/split_check.js" />
 
     <keyset id="keyset_extensions">
@@ -44,12 +46,12 @@
                             <label value="&splitcheck.sourcecheck.tableno;"/>
                             <label id="source_table_no" value=""/>
                         </hbox>
-                        <vbox flex="1" class="content-listbox">
-                            <vivitree id="sourcecheckscrollablepanel" flex="1" seltype="multiple" hidecolumnpicker="true"
+                        <vbox flex="1" class="content-listbox  main-overlay">
+                            <vivitree id="sourcecheckscrollablepanel" flex="1" seltype="multiple" hidecolumnpicker="true" primary="name"
                                       headers="&splitcheck.sourcecheck.name;,&splitcheck.sourcecheck.qty;,&splitcheck.sourcecheck.price;"
                                       fields="name,current_qty,current_price"
-                                      onclick="$do('selectMain',this.selectedIndex, 'SplitCheck');"
-                                      class="standard" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
+                                      onselect="dump('a');return false;"
+                                      class="cart-list" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                         </vbox>
                     </vbox>
                     <vbox flex="1" class="toolbar custom-content-toolbar" toolbarmode="vertical">
@@ -85,7 +87,7 @@
                             <label id="splited_table_no" value=""/>
                         </hbox>
                         <hbox flex="1">
-                            <vbox flex="1" class="content-listbox">
+                            <vbox flex="1" class="content-listbox main-overlay">
                                 <vivitree id="splitedcheckscrollablepanel" flex="1" seltype="multiple" hidecolumnpicker="true"
                                           headers="&splitcheck.splitedcheck.name;,&splitcheck.splitedcheck.qty;,&splitcheck.splitedcheck.price;"
                                           fields="name,current_qty,current_price"

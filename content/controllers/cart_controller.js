@@ -3240,10 +3240,7 @@
 
                     // check and dec stock
                     this.decStock(oldTransaction.data);
-
                 }
-
-
 
                 var submitStatus = -99; // initial value
                 
