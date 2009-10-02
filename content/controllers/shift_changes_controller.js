@@ -1317,13 +1317,13 @@
                 if (typeof txn.data.cluster_sp == 'undefined') {
 
                     var timeoutGuardSec = txn.syncSettings.timeout * 1000;
-                    var timeoutGuardNow = Date.now().getTime();
+                    var timeoutGuardNow = (new Date()).getTime();
 
                     // block ui until request finish or timeout
                     var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
                     while (typeof txn.data.cluster_sp == 'undefined' && thread.hasPendingEvents()) {
 
-                        if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) {
+                        if ((new Date()).getTime() > (timeoutGuardNow+timeoutGuardSec)) {
                             txn.data.cluster_sp = -1;
                             break;
                         }

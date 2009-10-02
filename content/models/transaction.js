@@ -273,13 +273,13 @@
 
                 var timeoutGuardSec = self.syncSettings.timeout * 1000;
                 //var timeoutGuardSec = 15000;
-                var timeoutGuardNow = Date.now().getTime();
+                var timeoutGuardNow = (new Date()).getTime();
 
                 // block ui until request finish or timeout
                 var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
                 while (self.data.seq.length == 0 && thread.hasPendingEvents()) {
 
-                    if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) break;
+                    if ((new Date()).getTime() > (timeoutGuardNow+timeoutGuardSec)) break;
 
                     thread.processNextEvent(true);
                 }
