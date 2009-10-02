@@ -4,6 +4,7 @@
  *
  */
 class TableSetting extends AppModel {
+    
     var $name = 'TableSetting';
     var $useDbConfig = 'table';
 

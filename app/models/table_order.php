@@ -24,7 +24,11 @@ class TableOrder extends AppModel {
 
                 if ($status == '2') {
                     $this->id = $order['id'];
-                    $order['table_id'] = $tableNoToIds[$order['table_no']];
+                    $table_no = intval($order['table_no']);
+                    $order['table_id'] = $tableNoToIds[$table_no];
+                    if (!empty($order['service_clerk_displayname'])) {
+                        $order['service_clerk'] = $order['service_clerk_displayname'];
+                    }
                     $this->save($order);
                 }else {
                     $this->remove($order['id']);

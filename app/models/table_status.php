@@ -1,7 +1,10 @@
 <?php
+App::import('Model', 'TableSetting');
+App::import('Model', 'TableMark');
+App::import('Model', 'TableBooking');
+
 /**
  * TableStatus Model
- *
  */
 class TableStatus extends AppModel {
     var $name = 'TableStatus';
@@ -24,9 +27,9 @@ class TableStatus extends AppModel {
         try {
             foreach ($orders as $order) {
 
-                $status = $order['status'];
-                $table_no = $order['table_no'];
-                $table_id = $tableNoToIds[$order['table_no']];
+                $status = intval($order['status']);
+                $table_no = intval($order['table_no']);
+                $table_id = $tableNoToIds[$table_no];
 
                 $this->updateOrderStatusById($table_id, $table_no);
 
@@ -98,6 +101,13 @@ class TableStatus extends AppModel {
 
             $this->id = $table_id;
             $this->save($data);
+        }else {
+            // update empty
+            $data = array('status'=>0, 'id'=>$table_id, 'table_id'=> $table_id, 'table_no'=>$table_no,
+                'order_count'=> 0, 'sum_total' => 0, 'sum_customer' => 0,
+                'modified' => (double)(microtime(true)*1000));
+            $this->id = $table_id;
+            $this->save($data);
         }
     }
 
@@ -108,7 +118,7 @@ class TableStatus extends AppModel {
     function clearExpireStatuses() {
 
         $now = time();
-        
+
         $this->begin();
 
         try {
@@ -156,6 +166,14 @@ class TableStatus extends AppModel {
      */
     function getTablesStatusWithOrdersSummary($lastModified) {
 
+        $startTime = time();
+        $endTime = time() + 86400;
+
+        $this->bindModel(array(
+                'hasMany'=>array('TableBooking'=> array('foreignKey'=>'table_id', 'order'=>'booking', 'conditions'=>"TableBooking.booking >= $startTime AND TableBooking.booking <= $endTime ")
+                )
+            )
+        );
 
         $result = $this->getTablesStatus($lastModified);
 
