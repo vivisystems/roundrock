@@ -88,8 +88,11 @@ class StockRecord extends AppModel {
             if ($d <= $lastModifiedInventory) continue;
             
             $ids[] = $d['id'];
-
-            $sql .= "UPDATE stock_records SET quantity=quantity-".$d['quantity'].", modified='".$now."' WHERE id = '".$d['id']."' ;\n";
+            if ($d['quantity'] > 0) {
+                $sql .= "UPDATE stock_records SET quantity=quantity-".$d['quantity'].", modified='".$now."' WHERE id = '".$d['id']."' ;\n";
+            }else {
+                $sql .= "UPDATE stock_records SET quantity=quantity+".abs($d['quantity']).", modified='".$now."' WHERE id = '".$d['id']."' ;\n";
+            }
         }
 
         // check stock first
