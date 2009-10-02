@@ -38,9 +38,11 @@
 
             let value = '';
             switch(col.id) {
-                case 'booking': 
-                    let bt = this.data[row]['TableBooking']['booking'];
-                    value = (new Date(bt*1000)).toString('yyyy/MM/dd HH:mm:ss');
+                case 'booking':
+                    let now = (new Date()).getTime();
+                    let bt = this.data[row]['TableBooking']['booking'] * 1000 ;
+                    if (bt < now ) value = '* '  ;
+                    value += (new Date(bt)).toString('yyyy/MM/dd HH:mm:ss');
                     break;
                 case 'table_no':
                     value = this.data[row]['Table']['table_no'];
