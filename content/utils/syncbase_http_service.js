@@ -324,12 +324,12 @@
                 if (!async) {
                     // block ui until request finish or timeout
                     
-                    var now = Date.now().getTime();
+                    var now = (new Date()).getTime();
 
                     var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
                     while (!reqStatus.finish) {
 
-                        if (Date.now().getTime() > (now+timeoutSec)) break;
+                        if ((new Date()).getTime() > (now+timeoutSec)) break;
                         
                         thread.processNextEvent(true);
                     }

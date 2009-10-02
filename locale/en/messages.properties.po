@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-01 13:42+0800\n"
+"POT-Creation-Date: 2009-10-02 12:01+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5199,7 +5199,7 @@ msgstr ""
 #: ../..//content/controllers/shift_changes_controller.js:41
 #: ../..//content/controllers/shift_changes_controller.js:1432
 #: ../..//content/controllers/stock_records_controller.js:731
-#: ../..//content/controllers/stocks_controller.js:296
+#: ../..//content/controllers/stocks_controller.js:299
 #: ../..//content/controllers/view_order_controller.js:224
 #: ../..//content/controllers/components/cart_utils.js:49
 msgid ""
@@ -6391,24 +6391,30 @@ msgid "TAL"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:157
+#: ../..//content/controllers/select_table_controller.orig.js:1101
+#: ../..//content/controllers/select_table_controller.orig.js:1103
 #: ../..//content/controllers/table_man_controller.js:746
 msgid "All Regions"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:405
+#: ../..//content/controllers/select_table_controller.orig.js:473
 msgid "Select Table"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:405
+#: ../..//content/controllers/select_table_controller.orig.js:473
 msgid "Please select a table..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:410
 #: ../..//content/controllers/select_table_controller.js:416
+#: ../..//content/controllers/select_table_controller.orig.js:337
 msgid "Merge Table"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:410
+#: ../..//content/controllers/select_table_controller.orig.js:337
 msgid "Please select the master table..."
 msgstr ""
 
@@ -6417,43 +6423,55 @@ msgid "Please select the table merge to [%S]..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:420
+#: ../..//content/controllers/select_table_controller.orig.js:344
 msgid "Unmerge Table"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:420
+#: ../..//content/controllers/select_table_controller.orig.js:344
 msgid "Please select the table to unmerge..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:425
-#: ../..//content/controllers/table_book_controller.js:244
+#: ../..//content/controllers/select_table_controller.orig.js:383
 msgid "Book Table"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:425
+#: ../..//content/controllers/select_table_controller.orig.js:383
 msgid "Please select a table to book..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:429
+#: ../..//content/controllers/select_table_controller.orig.js:351
 msgid "Add Table Status"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:429
+#: ../..//content/controllers/select_table_controller.orig.js:351
 msgid "Please select the table to mark status..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:434
+#: ../..//content/controllers/select_table_controller.orig.js:358
+#: ../..//content/controllers/select_table_controller.orig.js:926
 msgid "Clear Table Status"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:434
+#: ../..//content/controllers/select_table_controller.orig.js:358
 msgid "Please select the table to clear status..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:439
+#: ../..//content/controllers/select_table_controller.orig.js:455
+#: ../..//content/controllers/select_table_controller.orig.js:463
 msgid "Trans Table"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:439
+#: ../..//content/controllers/select_table_controller.orig.js:455
+#: ../..//content/controllers/select_table_controller.orig.js:463
 msgid "Please select the table to be transfered..."
 msgstr ""
 
@@ -6478,10 +6496,15 @@ msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:752
 #: ../..//content/controllers/select_table_controller.js:755
+#: ../..//content/controllers/select_table_controller.orig.js:898
+#: ../..//content/controllers/select_table_controller.orig.js:901
+#: ../..//content/controllers/select_table_controller.orig.js:960
+#: ../..//content/controllers/select_table_controller.orig.js:963
 msgid "Select Table Status"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:753
+#: ../..//content/controllers/select_table_controller.orig.js:899
 msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
@@ -6497,6 +6520,125 @@ msgstr ""
 #: ../..//content/controllers/select_table_controller.js:920
 #: ../..//content/controllers/select_table_controller.js:924
 msgid "Table [%S] Not available to transfer. Status: [%S], Active: [%S]"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:288
+msgid "Recall Check"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:288
+msgid "Please select a table to recall..."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:288
+#: ../..//content/controllers/select_table_controller.orig.js:307
+#: ../..//content/controllers/select_table_controller.orig.js:328
+#: ../..//content/controllers/select_table_controller.orig.js:337
+#: ../..//content/controllers/select_table_controller.orig.js:344
+#: ../..//content/controllers/select_table_controller.orig.js:351
+#: ../..//content/controllers/select_table_controller.orig.js:358
+#: ../..//content/controllers/select_table_controller.orig.js:383
+#: ../..//content/controllers/select_table_controller.orig.js:424
+#: ../..//content/controllers/select_table_controller.orig.js:439
+#: ../..//content/controllers/select_table_controller.orig.js:455
+#: ../..//content/controllers/select_table_controller.orig.js:463
+#: ../..//content/controllers/select_table_controller.orig.js:473
+msgid "Press CANCEL button to cancel function"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:307
+#: ../..//content/controllers/components/guest_check.js:1674
+msgid "Split Check"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:307
+msgid "Please select a table to split..."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:328
+msgid "Merge Check"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:328
+msgid "Please select a table to merge..."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:424
+#: ../..//content/controllers/select_table_controller.orig.js:439
+#: ../..//content/bindings/onscreenvfd.xbl:105
+msgid "Change Clerk"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:424
+#: ../..//content/controllers/select_table_controller.orig.js:439
+msgid "Select a table to change service clerk to [ %S ]..."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:531
+msgid "Data synchronizing, please wait..."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:539
+#: ../..//content/controllers/components/guest_check.js:114
+msgid "Failed to execute command (sync_client)."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:587
+#: ../..//content/controllers/select_table_controller.orig.js:767
+msgid "This table is hosted by Table#%S !!"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:594
+#: ../..//content/controllers/select_table_controller.orig.js:774
+msgid "This table status is marked as [%S] and can not be selected !!"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:622
+#: ../..//content/controllers/select_table_controller.orig.js:648
+#: ../..//content/controllers/select_table_controller.orig.js:692
+#: ../..//content/controllers/select_table_controller.orig.js:815
+#: ../..//content/controllers/select_table_controller.orig.js:849
+msgid "This table is empty!!"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:819
+msgid "Please select the table to transfer to..."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:853
+msgid "Please select an empty table to merge..."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:866
+msgid "This table had not been hold!!"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:927
+msgid ""
+"You are now clearing table status of Table# %S (%S). Proceed? Click OK to "
+"clear, or, click Cancel to abort."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:936
+msgid "Table status of Table# %S (%S) is cleared."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:961
+msgid "You are now marking table status of region [%S]"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:985
+msgid "Clear all table status in region"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:986
+msgid ""
+"You are now clearing all table status of region [%S]. Proceed? Click OK to "
+"clear, or, click Cancel to abort."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.orig.js:996
+msgid "All table status of region [%S] are cleared."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:66
@@ -7080,37 +7222,37 @@ msgstr ""
 msgid "Product stock information imported: %S successes, %S failures)"
 msgstr ""
 
-#: ../..//content/controllers/stocks_controller.js:110
+#: ../..//content/controllers/stocks_controller.js:113
 msgid ""
 "Stock control is active for this item [%S] but stock information does not "
 "exist"
 msgstr ""
 
-#: ../..//content/controllers/stocks_controller.js:130
+#: ../..//content/controllers/stocks_controller.js:133
 msgid "OUT OF STOCK"
 msgstr ""
 
-#: ../..//content/controllers/stocks_controller.js:132
+#: ../..//content/controllers/stocks_controller.js:135
 msgid "[%S] may be out of stock!"
 msgstr ""
 
-#: ../..//content/controllers/stocks_controller.js:146
+#: ../..//content/controllers/stocks_controller.js:149
 msgid "STOCK LOW"
 msgstr ""
 
-#: ../..//content/controllers/stocks_controller.js:148
+#: ../..//content/controllers/stocks_controller.js:151
 msgid "[%S] low stock threshold reached!"
 msgstr ""
 
-#: ../..//content/controllers/stocks_controller.js:268
+#: ../..//content/controllers/stocks_controller.js:271
 msgid "Stock Syncing"
 msgstr ""
 
-#: ../..//content/controllers/stocks_controller.js:294
+#: ../..//content/controllers/stocks_controller.js:297
 msgid "Stock Server Connection Error"
 msgstr ""
 
-#: ../..//content/controllers/stocks_controller.js:295
+#: ../..//content/controllers/stocks_controller.js:298
 msgid ""
 "Failed to connect to stock services (error code %S). Please check the "
 "network connectivity to the terminal designated as the stock server [message "
@@ -7252,40 +7394,40 @@ msgstr ""
 msgid "Please select a local backup to restore from"
 msgstr ""
 
-#: ../..//content/controllers/table_book_controller.js:56
+#: ../..//content/controllers/table_book_controller.js:55
 msgid "Add Booking"
 msgstr ""
 
-#: ../..//content/controllers/table_book_controller.js:56
-msgid "New Booking"
+#: ../..//content/controllers/table_book_controller.js:81
+msgid "Modify Booking"
 msgstr ""
 
-#: ../..//content/controllers/table_book_controller.js:56
-msgid "Contact"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:56
-msgid "Telephone"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:103
+#: ../..//content/controllers/table_book_controller.js:99
 msgid "Booking added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_book_controller.js:141
+#: ../..//content/controllers/table_book_controller.js:103
 msgid "Booking [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_book_controller.js:153
+#: ../..//content/controllers/table_book_controller.js:123
 msgid "confirm delete booking [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_book_controller.js:154
+#: ../..//content/controllers/table_book_controller.js:124
 msgid "Are you sure you want to delete booking [%S (%S)]?"
 msgstr ""
 
-#: ../..//content/controllers/table_book_controller.js:172
+#: ../..//content/controllers/table_book_controller.js:134
 msgid "Booking [%S (%S)] deleted successfully"
+msgstr ""
+
+#: ../..//content/controllers/table_book_controller.js:203
+msgid "Booking Tables"
+msgstr ""
+
+#: ../..//content/controllers/table_book_controller.js:231
+msgid "Finding Available Tables"
 msgstr ""
 
 #: ../..//content/controllers/table_man_controller.js:20
@@ -7747,10 +7889,6 @@ msgstr ""
 msgid "Only completed and voided orders may be reprinted"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:114
-msgid "Failed to execute command (sync_client)."
-msgstr ""
-
 #: ../..//content/controllers/components/guest_check.js:339
 msgid "Print Splited Check"
 msgstr ""
@@ -7881,10 +8019,6 @@ msgstr ""
 msgid "The source order object does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/components/guest_check.js:1674
-msgid "Split Check"
-msgstr ""
-
 #: ../..//content/controllers/components/package.js:36
 msgid "(location)"
 msgstr ""
@@ -7904,30 +8038,41 @@ msgid "G#"
 msgstr ""
 
 #: ../..//content/helpers/nsi_orders_checklist_view.js:58
-#: ../..//content/helpers/nsi_tablestatus_view.js:151
+#: ../..//content/helpers/nsi_tablestatus_view.js:152
+#: ../..//content/helpers/nsi_tablestatus_view.orig.js:124
+#: ../..//content/helpers/nsi_tablestatus_view.orig.js:214
 msgid "C#"
 msgstr ""
 
 #: ../..//content/helpers/nsi_orders_checklist_view.js:61
-#: ../..//content/helpers/nsi_tablestatus_view.js:148
+#: ../..//content/helpers/nsi_tablestatus_view.js:149
 msgid "S#"
 msgstr ""
 
 #: ../..//content/helpers/nsi_orders_checklist_view.js:62
-#: ../..//content/helpers/nsi_tablestatus_view.js:170
+#: ../..//content/helpers/nsi_tablestatus_view.js:168
+#: ../..//content/helpers/nsi_tablestatus_view.orig.js:145
+#: ../..//content/helpers/nsi_tablestatus_view.orig.js:218
 msgid "T#"
 msgstr ""
 
-#: ../..//content/helpers/nsi_tablestatus_view.js:183
+#: ../..//content/helpers/nsi_tablestatus_view.js:179
 msgid "Not Active"
 msgstr ""
 
-#: ../..//content/helpers/nsi_tablestatus_view.js:186
+#: ../..//content/helpers/nsi_tablestatus_view.js:182
+#: ../..//content/helpers/nsi_tablestatus_view.orig.js:257
 msgid "Host Table"
 msgstr ""
 
-#: ../..//content/helpers/nsi_tablestatus_view.js:190
+#: ../..//content/helpers/nsi_tablestatus_view.js:186
+#: ../..//content/helpers/nsi_tablestatus_view.orig.js:253
 msgid "Status"
+msgstr ""
+
+#: ../..//content/helpers/nsi_tablestatus_view.js:293
+#: ../..//content/helpers/nsi_tablestatus_view.orig.js:201
+msgid "B#"
 msgstr ""
 
 #: ../..//content/bindings/diskspace_usage.xbl:163
@@ -7966,10 +8111,6 @@ msgstr ""
 
 #: ../..//content/bindings/onscreenvfd.xbl:98
 msgid "QTY"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:105
-msgid "Change Clerk"
 msgstr ""
 
 #: ../..//content/bindings/onscreenvfd.xbl:107

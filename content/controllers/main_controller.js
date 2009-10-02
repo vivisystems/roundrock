@@ -1390,6 +1390,25 @@
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
 
+        },
+
+
+        /**
+         * openReport suggest from chris brown
+         */
+        openReport: function(reportName) {
+            
+             var keystr = 'vivipos.fec.reportpanels.' + reportName;
+             
+             var pref = GeckoJS.Configure.read(keystr);
+             var path = GeckoJS.Configure.read(keystr+'.path');
+             var label = GeckoJS.Configure.read(keystr+'.label');
+             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+
+             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
+             return window.openDialog(path, "Preferences_" + label, features, pref);
+
         }
 
 

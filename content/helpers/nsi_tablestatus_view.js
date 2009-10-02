@@ -76,6 +76,8 @@
                 if (row >= this.data.length) break;
 
                 this.renderTableStatusPeriod(row, buttons[i]);
+                this.renderTableStatusBooking(row, buttons[i]);
+
             }
         },
 
@@ -122,7 +124,6 @@
             var guest_num = 0;
             var subtotal = 0;
             var clerk = '';
-            var book_time = '';
 
             var table_status = 0;
             var capacity_status = 0;
@@ -161,16 +162,11 @@
             // active ?
             if (!table.active && table_status==0) table_status = 2;
 
-            
-            
             btn.checks = (checks > 0) ? "+"+checks : '';
             btn.seq_no = tableSettings.DisplaySeqNo ? seq : '';
             btn.check_no = tableSettings.DisplayCheckNo ? check_no : '';
-            btn.booking = tableSettings.DisplayBooking ? book_time : '';
             btn.subtotal = tableSettings.DisplayTotal ? ((subtotal>0) ? (_("T#")+subtotal) : '') : '';
             btn.capacity = tableSettings.DisplayCapacity ? capacity : '';
-            // share seq_no for seq & clerk
-            // btn.seq_no = tableSettings.DisplayClerk ? clerk : btn.seq_no;
             btn.clerk = tableSettings.DisplayClerk ? clerk : '';
 
             // update css
@@ -190,12 +186,15 @@
                 seq = _('Status') + ':' + mark;
                 btn.seq_no = seq;
                 clerk = mark_user;
+                btn.clerk = tableSettings.DisplayClerk ? clerk : '';
             }
             // set attribute for period time
             btn.setAttribute('transaction_created', transaction_created);
             btn.setAttribute('table_status', table_status);
 
             this.renderTableStatusPeriod(row, btn);
+
+            this.renderTableStatusBooking(row, btn);
 
             return;
         },
@@ -205,6 +204,8 @@
          */
         renderTableStatusPeriod: function(row, btn) {
 
+            let table = this.data[row];
+            let tableId = table.id ;
             var tableSettings = this.getTableSettings();
 
             var period = '' ;
@@ -215,6 +216,7 @@
             var table_status = btn.getAttribute('table_status') || 0;
 
             if (table_status == 1) {
+
                 var now = Math.round(new Date().getTime());
                 period_time = Math.round((now - transaction_created) + 1);
                 period = Date.today().addMilliseconds(period_time).toString("HH:mm");
@@ -224,11 +226,78 @@
                 }else {
                     period_status = 2;
                 }
+
+            }else if (table_status == 3) {
+
+                let statusObj = this.getTableStatus(tableId);
+                let status = null;
+                if (statusObj) {
+                    status = statusObj.TableStatus;
+                }
+
+                if (status) {
+                    let now = Math.round(new Date().getTime());
+                    let endTime = status.end_time * 1000;
+                    let mark_time = endTime - now ;
+                    period = "-" + Date.today().addMilliseconds(mark_time).toString("HH:mm");
+                }
+                    
             }
 
             btn.period = tableSettings.DisplayPeriod ? period : '';
             
             btn.setPeriodStatus(period_status);
+            
+        },
+
+
+        /**
+         * booking must refresh every time
+         */
+        renderTableStatusBooking: function(row, btn) {
+            
+            let table = this.data[row];
+            let tableId = table.id ;
+            let tableSettings = this.getTableSettings();
+
+            let remindTime = tableSettings.TableRemindTime * 60*1000;
+            let bookingTimeout = tableSettings.TableBookingTimeout * 60*1000;
+
+            let statusObj = this.getTableStatus(tableId);
+            let bookings = null;
+            if (statusObj) {
+                bookings = statusObj.TableBooking;
+            }
+
+            let bookingDesc = '' ;
+            
+            if (!bookings || bookings.length == 0) {
+
+                // nothing to do.
+                
+            }else {
+    
+                // check need remind booking
+                let now = new Date().getTime();
+
+                for (let idx in bookings) {
+
+                    let booking = bookings[idx];
+
+                    let bookingTime = booking['booking'] * 1000;
+                    let startTime = bookingTime -remindTime;
+                    let endTime = bookingTime + bookingTimeout;
+
+                    if (now >= startTime && now <= endTime ) {
+
+                        bookingDesc = _("B#") + ' ' + (new Date(bookingTime)).toString("HH:mm");
+
+                        break;
+                    }
+                }
+            }
+            btn.booking = tableSettings.DisplayBooking ? bookingDesc : '';
+ 
         }
 
     });

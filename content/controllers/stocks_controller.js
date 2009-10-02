@@ -15,7 +15,7 @@
         
         initial: function() {
 
-            //dump('initial Stocks \n');
+            // dump('initial Stocks \n');
 
             var self = this;
             
@@ -33,6 +33,9 @@
                 if (this.StockRecord.lastStatus != 200) {
                     this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
                 }
+            }else {
+                // synchronize mode
+                this.StockRecord.syncAllStockRecords();
             }
             
             this.backgroundSyncing = false;
@@ -163,7 +166,7 @@
         decStock: function( obj ) {
            
             var datas = [];
-            var now = Math.ceil(Date.now().getTime()/1000);
+            var now = Math.ceil((new Date()).getTime()/1000);
 
             try {
 

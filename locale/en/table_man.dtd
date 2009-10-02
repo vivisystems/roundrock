@@ -27,11 +27,14 @@
 <!ENTITY tableman.booking.count "Booking Count:">
 
 <!ENTITY tableman.booking.booking "Booking Time">
+<!ENTITY tableman.booking.partysize "Party Size">
+<!ENTITY tableman.booking.contact "Contact">
 <!ENTITY tableman.booking.contact "Contact">
 <!ENTITY tableman.booking.telephone "Telephone">
 <!ENTITY tableman.booking.address "Address">
 <!ENTITY tableman.booking.note "Note">
 <!ENTITY tableman.booking.tableno "T.No">
+<!ENTITY tableman.booking.selectedtableno "Selected Table No" >
 
 <!ENTITY tableman.mark.name "Name">
 <!ENTITY tableman.mark.period "Duration (Minutes)">
@@ -49,6 +52,11 @@
 <!ENTITY tableman.button.addtables "Add Tables">
 <!ENTITY tableman.button.clonesettingsfrommaster "Clone Master">
 <!ENTITY tableman.button.viewtablebook "View Table Book">
+<!ENTITY tableman.button.checkavailabletables "Check Available Tables">
+<!ENTITY tableman.button.getalltables "Get All Tables">
+<!ENTITY tableman.button.prevday "Previous Day">
+<!ENTITY tableman.button.today "Today">
+<!ENTITY tableman.button.nextday "Next Day">
 
 <!ENTITY tableman.properties "Properties:">
 <!ENTITY tableman.no "No:">

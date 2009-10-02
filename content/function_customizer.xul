@@ -637,7 +637,7 @@
                                             <checkbox id="serviceSyncSettingsTab" value="true" checked="true" hidden="true" form="systemsForm" name="serviceSyncSettingsTab" />
                                             <checkbox id="serviceSyncSettingsSeq" value="true" label="&sync_settings.desc.sequence_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsSeq" default="false" />
-                                            <checkbox id="serviceSyncSettingsTable" value="true" label="&sync_settings.desc.table_active;"
+                                            <checkbox id="serviceSyncSettingsTable" value="true" label="&sync_settings.desc.table_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsTable" default="false" />
                                             <checkbox id="serviceSyncSettingsStock" value="true" label="&sync_settings.desc.stock_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsStock" default="false" />
