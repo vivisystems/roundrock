@@ -1,4 +1,4 @@
-//@line 38 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/components/nsDefaultCLH.js"
+//@line 38 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/components/nsDefaultCLH.js"
 
 const nsISupports              = Components.interfaces.nsISupports;
 

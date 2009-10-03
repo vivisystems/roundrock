@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 44 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 44 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
 */
 
 const Cc = Components.classes;
@@ -38,7 +38,7 @@ const URI_UPDATE_NS             = "http://www.mozilla.org/2005/app-update";
 
 const KEY_APPDIR          = "XCurProcD";
 const KEY_GRED            = "GreD";
-//@line 85 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 85 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
 const DIR_UPDATES         = "updates";
 const FILE_UPDATE_STATUS  = "update.status";
@@ -88,10 +88,9 @@ var gLocale     = null;
 var gConsole    = null;
 var gCanUpdate  = null;
 var gLogEnabled = { };
-var gEnv        = null;
 
 // shared code for suppressing bad cert dialogs
-//@line 41 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/shared/src/badCertHandler.js"
+//@line 41 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/shared/src/badCertHandler.js"
 
 /**
  * Only allow built-in certs for HTTPS connections.  See bug 340198.
@@ -168,7 +167,7 @@ BadCertHandler.prototype = {
     return this;
   }
 };
-//@line 137 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 137 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
 /**
  * Logs a string to the error console.
@@ -278,7 +277,7 @@ function getDirInternal(key, pathArray, shouldCreate, update) {
   var fileLocator = Cc["@mozilla.org/file/directory_service;1"].
                     getService(Ci.nsIProperties);
   var dir = fileLocator.get(key, Ci.nsIFile);
-//@line 254 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 254 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
   for (var i = 0; i < pathArray.length; ++i) {
     dir.append(pathArray[i]);
     if (shouldCreate && !dir.exists())
@@ -385,7 +384,7 @@ function getUpdatesDir(key) {
     updateDir = fileLocator.get(key, Ci.nsIFile);
   else {
     updateDir = fileLocator.get(KEY_APPDIR, Ci.nsIFile);
-//@line 366 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 366 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
   }
   updateDir.append(DIR_UPDATES);
   updateDir.append("0");
@@ -430,7 +429,7 @@ function writeStatusFile(dir, state) {
 }
 
 /**
-//@line 424 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 424 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
  */
 function writeVersionFile(dir, version) {
   var versionFile = dir.clone();
@@ -1053,9 +1052,6 @@ function UpdateService() {
           getService(Ci.nsIPrefBranch2);
   gConsole = Cc["@mozilla.org/consoleservice;1"].
              getService(Ci.nsIConsoleService);
-  gEnv = Components.classes["@mozilla.org/process/environment;1"]
-                   .getService(Components.interfaces.nsIEnvironment);
-
 
   // Not all builds have a known ABI
   try {
@@ -1085,7 +1081,7 @@ function UpdateService() {
     gOSVersion = encodeURIComponent(osVersion);
   }
 
-//@line 1084 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1084 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
   // Start the update timer only after a profile has been selected so that the
   // appropriate values for the update check are read from the user's profile.
@@ -1202,7 +1198,7 @@ UpdateService.prototype = {
       status = null;
 
     var updRootKey = null;
-//@line 1222 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1222 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
     if (status == STATE_DOWNLOADING) {
       LOG("UpdateService", "_postUpdateProcessing - patch found in " +
@@ -1234,12 +1230,12 @@ UpdateService.prototype = {
         um.activeUpdate = update;
 
         prompter.showUpdateInstalled();
-//@line 1257 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1257 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
         // Perform platform-specific post-update processing.
         if (POST_UPDATE_CONTRACTID in Cc) {
           Cc[POST_UPDATE_CONTRACTID].createInstance(Ci.nsIRunnable).run();
         }
-//@line 1262 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1262 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
         // Done with this update. Clean it up.
         cleanupActiveUpdate(updRootKey);
       }
@@ -1362,6 +1358,9 @@ UpdateService.prototype = {
     var vc = Cc["@mozilla.org/xpcom/version-comparator;1"].
              getService(Ci.nsIVersionComparator);
     for (var i = 0; i < updates.length; ++i) {
+      // Ignore updates for older versions of the application
+      if (vc.compare(updates[i].extensionVersion, gApp.version) < 0)
+        continue;
       if (updates[i].type == "major" &&
           vc.compare(newestMajor.version, updates[i].version) <= 0)
         majorUpdate = newestMajor = updates[i];
@@ -1413,7 +1412,7 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1447 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1450 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
      */
 
     // Encode version since it could be a non-ascii string (bug 359093)
@@ -1427,7 +1426,7 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1476 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1479 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
      */
     if (update.type == "major") {
       LOG("Checker", "_selectAndInstallUpdate - prompting because it is a " +
@@ -1506,7 +1505,7 @@ UpdateService.prototype = {
 
     if (currentAddons.length > 0) {
       /**
-//@line 1572 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1575 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
        */
       this._incompatAddonsCount = currentAddons.length;
       LOG("UpdateService", "_checkAddonCompatibility - checking for " +
@@ -1607,7 +1606,7 @@ UpdateService.prototype = {
         upDirFile.create(Ci.nsILocalFile.NORMAL_FILE_TYPE, PERMS_FILE);
         upDirFile.remove(false);
       }
-//@line 1748 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1751 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
     }
     catch (e) {
        LOG("UpdateService", "canUpdate - unable to update. Exception: " + e);
@@ -1674,9 +1673,9 @@ UpdateService.prototype = {
              getService(Ci.nsIVersionComparator);
     // Don't download the update if the update's version is less than the
     // current application's version.
-    if (update.version && vc.compare(update.version, ai.version) < 0) {
+    if (update.extensionVersion && vc.compare(update.extensionVersion, ai.version) < 0) {
       LOG("UpdateService", "downloadUpdate - removing update for previous " +
-          "application version " + update.version);
+          "application version " + update.extensionVersion);
       cleanupActiveUpdate();
       return STATE_NONE;
     }
@@ -2010,10 +2009,6 @@ Checker.prototype = {
     url = url.replace(/%DISTRIBUTION_VERSION%/g,
                       getDistributionPrefValue(PREF_APP_DISTRIBUTION_VERSION));
     url = url.replace(/\+/g, "%2B");
-    url = url.replace(/%DALLAS%/g, gEnv.get("dallas"));
-    url = url.replace(/%MAC_ADDRESS%/g, gEnv.get("mac_address"));
-    url = url.replace(/%VENDOR_NAME%/g, gEnv.get("vendor_name"));
-    url = url.replace(/%SYSTEM_NAME%/g, gEnv.get("system_name"));
 
     if (force)
       url += (url.indexOf("?") != -1 ? "&" : "?") + "force=1";
@@ -2629,7 +2624,8 @@ Downloader.prototype = {
       um.activeUpdate = null;
     }
     else {
-      um.activeUpdate.state = state;
+      if (um.activeUpdate)
+        um.activeUpdate.state = state;
     }
     um.saveUpdates();
 
@@ -2830,8 +2826,8 @@ UpdatePrompt.prototype = {
   /**
    * See nsIUpdateService.idl
    */
-  checkForUpdates: function UP_checkForUpdates(parent) {
-    this._showUI((parent||null), URI_UPDATE_PROMPT_DIALOG, "modal,dialog=yes", UPDATE_WINDOW_NAME,
+  checkForUpdates: function UP_checkForUpdates() {
+    this._showUI(null, URI_UPDATE_PROMPT_DIALOG, null, UPDATE_WINDOW_NAME,
                  null, null);
   },
 
@@ -2856,7 +2852,7 @@ UpdatePrompt.prototype = {
   /**
    * See nsIUpdateService.idl
    */
-  showUpdateDownloaded: function UP_showUpdateDownloaded(update, background, parent) {
+  showUpdateDownloaded: function UP_showUpdateDownloaded(update, background) {
     if (background) {
       if (!this._enabled)
         return;
@@ -2867,11 +2863,11 @@ UpdatePrompt.prototype = {
                                               [update.name], 1);
       var text = bundle.GetStringFromName(stringsPrefix + "text");
       var imageUrl = "";
-      this._showUnobtrusiveUI((parent||null), URI_UPDATE_PROMPT_DIALOG, null,
+      this._showUnobtrusiveUI(null, URI_UPDATE_PROMPT_DIALOG, null,
                               UPDATE_WINDOW_NAME, "finishedBackground", update,
                               title, text, imageUrl);
     } else {
-      this._showUI((parent||null), URI_UPDATE_PROMPT_DIALOG, "modal,dialog=yes",
+      this._showUI(null, URI_UPDATE_PROMPT_DIALOG, null,
                    UPDATE_WINDOW_NAME, "finishedBackground", update);
     }
   },
