@@ -195,9 +195,13 @@
             var nextbtn = document.getElementById('next');
             var prevbtn = document.getElementById('prev');
             var voidBtn = document.getElementById('void');
-            
+            var isTraining = GeckoJS.Session.get('isTraining');
+
             // enable void sale button only if order has status of 1 or 2
-            voidBtn.setAttribute('disabled', !order || order.status < 1 || !this.Acl.isUserInRole('acl_void_transactions'));
+            if (isTraining || !order || order.status < 1 || !this.Acl.isUserInRole('acl_void_transactions'))
+                voidBtn.setAttribute('hidden', true);
+            else
+                voidBtn.removeAttribute('hidden');
 
             if (nextbtn) {
                 if (this._index == this._orders.length - 1) {

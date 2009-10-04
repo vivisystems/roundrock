@@ -39,6 +39,9 @@
   <script src='chrome://viviecr/content/helpers/nsi_condiments_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_plugroups_view.js'/>
 
+  <!-- include components -->
+  <script src="chrome://viviecr/content/controllers/components/tax.js" type="application/x-javascript"/>
+
   <!-- include controllers -->
   <script src="chrome://viviecr/content/controllers/plus_controller.js" type="application/x-javascript"/>
   <script src="chrome://viviecr/content/controllers/plusearch_controller.js" type="application/x-javascript"/>

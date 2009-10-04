@@ -8,8 +8,6 @@
 
         uses: ['Product'],
 
-        code: 'CT',
-
         _cartView: null,
         _inDialog: false,
         _returnMode: false,
@@ -3889,6 +3887,14 @@
          * voidSale
          */
         voidSale: function(id) {
+
+            // make sure no void sale activity takes place in training mode
+            if (GeckoJS.Session.get('isTraining')) {
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Void Sale'),
+                                      _('Void sale is disabled in training mode'));
+                return false;
+            }
 
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 

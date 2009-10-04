@@ -154,8 +154,15 @@
                     var win = this.topmostWindow;
                     if (win.document.documentElement.id == 'viviposMainWindow'
                         && win.document.documentElement.boxObject.screenX >= 0) {
+
+                        // block UI
+                        let waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Signing off idle user..'), 200);
+
                         this.signOff(true);
+
                         this.ChangeUserDialog();
+
+                        if (waitPanel) waitPanel.hidePopup();
                     }
                 }
             }
