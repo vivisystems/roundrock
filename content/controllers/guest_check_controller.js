@@ -132,11 +132,13 @@
          */
         openGuestNumDialog: function (no){
 
-            no = no || '';
+            no = no || '1';
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
             var inputObj = {
-                input0:no, 
+                input0:no,
+                type0:'number',
+                digitOnly0:true,
                 require0:true,
                 numpad:true
             };
@@ -269,10 +271,10 @@
 
             var defaultNum = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
             var cart = this.getCartController();
-            var curTransaction = cart._getTransaction();
+            var curTransaction = cart._getTransaction(true);
 
             if (! cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
+                NotifyUtils.warn(_('Please open a new order first'));
                 cart._clearAndSubtotal();
                 return false;
             }
@@ -287,7 +289,7 @@
                 cart._cancelReturn();
             }
            
-            if (num == -1) {
+            if (num < 0) {
                 // popup dialog 
                 num = this.openGuestNumDialog(defaultNum);
             }
@@ -317,7 +319,7 @@
             var curTransaction = cart._getTransaction(true); // autocreate
 
             if (! cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
+                NotifyUtils.warn(_('Please open a new order first'));
                 cart._clearAndSubtotal();
                 return '';
             }
@@ -381,11 +383,11 @@
         newCheck: function(autoCheckNo) {
 
             var cart = this.getCartController();
-            var curTransaction = cart._getTransaction();
+            var curTransaction = cart._getTransaction(true);
             var num = -1 ;
 
             if (! cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
+                NotifyUtils.warn(_('Please open a new order first'));
                 cart._clearAndSubtotal();
                 return false;
             }
@@ -398,7 +400,7 @@
                 cart._cancelReturn();
             }
 
-            if (num == -1) {
+            if (num < 0) {
                 num = SequenceModel.getSequence('check_no');
             }
             
