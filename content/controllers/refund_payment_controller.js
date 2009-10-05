@@ -21,8 +21,8 @@
             return roundedPrice;
         },
 
-        formatPrice: function(price) {
-            if (parseFloat(price) == 0) {
+        formatPrice: function(price, showZero) {
+            if (parseFloat(price) == 0 && !showZero) {
                 return '';
             }
             

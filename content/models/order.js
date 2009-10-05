@@ -285,9 +285,11 @@
          * @return {Object} object for transaction.data || OrderLock object for locked info
          */
         readOrder: function(id, forceRemote) {
-
-            forceRemote = forceRemote || false;
             if (!id ) return null;
+
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+
+            forceRemote = (!isTraining && forceRemote) || false;
 
             var orderData = null;
 
@@ -301,11 +303,6 @@
                 }) || false;
             }
 
-            if (!orderData) return null;
-
-            // locked by other machine return lock info
-            if (orderData.TableOrderLock) return orderData;
-
             return orderData;
 
         },
@@ -317,12 +314,15 @@
          * @return {Boolean} success
          */
         releaseOrderLock: function(id) {
-           if (!id) return false;
-           
-           var requestUrl = this.getHttpService().getRemoteServiceUrl('releaseOrderLock' + '/' + id);
-           var result = this.getHttpService().requestRemoteService('GET', requestUrl) || false ;
-           
-           return result;
+            if (!id) return false;
+
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+            if (isTraining) return true;
+            
+            var requestUrl = this.getHttpService().getRemoteServiceUrl('releaseOrderLock' + '/' + id);
+            var result = this.getHttpService().requestRemoteService('GET', requestUrl) || false ;
+
+            return result;
         },
         
 
@@ -359,9 +359,10 @@
          * @return {Object} object for transaction.data || OrderLock object for locked info
          */
         voidOrder: function(id, data, updateRemote) {
-
-            updateRemote = updateRemote || false;
             if (!id ) return false;
+
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+            updateRemote = (!isTraining && updateRemote) || false;
             var result = true;
 
             if (updateRemote) {
@@ -371,7 +372,7 @@
 
             }
 
-            if (result && this.isLocalhost()) {
+            if (result && (isTraining || this.isLocalhost())) {
 
                 // update order
                 this.id = id;
@@ -477,7 +478,7 @@
                 }) || null;
             }
 
-            this.log('DEBUG', (count == null ? '' : this.dump(count)));
+            this.log('DEBUG', 'Order Count: ' + (count == null ? '' : this.dump(count)));
             return count;
 
         },

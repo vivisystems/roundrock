@@ -20,10 +20,13 @@
         },
 
         load: function(inputObj) {
-
+            
             // store global data
             this._orders = inputObj.orders;
             this._index = inputObj.position;
+
+            let recall = document.getElementById('recall');
+            if (recall) recall.hidden = !('recall' in inputObj);
 
             this.displayOrder(this._orders[this._index].id);
         },
@@ -102,9 +105,6 @@
                     doc.innerHTML = result;
 
                     report.setAttribute('disabled', false);
-                    if (order.status == -2 || order.status == 1) {
-                        print.setAttribute('disabled', false);
-                    }
                 }
 
                 this._orderId = id;
@@ -176,32 +176,14 @@
             }
         },
 
-        voidSale: function() {
-
-            var id = this._orderId;
-
-            if (!id) return;
-
-            // invoke Cart.voidSale in main window
-            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                                                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
-            var cartController = mainWindow.GeckoJS.Controller.getInstanceByName('Cart');
-            if (cartController.voidSale(id)) {
-                this.displayOrder(id);
-            }
+        recallOrder: function() {
+            window.arguments[0].recall = true;
+            doOKButton();
         },
 
         validateForm: function(order) {
             var nextbtn = document.getElementById('next');
             var prevbtn = document.getElementById('prev');
-            var voidBtn = document.getElementById('void');
-            var isTraining = GeckoJS.Session.get('isTraining');
-
-            // enable void sale button only if order has status of 1 or 2
-            if (isTraining || !order || order.status < 1 || !this.Acl.isUserInRole('acl_void_transactions'))
-                voidBtn.setAttribute('hidden', true);
-            else
-                voidBtn.removeAttribute('hidden');
 
             if (nextbtn) {
                 if (this._index == this._orders.length - 1) {

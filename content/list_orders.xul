@@ -55,6 +55,8 @@
                 <hbox pack="start" flex="1" class="toolbar" toolbarmode="horizontal">
                     <button id="details" label="&listorders.button.details;" disabled="false"
                             oncommand="$do('orderDetails', null, 'ListOrders')" />
+                    <button id="recall" label="&listorders.button.recall;" disabled="false" roles="acl_recall_check"
+                            oncommand="$do('recallOrder', null, 'ListOrders')" />
                 </hbox>
                 <hbox id="dialogButtons" class="exitbar">
                     <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>

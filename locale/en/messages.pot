@@ -1036,6 +1036,20 @@ msgid "vivipos.fec.registry.function.programmable.voidItem.name"
 msgstr "VOID"
 
 #############
+# Void Sale
+#############
+
+msgid "vivipos.fec.registry.function.programmable.voidSale.desc"
+msgstr "This function voids the stored or completed transaction in the cart. "
+" No parameter is needed."
+
+msgid "vivipos.fec.registry.function.programmable.voidSale.label"
+msgstr "Void Sale"
+
+msgid "vivipos.fec.registry.function.programmable.voidSale.name"
+msgstr "Void Sale"
+
+#############
 # House BON
 #############
 

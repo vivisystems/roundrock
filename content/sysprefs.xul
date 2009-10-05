@@ -189,6 +189,7 @@
                             <menulist id="autorevalueprices" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.AutoRevaluePrices', this.value)">
                                 <menupopup>
                                     <menuitem label="&formats.revalue.none;" value="none"/>
+                                    <menuitem label="&formats.revalue.round-to-nearest-factor;" value="round-to-nearest-factor"/>
                                     <menuitem label="&formats.revalue.round-down-to-factor;" value="round-down-to-factor"/>
                                     <menuitem label="&formats.revalue.round-up-to-factor;" value="round-up-to-factor"/>
                                     <menuitem label="&formats.revalue.round-to-5-cents;" value="round-to-5-cents"/>

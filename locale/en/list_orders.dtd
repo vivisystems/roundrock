@@ -3,3 +3,4 @@
 <!ENTITY listorders.searchfor "search for: ">
 <!ENTITY listorders.count "records retrieved: ">
 <!ENTITY listorders.button.details "Order Details">
+<!ENTITY listorders.button.recall "Recall Order">
