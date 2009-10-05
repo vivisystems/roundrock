@@ -41,6 +41,10 @@
             return this.httpService;
         },
 
+        getHostname: function() {
+            return this.getHttpService().getHostname();
+        },
+
         isRemoteService: function() {
             return this.getHttpService().isRemoteService();
         },
@@ -100,6 +104,9 @@
                 var cb = function(response_data/*remoteStocks*/) {
 
                     var remoteStocks;
+
+                    self.lastReadyState = self.getHttpService().lastReadyState;
+                    self.lastStatus = self.getHttpService().lastStatus;
 
                     if (response_data) {
                         try {
@@ -263,6 +270,9 @@
 
                 var request_data = GeckoJS.BaseObject.serialize(datas);
                 var response_data = this.getHttpService().requestRemoteService('POST', requestUrl, request_data, async, callback) || null ;
+
+                this.lastReadyState = this.getHttpService().lastReadyState;
+                this.lastStatus = this.getHttpService().lastStatus;
 
                 if (response_data) {
                     var remoteStocks;
