@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % product_sales_return SYSTEM "chrome://viviecr/locale/reports/rpt_product_sales_return.dtd">
+  %product_sales_return;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
+
+<window id="main"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_product_sales_return.js"/>
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()"/>
+    </keyset>
+
+    <vbox flex="1" class="container-report">
+        <vbox flex="1" class="container-main">
+		    <vbox>
+		        <label value="&productSalesReturn.title;" class="label-page-title"/>
+		        <hbox>
+                    <hbox flex="1">
+                        <grid flex="1" class="data-form">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&productSalesReturn.startdate;"/>
+                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&productSalesReturn.enddate;"/>
+                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&productSalesReturn.periodtype;"/>
+                                        <menulist id="periodtype">
+                                            <menupopup id="periodtype_menupopup">
+                                                <menuitem selected="false" label="&productSalesReturn.transaction_created;" value="transaction_created"/>
+                                                <menuitem selected="true" label="&productSalesReturn.transaction_submitted;" value="transaction_submitted"/>
+                                                <menuitem selected="false" label="&productSalesReturn.saleperiod;" value="sale_period"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&productSalesReturn.shiftno;"/>
+                                        <textbox id="shiftno" value=""/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&productSalesReturn.department;"/>
+                                        <menulist id="department" flex="1">
+                                            <menupopup id="department_menupopup"  flex="1">
+                                                <menuitem selected="true" label="[&productSalesReturn.all;]" value="all"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&productSalesReturn.terminal_no;"/>
+                                        <textbox id="terminal_no" value=""/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&productSalesReturn.sortby;"/>
+                                        <menulist id="sortby">
+                                            <menupopup id="sortby_menupopup">
+                                                <menuitem selected="true" label="&productSalesReturn.sortby.product_no;" value="product_no"/>
+                                                <menuitem selected="false" label="&productSalesReturn.sortby.product_name;" value="product_name"/>
+                                                <menuitem selected="false" label="&productSalesReturn.sortby.avg_price;" value="avg_price"/>
+                                                <menuitem selected="false" label="&productSalesReturn.sortby.qty;" value="qty"/>
+                                                <menuitem selected="false" label="&productSalesReturn.sortby.gross;" value="gross"/>
+                                                <menuitem selected="false" label="&productSalesReturn.sortby.net;" value="net"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </hbox>
+		            <button id="execute" label="&productSalesReturn.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptProductSalesReturn');"/>
+		        </hbox>
+            </vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+            <hbox class="TopPnl">
+                <hbox class="ReportTool" flex="1" style="overflow: auto;">
+                    <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
+                        <tabs id="tabs">
+                            <vivibutton id="export_pdf" label="&productSalesReturn.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptProductSalesReturn');"/>
+                            <vivibutton id="export_csv" label="&productSalesReturn.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptProductSalesReturn');"/>
+                            <vivibutton id="export_rcp" label="&productSalesReturn.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptProductSalesReturn');"/>
+                            <vivibutton id="print" label="&productSalesReturn.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptProductSalesReturn');"/>
+                        </tabs>
+                    </arrowscrollbox>
+                </hbox>
+                <hbox id="dialogButtons" pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb"  oncommand="VirtualKeyboard.toggle()"/>
+                    <button id="ok" default="true" class="button-exit" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
+            
+			<hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" id="previewBox" flex="1">
+						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template2.html" flex="1"/>
+					</box>
+                </groupbox>
+            </hbox>
+        </vbox>
+    </vbox>
+  
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs"/>
+</window>

@@ -78,6 +78,11 @@ pref("vivipos.fec.reportpanels.productsales.label", "chrome://viviecr/locale/mes
 pref("vivipos.fec.reportpanels.productsales.path", "chrome://viviecr/content/reports/rpt_product_sales.xul");
 pref("vivipos.fec.reportpanels.productsales.roles", "acl_report_productsales");
 
+pref("vivipos.fec.reportpanels.productSalesReturn.icon", "chrome://viviecr/content/skin/icons/reporticon_sale.png");
+pref("vivipos.fec.reportpanels.productSalesReturn.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.reportpanels.productSalesReturn.path", "chrome://viviecr/content/reports/rpt_product_sales_return.xul");
+pref("vivipos.fec.reportpanels.productSalesReturn.roles", "acl_report_productSalesReturn");
+
 pref("vivipos.fec.reportpanels.promotionsummary.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.promotionsummary.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.reportpanels.promotionsummary.path", "chrome://viviecr/content/reports/rpt_promotion_summary.xul");
