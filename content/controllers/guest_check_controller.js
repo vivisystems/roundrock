@@ -664,11 +664,16 @@
          * recall order by order id
          *
          * @param {String} orderId   order uuid
+         * @param {Boolean} skipCheckCart skipCheckCart opened transaction
          * @return {Boolean} true if success
          */
-        recallOrder: function(orderId) {
+        recallOrder: function(orderId, skipCheckCart) {
 
-            if (!this.beforeRecall(orderId)) return false;
+            skipCheckCart = skipCheckCart || false;
+            
+            if(!skipCheckCart) {
+                if (!this.beforeRecall(orderId)) return false;
+            }
             
             orderId = orderId || '';
             if (orderId.length == 0) {
@@ -722,10 +727,11 @@
          * recall by Check NO
          * 
          * @param {String} checkNo
+         * @param {Boolean} skipRecall
          */
-        recallCheck: function(checkNo) {
+        recallCheck: function(checkNo, skipRecall) {
 
-            if (!this.beforeRecall(orderId)) return false;
+            skipRecall = skipRecall || false;
 
             checkNo = checkNo || '';
             if (checkNo.length == 0) {
@@ -765,7 +771,11 @@
             }
 
             if(orderId.length>0) {
-                return this.recallOrder(orderId);
+                if (skipRecall) {
+                    return orderId;
+                }else {
+                    return this.recallOrder(orderId);
+                }
             }else {
                 return false;
             }
@@ -1099,108 +1109,116 @@
                 sourceOrderId = data.source || '';
                 targetOrderId = data.target || '';
 
-                if (sourceOrderId == targetOrderId && sourceOrderId.length > 0) {
-                    NotifyUtils.error(_('The same order can not be merge'));
-                    return false;
-                }
+            }else {
+                // fn trigger
+                let txn = this.getCartController()._getTransaction();
+                if (txn && txn.data && !txn.isModified()) {
+                    sourceOrderId = txn.data.id;
+                    targetOrderId = this.recallCheck('', true);
 
-                let sourceData = this.getTransactionDataByOrderId(sourceOrderId);
-                let targetData = this.getTransactionDataByOrderId(targetOrderId);
+                    if (sourceOrderId && targetOrderId) fnTrigger = true;
+                }
+            }
+
+            if (sourceOrderId == targetOrderId && sourceOrderId.length > 0) {
+                NotifyUtils.error(_('The same order can not be merge'));
+                return false;
+            }
+
+            let sourceData = this.getTransactionDataByOrderId(sourceOrderId);
+            let targetData = this.getTransactionDataByOrderId(targetOrderId);
             
+            let canMerge = true;
+            let message = "";
 
-                let canMerge = true;
-                let message = "";
+            if ((sourceData.status != 2 && sourceData.recall != 2) || (targetData.status != 2 && targetData.recall != 2) ) {
+                canMerge = false;
+                message = _('This order not stored order, can not be merge');
+            }
+            if((parseFloat(sourceData['payment_subtotal']) > 0) || (parseFloat(targetData['payment_subtotal']) > 0) ) {
+                canMerge = false;
+                message = _('This order has been payment, can not be merge');
+            }
+            if((parseFloat(sourceData['trans_discount_subtotal']) > 0 || parseFloat(sourceData['trans_surcharge_subtotal']) > 0) ||
+                (parseFloat(targetData['trans_discount_subtotal']) > 0 || parseFloat(targetData['trans_surcharge_subtotal']) > 0) ) {
+                canMerge = false;
+                message = _('This order has discounts or surcharge, can not be merge');
+            }
 
-                if ((sourceData.status != 2 && sourceData.recall != 2) || (targetData.status != 2 && targetData.recall != 2) ) {
-                    canMerge = false;
-                    message = _('This order not stored order, can not be merge');
-                }
-                if((parseFloat(sourceData['payment_subtotal']) > 0) || (parseFloat(targetData['payment_subtotal']) > 0) ) {
-                    canMerge = false;
-                    message = _('This order has been payment, can not be merge');
-                }
-                if((parseFloat(sourceData['trans_discount_subtotal']) > 0 || parseFloat(sourceData['trans_surcharge_subtotal']) > 0) ||
-                    (parseFloat(targetData['trans_discount_subtotal']) > 0 || parseFloat(targetData['trans_surcharge_subtotal']) > 0) ) {
-                    canMerge = false;
-                    message = _('This order has discounts or surcharge, can not be merge');
-                }
+            if (!canMerge) {
+                this.Order.releaseOrderLock(sourceOrderId);
+                this.Order.releaseOrderLock(targetOrderId);
+                NotifyUtils.error(message);
+                return false;
+            }
 
-                if (!canMerge) {
-                    this.Order.releaseOrderLock(sourceOrderId);
-                    this.Order.releaseOrderLock(targetOrderId);
-                    NotifyUtils.error(message);
-                    return false;
-                }
+            // set seq
+            sourceOrderSeq = sourceData.seq;
+            targetOrderSeq = targetData.seq;
 
-                // set seq 
-                sourceOrderSeq = sourceData.seq;
-                targetOrderSeq = targetData.seq;
+            let transaction = new Transaction(true, true);
+            transaction.data = sourceData ;
 
-                let transaction = new Transaction(true, true);
-                transaction.data = sourceData ;
+            let targetTransaction = new Transaction(true, true);
+            targetTransaction.data = targetData;
 
-                let targetTransaction = new Transaction(true, true);
-                targetTransaction.data = targetData;
+            // move all items
+            transaction.moveCloneAllItems(targetTransaction);
 
-                for(let i=0; i < targetTransaction.data.display_sequences.length; i++) {
-                    let data = targetTransaction.data.display_sequences[i] ;
-                    let type = data.type;
+            try {
+                // save orignal orders
+                Transaction.events.dispatch('onUnserialize', transaction, transaction);
+                transaction.calcPromotions();
+                transaction.calcTotal();
+                transaction.setBackgroundMode(false);
+                targetTransaction.data.status = 2
+                transaction.submit(2);
+                
+                Transaction.events.dispatch('onUnserialize', targetTransaction, targetTransaction);
+                targetTransaction.calcPromotions();
+                targetTransaction.calcTotal();
+                targetTransaction.setBackgroundMode(false);
+                targetTransaction.data.status = -3;
+                targetTransaction.submit(-3);
+              
+                result = true;
 
-                    if (type == 'item'){
+            }catch(e) {
+                this.log('ERROR', 'Error mergeCheck');
+            }finally {
 
-                        let item = targetTransaction.data.items[data.index];
-
-                        transaction.moveCloneItem(targetTransaction, i, item.current_qty);
-                        i--;
-                        
-                    }
-                }
+                // finally commit the submit , and write transaction to databases(or to remote databases).
+                var commitStatus = -99 ;
 
                 try {
-                    // save orignal orders
-                    Transaction.events.dispatch('onUnserialize', transaction, transaction);
-                    transaction.calcPromotions();
-                    transaction.calcTotal();
-                    transaction.setBackgroundMode(false);
-                    targetTransaction.data.status = 2
-                    transaction.submit(2);
-                
-                    Transaction.events.dispatch('onUnserialize', targetTransaction, targetTransaction);
-                    targetTransaction.calcPromotions();
-                    targetTransaction.calcTotal();
-                    targetTransaction.setBackgroundMode(false);
-                    targetTransaction.data.status = -3;
-                    targetTransaction.submit(-3);
-                }finally {
+                    // commit order data to local databases or remote.
+                    commitStatus = transaction.commit(2);
 
-                    // finally commit the submit , and write transaction to databases(or to remote databases).
-                    var commitStatus = -99 ;
-
-                    try {
-                        // commit order data to local databases or remote.
-                        commitStatus = transaction.commit(2);
-
-                        if (commitStatus == -1) {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Data Operation Error'),
-                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
-                            this.dispatchEvent('commitOrderError', commitStatus);
-                            return false;
-                        }
-
-                    }catch(ee) {
-                        this.log('ERROR', 'error splitCheck commit');
+                    if (commitStatus == -1) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation Error'),
+                            _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
+                        this.dispatchEvent('commitOrderError', commitStatus);
+                        return false;
                     }
+                    result = (result & true);
 
-                    result = true;
+                }catch(ee) {
+                    this.log('ERROR', 'Error mergeCheck commit');
                 }
 
-            }else {
-            // function panel not support
             }
 
             if (result) {
                 OsdUtils.info(_('Check# %S has been successfully merged to Check# %S', [targetOrderSeq, sourceOrderSeq]));
+                if (fnTrigger) {
+                    this.Order.releaseOrderLock(targetOrderId);
+                    // recall order
+                    this.recallOrder(sourceOrderId, true);
+                }else {
+                    this.Order.releaseOrderLock(sourceOrderId);
+                    this.Order.releaseOrderLock(targetOrderId);
+                }
             }
             return result;
             
@@ -1257,6 +1275,7 @@
             transaction.data = data ;
 
             let result = this.openSplitCheckDialog(transaction);
+            let result2 = false;
 
             if (result) {
 
@@ -1287,8 +1306,10 @@
                         sTrans.submit(2);
                     }
 
+                    result2 = true;
+
                 }catch(e) {
-                    this.log('ERROR', 'error splitCheck ');
+                    this.log('ERROR', 'Error splitCheck ');
                 }finally {
 
                     // finally commit the submit , and write transaction to databases(or to remote databases).
@@ -1306,24 +1327,27 @@
                             return false;
                         }
 
+                        result2 = (result2 & true);
+
                     }catch(ee) {
-                        this.log('ERROR', 'error splitCheck commit');
+                        this.log('ERROR', 'Error splitCheck commit');
                     }
 
                 }
 
-                OsdUtils.info(_('Check# %S has been successfully split to Check# %S', [sourceSeq, splitSeqs.join(',')]));
-
-                if (fnTrigger) {
-                    // recall order
-                    this.recallOrder(orderId);
+                if (result2){
+                    OsdUtils.info(_('Check# %S has been successfully split to Check# %S', [sourceSeq, splitSeqs.join(',')]));
+                    if (fnTrigger) {
+                        // recall order
+                        this.recallOrder(orderId, true);
+                    }else {
+                        this.Order.releaseOrderLock(orderId);
+                    }
                 }
-                return true;
             }else {
                 this.Order.releaseOrderLock(orderId);
-                return false;
             }
-            return false;
+            return result2;
         },
 
 

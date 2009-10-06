@@ -4280,6 +4280,13 @@
         },
         
         /**
+         * use guest_check controller
+         */
+        mergeCheck: function() {
+            return this.requestCommand('mergeCheck', null, 'GuestCheck');
+        },
+        
+        /**
          * use cartutils implement
          */
         _dbError: function(errno, errstr, errmsg) {

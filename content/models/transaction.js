@@ -2966,6 +2966,12 @@
         },
 
 
+        /**
+         * moveItem from source transaction by index
+         *
+         * @param {Object} source   source transaction object
+         * @param {Number} index    index of source transaction display sequences
+         */
         _moveItem: function(source, index) {
 
             var selectedItemDisplay = source.getDisplaySeqAt(index); // display item at cursor position
@@ -3014,6 +3020,14 @@
             
         },
 
+
+        /**
+         * CloneItem from source transaction by index and remove source qty
+         *
+         * @param {Object} source   source transaction object
+         * @param {Number} index    index of source transaction display sequences
+         * @param {Number} qty    quantity of source transaction
+         */
         _cloneItem: function(source, index, qty) {
             
             var selectedItemDisplay = source.getDisplaySeqAt(index); // display item at cursor position
@@ -3021,7 +3035,6 @@
             var displaySeqCount = source.getDisplaySeqCount();
 
             var removeIndexes = {};
-            var removeCount = 0;
 
             // move items by for-loop display_sequences
             for (let i=index; i<displaySeqCount;i++) {
@@ -3051,6 +3064,7 @@
 
                         removeIndexes[itemIndex] = newItemIndex;
 
+                        // remove all item discount/surcharge and markers
                         let emptyData = {
                             discount_name: '',
                             discount_rate: '',
@@ -3095,8 +3109,15 @@
                             newItem.current_subtotal = this.getRoundedPrice(qty*item.current_price*priceModifier) || 0;
 
                         }
+
                         this.data.items[newItemIndex] = newItem;
                         source.data.items[itemIndex] = orgItem;
+
+                        // only calc current item
+                        this.calcItemSubtotal(newItem);
+                        this.calcItemsTax(newItem);
+                        source.calcItemSubtotal(orgItem);
+                        source.calcItemsTax(orgItem);
 
                         let newItemDisplay = this.createDisplaySeq(newItemIndex, newItem, itemDisplay.type);
                         let orgItemDisplay = this.createDisplaySeq(itemIndex, orgItem, itemDisplay.type);
@@ -3105,17 +3126,20 @@
                         source.data.display_sequences[i] = orgItemDisplay;
 
                     } else{
-                        
-                        // condiment or other
+                        // condiment or other in display_sequences
+
                         newItemIndex = removeIndexes[itemIndex];
-                        let newItemDisplay = GREUtils.extend({}, itemDisplay, {
-                            index: newItemIndex
-                        });
-                        this.data.display_sequences.push(newItemDisplay);
+                        if(newItemIndex) {
+                            let newItemDisplay = GREUtils.extend({}, itemDisplay, {
+                                index: newItemIndex
+                            });
+                            this.data.display_sequences.push(newItemDisplay);
+                        }
                         
                     }
                     
                 }else {
+                    // not selected item , break for loop
                     break;
                 }
             }
@@ -3124,14 +3148,19 @@
      
         },
         
+        /**
+         * move and clone item from source transaction by index of display_sequences
+         * 
+         * @param {Object} source   source transaction
+         * @param {Number} index    index of display_sequences
+         * @param {Number} qty      qty
+         */
         moveCloneItem: function(source, index, qty) {
             
             if (qty <= 0) return;
             
             var itemTrans = source.getItemAt(index); // item in transaction
             var itemDisplay = source.getDisplaySeqAt(index); // display item at cursor position
-            var itemIndex = itemDisplay.index;
-            var displaySeqCount = source.getDisplaySeqCount();
             var sourceQty = itemTrans.current_qty;
             var mode = (qty == sourceQty) ? 'move' : 'clone';
 
@@ -3145,9 +3174,32 @@
             }
 
             // recalc items
-            source.calcTotal();
             this.calcTotal();
+            source.calcTotal();
             
+        },
+
+        /**
+         * move and clone all items from source transaction
+         * 
+         * @param {Object} source       source transaction
+         */
+        moveCloneAllItems: function(source) {
+            
+            for(let i=0; i < source.data.display_sequences.length; i++) {
+                let data = source.data.display_sequences[i] ;
+                let type = data.type;
+
+                // only process item , any assoc items will auto move.
+                if (type == 'item'){
+
+                    this._moveItem(source, i);
+                    i--;
+
+                }
+            }
+            this.calcTotal();
+            source.calcTotal();
         }
 
 
