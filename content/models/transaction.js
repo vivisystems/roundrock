@@ -2828,8 +2828,8 @@
             Transaction.events.dispatch('afterCalcTotal', this.data, this);
 
             Transaction.serializeToRecoveryFile(this);
-        //var profileEnd = (new Date()).getTime();
-        //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
+            //var profileEnd = (new Date()).getTime();
+            //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
             this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
         },
@@ -2945,6 +2945,191 @@
 
         isSplitPayments: function() {
             return (this.data.split_payments || false);
+        },
+
+
+        _moveItem: function(source, index) {
+
+            var selectedItemDisplay = source.getDisplaySeqAt(index); // display item at cursor position
+            var selectedItemIndex = selectedItemDisplay.index;
+            var displaySeqCount = source.getDisplaySeqCount();
+
+            var removeIndexes = {};
+            var removeCount = 0;
+
+            // move items by for-loop display_sequences
+            for (let i=index; i<displaySeqCount;i++) {
+
+                let itemDisplay = source.getDisplaySeqAt(i);
+                let itemIndex = itemDisplay.index;
+                let itemParentIndex = itemDisplay.parent_index;
+                let itemType = itemDisplay.type;
+                let item = source.data.items[itemIndex];
+                let parentItem = null;
+                if (itemParentIndex) {
+                    parentItem = source.data.items[itemParentIndex];
+                }
+
+                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex) {
+                    
+                    if (itemIndex && !removeIndexes[itemIndex]) {
+                        removeIndexes[itemIndex] = itemIndex;
+                        this.data.items[itemIndex] = item;
+                    }
+
+                    this.data.display_sequences.push(itemDisplay);
+                    removeCount++;
+                }else {
+                    break;
+                }
+            }
+
+            this.data.items_count += GeckoJS.BaseObject.getKeys(removeIndexes).length;
+            source.data.items_count -= GeckoJS.BaseObject.getKeys(removeIndexes).length;
+
+            for(let j in removeIndexes) {
+                let idx = removeIndexes[j];
+                delete source.data.items[idx] ;
+            }
+            source.removeDisplaySeq(index, removeCount);
+
+            
+        },
+
+        _cloneItem: function(source, index, qty) {
+            
+            var selectedItemDisplay = source.getDisplaySeqAt(index); // display item at cursor position
+            var selectedItemIndex = selectedItemDisplay.index;
+            var displaySeqCount = source.getDisplaySeqCount();
+
+            var removeIndexes = {};
+            var removeCount = 0;
+
+            // move items by for-loop display_sequences
+            for (let i=index; i<displaySeqCount;i++) {
+
+                let itemDisplay = source.getDisplaySeqAt(i);
+                let itemIndex = itemDisplay.index;
+                let itemParentIndex = itemDisplay.parent_index;
+                let itemType = itemDisplay.type;
+                let item = source.data.items[itemIndex];
+                let parentItem = null;
+                if (itemParentIndex) {
+                    parentItem = source.data.items[itemParentIndex];
+                }
+                let newItemIndex = GeckoJS.String.uuid();
+                let newParentIndex = null;
+                let newParentItem = null;
+
+                let orgItem = null;
+                let newItem = null;
+                let priceModifier = item.price_modifier
+
+                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex) {
+
+
+                    if (itemIndex && !removeIndexes[itemIndex]) {
+                        // items
+
+                        removeIndexes[itemIndex] = newItemIndex;
+
+                        let emptyData = {
+                            discount_name: '',
+                            discount_rate: '',
+                            discount_type: '',
+                            current_discount: 0,
+
+                            surcharge_name: '',
+                            surcharge_rate: '',
+                            surcharge_type: '',
+                            current_surcharge: 0,
+
+                            hasDiscount: false,
+                            hasSurcharge: false,
+                            hasMarker: false
+                        };
+
+                        orgItem = GREUtils.extend({}, item, emptyData);
+                        newItem = GREUtils.extend({}, item, emptyData);
+
+                        if (itemParentIndex) {
+                            // setitem
+                            newParentIndex = removeIndexes[itemParentIndex];
+                            newParentItem = this.data.items[newParentIndex];
+
+                            orgItem.org_qty = item.current_qty;
+                            orgItem.current_qty = (item.current_qty * (parentItem.current_qty/parentItem.org_qty));
+                            orgItem.current_subtotal = this.getRoundedPrice(orgItem.current_qty*item.current_price*priceModifier) || 0;
+                            
+                            newItem.org_qty = item.current_qty;
+                            newItem.current_qty = orgItem.org_qty - orgItem.current_qty;
+                            newItem.current_subtotal = this.getRoundedPrice(newItem.current_qty*item.current_price*priceModifier) || 0;
+
+                            newItem.parent_index = newParentIndex;
+                            
+                        }else {
+                            // item
+                            orgItem.org_qty = item.current_qty;
+                            orgItem.current_qty = (item.current_qty-qty);
+                            orgItem.current_subtotal = this.getRoundedPrice(orgItem.current_qty*item.current_price*priceModifier) || 0;
+                            newItem.org_qty = item.current_qty;
+                            newItem.current_qty = qty;
+                            newItem.current_subtotal = this.getRoundedPrice(qty*item.current_price*priceModifier) || 0;
+
+                        }
+                        this.data.items[newItemIndex] = newItem;
+                        source.data.items[itemIndex] = orgItem;
+
+                        let newItemDisplay = this.createDisplaySeq(newItemIndex, newItem, newItem.type);
+                        let orgItemDisplay = this.createDisplaySeq(itemIndex, orgItem, orgItem.type);
+
+                        this.data.display_sequences.push(newItemDisplay);
+                        source.data.display_sequences[i] = orgItemDisplay;
+
+                    } else{
+                        
+                        // condiment or other
+                        newItemIndex = removeIndexes[itemIndex];
+                        let newItemDisplay = GREUtils.extend({}, itemDisplay, {
+                            index: newItemIndex
+                        });
+                        this.data.display_sequences.push(newItemDisplay);
+                        
+                    }
+                    
+                }else {
+                    break;
+                }
+            }
+            this.data.items_count += GeckoJS.BaseObject.getKeys(removeIndexes).length;
+
+     
+        },
+        
+        moveCloneItem: function(source, index, qty) {
+            
+            if (qty <= 0) return;
+            
+            var itemTrans = source.getItemAt(index); // item in transaction
+            var itemDisplay = source.getDisplaySeqAt(index); // display item at cursor position
+            var itemIndex = itemDisplay.index;
+            var displaySeqCount = source.getDisplaySeqCount();
+            var sourceQty = itemTrans.current_qty;
+            var mode = (qty == sourceQty) ? 'move' : 'clone';
+
+            switch(mode) {
+                case 'move':
+                    this._moveItem(source, index);
+                    break;
+                case 'clone':
+                    this._cloneItem(source, index, qty);
+                    break;
+            }
+
+            // recalc items
+            source.calcTotal();
+            this.calcTotal();
+            
         }
 
 

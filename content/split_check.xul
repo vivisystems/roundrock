@@ -4,6 +4,8 @@
   %Dialog;
   <!ENTITY % SplitCheck SYSTEM "chrome://viviecr/locale/split_check.dtd">
   %SplitCheck;
+  <!ENTITY % TableMan SYSTEM "chrome://viviecr/locale/table_man.dtd">
+  %TableMan;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
@@ -21,6 +23,7 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
             
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/helpers/nsi_simple_cart_view.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/split_check.js" />
 
@@ -32,85 +35,80 @@
         <vbox flex="1" class="container-main layout-b">
             <label value="&splitcheck.title;" class="label-page-title"/>
             <separator class="groove"/>
-            <vbox class="block-30">
-                <hbox flex="1">
-                    <vbox flex="1">
-                        <hbox class="content-formbox">
-                            <caption label="&splitcheck.sourcecheck;"/>
-                            <spacer style="width:40px;"/>
 
-                            <label value="&splitcheck.sourcecheck.checkno;"/>
-                            <label id="source_check_no" value=""/>
-                            <spacer style="width:40px;"/>
-
-                            <label value="&splitcheck.sourcecheck.tableno;"/>
-                            <label id="source_table_no" value=""/>
-                        </hbox>
-                        <vbox flex="1" class="content-listbox  main-overlay">
-                            <vivitree id="sourcecheckscrollablepanel" flex="1" seltype="multiple" hidecolumnpicker="true" primary="name"
+            <hbox id="splitContainerBox" flex="1">
+                <vbox id="sourceOrderBox" flex="1">
+                    <tabbox flex="1" id="sourceOrderTabbox" class="content-tabbox">
+                        <tabs id="sourceOrderTabs" >
+                            <tab id="sourceOrderTab" label="&splitcheck.sourcecheck;"/>
+                        </tabs>
+                        <tabpanels flex="1">
+                            <tabpanel id="sourceOrderTabpanel">
+                                <vbox flex="1" class="content-listbox  main-overlay">
+                                    <vivitree id="sourceScrollablePanel" flex="1" seltype="single" hidecolumnpicker="true" primary="name"
                                       headers="&splitcheck.sourcecheck.name;,&splitcheck.sourcecheck.qty;,&splitcheck.sourcecheck.price;"
                                       fields="name,current_qty,current_price"
-                                      onselect="dump('a');return false;"
+                                      onclick="$do('selectSourceItem', this.selectedIndex, 'SplitCheck');"
+                                      onselect="$do('selectSourceItem', this.selectedIndex, 'SplitCheck');"
                                       class="cart-list" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
-                        </vbox>
-                    </vbox>
-                    <vbox flex="1" class="toolbar custom-content-toolbar" toolbarmode="vertical">
-                        <button id="btn_split" label="&splitcheck.button.action.split;" class="button-modify" disabled="false"
-                                oncommand="$do('splitItems', null, 'SplitCheck');" />
-                        <spacer style="height: 5px;" />
-                        <button id="btn_confirm" label="&splitcheck.button.action.confirm;" class="button-modify" disabled="false"
+                                </vbox>
+                            </tabpanel>
+
+                        </tabpanels>
+                    </tabbox>
+                </vbox>
+                <vbox id="commandOrderBox">
+                    <spacer flex="1" />
+                    <button id="btn_addtosplit" dir="reverse" image="chrome://viviecr/skin/images/go-next.png" label="&splitcheck.button.action.addtosplit;" class="button-addtosplit" disabled="false"
+                                oncommand="$do('addToSplit', document.getElementById('sourceScrollablePanel').selectedIndex, 'SplitCheck');" />
+                    <spacer style="height: 5px;" />
+                    <textbox id="qty_modifier" size="2" type="number" value="0" max="0" min="0" />
+                    <spacer style="height: 5px;" />
+                    <button id="btn_mergeto" image="chrome://viviecr/skin/images/go-previous.png" label="&splitcheck.button.action.mergeto;" class="button-mergeto" disabled="false"
+                                oncommand="$do('mergeTo', document.getElementById('splitScrollablePanel').selectedIndex, 'SplitCheck');" />
+                    <spacer flex="1" />
+                </vbox>
+                <vbox id="splitOrderBox" flex="1">
+                    <tabbox flex="1" crop="right" id="sourceOrderTabbox" class="content-tabbox">
+                        <arrowscrollbox orient="horizontal" flex="0" class="content-arrow-scrollbox">
+                        <tabs id="splitOrderTabs" oncommand="$do('selectSplitOrder', this.selectedIndex, 'SplitCheck');" flex="0">
+                        </tabs>
+                        </arrowscrollbox>
+                        <tabpanels flex="1">
+                            <tabpanel id="splitOrderTabpanel">
+                                <vbox flex="1" class="content-listbox  main-overlay">
+                                    <vivitree id="splitScrollablePanel" flex="1" seltype="single" hidecolumnpicker="true" primary="name"
+                                      headers="&splitcheck.sourcecheck.name;,&splitcheck.sourcecheck.qty;,&splitcheck.sourcecheck.price;"
+                                      fields="name,current_qty,current_price"
+                                      onclick="$do('selectSplitItem', this.selectedIndex, 'SplitCheck');"
+                                      onselect="$do('selectSplitItem', this.selectedIndex, 'SplitCheck');"
+                                      class="cart-list" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
+                                </vbox>
+                            </tabpanel>
+
+                        </tabpanels>
+                    </tabbox>
+                </vbox>
+            </hbox>
+
+            
+            <hbox>
+                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                    <button id="btn_split" label="&splitcheck.button.action.split;" class="button-add" disabled="false"
+                                oncommand="$do('createNewSplitOrder', null, 'SplitCheck');" />
+                    <button id="btn_splitbymarks" label="&splitcheck.button.action.autosplitbymarkers;" class="button-add" disabled="false"
+                                oncommand="$do('autoSplitByMarkers', null, 'SplitCheck');" />
+
+                    <spacer flex="1"/>
+                    <button id="btn_confirm" label="&splitcheck.button.action.confirm;" class="button-modify" disabled="false"
                                 oncommand="$do('confirm', null, 'SplitCheck');" />
-                        <spacer style="height: 5px;" />
-                        <button id="btn_paythis" label="&splitcheck.button.action.paythis;" class="button-modify" disabled="false"
-                                oncommand="$do('paythis', 'src', 'SplitCheck');" />
-                        <spacer style="height: 5px;" />
-                        <button id="btn_cancel" label="&splitcheck.button.action.cancel;" class="button-delete" disabled="false"
-                                oncommand="$do('cancel', null, 'SplitCheck');" />
-                    </vbox>
                 </hbox>
-            </vbox>
-
-            <separator class="groove"/>
-
-            <vbox flex="1">
-                <hbox flex="1">
-                    <vbox flex="1">
-                        <hbox class="content-formbox">
-                            <caption label="&splitcheck.splitedcheck;"/>
-                            <spacer style="width:40px;"/>
-
-                            <label value="&splitcheck.splitedcheck.checkno;"/>
-                            <label id="splited_check_no" value=""/>
-                            <spacer style="width:40px;"/>
-
-                            <label value="&splitcheck.splitedcheck.tableno;"/>
-                            <label id="splited_table_no" value=""/>
-                        </hbox>
-                        <hbox flex="1">
-                            <vbox flex="1" class="content-listbox main-overlay">
-                                <vivitree id="splitedcheckscrollablepanel" flex="1" seltype="multiple" hidecolumnpicker="true"
-                                          headers="&splitcheck.splitedcheck.name;,&splitcheck.splitedcheck.qty;,&splitcheck.splitedcheck.price;"
-                                          fields="name,current_qty,current_price"
-                                          class="standard" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
-                            </vbox>
-                            <vbox>
-                                <vbox flex="1" class="content-listbox">
-                                    <vivitree id="splitedscrollablepanel" flex="1" hidecolumnpicker="true"
-                                              headers="&splitcheck.splitedchecklist;"
-                                              fields="name"
-                                              onclick="$do('selectSplitedCheck',this.selectedIndex, 'SplitCheck');"
-                                              class="standard" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
-                                </vbox>
-                                <vbox class="toolbar custom-content-toolbar" toolbarmode="vertical">
-                                    <button id="btn_reverse" label="&splitcheck.button.action.reverse;" class="button-delete" disabled="false"  oncommand="$do('reverse', null, 'SplitCheck');" />
-                                    <button id="btn_paythis" label="&splitcheck.button.action.paythis;" class="button-modify" disabled="false"  oncommand="$do('paythis', null, 'SplitCheck');" />
-                                </vbox>
-                            </vbox>
-                        </hbox>
-                    </vbox>
+                <hbox id="search_dialogButtons" pack="center" class="exitbar">
+                    <!--button id="search_vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/-->
+                    <button id="search_ok" default="true" class="button-exit" oncommand="$do('cancel', null, 'SplitCheck');"/>
                 </hbox>
-            </vbox>
+            </hbox>
         </vbox>
-    </vbox>
 
+    </vbox>
 </window>

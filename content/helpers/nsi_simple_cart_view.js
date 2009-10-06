@@ -11,6 +11,7 @@
 
         init: function(domId) {
             this._data = [];
+            this.items = {};
             this._emptyArrayView = new GeckoJS.NSITreeViewArray([]);
             this._cartList = document.getElementById(domId);
         },
@@ -25,6 +26,7 @@
         setTransaction: function(transaction) {
 
             this._data = transaction.data.display_sequences;
+            this.items = transaction.data.items;
             this._transaction = transaction;
             this._transaction.view = this;
             this._cartList.datasource = this;

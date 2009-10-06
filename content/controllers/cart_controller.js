@@ -4230,6 +4230,13 @@
         },
 
         /**
+         * use guest_check controller
+         */
+        splitCheck: function() {
+            return this.requestCommand('splitCheck', null, 'GuestCheck');
+        },
+        
+        /**
          * use cartutils implement
          */
         _dbError: function(errno, errstr, errmsg) {

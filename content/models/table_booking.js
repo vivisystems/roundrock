@@ -45,7 +45,7 @@
             
             var remoteUrl = this.getHttpService().getRemoteServiceUrl('getTableBookings');
             var requestUrl = remoteUrl + '/' + startTime + '/' + endTime ;
-            bookings = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
+            bookings = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || [] ;
 
             return bookings;
             

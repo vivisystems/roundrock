@@ -24,3 +24,41 @@
 #targetcheckscrollablepanel #current_price {
     text-align: right;
 }
+
+#splitScrollablePanel tree {
+    background: #ffeeee;
+    border: none;
+    margin: 0px;
+    -moz-appearance: none;
+}
+
+.main-overlay .cart-list scrollbar {
+    display: block;
+}
+
+.main-overlay .cart-list treechildren::-moz-tree-row {
+    border-bottom: 1px solid #818085;
+    height: 36px;
+}
+
+.main-overlay .cart-list .tree-scrollable-columns {
+    max-height: 0px;
+}
+
+#sourceOrderBox {
+    width: 460px;
+    max-width: 460px;
+}
+
+#splitOrderBox {
+    width: 460px;
+    max-width: 460px;
+}
+
+.autorepeatbutton-up, .autorepeatbutton-down {
+    min-width: 36px;
+}
+
+button {
+min-height: 40px;
+}
