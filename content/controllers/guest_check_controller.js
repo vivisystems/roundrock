@@ -346,13 +346,7 @@
             useNumberPad = useNumberPad || false;
 
             var cart = this.getCartController();
-            var curTransaction = cart._getTransaction(true); // autocreate
 
-            if (! cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Please open a new order first'));
-                cart._clearAndSubtotal();
-                return '';
-            }
 
             if (no.length == 0) {              
                 no = this.getKeypadController().getBuffer() || '';
@@ -376,6 +370,14 @@
             // get table define
             var table = this.Table.getTableByNo(no);
             if (table) {
+                
+                var curTransaction = cart._getTransaction(true); // autocreate
+
+                if (! cart.ifHavingOpenedOrder() ) {
+                    NotifyUtils.warn(_('Please open a new order first'));
+                    cart._clearAndSubtotal();
+                    return '';
+                }
 
                 // set destination action
                 var destination = table.destination;
@@ -1194,7 +1196,7 @@
                 }
 
             }else {
-                // function panel not support
+            // function panel not support
             }
 
             if (result) {
