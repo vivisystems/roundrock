@@ -148,18 +148,20 @@
             }
             
             // disable details button initially
-            var detailsBtn = document.getElementById('details');
-            detailsBtn.setAttribute('disabled', true);
+            this.validateForm();
         },
 
         validateForm: function(index) {
             var detailsBtn = document.getElementById('details');
+            var recallBtn = document.getElementById('recall');
             if (index > -1) {
                 detailsBtn.setAttribute('disabled', false);
+                recallBtn.setAttribute('disabled', false);
                 this._index = index;
             }
             else {
                 detailsBtn.setAttribute('disabled', true);
+                recallBtn.setAttribute('disabled', true);
                 this._index = -1;
             }
         },
@@ -173,7 +175,7 @@
             }
             var aURL = 'chrome://viviecr/content/view_order.xul';
             var aName = _('Order Details');
-            var aArguments = {index: 'id', value: orderId, orders: this._orders, position: this._index};
+            var aArguments = {index: 'id', value: orderId, orders: this._orders, position: this._index, recall: false};
             var posX = 0;
             var posY = 0;
             var width = GeckoJS.Session.get('screenwidth');
@@ -181,12 +183,35 @@
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
 
-            // reload list
-            this.load(this._inputData);
-
-            this.validateForm(this._index);
+            if (aArguments.recall) {
+                this.recallOrder(orderId);
+            }
         },
         
+        recallOrder: function(orderId) {
+
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var guestcheck = mainWindow.GeckoJS.Controller.getInstanceByName('GuestCheck');
+
+            if (!orderId) {
+                if (this._index > -1) {
+                    orderId = this._orders[this._index].id;
+                }
+            }
+
+            if (orderId) {
+                if (guestcheck && guestcheck.recallOrder(orderId)) {
+                    window.close();
+                }
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Recall Order'),
+                                          _('Failed to recall order'));
+                }
+            }
+        },
+
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,

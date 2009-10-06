@@ -1,0 +1,37 @@
+[&QSON]${head.store.name|center:15}[&QSOFF]
+[&DWON]${head.store.branch|center:15}[&DWOFF]
+${head.store.telephone1|center:42}
+Terminal: ${head.store.terminal_no + ' '|left:11}${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname|left:14}
+${head.start_time} ~ ${head.end_time}
+
+${head.title|center:42}
+{for category in body}
+------------------------------------------
+${category.no} - ${category.name}
+{for item in category.orderItems}
+------------------------------------------
+${_( '(rpt)Product Number' ) + ':'|left:16}${item.product_no|right:26}
+${_( '(rpt)Product Name' ) + ':'|left:16}${item.product_name|right:26}
+${_( '(rpt)Average Price' ) + ':'|left:16}${item.avg_price|viviFormatPrices:true|right:26}
+${_( '(rpt)Quantities Sold' ) + ':'|left:16}${item.qty|format:0|right:26}
+${_( '(rpt)Gross Sales' ) + ':'|left:16}${item.gross|viviFormatPrices:true|right:26}
+${_( '(rpt)Net Sales' ) + ':'|left:16}${item.net|viviFormatPrices:true|right:26}
+${_( '(rpt)Order Sequence' ) + ':'|left:16}${item.order_sequence|viviFormatPrices:true|right:26}
+{/for}
+------------------------------------------
+${_( '(rpt)Records Found' ) + ': '|left:16}${category.orderItems.length|format:0|right:26}
+------------------------------------------
+${_( '(rpt)Summary' )}
+${_( '(rpt)Quantities Sold' ) + ':'|left:16}${category.summary.qty|format:0|right:26}
+${_( '(rpt)Gross Sales' ) + ':'|left:16}${category.summary.gross|viviFormatPrices:true|right:26}
+${_( '(rpt)Net Sales' ) + ':'|left:16}${category.summary.net|viviFormatPrices:true|right:26}
+{/for}
+------------------------------------------
+${foot.gen_time}
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&PC]

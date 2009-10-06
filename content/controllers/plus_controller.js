@@ -121,15 +121,6 @@
             catpanel.selectedIndex = -1;
             catpanel.selectedItems = [];
 
-            // set default tax rate
-            var defaultRate = this.getDefaultRate();
-            var rateName = (defaultRate == null) ? '' : this.getRateName(defaultRate);
-            var rateNode = document.getElementById('rate');
-            var rateNameNode = document.getElementById('rate_name');
-
-            rateNode.setAttribute('default', defaultRate);
-            rateNameNode.setAttribute('default', rateName);
-
             // initialize input field states
             this.validateForm(true);
 
@@ -164,17 +155,32 @@
                 this._selCateIndex = index;
                 $('#cate_no').val(category.no);
                 $('#cate_name').val(category.name);
+
+                // set default tax rate
+                let defaultRate = category.rate || this.getDefaultRate();
+                let rateName = (defaultRate == null) ? '' : this.getRateName(defaultRate);
+                let rateNode = document.getElementById('rate');
+                let rateNameNode = document.getElementById('rate_name');
+
+                rateNode.setAttribute('default', defaultRate);
+                rateNameNode.setAttribute('default', rateName);
+
                 this.clickPluPanel(-1);
             }
         },
 
         getDefaultRate: function() {
-            var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
-            if (defaultRate != null) return defaultRate;
+            var defaultTax = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+            if (defaultTax != null) {
+                let defaultRate = this.Tax.getTaxById(defaultTax);
+                if (defaultRate) {
+                    return defaultRate.no;
+                }
+            }
 
             var taxes = GeckoJS.Session.get('taxes');
             if (taxes == null) taxes = this.Tax.getTaxList();
-            if (taxes != null) return taxes[0].id;
+            if (taxes != null) return taxes[0].no;
             return null;
         },
 

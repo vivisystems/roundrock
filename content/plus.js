@@ -6,7 +6,7 @@
 function startup() {
 
     $do('createGroupPanel', null, 'Plus');
-	$do('createPluPanel', null, 'Plus');
+    $do('createPluPanel', null, 'Plus');
 
     $do('initDefaultTax', null, 'Plus');
 
@@ -15,7 +15,7 @@ function startup() {
     $do('initSearchCallback', null, 'Plus');
 
     $('#imageBrowseBtn')[0].addEventListener('command', selectImages, false);
-	$('#imageRemoveBtn')[0].addEventListener('command', RemoveImage, false);
+    $('#imageRemoveBtn')[0].addEventListener('command', RemoveImage, false);
 
 };
 

@@ -334,7 +334,7 @@
         submitOrder: function(evt) {
             var txn = evt.data;
 
-            //this.log('SUBMIT: ' + GeckoJS.BaseObject.dump(txn.data));
+            //this.log('DEBUG', 'SUBMIT: ' + GeckoJS.BaseObject.dump(txn.data));
             if (txn.data.status < 0) return;
             
             // don't print if order has been pre-finalized and the order is being submitted for completion
@@ -879,19 +879,19 @@
             }
 
             //@debug
-            if (data && data.order) this.log('duplicate: ' + data.duplicate + ': ' + this.dump(data.order));
-            //if (data && data.customer) this.log(this.dump(data.customer));
-            //if (data && data.store) this.log(this.dump(data.store));
-            //if (data && data.ledger) this.log(this.dump(data.ledger));
+            //if (data && data.order) this.log('DEBUG', 'duplicate: ' + data.duplicate + ': ' + this.dump(data.order));
+            //if (data && data.customer) this.log('DEBUG', this.dump(data.customer));
+            //if (data && data.store) this.log('DEBUG', this.dump(data.store));
+            //if (data && data.ledger) this.log('DEBUG', this.dump(data.ledger));
 
             // check if item is linked to this printer and set 'linked' accordingly
             if (data && data.order && deviceType == 'check') {
                 var empty = true;
                 var routingGroups = data.routingGroups;
 
-                //this.log('printNoRouting: ' + data.printNoRouting);
-                //this.log('device group: ' + data.linkgroup);
-                //this.log('routingGroups: ' + GeckoJS.BaseObject.dump(data.routingGroups));
+                //this.log('DEBUG', 'printNoRouting: ' + data.printNoRouting);
+                //this.log('DEBUG', 'device group: ' + data.linkgroup);
+                //this.log('DEBUG', 'routingGroups: ' + GeckoJS.BaseObject.dump(data.routingGroups));
                 for (var i in data.order.items) {
                     var item = data.order.items[i];
                     if (data.printAllRouting && (data.duplicate || item.batch == data.order.batchCount)) {
@@ -907,7 +907,7 @@
                         // 2. data.linkgroup intersects item.link_group
                         // 3. item.link_group does not contain any routing groups and device.printNoRouting is true
                         //
-                        //this.log('item link groups: ' + GeckoJS.BaseObject.dump(item.link_group));
+                        //this.log('DEBUG', 'item link groups: ' + GeckoJS.BaseObject.dump(item.link_group));
                         if (data.printNoRouting) {
                             if (item.link_group == null || item.link_group == '') {
                                 item.linked = true;
@@ -942,12 +942,12 @@
                         item.linked = item.linked && (data.duplicate || item.batch == data.order.batchCount);
                         if (item.linked) empty = false;
                     }
-                    //this.log('item linked: ' + item.linked);
+                    //this.log('DEBUG', 'item linked: ' + item.linked);
                 }
 
                 data.hasLinkedItems = !empty;
                 if (empty) {
-                    //this.log('no items linked to this printer; printing terminated');
+                    //this.log('DEBUG', 'no items linked to this printer; printing terminated');
                 }
             }
 
@@ -957,20 +957,22 @@
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
 
-                //this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
+                //this.log('DEBUG', 'type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
                 tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {
                     NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
                     return;
                 }
-                try{
+                //try{
                     result = tpl.process(data);
+                    /*
                 }
                 catch(e) {
                     NotifyUtils.error(_('Error in parsing template [%S]!', [template]));
                     this.log('ERROR', 'Error in parsing template [' + template + ']: ' + e);
                     return;
                 }
+                */
             }
             else {
                 result = template;
@@ -1007,8 +1009,7 @@
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
-            this.log(GeckoJS.BaseObject.dump(result));
-            //return;
+            //this.log('DEBUG', GeckoJS.BaseObject.dump(result));
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values
@@ -1016,7 +1017,7 @@
 
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
-            //this.log('RECEIPT/CHECK\n' + encodedResult);
+            //this.log('DEBUG', 'RECEIPT/CHECK\n' + encodedResult);
 
             // set up main thread callback to dispatch event
             var sendEvent = function(deviceType, printer, data, result, encodedResult, printed) {

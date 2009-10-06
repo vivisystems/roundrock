@@ -403,6 +403,11 @@ pref("vivipos.fec.registry.function.programmable.voidItem.command", "voidItem");
 pref("vivipos.fec.registry.function.programmable.voidItem.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.voidItem.data", "");
 
+pref("vivipos.fec.registry.function.programmable.voidSale.access", "acl_void_transactions");
+pref("vivipos.fec.registry.function.programmable.voidSale.command", "voidSale");
+pref("vivipos.fec.registry.function.programmable.voidSale.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.voidSale.data", "");
+
 pref("vivipos.fec.registry.function.programmable.splitPayment.access", "acl_split_check");
 pref("vivipos.fec.registry.function.programmable.splitPayment.command", "splitPayment");
 pref("vivipos.fec.registry.function.programmable.splitPayment.controller", "GuestCheck");

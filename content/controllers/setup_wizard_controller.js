@@ -486,7 +486,7 @@
                 return wizard.canAdvance = false;
             }
             // not confirmed
-            this.setPasswordCheckMessage(_(''));
+            this.setPasswordCheckMessage('');
             return wizard.canAdvance = true;
         },
 

@@ -8,8 +8,6 @@
 
         uses: ['Product'],
 
-        code: 'CT',
-
         _cartView: null,
         _inDialog: false,
         _returnMode: false,
@@ -3883,9 +3881,49 @@
         },
 
         /**
-         * voidSale
+         * void current transaction
          */
-        voidSale: function(id) {
+        voidSale: function() {
+
+            var curTransaction = this._getTransaction();
+
+            this._getKeypadController().clearBuffer();
+            this._cancelReturn();
+
+            // check if current transaction has been stored or completed
+            if (curTransaction.data.recall != 1 && curTransaction.data.recall != 2) {
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Void Sale'),
+                                      _('This operation may only be applied to stored and completed transactions'));
+                return;
+            }
+
+            // check if transaction has been modified
+            if (curTransaction.isModified() &&
+                !GREUtils.Dialog.confirm(this.topmostWindow,
+                                         _('Confirm Void'),
+                                         _('You have made changes to this order; are you sure you want to void the order?'))) {
+                return;
+            }
+            if (this._voidSaleById(curTransaction.data.id)) {
+                this.dispatchEvent('onWarning', _('Sale Voided'));
+            }
+            else {
+                this.dispatchEvent('onWarning', _('Sale Not Voided'));
+            }
+        },
+
+
+        /**
+         * void sale by order id
+         *
+         * @irving: 10/5/2009
+         *
+         * this method is always invoked from within the cart; the order to be voided
+         * needs to be recalled into the cart
+         *
+         */
+        _voidSaleById: function(id) {
 
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 
@@ -3901,20 +3939,22 @@
                 return false;
             }
 
-            if (!orderData) {
-                GREUtils.Dialog.alert(this.topmostWindow,
-                    _('Void Sale'),
-                    _('Failed to void: the selected order no longer exists'));
-                return false;
-            }
-
             // blockUI when access remote service
-            var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
-
+            var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Retrieving Order'), 1);
             let remoteOrderData = orderModel.readOrder(id, true); // recall use master service's datas.
 
             this._unblockUI(waitPanel);
 
+            // make sure the order still exists
+            if (!orderData && !remoteOrderData) {
+                GREUtils.Dialog.alert(this.topmostWindow,
+                    _('Void Sale'),
+                    _('Failed to void: the selected order no longer exists'));
+                orderModel.releaseOrderLock(id);
+                return false;
+            }
+
+            var orderStatus;
             if (remoteOrderData) {
                 if (remoteOrderData.TableOrderLock) {
                     GREUtils.Dialog.alert(this.topmostWindow,
@@ -3922,25 +3962,32 @@
                         _('This order is already locked by other terminal. [%S,%S]',  [remoteOrderData.TableOrderLock.machine_id, remoteOrderData.TableOrderLock.machine_addr]));
                     return false;
                 }
+                orderStatus = remoteOrderData.Order.status;
 
-                // make sure remote order has same status and is not more recent than local order
-                if (orderData.Order.status != remoteOrderData.Order.status) {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Void Sale'),
-                        _('Failed to void: the status of the selected order has been changed by another terminal'));
-                    orderModel.releaseOrderLock(id);
-                    return false;
-                }
-                else if (orderData.Order.modified < remoteOrderData.Order.modified) {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Void Sale'),
-                        _('Failed to void: the selected order has been modified by another terminal'));
-                    orderModel.releaseOrderLock(id);
-                    return false;
+                if (orderData) {
+
+                    // make sure remote order has same status and is not more recent than local order
+                    if (orderData.Order.status != remoteOrderData.Order.status) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Void Sale'),
+                            _('Failed to void: the status of the selected order has been changed by another terminal'));
+                        orderModel.releaseOrderLock(id);
+                        return false;
+                    }
+                    else if (orderData.Order.modified < remoteOrderData.Order.modified) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Void Sale'),
+                            _('Failed to void: the selected order has been modified by another terminal'));
+                        orderModel.releaseOrderLock(id);
+                        return false;
+                    }
                 }
             }
-            
-            if (orderData.Order.status < 1) {
+            else {
+                orderStatus = orderData.Order.status;
+            }
+
+            if (orderStatus < 1) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
                     _('Failed to void: the selected order is not stored or finalized'));
@@ -3962,12 +4009,10 @@
                 precisionPrices: orderData.Order.precision_prices
             };
 
-            var waitPanel;
-
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Payment Refund'), features, inputObj);
 
             // blockUI when saving...
-            waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
+            waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Voiding Order'), 1);
 
             if (inputObj.ok) {
 
@@ -4083,9 +4128,7 @@
                     }
                 }
             }
-            if (remoteOrderData) {
-                orderModel.releaseOrderLock(id);
-            }
+            orderModel.releaseOrderLock(id);
             
             this._unblockUI(waitPanel);
 

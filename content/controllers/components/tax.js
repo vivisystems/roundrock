@@ -764,6 +764,7 @@
             tax_details[no] = {
                 charge: taxChargeObj[no].charge,
                 included: taxChargeObj[no].included,
+                taxable: taxChargeObj[no].taxable,
                 tax: taxChargeObj[no].tax
             };
         }

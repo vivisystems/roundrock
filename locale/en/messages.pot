@@ -186,6 +186,9 @@ msgstr "Disconnected"
 #
 ########################################################################
 
+msgid "vivipos.fec.reportpanels.productSalesReturn.label"
+msgstr "Product Sales Return"
+
 msgid "vivipos.fec.reportpanels.attendancerecord.label"
 msgstr "Attendance Record"
 
@@ -302,6 +305,9 @@ msgstr "Report - Product List"
 
 msgid "acl_report_productsales"
 msgstr "Report - Product Sales"
+
+msgid "acl_report_productSalesReturn"
+msgstr "Report - Product Sales Return"
 
 msgid "acl_report_promotionsummary"
 msgstr "Report - Promotion Summary"
@@ -1034,6 +1040,20 @@ msgstr "VOID"
 
 msgid "vivipos.fec.registry.function.programmable.voidItem.name"
 msgstr "VOID"
+
+#############
+# Void Sale
+#############
+
+msgid "vivipos.fec.registry.function.programmable.voidSale.desc"
+msgstr "This function voids the stored or completed transaction in the cart. "
+" No parameter is needed."
+
+msgid "vivipos.fec.registry.function.programmable.voidSale.label"
+msgstr "Void Sale"
+
+msgid "vivipos.fec.registry.function.programmable.voidSale.name"
+msgstr "Void Sale"
 
 #############
 # House BON

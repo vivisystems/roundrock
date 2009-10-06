@@ -132,11 +132,13 @@
          */
         openGuestNumDialog: function (no){
 
-            no = no || '';
+            no = no || '1';
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
             var inputObj = {
-                input0:no, 
+                input0:no,
+                type0:'number',
+                digitOnly0:true,
                 require0:true,
                 numpad:true
             };
@@ -299,10 +301,10 @@
 
             var defaultNum = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
             var cart = this.getCartController();
-            var curTransaction = cart._getTransaction();
+            var curTransaction = cart._getTransaction(true);
 
             if (! cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
+                NotifyUtils.warn(_('Please open a new order first'));
                 cart._clearAndSubtotal();
                 return false;
             }
@@ -347,7 +349,7 @@
             var curTransaction = cart._getTransaction(true); // autocreate
 
             if (! cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
+                NotifyUtils.warn(_('Please open a new order first'));
                 cart._clearAndSubtotal();
                 return '';
             }
@@ -410,11 +412,11 @@
         newCheck: function(autoCheckNo) {
 
             var cart = this.getCartController();
-            var curTransaction = cart._getTransaction();
+            var curTransaction = cart._getTransaction(true);
             var num = -1 ;
 
             if (! cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
+                NotifyUtils.warn(_('Please open a new order first'));
                 cart._clearAndSubtotal();
                 return false;
             }
@@ -427,7 +429,7 @@
                 cart._cancelReturn();
             }
 
-            if (num == -1) {
+            if (num < 0) {
                 num = SequenceModel.getSequence('check_no');
             }
             
@@ -587,6 +589,22 @@
             return false;
         },
 
+        /**
+         * make sure transaction does not already exist in cart when recalling orders
+         *
+         */
+
+        beforeRecall: function() {
+            var cart = this.getCartController();
+
+            if (cart.ifHavingOpenedOrder() ) {
+                NotifyUtils.warn(_('Please close the current order before recalling an existing order'));
+                cart._clearAndSubtotal();
+                return false;
+            }
+
+            return true;
+        },
 
         /**
          * getTransactionByOrderId
@@ -595,6 +613,18 @@
          * @return {Object} for transaction.data object
          */
         getTransactionDataByOrderId: function(orderId) {
+
+
+            orderId = orderId || '';
+            if (orderId.length == 0) {
+                orderId = this.getKeypadController().getBuffer() || '';
+                this.getKeypadController().clearBuffer();
+            }
+
+            if (orderId.length == 0 ) {
+                // use recallCheck mode and select dialog
+                return this.recallCheck("-1");
+            }
 
             if (orderId.length == 0) return false;
             
@@ -613,18 +643,11 @@
                 return false;
             }
 
-            if (orderData.Order.status == 1) {
-                NotifyUtils.warn(_('This order is already finalized!'));
-                // release for other machine use.
-                this.Order.releaseOrderLock(orderId);
-                return false;
-            }
-
             // check okay, convert to transaction data
             let data = this.Order.mappingOrderDataToTranData(orderData);
 
             if (data.display_sequences == undefined) {
-                NotifyUtils.error(_('This order object can not recall [%S]', [orderId]));
+                NotifyUtils.error(_('This order cannot be recalled [%S]', [orderId]));
                 // release for other machine use.
                 this.Order.releaseOrderLock(orderId);
                 return false;
@@ -643,6 +666,8 @@
          */
         recallOrder: function(orderId) {
 
+            if (!this.beforeRecall(orderId)) return false;
+            
             orderId = orderId || '';
             if (orderId.length == 0) {
                 orderId = this.getKeypadController().getBuffer() || '';
@@ -660,7 +685,9 @@
 
             // set status to recall and udpate status to open status.
             data.recall = data.status;
-            data.status = 0 ;
+
+            // update status to open status for now
+            if (data.status == 2) data.status = 0 ;
 
             var curTransaction = new Transaction(true);
             curTransaction.data  = data;
@@ -681,6 +708,9 @@
             // display to onscreen VFD
             cart.dispatchEvent('onWarning', _('RECALL# %S', [data.seq]));
 
+            // dispatch recall success event
+            this.dispatchEvent('afterRecallOrder', curTransaction);
+            
             return true;
 
         },
@@ -692,6 +722,8 @@
          * @param {String} checkNo
          */
         recallCheck: function(checkNo) {
+
+            if (!this.beforeRecall(orderId)) return false;
 
             checkNo = checkNo || '';
             if (checkNo.length == 0) {
@@ -713,7 +745,12 @@
             var orders = this.Order.getOrdersSummary(conditions, true);
 
             if (orders.length == 0) {
-                NotifyUtils.error(_('This order object does not exist [%S]', [checkNo]));
+                if (checkNo != '') {
+                    NotifyUtils.error(_('Failed to find orders matching check number [%S]', [checkNo]));
+                }
+                else {
+                    NotifyUtils.error(_('No stored orders found'));
+                }
                 return false;
             }
 
@@ -743,6 +780,8 @@
          */
         recallTable: function(tableNo) {
 
+            if (!this.beforeRecall(orderId)) return false;
+            
             tableNo = tableNo || '';
             if (tableNo.length == 0) {
                 tableNo = this.getKeypadController().getBuffer() || '';
@@ -763,7 +802,12 @@
             var orders = this.Order.getOrdersSummary(conditions, true);
 
             if (orders.length == 0) {
-                NotifyUtils.error(_('This order object does not exist [%S]', [tableNo]));
+                if (tableNo != '') {
+                    NotifyUtils.error(_('Failed to find orders matching table number [%S]', [tableNo]));
+                }
+                else {
+                    NotifyUtils.error(_('No stored orders found'));
+                }
                 return false;
             }
 

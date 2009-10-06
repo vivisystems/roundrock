@@ -31,7 +31,7 @@
                 }
 
                 if (this.StockRecord.lastStatus != 200) {
-                    this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
+                    this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.StockRecord.getHostname());
                 }
             }else {
                 // synchronize mode
@@ -80,6 +80,11 @@
 
             }
 
+            // get handle to Main controller
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('afterTruncateTxnRecords', this.removeRecoveryDecDatas, this);
+            }
         },
 
         destroy: function() {
@@ -204,7 +209,7 @@
 
                     if (this.StockRecord.lastStatus != 200) {
 
-                        this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
+                        this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.StockRecordhostname);
 
                         this.saveRecoveryDecDatas(decDatas);
                         
@@ -298,8 +303,7 @@
             }
             GREUtils.Dialog.alert(win,
                 _('Stock Server Connection Error'),
-                _('Failed to connect to stock services (error code %S). Please check the network connectivity to the terminal designated as the stock server [message #1701].',[status])
-                    +'\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                _('Failed to connect to stock services (error code %S). Please check the network connectivity to the terminal designated as the stock server [message #1701].',[status]));
         }
 
     };

@@ -402,7 +402,7 @@
 
         isSubmit: function() {
             // return (this.data.status == 1);
-            return (this.data.status > 0);
+            return (this.data.status > 0 || this.data.status == -2);
         },
 
         isStored: function() {
@@ -2616,6 +2616,20 @@
                     }
                     break;
 
+                case 'round-to-nearest-factor':
+                    if(factor != 0) {
+                        let low = parseFloat(Math.abs(total) % factor);
+                        let high = factor - low;
+
+                        if (high >= low) {
+                            revalue_subtotal = -low;
+                        }
+                        else {
+                            revalue_subtotal = high;
+                        }
+                    }
+                    break;
+
                 case 'round-to-5-cents':
                     roundedTotal = Transaction.Number.round(Math.abs(total), 3, 'to-nearest-half');
                     if (total < 0) roundedTotal = 0 - roundedTotal;
@@ -2772,12 +2786,14 @@
                             this.data.promotions_tax_details[key] = {
                                 tax: taxDetails.tax,
                                 tax_subtotal: 0,
-                                included_tax_subtotal: 0
+                                included_tax_subtotal: 0,
+                                taxable_amount: 0
                             }
                         }
 
                         this.data.promotions_tax_details[key].tax_subtotal += parseFloat(taxDetails.charge);
                         this.data.promotions_tax_details[key].included_tax_subtotal += parseFloat(taxDetails.included);
+                        this.data.promotions_tax_details[key].taxable_amount += parseFloat(taxDetails.taxable);
 
                     }
                 }
@@ -2788,11 +2804,13 @@
                 if (key in this.data.items_tax_details) {
                     this.data.items_tax_details[key].tax_subtotal -= this.data.promotions_tax_details[key].tax_subtotal;
                     this.data.items_tax_details[key].included_tax_subtotal -= this.data.promotions_tax_details[key].included_tax_subtotal;
+                    this.data.items_tax_details[key].taxable_amount -= this.data.promotions_tax_details[key].taxable_amount;
                 }
                 else {
                     this.data.items_tax_details[key] = {
                         tax_subtotal: 0 - this.data.promotions_tax_details[key].tax_subtotal,
                         included_tax_subtotal: 0 - this.data.promotions_tax_details[key].included_tax_subtotal,
+                        taxable_amount: 0 - this.data.promotions_tax_details[key].taxable_amount,
                         tax: this.data.promotions_tax_details[key].tax
                     }
                 }

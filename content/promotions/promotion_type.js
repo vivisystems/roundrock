@@ -64,6 +64,19 @@ var __klass__ = {
         return ( this.getController().Tax || new TaxComponent() );
     },
 
+    getRoundedPrice: function(price, precision, policy) {
+        var roundedPrice = GeckoJS.NumberHelper.round(Math.abs(price), precision, policy) || 0;
+        if (price < 0) roundedPrice = 0 - roundedPrice;
+        return roundedPrice;
+    },
+
+
+    getRoundedTax: function(tax, precision, policy) {
+        var roundedTax = GeckoJS.NumberHelper.round(Math.abs(tax), precision, policy) || 0;
+        if (tax < 0) roundedTax = 0 - roundedTax;
+        return roundedTax;
+    },
+
     startup: function() {
 
     },
@@ -104,8 +117,15 @@ var __klass__ = {
      * Type must implement this method
      */
     setDiscountSubtotal: function(discountSubtotal) {
+        var txn = this.getTransaction();
+
         discountSubtotal = discountSubtotal || 0 ;
-        this._discountSubtotal = discountSubtotal;
+        if (txn) {
+            this._discountSubtotal = this.getRoundedPrice(discountSubtotal, txn.data.precision_prices, txn.data.rounding_prices);
+        }
+        else {
+            this._discountSubtotal = discountSubtotal;
+        }
     },
 
     getDiscountSubtotal: function() {
@@ -123,14 +143,16 @@ var __klass__ = {
         if (this._taxSubtotal === false) {
 
             var txn = this.getTransaction();
+            var precision = txn.data.precision_taxes;
+            var policy = txn.data.rounding_taxes;
             var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtotal()), Math.abs(this.getDiscountSubtotal()), 1, txn.data.precision_taxes, txn.data.rounding_taxes);
 
-            this._taxSubtotal =  taxChargeObj[taxNo].charge;
-            this._taxIncludedSubtotal =  taxChargeObj[taxNo].included;
+            this._taxSubtotal =  this.getRoundedTax(taxChargeObj[taxNo].charge, precision, policy);
+            this._taxIncludedSubtotal =  this.getRoundedTax(taxChargeObj[taxNo].included, precision, policy);
             this._taxDetails = taxChargeObj[taxNo].tax_details;
 
         }
-
+        
         return this._taxSubtotal;
     },
 

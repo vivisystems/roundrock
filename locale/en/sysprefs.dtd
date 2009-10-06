@@ -119,6 +119,7 @@
 <!ENTITY formats.sequence.date.format "Sequence date format">
 <!ENTITY formats.sequence.number.length "Sequence number length">
 <!ENTITY formats.revalue.none "none">
+<!ENTITY formats.revalue.round-to-nearest-factor "round to nearest factor">
 <!ENTITY formats.revalue.round-down-to-factor "round down to factor">
 <!ENTITY formats.revalue.round-up-to-factor "round up to factor">
 <!ENTITY formats.revalue.round-to-5-cents "round to 5 cents">
