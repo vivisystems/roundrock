@@ -1280,7 +1280,6 @@
                         sTrans.data.seq = sTranSeq;
                         sTrans.data.check_no = sTranCheckNo;
 
-
                         Transaction.events.dispatch('onUnserialize', sTrans, sTrans);
                         sTrans.calcPromotions();
                         sTrans.calcTotal();
@@ -1321,6 +1320,7 @@
                 }
                 return true;
             }else {
+                this.Order.releaseOrderLock(orderId);
                 return false;
             }
             return false;
