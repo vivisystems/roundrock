@@ -23,7 +23,8 @@
             tran.data.destination = org.data.destination;
             tran.data.destination_prefix = org.data.destination_prefix;
             tran.data.table_no = org.data.table_no;
-            tran.data.no_of_customers = org.data.no_of_customers;
+//            tran.data.no_of_customers = org.data.no_of_customers;
+            tran.data.no_of_customers = 0;
             tran.data.status = 0;
             tran.data.recall = 2;
 
