@@ -460,7 +460,7 @@
                 input:splitPayments
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Split Payments'), aFeatures, _('Split Payments'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Split Payment'), aFeatures, _('Split Payment'), inputObj);
 
             if (inputObj.ok && inputObj.input) {
                 return inputObj.input;
@@ -1171,20 +1171,28 @@
                 transaction.calcPromotions();
                 transaction.calcTotal();
                 transaction.setBackgroundMode(false);
-                targetTransaction.data.status = 2
+                transaction.data.status = 2
                 transaction.submit(2);
+
+                let inherited_order_id = targetData.inherited_order_id || '' ;
+                inherited_order_id = inherited_order_id.length > 0 ? (inherited_order_id+','+sourceOrderId) : sourceOrderId;
+
+                let inherited_desc = targetData.inherited_desc || '' ;
+                inherited_desc = inherited_desc.length > 0 ? (inherited_desc+','+_('Merge Check')) : _('Merge Check') ;
                 
                 Transaction.events.dispatch('onUnserialize', targetTransaction, targetTransaction);
                 targetTransaction.calcPromotions();
                 targetTransaction.calcTotal();
                 targetTransaction.setBackgroundMode(false);
                 targetTransaction.data.status = -3;
+                targetTransaction.data.inherited_order_id = inherited_order_id;
+                targetTransaction.data.inherited_desc = inherited_desc;
                 targetTransaction.submit(-3);
               
                 result = true;
 
             }catch(e) {
-                this.log('ERROR', 'Error mergeCheck');
+                this.log('ERROR', 'Error mergeCheck', e);
             }finally {
 
                 // finally commit the submit , and write transaction to databases(or to remote databases).
@@ -1204,7 +1212,7 @@
                     result = (result & true);
 
                 }catch(ee) {
-                    this.log('ERROR', 'Error mergeCheck commit');
+                    this.log('ERROR', 'Error mergeCheck commit', ee);
                 }
 
             }
@@ -1298,6 +1306,8 @@
                         sTrans.data = result.split_datas[i];
                         sTrans.data.seq = sTranSeq;
                         sTrans.data.check_no = sTranCheckNo;
+                        sTrans.data.inherited_order_id = orderId;
+                        sTrans.data.inherited_desc = _('Split Check');
 
                         Transaction.events.dispatch('onUnserialize', sTrans, sTrans);
                         sTrans.calcPromotions();
@@ -1309,7 +1319,7 @@
                     result2 = true;
 
                 }catch(e) {
-                    this.log('ERROR', 'Error splitCheck ');
+                    this.log('ERROR', 'Error splitCheck ', e);
                 }finally {
 
                     // finally commit the submit , and write transaction to databases(or to remote databases).
@@ -1330,7 +1340,7 @@
                         result2 = (result2 & true);
 
                     }catch(ee) {
-                        this.log('ERROR', 'Error splitCheck commit');
+                        this.log('ERROR', 'Error splitCheck commit', ee);
                     }
 
                 }

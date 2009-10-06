@@ -119,7 +119,11 @@
 
                 created: '',
                 modified: '',
-                lastModifiedTime: ''
+                lastModifiedTime: '',
+
+                inherited_order_id: '',
+                inherited_desc: ''
+
             };
 
             this.create(recoveryMode);

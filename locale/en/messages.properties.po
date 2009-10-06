@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-07 03:59+0800\n"
+"POT-Creation-Date: 2009-10-07 04:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2774,11 +2774,17 @@ msgstr "Do you want to disable [Function Customizer] for the future using?"
 
 # #######################################################################
 #
-# Split Payments
+# Split Payment
 #
 # #######################################################################
-msgid "Split Payments"
-msgstr "Split Payments"
+msgid "vivipos.fec.registry.function.programmable.splitPayment.desc"
+msgstr "This function allows operator to split payment of current register. "
+
+msgid "vivipos.fec.registry.function.programmable.splitPayment.label"
+msgstr "Split Payment"
+
+msgid "vivipos.fec.registry.function.programmable.splitPayment.name"
+msgstr "Split Payment"
 
 #: ../..//content/datetime.js:29
 msgid "confirm timezone change"
@@ -3817,8 +3823,8 @@ msgstr ""
 #: ../..//content/controllers/cashdrawer_controller.js:334
 #: ../..//content/controllers/changeuser_controller.js:122
 #: ../..//content/controllers/clockinout_controller.js:300
-#: ../..//content/controllers/guest_check_controller.js:1199
-#: ../..//content/controllers/guest_check_controller.js:1324
+#: ../..//content/controllers/guest_check_controller.js:1204
+#: ../..//content/controllers/guest_check_controller.js:1331
 #: ../..//content/controllers/ledger_controller.js:312
 #: ../..//content/controllers/list_orders_controller.js:218
 #: ../..//content/controllers/main_controller.js:1024
@@ -3872,8 +3878,8 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3309
-#: ../..//content/controllers/guest_check_controller.js:1200
-#: ../..//content/controllers/guest_check_controller.js:1325
+#: ../..//content/controllers/guest_check_controller.js:1205
+#: ../..//content/controllers/guest_check_controller.js:1332
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #105]."
@@ -4693,6 +4699,7 @@ msgid "Select Table Number"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:274
+#: ../..//content/controllers/guest_check_controller.js:1307
 msgid "Split Check"
 msgstr ""
 
@@ -4706,6 +4713,10 @@ msgstr ""
 msgid ""
 "[%S] is an invalid table number. Table number must be defined through table "
 "manager; Please input another table number."
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:463
+msgid "Split Payment"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:546
@@ -4814,27 +4825,32 @@ msgstr ""
 msgid "This order has discounts or surcharge, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1213
+#: ../..//content/controllers/guest_check_controller.js:1178
+#: ../..//content/controllers/select_table_controller.js:453
+msgid "Merge Check"
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:1218
 msgid "Check# %S has been successfully merged to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1255
+#: ../..//content/controllers/guest_check_controller.js:1260
 msgid "This order not stored order, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1259
+#: ../..//content/controllers/guest_check_controller.js:1264
 msgid "This order has been payment, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1263
+#: ../..//content/controllers/guest_check_controller.js:1268
 msgid "This order has discounts or surcharge, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1339
+#: ../..//content/controllers/guest_check_controller.js:1346
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1401
+#: ../..//content/controllers/guest_check_controller.js:1408
 msgid "Table Initialization"
 msgstr ""
 
@@ -6521,10 +6537,6 @@ msgid "Please select the table to be transfered..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:453
-msgid "Merge Check"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:453
 msgid "Please select the table and check to be merged..."
 msgstr ""
 
@@ -6957,24 +6969,24 @@ msgstr ""
 msgid "Failed to set volume"
 msgstr ""
 
-#: ../..//content/controllers/split_check_controller.js:82
-#: ../..//content/controllers/split_check_controller.js:169
+#: ../..//content/controllers/split_check_controller.js:83
+#: ../..//content/controllers/split_check_controller.js:170
 msgid "SP#"
 msgstr ""
 
-#: ../..//content/controllers/split_check_controller.js:230
+#: ../..//content/controllers/split_check_controller.js:231
 msgid "confirm split"
 msgstr ""
 
-#: ../..//content/controllers/split_check_controller.js:231
+#: ../..//content/controllers/split_check_controller.js:232
 msgid "Are you sure you want to save all split checks"
 msgstr ""
 
-#: ../..//content/controllers/split_check_controller.js:249
+#: ../..//content/controllers/split_check_controller.js:250
 msgid "confirm discard"
 msgstr ""
 
-#: ../..//content/controllers/split_check_controller.js:250
+#: ../..//content/controllers/split_check_controller.js:251
 msgid "Are you sure you want to discard split checks"
 msgstr ""
 
