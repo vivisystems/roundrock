@@ -41,10 +41,10 @@
             }else {
                 let indexId = data.index ;
                 let item = this._sourcePanelView.items[indexId];
-                document.getElementById('qty_modifier').value = item.current_qty ;
+                document.getElementById('btn_addtosplit').disabled = (item.current_qty <= 0);
                 document.getElementById('qty_modifier').max =  item.current_qty;
                 document.getElementById('qty_modifier').min = 1;
-                document.getElementById('btn_addtosplit').disabled = (item.current_qty <= 0);
+                document.getElementById('qty_modifier').value = item.current_qty ;
             }
             document.getElementById('btn_mergeto').disabled = true;
             document.getElementById('splitScrollablePanel').selectedIndex = -1;
@@ -55,19 +55,17 @@
             if (index == -1) return;
             
             let data = this._splitPanelView.data[index];
-            if (!data || data.level >0) {
+            if (!data || data.level >0 || data.type != 'item') {
                 // disabled
                 document.getElementById('btn_mergeto').disabled = true;
                 document.getElementById('qty_modifier').value = 0 ;
-                document.getElementById('qty_modifier').max = 0 ;
-                document.getElementById('qty_modifier').min = 0 ;
             }else {
                 let indexId = data.index ;
                 let item = this._splitPanelView.items[indexId];
-                document.getElementById('qty_modifier').value = item.current_qty ;
+                document.getElementById('btn_mergeto').disabled = (item.current_qty <= 0);
                 document.getElementById('qty_modifier').max =  item.current_qty;
                 document.getElementById('qty_modifier').min = 1;
-                document.getElementById('btn_mergeto').disabled = (item.current_qty <= 0);
+                document.getElementById('qty_modifier').value = item.current_qty ;
             }
             document.getElementById('btn_addtosplit').disabled = true;
             document.getElementById('sourceScrollablePanel').selectedIndex = -1;

@@ -104,8 +104,8 @@
             var selectedItemsStr = GeckoJS.Array.objectExtract(this._data, '{n}.id');
             var selectedItems = [];
 
-            var dataIdIndex = panelView.data;
-
+            var dataIdIndex = GeckoJS.Array.objectExtract(panelView.data, '{n}.id');
+            
             selectedItemsStr.forEach(function(id){
                 var index = GeckoJS.Array.inArray(id, dataIdIndex);
                 if (index != -1) selectedItems.push(index);

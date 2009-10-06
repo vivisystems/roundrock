@@ -3098,8 +3098,8 @@
                         this.data.items[newItemIndex] = newItem;
                         source.data.items[itemIndex] = orgItem;
 
-                        let newItemDisplay = this.createDisplaySeq(newItemIndex, newItem, newItem.type);
-                        let orgItemDisplay = this.createDisplaySeq(itemIndex, orgItem, orgItem.type);
+                        let newItemDisplay = this.createDisplaySeq(newItemIndex, newItem, itemDisplay.type);
+                        let orgItemDisplay = this.createDisplaySeq(itemIndex, orgItem, itemDisplay.type);
 
                         this.data.display_sequences.push(newItemDisplay);
                         source.data.display_sequences[i] = orgItemDisplay;
