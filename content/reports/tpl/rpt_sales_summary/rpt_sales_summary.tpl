@@ -276,6 +276,7 @@
                 <thead>
                     <tr>
                         <th style="text-align: left;">${_( '(rpt)Tax Name' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Taxable Amount' )}</th>
                         <th style="text-align: right;">${_( '(rpt)Add-On Tax Amount' )}</th>
                         <th style="text-align: right;">${_( '(rpt)Included Tax Amount' )}</th>
                     </tr>
@@ -283,7 +284,8 @@
                 <tbody>
 	{for detail in body.tax_summary.records}
                     <tr>
-                        <td style="text-align: left;">${detail.tax_name}</td>
+                        <td style="text-align: left;">${detail.tax_name} (${detail.tax_no})</td>
+                        <td style="text-align: right;">${detail.taxable_amount|default:0|viviFormatTaxes:true}</td>
                         <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatTaxes:true}</td>
                         <td style="text-align: right;">${detail.included_tax|default:0|viviFormatTaxes:true}</td>
                     </tr>
@@ -291,7 +293,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td>${_('(rpt)Summary' ) + ':'}</td>
+                        <td colspan="2">${_('(rpt)Summary' ) + ':'}</td>
                         <td style="text-align: right;">${body.tax_summary.summary.addon_tax_total|default:0|viviFormatTaxes:true}</td>
                         <td style="text-align: right;">${body.tax_summary.summary.included_tax_total|default:0|viviFormatTaxes:true}</td>
                     </tr>

@@ -15,7 +15,7 @@
 <!ENTITY    promotions_manager.button.action.modify  "Modify">
 <!ENTITY    promotions_manager.button.action.delete  "Delete">
 
-<!ENTITY    promotions_manager.label.active     "Active this rule">
+<!ENTITY    promotions_manager.label.active     "Activate this rule">
 <!ENTITY    promotions_manager.label.reserve_item     "Reserve Matched Items (Prevent for next rule).">
 <!ENTITY    promotions_manager.label.repeatable     "Repeat Items for this rule">
 

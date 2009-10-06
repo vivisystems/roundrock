@@ -1240,7 +1240,7 @@
         },
 
         dispatch: function(arg) {
-            var args = arg.split('|');
+            var args = arg.split(',');
             $do(args[0], args[1], args[2]) ;
             /*
             var printer = GeckoJS.Controller.getInstanceByName('Print');
@@ -1273,17 +1273,17 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
         },
         
-        suspendLoadTest: function(data) {
+        suspendLoadTest: function() {
             this._suspendLoadTest = true;
         },
 
         loadTest: function(params) {
             var paramList = [];
-            if (params) paramList = params.split(',');
+            if (params) paramList = params.split('|');
             var count = parseInt(paramList[0]) || 1;
             var items = parseInt(paramList[1]) || 1;
-            var resume = parseInt(paramList[2]) || 0;
-            var store = parseInt(paramList[3]) || 0;
+            var store = parseInt(paramList[2]) || 0;
+            var resume = parseInt(paramList[3]) || 0;
             var customers = GeckoJS.Session.get('customers') || [];
             var products = GeckoJS.Session.get('products') || [];
             var numProds = products.length;
@@ -1298,6 +1298,17 @@
             var progressBar = document.getElementById('progress');
             progressBar.mode = 'determined';
 
+            var actionRow = document.getElementById('useraction');
+            var actionButton = document.getElementById('action');
+
+            if (actionRow) {
+                actionRow.hidden = false;
+                if (actionButton) {
+                    actionButton.setAttribute('label', 'Suspend');
+                    actionButton.setAttribute('oncommand', '$do("suspendLoadTest", null, "Main");');
+                }
+            }
+            
             if (resume && this.loadTestState != null) {
                 startIndex = this.loadTestState;
                 this.loadTestState = null;
@@ -1348,7 +1359,7 @@
                     cart.addItem(item);
 
                     // delay
-                    this.sleep(100 + 100 * Math.random());
+                    this.sleep(100);
                 }
 
                 if (store) {
@@ -1364,10 +1375,13 @@
 
                 // GC & delay
                 GREUtils.gc();
-                this.sleep(1000 + 1000 * Math.random());
+                this.sleep(300);
             }
 
             waitPanel.hidePopup();
+            if (actionRow) {
+                actionRow.hidden = true;
+            }
             progressBar.mode = 'undetermined';
         },
 

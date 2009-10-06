@@ -241,7 +241,11 @@
             this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
             this.data.autorevalue = GeckoJS.Configure.read('vivipos.fec.settings.AutoRevaluePrices') || false;
-            this.data.revaluefactor = GeckoJS.Configure.read('vivipos.fec.settings.RevalueFactor');
+            this.data.revaluefactor = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.RevalueFactor'));
+
+            if (isNaN(this.data.revaluefactor)) {
+                this.data.revaluefactor = 0;
+            }
 
             this.recoveryMode = recoveryMode;
 
@@ -2583,7 +2587,7 @@
 
             switch(policy) {
                 case 'round-down-to-factor':
-                    if(factor != 0) {
+                    if(factor > 0) {
                         if(total>=0) {
                             revalue_subtotal = 0 - parseFloat(total % factor);
                         }else {
@@ -2593,7 +2597,7 @@
                     break;
 
                 case 'round-up-to-factor':
-                    if(factor != 0) {
+                    if(factor > 0) {
                         if(total>=0) {
                             revalue_subtotal = parseFloat(total % factor);
                             if (revalue_subtotal != 0)
@@ -2607,7 +2611,7 @@
                     break;
 
                 case 'round-to-nearest-factor':
-                    if(factor != 0) {
+                    if(factor > 0) {
                         let low = parseFloat(Math.abs(total) % factor);
                         let high = factor - low;
 
