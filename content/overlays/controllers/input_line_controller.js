@@ -33,6 +33,13 @@
             }
 
             this.updateDecimalPoint();
+
+
+            var self = this;
+
+            window.inputLineKeypress = function(keycode) {
+                self.onPress.call(self, keycode);
+            };
         },
 
         getCartController: function() {
@@ -107,6 +114,16 @@
             }
         },
 
+        onPress: function(keycode) {
+
+            // fixed quick user switch in password type.
+            var keypad = this.getKeypadController();
+            if (keycode == 13 && keypad.target == 'Main' ) {
+                this.getMainController().enter();
+            }
+            
+        },
+
         detectFontWidth: function() {
 
             var h = document.getElementById("detectFontContainer");
@@ -150,6 +167,8 @@
     };
     
     GeckoJS.Controller.extend( __controller__ );
+
+    
 
     // mainWindow register stock initial
     var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
