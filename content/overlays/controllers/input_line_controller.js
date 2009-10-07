@@ -16,8 +16,6 @@
 
         initial: function() {
 
-            var self = this;
-            
             var keypadController = this._keypadController = GeckoJS.Controller.getInstanceByName('Keypad');
             var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
 

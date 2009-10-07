@@ -399,7 +399,7 @@
                 var data = [
                     _('Add Annotation') + ' [' + txn.data.seq + ']',
                     '',
-                    _(annotationType),
+                    annotationType,
                     '',
                     inputObj
                 ];
@@ -684,60 +684,42 @@
                 return;
             }
 
-            if (stop || this._suspendOperation) {
-                this.requestCommand('setTarget', 'Cart', 'Keypad');
+            var data = [
+                _('Switch User'),
+                _('Please enter password')
+            ];
 
-                this._suspendOperation = false;
-                this._getKeypadController().setNumberOnly(false);
-                GeckoJS.Dispatcher.removeEventListener('beforeDispatch', this._suspendOperationFilter);
-                
-                // check if has buffer (password)
-                var buf = this._getKeypadController().getBuffer().replace(/^\s*/, '').replace(/\s*$/, '');
-                this.requestCommand('clear', null, 'Cart');
+            var self = this;
+            return $.popupPanel('promptPasswordPanel', data).next( function(evt){
+                var result = evt.data;
 
-                var success = true;
+                if (result.ok) {
+                    // check if has buffer (password)
+                    self.requestCommand('clear', null, 'Cart');
 
-                // dispatch onExitPassword for onscreenvfd
-                this.dispatchEvent('onExitPassword');
+                    var password = result.input0;
 
-                if (stop != true && stop != 'true' && buf.length > 0) {
+                    if (self.Acl.securityCheckByPassword(password, true)) {
+                        self.signOff(true);
+                        self.Acl.securityCheckByPassword(password, false);
 
-                    if (this.Acl.securityCheckByPassword(buf, true)) {
-                        this.signOff(true);
-                        this.Acl.securityCheckByPassword(buf, false);
-
-                        var user = this.Acl.getUserPrincipal();
+                        var user = self.Acl.getUserPrincipal();
                         if (user) {
-                            this.setClerk();
+                            self.setClerk();
 
                             OsdUtils.info(user.description + _(' logged in'));
                         }
                         else {
                             // should always succeed, but if not, pull up the change user dialog since we've already signed off
-                            this.ChangeUserDialog();
+                            self.ChangeUserDialog();
                         }
                     }
                     else {
-                        success = false;
-                    }
-                }
-                if (!success) {
-                    if (!stop && buf.length > 0) {
-                        
                         NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                     }
                 }
-            }
-            else {
-                this.requestCommand('clear', null, 'Cart');
-                this.requestCommand('setTarget', 'Main', 'Keypad');
+            });
 
-                this.dispatchEvent('onEnterPassword');
-
-                this._suspendOperation = true;
-                this._getKeypadController().setNumberOnly(true);
-                GeckoJS.Dispatcher.addEventListener('beforeDispatch', this._suspendOperationFilter);
-            }
         },
 
         silentUserSwitch: function (newUser) {

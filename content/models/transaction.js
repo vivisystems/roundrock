@@ -912,9 +912,9 @@
             }
 
             var item = null;
-
-            if(this.Product.isExists(itemTrans.id)) {
-                item = GREUtils.extend({}, this.Product.getProductById(itemTrans.id));
+            var prod = this.Product.getProductById(itemTrans.id);
+            if(prod) {
+                item = GREUtils.extend({}, prod);
             }else {
                 item = GREUtils.extend({},itemTrans);
             }
@@ -1028,6 +1028,12 @@
                     Transaction.events.dispatch('afterModifySetItems', setItemEventData, this);
                 }
                 else {
+                    // if product tax is not defined, use Session defaultTax if available
+                    if (prod && !prod.rate) {
+                        let defaultTaxNo = GeckoJS.Session.get('defaultTaxNo');
+                        if (defaultTaxNo) item.rate = defaultTaxNo;
+                    }
+
                     // create data object to push in items array
                     itemModified = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
                     itemTrans.current_qty = itemModified.current_qty;
@@ -1035,6 +1041,7 @@
                     itemTrans.current_subtotal = itemModified.current_subtotal;
                     itemTrans.price_modifier = itemModified.price_modifier;
                     itemTrans.destination = itemModified.destination;
+                    itemTrans.tax_name = itemModified.tax_name;
                     itemModified = itemTrans;
 
                     // update to items array

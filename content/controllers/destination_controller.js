@@ -374,6 +374,14 @@
                 if (dest.taxno) {
                     GeckoJS.Session.set('defaultTaxNo', dest.taxno);
                 }
+                else {
+                    // else reset to system default tax
+                    let defaultTaxId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+                    let defaultTax = this.Tax.getTaxById(defaultTaxId);
+                    
+                    if (defaultTax) GeckoJS.Session.set('defaultTaxNo', defaultTax.no);
+                    else GeckoJS.Session.remove('defaultTaxNo');
+                }
                 
                 // set txn destination
                 txn.data.destination = dest.name;

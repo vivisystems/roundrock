@@ -2251,18 +2251,37 @@
                 return;
             }
 
-            var payment = parseFloat(buf);
+            var payment = buf;
+            if (payment != null && payment != '') {
+                if (isNaN(payment)) {
+                    NotifyUtils.warn(_('Invalid credit card payment amount [%S]', [payment]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else {
+                    payment = parseFloat(payment);
+                    if (payment < 0) {
+                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+            else if (this._returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
-                if (payment == null || payment == 0 || isNaN(payment)) {
-                    // if amount no given, set amount to amount paid
-                    payment = paid;
-                }
-
                 // payment refund
-                if (false && payment > paid) {
+                if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
 
@@ -2351,18 +2370,37 @@
                 return;
             }
 
-            var payment = (amount != null) ? amount : parseFloat(buf);
+            var payment = (amount != null) ? amount : buf;
+            if (payment != null && payment != '') {
+                if (isNaN(payment)) {
+                    NotifyUtils.warn(_('Invalid coupon payment amount [%S]', [payment]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else {
+                    payment = parseFloat(payment);
+                    if (payment < 0) {
+                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+            else if (this._returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
-                if (payment == null || payment == 0 || isNaN(payment)) {
-                    // if amount no given, set amount to amount paid
-                    payment = paid;
-                }
-
                 // payment refund
-                if (false && payment > paid) {
+                if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
 
@@ -2443,18 +2481,37 @@
                 return;
             }
 
-            var payment = (amount != null) ? amount : parseFloat(buf);
+            var payment = (amount != null) ? amount : buf;
+            if (payment != null && payment != '') {
+                if (isNaN(payment)) {
+                    NotifyUtils.warn(_('Invalid gift card payment amount [%S]', [payment]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else {
+                    payment = parseFloat(payment);
+                    if (payment < 0) {
+                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+            else if (this._returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
-                if (payment == null || payment == 0 || isNaN(payment)) {
-                    // if amount no given, set amount to amount paid
-                    payment = paid;
-                }
-
                 // payment refund
-                if (false && payment > paid) {
+                if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
 
@@ -2538,18 +2595,37 @@
                 return;
             }
 
-            var payment = parseFloat(buf);
+            var payment = buf;
+            if (payment != null && payment != '') {
+                if (isNaN(payment)) {
+                    NotifyUtils.warn(_('Invalid check payment amount [%S]', [payment]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else {
+                    payment = parseFloat(payment);
+                    if (payment < 0) {
+                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+            else if (this._returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
-                if (payment == null || payment == 0 || isNaN(payment)) {
-                    // if amount no given, set amount to amount paid
-                    payment = paid;
-                }
-
                 // payment refund
-                if (false && payment > paid) {
+                if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
 
@@ -2753,17 +2829,38 @@
                 return;
             }
 
+            if (amount != null && amount != '') {
+                if (isNaN(amount)) {
+                    NotifyUtils.warn(_('Invalid payment amount [%S]', [amount]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else if (amount < 0) {
+                    NotifyUtils.warn(_('Payment amount [%S] must not be negative', [amount]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+            }
+            else if (returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
             var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
 
             if (returnMode) {
                 // payment refund
                 var err = false;
-                if (false && paymentsTypes.length == 0) {
+                if (paymentsTypes.length == 0) {
                     NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
                     err = true;
                 }
 
-                if (amount == null || amount == 0 || isNaN(amount)) {
+                if (!err && (amount == null || amount == 0 || isNaN(amount))) {
                     // if amount no given, set amount to amount paid
                     amount = curTransaction.getPaymentSubtotal();
                 }
@@ -2800,7 +2897,6 @@
 
             if(!amount) {
                 amount = curTransaction.getRemainTotal();
-                if (amount < 0) amount = 0;
             }
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
@@ -2817,18 +2913,16 @@
                 is_groupable: isGroupable,
                 transaction: curTransaction
             };
+            
+            var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
 
-            if (amount > 0) {
-                var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
-
-                if (beforeResult) {
-                    var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, isGroupable);
-                    paymentedItem.seq = curTransaction.data.seq;
-                    paymentedItem.order_id = curTransaction.data.id;
-                }
-
-                this.dispatchEvent('afterAddPayment', paymentedItem);
+            if (beforeResult) {
+                var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, isGroupable);
+                paymentedItem.seq = curTransaction.data.seq;
+                paymentedItem.order_id = curTransaction.data.id;
             }
+
+            this.dispatchEvent('afterAddPayment', paymentedItem);
 
             this._getCartlist().refresh();
             if (curTransaction.getRemainTotal() <= 0) {
@@ -3430,11 +3524,11 @@
                         };
 
                         var data = [
-                        _('Add Annotation'),
-                        '',
-                        _(annotationType),
-                        '',
-                        inputObj
+                            _('Add Annotation') + ' [' + curTransaction.data.seq + ']',
+                            '',
+                            annotationType,
+                            '',
+                            inputObj
                         ];
 
                         var self = this;
@@ -3487,7 +3581,7 @@
         cash: function(argString) {
             var argArray = String(argString).split(',');
             var isGroupable = false;
-            var amount = parseFloat( argArray[0], 10 );
+            var amount = argArray[0];
 
             if (argArray.length == 2)
                 isGroupable = argArray[1];
@@ -3497,7 +3591,7 @@
             this._getKeypadController().clearBuffer();
 
             if (buf.length>0) {
-                if (!amount) amount = parseFloat(buf);
+                if (!amount) amount = buf;
             }
 
             this._addPayment('cash', amount, null, null, null, isGroupable);
