@@ -102,7 +102,7 @@ class SequencesController extends AppController {
 
     function getDateSequence ( $key, $initial = null ) {
 
-        if ($initial == null) $initial = mktime(0, 0, 0);
+        if ($initial == null) $initial = 0;
 
         $value = $this->Sequence->getSequence($key, $initial, false);
 
