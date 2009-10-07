@@ -80,7 +80,11 @@
                         if(!previewTemplates) {
                             doSuspend = true;
                         } else {
-                            this.previewTemplate = selectedDevices['journal-preview-template'] = previewTemplates[0];
+                            for (var tpl in previewTemplates) {
+                                var previewTemplate = tpl;
+                                break;
+                            }
+                            this._previewTemplate = selectedDevices['journal-preview-template'] = previewTemplate;
                             doSave = true;
                         }
                     }
@@ -201,7 +205,7 @@
                     && win.document.documentElement.boxObject.screenX < 0)
                     win = null;
 
-                GREUtils.Dialog.alert(win,
+                GREUtils.Dialog.(win,
                                       _('Journal Error'),
                                       _('An error was encountered while saving journal entry (error code %S) [message #702].', [journalModel.lastError])
                                           + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
