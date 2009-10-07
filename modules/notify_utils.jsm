@@ -11,93 +11,105 @@ var EXPORTED_SYMBOLS  = ['NotifyUtils'];
 
 var NotifyUtils = {
 
-	worker: null,
-	nofityService: null,
+    worker: null,
+    nofityService: null,
+    shellFile: null,
 
-	notify: function(summary, body, icon, total_display_ms, urgency) {
+    notify: function(summary, body, icon, total_display_ms, urgency) {
 
-	    icon = icon || "";
-            total_display_ms = total_display_ms || 5000;
-	    //urgency = (typeof urgency != 'undefined') ? urgency : 1;
+        icon = icon || "";
+        total_display_ms = total_display_ms || 5000;
+        //urgency = (typeof urgency != 'undefined') ? urgency : 1;
 
-	    var runnable = {
-		    run: function() {
-		        try {
-                            //if(NotifyUtils.nofityService) NotifyUtils.nofityService.doCall(["vivipos", 0, icon, summary, body, [], {}, total_display_ms],8);
+        var runnable = {
+            run: function() {
+                try {
 
-                            if(NotifyUtils.nofityService) {
-                                NotifyUtils.nofityService.notify(summary, body, icon, total_display_ms, urgency);
-                            }
-                    // use shell
+                    if(NotifyUtils.shellFile.exists()) {
+                        // use shell
+                        var process = Components.classes["@mozilla.org/process/util;1"].createInstance(Components.interfaces.nsIProcess);
+                        process.init(NotifyUtils.shellFile);
+                        var args = ['--urgency=normal', '--expire-time='+total_display_ms, '--icon='+icon, summary , body];
+                        process.run(false, args, args.length );
+                    }else if(NotifyUtils.nofityService) {
+                        NotifyUtils.nofityService.notify(summary, body, icon, total_display_ms, urgency);
+                    }
+
                 }catch(e) {
                 }
-		    },
+            },
 
-		    QueryInterface: function(iid) {
+            QueryInterface: function(iid) {
                 if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
                     return this;
                 }
                 throw Components.results.NS_ERROR_NO_INTERFACE;
             }
-		};
+        };
 
-	   this.worker.dispatch(runnable, this.worker.DISPATCH_NORMAL);
+        this.worker.dispatch(runnable, this.worker.DISPATCH_NORMAL);
 
-	},
+    },
 
- 	trace: function(summary, body, icon) {
+    trace: function(summary, body, icon) {
 
-	    icon = icon || "";
-	    this.notify(summary, body, icon, null, 1);
+        icon = icon || "";
+        this.notify(summary, body, icon, null, 1);
 
-	},
+    },
 
- 	debug: function(summary, body, icon) {
+    debug: function(summary, body, icon) {
 
-	    icon = icon || "";
-	    this.notify(summary, body, icon, null, 1);
+        icon = icon || "";
+        this.notify(summary, body, icon, null, 1);
 
-	},
+    },
 
- 	info: function(summary, body, icon) {
+    info: function(summary, body, icon) {
 
-	    icon = icon || "dialog-information";
-	    this.notify(summary, body, icon, null, 1);
+        icon = icon || "dialog-information";
+        this.notify(summary, body, icon, null, 1);
 
-	},
+    },
 
- 	warn: function(summary, body, icon) {
+    warn: function(summary, body, icon) {
 
-	    icon = icon || "dialog-warning";
-	    this.notify(summary, body, icon, null, 1);
+        icon = icon || "dialog-warning";
+        this.notify(summary, body, icon, null, 1);
 
-	},
+    },
 
- 	error: function(summary, body, icon) {
+    error: function(summary, body, icon) {
 
-	    icon = icon || "dialog-error";
-	    this.notify(summary, body, icon, null, 1);
+        icon = icon || "dialog-error";
+        this.notify(summary, body, icon, null, 1);
 
-	},
+    },
 
 
- 	fatal: function(summary, body, icon) {
+    fatal: function(summary, body, icon) {
 
-	    icon = icon || "dialog-error";
-	    this.notify(summary, body, icon, null, 1);
-	}
+        icon = icon || "dialog-error";
+        this.notify(summary, body, icon, null, 1);
+    }
 
 };
 
 // create
 try {
+
     if(!NotifyUtils.worker) {
-        NotifyUtils.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
+        //        NotifyUtils.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
+        NotifyUtils.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).mainThread;
+
     }
 
-    if(!NotifyUtils.nofityService) {
-        //var dbus = Components.classes["@movial.com/dbus/service;1"].getService().QueryInterface(Components.interfaces.IDBusService);
-        //NotifyUtils.nofityService = dbus.getMethod(dbus.SESSION, 'org.freedesktop.Notifications', '/org/freedesktop/Notifications', 'Notify', 'org.freedesktop.Notifications', "susssasa{sv}i", null);
+    if (!NotifyUtils.shellFile) {
+        NotifyUtils.shellFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+        NotifyUtils.shellFile.initWithPath('/usr/bin/notify-send');
+    }
+    
+    if(!NotifyUtils.nofityService && !NotifyUtils.shellFile.exists()) {
         NotifyUtils.nofityService = Components.classes["@firich.com.tw/notify;1"].getService(Components.interfaces.mozIFECNotify);
     }
 
