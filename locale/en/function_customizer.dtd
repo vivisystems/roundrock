@@ -22,8 +22,8 @@
 <!ENTITY    function_customizer.tab.price "Price">
 <!ENTITY    function_customizer.tab.order "Order">
 <!ENTITY    function_customizer.tab.services "Services">
-
 <!ENTITY    function_customizer.tab.sales "Sales">
+<!ENTITY    function_customizer.tab.tablemanager "Table">
 
 <!ENTITY    function_customizer.products.disable_image_picker "Disable [Image Picker]">
 <!ENTITY    function_customizer.products.disable_color_picker "Disable [Color Picker]">

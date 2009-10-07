@@ -753,7 +753,7 @@
          *
          * @param {Object} table
          */
-        openSelectMarkDialog: function (table){
+        openSelectMarkDialog: function (description){
 
             var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
             var screenheight = GeckoJS.Session.get('screenheight') || 600;
@@ -761,14 +761,12 @@
             var aURL = 'chrome://viviecr/content/select_mark.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
-            var tableNo = table.table_no;
-            var tableName = table.table_name;
             var inputObj = {
                 marks: this.TableMark.getTableMarks(),
                 id: '',
                 name: '',
                 title: _('Select Table Status'),
-                description: _('You are now marking table status of Table# %S (%S)', [tableNo,tableName])
+                description: description
             };
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Status'), aFeatures, inputObj);
 
@@ -801,7 +799,10 @@
                 return ;
             }
 
-            var markId = this.openSelectMarkDialog(table);
+            var tableNo = table.table_no;
+            var tableName = table.table_name;
+            var description = _('You are now marking table status of Table# %S (%S)', [tableNo,tableName]);
+            var markId = this.openSelectMarkDialog(description);
 
             if (!markId) {
                 // XXX error message ?
@@ -861,6 +862,81 @@
 
         },
 
+
+        /**
+         * executeMarkRegion  -- called from table selector
+         */
+        executeMarkRegion: function() {
+
+            var selectedRegion = this.getSelectedRegion();
+
+            var region = null;
+
+            if (selectedRegion == 'ALL') {
+                region = {
+                    id: 'ALL',
+                    name: _('All Regions')
+                    };
+            }else {
+                region = this.Table.TableRegion.getTableRegionById(selectedRegion);
+            }
+
+            var description = _('You are now marking table status of Region# %S', [region.name]);
+
+            var markId = this.openSelectMarkDialog(description);
+
+            if (!markId) {
+                // XXX error message ?
+                return false;
+            }
+
+            var user = this.Acl.getUserPrincipal();
+            var clerk = '' ;
+            if ( user != null ) {
+                clerk = user.description || user.username;
+            }
+
+            // mark table
+            this.Table.TableStatus.markRegion(region.id, markId, clerk);
+
+            this.setAction('selectTable');
+
+            // refresh
+            this.refreshTableStatus();
+
+        },
+
+        /**
+         * executeUnmarkRegion  -- called from table selector
+         */
+        executeUnmarkRegion: function() {
+
+            var selectedRegion = this.getSelectedRegion();
+
+            var region = null;
+
+            if (selectedRegion == 'ALL') {
+                region = {
+                    id: 'ALL',
+                    name: _('All Regions')
+                    };
+            }else {
+                region = this.Table.TableRegion.getTableRegionById(selectedRegion);
+            }
+            
+           var description = _('You are now cleaning table status of Region# %S', [region.name]);
+
+            if (!GREUtils.Dialog.confirm(this.topmostWindow, _('Clear Table Status'), description)) return;
+
+            // unmark table
+            this.Table.TableStatus.unmarkRegion(region.id);
+
+            this.setAction('selectTable');
+
+            // refresh
+            this.refreshTableStatus();
+
+        },
 
         /**
          * recallOrder -- called by orderdisplay popup panel

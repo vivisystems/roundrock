@@ -129,9 +129,36 @@
 
         setTableRegionsToSession: function(table_regions) {
             if (table_regions != null) {
-                GeckoJS.Session.add('table_regions', table_regions);
-            }
-        }
 
+                let regionsById = {};
+
+                table_regions.forEach(function(region) {
+                    let id = region.id;
+                    if (id) {
+                        regionsById[id] = region;
+                    }
+                }, this);
+
+                GeckoJS.Session.add('table_regions', table_regions);
+                GeckoJS.Session.add('regionsById', regionsById);
+            }
+        },
+
+        /**
+         * getTableRegionById
+         */
+        getTableRegionById: function(id, useDb) {
+
+            useDb = useDb || false;
+            
+            if (useDb) {
+                this.getTableRegions(true)
+            }
+
+            var regions = GeckoJS.Session.get('regionsById') || {};
+
+            return regions[id] || null;
+
+        },
     });
 } )();
