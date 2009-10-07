@@ -897,7 +897,7 @@
 
                 if (total < minimum_charge) {
 
-                    if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
+                    if (GREUtils.Dialog.confirm(this.topmostWindow,
                         _('Order amount does not reach Minimum Charge'),
                         _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\nClick OK to finalize this order by Minimum Charge, \nor, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
 
