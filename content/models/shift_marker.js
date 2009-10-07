@@ -208,6 +208,18 @@
 
         saveMarker: function(data) {
 
+            // always retrieve marker first
+            var marker = this.getMarker();
+            if (parseInt(this.lastError) != 0) {
+                this.log('ERROR',
+                         'An error was encountered while retrieving shift marker id (error code ' + this.lastError + '): ' + this.lastErrorString);
+                return false;
+            }
+
+            if (marker) {
+                this.id = data.id = marker.id;
+            }
+
             var r = this.save(data);
             if (!r) {
                 this.log('ERROR',

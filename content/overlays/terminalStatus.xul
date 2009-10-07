@@ -15,7 +15,7 @@
                                    />
                 <viviuserlabel id="current_user" class="console-current-user" flex="1"/>
 
-                <isoptionenabled id="option_sale_period" option="vivipos.fec.settings.HideSalePeriod" action="hide"
+                <isoptionenabled id="option_sale_period" option="vivipos.fec.settings.DisableSalePeriod" action="hide"
                                  flex="1" orient="horizontal">
                     <vivisessionstatus id="sale_period" flex="1"
                                        class="console-sale-period"

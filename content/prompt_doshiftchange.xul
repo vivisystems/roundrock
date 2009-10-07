@@ -131,14 +131,12 @@
                                     oncommand="if (confirmEndShift()) doOKButton();"/>
                         <spacer flex="1"/>
                     </isoptionenabled>
-                    <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" disabled="false" default="false"
-                                roles="acl_end_sale_period" action="hide"
-                                oncommand="if (confirmEndSalePeriod()) doOKButton('end')"/>
-                    <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="display"
+                    <isoptionenabled id="option_sale_period" option="vivipos.fec.settings.DisableSalePeriod" action="hide"
                                      flex="1" orient="horizontal">
                         <spacer flex="1"/>
-                        <vivibutton id="opendrawer" label="&prompt.shiftchange.open.drawer;" default="false"
-                                    oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
+                        <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" disabled="false" default="false"
+                                    roles="acl_end_sale_period" action="hide"
+                                    oncommand="if (confirmEndSalePeriod()) doOKButton('end')"/>
                     </isoptionenabled>
                 </hbox>
                 <hbox id="dialogButtons" pack="end" class="exitbar">

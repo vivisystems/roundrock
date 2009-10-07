@@ -566,7 +566,7 @@
                 return;
             }
 
-            if (!txn.hasItemsInBatch() && !duplicate || duplicate && txn.getItemsCount() == 0) {
+            if (txn.getItemsCount() == 0) {
 
                 NotifyUtils.warn(_('Nothing has been registered yet; cannot issue check'));
                 return;

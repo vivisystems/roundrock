@@ -31,7 +31,7 @@
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
-<!ENTITY login.hidesaleperiod "Hide sale period">
+<!ENTITY login.disablesaleperiod "Disable sale period">
 <!ENTITY login.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY login.disableshiftchange "Disable shift change">
 <!ENTITY login.checksaleperiod "Check sale period on every order">

@@ -121,7 +121,7 @@ function confirmEndSalePeriod() {
         if (options.closePeriodPolicy == 'alert') {
             GREUtils.Dialog.alert(this.topmostWindow,
                 _('Shift Change'),
-                _('Alert! one or more orders are still open'));
+                _('Please note that one or more orders are still open'));
         }
         else if (options.closePeriodPolicy == 'force') {
             GREUtils.Dialog.alert(this.topmostWindow,
@@ -172,7 +172,7 @@ function confirmEndShift() {
         if (options.shiftChangePolicy == 'alert') {
             GREUtils.Dialog.alert(this.topmostWindow,
                 _('Shift Change'),
-                _('Alert! one or more orders are still open'));
+                _('Please note that one or more orders are still open'));
         }
         else if (options.shiftChangePolicy == 'force') {
             GREUtils.Dialog.alert(this.topmostWindow,

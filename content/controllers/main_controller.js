@@ -668,14 +668,6 @@
             }
         },
 
-        clear: function () {
-            this.quickUserSwitch(true);
-        },
-
-        enter: function () {
-            this.quickUserSwitch();
-        },
-
         quickUserSwitch: function (stop) {
             if ( this._isTraining ) {
                 GREUtils.Dialog.alert(this.topmostWindow,
@@ -816,8 +808,7 @@
             var shiftReportOnQuickSwitch = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonquickswitch');
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
-            var txn = GeckoJS.Session.get('current_transaction');
-            var cartEmpty = (txn == null) || (txn.isSubmit()) || (txn.getItemsCount() <= 0);
+            var cartEmpty = !cart.ifHavingOpenedOrder();
             var principal = this.Acl.getUserPrincipal();
 
             if (principal) {
@@ -902,9 +893,10 @@
                     }
                     else {
                         $do('pushQueue', null, 'CartQueue');
+                        $do('cancel', true, 'Cart');
                     }
                 }
-                $do('clear', null, 'Cart');
+                $do('clear', true, 'Cart');
 
                 if (responseDiscardQueue == 1) {
                     cartQueue._removeUserQueue(principal);
@@ -917,8 +909,9 @@
                 if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
+            Transaction.removeRecoveryFile();
+            
             if (!quickSignoff) {
-                this.clear();
                 this.ChangeUserDialog();
             }
         },

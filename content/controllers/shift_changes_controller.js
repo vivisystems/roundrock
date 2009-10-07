@@ -121,10 +121,11 @@
             // only store valid shift marker into session
             if (salePeriod != -1 && salePeriod != '') {
                 GeckoJS.Session.set('current_shift', currentShift);
-                //this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
+                this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
             }
             GeckoJS.Session.set('shift_number', shiftNumber);
             GeckoJS.Session.set('sale_period', salePeriod);
+            this.log('DEBUG', 'updating session sale period: ' + salePeriod);
             GeckoJS.Session.set('sale_period_string', salePeriodStr);
 
             return currentShift;
@@ -147,11 +148,6 @@
 
             var shift = this._getShiftMarker();
 
-            // update shift marker if it already exists
-            if (shift) {
-                newShiftMarker.id = shift.id;
-                this.ShiftMarker.id = shift.id;
-            }
             var r = this.ShiftMarker.saveMarker(newShiftMarker);
             if (!r) {
                 this._dbError(this.ShiftMarker.lastError, this.ShiftMarker.lastErrorString,
@@ -313,6 +309,7 @@
             var cashEntry = this._getCashEntry();
             var clusterSalePeriod = this.ShiftMarker.getClusterSalePeriod();
             var disableShiftChange = GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange');
+            var disableSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.DisableSalePeriod');
             var updateShiftMarker = true;
             var today = new Date().clearTime();
             
@@ -340,7 +337,7 @@
             if (isNaN(clusterSalePeriod)) {
                 GREUtils.Dialog.alert(win,
                     _('Shift Change Error'),
-                    _('Failed to start shift because cluster sale period is not valid. Please verify that the terminal designated as the sale period master has been configured with the correct sale period [message #1431]'));
+                    _('Failed to start shift because cluster sale period [%S] is invalid. Please verify that the terminal designated as the sale period master has been properly configured [message #1431]', [clusterSalePeriod]));
 
                 this._updateSession({sale_period: -1,
                                      shift_number: '',
@@ -349,26 +346,28 @@
 
                 return;
             }
+            else if (clusterSalePeriod == 0 && !this.ShiftMarker.isSalePeriodHandler()) {
+                GREUtils.Dialog.alert(win,
+                    _('Shift Change Error'),
+                    _('Failed to start shift because cluster sale period has not yet been set. Please verify that the terminal designated as the sale period master has properly initialized the sale period [message #1432]'));
+
+                this._updateSession({sale_period: -1,
+                                     shift_number: '',
+                                     end_of_period: false,
+                                     end_of_shift: false});
+            }
             
-            // determine new sale period if:
+            // determine new sale period locally if:
             //
             // 1. last sale period does not exist, or
             // 2. end of period flag is set, or
-            // 3. cluster sale period exists
 
             this.log('DEBUG', 'lastSalePeriod, endOfPeriod, clusterSalePeriod: ' + lastSalePeriod + ', ' + endOfPeriod + ', ' + clusterSalePeriod);
-            if (lastSalePeriod == '' || endOfPeriod || clusterSalePeriod) {
+            if (lastSalePeriod == '' || endOfPeriod) {
 
                 this.log('DEBUG', 'determining new sale period');
-                // determine new sale period:
+                // determine new sale period locally
                 //
-                // determine last sale period:
-                // - if we are sale period master, cluster sale period should be false; use last sale period
-                // - if we are sale period client, use cluster sale period
-                if (clusterSalePeriod) {
-                    lastSalePeriod = clusterSalePeriod;
-                }
-
                 // if last sale period is not set, or if last sale period + 1 is smaller than today's date
                 // set new sale period to current date
                 if (lastSalePeriod == '') {
@@ -386,22 +385,27 @@
                         newSalePeriod = lastSalePeriodPlusOne.getTime() / 1000;
                     }
                 }
-
-                // need to reset sequence?
-                this.log('DEBUG', 'checking if sequence needs to be reset');
-                let resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
-                if (resetSequence) {
-                    if (SequenceModel.resetSequence('order_no', 0) == -1) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Shift Change Error'),
-                            _('Failed to start sale period because order sequence number could not be reset [message #1432]'));
-                        return;
-                    }
-                }
-
-                // need to advance sale period?
-                this.log('DEBUG', 'checking if sale period needs to be advanced');
+                
                 if (this.ShiftMarker.isSalePeriodHandler()) {
+                    // need to reset sequence?
+                    this.log('DEBUG', 'checking if sequence needs to be reset');
+                    let resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
+                    if (resetSequence) {
+                        if (SequenceModel.resetSequence('order_no', 0) == -1) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Shift Change Error'),
+                                _('Failed to start sale period because order sequence number could not be reset. Please make sure that the terminal designated as the sequence number master is working normally [message #1433]'));
+
+                            this._updateSession({sale_period: -1,
+                                                 shift_number: '',
+                                                 end_of_period: false,
+                                                 end_of_shift: false});
+                            return;
+                        }
+                    }
+
+                    // need to advance sale period?
+                    this.log('DEBUG', 'checking if sale period needs to be advanced');
                     let newSalePeriodDate = new Date(newSalePeriod * 1000);
                     this.log('DEBUG', 'advancing sale period to ' + newSalePeriod + ':' + newSalePeriodDate);
 
@@ -413,11 +417,19 @@
                     else if (r == -1) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Shift Change Error'),
-                            _('Failed to start sale period because cluster sale period could not be updated. Please check the network connectivity to the terminal designated as the sale period master [message #1432]'));
+                            _('Failed to start sale period because cluster sale period could not be updated. Please check the network connectivity to the terminal designated as the sale period master [message #1434]'));
+
+                        this._updateSession({sale_period: -1,
+                                             shift_number: '',
+                                             end_of_period: false,
+                                             end_of_shift: false});
                         return;
                     }
 
-                    clusterSalePeriod = newSalePeriod;
+                    // update local copy of cluster sale period
+                    if (clusterSalePeriod) {
+                        clusterSalePeriod = newSalePeriod;
+                    }
                 }
             }
             else {
@@ -429,51 +441,80 @@
             //
             // 1. cluster sale period exists, and
             // 2. new sale period is different from cluster sale period, and
-            // 3. shift change is not disabled
 
-            if (clusterSalePeriod && newSalePeriod != clusterSalePeriod && !disableShiftChange) {
-                // if out of sync, put up warning to close sale period immediately and continue with previous shift
-
-                GREUtils.Dialog.alert(win,
-                    _('Shift Change Warning'),
-                    _("This terminal's sale period [%S (%S)] appears to be out of sync with the cluster sale period [%S (%S)]. Please close the sale period on this terminal immediately to avoid recording transactions in the wrong sale period.",
-                      [new Date(lastSalePeriod * 1000).toLocaleDateString(), lastSalePeriod, new Date(newSalePeriod * 1000).toLocaleDateString(), newSalePeriod]));
-                updateShiftMarker = false;
-                newSalePeriod = lastSalePeriod;
-                newShiftNumber = lastShiftNumber;
+            if (clusterSalePeriod) {
+                let clusterSPDateStr = new Date(clusterSalePeriod * 1000).toLocaleDateString();
+                if (newSalePeriod != clusterSalePeriod) {
+                    if (lastSalePeriod == '' || disableSalePeriod) {
+                        newSalePeriod = clusterSalePeriod;
+                        newShiftNumber = 1;
+                    }
+                    else if (endOfPeriod) {
+                        if (newSalePeriod < clusterSalePeriod) {
+                            newSalePeriod = clusterSalePeriod;
+                            newShiftNumber = 1;
+                        }
+                        else {
+                            if (lastSalePeriod == clusterSalePeriod) {
+                                newShiftNumber = parseInt(lastShiftNumber) + 1;
+                            }
+                            else {
+                                newShiftNumber = 1;
+                            }
+                            GREUtils.Dialog.alert(win,
+                                _('Shift Change Warning'),
+                                _("This terminal's sale period [%S] appears to be ahead of the cluster sale period [%S]. Transactions will be recorded in the cluster sale period [%S] and shift [%S] instead.",
+                                  [new Date(newSalePeriod * 1000).toLocaleDateString(), clusterSPDateStr, clusterSPDateStr, newShiftNumber]));
+                            newSalePeriod = clusterSalePeriod;
+                        }
+                    }
+                    else {
+                        GREUtils.Dialog.alert(win,
+                            _('Shift Change Warning'),
+                            _("This terminal's sale period [%S] appears to be out of sync with the cluster sale period [%S]. Please close the sale period on this terminal immediately to avoid recording transactions in the wrong sale period.",
+                              [new Date(newSalePeriod * 1000).toLocaleDateString(), clusterSPDateStr]));
+                        updateShiftMarker = false;
+                        newSalePeriod = lastSalePeriod;
+                    }
+                }
             }
 
-            // we next determine new shift
+            // we next determine new shift if it has not already been set
             //
             // change shift if:
             // 1. end of shift is true, or
             // 2. new sale period is not the same as last sale period
 
             this.log('DEBUG', 'endOfShift, newSalePeriod, lastSalePeriod: ' + endOfShift + ', ' + newSalePeriod + ', ' + lastSalePeriod);
-            if (endOfShift || (newSalePeriod != lastSalePeriod)) {
-
-                this.log('DEBUG', 'determining new shift');
+            if (newShiftNumber == null) {
+                this.log('DEBUG', 'determining new shift: ' + lastShiftNumber);
+                
                 // on terminals where shift change has been disabled, don't advance shift number
                 if (disableShiftChange) {
                     newShiftNumber = (lastShiftNumber == '') ? 1 : lastShiftNumber;
                     if (lastSalePeriod == newSalePeriod) updateShiftMarker = false;
                     this.log('DEBUG', 'shift change disabled, sale period changed: ' + updateShiftMarker);
                 }
-                else {
-                    if (endOfShift) {
-                        if (isNaN(parseInt(lastShiftNumber))) {
-                            newShiftNumber = 1;
-                        }
-                        else {
-                            newShiftNumber = parseInt(lastShiftNumber) + 1;
-                        }
-                        this.log('DEBUG', 'last shift closed, new SP: ' + newSalePeriod + ', new Shift: ' + newShiftNumber);
+                else if (endOfShift) {
+                    if (endOfPeriod || isNaN(parseInt(lastShiftNumber))) {
+                        newShiftNumber = 1;
                     }
                     else {
+                        newShiftNumber = parseInt(lastShiftNumber) + 1;
+                    }
+                    this.log('DEBUG', 'last shift closed, last Shift ' + lastShiftNumber + ', new Shift: ' + newShiftNumber);
+                }
+                else {
+                    if (lastShiftNumber == '') {
                         newShiftNumber = 1;
+                    }
+                    else {
+                        newShiftNumber = lastShiftNumber;
+                        updateShiftMarker = false;
                     }
                 }
             }
+            this.log('DEBUG', 'newShiftNumber: ' + newShiftNumber);
 
             if (updateShiftMarker) {
                 this.log('DEBUG', 'updating shift marker: ' + newSalePeriod + ', ' + newShiftNumber);
@@ -535,6 +576,15 @@
 
                 this._setShift(newSalePeriod, newShiftNumber, false, false);
             }
+            else {
+                this._updateSession({
+                    terminal_no: GeckoJS.Session.get('terminal_no'),
+                    sale_period: newSalePeriod,
+                    shift_number: newShiftNumber,
+                    end_of_period: false,
+                    end_of_shift: false
+                });
+            }
 
             if (warnOnChangeDiscrepancy) {
                 if (win.document.documentElement.id == 'viviposMainWindow'
@@ -544,7 +594,7 @@
                 GREUtils.Dialog.alert(win, _('Drawer Change Error'), warnOnChangeDiscrepancy);
             }
 
-            if (!disableShiftChange) {
+            if (!disableShiftChange && !disableSalePeriod) {
                 // display current shift / last shift information
                 this._ShiftDialog((newSalePeriod > 0) ? new Date(newSalePeriod * 1000).toLocaleDateString() : newSalePeriod, newShiftNumber,
                                   (lastSalePeriod == '') ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber);
@@ -567,7 +617,6 @@
             var shiftNumber = this._getShiftNumber();
             var terminal_no = GeckoJS.Session.get('terminal_no');
             var salePeriodLeadDays = GeckoJS.Configure.read('vivipos.fec.settings.MaxSalePeriodLeadDays') || 1;
-            var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
             var allowChangeWhenEndPeriod = GeckoJS.Configure.read('vivipos.fec.settings.AllowChangeWhenEndPeriod');
             
             var inputObj = {ok: false};
@@ -1362,8 +1411,8 @@
                                 _('Failed to verify current sale period. Please check the network connectivity to the terminal designated as the sale period master. You are strongly advised to resolve this issue before executing any further transactions on this terminal.'));
                         }
                         else if (clusterSalePeriod != currentSalePeriod) {
-                            var disableShiftChange = GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange');
-                            if (disableShiftChange) {
+                            var disableSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.DisableSalePeriod');
+                            if (disableSalePeriod) {
                                 // update current shift silently
                                 var shift_marker = this._getShiftMarker();
                                 if (shift_marker) {
@@ -1372,7 +1421,9 @@
                                 else {
                                     shift_marker = {
                                         sale_period: -1,
-                                        shift_number: ''
+                                        shift_number: '',
+                                        end_of_period: false,
+                                        end_of_shift: false
                                     };
                                     evt.preventDefault();
                                     GREUtils.Dialog.alert(this.topmostWindow,
