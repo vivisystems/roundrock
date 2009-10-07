@@ -413,6 +413,7 @@
                     var r = this.ShiftMarker.advanceClusterSalePeriod(newSalePeriod);
                     if (!r) {
                         SequenceModel.resetLocalSequence('sale_period', newSalePeriod);
+                        this.log('DEBUG', 'advanced local sale period to ' + newSalePeriod + ':' + newSalePeriodDate);
                     }
                     else if (r == -1) {
                         GREUtils.Dialog.alert(this.topmostWindow,
@@ -928,13 +929,13 @@
 
                 var deposits = (depositTotal && depositTotal.amount != null) ? depositTotal.amount : 0;
 
-                // compute refunds (payments with order status of -2 and from previous sale period/shift
+                // compute refunds (payments with order status of -2 and from previous sale period/shift or a different terminal)
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                              ' AND order_payments.name != "ledger"' +
-                             ' AND orders.status = -2' +
-                             ' AND (orders.sale_period != "' + salePeriod + '" OR orders.shift_number != "' + shiftNumber + '")';
+                             ' AND orders.status = -2';
+                             //' AND (orders.sale_period != "' + salePeriod + '" OR orders.shift_number != "' + shiftNumber + '" OR orders.terminal_no != "' + terminal_no + '")';
                 var refundTotal = orderPayment.find('first', {fields: fields,
                                                               conditions: conditions,
                                                               recursive: 1,
@@ -945,7 +946,9 @@
                            errstr: orderPayment.lastErrorString,
                            errmsg: _('An error was encountered while computing refunds given out (error code %S) [message #1422].', [orderPayment.lastError])};
 
-                var refunds = (refundTotal && refundTotal.amount != null) ? Math.abs(refundTotal.amount) : 0;
+                var refunds = (refundTotal && refundTotal.amount != null) ? refundTotal.amount : 0;
+
+alert('refund: ' + refunds);
 
                 // compute total sales revenue
                 fields = ['SUM(orders.total) as "Order.amount"'];
@@ -964,7 +967,25 @@
                            errmsg: _('An error was encountered while computing sales revenue (error code %S) [message #1423].', [orderPayment.lastError])};
 
                 var salesRevenue = (salesTotal && salesTotal.amount != null) ? salesTotal.amount : 0;
-                var credit = salesRevenue - (paymentsReceived - deposits + refunds);
+
+                // compute payment total received from sales
+                fields = ['SUM(order_payments.amount - order_payments.change) as "amount"'];
+                conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                             ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                             ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND order_payments.name != "ledger"' +
+                             ' AND orders.status = 1 ' +
+                             ' AND orders.sale_period = "' + salePeriod + '"' +
+                             ' AND orders.shift_number = "' + shiftNumber + '"' +
+                             ' AND orders.terminal_no = "' + terminal_no + '"';
+                var salesPayment = orderPayment.getDataSource().fetchAll('SELECT ' + fields.join(',') + ' FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions);
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while computing total sale payments received (error code %S) [message #1420].', [orderPayment.lastError])};
+                var paymentsReceivedForSales = (salesPayment[0] && salesPayment[0].amount != null) ? salesPayment[0].amount : 0;
+
+                var credit = salesRevenue - paymentsReceivedForSales;
 
                 // compute ledger IN balance
                 fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
@@ -1058,7 +1079,7 @@
                 inputObj = {
                     shiftChangeDetails: shiftChangeDetails,
                     cashNet: cashNet,
-                    balance: salesRevenue + ledgerInTotal + ledgerOutTotal  + deposits - refunds - credit + giftcardExcess,
+                    balance: paymentsReceived + ledgerInTotal + ledgerOutTotal,
                     salesRevenue: salesRevenue,
                     deposit: deposits,
                     refund: refunds,

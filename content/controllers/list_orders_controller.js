@@ -67,6 +67,7 @@
                          'status',
                          'precision_prices',
                          'total',
+                         'total + change - payment_subtotal as "Order.balance"',
                          'qty_subtotal'],
                 conditions: conditions,
                 limit: 300,
@@ -84,8 +85,9 @@
                           + ',' + _('(view)order sequence')
                           + ',' + _('(view)order status')
                           + ',' + _('(view)total')
+                          + ',' + _('(view)balance')
                           + ',' + _('(view)items');
-            var fields = 'transaction_submitted,sequence,status_str,total,qty_subtotal';
+            var fields = 'transaction_submitted,sequence,status_str,total,balance,qty_subtotal';
             if (!localOnly) {
                 headers = _('(view)branch') + ',' + _('(view)terminal') + ',' + headers;
                 fields = 'branch,terminal_no,' + fields;
@@ -127,6 +129,10 @@
 
                 this._precision_prices = order.precision_prices;
                 order.total = this._formatPrice(order.total);
+
+                if (order.status == -1 || order.status == -3) order.balance = ''
+                else order.balance = this._formatPrice(order.balance);
+                
             }, this);
 
             tree.datasource = orders;

@@ -119,7 +119,7 @@
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var curTransaction = cart._getTransaction();
             if (curTransaction == null) return;
-            if (!this.ifHavingOpenedOrder()) {
+            if (!cart.ifHavingOpenedOrder()) {
 
                 if (cart._cartView.tree) {
                     cart.dispatchEvent('onClear', curTransaction);
