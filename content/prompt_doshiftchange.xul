@@ -95,33 +95,30 @@
 
             </vbox>
 
-            <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="hide"
-                             orient="vertical">
-                <spacer height="5px"/>
-                <separator class="groove"/>
-                <spacer height="10px"/>
+            <spacer height="5px"/>
+            <separator class="groove"/>
+            <spacer height="10px"/>
 
-                <hbox flex="1" align="center">
-                    <caption label="&prompt.shiftchange.drawer.change;"/>
-                    <spacer flex="1"/>
-                    <vivibutton id="opendrawer" label="&prompt.shiftchange.open.drawer;" default="false" class="button-fixed"
-                                oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
-                    <spacer width="10px"/>
-                </hbox>
-                <hbox>
-                    <vbox flex="1">
-                        <label value="&prompt.shiftchange.amount;"/>
-                        <vivitextbox id="drawer_amount" flex="1" type="number" value="0" decimalplaces="Infinity" min="0" max="Infinity"
-                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                     oninputonfocus="select()"/>
-                    </vbox>
-                    <spacer width="10px"/>
-                    <vbox flex="1">
-                        <label value="&prompt.shiftchange.description;"/>
-                        <textbox id="description" flex="1" onfocus="select()" value=""/>
-                    </vbox>
-                </hbox>
-            </isoptionenabled>
+            <hbox flex="1" align="center">
+                <caption label="&prompt.shiftchange.drawer.change;"/>
+                <spacer flex="1"/>
+                <vivibutton id="opendrawer" label="&prompt.shiftchange.open.drawer;" default="false" class="button-fixed"
+                            oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
+                <spacer width="10px"/>
+            </hbox>
+            <hbox>
+                <vbox flex="1">
+                    <label value="&prompt.shiftchange.amount;"/>
+                    <vivitextbox id="drawer_amount" flex="1" type="number" value="0" decimalplaces="Infinity" min="0" max="Infinity"
+                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                 oninputonfocus="select()"/>
+                </vbox>
+                <spacer width="10px"/>
+                <vbox flex="1">
+                    <label value="&prompt.shiftchange.description;"/>
+                    <textbox id="description" flex="1" onfocus="select()" value=""/>
+                </vbox>
+            </hbox>
             
             <spacer height="10px"/>
 

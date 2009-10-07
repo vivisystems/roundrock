@@ -29,6 +29,10 @@
       status = _('(view)voided');
       break;
 
+    case -3:
+      status = _('(view)merged');
+      break;
+
     default:
       status = order.status;
   }

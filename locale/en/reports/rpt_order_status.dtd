@@ -29,6 +29,7 @@
 <!ENTITY rptorderstatus.savedorder "Stored">
 <!ENTITY rptorderstatus.canceledorder "Canceled">
 <!ENTITY rptorderstatus.voidedorder "Voided">
+<!ENTITY rptorderstatus.mergedorder "Merged">
 <!ENTITY rptorderstatus.periodtype "Period Type:">
 <!ENTITY rptorderstatus.annotationtype "Annotation Type:">
 <!ENTITY rptorderstatus.transaction_created "Order Opened">

@@ -103,6 +103,10 @@
             orders.forEach(function(order) {
                 var statusStr = order.status;
                 switch(parseInt(order.status)) {
+                    case -3:
+                        statusStr = _('(view)merged');
+                        break;
+
                     case -2:
                         statusStr = _('(view)voided');
                         break;
@@ -156,7 +160,12 @@
             var recallBtn = document.getElementById('recall');
             if (index > -1) {
                 detailsBtn.setAttribute('disabled', false);
-                recallBtn.setAttribute('disabled', false);
+                if (this._orders[index] && (this._orders[index].status == 1 || this._orders[index].status == 2)) {
+                    recallBtn.setAttribute('disabled', false);
+                }
+                else {
+                    recallBtn.setAttribute('disabled', true);
+                }
                 this._index = index;
             }
             else {

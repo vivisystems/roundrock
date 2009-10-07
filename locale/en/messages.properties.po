@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-07 13:27+0800\n"
+"POT-Creation-Date: 2009-10-07 14:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3862,14 +3862,14 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1207
 #: ../..//content/controllers/guest_check_controller.js:1334
 #: ../..//content/controllers/ledger_controller.js:312
-#: ../..//content/controllers/list_orders_controller.js:218
+#: ../..//content/controllers/list_orders_controller.js:222
 #: ../..//content/controllers/main_controller.js:1006
 #: ../..//content/controllers/main_controller.js:1373
 #: ../..//content/controllers/print_controller.js:1198
 #: ../..//content/controllers/setup_wizard_controller.js:700
 #: ../..//content/controllers/shift_changes_controller.js:1431
 #: ../..//content/controllers/stock_records_controller.js:730
-#: ../..//content/controllers/view_order_controller.js:210
+#: ../..//content/controllers/view_order_controller.js:214
 #: ../..//content/controllers/components/cart_utils.js:48
 msgid "Data Operation Error"
 msgstr ""
@@ -4788,7 +4788,7 @@ msgid "Please close the current order before recalling an existing order"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:636
-#: ../..//content/controllers/view_order_controller.js:143
+#: ../..//content/controllers/view_order_controller.js:147
 msgid "This order object does not exist [%S]"
 msgstr ""
 
@@ -5315,14 +5315,14 @@ msgstr ""
 
 #: ../..//content/controllers/journal_controller.js:211
 #: ../..//content/controllers/ledger_controller.js:313
-#: ../..//content/controllers/list_orders_controller.js:219
+#: ../..//content/controllers/list_orders_controller.js:223
 #: ../..//content/controllers/main_controller.js:1008
 #: ../..//content/controllers/main_controller.js:1374
 #: ../..//content/controllers/setup_wizard_controller.js:701
 #: ../..//content/controllers/shift_changes_controller.js:41
 #: ../..//content/controllers/shift_changes_controller.js:1432
 #: ../..//content/controllers/stock_records_controller.js:731
-#: ../..//content/controllers/view_order_controller.js:211
+#: ../..//content/controllers/view_order_controller.js:215
 #: ../..//content/controllers/components/cart_utils.js:49
 msgid ""
 "Please restart the machine, and if the problem persists, please contact "
@@ -5547,6 +5547,11 @@ msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:107
 #: ../..//content/controllers/view_order_controller.js:73
+msgid "(view)merged"
+msgstr ""
+
+#: ../..//content/controllers/list_orders_controller.js:111
+#: ../..//content/controllers/view_order_controller.js:77
 #: ../..//content/tpl/journal_template.tpl:18
 #: ../..//content/tpl/order_display_template.orig.tpl:29
 #: ../..//content/tpl/order_display_template.tpl:29
@@ -5558,8 +5563,8 @@ msgstr ""
 msgid "(view)voided"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:111
-#: ../..//content/controllers/view_order_controller.js:77
+#: ../..//content/controllers/list_orders_controller.js:115
+#: ../..//content/controllers/view_order_controller.js:81
 #: ../..//content/tpl/journal_template.tpl:14
 #: ../..//content/tpl/order_display_template.orig.tpl:25
 #: ../..//content/tpl/order_display_template.tpl:25
@@ -5569,8 +5574,8 @@ msgstr ""
 msgid "(view)cancelled"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:115
-#: ../..//content/controllers/view_order_controller.js:81
+#: ../..//content/controllers/list_orders_controller.js:119
+#: ../..//content/controllers/view_order_controller.js:85
 #: ../..//content/tpl/journal_template.tpl:6
 #: ../..//content/tpl/order_display_template.orig.tpl:17
 #: ../..//content/tpl/order_display_template.tpl:17
@@ -5580,8 +5585,8 @@ msgstr ""
 msgid "(view)completed"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:119
-#: ../..//content/controllers/view_order_controller.js:85
+#: ../..//content/controllers/list_orders_controller.js:123
+#: ../..//content/controllers/view_order_controller.js:89
 #: ../..//content/tpl/journal_template.tpl:10
 #: ../..//content/tpl/order_display_template.orig.tpl:21
 #: ../..//content/tpl/order_display_template.tpl:21
@@ -5591,16 +5596,16 @@ msgstr ""
 msgid "(view)stored"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:177
+#: ../..//content/controllers/list_orders_controller.js:181
 #: ../..//content/reports/controllers/rpt_base_controller.js:418
 msgid "Order Details"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:209
+#: ../..//content/controllers/list_orders_controller.js:213
 msgid "Recall Order"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:210
+#: ../..//content/controllers/list_orders_controller.js:214
 msgid "Failed to recall order"
 msgstr ""
 
@@ -7864,23 +7869,23 @@ msgid ""
 "(error code %S) [message #1901]."
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:113
+#: ../..//content/controllers/view_order_controller.js:117
 msgid "Order not found"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:119
+#: ../..//content/controllers/view_order_controller.js:123
 msgid "Are you sure you want to print this order?"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:136
+#: ../..//content/controllers/view_order_controller.js:140
 msgid "Are you sure you want to issue a receipt copy for this order?"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:148
+#: ../..//content/controllers/view_order_controller.js:152
 msgid "Reprint Receipt"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:149
+#: ../..//content/controllers/view_order_controller.js:153
 msgid "Only completed and voided orders may be reprinted"
 msgstr ""
 
