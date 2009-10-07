@@ -102,7 +102,7 @@ class TableStatus extends AppModel {
             $this->id = $table_id;
             $this->save($data);
         }else {
-            // update empty
+        // update empty
             $data = array('status'=>0, 'id'=>$table_id, 'table_id'=> $table_id, 'table_no'=>$table_no,
                 'order_count'=> 0, 'sum_total' => 0, 'sum_customer' => 0,
                 'modified' => (double)(microtime(true)*1000));
@@ -170,8 +170,8 @@ class TableStatus extends AppModel {
         $endTime = time() + 86400;
 
         $this->bindModel(array(
-                'hasMany'=>array('TableBooking'=> array('foreignKey'=>'table_id', 'order'=>'booking', 'conditions'=>"TableBooking.booking >= $startTime AND TableBooking.booking <= $endTime ")
-                )
+            'hasMany'=>array('TableBooking'=> array('foreignKey'=>'table_id', 'order'=>'booking', 'conditions'=>"TableBooking.booking >= $startTime AND TableBooking.booking <= $endTime ")
+            )
             )
         );
 
@@ -236,9 +236,16 @@ class TableStatus extends AppModel {
      * @param <type> $table_id
      * @return <type>
      */
-    function unmergeTable($table_id) {
+    function unmergeTable($tableId, $tableNo=false) {
 
-        $data = array('status'=>0, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
+        if(!$tableNo) {
+            $table = $this->Table->find('first', array('conditions'=> array("id"=>$tableId), 'fields'=>'table_no', 'recursive'=>-1));
+            if (!$table) return false;
+            $tableNo = $table['Table']['table_no'];
+        }
+
+        $data = array('id'=> $tableId, 'table_id'=> $tableId, 'table_no'=> $tableNo,
+            'status'=>0, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
             'start_time'=>time(), 'end_time'=>time()+86400,
             'hostby'=> 0,
             'modified' => (double)(microtime(true)*1000));
@@ -291,7 +298,84 @@ class TableStatus extends AppModel {
      */
     function unmarkTable($tableId) {
 
-        return $this->unmergeTable($tableId);
+        $table = $this->Table->find('first', array('conditions'=> array("id"=>$tableId), 'fields'=>'table_no', 'recursive'=>-1));
+
+        if (!$table) return false;
+
+        $tableNo = $table['Table']['table_no'];
+
+        // unmergetable will reset all status. use it.
+        return $this->unmergeTable($tableId, $tableNo);
+
+    }
+
+    /**
+     * markRegion
+     *
+     * @param <type> $regionId
+     * @param <type> $markId
+     * @param <type> $clerk
+     * @return <type>
+     */
+    function markRegion($regionId, $markId, $clerk) {
+
+        if ($regionId == 'ALL' ) {
+            $tables = $this->Table->find('all', array('fields'=>'id,table_no', 'recursive'=>-1));
+        }else {
+            $tables = $this->Table->find('all', array('conditions'=> array("table_region_id"=>$regionId), 'fields'=>'id,table_no', 'recursive'=>-1));
+        }
+
+        if (!$tables) return false;
+
+        $tableMark = new TableMark();
+        $mark = $tableMark->getMarkById($markId);
+
+        if (!$mark) return false;
+
+        foreach ($tables as $idx =>$table) {
+
+            $tableId = $table['Table']['id'];
+            $tableNo = $table['Table']['table_no'];
+
+            $data = array('id'=> $tableId, 'table_id'=> $tableId, 'table_no'=> $tableNo,
+                'status'=>3, 'mark' => $mark['name'] , 'mark_op_deny'=> $mark['opdeny'], 'mark_user'=> $clerk,
+                'start_time'=>time(), 'end_time'=>time() + $mark['period']*60,
+                'modified' => (double)(microtime(true)*1000)
+            );
+
+            $this->id = $tableId;
+            $this->save($data);
+
+        }
+
+        return true;
+    }
+
+    /**
+     * unmarkRegion
+     *
+     * @param <type> $regionId
+     * @return <type>
+     */
+    function unmarkRegion($regionId) {
+
+        if ($regionId == 'ALL' ) {
+            $tables = $this->Table->find('all', array('fields'=>'id,table_no', 'recursive'=>-1));
+        }else {
+            $tables = $this->Table->find('all', array('conditions'=> array("table_region_id"=>$regionId), 'fields'=>'id,table_no', 'recursive'=>-1));
+        }
+
+        if (!$tables) return false;
+
+        foreach ($tables as $idx =>$table) {
+
+            $tableId = $table['Table']['id'];
+            $tableNo = $table['Table']['table_no'];
+
+           $this->unmergeTable($tableId, $tableNo);
+        }
+
+        return true;
 
     }
 

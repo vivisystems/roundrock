@@ -128,5 +128,54 @@ class TableStatusController extends AppController {
         exit;
     }
 
+    /**
+     * markRegion
+     * @param <type> $regionId
+     * @param <type> $markId
+     * @param <type> $clerk
+     */
+    function markRegion($regionId, $markId, $clerk) {
+
+        if (empty($regionId) || empty($markId)) {
+            exit;
+        }
+
+        $this->TableStatus->markRegion($regionId, $markId, $clerk);
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => true
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+    }
+
+
+    /**
+     * unmarkRegion
+     * @param <type> $regionId
+     */
+    function unmarkRegion($regionId) {
+
+        if (empty($regionId)) {
+            exit;
+        }
+
+        $this->TableStatus->unmarkRegion($regionId);
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => true
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+    }
+
 }
 ?>
