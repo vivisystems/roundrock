@@ -1918,7 +1918,7 @@
                     type: 'data',
                     database: "/data/databases/vivipos_table.sqlite",
                     filename: '',
-                    table: ["tables", "table_statuses", "table_regions", "table_orders", "table_bookings"],
+                    table: ["tables", "table_statuses", "table_regions", "table_orders", "table_bookings", "table_marks", "table_order_locks", "table_settings", "table_wait_lists"],
                     imported: '',
                     exported: ''
                 },
