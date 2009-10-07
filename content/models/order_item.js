@@ -144,7 +144,7 @@
                             break;
                     }
                 }
-
+                orderItem.index = itemIndex;
                 items[itemIndex] = orderItem;
                 
                 // process summary

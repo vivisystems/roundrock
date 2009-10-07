@@ -1,10 +1,13 @@
 <!ENTITY splitcheck.title "Split Check">
 <!ENTITY splitcheck.name "Group Name">
-<!ENTITY splitcheck.button.action.split "Split">
-<!ENTITY splitcheck.button.action.reverse "Reverse">
+<!ENTITY splitcheck.button.action.split "Add Split">
 <!ENTITY splitcheck.button.action.cancel "Cancel">
 <!ENTITY splitcheck.button.action.confirm "Confirm">
 <!ENTITY splitcheck.button.action.paythis "Pay This Check">
+<!ENTITY splitcheck.button.action.addtosplit "Split">
+<!ENTITY splitcheck.button.action.mergeto "Merge">
+<!ENTITY splitcheck.button.action.splitpayment "Split Payment">
+<!ENTITY splitcheck.button.action.autosplitbymarkers "Auto Split By Markers">
 <!ENTITY splitcheck.sourcecheck "Source Check">
 <!ENTITY splitcheck.sourcecheck.checkno "Check Number:">
 <!ENTITY splitcheck.sourcecheck.tableno "Table Number:">

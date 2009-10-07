@@ -383,11 +383,6 @@ pref("vivipos.fec.registry.function.programmable.trainingMode.command", "start")
 pref("vivipos.fec.registry.function.programmable.trainingMode.controller", "TrainingMode");
 pref("vivipos.fec.registry.function.programmable.trainingMode.data", "");
 
-pref("vivipos.fec.registry.function.programmable.transferTable.access", "acl_transfer_table");
-pref("vivipos.fec.registry.function.programmable.transferTable.command", "transferTable");
-pref("vivipos.fec.registry.function.programmable.transferTable.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.transferTable.data", "");
-
 pref("vivipos.fec.registry.function.programmable.traymarker.access", "acl_register_tray_marker");
 pref("vivipos.fec.registry.function.programmable.traymarker.command", "addMarker");
 pref("vivipos.fec.registry.function.programmable.traymarker.controller", "Cart");

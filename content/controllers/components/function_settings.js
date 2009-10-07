@@ -102,6 +102,15 @@
                 'devScale2': {type:'css', method:'hidden', selector: '#devicesXUL #devicesScale2Box', checkForCss:'devScale2'},
                 'devJournal': {type:'css', method:'hidden', selector: '#devicesXUL #journal-tab', checkForCss:'devJournal'},
 
+                'tabRegion': {type:'css', method:'hidden', selector: '#tableManXUL #tab_regions', checkForCss:'tabRegion'},
+                'tabMark': {type:'css', method:'hidden', selector: '#tableManXUL #tab_marks,#selectTableXUL #markTableBtn,#selectTableXUL #unmarkTableBtn,#selectTableXUL #addmarksBtn,#selectTableXUL #clearMarksBtn', checkForCss:'tabMark'},
+                'tabMinimumCharge': {type:'css', method:'hidden', selector: '#tableManXUL vbox[module="minimumCharge"]', checkForCss:'tabMinimumCharge'},
+                'tabDock': {type:'css', method:'hidden', selector: '#tableManXUL #tab_options_dock', checkForCss:'tabDock'},
+                'tabSplitCheck': {type:'css', method:'hidden', selector: '#order_display_panel #splitCheckBox', checkForCss:'tabSplitCheck'},
+                'tabMergeCheck': {type:'css', method:'hidden', selector: '#order_display_panel #mergeCheckBox', checkForCss:'tabMergeCheck'},
+                'tabTransTable': {type:'css', method:'hidden', selector: '#order_display_panel #transTableBox', checkForCss:'tabTransTable'},
+                'tabBookingTable': {type:'css', method:'hidden', selector: '#selectTableXUL #bookBtn', checkForCss:'tabBookingTable'},
+
                 'optTrainingMode': {type:'css', method:'hidden', selector: '#prefwin radio[pane="trainingSettingsPane"]', checkForCss:'optTrainingMode'},
                 'optFormatSettings': {type:'css', method:'hidden', selector: '#prefwin radio[pane="formatSettingsPane"]', checkForCss:'optFormatSettings'},
                 'optAddonsUpdate': {type:'css', method:'hidden', selector: '#extensionsManager #addonContextMenu, #extensionsManager #checkUpdatesAllButton', checkForCss:'optAddonsUpdate'},
@@ -179,7 +188,6 @@
                 'fnDeptbyno': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.deptbyno'},
                 'fnDiscountByAmount': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.discountByAmount', acl:'acl_register_reduction', checkForAcl:'fnDiscountByAmount'},
                 'fnDiscountByPercentage': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.discountByPercentage', acl:'acl_register_discount', checkForAcl:'fnDiscountByPercentage'},
-                'fnDiscountPretaxByPercentage': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.discountPretaxByPercentage', acl:'acl_register_pretax_discount', checkForAcl:'fnDiscountPretaxByPercentage'},
                 'fnDispatch': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.dispatch', acl:'acl_internal_access', checkForAcl:'fnDispatch'},
                 'fnEnter': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.enter', acl:'acl_register_enter', checkForAcl:'fnEnter'},
                 'fnGiftcard': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.giftcard', acl:'acl_register_giftcard', checkForAcl:'fnGiftcard'},
@@ -214,8 +222,6 @@
                 'fnQuicksignoff': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.quicksignoff'},
                 'fnReboot': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.reboot'},
                 'fnRecallCheck': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.recallCheck', acl:'acl_recall_check', checkForAcl:'fnRecallCheck,fnRecallTable,fnRecallOrder'},
-                'fnRecallTable': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.recallTable', acl:'acl_recall_check', checkForAcl:'fnRecallCheck,fnRecallTable,fnRecallOrder'},
-                'fnRecallOrder': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.recallOrder', acl:'acl_recall_check', checkForAcl:'fnRecallCheck,fnRecallTable,fnRecallOrder'},
                 'fnReceipt': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.receipt', acl:'acl_issue_post_receipt', checkForAcl:'fnReceipt'},
                 'fnReceiptcopy': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.receiptcopy', acl:'acl_issue_post_receipt_copy', checkForAcl:'fnReceiptcopy'},
                 'fnReturn': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.return', acl:'acl_register_return', checkForAcl:'fnReturn,fnReturncartitem'},
@@ -228,13 +234,11 @@
                 'fnShutdown': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.shutdown'},
                 'fnSignOff': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.signOff'},
                 'fnSilentsignoff': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.silentsignoff'},
-                'fnSplitCheck': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.splitCheck', acl:'acl_split_check', checkForAcl:'fnSplitCheck'},
                 'fnStockAdjustment': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.stockAdjustment', acl:'acl_stock_adjustment', checkForAcl:'fnStockAdjustment'},
                 'fnStoreCheck': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.storeCheck', acl:'acl_store_check', checkForAcl:'fnStoreCheck'},
                 'fnSubtotal': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.subtotal', acl:'acl_register_sub_total', checkForAcl:'fnSubtotal'},
                 'fnSurchargeByAmount': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.surchargeByAmount', acl:'acl_register_addition', checkForAcl:'fnSurchargeByAmount'},
                 'fnSurchargeByPercentage': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.surchargeByPercentage', acl:'acl_register_surcharge', checkForAcl:'fnSurchargeByPercentage'},
-                'fnSurchargePretaxByPercentage': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.surchargePretaxByPercentage', acl:'acl_register_pretax_surcharge', checkForAcl:'fnSurchargePretaxByPercentage'},
                 'fnTagitem': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.tagitem', acl:'acl_tag_item', checkForAcl:'fnTagitem'},
                 'fnTogglevirtualkeyboard': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.togglevirtualkeyboard'},
                 'fnTrainingMode': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.trainingMode', acl:'acl_training_mode', checkForAcl:'fnTrainingMode'},
@@ -242,7 +246,9 @@
                 'fnTraymarker': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.traymarker', acl:'acl_register_tray_marker', checkForAcl:'fnTraymarker'},
                 'fnTruncatetxnrecords': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.truncatetxnrecords', acl:'acl_truncate_transaction_records', checkForAcl:'fnTruncatetxnrecords'},
                 'fnVieworders': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.vieworders', acl:'acl_view_orders', checkForAcl:'fnVieworders'},
-                'fnVoidItem': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.voidItem', acl:'acl_void_cart_item', checkForAcl:'fnVoidItem'}                
+                'fnVoidItem': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.voidItem', acl:'acl_void_cart_item', checkForAcl:'fnVoidItem'},
+                'fnSplitCheck': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.splitCheck', acl:'acl_split_check', checkForAcl:'fnSplitCheck,fnSplitPayment'},
+                'fnSplitPayment': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.splitPayment', acl:'acl_split_check', checkForAcl:'fnSplitPayment,fnSplitCheck'}
             }
     };
 

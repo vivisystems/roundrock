@@ -384,6 +384,16 @@
             
             if(btn) btn.setAttribute('checked', true);
 
+            if (action=='mergeCheck') {
+                $('button[group="funcOrderDisp"]').each(function(btn) {
+                    this.setAttribute('hidden', true);
+                });
+            }else {
+                $('button[group="funcOrderDisp"]').each(function(btn) {
+                    this.removeAttribute('hidden');
+                });
+            }
+
         },
 
         /**
@@ -437,6 +447,10 @@
                 case 'transferTable':
                     this.setActionButtonChecked(action);
                     this.setPromptLabel('*** ' + _('Trans Table') + ' ***', _('Please select the table to be transfered...'), 2);
+                    break;
+                case 'mergeCheck':
+                    this.setActionButtonChecked(action);
+                    this.setPromptLabel('*** ' + _('Merge Check') + ' ***', _('Please select the table and check to be merged...'), 2);
                     break;
             }
         },
@@ -494,6 +508,10 @@
                     break;
                 case 'transferTable':
                     this.executeTransferTable(table_id);
+                    break;
+                case 'mergeCheck':
+                    this.executeSelectTable(table_id);
+                    //this.executeMergeCheck(table_id);
                     break;
             }
 
@@ -568,11 +586,11 @@
             try {
                 let ordersId = GeckoJS.BaseObject.getKeys(tableStatus.OrdersById);
                 if (!tableStatus || tableStatus.TableOrder.length != ordersId.length) {
-                   NotifyUtils.error(_('Table [%S] Not available to view order.',[table_no]));
+                    NotifyUtils.error(_('Table [%S] Not available to view order.',[table_no]));
                 }
             }catch(e) {
-                   NotifyUtils.error(_('Table [%S] Not available to view order.',[table_no]));
-                   return;
+                NotifyUtils.error(_('Table [%S] Not available to view order.',[table_no]));
+                return;
             }
 
             // unserialize orderObject 
@@ -735,7 +753,7 @@
          *
          * @param {Object} table
          */
-        openSelectMarkDialog: function (table){
+        openSelectMarkDialog: function (description){
 
             var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
             var screenheight = GeckoJS.Session.get('screenheight') || 600;
@@ -743,14 +761,12 @@
             var aURL = 'chrome://viviecr/content/select_mark.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
-            var tableNo = table.table_no;
-            var tableName = table.table_name;
             var inputObj = {
                 marks: this.TableMark.getTableMarks(),
                 id: '',
                 name: '',
                 title: _('Select Table Status'),
-                description: _('You are now marking table status of Table# %S (%S)', [tableNo,tableName])
+                description: description
             };
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Status'), aFeatures, inputObj);
 
@@ -783,7 +799,10 @@
                 return ;
             }
 
-            var markId = this.openSelectMarkDialog(table);
+            var tableNo = table.table_no;
+            var tableName = table.table_name;
+            var description = _('You are now marking table status of Table# %S (%S)', [tableNo,tableName]);
+            var markId = this.openSelectMarkDialog(description);
 
             if (!markId) {
                 // XXX error message ?
@@ -843,6 +862,81 @@
 
         },
 
+
+        /**
+         * executeMarkRegion  -- called from table selector
+         */
+        executeMarkRegion: function() {
+
+            var selectedRegion = this.getSelectedRegion();
+
+            var region = null;
+
+            if (selectedRegion == 'ALL') {
+                region = {
+                    id: 'ALL',
+                    name: _('All Regions')
+                    };
+            }else {
+                region = this.Table.TableRegion.getTableRegionById(selectedRegion);
+            }
+
+            var description = _('You are now marking table status of Region# %S', [region.name]);
+
+            var markId = this.openSelectMarkDialog(description);
+
+            if (!markId) {
+                // XXX error message ?
+                return false;
+            }
+
+            var user = this.Acl.getUserPrincipal();
+            var clerk = '' ;
+            if ( user != null ) {
+                clerk = user.description || user.username;
+            }
+
+            // mark table
+            this.Table.TableStatus.markRegion(region.id, markId, clerk);
+
+            this.setAction('selectTable');
+
+            // refresh
+            this.refreshTableStatus();
+
+        },
+
+        /**
+         * executeUnmarkRegion  -- called from table selector
+         */
+        executeUnmarkRegion: function() {
+
+            var selectedRegion = this.getSelectedRegion();
+
+            var region = null;
+
+            if (selectedRegion == 'ALL') {
+                region = {
+                    id: 'ALL',
+                    name: _('All Regions')
+                    };
+            }else {
+                region = this.Table.TableRegion.getTableRegionById(selectedRegion);
+            }
+            
+           var description = _('You are now cleaning table status of Region# %S', [region.name]);
+
+            if (!GREUtils.Dialog.confirm(this.topmostWindow, _('Clear Table Status'), description)) return;
+
+            // unmark table
+            this.Table.TableStatus.unmarkRegion(region.id);
+
+            this.setAction('selectTable');
+
+            // refresh
+            this.refreshTableStatus();
+
+        },
 
         /**
          * recallOrder -- called by orderdisplay popup panel
@@ -961,6 +1055,74 @@
         },
 
 
+        /**
+         * splitCheck -- called by orderdisplay popup panel
+         */
+        splitCheck: function(orderId) {
+
+            this.hideOrderDisplayPanel();
+            
+            // call guest_check transferTable
+            this.requestCommand('splitCheck', orderId, 'GuestCheck');
+
+            // set action and prompt label.
+            this.setAction('selectTable');
+
+            // refresh
+            this.refreshTableStatus();
+
+        },
+
+        mergeCheck: function(orderId) {
+
+            let orgTable = this._actionData ? this._actionData : null;
+            let prevActionData = this._prevActionData || {};
+
+            if (prevActionData.orderId) {
+                // submit merge
+                let sourceOrderId = prevActionData.orderId;
+                let targetOrderId = orderId;
+
+                this.executeMergeCheck(sourceOrderId, targetOrderId);
+                this._prevActionData = {};
+                
+            }else {
+                // set orgTable,order_id to _actionData
+                this._prevActionData = {
+                    orgTable: orgTable,
+                    orderId: orderId
+                };
+
+                this.hideOrderDisplayPanel();
+
+                // set Action and prompt label
+                this.setAction('mergeCheck');
+            }
+
+
+        },
+
+        /**
+         * mergeCheck -- called by orderdisplay popup panel
+         */
+        executeMergeCheck: function(sourceOrderId, targetOrderId) {
+
+            this.hideOrderDisplayPanel();
+
+            // call guest_check transferTable
+            this.requestCommand('mergeCheck', {
+                source: sourceOrderId,
+                target: targetOrderId
+            }, 'GuestCheck');
+
+            // set action and prompt label.
+            this.setAction('selectTable');
+
+            // refresh
+            this.refreshTableStatus();
+
+        },
+        
         /**
          * openTableBookDialog
          */

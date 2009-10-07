@@ -263,6 +263,36 @@
 
 
         /**
+         * open split check Dialog
+         */
+        openSplitCheckDialog: function (transaction){
+
+            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+            var screenheight = GeckoJS.Session.get('screenheight') || '600';
+
+            var aURL = "chrome://viviecr/content/split_check.xul";
+            var aName = _("Split Check");
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            
+            var inputObj = {
+                ok: false,
+                transaction: transaction,
+                source_data: null,
+                split_datas: []
+
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, inputObj);
+
+            if (inputObj.ok) {
+                return inputObj;
+            }
+
+            return null;
+
+        },
+
+        /**
          * Set Number of customers to transaction object
          *
          * @param {Number} num  default number of customers
@@ -316,18 +346,7 @@
             useNumberPad = useNumberPad || false;
 
             var cart = this.getCartController();
-            var curTransaction = cart._getTransaction(true); // autocreate
 
-            if (! cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Please open a new order first'));
-                cart._clearAndSubtotal();
-                return '';
-            }
-
-            if (no.length == 0 && !useNumberPad) {
-                // popup panel and return
-                return this.popupTableSelectorPanel();
-            }
 
             if (no.length == 0) {              
                 no = this.getKeypadController().getBuffer() || '';
@@ -335,10 +354,14 @@
                 cart._cancelReturn();
             }
 
-            // use callback to select table.
             if (no.length == 0) {
-                // popup dialog
-                no = this.openTableNumDialog() ;
+                if (!useNumberPad) {
+                    // popup panel and return
+                    return this.popupTableSelectorPanel();
+                }else {
+                    // use callback to select table.
+                    no = this.openTableNumDialog() ;
+                }
             }
 
             // maybe use tableSelector or not select
@@ -347,6 +370,14 @@
             // get table define
             var table = this.Table.getTableByNo(no);
             if (table) {
+                
+                var curTransaction = cart._getTransaction(true); // autocreate
+
+                if (! cart.ifHavingOpenedOrder() ) {
+                    NotifyUtils.warn(_('Please open a new order first'));
+                    cart._clearAndSubtotal();
+                    return '';
+                }
 
                 // set destination action
                 var destination = table.destination;
@@ -429,7 +460,7 @@
                 input:splitPayments
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Split Payments'), aFeatures, _('Split Payments'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Split Payment'), aFeatures, _('Split Payment'), inputObj);
 
             if (inputObj.ok && inputObj.input) {
                 return inputObj.input;
@@ -578,14 +609,13 @@
         },
 
         /**
-         * recall order by order id
+         * getTransactionByOrderId
          *
          * @param {String} orderId   order uuid
-         * @return {Boolean} true if success
+         * @return {Object} for transaction.data object
          */
-        recallOrder: function(orderId) {
+        getTransactionDataByOrderId: function(orderId) {
 
-            if (!this.beforeRecall(orderId)) return false;
 
             orderId = orderId || '';
             if (orderId.length == 0) {
@@ -598,6 +628,8 @@
                 return this.recallCheck("-1");
             }
 
+            if (orderId.length == 0) return false;
+            
             let orderData = this.Order.readOrder(orderId, true); // recall use master service's datas.
 
             if (!orderData) {
@@ -615,7 +647,7 @@
 
             // check okay, convert to transaction data
             let data = this.Order.mappingOrderDataToTranData(orderData);
-           
+
             if (data.display_sequences == undefined) {
                 NotifyUtils.error(_('This order cannot be recalled [%S]', [orderId]));
                 // release for other machine use.
@@ -623,7 +655,42 @@
                 return false;
             }
 
-            // set status to recall
+            return data;
+
+        },
+
+
+        /**
+         * recall order by order id
+         *
+         * @param {String} orderId   order uuid
+         * @param {Boolean} skipCheckCart skipCheckCart opened transaction
+         * @return {Boolean} true if success
+         */
+        recallOrder: function(orderId, skipCheckCart) {
+
+            skipCheckCart = skipCheckCart || false;
+            
+            if(!skipCheckCart) {
+                if (!this.beforeRecall(orderId)) return false;
+            }
+            
+            orderId = orderId || '';
+            if (orderId.length == 0) {
+                orderId = this.getKeypadController().getBuffer() || '';
+                this.getKeypadController().clearBuffer();
+            }
+
+            if (orderId.length == 0 ) {
+                // use recallCheck mode and select dialog
+                return this.recallCheck("-1");
+            }
+
+            let data = this.getTransactionDataByOrderId(orderId);
+
+            if(!data) return false;
+
+            // set status to recall and udpate status to open status.
             data.recall = data.status;
 
             // update status to open status for now
@@ -631,6 +698,11 @@
 
             var curTransaction = new Transaction(true);
             curTransaction.data  = data;
+
+            // recall alway recalc promotions
+            Transaction.events.dispatch('onUnserialize', curTransaction, curTransaction);
+            curTransaction.calcPromotions();
+            curTransaction.calcTotal();
 
             // update transaction to cart
             var cart = this.getCartController()
@@ -655,10 +727,11 @@
          * recall by Check NO
          * 
          * @param {String} checkNo
+         * @param {Boolean} skipRecall
          */
-        recallCheck: function(checkNo) {
+        recallCheck: function(checkNo, skipRecall) {
 
-            if (!this.beforeRecall(orderId)) return false;
+            skipRecall = skipRecall || false;
 
             checkNo = checkNo || '';
             if (checkNo.length == 0) {
@@ -698,7 +771,11 @@
             }
 
             if(orderId.length>0) {
-                return this.recallOrder(orderId);
+                if (skipRecall) {
+                    return orderId;
+                }else {
+                    return this.recallOrder(orderId);
+                }
             }else {
                 return false;
             }
@@ -988,6 +1065,19 @@
          */
         changeClerk: function(orderId){
 
+            let fnTrigger = false;
+            orderId = orderId || false;
+
+            if (!orderId) {
+
+                let txn = this.getCartController()._getTransaction();
+                if (txn && txn.data) {
+                    orderId = txn.data.id;
+                    fnTrigger = true;
+                }
+            }
+            if (!orderId) return false;
+            
             var user = this.Acl.getUserPrincipal();
             var order = {
                 id: orderId,
@@ -1003,35 +1093,306 @@
 
         /**
          * mergeCheck
-         *
-         * @todo need rewrite
          */
-        mergeCheck: function() {
+        mergeCheck: function(data) {
+            
+            data = data || false ;
+            var result = false;
+            let fnTrigger = false;
+            var sourceOrderId = '';
+            var targetOrderId = '';
+            var sourceOrderSeq = '';
+            var targetOrderSeq = '';
 
+            if(data && typeof data =='object') {
+                
+                sourceOrderId = data.source || '';
+                targetOrderId = data.target || '';
+
+            }else {
+                // fn trigger
+                let txn = this.getCartController()._getTransaction();
+                if (txn && txn.data && !txn.isModified()) {
+                    sourceOrderId = txn.data.id;
+                    targetOrderId = this.recallCheck('', true);
+
+                    if (sourceOrderId && targetOrderId) fnTrigger = true;
+                }
+            }
+
+            if (sourceOrderId == targetOrderId && sourceOrderId.length > 0) {
+                NotifyUtils.error(_('The same order can not be merge'));
+                return false;
+            }
+
+            let sourceData = this.getTransactionDataByOrderId(sourceOrderId);
+            let targetData = this.getTransactionDataByOrderId(targetOrderId);
+            
+            let canMerge = true;
+            let message = "";
+
+            if ((sourceData.status != 2 && sourceData.recall != 2) || (targetData.status != 2 && targetData.recall != 2) ) {
+                canMerge = false;
+                message = _('This order not stored order, can not be merge');
+            }
+            if((parseFloat(sourceData['payment_subtotal']) > 0) || (parseFloat(targetData['payment_subtotal']) > 0) ) {
+                canMerge = false;
+                message = _('This order has been payment, can not be merge');
+            }
+            if((parseFloat(sourceData['trans_discount_subtotal']) > 0 || parseFloat(sourceData['trans_surcharge_subtotal']) > 0) ||
+                (parseFloat(targetData['trans_discount_subtotal']) > 0 || parseFloat(targetData['trans_surcharge_subtotal']) > 0) ) {
+                canMerge = false;
+                message = _('This order has discounts or surcharge, can not be merge');
+            }
+
+            if (!canMerge) {
+                this.Order.releaseOrderLock(sourceOrderId);
+                this.Order.releaseOrderLock(targetOrderId);
+                NotifyUtils.error(message);
+                return false;
+            }
+
+            // set seq
+            sourceOrderSeq = sourceData.seq;
+            targetOrderSeq = targetData.seq;
+
+            let transaction = new Transaction(true, true);
+            transaction.data = sourceData ;
+
+            let targetTransaction = new Transaction(true, true);
+            targetTransaction.data = targetData;
+
+            // move all items
+            transaction.moveCloneAllItems(targetTransaction);
+
+            try {
+                // save orignal orders
+                Transaction.events.dispatch('onUnserialize', transaction, transaction);
+                transaction.calcPromotions();
+                transaction.calcTotal();
+                transaction.setBackgroundMode(false);
+                transaction.data.status = 2
+                transaction.submit(2);
+
+                let inherited_order_id = targetData.inherited_order_id || '' ;
+                inherited_order_id = inherited_order_id.length > 0 ? (inherited_order_id+','+sourceOrderId) : sourceOrderId;
+
+                let inherited_desc = targetData.inherited_desc || '' ;
+                inherited_desc = inherited_desc.length > 0 ? (inherited_desc+','+_('Merge Check')) : _('Merge Check') ;
+                
+                Transaction.events.dispatch('onUnserialize', targetTransaction, targetTransaction);
+                targetTransaction.calcPromotions();
+                targetTransaction.calcTotal();
+                targetTransaction.setBackgroundMode(false);
+                targetTransaction.data.status = -3;
+                targetTransaction.data.inherited_order_id = inherited_order_id;
+                targetTransaction.data.inherited_desc = inherited_desc;
+                targetTransaction.submit(-3);
+              
+                result = true;
+
+            }catch(e) {
+                this.log('ERROR', 'Error mergeCheck', e);
+            }finally {
+
+                // finally commit the submit , and write transaction to databases(or to remote databases).
+                var commitStatus = -99 ;
+
+                try {
+                    // commit order data to local databases or remote.
+                    commitStatus = transaction.commit(2);
+
+                    if (commitStatus == -1) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation Error'),
+                            _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
+                        this.dispatchEvent('commitOrderError', commitStatus);
+                        return false;
+                    }
+                    result = (result & true);
+
+                }catch(ee) {
+                    this.log('ERROR', 'Error mergeCheck commit', ee);
+                }
+
+            }
+
+            if (result) {
+                OsdUtils.info(_('Check# %S has been successfully merged to Check# %S', [targetOrderSeq, sourceOrderSeq]));
+                if (fnTrigger) {
+                    this.Order.releaseOrderLock(targetOrderId);
+                    // recall order
+                    this.recallOrder(sourceOrderId, true);
+                }else {
+                    this.Order.releaseOrderLock(sourceOrderId);
+                    this.Order.releaseOrderLock(targetOrderId);
+                }
+            }
+            return result;
+            
         },
 
 
         /**
          * splitCheck
-         *
-         * @todo need rewrite
          */
-        splitCheck: function() {
+        splitCheck: function(orderId) {
 
+            let fnTrigger = false;
+            orderId = orderId || false;
+
+            if (!orderId) {
+                
+                let txn = this.getCartController()._getTransaction();
+                if (txn && txn.data && !txn.isModified()) {
+                    orderId = txn.data.id;
+                    fnTrigger = true;
+                }
+            }
+            if (!orderId) return false;
+            
+            let data = this.getTransactionDataByOrderId(orderId);
+            
+            if (!data) return false;
+
+            let canSplit = true;
+            let message = "";
+
+            if (data.status != 2 && data.recall != 2) {
+                canSplit = false;
+                message = _('This order not stored order, can not be split');
+            }
+            if(parseFloat(data['payment_subtotal']) > 0) {
+                canSplit = false;
+                message = _('This order has been payment, can not be split');
+            }
+            if(parseFloat(data['trans_discount_subtotal']) > 0 || parseFloat(data['trans_surcharge_subtotal']) > 0) {
+                canSplit = false;
+                message = _('This order has discounts or surcharge, can not be split');
+            }
+
+            if (!canSplit) {
+                this.Order.releaseOrderLock(orderId);
+                NotifyUtils.error(message);
+                return false;
+            }
+
+            let sourceSeq = data.seq;
+            let splitSeqs = [];
+            let transaction = new Transaction(true, true);
+            transaction.data = data ;
+
+            let result = this.openSplitCheckDialog(transaction);
+            let result2 = false;
+
+            if (result) {
+
+                try {
+                    // save orignal orders
+                    Transaction.events.dispatch('onUnserialize', transaction, transaction);
+                    transaction.calcPromotions();
+                    transaction.calcTotal();
+                    transaction.setBackgroundMode(false);
+                    transaction.submit(2);
+
+                    for(let i in result.split_datas) {
+                        
+                        let sTrans = new Transaction(false, true);
+                        let sTranSeq = sTrans.data.seq;
+
+                        let sTranCheckNo = sTrans.data.check_no;
+                        splitSeqs.push(sTranSeq);
+
+                        sTrans.data = result.split_datas[i];
+                        sTrans.data.seq = sTranSeq;
+                        sTrans.data.check_no = sTranCheckNo;
+                        sTrans.data.inherited_order_id = orderId;
+                        sTrans.data.inherited_desc = _('Split Check');
+
+                        Transaction.events.dispatch('onUnserialize', sTrans, sTrans);
+                        sTrans.calcPromotions();
+                        sTrans.calcTotal();
+                        sTrans.setBackgroundMode(false);
+                        sTrans.submit(2);
+                    }
+
+                    result2 = true;
+
+                }catch(e) {
+                    this.log('ERROR', 'Error splitCheck ', e);
+                }finally {
+
+                    // finally commit the submit , and write transaction to databases(or to remote databases).
+                    var commitStatus = -99 ;
+
+                    try {
+                        // commit order data to local databases or remote.
+                        commitStatus = transaction.commit(2);
+
+                        if (commitStatus == -1) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
+                            this.dispatchEvent('commitOrderError', commitStatus);
+                            return false;
+                        }
+
+                        result2 = (result2 & true);
+
+                    }catch(ee) {
+                        this.log('ERROR', 'Error splitCheck commit', ee);
+                    }
+
+                }
+
+                if (result2){
+                    OsdUtils.info(_('Check# %S has been successfully split to Check# %S', [sourceSeq, splitSeqs.join(',')]));
+                    if (fnTrigger) {
+                        // recall order
+                        this.recallOrder(orderId, true);
+                    }else {
+                        this.Order.releaseOrderLock(orderId);
+                    }
+                }
+            }else {
+                this.Order.releaseOrderLock(orderId);
+            }
+            return result2;
         },
 
 
         /**
          * transferTable 
-         *
          */
         transferTable: function(data){
-            
-            var orderId = data.orderId || '';
-            var orgTableId = data.orgTableId || '';
-            var newTableId = data.newTableId || '';
 
-            var result = this.Order.transferTable(orderId, orgTableId, newTableId);
+            data = data || false ;
+            var result = false;
+            let fnTrigger = false;
+            
+            if(data && typeof data =='object') {
+                var orderId = data.orderId || '';
+                var orgTableId = data.orgTableId || '';
+                var newTableId = data.newTableId || '';
+
+                result = this.Order.transferTable(orderId, orgTableId, newTableId);
+            }else {
+                fnTrigger = true;
+                let txn = this.getCartController()._getTransaction();
+                
+                if (!txn || (txn.data.status != 2 && txn.data.recall != 2) ) {
+                    return false ;
+                }
+
+                var newTableNo = this.openTableNumDialog();
+
+                var orgTable = this.Table.getTableByNo(txn.data.table_no);
+                var newTable = this.Table.getTableByNo(newTableNo);
+                var orderId = txn.data.id;
+
+                result = this.Order.transferTable(orderId, orgTable.id, newTable.id);
+                this.recallOrder(orderId);
+            }
 
             return result;
 

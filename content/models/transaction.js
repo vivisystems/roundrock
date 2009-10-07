@@ -9,7 +9,9 @@
 
         name: 'Transaction',
 
-        init: function(recoveryMode) {
+        init: function(recoveryMode, backgroundMode) {
+
+            this.backgroundMode = backgroundMode || false;
 
             this.view = null,
 
@@ -28,6 +30,7 @@
                 items: {},
                 items_count: 0,
                 items_summary: {},
+                items_stock_maintained: {},
 
                 /*
                  * order_additions
@@ -116,13 +119,22 @@
 
                 created: '',
                 modified: '',
-                lastModifiedTime: ''
+                lastModifiedTime: '',
+
+                inherited_order_id: '',
+                inherited_desc: ''
+
             };
 
             this.create(recoveryMode);
 
 
         },
+
+        setBackgroundMode: function(backgroundMode) {
+            this.backgroundMode = backgroundMode || false;
+        },
+
 
         /**
          * Transaction Serialization , only for recovery.
@@ -208,7 +220,7 @@
                     }
 
                     self.data.seq = self.buildOrderSequence(order_no);
-                    GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
+                    if(!self.backgroundMode) GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
 
                     // update checkno
                     if (check_no != -1 ) {
@@ -217,7 +229,7 @@
                 });
             }
 
-            GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers || '');
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers || '');
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
 
@@ -296,7 +308,7 @@
             if (self.data.seq.length == 0 || self.data.seq == -1) {
                 // maybe from recovery
                 self.data.seq = self.buildOrderSequence(SequenceModel.getSequence('order_no', false));
-                GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
+                if(!self.backgroundMode) GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
             }
 
             if (self.data.seq == '-1') {
@@ -412,12 +424,14 @@
 
         updateCartView: function(prevRowCount, currentRowCount, cursorIndex) {
 
+            if(this.backgroundMode) return ;
+            
             this.view.data = this.data.display_sequences;
             this.view.rowCountChanged(prevRowCount, currentRowCount, cursorIndex);
 
             //GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
-            GeckoJS.Session.set('vivipos_fec_number_of_items', this.data.qty_subtotal);
-            GeckoJS.Session.set('vivipos_fec_tax_total', this.formatTax(this.getRoundedTax(this.data.tax_subtotal)));
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_items', this.data.qty_subtotal);
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_tax_total', this.formatTax(this.getRoundedTax(this.data.tax_subtotal)));
         },
 
         createItemDataObj: function(index, item, sellQty, sellPrice, parent_index) {
@@ -735,7 +749,7 @@
             sellQty: item.current_qty*/
             };
 
-            GeckoJS.Session.set('cart_last_sell_item', lastSellItem);
+            if(!this.backgroundMode) GeckoJS.Session.set('cart_last_sell_item', lastSellItem);
         },
 
         checkSellPrice: function(item) {
@@ -1456,8 +1470,8 @@
                         var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
                         if (discount_amount > item_discount_limit_amount) {
                             NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
-                                               [this.formatPrice(discount_amount),
-                                                this.formatPrice(item_discount_limit_amount)]));
+                                [this.formatPrice(discount_amount),
+                                this.formatPrice(item_discount_limit_amount)]));
                             return;
                         }
                     }
@@ -1466,7 +1480,7 @@
                         // discount too much
                         NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
                             [this.formatPrice(discount_amount),
-                             this.formatPrice(item.current_subtotal)]));
+                            this.formatPrice(item.current_subtotal)]));
 
                         return;
                     }
@@ -1529,7 +1543,7 @@
                     // discount too much
                     NotifyUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
                         [this.formatPrice(discountItem.current_discount),
-                         this.formatPrice(remainder)]));
+                        this.formatPrice(remainder)]));
                     return;
                 }
                 discountItem.current_discount = 0 - discountItem.current_discount;
@@ -1576,7 +1590,7 @@
                     var item = transItems[index];
                     var non_discountable = productModel.isNonDiscountable(item.id, false);
                     if(item.type == 'item' && item.parent_index == null && non_discountable == false
-                       && item.hasDiscount == false && item.hasSurcharge == false && item.hasMarker == false) {
+                        && item.hasDiscount == false && item.hasSurcharge == false && item.hasMarker == false) {
 
                         let displayIndex = this.getDisplayIndexByIndex(index);
                         let result = this.appendDiscount(displayIndex, discount);
@@ -1627,8 +1641,8 @@
                         var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
                         if (surcharge_amount > surcharge_limit_amount) {
                             NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
-                                               [this.formatPrice(surcharge_amount),
-                                                this.formatPrice(surcharge_limit_amount)]));
+                                [this.formatPrice(surcharge_amount),
+                                this.formatPrice(surcharge_limit_amount)]));
                             return;
                         }
                     }
@@ -2579,7 +2593,7 @@
                         };
                     }
                 }
-                //this.log('DEBUG', 'item details: ' + this.dump(item));
+            //this.log('DEBUG', 'item details: ' + this.dump(item));
             }
 
             //this.log('DEBUG', 'dispatchEvent onCalcItemsTax ' + items);
@@ -2934,7 +2948,7 @@
 
         setNumberOfCustomers: function(num) {
             num = isNaN(parseInt(num)) ? (1+'') : (parseInt(num)+'');
-            GeckoJS.Session.set('vivipos_fec_number_of_customers', num || '');
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_customers', num || '');
             this.data.no_of_customers = num;
         },
 
@@ -2944,7 +2958,7 @@
 
         setTableNo: function(tableNo) {
             tableNo = tableNo ? (parseInt(tableNo)+'') : '';
-            GeckoJS.Session.set('vivipos_fec_table_number', tableNo);
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_table_number', tableNo);
             this.data.table_no = tableNo;
         },
 
@@ -2954,7 +2968,7 @@
 
         setCheckNo: function(checkNo) {
             checkNo = isNaN(parseInt(checkNo)) ? (-1 +'') : (parseInt(checkNo)+'');
-            GeckoJS.Session.set('vivipos_fec_check_number', checkNo);
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_check_number', checkNo);
             this.data.check_no = checkNo;
         },
 
@@ -2964,6 +2978,243 @@
 
         isSplitPayments: function() {
             return (this.data.split_payments || false);
+        },
+
+
+        /**
+         * moveItem from source transaction by index
+         *
+         * @param {Object} source   source transaction object
+         * @param {Number} index    index of source transaction display sequences
+         */
+        _moveItem: function(source, index) {
+
+            var selectedItemDisplay = source.getDisplaySeqAt(index); // display item at cursor position
+            var selectedItemIndex = selectedItemDisplay.index;
+            var displaySeqCount = source.getDisplaySeqCount();
+
+            var removeIndexes = {};
+            var removeCount = 0;
+
+            // move items by for-loop display_sequences
+            for (let i=index; i<displaySeqCount;i++) {
+
+                let itemDisplay = source.getDisplaySeqAt(i);
+                let itemIndex = itemDisplay.index;
+                let itemParentIndex = itemDisplay.parent_index;
+                let itemType = itemDisplay.type;
+                let item = source.data.items[itemIndex];
+                let parentItem = null;
+                if (itemParentIndex) {
+                    parentItem = source.data.items[itemParentIndex];
+                }
+
+                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex) {
+                    
+                    if (itemIndex && !removeIndexes[itemIndex]) {
+                        removeIndexes[itemIndex] = itemIndex;
+                        this.data.items[itemIndex] = item;
+                    }
+
+                    this.data.display_sequences.push(itemDisplay);
+                    removeCount++;
+                }else {
+                    break;
+                }
+            }
+
+            this.data.items_count += GeckoJS.BaseObject.getKeys(removeIndexes).length;
+            source.data.items_count -= GeckoJS.BaseObject.getKeys(removeIndexes).length;
+
+            for(let j in removeIndexes) {
+                let idx = removeIndexes[j];
+                delete source.data.items[idx] ;
+            }
+            source.removeDisplaySeq(index, removeCount);
+
+            
+        },
+
+
+        /**
+         * CloneItem from source transaction by index and remove source qty
+         *
+         * @param {Object} source   source transaction object
+         * @param {Number} index    index of source transaction display sequences
+         * @param {Number} qty    quantity of source transaction
+         */
+        _cloneItem: function(source, index, qty) {
+            
+            var selectedItemDisplay = source.getDisplaySeqAt(index); // display item at cursor position
+            var selectedItemIndex = selectedItemDisplay.index;
+            var displaySeqCount = source.getDisplaySeqCount();
+
+            var removeIndexes = {};
+
+            // move items by for-loop display_sequences
+            for (let i=index; i<displaySeqCount;i++) {
+
+                let itemDisplay = source.getDisplaySeqAt(i);
+                let itemIndex = itemDisplay.index;
+                let itemParentIndex = itemDisplay.parent_index;
+                let itemType = itemDisplay.type;
+                let item = source.data.items[itemIndex];
+                let parentItem = null;
+                if (itemParentIndex) {
+                    parentItem = source.data.items[itemParentIndex];
+                }
+                let newItemIndex = GeckoJS.String.uuid();
+                let newParentIndex = null;
+                let newParentItem = null;
+
+                let orgItem = null;
+                let newItem = null;
+                let priceModifier = item.price_modifier
+
+                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex) {
+
+
+                    if (itemIndex && !removeIndexes[itemIndex]) {
+                        // items
+
+                        removeIndexes[itemIndex] = newItemIndex;
+
+                        // remove all item discount/surcharge and markers
+                        let emptyData = {
+                            discount_name: '',
+                            discount_rate: '',
+                            discount_type: '',
+                            current_discount: 0,
+
+                            surcharge_name: '',
+                            surcharge_rate: '',
+                            surcharge_type: '',
+                            current_surcharge: 0,
+
+                            hasDiscount: false,
+                            hasSurcharge: false,
+                            hasMarker: false
+                        };
+
+                        orgItem = GREUtils.extend({}, item, emptyData);
+                        newItem = GREUtils.extend({}, item, emptyData);
+
+                        if (itemParentIndex) {
+                            // setitem
+                            newParentIndex = removeIndexes[itemParentIndex];
+                            newParentItem = this.data.items[newParentIndex];
+
+                            orgItem.org_qty = item.current_qty;
+                            orgItem.current_qty = (item.current_qty * (parentItem.current_qty/parentItem.org_qty));
+                            orgItem.current_subtotal = this.getRoundedPrice(orgItem.current_qty*item.current_price*priceModifier) || 0;
+                            
+                            newItem.org_qty = item.current_qty;
+                            newItem.current_qty = orgItem.org_qty - orgItem.current_qty;
+                            newItem.current_subtotal = this.getRoundedPrice(newItem.current_qty*item.current_price*priceModifier) || 0;
+
+                            newItem.parent_index = newParentIndex;
+                            
+                        }else {
+                            // item
+                            orgItem.org_qty = item.current_qty;
+                            orgItem.current_qty = (item.current_qty-qty);
+                            orgItem.current_subtotal = this.getRoundedPrice(orgItem.current_qty*item.current_price*priceModifier) || 0;
+                            newItem.org_qty = item.current_qty;
+                            newItem.current_qty = qty;
+                            newItem.current_subtotal = this.getRoundedPrice(qty*item.current_price*priceModifier) || 0;
+
+                        }
+
+                        this.data.items[newItemIndex] = newItem;
+                        source.data.items[itemIndex] = orgItem;
+
+                        // only calc current item
+                        this.calcItemSubtotal(newItem);
+                        this.calcItemsTax(newItem);
+                        source.calcItemSubtotal(orgItem);
+                        source.calcItemsTax(orgItem);
+
+                        let newItemDisplay = this.createDisplaySeq(newItemIndex, newItem, itemDisplay.type);
+                        let orgItemDisplay = this.createDisplaySeq(itemIndex, orgItem, itemDisplay.type);
+
+                        this.data.display_sequences.push(newItemDisplay);
+                        source.data.display_sequences[i] = orgItemDisplay;
+
+                    } else{
+                        // condiment or other in display_sequences
+
+                        newItemIndex = removeIndexes[itemIndex];
+                        if(newItemIndex) {
+                            let newItemDisplay = GREUtils.extend({}, itemDisplay, {
+                                index: newItemIndex
+                            });
+                            this.data.display_sequences.push(newItemDisplay);
+                        }
+                        
+                    }
+                    
+                }else {
+                    // not selected item , break for loop
+                    break;
+                }
+            }
+            this.data.items_count += GeckoJS.BaseObject.getKeys(removeIndexes).length;
+
+     
+        },
+        
+        /**
+         * move and clone item from source transaction by index of display_sequences
+         * 
+         * @param {Object} source   source transaction
+         * @param {Number} index    index of display_sequences
+         * @param {Number} qty      qty
+         */
+        moveCloneItem: function(source, index, qty) {
+            
+            if (qty <= 0) return;
+            
+            var itemTrans = source.getItemAt(index); // item in transaction
+            var itemDisplay = source.getDisplaySeqAt(index); // display item at cursor position
+            var sourceQty = itemTrans.current_qty;
+            var mode = (qty == sourceQty) ? 'move' : 'clone';
+
+            switch(mode) {
+                case 'move':
+                    this._moveItem(source, index);
+                    break;
+                case 'clone':
+                    this._cloneItem(source, index, qty);
+                    break;
+            }
+
+            // recalc items
+            this.calcTotal();
+            source.calcTotal();
+            
+        },
+
+        /**
+         * move and clone all items from source transaction
+         * 
+         * @param {Object} source       source transaction
+         */
+        moveCloneAllItems: function(source) {
+            
+            for(let i=0; i < source.data.display_sequences.length; i++) {
+                let data = source.data.display_sequences[i] ;
+                let type = data.type;
+
+                // only process item , any assoc items will auto move.
+                if (type == 'item'){
+
+                    this._moveItem(source, i);
+                    i--;
+
+                }
+            }
+            this.calcTotal();
+            source.calcTotal();
         }
 
 

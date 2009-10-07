@@ -3338,10 +3338,7 @@
 
                     // check and dec stock
                     this.decStock(oldTransaction.data);
-
                 }
-
-
 
                 var submitStatus = -99; // initial value
                 
@@ -4369,6 +4366,20 @@
             return this.requestCommand('storeCheck', null, 'GuestCheck');
         },
 
+        /**
+         * use guest_check controller
+         */
+        splitCheck: function() {
+            return this.requestCommand('splitCheck', null, 'GuestCheck');
+        },
+        
+        /**
+         * use guest_check controller
+         */
+        mergeCheck: function() {
+            return this.requestCommand('mergeCheck', null, 'GuestCheck');
+        },
+        
         /**
          * use cartutils implement
          */

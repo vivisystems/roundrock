@@ -2835,13 +2835,19 @@ msgstr "Do you want to disable [Function Customizer] for the future using?"
 
 ########################################################################
 #
-# Split Payments
+# Split Payment
 #
 ########################################################################
 
-msgid "Split Payments"
-msgstr "Split Payments"
+msgid "vivipos.fec.registry.function.programmable.splitPayment.desc"
+msgstr ""
+"This function allows operator to split payment of current register. "
 
+msgid "vivipos.fec.registry.function.programmable.splitPayment.label"
+msgstr "Split Payment"
+
+msgid "vivipos.fec.registry.function.programmable.splitPayment.name"
+msgstr "Split Payment"
 
 ########################################################################
 #

@@ -286,8 +286,31 @@
 
             var result = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
             return result;
-        }
+        },
 
+       /**
+         * markRegion
+         */
+        markRegion: function(regionId, markId, clerk) {
+
+            var remoteUrl = this.getHttpService().getRemoteServiceUrl('markRegion') ;
+            var requestUrl = remoteUrl + '/' + regionId + '/' + markId + '/' + encodeURIComponent(clerk);
+
+            var result = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
+            return result;
+        },
+
+        /**
+         * unmergeTable
+         */
+        unmarkRegion: function(regionId) {
+
+            var remoteUrl = this.getHttpService().getRemoteServiceUrl('unmarkRegion') ;
+            var requestUrl = remoteUrl + '/' + regionId ;
+
+            var result = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
+            return result;
+        }
 
     };
 

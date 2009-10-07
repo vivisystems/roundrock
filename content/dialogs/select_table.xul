@@ -30,7 +30,7 @@
         <vivipanel id="selectTablePanel" noautohide="false" class="container-dialog">
 
 
-    <vbox flex="1" class="maindialog">
+    <vbox id="selectTableXUL" flex="1" class="maindialog">
         <vbox class="EmptyArea" >
             <hbox flex="1">
                 <spacer class="LeftRegionMenuPadding"/>
@@ -79,9 +79,9 @@
                 <hbox>
                     <spacer class="space2" style="min-height: 40px;" />
                 </hbox>
-                <button class="addMarksBtn" id="add_table_marks" label="&selecttable.bookingtable;" hidden="true" type="radio" group="func2" oncommand="$do('doMarkRegionTable', null, 'SelectTable');"/>
-                <button class="clearMarksBtn" id="clear_table_marks" label="&selecttable.bookingtable;" hidden="true" type="radio" group="func2" oncommand="$do('doUnmarkRegionTable', null, 'SelectTable');"/>
-                <button class="bookcBtn2" id="bookingTableBtn" label="&selecttable.bookingtable;" group="func2" oncommand="$do('openTableBookDialog', null, 'SelectTable');"/>
+                <button class="addMarksBtn" id="addmarksBtn" label="&selecttable.bookingtable;" type="radio" group="func2" oncommand="$do('executeMarkRegion', null, 'SelectTable');"/>
+                <button class="clearMarksBtn" id="clearMarksBtn" label="&selecttable.bookingtable;" type="radio" group="func2" oncommand="$do('executeUnmarkRegion', null, 'SelectTable');"/>
+                <button class="bookcBtn2" id="bookBtn" label="&selecttable.bookingtable;" group="func2" oncommand="$do('openTableBookDialog', null, 'SelectTable');"/>
                 <spacer class="space" />
                 <hbox>
                     <spacer class="space2" />
@@ -113,13 +113,21 @@
             <vbox flex="1" class="CheckBtns">
                 <button class="closecBtn" oncommand="document.getElementById('order_display_panel').hidePopup();"/>
                 <spacer height="30px" />
-                <button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" oncommand="$do('recallOrder', document.getElementById('orders_tab').value, 'SelectTable');"/>
-                <!--button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
-                <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/-->
-                <button class="changeBtn" id="trans_table" label="&selecttable.transtable;" oncommand="$do('transferTable',  document.getElementById('orders_tab').value, 'SelectTable');"/>
-                <button class="newTableBtn" id="newTableBtn" label="&selecttable.transtable;" oncommand="$do('newTable', document.getElementById('order_selected_table_id').value, 'SelectTable');"/>
-                <spacer height="80px" />
-                <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" oncommand="$do('changeClerk', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                <button class="selectcBtn" id="selectCheckBtn" label="&selecttable.recallcheck;" group='funcOrderDisp' oncommand="$do('recallOrder', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                <spacer height="10px" />
+                <box id="splitCheckBox" >
+                <button class="splitcBtn" id="splitCheckBtn" label="&selecttable.splitcheck;" group='funcOrderDisp' oncommand="$do('splitCheck', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                </box>
+                <box id="mergeCheckBox" >
+                <button class="mergecBtn" id="mergeCheckBtn" label="&selecttable.mergecheck;" group='_func2' oncommand="$do('mergeCheck', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                </box>
+                <spacer height="10px" />
+                <box id="transTableBox" >
+                <button class="changeBtn" id="changeBtn" label="&selecttable.transtable;" group='funcOrderDisp' oncommand="$do('transferTable',  document.getElementById('orders_tab').value, 'SelectTable');"/>
+                </box>
+                <button class="newTableBtn" id="newTableBtn" label="&selecttable.transtable;" group='funcOrderDisp' oncommand="$do('newTable', document.getElementById('order_selected_table_id').value, 'SelectTable');"/>
+                <spacer height="20px" />
+                <button class="clerkBtn" id="clerkBtn" label="&selecttable.changeclerk;" group='funcOrderDisp' oncommand="$do('changeClerk', document.getElementById('orders_tab').value, 'SelectTable');"/>
             </vbox>
         </hbox>
     </panel>

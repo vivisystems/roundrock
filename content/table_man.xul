@@ -32,7 +32,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('search_ok').click()"/>
     </keyset>
 
-    <vbox class="container-be" flex="1">
+    <vbox id="tableManXUL" class="container-be" flex="1">
         <vbox flex="1" class="container-main">
             <tabbox flex="1" class="content-tabbox">
                 <tabs id="main-tabbox">
@@ -97,7 +97,7 @@
                                                          onfocus="select()"
                                                          form="tableForm" name="seats" default=""/>
                                             </vbox>
-                                            <vbox flex="1">
+                                            <vbox flex="1" module="minimumCharge">
                                                 <label control="minimumchargepertable" value="&tableman.table.minimumchargepertable;"/>
                                                 <textbox id="minimumchargepertable"
                                                          onfocus="select()"
@@ -121,7 +121,7 @@
                                             </vbox>
                                             <vbox/>
 
-                                            <vbox flex="1">
+                                            <vbox flex="1" module="minimumCharge">
                                                 <label control="minimumchargeperguest" value="&tableman.table.minimumchargeperguest;"/>
                                                 <textbox id="minimumchargeperguest"
                                                          onfocus="select()"
@@ -353,7 +353,7 @@
                                                 </columns>
                                                 <rows>
                                                     <row>
-                                                        <vbox>
+                                                        <!--vbox>
                                                             <label control="print_split_check" value="&tableman.tableoptions.printsplitcheck;"/>
                                                             <menulist id="print_split_check" name="PrintSplitCheck" form="settingsForm">
                                                                 <menupopup>
@@ -362,7 +362,7 @@
                                                                     <menuitem value="2" label="&tableman.tableoptions.printsplitcheck.confirm;" />
                                                                 </menupopup>
                                                             </menulist>
-                                                        </vbox>
+                                                        </vbox-->
                                                         <vbox>
                                                             <label control="default_region" value="&tableman.tableoptions.defaultregion;"/>
                                                             <menulist id="default_region" name="DefaultRegion" form="settingsForm">
@@ -373,7 +373,7 @@
                                                         </vbox>
                                                     </row>
                                                     <row>
-                                                        <vbox>
+                                                        <!--vbox>
                                                             <label control="print_merge_check" value="&tableman.tableoptions.printmergecheck;"/>
                                                             <menulist id="print_merge_check" name="PrintMergeCheck" form="settingsForm">
                                                                 <menupopup>
@@ -382,7 +382,7 @@
                                                                     <menuitem value="2" label="&tableman.tableoptions.printmergecheck.confirm;" />
                                                                 </menupopup>
                                                             </menulist>
-                                                        </vbox>
+                                                        </vbox-->
                                                         <vbox>
                                                             <label control="mark_automark" value="&tableman.mark.automarkaftersubmit;"/>
                                                             <menulist id="automark_after_submit" form="settingsForm" name="AutoMarkAfterSubmit">
@@ -397,6 +397,7 @@
                                     </tabpanel>
 
                                     <tabpanel orient="vertical">
+                                        <vbox id="minimumChargeContainer" module="minimumCharge">
                                         <caption label="&tableman.tableoptions.minimumchargeoptions;"/>
                                         <grid class="data-form">
                                             <columns>
@@ -443,6 +444,7 @@
                                                 </row>
                                             </rows>
                                         </grid>
+                                        </vbox>
 
                                         <caption label="&tableman.tableoptions.displayoptions;"/>
                                         <grid class="data-form">
