@@ -76,7 +76,7 @@ else {
    tax_subtotal = 0;
 }
 {/eval}
-                <td style="text-align: right;">${item_subtotal|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item_subtotal|viviFormatTaxes:true}</td>
                 <td style="text-align: right;">${tax_subtotal|viviFormatTaxes:true}</td>
 {/for}
             </tr>
@@ -111,7 +111,7 @@ else {
    tax_subtotal = 0;
 }
 {/eval}
-                <td style="text-align: right;">${item_subtotal|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item_subtotal|viviFormatTaxes:true}</td>
                 <td style="text-align: right;">${tax_subtotal|viviFormatTaxes:true}</td>
 {/for}
             </tr>

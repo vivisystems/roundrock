@@ -76,11 +76,11 @@
             this.keypress();
         },
 
-        keypress: function(evt) {
-
+        keypress: function(evt, handleKeyCode) {
+            
             evt = evt || this.data;
 		
-            if (evt.originalTarget) {
+            if (!handleKeyCode && evt.originalTarget) {
                 if (evt.originalTarget.tagName.indexOf('input') != -1 || evt.originalTarget.tagName.indexOf('textarea') != -1 || evt.originalTarget.tagName.indexOf('textbox') != -1) return false;
             }
 
@@ -140,7 +140,7 @@
                     break;
 
             }
-
+            if (handleKeyCode) return false;
 
             if (evt.ctrlKey || evt.altKey || evt.metaKey || (evt.charCode == 0) ) return;
 

@@ -14,7 +14,7 @@
         _setData: function( start, end, periodType, terminalNo, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
-			
+            
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
             
@@ -27,6 +27,7 @@
                 timeField = 'transaction_submitted';
             }
             var fields = [
+                'orders.id',
                 'orders.' + timeField + ' as "Order.time"',
                 'orders.terminal_no as "Order.terminal_no"',
                 'orders.sequence as "Order.sequence"',
@@ -49,6 +50,12 @@
                 'orders.rounding_prices as "Order.rounding_prices"',
                 'orders.precision_taxes as "Order.precision_taxes"',
                 'orders.rounding_taxes as "Order.rounding_taxes"',
+                'order_item_taxes.tax_no as "Tax.tax_no"',
+                'order_item_taxes.tax_name as "Tax.tax_name"',
+                'order_item_taxes.tax_type as "Tax.tax_type"',
+                'order_item_taxes.tax_subtotal as "Tax.tax_subtotal"',
+                'order_item_taxes.included_tax_subtotal as "Tax.included_tax_subtotal"',
+                'order_item_taxes.taxable_amount as "Tax.taxable_amount"'
             ];
                             
             var conditions = "orders." + periodType + ">='" + start +
@@ -58,22 +65,14 @@
             if ( terminalNo.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
 
-            var orderby = 'orders.' + timeField + ', orders.sequence';
-
             var rowCount = orderModel.find('count', {
-                fields: fields,
+                fields: 'id',
                 conditions: conditions,
                 recursive: 0
             });
             
-            var orders = orderModel.find( 'all', {
-                fields: fields,
-                conditions: conditions,
-                recursive: 2,
-                order: orderby,
-                limit: limit
-            } );
-
+            var orders = orderModel.getDataSource().fetchAll('SELECT ' + fields + ' FROM orders JOIN order_item_taxes on order_item_taxes.order_id = orders.id WHERE ' + conditions + ' AND order_item_taxes.promotion_id = "" AND order_item_taxes.order_item_id = "" LIMIT 0, '+ limit);
+            
             var summary = {
                 total: 0,
                 item_subtotal: 0,
@@ -94,15 +93,16 @@
             var records = {};
             var taxList = [];
             var taxesByNo = {};
-            
+
             orders.forEach( function( data ) {
                 var oid = data.id;
-
-                records[ oid ] = GREUtils.extend( {}, data );
-                records[ oid ][ 'surcharge_subtotal' ] = data.Order.surcharge_subtotal;
-                records[ oid ][ 'discount_subtotal' ] = data.Order.discount_subtotal;
-                records[ oid ][ 'taxes' ] = {};
-                                
+                if (!(oid in records)) {
+                    records[ oid ] = GREUtils.extend( {}, data );
+                    records[ oid ][ 'surcharge_subtotal' ] = data.Order.surcharge_subtotal;
+                    records[ oid ][ 'discount_subtotal' ] = data.Order.discount_subtotal;
+                    records[ oid ][ 'taxes' ] = {};
+                }
+                
                 summary.total += data.Order.total;
                 summary.item_subtotal += data.Order.item_subtotal;
                 summary.tax_subtotal += data.Order.tax_subtotal;
@@ -116,47 +116,41 @@
                 summary.promotion_subtotal += data.Order.promotion_subtotal;
                 summary.revalue_subtotal += data.Order.revalue_subtotal;
 
-                // group taxes
-                let taxes = data.OrderItemTax;
-                for (let i = 0; i < taxes.length; i++) {
-                    let tax = taxes[i], tax_amount;
-                    if (!tax.order_item_id && !tax.promotion_id) {
-                        if (tax.tax_type == 'INCLUDED') {
-                            tax_amount = tax.included_tax_subtotal;
-                        }
-                        else {
-                            tax_amount = tax.tax_subtotal;
-                        }
+                let tax_amount, tax = data.Tax;
+                if (tax.tax_type == 'INCLUDED') {
+                    tax_amount = tax.included_tax_subtotal;
+                }
+                else {
+                    tax_amount = tax.tax_subtotal;
+                }
 
-                        records[ oid ][ 'taxes' ][ tax.tax_no ] = {
-                            tax_subtotal: tax_amount,
-                            item_subtotal: tax.taxable_amount
-                        }
+                records[ oid ][ 'taxes' ][ tax.tax_no ] = {
+                    tax_subtotal: tax_amount,
+                    item_subtotal: tax.taxable_amount
+                }
 
-                        // tax summary
-                        if (!(tax.tax_no in summary.taxes)) {
-                            summary.taxes[tax.tax_no] = {
-                                tax_subtotal: tax_amount,
-                                item_subtotal: tax.taxable_amount
-                            }
-                        }
-                        else {
-                            summary.taxes[tax.tax_no].tax_subtotal += tax_amount;
-                            summary.taxes[tax.tax_no].item_subtotal += tax.taxable_amount;
-                        }
-
-                        // add to tax list
-                        if (!(tax.tax_no in taxesByNo)) {
-                            taxList.push({
-                                no: tax.tax_no,
-                                name: tax.tax_name
-                            });
-                            taxesByNo[tax.tax_no] = 1;
-                        }
+                // tax summary
+                if (!(tax.tax_no in summary.taxes)) {
+                    summary.taxes[tax.tax_no] = {
+                        tax_subtotal: tax_amount,
+                        item_subtotal: tax.taxable_amount
                     }
                 }
-            }, this);
+                else {
+                    summary.taxes[tax.tax_no].tax_subtotal += tax_amount;
+                    summary.taxes[tax.tax_no].item_subtotal += tax.taxable_amount;
+                }
 
+                // add to tax list
+                if (!(tax.tax_no in taxesByNo)) {
+                    taxList.push({
+                        no: tax.tax_no,
+                        name: tax.tax_name
+                    });
+                    taxesByNo[tax.tax_no] = 1;
+                }
+            }, this);
+            
             if ( sortby != 'all' ) {
                 records = GeckoJS.BaseObject.getValues(records);
                 records.sort(

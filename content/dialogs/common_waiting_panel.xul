@@ -6,18 +6,21 @@
          xmlns:html="http://www.w3.org/1999/xhtml">
 
     <popupset id="dialogs">
-		<vivipanel id="wait_panel" position="overlap" noautohide="true" class="container-dialog">
-			<hbox flex="1" pack="center" class="container-wait-panel">
-				<vbox flex="1" class="container-main">
+        <vivipanel id="wait_panel" position="overlap" noautohide="true" class="container-dialog">
+            <hbox flex="1" pack="center" class="container-wait-panel">
+                <vbox flex="1" class="container-main">
                     <groupbox flex="1">
                         <caption id="wait_caption" label="" class="label-page-title"/>
                         <spacer style="height: 20px;"/>
                         <progressmeter id="progress" mode="undetermined" value="0"/>
                         <spacer style="height: 20px;"/>
                     </groupbox>
-				</vbox>
-			</hbox>
-		</vivipanel>
+                    <hbox id="useraction" pack="end" hidden="true">
+                        <button id="action" label="Action"/>
+                    </hbox>
+                </vbox>
+            </hbox>
+        </vivipanel>
     </popupset>
     
 </overlay>

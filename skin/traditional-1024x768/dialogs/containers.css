@@ -19,12 +19,12 @@
 
 .container-dialog .container-wait-panel {
     background: white;
-    height: 140px;
+    height: 160px;
     margin-left: 212px;
-    margin-top: 314px;
-    max-height: 120px;
+    margin-top: 304px;
+    max-height: 160px;
     max-width: 600px;
-    min-height: 120px;
+    min-height: 160px;
     min-width: 600px;
     width: 600px;
 }

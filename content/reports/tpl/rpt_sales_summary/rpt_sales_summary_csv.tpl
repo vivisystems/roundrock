@@ -51,11 +51,11 @@
 {/for}
 "",""
 "${_( '(rpt)Tax Summary' )}"
-"","${_( '(rpt)Tax Name' )}","${_( '(rpt)Add-On Tax Amount' )}","${_( '(rpt)Included Tax Amount' )}"
+"","${_( '(rpt)Tax Name' )}","${_( '(rpt)Taxable Amount' )}","${_( '(rpt)Add-On Tax Amount' )}","${_( '(rpt)Included Tax Amount' )}"
 {for detail in body.tax_summary.records}
-"","'${detail.tax_name|default:''}","${detail.tax_subtotal|default:0}","${detail.included_tax|default:0|viviFormatTaxes:true}"
+"","'${detail.tax_name|default:''}","${detail.taxable_amount|default:0|viviFormatTaxes:true}","${detail.tax_subtotal|default:0|viviFormatTaxes:true}","${detail.included_tax|default:0|viviFormatTaxes:true}"
 {/for}
-"${_( '(rpt)Summary' ) + ':'}","","${body.tax_summary.summary.addon_tax_total|default:0|viviFormatTaxes:true}","${body.tax_summary.summary.included_tax_total|default:0|viviFormatTaxes:true}"
+"${_( '(rpt)Summary' ) + ':'}","","","${body.tax_summary.summary.addon_tax_total|default:0|viviFormatTaxes:true}","${body.tax_summary.summary.included_tax_total|default:0|viviFormatTaxes:true}"
 "",""
 "${_( '(rpt)Top Department Sales' )}"
 "","${_( '(rpt)Department' )}","${_( '(rpt)Quantity' )}","${_( '(rpt)Gross Sales' )}"

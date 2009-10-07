@@ -399,7 +399,7 @@
                 var data = [
                     _('Add Annotation') + ' [' + txn.data.seq + ']',
                     '',
-                    _(annotationType),
+                    annotationType,
                     '',
                     inputObj
                 ];
@@ -684,60 +684,42 @@
                 return;
             }
 
-            if (stop || this._suspendOperation) {
-                this.requestCommand('setTarget', 'Cart', 'Keypad');
+            var data = [
+                _('Switch User'),
+                _('Please enter password')
+            ];
 
-                this._suspendOperation = false;
-                this._getKeypadController().setNumberOnly(false);
-                GeckoJS.Dispatcher.removeEventListener('beforeDispatch', this._suspendOperationFilter);
-                
-                // check if has buffer (password)
-                var buf = this._getKeypadController().getBuffer().replace(/^\s*/, '').replace(/\s*$/, '');
-                this.requestCommand('clear', null, 'Cart');
+            var self = this;
+            return $.popupPanel('promptPasswordPanel', data).next( function(evt){
+                var result = evt.data;
 
-                var success = true;
+                if (result.ok) {
+                    // check if has buffer (password)
+                    self.requestCommand('clear', null, 'Cart');
 
-                // dispatch onExitPassword for onscreenvfd
-                this.dispatchEvent('onExitPassword');
+                    var password = result.input0;
 
-                if (stop != true && stop != 'true' && buf.length > 0) {
+                    if (self.Acl.securityCheckByPassword(password, true)) {
+                        self.signOff(true);
+                        self.Acl.securityCheckByPassword(password, false);
 
-                    if (this.Acl.securityCheckByPassword(buf, true)) {
-                        this.signOff(true);
-                        this.Acl.securityCheckByPassword(buf, false);
-
-                        var user = this.Acl.getUserPrincipal();
+                        var user = self.Acl.getUserPrincipal();
                         if (user) {
-                            this.setClerk();
+                            self.setClerk();
 
                             OsdUtils.info(user.description + _(' logged in'));
                         }
                         else {
                             // should always succeed, but if not, pull up the change user dialog since we've already signed off
-                            this.ChangeUserDialog();
+                            self.ChangeUserDialog();
                         }
                     }
                     else {
-                        success = false;
-                    }
-                }
-                if (!success) {
-                    if (!stop && buf.length > 0) {
-                        
                         NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                     }
                 }
-            }
-            else {
-                this.requestCommand('clear', null, 'Cart');
-                this.requestCommand('setTarget', 'Main', 'Keypad');
+            });
 
-                this.dispatchEvent('onEnterPassword');
-
-                this._suspendOperation = true;
-                this._getKeypadController().setNumberOnly(true);
-                GeckoJS.Dispatcher.addEventListener('beforeDispatch', this._suspendOperationFilter);
-            }
         },
 
         silentUserSwitch: function (newUser) {
@@ -1240,7 +1222,7 @@
         },
 
         dispatch: function(arg) {
-            var args = arg.split('|');
+            var args = arg.split(',');
             $do(args[0], args[1], args[2]) ;
             /*
             var printer = GeckoJS.Controller.getInstanceByName('Print');
@@ -1273,17 +1255,17 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
         },
         
-        suspendLoadTest: function(data) {
+        suspendLoadTest: function() {
             this._suspendLoadTest = true;
         },
 
         loadTest: function(params) {
             var paramList = [];
-            if (params) paramList = params.split(',');
+            if (params) paramList = params.split('|');
             var count = parseInt(paramList[0]) || 1;
             var items = parseInt(paramList[1]) || 1;
-            var resume = parseInt(paramList[2]) || 0;
-            var store = parseInt(paramList[3]) || 0;
+            var store = parseInt(paramList[2]) || 0;
+            var resume = parseInt(paramList[3]) || 0;
             var customers = GeckoJS.Session.get('customers') || [];
             var products = GeckoJS.Session.get('products') || [];
             var numProds = products.length;
@@ -1298,6 +1280,17 @@
             var progressBar = document.getElementById('progress');
             progressBar.mode = 'determined';
 
+            var actionRow = document.getElementById('useraction');
+            var actionButton = document.getElementById('action');
+
+            if (actionRow) {
+                actionRow.hidden = false;
+                if (actionButton) {
+                    actionButton.setAttribute('label', 'Suspend');
+                    actionButton.setAttribute('oncommand', '$do("suspendLoadTest", null, "Main");');
+                }
+            }
+            
             if (resume && this.loadTestState != null) {
                 startIndex = this.loadTestState;
                 this.loadTestState = null;
@@ -1348,7 +1341,7 @@
                     cart.addItem(item);
 
                     // delay
-                    this.sleep(100 + 100 * Math.random());
+                    this.sleep(100);
                 }
 
                 if (store) {
@@ -1364,10 +1357,13 @@
 
                 // GC & delay
                 GREUtils.gc();
-                this.sleep(1000 + 1000 * Math.random());
+                this.sleep(300);
             }
 
             waitPanel.hidePopup();
+            if (actionRow) {
+                actionRow.hidden = true;
+            }
             progressBar.mode = 'undetermined';
         },
 

@@ -29,7 +29,7 @@ else {
    tax_subtotal = 0;
 }
 {/eval}
-,"${item_subtotal|default:0|viviFormatPrices:true}","${tax_subtotal|default:0|viviFormatTaxes:true}"{/for}
+,"${item_subtotal|default:0|viviFormatTaxes:true}","${tax_subtotal|default:0|viviFormatTaxes:true}"{/for}
 {/for}
 {eval}
   delete TrimPath.RoundingPrices;
@@ -49,4 +49,4 @@ else {
    tax_subtotal = 0;
 }
 {/eval}
-,"${item_subtotal|default:0|viviFormatPrices:true}","${tax_subtotal|default:0|viviFormatTaxes:true}"{/for}
+,"${item_subtotal|default:0|viviFormatTaxes:true}","${tax_subtotal|default:0|viviFormatTaxes:true}"{/for}

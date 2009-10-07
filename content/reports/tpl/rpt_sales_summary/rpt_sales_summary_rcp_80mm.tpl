@@ -51,6 +51,7 @@ ${'    ' + _('(rpt)Destination Average Gross Sales') + ':'|left:26}${detail.gros
 ${_( '(rpt)Tax Summary' )}
 {for detail in body.tax_summary.records}
 ${'  ' + _( '(rpt)Tax Name' ) + ':'|left:26}${detail.tax_name|right:16}
+${'  ' + _( '(rpt)Taxable Amount' ) + ':'|left:26}${detail.taxable_amount|default:0|viviFormatTaxes:true|right:16}
 ${'  ' + _( '(rpt)Add-On Tax Amount' ) + ':'|left:26}${detail.tax_subtotal|default:0|viviFormatTaxes:true|right:16}
 ${'  ' + _( '(rpt)Included Tax Amount' ) + ':'|left:26}${detail.included_tax|default:0|viviFormatTaxes:true|right:16}
   

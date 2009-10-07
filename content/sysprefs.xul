@@ -202,7 +202,7 @@
                         </vbox>
                         <vbox>
                             <label control="revaluefactor" value="&formats.revalue.factor;"/>
-                            <textbox preference="pref_revaluefactor" id="revaluefactor" type="number" min="0"/>
+                            <textbox preference="pref_revaluefactor" id="revaluefactor" type="number" min="1"/>
                         </vbox>
                     </row>
                     <row>

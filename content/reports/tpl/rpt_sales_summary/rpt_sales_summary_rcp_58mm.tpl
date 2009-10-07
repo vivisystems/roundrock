@@ -84,6 +84,8 @@ ${_( '(rpt)Tax Summary' )}
 {for detail in body.tax_summary.records}
 ${_( '(rpt)Tax Name' ) + ':'}
 ${detail.tax_name|right:24}
+${'  ' + _( '(rpt)Taxable Amount' ) + ':'}
+${detail.taxable_amount|default:0|viviFormatTaxes:true|right:24}
 ${'  ' + _( '(rpt)Add-On Tax Amount' ) + ':'}
 ${detail.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
 ${'  ' + _( '(rpt)Included Tax Amount' ) + ':'}

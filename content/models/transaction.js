@@ -253,7 +253,11 @@
             this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
             this.data.autorevalue = GeckoJS.Configure.read('vivipos.fec.settings.AutoRevaluePrices') || false;
-            this.data.revaluefactor = GeckoJS.Configure.read('vivipos.fec.settings.RevalueFactor');
+            this.data.revaluefactor = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.RevalueFactor'));
+
+            if (isNaN(this.data.revaluefactor)) {
+                this.data.revaluefactor = 0;
+            }
 
             this.recoveryMode = recoveryMode;
 
@@ -922,9 +926,9 @@
             }
 
             var item = null;
-
-            if(this.Product.isExists(itemTrans.id)) {
-                item = GREUtils.extend({}, this.Product.getProductById(itemTrans.id));
+            var prod = this.Product.getProductById(itemTrans.id);
+            if(prod) {
+                item = GREUtils.extend({}, prod);
             }else {
                 item = GREUtils.extend({},itemTrans);
             }
@@ -1038,6 +1042,12 @@
                     Transaction.events.dispatch('afterModifySetItems', setItemEventData, this);
                 }
                 else {
+                    // if product tax is not defined, use Session defaultTax if available
+                    if (prod && !prod.rate) {
+                        let defaultTaxNo = GeckoJS.Session.get('defaultTaxNo');
+                        if (defaultTaxNo) item.rate = defaultTaxNo;
+                    }
+
                     // create data object to push in items array
                     itemModified = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
                     itemTrans.current_qty = itemModified.current_qty;
@@ -1045,6 +1055,7 @@
                     itemTrans.current_subtotal = itemModified.current_subtotal;
                     itemTrans.price_modifier = itemModified.price_modifier;
                     itemTrans.destination = itemModified.destination;
+                    itemTrans.tax_name = itemModified.tax_name;
                     itemModified = itemTrans;
 
                     // update to items array
@@ -2597,7 +2608,7 @@
 
             switch(policy) {
                 case 'round-down-to-factor':
-                    if(factor != 0) {
+                    if(factor > 0) {
                         if(total>=0) {
                             revalue_subtotal = 0 - parseFloat(total % factor);
                         }else {
@@ -2607,7 +2618,7 @@
                     break;
 
                 case 'round-up-to-factor':
-                    if(factor != 0) {
+                    if(factor > 0) {
                         if(total>=0) {
                             revalue_subtotal = parseFloat(total % factor);
                             if (revalue_subtotal != 0)
@@ -2621,7 +2632,7 @@
                     break;
 
                 case 'round-to-nearest-factor':
-                    if(factor != 0) {
+                    if(factor > 0) {
                         let low = parseFloat(Math.abs(total) % factor);
                         let high = factor - low;
 
