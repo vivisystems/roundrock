@@ -20,38 +20,40 @@
 
             var orderPayments = [];
             var i = 0;
+            var batch = data.batchCount;
             var len = GeckoJS.BaseObject.getKeys(data.trans_payments).length;
             
             for (var iid in data.trans_payments) {
                 i++;
                 let payment = data.trans_payments[iid];
+                if (payment.batch == batch) {
 
-                let orderPayment = GREUtils.extend({}, payment);
+                    let orderPayment = GREUtils.extend({}, payment);
 
-                orderPayment['id'] = iid;
-                orderPayment['order_id'] = data.id;
-                orderPayment['order_items_count'] = data.items_count;
-                orderPayment['order_total'] = data.total;
+                    orderPayment['id'] = iid;
+                    orderPayment['order_id'] = data.id;
+                    orderPayment['order_items_count'] = data.items_count;
+                    orderPayment['order_total'] = data.total;
 
-                orderPayment['service_clerk'] = data.service_clerk;
-                orderPayment['proceeds_clerk'] = data.proceeds_clerk;
+                    orderPayment['service_clerk'] = data.service_clerk;
+                    orderPayment['proceeds_clerk'] = data.proceeds_clerk;
 
-                orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
-                orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
+                    orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
+                    orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
 
-                orderPayment['sale_period'] = data.sale_period;
-                orderPayment['shift_number'] = data.shift_number;
-                orderPayment['terminal_no'] = data.terminal_no;
+                    orderPayment['sale_period'] = data.sale_period;
+                    orderPayment['shift_number'] = data.shift_number;
+                    orderPayment['terminal_no'] = data.terminal_no;
 
-                // calculate change only if the order is being finalized
-                if (i == len && data.status == 1) {
-                    orderPayment['change'] = Math.abs(data.remain);
-                } else {
-                    orderPayment['change'] = 0;
+                    // calculate change only if the order is being finalized
+                    if (i == len && data.status == 1) {
+                        orderPayment['change'] = Math.abs(data.remain);
+                    } else {
+                        orderPayment['change'] = 0;
+                    }
+
+                    orderPayments.push(orderPayment);
                 }
-
-                orderPayments.push(orderPayment);
-
             }
 
             return orderPayments;

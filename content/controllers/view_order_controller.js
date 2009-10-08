@@ -69,6 +69,10 @@
                 var location = (branch == null || branch == '') ? order.terminal_no : (branch + ' [' + order.terminal_no + ']');
                 var statusStr = '';
                 switch(parseInt(order.status)) {
+                    case -3:
+                        statusStr = _('(view)merged');
+                        break;
+
                     case -2:
                         statusStr = _('(view)voided');
                         break;
@@ -184,7 +188,8 @@
         validateForm: function(order) {
             var nextbtn = document.getElementById('next');
             var prevbtn = document.getElementById('prev');
-
+            var recallbtn = document.getElementById('recall');
+            
             if (nextbtn) {
                 if (this._index == this._orders.length - 1) {
                     nextbtn.setAttribute('disabled', true);
@@ -201,6 +206,13 @@
                 else {
                     prevbtn.removeAttribute('disabled');
                 }
+            }
+
+            if (order.status == 1 || order.status == 2) {
+                recallbtn.setAttribute('hidden', false);
+            }
+            else {
+                recallbtn.setAttribute('hidden', true);
             }
         },
 

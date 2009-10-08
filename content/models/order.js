@@ -93,7 +93,7 @@
         saveOrderToBackup: function(data, isTraining) {
 
             var retObj;
-
+this.log('DEBUG', 'order data: ' + this.dump(data));
             //try {
                     
                 if (isTraining) {

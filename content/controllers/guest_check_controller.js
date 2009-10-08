@@ -655,7 +655,7 @@
             let orderData = this.Order.readOrder(orderId, true); // recall use master service's datas.
 
             if (!orderData) {
-                NotifyUtils.error(_('This order object does not exist [%S]', [orderId]));
+                NotifyUtils.error(_('The requested order is not available', [orderId]));
                 // release for other machine use.
                 this.Order.releaseOrderLock(orderId);
                 return false;

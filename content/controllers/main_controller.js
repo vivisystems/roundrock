@@ -430,24 +430,33 @@
             }
         },
 
-        viewOrders: function () {
+        viewOrders: function (arg) {
             var aURL = 'chrome://viviecr/content/list_orders.xul';
             var aName = _('List Orders');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             var aArguments = {value: this._getKeypadController().getBuffer()};
 
-            var searchByTableNo = GeckoJS.Configure.read('vivipos.fec.settings.SearchOrderByTableNo');
+            switch(arg) {
+                case 'table':
+                    aArguments.index = 'table_no';
+                    aArguments.criteria = _('(view)search by table number');
+                    aArguments.fuzzy = false;
+                    break;
 
-            if (searchByTableNo) {
-                aArguments.index = 'table_no';
-                aArguments.criteria = _('(view)search by table number');
-                aArguments.fuzzy = false;
+                case 'check':
+                    aArguments.index = 'check_no';
+                    aArguments.criteria = _('(view)search by check number');
+                    aArguments.fuzzy = false;
+                    break;
+
+                case 'sequence':
+                default:
+                    aArguments.index = 'sequence';
+                    aArguments.criteria = _('(view)search by order sequence');
+                    aArguments.fuzzy = true;
+                    break;
             }
-            else {
-                aArguments.index = 'sequence';
-                aArguments.criteria = _('(view)search by order sequence');
-                aArguments.fuzzy = true;
-            }
+
             //this._getKeypadController().clearBuffer();
             this.requestCommand('clearBuffer', null, 'Keypad');
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
@@ -668,14 +677,6 @@
             }
         },
 
-        clear: function () {
-            this.quickUserSwitch(true);
-        },
-
-        enter: function () {
-            this.quickUserSwitch();
-        },
-
         quickUserSwitch: function (stop) {
             if ( this._isTraining ) {
                 GREUtils.Dialog.alert(this.topmostWindow,
@@ -816,8 +817,7 @@
             var shiftReportOnQuickSwitch = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonquickswitch');
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
-            var txn = GeckoJS.Session.get('current_transaction');
-            var cartEmpty = (txn == null) || (txn.isSubmit()) || (txn.getItemsCount() <= 0);
+            var cartEmpty = !cart.ifHavingOpenedOrder();
             var principal = this.Acl.getUserPrincipal();
 
             if (principal) {
@@ -902,9 +902,10 @@
                     }
                     else {
                         $do('pushQueue', null, 'CartQueue');
+                        $do('cancel', true, 'Cart');
                     }
                 }
-                $do('clear', null, 'Cart');
+                $do('clear', true, 'Cart');
 
                 if (responseDiscardQueue == 1) {
                     cartQueue._removeUserQueue(principal);
@@ -917,8 +918,9 @@
                 if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
+            Transaction.removeRecoveryFile();
+            
             if (!quickSignoff) {
-                this.clear();
                 this.ChangeUserDialog();
             }
         },

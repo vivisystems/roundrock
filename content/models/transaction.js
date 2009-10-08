@@ -382,7 +382,11 @@
         },
 
         isCancel: function() {
-            return (this.data.status  == -1);
+            return (this.data.status  == -1) || (this.data.status == -3);
+        },
+
+        isVoided: function() {
+            return (this.data.status  == -2);
         },
 
         /**
@@ -410,7 +414,7 @@
 
         isSubmit: function() {
             // return (this.data.status == 1);
-            return (this.data.status > 0 || this.data.status == -2);
+            return (this.data.status > 0);
         },
 
         isStored: function() {
@@ -2864,7 +2868,7 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
         },
 
 

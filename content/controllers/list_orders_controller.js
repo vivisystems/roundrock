@@ -41,21 +41,21 @@
             // load matching order(s)
             var conditions = '';
             var indices = inputObj.index.split(',');
-            for (var i = 0; i < indices.length; i++) {
-                if (inputObj.fuzzy) {
-                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " like '%" + this._queryStringPreprocessor(inputObj.value) + "%')";
-                }
-                else {
-                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " = '" + this._queryStringPreprocessor(inputObj.value) + "')";
+            if (inputObj.value) {
+                for (var i = 0; i < indices.length; i++) {
+                    if (inputObj.fuzzy) {
+                        conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " like '%" + this._queryStringPreprocessor(inputObj.value) + "%')";
+                    }
+                    else {
+                        conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " = '" + this._queryStringPreprocessor(inputObj.value) + "')";
+                    }
                 }
             }
-
             var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
             
             if (localOnly) {
                 conditions += " AND terminal_no = '" + this._queryStringPreprocessor(GeckoJS.Session.get('terminal_no')) + "'";
             }
-
             var orderModel = new OrderModel();
             var orders = orderModel.find('all', {
                 fields: ['id',
@@ -67,6 +67,7 @@
                          'status',
                          'precision_prices',
                          'total',
+                         'total + change - payment_subtotal as "Order.balance"',
                          'qty_subtotal'],
                 conditions: conditions,
                 limit: 300,
@@ -84,8 +85,9 @@
                           + ',' + _('(view)order sequence')
                           + ',' + _('(view)order status')
                           + ',' + _('(view)total')
+                          + ',' + _('(view)balance')
                           + ',' + _('(view)items');
-            var fields = 'transaction_submitted,sequence,status_str,total,qty_subtotal';
+            var fields = 'transaction_submitted,sequence,status_str,total,balance,qty_subtotal';
             if (!localOnly) {
                 headers = _('(view)branch') + ',' + _('(view)terminal') + ',' + headers;
                 fields = 'branch,terminal_no,' + fields;
@@ -103,6 +105,10 @@
             orders.forEach(function(order) {
                 var statusStr = order.status;
                 switch(parseInt(order.status)) {
+                    case -3:
+                        statusStr = _('(view)merged');
+                        break;
+
                     case -2:
                         statusStr = _('(view)voided');
                         break;
@@ -123,6 +129,10 @@
 
                 this._precision_prices = order.precision_prices;
                 order.total = this._formatPrice(order.total);
+
+                if (order.status == -1 || order.status == -3) order.balance = ''
+                else order.balance = this._formatPrice(order.balance);
+                
             }, this);
 
             tree.datasource = orders;
@@ -146,9 +156,15 @@
             if (countLabelObj) {
                 countLabelObj.value = orders.length;
             }
-            
-            // disable details button initially
-            this.validateForm();
+
+            if (orders.length == 1) {
+                let vivitree = document.getElementById('orderscrollablepanel');
+                if (vivitree) vivitree.selection.select(0);
+                this.validateForm(0);
+            }
+            else {
+                this.validateForm();
+            }
         },
 
         validateForm: function(index) {
@@ -156,7 +172,12 @@
             var recallBtn = document.getElementById('recall');
             if (index > -1) {
                 detailsBtn.setAttribute('disabled', false);
-                recallBtn.setAttribute('disabled', false);
+                if (this._orders[index] && (this._orders[index].status == 1 || this._orders[index].status == 2)) {
+                    recallBtn.setAttribute('disabled', false);
+                }
+                else {
+                    recallBtn.setAttribute('disabled', true);
+                }
                 this._index = index;
             }
             else {

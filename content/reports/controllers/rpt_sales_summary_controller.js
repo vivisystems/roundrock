@@ -366,7 +366,7 @@
                 if (record.name == 'giftcard') {
                     // check if we need to update giftcard excess record
                     if (record.amount != record.origin_amount) {
-                        var excess = record.amount - record.origin_amount;
+                        var excess = record.origin_amount - record.amount;
                         if (!giftcardExcess) {
                             giftcardExcess = {
                                 name: 'giftcard',
