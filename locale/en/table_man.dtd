@@ -29,7 +29,6 @@
 <!ENTITY tableman.booking.booking "Booking Time">
 <!ENTITY tableman.booking.partysize "Party Size">
 <!ENTITY tableman.booking.contact "Contact">
-<!ENTITY tableman.booking.contact "Contact">
 <!ENTITY tableman.booking.telephone "Telephone">
 <!ENTITY tableman.booking.address "Address">
 <!ENTITY tableman.booking.note "Note">

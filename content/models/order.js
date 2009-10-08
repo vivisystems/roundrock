@@ -256,21 +256,21 @@
             var request_data = (GeckoJS.BaseObject.serialize(datas));
             // dump('length = ' + request_data.length +'\n');
 
-            var success = this.getHttpService().requestRemoteService('POST', requestUrl, request_data) || null ;
+            var success = this.getHttpService().requestRemoteService('POST', requestUrl, request_data) || false ;
 
             //if fault , use Waning dialg and drop store .
             if (success) {
-                this.restoreFromBackup();
+                if(success['Order']) this.restoreFromBackup();
                 //this.removeBackupFile();
-                this.OrderItem.removeBackupFile();
-                this.OrderItemTax.removeBackupFile();
-                this.OrderAddition.removeBackupFile();
-                this.OrderPayment.restoreFromBackup();
+                if(success['OrderItem']) this.OrderItem.removeBackupFile();
+                if(success['OrderItemTax']) this.OrderItemTax.removeBackupFile();
+                if(success['OrderAddition']) this.OrderAddition.removeBackupFile();
+                if(success['OrderPayment']) this.OrderPayment.restoreFromBackup();
                 //this.OrderPayment.removeBackupFile();
-                this.OrderAnnotation.removeBackupFile();
-                this.OrderItemCondiment.removeBackupFile();
-                this.OrderPromotion.removeBackupFile();
-                this.OrderObject.removeBackupFile();
+                if(success['OrderAnnotation']) this.OrderAnnotation.removeBackupFile();
+                if(success['OrderItemCondiment']) this.OrderItemCondiment.removeBackupFile();
+                if(success['OrderPromotion']) this.OrderPromotion.removeBackupFile();
+                if(success['OrderObject']) this.OrderObject.removeBackupFile();
             }
             return success;
 

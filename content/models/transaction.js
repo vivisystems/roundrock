@@ -2943,12 +2943,12 @@
         },
 
         getNumberOfCustomers: function() {
-            return this.data.no_of_customers || 0;
+            return this.data.no_of_customers || '';
         },
 
         setNumberOfCustomers: function(num) {
-            num = isNaN(parseInt(num)) ? (1+'') : (parseInt(num)+'');
-            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_customers', num || '');
+            num = isNaN(parseInt(num)) ? ('') : (parseInt(num)+'');
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
             this.data.no_of_customers = num;
         },
 

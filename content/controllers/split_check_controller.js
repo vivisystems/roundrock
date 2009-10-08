@@ -23,7 +23,7 @@
             tran.data.destination = org.data.destination;
             tran.data.destination_prefix = org.data.destination_prefix;
             tran.data.table_no = org.data.table_no;
-//            tran.data.no_of_customers = org.data.no_of_customers;
+            //            tran.data.no_of_customers = org.data.no_of_customers;
             tran.data.no_of_customers = 0;
             tran.data.status = 0;
             tran.data.recall = 2;
@@ -84,8 +84,9 @@
             
         },
 
-        selectSplitOrder: function(index) {
+        selectSplitOrder: function(event) {
 
+            var index = event.originalTarget.value;
             var panelView2 = this._splitPanelView;
             panelView2.setTransaction(this._splitOrders[index]);
             
@@ -200,6 +201,8 @@
             splitObj.selectedIndex = 0;
             panelView2.setTransaction(this._splitOrders[0]);
 
+            this.validateButtons();
+
         },
 
 
@@ -209,8 +212,6 @@
             let splitCount = this._splitOrders.length ;
             let sourceTran = this._sourceOrder;
             var inputObj = window.arguments[0];
-
-            
 
             let splitDatas = [] ;
 
@@ -271,6 +272,8 @@
             document.getElementById('btn_addtosplit').disabled = true;
             document.getElementById('btn_mergeto').disabled = true;
 
+            this.validateButtons();
+
             this.createNewSplitOrder();
 
             // set default splited order to 0
@@ -278,6 +281,18 @@
             var panelView2 = this._splitPanelView = new NSISimpleCartView('splitScrollablePanel');
             panelView2.setTransaction(this._splitOrders[0]);
 
+        },
+
+        validateButtons: function() {
+
+            let markers = this._sourceOrder.data.markers;
+
+            if (markers.length >0) {
+                document.getElementById('btn_splitbymarks').disabled = false;
+            }else {
+                document.getElementById('btn_splitbymarks').disabled = true;
+            }
+            
         }
 
     };

@@ -71,7 +71,7 @@
                 <vbox id="splitOrderBox" flex="1">
                     <tabbox flex="1" crop="right" id="sourceOrderTabbox" class="content-tabbox">
                         <arrowscrollbox orient="horizontal" flex="0" class="content-arrow-scrollbox">
-                        <tabs id="splitOrderTabs" oncommand="$do('selectSplitOrder', this.selectedIndex, 'SplitCheck');" flex="0">
+                        <tabs id="splitOrderTabs" oncommand="$do('selectSplitOrder', event, 'SplitCheck');" flex="0">
                         </tabs>
                         </arrowscrollbox>
                         <tabpanels flex="1">
