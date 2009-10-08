@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-09 00:16+0800\n"
+"POT-Creation-Date: 2009-10-09 00:48+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8241,7 +8241,7 @@ msgstr ""
 #: ../..//content/reports/controllers/journal_report_controller.js:222
 msgid ""
 "An error was encountered while saving the journal export. Please ensure that "
-"space is available on the external USB thumb drive [messge #2001]."
+"space is available on the external USB thumb drive [message #2001]."
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_base_controller.js:210
