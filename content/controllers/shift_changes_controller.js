@@ -948,8 +948,6 @@
 
                 var refunds = (refundTotal && refundTotal.amount != null) ? refundTotal.amount : 0;
 
-alert('refund: ' + refunds);
-
                 // compute total sales revenue
                 fields = ['SUM(orders.total) as "Order.amount"'];
                 conditions = 'orders.status = 1 ' +
