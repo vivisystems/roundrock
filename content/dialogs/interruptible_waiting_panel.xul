@@ -6,7 +6,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml">
 
     <popupset id="dialogs">
-        <vivipanel id="interruptable_wait_panel" position="overlap" noautohide="true" class="container-dialog">
+        <vivipanel id="interruptible_wait_panel" position="overlap" noautohide="true" class="container-dialog">
             <hbox flex="1" pack="center" class="container-interruptible-wait-panel">
                 <vbox flex="1" class="container-main">
                     <groupbox flex="1">

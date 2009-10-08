@@ -228,7 +228,7 @@
                 else {
                     GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Recall Order'),
-                                          _('Failed to recall order'));
+                                          _('Failed to recall the selected order'));
                 }
             }
         },

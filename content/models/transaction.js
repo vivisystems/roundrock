@@ -167,6 +167,7 @@
         buildOrderSequence: function(seq) {
             var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
             var sequenceTrackSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod') || false;
+            var salePeriod = '';
 
             if (seq != -1) {
                 var newSeq = (seq+'');
@@ -174,13 +175,13 @@
                     newSeq = GeckoJS.String.padLeft(newSeq, sequenceNumberLength, '0');
                 }
                 if (sequenceTrackSalePeriod) {
-                    var salePeriod = GeckoJS.Session.get('sale_period');
-                    newSeq = new Date(salePeriod * 1000).toString('yyyyMMdd') + newSeq;
+                    salePeriod = GeckoJS.Session.get('sale_period');
+                    newSeq = ((salePeriod == -1 || salePeriod == 0) ? '' : (new Date(salePeriod * 1000).toString('yyyyMMdd'))) + newSeq;
                 }
-                return newSeq;
+                return [salePeriod, newSeq];
             }
             else {
-                return seq;
+                return [salePeriod, seq];
             }
         },
 
@@ -219,7 +220,14 @@
                         check_no = parseInt(arSeqs[1]) || -1 ;
                     }
 
-                    self.data.seq = self.buildOrderSequence(order_no);
+                    self.log('DEBUG', 'before buildOrderSequence');
+                    let seqData = self.buildOrderSequence(order_no);
+                    self.log('DEBUG', 'after buildOrderSequence: ' + self.dump(seqData));
+                    
+                    self.data.seq_original = seq;
+                    self.data.seq_sp = seqData[0];
+                    self.data.seq = seqData[1];
+
                     if(!self.backgroundMode) GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
 
                     // update checkno
@@ -307,7 +315,14 @@
 
             if (self.data.seq.length == 0 || self.data.seq == -1) {
                 // maybe from recovery
-                self.data.seq = self.buildOrderSequence(SequenceModel.getSequence('order_no', false));
+                let order_no = SequenceModel.getSequence('order_no', false);
+                self.log('DEBUG', 'before buildOrderSequence');
+                let seqData = self.buildOrderSequence(order_no);
+                self.log('DEBUG', 'after buildOrderSequence: ' + self.dump(seqData));
+                self.data.seq_original = order_no;
+                self.data.seq_sp = seqData[0];
+                self.data_seq = seqData[1];
+                
                 if(!self.backgroundMode) GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
             }
 

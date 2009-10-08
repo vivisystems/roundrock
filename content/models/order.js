@@ -93,8 +93,10 @@
         saveOrderToBackup: function(data, isTraining) {
 
             var retObj;
-this.log('DEBUG', 'order data: ' + this.dump(data));
-            //try {
+
+            //this.log('DEBUG', 'order data: ' + this.dump(data));
+
+            try {
                     
                 if (isTraining) {
                     retObj = this.save(this.mappingTranToOrderFields(data));
@@ -187,12 +189,12 @@ this.log('DEBUG', 'order data: ' + this.dump(data));
                 }
 
                 return true;
-/*
+
             } catch(e) {
                 this.log('ERROR',
                     'record could not be saved to backup [' + e + ']\n' + this.dump(data));
             }
-            */
+            
             return false;
 
         },

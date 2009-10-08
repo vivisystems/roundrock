@@ -980,7 +980,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing total sale payments received (error code %S) [message #1420].', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while computing total sales payments received (error code %S) [message #1427].', [orderPayment.lastError])};
                 var paymentsReceivedForSales = (salesPayment[0] && salesPayment[0].amount != null) ? salesPayment[0].amount : 0;
 
                 var credit = salesRevenue - paymentsReceivedForSales;
@@ -1358,7 +1358,7 @@
             //this.log('DEBUG', 'triggered on event ' + evt.type);
 
             var txn = evt.data;
-            if (!txn) return;
+            if (!txn || txn.isStored()) return;
 
             var checkSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.CheckSalePeriod') || false;
             if (checkSalePeriod) {
@@ -1387,8 +1387,12 @@
                 if (evt.type == 'beforeLedgerEntry') {
                     txn = {data: {cluster_sp: -1}};
                 }
-                else {
+                else if (evt.type == 'beforeSubmit') {
                     txn = evt.data.txn;
+                    if (txn.isStored()) return;
+                }
+                else {
+                    return;
                 }
 
                 // force and waiting to get cluster sale period
@@ -1414,7 +1418,7 @@
                 if ('cluster_sp' in txn.data) {
 
                     // try again if previous attempt failed due to network/server issues
-                    if (txn.data.cluster_sp == -1) {
+                    if (txn.data.cluster_sp == -1 || txn.data.cluster_sp == 0) {
                         txn.data.cluster_sp = this.ShiftMarker.getClusterSalePeriod();
                     }
 
@@ -1427,7 +1431,14 @@
                             evt.preventDefault();
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Shift Error'),
-                                _('Failed to verify current sale period. Please check the network connectivity to the terminal designated as the sale period master. You are strongly advised to resolve this issue before executing any further transactions on this terminal.'));
+                                _('Failed to verify current sale period. Please check the network connectivity to the terminal designated as the sale period master. You are strongly advised to resolve this issue before executing any further transactions on this terminal [message #1435]'));
+                        }
+                        else if (clusterSalePeriod == 0) {
+                            evt.preventDefault();
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Shift Error'),
+                                _('Failed to verify current sale period because cluster sale period has not yet been set. Please verify that the terminal designated as the sale period master has properly initialized the sale period [message #1436]'));
+
                         }
                         else if (clusterSalePeriod != currentSalePeriod) {
                             var disableSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.DisableSalePeriod');
@@ -1436,6 +1447,22 @@
                                 var shift_marker = this._getShiftMarker();
                                 if (shift_marker) {
                                     shift_marker.sale_period = clusterSalePeriod;
+                                    
+                                    // need to update session here because sale period session key is used by buildOrderSequence
+                                    this._updateSession(shift_marker);
+
+                                    // if sequence number has been assigned, update sequence number if not stored order
+                                    if (evt.type == 'beforeSubmit' && txn.data.seq.length > 0 && txn.data.seq != -1 && txn.data.seq_sp != '') {
+                                        let seqData = txn.buildOrderSequence(txn.data.seq_original);
+                                        txn.data.seq_sp = seqData[0];
+                                        txn.data.seq = seqData[1];
+
+                                        NotifyUtils.warn(_('Sale period has been changed from [%S] to [%S]. Order sequence number updated to [%S].',
+                                                           [new Date(currentSalePeriod * 1000).toString('yyyyMMdd'),
+                                                            new Date(clusterSalePeriod * 1000).toString('yyyyMMdd'),
+                                                            txn.data.seq]));
+                                        GeckoJS.Session.set('vivipos_fec_order_sequence', txn.data.seq);
+                                    }
                                 }
                                 else {
                                     shift_marker = {
@@ -1447,15 +1474,15 @@
                                     evt.preventDefault();
                                     GREUtils.Dialog.alert(this.topmostWindow,
                                         _('Shift Error'),
-                                        _('Failed to verify current sale period. Please check the network connectivity to the terminal designated as the sale period master. You are strongly advised to resolve this issue before executing any further transactions on this terminal.'));
+                                        _('Failed to verify current sale period due to errors when retrieving shift information. You are strongly advised to resolve this issue before executing any further transactions on this terminal [#1437]'));
+                                    this._updateSession(shift_marker);
                                 }
-                                this._updateSession(shift_marker);
                             }
                             else {
                                 evt.preventDefault();
                                 GREUtils.Dialog.alert(this.topmostWindow,
                                     _('Shift Warning'),
-                                    _("This terminal's sale period [%S (%S)] appears to be out of sync with the cluster sale period [%S (%S)]. Please close the sale period on this terminal immediately to avoid recording transactions in the wrong sale period.",
+                                    _("This terminal's sale period [%S (%S)] appears to be out of sync with the cluster sale period [%S (%S)]. Please close the sale period on this terminal immediately to avoid recording transactions in the wrong sale period [#1438]",
                                       [new Date(currentSalePeriod * 1000).toLocaleDateString(), currentSalePeriod, new Date(clusterSalePeriod * 1000).toLocaleDateString(), clusterSalePeriod]));
                             }
                         }

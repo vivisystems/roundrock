@@ -1293,11 +1293,11 @@
                 startIndex = this.loadTestState;
                 this.loadTestState = null;
                 progressBar.value = startIndex * 100 / count;
-                waitPanel = this._showWaitPanel('interruptable_wait_panel', 'interruptible_wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+                waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
             else {
                 progressBar.value = 0;
-                waitPanel = this._showWaitPanel('interruptable_wait_panel', 'interruptible_wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+                waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
 
             //this.sleep(100);

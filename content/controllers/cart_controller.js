@@ -1725,6 +1725,7 @@
             discountAmount = parseFloat(discountAmount) / 100;
 
             var discountItem = {
+                type: '%',
                 name: discountName,
                 amount: discountAmount
 
@@ -1971,6 +1972,7 @@
 
             surchargeAmount = parseFloat(surchargeAmount) / 100;
             var surchargeItem = {
+                type: '%',
                 name: name,
                 amount: surchargeAmount
             };
@@ -3296,7 +3298,7 @@
             }
 
             // blockUI when saving...
-            var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
+            var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 0);
 
             if (this.dispatchEvent('beforeSubmit', {
                 status: status,
@@ -3405,6 +3407,7 @@
 
                 // unblockUI
                 this._unblockUI(waitPanel);
+                return false;
             }
             return true;
         },
@@ -3607,7 +3610,7 @@
                 return;
             }
 
-            if (this.ifHavingOpenedOrder()) {
+            if (!this.ifHavingOpenedOrder()) {
                 if (plu) {
                     curTransaction = this._newTransaction();
                 }
@@ -3760,7 +3763,7 @@
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
 
                 self._inDialog = false;
-
+                
                 var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
                     self._appendCondiments(selectedCondiments.concat(additionalItems), true);
@@ -4023,7 +4026,7 @@
             }
 
             // blockUI when access remote service
-            var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Retrieving Order'), 1);
+            var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Retrieving Order'), 0);
             let remoteOrderData = orderModel.readOrder(id, true); // recall use master service's datas.
 
             this._unblockUI(waitPanel);
@@ -4095,7 +4098,7 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Payment Refund'), features, inputObj);
 
             // blockUI when saving...
-            waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Voiding Order'), 1);
+            waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Voiding Order'), 0);
 
             if (inputObj.ok) {
 

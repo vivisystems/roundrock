@@ -1311,8 +1311,8 @@
                         var msg = _('Please wait while product properties are cloned...');
                         var max = inputObj.selectedItems.length;
                         var waitPanel = this._showWaitPanel(msg, max);
-                        var progress = document.getElementById('progress');
-                        var caption = document.getElementById('wait_caption');
+                        var progress = document.getElementById('interruptible_progress');
+                        var caption = document.getElementById('interruptible_wait_caption');
 
                         var productModel = new ProductModel();
                         var step = max / 100;
@@ -1456,17 +1456,17 @@
         },
         
         _showWaitPanel: function(message, max) {
-            var waitPanel = document.getElementById('interruptable_wait_panel');
+            var waitPanel = document.getElementById('interruptible_wait_panel');
             waitPanel.openPopupAtScreen(0, 0);
 
-            var caption = document.getElementById( 'wait_caption' );
+            var caption = document.getElementById( 'interruptible_wait_caption' );
             caption.label = message;
 
-            var progressbar = document.getElementById('progress');
+            var progressbar = document.getElementById('interruptible_progress');
             progressbar.max = max;
             progressbar.value = 0;
 
-            var button = document.getElementById('cancel_wait');
+            var button = document.getElementById('interruptible_action');
             button.setAttribute('oncommand', '$do("stopCloning", null, "Plus");');
             
             // release CPU for progressbar ...
