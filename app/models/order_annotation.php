@@ -9,19 +9,31 @@ class OrderAnnotation extends AppModel {
 
     function saveOrderAnnotations ($annotations) {
 
-        $this->begin();
-
+        $result = true;
         try {
+
+            $this->begin();
+
             foreach ($annotations as $annotation) {
+
                 $this->id = $annotation['id'];
-                $this->save($annotation);
+                $r = $this->save($annotation);
+
+                $result = ($result & !empty($r));
             }
+
+            $this->commit();
+
         }catch(Exception $e) {
+
             CakeLog::write('error', 'Exception saveOrderAnnotations \n' .
                 '  Exception: ' . $e->getMessage() . "\n" );
+            
+            $this->rollback();
+            $result = false;
         }
 
-        $this->commit();
+        return $result;
     }
 }
 

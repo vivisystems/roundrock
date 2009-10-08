@@ -9,19 +9,31 @@ class OrderPromotion extends AppModel {
 
     function saveOrderPromotions ($promotions) {
 
-        $this->begin();
+        $result = true;
 
         try {
+
+            $this->begin();
+
             foreach ($promotions  as $promotion) {
                 $this->id = $promotion['id'];
-                $this->save($promotion);
+                $r = $this->save($promotion);
+
+                $result = ($result & !empty($r));
             }
+
+            $this->commit();
+
         }catch(Exception $e) {
+
             CakeLog::write('error', 'Exception saveOrderPromotions \n' .
                 '  Exception: ' . $e->getMessage() . "\n" );
+            
+            $this->rollback();
+            $result = false;
         }
-       
-        $this->commit();
+
+        return $result;
 
     }
 

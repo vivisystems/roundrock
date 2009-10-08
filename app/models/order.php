@@ -27,19 +27,31 @@ class Order extends AppModel {
      */
     function saveOrders($orders) {
 
-        $this->begin();
+        $result = true;
 
         try {
+            $this->begin();
+
             foreach ($orders as $order) {
                 $this->id = $order['id'];
-                $this->save($order);
+                $r = $this->save($order);
+
+                $result = ($result & !empty($r));
             }
+
+            $this->commit();
+
         }catch(Exception $e) {
+
             CakeLog::write('error', 'Exception saveOrders \n' .
                 '  Exception: ' . $e->getMessage() . "\n" );
+
+            $this->rollback();
+            $result = false;
         }
 
-        $this->commit();
+        return $result;
+
     }
 
 
@@ -50,12 +62,15 @@ class Order extends AppModel {
      */
     function saveOrdersFromBackupFormat($datas) {
 
-    // save order to database
+        $result = array();
+
+        // save order to database
         if (!empty($datas['Order'])) {
         // save order
             $orders = json_decode($datas['Order'], true);
             if (is_array($orders)) {
-                $this->saveOrders(array_values($orders));
+                $r = $this->saveOrders(array_values($orders));
+                $result['Order'] = $r;
             }
 
         }
@@ -65,7 +80,8 @@ class Order extends AppModel {
         // save order_items
             $orderItems = json_decode($datas['OrderItem'], true);
             if (is_array($orderItems)) {
-                $this->OrderItem->saveOrderItems(array_values($orderItems));
+                $r = $this->OrderItem->saveOrderItems(array_values($orderItems));
+                $result['OrderItem'] = $r;
             }
 
         }
@@ -75,7 +91,8 @@ class Order extends AppModel {
         // save order_additions
             $orderAdditions = json_decode($datas['OrderAddition'], true);
             if (is_array($orderAdditions)) {
-                $this->OrderAddition->saveOrderAdditions(array_values($orderAdditions));
+                $r = $this->OrderAddition->saveOrderAdditions(array_values($orderAdditions));
+                $result['OrderAddition'] = $r;
             }
 
         }
@@ -85,7 +102,8 @@ class Order extends AppModel {
         // save order_payments
             $orderPayments = json_decode($datas['OrderPayment'], true);
             if (is_array($orderPayments)) {
-                $this->OrderPayment->saveOrderPayments(array_values($orderPayments));
+                $r = $this->OrderPayment->saveOrderPayments(array_values($orderPayments));
+                $result['OrderPayment'] = $r;
             }
 
         }
@@ -95,7 +113,8 @@ class Order extends AppModel {
         // save order_annotations
             $orderAnnotations = json_decode($datas['OrderAnnotation'], true);
             if (is_array($orderAnnotations)) {
-                $this->OrderAnnotation->saveOrderAnnotations(array_values($orderAnnotations));
+                $r = $this->OrderAnnotation->saveOrderAnnotations(array_values($orderAnnotations));
+                $result['OrderAnnotation'] = $r;
             }
         }
 
@@ -104,7 +123,8 @@ class Order extends AppModel {
         // save order_item_condiments
             $orderItemCondiments = json_decode($datas['OrderItemCondiment'], true);
             if (is_array($orderItemCondiments)) {
-                $this->OrderItemCondiment->saveOrderItemCondiments(array_values($orderItemCondiments));
+                $r = $this->OrderItemCondiment->saveOrderItemCondiments(array_values($orderItemCondiments));
+                $result['OrderItemCondiment'] = $r;
             }
         }
 
@@ -113,7 +133,8 @@ class Order extends AppModel {
         // save order_promotions
             $orderPromotions = json_decode($datas['OrderPromotion'], true);
             if (is_array($orderPromotions)) {
-                $this->OrderPromotion->saveOrderPromotions(array_values($orderPromotions));
+                $r = $this->OrderPromotion->saveOrderPromotions(array_values($orderPromotions));
+                $result['OrderPromotion'] = $r;
             }
         }
 
@@ -122,7 +143,8 @@ class Order extends AppModel {
         // save order_objects
             $orderObjects = json_decode($datas['OrderObject'], true);
             if (is_array($orderObjects)) {
-                $this->OrderObject->saveOrderObjects(array_values($orderObjects));
+                $r = $this->OrderObject->saveOrderObjects(array_values($orderObjects));
+                $result['OrderObject'] = $r;
             }
         }
 
@@ -131,9 +153,12 @@ class Order extends AppModel {
         // save order_item_taxes
             $orderItemTaxes = json_decode($datas['OrderItemTax'], true);
             if (is_array($orderItemTaxes)) {
-                $this->OrderItemTax->saveOrderItemTaxes(array_values($orderItemTaxes));
+                $r = $this->OrderItemTax->saveOrderItemTaxes(array_values($orderItemTaxes));
+                $result['OrderItemTax'] = $r;
             }
         }
+
+        return $result;
 
     }
 

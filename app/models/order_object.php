@@ -10,20 +10,30 @@ class OrderObject extends AppModel {
 
     function saveOrderObjects($objects) {
 
-        $this->begin();
-
+        $result = true;
         try {
+
+            $this->begin();
+
             foreach ($objects as $object) {
                 $this->id = $object['id'];
-                $this->save($object);
+                $r = $this->save($object);
+
+                $result = ($result & !empty($r));
             }
+
+            $this->commit();
+
         }catch(Exception $e) {
+
             CakeLog::write('error', 'Exception saveOrderObjects \n' .
                 '  Exception: ' . $e->getMessage() . "\n" );
+            
+            $this->rollback();
+            $result = false;
         }
 
-        $this->commit();
-
+        return $result;
     }
 }
 

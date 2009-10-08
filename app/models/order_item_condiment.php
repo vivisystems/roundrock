@@ -9,20 +9,32 @@ class OrderItemCondiment extends AppModel {
 
 
     function saveOrderItemCondiments($condiments) {
-
-        $this->begin();
-
+        
+        $result = true;
         try {
+
+            $this->begin();
+
             foreach ($condiments as $condiment) {
+
                 $this->id = $condiment['id'];
-                $this->save($condiment);
+                $r = $this->save($condiment);
+
+                $result = ($result & !empty($r));
             }
+
+            $this->commit();
+
         }catch(Exception $e) {
+
             CakeLog::write('error', 'Exception saveOrderItemCondiments \n' .
                 '  Exception: ' . $e->getMessage() . "\n" );
+            
+            $this->rollback();
+            $result = false;
         }
 
-        $this->commit();
+        return $result;
     }
 
 }

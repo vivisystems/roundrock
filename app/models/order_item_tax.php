@@ -10,19 +10,30 @@ class OrderItemTax extends AppModel {
 
     function saveOrderItemTaxes($taxes) {
 
-        $this->begin();
-
+        $result = true;
         try {
+
+            $this->begin();
+
             foreach ($taxes as $tax) {
                 $this->id = $tax['id'];
-                $this->save($tax);
+                $r = $this->save($tax);
+
+                $result = ($result & !empty($r));
             }
+
+            $this->commit();
+
         }catch(Exception $e) {
+
             CakeLog::write('error', 'Exception saveOrderItemTaxes \n' .
                 '  Exception: ' . $e->getMessage() . "\n" );
+
+            $this->rollback();
+            $result = false;
         }
 
-        $this->commit();
+        return $result;
     }
 
 }

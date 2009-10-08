@@ -22,28 +22,33 @@ class TableStatus extends AppModel {
      */
     function updateStatusByOrders($orders, $tableNoToIds) {
 
-        $this->begin();
 
         try {
+
+            $this->begin();
+
             foreach ($orders as $order) {
 
                 $status = intval($order['status']);
                 $table_no = intval($order['table_no']);
                 $table_id = $tableNoToIds[$table_no];
 
-                $this->updateOrderStatusById($table_id, $table_no);
+                $this->updateOrderStatusById($table_id, $table_no, true);
 
             }
+
+            $this->commit();
+
         }catch(Exception $e) {
             CakeLog::write('error', 'Exception updateStatusByOrders \n' .
                 '  Exception: ' . $e->getMessage() . "\n" );
+            $this->rollback();
         }
 
-        $this->commit();
     }
 
 
-    function updateOrderStatusById($table_id, $table_no=false) {
+    function updateOrderStatusById($table_id, $table_no=false, $autoMark = true) {
         if (empty($table_id)) return false;
 
         if (empty($table_no)) {
@@ -80,15 +85,17 @@ class TableStatus extends AppModel {
             if ($sum_customers <= 0 && $order_count <= 0) {
                 $data['status'] = 0;
 
+                if ($autoMark) {
                 // process automark after submit
-                $tableMark = new TableMark();
-                $mark = $tableMark->getAutoMarkAfterSubmit();
-                if($mark) {
-                    $data['mark'] = $mark['name'];
-                    $data['mark_op_deny'] = $mark['opdeny'];
-                    $data['start_time'] = time();
-                    $data['end_time'] = time() + $mark['period']*60;
-                    $data['status'] = 3;
+                    $tableMark = new TableMark();
+                    $mark = $tableMark->getAutoMarkAfterSubmit();
+                    if($mark) {
+                        $data['mark'] = $mark['name'];
+                        $data['mark_op_deny'] = $mark['opdeny'];
+                        $data['start_time'] = time();
+                        $data['end_time'] = time() + $mark['period']*60;
+                        $data['status'] = 3;
+                    }
                 }
 
             }else {
@@ -96,7 +103,7 @@ class TableStatus extends AppModel {
                 $data['mark'] = '';
                 $data['mark_op_deny'] = 0;
                 $data['start_time'] = time();
-                $data['end_time'] = time() + 86400 ; // XXX fake time
+                $data['end_time'] = time() + 86400*365 ; // XXX fake time
             }
 
             $this->id = $table_id;
@@ -119,26 +126,33 @@ class TableStatus extends AppModel {
 
         $now = time();
 
-        $this->begin();
-
         try {
+            $this->begin();
+
             $result = $this->find('all', array('conditions'=>"end_time <= $now AND status=3", 'recursive'=>-1));
             foreach($result as $value) {
                 $status = $value['TableStatus'];
                 if ($status['sum_customers'] == 0) {
                 // reset to available
                     $data = array('status'=>0, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
-                        'start_time'=>time(), 'end_time'=>time()+86400,
+                        'start_time'=>time(), 'end_time'=>time()+86400*365,
                         'modified' => (double)(microtime(true)*1000));
                     $this->id = $status['id'];
                     $this->save($data);
                 }
             }
+            $this->commit();
         }catch(Exception $e) {
+
             CakeLog::write('error', 'Exception clearExpireStatuses \n' .
                 '  Exception: ' . $e->getMessage() . "\n" );
+
+            $this->rollback();
+            return false;
+
         }
-        $this->commit();
+        return true;
+
     }
 
 
@@ -219,7 +233,7 @@ class TableStatus extends AppModel {
 
         $data = array('id'=> $slaveTableId, 'table_id'=> $slaveTableId, 'table_no'=> $slaveTableNo,
             'status'=>2, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
-            'start_time'=>time(), 'end_time'=>time()+86400,
+            'start_time'=>time(), 'end_time'=>time()+86400*365,
             'hostby'=> $masterTableNo,
             'modified' => (double)(microtime(true)*1000)
         );
@@ -246,7 +260,7 @@ class TableStatus extends AppModel {
 
         $data = array('id'=> $tableId, 'table_id'=> $tableId, 'table_no'=> $tableNo,
             'status'=>0, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
-            'start_time'=>time(), 'end_time'=>time()+86400,
+            'start_time'=>time(), 'end_time'=>time()+86400*365,
             'hostby'=> 0,
             'modified' => (double)(microtime(true)*1000));
 
@@ -269,6 +283,13 @@ class TableStatus extends AppModel {
         $table = $this->Table->find('first', array('conditions'=> array("id"=>$tableId), 'fields'=>'table_no', 'recursive'=>-1));
 
         if (!$table) return false;
+
+        $tableStatus = $this->find('first', array('conditions'=>"id='$tableId'", 'fields'=>'status', 'recursive'=>-1));
+
+        // check if other merge mark exists
+        if ($tableStatus && ($tableStatus['TableStatus']['status'] != 0 && $tableStatus['TableStatus']['status'] != 3 ) ) {
+            return false;
+        }
 
         $tableMark = new TableMark();
         $mark = $tableMark->getMarkById($markId);
@@ -296,16 +317,31 @@ class TableStatus extends AppModel {
      * @param <type> $tableId
      * @return <type>
      */
-    function unmarkTable($tableId) {
+    function unmarkTable($tableId, $tableNo=false) {
 
-        $table = $this->Table->find('first', array('conditions'=> array("id"=>$tableId), 'fields'=>'table_no', 'recursive'=>-1));
+        if(!$tableNo) {
+            $table = $this->Table->find('first', array('conditions'=> array("id"=>$tableId), 'fields'=>'table_no', 'recursive'=>-1));
+            if (!$table) return false;
+            $tableNo = $table['Table']['table_no'];
+        }
 
-        if (!$table) return false;
+        $tableStatus = $this->find('first', array('conditions'=>"id='$tableId'", 'fields'=>'status', 'recursive'=>-1));
 
-        $tableNo = $table['Table']['table_no'];
+        // check if other merge mark exists
+        if ($tableStatus && $tableStatus['TableStatus']['status'] != 3 ) {
+            return false;
+        }
 
-        // unmergetable will reset all status. use it.
-        return $this->unmergeTable($tableId, $tableNo);
+        $data = array('id'=> $tableId, 'table_id'=> $tableId, 'table_no'=> $tableNo,
+            'status'=>0, 'mark' => '', 'mark_op_deny'=>0, 'mark_user'=>'',
+            'start_time'=>time(), 'end_time'=>time()+86400*365,
+            'hostby'=> 0,
+            'modified' => (double)(microtime(true)*1000));
+
+        $this->id = $tableId;
+        $this->save($data);
+
+        return true;
 
     }
 
@@ -332,22 +368,42 @@ class TableStatus extends AppModel {
 
         if (!$mark) return false;
 
-        foreach ($tables as $idx =>$table) {
+        try {
 
-            $tableId = $table['Table']['id'];
-            $tableNo = $table['Table']['table_no'];
+            $this->begin();
 
-            $data = array('id'=> $tableId, 'table_id'=> $tableId, 'table_no'=> $tableNo,
-                'status'=>3, 'mark' => $mark['name'] , 'mark_op_deny'=> $mark['opdeny'], 'mark_user'=> $clerk,
-                'start_time'=>time(), 'end_time'=>time() + $mark['period']*60,
-                'modified' => (double)(microtime(true)*1000)
-            );
+            foreach ($tables as $idx =>$table) {
 
-            $this->id = $tableId;
-            $this->save($data);
+                $tableId = $table['Table']['id'];
+                $tableNo = $table['Table']['table_no'];
+
+                $tableStatus = $this->find('first', array('conditions'=>"id='$tableId'", 'fields'=>'status', 'recursive'=>-1));
+
+                // check if other merge mark exists
+                if ($tableStatus && ($tableStatus['TableStatus']['status'] != 0 && $tableStatus['TableStatus']['status'] != 3 ) ) continue;
+
+                $data = array('id'=> $tableId, 'table_id'=> $tableId, 'table_no'=> $tableNo,
+                    'status'=>3, 'mark' => $mark['name'] , 'mark_op_deny'=> $mark['opdeny'], 'mark_user'=> $clerk,
+                    'start_time'=>time(), 'end_time'=>time() + $mark['period']*60,
+                    'modified' => (double)(microtime(true)*1000)
+                );
+
+                $this->id = $tableId;
+                $this->save($data);
+
+            }
+
+            $this->commit();
+
+        }catch(Exception $e) {
+
+            CakeLog::write('error', 'Exception markRegion \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
+
+            $this->rollback();
+            return false;
 
         }
-
         return true;
     }
 
@@ -367,14 +423,29 @@ class TableStatus extends AppModel {
 
         if (!$tables) return false;
 
-        foreach ($tables as $idx =>$table) {
+        try {
 
-            $tableId = $table['Table']['id'];
-            $tableNo = $table['Table']['table_no'];
+            $this->begin();
 
-           $this->unmergeTable($tableId, $tableNo);
+            foreach ($tables as $idx =>$table) {
+
+                $tableId = $table['Table']['id'];
+                $tableNo = $table['Table']['table_no'];
+
+                $this->unmarkTable($tableId, $tableNo);
+            }
+
+            $this->commit();
+
+        }catch(Exception $e) {
+
+            CakeLog::write('error', 'Exception unmarkRegion \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
+
+            $this->rollback();
+            return false;
+
         }
-
         return true;
 
     }

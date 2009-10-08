@@ -62,7 +62,7 @@ class TableBooking extends AppModel {
         $this->removeExpireBooking();
         
         $tableStatus = new TableStatus();
-        $tableStatus->updateOrderStatusById($table_id, $table_no);
+        $tableStatus->updateOrderStatusById($table_id, $table_no, false);
 
         return ($result != false );
     }
@@ -80,7 +80,7 @@ class TableBooking extends AppModel {
         $this->removeExpireBooking();
         
         $tableStatus = new TableStatus();
-        $tableStatus->updateOrderStatusById($table_id, $table_no);
+        $tableStatus->updateOrderStatusById($table_id, $table_no, false);
 
         return ($result != false );
     }
@@ -99,7 +99,7 @@ class TableBooking extends AppModel {
         $table_id = $book['TableBooking']['table_id'];
         
         $tableStatus = new TableStatus();
-        $tableStatus->updateOrderStatusById($table_id);
+        $tableStatus->updateOrderStatusById($table_id, false, false);
 
         return true;
     }

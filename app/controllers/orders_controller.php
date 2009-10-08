@@ -21,21 +21,21 @@ class OrdersController extends AppController {
         $orderObject = array();
 
         if(!empty($_REQUEST['request_data'])) {
-            //file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']); // for debug
+//            file_put_contents("/tmp/saveOrder.req", $_REQUEST['request_data']); // for debug
             $request_data = $_REQUEST['request_data'];
         }else {
             $request_data = "{}";
-            //$request_data = file_get_contents("/tmp/saveOrder.req"); // for debug
+//            $request_data = file_get_contents("/tmp/saveOrder.req"); // for debug
         }
 
         $datas = json_decode($request_data, true);
 
-        $result = true;
+        $saveResult = array();
         $machineId = $this->SyncHandler->getRequestClientMachineId();
 
         try {
 
-            $this->Order->saveOrdersFromBackupFormat($datas);
+            $saveResult = $this->Order->saveOrdersFromBackupFormat($datas);
 
             // update table orders and status
             $this->Table->updateOrdersFromBackupFormat($datas);
@@ -44,11 +44,13 @@ class OrdersController extends AppController {
             $this->TableOrderLock->releaseOrderLocksByMachineId($machineId);
 
         }catch (Exception $e) {
-            $result = false;
+
+            $saveResult = array();
+            
         }
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'response_data' => $result
+            'response_data' => $saveResult
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
