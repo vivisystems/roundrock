@@ -8,6 +8,7 @@
 <!-- dialog panel -->
 <?xul-overlay href="chrome://viviecr/content/bootstrap_mainscreen_dialogs.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/interruptible_waiting_panel.xul"?>
 
 <overlay id="viviecrOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -56,7 +57,7 @@
   <script src='chrome://viviecr/content/controllers/ledger_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/ledger_entry_types_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/stocks_controller.js' type="application/x-javascript;version=1.7"/>
-  <script src='chrome://viviecr/content/controllers/training_mode_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/training_mode_controller.js' typinterruptible_e="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/nonplu_setting_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/stock_records_controller.js' type="application/x-javascript;version=1.7"/>
 

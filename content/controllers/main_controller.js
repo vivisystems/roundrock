@@ -1279,29 +1279,25 @@
             var startIndex = 0;
             var waitPanel;
 
-            var progressBar = document.getElementById('progress');
+            var progressBar = document.getElementById('interruptible_progress');
             progressBar.mode = 'determined';
 
-            var actionRow = document.getElementById('useraction');
-            var actionButton = document.getElementById('action');
+            var actionButton = document.getElementById('interruptible_action');
 
-            if (actionRow) {
-                actionRow.hidden = false;
-                if (actionButton) {
-                    actionButton.setAttribute('label', 'Suspend');
-                    actionButton.setAttribute('oncommand', '$do("suspendLoadTest", null, "Main");');
-                }
+            if (actionButton) {
+                actionButton.setAttribute('label', 'Suspend');
+                actionButton.setAttribute('oncommand', '$do("suspendLoadTest", null, "Main");');
             }
             
             if (resume && this.loadTestState != null) {
                 startIndex = this.loadTestState;
                 this.loadTestState = null;
                 progressBar.value = startIndex * 100 / count;
-                waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+                waitPanel = this._showWaitPanel('interruptable_wait_panel', 'interruptible_wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
             else {
                 progressBar.value = 0;
-                waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+                waitPanel = this._showWaitPanel('interruptable_wait_panel', 'interruptible_wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
 
             //this.sleep(100);

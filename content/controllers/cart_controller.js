@@ -3940,7 +3940,10 @@
                     newIndex = index + val;
                 }
                 if (newIndex >= cart.rowCount) newIndex = cart.rowCount - 1;
-                if (newIndex < 0) newIndex = 0;
+                if (newIndex < 0) {
+                    if (cart.rowCount > 0) newIndex = 0;
+                    else newIndex = -1;
+                }
                 cart.selection.select(newIndex);
                 cart.ensureRowIsVisible(cart.selectedIndex);
             }
