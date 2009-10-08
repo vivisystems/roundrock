@@ -41,21 +41,21 @@
             // load matching order(s)
             var conditions = '';
             var indices = inputObj.index.split(',');
-            for (var i = 0; i < indices.length; i++) {
-                if (inputObj.fuzzy) {
-                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " like '%" + this._queryStringPreprocessor(inputObj.value) + "%')";
-                }
-                else {
-                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " = '" + this._queryStringPreprocessor(inputObj.value) + "')";
+            if (inputObj.value) {
+                for (var i = 0; i < indices.length; i++) {
+                    if (inputObj.fuzzy) {
+                        conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " like '%" + this._queryStringPreprocessor(inputObj.value) + "%')";
+                    }
+                    else {
+                        conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " = '" + this._queryStringPreprocessor(inputObj.value) + "')";
+                    }
                 }
             }
-
             var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
             
             if (localOnly) {
                 conditions += " AND terminal_no = '" + this._queryStringPreprocessor(GeckoJS.Session.get('terminal_no')) + "'";
             }
-
             var orderModel = new OrderModel();
             var orders = orderModel.find('all', {
                 fields: ['id',
@@ -156,9 +156,15 @@
             if (countLabelObj) {
                 countLabelObj.value = orders.length;
             }
-            
-            // disable details button initially
-            this.validateForm();
+
+            if (orders.length == 1) {
+                let vivitree = document.getElementById('orderscrollablepanel');
+                if (vivitree) vivitree.selection.select(0);
+                this.validateForm(0);
+            }
+            else {
+                this.validateForm();
+            }
         },
 
         validateForm: function(index) {
