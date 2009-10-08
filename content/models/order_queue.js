@@ -108,7 +108,7 @@
 
             var requestUrl = this.getHttpService().getRemoteServiceUrl('getQueueSummaries') + '/' + username + '/' + mode;
 
-            var result = this.getHttpService().requestRemoteService('GET', requestUrl) || [] ;
+            var result = this.getHttpService().requestRemoteService('GET', requestUrl) || false ;
 
             return result;
 

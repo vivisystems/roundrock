@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-08 20:18+0800\n"
+"POT-Creation-Date: 2009-10-08 20:29+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4102,8 +4102,35 @@ msgstr ""
 msgid "Cannot queue the recalled order!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_queue_controller.js:121
+#: ../..//content/controllers/cart_queue_controller.js:106
+msgid "Push Queue Error"
+msgstr ""
+
+#: ../..//content/controllers/cart_queue_controller.js:107
+msgid ""
+"This order could not be queued. Please check the network connectivity to the "
+"terminal designated as the table master."
+msgstr ""
+
+#: ../..//content/controllers/cart_queue_controller.js:128
 msgid "Order is not queued because it is empty"
+msgstr ""
+
+#: ../..//content/controllers/cart_queue_controller.js:152
+#: ../..//content/controllers/cart_queue_controller.js:197
+msgid "Pull Queue Error"
+msgstr ""
+
+#: ../..//content/controllers/cart_queue_controller.js:153
+msgid ""
+"Can not get queues list. Please check the network connectivity to the "
+"terminal designated as the table master."
+msgstr ""
+
+#: ../..//content/controllers/cart_queue_controller.js:198
+msgid ""
+"This order could not be pulled. Please check the network connectivity to the "
+"terminal designated as the table master."
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:150

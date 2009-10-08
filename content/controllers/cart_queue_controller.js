@@ -82,7 +82,7 @@
                     NotifyUtils.warn(_('No order to queue'));
                     cart._clearAndSubtotal();
                 }
-                return;
+                return false;
             }
 
             if (curTransaction.data.recall == 2) {
@@ -90,7 +90,7 @@
                     NotifyUtils.warn(_('Cannot queue the recalled order!!'));
                     cart._clearAndSubtotal();
                 }
-                return;
+                return false;
             }
 
             var user = this.Acl.getUserPrincipal();
@@ -99,7 +99,14 @@
             if (count > 0) {
 
                 // update user queue status
-                this.OrderQueue.pushQueue(user.username, curTransaction.data.id, curTransaction.data);
+                let success = this.OrderQueue.pushQueue(user.username, curTransaction.data.id, curTransaction.data);
+
+                if (!success) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Push Queue Error'),
+                        _('This order could not be queued. Please check the network connectivity to the terminal designated as the table master.'));
+                    return false;
+                }
 
                 // only empty view ,
                 // next added item will auto create new transaction
@@ -121,7 +128,7 @@
                     NotifyUtils.warn(_('Order is not queued because it is empty'));
                     cart._clearAndSubtotal();
                 }
-                return;
+                return false;
             }
 
         },
@@ -140,6 +147,13 @@
 
             queues = this.OrderQueue.getQueueSummaries(username);
 
+            if (!queues) {
+                GREUtils.Dialog.alert(this.topmostWindow,
+                    _('Pull Queue Error'),
+                    _('Can not get queues list. Please check the network connectivity to the terminal designated as the table master.'));
+                return false;
+            }
+            
             var dialog_data = {
                 queues: queues
             };
@@ -178,6 +192,11 @@
                     cart._clearAndSubtotal();
 
                     self.dispatchEvent('afterPullQueue', curTransaction);
+                }else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Pull Queue Error'),
+                        _('This order could not be pulled. Please check the network connectivity to the terminal designated as the table master.'));
+                    return false;
                 }
 
             });
