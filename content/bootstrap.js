@@ -41,6 +41,7 @@ include('chrome://viviecr/content/models/order_promotion.js');
 include('chrome://viviecr/content/models/ledger_entry_type.js');
 include('chrome://viviecr/content/models/ledger_record.js');
 include('chrome://viviecr/content/models/ledger_receipt.js');
+include('chrome://viviecr/content/models/order_queue.js');
 
 include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/product.js');

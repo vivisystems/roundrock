@@ -4,6 +4,8 @@
         
         name: 'CartQueue',
 
+        uses: ['OrderQueue'],
+
         _queuePool: null,
         _queueFile: "/var/tmp/cart_queue.txt",
         _queueSession: "cart_queue_pool",
@@ -33,41 +35,13 @@
 
         initial: function() {
 
-            // add Observer for startTrainingMode event.
-            var self = this;
-            this.observer = GeckoJS.Observer.newInstance( {
-                topics: [ "TrainingMode" ],
-
-                observe: function( aSubject, aTopic, aData ) {
-                    if ( aData == "start" ) {
-                        self.startTraining( true );
-                    } else if ( aData == "exit" ) {
-                        self.startTraining( false );
-                    }
-                }
-            } ).register();
-
         },
 
         destroy: function() {
-            if (this.observer) this.observer.unregister();
         },
 
         isQueueEnable: function() {
             return true;
-        },
-
-        startTraining: function( isTraining ) {
-
-            if ( isTraining ) {
-                this._queueFile = this._trainingQueueFile;
-                this._queueSession = this._trainingQueueSession;
-            } else {
-                GeckoJS.Session.remove( this._queueSession );
-                this._queueFile = this._defaultQueueFile;
-                this._queueSession = this._defaultQueueSession;
-            }
-            
         },
 
         /**
@@ -134,61 +108,28 @@
 
             if (!user) return false;
 
-            var queuePool = this._getQueuePool();
-
             var username = user.username;
 
-            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'Array') {
-                return false;
-            } else {
-                return (queuePool.user[username].length >0);
-            }
+            return this.OrderQueue.hasUserQueue(username);
 
         },
 
         _removeUserQueue: function(user) {
 
-            if ( !this._hasUserQueue( user ) ) return 0;
+            if (!user) return false;
 
-            var removeCount = 0;
-            var queuePool = this._getQueuePool();
             var username = user.username;
 
-            queuePool.user[username].forEach(function(key){
-
-                // just delete queue
-                if(queuePool.data[key]) delete queuePool.data[key];
-
-                removeCount++;
-
-            }, this);
-
-            delete queuePool.user[username];
-
-            this.serializeQueueToRecoveryFile(queuePool);
-
-            return removeCount;
+            return this.OrderQueue.removeUserQueue(username);
 
         },
 
-        _removeQueueByKey: function(key) {
+        _removeQueueById: function(id) {
 
-            var queuePool = this._getQueuePool();
+            if (!id) return null;
 
-            if (queuePool.data[key]) delete queuePool.data[key];
+            return this.OrderQueue.popQueue(id);
 
-            for (var user in queuePool.user) {
-
-                var userQueues = queuePool.user[user];
-
-                var idx = GeckoJS.Array.inArray(key, userQueues);
-
-                if (idx != -1) {
-                    userQueues.splice(idx, 1);
-                }
-            }
-            this.serializeQueueToRecoveryFile(queuePool);
-            
         },
 
         pushQueue: function(nowarning) {
@@ -219,13 +160,15 @@
 
             if (count > 0) {
                 key = new Date().toString('hh:mm:ss') + ':' + user.username;
-
+                alert(curTransaction.data.id +',,,'+key);
                 // queue
                 queuePool.data[key] = curTransaction.data;
 
                 // update user queue status
                 if(!queuePool.user[user.username]) queuePool.user[user.username] = [];
                 queuePool.user[user.username].push(key);
+
+                this.OrderQueue.pushQueue(user.username, curTransaction.data.id, curTransaction.data);
 
                 // only empty view ,
                 // next added item will auto create new transaction
@@ -240,7 +183,7 @@
                 GeckoJS.Session.remove('cart_set_price_value');
                 GeckoJS.Session.remove('cart_set_qty_value');
 
-                this.serializeQueueToRecoveryFile(queuePool);
+//                this.serializeQueueToRecoveryFile(queuePool);
 
                 Transaction.removeRecoveryFile();
             }
