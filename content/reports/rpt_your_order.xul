@@ -75,7 +75,7 @@
 					                        <menuitem selected="false" label="&rptyourorder.all;" value="all"/>
 					                        <menuitem selected="true" label="&rptyourorder.status.completed;" value="1"/>
 					                        <menuitem selected="false" label="&rptyourorder.status.stored;" value="2"/>
-					                        <menuitem selected="false" label="&rptyourorder.status.canceled;" value="-1"/>
+					                        <menuitem selected="false" label="&rptyourorder.status.cancelled;" value="-1"/>
 					                        <menuitem selected="false" label="&rptyourorder.status.voided;" value="-2"/>
 					                    </menupopup>
 					                </menulist>

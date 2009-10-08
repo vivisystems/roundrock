@@ -82,7 +82,7 @@
                 rounding_taxes: 'to-nearest-precision',
                 precision_taxes: 0,
 
-                status: 0, // transcation status 0 = process  1 = submit , -1 = canceled
+                status: 0, // transcation status 0 = process  1 = submit , -1 = cancelled
 
                 service_clerk: '',
                 service_clerk_displayname: '',
@@ -408,7 +408,7 @@
          * @param {Number} status   0 = Transaction in Memory
          *                          1 = Success Order and finished payment.
          *                          2 = Store Order
-         *                          -1 = Canceled Order
+         *                          -1 = Cancelled Order
          * @return {Number} submited status.
          */
         submit: function(status) {

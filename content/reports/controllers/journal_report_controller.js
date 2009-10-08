@@ -68,8 +68,17 @@
                         case 1:
                             record.status = _( '(rpt)completed' );
                             break;
+                        case 2:
+                            record.status = _( '(rpt)stored' );
+                            break;
+                        case -1:
+                            record.status = _( '(rpt)cancelled' );
+                            break;
                         case -2:
                             record.status = _( '(rpt)voided' );
+                            break;
+                        case -3:
+                            record.status = _( '(rpt)merged' );
                             break;
                     }
                 });

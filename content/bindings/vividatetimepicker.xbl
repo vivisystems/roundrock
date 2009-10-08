@@ -1656,6 +1656,7 @@
           <xul:vividatetimepicker-datepad anonid="datepad" class="datepicker-popupgrid"
                         xbl:inherits="disabled,readonly,firstdayofweek"/>
           <xul:vbox>
+            <xul:spacer flex="1"/>
             <xul:vividatetimepicker-timepad anonid="timepad" class="datepicker-popupgrid"
                         xbl:inherits="disabled,readonly"/>
             <xul:spacer flex="1"/>

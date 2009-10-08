@@ -151,10 +151,13 @@
                         repDatas[ oid ].status = _( '(rpt)stored' );
                         break;
                     case -1:
-                        repDatas[ oid ].status = _( '(rpt)canceled' );
+                        repDatas[ oid ].status = _( '(rpt)cancelled' );
                         break;
                     case -2:
                         repDatas[ oid ].status = _( '(rpt)voided' );
+                        break;
+                    case -2:
+                        repDatas[ oid ].status = _( '(rpt)merged' );
                         break;
                 }
 					

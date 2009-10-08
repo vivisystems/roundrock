@@ -556,7 +556,7 @@
 
             if (txn.isCancel()) {
 
-                NotifyUtils.warn(_('Cannot issue check on a canceled order'));
+                NotifyUtils.warn(_('Cannot issue check on a cancelled order'));
                 return; // fatal error ?
             }
 

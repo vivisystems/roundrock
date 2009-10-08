@@ -143,10 +143,13 @@
                         orderRecord.status = _( '(rpt)stored' );
                         break;
                     case -1:
-                        orderRecord.status = _( '(rpt)canceled' );
+                        orderRecord.status = _( '(rpt)cancelled' );
                         break;
                     case -2:
                         orderRecord.status = _( '(rpt)voided' );
+                        break;
+                    case -3:
+                        orderRecord.status = _( '(rpt)merged' );
                         break;
                 }
                 records[ orderRecord.type ].orders.push( orderRecord );

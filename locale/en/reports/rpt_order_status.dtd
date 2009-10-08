@@ -27,7 +27,7 @@
 <!ENTITY rptorderstatus.orderstatus "Order Status:">
 <!ENTITY rptorderstatus.finalizedorder "Completed">
 <!ENTITY rptorderstatus.savedorder "Stored">
-<!ENTITY rptorderstatus.canceledorder "Canceled">
+<!ENTITY rptorderstatus.cancelledorder "Cancelled">
 <!ENTITY rptorderstatus.voidedorder "Voided">
 <!ENTITY rptorderstatus.mergedorder "Merged">
 <!ENTITY rptorderstatus.periodtype "Period Type:">

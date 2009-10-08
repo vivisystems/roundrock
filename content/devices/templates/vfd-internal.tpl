@@ -38,7 +38,7 @@
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'afterCancel'}
 [&ESC @][&ESC QA]${' '|left:20}[&CR]
-[&ESC QB]CANCELED: ${order.seq|right:10}[&CR]
+[&ESC QB]CANCEL: ${order.seq|right:12}[&CR]
 {else}
 [&ESC @][&ESC QA]${(store.name == null)?'VIVIPOS':store.name|center:20}[&CR]
 [&ESC QB]${'Welcome!'|center:20}[&CR]
