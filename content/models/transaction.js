@@ -2962,17 +2962,17 @@
         },
 
         getNumberOfCustomers: function() {
-            return this.data.no_of_customers || 0;
+            return this.data.no_of_customers || '';
         },
 
         setNumberOfCustomers: function(num) {
-            num = isNaN(parseInt(num)) ? (1+'') : (parseInt(num)+'');
-            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_customers', num || '');
+            num = isNaN(parseInt(num)) ? ('') : (parseInt(num)+'');
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
             this.data.no_of_customers = num;
         },
 
         getTableNo: function() {
-            return this.data.table_no;
+            return this.data.table_no || '';
         },
 
         setTableNo: function(tableNo) {
@@ -2982,7 +2982,7 @@
         },
 
         getCheckNo: function() {
-            return this.data.check_no;
+            return this.data.check_no || '';
         },
 
         setCheckNo: function(checkNo) {
@@ -3100,6 +3100,7 @@
 
                         // remove all item discount/surcharge and markers
                         let emptyData = {
+                            /*
                             discount_name: '',
                             discount_rate: '',
                             discount_type: '',
@@ -3112,6 +3113,7 @@
 
                             hasDiscount: false,
                             hasSurcharge: false,
+                            */
                             hasMarker: false
                         };
 
@@ -3138,10 +3140,22 @@
                             orgItem.org_qty = item.current_qty;
                             orgItem.current_qty = (item.current_qty-qty);
                             orgItem.current_subtotal = this.getRoundedPrice(orgItem.current_qty*item.current_price*priceModifier) || 0;
+
                             newItem.org_qty = item.current_qty;
                             newItem.current_qty = qty;
                             newItem.current_subtotal = this.getRoundedPrice(qty*item.current_price*priceModifier) || 0;
 
+                            // check Discount/Surcharge
+                            if (orgItem.hasDiscount) {
+                                let orgDiscount = orgItem.current_discount;
+                                orgItem.current_discount = this.getRoundedPrice( orgItem.current_discount * ( orgItem.current_qty / orgItem.org_qty));
+                                newItem.current_discount = orgDiscount - orgItem.current_discount;
+                            }
+                            if (orgItem.hasSurcharge) {
+                                let orgSurcharge = orgItem.current_surcharge;
+                                orgItem.current_surcharge = this.getRoundedPrice( orgItem.current_surcharge * ( orgItem.current_qty / orgItem.org_qty));
+                                newItem.current_surcharge = orgSurcharge - orgItem.current_surcharge;
+                            }
                         }
 
                         this.data.items[newItemIndex] = newItem;
@@ -3164,11 +3178,11 @@
 
                         newItemIndex = removeIndexes[itemIndex];
                         if(newItemIndex) {
-                            let newItemDisplay = GREUtils.extend({}, itemDisplay, {
-                                index: newItemIndex
-                            });
+                            let newItem = this.data.items[newItemIndex];
+                            let newItemDisplay = this.createDisplaySeq(newItemIndex, newItem, itemDisplay.type);
                             this.data.display_sequences.push(newItemDisplay);
                         }
+                        source.data.display_sequences[i] = this.createDisplaySeq(itemIndex, item, itemDisplay.type);
                         
                     }
                     

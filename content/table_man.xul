@@ -304,13 +304,13 @@
                                                     <row>
                                                         <vbox>
                                                             <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
-                                                            <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="5" max="999"
+                                                            <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="5" max="999" value="60"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableRefreshFrequence"/>
                                                         </vbox>
                                                         <vbox>
                                                             <label control="tablePeriodLimit" value="&tableman.tableoptions.tableperiodlimit;"/>
-                                                            <textbox id="tablePeriodLimit" type="Number" size="4" maxlength="3" min="1" max="999"
+                                                            <textbox id="tablePeriodLimit" type="Number" size="4" maxlength="3" min="1" max="999" value="30"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TablePeriodLimit"/>
                                                         </vbox>
@@ -318,13 +318,13 @@
                                                     <row>
                                                         <vbox>
                                                             <label control="tableRemindTime" value="&tableman.tableoptions.tableremindtime;"/>
-                                                            <textbox id="tableRemindTime" type="Number" size="4" maxlength="3" min="10" max="999"
+                                                            <textbox id="tableRemindTime" type="Number" size="4" maxlength="3" min="10" max="999" value="30"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableRemindTime"/>
                                                         </vbox>
                                                         <vbox>
                                                             <label control="tableBookingTimeout" value="&tableman.tableoptions.tablebookingtimeout;"/>
-                                                            <textbox id="tableBookingTimeout" type="Number" size="4" maxlength="3" min="1" max="999"
+                                                            <textbox id="tableBookingTimeout" type="Number" size="4" maxlength="3" min="1" max="999" value="30"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableBookingTimeout"/>
                                                         </vbox>
@@ -332,7 +332,7 @@
                                                     <row>
                                                         <vbox>
                                                             <label control="maxCheckNo" value="&tableman.tableoptions.maxcheckno;"/>
-                                                            <textbox id="maxCheckNo" type="Number" size="4" maxlength="3" min="30" max="999"
+                                                            <textbox id="maxCheckNo" type="Number" size="4" maxlength="3" min="30" max="999" value="500"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="MaxCheckNo"/>
                                                         </vbox>

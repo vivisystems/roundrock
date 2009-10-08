@@ -23,7 +23,7 @@
             tran.data.destination = org.data.destination;
             tran.data.destination_prefix = org.data.destination_prefix;
             tran.data.table_no = org.data.table_no;
-//            tran.data.no_of_customers = org.data.no_of_customers;
+            //            tran.data.no_of_customers = org.data.no_of_customers;
             tran.data.no_of_customers = 0;
             tran.data.status = 0;
             tran.data.recall = 2;
@@ -53,6 +53,7 @@
         },
 
         selectSplitItem: function(index) {
+            
             if (index == -1) return;
             
             let data = this._splitPanelView.data[index];
@@ -84,8 +85,9 @@
             
         },
 
-        selectSplitOrder: function(index) {
+        selectSplitOrder: function(event) {
 
+            var index = event.originalTarget.value;
             var panelView2 = this._splitPanelView;
             panelView2.setTransaction(this._splitOrders[index]);
             
@@ -99,6 +101,15 @@
             let sourceTran = this._sourceOrder;
             let targetTran = this._splitOrders[splitIndex];
 
+            let data = sourceTran.data.display_sequences[index];
+            let item = null;
+            if (data.index) {
+                item = sourceTran.data.items[data.index];
+            }
+            
+            let result = this.confirmSplitMergeItem(item, qty);
+
+            if(!result) return result;
 
             targetTran.moveCloneItem(sourceTran, index, qty);
 
@@ -124,6 +135,16 @@
 
             let sourceTran = this._sourceOrder;
             let targetTran = this._splitOrders[splitIndex];
+
+            let data = targetTran.data.display_sequences[index];
+            let item = null;
+            if (data.index) {
+                item = targetTran.data.items[data.index];
+            }
+
+            let result = this.confirmSplitMergeItem(item, qty);
+
+            if(!result) return result;
 
             sourceTran.moveCloneItem(targetTran, index, qty);
 
@@ -153,10 +174,10 @@
 
 
             let splitObj = document.getElementById('splitOrderTabs');
-            while (splitObj.itemCount >0) {
-                splitObj.removeItemAt(0);
-            }
-            this._splitOrders = [];
+//            while (splitObj.itemCount >0) {
+//                splitObj.removeItemAt(0);
+//            }
+//            this._splitOrders = [];
 
             
             for(let i=0; i < sourceTran.data.display_sequences.length; i++) {
@@ -166,8 +187,14 @@
                 if (type == 'tray') {
                     firstMark = true;
                     splitIndex++;
-                    targetTran = this._splitOrders[splitIndex] = this.newMinimalTransaction();
-                    splitObj.appendItem(_("SP#") + (splitIndex+1), splitIndex);
+
+                    // create new transaction
+                    if (!this._splitOrders[splitIndex]) {
+                       this._splitOrders[splitIndex] = this.newMinimalTransaction();
+                       // create new tabs
+                       splitObj.appendItem(_("SP#") + (splitIndex+1), splitIndex);
+                    }
+                    targetTran = this._splitOrders[splitIndex];
 
                 }else if (type == 'item'){
                     
@@ -200,6 +227,8 @@
             splitObj.selectedIndex = 0;
             panelView2.setTransaction(this._splitOrders[0]);
 
+            this.validateButtons();
+
         },
 
 
@@ -209,8 +238,6 @@
             let splitCount = this._splitOrders.length ;
             let sourceTran = this._sourceOrder;
             var inputObj = window.arguments[0];
-
-            
 
             let splitDatas = [] ;
 
@@ -271,6 +298,8 @@
             document.getElementById('btn_addtosplit').disabled = true;
             document.getElementById('btn_mergeto').disabled = true;
 
+            this.validateButtons();
+
             this.createNewSplitOrder();
 
             // set default splited order to 0
@@ -278,6 +307,38 @@
             var panelView2 = this._splitPanelView = new NSISimpleCartView('splitScrollablePanel');
             panelView2.setTransaction(this._splitOrders[0]);
 
+        },
+
+        confirmSplitMergeItem: function(item, qty) {
+            
+            if (!item || !qty) return false;
+
+            // check hasDiscount
+            if (item.hasDiscount && item.current_qty != qty /* && item.discount_type != '%'*/) {
+                result = confirm(_('Item [%S] has discount, split it will loss discout', [item.name]));
+                if (!result ) return false;
+            }
+
+            // check hasSurcharge
+            if (item.hasSurcharge && item.current_qty != qty /* && item.surcharge_type != '%'*/) {
+                result = confirm(_('Item [%S] has surcharge, split it will loss surcharge', [item.name]));
+                if (!result ) return false;
+            }
+
+            return true;
+            
+        },
+
+        validateButtons: function() {
+
+            let markers = this._sourceOrder.data.markers;
+
+            if (markers.length >0) {
+                document.getElementById('btn_splitbymarks').disabled = false;
+            }else {
+                document.getElementById('btn_splitbymarks').disabled = true;
+            }
+            
         }
 
     };

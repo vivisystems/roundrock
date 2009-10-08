@@ -22,7 +22,7 @@
                 cart.addEventListener('beforeSubmit', this.onCartBeforeSubmit, this);
 
                 // check minimum charge and table no and guests before addPayment...
-                cart.addEventListener('beforeAddPayment', this.onCartBeforeAddPayment, this);
+                //                cart.addEventListener('beforeAddPayment', this.onCartBeforeAddPayment, this);
 
                 // popup table select panel
                 cart.addEventListener('onSubmitSuccess', this.onCartOnSubmitSuccess, this);
@@ -140,7 +140,8 @@
                 type0:'number',
                 digitOnly0:true,
                 require0:true,
-                numpad:true
+                numpad:true,
+                disablecancelbtn:true
             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Number of Customers'), aFeatures, _('Select Number of Customers'), '', _('Number'), '', inputObj);
@@ -299,7 +300,7 @@
          */
         guestNum: function(num) {
 
-            var defaultNum = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
+            var defaultNum = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 0;
             var cart = this.getCartController();
             var curTransaction = cart._getTransaction(true);
 
@@ -318,10 +319,10 @@
                 this.getKeypadController().clearBuffer();
                 cart._cancelReturn();
             }
-           
-            if (num < 0) {
+
+            while (num <= 0) {
                 // popup dialog 
-                num = this.openGuestNumDialog(defaultNum);
+                num = parseInt(this.openGuestNumDialog(defaultNum));
             }
 
             // update number of customers.
@@ -370,13 +371,34 @@
             // get table define
             var table = this.Table.getTableByNo(no);
             if (table) {
+
+                let tableStatus = this.Table.TableStatus.getTableStatusById(table.id);
+                // check status or not active or op_deny
+                if (tableStatus) {
+                    if ((!table.active && tableStatus.TableStatus.order_count == 0) || tableStatus.TableStatus.status == 2
+                        || (tableStatus.TableStatus.status == 3 && tableStatus.TableStatus.mark_op_deny) ) {
+                        
+                        let active = tableStatus.Table.active ? 1 : 0;
+                        let status = tableStatus.TableStatus.status;
+                        let table_no = table.table_no;
+
+                        NotifyUtils.warn(_('Table [%S] Not available to select. Status: [%S], Active: [%S]',[ table_no, status, active]));
+                        return false;
+                    }
+                }
                 
                 var curTransaction = cart._getTransaction(true); // autocreate
 
                 if (! cart.ifHavingOpenedOrder() ) {
                     NotifyUtils.warn(_('Please open a new order first'));
                     cart._clearAndSubtotal();
-                    return '';
+                    return false;
+                }
+               
+                if (curTransaction.getTableNo() != '') {
+                    NotifyUtils.warn(_('Please use transfer table to update table no'));
+                    cart._clearAndSubtotal();
+                    return false;
                 }
 
                 // set destination action
@@ -697,6 +719,11 @@
             if (data.status == 2) data.status = 0 ;
 
             var curTransaction = new Transaction(true);
+            // if no_of_customers == 0 use empty string
+            data.no_of_customers = data.no_of_customers || '';
+
+
+            // set to transactions
             curTransaction.data  = data;
 
             // recall alway recalc promotions
@@ -852,20 +879,58 @@
         onCartBeforeAddPayment: function(evt) {
 
             // let destination = getXXXX;
+            evt.data.txn = evt.data.transaction;
+            evt.data.status = 1; // force check 
+
             var isCheckTableMinimumCharge = true;
-            var table_no = evt.data.transaction.data.table_no;
-            var guests = evt.data.transaction.data.no_of_customers;
+            if (isCheckTableMinimumCharge && this.tableSettings.RequestMinimumCharge) {
+                this.onCartBeforeSubmit(evt);
+            }
+            
+        },
+
+
+        /**
+         * onCartBeforeSubmit
+         *
+         * Check table_no or guestNum
+         *
+         * @todo if destination is outside , don't check it.
+         *
+         * @param {Object} evt
+         */
+        onCartBeforeSubmit: function(evt) {
+            
+            if (evt.data.status != 1) return ;
+            
+            // let destination = getXXXX;
+            var isCheckTableNo = true;
+            var isCheckGuestNum = true;
+
+            if (isCheckTableNo && this.tableSettings.RequireTableNo && !evt.data.txn.data.table_no) {
+                this.newTable('', true);
+            }
+            let guest = evt.data.txn.data.no_of_customers || 0;
+            guest = parseInt(guest);
+            
+            if (isCheckGuestNum && this.tableSettings.RequireGuestNum && guest <= 0) {
+                this.guestNum(-1);
+            }
+
+            var isCheckTableMinimumCharge = true;
+            var table_no = evt.data.txn.data.table_no;
+            var guests = evt.data.txn.data.no_of_customers || 0;
 
             if (isCheckTableMinimumCharge && this.tableSettings.RequestMinimumCharge && table_no) {
                 //
                 var minimum_charge_per_table = this.tableSettings.GlobalMinimumChargePerTable;
                 var minimum_charge_per_guest = this.tableSettings.GlobalMinimumChargePerGuest;
 
-                var total = evt.data.transaction.data.total;
+                var total = evt.data.txn.data.total;
                 switch (this.tableSettings.MinimumChargeFor)  {
                     case "1":
                         // original
-                        total = evt.data.transaction.data.item_subtotal;
+                        total = evt.data.txn.data.item_subtotal;
                         break;
                     /*
                     case "2":
@@ -897,7 +962,7 @@
 
                 if (total < minimum_charge) {
 
-                    if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
+                    if (GREUtils.Dialog.confirm(this.topmostWindow,
                         _('Order amount does not reach Minimum Charge'),
                         _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\nClick OK to finalize this order by Minimum Charge, \nor, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
 
@@ -921,31 +986,6 @@
                     evt.preventDefault();
 
                 }
-            }
-        },
-
-
-        /**
-         * onCartBeforeSubmit
-         *
-         * Check table_no or guestNum
-         *
-         * @todo if destination is outside , don't check it.
-         *
-         * @param {Object} evt
-         */
-        onCartBeforeSubmit: function(evt) {
-
-            // let destination = getXXXX;
-            var isCheckTableNo = true;
-            var isCheckGuestNum = true;
-
-            if (isCheckTableNo && this.tableSettings.RequireTableNo && !evt.data.txn.data.table_no) {
-                this.newTable('', true);
-            }
-
-            if (isCheckGuestNum && this.tableSettings.RequireGuestNum && !evt.data.txn.data.no_of_customers) {
-                this.guestNum(-1);
             }
 
         },

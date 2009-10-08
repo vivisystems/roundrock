@@ -361,3 +361,26 @@
 ol {
     list-style-type: decimal;
 }
+
+#prevdayBtn, #todayBtn, #nextdayBtn {
+    background-color: white ;
+    background-image: none;
+    border: 2px solid;
+    color: #4d4234;
+    font-size: 12pt;
+    margin: 5px;
+    min-height: 40px;
+    min-width: 75px;
+    padding: 8px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #918570 white;
+    -moz-border-left-colors: #918570 white;
+    -moz-border-right-colors: #918570 white;
+    -moz-border-bottom-colors: #918570 white;
+    -moz-border-radius: 6px;
+}
+
+#prevdayBtn[disabled=true], #todayBtn[disabled=true] ,#nextdayBtn[disabled=true] {
+    background-color: #fff6e8 ;
+    border-width: 0px !important
+}

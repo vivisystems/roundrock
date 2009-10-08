@@ -851,6 +851,7 @@
                     let seqModel = new SequenceModel();
                     seqModel.setSequenceMaxValue('check_no', maxCheckNo);
                 }
+                this._needRestart = true;
             }catch(e) {
             }
 
