@@ -6,15 +6,18 @@
          xmlns:html="http://www.w3.org/1999/xhtml">
 
     <popupset id="dialogs">
-        <vivipanel id="wait_panel" position="overlap" noautohide="true" class="container-dialog">
-            <hbox flex="1" pack="center" class="container-wait-panel">
+        <vivipanel id="interruptable_wait_panel" position="overlap" noautohide="true" class="container-dialog">
+            <hbox flex="1" pack="center" class="container-interruptible-wait-panel">
                 <vbox flex="1" class="container-main">
                     <groupbox flex="1">
-                        <caption id="wait_caption" label="" class="label-page-title"/>
+                        <caption id="interruptible_wait_caption" label="" class="label-page-title"/>
                         <spacer style="height: 20px;"/>
-                        <progressmeter id="progress" mode="undetermined" value="0"/>
+                        <progressmeter id="interruptible_progress" mode="determined" value="0"/>
                         <spacer style="height: 20px;"/>
                     </groupbox>
+                    <hbox pack="end">
+                        <button id="interruptible_action" label="&dialog.cancelButton.label;" class="button-execute"/>
+                    </hbox>
                 </vbox>
             </hbox>
         </vivipanel>
