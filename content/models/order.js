@@ -185,7 +185,7 @@
                     retObj = this.OrderObject.saveToBackup(this.OrderObject.mappingTranToOrderObjectsFields(data));
                 }
                 if (!retObj) {
-                    throw 'OrderPromotion';
+                    throw 'OrderObject';
                 }
 
                 return true;
@@ -566,11 +566,9 @@
                     case 'sequence':
                         data['seq'] = orderData.Order['sequence'];
                         break;
-                    /*
+
                     case 'change':
-                        data['remain'] =  orderData.Order['change'];
                         break;
-                    */
 
                     case 'transaction_created':
                         data['created'] = orderData.Order['transaction_created'];

@@ -349,6 +349,21 @@
             if (retainDays > 0) {
                 try {
                     var retainDate = Date.today().addDays(retainDays * -1).getTime() / 1000;
+
+                    model = new InventoryRecordModel();
+                    r = model.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring backup stock adjustment details (error code %S) [message #1609].', [model.lastError])};
+                    }
+
+                    r = model.execute('delete from inventory_records where inventory_records.commitment_id in (select inventory_commitments.id from inventory_commitments where created <= ' + retainDate + ')');
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring stock adjustment details (error code %S) [message #1610].', [model.lastError])};
+                    }
                     
                     var model = new InventoryCommitmentModel();
                     var r = model.restoreFromBackup();
@@ -363,21 +378,6 @@
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
                                errmsg: _('An error was encountered while expiring stock adjustment records (error code %S) [message #1608].', [model.lastError])};
-                    }
-
-                    model = new InventoryRecordModel();
-                    r = model.restoreFromBackup();
-                    if (!r) {
-                        throw {errno: model.lastError,
-                               errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup stock adjustment details (error code %S) [message #1609].', [model.lastError])};
-                    }
-
-                    r = model.execute('delete from inventory_records where not exists (select 1 from inventory_commitments where inventory_commitments.id == inventory_records.commitment_id)') && r;
-                    if (!r) {
-                        throw {errno: model.lastError,
-                               errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring stock adjustment details (error code %S) [message #1610].', [model.lastError])};
                     }
                 }
                 catch(e) {

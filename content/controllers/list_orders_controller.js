@@ -54,7 +54,7 @@
             var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
             
             if (localOnly) {
-                conditions += " AND terminal_no = '" + this._queryStringPreprocessor(GeckoJS.Session.get('terminal_no')) + "'";
+                conditions += ((conditions == '') ? '' : ' AND ') + "terminal_no = '" + this._queryStringPreprocessor(GeckoJS.Session.get('terminal_no')) + "'";
             }
             var orderModel = new OrderModel();
             var orders = orderModel.find('all', {

@@ -305,7 +305,6 @@
     <prefpane id="orderDataSettingsPane" label="&category.orderdata;">
         <preferences>
             <preference id="pref_keepeachtransaction" name="vivipos.fec.settings.KeepEachTransaction" type="bool"/>
-            <preference id="pref_orderobjectretaindays" name="vivipos.fec.settings.OrderObjectRetaindays" type="int"/>
             <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>
             <preference id="pref_orderweeklypack" name="vivipos.fec.settings.OrderWeeklyPack" type="int"/>
             <preference id="pref_inventory_adjustment_retaindays" name="vivipos.fec.settings.InventoryAdjustmentRetainDays" type="int"/>
@@ -327,10 +326,6 @@
                 <row>
                     <label value="&orderdata.keepeachtransaction;"/>
                     <checkbox preference="pref_keepeachtransaction" id="keepEachTransaction" checked="false"/>
-                </row>
-                <row>
-                    <label value="&orderdata.orderobjectretaindays;"/>
-                    <textbox preference="pref_orderobjectretaindays" id="orderObjectRetainDays" type="number" size="4" maxlength="4" min="0" max="9999"/>
                 </row>
                 <row>
                     <label value="&orderdata.orderretaindays;"/>

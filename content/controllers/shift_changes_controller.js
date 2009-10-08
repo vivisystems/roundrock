@@ -121,11 +121,10 @@
             // only store valid shift marker into session
             if (salePeriod != -1 && salePeriod != '') {
                 GeckoJS.Session.set('current_shift', currentShift);
-                this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
+                //this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
             }
             GeckoJS.Session.set('shift_number', shiftNumber);
             GeckoJS.Session.set('sale_period', salePeriod);
-            this.log('DEBUG', 'updating session sale period: ' + salePeriod);
             GeckoJS.Session.set('sale_period_string', salePeriodStr);
 
             return currentShift;
@@ -1080,7 +1079,7 @@
                     balance: paymentsReceived + ledgerInTotal + ledgerOutTotal,
                     salesRevenue: salesRevenue,
                     deposit: deposits,
-                    refund: refunds,
+                    refund: 0 - refunds,
                     credit: credit,
                     ledgerInTotal: ledgerInTotal,
                     ledgerOutTotal: ledgerOutTotal,
@@ -1237,7 +1236,6 @@
 
                 // data cleanup
                 this.requestCommand('clearOrderData', null, 'Main');
-                this.requestCommand('clearOrderObjects', null, 'Main');                
 
                 // offer options to power off or restart and to print shift and day reports
                 var aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';

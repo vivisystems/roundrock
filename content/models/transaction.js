@@ -316,9 +316,7 @@
             if (self.data.seq.length == 0 || self.data.seq == -1) {
                 // maybe from recovery
                 let order_no = SequenceModel.getSequence('order_no', false);
-                self.log('DEBUG', 'before buildOrderSequence');
                 let seqData = self.buildOrderSequence(order_no);
-                self.log('DEBUG', 'after buildOrderSequence: ' + self.dump(seqData));
                 self.data.seq_original = order_no;
                 self.data.seq_sp = seqData[0];
                 self.data_seq = seqData[1];
@@ -1852,7 +1850,6 @@
             };
 
             var remain = this.getRemainTotal() - this.data.revalue_subtotal;
-            var subtotal = 0;
             if (type == 'tray') {
                 var preSubtotal = this.data.markers[this.data.markers.length-1] || 0;
                 markerItem.current_subtotal = remain - preSubtotal;

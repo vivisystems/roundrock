@@ -793,7 +793,7 @@
             var orderId = "";
             if (orders.length > 1) {
                 orderId = this.openSelectChecksDialog(orders);
-            }else {
+            }else if (orders.length > 0) {
                 orderId = orders[0].Order.id ;
             }
 
