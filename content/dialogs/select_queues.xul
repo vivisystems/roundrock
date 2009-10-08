@@ -33,7 +33,7 @@
 
                         <vbox class="container-left block-40">
                             <hbox flex="1" class="content-buttonpanel">
-                                <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="1" rows="7"  seltype="single" labelField="key"
+                                <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="1" rows="7"  seltype="single" labelField="label"
                                                            dir="reverse"
                                                            buttonClass="button-item-a"
                                                            scrollUpClass="scroll-up-button"

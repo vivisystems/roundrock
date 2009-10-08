@@ -93,9 +93,6 @@
 
             this.dispatchEvent('afterInitial', null);
 
-            // recover queued orders
-            this.requestCommand('unserializeQueueFromRecoveryFile', null, 'CartQueue');
-
             // check transaction fail
             var recovered = false;
             if(Transaction.isRecoveryFileExists()) {
@@ -974,10 +971,9 @@
 
                         // remove cart queue recovery file
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                        var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
-                        if (cartQueue) {
-                            cartQueue.removeQueueRecoveryFile();
-                        }
+
+                        // truncate order_queues
+                        (new OrderQueueModel()).truncate();
 
                         // truncate order related tables
                         var orderModel = new OrderModel();
@@ -1085,6 +1081,15 @@
                                errmsg: _('An error was encountered while expiring employee attendance records (error code %S) [message #1007].', [clockstamp.lastError])};
                     }
 
+                    // remove order queues
+                    var orderQueue = new OrderQueueModel();
+                    r = orderQueue.removeQueues(retainDate);
+                    if (!r) {
+                        throw {errno: orderQueue.lastError,
+                               errstr: orderQueue.lastErrorString,
+                               errmsg: _('An error was encountered while expiring order queues (error code %S) [message #1008].', [orderQueue.lastError])};
+                    }
+                    
                     // dispatch afterClearOrderData event
                     this.dispatchEvent('afterClearOrderData', retainDate);
 

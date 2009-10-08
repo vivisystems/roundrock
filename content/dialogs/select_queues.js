@@ -1,6 +1,6 @@
 (function(){
 
-    var $panel, $buttonPanel, $itemlist, queues, queuePool;
+    var $panel, $buttonPanel, $itemlist, queues;
     
     function startup() {
 
@@ -25,7 +25,7 @@
 
             init: function(evt) {
 
-                var viewHelper = new GeckoJS.NSITreeViewArray();
+                var viewHelper = new NSIQueuesView();
 
                 $buttonPanel[0].datasource = viewHelper ;
                 $buttonPanel[0].selectedItems = [] ;
@@ -42,7 +42,6 @@
             load: function(evt) {
 
                 queues = evt.data.queues;
-                queuePool = evt.data.queuePool;
 
                 $itemlist.val("");
                 
@@ -63,7 +62,7 @@
                 if(isOK) {
                     var idx = $buttonPanel[0].value;
                     result.index = idx;
-                    result.key = queues[idx].key;
+                    result.id = queues[idx].id;
                 }
 
                 evt.data = result;
@@ -76,26 +75,7 @@
     function onBtnClick(evt) {
 
             var index = evt.target.value;
-            var key = queues[index].key;
-
-            var queueData = queuePool.data[key];
-
-            var displayStr = "";
-
-            displayStr += _("SEQ") + ": " + queueData.seq + "\n\n";
-
-            var limit = 10, cc= 0;
-
-            for(var txid in queueData.items) {
-                var item = queueData.items[txid];
-                displayStr += item.name + ' x ' + item.current_qty + '\n';
-                cc++;
-                if (cc>limit) break;
-            }
-
-            if (cc>limit) displayStr += "   ......   \n" ;
-
-            displayStr += "\n\n" + _("TAL") + ": " + queueData.remain;
+            var displayStr = queues[index].summary;
 
             $itemlist.val(displayStr);
 

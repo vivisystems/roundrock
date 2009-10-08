@@ -2101,6 +2101,8 @@ msgstr "Table Manager"
 msgid "acl_view_system_log"
 msgstr "View System Log"
 
+msgid "acl_view_all_queues"
+msgstr "View All Queues"
 ########################################################################
 #
 # List of Ports
