@@ -294,6 +294,39 @@
         },
 
         /**
+         * isTableAvailable
+         *
+         * @param {Object} table
+         * @return {Boolean} table is available
+         */
+        isTableAvailable: function(table) {
+
+            let table_no = table.table_no;
+            let active = table.active ? 1 : 0;
+            let status = 0 ;
+            let tableStatus = this.Table.TableStatus.getTableStatusById(table.id);
+            let isDeny = false;
+
+            // check status or not active or op_deny
+            if (tableStatus) {
+                if (tableStatus.TableStatus.status == 2 || (tableStatus.TableStatus.status == 3 && tableStatus.TableStatus.mark_op_deny) ) {
+
+                    let status = tableStatus.TableStatus.status;
+                    isDeny = true
+                }
+            }else if (active == 0) {
+                isDeny = true;
+            }
+
+            if (isDeny) {
+                NotifyUtils.warn(_('Table [%S] Not available to select. Status: [%S], Active: [%S]',[ table_no, status, active]));
+                return false;
+            }else {
+                return true;
+            }
+        },
+
+        /**
          * Set Number of customers to transaction object
          *
          * @param {Number} num  default number of customers
@@ -370,23 +403,8 @@
             
             // get table define
             var table = this.Table.getTableByNo(no);
-            if (table) {
+            if (table && this.isTableAvailable(table)) {
 
-                let tableStatus = this.Table.TableStatus.getTableStatusById(table.id);
-                // check status or not active or op_deny
-                if (tableStatus) {
-                    if ((!table.active && tableStatus.TableStatus.order_count == 0) || tableStatus.TableStatus.status == 2
-                        || (tableStatus.TableStatus.status == 3 && tableStatus.TableStatus.mark_op_deny) ) {
-                        
-                        let active = tableStatus.Table.active ? 1 : 0;
-                        let status = tableStatus.TableStatus.status;
-                        let table_no = table.table_no;
-
-                        NotifyUtils.warn(_('Table [%S] Not available to select. Status: [%S], Active: [%S]',[ table_no, status, active]));
-                        return false;
-                    }
-                }
-                
                 var curTransaction = cart._getTransaction(true); // autocreate
 
                 if (! cart.ifHavingOpenedOrder() ) {
@@ -394,8 +412,8 @@
                     cart._clearAndSubtotal();
                     return false;
                 }
-               
-                if (curTransaction.getTableNo() != '') {
+                
+                if (curTransaction.getTableNo() != '' && curTransaction.data.recall == 2) {
                     NotifyUtils.warn(_('Please use transfer table to update table no'));
                     cart._clearAndSubtotal();
                     return false;
@@ -722,7 +740,6 @@
             // if no_of_customers == 0 use empty string
             data.no_of_customers = data.no_of_customers || '';
 
-
             // set to transactions
             curTransaction.data  = data;
 
@@ -737,6 +754,20 @@
             cart._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
 
+            // set destination action if table specific or set to default
+            if (curTransaction.data.table_no && curTransaction.data.table_no.length > 0) {
+                var table = this.Table.getTableByNo(curTransaction.data.table_no);
+                
+                if (table.destination) {
+                    this.requestCommand('setDestination', table.destination, 'Destinations');
+                } else {
+                    var defaultDest = GeckoJS.Session.get('defaultDestination') || false;
+                    if (defaultDest) {
+                        this.requestCommand('setDestination', defaultDest, 'Destinations');
+                    }
+                }
+            }
+            
             cart._clearAndSubtotal();
 
             // display to onscreen VFD
@@ -1411,12 +1442,15 @@
             let fnTrigger = false;
             
             if(data && typeof data =='object') {
+
                 var orderId = data.orderId || '';
                 var orgTableId = data.orgTableId || '';
                 var newTableId = data.newTableId || '';
 
                 result = this.Order.transferTable(orderId, orgTableId, newTableId);
+
             }else {
+
                 fnTrigger = true;
                 let txn = this.getCartController()._getTransaction();
                 
@@ -1426,12 +1460,24 @@
 
                 var newTableNo = this.openTableNumDialog();
 
+
                 var orgTable = this.Table.getTableByNo(txn.data.table_no);
                 var newTable = this.Table.getTableByNo(newTableNo);
                 var orderId = txn.data.id;
 
-                result = this.Order.transferTable(orderId, orgTable.id, newTable.id);
-                this.recallOrder(orderId);
+                // check table available
+                if (orgTable && newTable && (txn.data.table_no != newTableNo)) {
+
+                    if (this.isTableAvailable(newTable)) {
+                        result = this.Order.transferTable(orderId, orgTable.id, newTable.id);
+                        this.recallOrder(orderId, true);
+                    }
+
+                }else {
+                    NotifyUtils.warn(_('[%S] is an invalid table number. Table number must be defined through table manager; Please input another table number.', [newTableNo]));
+                    return false;
+                }
+                
             }
 
             return result;

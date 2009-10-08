@@ -6,15 +6,7 @@
 
         uses: ['OrderQueue'],
 
-        _queuePool: null,
-        _queueFile: "/var/tmp/cart_queue.txt",
-        _queueSession: "cart_queue_pool",
-        _defaultQueueFile: "/var/tmp/cart_queue.txt",
-        _defaultQueueSession: "cart_queue_pool",
-        _trainingQueueFile: "/var/tmp/training_cart_queue.txt",
-        _trainingQueueSession: "training_cart_queue_pool",
-
-        _cartController: null,
+        cartController: null,
 
         getCartController: function() {
 

@@ -98,6 +98,7 @@ pref("vivipos.fec.acl.roles.acl_set_price_level_8", "acl_set_price_level_8");
 pref("vivipos.fec.acl.roles.acl_set_price_level_9", "acl_set_price_level_9");
 pref("vivipos.fec.acl.roles.acl_shift_item_tax", "acl_shift_item_tax");
 pref("vivipos.fec.acl.roles.acl_split_check", "acl_split_check");
+pref("vivipos.fec.acl.roles.acl_split_payment", "acl_split_payment");
 pref("vivipos.fec.acl.roles.acl_stock_adjustment", "acl_stock_adjustment");
 pref("vivipos.fec.acl.roles.acl_store_check", "acl_store_check");
 pref("vivipos.fec.acl.roles.acl_tag_item", "acl_tag_item");
@@ -133,5 +134,5 @@ pref("vivipos.fec.acl.roles.acl_report_purchasehistory", "acl_report_purchasehis
 pref("vivipos.fec.acl.roles.acl_report_userlist", "acl_report_userlist");
 pref("vivipos.fec.acl.roles.acl_report_run_yourorder", "acl_report_run_yourorder");
 pref("vivipos.fec.acl.roles.acl_report_yourorder", "acl_report_yourorder");
-pref("vivipos.fec.acl.roles.acl_report_yourorder", "acl_view_system_log");
+pref("vivipos.fec.acl.roles.acl_view_system_log", "acl_view_system_log");
 pref("vivipos.fec.acl.roles.acl_view_all_queues", "acl_view_all_queues");

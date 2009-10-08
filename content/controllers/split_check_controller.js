@@ -122,8 +122,6 @@
             index = (index > panelView.data.length ) ? 0 : index;
             document.getElementById('sourceScrollablePanel').selectedIndex = index;
             this.selectSourceItem(index);
-            this.log(this.dump(sourceTran.data));
-            this.log(this.dump(targetTran.data));
 
 
         },
@@ -157,9 +155,6 @@
             index = (index > panelView2.data.length ) ? 0 : index;
             document.getElementById('splitScrollablePanel').selectedIndex = index;
             this.selectSplitItem(index);
-            this.log(this.dump(sourceTran.data));
-            this.log(this.dump(targetTran.data));
-
 
         },
 

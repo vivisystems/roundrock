@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-09 00:16+0800\n"
+"POT-Creation-Date: 2009-10-09 00:49+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2036,6 +2036,9 @@ msgstr "Table Manager"
 msgid "acl_view_system_log"
 msgstr "View System Log"
 
+msgid "acl_split_payment"
+msgstr "Split Payment"
+
 msgid "acl_view_all_queues"
 msgstr "View All Queues"
 
@@ -2791,6 +2794,20 @@ msgstr "Split Payment"
 msgid "vivipos.fec.registry.function.programmable.splitPayment.name"
 msgstr "Split Payment"
 
+# #######################################################################
+#
+# Open Report
+#
+# #######################################################################
+msgid "vivipos.fec.registry.function.programmable.openreport.desc"
+msgstr "This function allows operator to open specific report ."
+
+msgid "vivipos.fec.registry.function.programmable.openreport.label"
+msgstr "Open Report"
+
+msgid "vivipos.fec.registry.function.programmable.openreport.name"
+msgstr "Open Report"
+
 #: ../..//content/datetime.js:29
 msgid "confirm timezone change"
 msgstr ""
@@ -2820,7 +2837,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/overlay.js:23
-#: ../..//content/controllers/main_controller.js:1200
+#: ../..//content/controllers/main_controller.js:1234
 #: ../..//content/controllers/setup_wizard_controller.js:683
 msgid "VIVIPOS Setup"
 msgstr ""
@@ -2973,6 +2990,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/reportPanel.js:74
+#: ../..//content/controllers/main_controller.js:1413
 msgid "custom"
 msgstr ""
 
@@ -3157,8 +3175,8 @@ msgstr ""
 #: ../..//content/controllers/ledger_entry_types_controller.js:273
 #: ../..//content/controllers/localekeyboard_controller.js:75
 #: ../..//content/controllers/localization_controller.js:327
-#: ../..//content/controllers/main_controller.js:844
-#: ../..//content/controllers/main_controller.js:872
+#: ../..//content/controllers/main_controller.js:860
+#: ../..//content/controllers/main_controller.js:890
 #: ../..//content/controllers/nonplu_setting_controller.js:219
 #: ../..//content/controllers/plufilter_controller.js:201
 #: ../..//content/controllers/plugroups_controller.js:406
@@ -3368,7 +3386,7 @@ msgid "The item [%S] (%S) is sold out"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:685
-#: ../..//content/controllers/main_controller.js:519
+#: ../..//content/controllers/main_controller.js:533
 msgid "Price must be given to register sale of department [%S]"
 msgstr ""
 
@@ -3871,8 +3889,8 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1374
 #: ../..//content/controllers/ledger_controller.js:312
 #: ../..//content/controllers/list_orders_controller.js:239
-#: ../..//content/controllers/main_controller.js:1004
-#: ../..//content/controllers/main_controller.js:1318
+#: ../..//content/controllers/main_controller.js:1022
+#: ../..//content/controllers/main_controller.js:1359
 #: ../..//content/controllers/print_controller.js:1198
 #: ../..//content/controllers/setup_wizard_controller.js:700
 #: ../..//content/controllers/shift_changes_controller.js:1536
@@ -3958,7 +3976,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3501
-#: ../..//content/controllers/main_controller.js:397
+#: ../..//content/controllers/main_controller.js:404
 msgid "Add Annotation"
 msgstr ""
 
@@ -4094,40 +4112,40 @@ msgstr ""
 msgid "Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_queue_controller.js:82
+#: ../..//content/controllers/cart_queue_controller.js:74
 msgid "No order to queue"
 msgstr ""
 
-#: ../..//content/controllers/cart_queue_controller.js:90
+#: ../..//content/controllers/cart_queue_controller.js:82
 msgid "Cannot queue the recalled order!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_queue_controller.js:106
+#: ../..//content/controllers/cart_queue_controller.js:98
 msgid "Push Queue Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_queue_controller.js:107
+#: ../..//content/controllers/cart_queue_controller.js:99
 msgid ""
 "This order could not be queued. Please check the network connectivity to the "
 "terminal designated as the table master."
 msgstr ""
 
-#: ../..//content/controllers/cart_queue_controller.js:128
+#: ../..//content/controllers/cart_queue_controller.js:120
 msgid "Order is not queued because it is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_queue_controller.js:152
-#: ../..//content/controllers/cart_queue_controller.js:197
+#: ../..//content/controllers/cart_queue_controller.js:144
+#: ../..//content/controllers/cart_queue_controller.js:189
 msgid "Pull Queue Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_queue_controller.js:153
+#: ../..//content/controllers/cart_queue_controller.js:145
 msgid ""
 "Can not get queues list. Please check the network connectivity to the "
 "terminal designated as the table master."
 msgstr ""
 
-#: ../..//content/controllers/cart_queue_controller.js:198
+#: ../..//content/controllers/cart_queue_controller.js:190
 msgid ""
 "This order could not be pulled. Please check the network connectivity to the "
 "terminal designated as the table master."
@@ -4219,8 +4237,8 @@ msgstr ""
 
 #: ../..//content/controllers/changeuser_controller.js:80
 #: ../..//content/controllers/changeuser_controller.js:92
-#: ../..//content/controllers/main_controller.js:716
-#: ../..//content/controllers/main_controller.js:795
+#: ../..//content/controllers/main_controller.js:730
+#: ../..//content/controllers/main_controller.js:809
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr ""
 
@@ -5372,8 +5390,8 @@ msgstr ""
 #: ../..//content/controllers/journal_controller.js:211
 #: ../..//content/controllers/ledger_controller.js:313
 #: ../..//content/controllers/list_orders_controller.js:240
-#: ../..//content/controllers/main_controller.js:1006
-#: ../..//content/controllers/main_controller.js:1319
+#: ../..//content/controllers/main_controller.js:1024
+#: ../..//content/controllers/main_controller.js:1360
 #: ../..//content/controllers/setup_wizard_controller.js:701
 #: ../..//content/controllers/shift_changes_controller.js:41
 #: ../..//content/controllers/shift_changes_controller.js:1537
@@ -5739,10 +5757,10 @@ msgstr ""
 msgid "Package Builder"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:256
-#: ../..//content/controllers/main_controller.js:680
-#: ../..//content/controllers/main_controller.js:726
-#: ../..//content/controllers/main_controller.js:806
+#: ../..//content/controllers/main_controller.js:259
+#: ../..//content/controllers/main_controller.js:694
+#: ../..//content/controllers/main_controller.js:740
+#: ../..//content/controllers/main_controller.js:820
 #: ../..//content/controllers/training_mode_controller.js:105
 #: ../..//content/controllers/training_mode_controller.js:115
 #: ../..//content/controllers/training_mode_controller.js:125
@@ -5753,27 +5771,27 @@ msgstr ""
 msgid "Training Mode"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:256
+#: ../..//content/controllers/main_controller.js:259
 msgid "Control Panel is disabled during training."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:262
+#: ../..//content/controllers/main_controller.js:265
 msgid "You are not authorized to access the control panel"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:267
+#: ../..//content/controllers/main_controller.js:270
 msgid "Control Panel"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:288
+#: ../..//content/controllers/main_controller.js:291
 msgid "Change User"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:295
+#: ../..//content/controllers/main_controller.js:298
 msgid "Clock In/Out"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:313
+#: ../..//content/controllers/main_controller.js:316
 #: ../..//content/controllers/plus_controller.js:552
 #: ../..//content/controllers/plus_controller.js:1099
 #: ../..//content/controllers/plusearch_controller.js:165
@@ -5784,193 +5802,193 @@ msgstr ""
 msgid "Product Search"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:336
+#: ../..//content/controllers/main_controller.js:343
 #: ../..//content/controllers/print_controller.js:1170
 msgid "Printer Dashboard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:346
+#: ../..//content/controllers/main_controller.js:353
 msgid "No order to add/view annotations"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:422
+#: ../..//content/controllers/main_controller.js:429
 msgid "Annotate Order"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:432
+#: ../..//content/controllers/main_controller.js:444
 msgid "List Orders"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:439
+#: ../..//content/controllers/main_controller.js:453
 msgid "(view)search by table number"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:445
+#: ../..//content/controllers/main_controller.js:459
 msgid "(view)search by check number"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:452
+#: ../..//content/controllers/main_controller.js:466
 msgid "(view)search by order sequence"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:611
+#: ../..//content/controllers/main_controller.js:625
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1001]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:681
-#: ../..//content/controllers/main_controller.js:727
-#: ../..//content/controllers/main_controller.js:807
+#: ../..//content/controllers/main_controller.js:695
+#: ../..//content/controllers/main_controller.js:741
+#: ../..//content/controllers/main_controller.js:821
 msgid "To use this funciton, please leave training mode first"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:686
+#: ../..//content/controllers/main_controller.js:700
 msgid "Switch User"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:687
+#: ../..//content/controllers/main_controller.js:701
 msgid "Please enter password"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:708
-#: ../..//content/controllers/main_controller.js:788
+#: ../..//content/controllers/main_controller.js:722
+#: ../..//content/controllers/main_controller.js:802
 msgid " logged in"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:745
+#: ../..//content/controllers/main_controller.js:759
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1002]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:758
+#: ../..//content/controllers/main_controller.js:772
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1003]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:763
+#: ../..//content/controllers/main_controller.js:777
 msgid "User [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:799
+#: ../..//content/controllers/main_controller.js:813
 msgid "Please enter passcode first."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:829
-#: ../..//content/controllers/main_controller.js:842
-#: ../..//content/controllers/main_controller.js:856
-#: ../..//content/controllers/main_controller.js:870
+#: ../..//content/controllers/main_controller.js:843
+#: ../..//content/controllers/main_controller.js:858
+#: ../..//content/controllers/main_controller.js:872
+#: ../..//content/controllers/main_controller.js:888
 msgid "Sign Off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:829
+#: ../..//content/controllers/main_controller.js:843
 msgid "Discard items that have been registered?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:843
+#: ../..//content/controllers/main_controller.js:859
 msgid "What do you want to do with the registered items?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:844
+#: ../..//content/controllers/main_controller.js:860
 msgid "Queue"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:856
+#: ../..//content/controllers/main_controller.js:872
 msgid "You have one or more queued orders. Discard them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:871
+#: ../..//content/controllers/main_controller.js:889
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:872
+#: ../..//content/controllers/main_controller.js:890
 msgid "Keep"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:881
+#: ../..//content/controllers/main_controller.js:899
 msgid "confirm sign-off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:881
+#: ../..//content/controllers/main_controller.js:899
 msgid "Are you ready to sign off?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:957
-#: ../..//content/controllers/main_controller.js:960
-#: ../..//content/controllers/main_controller.js:1022
+#: ../..//content/controllers/main_controller.js:975
+#: ../..//content/controllers/main_controller.js:978
+#: ../..//content/controllers/main_controller.js:1040
 msgid "Remove All Transaction Records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:958
+#: ../..//content/controllers/main_controller.js:976
 msgid ""
 "This operation will remove all transaction records. Are you sure you want to "
 "proceed?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:961
+#: ../..//content/controllers/main_controller.js:979
 msgid ""
 "Data will not be recoverable once removed. It is strongly recommended that "
 "the system be backed up before truncating transaction records. Proceed with "
 "data removal?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:963
+#: ../..//content/controllers/main_controller.js:981
 msgid "Removing all transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1005
+#: ../..//content/controllers/main_controller.js:1023
 msgid ""
 "An error was encountered while attempting to remove all transaction records "
 "[message #1011]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1023
+#: ../..//content/controllers/main_controller.js:1041
 msgid "Removal completed. Application will now restart"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1042
+#: ../..//content/controllers/main_controller.js:1060
 msgid "Removing expired transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1058
+#: ../..//content/controllers/main_controller.js:1077
 msgid ""
 "An error was encountered while expiring backup sales activity logs (error "
 "code %S) [message #1004]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1065
+#: ../..//content/controllers/main_controller.js:1086
 msgid ""
 "An error was encountered while expiring sales activity logs (error code %S) "
 "[message #1005]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1074
+#: ../..//content/controllers/main_controller.js:1097
 msgid ""
 "An error was encountered while expiring backup employee attendance records "
 "(error code %S) [message #1006]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1081
+#: ../..//content/controllers/main_controller.js:1106
 msgid ""
 "An error was encountered while expiring employee attendance records (error "
 "code %S) [message #1007]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1090
+#: ../..//content/controllers/main_controller.js:1117
 msgid ""
 "An error was encountered while expiring order queues (error code %S) "
 "[message #1008]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1136
+#: ../..//content/controllers/main_controller.js:1166
 msgid ""
 "An error was encountered while retrieving stock adjustment records (error "
 "code %S) [message #1010]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1145
+#: ../..//content/controllers/main_controller.js:1179
 #: ../..//content/controllers/stock_records_controller.js:500
 #: ../..//content/controllers/stock_records_controller.js:558
 #: ../..//content/controllers/stock_records_controller.js:574
@@ -5978,28 +5996,32 @@ msgstr ""
 msgid "Stock Adjustment"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1156
+#: ../..//content/controllers/main_controller.js:1190
 msgid "Adjust Stock"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1160
+#: ../..//content/controllers/main_controller.js:1194
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1160
+#: ../..//content/controllers/main_controller.js:1194
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1167
+#: ../..//content/controllers/main_controller.js:1201
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1167
+#: ../..//content/controllers/main_controller.js:1201
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1335
+#: ../..//content/controllers/main_controller.js:1376
 msgid "Function Customizer"
+msgstr ""
+
+#: ../..//content/controllers/main_controller.js:1421
+msgid "You are not authorized to access the [%S] report"
 msgstr ""
 
 #: ../..//content/controllers/nonplu_setting_controller.js:14

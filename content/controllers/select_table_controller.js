@@ -13,7 +13,7 @@
 
         uses: ['TableSetting', 'Table', 'TableMark'],
 
-        _cartController: null,
+        _guestCheckController: null,
 
         _tablesViewHelper: null,
         
@@ -33,7 +33,50 @@
 
         _blockRefreshTableStatus: false,
 
+        /**
+         * Get GuestCheckController
+         *
+         * @return {Controller} controller
+         */
+        getGuestCheckController: function() {
 
+            if(!this._guestCheckController) {
+                this._guestCheckController = GeckoJS.Controller.getInstanceByName('GuestCheck');
+            }
+            return this._guestCheckController;
+
+        },
+
+
+        /**
+         * emulate dispatcher to requestCommand but it will return function's result like normal function.
+         * 
+         * @param {String} command
+         * @param {Object} data
+         * @return {Object} result
+         */
+        requestGuestCheckCommand: function(command, data) {
+
+            var controller = this.getGuestCheckController();
+            var result;
+
+            if(controller[command] && typeof controller[command] == 'function') {
+
+                result = controller[command].apply(controller, (typeof data =='array' ? data : [data] ));
+
+                // emulate dispatcher do.
+                var onActionEvent = 'on' + GeckoJS.Inflector.camelize(command);
+
+                if(!controller.dispatchedEvents[onActionEvent]) {
+                    controller.dispatchEvent(onActionEvent, arguments);
+                }
+            }
+
+            return result;
+
+
+        },
+        
         getTableSettings: function() {
             if(!this.tableSettings) {
                 this.tableSettings = this.TableSetting.getTableSettings();
@@ -78,9 +121,6 @@
             var tableSettings = this.getTableSettings();
             return ( tableSettings.IsDockMode || false );
         },
-
-
-
 
         popupOrderDisplayPanel: function(panel) {
 
@@ -876,7 +916,7 @@
                 region = {
                     id: 'ALL',
                     name: _('All Regions')
-                    };
+                };
             }else {
                 region = this.Table.TableRegion.getTableRegionById(selectedRegion);
             }
@@ -919,12 +959,12 @@
                 region = {
                     id: 'ALL',
                     name: _('All Regions')
-                    };
+                };
             }else {
                 region = this.Table.TableRegion.getTableRegionById(selectedRegion);
             }
             
-           var description = _('You are now cleaning table status of Region# %S', [region.name]);
+            var description = _('You are now cleaning table status of Region# %S', [region.name]);
 
             if (!GREUtils.Dialog.confirm(this.topmostWindow, _('Clear Table Status'), description)) return;
 
@@ -947,10 +987,10 @@
 
             this.hideOrderDisplayPanel();
             
-            this.requestCommand('recallOrder', order_id, 'GuestCheck');
+            var result = this.requestGuestCheckCommand('recallOrder', order_id);
 
             // dockMode ?
-            if (!this.isDock()) {
+            if (result && !this.isDock()) {
                 this.hidenTableSelectorPanel();
             }
         },
@@ -966,10 +1006,10 @@
             let tableStatus = this.Table.TableStatus.getTableStatusById(table_id);
             let table_no = table.table_no;
 
-            this.requestCommand('newTable', table_no, 'GuestCheck');
-            
+            var result = this.requestGuestCheckCommand('newTable', table_no);
+
             // dockMode ?
-            if (!this.isDock()) {
+            if (result && !this.isDock()) {
                 this.hidenTableSelectorPanel();
             }
         },
@@ -1020,18 +1060,19 @@
             }
 
             // call guest_check transferTable
-            this.requestCommand('transferTable', {
+            var result = this.requestGuestCheckCommand('transferTable', {
                 orderId: orderId,
                 orgTableId: orgTableId,
                 newTableId: table_id
-            }, 'GuestCheck');
-
+            });
 
             // set action and prompt label.
             this.setAction('selectTable');
 
-            // refresh
-            this.refreshTableStatus();
+            if (result) {
+                // refresh
+                this.refreshTableStatus();
+            }
 
         },
 
@@ -1044,13 +1085,15 @@
             this.hideOrderDisplayPanel();
 
             // call guest_check transferTable
-            this.requestCommand('changeClerk', orderId, 'GuestCheck');
+            var result = this.requestGuestCheckCommand('changeClerk', orderId);
 
             // set action and prompt label.
             this.setAction('selectTable');
             
-            // refresh
-            this.refreshTableStatus();
+            if (result) {
+                // refresh
+                this.refreshTableStatus();
+            }
             
         },
 
@@ -1063,13 +1106,15 @@
             this.hideOrderDisplayPanel();
             
             // call guest_check transferTable
-            this.requestCommand('splitCheck', orderId, 'GuestCheck');
+            var result = this.requestGuestCheckCommand('splitCheck', orderId);
 
             // set action and prompt label.
             this.setAction('selectTable');
 
-            // refresh
-            this.refreshTableStatus();
+            if (result) {
+                // refresh
+                this.refreshTableStatus();
+            }
 
         },
 
@@ -1110,16 +1155,18 @@
             this.hideOrderDisplayPanel();
 
             // call guest_check transferTable
-            this.requestCommand('mergeCheck', {
+            var result = this.requestGuestCheckCommand('mergeCheck', {
                 source: sourceOrderId,
                 target: targetOrderId
-            }, 'GuestCheck');
+            });
 
             // set action and prompt label.
             this.setAction('selectTable');
 
-            // refresh
-            this.refreshTableStatus();
+            if (result) {
+                // refresh
+                this.refreshTableStatus();
+            }
 
         },
         

@@ -76,9 +76,9 @@
                         self.restartClock = true;
                     } else if ( aTopic == 'TrainingMode' ) {
                         if ( aData == "start" ) {
-                        	self._isTraining = true;
+                            self._isTraining = true;
                         } else if ( aData == "exit" ) {
-                        	self._isTraining = false;
+                            self._isTraining = false;
                         }
                     }
                 }
@@ -135,11 +135,11 @@
         },
 
         restart: function() {
-                try {
-                    GREUtils.restartApplication();
-                }
-                catch(err) {
-                }
+            try {
+                GREUtils.restartApplication();
+            }
+            catch(err) {
+            }
         },
 
         idleHandler: function(evt) {
@@ -241,7 +241,10 @@
             var aURL = 'chrome://viviecr/content/package_builder.xul';
             var aName = _('Package Builder');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {image: imageFile, icon: thumbFile };
+            var aArguments = {
+                image: imageFile,
+                icon: thumbFile
+            };
 
             if (waitPanel) waitPanel.hidePopup();
             
@@ -252,10 +255,10 @@
         },
 
         ControlPanelDialog: function () {
-        	if (GeckoJS.Session.get( "isTraining" )) {
+            if (GeckoJS.Session.get( "isTraining" )) {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('Control Panel is disabled during training.'));
-        		return;
-        	}
+                return;
+            }
 
             // check for access privilege
             if (!this.Acl.isUserInRole('acl_open_control_panel')) {
@@ -312,7 +315,11 @@
             var aURL = 'chrome://viviecr/content/plusearch.xul';
             var aName = _('Product Search');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {buffer: buf, item: item, select: addtocart};
+            var aArguments = {
+                buffer: buf,
+                item: item,
+                select: addtocart
+            };
             
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
             if (aArguments.ok) {
@@ -394,11 +401,11 @@
                 };
                 
                 var data = [
-                    _('Add Annotation') + ' [' + txn.data.seq + ']',
-                    '',
-                    annotationType,
-                    '',
-                    inputObj
+                _('Add Annotation') + ' [' + txn.data.seq + ']',
+                '',
+                annotationType,
+                '',
+                inputObj
                 ];
 
                 return $.popupPanel('promptAdditemPanel', data).next( function(evt){
@@ -420,7 +427,12 @@
             else {
                 var aURL = 'chrome://viviecr/content/annotate.xul';
                 var aName = _('Annotate Order');
-                var aArguments = {order: txn.data, codes: codeList, sequence: txn.data.seq, txn:txn};
+                var aArguments = {
+                    order: txn.data,
+                    codes: codeList,
+                    sequence: txn.data.seq,
+                    txn:txn
+                };
                 var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
                 this.topmostWindow.openDialog(aURL, aName, aFeatures, aArguments);
@@ -431,7 +443,9 @@
             var aURL = 'chrome://viviecr/content/list_orders.xul';
             var aName = _('List Orders');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {value: this._getKeypadController().getBuffer()};
+            var aArguments = {
+                value: this._getKeypadController().getBuffer()
+            };
 
             switch(arg) {
                 case 'table':
@@ -608,7 +622,7 @@
 
                 if (parseInt(userModel.lastError) != 0) {
                     this._dbError(userModel.lastError, userModel.lastErrorString,
-                                  _('An error was encountered while retrieving employees (error code %S) [message #1001].', [userModel.lastError]));
+                        _('An error was encountered while retrieving employees (error code %S) [message #1001].', [userModel.lastError]));
                     return;
                 }
 
@@ -648,7 +662,7 @@
         },
 
         updateOptions: function () {
-            // used by input_line_controller to listen for option updates
+        // used by input_line_controller to listen for option updates
         },
 
         initialLogin: function () {
@@ -677,14 +691,14 @@
         quickUserSwitch: function (stop) {
             if ( this._isTraining ) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Training Mode'),
-                                      _('To use this funciton, please leave training mode first'));
+                    _('Training Mode'),
+                    _('To use this funciton, please leave training mode first'));
                 return;
             }
 
             var data = [
-                _('Switch User'),
-                _('Please enter password')
+            _('Switch User'),
+            _('Please enter password')
             ];
 
             var self = this;
@@ -723,8 +737,8 @@
         silentUserSwitch: function (newUser) {
             if ( this._isTraining ) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Training Mode'),
-                                      _('To use this funciton, please leave training mode first'));
+                    _('Training Mode'),
+                    _('To use this funciton, please leave training mode first'));
                 return;
             }
             // check if buffer (password) is empty
@@ -742,7 +756,7 @@
 
             if (parseInt(userModel.lastError) != 0) {
                 this._dbError(userModel.lastError, userModel.lastErrorString,
-                              _('An error was encountered while retrieving employees (error code %S) [message #1002].', [userModel.lastError]));
+                    _('An error was encountered while retrieving employees (error code %S) [message #1002].', [userModel.lastError]));
                 return;
             }
             
@@ -755,7 +769,7 @@
 
                 if (parseInt(userModel.lastError) != 0) {
                     this._dbError(userModel.lastError, userModel.lastErrorString,
-                                  _('An error was encountered while retrieving employees (error code %S) [message #1003].', [userModel.lastError]));
+                        _('An error was encountered while retrieving employees (error code %S) [message #1003].', [userModel.lastError]));
                     return;
                 }
 
@@ -803,8 +817,8 @@
         signOff: function (quickSignoff) {
             if ( this._isTraining ) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Training Mode'),
-                                      _('To use this funciton, please leave training mode first'));
+                    _('Training Mode'),
+                    _('To use this funciton, please leave training mode first'));
                 return;
             }
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
@@ -831,17 +845,19 @@
                         }
                         else {
                             var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-                                                    .getService(Components.interfaces.nsIPromptService);
-                            var check = {value: false};
+                            .getService(Components.interfaces.nsIPromptService);
+                            var check = {
+                                value: false
+                            };
 
                             var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
                             var responseDiscardCart = prompts.confirmEx(this.topmostWindow,
-                                                                        _('Sign Off'),
-                                                                        _('What do you want to do with the registered items?'),
-                                                                        flags, _('Queue'), _('Discard'), "", null, check);
+                                _('Sign Off'),
+                                _('What do you want to do with the registered items?'),
+                                flags, _('Queue'), _('Discard'), "", null, check);
                             if (responseDiscardCart == 2) return;
                         }
                     }
@@ -859,17 +875,19 @@
                         }
                         else {
                             var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-                                                    .getService(Components.interfaces.nsIPromptService);
-                            var check = {value: false};
+                            .getService(Components.interfaces.nsIPromptService);
+                            var check = {
+                                value: false
+                            };
 
                             var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
                             var responseDiscardQueue = prompts.confirmEx(this.topmostWindow,
-                                                                         _('Sign Off'),
-                                                                         _('You have one or more queued orders. What do you want to do with them?'),
-                                                                         flags, _('Keep'), _('Discard'), "", null, check);
+                                _('Sign Off'),
+                                _('You have one or more queued orders. What do you want to do with them?'),
+                                flags, _('Keep'), _('Discard'), "", null, check);
                             if (responseDiscardQueue == 2) return;
                         }
                     }
@@ -880,7 +898,7 @@
                     if (!promptDiscardCart && !promptDiscardQueue)
                         if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm sign-off'), _('Are you ready to sign off?')) == false) {
                             return;
-                    }
+                        }
                 }
                 else {
 
@@ -946,7 +964,7 @@
 
             // release CPU for progressbar ...
             if (!sleepTime) {
-              sleepTime = 1000;
+                sleepTime = 1000;
             }
             this.sleep(sleepTime);
             return waitPanel;
@@ -954,11 +972,11 @@
 
         truncateTxnRecords: function() {
             if (GREUtils.Dialog.confirm(this.topmostWindow,
-                                        _('Remove All Transaction Records'),
-                                        _('This operation will remove all transaction records. Are you sure you want to proceed?'))) {
+                _('Remove All Transaction Records'),
+                _('This operation will remove all transaction records. Are you sure you want to proceed?'))) {
                 if (GREUtils.Dialog.confirm(this.topmostWindow,
-                                            _('Remove All Transaction Records'),
-                                            _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
+                    _('Remove All Transaction Records'),
+                    _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
 
                     var waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Removing all transaction records'), 500);
 
@@ -1001,9 +1019,9 @@
 
                         if (!r) {
                             GREUtils.Dialog.alert(this.topmostWindow,
-                                                  _('Data Operation Error'),
-                                                  _('An error was encountered while attempting to remove all transaction records [message #1011].') + '\n\n' +
-                                                  _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                _('Data Operation Error'),
+                                _('An error was encountered while attempting to remove all transaction records [message #1011].') + '\n\n' +
+                                _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
                         }
                         else {
                             // dispatch afterTruncateTxnRecords event
@@ -1019,8 +1037,8 @@
                     }
 
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Remove All Transaction Records'),
-                                          _('Removal completed. Application will now restart'));
+                        _('Remove All Transaction Records'),
+                        _('Removal completed. Application will now restart'));
 
                     try {
                         GREUtils.restartApplication();
@@ -1049,45 +1067,55 @@
 
                     var order = new OrderModel();
                     var conditions = "orders.transaction_submitted<='" + retainDate +
-                                     "' AND orders.status<='1'";
+                    "' AND orders.status<='1'";
 
                     var r = order.restoreFromBackup();
                     if (!r) {
-                        throw {errno: order.lastError,
-                               errstr: order.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S) [message #1004].', [order.lastError])};
+                        throw {
+                            errno: order.lastError,
+                            errstr: order.lastErrorString,
+                            errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S) [message #1004].', [order.lastError])
+                        };
                     }
 
                     r = order.removeOrders(conditions);
                     if (!r) {
-                        throw {errno: order.lastError,
-                               errstr: order.lastErrorString,
-                               errmsg: _('An error was encountered while expiring sales activity logs (error code %S) [message #1005].', [order.lastError])};
+                        throw {
+                            errno: order.lastError,
+                            errstr: order.lastErrorString,
+                            errmsg: _('An error was encountered while expiring sales activity logs (error code %S) [message #1005].', [order.lastError])
+                        };
                     }
 
                     // remove clock stamps
                     var clockstamp = new ClockStampModel();
                     r = clockstamp.restoreFromBackup();
                     if (!r) {
-                        throw {errno: clockstamp.lastError,
-                               errstr: clockstamp.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S) [message #1006].', [clockstamp.lastError])};
+                        throw {
+                            errno: clockstamp.lastError,
+                            errstr: clockstamp.lastErrorString,
+                            errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S) [message #1006].', [clockstamp.lastError])
+                        };
                     }
 
                     r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
                     if (!r) {
-                        throw {errno: clockstamp.lastError,
-                               errstr: clockstamp.lastErrorString,
-                               errmsg: _('An error was encountered while expiring employee attendance records (error code %S) [message #1007].', [clockstamp.lastError])};
+                        throw {
+                            errno: clockstamp.lastError,
+                            errstr: clockstamp.lastErrorString,
+                            errmsg: _('An error was encountered while expiring employee attendance records (error code %S) [message #1007].', [clockstamp.lastError])
+                        };
                     }
 
                     // remove order queues
                     var orderQueue = new OrderQueueModel();
                     r = orderQueue.removeQueues(retainDate);
                     if (!r) {
-                        throw {errno: orderQueue.lastError,
-                               errstr: orderQueue.lastErrorString,
-                               errmsg: _('An error was encountered while expiring order queues (error code %S) [message #1008].', [orderQueue.lastError])};
+                        throw {
+                            errno: orderQueue.lastError,
+                            errstr: orderQueue.lastErrorString,
+                            errmsg: _('An error was encountered while expiring order queues (error code %S) [message #1008].', [orderQueue.lastError])
+                        };
                     }
                     
                     // dispatch afterClearOrderData event
@@ -1127,17 +1155,23 @@
 
                 // retrieve list of suppliers
                 var inventoryCommitmentModel = new InventoryCommitmentModel();
-                var suppliers = inventoryCommitmentModel.find('all', {fields: ['supplier'],
-                                                                      group: 'supplier',
-                                                                      limit: 3000,
-                                                                      recursive: 0});
+                var suppliers = inventoryCommitmentModel.find('all', {
+                    fields: ['supplier'],
+                    group: 'supplier',
+                    limit: 3000,
+                    recursive: 0
+                });
                 if (inventoryCommitmentModel.lastError != 0) {
                     this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
-                                  _('An error was encountered while retrieving stock adjustment records (error code %S) [message #1010].', [inventoryCommitmentModel.lastError]));
+                        _('An error was encountered while retrieving stock adjustment records (error code %S) [message #1010].', [inventoryCommitmentModel.lastError]));
                     suppliers = null;
                 }
 
-                inputObj = {commit: true, suppliers: suppliers, backend: backend};
+                inputObj = {
+                    commit: true,
+                    suppliers: suppliers,
+                    backend: backend
+                };
 
                 GREUtils.Dialog.openWindow(
                     this.topmostWindow,
@@ -1145,9 +1179,9 @@
                     _('Stock Adjustment'),
                     aFeatures,
                     inputObj
-               );
+                    );
 
-               if (!inputObj.ok || inputObj.reason == '') return;
+                if (!inputObj.ok || inputObj.reason == '') return;
             }
             
             var aURL = 'chrome://viviecr/content/stock_records.xul';
@@ -1173,7 +1207,7 @@
         dispatch: function(arg) {
             var args = arg.split(',');
             $do(args[0], args[1], args[2]) ;
-            /*
+        /*
             var printer = GeckoJS.Controller.getInstanceByName('Print');
             if (printer) {
                 printer.printReport('narrow', 'This is a narrow report [0x0C]');
@@ -1199,7 +1233,11 @@
             var aURL = 'chrome://viviecr/content/wizard_first.xul';
             var aName = _('VIVIPOS Setup');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {initialized: false, restart: false, restarted: false};
+            var aArguments = {
+                initialized: false,
+                restart: false,
+                restarted: false
+            };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
         },
@@ -1265,7 +1303,10 @@
                     
                     var customer = customers[cIndex];
                     var txn = cart._getTransaction(true);
-                    customerController.processSetCustomerResult(txn, {ok: true, customer: customer});
+                    customerController.processSetCustomerResult(txn, {
+                        ok: true,
+                        customer: customer
+                    });
                 }
 
                 for (var j = 0; j < items; j++) {
@@ -1315,8 +1356,8 @@
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database exception: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
-                                  _('Data Operation Error'),
-                                  errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                _('Data Operation Error'),
+                errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },
 
         FunctionCustomizerDialog: function() {
@@ -1342,20 +1383,44 @@
 
 
         /**
-         * openReport suggest from chris brown
+         * openReport 
          */
         openReport: function(reportName) {
-            
-             var keystr = 'vivipos.fec.reportpanels.' + reportName;
-             
-             var pref = GeckoJS.Configure.read(keystr);
-             var path = GeckoJS.Configure.read(keystr+'.path');
-             var label = GeckoJS.Configure.read(keystr+'.label');
-             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
 
-             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
-             return window.openDialog(path, "Preferences_" + label, features, pref);
+            reportName = reportName || '';
+            if(reportName.length == 0) return false;
+
+            var keystr = 'vivipos.fec.reportpanels.' + reportName;
+             
+            var pref = GeckoJS.Configure.read(keystr);
+            var path = GeckoJS.Configure.read(keystr+'.path');
+            var label = GeckoJS.Configure.read(keystr+'.label');
+            var roles = GeckoJS.Configure.read(keystr+'.roles');
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+
+            // get l10n label
+            if (label.indexOf('chrome://') == 0) {
+                label = GeckoJS.StringBundle.getPrefLocalizedString(keystr+'.label') || reportName;
+            }
+            else {
+                label = _(label);
+            }
+
+            // "( Custom )" will be followed by the label to indicate that the report is custom one.
+            var re = /([a-z0-9]+-){4}[a-z0-9]+/;// regular expression for recognizing uuid which is the key of a custom report.
+            if ( re.test( reportName ) )
+                label = "( " + _( "custom" ) + " )" + label;
+
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
+
+            if (this.Acl.isUserInRole(roles)) {
+                window.openDialog(path, "Report_" + label, features, pref);
+                return true;
+            }else{
+                NotifyUtils.warn(_('You are not authorized to access the [%S] report',[label]));
+                return false;
+            }
 
         }
 

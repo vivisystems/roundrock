@@ -2101,6 +2101,9 @@ msgstr "Table Manager"
 msgid "acl_view_system_log"
 msgstr "View System Log"
 
+msgid "acl_split_payment"
+msgstr "Split Payment"
+
 msgid "acl_view_all_queues"
 msgstr "View All Queues"
 ########################################################################
@@ -2853,6 +2856,21 @@ msgstr "Split Payment"
 msgid "vivipos.fec.registry.function.programmable.splitPayment.name"
 msgstr "Split Payment"
 
+########################################################################
+#
+# Open Report
+#
+########################################################################
+
+msgid "vivipos.fec.registry.function.programmable.openreport.desc"
+msgstr ""
+"This function allows operator to open specific report ."
+
+msgid "vivipos.fec.registry.function.programmable.openreport.label"
+msgstr "Open Report"
+
+msgid "vivipos.fec.registry.function.programmable.openreport.name"
+msgstr "Open Report"
 ########################################################################
 #
 # END OF STATIC MESSAGES
