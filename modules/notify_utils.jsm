@@ -13,7 +13,8 @@ var NotifyUtils = {
 
     worker: null,
     nofityService: null,
-    shellFile: null,
+//    shellFile: null,
+//    convService: null,
 
     notify: function(summary, body, icon, total_display_ms, urgency) {
 
@@ -21,10 +22,14 @@ var NotifyUtils = {
         total_display_ms = total_display_ms || 5000;
         //urgency = (typeof urgency != 'undefined') ? urgency : 1;
 
+//        summary = NotifyUtils.convService.ConvertFromUnicode(summary);
+//        body = NotifyUtils.convService.ConvertFromUnicode(body);
+
         var runnable = {
             run: function() {
                 try {
 
+                    /*
                     if(NotifyUtils.shellFile.exists()) {
                         // use shell
                         var process = Components.classes["@mozilla.org/process/util;1"].createInstance(Components.interfaces.nsIProcess);
@@ -32,8 +37,11 @@ var NotifyUtils = {
                         var args = ['--urgency=normal', '--expire-time='+total_display_ms, '--icon='+icon, summary , body];
                         process.run(false, args, args.length );
                     }else if(NotifyUtils.nofityService) {
+                    */
                         NotifyUtils.nofityService.notify(summary, body, icon, total_display_ms, urgency);
+                    /*
                     }
+                    */
 
                 }catch(e) {
                 }
@@ -103,16 +111,21 @@ try {
         NotifyUtils.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).mainThread;
 
     }
-
+/*
     if (!NotifyUtils.shellFile) {
         NotifyUtils.shellFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
         NotifyUtils.shellFile.initWithPath('/usr/bin/notify-send');
     }
-    
-    if(!NotifyUtils.nofityService && !NotifyUtils.shellFile.exists()) {
+*/
+    if(!NotifyUtils.nofityService /*&& !NotifyUtils.shellFile.exists()*/) {
         NotifyUtils.nofityService = Components.classes["@firich.com.tw/notify;1"].getService(Components.interfaces.mozIFECNotify);
     }
-
+/*
+    if(!NotifyUtils.convService) {
+        NotifyUtils.convService = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].getService(Components.interfaces.nsIScriptableUnicodeConverter);
+        NotifyUtils.convService.charset = 'UTF-8';
+    }
+*/
 }catch(e) {
     dump(e);
 }
