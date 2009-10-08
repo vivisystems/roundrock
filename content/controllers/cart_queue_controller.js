@@ -44,66 +44,6 @@
             return true;
         },
 
-        /**
-         *
-         */
-        removeQueueRecoveryFile: function() {
-
-            // unserialize from fail recovery file
-            var file = new GeckoJS.File(this._queueFile);
-            if (!file.exists()) return false;
-            file.remove();
-            
-            return true;
-
-        },
-
-        serializeQueueToRecoveryFile: function(queue) {
-
-            // save serialize to fail recovery file
-            var file = new GeckoJS.File(this._queueFile);
-            file.open("w");
-            file.write(GeckoJS.BaseObject.serialize(queue));
-            file.close();
-            delete file;
-
-        },
-
-        unserializeQueueFromRecoveryFile: function() {
-
-            // unserialize from fail recovery file
-            var file = new GeckoJS.File(this._queueFile);
-            if (!file.exists()) return false;
-
-            var data = null;
-            file.open("r");
-            data = GeckoJS.BaseObject.unserialize(file.read());
-            file.close();
-            // file.remove();
-            delete file;
-
-            this._queuePool = data;
-            GeckoJS.Session.set(this._queueSession, this._queuePool);
-
-            return true;
-
-        },
-
-        _getQueuePool: function() {
-
-            this._queuePool = GeckoJS.Session.get(this._queueSession);
-            if (this._queuePool == null) {
-                this._queuePool = {
-                    user: {},
-                    data:{}
-                };
-                GeckoJS.Session.set(this._queueSession, this._queuePool);
-            }
-
-            return this._queuePool;
-
-        },
-
         _hasUserQueue: function(user) {
 
             if (!user) return false;
@@ -152,22 +92,13 @@
                 }
                 return;
             }
-            var user = this.Acl.getUserPrincipal();
 
+            var user = this.Acl.getUserPrincipal();
             var count = curTransaction.getItemsCount();
-            var key = '';
-            var queuePool = this._getQueuePool();
 
             if (count > 0) {
-                key = new Date().toString('hh:mm:ss') + ':' + user.username;
-                alert(curTransaction.data.id +',,,'+key);
-                // queue
-                queuePool.data[key] = curTransaction.data;
 
                 // update user queue status
-                if(!queuePool.user[user.username]) queuePool.user[user.username] = [];
-                queuePool.user[user.username].push(key);
-
                 this.OrderQueue.pushQueue(user.username, curTransaction.data.id, curTransaction.data);
 
                 // only empty view ,
@@ -183,11 +114,9 @@
                 GeckoJS.Session.remove('cart_set_price_value');
                 GeckoJS.Session.remove('cart_set_qty_value');
 
-//                this.serializeQueueToRecoveryFile(queuePool);
-
                 Transaction.removeRecoveryFile();
-            }
-            else {
+                
+            }else {
                 if (!nowarning) {
                     NotifyUtils.warn(_('Order is not queued because it is empty'));
                     cart._clearAndSubtotal();
@@ -199,33 +128,20 @@
 
         _getQueueIdDialog: function() {
 
-            var queuePool = this._getQueuePool();
             var queues = [];
-            var confs = GeckoJS.Configure.read('vivipos.fec.settings');
+            var username = '';
 
-            // check private queue
-            if (confs.PrivateQueue) {
+            var canViewAllQueues = this.Acl.isUserInRole('acl_view_all_queues');
+
+            if (!canViewAllQueues) {
                 var user = this.Acl.getUserPrincipal();
+                if (user) username = user.username;
+            }
 
-                if (user && user.username && queuePool.user[user.username]) {
-                    queuePool.user[user.username].forEach(function(key) {
-                        queues.push({
-                            key: key
-                        });
-                    });
-                }
-            }
-            else {
-                for(var key in queuePool.data) {
-                    queues.push({
-                        key: key
-                    });
-                }
-            }
+            queues = this.OrderQueue.getQueueSummaries(username);
 
             var dialog_data = {
-                queues: queues,
-                queuePool: queuePool
+                queues: queues
             };
 
             return $.popupPanel('selectQueuesPanel', dialog_data);
@@ -243,28 +159,27 @@
 
                 if (!result.ok) return;
 
-                var key = result.key;
-                var queuePool = self._getQueuePool();
+                var id = result.id;
 
-                // if has transaction push queue
-                self.pushQueue(true);
+                // popQueue
+                var data = self._removeQueueById(id);
 
-                var data = queuePool.data[key];
+                if (data) {
+                    
+                    // if has transaction push queue
+                    self.pushQueue(true);
 
-                // remove from list;
-                self._removeQueueByKey(key);
+                    var curTransaction = new Transaction(true);
+                    curTransaction.data = data ;
 
-                var curTransaction = new Transaction(true);
-                curTransaction.data = data ;
+                    cart._setTransactionToView(curTransaction);
+                    curTransaction.updateCartView(-1, -1);
 
-                cart._setTransactionToView(curTransaction);
-                curTransaction.updateCartView(-1, -1);
+                    cart._clearAndSubtotal();
 
-                cart._clearAndSubtotal();
+                    self.dispatchEvent('afterPullQueue', curTransaction);
+                }
 
-                self.serializeQueueToRecoveryFile(queuePool);
-
-                self.dispatchEvent('afterPullQueue', curTransaction);
             });
 
         }

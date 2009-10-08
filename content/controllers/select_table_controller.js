@@ -844,7 +844,7 @@
             }
 
             if (status != 3) {
-                NotifyUtils.warn(_('Table [%S] Not available to ummark. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                NotifyUtils.warn(_('Table [%S] Not available to unmark. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                 return ;
             }
 
