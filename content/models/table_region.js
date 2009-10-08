@@ -48,8 +48,6 @@
 
             if (table_regions == null) {
 
-                this.log('getTableRegions from db or services');
-
                 if (this.isRemoteService()) {
                     var remoteUrl = this.getHttpService().getRemoteServiceUrl('getTableRegions');
                     var requestUrl = remoteUrl ;
@@ -59,7 +57,7 @@
                     table_regions = GeckoJS.Array.objectExtract(table_regions, "{n}.TableRegion");
 
                     // update tables to local database;
-                    this.saveTableRegions(table_regions);
+                    // this.saveTableRegions(table_regions);
                 }else {
                     table_regions = this.find('all', {
                         recursive: 0,
@@ -159,6 +157,6 @@
 
             return regions[id] || null;
 
-        },
+        }
     });
 } )();

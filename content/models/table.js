@@ -68,7 +68,7 @@
                     tables = GeckoJS.Array.objectExtract(tables, "{n}.Table");
 
                     // update tables to database;
-                    this.saveTables(tables);
+                    // this.saveTables(tables);
                 }else {
                     tables = this.find('all', {
                         recursive: 0,

@@ -54,8 +54,9 @@
 
                     if (table_marks) {
                         table_marks = this.setTableMarksToSession(table_marks);
+
                         // save tables to database;
-                        this.saveTableMarks(table_marks);
+                        //this.saveTableMarks(table_marks);
                     }
 
                 }else {
