@@ -166,7 +166,7 @@ class OrdersController extends AppController {
             $conditions = $_REQUEST['request_data'];
             //            $conditions = "orders.check_no='999' AND orders.status=2";
             $conditions = str_replace("orders.", "Order.", $conditions);
-            $condition = array('conditions' => $conditions, 'recursive' =>0 );
+            $condition = array('conditions' => $conditions, 'recursive' =>0 , 'order'=>'transaction_created DESC');
             $orders = $this->Order->find('all', $condition);
         }
 

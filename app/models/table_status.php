@@ -127,9 +127,13 @@ class TableStatus extends AppModel {
         $now = time();
 
         try {
-            $this->begin();
 
             $result = $this->find('all', array('conditions'=>"end_time <= $now AND status=3", 'recursive'=>-1));
+
+            if (count($result) <= 0) return true;
+            
+            $this->begin();
+            
             foreach($result as $value) {
                 $status = $value['TableStatus'];
                 if ($status['sum_customers'] == 0) {
@@ -141,7 +145,9 @@ class TableStatus extends AppModel {
                     $this->save($data);
                 }
             }
+            
             $this->commit();
+            
         }catch(Exception $e) {
 
             CakeLog::write('error', 'Exception clearExpireStatuses \n' .
