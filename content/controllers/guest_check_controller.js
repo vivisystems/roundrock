@@ -403,7 +403,9 @@
             
             // get table define
             var table = this.Table.getTableByNo(no);
-            if (table && this.isTableAvailable(table)) {
+            if (table) {
+
+                if (!this.isTableAvailable(table)) return false;
 
                 var curTransaction = cart._getTransaction(true); // autocreate
 
