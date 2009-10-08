@@ -272,7 +272,7 @@ class OrdersController extends AppController {
      */
     function transferTable($orderId, $orgTableId, $newTableId) {
 
-        $result = null;
+        $result = true;
         $machineId = $this->SyncHandler->getRequestClientMachineId();
 
         try {

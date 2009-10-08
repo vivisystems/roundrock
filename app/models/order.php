@@ -213,9 +213,9 @@ class Order extends AppModel {
         $newTableNo = $tableIdToNos[$newTableId];
 
         $this->id = $orderId;
-        $this->save(array('table_no'=>$newTableNo));
+        $result = $this->save(array('table_no'=>$newTableNo));
 
-        return $result;
+        return (!empty($result));
     }
 
     /**
