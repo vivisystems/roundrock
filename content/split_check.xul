@@ -46,8 +46,8 @@
                             <tabpanel id="sourceOrderTabpanel">
                                 <vbox flex="1" class="content-listbox  main-overlay">
                                     <vivitree id="sourceScrollablePanel" flex="1" seltype="single" hidecolumnpicker="true" primary="name"
-                                      headers="&splitcheck.sourcecheck.name;,&splitcheck.sourcecheck.qty;,&splitcheck.sourcecheck.price;"
-                                      fields="name,current_qty,current_price"
+                                      headers="&splitcheck.sourcecheck.name;,&splitcheck.sourcecheck.qty;,current_subtotal"
+                                      fields="name,current_qty,current_subtotal"
                                       onclick="$do('selectSourceItem', this.selectedIndex, 'SplitCheck');"
                                       onselect="$do('selectSourceItem', this.selectedIndex, 'SplitCheck');"
                                       class="cart-list" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
@@ -78,8 +78,8 @@
                             <tabpanel id="splitOrderTabpanel">
                                 <vbox flex="1" class="content-listbox  main-overlay">
                                     <vivitree id="splitScrollablePanel" flex="1" seltype="single" hidecolumnpicker="true" primary="name"
-                                      headers="&splitcheck.sourcecheck.name;,&splitcheck.sourcecheck.qty;,&splitcheck.sourcecheck.price;"
-                                      fields="name,current_qty,current_price"
+                                      headers="&splitcheck.sourcecheck.name;,&splitcheck.sourcecheck.qty;,current_subtotal"
+                                      fields="name,current_qty,current_subtotal"
                                       onclick="$do('selectSplitItem', this.selectedIndex, 'SplitCheck');"
                                       onselect="$do('selectSplitItem', this.selectedIndex, 'SplitCheck');"
                                       class="cart-list" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
