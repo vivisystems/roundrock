@@ -39,37 +39,53 @@
         displayJournal: function (journal) {
             try {
                 if (!journal) return;
+
                 var dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
                 var journalPath = dataPath + "/journal/";
-                var previewFile = new GeckoJS.File(journalPath + journal.preview_file);
-                previewFile.open("rb");
-                var content = GREUtils.Gzip.inflate(previewFile.read());
+                if (journal.preview_file != '') {
+                    var previewFile = new GeckoJS.File(journalPath + journal.preview_file);
+                    if (previewFile.exists()) {
+                        previewFile.open("rb");
+                        var content = GREUtils.Gzip.inflate(previewFile.read());
 
-                // get browser content body
-                var bw = document.getElementById('preview_frame');
-                var doc = bw.contentWindow.document.getElementById( 'abody' );
-                var print = document.getElementById('print');
+                        // get browser content body
+                        var bw = document.getElementById('preview_frame');
+                        var doc = bw.contentWindow.document.getElementById( 'abody' );
+                        var print = document.getElementById('print');
 
-                // load template
-                var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '.tpl');
-                var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+                        // load template
+                        var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '.tpl');
+                        var file = GREUtils.File.getFile(path);
+                        var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
-                var data = {};
-                data.journal = journal;
-                data.sequence = journal.sequence;
-                data.content = content;
+                        var data = {};
+                        data.journal = journal;
+                        data.sequence = journal.sequence;
+                        data.content = content;
 
-                this._journalData = data;
-                this._journalId = journal.id;
-                var result = tpl.process(data);
+                        this._journalData = data;
+                        this._journalId = journal.id;
+                        var result = tpl.process(data);
 
-                if (doc) {
-                    doc.innerHTML = result;
+                        if (doc) {
+                            doc.innerHTML = result;
 
-                    print.setAttribute('disabled', false);
+                            print.setAttribute('disabled', false);
+                        }
+                    }
+                    else {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                                              _('Journal Display Error'),
+                                              _('The selected journal entry cannot be printed because the preview file no longer exists [message #1807].'));
+                        return;
+                    }
                 }
-
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Journal Display Error'),
+                                          _('The selected journal entry cannot be printed because the original transaction did not generate any preview file [message #1806].'));
+                    return;
+                }
                 
             } catch (e) {
                 this.log('ERROR', 'displayJournal error:  ' + e);
