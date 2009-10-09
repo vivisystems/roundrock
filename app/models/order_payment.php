@@ -14,8 +14,9 @@ class OrderPayment extends AppModel {
             $this->begin();
 
             foreach ($payments as $payment) {
+
                 $this->id = $payment['id'];
-                $this->save($payment);
+                $r = $this->save($payment);
 
                 $result = ($result & !empty($r));
             }
