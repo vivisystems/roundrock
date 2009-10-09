@@ -28,7 +28,7 @@
                 var journal = journalModel.findById(inputObj.value, 2);
 
                 if (journal) {
-                    this.displayJournal(journal);
+                    if (!this.displayJournal(journal)) window.close();;
                 }
             }catch(e) {
                 // this branch should not be reachable...
@@ -77,14 +77,14 @@
                         GREUtils.Dialog.alert(this.topmostWindow,
                                               _('Journal Display Error'),
                                               _('The selected journal entry cannot be printed because the preview file no longer exists [message #1807].'));
-                        return;
+                        return false;
                     }
                 }
                 else {
                     GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Journal Display Error'),
                                           _('The selected journal entry cannot be printed because the original transaction did not generate any preview file [message #1806].'));
-                    return;
+                    return false;
                 }
                 
             } catch (e) {
@@ -93,7 +93,9 @@
                 GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Journal Display Error'),
                                       _('An error was encountered while attempting to display journal. Please restart the machine, and if the problem persists, please contact technical support immediately [message #1801].'));
+                return false;
             }
+            return true;
         },
 
         printJournal: function() {
