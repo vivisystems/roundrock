@@ -180,7 +180,7 @@
 
             var taxes = GeckoJS.Session.get('taxes');
             if (taxes == null) taxes = this.Tax.getTaxList();
-            if (taxes != null) return taxes[0].no;
+            if (taxes != null && taxes.length > 0) return taxes[0].no;
             return null;
         },
 

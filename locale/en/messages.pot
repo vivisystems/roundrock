@@ -2871,6 +2871,22 @@ msgstr "Open Report"
 
 msgid "vivipos.fec.registry.function.programmable.openreport.name"
 msgstr "Open Report"
+
+########################################################################
+#
+# Report Period Types
+#
+########################################################################
+
+msgid "(rpt)sale_period"
+msgstr "Sale Period"
+
+msgid "(rpt)transaction_created"
+msgstr "Order Opened"
+
+msgid "(rpt)transaction_submitted"
+msgstr "Order Closed"
+
 ########################################################################
 #
 # END OF STATIC MESSAGES

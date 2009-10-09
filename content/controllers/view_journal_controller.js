@@ -28,7 +28,7 @@
                 var journal = journalModel.findById(inputObj.value, 2);
 
                 if (journal) {
-                    this.displayJournal(journal);
+                    if (!this.displayJournal(journal)) window.close();;
                 }
             }catch(e) {
                 // this branch should not be reachable...
@@ -39,37 +39,53 @@
         displayJournal: function (journal) {
             try {
                 if (!journal) return;
+
                 var dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
                 var journalPath = dataPath + "/journal/";
-                var previewFile = new GeckoJS.File(journalPath + journal.preview_file);
-                previewFile.open("rb");
-                var content = GREUtils.Gzip.inflate(previewFile.read());
+                if (journal.preview_file != '') {
+                    var previewFile = new GeckoJS.File(journalPath + journal.preview_file);
+                    if (previewFile.exists()) {
+                        previewFile.open("rb");
+                        var content = GREUtils.Gzip.inflate(previewFile.read());
 
-                // get browser content body
-                var bw = document.getElementById('preview_frame');
-                var doc = bw.contentWindow.document.getElementById( 'abody' );
-                var print = document.getElementById('print');
+                        // get browser content body
+                        var bw = document.getElementById('preview_frame');
+                        var doc = bw.contentWindow.document.getElementById( 'abody' );
+                        var print = document.getElementById('print');
 
-                // load template
-                var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '.tpl');
-                var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+                        // load template
+                        var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '.tpl');
+                        var file = GREUtils.File.getFile(path);
+                        var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
-                var data = {};
-                data.journal = journal;
-                data.sequence = journal.sequence;
-                data.content = content;
+                        var data = {};
+                        data.journal = journal;
+                        data.sequence = journal.sequence;
+                        data.content = content;
 
-                this._journalData = data;
-                this._journalId = journal.id;
-                var result = tpl.process(data);
+                        this._journalData = data;
+                        this._journalId = journal.id;
+                        var result = tpl.process(data);
 
-                if (doc) {
-                    doc.innerHTML = result;
+                        if (doc) {
+                            doc.innerHTML = result;
 
-                    print.setAttribute('disabled', false);
+                            print.setAttribute('disabled', false);
+                        }
+                    }
+                    else {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                                              _('Journal Display Error'),
+                                              _('The selected journal entry cannot be printed because the preview file no longer exists [message #1807].'));
+                        return false;
+                    }
                 }
-
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Journal Display Error'),
+                                          _('The selected journal entry cannot be printed because the original transaction did not generate any preview file [message #1806].'));
+                    return false;
+                }
                 
             } catch (e) {
                 this.log('ERROR', 'displayJournal error:  ' + e);
@@ -77,7 +93,9 @@
                 GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Journal Display Error'),
                                       _('An error was encountered while attempting to display journal. Please restart the machine, and if the problem persists, please contact technical support immediately [message #1801].'));
+                return false;
             }
+            return true;
         },
 
         printJournal: function() {
@@ -94,12 +112,34 @@
                 var journal = journalModel.findById(this._journalId, 2);
 
                 if (journal) {
-                    var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file);
-                    prnFile.open("rb");
-                    var template = GREUtils.Gzip.inflate(prnFile.read());
-                    var re = new RegExp('\\[\\&' + 'PC' + '\\]', 'g');
-                    template = template.replace(re,'');
-                    prnFile.close();
+                    if (journal.prn_file != '') {
+                        var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file);
+                        if (prnFile.exists()) {
+                            prnFile.open("rb");
+                            var template = GREUtils.Gzip.inflate(prnFile.read());
+                            var re = new RegExp('\\[\\&' + 'PC' + '\\]', 'g');
+                            template = template.replace(re,'');
+                            prnFile.close();
+                        }
+                        else {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                                  _('Journal Display Error'),
+                                                  _('The selected journal entry cannot be printed because the receipt file no longer exists [message #1803].'));
+                            return;
+                        }
+                    }
+                    else {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                                              _('Journal Display Error'),
+                                              _('The selected journal entry cannot be printed because the original transaction did not generate any receipt [message #1804].'));
+                        return;
+                    }
+                }
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Journal Display Error'),
+                                          _('The selected journal entry cannot be retrieved from the database. Please restart the machine, and if the problem persists, please contact technical support immediately [message #1805].'));
+                    return;
                 }
 
                 var deviceController = mainWindow.GeckoJS.Controller.getInstanceByName('Devices');

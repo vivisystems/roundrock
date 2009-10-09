@@ -139,7 +139,7 @@
                     var seats = defaultSeats;
 
                     var newTable = {
-                        table_no: table_no,
+                        table_no: table_no+'',
                         table_name: table_name,
                         active: true,
                         seats: seats

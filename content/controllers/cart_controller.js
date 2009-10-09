@@ -623,7 +623,7 @@
                     }
                 }
             }
-            else {
+            else if (item.cate_no) {
                 var dep = this._isItemInScaleDepartment(item);
                 if (dep != null) {
 
@@ -643,7 +643,11 @@
             if (qty == null) qty = 1;
 
             if (unit != null && unit != '') {
-                qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+
+                // convert weight only for items, not for department
+                if (item.cate_no) {
+                    qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+                }
             }
 
             // if item's unit of sale is individually, we convert qty to integer
@@ -662,7 +666,8 @@
 
                     var price = GeckoJS.Session.get('cart_set_price_value');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
-                        if (currentItem.no == plu.no &&
+                        if (((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
+                             (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
                             !currentItem.hasDiscount &&
                             !currentItem.hasSurcharge &&
                             !currentItem.hasMarker &&
@@ -680,14 +685,17 @@
             }
 
             // if item is a sale department, check if price is set
-            if (item.cate_no == item.no) {
+            if (!('cate_no' in item)) {
                 if (GeckoJS.Session.get('cart_set_price_value') == null) {
                     NotifyUtils.error(_('Price must be given to register sale of department [%S]', [item.name]));
                     this._clearAndSubtotal();
 
                     return;
                 }
+                item.cate_no = item.no;
+                item.no = '';
             }
+
 
             if (this.dispatchEvent('beforeAddItem', item)) {
                 // check if set item selection is needed
@@ -3681,7 +3689,7 @@
                 }
                 // xxxx why clone it ??
                 condimentItem = this.Product.getProductById(setItem.id);
-
+                
                 // extract cartItem's selected condiments, if any
                 if (!immediateMode && setItem.condiments != null) {
                     for (var c in setItem.condiments) {
@@ -3694,15 +3702,15 @@
             }
 
             var d = new Deferred();
-            if (condimentItem) {
+            if (immediateMode && condiments) {
+                this._appendCondiments(condiments, false);
+            }
+            else if (condimentItem) {
                 if(!condimentItem.cond_group && !immediateMode){
                     NotifyUtils.warn(_('No Condiment group associated with item [%S]', [condimentItem.name]));
 
                     this._clearAndSubtotal();
                     return d;
-                }
-                else if (immediateMode && condiments) {
-                    this._appendCondiments(condiments, false);
                 }
                 else {
                     return this._getCondimentsDialog(condimentItem.cond_group, condiments);
