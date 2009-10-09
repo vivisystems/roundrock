@@ -220,9 +220,7 @@
                         check_no = parseInt(arSeqs[1]) || -1 ;
                     }
 
-                    self.log('DEBUG', 'before buildOrderSequence');
                     let seqData = self.buildOrderSequence(order_no);
-                    self.log('DEBUG', 'after buildOrderSequence: ' + self.dump(seqData));
                     
                     self.data.seq_original = seq;
                     self.data.seq_sp = seqData[0];

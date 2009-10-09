@@ -94,12 +94,34 @@
                 var journal = journalModel.findById(this._journalId, 2);
 
                 if (journal) {
-                    var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file);
-                    prnFile.open("rb");
-                    var template = GREUtils.Gzip.inflate(prnFile.read());
-                    var re = new RegExp('\\[\\&' + 'PC' + '\\]', 'g');
-                    template = template.replace(re,'');
-                    prnFile.close();
+                    if (journal.prn_file != '') {
+                        var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file);
+                        if (prnFile.exists()) {
+                            prnFile.open("rb");
+                            var template = GREUtils.Gzip.inflate(prnFile.read());
+                            var re = new RegExp('\\[\\&' + 'PC' + '\\]', 'g');
+                            template = template.replace(re,'');
+                            prnFile.close();
+                        }
+                        else {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                                  _('Journal Display Error'),
+                                                  _('The selected journal entry cannot be printed because the receipt file no longer exists [message #1803].'));
+                            return;
+                        }
+                    }
+                    else {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                                              _('Journal Display Error'),
+                                              _('The selected journal entry cannot be printed because the original transaction did not generate any receipt [message #1804].'));
+                        return;
+                    }
+                }
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Journal Display Error'),
+                                          _('The selected journal entry cannot be retrieved from the database. Please restart the machine, and if the problem persists, please contact technical support immediately [message #1805].'));
+                    return;
                 }
 
                 var deviceController = mainWindow.GeckoJS.Controller.getInstanceByName('Devices');

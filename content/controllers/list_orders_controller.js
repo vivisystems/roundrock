@@ -202,7 +202,7 @@
             var width = GeckoJS.Session.get('screenwidth');
             var height = GeckoJS.Session.get('screenheight');
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
+            window.openDialog(aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
 
             if (aArguments.recall) {
                 this.recallOrder(orderId);

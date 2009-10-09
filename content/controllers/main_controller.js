@@ -526,7 +526,6 @@
                         //                    contains visible products. If not, notify user of error;
                         //                    otherwise, switch to the selected department
                         if(!isNaN(price)) {
-                            dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
                         }
                         else if (this.pluPanelView.getProductCount(index, true) == 0) {
