@@ -10533,7 +10533,20 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
         /* ifdef DEBUG 
         this.log('DEBUG', 'saveall from backup data, length = ' + backupDatas.length);
         /* endif DEBUG */
-        this.saveAll(backupDatas, false); // don't update timestamp
+
+        var removableIds = [] ;
+        
+        backupDatas.forEach(function(oldData) {
+            
+            this.create();
+            var oldResult = this.save(oldData, false); // don't udpate timestamp
+
+            if (oldResult) {
+               removableIds.push(oldData[this.primaryKey]);
+            }
+            
+        }, this);
+        //this.saveAll(backupDatas, false); // don't update timestamp
         
         r = this.commit(true);
 
@@ -10549,17 +10562,12 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
             this.log('DEBUG', 'commit to success , remove all backup datas.');
             /* endif DEBUG */
             
-            var self = this;
-            newDataSource.truncate(self);
-            
-            /*
-            backupDatas.forEach(function(oldData) {
-
-                self.id = oldData[self.primaryKey];
-               
-                newDataSource.executeDelete(self);
-            });
-            */
+            // newDataSource.truncate(self);
+            // only truncate success data.
+            removableIds.forEach(function(oldDataId) {
+                this.id = oldDataId;
+                newDataSource.executeDelete(this);
+            }, this);
 
             this.id = false;
             this.data = null;
