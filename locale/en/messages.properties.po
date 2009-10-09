@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-09 21:13+0800\n"
+"POT-Creation-Date: 2009-10-10 01:40+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3884,16 +3884,16 @@ msgstr ""
 msgid "The tax status indicated does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3198
+#: ../..//content/controllers/cart_controller.js:3197
 msgid "confirm cancel"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3199
+#: ../..//content/controllers/cart_controller.js:3198
 msgid "Are you sure you want to discard changes made to this order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3205
-#: ../..//content/controllers/cart_controller.js:3210
+#: ../..//content/controllers/cart_controller.js:3204
+#: ../..//content/controllers/cart_controller.js:3209
 #: ../..//content/controllers/cart_controller.js:3345
 #: ../..//content/controllers/cart_controller.js:3388
 #: ../..//content/controllers/cashdrawer_controller.js:334
@@ -3914,11 +3914,11 @@ msgstr ""
 msgid "Data Operation Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3206
+#: ../..//content/controllers/cart_controller.js:3205
 msgid "Failed to cancel order due to data operation error [message #102]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3211
+#: ../..//content/controllers/cart_controller.js:3210
 msgid ""
 "Failed to cancel order because a valid sequence number cannot be obtained. "
 "Please check the network connectivity to the terminal designated as the "
