@@ -941,8 +941,12 @@
             var curTransaction = evt.data.txn;
 
             if (isCheckTableNo && this.tableSettings.RequireTableNo && !curTransaction.data.table_no) {
-                this.newTable('', true);
+                
+                let tableResult = this.newTable('', true);
+
+                if (!tableResult) evt.preventDefault();
             }
+            
             let guest = curTransaction.data.no_of_customers || 0;
             guest = parseInt(guest);
             
