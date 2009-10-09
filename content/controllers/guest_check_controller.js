@@ -22,7 +22,7 @@
                 cart.addEventListener('beforeSubmit', this.onCartBeforeSubmit, this);
 
                 // check minimum charge and table no and guests before addPayment...
-                //                cart.addEventListener('beforeAddPayment', this.onCartBeforeAddPayment, this);
+                //cart.addEventListener('beforeAddPayment', this.onCartBeforeAddPayment, this);
 
                 // popup table select panel
                 cart.addEventListener('onSubmitSuccess', this.onCartOnSubmitSuccess, this);
@@ -910,7 +910,6 @@
          * @param {Object) evt
          */
         onCartBeforeAddPayment: function(evt) {
-
             // let destination = getXXXX;
             evt.data.txn = evt.data.transaction;
             evt.data.status = 1; // force check 
@@ -939,31 +938,32 @@
             // let destination = getXXXX;
             var isCheckTableNo = true;
             var isCheckGuestNum = true;
+            var curTransaction = evt.data.txn;
 
-            if (isCheckTableNo && this.tableSettings.RequireTableNo && !evt.data.txn.data.table_no) {
+            if (isCheckTableNo && this.tableSettings.RequireTableNo && !curTransaction.data.table_no) {
                 this.newTable('', true);
             }
-            let guest = evt.data.txn.data.no_of_customers || 0;
+            let guest = curTransaction.data.no_of_customers || 0;
             guest = parseInt(guest);
             
             if (isCheckGuestNum && this.tableSettings.RequireGuestNum && guest <= 0) {
                 this.guestNum(-1);
             }
-
+                
             var isCheckTableMinimumCharge = true;
-            var table_no = evt.data.txn.data.table_no;
-            var guests = evt.data.txn.data.no_of_customers || 0;
+            var table_no = curTransaction.data.table_no || '';
+            var guests = curTransaction.data.no_of_customers || 0;
 
             if (isCheckTableMinimumCharge && this.tableSettings.RequestMinimumCharge && table_no) {
-                //
+
                 var minimum_charge_per_table = this.tableSettings.GlobalMinimumChargePerTable;
                 var minimum_charge_per_guest = this.tableSettings.GlobalMinimumChargePerGuest;
 
-                var total = evt.data.txn.data.total;
+                var total = curTransaction.data.total;
                 switch (this.tableSettings.MinimumChargeFor)  {
                     case "1":
                         // original
-                        total = evt.data.txn.data.item_subtotal;
+                        total = curTransaction.data.item_subtotal;
                         break;
                     /*
                     case "2":
@@ -982,7 +982,7 @@
                         break;
 
                 }
-
+                
                 var table = this.Table.getTableByNo(table_no);
 
                 if (table) {
@@ -1005,7 +1005,13 @@
                         var product = GeckoJS.BaseObject.unserialize(this.tableSettings.MinimumChargePlu);
 
                         if (product) {
+                            
                             var cart = this.getCartController();
+
+                            // remove last payment
+                            let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
+                            if (lastItem.type == 'payment') cart.voidItem();
+
                             cart.setPrice(minimum_charge - total);
                             cart.addItem(product);
 

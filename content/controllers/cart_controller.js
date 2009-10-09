@@ -2908,8 +2908,9 @@
             this._getCartlist().refresh();
             if (curTransaction.getRemainTotal() <= 0) {
                 if (!this.submit()) {
-                    // remove last payment
-                    this.voidItem();
+                    // remove last payment but not item
+                    let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
+                    if (lastItem.type !='item') this.voidItem();
                 }
             }else {
                 this._clearAndSubtotal();

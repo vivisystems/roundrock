@@ -1389,28 +1389,55 @@
 
             reportName = reportName || '';
             if(reportName.length == 0) return false;
-
-            var keystr = 'vivipos.fec.reportpanels.' + reportName;
-             
-            var pref = GeckoJS.Configure.read(keystr);
-            var path = GeckoJS.Configure.read(keystr+'.path');
-            var label = GeckoJS.Configure.read(keystr+'.label');
-            var roles = GeckoJS.Configure.read(keystr+'.roles');
+            
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
 
-            // get l10n label
-            if (label.indexOf('chrome://') == 0) {
-                label = GeckoJS.StringBundle.getPrefLocalizedString(keystr+'.label') || reportName;
-            }
-            else {
-                label = _(label);
+            // use report name not report key
+            var reports = GeckoJS.Configure.read('vivipos.fec.reportpanels') || {};
+            
+            let isExists = false;
+            let pref=null;
+            let path=null;
+            let label=null;
+            let roles=null;
+            let keyFull='';
+            let l10nLabel = '';
+
+            for (let key in reports) {
+
+                pref = reports[key];
+                path = pref.path;
+                label = pref.label;
+                roles = pref.roles;
+                keyFull = 'vivipos.fec.reportpanels' + '.' + key;
+
+                // get l10n label
+                if (label.indexOf('chrome://') == 0) {
+                    l10nLabel = GeckoJS.StringBundle.getPrefLocalizedString(keyFull+'.label') || key;
+                }
+                else {
+                    l10nLabel = _(label);
+                }
+
+                if ( (key == reportName) || (l10nLabel == reportName) || (label == reportName) ) {
+                    isExists = true;
+
+                    // check custom report label
+                    // "( Custom )" will be followed by the label to indicate that the report is custom one.
+                    var re = /([a-z0-9]+-){4}[a-z0-9]+/;// regular expression for recognizing uuid which is the key of a custom report.
+                    if ( re.test( key ) )
+                        l10nLabel = "( " + _( "custom" ) + " )" + l10nLabel;
+
+                    break;
+                }
             }
 
-            // "( Custom )" will be followed by the label to indicate that the report is custom one.
-            var re = /([a-z0-9]+-){4}[a-z0-9]+/;// regular expression for recognizing uuid which is the key of a custom report.
-            if ( re.test( reportName ) )
-                label = "( " + _( "custom" ) + " )" + label;
+            if (!isExists) {
+                // report not exists
+                NotifyUtils.warn(_('Report [%S] not exists',[reportName]));
+                return false;
+            }
 
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
 
@@ -1418,7 +1445,7 @@
                 window.openDialog(path, "Report_" + label, features, pref);
                 return true;
             }else{
-                NotifyUtils.warn(_('You are not authorized to access the [%S] report',[label]));
+                NotifyUtils.warn(_('You are not authorized to access the [%S] report',[l10nLabel]));
                 return false;
             }
 
