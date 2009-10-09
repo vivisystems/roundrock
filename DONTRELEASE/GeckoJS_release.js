@@ -14506,7 +14506,8 @@ GeckoJS.DatasourceSQL.prototype.renderStatement = function(type, data) {
             break;
 
         case 'insert':
-            return "INSERT INTO " + data.table + " (" + data.fields + ") VALUES (" + data.values + ")";
+            // because vivipos use uuid as id, so try to replace if id exists
+            return "INSERT OR REPLACE INTO " + data.table + " (" + data.fields + ") VALUES (" + data.values + ")";
             break;
 
         case 'update':
