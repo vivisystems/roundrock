@@ -120,6 +120,9 @@
                         case 'id':
                         case 'condiments':
                         case 'parent_index':
+                            if (!orderItem['parent_index']) {
+                                orderItem['parent_index'] = null;
+                            }
                             break;
                         case 'product_no':
                             orderItem['no'] = item[key];

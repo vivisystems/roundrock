@@ -3144,10 +3144,9 @@
             this.dispatchEvent('onClear', curTransaction);
 
             if (!this.ifHavingOpenedOrder()) {
-                //this._cartView.empty();
-                this.cartViewEmpty();
                 GeckoJS.Session.remove('current_transaction');
-                return ;
+                this.cartViewEmpty();
+                this.subtotal();
             }
 
         },
@@ -3221,16 +3220,17 @@
                     this.dispatchEvent('afterCancel', curTransaction);
 
                     curTransaction.commit();
-
+                    
                 }
 
             }catch(e) {
                 this.log('WARN', 'Error Cancel order ');
             }
-
+            
             this.cartViewEmpty();
-            this.clear();
-
+            //@irving 10-09-2009; don't clear after cancel'
+            //this.clear();
+            //
             // cancel success and commit
             this.dispatchEvent('onCancelSuccess', curTransaction);
 

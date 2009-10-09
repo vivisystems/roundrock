@@ -2014,6 +2014,20 @@
                 if (firstCondiment) {
                     firstCondiment.open = true;
                 }
+
+                // update batch and batchMarker, if necessary
+                if ('batch' in itemDisplay) {
+                    var c;
+                    var batchMarker = itemDisplay.batchMarker;
+                    
+                    let batch = itemDisplay.batch;
+                    for (let i = index; i < index + condimentArray.length; i++) {
+                        c = this.getDisplaySeqAt(i);
+                        c.batch = batch;
+                    }
+
+                    if (batchMarker && c) c.batchMarker = batchMarker;
+                }
             }
         },
 
@@ -2022,6 +2036,21 @@
             var itemDisplay = this.getDisplaySeqAt(index);
 
             if (item && item.condiments && itemDisplay && itemDisplay.open) {
+                // get batch & batchMarker from last condiment item
+                let lastCondimentDispItem, batch, batchMarker;
+                for (let i = index; i < this.getDisplaySeqCount(); i++) {
+                    var displayItem = this.getDisplaySeqAt(i);
+                    if (displayItem.index != item.index)
+                        break;
+                    if (displayItem.type == 'condiment') {
+                        lastCondimentDispItem = displayItem;
+                    }
+                }
+                if (lastCondimentDispItem) {
+                    batch = lastCondimentDispItem.batch;
+                    batchMarker = lastCondimentDispItem.batchMarker;
+                }
+
                 var condiments = GREUtils.extend({}, item.condiments);
 
                 // construct new condiment display
@@ -2051,6 +2080,9 @@
                 var collapsedCondiments = this.getDisplaySeqAt(index);
                 if (collapsedCondiments) {
                     collapsedCondiments.open = false;
+
+                    if (batch != null) collapsedCondiments.batch = batch;
+                    if (batchMarker != null) collapsedCondiments.batchMarker = batchMarker;
                 }
             }
         },
@@ -2242,8 +2274,9 @@
                 return true;
             }
             else if (dispItem.type == 'condiment') {
-                var item = this.getItemAt(index);
-                return (item && 'batch' in item);
+                var parentItem = this.getItemAt(index);
+                var dispParentItem = this.getDisplaySeqByIndex(parentItem.index);
+                return (dispParentItem && 'batch' in dispParentItem);
             }
             else {
                 return false;
@@ -2878,7 +2911,7 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-            //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
         },
 
 

@@ -76,14 +76,14 @@
                     else {
                         GREUtils.Dialog.alert(this.topmostWindow,
                                               _('Journal Display Error'),
-                                              _('The selected journal entry cannot be printed because the preview file no longer exists [message #1807].'));
+                                              _('The selected journal entry cannot be displayed because the preview file no longer exists [message #1807].'));
                         return false;
                     }
                 }
                 else {
                     GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Journal Display Error'),
-                                          _('The selected journal entry cannot be printed because the original transaction did not generate any preview file [message #1806].'));
+                                          _('The selected journal entry cannot be displayed because the original transaction did not generate any preview file [message #1806].'));
                     return false;
                 }
                 

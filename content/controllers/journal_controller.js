@@ -185,7 +185,6 @@
                         //produce print file
                         journal.prn_file = '';
                         var prnContent = this.getSelectedTemplateData(txn, false);
-                        prnContent = '';
                         if (prnContent != '') {
                             let prn_file = year + '/' + month + '/' + date + '/' + journal.sequence + '.prn';
                             let prnFile = new GeckoJS.File(this._journalPath + prn_file, true);
@@ -200,7 +199,7 @@
                             }
                         }
                         else {
-                            this.log('ERROR', 'No preview content to store');
+                            this.log('ERROR', 'No receipt content to store');
                         }
                         this.saveJournal(journal);
                     }

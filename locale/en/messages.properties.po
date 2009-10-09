@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-09 20:42+0800\n"
+"POT-Creation-Date: 2009-10-09 21:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5373,7 +5373,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/journal_controller.js:117
-#: ../..//content/controllers/journal_controller.js:229
+#: ../..//content/controllers/journal_controller.js:228
 msgid "Journal Error"
 msgstr ""
 
@@ -5392,17 +5392,17 @@ msgstr ""
 msgid "Journal Controller voidOrder error: %S"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:208
+#: ../..//content/controllers/journal_controller.js:207
 msgid "Journal Controller submitOrder error: %S"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:230
+#: ../..//content/controllers/journal_controller.js:229
 msgid ""
 "An error was encountered while saving journal entry (error code %S) [message "
 "#702]."
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:231
+#: ../..//content/controllers/journal_controller.js:230
 #: ../..//content/controllers/ledger_controller.js:313
 #: ../..//content/controllers/list_orders_controller.js:240
 #: ../..//content/controllers/main_controller.js:1023
@@ -8017,13 +8017,13 @@ msgstr ""
 
 #: ../..//content/controllers/view_journal_controller.js:79
 msgid ""
-"The selected journal entry cannot be printed because the preview file no "
+"The selected journal entry cannot be displayed because the preview file no "
 "longer exists [message #1807]."
 msgstr ""
 
 #: ../..//content/controllers/view_journal_controller.js:86
 msgid ""
-"The selected journal entry cannot be printed because the original "
+"The selected journal entry cannot be displayed because the original "
 "transaction did not generate any preview file [message #1806]."
 msgstr ""
 
