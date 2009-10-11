@@ -5,7 +5,7 @@
      */
     var __controller__ = {
         name: 'RptBase',
-        components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
+        components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia', 'OrderStatus' ],
         packageName: 'viviecr',
         _recordOffset: 0, // this attribute indicates the number of rows going to be ignored from the beginning of retrieved data rows.
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
@@ -176,6 +176,10 @@
         nextPage: function() {
             this._recordOffset += this._recordLimit;
             this.execute();
+        },
+
+        statusToString: function(status) {
+            return this.OrderStatus.statusToString(status);
         },
 
         execute: function() {

@@ -4,13 +4,16 @@
     include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
     include('chrome://viviecr/content/reports/template.js');
     include('chrome://viviecr/content/reports/template_ext.js');
-    include('chrome://viviecr/content/models/journal.js');
+    include('chrome://viviecr/content/controllers/components/order_status.js');
 
     var __controller__ = {
 
         name: 'ViewJournal',
 
         template: 'journal_template',
+
+        components: ['OrderStatus'],
+
         _dataPath: null,
         _journalPath: null,
         _journalId: null,
@@ -28,7 +31,13 @@
                 var journal = journalModel.findById(inputObj.value, 2);
 
                 if (journal) {
-                    if (!this.displayJournal(journal)) window.close();;
+                    let result = this.displayJournal(journal);
+                    if (result != '') {
+                        GREUtils.Dialog.alert(inputObj.window,
+                                              _('Journal Display Error'),
+                                              result);
+                        window.close();
+                    }
                 }
             }catch(e) {
                 // this branch should not be reachable...
@@ -38,7 +47,7 @@
 
         displayJournal: function (journal) {
             try {
-                if (!journal) return;
+                if (!journal) return '';
 
                 var dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
                 var journalPath = dataPath + "/journal/";
@@ -60,6 +69,7 @@
 
                         var data = {};
                         data.journal = journal;
+                        data.journal.status_str = this.OrderStatus.statusToString(journal.status);
                         data.sequence = journal.sequence;
                         data.content = content;
 
@@ -74,28 +84,19 @@
                         }
                     }
                     else {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                                              _('Journal Display Error'),
-                                              _('The selected journal entry cannot be displayed because the preview file no longer exists [message #1807].'));
-                        return false;
+                        return _('The selected journal entry cannot be displayed because the preview file no longer exists [message #1807].');
                     }
                 }
                 else {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Journal Display Error'),
-                                          _('The selected journal entry cannot be displayed because the original transaction did not generate any preview file [message #1806].'));
-                    return false;
+                    return _('The selected journal entry cannot be displayed because the original transaction did not generate any preview file [message #1806].');
                 }
                 
             } catch (e) {
                 this.log('ERROR', 'displayJournal error:  ' + e);
 
-                GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Journal Display Error'),
-                                      _('An error was encountered while attempting to display journal. Please restart the machine, and if the problem persists, please contact technical support immediately [message #1801].'));
-                return false;
+                return _('An error was encountered while attempting to display journal. Please restart the machine, and if the problem persists, please contact technical support immediately [message #1801].');
             }
-            return true;
+            return '';
         },
 
         printJournal: function() {

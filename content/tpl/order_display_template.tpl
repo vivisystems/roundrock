@@ -9,34 +9,6 @@
   id = table_order.id;
   order = OrdersById[id].Order;
   transaction = OrdersById[id].TransactionData;
-
-  status = '';
-
-  switch(parseInt(order.status)) {
-    case 1:
-      status = _('(view)completed');
-      break;
-
-    case 2:
-      status = _('(view)stored');
-      break;
-
-    case -1:
-      status = _('(view)cancelled');
-      break;
-
-    case -2:
-      status = _('(view)voided');
-      break;
-
-    case -3:
-      status = _('(view)merged');
-      break;
-
-    default:
-      status = order.status;
-  }
-
 {/eval}
 <html:div class="paper">
 
@@ -47,7 +19,7 @@
         <html:td style="width: 80px">${_('(view)order sequence')+':'}</html:td>
         <html:td> ${order.sequence}</html:td>
         <html:td style="width: 80px">${_('(view)order status')+':'}</html:td>
-        <html:td>${status}</html:td>
+        <html:td>${order.status_str}</html:td>
         <html:td style="width: 80px">${_('(view)order destination')+':'}</html:td>
         <html:td>${order.destination}</html:td>
     </html:tr>

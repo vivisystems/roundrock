@@ -13,6 +13,8 @@
 
         uses: ['TableSetting', 'Table', 'TableMark'],
 
+        components: ['OrderStatus'],
+
         _guestCheckController: null,
 
         _tablesViewHelper: null,
@@ -635,7 +637,9 @@
 
             // unserialize orderObject 
             for(var id in tableStatus.OrdersById) {
-                
+
+                tableStatus.OrdersById[id].Order.status_str = this.OrderStatus.statusToString(tableStatus.OrdersById[id].Order.status);
+
                 if(tableStatus.OrdersById[id].TransactionData) continue;
 
                 let orderObject = tableStatus.OrdersById[id].OrderObject;

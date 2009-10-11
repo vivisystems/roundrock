@@ -524,10 +524,10 @@
 
                 var plu = this.Product.getProductById(itemTrans.id);
 
-                if (!plu) {
+                if (!plu && itemTrans.no == '') {
                     // sale department?
                     var categoriesByNo = GeckoJS.Session.get('categoriesByNo');
-                    plu = categoriesByNo[itemTrans.no];
+                    plu = categoriesByNo[itemTrans.cate_no];
                 }
             }
 
@@ -648,6 +648,9 @@
                 if (item.cate_no) {
                     qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
                 }
+                else {
+                    qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+                }
             }
 
             // if item's unit of sale is individually, we convert qty to integer
@@ -659,7 +662,7 @@
             // collapse it into the current item if no surcharge/discount/marker has
             // been applied to the current item and price/tax status are the same
 
-            if (curTransaction && !this._returnMode) {
+            if (curTransaction) {
                 if (!curTransaction.isLocked(currentIndex)) {
                     var currentItem = curTransaction.getItemAt(currentIndex);
                     var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
@@ -2886,6 +2889,9 @@
 
             if(!amount) {
                 amount = curTransaction.getRemainTotal();
+                
+                // set amount to 0; actual amount returned is recorded in the payment change field
+                if (amount < 0) amount = 0;
             }
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
@@ -2974,7 +2980,9 @@
 
             var scaleController = GeckoJS.Controller.getInstanceByName('Scale');
             if (scaleController) {
-                var weight = scaleController.readScale(number);
+                //var weight = scaleController.readScale(number);
+                //@DEBUG
+                weight = {value: 12.34, unit: 'KG'};
 
                 if (weight == -1) {
                 // configuration error; alert already posted; do nothing here

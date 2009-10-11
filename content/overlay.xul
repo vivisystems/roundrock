@@ -31,6 +31,7 @@
   <!-- front-end components -->
   <script src='chrome://viviecr/content/controllers/components/barcode.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/components/tax.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/components/order_status.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/components/cart_utils.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/components/guest_check.js' type="application/x-javascript;version=1.7"/>
   

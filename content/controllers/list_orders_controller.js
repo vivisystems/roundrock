@@ -7,7 +7,9 @@
 
         name: 'ListOrders',
 
-        uses: 'Order',
+        uses: ['Order'],
+        
+        components: ['OrderStatus'],
 
         _inputData: null,
 
@@ -103,29 +105,7 @@
 
             // list orders
             orders.forEach(function(order) {
-                var statusStr = order.status;
-                switch(parseInt(order.status)) {
-                    case -3:
-                        statusStr = _('(view)merged');
-                        break;
-
-                    case -2:
-                        statusStr = _('(view)voided');
-                        break;
-
-                    case -1:
-                        statusStr = _('(view)cancelled');
-                        break;
-
-                    case 1:
-                        statusStr = _('(view)completed');
-                        break;
-
-                    case 2:
-                        statusStr = _('(view)stored');
-                        break;
-                }
-                order.status_str = statusStr;
+                order.status_str = this.OrderStatus.statusToString(order.status);
 
                 this._precision_prices = order.precision_prices;
                 order.total = this._formatPrice(order.total);

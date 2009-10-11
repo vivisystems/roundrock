@@ -1,32 +1,4 @@
 {if journal}
-{eval}
-  status = '';
-  switch(parseInt(journal.status)) {
-    case 1:
-      status = _('(view)completed');
-      break;
-
-    case 2:
-      status = _('(view)stored');
-      break;
-
-    case -1:
-      status = _('(view)cancelled');
-      break;
-
-    case -2:
-      status = _('(view)voided');
-      break;
-
-    case -3:
-      status = _('(view)merged');
-      break;
-
-    default:
-      status = journal.status;
-  }
-
-{/eval}
 ${content}
 {elseif sequence}
 <H2>${_('Order sequence [%S] does not exist', [sequence])}</H2>

@@ -1,31 +1,6 @@
 {if order}
 {eval}
   item_adjustments = 0;
-  status = '';
-  switch(parseInt(order.status)) {
-    case 1:
-      status = _('(view)completed');
-      break;
-
-    case 2:
-      status = _('(view)stored');
-      break;
-
-    case -1:
-      status = _('(view)cancelled');
-      break;
-
-    case -2:
-      status = _('(view)voided');
-      break;
-
-    case -3:
-      status = _('(view)merged');
-      break;
-
-    default:
-      status = order.status;
-  }
 
   TrimPath.RoundingPrices = order.rounding_prices;
   TrimPath.PrecisionPrices = order.precision_prices;
@@ -36,7 +11,7 @@ ${_('Transaction Details')|center:42}
 ------------------------------------------
 ${_('(view)order sequence')+':'|left:15} ${order.sequence|left:26}
 ${_('(view)branch')+':'|left:15} ${order.branch + ' (' + order.branch_id + ')'|left:26}
-${_('(view)order status')+':'|left:15} ${status|left:26}
+${_('(view)order status')+':'|left:15} ${order.status_str|left:26}
 ${_('(view)terminal')+':'|left:15} ${order.terminal_no|left:26}
 ${_('(view)sale period')+':'|left:15} ${(new Date(order.sale_period * 1000)).toLocaleFormat('%Y-%m-%d')|left:26}
 ${_('(view)shift number')+':'|left:15} ${order.shift_number|left:26}

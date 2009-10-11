@@ -8,6 +8,9 @@
         name: 'ViewOrder',
 
         template: 'order_template',
+
+        components: ['OrderStatus'],
+        
         _orderId: null,
         _orderData: null,
         _orders: [],
@@ -50,7 +53,6 @@
             // get browser content body
             var bw = document.getElementById('preview_frame');
             var doc = bw.contentWindow.document.getElementById( 'abody' );
-            var print = document.getElementById('print');
             var report = document.getElementById('report');
             var orderObj = document.getElementById('order');
             
@@ -67,28 +69,7 @@
                 var branch = (order.branch == null || order.branch == '') ? ((order.branch_id == null || order.branch_id == '') ? '' : order.branch_id)
                                                                           : order.branch + ((order.branch_id == null || order.branch_id == '') ? '' : ' (' + order.branch_id + ')');
                 var location = (branch == null || branch == '') ? order.terminal_no : (branch + ' [' + order.terminal_no + ']');
-                var statusStr = '';
-                switch(parseInt(order.status)) {
-                    case -3:
-                        statusStr = _('(view)merged');
-                        break;
-
-                    case -2:
-                        statusStr = _('(view)voided');
-                        break;
-
-                    case -1:
-                        statusStr = _('(view)cancelled');
-                        break;
-
-                    case 1:
-                        statusStr = _('(view)completed');
-                        break;
-
-                    case 2:
-                        statusStr = _('(view)stored');
-                        break;
-                }
+                var statusStr = this.OrderStatus.statusToString(order.status);
 
                 orderObj.value = order.sequence + ' [' + statusStr + '] ' + location;
 
@@ -99,6 +80,7 @@
 
                 var data = {};
                 data.order = order;
+                data.order.status_str = statusStr;
                 data.sequence = order.sequence;
 
                 this._orderData = data;

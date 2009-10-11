@@ -9,6 +9,8 @@
 
         name: 'RptOrderStatus',
         
+        components: ['OrderStatus'],
+
         _fileName: "rpt_order_status",
 
         _set_reportRecords: function( limit ) {
@@ -140,25 +142,9 @@
                 discount_subtotal += record.discount_subtotal;
                 promotion_subtotal += record.promotion_subtotal;
                 revalue_subtotal += record.revalue_subtotal;
-                
-                switch ( parseInt( record.status, 10 ) ) {
-                    case 1:
-                        record.status = _( '(rpt)completed' );
-                        break;
-                    case 2:
-                        record.status = _( '(rpt)stored' );
-                        break;
-                    case -1:
-                        record.status = _( '(rpt)cancelled' );
-                        break;
-                    case -2:
-                        record.status = _( '(rpt)voided' );
-                        break;
-                    case -3:
-                        record.status = _( '(rpt)merged' );
-                        break;
-                }
-            });
+
+                record.status = this.statusToString(record.status);
+            }, this);
 
             var footRecords = {
                 tax_subtotal: tax_subtotal,

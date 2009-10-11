@@ -26,6 +26,7 @@
 
   <!-- include component -->
   <script src="chrome://viviecr/content/controllers/components/tax.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/components/order_status.js" type="application/x-javascript"/>
 
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/view_order_controller.js" type="application/x-javascript"/>

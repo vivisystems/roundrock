@@ -1,32 +1,6 @@
 {if order}
 {eval}
   item_adjustments = 0;
-  status = '';
-  switch(parseInt(order.status)) {
-    case 1:
-      status = _('(view)completed');
-      break;
-
-    case 2:
-      status = _('(view)stored');
-      break;
-
-    case -1:
-      status = _('(view)cancelled');
-      break;
-
-    case -2:
-      status = _('(view)voided');
-      break;
-
-    case -3:
-      status = _('(view)merged');
-      break;
-
-    default:
-      status = order.status;
-  }
-
   TrimPath.RoundingPrices = order.rounding_prices;
   TrimPath.PrecisionPrices = order.precision_prices;
   TrimPath.RoundingTaxes = order.rounding_taxes;
@@ -38,7 +12,7 @@
         <td style="width: 90px">${_('(view)order sequence')+':'}</td>
         <td> ${order.sequence}</td>
         <td style="width: 90px">${_('(view)order status')+':'}</td>
-        <td>${status}</td>
+        <td>${order.status_str}</td>
         <td style="width: 90px">${_('(view)order destination')+':'}</td>
         <td>${order.destination}</td>
     </tr>
