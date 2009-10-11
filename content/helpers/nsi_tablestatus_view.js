@@ -124,6 +124,7 @@
             var guest_num = 0;
             var subtotal = 0;
             var clerk = '';
+            var capacity = '';
 
             var table_status = 0;
             var capacity_status = 0;
@@ -132,10 +133,18 @@
             var mark_user = '' ;
             var hostby = '';
             
+            var options = {
+                decimals: GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint'),
+                thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter'),
+                places: GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices')
+            };
+
             if (status) {
                 checks = status.order_count || 0;
                 guest_num = status.sum_customer || 0;
-                subtotal = status.sum_total || 0;
+
+                // format display precision
+                subtotal = GeckoJS.NumberHelper.format(status.sum_total, options);
                 table_status = status.status || 0;
                 mark = status.mark || '';
                 mark_user = status.mark_user || '';
@@ -148,7 +157,7 @@
                     seq = firstOrder.sequence + '' || '';
                     if (seq.length) seq = _("S#") + seq ;
 
-                    check_no = firstOrder.check_no + '' || '';
+                    check_no = (firstOrder.check_no || '') + '';
                     if (check_no.length) check_no = _("C#") + check_no ;
                    
                     clerk = firstOrder.service_clerk || '';
@@ -157,15 +166,25 @@
                 }
             }
 
-            var capacity = guest_num + "/" + seats;
-            
+            if (guest_num) {
+                capacity = guest_num + "/" + seats;
+            }
+            else {
+                if (checks > 0) {
+                    capacity = "*/" + seats;
+                }
+                else {
+                    capacity = "0/" + seats;
+                }
+            }
             // active ?
             if (!table.active && table_status==0) table_status = 2;
 
             btn.checks = (checks > 0) ? "+"+checks : '';
             btn.seq_no = tableSettings.DisplaySeqNo ? seq : '';
             btn.check_no = tableSettings.DisplayCheckNo ? check_no : '';
-            btn.subtotal = tableSettings.DisplayTotal ? ((subtotal>0) ? (_("T#")+subtotal) : '') : '';
+            btn.num_subtotal = tableSettings.DisplayTotal ? subtotal : 0;
+            btn.subtotal = tableSettings.DisplayTotal ? ((btn.num_subtotal>0) ? (_("T#")+btn.num_subtotal) : '') : '';
             btn.capacity = tableSettings.DisplayCapacity ? capacity : '';
             btn.clerk = tableSettings.DisplayClerk ? clerk : '';
 
