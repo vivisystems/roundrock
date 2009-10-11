@@ -11,7 +11,7 @@
         
         components: ['OrderStatus'],
 
-        _fileName: 'rpt_your_order',
+        _fileName: 'custom_sales_report',
         
         _report_title: '',
         _report_title_message: 'vivipos.fec.reportpanels.yourorder.label',
@@ -423,7 +423,7 @@
                 _( 'Saving Properties' ),
                 '',
                 _( 'Report Name' ),
-                _( 'Report ID(Alphanumeric)' ),
+                _( 'Report ID (alphanumeric)' ),
                 inputObj
             );
             
