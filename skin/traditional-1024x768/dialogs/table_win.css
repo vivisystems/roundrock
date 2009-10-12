@@ -384,3 +384,11 @@ ol {
     background-color: #fff6e8 ;
     border-width: 0px !important
 }
+
+#order_display_div {
+    width: 754px;
+    max-width: 754px;
+}
+.autorepeatbutton-up, .autorepeatbutton-down {
+    min-width: 36px;
+}
