@@ -50,13 +50,16 @@
             var firstCategory = categories[panelView1.getValue()];
             var secondCategory = categories[panelView2.getValue()];
 
+            if (firstCategory.id == secondCategory.id) {
+                NotifyUtils.warn(_('First Department and Second Department Can not be the same.'));
+                return ;
+            }
+
             settings.first_id = firstCategory.id;
             settings.first_no = firstCategory.no;
             settings.second_id = secondCategory.id;
             settings.second_no = secondCategory.no;
 
-            this.log(this.dump(settings));
-            
             GeckoJS.Session.set(sessionKey, settings);
 
         },
