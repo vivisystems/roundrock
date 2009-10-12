@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-11 20:30+0800\n"
+"POT-Creation-Date: 2009-10-12 10:37+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6564,8 +6564,8 @@ msgid "TAL"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:199
-#: ../..//content/controllers/select_table_controller.js:922
-#: ../..//content/controllers/select_table_controller.js:965
+#: ../..//content/controllers/select_table_controller.js:927
+#: ../..//content/controllers/select_table_controller.js:970
 #: ../..//content/controllers/table_man_controller.js:746
 msgid "All Regions"
 msgstr ""
@@ -6616,7 +6616,7 @@ msgid "Please select the table to mark status..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:486
-#: ../..//content/controllers/select_table_controller.js:973
+#: ../..//content/controllers/select_table_controller.js:978
 msgid "Clear Table Status"
 msgstr ""
 
@@ -6641,44 +6641,56 @@ msgstr ""
 msgid "Table [%S] Not available to view order."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:719
-#: ../..//content/controllers/select_table_controller.js:723
-#: ../..//content/controllers/select_table_controller.js:738
+#: ../..//content/controllers/select_table_controller.js:685
+#: ../..//content/helpers/nsi_orders_checklist_view.js:58
+#: ../..//content/helpers/nsi_tablestatus_view.js:161
+msgid "C#"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:688
+#: ../..//content/helpers/nsi_orders_checklist_view.js:61
+#: ../..//content/helpers/nsi_tablestatus_view.js:158
+msgid "S#"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:724
+#: ../..//content/controllers/select_table_controller.js:728
+#: ../..//content/controllers/select_table_controller.js:743
 msgid "Table [%S] Not available to merge. Status: [%S], Active: [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:776
+#: ../..//content/controllers/select_table_controller.js:781
 msgid "Table [%S] Not available to unmerge. Status: [%S], Active: [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:812
-#: ../..//content/controllers/select_table_controller.js:815
+#: ../..//content/controllers/select_table_controller.js:817
+#: ../..//content/controllers/select_table_controller.js:820
 msgid "Select Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:838
-#: ../..//content/controllers/select_table_controller.js:842
+#: ../..//content/controllers/select_table_controller.js:843
+#: ../..//content/controllers/select_table_controller.js:847
 msgid "Table [%S] Not available to mark. Status: [%S], Active: [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:848
+#: ../..//content/controllers/select_table_controller.js:853
 msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:891
+#: ../..//content/controllers/select_table_controller.js:896
 msgid "Table [%S] Not available to unmark. Status: [%S], Active: [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:928
+#: ../..//content/controllers/select_table_controller.js:933
 msgid "You are now marking table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:971
+#: ../..//content/controllers/select_table_controller.js:976
 msgid "You are now cleaning table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1058
-#: ../..//content/controllers/select_table_controller.js:1062
+#: ../..//content/controllers/select_table_controller.js:1063
+#: ../..//content/controllers/select_table_controller.js:1067
 msgid "Table [%S] Not available to transfer. Status: [%S], Active: [%S]"
 msgstr ""
 
@@ -8070,34 +8082,24 @@ msgstr ""
 msgid "G#"
 msgstr ""
 
-#: ../..//content/helpers/nsi_orders_checklist_view.js:58
-#: ../..//content/helpers/nsi_tablestatus_view.js:152
-msgid "C#"
-msgstr ""
-
-#: ../..//content/helpers/nsi_orders_checklist_view.js:61
-#: ../..//content/helpers/nsi_tablestatus_view.js:149
-msgid "S#"
-msgstr ""
-
 #: ../..//content/helpers/nsi_orders_checklist_view.js:62
-#: ../..//content/helpers/nsi_tablestatus_view.js:168
+#: ../..//content/helpers/nsi_tablestatus_view.js:187
 msgid "T#"
 msgstr ""
 
-#: ../..//content/helpers/nsi_tablestatus_view.js:179
+#: ../..//content/helpers/nsi_tablestatus_view.js:198
 msgid "Not Active"
 msgstr ""
 
-#: ../..//content/helpers/nsi_tablestatus_view.js:182
+#: ../..//content/helpers/nsi_tablestatus_view.js:201
 msgid "Host Table"
 msgstr ""
 
-#: ../..//content/helpers/nsi_tablestatus_view.js:186
+#: ../..//content/helpers/nsi_tablestatus_view.js:205
 msgid "Status"
 msgstr ""
 
-#: ../..//content/helpers/nsi_tablestatus_view.js:293
+#: ../..//content/helpers/nsi_tablestatus_view.js:312
 msgid "B#"
 msgstr ""
 
@@ -10635,6 +10637,14 @@ msgstr ""
 #: ../..//content/tpl/order_template_58mm.tpl:10
 #: ../..//content/tpl/order_template_80mm.tpl:10
 msgid "Transaction Details"
+msgstr ""
+
+#: ../..//content/promotions/controllers/multi_dept_trigger_setting_controller.js:54
+msgid "First Department and Second Department Can not be the same."
+msgstr ""
+
+#: ../..//content/promotions/controllers/multi_group_trigger_setting_controller.js:64
+msgid "First Group and Second Group Can not be the same."
 msgstr ""
 
 #: /tmp/your_order_report.js:3

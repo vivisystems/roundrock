@@ -57,9 +57,17 @@
             var panelView1 = this._pluGroupPanelView1;
             var panelView2 = this._pluGroupPanelView2;
 
-            settings.first_group = panelView1.getValue();
-            settings.second_group = panelView2.getValue();
-            
+            var firstGroup =  panelView1.getValue();
+            var secondGroup = panelView2.getValue();
+
+            if (firstGroup.id == secondGroup.id) {
+                NotifyUtils.warn(_('First Group and Second Group Can not be the same.'));
+                return ;
+            }
+
+            settings.first_group = firstGroup;
+            settings.second_group = secondGroup;
+
             GeckoJS.Session.set(sessionKey, settings);
 
         },
