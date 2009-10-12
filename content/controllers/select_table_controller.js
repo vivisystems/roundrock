@@ -685,7 +685,7 @@
                             tab.setAttribute('label', _('C#') + order.check_no);
                         }
                         else {
-                            tab.setAttribute('label', _('S#') + order.sequence);
+                            tab.setAttribute('label', _('S#') + order.sequence.substr(-3));
                         }
                         tab.setAttribute('value', order.id);
                         tabs.appendChild(tab);

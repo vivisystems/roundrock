@@ -1,6 +1,8 @@
 <tabbox class="CheckTabbox" flex="1">
+    <arrowscrollbox orient="horizontal" flex="1" class="content-arrow-scrollbox">
     <tabs id="orders_tab">
     </tabs>
+    </arrowscrollbox>
     <tabpanels>
 {for table_order in TableOrder}
         <tabpanel id="order_panel_${table_order.id}">
