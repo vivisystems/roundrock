@@ -963,16 +963,14 @@
                     NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
                     return;
                 }
-                //try{
+                try{
                     result = tpl.process(data);
-                    /*
                 }
                 catch(e) {
-                    NotifyUtils.error(_('Error in parsing template [%S]!', [template]));
+                    // NotifyUtils.error(_('Error in parsing template [%S]!', [template]));
                     this.log('ERROR', 'Error in parsing template [' + template + ']: ' + e);
-                    return;
+                    throw e;
                 }
-                */
             }
             else {
                 result = template;

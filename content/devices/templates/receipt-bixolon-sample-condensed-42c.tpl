@@ -1,3 +1,16 @@
+{if order.split_payments}
+{eval}
+splitPayments=[];
+for (tp in order.trans_payments) {
+   splitPayments.push( order.trans_payments[tp].amount);
+}
+{/eval}
+{else}
+{eval}
+splitPayments=[order.payment_subtotal];
+{/eval}
+{/if}
+{for receivePayment in splitPayments}
 [&INIT]
 [&CTR][&IMG1][&LFT]
 {if duplicate}
@@ -31,7 +44,7 @@ ${'Terminal:'|left:10}${order.terminal_no|left:10} ${'Clerk:'|left:6}${order.pro
 ${'Tax:'|left:15} ${order.tax_subtotal|viviFormatPrices:true|right:26}
 ${'Total:'|left:15} ${order.total|viviFormatPrices:true|right:26}
 [&CR]
-${'Received:'|left:15} ${order.payment_subtotal|viviFormatPrices:true|right:26}
+${'Received:'|left:15} ${receivePayment|viviFormatPrices:true|right:26}
 {if order.remain > 0}
 ${'BALANCE:'|left:15} ${order.remain|viviFormatPrices:true|right:26}
 {else}
@@ -50,3 +63,4 @@ ${'Thank you for shopping at ' + store.name +'!'|center:42}
 [&CR]
 [&CR]
 [&CR]
+{/for}
