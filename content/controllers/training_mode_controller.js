@@ -171,7 +171,7 @@
 	 				
                     GeckoJS.Observer.notify( null, "TrainingMode", "exit" );
 
-                    this.log('WARN', 'Leaving training mode');
+                    this.log('FATAL', 'Leaving training mode');
 
                     // enableSyncActive
                     this.enableSyncActive();
@@ -192,7 +192,7 @@
 			 		
                     GeckoJS.Observer.notify( null, "TrainingMode", "start" );
 
-                    this.log('WARN', 'Entering training mode');
+                    this.log('FATAL', 'Entering training mode');
 
                     this._origSyncActive = ( ( new SyncSetting() ).read() ).active;
                     
