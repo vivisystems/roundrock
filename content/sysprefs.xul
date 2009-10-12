@@ -323,10 +323,10 @@
                     <label value="&orderdata.diskunused;"/>
                     <label id="disk_unused" value="100MB"/>
                 </row>
-                <row>
+                <!--row>
                     <label value="&orderdata.keepeachtransaction;"/>
                     <checkbox preference="pref_keepeachtransaction" id="keepEachTransaction" checked="false"/>
-                </row>
+                </row-->
                 <row>
                     <label value="&orderdata.orderretaindays;"/>
                     <textbox preference="pref_orderretaindays" id="orderRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>
