@@ -4,9 +4,13 @@ rel_date=`date +'%Y%m%d%H%M%S'`
 version=`cat VERSION`	
 filename=webapp_${version}_${rel_date}.xpi
 
-reg="s/<em:version>.*<\/em:version>/<em:version>${version}.${rel_date}<\/em:version>/g"
 
-if [ "$1" != "no" ]; then
+if [ "$1" != "production" ]; then
+  reg="s/<em:version>.*<\/em:version>/<em:version>${version}.${rel_date}<\/em:version>/g"
+  sed $reg install.rdf > install-new.rdf
+  mv install-new.rdf install.rdf
+else 
+  reg="s/<em:version>.*<\/em:version>/<em:version>${version}<\/em:version>/g"
   sed $reg install.rdf > install-new.rdf
   mv install-new.rdf install.rdf
 fi
