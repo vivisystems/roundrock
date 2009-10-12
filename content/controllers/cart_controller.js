@@ -666,7 +666,6 @@
                 if (!curTransaction.isLocked(currentIndex)) {
                     var currentItem = curTransaction.getItemAt(currentIndex);
                     var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
-
                     var price = GeckoJS.Session.get('cart_set_price_value');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
@@ -675,6 +674,8 @@
                             !currentItem.hasSurcharge &&
                             !currentItem.hasMarker &&
                             ((price == null) || (currentItem.current_price == price)) &&
+                            (currentItem.current_qty > 0 && !this._returnMode ||
+                             currentItem.current_qty < 0 && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
 
                             // need to clear quantity source so scale multipler is not applied again

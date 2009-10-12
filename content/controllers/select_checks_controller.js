@@ -57,6 +57,12 @@
                 var orderObject = this.unserializeOrderObject(order.OrderObject.object);
 //                this.log(this.dump(orderObject));
                 var displayStr = "";
+                var options = {
+                    decimals: GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint'),
+                    thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter'),
+                    places: GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices')
+                };
+
 
                 displayStr += _("SEQ") + ": " + order.Order.sequence + "\n\n";
 
@@ -69,7 +75,7 @@
                 }
 
                 // displayStr += "\n\nTL: " + data.remain;
-                displayStr += "\n\n" + _("TAL") + ": " + order.Order.total;
+                displayStr += "\n\n" + _("TAL") + ": " + GeckoJS.NumberHelper.format(order.Order.total, options);
 
                 order['displayText'] = displayStr;
             }

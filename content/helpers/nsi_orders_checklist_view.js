@@ -37,23 +37,23 @@
         renderButton: function(row, btn) {
             if (!this.data[row]) return;
 
+            var options = {
+                decimals: GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint'),
+                thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter'),
+                places: GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices')
+            };
+
             // data.Order data.OrderObject 
             var data = this.data[row];
-
-            var tableSettings = this.getTableSettings();
 
             var seq = data.Order.sequence || '';
             var check_no = data.Order.check_no || '';
             var table_no = data.Order.table_no || '';
 
-            var guest_num = data.Order.no_of_customers || '0';
-
-            var subtotal = data.Order.total || '0';
+            var subtotal = GeckoJS.NumberHelper.format((data.Order.total || '0'), options);
             var clerk = data.Order.service_clerk_displayname || '';
 
             var transaction_created = data.Order.transaction_created * 1000 || (new Date()).getTime();
-
-            var capacity = _("G#") + guest_num;
 
             if (check_no != "") check_no = _("C#") + check_no;
 
