@@ -1,0 +1,60 @@
+.mode insert cashdrawer_records
+.output cashdrawer_records.sql
+select id,terminal_no,drawer_no,clerk,clerk_displayname,event_type,status,created,modified,payment_type,amount,sequence from cashdrawer_records;
+
+.mode insert ledger_records
+.output ledger_records.sql
+select id,type,description,mode,amount,created,modified,terminal_no,sale_period,shift_number,service_clerk,service_clerk_displayname from ledger_records;
+
+.mode insert ledger_entry_types
+.output ledger_entry_types.sql
+select id,type,mode,drawer_change,created,modified from ledger_entry_types;
+
+.mode insert order_additions
+.output order_additions.sql
+select id,order_id,tax_name,tax_rate,tax_type,current_tax,discount_name,discount_rate,discount_type,current_discount,surcharge_name,surcharge_rate,surcharge_type,current_surcharge,has_discount,has_surcharge,created,modified from order_additions;
+
+.mode insert order_annotations
+.output order_annotations.sql
+select id,type,text,created,modified,order_id from order_annotations;
+
+.mode insert order_items
+.output order_items.sql
+select id,order_id,cate_no,included_tax,cate_name,product_no,product_barcode,product_name,current_qty,current_price,current_subtotal,tax_name,tax_rate,tax_type,current_tax,discount_name,discount_rate,discount_type,current_discount,surcharge_name,surcharge_rate,surcharge_type,current_surcharge,condiments,current_condiment,memo,has_discount,has_surcharge,has_marker,created,modified,destination,NULL from order_items;
+
+.mode insert order_objects
+.output order_objects.sql
+select id,order_id,object,created,modified from order_objects;
+
+.mode insert order_payments
+.output order_payments.sql
+select id,order_id,order_items_count,order_total,name,amount,memo1,memo2,created,modified,origin_amount,service_clerk,proceeds_clerk,service_clerk_displayname,proceeds_clerk_displayname,change,sale_period,shift_number,terminal_no from order_payments;
+
+.mode insert order_receipts
+.output order_receipts.sql
+select id,order_id,sequence,device,created,modified,batch from order_receipts;
+
+.mode insert orders
+.output orders.sql
+select id,sequence,items_count,total,change,tax_subtotal,surcharge_subtotal,discount_subtotal,payment_subtotal,rounding_prices,precision_prices,rounding_taxes,precision_taxes,status,service_clerk,service_clerk_displayname,proceeds_clerk,proceeds_clerk_displayname,member,member_displayname,member_email,member_cellphone,invoice_type,invoice_title,invoice_no,invoice_count,destination,table_no,check_no,no_of_customers,terminal_no,transaction_created,transaction_submitted,created,modified,included_tax_subtotal,item_subtotal,sale_period,shift_number,branch_id,branch,transaction_voided,0,NULL,NULL,NULL,NULL,0,0 from orders;
+
+.mode insert shift_change_details
+.output shift_change_details.sql
+select id,shift_change_id,type,amount,name,change,excess_amount,count,0,0 from shift_change_details;
+
+.mode insert shift_changes
+.output shift_changes.sql
+select id,starttime,endtime,balance,note,created,modified,terminal_no,sale_period,shift_number,cash,sales,excess,ledger_in,ledger_out,0,0,0 from shift_changes;
+
+.mode insert shift_markers
+.output shift_markers.sql
+select id,sale_period,shift_number,end_of_period,created,modified,terminal_no,end_of_shift from shift_markers;
+
+.mode insert uniform_invoice_markers
+.output uniform_invoice_markers.sql
+select id,code,seq,terminal_no,created,modified,NULL from uniform_invoice_markers;
+
+.mode insert uniform_invoices
+.output uniform_invoices.sql
+select id,order_id,code,start_seq,end_seq,terminal_no,uniform_business_number,status,sale_period,shift_number,created,modified,NULL,NULL from uniform_invoices;
+

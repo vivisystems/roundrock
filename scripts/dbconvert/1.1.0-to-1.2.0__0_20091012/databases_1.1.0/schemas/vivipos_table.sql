@@ -1,0 +1,14 @@
+CREATE TABLE "sync_remote_machines" ("id" INTEGER PRIMARY KEY NOT NULL, "machine_id" varchar(36) NOT NULL, "last_synced" int DEFAULT -1);
+CREATE TABLE "syncs" ("id" INTEGER PRIMARY KEY NOT NULL ,"crud" varchar(255) NOT NULL ,"machine_id" varchar(36) ,"from_machine_id" varchar(36) ,"method_id" varchar(36) NOT NULL ,"method_type" varchar(45) NOT NULL ,"method_table" varchar(45) NOT NULL ,"created" INTEGER NOT NULL ,"modified" INTEGER NOT NULL);
+CREATE TABLE "table_bookings" ("id" VARCHAR,"table_id" VARCHAR,"booking" INTEGER,"contact" VARCHAR,"telephone" VARCHAR,"address" VARCHAR,"note" VARCHAR, "table_no" INTEGER, "table_status_id" VARCHAR);
+CREATE TABLE "table_orders" ("id" VARCHAR,"table_id" VARCHAR,"order_id" VARCHAR,"total" FLOAT,"table_status_id" VARCHAR,"table_no" INTEGER,"check_no" INTEGER,"clerk" VARCHAR,"sequence" VARCHAR,"guests" INTEGER, "transaction_created" INTEGER, "checksum" VARCHAR);
+CREATE TABLE "table_regions" ("id" VARCHAR, "name" VARCHAR, "image" VARCHAR);
+CREATE TABLE "table_statuses" ("id" VARCHAR,"table_id" VARCHAR,"table_no" INTEGER,"checks" INTEGER,"created" INTEGER,"modified" INTEGER,"hostby" INTEGER,"guests" INTEGER,"start_time" INTEGER,"clear_time" INTEGER,"end_time" INTEGER,"status" INTEGER);
+CREATE TABLE "tables" ("id" VARCHAR,"table_no" INTEGER,"table_name" VARCHAR,"table_region_id" VARCHAR,"seats" INTEGER,"active" BOOL,"tag" VARCHAR, "destination" VARCHAR, "minimum_charge_per_table" FLOAT, "minimum_charge_per_guest" FLOAT);
+CREATE UNIQUE INDEX "sync_remote_machines_machine_id" on "sync_remote_machines" ("machine_id");
+CREATE INDEX "syncs_from_machine_id" on "syncs" ("from_machine_id");
+CREATE INDEX "table_bookings_table_id" ON "table_bookings" ("table_id" ASC);
+CREATE INDEX "table_orders_order_id" ON "table_orders" ("order_id" ASC);
+CREATE INDEX "table_orders_table_id" ON "table_orders" ("table_id" ASC);
+CREATE INDEX "table_statuses_table_id" ON "table_statuses" ("table_id" ASC);
+CREATE INDEX "table_statuses_table_no_modified" ON "table_statuses" ("table_no" ASC, "modified" ASC);

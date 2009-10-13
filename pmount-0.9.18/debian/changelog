@@ -1,0 +1,439 @@
+pmount (0.9.18-2) unstable; urgency=medium
+
+  * Adding Vcs-* fields
+  * Updated debian/copyright with new location of download files
+    (closes: #504589)
+  * Urgency medium to fix a trivial RC bug in testing.
+
+ -- Vincent Fourmond <fourmond@debian.org>  Wed, 05 Nov 2008 19:53:20 +0100
+
+pmount (0.9.18-1) unstable; urgency=low
+
+  * New 'upstream' release:
+    - norwegian translation renamed (closes: #501302)
+    - fixes VFAT and UTF8 problems (closes: #443514)
+  * Adding a debian/README.source file to make it comply to
+    Policy 3.8.0
+  * Removing 10-finally-fix-fstab-devices, already applied upstream
+  * Documenting patch 01-man-plugdev, to make pmount lintian-clean
+
+ -- Vincent Fourmond <fourmond@debian.org>  Sat, 18 Oct 2008 22:27:58 +0200
+
+pmount (0.9.17-2) unstable; urgency=medium
+
+  * Finally fix the problems with symlinks in fstab (closes: #435645), with
+    patch 10-finally-fix-fstab-devices
+  * Urgency medium to fix RC bug in testing
+
+ -- Vincent Fourmond <fourmond@debian.org>  Mon, 11 Feb 2008 21:50:05 +0100
+
+pmount (0.9.17-1) unstable; urgency=low
+
+  * New 'upstream' release:
+    - dropping all patches, as they are included 'upstream'
+    - now using libblkid for fs autodetection (Closes: #443575)
+    - automatic detection and use of NTFS-3G (Closes: #455960)
+    - pullling new translations from Rosetta
+  * Bumped Standard Version to 3.7.3, with apparently no changes needed.
+
+ -- Vincent Fourmond <fourmond@debian.org>  Sun, 30 Dec 2007 00:25:28 +0100
+
+pmount (0.9.16-4) unstable; urgency=low
+
+  * Revert 04-dont-resolve-fstab-symlinks, as it has very nasty
+    side effects (Closes: #435645)
+  * Now check twice if the device is in fstab: once before prepending
+    /dev, once afterwards, so that #418888 stays closed !
+
+ -- Vincent Fourmond <fourmond@debian.org>  Thu, 16 Aug 2007 15:25:17 +0200
+
+pmount (0.9.16-3) unstable; urgency=low
+
+  * Don't check if pmount's argument is a fstab mountpoint if we
+    do know it is a device (should Closes: #418203)
+
+ -- Vincent Fourmond <fourmond@debian.org>  Tue, 17 Jul 2007 21:00:11 +0200
+
+pmount (0.9.16-2) unstable; urgency=low
+
+  * Disable symlink lookup for /etc/fstab entries, as it doesn't
+    make much sense as mount itself doesn't do it. (Closes: #418888)
+
+ -- Vincent Fourmond <fourmond@debian.org>  Fri, 06 Jul 2007 19:49:23 +0200
+
+pmount (0.9.16-1) unstable; urgency=low
+
+  * New 'upstream release':
+    - support for fmask/dmask (Closes: #344278, #431065), based on a
+      patch by Suren A. Chilingaryan <csa@dside.dyndns.org>
+    - better support for mounting by label/uuid (Closes: #328980)
+    - now using nls=charset for NTFS (Closes: #398388)
+    - pmount without arguments now lists the mounted removable
+      devices, based on a patch by Dan Keder <keder@fi.muni.cz> 
+      (Closes: #426879)
+    - pmount now can mount NTFS fs via ntfsmount or ntfs-3g 
+      (Closes: #375211)
+
+ -- Vincent Fourmond <fourmond@debian.org>  Wed, 04 Jul 2007 00:22:39 +0200
+
+pmount (0.9.15-1) unstable; urgency=low
+
+  * New 'upstream' release:
+    - Fixes problems with recent kernels (Closes: #411380, #411772)
+    - better behavior with LUKS devices (Closes: #408673)
+
+ -- Vincent Fourmond <fourmond@debian.org>  Wed, 27 Jun 2007 23:36:09 +0200
+
+pmount (0.9.14-1) unstable; urgency=low
+
+  * New 'upstream' release:
+    - Fixes the case when /media is a symlink, thanks to
+      Tim Phipps <tim@phipps-hutton.freeserve.co.uk> (Closes: 383929)
+    - -p is now a shortcut for --passphrase (Closes: #386230)
+    - document why pmount gives more error messages than
+      mount -t auto (Closes: #388507)
+  * Update FSF's address in debian/copyright
+
+ -- Vincent Fourmond <fourmond@debian.org>  Sat, 16 Jun 2007 14:54:28 +0200
+
+pmount (0.9.13-4) unstable; urgency=low
+
+  * Now using dpatch
+  * Fix potential kernel panics with custom ext2/3 filsystems
+    (closes: #427402)
+  * Fixed typo in the help text (closes: #385153)
+
+ -- Vincent Fourmond <fourmond@debian.org>  Wed, 13 Jun 2007 23:27:36 +0200
+
+pmount (0.9.13-3) unstable; urgency=low
+
+  * New maintainer (closes: #422005)
+  * Added debian/watch with new alioth project files
+  * Bumped Standards-Version to 3.7.2, no changes
+
+ -- Vincent Fourmond <fourmond@debian.org>  Tue, 12 Jun 2007 20:33:20 +0200
+
+pmount (0.9.13-2) unstable; urgency=low
+
+  * Orphan package (see #422005)
+
+ -- Martin Pitt <mpitt@debian.org>  Sun, 20 May 2007 15:44:07 +0200
+
+pmount (0.9.13-1) unstable; urgency=low
+
+  * New upstream bugfix release:
+    - pmount-hal: Minor change to build with dbus 0.91.
+    - pmount: If pmount is installed setgid, use pmount's group for gid mount
+      option, otherwise use the user's group, as usual (patch from Wilhelm Meier
+      <wilhelm.meier@fh-kl.de>).
+    - pmount: Consider devices on pcmcia bus as hotpluggable (and thus
+      pmountable). (https://launchpad.net/bugs/50226)
+    - Fix automake file to ship README.devel.
+    - Fix default path of /etc/pmount.allow (regression from 0.9.12).
+      Closes: #383242
+    - Update translations from Rosetta.
+    - Remove ALL_LINGUAGS from configure.ac, move them to po/LINGUAS.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 15 Aug 2006 23:57:18 +0200
+
+pmount (0.9.12-1) unstable; urgency=low
+
+  * New upstream bugfix release:
+    - Fix pmount.allow parsing regular expression (it failed in some ISO
+      locales). (https://launchpad.net/bugs/49655)
+    - pmount-hal: Honour iocharset mount option from hal policy. 
+      Closes: #320696, https://launchpad.net/bugs/55422
+    - pmount-hal: Replace slashes with underscores in label. Closes: #364337,
+      https://launchpad.net/bugs/46536
+    - pmount: Mount UDF with default umask 000, so that the UDF permissions are not
+      altered. Closes: #348080
+    - Check for HAL libraries at configure time and conditionally build
+      pmount-hal. Closes: #375230
+    - Add configure options for external programs and paths, so that policy.h
+      does not need to be altered for installation customizations any more.
+      Closes: #375229
+    - Update translations from Rosetta.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue,  8 Aug 2006 12:21:07 +0200
+
+pmount (0.9.11-1) unstable; urgency=low
+
+  * New upstream bugfix release:
+    - pmount: Refuse to mount devices to a mount point that is already in
+      /etc/fstab.
+    - pmount-hal: Do not try mount non-fstab devices to fstab mountpoints.
+      (https://launchpad.net/bugs/28920)
+    - Update translations from Launchpad Rosetta.
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 11 May 2006 22:25:40 +0200
+
+pmount (0.9.10-1) unstable; urgency=low
+
+  * New upstream bugfix release:
+    - Fix processing of hal's mount options. (patch was already applied in
+      previous version).
+    - pmount-hal: Directly call mount for devices in /etc/fstab. This allows
+      non-plugdev users to mount CD-ROMs and the like with GUIs like Gnome
+      (which call pmount-hal).  (https://launchpad.net/bugs/33232)
+    - Document PMOUNT_DEBUG environment variable in pmount-hal manpage.
+  * Remove debian/patches/02-pmount-hal-fix-mountoptions.patch, fixed
+    upstream.
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 11 May 2006 14:50:40 +0200
+
+pmount (0.9.9-2) unstable; urgency=medium
+
+  * Urgency medium since this only fixes two obvious bugs.
+  * Add debian/patches/02-pmount-hal-fix-mountoptions.patch:
+    - Fix processing of hal's mount options.
+    - Patch taken from bzr head.
+    - Closes: #330462
+  * Remove debian/pmount.dirs so that /media is not owned by pmount any more
+    (base-files creates it nowadays). Create /media in the postinst instead if
+    it does not exist. Closes: #355405
+
+ -- Martin Pitt <mpitt@debian.org>  Mon, 13 Mar 2006 19:15:35 +0100
+
+pmount (0.9.9-1) unstable; urgency=low
+
+  * New upstream release, only fixes two major bugs in pmount-hal:
+    - Fix crash for label-less volumes with hal 0.5.7.
+    - Assign a proper mount point to devices with empty labels (with hal
+      0.5.7, they became /media/-1).
+
+ -- Martin Pitt <mpitt@debian.org>  Fri,  3 Mar 2006 17:38:07 +0100
+
+pmount (0.9.8-1) unstable; urgency=low
+
+  * New upstream release:
+    - Support reiser4 file systems.
+    - Support mounting of MMC cards.
+    - pmount-hal now works correctly with hal 0.5.7.
+    - Many updated translations from Launchpad Rosetta, thanks to all the
+      translators!
+  * debian/rules: Generate a .POT file during build.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 28 Feb 2006 19:48:44 +0100
+
+pmount (0.9.7-2) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Martin Pitt <mpitt@debian.org>  Mon,  9 Jan 2006 19:37:36 +0100
+
+pmount (0.9.7-1) experimental; urgency=low
+
+  * New upstream release:
+    - Mount vfat with shortname=mixed option for better WinXP compatibility.
+    - Fix configure check for libsysfs2.
+    - Support --version argument. Ubuntu bug #20336
+    - Automatically prepend /dev to device argument if it is missing. 
+      Closes: #342280
+
+ -- Martin Pitt <mpitt@debian.org>  Fri, 16 Dec 2005 13:51:57 +0100
+
+pmount (0.9.6-1) experimental; urgency=low
+
+  * New upstream bugfix release.
+    - Now respects hal's exec/noexec policy. Closes: #330462
+    - Clean up default options in pmount manpage. Closes: #330589
+  * debian/patches/01-man-plugdev.patch.patch: Adopted to new file layout.
+  * debian/rules: Adapt to autotoolized source package.
+  * debian/control: Add intltool build dependency.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 18 Oct 2005 11:35:56 +0200
+
+pmount (0.9.5-1) experimental; urgency=low
+
+  * New upstream bugfix release:
+    - Fix race condition with several parallel pmount instances which could
+      cause double mounts to the same mount point. Also, pmount-hal now
+      handles this case gracefully and reattempts pmount call with a fresh
+      label. (Ubuntu #14415)
+    - pmount-hal: Use storage.policy.mount_filesystem as a fallback if
+      volume.policy.mount_filesystem does not exist. (Ubuntu #14848)
+    - Fix read-only encrypted devices; thanks to Sören Köpping for the patch.
+      Closes: #326186
+    - Translation updates from Rosetta.
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 15 Sep 2005 17:47:07 +0200
+
+pmount (0.9.4-1) experimental; urgency=low
+
+  * New upstream bugfix release.
+
+ -- Martin Pitt <mpitt@debian.org>  Fri, 29 Jul 2005 13:17:04 +0200
+
+pmount (0.9.2-1) experimental; urgency=low
+
+  * New upstream release:
+    - pmount-hal: Ported to new dbus 0.3x/hal 0.5.x APIs.
+    - Supports mounting LUKS encrypted devices with LUKS capable cryptsetup
+      package (which is not in Debian yet, though).
+    - pmount-hal: Now read volume.policy.mount_filesystem instead of
+      volume.fstype. Closes: #306332
+    - pmount-hal: Now read umask setting from hal. Closes: #310228, #296914
+    - Now mount VFAT with shortnames=winnt. Closes: #310618
+    - Fix typos in manpage. Closes: #310802
+    - Release an encrypted device again if mounting fails. Closes: #315530
+    - Proper error message if mapped device for an encrypted volume already
+      exists. Closes: #315527
+    - iso9660 file system is now marked as capable of 'iocharset'. 
+      Closes: #312822
+  * Droped debian/patches/02-async_by_default.patch: This is upstream now.
+
+ -- Martin Pitt <mpitt@debian.org>  Sun,  3 Jul 2005 13:25:06 +0200
+
+pmount (0.8-2) unstable; urgency=high
+
+  * Urgency high since this fixes an RC bug, the fix should reach Sarge.
+  * Added debian/patches/02-async_by_default.patch:
+    - Mount devices 'async' by default instead of 'sync'. This will avoid
+      physical damage of flash chips due to exaggerated updating of inode/FAT
+      structures and greatly speed up the write throughput. On the bad side
+      this makes it much less safe to remove devices without proper umounting.
+    - Replace option "--async" with option "--sync".
+    - Document change in the manpages.
+    - Closes: #309591
+  * debian/control: Correct package priority to optional, to match the katie
+    overrides.
+
+ -- Martin Pitt <mpitt@debian.org>  Wed, 18 May 2005 15:41:13 +0200
+
+pmount (0.8-1) unstable; urgency=low
+
+  * New upstream release:
+    - Unbreak locking. (closes: #302174)
+    - More symmetry between pmount and pumount: pumount now works with label
+      name, pmount with a complete mount path (only in /media).
+      (closes: #299468)
+    - Now supports --umask option. (part of #296914)
+  * debian/pmount.postinst: Remove .created_by_pmount stamps from
+    /var/lock/pmount to clean up broken locking from versions < 0.8.
+    (see #302174)
+  * Compile with Sarge's dbus-1 version, since version 0.23.4 is not yet
+    available on all platforms. (closes: #303291)
+
+ -- Martin Pitt <mpitt@debian.org>  Mon, 11 Apr 2005 10:24:57 +0200
+
+pmount (0.7.2-1) unstable; urgency=low
+
+  * New upstream release:
+    - Pulled updated and new translations from Rosetta.
+
+ -- Martin Pitt <mpitt@debian.org>  Mon,  4 Apr 2005 18:02:35 +0200
+
+pmount (0.7.1-1) unstable; urgency=low
+
+  * New upstream bugfix release: pmount-hal now reuses an existing
+    /media/<label> directory if it only contains a ".created-by-pmount" stamp
+    file, which makes it work with unmounts using umount instead of pumount
+    (which happens at reboot/shutdown).
+
+ -- Martin Pitt <mpitt@debian.org>  Mon,  7 Feb 2005 11:40:59 +0100
+
+pmount (0.7-1) unstable; urgency=low
+
+  * New upstream release
+  * Added build dependency libhal-dev, the new pmount-hal (which is now
+    written in C) needs it.
+
+ -- Martin Pitt <mpitt@debian.org>  Thu,  3 Feb 2005 15:53:00 +0100
+
+pmount (0.6-1) unstable; urgency=low
+
+  * New upstream release
+    - now mounts vfat file systems with the "quiet" option (closes: #291645)
+    - pmount-hal now uses the file system provided by hal (if present) instead
+      of always autodetecting it; this saves some time and also avoids
+      confusing kernel log error messages (closes: #287815)
+    - now supports pmount/pumounting by mount point
+    - new translations
+  * Explain the "plugdev" group in README.Debian and in the manpages (patched
+    by 01-man-plugdev.patch.patch). (closes: #288957)
+  * postinst: Check for existence of group 'plugdev' before calling 'adduser'
+    to avoid confusing warnings.
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 27 Jan 2005 09:36:04 +0100
+
+pmount (0.5.1-1) unstable; urgency=low
+
+  * New upstream release
+    - do not allow empty media labels; this allowed to mount a
+      device directly under /media if /media was empty (closes: #288644)
+
+ -- Martin Pitt <mpitt@debian.org>  Wed,  5 Jan 2005 12:44:46 +0100
+
+pmount (0.5-1) unstable; urgency=low
+
+  * New upstream release, see upstream changelog for details
+    - does not remove directories it did not create (closes: #286936)
+    - default mountpoint is now given device name instead of symlink-resolved
+      one to support nicer names from symlinks (closes: #286695)
+
+ -- Martin Pitt <mpitt@debian.org>  Sun,  2 Jan 2005 17:56:19 +0100
+
+pmount (0.4.4-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 16 Dec 2004 19:13:34 +0100
+
+pmount (0.4.3-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 23 Nov 2004 16:12:41 +0100
+
+pmount (0.4.2-2) unstable; urgency=low
+
+  * pmount.postinst:
+    - simplified, the "plugdev" group approach is now used in both Debian and
+      Ubuntu
+    - protected adduser call with || true; this seems to fail on some weird
+      systems if the group already exists (closes: #282145)
+
+ -- Martin Pitt <mpitt@debian.org>  Sat, 20 Nov 2004 16:49:33 +0100
+
+pmount (0.4.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 18 Nov 2004 16:25:30 +0100
+
+pmount (0.4.1-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 16 Nov 2004 00:25:46 +0100
+
+pmount (0.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * Removed pmount.manpages, manapage installation is now done by upstream
+    Makefile.
+  * debian/rules: use PREFIX=/usr
+  * debian/pmount.postinst: Restrict execution of pmount and pumount to
+    members of group 'plugdev'.
+  * debian/control: pmount now suggests hal and describes pmount-hal
+
+ -- Martin Pitt <mpitt@debian.org>  Mon, 15 Nov 2004 18:52:25 +0100
+
+pmount (0.3-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Martin Pitt <mpitt@debian.org>  Mon,  8 Nov 2004 22:29:15 +0100
+
+pmount (0.2.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Martin Pitt <mpitt@debian.org>  Wed, 20 Oct 2004 12:40:26 +0200
+
+pmount (0.2.1-1) unstable; urgency=low
+
+  * Initial Release (closes: #276253)
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 26 Aug 2004 16:04:04 +0200
+

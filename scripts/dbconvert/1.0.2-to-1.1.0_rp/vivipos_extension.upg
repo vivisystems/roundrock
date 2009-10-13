@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS "customer_levels" ("id" VARCHAR PRIMARY KEY  NOT NULL , "level" VARCHAR NOT NULL , "pricelevel" INTEGER, "discount" FLOAT, "created" INTEGER, "modified" INTEGER);
+
+CREATE TABLE IF NOT EXISTS "customer_types" ("id" VARCHAR PRIMARY KEY  NOT NULL , "type" VARCHAR NOT NULL , "created" INTEGER, "modified" INTEGER);
+

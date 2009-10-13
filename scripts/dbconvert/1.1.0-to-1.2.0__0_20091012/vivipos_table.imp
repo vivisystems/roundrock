@@ -1,0 +1,6 @@
+delete from table_regions;
+.import table_regions.csv table_regions
+
+delete from tables;
+.import tables.csv tables
+

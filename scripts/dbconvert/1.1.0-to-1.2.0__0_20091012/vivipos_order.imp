@@ -1,0 +1,60 @@
+delete from cashdrawer_records;
+.import cashdrawer_records.csv cashdrawer_records
+
+delete from clock_stamps;
+.import clock_stamps.csv clock_stamps
+
+delete from ledger_receipts;
+.import ledger_receipts.csv ledger_receipts
+
+delete from ledger_records;
+.import ledger_records.csv ledger_records
+
+delete from order_additions;
+.import order_additions.csv order_additions
+
+delete from order_annotations;
+.import order_annotations.csv order_annotations
+
+delete from order_item_condiments;
+.import order_item_condiments.csv order_item_condiments
+
+delete from order_items;
+.import order_items.csv order_items
+
+delete from order_objects;
+.import order_objects.csv order_objects
+
+delete from order_payments;
+.import order_payments.csv order_payments
+
+delete from order_promotions;
+.import order_promotions.csv order_promotions
+
+delete from order_receipts;
+.import order_receipts.csv order_receipts
+
+delete from orders;
+.import orders.csv orders
+
+delete from shift_change_details;
+.import shift_change_details.csv shift_change_details
+
+delete from shift_changes;
+.import shift_changes.csv shift_changes
+
+delete from shift_markers;
+.import shift_markers.csv shift_markers
+
+delete from uniform_invoice_markers;
+.import uniform_invoice_markers.csv uniform_invoice_markers
+
+delete from uniform_invoices;
+.import uniform_invoices.csv uniform_invoices
+
+delete from sync_remote_machines;
+.import orders_sync_remote_machines.csv sync_remote_machines
+
+delete from syncs;
+.import orders_syncs.csv syncs
+

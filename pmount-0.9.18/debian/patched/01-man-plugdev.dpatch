@@ -1,0 +1,4 @@
+patching file man/pmount.1
+Hunk #1 succeeded at 101 with fuzz 2 (offset 23 lines).
+patching file man/pumount.1
+Hunk #1 succeeded at 45 with fuzz 2 (offset 16 lines).

@@ -1,0 +1,10 @@
+CREATE TABLE "customer_levels" ("id" VARCHAR PRIMARY KEY  NOT NULL , "level" VARCHAR NOT NULL , "pricelevel" INTEGER, "discount" FLOAT, "created" INTEGER, "modified" INTEGER);
+CREATE TABLE "customer_types" ("id" VARCHAR PRIMARY KEY  NOT NULL , "type" VARCHAR NOT NULL , "created" INTEGER, "modified" INTEGER);
+CREATE TABLE "customers" ("id" VARCHAR NOT NULL ,"customer_id" VARCHAR NOT NULL ,"name" VARCHAR,"telephone" VARCHAR,"dob" INTEGER,"sex" VARCHAR,"marital_status" VARCHAR,"company" VARCHAR,"title" VARCHAR,"email" VARCHAR,"addr1_tel1" VARCHAR,"addr1_tel2" VARCHAR,"addr1_fax" VARCHAR,"addr1_addr1" VARCHAR,"addr1_addr2" VARCHAR,"addr1_zip" VARCHAR,"addr1_city" VARCHAR,"addr1_county" VARCHAR,"addr1_state" VARCHAR,"addr2_tel1" VARCHAR,"addr2_tel2" VARCHAR,"addr2_fax" VARCHAR,"addr2_addr1" VARCHAR,"addr2_addr2" VARCHAR,"addr2_zip" VARCHAR,"addr2_city" VARCHAR,"addr2_state" VARCHAR,"addr2_county" VARCHAR,"level" VARCHAR,"created" INTEGER,"modified" INTEGER,"active" VARCHAR,"notes1" VARCHAR,"notes2" VARCHAR,"mobile" VARCHAR,"type" VARCHAR, "notes" VARCHAR, "location" VARCHAR, "created_by" VARCHAR, "created_at" VARCHAR, PRIMARY KEY ("id","customer_id") );
+CREATE TABLE "marquees" ("id" VARCHAR PRIMARY KEY  NOT NULL , "message" VARCHAR, "terminal_no" VARCHAR, "start_time" INT, "expire_time" INT, "created" INT, "modified" INT);
+CREATE TABLE "sync_remote_machines" ("id" INTEGER PRIMARY KEY NOT NULL, "machine_id" varchar(36) NOT NULL, "last_synced" int DEFAULT -1);
+CREATE TABLE "syncs" ("id" INTEGER PRIMARY KEY NOT NULL ,"crud" varchar(255) NOT NULL ,"machine_id" varchar(36) ,"from_machine_id" varchar(36) ,"method_id" varchar(36) NOT NULL ,"method_type" varchar(45) NOT NULL ,"method_table" varchar(45) NOT NULL ,"created" int NOT NULL ,"modified" int NOT NULL);
+CREATE INDEX "marquees_start_expire" ON "marquees" ("start_time" ASC, "expire_time" ASC);
+CREATE INDEX "marquees_terminal_no" ON "marquees" ("terminal_no" ASC);
+CREATE INDEX "sync_remote_machines_machine_id" on "sync_remote_machines" ("machine_id");
+CREATE INDEX "syncs_from_machine_id" on "syncs" ("from_machine_id");

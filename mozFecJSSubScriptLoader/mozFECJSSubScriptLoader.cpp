@@ -384,7 +384,14 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
 #endif
 
         // check license first
-        if(hasCheckedLicense != 0) return NS_ERROR_FAILURE;
+        if(hasCheckedLicense != 0) {
+
+            // try again ??
+            hasCheckedLicense = check_license();
+            
+            if(hasCheckedLicense != 0) return NS_ERROR_FAILURE;
+
+        }
 
         unsigned char *plaintext, *inbuf;
         unsigned char tmpkey[512];

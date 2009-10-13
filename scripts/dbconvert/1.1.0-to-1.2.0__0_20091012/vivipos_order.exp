@@ -1,0 +1,83 @@
+.mode list cashdrawer_records
+.output cashdrawer_records.csv
+select "id","terminal_no","drawer_no","clerk","clerk_displayname","event_type","status","created","modified","payment_type","amount","sequence",NULL from cashdrawer_records;
+
+.mode list clock_stamps
+.output clock_stamps.csv
+select "id","username","clockin","job","clockout","clockin_time","created","modified","clockout_time","displayname",NULL from clock_stamps;
+
+.mode list ledger_receipts
+.output ledger_receipts.csv
+select "id","ledger_id","printer","created","modified" from ledger_receipts;
+
+.mode list ledger_records
+.output ledger_records.csv
+select id,type,description,mode,amount,created,modified,terminal_no,sale_period,shift_number,service_clerk,service_clerk_displayname from ledger_records;
+
+.mode list order_additions
+.output order_additions.csv
+select id,order_id,tax_name,tax_rate,tax_type,current_tax,discount_name,discount_rate,discount_type,current_discount,surcharge_name,surcharge_rate,surcharge_type,current_surcharge,has_discount,has_surcharge,created,modified from order_additions;
+
+.mode list order_annotations
+.output order_annotations.csv
+select id,type,text,created,modified,order_id from order_annotations;
+
+.mode list order_item_condiments
+.output order_item_condiments.csv
+SELECT "id","order_id","item_id","name","price","created","modified" FROM order_item_condiments;
+
+-- order_item_taxes
+
+.mode list order_items
+.output order_items.csv
+SELECT "id","order_id","cate_no","included_tax","cate_name","product_no","product_barcode","product_name","current_qty","current_price","current_subtotal","tax_name","tax_rate","tax_type",
+"current_tax","discount_name","discount_rate","discount_type","current_discount","surcharge_name","surcharge_rate","surcharge_type","current_surcharge","condiments","current_condiment","memo","has_discount","has_surcharge","has_marker","created","modified","destination","parent_no",0,"unit","","",0,0 FROM order_items;
+
+.mode list order_objects
+.output order_objects.csv
+select id,order_id,object,created,modified from order_objects;
+
+.mode list order_payments
+.output order_payments.csv
+select id,order_id,order_items_count,order_total,name,amount,memo1,memo2,created,modified,origin_amount,service_clerk,proceeds_clerk,service_clerk_displayname,proceeds_clerk_displayname,change,sale_period,shift_number,terminal_no,0 from order_payments;
+
+.mode list order_promotions
+.output order_promotions.csv
+SELECT "id","order_id","promotion_id","name","code","alt_name1","alt_name2","trigger","trigger_name","trigger_label","type","type_name","type_label","matched_amount","matched_items_qty","matched_items_subtotal","discount_subtotal","tax_name","current_tax","tax_type", "created","modified" FROM order_promotions;
+
+.mode list order_receipts
+.output order_receipts.csv
+select id,order_id,sequence,device,created,modified,batch from order_receipts;
+
+.mode list orders
+.output orders.csv
+SELECT "id","sequence","items_count","total","change","tax_subtotal","surcharge_subtotal","discount_subtotal","payment_subtotal","rounding_prices","precision_prices","rounding_taxes","precision_taxes","status","service_clerk","service_clerk_displayname","proceeds_clerk","proceeds_clerk_displayname","member","member_displayname","member_email","member_cellphone","invoice_type","invoice_title","invoice_no","invoice_count","destination","table_no","check_no","no_of_customers","terminal_no","transaction_created","transaction_submitted","created","modified","included_tax_subtotal","item_subtotal","sale_period","shift_number","branch_id","branch","transaction_voided","promotion_subtotal","void_clerk","void_clerk_displayname","void_sale_period","void_shift_number","revalue_subtotal", "qty_subtotal","","","surcharge_subtotal","0","discount_subtotal","0" FROM orders;
+
+.mode list shift_change_details
+.output shift_change_details.csv
+SELECT "id","shift_change_id","type","amount","name","change","excess_amount","count","created","modified" FROM shift_change_details;
+
+.mode list shift_changes
+.output shift_changes.csv
+SELECT "id","starttime","endtime","balance","note","created","modified","terminal_no","sale_period","shift_number","cash","sales","excess","ledger_in", "ledger_out", "deposit", "refund", "credit",0 FROM shift_changes;
+
+.mode list shift_markers
+.output shift_markers.csv
+select id,sale_period,shift_number,end_of_period,created,modified,terminal_no,end_of_shift,0 from shift_markers;
+
+.mode list uniform_invoice_markers
+.output uniform_invoice_markers.csv
+SELECT "id","code","seq","terminal_no","created","modified","reset_time"  FROM uniform_invoice_markers;
+
+.mode list uniform_invoices
+.output uniform_invoices.csv
+SELECT "id","order_id","code","start_seq","end_seq","terminal_no","uniform_business_number","status","sale_period","shift_number","created","modified","memo","reset_time",0 FROM uniform_invoices;
+
+.mode list sync_remote_machines
+.output orders_sync_remote_machines.csv
+select * from sync_remote_machines;
+
+.mode list syncs
+.output orders_syncs.csv
+select * from syncs;
+

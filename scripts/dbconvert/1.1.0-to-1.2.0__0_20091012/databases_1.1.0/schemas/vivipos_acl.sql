@@ -1,0 +1,13 @@
+CREATE TABLE "acl_group_roles" ("id" VARCHAR PRIMARY KEY  NOT NULL ,"acl_group_id" VARCHAR,"created" INTEGER,"modified" INTEGER,"role" VARCHAR);
+CREATE TABLE "acl_groups" ("id" VARCHAR PRIMARY KEY  NOT NULL , "name" VARCHAR, "description" VARCHAR, "created" INTEGER, "modified" INTEGER);
+CREATE TABLE "acl_roles" ("id" VARCHAR PRIMARY KEY  NOT NULL , "name" VARCHAR, "description" VARCHAR, "created" INTEGER, "modified" INTEGER);
+CREATE TABLE "acl_users" ("id" VARCHAR PRIMARY KEY  NOT NULL , "username" VARCHAR, "password" VARCHAR, "description" VARCHAR, "acl_group_id" VARCHAR, "created" INTEGER, "modified" INTEGER);
+CREATE TABLE "sync_remote_machines" ("id" INTEGER PRIMARY KEY NOT NULL, "machine_id" varchar(36) NOT NULL, "last_synced" int DEFAULT -1);
+CREATE TABLE "syncs" ("id" INTEGER PRIMARY KEY NOT NULL ,"crud" varchar(255) NOT NULL ,"machine_id" varchar(36) ,"from_machine_id" varchar(36) ,"method_id" varchar(36) NOT NULL ,"method_type" varchar(45) NOT NULL ,"method_table" varchar(45) NOT NULL ,"created" int NOT NULL ,"modified" int NOT NULL);
+CREATE INDEX "acl_group_roles_gid" ON "acl_group_roles" ("acl_group_id" ASC);
+CREATE INDEX "acl_group_roles_role" ON "acl_group_roles" ("role" ASC);
+CREATE INDEX "acl_groups_name" ON "acl_groups" ("name" ASC);
+CREATE INDEX "acl_roles_name" ON "acl_roles" ("name" ASC);
+CREATE INDEX "acl_users_username" ON "acl_users" ("username" ASC);
+CREATE INDEX "sync_remote_machines_machine_id" on "sync_remote_machines" ("machine_id");
+CREATE INDEX "syncs_from_machine_id" on "syncs" ("from_machine_id");

@@ -47,6 +47,7 @@
 #include <tomcrypt.h>
 
 #include "mozFECJSSubScriptLoader.h"
+#include "license.h"
 
 #include "nsIServiceManager.h"
 #include "nsIXPConnect.h"
@@ -81,38 +82,9 @@
 //extern void JS_DLL_CALLBACK
 //mozJSLoaderErrorReporter(JSContext *cx, const char *message, JSErrorReport *rep);
 
-static void register_algs(void) {
-
-#ifdef DEBUG
-    printf("register_algs \n");
-#endif
-
-    register_cipher(&blowfish_desc);
-    register_cipher(&cast5_desc);
-    register_hash(&sha256_desc);
-    register_hash (&md5_desc);
-    register_prng(&yarrow_desc);
-    register_prng(&sprng_desc);
-
+static inline int check_license() {
+    return checkLicenseFromFile("/etc/vivipos.lic");
 }
-
-static inline void md5string (const char *src, char *dest, unsigned long *len) {
-
-   unsigned long i;
-   unsigned char buf[MAXBLOCKSIZE];
-   char tmp[] ="00";
-
-   *len = sizeof(buf);
-   memset(dest, 0, sizeof(dest));
-
-   hash_memory(find_hash("md5"), (unsigned char*) src, strlen(src), buf, len);
-
-   for (i=0; i< *len; i++) {
-       sprintf(tmp, "%02x", buf[i]);
-       strcat(dest, tmp);
-   }
-}
-
 
 mozFECJSSubScriptLoader::mozFECJSSubScriptLoader() : mSystemPrincipal(nsnull) {
 
@@ -122,6 +94,11 @@ mozFECJSSubScriptLoader::mozFECJSSubScriptLoader() : mSystemPrincipal(nsnull) {
 
     /* register algs, so they can be printed */
     register_algs();
+
+    // check license
+    hasCheckedLicense = -1;
+
+    hasCheckedLicense = check_license();
 
 }
 
@@ -145,6 +122,10 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
      * Should ONLY (O N L Y !) be called from JavaScript code.
      */
     
+#ifdef DEBUG
+    printf("LoadSubScript call: \n");
+#endif
+
     /* gotta define most of this stuff up here because of all the gotos,
      * defined the rest up here to be consistent */
     nsresult  rv;
@@ -172,7 +153,7 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
 
     jsval *rval;
     rv = cc->GetRetValPtr (&rval);
-    if (NS_FAILED(rv)) return NS_ERROR_FAILURE;    
+    if (NS_FAILED(rv)) return NS_ERROR_FAILURE;
 
     /* set mJSPrincipals if it's not here already */
     if (!mSystemPrincipal)
@@ -211,10 +192,10 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
         target_obj = JS_GetParent (cx, got_glob);
         fprintf (stderr, "That glob's parent is %p.\n", target_obj);
 #endif
-        
+
         nsCOMPtr<nsIXPConnectWrappedNative> wn;
         rv = cc->GetCalleeWrapper (getter_AddRefs(wn));
-        if (NS_FAILED(rv)) return NS_ERROR_FAILURE;    
+        if (NS_FAILED(rv)) return NS_ERROR_FAILURE;
 
         rv = wn->GetJSObject (&target_obj);
         if (NS_FAILED(rv)) return NS_ERROR_FAILURE;
@@ -233,7 +214,7 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
         }
 #ifdef DEBUG_rginda
         fprintf (stderr, "\n");
-#endif  
+#endif
     }
 
     // Innerize the target_obj so that we compile the loaded script in the
@@ -258,11 +239,11 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
     PRUint32  readcount = 0;  // Total amount of data read
     PRUint32  lastReadCount = 0;  // Amount of data read in last Read() call
     nsAutoArrayPtr<char> buf;
-    
+
     JSString        *errmsg;
     JSErrorReporter  er;
     JSPrincipals    *jsPrincipals;
-    
+
     nsCOMPtr<nsIChannel>     chan;
     nsCOMPtr<nsIInputStream> instream;
     nsCOMPtr<nsIURI> uri;
@@ -307,7 +288,7 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
     if (NS_FAILED(rv)) {
         errmsg = JS_NewStringCopyZ (cx, LOAD_ERROR_NOSPEC);
         goto return_exception;
-    }    
+    }
 
     rv = uri->GetScheme(scheme);
     if (NS_FAILED(rv))
@@ -333,8 +314,8 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
         tmp.Append(uriStr);
 
         uriStr = tmp;
-    }        
-        
+    }
+
     rv = NS_OpenURI(getter_AddRefs(instream), uri, serv,
                     nsnull, nsnull, nsIRequest::LOAD_NORMAL,
                     getter_AddRefs(chan));
@@ -343,7 +324,7 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
         errmsg = JS_NewStringCopyZ (cx, LOAD_ERROR_NOSTREAM);
         goto return_exception;
     }
-    
+
     rv = chan->GetContentLength (&len);
     if (NS_FAILED(rv) || len == -1)
     {
@@ -355,7 +336,7 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
     if (!buf)
         return NS_ERROR_OUT_OF_MEMORY;
     buf[len] = '\0';
-    
+
     do {
         rv = instream->Read (buf + readcount, len - readcount, &lastReadCount);
         if (NS_FAILED(rv))
@@ -365,7 +346,7 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
         }
         readcount += lastReadCount;
     } while (lastReadCount && readcount != PRUint32(len));
-    
+
     if (static_cast<PRUint32>(len) != readcount)
     {
         errmsg = JS_NewStringCopyZ (cx, LOAD_ERROR_READUNDERFLOW);
@@ -384,7 +365,6 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
     /* set our own error reporter so we can report any bad things as catchable
      * exceptions, including the source/line number */
     //er = JS_SetErrorReporter (cx, mozJSLoaderErrorReporter);
-    // disable error reporter and decrypt
 
     /**
      * Decrypt code start
@@ -400,6 +380,16 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
 #ifdef DEBUG
         printf("encryped jsc found, try decrypt.\n", uriStr.get(), len);
 #endif
+
+        // check license first
+        if(hasCheckedLicense != 0) {
+
+            // try again ??
+            hasCheckedLicense = check_license();
+
+            if(hasCheckedLicense != 0) return NS_ERROR_FAILURE;
+
+        }
 
         unsigned char *plaintext, *inbuf;
         unsigned char tmpkey[512], tmpkey2[16], tmpkey3[33];
@@ -461,7 +451,7 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
         char dec_key4[] = "k4_c431044e-d686-4255-9e21-dca06615e345";
         char dummy[129];
         strcpy(dummy, dec_key1);strcpy(dummy, dec_key2);strcpy(dummy, dec_key3);strcpy(dummy, dec_key4);
-        
+
         #ifdef DEBUG
         printf("tmpkey = %s \n" , tmpkey);
         #endif
@@ -479,7 +469,7 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
         ivsize = cipher_descriptor[cipher_idx].block_length;
 
         #ifdef DEBUG
-        printf("ivsize = %d\n", ivsize);
+        printf("ivsize = %d\n", (int)ivsize);
         #endif
 
         ks = hash_descriptor[hash_idx].hashsize;
@@ -536,10 +526,10 @@ mozFECJSSubScriptLoader::LoadSubScript(const PRUnichar * /*url*/
 
     } else {
 
-        ok = JS_EvaluateScriptForPrincipals(cx, target_obj, jsPrincipals,
-                buf, len, uriStr.get(), 1, rval);
-    }
+        ok = JS_EvaluateScriptForPrincipals (cx, target_obj, jsPrincipals,
+                                             buf, len, uriStr.get(), 1, rval);
 
+    }
 
     /* repent for our evil deeds */
     //JS_SetErrorReporter (cx, er);

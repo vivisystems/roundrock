@@ -247,6 +247,36 @@ int getLicenseStubKey(char *buf) {
 
 }
 
+int getLicenseStubKeyEx(char *buf, const char *dallas, const char *system_name, const char *vendor_name, const char *mac) {
+
+    char md5key[33], tmpkey[255];
+    unsigned long len;
+
+    memset(tmpkey, 0, 255);
+
+    // cpy dallas with md5
+    md5string(dallas, md5key, &len);
+    strncpy(tmpkey, md5key, len*2);
+
+    // cat system with md5
+    md5string(system_name, md5key, &len);
+    strncat(tmpkey, md5key, len*2);
+
+    // cat vendor
+    md5string(vendor_name, md5key, &len);
+    strncat(tmpkey, md5key, len*2);
+
+    // cat mac with md5
+    md5string(mac, md5key, &len);
+    strncat(tmpkey, md5key, len*2);
+
+
+    strcpy(buf, tmpkey);
+
+    return 0;
+
+}
+
 
 
 int getLicenseFromDallas(char *buf) {

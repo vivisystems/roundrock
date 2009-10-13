@@ -1,0 +1,2 @@
+.mode insert promotions
+select * from promotions;

@@ -1,0 +1,7 @@
+This package uses dpatch to manage all modifications to the upstream
+source. See /usr/share/doc/dpatch/README.source.gz to get more information
+on how to use it.
+
+ -- Vincent Fourmond <fourmond@debian.org>  Sat, 18 Oct 2008 22:13:38 +0200
+
+

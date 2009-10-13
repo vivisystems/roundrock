@@ -1,0 +1,15 @@
+pmount for Debian
+-----------------
+
+To restrict the ability to mount arbitrary devices to selected
+"Desktop" users, the Debian package for pmount restricts the execution
+of pmount and pumount to members of the group "plugdev".
+
+So, for every user who should be able to execute pmount, please
+execute the following command (as root):
+
+   adduser <user> plugdev
+
+(with replacing "<user>" by the respective user login).
+
+ -- Martin Pitt <mpitt@debian.org>

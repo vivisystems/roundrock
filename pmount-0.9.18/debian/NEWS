@@ -1,0 +1,25 @@
+pmount (0.9.16-4) unstable; urgency=low
+
+  The symlink lookup for /etc/fstab is enabled again - my mistake !!
+
+ -- Vincent Fourmond <fourmond@debian.org>  Thu, 16 Aug 2007 15:29:54 +0200
+
+pmount (0.9.16-2) unstable; urgency=low
+
+  The symlink lookup for /etc/fstab has been disabled. If you were
+  relying on the presence of a /etc/fstab entry to prevent your users
+  from mounting a device, please make sure that the entry in
+  /etc/fstab does not reference a symlink (see pmount (1) for more
+  details).
+
+ -- Vincent Fourmond <fourmond@debian.org>  Fri, 06 Jul 2007 19:53:34 +0200
+
+pmount (0.9.16-1) unstable; urgency=low
+
+  Starting from release 0.9.16-1, pmount supports globs in the
+  /etc/pmount.allow configuration file. This means in particular that
+  you should check if there wasn't any devices with *, [] or ? inside
+  that shouldn't be interpreted as globs. It is however quite unlikely.
+  
+
+ -- Vincent Fourmond <fourmond@debian.org>  Wed, 04 Jul 2007 00:27:39 +0200

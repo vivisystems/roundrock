@@ -1,0 +1,16 @@
+.mode list acl_group_roles
+.output acl_group_roles.csv
+select * from acl_group_roles;
+
+.mode list acl_groups
+.output acl_groups.csv
+select * from acl_groups;
+
+.mode list acl_roles
+.output acl_roles.csv
+select * from acl_roles;
+
+.mode list acl_users
+.output acl_users.csv
+select * from acl_users;
+

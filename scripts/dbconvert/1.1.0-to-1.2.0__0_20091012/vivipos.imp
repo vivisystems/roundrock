@@ -1,0 +1,42 @@
+delete from categories;
+.import categories.csv categories
+
+delete from combine_taxes;
+.import combine_taxes.csv combine_taxes
+
+delete from condiment_groups;
+.import condiment_groups.csv condiment_groups
+
+delete from condiments;
+.import condiments.csv condiments
+
+delete from jobs;
+.import jobs.csv jobs
+
+delete from ledger_entry_types;
+.import ledger_entry_types.csv ledger_entry_types
+
+delete from plugroups;
+.import plugroups.csv plugroups
+
+delete from products;
+.import products.csv products
+
+delete from promotions;
+.import promotions.csv promotions
+
+delete from sequences;
+.import sequences.csv sequences
+
+delete from set_items;
+.import set_items.csv set_items
+
+delete from store_contacts;
+.import store_contacts.csv store_contacts
+
+delete from taxes;
+.import taxes.csv taxes
+
+delete from users;
+.import users.csv users
+

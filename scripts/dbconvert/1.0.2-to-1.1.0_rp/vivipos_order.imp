@@ -1,0 +1,48 @@
+begin;
+
+delete from cashdrawer_records;
+.read cashdrawer_records.sql
+
+delete from clock_stamps;
+.read clock_stamps.sql
+
+delete from ledger_records;
+.read ledger_records.sql
+
+delete from order_additions;
+.read order_additions.sql
+
+delete from order_annotations;
+.read order_annotations.sql
+
+delete from order_items;
+.read order_items.sql
+
+delete from order_objects;
+.read order_objects.sql
+
+delete from order_payments;
+.read order_payments.sql
+
+delete from order_receipts;
+.read order_receipts.sql
+
+delete from orders;
+.read orders.sql
+
+delete from shift_change_details;
+.read shift_change_details.sql
+
+delete from shift_changes;
+.read shift_changes.sql
+
+delete from shift_markers;
+.read shift_markers.sql
+
+delete from uniform_invoice_markers;
+.read uniform_invoice_markers.sql
+
+delete from uniform_invoices;
+.read uniform_invoices.sql
+
+commit;

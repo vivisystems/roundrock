@@ -57,12 +57,10 @@ mb_kbd_new (int argc, char **argv)
   kb->row_spacing = 5;
 
 //  kb->font_family  = strdup("sans");
-  kb->font_family  = strdup("Droid Sans Fallback");
-//  kb->font_family  = strdup("WenQuanYi Zen Hei");
-//  kb->font_pt_size = 5;
+  //kb->font_family  = strdup("Droid Sans Fallback");
+  kb->font_family  = strdup("unifont");
   kb->font_pt_size = 14;
   kb->font_variant = strdup("bold");
-//  kb->font_variant = strdup("book");
 
 
   for (i = 1; i < argc; i++) 

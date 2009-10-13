@@ -1,0 +1,2 @@
+.mode insert table_regions
+select * from table_regions;

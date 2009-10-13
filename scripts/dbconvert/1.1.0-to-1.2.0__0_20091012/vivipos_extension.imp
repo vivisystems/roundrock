@@ -1,0 +1,10 @@
+delete from customers;
+.import customers.csv customers
+
+delete from customer_types;
+.import customer_types.csv customers
+
+delete from customer_levels;
+.import customer_levels.csv customers
+
+

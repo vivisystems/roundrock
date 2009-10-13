@@ -1,0 +1,12 @@
+#include "nsISupports.idl"
+[scriptable, uuid(1E887B6D-1D7E-4e66-9B14-CA4DACAE9996)]
+interface nsIIOPortControlUnix: nsISupports
+{
+    PRInt32 usleep(in PRInt32 time);
+    PRInt32 iopl(in PRInt32 level);
+    PRInt16 inb(in PRInt32 portBaseAddr);
+    PRInt16 inw(in PRInt32 portBaseAddr);
+    PRInt32 outb(in PRInt32 portBaseAddr, in PRInt16 data);
+    PRInt32 outw(in PRInt32 portBaseAddr, in PRInt16 data);
+
+};

@@ -1,5 +1,5 @@
 #!/bin/sh 
-SDK="/home/rack/workspace/tmp/xulrunner-sdk"
+SDK="/home/rack/workspace/xulrunner-sdk/1.9.0.4"
 rm -f ~/.vivipos/ssihvbv5.default/xpti.dat
 rm -f ~/.vivipos/ssihvbv5.default/compreg.dat
 c++ -shared -fno-rtti -fno-exceptions -fshort-wchar -Wl,-z,defs -Os -o fec_jsloader.so mozFECJSSubScriptLoader.cpp mozFECJSSubScriptLoaderModules.cpp license.o \

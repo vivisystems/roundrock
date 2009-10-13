@@ -1,0 +1,12 @@
+.mode list customers
+.output customers.csv
+select * from customers;
+
+.mode list customer_types
+.output customer_types.csv
+select * from customer_types;
+
+.mode list customer_levels
+.output customer_levels.csv
+select * from customer_levels;
+

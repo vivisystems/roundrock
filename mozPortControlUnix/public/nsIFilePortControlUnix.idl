@@ -1,0 +1,11 @@
+#include "nsISupports.idl"
+[scriptable, uuid(D1BDBE18-14A6-4253-9548-49FBED8E6370)]
+interface nsIFilePortControlUnix : nsISupports
+{
+    PRInt64 openPort(in AString portName, in AString portSettings);
+    PRInt64 closePort(in AString portName);
+    PRInt64 writePort (in AString portName, in ACString writeBuffer, in PRInt64 length);
+    PRInt64 readPort (in AString portName, out ACString readBuffer, in PRInt64 length);
+    PRInt32 statusPort (in AString portName);
+    PRInt64 hdwrResetDevice (in AString portName);
+};

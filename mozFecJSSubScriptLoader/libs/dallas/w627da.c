@@ -2,7 +2,7 @@
 
 #include "w627gpio.h"
 
-#define _OW_TIME_OUT 1000
+#define _OW_TIME_OUT 30
 
 static unsigned char gpio_port = GPIO_13; //GPIO_57;
 
@@ -242,10 +242,14 @@ int ow_read(unsigned char *buf) {
     }
 
     if (result == 0) {
-	    while(ow_read8crc(buf))
-		if (++i_time_out == _OW_TIME_OUT) break;
+	    while(ow_read8crc(buf)) {
+                if (++i_time_out == _OW_TIME_OUT) break;
+                // delay for reinit
+                uusleep(100000);
+            }
 
 	    if (i_time_out == _OW_TIME_OUT) {
+		printf("reading dallas timeout\n");
 		result = -3;
 	    }
     }

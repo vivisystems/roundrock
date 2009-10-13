@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS "ledger_receipts" ("id" VARCHAR NOT NULL , "ledger_id" VARCHAR NOT NULL , "printer" VARCHAR, "created" INTEGER, "modified" INTEGER, PRIMARY KEY ("id", "ledger_id"));
+

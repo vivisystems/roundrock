@@ -1,0 +1,62 @@
+#!/bin/sh
+#
+# USE socat to link lpr (CUPS) to pty
+#
+# racklin@gmail.com
+#
+NAME=lpr2pty
+DESC="LPR 2 PTY"
+PROG="/usr/bin/socat"
+PROG_OPTS="-4"
+
+PRINTERS=`LC_ALL=C lpstat -v 2>&1 | awk '/for / {print $3}'|sed 's/:$//g'`
+
+LINK_PTY="/tmp/CUPS/${PRINTER_NAME}"
+LPR="/usr/bin/lpr"
+LPR_OPTS="-P '${PRINTER_NAME}'"
+
+if [ ! -d /tmp/CUPS/ ]; then
+	mkdir /tmp/CUPS;
+fi
+
+#
+# USE socat for PTY (DISABLED IT)
+# 
+#while true; do
+#	${PROG} ${PROG_OPTS} PTY,link=${LINK_PTY},raw,echo=0,waitslave EXEC:"${LPR} ${LPR_OPTS}"; 
+#done
+
+
+# link to null
+for PRINTER_NAME in $PRINTERS ; do
+
+	if [ ! -f /tmp/CUPS/${PRINTER_NAME} ]; then
+		ln -s /dev/null /tmp/CUPS/${PRINTER_NAME}
+	fi
+
+done
+
+
+while true; do
+
+	for PRINTER_NAME in $PRINTERS ; do
+
+
+        for jobfile in /tmp/${PRINTER_NAME}_*; do
+
+                [ ! -f $jobfile ] && continue;
+				
+				# remove maybe empty files
+				if [ ! -s $jobfile ]; then
+					rm -f $jobfile;
+				fi
+
+                ${LPR} -P "${PRINTER_NAME}" -r ${jobfile}
+
+        done
+
+	done
+	
+	sleep 1;
+done
+

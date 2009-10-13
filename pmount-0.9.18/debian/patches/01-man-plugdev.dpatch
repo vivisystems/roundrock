@@ -1,0 +1,47 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 01-man-plugdev.dpatch by  <fourmond@debian.org>
+##
+## DP: Debian-specific modifications of the manual pages.
+
+@DPATCH@
+diff -urNad pmount-0.9.13~/man/pmount.1 pmount-0.9.13/man/pmount.1
+--- pmount-0.9.13~/man/pmount.1	2006-02-28 19:59:14.000000000 +0100
++++ pmount-0.9.13/man/pmount.1	2007-06-13 23:14:49.000000000 +0200
+@@ -78,6 +78,17 @@
+ process does not exist any more are removed. This prevents forgotten indefinite
+ locks from crashed programs.
+ 
++.B Important note for Debian:
++The permission to execute pmount is restricted to members of the system
++group
++.B plugdev\fR. Please add all "desktop" users who shall be able to use
++pmount to this group by executing
++
++.IP
++.B adduser \fIuser \fBplugdev
++.PP
++(as root).
++
+ .SH POLICY
+ 
+ The mount will succeed if all of the following conditions are met:
+diff -urNad pmount-0.9.13~/man/pumount.1 pmount-0.9.13/man/pumount.1
+--- pmount-0.9.13~/man/pumount.1	2005-12-16 11:46:30.000000000 +0100
++++ pmount-0.9.13/man/pumount.1	2007-06-13 23:14:49.000000000 +0200
+@@ -29,6 +29,16 @@
+ .I device
+ from a directory below /media if policy is met (see below). 
+ 
++.B Important note for Debian:
++The permission to execute pumount is restricted to members of the system
++group
++.B plugdev\fR. Please add all "desktop" users who shall be able to use
++pmount to this group by executing
++
++.IP
++.B adduser \fIuser \fBplugdev
++.PP
++(as root).
+ .SH OPTIONS
+ 
+ .TP

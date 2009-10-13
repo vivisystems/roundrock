@@ -1,0 +1,17 @@
+libsmbios for Debian
+--------------------
+
+Initial packaging, in two different libsmbios packages, so as to ease usage.
+
+* libsmbios1
+  Contains the 'base' SMBIOS access functionality
+
+* libsmbiosxml1
+  Contains the 'high level' XML-based access functionality
+
+
+* libsmbios-bin
+  Binaries making use of the libsmbios functionality
+
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>, Fri,  1 Jul 2005 23:34:21 +0200

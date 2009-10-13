@@ -1,0 +1,167 @@
+libsmbios (2.0.3-0ubuntu1) intrepid; urgency=low
+
+  * New upstream version. (LP: #261665)
+  * debian/patches/01_password_checking.dpatch:
+    - Drop as included upstream.
+  * debian/control:
+    - Drop build depend on libxml2.
+    - Produce libsmbios2 packages instead.
+    - Drop xml packages as they are no longer upstream.
+
+ -- Mario Limonciello <mario_limonciello@dell.com>  Tue, 26 Aug 2008 17:02:20 -0500
+
+libsmbios (0.13.13-1ubuntu2) intrepid; urgency=low
+
+  * debian/control:
+    - Add dpatch to build-depends
+  * debian/rules:
+    - Add dpatch support
+    - Don't clean up ltmain.sh, config.sub, or config.guess
+      as they are shipped in the upstream tarball.
+  * debian/patches/01_password_checking.dpatch:
+    - Stub out another function for checking the status
+      of a bios or admin password. (LP: #189814)
+
+ -- Mario Limonciello <mario_limonciello@dell.com>  Fri, 18 Jul 2008 13:08:46 -0500
+
+libsmbios (0.13.13-1ubuntu1) intrepid; urgency=low
+
+  [ Mario Limonciello ]
+  * debian/control:
+    - Enable builds on lpia. (LP: #239843)
+
+  [ Loic Minier ]
+  * Rebase on 0.13.13-1.
+  * Update upload date.
+
+ -- Mario Limonciello <mario_limonciello@dell.com>  Fri, 27 Jun 2008 16:33:43 +0200
+
+libsmbios (0.13.13-1) unstable; urgency=low
+
+  * Fixed FTBFS with gcc4.3 *again* (Closes: 455641)
+    - Thanks to Cyril Brulebois for providing the patch
+
+  * Added missing additional README files (Closes: #443723)
+
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Fri, 07 Mar 2008 23:40:37 +0100
+
+libsmbios (0.13.10-2) unstable; urgency=low
+
+  * Fixed FTBFS with gcc4.3 *again* (Closes: 455641)
+    - Thanks to Cyril Brulebois for providing the patch
+
+  * Added missing additional README files (Closes: #443723)
+
+  * Kudos to Julien Blache for his support and sponsoring
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Sun,  7 Sep 2007 23:46:42 +0200
+
+libsmbios (0.13.10-1) unstable; urgency=low
+
+  * New upstream version (Closes: #441288)
+
+  * Build process fixes/enhancements
+    - Fixed debian/control to be binNMU-safe
+    - Upstream's libtool had enabled 'rpath': re-libtoolize'd source
+    - Added dependency on libtool following fix above
+
+  * Kudos to Julien Blache for his support and sponsoring
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Sun,  7 Sep 2007 23:46:42 +0200
+
+libsmbios (0.13.6-1) unstable; urgency=low
+
+  * New upstream version
+    - Adds complete support for EFI (i.e. intel-based Macs)
+
+  * Fixed FTBFS with gcc4.3 (missing includes) (Closes: #418621)
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Sun, 22 Apr 2007 13:04:55 +0200
+
+libsmbios (0.13.5-1) unstable; urgency=medium
+
+  * New upstream version (Closes: #418018)
+    - Fix broken libtool in previous version (Closes: #418425)
+    - New libtool version used: relibtoolized source (Closes: #418134)
+
+  * Fixed debian/rules to put config.{sub,guess} into proper place
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Tue, 10 Apr 2007 22:06:25 +0200
+
+libsmbios (0.13.4-1) unstable; urgency=low
+
+  * New upstream version
+    - Xerces is not a build-dep anymore
+
+  * Source tarball cleanup: do not ship generated binaries (Closes: 399201)
+
+  * libsmbios-doc: package now contains the Doxy-generated
+    libsmbios documentation (in HTML format) (Closes: #399200)
+
+  * Enhanced man page a bit, barring proper documentation from upstream
+    A separate, complete version for every binary shipped is still pending,
+    though 
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Wed, 14 Mar 2007 13:17:20 +0100
+
+libsmbios (0.12.1-3) unstable; urgency=low
+
+  * Ensure including libsmbios.so in -dev (Closes: #399205)
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Sat, 18 Nov 2006 16:57:48 +0100
+
+libsmbios (0.12.1-2) unstable; urgency=low
+
+  * Acknowledge NMU (Closes: #393443)
+    - Thanks, Bas
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Mon, 23 Oct 2006 19:32:27 +0200
+
+libsmbios (0.12.1-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload
+  * Moved the binaries of libsmbios-bin to /usr/sbin (closes: #393443)
+
+ -- Bas Zoetekouw <bas@debian.org>  Mon, 23 Oct 2006 17:33:42 +0200
+
+libsmbios (0.12.1-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Fri,  1 Sep 2006 18:59:08 +0200
+
+libsmbios (0.11.5-2) unstable; urgency=low
+
+  * Fix FTBFS due to bashisms in debian/rules (Closes: #380610)
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Thu, 31 Aug 2006 22:36:31 +0200
+
+libsmbios (0.11.5-1) unstable; urgency=low
+
+  * New upstream version (Closes: #354900)
+
+  * Packaging
+    - Depend on libxerces27-dev now (Closes: #368915)
+    - Upgraded to Standards-Version 3.7.2 with no changes
+
+  * Package sponsored by Roberto Lumbreras <rover@debian.org>
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Sat, 10 Jun 2006 14:54:36 +0200
+
+libsmbios (0.10.6-2) unstable; urgency=low
+
+  * FTBFS: Restrict building to supported architectures (Closes: #344652)
+    - moved 'doxygen' to Build-Depends (from -Indep) (Closes: #344745)
+
+  * Package sponsored by Roberto Lumbreras <rover@debian.org>
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Thu, 29 Dec 2005  3:52:25 +0100
+
+libsmbios (0.10.6-1) unstable; urgency=low
+
+  * New upstream version. Initial upload to Debian (Closes: #316502)
+
+  * Package sponsored by Roberto Lumbreras <rover@debian.org>
+
+ -- Jose Luis Tallon <jltallon@adv-solutions.net>  Sun, 11 Dec 2005 20:40:43 +0100

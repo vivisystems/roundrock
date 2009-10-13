@@ -1,0 +1,129 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+include /usr/share/dpatch/dpatch.make
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+INSTDIR=$(CURDIR)/debian
+
+PACKAGES=$(shell grep "^Package:" debian/control | sed -e 's/Package: //g')
+
+
+CFLAGS = -Wall -g
+
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -O0
+else
+	CFLAGS += -O2
+endif
+
+# shared library versions, option 1
+version=1.0.13
+major=1
+# option 2, assuming the library is created as src/.libs/libfoo.so.2.0.5 or so
+#version=`ls libraries/.libs/lib*.so.* | \
+# awk '{if (match($$0,/[0-9]+\.[0-9]+\.[0-9]+$$/)) print substr($$0,RSTART)}'`
+#major=`ls src/.libs/lib*.so.* | \
+# awk '{if (match($$0,/\.so\.[0-9]+$$/)) print substr($$0,RSTART+4)}'`
+
+
+#configure: configure.ac
+#	autoconf
+#	touch -r configure configure.ac
+
+config.status:
+	dh_testdir
+
+	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
+		--prefix=/usr \
+		--with-cppunit-prefix=/usr \
+		--with-gnu-ld \
+		--disable-rpath
+		
+
+build: build-stamp
+build-stamp: patch-stamp config.status
+	dh_testdir
+
+	# Compile the package.
+	$(MAKE) LDFLAGS=-Wl,--as-needed
+
+	touch build-stamp
+
+clean: unpatch
+	dh_testdir
+	dh_testroot
+	rm -f config.log
+
+	# Clean up after the build process.
+	[ -f Makefile ] && $(MAKE) distclean || true
+	dh_clean 
+
+	rm -f Makefile
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+
+	# Install the package into debian/tmp
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
+
+# (dh_install will take care of it)
+#	find $(CURDIR)/doc/full/html/ -type f \
+#		-exec chmod 644 {} \;
+	find $(CURDIR)/include/smbios -type f \
+		-exec chmod 644 {} \;
+	$(RM) -f debian/libsmbios-dev/usr/include/smbios/config/boost_LICENSE_1_0_txt
+
+	dh_installman -plibsmbios-bin
+	for file in $(CURDIR)/debian/tmp/usr/sbin/* ; do \
+		exename=`basename $${file}` ; \
+		ln -s smbios-bin.1 \
+			$(CURDIR)/debian/libsmbios-bin/usr/share/man/man1/$${exename}.1 ; \
+	done
+
+	# Install additional license file
+	for p in $(PACKAGES); do \
+		dh_installdocs -p$$p COPYING-OSL ; \
+	done
+	
+#	dh_install
+
+
+# Build architecture-independent files here.
+binary-indep: build install
+	dh_testdir
+	dh_install -i
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs 
+	dh_installdocs
+	dh_installexamples
+	dh_install -a
+#	dh_installdebconf	
+#	dh_installinfo
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_makeshlibs
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure

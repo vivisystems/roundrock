@@ -1,0 +1,13 @@
+delete from acl_group_roles;
+.import acl_group_roles.csv acl_group_roles
+
+delete from acl_groups;
+.import acl_groups.csv acl_groups
+
+delete from acl_roles;
+.import acl_roles.csv acl_roles
+
+delete from acl_users;
+.import acl_users.csv acl_users
+
+

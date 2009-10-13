@@ -1,0 +1,75 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          printers2pty
+# Required-Start:    $remote_fs $network
+# Required-Stop:     $remote_fs $network
+# Should-Start:      fam
+# Should-Stop:       fam
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Mapping the CUPS printers to pty.
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+NAME=printers2pty
+DESC="printers2pty"
+SCRIPTNAME=/etc/init.d/$NAME
+SSD="/sbin/start-stop-daemon"
+
+LPR2PTY="/usr/sbin/lpr2pty"
+
+test -x $LPR2PTY || exit 0
+
+set -e
+
+# be sure there is a /var/run/lighttpd, even with tmpfs
+mkdir -p /var/run/printers2pty > /dev/null 2> /dev/null
+
+. /lib/lsb/init-functions
+
+RESULT=0
+
+case "$1" in
+    start)
+        log_daemon_msg "Starting $DESC" $NAME
+		PIDFILE="/var/run/printers2pty.pid"
+		start-stop-daemon --start --quiet --pidfile $PIDFILE -m --background --exec $LPR2PTY --
+		RESULT=$(($?+$RESULT))
+
+		if [ "$RESULT" -eq "0" ]; then
+			log_end_msg 0;
+		else 
+			log_end_msg 1;
+		fi       
+        ;;
+    stop)
+        log_daemon_msg "Stopping $DESC" $NAME
+		PIDFILE="/var/run/printers2pty.pid"
+		start-stop-daemon --stop --quiet --oknodo --retry 3 --pidfile $PIDFILE
+		RESULT=$(($?+$RESULT))
+		if [ "$?" -eq "0" ]; then
+			if [ -f $PIDFILE ]; then 
+				rm -f $PIDFILE
+			fi
+			# kill socat pid
+			rm -f /tmp/CUPS/*
+		fi
+
+		if [ "$RESULT" -eq "0" ]; then
+			log_end_msg 0;
+		else 
+			log_end_msg 1;
+		fi       
+        ;;
+    restart|force-reload)
+        $0 stop
+	sleep 3;
+        $0 start
+        ;;
+    *)
+        echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
+        exit 1
+        ;;
+esac
+
+exit 0

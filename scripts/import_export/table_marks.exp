@@ -1,0 +1,2 @@
+.mode insert table_marks
+select * from table_marks;

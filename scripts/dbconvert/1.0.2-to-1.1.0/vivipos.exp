@@ -1,0 +1,48 @@
+.mode insert categories
+.output categories.sql
+select id,no,name,rate,button_color,font_size,visible,cansale,created,modified,display_order from categories;
+
+.mode insert clock_stamps
+.output clock_stamps.sql
+select id,username,clockin,job,clockout,clockin_time,created,modified,clockout_time,'' from clock_stamps;
+
+.mode insert combine_taxes
+.output combine_taxes.sql
+select id,tax_id,combine_tax_id,created,modified from combine_taxes;
+
+.mode insert condiment_groups
+.output condiment_groups.sql
+select id,name,created,modified,seltype,0 from condiment_groups;
+
+.mode insert condiments
+.output condiments.sql
+select id,condiment_group_id,name,price,button_color,font_size,created,modified,preset from condiments;
+
+.mode insert jobs
+.output jobs.sql
+select id,jobname,created,modified from jobs;
+
+.mode insert plugroups
+.output plugroups.sql
+select id,name,description,created,modified,button_color,font_size,visible,display_order,routing,NULL,NULL from plugroups;
+
+.mode insert products
+.output products.sql
+select id,cate_no,no,name,barcode,rate,cond_group,buy_price,stock,min_stock,memo,min_sale_qty,sale_unit,setmenu,level_enable1,price_level1,halo1,lalo1,level_enable2,price_level2,halo2,lalo2,level_enable3,price_level3,halo3,lalo3,level_enable4,price_level4,halo4,lalo4,level_enable5,price_level5,halo5,lalo5,level_enable6,price_level6,halo6,lalo6,level_enable7,price_level7,halo7,lalo7,level_enable8,price_level8,halo8,lalo8,level_enable9,price_level9,halo9,lalo9,link_group,auto_maintain_stock,return_stock,force_condiment,force_memo,single,visible,button_color,font_size,age_verification,created,modified,icon_only,alt_name1,alt_name2,0,0,0 from products;
+
+.mode insert sequences
+.output sequences.sql
+select id,key,value,created,modified from sequences;
+
+.mode insert store_contacts
+.output store_contacts.sql
+select id,name,branch,contact,telephone1,telephone2,address1,address2,city,county,state,zip,country,fax,email,note,terminal_no,branch_id from store_contacts;
+
+.mode insert taxes
+.output taxes.sql
+select id,no,name,type,rate,rate_type,threshold,created,modified from taxes;
+
+.mode insert users
+.output users.sql
+select id,username,displayname,"group",password,default_price_level,item_discount_limit,order_discount_limit,item_surcharge_limit,order_surcharge_limit,max_plu_qty,max_plu_price,item_coupon_limit,order_coupon_limit,max_cash_check,min_check,max_check,max_open_checks,created,modified,job_id,drawer from users;
+

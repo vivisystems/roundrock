@@ -1,0 +1,38 @@
+begin;
+delete from categories;
+.read categories.sql
+
+delete from combine_taxes;
+.read combine_taxes.sql
+
+delete from condiment_groups;
+.read condiment_groups.sql
+
+delete from condiments;
+.read condiments.sql
+
+delete from jobs;
+.read jobs.sql
+
+delete from ledger_entry_types;
+.read ledger_entry_types.sql
+
+delete from plugroups;
+.read plugroups.sql
+
+delete from products;
+.read products.sql
+
+delete from sequences;
+.read sequences.sql
+
+delete from store_contacts;
+.read store_contacts.sql
+
+delete from taxes;
+.read taxes.sql
+
+delete from users;
+.read users.sql
+
+commit;

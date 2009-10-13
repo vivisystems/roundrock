@@ -1,8 +1,13 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "dallas.h"
 
 #include "w627gpio.h"
 
-#define _OW_TIME_OUT 1000
+#define _OW_TIME_OUT 30
+#define _OW_RESET_TIME_OUT 10
+
 
 static unsigned char gpio_port = GPIO_13; //GPIO_57;
 
@@ -179,14 +184,27 @@ inline unsigned char ow_readbyte(void)
 
 int ow_init(void)
 {
+
     // get gpio port
-    if (iopl(3) != 0) return -1;
+    if (iopl(3) != 0) return -1;
     // set gpio
     //
     Superio_Enter_Config();
     pgW627(gpio_port);
     // ow_set(1);
-    return ow_reset();
+
+    int result = 0;
+    int i_time_out = 0;
+
+    while(result = ow_reset()) {
+            if (++i_time_out == _OW_RESET_TIME_OUT) break;
+            uusleep(100000);
+    }
+	if (i_time_out == _OW_RESET_TIME_OUT) {
+		// printf("initialing dallas timeout\n");
+		result = -1;	
+	}
+    return result;
 }
 
 int ow_close(void)
@@ -242,11 +260,15 @@ int ow_read(unsigned char *buf) {
     }
 
     if (result == 0) {
-	    while(ow_read8crc(buf))
-		if (++i_time_out == _OW_TIME_OUT) break;
+	    while(ow_read8crc(buf)) {
+                if (++i_time_out == _OW_TIME_OUT) break;
+                // delay for reinit
+                uusleep(100000);
+            }
 
 	    if (i_time_out == _OW_TIME_OUT) {
-		result = -3;
+			// printf("reading dallas timeout\n");
+			result = -3;
 	    }
     }
     ow_close();

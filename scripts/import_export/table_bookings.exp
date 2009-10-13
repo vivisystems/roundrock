@@ -1,0 +1,2 @@
+.mode insert table_bookings
+select * from table_bookings;

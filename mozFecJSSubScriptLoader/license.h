@@ -27,6 +27,7 @@ int mac_addr_sys ( char *addr);
 int getDallas(char *buf);
 int checkDallas();
 int getLicenseStubKey(char *buf);
+int getLicenseStubKeyEx(char *buf, const char *dallas, const char *system_name, const char *vendor_name, const char *mac);
 int getLicenseFromStubKey(const char *stub, char *buf);
 int getLicenseFromDallas(char *buf);
 int getLicenseFromFile(const char *file, char *buf);

@@ -17,7 +17,8 @@
  */
 
 #include "license.h"
-
+#include <stdlib.h>
+#include <string.h>
 
 int
 main (int argc, char **argv)
@@ -35,25 +36,35 @@ main (int argc, char **argv)
     /* register algs, so they can be printed */
     register_algs();
 
-    getLicenseStubKey(license_tmp);
+    if (argc > 4) {
+        getLicenseStubKeyEx(license_tmp, argv[1], argv[2], argv[3], argv[4]);
+
+        strcpy(dallas, argv[1]);
+        strcpy(system_name, argv[2]);
+        strcpy(vendor_name, argv[3]);
+        strcpy(mac, argv[4]);
+
+    }else {
+        getLicenseStubKey(license_tmp);
+
+        getDallas(dallas);
+        getSystemName(system_name);
+        getVendorName(vendor_name);
+        mac_addr_sys(mac);
+
+    }
 
     if(verbose) {
     
-        getDallas(dallas);
-        printf("dallas = %s \n", dallas);
+        printf("dallas=%s\n", dallas);
 
-        getSystemName(system_name);
-        printf("system = %s \n", system_name);
+        printf("system_name=%s\n", system_name);
 
-        getVendorName(vendor_name);
-        printf("vendor = %s \n", vendor_name);
+        printf("vendor_name=%s\n", vendor_name);
 
-        mac_addr_sys(mac);
-        printf("mac address = %s \n", mac);
+        printf("mac_address=%s\n", mac);
 
-        getLicenseStubKey(license_tmp);
-        printf("license stub= %s \n", license_tmp);
-
+        printf("license_stub=%s\n", license_tmp);
 
     }else {
         printf("%s", license_tmp);

@@ -1,0 +1,3 @@
+begin;
+delete from table_statuses;
+commit;

@@ -1,0 +1,1 @@
+CREATE TABLE "journal" ("id" VARCHAR PRIMARY KEY  NOT NULL ,"created" INTEGER,"modified" INTEGER,"branch" VARCHAR,"terminal_no" VARCHAR,"order_id" VARCHAR,"void_clerk_displayname" VARCHAR,"void_time" INTEGER,"void_terminal_no" VARCHAR,"status" INTEGER,"invoice_no" VARCHAR,"sequence" INTEGER,"prn_file" VARCHAR,"preview_file" VARCHAR);

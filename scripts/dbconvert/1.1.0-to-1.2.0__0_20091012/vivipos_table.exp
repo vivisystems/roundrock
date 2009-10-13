@@ -1,0 +1,8 @@
+.mode list table_regions
+.output table_regions.csv
+SELECT "id","name","image" FROM table_regions;
+
+.mode list tables
+.output tables.csv
+SELECT "id","table_no","table_name","table_region_id","seats","active","tag","destination","minimum_charge_per_table","minimum_charge_per_guest","" FROM tables;
+

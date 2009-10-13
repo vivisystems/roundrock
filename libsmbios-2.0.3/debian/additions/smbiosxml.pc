@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=/usr/bin
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: smbiosxml
+Description: Open BIOS access (XML wrapper)
+Version: 0.10.6
+
+Requires.private: xerces
+Libs: -L${libdir} -lsmbiosxml -lsmbios
+Cflags: -I${includedir}/smbios

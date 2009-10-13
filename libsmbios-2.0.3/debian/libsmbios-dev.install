@@ -1,0 +1,4 @@
+debian/tmp/usr/lib/libsmbios.so	usr/lib
+debian/tmp/usr/lib/libsmbios.a	usr/lib
+debian/tmp/usr/lib/libsmbios.la	usr/lib
+include/smbios/*		usr/include/smbios

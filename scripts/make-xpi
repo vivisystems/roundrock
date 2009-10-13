@@ -1,0 +1,15 @@
+rm -f scripts_*.xpi
+
+rel_date=`date +'%Y%m%d%H%M%S'`
+version=`cat VERSION`	
+filename=scripts_${version}_${rel_date}.xpi
+
+reg="s/<em:version>.*<\/em:version>/<em:version>${version}.${rel_date}<\/em:version>/g"
+
+if [ "$1" != "no" ]; then
+  sed $reg install.rdf > install-new.rdf
+  mv install-new.rdf install.rdf
+fi
+
+zip -r ${filename} chrome.manifest install.rdf *.sh
+

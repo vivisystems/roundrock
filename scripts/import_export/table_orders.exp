@@ -1,0 +1,2 @@
+.mode insert table_orders
+select * from table_orders;

@@ -1,0 +1,173 @@
+libraries/common/libraries_libsmbios_la-ascii2enUS_scancode.lo \
+  libraries/common/libraries_libsmbios_la-ascii2enUS_scancode.o:  \
+ libraries/common/ascii2enUS_scancode.cpp include/smbios/compat.h \
+  include/smbios/config.hpp include/smbios/config/user.hpp \
+  include/smbios/config/select_compiler_config.hpp \
+  include/smbios/config/compiler/gcc.hpp \
+  include/smbios/config/select_stdlib_config.hpp \
+  /usr/include/c++/4.2/utility \
+  /usr/include/c++/4.2/i486-linux-gnu/bits/c++config.h \
+  /usr/include/c++/4.2/i486-linux-gnu/bits/os_defines.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/include/c++/4.2/i486-linux-gnu/bits/cpu_defines.h \
+  /usr/include/c++/4.2/bits/stl_relops.h \
+  /usr/include/c++/4.2/bits/stl_pair.h \
+  include/smbios/config/stdlib/libstdcpp2.hpp \
+  include/smbios/config/select_platform_config.hpp \
+  include/smbios/config/platform/linux.hpp /usr/include/c++/4.2/cstdlib \
+  /usr/include/c++/4.2/cstddef \
+  /usr/lib/gcc/i486-linux-gnu/4.2.3/include/stddef.h \
+  /usr/include/stdlib.h /usr/include/bits/waitflags.h \
+  /usr/include/bits/waitstatus.h /usr/include/endian.h \
+  /usr/include/bits/endian.h /usr/include/xlocale.h \
+  /usr/include/sys/types.h /usr/include/bits/types.h \
+  /usr/include/bits/typesizes.h /usr/include/time.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h include/smbios/config/posix_features.hpp \
+  /usr/include/unistd.h /usr/include/bits/posix_opt.h \
+  /usr/include/bits/environments.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h include/smbios/config/suffix.hpp \
+  /usr/lib/gcc/i486-linux-gnu/4.2.3/include/limits.h \
+  /usr/lib/gcc/i486-linux-gnu/4.2.3/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
+  /usr/include/bits/stdio_lim.h include/smbios/config/auto_link.hpp \
+  /usr/include/string.h include/smbios/SystemInfo.h /usr/include/stdio.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i486-linux-gnu/4.2.3/include/stdarg.h \
+  /usr/include/bits/sys_errlist.h
+
+include/smbios/compat.h:
+
+include/smbios/config.hpp:
+
+include/smbios/config/user.hpp:
+
+include/smbios/config/select_compiler_config.hpp:
+
+include/smbios/config/compiler/gcc.hpp:
+
+include/smbios/config/select_stdlib_config.hpp:
+
+/usr/include/c++/4.2/utility:
+
+/usr/include/c++/4.2/i486-linux-gnu/bits/c++config.h:
+
+/usr/include/c++/4.2/i486-linux-gnu/bits/os_defines.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-32.h:
+
+/usr/include/c++/4.2/i486-linux-gnu/bits/cpu_defines.h:
+
+/usr/include/c++/4.2/bits/stl_relops.h:
+
+/usr/include/c++/4.2/bits/stl_pair.h:
+
+include/smbios/config/stdlib/libstdcpp2.hpp:
+
+include/smbios/config/select_platform_config.hpp:
+
+include/smbios/config/platform/linux.hpp:
+
+/usr/include/c++/4.2/cstdlib:
+
+/usr/include/c++/4.2/cstddef:
+
+/usr/lib/gcc/i486-linux-gnu/4.2.3/include/stddef.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/bits/waitflags.h:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/sys/sysmacros.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+/usr/include/alloca.h:
+
+include/smbios/config/posix_features.hpp:
+
+/usr/include/unistd.h:
+
+/usr/include/bits/posix_opt.h:
+
+/usr/include/bits/environments.h:
+
+/usr/include/bits/confname.h:
+
+/usr/include/getopt.h:
+
+include/smbios/config/suffix.hpp:
+
+/usr/lib/gcc/i486-linux-gnu/4.2.3/include/limits.h:
+
+/usr/lib/gcc/i486-linux-gnu/4.2.3/include/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/bits/posix2_lim.h:
+
+/usr/include/bits/xopen_lim.h:
+
+/usr/include/bits/stdio_lim.h:
+
+include/smbios/config/auto_link.hpp:
+
+/usr/include/string.h:
+
+include/smbios/SystemInfo.h:
+
+/usr/include/stdio.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/usr/include/wchar.h:
+
+/usr/lib/gcc/i486-linux-gnu/4.2.3/include/stdarg.h:
+
+/usr/include/bits/sys_errlist.h:

@@ -1,0 +1,28 @@
+Source: pmount
+Section: utils
+Priority: optional
+Maintainer: Vincent Fourmond <fourmond@debian.org>
+Build-Depends: cdbs, debhelper (>= 4.1.0), libsysfs-dev, 
+ libhal-dev (>= 0.5.2), libhal-storage-dev (>= 0.5.2), 
+ intltool, dpatch, libblkid-dev
+Standards-Version: 3.8.0
+Vcs-Git: git://git.debian.org/pmount/pmount-debian.git
+Vcs-Browser: http://git.debian.org/?p=pmount/pmount-debian.git
+
+Package: pmount
+Architecture: any
+Depends: ${shlibs:Depends}
+Suggests: hal, cryptsetup (>= 1.0)
+Description: mount removable devices as normal user
+ pmount is a wrapper around the standard mount program which permits normal
+ users to mount removable devices without a matching /etc/fstab entry. This
+ provides a robust basis for automounting frameworks like GNOME's Utopia
+ project and confines the amount of code that runs as root to a minimum.
+ .
+ This package also contains a wrapper "pmount-hal" which reads some
+ information like device labels and mount options from hal and passes
+ them to pmount. Install the package "hal" if you want to use this
+ feature.
+ .
+ If a LUKS capable cryptsetup package is installed, pmount is able to
+ transparently mount encrypted volumes.

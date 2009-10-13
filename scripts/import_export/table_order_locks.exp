@@ -1,0 +1,2 @@
+.mode insert table_order_locks
+select * from table_order_locks;
