@@ -366,6 +366,7 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
     SerPort * serPort = serFindPort(portName);
     if (serPort == NULL)
     {
+		printf("PORTCONTROL_ERROR_NOT_OPEN.. \n");
         return PORTCONTROL_ERROR_NOT_OPEN;
     }
 
@@ -401,6 +402,7 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
                 }
                 else
                 {
+					printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
                     return PORTCONTROL_ERROR_IO_FAIL;
                 }
 
@@ -444,15 +446,31 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
 	
 		    if (partialWriteLength == -1) {
 				// error to write
+				printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
 		        return PORTCONTROL_ERROR_IO_FAIL;
 		    }
 
 		    totalWriteLength += partialWriteLength;
 
-		    if (tcdrain(serPort->port) != 0) {
-				// error to drain buffer
-		        return PORTCONTROL_ERROR_IO_FAIL;
-		    }
+			int portStatus = 0;
+            if (ioctl(serPort->port, TIOCMGET, &portStatus) == 0)
+			{
+                    if ( /*(portStatus & TIOCM_DSR) != 0  ||*/ (portStatus & TIOCM_CTS) != 0 )
+                    {
+						printf("before tcdrain .. \n");
+						if (tcdrain(serPort->port) != 0) {
+							// error to drain buffer
+							printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
+							return PORTCONTROL_ERROR_IO_FAIL;
+						}
+						printf("after tcdrain success.. \n");
+                    }
+            }
+            else
+            {
+  				    printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
+                    return PORTCONTROL_ERROR_IO_FAIL;
+            }
 
 		    if (partialWriteLength > 0)
 		    {
