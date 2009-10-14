@@ -1011,6 +1011,8 @@
          */
         newTable: function(table_id) {
             
+            this.hideOrderDisplayPanel();
+
             let table = this.Table.getTableById(table_id);
             let tableStatus = this.Table.TableStatus.getTableStatusById(table_id);
             let table_no = table.table_no;
