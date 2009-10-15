@@ -677,20 +677,24 @@
                 switch (item.name.toUpperCase()) {
 
                     case 'CREDITCARD':
-                        dispName = _(item.memo1);
+                        dispName = item.memo1;
+                        break;
+
+                    case 'CHECK':
+                        dispName = item.memo1;
                         break;
 
                     case 'COUPON':
-                        dispName = _(item.memo1);
+                        dispName = item.memo1;
                         break;
 
                     case 'GIFTCARD':
-                        dispName = _(item.memo1);
+                        dispName = item.memo1;
                         break;
 
                     case 'CASH':
                         if (item.memo1 != null && item.origin_amount != null) {
-                            dispName = _(item.memo1);
+                            dispName = item.memo1;
                             current_qty = item.origin_amount + 'X';
                             current_price = item.memo2;
                         }
