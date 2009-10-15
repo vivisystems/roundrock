@@ -33,7 +33,7 @@ ${'  ' + _( '(rpt)Number of Items/Order' ) + ':'|left:26}${body.sales_summary.Av
 ------------------------------------------
 ${_( '(rpt)Payment List' )}
 {for detail in body.payment_list.records}
-${'  ' + detail.name + ':'|left:26}${detail.total|default:0|viviFormatPrices:true|right:16}
+${'  ' + _('(rpt)' + detail.name) + ':'|left:26}${detail.total|default:0|viviFormatPrices:true|right:16}
 {for payment in detail.detail}
 ${'    ' + payment.memo1 + ':'|left:26}${payment.amount|default:0|viviFormatPrices:true|right:16}
 {/for}
