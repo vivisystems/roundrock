@@ -187,11 +187,13 @@
                                 promotions_tax_details[taxDetailsData.tax_no] = {
                                     tax_subtotal: 0,
                                     included_tax_subtotal: 0,
+                                    taxable_amount: 0,
                                     tax: promo_tax_details.tax
                                 };
                             }
                             promotions_tax_details[taxDetailsData.tax_no].tax_subtotal += promo_tax_details.charge;
                             promotions_tax_details[taxDetailsData.tax_no].included_tax_subtotal += promo_tax_details.included;
+                            promotions_tax_details[taxDetailsData.tax_no].taxable_amount += promo_tax_details.taxable_amount;
 
                         }
                     }
