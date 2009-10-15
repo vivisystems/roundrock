@@ -2999,9 +2999,7 @@
 
             var scaleController = GeckoJS.Controller.getInstanceByName('Scale');
             if (scaleController) {
-                //var weight = scaleController.readScale(number);
-                //@DEBUG
-                weight = {value: 12.34, unit: 'KG'};
+                var weight = scaleController.readScale(number);
 
                 if (weight == -1) {
                 // configuration error; alert already posted; do nothing here
