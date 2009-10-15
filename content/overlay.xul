@@ -70,6 +70,9 @@
   <!-- electronic journal controller-->
   <script src='chrome://viviecr/content/controllers/journal_controller.js' type="application/x-javascript;version=1.7"/>
 
+  <!-- barcode learning controller-->
+  <script src='chrome://viviecr/content/controllers/barcode_learning_controller.js' type="application/x-javascript;version=1.7"/>
+
   <!-- device controllers -->
   <script src='chrome://viviecr/content/controllers/devices_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/print_controller.js' type="application/x-javascript;version=1.7"/>
