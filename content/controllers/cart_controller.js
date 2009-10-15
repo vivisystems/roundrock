@@ -3218,6 +3218,9 @@
                         }
                         this.dispatchEvent('afterCancel', curTransaction);
                     }
+                    else {
+                        return;
+                    }
                 }
                 else {
                     // normal cancel, commit to databases.
