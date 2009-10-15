@@ -24,6 +24,17 @@
  * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
+    // fixed lighttpd rewrite url
+    if (ereg("\?", $_GET['url'])) {
+        $pos = strpos($_GET['url'], "?");
+        $new_url = substr($_GET['url'], 0, $pos);
+        $query_string = substr($_GET['url'], $pos+1);
+        parse_str($query_string, $query_strings); 
+        $_REQUEST['url'] = $_GET['url'] = $new_url;
+        $_GET = array_merge($_GET, $query_strings);
+        $_REQUEST = array_merge($_REQUEST, $query_strings);
+    }
+
 /**
  * Use the DS to separate the directories in other defines
  */
