@@ -175,7 +175,7 @@
             if (positivePriceRequired && curTransaction != null) {
                 sellPrice = curTransaction.checkSellPrice(item)
                 if (sellPrice <= 0) {
-                    NotifyUtils.warn(_('Product [%S] may not be registered with a price of [%S]!', [item.name, curTransaction.formatPrice(sellPrice)]));
+                    NotifyUtils.warn(_('Product [%S] may not be registered with a zero or negative price [%S]!', [item.name, curTransaction.formatPrice(sellPrice)]));
                     evt.preventDefault();
                     return;
                 }
@@ -1214,8 +1214,9 @@
             var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
 
             if (positivePriceRequired && curTransaction != null) {
-                if (curTransaction.checkSellPrice(itemTrans) <= 0) {
-                    NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
+                let sellPrice = curTransaction.checkSellPrice(itemTrans);
+                if (sellPrice <= 0) {
+                    NotifyUtils.warn(_('Product [%S] may not be modified to a zero or negative price [%S]', [itemTrans.name, curTransaction.formatPrice(sellPrice)]));
 
                     this._clearAndSubtotal();
                     return;
@@ -2281,7 +2282,7 @@
                 else {
                     payment = parseFloat(payment);
                     if (payment <= 0) {
-                        NotifyUtils.warn(_('Invalid payment amount [%S]. Payment amount must be positive', [payment]));
+                        NotifyUtils.warn(_('Invalid payment amount [%S]. Payment amount must be positive', [curTransaction.formatPrice(payment)]));
 
                         this._clearAndSubtotal();
                         return;
@@ -2642,11 +2643,14 @@
                     this._clearAndSubtotal();
                     return;
                 }
-                else if (amount < 0) {
-                    NotifyUtils.warn(_('Payment amount [%S] must not be negative', [amount]));
+                else {
+                    amount = parseFloat(amount);
+                    if (amount <= 0) {
+                        NotifyUtils.warn(_('Invalid payment amount [%S]. Payment amount must be positive', [curTransaction.formatPrice(amount)]));
 
-                    this._clearAndSubtotal();
-                    return;
+                        this._clearAndSubtotal();
+                        return;
+                    }
                 }
             }
             else if (returnMode) {
@@ -3381,9 +3385,20 @@
             this.dispatchEvent('afterPreFinalize', curTransaction);
         },
 
-        cash: function(argString) {
-            if (argString == null) argString = '';
-            var argArray = String(argString).split(',');
+
+        /*
+         * cash accepts up to 2 parameters:
+         *
+         * - amount
+         * - isGroupable
+         *
+         * if amount is 0, then the user must manually enter an amount
+         *
+         */
+
+        cash: function(args) {
+            if (args == null) args = '';
+            var argArray = String(args).split(',');
             var isGroupable = false;
             var amount = argArray[0];
 
@@ -3394,10 +3409,29 @@
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
-            if (buf.length>0) {
-                if (!amount) amount = buf;
+            // if amount is not defined or amount is not a valid number, set amount to buffer
+
+            let payment;
+            if (amount == null || amount == '' || amount == '0' || isNaN(amount)) {
+                payment = buf;
             }
-            this._addPayment('cash', amount, null, null, null, isGroupable);
+            else {
+                payment = amount;
+            }
+
+            // if amount is 0, verify that buffer is not empty and contains a valid number
+            if (amount == '0') {
+                if (payment == null || payment == '') {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Payment Warning'),
+                                          _('Tender entry is compulsory for this payment type, please enter an amount first'));
+                    this._clearAndSubtotal();
+                    return;
+                }
+            }
+
+            // make sure payment is a valid number
+            this._addPayment('cash', payment, null, null, null, isGroupable);
         },
 
         insertCondiment: function(params) {
