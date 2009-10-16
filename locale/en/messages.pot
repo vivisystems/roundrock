@@ -396,6 +396,9 @@ msgstr "Other"
 msgid "(rpt)cash"
 msgstr "Cash"
 
+msgid "(rpt)   - cash"
+msgstr "   - Cash"
+
 msgid "(rpt)giftcard"
 msgstr "Giftcard"
 
