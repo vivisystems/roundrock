@@ -2302,12 +2302,25 @@
 
         hasPaymentsInBatch: function(batch) {
             if (batch == null) batch = this.data.batchCount;
-            for (var index in this.data.trans_payments) {
-                if (this.data.trans_payments[index].batch == batch) {
+            for (let i in this.data.display_sequences) {
+                let displayItem = this.data.display_sequences[i];
+                if (displayItem.type == 'payment' && displayItem.batch == batch) {
                     return true;
                 }
             }
             return false;
+        },
+
+        getPaymentsInBatch: function(batch) {
+            let paymentList = [];
+
+            if (batch == null) batch = this.data.batchCount;
+            this.data.display_sequences.forEach(function(displayItem) {
+                if (displayItem.type == 'payment' && displayItem.batch == batch) {
+                    paymentList.push(this.data.trans_payments[displayItem.index]);
+                }
+            }, this);
+            return paymentList;
         },
 
         getDisplaySeqCount: function(){

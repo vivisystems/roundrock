@@ -2371,6 +2371,27 @@ msgstr "Telephone"
 
 ########################################################################
 #
+# Cash drawer event types
+#
+########################################################################
+
+msgid "(drawer)finalization"
+msgstr "Finalization"
+
+msgid "(drawer)store"
+msgstr "Store Check"
+
+msgid "(drawer)payment"
+msgstr "Payment"
+
+msgid "(drawer)nosale"
+msgstr "No Sale"
+
+msgid "(drawer)ledger"
+msgstr "Ledger"
+
+########################################################################
+#
 # Ledger Entry Types
 #
 ########################################################################
