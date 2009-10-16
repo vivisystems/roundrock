@@ -2448,7 +2448,9 @@
                         if (payment - balance > limit) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Check Payment Error'),
-                                _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                                (limit > 0) ? _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]) :
+                                              _('You are not authorized to cash checks')
+                            );
 
                             this._clearAndSubtotal();
                             return;
