@@ -610,10 +610,14 @@
                 return false;
             }
 
+            /*
+             * force store check to webservices.
+             * if not modified , not update batch and lockItems.
             if (!curTransaction.isModified()) {
                 NotifyUtils.warn(_('No change to store'));
                 return false;
             }
+            */
 
             // save order
             if  (cart.submit(2)) {
