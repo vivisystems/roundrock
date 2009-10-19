@@ -62,3 +62,9 @@ Bug #95:
 Bug #98:
     Mass discount & mass surcharge function ACL issues
 
+Bug #100:
+    Discount/Surcharge names should not be passed through localization
+
+Bug #101:
+    Non-discountable/non-surchargeable checks should be done in cart, not in
+    transaction.
