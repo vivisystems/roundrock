@@ -1992,7 +1992,7 @@
         },
 
         addMarker: function(type) {
-            type = type || _('subtotal');
+            type = type || 'subtotal';
 
             var curTransaction = this._getTransaction();
 

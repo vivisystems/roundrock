@@ -525,7 +525,6 @@
 
             type = type || 'item';
 
-            // _('Trans');
             var itemDisplay = {} ;
             var dispName;
             if (type == 'item') {
@@ -571,7 +570,7 @@
                 });
             }else if (type == 'discount') {
                 if (item.discount_name && item.discount_name.length > 0) {
-                    dispName = _(item.discount_name);
+                    dispName = item.discount_name;
                 }
                 else {
                     dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
@@ -590,7 +589,7 @@
                 });
             }else if (type == 'trans_discount') {
                 if (item.discount_name != null && item.discount_name.length > 0) {
-                    dispName = _(item.discount_name);
+                    dispName = item.discount_name;
                 }
                 else {
                     dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
@@ -609,7 +608,7 @@
                 });
             }else if (type == 'surcharge') {
                 if (item.surcharge_name && item.surcharge_name.length > 0) {
-                    dispName = _(item.surcharge_name);
+                    dispName = item.surcharge_name;
                 }
                 else {
                     dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
@@ -628,7 +627,7 @@
                 });
             }else if (type == 'trans_surcharge') {
                 if (item.surcharge_name && item.surcharge_name.length > 0) {
-                    dispName = _(item.surcharge_name);
+                    dispName = item.surcharge_name;
                 }
                 else {
                     dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
@@ -677,25 +676,25 @@
                 switch (item.name.toUpperCase()) {
 
                     case 'CREDITCARD':
-                        dispName = _(item.memo1);
+                        dispName = item.memo1;
                         break;
 
                     case 'COUPON':
-                        dispName = _(item.memo1);
+                        dispName = item.memo1;
                         break;
 
                     case 'GIFTCARD':
-                        dispName = _(item.memo1);
+                        dispName = item.memo1;
                         break;
 
                     case 'CASH':
                         if (item.memo1 != null && item.origin_amount != null) {
-                            dispName = _(item.memo1);
+                            dispName = item.memo1;
                             current_qty = item.origin_amount + 'X';
                             current_price = item.memo2;
                         }
                         else
-                            dispName = _(item.name.toUpperCase());
+                            dispName = _('CASH');
                         break;
 
                     default:
