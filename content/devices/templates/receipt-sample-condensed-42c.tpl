@@ -38,7 +38,7 @@ ${'Terminal:'|left:10}${order.terminal_no|left:10} ${'Clerk:'|left:6}${order.pro
 {/if}
 {if order.promotion_subtotal != 0}${'Promotion:'|left:15} ${order.promotion_subtotal|viviFormatPrices:true|right:26}
 {/if}
-${'Tax:'|left:15} ${order.tax_subtotal|viviFormatPrices:true|right:26}
+${'Tax:'|left:15} ${order.tax_subtotal|viviFormatTaxes:true|right:26}
 ${'Total:'|left:15} ${order.total|viviFormatPrices:true|right:26}
 [&CR]
 ${'Received:'|left:15} ${receivePayment|viviFormatPrices:true|right:26}
