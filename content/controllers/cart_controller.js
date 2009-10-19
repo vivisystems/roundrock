@@ -962,6 +962,13 @@
                 return;
             }
 
+            // preprocess barcode for extension usage...
+            var event = {
+                barcode: barcode
+            }
+            if (!this.dispatchEvent('barcodeFired', event)) {
+                return;
+            }
             // NON-PLU13
             var identifier = this.Barcode.getNONPLU13Identifier(barcode);
             if (identifier) {
@@ -978,6 +985,18 @@
                     var pluno = barcode.substr(2, identifierObj.length_of_field1);
 
                     var field2 = barcode.substr(2 + parseInt(identifierObj.length_of_field1) + check_digit, identifierObj.length_of_field2) / Math.pow(10, identifierObj.decimal_point_of_field2);
+
+                    // for extension usage...
+                    event = {
+                        identifier: identifier,
+                        identifierObj: identifierObj,
+                        barcode: barcode,
+                        pluno: pluno,
+                        field2: field2
+                    }
+                    if (!this.dispatchEvent('nonPluFired', event)) {
+                        return;
+                    }
 
                     barcode = pluno;
                 }
@@ -1526,34 +1545,6 @@
 
             this._addDiscount(discountAmount, '%', discountName);
         },
-
-        addMassDiscountByPercentage: function(args) {
-            var discountAmount;
-            var discountName;
-
-            if (args != null && args != '') {
-                var argList = args.split(',');
-                if (argList.length > 0) discountAmount = argList[0];
-                if (argList.length > 1) discountName = argList[1];
-            }
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            if ((discountAmount == null || discountAmount == '') && buf.length>0) {
-                discountAmount = buf;
-            }
-
-            if (discountName == null || discountName == '') {
-                discountName = '-' + discountAmount + '%';
-            }
-
-            this._addMassDiscount(discountAmount, '%', discountName);
-        },
-
 
         addMassDiscountByPercentage: function(args) {
             var discountAmount;
