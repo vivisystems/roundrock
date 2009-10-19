@@ -354,7 +354,11 @@
 
             if (!discard) {
 
-                this.lockItems();
+                // force storeCheck to using webservice
+                if (this.isModified()) {
+                    // lockItems and update batch
+                    this.lockItems();
+                }
 
                 // order save in main thread
                 var order = new OrderModel();
