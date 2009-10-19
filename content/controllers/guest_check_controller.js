@@ -647,9 +647,13 @@
             var cart = this.getCartController();
 
             if (cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Please close the current order before recalling an existing order'));
-                cart._clearAndSubtotal();
-                return false;
+                // check txn is modified ?
+                var txn = cart._getTransaction();
+                if (txn && txn.isModified()) {
+                    NotifyUtils.warn(_('Please close the current order before recalling an existing order'));
+                    cart._clearAndSubtotal();
+                    return false;
+                }
             }
 
             return true;
