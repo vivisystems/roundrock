@@ -4,7 +4,7 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>webapp@firich.com.tw</em:id>
         <em:name>VIVIPOS WebApp and WebServices</em:name>
-        <em:version>1.2.0.0</em:version>
+        <em:version>1.2.0.1</em:version>
         <em:description></em:description>
         <em:creator>FIRICH VIVIPOS TEAM</em:creator>
         <em:homepageURL>http://www.firich.com.tw/</em:homepageURL>
@@ -12,11 +12,11 @@
         <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6prvsPdRm+3c4etUSLoJVT5GyYUogo5c5L3dyWgu3yu6weYS9q5aQBlbSFVyfCyIfexacXanGFqVRuBvpVq5Px6LpjisHvXukknGnY6nr5S1zelV9CXgv+17mTMVPpxCUEe2oVB3AFX+l+XWx4fUdW3sTX+uSHo/Pno+8PD79FQIDAQAB</em:updateKey>
 
         <em:targetApplication>
-          <!-- Toolkit -->
+          <!-- VIVIPOS APP ENGINE -->
           <Description>
-            <em:id>toolkit@mozilla.org</em:id>
-            <em:minVersion>1.9a1</em:minVersion>
-            <em:maxVersion>1.9.*</em:maxVersion>
+              <em:id>{7aacc14f-1abc-4243-b48e-63b953c0476a}</em:id>
+            <em:minVersion>1.2.0.0</em:minVersion>
+            <em:maxVersion>1.2.*</em:maxVersion>
           </Description>
         </em:targetApplication>
         
