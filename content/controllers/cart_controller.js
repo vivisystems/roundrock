@@ -1633,6 +1633,14 @@
                     this._clearAndSubtotal();
                     return;
                 }
+                let non_discountable = this.Product.isNonDiscountable(itemTrans.id, false);
+
+                if (non_discountable) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Discount Error'),
+                                          _('Product [%S] is non-discountable', [itemTrans.name]));
+                    return;
+                }
             }
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
@@ -1883,6 +1891,14 @@
                     NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
 
                     this._clearAndSubtotal();
+                    return;
+                }
+                let non_surchargeable = this.Product.isNonSurchargeable(itemTrans.id, false);
+
+                if (non_surchargeable) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Surcharge Error'),
+                                          _('Product [%S] is non-surchargeable', [itemTrans.name]));
                     return;
                 }
             }
