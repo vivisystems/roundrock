@@ -93,7 +93,7 @@ class TableStatus extends AppModel {
                         $data['mark'] = $mark['name'];
                         $data['mark_op_deny'] = $mark['opdeny'];
                         $data['start_time'] = time();
-                        $data['end_time'] = time() + ($mark['period']>0:$mark['period']*60:86400*365);
+                        $data['end_time'] = time() + ($mark['period']>0?$mark['period']*60:86400*365);
                         $data['status'] = 3;
                     }
                 }
@@ -306,7 +306,7 @@ class TableStatus extends AppModel {
 
         $data = array('id'=> $tableId, 'table_id'=> $tableId, 'table_no'=> $tableNo,
             'status'=>3, 'mark' => $mark['name'] , 'mark_op_deny'=> $mark['opdeny'], 'mark_user'=> $clerk,
-            'start_time'=>time(), 'end_time'=>time() + ($mark['period']>0:$mark['period']*60:86400*365),
+            'start_time'=>time(), 'end_time'=>time() + ($mark['period']>0?$mark['period']*60:86400*365),
             'modified' => (double)(microtime(true)*1000)
         );
 
@@ -390,7 +390,7 @@ class TableStatus extends AppModel {
 
                 $data = array('id'=> $tableId, 'table_id'=> $tableId, 'table_no'=> $tableNo,
                     'status'=>3, 'mark' => $mark['name'] , 'mark_op_deny'=> $mark['opdeny'], 'mark_user'=> $clerk,
-                    'start_time'=>time(), 'end_time'=>time() + ($mark['period']>0:$mark['period']*60:86400*365),
+                    'start_time'=>time(), 'end_time'=>time() + ($mark['period']>0?$mark['period']*60:86400*365),
                     'modified' => (double)(microtime(true)*1000)
                 );
 
