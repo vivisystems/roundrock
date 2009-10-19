@@ -1,0 +1,64 @@
+Release 1.2.0.2
+---------------
+
+This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
+
+Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
+
+Bugs fixed
+----------
+
+Bug #71:
+    Sample receipt templates do not format taxes properly
+
+Bug #72:
+    Storing a check with payment does not automatically open the cash drawer
+
+Bug #73:
+    Upon import of ACL permissions, VARCHAR fields in acl tables may be
+    inadvertantly converted to numeric values
+
+Bug #79:
+    Employee check cashing limit of 0 is inconsistent with meaning of 0 in
+    discount/surcharge limits
+
+Bug #82:
+    Taxable amount not restored when order is recalled
+
+Bug #83:
+    Backing out of cancelling a stored order leaves cart in an erroneous
+    state
+
+Bug #84:
+    Merge Table icon not highlighted when selected
+
+Bug #87:
+    Void Sale needs to auto-popup Table selection panel if it is first
+    window
+
+Bug #88:
+    Store check need to support change of number of customers/destinations
+
+Bug #89:
+    Can't recall order if previous order in cart
+
+Bug #90:
+    Cart display of check payments is inconsistent with other payment types
+
+Bug #91:
+    Payment types not localized in shift change screen and in sales summary
+    report
+
+Bug #93:
+    Sales summary report from end of sale period screen has broken tax
+    summaries
+
+Bug #94:
+    Groupable payments not correctly localized in shift change reports
+
+Bug #95:
+    Models not passed through localization
+
+Bug #98:
+    Mass discount & mass surcharge function ACL issues
+
