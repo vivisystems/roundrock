@@ -705,12 +705,15 @@ class DboSqlite3 extends DboSource {
                 break;
             case 'INTEGER':
             case 'INT':
+                if(empty($value) && strlen($value.'')==0) return '';
                 return intval($value);
                 break;
             case 'FLOAT':
+                if(empty($value) && strlen($value.'')==0) return '';
                 return floatval($value);
                 break;
             case 'DOUBLE':
+                if(empty($value) && strlen($value.'')==0) return '';
                 return doubleval($value);
                 break;
         }
