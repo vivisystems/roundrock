@@ -29,13 +29,13 @@ var options;
         window.viewDetailHelper.getCellValue= function(row, col) {
             
             var text;
-            if (col.id == "type") {
-                text = _(this.data[row].type);
+            if (col.id == 'type') {
+                text = _('(rpt)' + this.data[row].type);
             }
-            else if (col.id == "amount" || col.id == 'excess_amount' || col.id == 'change') {
+            else if (col.id == 'amount' || col.id == 'excess_amount' || col.id == 'change' || col.id == 'origin_amount') {
 
                 var amt = this.data[row][col.id];
-                if (col.id != "amount") {
+                if (col.id != 'amount') {
                     try {
                         if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
                             return '';
