@@ -1633,6 +1633,14 @@
                     this._clearAndSubtotal();
                     return;
                 }
+                let non_discountable = this.Product.isNonDiscountable(itemTrans.id, false);
+
+                if (non_discountable) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Discount Error'),
+                                          _('Product [%S] is non-discountable', [itemTrans.name]));
+                    return;
+                }
             }
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
@@ -1885,6 +1893,14 @@
                     this._clearAndSubtotal();
                     return;
                 }
+                let non_surchargeable = this.Product.isNonSurchargeable(itemTrans.id, false);
+
+                if (non_surchargeable) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Surcharge Error'),
+                                          _('Product [%S] is non-surchargeable', [itemTrans.name]));
+                    return;
+                }
             }
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
@@ -1992,7 +2008,7 @@
         },
 
         addMarker: function(type) {
-            type = type || _('subtotal');
+            type = type || 'subtotal';
 
             var curTransaction = this._getTransaction();
 
@@ -3209,6 +3225,9 @@
                         }
                         this.dispatchEvent('afterCancel', curTransaction);
                     }
+                    else {
+                        return;
+                    }
                 }
                 else {
                     // normal cancel, commit to databases.
@@ -4000,6 +4019,10 @@
                 Transaction.removeRecoveryFile();
                 curTransaction.data.status = -2;
                 this.dispatchEvent('onWarning', _('Sale Voided'));
+                // remove current transaction from session
+                GeckoJS.Session.remove('current_transaction');
+                // dispatch onVoidSaleSuccess event
+                this.dispatchEvent('onVoidSaleSuccess', curTransaction);
             }
             else {
                 this.dispatchEvent('onWarning', _('Sale Not Voided'));
