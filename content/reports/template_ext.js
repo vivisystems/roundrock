@@ -17,7 +17,12 @@ if (typeof(TrimPath) != 'undefined') {
         $T.parseTemplate_etc.modifierDef['round'] = function (value, precision, policy) {
             precision = typeof precision != 'undefined' ? precision : 0;
             policy = policy || 'to-nearest-precision';
-            return GeckoJS.NumberHelper.round(value, precision, policy);
+            if (isNaN(value)) {
+                return value;
+            }
+            else {
+                return GeckoJS.NumberHelper.round(parseFloat(value), precision, policy);
+            }
         };
 
         // format modifier
