@@ -27,6 +27,7 @@
                 // popup table select panel
                 cart.addEventListener('onSubmitSuccess', this.onCartOnSubmitSuccess, this);
                 cart.addEventListener('onCancelSuccess', this.onCartOnCancelSuccess, this);
+                cart.addEventListener('onVoidSaleSuccess', this.onCartOnSubmitSuccess, this);
 
             }
 
