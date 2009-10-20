@@ -23,12 +23,14 @@
                 var aFeatures   = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=500';
 
                 var inputObj = {
-                    barcode:barcode, require_barcode:true,
-                    plu:pluNumber, require_plu:true,
-                    name:productName, require_name: true,
-                    price:price, require_price: true,
-                    tax:tax.name, require_tax: true, tax_rate: tax.no,
-                    department:department.name, require_department: true, department_no: department.no
+                    barcode:barcode,
+                    plu:pluNumber,
+                    name:productName,
+                    price:price,
+                    tax:tax.name,
+                    tax_rate: tax.no,
+                    department:department.name,
+                    department_no: department.no
                 };
                 GREUtils.Dialog.openWindow(
                     this.topmostWindow,
@@ -45,39 +47,43 @@
                     inputObj
                 );
 
-                var productModel = new ProductModel();
-                var prodData = {};
+                if(inputObj.ok == true) {
+                    var productModel = new ProductModel();
+                    var prodData = {};
 
-                prodData.id = '';
-                prodData.no = inputObj.plu;
-                prodData.name = inputObj.name;
-                prodData.cate_no = inputObj.department_no;
-                prodData.price_level1 = inputObj.price;
-                prodData.rate = inputObj.tax_rate;
-                prodData.barcode = inputObj.barcode;
-                prodData.visible = '0';
+                    prodData.id = '';
+                    prodData.no = inputObj.plu;
+                    prodData.name = inputObj.name;
+                    prodData.cate_no = inputObj.department_no;
+                    prodData.price_level1 = inputObj.price;
+                    prodData.rate = inputObj.tax_rate;
+                    prodData.barcode = inputObj.barcode;
+                    prodData.visible = '0';
 
-                var learningGroup = GeckoJS.Configure.read('vivipos.fec.settings.BarcodeLearningPLUGroup');
-                if(learningGroup != 'none') {
-                    prodData.link_group = learningGroup;
-                }
-
-                // inherit unit of sale from category if scale department
-                var departments = GeckoJS.Session.get('categories') || [];
-                for (var d in departments) {
-                    if(departments[d].no == prodData.cate_no) {
-                        var department = departments[d];
-                        break;
+                    var learningGroup = GeckoJS.Configure.read('vivipos.fec.settings.BarcodeLearningPLUGroup');
+                    if(learningGroup != 'none') {
+                        prodData.link_group = learningGroup;
                     }
-                }
-                if (department) {
-                    prodData.sale_unit = department.sale_unit;
-                }
 
-                var newProduct = productModel.save(prodData);
-                // need to retrieve product id
-                if (newProduct != null) {
-                    productModel.setProduct(newProduct.id, newProduct);
+                    // inherit unit of sale from category if scale department
+                    var departments = GeckoJS.Session.get('categories') || [];
+                    for (var d in departments) {
+                        if(departments[d].no == prodData.cate_no) {
+                            var department = departments[d];
+                            break;
+                        }
+                    }
+                    if (department) {
+                        prodData.sale_unit = department.sale_unit;
+                    }
+
+                    var newProduct = productModel.save(prodData);
+                    // need to retrieve product id
+                    if (newProduct != null) {
+                        productModel.setProduct(newProduct.id, newProduct);
+                    } else {
+                    }
+                } else {
                 }
             }catch(e){
                 this.log(e);

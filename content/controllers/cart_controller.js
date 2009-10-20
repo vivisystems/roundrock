@@ -1006,7 +1006,12 @@
                     } else {
                         var id = barcodesIndexes[barcode];
                         var product = this.Product.getProductById(id);
-                        event.product = product;
+                        if(product) {
+                            event.product = product;
+                        } else {
+                            event.error = true;
+                        }
+
                     }
                 }
 

@@ -8,7 +8,6 @@ var options;
     var price      = window.arguments[4];
     var tax        = window.arguments[5];
     var department = window.arguments[6];
-    var text0      = '';
     var inputObj   = window.arguments[7];
     
     /**
@@ -67,8 +66,6 @@ var options;
             document.getElementById('numpad').setAttribute('hidden', true);
         }
 
-        document.getElementById('text0').value = text0;
-
         document.getElementById('dialog-caption').setAttribute("label", caption0);
         document.getElementById('barcode_label').value    = barcode;
         document.getElementById('plu_label').value        = plu;
@@ -102,13 +99,13 @@ var options;
 
         doSetOKCancel(
             function(){
-                inputObj.barcode = GeckoJS.String.trim(document.getElementById('barcode_value').value);
-                inputObj.plu = GeckoJS.String.trim(document.getElementById('plu_value').value);
-                inputObj.name = GeckoJS.String.trim(document.getElementById('name_value').value);
-                inputObj.price = GeckoJS.String.trim(document.getElementById('price_value').value);
-                inputObj.tax = document.getElementById('tax_value').value;
-                inputObj.tax_rate = document.getElementById('tax_rate').value;
-                inputObj.department = document.getElementById('department_value').value;
+                inputObj.barcode       = GeckoJS.String.trim(document.getElementById('barcode_value').value);
+                inputObj.plu           = GeckoJS.String.trim(document.getElementById('plu_value').value);
+                inputObj.name          = GeckoJS.String.trim(document.getElementById('name_value').value);
+                inputObj.price         = GeckoJS.String.trim(document.getElementById('price_value').value);
+                inputObj.tax           = document.getElementById('tax_value').value;
+                inputObj.tax_rate      = document.getElementById('tax_rate').value;
+                inputObj.department    = document.getElementById('department_value').value;
                 inputObj.department_no = document.getElementById('department_no').value;
                 inputObj.ok = true;
                 return true;
@@ -120,7 +117,7 @@ var options;
         );
 
         //validateInput();
-
+        
         var textNodes = document.getElementsByTagName('textbox');
         if (textNodes != null && textNodes.length > 0) {
             for (var i = 0; i < textNodes.length; i++)
@@ -157,75 +154,29 @@ function clearFocusedElement(target) {
 
 
 function validateInput() {
-    var input0Required = true;
-    var input1Required = false;
     var validated = false;
-    var alphaOnly0 = false;
-    var numberOnly0 = false;
-    var alphanumeric0 = false;
-    var numberOnly1 = false;
-    var numericOnly1 = false;
-    var alphanumeric1 = false;
-    var digitOnly0 = false;
-    var digitOnly1 = false;
-    var alphaRE = /[^-\w]/;
-    var fixedLength0 = 0;
-    var fixedLength1 = 0;
 
-    if ('require0' in options) input0Required = options.require0;
-    if ('require1' in options) input1Required = options.require1;
-    if ('alphaOnly0' in options) alphaOnly0 = options.alphaOnly0;
-    if ('numberOnly0' in options) numberOnly0 = options.numberOnly0;
-    if ('numberOnly1' in options) numberOnly1 = options.numberOnly1;
-    if ('numericOnly1' in options) numericOnly1 = options.numericOnly1;
-    if ('digitOnly0' in options) digitOnly0 = options.digitOnly0;
-    if ('digitOnly1' in options) digitOnly1 = options.digitOnly1;
-    if ('fixedLength0' in options) fixedLength0 = options.fixedLength0;
-    if ('fixedLength1' in options) fixedLength1 = options.fixedLength1;
-    if ('alphanumeric0' in options) alphanumeric0 = options.alphanumeric0;
-    if ('alphanumeric1' in options) alphanumeric1 = options.alphanumeric1;
+    var barcode_value = document.getElementById('barcode_value').value || '';
+    var plu_value     = document.getElementById('plu_value').value || '';
+    var name_value    = document.getElementById('name_value').value || '';
+    var price_value   = document.getElementById('price_value').value || '';
+    var tax_rate      = document.getElementById('tax_rate') || '';
+    var department_no = document.getElementById('department_no') || '';
 
-    var input0 = document.getElementById('input0').value || '';
-    var input1 = document.getElementById('input1').value || '';
-
-    var trimmed0 = GeckoJS.String.trim(input0);
-    var trimmed1 = GeckoJS.String.trim(input1);
+    var trimmed_barcode_value = GeckoJS.String.trim(barcode_value);
+    var trimmed_plu_value     = GeckoJS.String.trim(plu_value);
+    var trimmed_name_value    = GeckoJS.String.trim(name_value);
+    var trimmed_price_value   = GeckoJS.String.trim(price_value);
     
-    if ((!input0Required || trimmed0.length > 0) &&
-        ((!input1Required) || trimmed1.length > 0)) {
+    if(trimmed_barcode_value.length > 0 &&
+        trimmed_plu_value.length > 0 &&
+        trimmed_name_value.length > 0 &&
+        trimmed_price_value.length > 0) {
         validated = true;
     }
 
-    if (alphaOnly0) {
-        validated = validated && !alphaRE.test(trimmed0);
-    }
-    if (numberOnly0) {
-        validated = validated && !isNaN(trimmed0);
-    }
-    if (numberOnly1) {
-        validated = validated && !isNaN(trimmed1);
-    }
-    if (numericOnly1) {
-        validated = validated && trimmed1.replace(/[0-9.]*/, '').length == 0;
-    }
-    if (digitOnly0) {
-        validated = validated && trimmed0.replace(/[0-9]*/, '').length == 0;
-    }
-    if (digitOnly1) {
-        validated = validated && trimmed1.replace(/[0-9]*/, '').length == 0;
-    }
-    if (fixedLength0 > 0) {
-        validated = validated && trimmed0.length == fixedLength0;
-    }
-    if (fixedLength1 > 1) {
-        validated = validated && trimmed1.length == fixedLength1;
-    }
-    if (alphanumeric0) {
-        validated = validated && input0.replace(/\w*/, '').length == 0;
-    }
-    if (alphanumeric1) {
-        validated = validated && input1.replace(/\w*/, '').length == 0;
-    }
+    validated = validated && !isNaN(trimmed_price_value);
+
     document.getElementById('ok').setAttribute('disabled', !validated);
 
 }
