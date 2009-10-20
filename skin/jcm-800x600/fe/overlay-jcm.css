@@ -13,15 +13,15 @@
 }
 
 .main-overlay .right-panel {
-    max-width: 350px;
-    min-width: 350px;
-    width: 350px;
+    max-width: 400px;
+    min-width: 400px;
+    width: 400px;
 }
 
 .main-overlay .left-panel {
-    max-width: 450px;
-    min-width: 450px;
-    width: 450px;
+    max-width: 400px;
+    min-width: 400px;
+    width: 400px;
 }
 
 .main-overlay .function-toolbar {
