@@ -46,7 +46,6 @@
             <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool"/>
             <preference id="pref_allowoverstock" name="vivipos.fec.settings.AllowOverStock" type="bool"/>
             <preference id="pref_viewlocalordersonly" name="vivipos.fec.settings.ViewLocalOrdersOnly" type="bool"/>
-            <preference id="pref_searchorderbytableno" name="vivipos.fec.settings.SearchOrderByTableNo" type="bool"/>
             <preference id="pref_ageverificationack" name="vivipos.fec.settings.AgeVerificationAck" type="bool"/>
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool"/>
             <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool"/>
@@ -75,10 +74,6 @@
                     <checkbox preference="pref_positivepricerequired" id="pref_positivepricerequiredCtrl" label="&general.positivepricerequired;"/>
                 </row>
                 <row>
-                    <checkbox preference="pref_searchorderbytableno" id="pref_searchorderbytablenoCtrl" label="&general.searchorderbytableno;"/>
-                    <checkbox preference="pref_viewlocalordersonly" id="pref_viewlocalordersonlyCtrl" label="&general.viewlocalordersonly;"/>
-                </row>
-                <row>
                     <checkbox preference="pref_departmentpopstotop" id="pref_departmentpopstotopCtrl" label="&general.departmentpopstotop;"/>
                     <checkbox preference="pref_collapsecondiments" id="pref_collapsecondimentsCtrl" label="&general.collapsecondiments;"/>
                 </row>
@@ -89,6 +84,9 @@
                 <row>
                     <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;"/>
                     <checkbox preference="pref_autosetdecimalpoint" id="pref_autosedecimalpointCtrl" label="&general.autosetdecimalpoint;"/>
+                </row>
+                <row>
+                    <checkbox preference="pref_viewlocalordersonly" id="pref_viewlocalordersonlyCtrl" label="&general.viewlocalordersonly;"/>
                 </row>
                 <row>
                     <vbox>
@@ -189,6 +187,7 @@
                             <menulist id="autorevalueprices" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.AutoRevaluePrices', this.value)">
                                 <menupopup>
                                     <menuitem label="&formats.revalue.none;" value="none"/>
+                                    <menuitem label="&formats.revalue.round-to-nearest-factor;" value="round-to-nearest-factor"/>
                                     <menuitem label="&formats.revalue.round-down-to-factor;" value="round-down-to-factor"/>
                                     <menuitem label="&formats.revalue.round-up-to-factor;" value="round-up-to-factor"/>
                                     <menuitem label="&formats.revalue.round-to-5-cents;" value="round-to-5-cents"/>
@@ -201,7 +200,7 @@
                         </vbox>
                         <vbox>
                             <label control="revaluefactor" value="&formats.revalue.factor;"/>
-                            <textbox preference="pref_revaluefactor" id="revaluefactor" type="number" min="0"/>
+                            <textbox preference="pref_revaluefactor" id="revaluefactor" type="number" min="1"/>
                         </vbox>
                     </row>
                     <row>
@@ -225,7 +224,7 @@
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
             <preference id="pref_mustemptyqueue" name="vivipos.fec.settings.mustemptyqueue" type="bool"/>
             <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool"/>
-            <preference id="pref_hidesaleperiod" name="vivipos.fec.settings.HideSalePeriod" type="bool"/>
+            <preference id="pref_disablesaleperiod" name="vivipos.fec.settings.DisableSalePeriod" type="bool"/>
             <preference id="pref_disableshiftchange" name="vivipos.fec.settings.DisableShiftChange" type="bool"/>
             <preference id="pref_requirecashdeclaration" name="vivipos.fec.settings.RequireCashDeclaration" type="bool"/>
             <preference id="pref_defaultchangeindrawer" name="vivipos.fec.settings.DefaultChangeInDrawer" type="int"/>
@@ -250,11 +249,10 @@
                         <checkbox id="autodiscardqueue" label="&login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
                     </row>
                     <row>
-                        <checkbox id="signoffwhenidle" label="&login.signoffwhenidle;" preference="pref_signoffwhenidle"
-                                  oncommand="processSignOffWhenIdle(this.checked)"/>
+                        <checkbox id="signoffwhenidle" label="&login.signoffwhenidle;" preference="pref_signoffwhenidle"/>
                     </row>
                     <row>
-                        <checkbox id="hidesaleperiod" label="&login.hidesaleperiod;" preference="pref_hidesaleperiod"/>
+                        <checkbox id="disablesaleperiod" label="&login.disablesaleperiod;" preference="pref_disablesaleperiod"/>
                         <checkbox id="disableshiftchange" label="&login.disableshiftchange;" preference="pref_disableshiftchange"/>
                     </row>
                     <row>
@@ -307,7 +305,6 @@
     <prefpane id="orderDataSettingsPane" label="&category.orderdata;">
         <preferences>
             <preference id="pref_keepeachtransaction" name="vivipos.fec.settings.KeepEachTransaction" type="bool"/>
-            <preference id="pref_orderobjectretaindays" name="vivipos.fec.settings.OrderObjectRetaindays" type="int"/>
             <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>
             <preference id="pref_orderweeklypack" name="vivipos.fec.settings.OrderWeeklyPack" type="int"/>
             <preference id="pref_inventory_adjustment_retaindays" name="vivipos.fec.settings.InventoryAdjustmentRetainDays" type="int"/>
@@ -326,14 +323,10 @@
                     <label value="&orderdata.diskunused;"/>
                     <label id="disk_unused" value="100MB"/>
                 </row>
-                <row>
+                <!--row>
                     <label value="&orderdata.keepeachtransaction;"/>
                     <checkbox preference="pref_keepeachtransaction" id="keepEachTransaction" checked="false"/>
-                </row>
-                <row>
-                    <label value="&orderdata.orderobjectretaindays;"/>
-                    <textbox preference="pref_orderobjectretaindays" id="orderObjectRetainDays" type="number" size="4" maxlength="4" min="0" max="9999"/>
-                </row>
+                </row-->
                 <row>
                     <label value="&orderdata.orderretaindays;"/>
                     <textbox preference="pref_orderretaindays" id="orderRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>

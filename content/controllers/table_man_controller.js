@@ -3,68 +3,34 @@
     /**
      * Class TableManController
      */
-
     var __controller__ = {
+
         name: 'TableMan',
-        _tables: [],
-        _regions: [],
+
+        uses: ['TableSetting', 'TableRegion', 'TableMark', 'Table', 'TableStatus'],
 
         _isBusy: false,
 
-        _regionListDatas: null,
         _regionListObj: null,
-        _tableListDatas: null,
         _tableListObj: null,
-        _tableStatusModel: null,
         _cart: null,
-        _markListDatas: null,
         _markListObj: null,
 
-        _minimumChargeFor: {'0': _('Final Amount'), '1': _('Original Amount') /*, '2': _('No Revalue'), '3': _('No Promotion') */},
+        _minimumChargeFor: {
+            '0': _('Final Amount'),
+            '1': _('Original Amount') /*, '2': _('No Revalue'), '3': _('No Promotion') */
+        },
 
-        _tableSettings: null,
         _needRestart: false,
 
 
         initial: function() {
-            // load default destination
-            /*
-            var defaultDest = null;
-            var datastr = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
-            var listDatas = null;
-
-            if (datastr != null) {
-                listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datastr));
-                var curDefaults = new GeckoJS.ArrayQuery(listDatas).filter('defaultMark = *');
-                if (curDefaults.length > 0) {
-                    defaultDest = curDefaults[0];
-                }
-            }
-            GeckoJS.Session.set('destinations', listDatas);
-            GeckoJS.Session.set('defaultDestination', defaultDest);
-
-            // add listener for newTransaction event
-            var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            if (cart) {
-                cart.addEventListener('newTransaction', this.initTransaction, this);
-            }
-            */
-        },
-
-        _getTableStatusModel: function() {
-            if (this._tableStatusModel == null) {
-
-                var cart = this.getCartController();
-                this._tableStatusModel = cart.GuestCheck._tableStatusModel;
-
-            }
-            return this._tableStatusModel;
         },
 
         getCartController: function() {
             if (this._cart == null) {
                 var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
                 this._cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
             }
             // this._cart.dispatchEvent('onSplitCheck', null);
@@ -93,47 +59,50 @@
             return this._markListObj;
         },
 
-        switchTab: function(index) {
 
-            switch (index) {
-                case 0:
-                    break;
-                case 2:
-                    var table_no = document.getElementById('table_id').value;
-                    this.requestCommand('loadBookings', table_no, 'TableBook');
-                    this.requestCommand('selectBooking', 0, 'TableBook');
-                    break;
-            }
-        },
-
+        /**
+         * select table by index
+         * 
+         * @param {Number} index
+         */
         selectTable: function(index) {
             this.getTableListObj().selection.select(index);
             if (index > -1) {
-                var table = this._tableListDatas[index];
+                var table = this.getTableListObj().datasource.data[index];
                 GeckoJS.FormHelper.unserializeFromObject('tableForm', table);
-                this.requestCommand('load', null, 'TableBook');
+                this.getTableListObj().treeBoxObject.ensureRowIsVisible(index);
             }
 
             this.validateForm();
         },
 
+        /**
+         * select Region by index
+         *
+         * @param {Number} index
+         */
         selectRegion: function(index) {
             this.getRegionListObj().selection.select(index);
             if (index > -1) {
-                var region = this._regionListDatas[index];
+                var region = this.getRegionListObj().datasource.data[index];
                 GeckoJS.FormHelper.unserializeFromObject('regionForm', region);
+                this.getRegionListObj().treeBoxObject.ensureRowIsVisible(index);
             }
 
             this.validateRegionForm();
         },
 
+        /**
+         * select Mark by index
+         */
         selectMark: function(index){
+
             this.getMarkListObj().selection.select(index);
             this.getMarkListObj().treeBoxObject.ensureRowIsVisible(index);
             if (index > -1) {
-                var inputObj = this._markListDatas[index];
+                var inputObj = this.getMarkListObj().datasource.data[index];
                 GeckoJS.FormHelper.unserializeFromObject('markForm', inputObj);
-
+                this.getMarkListObj().treeBoxObject.ensureRowIsVisible(index);
             }
             else {
                 GeckoJS.FormHelper.reset('destinationForm');
@@ -142,51 +111,45 @@
             this.validateMarkForm();
         },
 
-        isDuplicate: function(table_no) {
 
-            var tableModel = new TableModel();
-            var table = tableModel.find('first', {conditions: "table_no='" + table_no + "'", recursive: 0});
-
-            return (table != null);
-        },
-
+        /**
+         * auto create tables by number
+         */
         autoCreateTables: function() {
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
-            var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
+            var inputObj = {
+                input0:null,
+                require0:true,
+                input1:null,
+                require1:true,
+                numpad:true,
+                digitOnly0:true
+            };
 
             this.topmostWindow.openDialog(aURL, _('Add Tables'), features, _('Adding New Tables'), '', _('Number of New Tables'), _('Number of Seats per Table'), inputObj);
             if (inputObj.ok && inputObj.input0) {
                 var num = inputObj.input0 || 0;
                 var defaultSeats = inputObj.input1 || 2;
 
-                var tableModel = new TableModel();
-
-                tableModel.begin();
-
                 for(var no = 1; no <= num; no++) {
                     var table_no = no;
                     var table_name = 'T' + no;
                     var seats = defaultSeats;
 
-                    var newTable = {table_no: table_no, table_name: table_name, active: true, seats: seats};
+                    var newTable = {
+                        table_no: table_no+'',
+                        table_name: table_name,
+                        active: true,
+                        seats: seats
+                    };
 
+                    this.Table.addTable(newTable);
 
-                    tableModel.id = '';
-                    newTable = tableModel.save(newTable);
-
-                    // add table_status
-                    var newTableStatus = {table_id:newTable.id, table_no: table_no};
-                    this._getTableStatusModel().id = '';
-                    newTableStatus = this._getTableStatusModel().save(newTableStatus);
                 }
 
-                tableModel.commit();
-                delete tableModel;
-
-                this.loadTables();
-
-                this.selectTable(0);
+                this.loadTables(0);
 
                 this._needRestart = true;
 
@@ -194,21 +157,33 @@
             }
         },
 
+
+        /**
+         * addTable and support autoCreateTables
+         */
         addTable: function() {
             if (this._isBusy) return;
             this._isBusy = true;
 
             try {
                 // no any table, batch create.
-                if (this._tableListDatas.length <= 0) {
+                if (this.getTableListObj().datasource.data.length <= 0) {
                     this.autoCreateTables();
 
+                    this._isBusy = false;
                     return;
                 }
 
                 var aURL = 'chrome://viviecr/content/prompt_additem.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
-                var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
+                var inputObj = {
+                    input0:null,
+                    require0:true,
+                    input1:null,
+                    require1:true,
+                    numpad:true,
+                    digitOnly0:true
+                };
 
                 this.topmostWindow.openDialog(aURL, _('Add Table'), features, _('New Table'), '', _('Table Number'), _('Table Name'), inputObj);
                 if (inputObj.ok && inputObj.input0) {
@@ -216,52 +191,53 @@
                     var table_no = inputObj.input0;
                     if (table_no <= 0) {
                         NotifyUtils.warn(_('Table number [%S] is invalid', [table_no]));
-                        return;
-                    }
-                    if (this.isDuplicate(table_no)) {
-                        NotifyUtils.warn(_('Table number [%S] has already been assigned', [table_no]));
+                        this._isBusy = false;
                         return;
                     }
 
                     var table_name = inputObj.input1;
 
-                    var newTable = {table_no: table_no, table_name: table_name, active: true, seats: 4};
+                    var newTable = {
+                        table_no: table_no,
+                        table_name: table_name,
+                        active: true,
+                        seats: 4
+                    };
 
-                    var tableModel = new TableModel();
-                    tableModel.id = '';
-                    newTable = tableModel.save(newTable);
+                    var success = this.Table.addTable(newTable);
 
-                    // add table_status
-                    var newTableStatus = {table_id:newTable.id, table_no: table_no};
-                    this._getTableStatusModel().id = '';
-                    newTableStatus = this._getTableStatusModel().save(newTableStatus);
+                    if (success) {
 
-                    this.loadTables();
+                        // reload tables
+                        var tables = this.Table.getTables(true);
 
-                    // loop through this._listDatas to find the newly added destination
-                    var index
-                    for (index = 0; index < this._tableListDatas.length; index++) {
-                        if (this._tableListDatas[index].table_no == table_no) {
-                            break;
-                        }
+                        // find table_no 's index
+                        var index = -1;
+                        tables.forEach(function(table, idx){
+                            if (table.table_no == table_no) index = idx;
+                        });
+
+                        // update UI
+                        this.loadTables(index);
+
+                        this._needRestart = true;
+
+                        OsdUtils.info(_('Table number [%S] added successfully', [table_no]));
+
+                    }else {
+                        // duplicate
+                        NotifyUtils.warn(_('Table number [%S] has already been assigned', [table_no]));
                     }
-
-                    // make sure row is visible
-                    this.getTableListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                    // select the new Table
-                    this.selectTable(index);
-
-                    this._needRestart = true;
-
-                    OsdUtils.info(_('Table number [%S] added successfully', [table_no]));
                 }
-            } catch (e) {}
-            finally {
+            } finally {
                 this._isBusy = false;
             }
         },
 
+
+        /**
+         * modify table
+         */
         modifyTable: function() {
             if (this._isBusy) return;
             this._isBusy = true;
@@ -271,56 +247,39 @@
                 var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
 
                 if (index > -1 && inputObj.id != '' && inputObj.table_no != '') {
-                    // var table = this._tableListDatas[index];
-                    var table = inputObj;
 
-                    var tableModel = new TableModel();
-                    tableModel.id = inputObj.id;
-                    inputObj.active = GeckoJS.String.parseBoolean(inputObj.active);
-                    if (inputObj.table_name)
+                    var success = this.Table.updateTable(inputObj.id, inputObj);
 
-                    var tables = tableModel.save(inputObj);
+                    if (success) {
 
-                    // update table_status
-                    /*
-                    var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
-                    var tableStatusModel = new TableStatusModel();
-                    tableStatusModel.id = table.table_status_id;
-                    newTableStatus = tableStatusModel.save(newTableStatus);
-                    delete tableStatusModel;
-                    */
-                    var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
+                        // reload tables
+                        var tables = this.Table.getTables(true);
+                        var table_no = inputObj.table_no;
+                        var table_name = inputObj.table_name;
 
-                    this._getTableStatusModel().id = table.table_status_id;
-                    this._getTableStatusModel().save(newTableStatus);
+                        // find table_no 's index
+                        index = -1;
+                        tables.forEach(function(table, idx){
+                            if (table.table_no == table_no) index = idx;
+                        });
 
-                    this.loadTables();
+                        // update UI
+                        this.loadTables(index);
 
-                    // loop through this._listDatas to find the newly modified destination
-                    var newIndex;
-                    for (newIndex = 0; newIndex < this._tableListDatas.length; newIndex++) {
-                        if (this._tableListDatas[newIndex].table_no == table.table_no) {
-                            break;
-                        }
+                        this._needRestart = true;
+
+                        OsdUtils.info(_('Table [%S (%S)] modified successfully', [table_no, table_name]));
                     }
-                    this.getTableListObj().treeBoxObject.invalidate();
-
-                    // make sure row is visible
-                    this.getTableListObj().treeBoxObject.ensureRowIsVisible(newIndex);
-
-                    // select the new customer
-                    this.selectTable(newIndex);
-
-                    this._needRestart = true;
-
-                    OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
                 }
-            } catch (e) {}
-            finally {
+            } finally {
                 this._isBusy = false;
             }
         },
 
+
+        /**
+         * deleteTable
+         */
         deleteTable: function() {
             if (this._isBusy) return;
             this._isBusy = true;
@@ -328,47 +287,36 @@
             try {
                 var index = this.getTableListObj().selectedIndex;
                 if (index >= 0) {
-                    var table = this._tableListDatas[index];
+                    var table = this.getTableListObj().datasource.data[index];
+                    var nextIndex = (index == (this.getTableListObj().datasource.data.length-1)) ? index -1 : index;
 
                     if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete table [%S (%S)]', [table.table_no, table.table_name]),
-                                                 _('Are you sure you want to delete table [%S (%S)]?', [table.table_no, table.table_name]))) {
+                        _('Are you sure you want to delete table [%S (%S)]?', [table.table_no, table.table_name]))) {
                         return;
                     }
 
-                    var tableModel = new TableModel();
-                    tableModel.del(table.id);
-                    delete tableModel;
+                    var success = this.Table.removeTable(table.id);
 
+                    if (success) {
 
-                    // update table_status
-                    /*
-                    var tableStatusModel = new TableStatusModel();
-                    tableStatusModel.del(table.table_status_id);
-                    delete tableStatusModel;
-                    */
-                    this._getTableStatusModel().del(table.table_status_id);
+                        // update UI
+                        this.loadTables(nextIndex);
 
-                    this._tableListDatas.splice(index, 1);
+                        this._needRestart = true;
 
-                    this.getTableListObj().treeBoxObject.rowCountChanged(index, -1);
+                        OsdUtils.info(_('Table [%S (%S)] deleted successfully', [table.table_no, table.table_name]));
+                    }
 
-                    if (index >= this._tableListDatas.length) index = this._tableListDatas.length - 1;
-                    this.getTableListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                    this.selectTable(index);
-
-                    this._needRestart = true;
-
-                    // this.searchMode();
-
-                    OsdUtils.info(_('Table [%S (%S)] deleted successfully', [table.table_no, table.table_name]));
                 }
-            } catch (e) {}
-            finally {
+            } finally {
                 this._isBusy = false;
             }
         },
 
+
+        /**
+         * toggle Table active flag
+         */
         toggleTable: function() {
             if (this._isBusy) return;
             this._isBusy = true;
@@ -379,94 +327,87 @@
 
                 if (index > -1 && inputObj.id != '' && inputObj.table_no != '' && inputObj.table_name != '') {
 
-                    var table_no = inputObj.table_no;
-                    var tableModel = new TableModel();
-                    tableModel.id = inputObj.id;
+                    var success = this.Table.toggleTable(inputObj.id);
 
-                    inputObj.active = !GeckoJS.String.parseBoolean(inputObj.active);
+                    if (success) {
 
-                    var table = tableModel.save(inputObj);
+                        // update UI
+                        this.loadTables(index);
 
-                    this.loadTables();
+                        this._needRestart = true;
 
-                    // loop through this._listDatas to find the newly modified destination
-                    var newIndex;
-                    for (newIndex = 0; newIndex < this._tableListDatas.length; newIndex++) {
-                        if (this._tableListDatas[newIndex].table_no == table.table_no) {
-                            break;
-                        }
+                        OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
                     }
-                    this.getTableListObj().treeBoxObject.invalidate();
 
-                    // make sure row is visible
-                    this.getTableListObj().treeBoxObject.ensureRowIsVisible(newIndex);
-
-                    // select the new customer
-                    this.selectTable(newIndex);
-
-                    this._needRestart = true;
-
-                    OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
                 }
-            } catch (e) {}
-            finally {
+            } finally {
                 this._isBusy = false;
             }
         },
 
+
+        /**
+         * Add Table Region to Local Database.
+         */
         addRegion: function() {
+
             if (this._isBusy) return;
             this._isBusy = true;
 
             try {
                 var aURL = 'chrome://viviecr/content/prompt_additem.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
-                var inputObj = {input0:null, require0:true, numpad:true};
+                var inputObj = {
+                    input0:null,
+                    require0:true,
+                    numpad:true
+                };
 
                 this.topmostWindow.openDialog(aURL, _('Add Region'), features, _('New Region'), '', _('Region Name'), '', inputObj);
                 if (inputObj.ok && inputObj.input0) {
 
                     var region_name = inputObj.input0;
 
-                    var newRegion = {name: region_name, image: ''};
+                    var newRegion = {
+                        name: region_name,
+                        image: ''
+                    };
 
-                    var regionModel = new TableRegionModel();
-                    newRegion = regionModel.save(newRegion);
+                    var success = this.TableRegion.addTableRegion(newRegion);
 
-                    this._regionListDatas.push(newRegion);
-                    this._regionListDatas = new GeckoJS.ArrayQuery(this._regionListDatas).orderBy('name asc');
+                    if (success) {
 
-                    // loop through this._listDatas to find the newly added destination
-                    var index
-                    for (index = 0; index < this._regionListDatas.length; index++) {
-                        if (this._regionListDatas[index].name == region_name) {
-                            break;
-                        }
+                        // reload regions 
+                        var regions = this.TableRegion.getTableRegions(true);
+
+                        // find region_name 's index
+                        var index = -1;
+                        regions.forEach(function(region, idx){
+                            if (region.name == region_name) index = idx;
+                        });
+ 
+                        // update UI
+                        this.loadRegions(index);
+
+                        this._needRestart = true;
+
+                        OsdUtils.info(_('Region [%S] added successfully', [region_name]));
+                       
+                    }else {
+                        // duplicate
+                        NotifyUtils.warn(_('Region [%S] has already been assigned', [region_name]));
                     }
-                    this.getRegionListObj().treeBoxObject.rowCountChanged(index, 1);
-
-                    // make sure row is visible
-                    this.getRegionListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                    // select the new Table
-                    this.selectRegion(index);
-
-                    // switch to edit mode
-                    // this.editMode();
-
-                    this.setRegionMenuItem();
-
-                    this._needRestart = true;
-
-                    OsdUtils.info(_('Region [%S] added successfully', [region_name]));
                 }
-            } catch (e) {}
-            finally {
+            } finally {
                 this._isBusy = false;
             }
         },
 
+        /**
+         * Modify Table Region to Local Database 
+         */
         modifyRegion: function() {
+
             if (this._isBusy) return;
             this._isBusy = true;
 
@@ -476,336 +417,353 @@
 
                 if (index > -1 && inputObj.id != '' && inputObj.name != '') {
 
-                    var regionModel = new TableRegionModel();
-                    regionModel.id = inputObj.id;
-                    var region = regionModel.save(inputObj);
+                    var success = this.TableRegion.updateTableRegion(inputObj.id, inputObj);
 
-                    this.loadRegions();
+                    if (success) {
+                        // reload regions (maybe order changed)
+                        var regions = this.TableRegion.getTableRegions(true);
+                        var region_name = inputObj.name;
 
-                    // loop through this._listDatas to find the newly modified destination
-                    var newIndex;
-                    for (newIndex = 0; newIndex < this._regionListDatas.length; newIndex++) {
-                        if (this._regionListDatas[newIndex].name == region.name) {
-                            break;
-                        }
+                        // find region_name 's index
+                        index = -1;
+                        regions.forEach(function(region, idx){
+                            if (region.name == region_name) index = idx;
+                        });
+ 
+                        // update UI
+                        this.loadRegions(index);
+
+                        this._needRestart = true;                        
+
+                        OsdUtils.info(_('Region [%S] modified successfully', [region_name]));
                     }
-                    this.getRegionListObj().treeBoxObject.invalidate();
-
-                    // make sure row is visible
-                    this.getRegionListObj().treeBoxObject.ensureRowIsVisible(newIndex);
-
-                    // select the new customer
-                    this.selectRegion(newIndex);
-
-                    this.setRegionMenuItem();
-
-                    this._needRestart = true;
-
-                    OsdUtils.info(_('Region [%S] modified successfully', [inputObj.name]));
+                    
                 }
-            } catch (e) {}
-            finally {
+            } finally {
                 this._isBusy = false;
             }
         },
 
+        /**
+         * Delete Table Region to Local Database.
+         */
         deleteRegion: function() {
+
             if (this._isBusy) return;
             this._isBusy = true;
 
             try {
                 var index = this.getRegionListObj().selectedIndex;
                 if (index >= 0) {
-                    var region = this._regionListDatas[index];
+                    var region = this.getRegionListObj().datasource.data[index];
+                    var nextIndex = (index == (this.getRegionListObj().datasource.data.length-1)) ? index -1 : index;
 
                     if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete region [%S (%S)]', [region.name]),
-                                                 _('Are you sure you want to delete region [%S]?', [region.name]))) {
+                        _('Are you sure you want to delete region [%S]?', [region.name]))) {
                         return;
                     }
 
-                    var regionModel = new TableRegionModel();
-                    regionModel.del(region.id);
+                    var success = this.TableRegion.removeTableRegion(region.id);
 
-                    this._regionListDatas.splice(index, 1);
+                    if (success) {
 
-                    this.getRegionListObj().treeBoxObject.rowCountChanged(index, -1);
+                        // update UI
+                        this.loadRegions(nextIndex);
 
-                    if (index >= this._regionListDatas.length) index = this._regionListDatas.length - 1;
-                    this.getRegionListObj().treeBoxObject.ensureRowIsVisible(index);
+                        this._needRestart = true;
 
-                    this.selectRegion(index);
+                        OsdUtils.info(_('Region [%S] deleted successfully', [region.name]));
+                    }
 
-                    // this.searchMode();
-
-                    this.setRegionMenuItem();
-
-                    this._needRestart = true;
-
-                    OsdUtils.info(_('Region [%S] deleted successfully', [region.name]));
                 }
-            } catch (e) {}
-            finally {
+            } finally {
                 this._isBusy = false;
             }
         },
 
-        loadRegions: function() {
+        /**
+         * load / reload Table Regions from Server / Local database and update UI
+         * 
+         * @param {Number} index
+         */
+        loadRegions: function(index) {
             //
-            var regionModel = new TableRegionModel();
-            var regions = regionModel.find('all', {});
-            this._regionListDatas = regions;
-            var regionView =  new GeckoJS.NSITreeViewArray(this._regionListDatas);
-            this.getRegionListObj().datasource = regionView;
+            var regions = this.TableRegion.getTableRegions(true);
+            this.getRegionListObj().datasource = regions;
 
-            document.getElementById('region_count').value = this._regionListDatas.length;
+            document.getElementById('region_count').value = regions.length;
+
+            this.selectRegion(index);
+
+            // update Region menu UI
+            this.setRegionMenuItem();
+
+            return regions;
 
         },
 
-        loadTables: function() {
-            //
-            var fields = ['tables.table_no',
-                            'tables.table_name',
-                            'tables.seats',
-                            'tables.active',
-                            'tables.tag',
-                            'tables.destination',
-                            'tables.minimum_charge_per_table',
-                            'tables.minimum_charge_per_guest',
-                            'table_regions.name AS "Table.region"',
-                            'tables.table_region_id',
-                            'table_regions.image AS "Table.image"',
-                            'table_statuses.id AS "Table.table_status_id"'
-                        ];
-            var orderby = 'tables.table_no ASC';
-            
-            var tableModel = new TableModel();
-            var tables = tableModel.find('all', {fields: fields, order: orderby, recursive: 2});
-            
-            this._tableListDatas = tables;
-            this.getTableListObj().datasource = this._tableListDatas;
+        /**
+         * load / reload Tables from Server / Local database and update UI
+         *
+         * @param {Number} index
+         */
+        loadTables: function(index) {
 
-            document.getElementById('table_count').value = this._tableListDatas.length;
+            // tables
+            var tables = this.Table.getTables(true);
+            this.getTableListObj().datasource = tables;
 
+            document.getElementById('table_count').value = tables.length;
+
+            this.selectTable(index);
+
+            return tables;
         },
 
+
+        /**
+         * addMark
+         */
         addMark: function(){
-            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
-            var inputObj = {input0:null, require0:true};
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Table Status'), features,
-                                       _('New Table Status'), '', _('Table Status'), '', inputObj);
-            if (inputObj.ok && inputObj.input0) {
-                var markName = inputObj.input0.replace('\'', '"', 'g');
+            if (this._isBusy) return;
+            this._isBusy = true;
 
-                var dupNames = new GeckoJS.ArrayQuery(this._markListDatas).filter('name = \'' + markName + '\'');
-                if (dupNames.length > 0) {
-                    NotifyUtils.warn(_('Table status [%S] already exists', [markName]));
-                    return;
-                }
+            try {
 
-                // this._markListDatas.push({defaultMark: '', name: markName, pricelevel: '-', prefix: '', customerInfo: '0'});
-                this._markListDatas.push({name: markName, period: 0, opdeny: false});
+                var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+                var inputObj = {
+                    input0:null,
+                    require0:true
+                };
 
-                this.saveMarks();
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Table Status'), features,
+                    _('New Table Status'), '', _('Table Status'), '', inputObj);
 
-                // loop through this._listDatas to find the newly added destination and select it
-                
-                var index = 0;
-                for (var index = 0; index < this._markListDatas.length; index++) {
-                    if (this._markListDatas[index].name == markName) {
-                        this.selectMark(index);
-                        break;
+                if (inputObj.ok && inputObj.input0) {
+
+                    var mark_name = inputObj.input0.replace('\'', '"', 'g');
+
+                    var newMark = {
+                        name: mark_name,
+                        period: 0,
+                        opdeny: false
+                    };
+
+                    var success = this.TableMark.addTableMark(newMark);
+
+                    if (success) {
+
+                        // reload marks
+                        var marks = this.TableMark.getTableMarks(true);
+
+                        // find markName 's index
+                        var index = -1;
+                        marks.forEach(function(mark, idx){
+                            if (mark.name == mark_name) index = idx;
+                        });
+
+                        // update UI
+                        this.loadMarks(index);
+
+                        this._needRestart = true;
+
+                        OsdUtils.info(_('Table status [%S] added successfully', [mark_name]));
+
+                    }else {
+
+                        NotifyUtils.warn(_('Table status [%S] already exists', [mark_name]));
+
                     }
                 }
-                
-                OsdUtils.info(_('Table status [%S] added successfully', [markName]));
-
-                this.setAutoMarkMenuItem();
+            } finally {
+                this._isBusy = false;
             }
+
         },
 
+        /**
+         * modifyMark
+         */
         modifyMark: function() {
-            var inputObj = GeckoJS.FormHelper.serializeToObject('markForm');
-            var index = this.getMarkListObj().selectedIndex;
-            if (index > -1) {
 
-                if (inputObj.name != null && inputObj.name.length > 0) {
-                    this._markListDatas[index].period = inputObj.period;
-                    this._markListDatas[index].opdeny = inputObj.opdeny;
-                    // this.setDefaultDestination(inputObj.defaultCheckbox);
+            if (this._isBusy) return;
+            this._isBusy = true;
 
-                    this.saveMarks();
+            try {
 
-                    var markName = this._markListDatas[index].name;
+                var inputObj = GeckoJS.FormHelper.serializeToObject('markForm');
+                var index = this.getMarkListObj().selectedIndex;
+                if (index > -1 && inputObj.name != null && inputObj.name.length > 0) {
 
-                    this.getMarkListObj().treeBoxObject.ensureRowIsVisible(index);
-                    OsdUtils.info(_('Table status [%S] modified successfully', [markName]));
+                    var orgMark = this.getMarkListObj().datasource.data[index];
+                    var success = this.TableMark.updateTableMark(orgMark.id, inputObj);
 
-                    this.setAutoMarkMenuItem();
+                    if (success) {
+                        // reload regions
+                        var marks = this.TableMark.getTableMarks(true);
+                        var mark_name = inputObj.name;
+
+                        // find region_name 's index
+                        index = -1;
+                        marks.forEach(function(mark, idx){
+                            if (mark.name == mark_name) index = idx;
+                        });
+
+                        // update UI
+                        this.loadMarks(index);
+
+                        this._needRestart = true;
+
+                        OsdUtils.info(_('Table status [%S] modified successfully', [mark_name]));
+                    }
+
                 }
-                else {
-                    // shouldn't happen, but check anyways
-                    NotifyUtils.warn(_('Table status must not be empty'));
-                }
+                
+            } finally {
+                this._isBusy = false;
             }
+
         },
 
+        /**
+         * deleteMark
+         */
         deleteMark: function(){
-            var index = this.getMarkListObj().selectedIndex;
-            if (index >= 0) {
-                var markName = this._markListDatas[index].name;
 
-                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete table status [%S]', [markName]), _('Are you sure you want to delete table status [%S]?', [markName]))) {
-                    return;
+            if (this._isBusy) return;
+            this._isBusy = true;
+
+            try {
+
+                var index = this.getMarkListObj().selectedIndex;
+            
+                if (index >= 0) {
+
+                    var mark = this.getMarkListObj().datasource.data[index];
+                    var nextIndex = (index == (this.getMarkListObj().datasource.data.length-1)) ? index -1 : index;
+
+                    if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete table status [%S]', [mark.name]), _('Are you sure you want to delete table status [%S]?', [mark.name]))) {
+                        return;
+                    }
+                    var success = this.TableMark.removeTableMark(mark.id);
+
+                    if (success) {
+
+                        // update UI
+                        this.loadMarks(nextIndex);
+
+                        this._needRestart = true;
+
+                        OsdUtils.info(_('Table status [%S] deleted successfully', [mark.name]));
+                    }
+
                 }
-
-                this._markListDatas.splice(index, 1);
-                this.saveMarks();
-
-                OsdUtils.info(_('Table status [%S] deleted successfully', [markName]));
-
-                index = this.getMarkListObj().selectedIndex;
-                if (index >= this._markListDatas.length) index = this._markListDatas.length - 1;
-                this.selectMark(index);
-
-                this.setAutoMarkMenuItem();
-            }
-        },
-
-        saveMarks: function() {
-            var datas = new GeckoJS.ArrayQuery(this._markListDatas).orderBy('name asc');
-            var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
-
-            GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableMarks', datastr);
-
-            GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
-
-            this.loadMarks();
-        },
-
-        loadMarks: function () {
-
-            if (this._markListDatas == null) this._markListDatas = [];
-            if (this._markListDatas.length <= 0) {
-                var datas = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
-                if (datas != null) this._markListDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
-                if (this._markListDatas.length <= 0) this._markListDatas = [];
+            } finally {
+                this._isBusy = false;
             }
 
-            this.getMarkListObj().datasource = this._markListDatas;
-
-            // this.validateMarkForm();
         },
 
+        /**
+         * loadMarks
+         * 
+         * @param {Number} index    selectedIndex
+         */
+        loadMarks: function (index) {
+
+            var marks = this.TableMark.getTableMarks(true);
+            
+            this.getMarkListObj().datasource = marks;
+
+            this.selectMark(index);
+
+            this.setAutoMarkMenuItem();
+
+            return marks;
+
+        },
+
+        /**
+         * setAutoMarkMenuItem
+         */
         setAutoMarkMenuItem: function() {
 
-            var marks = this._markListDatas;
+            var marks = this.TableMark.getTableMarks() || [];
 
-            var autoMarkObj = document.getElementById('automark_after_submit_menupopup');
+            var autoMarkObj = document.getElementById('automark_after_submit');
 
             // remove all child...
-            while (autoMarkObj.firstChild) {
-                autoMarkObj.removeChild(autoMarkObj.firstChild);
-            }
+            autoMarkObj.removeAllItems();
 
-            var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-            menuitem.setAttribute('value', '');
-            menuitem.setAttribute('label', ' ');
-            autoMarkObj.appendChild(menuitem);
+            marks.forEach(function(data){
+                autoMarkObj.appendItem(data.name, data.id);
+            });
 
-            if (marks && marks.length > 0) {
-                marks.forEach(function(data){
-                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-                    menuitem.setAttribute('value', data.name);
-                    menuitem.setAttribute('label', data.name);
-                    autoMarkObj.appendChild(menuitem);
-                });
-            }
         },
 
+        /**
+         * setDestinationMenuItem
+         */
         setDestinationMenuItem: function() {
 
             // read destinations from configure
-            var destinations = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
+            var destinations = GeckoJS.Configure.read('vivipos.fec.settings.Destinations') || [];
             var defaultDestination = GeckoJS.Configure.read('vivipos.fec.settings.DefaultDestination');
             
             if (destinations != null) destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
 
-            var destinationObj = document.getElementById('table_destination_menupopup');
+            var destinationObj = document.getElementById('table_destination');
 
-            // remove all child...
-            while (destinationObj.firstChild) {
-                destinationObj.removeChild(destinationObj.firstChild);
-            }
+            destinationObj.removeAllItems();
 
-            var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-            menuitem.setAttribute('value', '');
-            menuitem.setAttribute('label', ' ');
-            destinationObj.appendChild(menuitem);
+            // append default empty
+            destinationObj.appendItem('','');
 
-            if (destinations && destinations.length > 0) {
-                destinations.forEach(function(data){
-                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+            destinations.forEach(function(data){
+                var defaultMark = (data.name == defaultDestination) ? '* ' : '';
+                destinationObj.appendItem(defaultMark+data.name, data.name);
+            });
 
-                    var defaultMark = (data.name == defaultDestination) ? '* ' : '';
-                    menuitem.setAttribute('value', data.name);
-                    menuitem.setAttribute('label', defaultMark + data.name);
-                    destinationObj.appendChild(menuitem);
-                }, this);
-            }
         },
 
+
+        /**
+         * setRegionMenuItem
+         */
         setRegionMenuItem: function() {
-            var regionModel = new TableRegionModel();
-            var regions = this._getTableStatusModel().getRegions();
 
-            var regionObj = document.getElementById('table_region_menupopup');
-            var defaultRegionObj = document.getElementById('default_region_menupopup');
+            var regions = this.TableRegion.getTableRegions() || [];
+
+            var regionObj = document.getElementById('table_region');
+            var defaultRegionObj = document.getElementById('default_region');
+
+            regionObj.removeAllItems();
+            defaultRegionObj.removeAllItems();
+
+            // append all regions
+            defaultRegionObj.appendItem(_('All Regions'),'ALL');
+
+            regions.forEach(function(data){
+                regionObj.appendItem(data.name, data.id);
+                defaultRegionObj.appendItem(data.name, data.id);
+            });
 
 
-            // remove all child...
-            while (regionObj.firstChild) {
-                regionObj.removeChild(regionObj.firstChild);
-            }
-            while (defaultRegionObj.firstChild) {
-                defaultRegionObj.removeChild(defaultRegionObj.firstChild);
-            }
-
-            var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-            menuitem.setAttribute('value', '');
-            menuitem.setAttribute('label', _('All Regions'));
-            defaultRegionObj.appendChild(menuitem);
-
-            if (regions && regions.length > 0) {
-                regions.forEach(function(data){
-                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-                    menuitem.setAttribute('value', data.id);
-                    menuitem.setAttribute('label', data.name);
-                    regionObj.appendChild(menuitem);
-
-                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-                    menuitem.setAttribute('value', data.id);
-                    menuitem.setAttribute('label', data.name);
-                    defaultRegionObj.appendChild(menuitem);
-                });
-            }
         },
 
+        /**
+         * setMinimumChargeForMenuItem
+         */
         setMinimumChargeForMenuItem: function() {
 
-            var minimumChargeForObj = document.getElementById('minimumChargeForPopup');
+            var minimumChargeForObj = document.getElementById('minimumChargeFor');
 
-            // remove all child...
-            while (minimumChargeForObj.firstChild) {
-                minimumChargeForObj.removeChild(minimumChargeForObj.firstChild);
-            }
+            minimumChargeForObj.removeAllItems();
 
             for (var key in this._minimumChargeFor) {
-                var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-                menuitem.setAttribute('value', key);
-                menuitem.setAttribute('label', this._minimumChargeFor[key]);
-                minimumChargeForObj.appendChild(menuitem);
+                minimumChargeForObj.appendItem(this._minimumChargeFor[key], key);
             }
         },
 
@@ -836,105 +794,125 @@
 
                 }else {
                     
-                }
+            }
             }
 
             return null;
 
         },
 
-        readTableSettings: function() {
-            //
-            this._tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
+        /**
+         * read table settings from databases.
+         * 
+         * @param {Boolean} remote      use remote settings
+         */
+        readTableSettings: function(remote) {
 
-            return this._tableSettings;
+            remote = remote || false;
+            var settings = this.TableSetting.getTableSettings(true, remote);
+            this.Form.reset('settingsForm');
+            this.Form.unserializeFromObject('settingsForm', settings);
+            return settings;
+
         },
 
-        saveTableSettings: function(settings) {
-            //
-            this._tableSettings = settings;
-            GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings', this._tableSettings);
+        /**
+         * save table settings to databases.
+         */
+        saveTableSettings: function() {
+
+            // get form values , only checked
+            var settings = this.Form.serializeToObject('settingsForm', true);
+            this.TableSetting.saveTableSettings(settings);
+
             
         },
 
+        /**
+         * save settings and table status options.
+         */
         saveSettings: function() {
-            var settings = GeckoJS.FormHelper.serializeToObject('settingsForm');
-            
-            this.saveTableSettings(settings);
 
-            GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
+            // save table_settings
+            this.saveTableSettings();
+
+            // reload setting
+            var tableSettings = this.TableSetting.getTableSettings(true);
+
+            // update setting to configure system.
+            try {
+                // set requireCheckNo to configure
+                let requireCheckNo = ( tableSettings.RequireCheckNo ? true : false) || false  ;
+                GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', requireCheckNo, false );
+
+                // set check_no sequence max value
+                let maxCheckNo = tableSettings.MaxCheckNo || 100;
+                if (requireCheckNo) {
+                    let seqModel = new SequenceModel();
+                    seqModel.setSequenceMaxValue('check_no', maxCheckNo);
+                }
+                this._needRestart = true;
+            }catch(e) {
+            }
 
             OsdUtils.info(_('Options saved successfully'));
 
-            this._getTableStatusModel().setTableStatusOptions();
-        },
-
-        cloneAllTableDatasFromMaster: function() {
-            // clone all table datas from master throught webservice.
-            // for regions, tables...
-            
         },
 
         cloneSettingsFromMaster: function() {
             //
             if (GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('Clone Table Management Options'),
-                        _('Table management options will be cloned from the table status server.') + '\n\n' + _('Are you sure you want to proceed?') + '\n') == true) {
+                _('Clone Table Management Options'),
+                _('Table management options will be cloned from the table status server.') + '\n\n' + _('Are you sure you want to proceed?') + '\n') == true) {
 
-
-                var settings = this._getTableStatusModel().getTableStatusOptions();
-                var options = settings['options'];
-                var marksData = settings['marksData'];
-
-                this._markListDatas = marksData;
-                this.saveMarks();
-
-                GeckoJS.FormHelper.unserializeFromObject('settingsForm', options);
-
-                // wait for unserialize
-                this.sleep(100);
-                
-                this.saveSettings();
-
-                NotifyUtils.info(_('Table management options has been cloned from the table status server.'));
+                this.readTableSettings(true);
 
             }
 
         },
 
+
+        /**
+         * callback function when document onload.
+         */
         load: function() {
-            //
-            var settings = this.readTableSettings();
-            GeckoJS.FormHelper.unserializeFromObject('settingsForm', settings);
 
-            this.setDestinationMenuItem();
-            this.setRegionMenuItem();
+            // load regions and update tree
+            var regions = this.loadRegions(0);
+
+            // load marks and update menu UI
+            this.loadMarks(0);
+
+            // set nsitableview
+            var tablesView = new NSITablesView();
+            tablesView.setRegions(regions);
+            this.getTableListObj().datasource = tablesView;
+            this.loadTables(0);
+
+            this.disableClientBtns();
+
+            // load minimum charge item
             this.setMinimumChargeForMenuItem();
-            this.loadRegions();
-            this.selectRegion(0);
-            this.loadTables();
-            this.selectTable(0);
-            this.loadMarks();
-            this.selectMark(0);
-            this.setAutoMarkMenuItem();
 
-            this.validateForm();
+            // update destination menu UI.
+            this.setDestinationMenuItem();
 
-            if (this.isClient()) {
-                this.disableMainTab();
-            } else {
-                document.getElementById('clone_settings_from_master').setAttribute('hidden', true);
-            }
+            // get table settings and update UI
+            this.readTableSettings();
 
         },
 
+
+        /**
+         * doExit check restart and confirm
+         */
         doExit: function() {
             //
-            this._getTableStatusModel()._tableStatusLastTime = 0;
+            //this._getTableStatusModel()._tableStatusLastTime = 0;
 
             if (this._needRestart) {
                 var restartMsg = _('Modification of tables and regions requires system restart to take effect.') + '\n' +
-                                 _('The system will restart automatically after you return to the Main Screen.');
+                _('The system will restart automatically after you return to the Main Screen.');
                 GREUtils.Dialog.alert(this.topmostWindow, _("Table Manager"), restartMsg);
                 GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
 
@@ -942,30 +920,41 @@
             doOKButton();
         },
 
+        /**
+         * validateMarkFrom and Disabled modify/delete buttons
+         */
         validateMarkForm: function() {
+
             var index = this.getMarkListObj().selectedIndex;
             var modBtn = document.getElementById('modify_mark');
             var delBtn = document.getElementById('delete_mark');
 
-            if (this._markListDatas.length <= 0) {
+            if (this.getMarkListObj().datasource.data.length <= 0) {
                 index = -1;
             }
             modBtn.setAttribute('disabled', index == -1);
             delBtn.setAttribute('disabled', index == -1);
         },
 
+        /**
+         * validateRegionFrom and Disabled modify/delete buttons
+         */
         validateRegionForm: function() {
+
             var index = this.getRegionListObj().selectedIndex;
             var modBtn = document.getElementById('modify_region');
             var delBtn = document.getElementById('delete_region');
 
-            if (this._regionListDatas.length <= 0) {
+            if (this.getRegionListObj().datasource.data.length <= 0) {
                 index = -1;
             }
             modBtn.setAttribute('disabled', index == -1);
             delBtn.setAttribute('disabled', index == -1);
         },
 
+        /**
+         * validateFrom and Disabled modify/delete buttons
+         */
         validateForm: function() {
 
             var index = this.getTableListObj().selectedIndex;
@@ -975,64 +964,51 @@
             var delBtn = document.getElementById('delete_table');
             var toggleBtn = document.getElementById('toggleactive_table');
 
-
-            if (this._tableListDatas.length <= 0) {
+            if (this.getTableListObj().datasource.data.length <= 0) {
                 index = -1;
-
             }
-            // autoCreateBtn.setAttribute('hidden', index != -1);
             modBtn.setAttribute('disabled', index == -1);
             delBtn.setAttribute('disabled', index == -1);
             toggleBtn.setAttribute('disabled', index == -1);
 
         },
 
-        isClient: function () {
-            this.syncSettings = (new SyncSetting()).read();
-
-            if (this.syncSettings && this.syncSettings.active == '1' && this.syncSettings.table_active == '1') {
-
-                var hostname = this.syncSettings.hostname || 'localhost';
-                if (hostname == 'localhost' || hostname == '127.0.0.1') return false;
-
-                return true;
+        /**
+         * disable buttons when terminal is client
+         */
+        disableClientBtns: function() {
+            // table
+            if(this.Table.isRemoteService()) {
+                document.getElementById('add_table').setAttribute('hidden', true);
+                document.getElementById('modify_table').setAttribute('hidden', true);
+                document.getElementById('delete_table').setAttribute('hidden', true);
+                document.getElementById('toggleactive_table').setAttribute('hidden', true);
             }
-            return false;
-        },
 
-        disableEditFuncs: function() {
-            try {
-                document.getElementById('add_table').setAttribute('disabled', true);
-                document.getElementById('modify_table').setAttribute('disabled', true);
-                document.getElementById('delete_table').setAttribute('disabled', true);
-                document.getElementById('toggleactive_table').setAttribute('disabled', true);
-
-                document.getElementById('modify_region').setAttribute('disabled', true);
-                document.getElementById('modify_region').setAttribute('disabled', true);
-                document.getElementById('delete_region').setAttribute('disabled', true);
-
-                document.getElementById('modify_mark').setAttribute('disabled', true);
-                document.getElementById('modify_mark').setAttribute('disabled', true);
-                document.getElementById('delete_mark').setAttribute('disabled', true);
-            } catch (e) {
-                this.log('ERROR', this.dump(e));
+            // region
+            if(this.TableRegion.isRemoteService()) {
+                document.getElementById('add_region').setAttribute('hidden', true);
+                document.getElementById('modify_region').setAttribute('hidden', true);
+                document.getElementById('delete_region').setAttribute('hidden', true);
             }
-        },
 
-        disableMainTab: function() {
-            try {
-
-                document.getElementById('tab_tables').setAttribute('hidden', true);
-                document.getElementById('tab_regions').setAttribute('hidden', true);
-                document.getElementById('tab_bookings').setAttribute('hidden', true);
-                document.getElementById('tab_marks').setAttribute('hidden', true);
-
-                document.getElementById('main-tabbox').selectedIndex = 4;
-
-            } catch (e) {
-                this.log('ERROR', this.dump(e));
+            // mark
+            if(this.TableMark.isRemoteService()) {
+                document.getElementById('add_mark').setAttribute('hidden', true);
+                document.getElementById('modify_mark').setAttribute('hidden', true);
+                document.getElementById('delete_mark').setAttribute('hidden', true);
             }
+
+            // settings
+            if(this.TableSetting.isRemoteService()) {
+                // can edit always
+                document.getElementById('automark_after_submit').setAttribute('disabled', true);
+            }else {
+                document.getElementById('clone_settings_from_master').setAttribute('hidden', true);
+            }
+
         }
+
 
     };
     

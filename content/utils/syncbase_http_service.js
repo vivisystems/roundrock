@@ -19,8 +19,9 @@
 
         syncSettings: false,
 
-        username: false,
-        password: false,
+        machineId: '',
+        username: '',
+        password: '',
 
         protocol: 'http',
         port: 80,      
@@ -51,6 +52,7 @@
                 this.syncSettings = syncSettings ;
 
                 // this.setUsername(syncSettings.username); always vivipos
+                this.setMachineId(syncSettings.machine_id);
                 this.setPassword(syncSettings.password);
                 this.setProtocol(syncSettings.protocol);
                 this.setHostname(syncSettings.hostname);
@@ -61,12 +63,20 @@
 
         },
 
+        getMachineId: function() {
+            return (this.machineId || 'vivipos');
+        },
+
+        setMachineId: function(machineId) {
+            this.machineId = machineId || '';
+        },
+
         getUsername: function() {
             return (this.username || 'vivipos');
         },
 
         setUsername: function(username) {
-            this.username = username || false;
+            this.username = username || 'vivipos';
         },
 
         getPassword: function() {
@@ -74,7 +84,7 @@
         },
 
         setPassword: function(password) {
-            this.password = password || false;
+            this.password = password || '';
         },
 
         getProtocol: function() {
@@ -147,7 +157,7 @@
         },
 
         isRemoteService: function() {
-            if (!this.isActive() || (this.isLocalhost() && !this.isForce())) {
+            if ((!this.isActive() || this.isLocalhost()) && !this.isForce()) {
                 return false;
             }
             return true;
@@ -158,13 +168,17 @@
 
             var username = this.getUsername() ;
             var password = this.getPassword() ;
+            var machineId = this.getMachineId();
 
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
+            req.setRequestHeader('X-Vivipos-Machine-Id', machineId);
         },
 
-        getRemoteServiceUrl: function(action) {
+        getRemoteServiceUrl: function(action, force) {
 
-            if (!this.isRemoteService()) return false;
+            force = force || false;
+
+            if (!this.isRemoteService() && !force) return false;
             
             var hostname = this.getHostname();
             var protocol = this.getProtocol();
@@ -189,9 +203,15 @@
         },
 
         encodeRequestData: function(data) {
-            
+
+            let result = '';
             // use encodeComponentURI
-            return encodeURIComponent(data)
+            if (typeof data == 'object') {
+                result = JSON.stringify(data);
+            }else {
+                result = encodeURIComponent(data) ;
+            }
+            return result;
            
         },
 
@@ -203,7 +223,7 @@
             async = async || false;
             callback = (typeof callback == 'function') ?  callback : null;
 
-            dump( 'requestRemoteService url: ' + reqUrl + ', with method: ' + method);
+            dump( 'requestRemoteService url: ' + reqUrl + ', with method: ' + method + '\n');
 
             // set this reference to self for callback
             var self = this;
@@ -250,7 +270,7 @@
 
             // set readystatechange handler
             req.onreadystatechange = function (aEvt) {
-//                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 self.lastReadyState = req.readyState;
                 self.lastStatus = req.status;
 
@@ -259,7 +279,7 @@
                     if (req.status == 200) {
                         try {
                             var result = self.parseResponseText(req.responseText);
-
+                            
                             // set last status 
                             self.lastResponseStatus = result.status;
                             self.lastResponseCode = result.code;
@@ -304,12 +324,12 @@
                 if (!async) {
                     // block ui until request finish or timeout
                     
-                    var now = Date.now().getTime();
+                    var now = (new Date()).getTime();
 
                     var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
                     while (!reqStatus.finish) {
 
-                        if (Date.now().getTime() > (now+timeoutSec)) break;
+                        if ((new Date()).getTime() > (now+timeoutSec)) break;
                         
                         thread.processNextEvent(true);
                     }

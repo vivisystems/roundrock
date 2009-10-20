@@ -11,7 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/table_man.css" type="text/css"?>
 
-<?xul-overlay href="chrome://viviecr/content/overlays/tableBookOverlay.xul" ?>
+<!--?xul-overlay href="chrome://viviecr/content/overlays/tableBookOverlay.xul" ?-->
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 
@@ -21,6 +21,10 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript;version=1.7"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/helpers/nsi_tables_view.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/table_man_controller.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/helpers/nsi_tables_view.js"/>
     <script type="application/x-javascript" src="chrome://viviecr/content/table_man.js"/>
     <script type="application/x-javascript" src="chrome://viviecr/content/libs/jquery.flow.ex.1.2.js"/>
 
@@ -28,22 +32,21 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('search_ok').click()"/>
     </keyset>
 
-    <vbox class="container-be" flex="1">
+    <vbox id="tableManXUL" class="container-be" flex="1">
         <vbox flex="1" class="container-main">
-            <tabbox flex="1" class="content-tabbox" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
+            <tabbox flex="1" class="content-tabbox">
                 <tabs id="main-tabbox">
                     <tab id="tab_tables" label="&tableman.tab.tables;"/>
                     <tab id="tab_regions" label="&tableman.tab.regions;"/>
-                    <tab id="tab_bookings" label="&tableman.tab.bookings;"/>
                     <tab id="tab_marks" label="&tableman.tab.marks;"/>
                     <tab id="tab_tableoptions" label="&tableman.tab.tableoptions;"/>
                     <tab id="tab_tablemap" label="&tableman.tab.tablemap;" hidden="true"/>
                 </tabs>
-                <tabpanels flex="1">
+                <tabpanels id="main-tabpanels" flex="1">
 
                     <!-- Tables Panel -->
 
-                    <tabpanel id="panel_table" flex="1" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_table" flex="1">
                         <textbox id="table_id" name="id"
                                  form="tableForm" readonly="true" hidden="true"/>
                         <textbox id="table_active"
@@ -62,7 +65,8 @@
                                               class="standard" types="checkbox,,,,,"
                                               scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                                     <hbox>
-                                        <label value="&tableman.table.count;"/><label id="table_count"/>
+                                        <label value="&tableman.table.count;"/>
+                                        <label id="table_count"/>
                                     </hbox>
                                 </vbox>
                                 <grid class="data-form">
@@ -93,11 +97,11 @@
                                                          onfocus="select()"
                                                          form="tableForm" name="seats" default=""/>
                                             </vbox>
-                                            <vbox flex="1">
+                                            <vbox flex="1" module="minimumCharge">
                                                 <label control="minimumchargepertable" value="&tableman.table.minimumchargepertable;"/>
                                                 <textbox id="minimumchargepertable"
                                                          onfocus="select()"
-                                                         form="tableForm" name="minimum_charge_per_table" default="0"/>
+                                                         form="tableForm" name="minimum_charge_per_table" type="number" default="0"/>
                                             </vbox>
                                         </row>
                                         <row>
@@ -117,11 +121,11 @@
                                             </vbox>
                                             <vbox/>
 
-                                            <vbox flex="1">
+                                            <vbox flex="1" module="minimumCharge">
                                                 <label control="minimumchargeperguest" value="&tableman.table.minimumchargeperguest;"/>
                                                 <textbox id="minimumchargeperguest"
                                                          onfocus="select()"
-                                                         form="tableForm" name="minimum_charge_per_guest" default="0"/>
+                                                         form="tableForm" name="minimum_charge_per_guest" type="number" default="0"/>
                                             </vbox>
                                         </row>
                                     </rows>
@@ -145,7 +149,7 @@
 
                     <!-- Regions Panel -->
 
-                    <tabpanel id="panel_region" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_region">
                         <textbox id="region_id" readonly="true" hidden="true" form="regionForm" name="id"/>
                         
                         <vbox flex="1">
@@ -158,7 +162,8 @@
                                               class="standard"
                                               scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                                     <hbox>
-                                        <label value="&tableman.region.count;"/><label id="region_count"/>
+                                        <label value="&tableman.region.count;"/>
+                                        <label id="region_count"/>
                                     </hbox>
                                 </vbox>
                                 <grid class="data-form">
@@ -204,15 +209,9 @@
                         </vbox>
                     </tabpanel>
                     
-                    <!-- Table Booking Panel -->
-
-                    <tabpanel id="panel_book" oncommand="event.stopPropagation()">
-                        <box id="tableBookContainer" flex="1"/>
-                    </tabpanel>
-
                     <!-- Table Marks Panel -->
 
-                    <tabpanel id="panel_mark" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_mark">
                         <textbox id="region_id" readonly="true" hidden="true"
                                  form="regionForm" name="id"/>
 
@@ -234,7 +233,7 @@
                                     <!-- row one -->
                                     <row>
                                         <label control="mark_name" value="&tableman.mark.name;"/>
-                                        <textbox id="mark_name" default="" readonly="true"
+                                        <textbox id="mark_name" default=""
                                                  form="markForm" name="name"/>
                                     </row>
                                     <row>
@@ -270,133 +269,135 @@
 
                     <!-- Table Settings Panel -->
 
-                    <tabpanel id="panel_table_settings" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_table_settings">
                         <vbox flex="1">
-                            <tabbox flex="1" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
+                            <tabbox flex="1">
                                 <tabs id="options-tabbox">
                                     <tab id="tab_options1" label="&tableman.tab.tableoptions.1;"/>
                                     <tab id="tab_options2" label="&tableman.tab.tableoptions.2;"/>
                                     <tab id="tab_options3" label="&tableman.tab.tableoptions.3;"/>
+                                    <tab id="tab_options_dock" label="&tableman.tab.tableoptions.dock;"/>
                                 </tabs>
                                 <tabpanels flex="1">
 
                                     <tabpanel>
                                         <vbox flex="1">
-                                        <caption label="&tableman.tableoptions.options;"/>
-                                        <grid flex="1" class="data-form">
-                                            <columns>
-                                                <column flex="1"/>
-                                                <column flex="1"/>
-                                            </columns>
-                                            <rows>
-                                                <row>
-                                                    <checkbox id="tableWinAsFirstWin" label="&tableman.tableoptions.tablewinasfirstwin;" form="settingsForm" name="TableWinAsFirstWin"/>
-                                                    <checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/>
-                                                </row>
-                                                <row>
-                                                    <checkbox id="requireTableNo" label="&tableman.tableoptions.requiretableno;" form="settingsForm" name="RequireTableNo"/>
-                                                    <checkbox id="requireGuestNum" label="&tableman.tableoptions.requireguestnum;" form="settingsForm" name="RequireGuestNum"/>
-                                                </row>
-                                                <row>
-                                                    <checkbox id="quickSelectTableNo" label="&tableman.tableoptions.quickselecttableno;" form="settingsForm" name="QuickSelectTableNo"/>
-                                                    <label />
-                                                </row>
-                                                <row>
-                                                    <vbox>
-                                                        <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
-                                                        <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="5" max="999"
+                                            <caption label="&tableman.tableoptions.options;"/>
+                                            <grid flex="1" class="data-form">
+                                                <columns>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <checkbox id="tableWinAsFirstWin" label="&tableman.tableoptions.tablewinasfirstwin;" form="settingsForm" name="TableWinAsFirstWin"/>
+                                                        <checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/>
+                                                    </row>
+                                                    <row>
+                                                        <checkbox id="requireTableNo" label="&tableman.tableoptions.requiretableno;" form="settingsForm" name="RequireTableNo"/>
+                                                        <checkbox id="requireGuestNum" label="&tableman.tableoptions.requireguestnum;" form="settingsForm" name="RequireGuestNum"/>
+                                                    </row>
+                                                    <row>
+                                                        <checkbox id="staydownAction" label="&tableman.tableoptions.staydownaction;" form="settingsForm" name="StaydownAction"/>
+                                                        <spacer />
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
+                                                            <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="5" max="999" default="60"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableRefreshFrequence"/>
-                                                    </vbox>
-                                                    <vbox>
-                                                        <label control="tablePeriodLimit" value="&tableman.tableoptions.tableperiodlimit;"/>
-                                                        <textbox id="tablePeriodLimit" type="Number" size="4" maxlength="3" min="1" max="999"
+                                                        </vbox>
+                                                        <vbox>
+                                                            <label control="tablePeriodLimit" value="&tableman.tableoptions.tableperiodlimit;"/>
+                                                            <textbox id="tablePeriodLimit" type="Number" size="4" maxlength="3" min="1" max="999" default="30"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TablePeriodLimit"/>
-                                                    </vbox>
-                                                </row>
-                                                <row>
-                                                    <vbox>
-                                                        <label control="tableRemindTime" value="&tableman.tableoptions.tableremindtime;"/>
-                                                        <textbox id="tableRemindTime" type="Number" size="4" maxlength="3" min="10" max="999"
+                                                        </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="tableRemindTime" value="&tableman.tableoptions.tableremindtime;"/>
+                                                            <textbox id="tableRemindTime" type="Number" size="4" maxlength="3" min="10" max="999" default="30"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableRemindTime"/>
-                                                    </vbox>
-                                                    <vbox>
-                                                        <label control="tableBookingTimeout" value="&tableman.tableoptions.tablebookingtimeout;"/>
-                                                        <textbox id="tableBookingTimeout" type="Number" size="4" maxlength="3" min="1" max="999"
+                                                        </vbox>
+                                                        <vbox>
+                                                            <label control="tableBookingTimeout" value="&tableman.tableoptions.tablebookingtimeout;"/>
+                                                            <textbox id="tableBookingTimeout" type="Number" size="4" maxlength="3" min="1" max="999" default="30"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableBookingTimeout"/>
-                                                    </vbox>
-                                                </row>
-                                                <row>
-                                                    <vbox>
-                                                        <label control="maxCheckNo" value="&tableman.tableoptions.maxcheckno;"/>
-                                                        <textbox id="maxCheckNo" type="Number" size="4" maxlength="3" min="30" max="999"
+                                                        </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="maxCheckNo" value="&tableman.tableoptions.maxcheckno;"/>
+                                                            <textbox id="maxCheckNo" type="Number" size="4" maxlength="3" min="30" max="999" default="500"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="MaxCheckNo"/>
-                                                    </vbox>
-                                                    <label value="" />
-                                                </row>
-                                            </rows>
-                                        </grid>
+                                                        </vbox>
+                                                        <label value="" />
+                                                    </row>
+                                                </rows>
+                                            </grid>
                                         </vbox>
                                     </tabpanel>
 
                                     <tabpanel>
                                         <vbox flex="1">
-                                        <caption label="&tableman.tableoptions.options;" />
-                                        <grid class="data-form" flex="1">
-                                            <columns>
-                                                <column flex="1" />
-                                                <column flex="1" />
-                                            </columns>
-                                            <rows>
-                                                <row>
-                                                    <vbox>
-                                                        <label control="print_split_check" value="&tableman.tableoptions.printsplitcheck;"/>
-                                                        <menulist id="print_split_check" name="PrintSplitCheck" form="settingsForm">
-                                                            <menupopup>
-                                                                <menuitem value="0" label="&tableman.tableoptions.printsplitcheck.none;" />
-                                                                <menuitem value="1" label="&tableman.tableoptions.printsplitcheck.auto;" />
-                                                                <menuitem value="2" label="&tableman.tableoptions.printsplitcheck.confirm;" />
-                                                            </menupopup>
-                                                        </menulist>
-                                                    </vbox>
-                                                    <vbox>
-                                                        <label control="default_region" value="&tableman.tableoptions.defaultregion;"/>
-                                                        <menulist id="default_region" name="DefaultRegion" form="settingsForm">
-                                                            <menupopup id="default_region_menupopup">
+                                            <caption label="&tableman.tableoptions.options;" />
+                                            <grid class="data-form" flex="1">
+                                                <columns>
+                                                    <column flex="1" />
+                                                    <column flex="1" />
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <!--vbox>
+                                                            <label control="print_split_check" value="&tableman.tableoptions.printsplitcheck;"/>
+                                                            <menulist id="print_split_check" name="PrintSplitCheck" form="settingsForm">
+                                                                <menupopup>
+                                                                    <menuitem value="0" label="&tableman.tableoptions.printsplitcheck.none;" />
+                                                                    <menuitem value="1" label="&tableman.tableoptions.printsplitcheck.auto;" />
+                                                                    <menuitem value="2" label="&tableman.tableoptions.printsplitcheck.confirm;" />
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox-->
+                                                        <vbox>
+                                                            <label control="default_region" value="&tableman.tableoptions.defaultregion;"/>
+                                                            <menulist id="default_region" name="DefaultRegion" form="settingsForm">
+                                                                <menupopup id="default_region_menupopup">
 
-                                                            </menupopup>
-                                                        </menulist>
-                                                    </vbox>
-                                                </row>
-                                                <row>
-                                                    <vbox>
-                                                        <label control="print_merge_check" value="&tableman.tableoptions.printmergecheck;"/>
-                                                        <menulist id="print_merge_check" name="PrintMergeCheck" form="settingsForm">
-                                                            <menupopup>
-                                                                <menuitem value="0" label="&tableman.tableoptions.printmergecheck.none;" />
-                                                                <menuitem value="1" label="&tableman.tableoptions.printmergecheck.auto;" />
-                                                                <menuitem value="2" label="&tableman.tableoptions.printmergecheck.confirm;" />
-                                                            </menupopup>
-                                                        </menulist>
-                                                    </vbox>
-                                                    <vbox>
-                                                        <label control="mark_automark" value="&tableman.mark.automarkaftersubmit;"/>
-                                                        <menulist id="mark_automark" form="settingsForm" name="AutoMarkAfterSubmit">
-                                                            <menupopup id="automark_after_submit_menupopup">
-                                                            </menupopup>
-                                                        </menulist>
-                                                    </vbox>
-                                                </row>
-                                            </rows>
-                                        </grid>
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <!--vbox>
+                                                            <label control="print_merge_check" value="&tableman.tableoptions.printmergecheck;"/>
+                                                            <menulist id="print_merge_check" name="PrintMergeCheck" form="settingsForm">
+                                                                <menupopup>
+                                                                    <menuitem value="0" label="&tableman.tableoptions.printmergecheck.none;" />
+                                                                    <menuitem value="1" label="&tableman.tableoptions.printmergecheck.auto;" />
+                                                                    <menuitem value="2" label="&tableman.tableoptions.printmergecheck.confirm;" />
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox-->
+                                                        <vbox>
+                                                            <label control="mark_automark" value="&tableman.mark.automarkaftersubmit;"/>
+                                                            <menulist id="automark_after_submit" form="settingsForm" name="AutoMarkAfterSubmit">
+                                                                <menupopup id="automark_after_submit_menupopup">
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                    </row>
+                                                </rows>
+                                            </grid>
                                         </vbox>
                                     </tabpanel>
 
                                     <tabpanel orient="vertical">
+                                        <vbox id="minimumChargeContainer" module="minimumCharge">
                                         <caption label="&tableman.tableoptions.minimumchargeoptions;"/>
                                         <grid class="data-form">
                                             <columns>
@@ -408,7 +409,7 @@
                                                     <checkbox id="requestMinimumCharge" label="&tableman.tableoptions.requestminimumcharge;" form="settingsForm" name="RequestMinimumCharge"/>
                                                     <vbox>
                                                         <label control="globalMinimumChargePerTable" value="&tableman.tableoptions.globalminimumchargepertable;"/>
-                                                        <textbox id="globalMinimumChargePerTable" type="Number" size="10" maxlength="8" min="1" max="99999999"
+                                                        <textbox id="globalMinimumChargePerTable" type="Number" size="10" default="0"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="GlobalMinimumChargePerTable"/>
                                                     </vbox>
@@ -417,7 +418,7 @@
                                                     <label/>
                                                     <vbox>
                                                         <label control="globalMinimumChargePerGuest" value="&tableman.tableoptions.globalminimumchargeperguest;"/>
-                                                        <textbox id="globalMinimumChargePerGuest" type="Number" size="10" maxlength="8" min="1" max="99999999"
+                                                        <textbox id="globalMinimumChargePerGuest" type="Number" size="10" default="0"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="GlobalMinimumChargePerGuest"/>
                                                     </vbox>
@@ -443,30 +444,80 @@
                                                 </row>
                                             </rows>
                                         </grid>
+                                        </vbox>
 
                                         <caption label="&tableman.tableoptions.displayoptions;"/>
                                         <grid class="data-form">
                                             <columns>
-                                                    <column flex="1"/>
-                                                    <column flex="1"/>
+                                                <column flex="1"/>
+                                                <column flex="1"/>
+                                                <column flex="1"/>
+                                                <column flex="1"/>
+                                            </columns>
+                                            <rows>
+                                                <row>
+                                                    <checkbox id="displayCheckNo" label="&tableman.tableoptions.displaycheckno;" form="settingsForm" name="DisplayCheckNo"/>
+                                                    <checkbox id="displayTableLabel" label="&tableman.tableoptions.displaytablelabel;" form="settingsForm" name="DisplayTableLabel"/>
+                                                    <checkbox id="displaySeqNo" label="&tableman.tableoptions.displayseqno;" form="settingsForm" name="DisplaySeqNo"/>
+                                                    <checkbox id="displayBooking" label="&tableman.tableoptions.displaybooking;" form="settingsForm" name="DisplayBooking"/>
+                                                </row>
+                                                <row>
+                                                    <checkbox id="displayPeriod" label="&tableman.tableoptions.displayperiod;" form="settingsForm" name="DisplayPeriod"/>
+                                                    <checkbox id="displayTotal" label="&tableman.tableoptions.displaytotal;" form="settingsForm" name="DisplayTotal"/>
+                                                    <checkbox id="displayCapacity" label="&tableman.tableoptions.displaycapacity;" form="settingsForm" name="DisplayCapacity"/>
+                                                    <checkbox id="displayClerk" label="&tableman.tableoptions.displayclerk;" form="settingsForm" name="DisplayClerk"/>
+                                                </row>
+                                            </rows>
+                                        </grid>
+                                    </tabpanel>
+                                    <tabpanel>
+                                        <vbox flex="1">
+                                            <caption label="&tableman.tableoptions.dockoptions.caption;"/>
+                                            <grid flex="1" class="data-form">
+                                                <columns>
                                                     <column flex="1"/>
                                                     <column flex="1"/>
                                                 </columns>
                                                 <rows>
                                                     <row>
-                                                        <checkbox id="displayCheckNo" label="&tableman.tableoptions.displaycheckno;" form="settingsForm" name="DisplayCheckNo"/>
-                                                        <checkbox id="displayTableLabel" label="&tableman.tableoptions.displaytablelabel;" form="settingsForm" name="DisplayTableLabel"/>
-                                                        <checkbox id="displaySeqNo" label="&tableman.tableoptions.displayseqno;" form="settingsForm" name="DisplaySeqNo"/>
-                                                        <checkbox id="displayBooking" label="&tableman.tableoptions.displaybooking;" form="settingsForm" name="DisplayBooking"/>
+                                                        <checkbox id="isDockMode" label="&tableman.tableoptions.dockoptions.isdockmode;" form="settingsForm" name="IsDockMode"/>
+                                                        <spacer />
                                                     </row>
                                                     <row>
-                                                        <checkbox id="displayPeriod" label="&tableman.tableoptions.displayperiod;" form="settingsForm" name="DisplayPeriod"/>
-                                                        <checkbox id="displayTotal" label="&tableman.tableoptions.displaytotal;" form="settingsForm" name="DisplayTotal"/>
-                                                        <checkbox id="displayCapacity" label="&tableman.tableoptions.displaycapacity;" form="settingsForm" name="DisplayCapacity"/>
-                                                        <checkbox id="displayClerk" label="&tableman.tableoptions.displayclerk;" form="settingsForm" name="DisplayClerk"/>
+                                                        <vbox>
+                                                        <label value="&tableman.tableoptions.dockoptions.width;"/>
+                                                        <textbox id="tableDockWidth" type="Number" size="4" maxlength="4" min="200" max="2048"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="TableDockWidth"/>
+                                                    </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                        <label value="&tableman.tableoptions.dockoptions.height;"/>
+                                                        <textbox id="tableDockHeight" type="Number" size="4" maxlength="4" min="200" max="2048"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="TableDockHeight"/>
+                                                    </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                        <label value="&tableman.tableoptions.dockoptions.left;"/>
+                                                        <textbox id="tableDockLeft" type="Number" size="4" maxlength="4" min="-1000" max="2048"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="TableDockLeft"/>
+                                                    </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                        <label value="&tableman.tableoptions.dockoptions.top;"/>
+                                                        <textbox id="tableDockTop" type="Number" size="4" maxlength="4" min="-1000" max="2048"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="TableDockTop"/>
+                                                    </vbox>
                                                     </row>
                                                 </rows>
-                                        </grid>
+                                            </grid>
+                                        </vbox>
                                     </tabpanel>
                                 </tabpanels>
                             </tabbox>
@@ -488,7 +539,7 @@
 
                     <!-- Table Map Panel -->
 
-                    <tabpanel id="panel_map" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_map">
                         <textbox id="supplier_id" name="id" form="supplierForm" readonly="true" hidden="true"/>
                         <textbox id="supplier_no" name="no" form="supplierForm" readonly="true" hidden="true"/>
 
@@ -513,7 +564,6 @@
                         </vbox>
                     </tabpanel>
 
-                    
 
                 </tabpanels>
 

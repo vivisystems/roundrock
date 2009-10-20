@@ -20,10 +20,11 @@ var __klass__ = {
         this._prefs = {};
         this._trigger = null;
         this._cartItemModel = null;
-        this._discountSubtobal = 0;
+        this._discountSubtotal = 0;
         this._taxNo = '';
         this._taxSubtotal = false;
-        this._taxIncluedSubtotal = false;
+        this._taxIncludedSubtotal = false;
+        this._taxDetails = null;
 
     },
 
@@ -63,15 +64,29 @@ var __klass__ = {
         return ( this.getController().Tax || new TaxComponent() );
     },
 
+    getRoundedPrice: function(price, precision, policy) {
+        var roundedPrice = GeckoJS.NumberHelper.round(Math.abs(price), precision, policy) || 0;
+        if (price < 0) roundedPrice = 0 - roundedPrice;
+        return roundedPrice;
+    },
+
+
+    getRoundedTax: function(tax, precision, policy) {
+        var roundedTax = GeckoJS.NumberHelper.round(Math.abs(tax), precision, policy) || 0;
+        if (tax < 0) roundedTax = 0 - roundedTax;
+        return roundedTax;
+    },
+
     startup: function() {
 
     },
 
     setup: function(trigger) {       
         this._trigger = trigger || null;
-        this._discountSubtobal = 0;
+        this._discountSubtotal = 0;
         this._taxSubtotal = false;
-        this._taxIncluedSubtotal = false;
+        this._taxIncludedSubtotal = false;
+        this._taxChargeObj = false;
     },
 
     getTrigger: function() {
@@ -101,51 +116,86 @@ var __klass__ = {
     /**
      * Type must implement this method
      */
-    setDiscountSubtobal: function(discountSubtobal) {
-        discountSubtobal = discountSubtobal || 0 ;
-        this._discountSubtobal = discountSubtobal;
+    setDiscountSubtotal: function(discountSubtotal) {
+        var txn = this.getTransaction();
+
+        discountSubtotal = discountSubtotal || 0 ;
+        if (txn) {
+            this._discountSubtotal = this.getRoundedPrice(discountSubtotal, txn.data.precision_prices, txn.data.rounding_prices);
+        }
+        else {
+            this._discountSubtotal = discountSubtotal;
+        }
     },
 
-    getDiscountSubtobal: function() {
-        return this._discountSubtobal;
+    getDiscountSubtotal: function() {
+        return this._discountSubtotal;
     },
 
     getDiscountTaxSubtotal: function() {
 
-        var taxNo = this.getTaxNo();
+        var defaultTax = GeckoJS.Session.get('defaultTaxNo');
+        var taxNo = this.getTaxNo() || defaultTax;
         var taxComponent = this.getTaxComponent();
 
         if (!taxNo || !taxComponent) return 0;
 
         if (this._taxSubtotal === false) {
 
-            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtobal()), Math.abs(this.getDiscountSubtobal()), 1);
+            var txn = this.getTransaction();
+            var precision = txn.data.precision_taxes;
+            var policy = txn.data.rounding_taxes;
+            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtotal()), Math.abs(this.getDiscountSubtotal()), 1, txn.data.precision_taxes, txn.data.rounding_taxes);
 
-            this._taxSubtotal =  taxChargeObj[taxNo].charge;
-            this._taxIncluedSubtotal =  taxChargeObj[taxNo].included;
+            this._taxSubtotal =  this.getRoundedTax(taxChargeObj[taxNo].charge, precision, policy);
+            this._taxIncludedSubtotal =  this.getRoundedTax(taxChargeObj[taxNo].included, precision, policy);
+            this._taxDetails = taxChargeObj[taxNo].tax_details;
 
         }
-
+        
         return this._taxSubtotal;
     },
 
     getDiscountTaxIncludedSubtotal: function() {
 
-        var taxNo = this.getTaxNo();
+        var defaultTax = GeckoJS.Session.get('defaultTaxNo');
+        var taxNo = this.getTaxNo() || defaultTax;
         var taxComponent = this.getTaxComponent();
 
         if (!taxNo || !taxComponent) return 0;
 
         if (this._taxSubtotal === false) {
 
-            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtobal()), Math.abs(this.getDiscountSubtobal()), 1);
+            var txn = this.getTransaction();
+            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtotal()), Math.abs(this.getDiscountSubtotal()), 1, txn.data.precision_taxes, txn.data.rounding_taxes);
             
             this._taxSubtotal =  taxChargeObj[taxNo].charge;
-            this._taxIncluedSubtotal =  taxChargeObj[taxNo].included;
-
+            this._taxIncludedSubtotal =  taxChargeObj[taxNo].included;
+            this._taxDetails = taxChargeObj[taxNo].tax_details;
         }
 
-        return this._taxIncluedSubtotal;
+        return this._taxIncludedSubtotal;
+    },
+
+    getDiscountTaxDetails: function() {
+
+        var defaultTax = GeckoJS.Session.get('defaultTaxNo');
+        var taxNo = this.getTaxNo() || defaultTax;
+        var taxComponent = this.getTaxComponent();
+
+        if (!taxNo || !taxComponent) return 0;
+
+        if (this._taxSubtotal === false) {
+
+            var txn = this.getTransaction();
+            var taxChargeObj = taxComponent.calcTaxAmount(taxNo, Math.abs(this.getDiscountSubtotal()), Math.abs(this.getDiscountSubtotal()), 1, txn.data.precision_taxes, txn.data.rounding_taxes);
+
+            this._taxSubtotal =  taxChargeObj[taxNo].charge;
+            this._taxIncludedSubtotal =  taxChargeObj[taxNo].included;
+            this._taxDetails = taxChargeObj[taxNo].tax_details;
+        }
+
+        return this._taxDetails;
     },
 
 

@@ -1,28 +1,6 @@
 {if order}
 {eval}
   item_adjustments = 0;
-  status = '';
-  switch(parseInt(order.status)) {
-    case 1:
-      status = _('(view)completed');
-      break;
-
-    case 2:
-      status = _('(view)stored');
-      break;
-
-    case -1:
-      status = _('(view)cancelled');
-      break;
-
-    case -2:
-      status = _('(view)voided');
-      break;
-
-    default:
-      status = order.status;
-  }
-
   TrimPath.RoundingPrices = order.rounding_prices;
   TrimPath.PrecisionPrices = order.precision_prices;
   TrimPath.RoundingTaxes = order.rounding_taxes;
@@ -34,7 +12,7 @@
         <td style="width: 90px">${_('(view)order sequence')+':'}</td>
         <td> ${order.sequence}</td>
         <td style="width: 90px">${_('(view)order status')+':'}</td>
-        <td>${status}</td>
+        <td>${order.status_str}</td>
         <td style="width: 90px">${_('(view)order destination')+':'}</td>
         <td>${order.destination}</td>
     </tr>
@@ -186,7 +164,7 @@
 {if order.OrderAddition}
     {for adjustment in order.OrderAddition}
     <tr>
-        {if adjustment.discount_name != null}
+        {if adjustment.discount_name != ''}
         <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${adjustment.discount_name}</td>
         <td style="width: 100px; text-align: right;">${adjustment.current_discount|viviFormatPrices:true}</td>
         <td/>
@@ -249,7 +227,7 @@
     <tr>
         <td>&nbsp;&nbsp;${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : _(payment.name)}</td>
         <td colspan="2">${(payment.memo1 != null && payment.memo1 != '') ? _(payment.name) : ''}</td>
-        <td style="text-align: right;">${payment.origin_amount|viviFormatPrices:true}</td>
+        <td style="text-align: right;">${(payment.origin_amount != null && payment.origin_amount != '') ? payment.origin_amount : ''|viviFormatPrices:true}</td>
         <td style="text-align: right;">${payment.amount|viviFormatPrices:true}</td>
         <td/>
     </tr>

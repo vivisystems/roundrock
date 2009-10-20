@@ -27,12 +27,14 @@
 {/if}
                     <th style="text-align: center;">${_( '(rpt)Date' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Hour' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Number of Orders' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Number of Guests' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Number of Items' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Net Sales/Guest' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Net Sales/Order' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Total/Guest' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Total/Order' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Gross Sales/Guest' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Gross Sales/Order' )}</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,6 +51,8 @@
                     <td style="text-align: right;">${detail.ItemsCount|default:0|format:0}</td>
                     <td style="text-align: right;">${detail.NetPerGuest|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.NetPerOrder|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.GrossPerGuest|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.GrossPerOrder|default:0|viviFormatPrices:true}</td>
                 </tr>
 {/for}
             </tbody>
@@ -65,6 +69,8 @@
                     <td style="text-align: right;">${foot.ItemsCount|default:0|format:0}</td>
                     <td style="text-align: right;">${foot.NetPerGuest|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.NetPerOrder|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.GrossPerGuest|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.GrossPerOrder|default:0|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>
         </table>

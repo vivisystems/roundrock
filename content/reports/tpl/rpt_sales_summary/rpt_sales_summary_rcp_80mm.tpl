@@ -15,7 +15,7 @@ ${'  ' + _( '(rpt)Surcharge' ) + ':'|left:26}${body.sales_summary.SurchargeSubto
 ${'  ' + _( '(rpt)Discount' ) + ':'|left:26}${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true|right:16}
 ${'  ' + _( '(rpt)Promotion' ) + ':'|left:26}${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true|right:16}
 ${'  ' + _( '(rpt)Revalue' ) + ':'|left:26}${body.sales_summary.RevalueSubtotal|default:0|viviFormatPrices:true|right:16}
-${'  ' + _( '(rpt)Net Sales' ) + ':'|left:26}${body.sales_summary.NetSales|default:0|viviFormatPrices:true|right:16}
+${'  ' + _( '(rpt)Total' ) + ':'|left:26}${body.sales_summary.NetSales|default:0|viviFormatPrices:true|right:16}
 ------------------------------------------
 ${_( '(rpt)Sales Summary' )}
 ${'  ' + _( '(rpt)Number of Orders' ) + ':'|left:26}${body.sales_summary.OrderNum|default:0|format:0|right:16}
@@ -25,9 +25,9 @@ ${'  ' + _( '(rpt)Number of Voided Orders' ) + ':'|left:26}${body.sales_summary.
 ${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:26}${body.sales_summary.GrossSales|default:0|viviFormatPrices:true|right:16}
 ${'  ' + _( '(rpt)Gross Sales/Order' ) + ':'|left:26}${body.sales_summary.AvgGrossSales|default:0|viviFormatPrices:2|right:16}
 ${'  ' + _( '(rpt)Gross Sales/Guest' ) + ':'|left:26}${body.sales_summary.AvgGrossSalesPerGuest|default:0|viviFormatPrices:2|right:16}
-${'  ' + _( '(rpt)Net Sales' ) + ':'|left:26}${body.sales_summary.NetSales|default:0|viviFormatPrices:true|right:16}
-${'  ' + _( '(rpt)Net Sales/Order' ) + ':'|left:26}${body.sales_summary.AvgNetSales|default:0|viviFormatPrices:2|right:16}
-${'  ' + _( '(rpt)Net Sales/Guest' ) + ':'|left:26}${body.sales_summary.AvgNetSalesPerGuest|default:0|viviFormatPrices:2|right:16}
+${'  ' + _( '(rpt)Total' ) + ':'|left:26}${body.sales_summary.NetSales|default:0|viviFormatPrices:true|right:16}
+${'  ' + _( '(rpt)Total/Order' ) + ':'|left:26}${body.sales_summary.AvgNetSales|default:0|viviFormatPrices:2|right:16}
+${'  ' + _( '(rpt)Total/Guest' ) + ':'|left:26}${body.sales_summary.AvgNetSalesPerGuest|default:0|viviFormatPrices:2|right:16}
 ${'  ' + _( '(rpt)Number of Guests/Order' ) + ':'|left:26}${body.sales_summary.AvgGuests|default:0|format:2|right:16}
 ${'  ' + _( '(rpt)Number of Items/Order' ) + ':'|left:26}${body.sales_summary.AvgQtySubtotal|default:0|format:2|right:16}
 ------------------------------------------
@@ -51,6 +51,7 @@ ${'    ' + _('(rpt)Destination Average Gross Sales') + ':'|left:26}${detail.gros
 ${_( '(rpt)Tax Summary' )}
 {for detail in body.tax_summary.records}
 ${'  ' + _( '(rpt)Tax Name' ) + ':'|left:26}${detail.tax_name|right:16}
+${'  ' + _( '(rpt)Taxable Amount' ) + ':'|left:26}${detail.taxable_amount|default:0|viviFormatTaxes:true|right:16}
 ${'  ' + _( '(rpt)Add-On Tax Amount' ) + ':'|left:26}${detail.tax_subtotal|default:0|viviFormatTaxes:true|right:16}
 ${'  ' + _( '(rpt)Included Tax Amount' ) + ':'|left:26}${detail.included_tax|default:0|viviFormatTaxes:true|right:16}
   

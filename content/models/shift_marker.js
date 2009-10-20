@@ -125,12 +125,12 @@
                 if (!async) {
                     // block ui until request finish or timeout
 
-                    var now = Date.now().getTime();
+                    var now = (new Date()).getTime();
 
                     var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
                     while (!reqStatus.finish) {
 
-                        if (Date.now().getTime() > (now+timeoutSec)) break;
+                        if ((new Date()).getTime() > (now+timeoutSec)) break;
 
                         thread.processNextEvent(true);
                     }
@@ -207,6 +207,18 @@
         },
 
         saveMarker: function(data) {
+
+            // always retrieve marker first
+            var marker = this.getMarker();
+            if (parseInt(this.lastError) != 0) {
+                this.log('ERROR',
+                         'An error was encountered while retrieving shift marker id (error code ' + this.lastError + '): ' + this.lastErrorString);
+                return false;
+            }
+
+            if (marker) {
+                this.id = data.id = marker.id;
+            }
 
             var r = this.save(data);
             if (!r) {

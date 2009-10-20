@@ -38,6 +38,7 @@ var options;
             // hide memo row
             document.getElementById('memo-row').hidden = true;
         }
+        document.getElementById('quantity').focus();
 
         doSetOKCancel(
             function(){

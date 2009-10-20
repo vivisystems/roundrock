@@ -53,7 +53,6 @@
             	/*" GROUP BY " + groupby + */" ORDER BY " + orderby + ";";
             var numRows = inventoryCommitmentModel.getDataSource().fetchAll( sql );
             numRows = numRows[ 0 ].numRows;
-            alert( numRows );
             sql =
             	"SELECT " + fields.join( ", " ) + " FROM inventory_commitments ic JOIN inventory_records ir ON ( " +
             	"ic.id = ir.commitment_id ) JOIN products p ON ( ir.product_no = p.no ) WHERE " + conditions +

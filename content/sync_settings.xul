@@ -193,11 +193,13 @@
                                 </row>
                                 <row id="syncSettingsTableBox" flex="1">
                                     <vbox>
-                                        <checkbox form="syncSettingForm" name="table_active" label="&sync_settings.label.table_active;" checked="false"/>
+                                        <label value="&sync_settings.label.table_hostname;"/>
+                                        <textbox value="localhost"
+                                                 form="syncSettingForm" name="table_hostname"/>
                                     </vbox>
                                     <textbox id="table_hostname_desc" flex="1" class="textbox-description"
                                              readonly="true" wrap="true" multiline="true" rows="2"
-                                             value="&sync_settings.desc.table_active;"/>
+                                             value="&sync_settings.desc.table_hostname;"/>
                                 </row>
                                 <row id="syncSettingsStockBox" flex="1">
                                     <vbox>

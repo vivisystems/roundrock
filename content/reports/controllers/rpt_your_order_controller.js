@@ -6,9 +6,12 @@
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     var __controller__ = {
+        
         name: 'RptYourOrder',
         
-        _fileName: 'rpt_your_order',
+        components: ['OrderStatus'],
+
+        _fileName: 'custom_sales_report',
         
         _report_title: '',
         _report_title_message: 'vivipos.fec.reportpanels.yourorder.label',
@@ -92,7 +95,7 @@
             var counts = orderPayment.getDataSource().fetchAll('SELECT count(id) as rowCount from (SELECT distinct (orders.id) ' + '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby +')');
             var rowCount = counts[0].rowCount;
 
-            var datas = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' +
+            var datas = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders OUTER LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' +
                 conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
 
             //prepare reporting data
@@ -143,20 +146,7 @@
                     repDatas[ oid ][ 'giftcard' ] = 0.0;
                     
                     // make order status readable.
-                    switch ( parseInt( repDatas[ oid ].status, 10 ) ) {
-                    case 1:
-                        repDatas[ oid ].status = _( '(rpt)completed' );
-                        break;
-                    case 2:
-                        repDatas[ oid ].status = _( '(rpt)stored' );
-                        break;
-                    case -1:
-                        repDatas[ oid ].status = _( '(rpt)canceled' );
-                        break;
-                    case -2:
-                        repDatas[ oid ].status = _( '(rpt)voided' );
-                        break;
-                }
+                    repDatas[ oid ].status = this.statusToString( repDatas[ oid ].status );
 					
                     //for setting up footdata
                     footDatas.total += o.total;
@@ -180,7 +170,7 @@
                 footDatas[ 'payment' ] += o.payment_subtotal;
 
                 old_oid = oid;
-            });
+            }, this);
 
             this._datas = GeckoJS.BaseObject.getValues( repDatas );
            
@@ -433,7 +423,7 @@
                 _( 'Saving Properties' ),
                 '',
                 _( 'Report Name' ),
-                _( 'Report ID(Alphanumeric)' ),
+                _( 'Report ID (alphanumeric)' ),
                 inputObj
             );
             

@@ -215,7 +215,7 @@ pref("vivipos.fec.report.yourorder.field.revalue.value", "revalue_subtotal");
 pref("vivipos.fec.report.yourorder.field.revalue.datatype", "dollar");
 pref("vivipos.fec.report.yourorder.field.revalue.order", "1400");
 
-pref("vivipos.fec.report.yourorder.field.total.name", "(rpt)Net Sales");
+pref("vivipos.fec.report.yourorder.field.total.name", "(rpt)Total");
 pref("vivipos.fec.report.yourorder.field.total.value", "total");
 pref("vivipos.fec.report.yourorder.field.total.datatype", "dollar");
 pref("vivipos.fec.report.yourorder.field.total.order", "1500");

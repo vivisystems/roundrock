@@ -13,7 +13,7 @@ ${category.no} - ${category.name}
 ------------------------------------------
 ${_( '(rpt)Product Number' ) + ':'|left:16}${item.product_no|right:26}
 ${_( '(rpt)Product Name' ) + ':'|left:16}${item.product_name|right:26}
-${_( '(rpt)Average Price' ) + ':'|left:16}${item.avg_price|viviFormatPrices:true|right:26}
+${_( '(rpt)Average Net Price' ) + ':'|left:16}${item.avg_price|viviFormatPrices:true|right:26}
 ${_( '(rpt)Quantities Sold' ) + ':'|left:16}${item.qty|format:0|right:26}
 ${_( '(rpt)Gross Sales' ) + ':'|left:16}${item.gross|viviFormatPrices:true|right:26}
 ${_( '(rpt)Net Sales' ) + ':'|left:16}${item.net|viviFormatPrices:true|right:26}

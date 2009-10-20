@@ -47,14 +47,11 @@ var promptAdditem_options;
 
                 // make inputObj globally available
                 promptAdditem_options = inputObj;
-
-                var multiline = false;
+                
                 if ('multiline0' in inputObj) {
                     document.getElementById('promptAdditem-input0').setAttribute('multiline', true);
                     document.getElementById('promptAdditem-row0').setAttribute('flex', 1);
                     document.getElementById('promptAdditem-input0').setAttribute('rows', isNaN(inputObj.multiline0) ? 3 : inputObj.multiline0);
-                    multiline = true;
-                    document.getElementById('key_enter').setAttribute('disabled', true);
                 }
                 else {
                     document.getElementById('promptAdditem-input0').setAttribute('multiline', false);
@@ -89,14 +86,12 @@ var promptAdditem_options;
                         document.getElementById('promptAdditem-input1').setAttribute('multiline', true);
                         document.getElementById('promptAdditem-input1').setAttribute('rows', isNaN(inputObj.multiline1) ? 3 : inputObj.multiline1);
                         document.getElementById('promptAdditem-row1').setAttribute('flex', 1);
-                        multiline = true;
                     }
                     else {
                         document.getElementById('promptAdditem-input1').setAttribute('multiline', false);
                         document.getElementById('promptAdditem-row1').setAttribute('flex', 0);
                     }
                 }
-                document.getElementById('key_enter').setAttribute('disabled', multiline);
 
                 // set input type
                 if ('type0' in inputObj) {

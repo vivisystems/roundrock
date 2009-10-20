@@ -14,6 +14,10 @@
   %SyncSettings;
   <!ENTITY % extensionsSDKDTD SYSTEM "chrome://vivipos/locale/extensions.dtd">
   %extensionsSDKDTD;
+  <!ENTITY % TableMan SYSTEM "chrome://viviecr/locale/table_man.dtd">
+  %TableMan;
+  <!ENTITY % SelectTable SYSTEM "chrome://viviecr/locale/select_table.dtd">
+  %SelectTable;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
@@ -43,62 +47,62 @@
             <!-- Main Content Block -->
             <hbox flex="1">
                     <!-- Left Panel for Category -->
-                    <vbox>
-                        <richlistbox flex="1" onselect="document.getElementById('deckContainer').selectedIndex = this.selectedIndex;">
-                          <richlistitem align="center" >
-                              <image src="chrome://viviecr/skin/icons/icon_plus.png" />
-                              <description>&function_customizer.products.label;</description>
-                              <spacer style="width: 4px;" />
-                          </richlistitem>
-                          <richlistitem align="center" >
-                              <image src="chrome://viviecr/skin/icons/icon_employee.png" />
-                              <description>&function_customizer.employees.label;</description>
-                              <spacer style="width: 4px;" />
-                          </richlistitem>
-                          <richlistitem align="center" >
-                              <image src="chrome://viviecr/skin/icons/icon_discount.png" />
-                              <description>&function_customizer.activities.label;</description>
-                              <spacer style="width: 4px;" />
-                          </richlistitem>
-                          <richlistitem align="center" >
-                              <image src="chrome://viviecr/skin/icons/icon_addons.png" />
-                              <description>&function_customizer.tools.label;</description>
-                              <spacer style="width: 4px;" />
-                          </richlistitem>
-                          <richlistitem align="center">
-                              <image src="chrome://viviecr/skin/icons/icon_functionpnl.png" />
-                              <description>&function_customizer.functions.title;</description>
-                              <spacer style="width: 4px;" />
-                          </richlistitem>
-                          <richlistitem align="center" >
-                              <image src="chrome://viviecr/skin/icons/icon_sync.png" />
-                              <description>&function_customizer.systems.title;</description>
-                              <spacer style="width: 4px;" />
-                          </richlistitem>
-                          <richlistitem align="center">
-                              <image src="chrome://viviecr/skin/icons/icon_reports.png" />
-                              <description>&function_customizer.reports.title;</description>
-                              <spacer style="width: 4px;" />
-                          </richlistitem>
-                        </richlistbox>
-                    </vbox>
+                <vbox>
+                    <richlistbox flex="1" onselect="document.getElementById('deckContainer').selectedIndex = this.selectedIndex;">
+                        <richlistitem align="center" >
+                            <image src="chrome://viviecr/skin/icons/icon_plus.png" />
+                            <description>&function_customizer.products.label;</description>
+                            <spacer style="width: 4px;" />
+                        </richlistitem>
+                        <richlistitem align="center" >
+                            <image src="chrome://viviecr/skin/icons/icon_employee.png" />
+                            <description>&function_customizer.employees.label;</description>
+                            <spacer style="width: 4px;" />
+                        </richlistitem>
+                        <richlistitem align="center" >
+                            <image src="chrome://viviecr/skin/icons/icon_discount.png" />
+                            <description>&function_customizer.activities.label;</description>
+                            <spacer style="width: 4px;" />
+                        </richlistitem>
+                        <richlistitem align="center" >
+                            <image src="chrome://viviecr/skin/icons/icon_addons.png" />
+                            <description>&function_customizer.tools.label;</description>
+                            <spacer style="width: 4px;" />
+                        </richlistitem>
+                        <richlistitem align="center">
+                            <image src="chrome://viviecr/skin/icons/icon_functionpnl.png" />
+                            <description>&function_customizer.functions.title;</description>
+                            <spacer style="width: 4px;" />
+                        </richlistitem>
+                        <richlistitem align="center" >
+                            <image src="chrome://viviecr/skin/icons/icon_sync.png" />
+                            <description>&function_customizer.systems.title;</description>
+                            <spacer style="width: 4px;" />
+                        </richlistitem>
+                        <richlistitem align="center">
+                            <image src="chrome://viviecr/skin/icons/icon_reports.png" />
+                            <description>&function_customizer.reports.title;</description>
+                            <spacer style="width: 4px;" />
+                        </richlistitem>
+                    </richlistbox>
+                </vbox>
                     <!-- Left Panel for Category End -->
 
-                    <spacer style="width: 10px;" />
+                <spacer style="width: 10px;" />
                     
                     <!-- Right Panel for Option -->
-                    <vbox flex="1" style="border: 1px solid gray;">
-                        <deck id="deckContainer" selectedIndex="0">
+                <vbox flex="1" style="border: 1px solid gray;">
+                    <deck id="deckContainer" selectedIndex="0">
 
                             <!-- Products Container -->
-                            <hbox flex="1" id="productsContainer" >
-                                <tabbox id="productsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
-                                  <tabs id="productsTabs">
+                        <hbox flex="1" id="productsContainer" >
+                            <tabbox id="productsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                <tabs id="productsTabs">
                                     <tab label="&function_customizer.tab.controlpanel;"/>
                                     <tab label="&function_customizer.tab.appearance;"/>
                                     <tab label="&function_customizer.tab.attributes;"/>
-                                  </tabs>
-                                  <tabpanels id="productsTabpanels" flex="1">
+                                </tabs>
+                                <tabpanels id="productsTabpanels" flex="1">
 
                                     <tabpanel flex="1" orient="vertical">
                                         <checkbox id="cpDepartments" value="true" label="Disable Departments Manager"
@@ -125,43 +129,43 @@
 
                                     <tabpanel flex="1" orient="vertical">
                                         <groupbox>
-                                          <caption label="Departments"/>
-                                          <checkbox id="appearDept" value="true" checked="true" hidden="true" form="productsForm" name="appearDept" />
-                                          <checkbox id="appearDeptColor" value="true" label="&function_customizer.products.disable_color_picker;"
+                                            <caption label="Departments"/>
+                                            <checkbox id="appearDept" value="true" checked="true" hidden="true" form="productsForm" name="appearDept" />
+                                            <checkbox id="appearDeptColor" value="true" label="&function_customizer.products.disable_color_picker;"
                                                       form="productsForm" name="appearDeptColor" default="false" />
-                                          <checkbox id="appearDeptFont" value="true" label="&function_customizer.products.disable_font_picker;"
+                                            <checkbox id="appearDeptFont" value="true" label="&function_customizer.products.disable_font_picker;"
                                                       form="productsForm" name="appearDeptFont" default="false" />
                                         </groupbox>
                                         <spacer style="height: 10px;" />
 
                                         <groupbox>
-                                          <caption label="Products"/>
-                                          <checkbox id="appearProduct" value="true" checked="true" hidden="true" form="productsForm" name="appearProduct" />
-                                          <checkbox id="appearProductImage" value="true" label="&function_customizer.products.disable_image_picker;"
+                                            <caption label="Products"/>
+                                            <checkbox id="appearProduct" value="true" checked="true" hidden="true" form="productsForm" name="appearProduct" />
+                                            <checkbox id="appearProductImage" value="true" label="&function_customizer.products.disable_image_picker;"
                                                       form="productsForm" name="appearProductImage" default="false" />
-                                          <checkbox id="appearProductColor" value="true" label="&function_customizer.products.disable_color_picker;"
+                                            <checkbox id="appearProductColor" value="true" label="&function_customizer.products.disable_color_picker;"
                                                       form="productsForm" name="appearProductColor" default="false" />
-                                          <checkbox id="appearProductFont" value="true" label="&function_customizer.products.disable_font_picker;"
+                                            <checkbox id="appearProductFont" value="true" label="&function_customizer.products.disable_font_picker;"
                                                       form="productsForm" name="appearProductFont" default="false" />
                                         </groupbox>
                                         <spacer style="height: 10px;" />
 
                                         <groupbox>
-                                          <caption label="Condiments"/>
-                                          <checkbox id="appearCondment" value="true" checked="true" hidden="true" form="productsForm" name="appearCondment" />
-                                          <checkbox id="appearCondmentColor" value="true" label="&function_customizer.products.disable_color_picker;"
+                                            <caption label="Condiments"/>
+                                            <checkbox id="appearCondment" value="true" checked="true" hidden="true" form="productsForm" name="appearCondment" />
+                                            <checkbox id="appearCondmentColor" value="true" label="&function_customizer.products.disable_color_picker;"
                                                       form="productsForm" name="appearCondmentColor" default="false" />
-                                          <checkbox id="appearCondmentFont" value="true" label="&function_customizer.products.disable_font_picker;"
+                                            <checkbox id="appearCondmentFont" value="true" label="&function_customizer.products.disable_font_picker;"
                                                       form="productsForm" name="appearCondmentFont" default="false" />
                                         </groupbox>
                                         <spacer style="height: 10px;" />
 
                                         <groupbox>
-                                          <caption label="Product Groups"/>
-                                          <checkbox id="appearProdGroup" value="true" checked="true" hidden="true" form="productsForm" name="appearProdGroup" />
-                                          <checkbox id="appearProdGroupColor" value="true" label="&function_customizer.products.disable_color_picker;"
+                                            <caption label="Product Groups"/>
+                                            <checkbox id="appearProdGroup" value="true" checked="true" hidden="true" form="productsForm" name="appearProdGroup" />
+                                            <checkbox id="appearProdGroupColor" value="true" label="&function_customizer.products.disable_color_picker;"
                                                       form="productsForm" name="appearProdGroupColor" default="false" />
-                                          <checkbox id="appearProdGroupFont" value="true" label="&function_customizer.products.disable_font_picker;"
+                                            <checkbox id="appearProdGroupFont" value="true" label="&function_customizer.products.disable_font_picker;"
                                                       form="productsForm" name="appearProdGroupFont" default="false" />
                                         </groupbox>
                                     </tabpanel>
@@ -186,20 +190,20 @@
                                         </hbox>
                                     </tabpanel>
 
-                                  </tabpanels>
-                                </tabbox>
+                                </tabpanels>
+                            </tabbox>
 
-                            </hbox>
+                        </hbox>
                             <!-- Products Container End -->
 
                             <!-- Employees Container -->
-                            <hbox flex="1" id="employeesContainer" >
+                        <hbox flex="1" id="employeesContainer" >
 
-                                <tabbox id="employeesTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
-                                  <tabs id="employeesTabs">
+                            <tabbox id="employeesTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                <tabs id="employeesTabs">
                                     <tab label="&function_customizer.tab.controlpanel;"/>
-                                  </tabs>
-                                  <tabpanels id="employeesTabpanels" flex="1">
+                                </tabs>
+                                <tabpanels id="employeesTabpanels" flex="1">
 
                                     <tabpanel flex="1" orient="vertical">
                                         <checkbox id="cpEmployees" value="true" label="Disable Employees Manager"
@@ -212,21 +216,21 @@
                                                       form="employeesForm" name="cpStorecontact" default="false" />
                                     </tabpanel>
 
-                                  </tabpanels>
+                                </tabpanels>
                                   
-                                </tabbox>
+                            </tabbox>
 
-                            </hbox>
+                        </hbox>
                             <!-- Employees Container End -->
 
                             <!-- Activities Container -->
-                            <hbox flex="1" id="activitiesContainer" >
-                                <tabbox id="activitiesTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
-                                  <tabs id="activitiesTabs">
+                        <hbox flex="1" id="activitiesContainer" >
+                            <tabbox id="activitiesTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                <tabs id="activitiesTabs">
                                     <tab label="&function_customizer.tab.controlpanel;"/>
                                     <tab label="&function_customizer.tab.promotions;"/>
-                                  </tabs>
-                                  <tabpanels id="activitiesTabpanels" flex="1">
+                                </tabs>
+                                <tabpanels id="activitiesTabpanels" flex="1">
 
                                     <tabpanel flex="1" orient="vertical">
                                         <checkbox id="cpPricelevelschedule" value="true" label="Disable Price level Schedule Manager"
@@ -238,51 +242,52 @@
                                     <tabpanel flex="1" orient="vertical">
 
                                         <groupbox>
-                                          <caption label="&function_customizer.groupbox.triggers.caption;"/>
+                                            <caption label="&function_customizer.groupbox.triggers.caption;"/>
 
-                                          <checkbox id="promoTriggerIndividualPlu" value="true" label="Disable Individual Plu Trigger"
+                                            <checkbox id="promoTriggerIndividualPlu" value="true" label="Disable Individual Plu Trigger"
                                                       form="activitiesForm" name="promoTriggerIndividualPlu" default="false" />
-                                          <checkbox id="promoTriggerIndividualDept" value="true" label="Disable Individual Department Trigger"
+                                            <checkbox id="promoTriggerIndividualDept" value="true" label="Disable Individual Department Trigger"
                                                       form="activitiesForm" name="promoTriggerIndividualDept" default="false" />
-                                          <checkbox id="promoTriggerIndividualGroup" value="true" label="Disable Individual Group Trigger"
+                                            <checkbox id="promoTriggerIndividualGroup" value="true" label="Disable Individual Group Trigger"
                                                       form="activitiesForm" name="promoTriggerIndividualGroup" default="false" />
-                                          <checkbox id="promoTriggerMultiDept" value="true" label="Disable Multiple Department Trigger"
+                                            <checkbox id="promoTriggerMultiDept" value="true" label="Disable Multiple Department Trigger"
                                                       form="activitiesForm" name="promoTriggerMultiDept" default="false" />
-                                          <checkbox id="promoTriggerMultiGroup" value="true" label="Disable Multiple Group Trigger"
+                                            <checkbox id="promoTriggerMultiGroup" value="true" label="Disable Multiple Group Trigger"
                                                       form="activitiesForm" name="promoTriggerMultiGroup" default="false" />
                                         </groupbox>
                                         <spacer style="height: 10px;" />
 
                                         <groupbox>
-                                          <caption label="&function_customizer.groupbox.types.caption;"/>
+                                            <caption label="&function_customizer.groupbox.types.caption;"/>
 
-                                          <checkbox id="promoTypeAmountOff" value="true" label="Disable Amount Off Type"
+                                            <checkbox id="promoTypeAmountOff" value="true" label="Disable Amount Off Type"
                                                       form="activitiesForm" name="promoTypeAmountOff" default="false" />
-                                          <checkbox id="promoTypePercentageOff" value="true" label="Disable Percentage Off Type"
+                                            <checkbox id="promoTypePercentageOff" value="true" label="Disable Percentage Off Type"
                                                       form="activitiesForm" name="promoTypePercentageOff" default="false" />
-                                          <checkbox id="promoTypeFixedValue" value="true" label="Disable Fixed Value Type"
+                                            <checkbox id="promoTypeFixedValue" value="true" label="Disable Fixed Value Type"
                                                       form="activitiesForm" name="promoTypeFixedValue" default="false" />
-                                          <checkbox id="promoTypeCheapestOneFree" value="true" label="Disable Cheapest One Free Type"
+                                            <checkbox id="promoTypeCheapestOneFree" value="true" label="Disable Cheapest One Free Type"
                                                       form="activitiesForm" name="promoTypeCheapestOneFree" default="false" />
-                                          <checkbox id="promoTypeMultiBuy" value="true" label="Disable MultiBuy Type"
+                                            <checkbox id="promoTypeMultiBuy" value="true" label="Disable MultiBuy Type"
                                                       form="activitiesForm" name="promoTypeMultiBuy" default="false" />
                                         </groupbox>
 
                                     </tabpanel>
-                                  </tabpanels>
-                                </tabbox>
-                            </hbox>
+                                </tabpanels>
+                            </tabbox>
+                        </hbox>
                             <!-- Activities Container End -->
 
                             <!-- Tools Container -->
-                            <hbox flex="1" id="toolsContainer" >
-                                <tabbox id="toolsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
-                                  <tabs id="toolsTabs">
+                        <hbox flex="1" id="toolsContainer" >
+                            <tabbox id="toolsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                <tabs id="toolsTabs">
                                     <tab label="&function_customizer.tab.controlpanel;"/>
                                     <tab label="&function_customizer.tab.devices;"/>
+                                    <tab label="&function_customizer.tab.tablemanager;"/>
                                     <tab label="&function_customizer.tab.others;"/>
-                                  </tabs>
-                                  <tabpanels id="toolsTabpanels" flex="1">
+                                </tabs>
+                                <tabpanels id="toolsTabpanels" flex="1">
 
                                     <tabpanel flex="1" orient="vertical">
                                         <checkbox id="cpAddons" value="true" label="Disable Addons Manager"
@@ -344,10 +349,31 @@
                                     </tabpanel>
                                     <!-- Devices Support End -->
 
+                                    <!-- Table Support -->
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="tabRegion" value="true" label="&tableman.table.region;"
+                                                      form="toolsForm" name="tabRegion" default="false" />
+                                        <checkbox id="tabMark" value="true" label="&tableman.tab.marks;"
+                                                      form="toolsForm" name="tabMark" default="false" />
+                                        <checkbox id="tabMinimumCharge" value="true" label="&tableman.tableoptions.minimumchargeoptions;"
+                                                      form="toolsForm" name="tabMinimumCharge" default="false" />
+                                        <checkbox id="tabDock" value="true" label="&tableman.tab.tableoptions.dock;"
+                                                      form="toolsForm" name="tabDock" default="false" />
+                                        <checkbox id="tabSplitCheck" value="true" label="&selecttable.splitcheck;"
+                                                      form="toolsForm" name="tabSplitCheck" default="false" />
+                                        <checkbox id="tabMergeCheck" value="true" label="&selecttable.mergecheck;"
+                                                      form="toolsForm" name="tabMergeCheck" default="false" />
+                                        <checkbox id="tabTransTable" value="true" label="&selecttable.transtable;"
+                                                      form="toolsForm" name="tabTransTable" default="false" />
+                                        <checkbox id="tabBookingTable" value="true" label="&selecttable.bookingtable;"
+                                                      form="toolsForm" name="tabBookingTable" default="false" />
+                                    </tabpanel>
+                                    <!-- Table Support End -->
+                                    
                                     <tabpanel flex="1" orient="vertical">
 
                                         <groupbox>
-                                          <caption label="&function_customizer.groupbox.addons.caption;"/>
+                                            <caption label="&function_customizer.groupbox.addons.caption;"/>
 
                                             <checkbox id="optAddonsUpdate" value="true" label="&cmd.checkUpdatesAll.label;"
                                                           form="toolsForm" name="optAddonsUpdate" default="false" />
@@ -365,7 +391,7 @@
                                         </groupbox>
 
                                         <groupbox>
-                                          <caption label="&function_customizer.groupbox.generaloptions.caption;"/>
+                                            <caption label="&function_customizer.groupbox.generaloptions.caption;"/>
 
                                             <checkbox id="optFormatSettings" value="true" label="&category.formats;"
                                                           form="toolsForm" name="optFormatSettings" default="false" />
@@ -375,23 +401,23 @@
 
                                     </tabpanel>
 
-                                  </tabpanels>
-                                </tabbox>                                
-                            </hbox>
+                                </tabpanels>
+                            </tabbox>
+                        </hbox>
                             <!-- Tools Container End -->
 
                             <!-- Function Panels Container -->
-                            <hbox flex="1" id="functionsContainer" >
-                                <tabbox id="functionsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
-                                  <tabs id="functionsTabs">
+                        <hbox flex="1" id="functionsContainer" >
+                            <tabbox id="functionsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                <tabs id="functionsTabs">
                                     <tab label="&function_customizer.tab.register;"/>
                                     <tab label="&function_customizer.tab.additional;"/>
                                     <tab label="&function_customizer.tab.price;"/>
                                     <tab label="&function_customizer.tab.devices;"/>
                                     <tab label="&function_customizer.tab.order;"/>
                                     <tab label="&function_customizer.tab.others;"/>
-                                  </tabs>
-                                  <tabpanels id="functionsTabpanels" flex="1">
+                                </tabs>
+                                <tabpanels id="functionsTabpanels" flex="1">
 
                                     <!-- Register -->
                                     <tabpanel flex="1" orient="vertical">
@@ -465,8 +491,6 @@
                                                       form="functionsForm" name="fnDiscountByAmount" default="false" />
                                         <checkbox id="fnDiscountByPercentage" value="true" label="Disable Discount By Percentage"
                                                       form="functionsForm" name="fnDiscountByPercentage" default="false" />
-                                        <checkbox id="fnDiscountPretaxByPercentage" value="true" label="Disable Discount Pretax By Percentage"
-                                                      form="functionsForm" name="fnDiscountPretaxByPercentage" default="false" />
                                         <checkbox id="fnHouseBon" value="true" label="Disable HouseBon"
                                                       form="functionsForm" name="fnHouseBon" default="false" />
                                         <checkbox id="fnPricelevel1" value="true" label="Disable Pricelevel1"
@@ -493,8 +517,6 @@
                                                       form="functionsForm" name="fnSurchargeByAmount" default="false" />
                                         <checkbox id="fnSurchargeByPercentage" value="true" label="Disable SurchargeByPercentage"
                                                       form="functionsForm" name="fnSurchargeByPercentage" default="false" />
-                                        <checkbox id="fnSurchargePretaxByPercentage" value="true" label="Disable SurchargePretaxByPercentage"
-                                                      form="functionsForm" name="fnSurchargePretaxByPercentage" default="false" />
                                     </tabpanel>
                                     <!-- Price End -->
 
@@ -537,16 +559,14 @@
                                                       form="functionsForm" name="fnPushqueue" default="false" />
                                         <checkbox id="fnRecallCheck" value="true" label="Disable RecallCheck"
                                                       form="functionsForm" name="fnRecallCheck" default="false" />
-                                        <checkbox id="fnRecallTable" value="true" label="Disable RecallTable"
-                                                      form="functionsForm" name="fnRecallTable" default="false" />
-                                        <checkbox id="fnRecallOrder" value="true" label="Disable RecallOrder"
-                                                      form="functionsForm" name="fnRecallOrder" default="false" />
                                         <checkbox id="fnSplitCheck" value="true" label="Disable SplitCheck"
                                                       form="functionsForm" name="fnSplitCheck" default="false" />
                                         <checkbox id="fnTransferTable" value="true" label="Disable TransferTable"
                                                       form="functionsForm" name="fnTransferTable" default="false" />
                                         <checkbox id="fnTruncatetxnrecords" value="true" label="Disable Truncatetxnrecords"
                                                       form="functionsForm" name="fnTruncatetxnrecords" default="false" />
+                                        <checkbox id="fnSplitPayment" value="true" label="Disable SplitPayment"
+                                                      form="functionsForm" name="fnSplitPayment" default="false" />
                                     </tabpanel>
                                     <!-- Order End-->
 
@@ -587,20 +607,20 @@
                                     </tabpanel>
                                     <!-- Others End -->
 
-                                  </tabpanels>
-                                </tabbox>                                
-                            </hbox>
+                                </tabpanels>
+                            </tabbox>
+                        </hbox>
                             <!-- Function Panels Container End -->
                             
                             <!-- Systems Container -->
-                            <hbox flex="1" id="systemsContainer" >
-                                <tabbox id="systemsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
-                                  <tabs id="systemsTabs">
+                        <hbox flex="1" id="systemsContainer" >
+                            <tabbox id="systemsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                <tabs id="systemsTabs">
                                     <tab label="&function_customizer.tab.controlpanel;"/>
                                     <tab label="&function_customizer.tab.services;" />
                                     <!--tab label="&function_customizer.tab.others;"/-->
-                                  </tabs>
-                                  <tabpanels id="systemsTabpanels" flex="1">
+                                </tabs>
+                                <tabpanels id="systemsTabpanels" flex="1">
 
                                     <tabpanel flex="1" orient="vertical">
                                         <checkbox id="cpDatetime" value="true" label="Disable Datetime Manager"
@@ -632,31 +652,31 @@
                                     </tabpanel>
 
                                     <tabpanel flex="1" orient="vertical">
-                                            <checkbox id="serviceSyncSettingsAdvTab" value="true" label="&sync_settings.tablabel.advanced;"
+                                        <checkbox id="serviceSyncSettingsAdvTab" value="true" label="&sync_settings.tablabel.advanced;"
                                                           form="systemsForm" name="serviceSyncSettingsAdvTab" default="false" />
-                                            <checkbox id="serviceSyncSettingsTab" value="true" checked="true" hidden="true" form="systemsForm" name="serviceSyncSettingsTab" />
-                                            <checkbox id="serviceSyncSettingsSeq" value="true" label="&sync_settings.desc.sequence_hostname;"
+                                        <checkbox id="serviceSyncSettingsTab" value="true" checked="true" hidden="true" form="systemsForm" name="serviceSyncSettingsTab" />
+                                        <checkbox id="serviceSyncSettingsSeq" value="true" label="&sync_settings.desc.sequence_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsSeq" default="false" />
-                                            <checkbox id="serviceSyncSettingsTable" value="true" label="&sync_settings.desc.table_active;"
+                                        <checkbox id="serviceSyncSettingsTable" value="true" label="&sync_settings.desc.table_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsTable" default="false" />
-                                            <checkbox id="serviceSyncSettingsStock" value="true" label="&sync_settings.desc.stock_hostname;"
+                                        <checkbox id="serviceSyncSettingsStock" value="true" label="&sync_settings.desc.stock_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsStock" default="false" />
-                                            <checkbox id="serviceSyncSettingsNtp" value="true" label="&sync_settings.desc.ntp_hostname;"
+                                        <checkbox id="serviceSyncSettingsNtp" value="true" label="&sync_settings.desc.ntp_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsNtp" default="false" />
                                     </tabpanel>
 
-                                  </tabpanels>
-                                </tabbox>                                
-                            </hbox>
+                                </tabpanels>
+                            </tabbox>
+                        </hbox>
                             <!-- Systems Container End -->
 
-                            <hbox flex="1" id="reportsContainer" >
-                                <tabbox id="reportsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
-                                  <tabs id="reportsTabs">
+                        <hbox flex="1" id="reportsContainer" >
+                            <tabbox id="reportsTabList" class="custom-content-tabbox" selectedIndex="0" flex="1">
+                                <tabs id="reportsTabs">
                                     <tab label="&function_customizer.tab.sales;"/>
                                     <tab label="&function_customizer.tab.others;"/>
-                                  </tabs>
-                                  <tabpanels id="productsTabpanels" flex="1">
+                                </tabs>
+                                <tabpanels id="productsTabpanels" flex="1">
 
                                     <tabpanel flex="1" orient="vertical" style="overflow: auto">
                                         <checkbox id="rptClerksalesreport" value="true" label="Disable Clerk Sales Report"
@@ -706,11 +726,11 @@
                                         <checkbox id="rptUserlist" value="true" label="Disable Employee List Report"
                                                       form="reportsForm" name="rptUserlist" default="false" />
                                     </tabpanel>
-                                  </tabpanels>
-                                </tabbox>
-                            </hbox>
-                        </deck>
-                    </vbox>
+                                </tabpanels>
+                            </tabbox>
+                        </hbox>
+                    </deck>
+                </vbox>
                     <!-- Right Panel for Option End -->
             </hbox>
             <!-- Main Content End -->
@@ -736,13 +756,13 @@
 
 
   <!-- Put JavaScript at bottom -->
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
   <!-- include components -->
-  <script src="chrome://viviecr/content/controllers/components/function_settings.js" type="application/x-javascript"/>
+    <script src="chrome://viviecr/content/controllers/components/function_settings.js" type="application/x-javascript"/>
   <!-- include controller -->
-  <script src="chrome://viviecr/content/controllers/function_customizer_controller.js" type="application/x-javascript"/>
+    <script src="chrome://viviecr/content/controllers/function_customizer_controller.js" type="application/x-javascript"/>
   <!-- include startup script -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/function_customizer.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/function_customizer.js" />
 
 
 </window>

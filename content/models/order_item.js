@@ -10,7 +10,7 @@
         useDbConfig: 'order',
 
         belongsTo: ['Order'],
-        
+
         behaviors: ['Sync', 'Training'],
 
         autoRestoreFromBackup: true,
@@ -60,6 +60,7 @@
                             if (item[key] != null && item[key] != '') {
                                 orderItem['parent_no'] = data.items[item[key]].no;
                             }
+                            orderItem[key] = item[key];
                             break;
                         case 'type':
                         case 'index':
@@ -93,7 +94,11 @@
             var items = {};
             var items_summary = {};
 
-            if (!orderData.OrderItem || typeof orderData.OrderItem == 'undefined') return items;          
+            if (!orderData.OrderItem || typeof orderData.OrderItem == 'undefined') {
+                data.items = items;
+                data.items_summary = items_summary ;
+                return items;
+            }
 
             for (var idx in orderData.OrderItem) {
 
@@ -115,6 +120,9 @@
                         case 'id':
                         case 'condiments':
                         case 'parent_index':
+                            if (!orderItem['parent_index']) {
+                                orderItem['parent_index'] = null;
+                            }
                             break;
                         case 'product_no':
                             orderItem['no'] = item[key];
@@ -139,7 +147,7 @@
                             break;
                     }
                 }
-
+                orderItem.index = itemIndex;
                 items[itemIndex] = orderItem;
                 
                 // process summary
@@ -173,7 +181,7 @@
         rebuildDisplaySequences: function(data) {
 
         }
-        
+
     };
 
     var OrderItemModel = window.OrderItemModel =  AppModel.extend(__model__);

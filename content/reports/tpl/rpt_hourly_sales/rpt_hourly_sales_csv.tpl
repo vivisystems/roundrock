@@ -9,8 +9,8 @@
 "${_( '(rpt)Start Time' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
 
-{if head.terminal_no}"${_( '(rpt)Terminal' )}",{/if}"${_( '(rpt)Date' )}","${_( '(rpt)Hour' )}","${_( '(rpt)Net Sales' )}","${_( '(rpt)Number of Orders' )}","${_( '(rpt)Number of Guests' )}","${_( '(rpt)Number of Items' )}","${_( '(rpt)Net Sales/Guest' )}","${_( '(rpt)Net Sales/Order' )}"
+{if head.terminal_no}"${_( '(rpt)Terminal' )}",{/if}"${_( '(rpt)Date' )}","${_( '(rpt)Hour' )}","${_( '(rpt)Total' )}","${_( '(rpt)Number of Orders' )}","${_( '(rpt)Number of Guests' )}","${_( '(rpt)Number of Items' )}","${_( '(rpt)Total/Guest' )}","${_( '(rpt)Total/Order' )}","${_( '(rpt)Gross Sales/Guest' )}","${_( '(rpt)Gross Sales/Order' )}"
 {for detail in body}
-{if head.terminal_no}"'${detail.terminal_no}",{/if}"'${detail.Date}","'${detail.Hour}","${detail.HourTotal}","${detail.OrderNum}","${detail.Guests}","${detail.ItemsCount}","${detail.NetPerGuest}","${detail.NetPerOrder}"
+{if head.terminal_no}"'${detail.terminal_no}",{/if}"'${detail.Date}","'${detail.Hour}","${detail.HourTotal}","${detail.OrderNum}","${detail.Guests}","${detail.ItemsCount}","${detail.NetPerGuest}","${detail.NetPerOrder}","${detail.GrossPerGuest}","${detail.GrossPerOrder}"
 {/for}
-"${_( '(rpt)Records Found' ) + ': ' + body.length}",{if head.terminal_no}"",{/if}"${_( '(rpt)Summary' ) + ':'}","${foot.HourTotal}","${foot.OrderNum}","${foot.Guests}","${foot.ItemsCount}","${foot.NetPerGuest}","${foot.NetPerOrder}"
+"${_( '(rpt)Records Found' ) + ': ' + body.length}",{if head.terminal_no}"",{/if}"${_( '(rpt)Summary' ) + ':'}","${foot.HourTotal}","${foot.OrderNum}","${foot.Guests}","${foot.ItemsCount}","${foot.NetPerGuest}","${foot.NetPerOrder}","${foot.GrossPerGuest}","${foot.GrossPerOrder}"

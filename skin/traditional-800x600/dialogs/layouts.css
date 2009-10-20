@@ -43,6 +43,18 @@
     width: 500px;
 }
 
+.layout-dialog .layout-popup-password {
+    background: white;
+    height: 380px;
+    margin: 110px 150px;
+    max-height: 380px;
+    max-width: 500px;
+    min-height: 380px;
+    min-width: 500px;
+    overflow: hidden;
+    width: 500px;
+}
+
 /*-----------------------------------------------------------------------------
  *
  * Layout A is for vertical panels with fixed widths toolbar at bottom

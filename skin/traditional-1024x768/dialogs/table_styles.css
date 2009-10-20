@@ -158,13 +158,13 @@
 	background: transparent url(../images/thumbtack_green.png) no-repeat 0px center;
 }
 
-.tableStatusBtn .greentable .people {
+.tableStatusBtn .people {
 	color:  #ed145b;
 	font-weight: bold;
 	font-size: 16pt;
 }
 
-.tableStatusBtn .greentable .bottomItem {
+.tableStatusBtn .bottomItem {
 	bottom: 12px;
 }
 
@@ -344,7 +344,7 @@
 	background: transparent url(../images/thumbtack_green.png) no-repeat 0px center;
 }
 
-.tableStatusStdBtn .greentable .people {
+.tableStatusStdBtn .people {
 	color:  #ed145b;
 	font-size: 16pt;
 	font-weight: bold;

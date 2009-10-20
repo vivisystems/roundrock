@@ -20,14 +20,9 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.js"/>
-    <script type="application/x-javascript" src="chrome://vivipos/content/libs/date.js"/>
-    <script type="application/x-javascript">
-        window['GeckoJS'] = opener.GeckoJS;
-        window['GREUtils'] = opener.GREUtils;
-        window['NotifyUtils'] = opener.NotifyUtils;
-        window['_'] = opener._;
-    </script>
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/helpers/nsi_orders_checklist_view.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/select_checks_controller.js"/>
     <script type="application/x-javascript" src="chrome://viviecr/content/select_checks.js"/>
 
     <keyset id="keyset_extensions">
@@ -42,11 +37,11 @@
             <hbox flex="1">
                 <hbox flex="1" class="content-buttonpanel block-50">
                     <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="2" rows="4"  seltype="single"
-                                               labelField="table_no"
+                                               labelField="id"
                                                buttonClass="button-item-a"
                                                buttonTagName="table_status_std_btn"
                                                scrollUpClass="scroll-up-button"
-                                               scrollDownClass="scroll-down-button">
+                                               scrollDownClass="scroll-down-button" oncommand="$do('displaySummary', this.selectedIndex, 'SelectChecks');">
                         <spacer flex="1"/>
                     </viviscrollablebuttonpanel>
                 </hbox>

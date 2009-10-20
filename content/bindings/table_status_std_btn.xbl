@@ -238,7 +238,7 @@
     <method name="setLabel">
         <parameter name="label"/>
       <body><![CDATA[
-
+        label = label || '';
         if (label.length==0) {
             try {
                 this.seq_no = '';

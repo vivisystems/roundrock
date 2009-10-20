@@ -24,6 +24,10 @@
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
 
+  <!-- include component -->
+  <script src="chrome://viviecr/content/controllers/components/tax.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/components/order_status.js" type="application/x-javascript"/>
+
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/view_order_controller.js" type="application/x-javascript"/>
 
@@ -56,12 +60,12 @@
             <spacer height="5px"/>
             <hbox flex="1">
                 <hbox flex="1" class="toolbar" toolbarmode="horizontal">
-                    <vivibutton id="void" label="&vieworder.button.void;" disabled="false" class="button-delete" roles="acl_void_transactions" action="hide"
-                                oncommand="$do('voidSale', null, 'ViewOrder')"/>
+                    <vivibutton id="recall" label="&vieworder.button.recall;" disabled="false" class="button-delete" roles="acl_recall_check" action="hide"
+                                oncommand="$do('recallOrder', null, 'ViewOrder');"/>
                 </hbox>
                 <vbox pack="center" class="container-report">
                     <hbox class="ReportTool">
-                        <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="$do('exportRcp', null, 'ViewOrder')"/>
+                        <vivibutton id="report" disabled="true" class="PrintReportBtn" oncommand="$do('exportRcp', null, 'ViewOrder')"/>
                     </hbox>
                 </vbox>
                 <hbox id="dialogButtons" class="exitbar">
@@ -71,4 +75,6 @@
         </vbox>
     </vbox>
 
+    <vivipanel id="blockui_panel" position="overlap" noautohide="true" pack="center" align="center"/>
+    
 </window>

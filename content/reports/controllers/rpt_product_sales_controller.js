@@ -104,7 +104,7 @@
             orderItemRecords.forEach( function( record ) {
                 delete record.OrderItem;
                 if (record['qty'] > 0)
-                    record[ 'avg_price' ] = record[ 'gross' ] / record[ 'qty' ];
+                    record[ 'avg_price' ] = record[ 'net' ] / record[ 'qty' ];
                 else
                     record[ 'avg_price' ] = 0.0;
 

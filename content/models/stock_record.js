@@ -10,7 +10,11 @@
 
         useDbConfig: 'inventory',
 
-        belongsTo: [{name: 'Product', 'primaryKey': 'no', 'foreignKey': 'id'}],
+        belongsTo: [{
+            name: 'Product',
+            'primaryKey': 'no',
+            'foreignKey': 'id'
+        }],
 
         _cachedRecords: null,
 
@@ -37,6 +41,10 @@
             return this.httpService;
         },
 
+        getHostname: function() {
+            return this.getHttpService().getHostname();
+        },
+
         isRemoteService: function() {
             return this.getHttpService().isRemoteService();
         },
@@ -46,14 +54,14 @@
             
             lastModified = typeof lastModified == 'undefined' ? 0 : lastModified;
             
-            //this.log('DEBUG', 'getLastModifiedRecords: ' + lastModified);
+            // this.log('DEBUG', 'getLastModifiedRecords: ' + lastModified);
 
             // get local stock record to cached first.
             var stocks = this.getDataSource().fetchAll("SELECT id,quantity,modified FROM stock_records WHERE modified > " + lastModified);
 
             if (this.lastError != 0) {
                 this.log('ERROR',
-                         'An error was encountered while retrieving last modified record (error code ' + this.lastError + '): ' + this.lastErrorString);
+                    'An error was encountered while retrieving last modified record (error code ' + this.lastError + '): ' + this.lastErrorString);
                 return;
             }
 
@@ -69,6 +77,7 @@
         },
 
         syncAllStockRecords: function(async, callback) {
+            //this.log('syncAllStockRecords');
 
             async = async || false;
             callback = callback || null;
@@ -95,6 +104,9 @@
                 var cb = function(response_data/*remoteStocks*/) {
 
                     var remoteStocks;
+
+                    self.lastReadyState = self.getHttpService().lastReadyState;
+                    self.lastStatus = self.getHttpService().lastStatus;
 
                     if (response_data) {
                         try {
@@ -211,7 +223,10 @@
                     // dont has stock record auto insert
                     stock = 0;
                     this.create();
-                    this.save({id: id, quantity: 0});
+                    this.save({
+                        id: id,
+                        quantity: 0
+                    });
                 }
 
             }else {
@@ -229,7 +244,10 @@
                     // dont has stock record auto insert
                     stock = 0;
                     this.create();
-                    this.save({id: id, quantity: 0});
+                    this.save({
+                        id: id,
+                        quantity: 0
+                    });
 
                 }
 
@@ -252,6 +270,9 @@
 
                 var request_data = GeckoJS.BaseObject.serialize(datas);
                 var response_data = this.getHttpService().requestRemoteService('POST', requestUrl, request_data, async, callback) || null ;
+
+                this.lastReadyState = this.getHttpService().lastReadyState;
+                this.lastStatus = this.getHttpService().lastStatus;
 
                 if (response_data) {
                     var remoteStocks;
@@ -278,7 +299,7 @@
 
                 // use native sql
                 var sql = "" ;
-                var now = Math.ceil(Date.now().getTime()/1000);
+                var now = Math.ceil((new Date()).getTime()/1000);
 
                 datas.forEach( function(d) {
 
@@ -287,7 +308,11 @@
                         this._cachedRecords[d.id] -= d.quantity;
 
                         d.modified = now;
-                        sql += "UPDATE stock_records SET quantity=quantity-"+d.quantity+", modified='"+d.modified+"' WHERE id = '"+ d.id +"' ;\n";
+                        if (d.quantity>0) {
+                            sql += "UPDATE stock_records SET quantity=quantity-"+d.quantity+", modified='"+d.modified+"' WHERE id = '"+ d.id +"' ;\n";
+                        }else {
+                            sql += "UPDATE stock_records SET quantity=quantity+"+Math.abs(d.quantity)+", modified='"+d.modified+"' WHERE id = '"+ d.id +"' ;\n";
+                        }
 
                     }catch(e) {
                         this.log('ERROR', 'decreaseStockRecords datas.forEach error ' + e );
@@ -326,7 +351,7 @@
             
             var r;
             var created , modified;
-            created = modified = Math.ceil(Date.now().getTime()/1000);
+            created = modified = Math.ceil((new Date()).getTime()/1000);
 
             var sql = "" ;
 
@@ -335,12 +360,12 @@
                 if (!product.no||product.no.length==0) return;
 
                 sql += "INSERT INTO stock_records (id,barcode,warehouse,quantity,created,modified) VALUES (" +
-                    "'" + (product.no||'') + "', " +
-                    "'" + (product.barcode||'') + "', " +
-                    "'" + (product.warehouse||'')+ "', " +
-                    (product.quantity || 0) + ", " +
-                    created + ", " +
-                    modified + "); \n" ;
+                "'" + (product.no||'') + "', " +
+                "'" + (product.barcode||'') + "', " +
+                "'" + (product.warehouse||'')+ "', " +
+                (product.quantity || 0) + ", " +
+                created + ", " +
+                modified + "); \n" ;
             });
 
             if (sql.length > 0) {
@@ -374,7 +399,7 @@
                 var r = this.save(stockRecord);
                 if (!r) {
                     this.log('ERROR',
-                             'An error was encountered while saving stock record (error code ' + this.lastError + ': ' + this.lastErrorString);
+                        'An error was encountered while saving stock record (error code ' + this.lastError + ': ' + this.lastErrorString);
                     
                     //@db saveToBackup
                     r = this.saveToBackup(stockRecord);
@@ -383,7 +408,7 @@
                     }
                     else {
                         this.log('ERROR',
-                                 'record could not be saved to backup:' + '\n' + this.dump(stockRecord));
+                            'record could not be saved to backup:' + '\n' + this.dump(stockRecord));
                     }
                 }
                 return r;
@@ -397,16 +422,16 @@
                 var r;
 
                 var created , modified;
-                created = modified = Math.ceil(Date.now().getTime()/1000);
+                created = modified = Math.ceil((new Date()).getTime()/1000);
 
                 var sql = "" ;
 
                 stockRecords.forEach(function( stockRecord ) {
                     sql += "UPDATE stock_records SET warehouse='" + (stockRecord.warehouse||'') + "', " +
-                           "quantity=" + (absolute ? stockRecord.quantity : "quantity + " + stockRecord.delta) + ", " +
-                           "created=" + created + ", " +
-                           "modified="  + modified + " " +
-                           "WHERE id='" + stockRecord.id + "'; \n" ;
+                    "quantity=" + (absolute ? stockRecord.quantity : "quantity + " + stockRecord.delta) + ", " +
+                    "created=" + created + ", " +
+                    "modified="  + modified + " " +
+                    "WHERE id='" + stockRecord.id + "'; \n" ;
                 });
 
                 if (sql.length > 0) {
@@ -436,7 +461,7 @@
             var r = this.find(type, params);
             if (this.lastError != 0) {
                 this.log('ERROR',
-                         'An error was encountered while retrieving stock records (error code ' + this.lastError + '): ' + this.lastErrorString);
+                    'An error was encountered while retrieving stock records (error code ' + this.lastError + '): ' + this.lastErrorString);
             }
             return r;
         },
@@ -445,7 +470,7 @@
             var r = this.find(type, params);
             if (this.lastError != 0) {
                 this.log('ERROR',
-                         'An error was encountered while retrieving stock records (error code ' + this.lastError + '): ' + this.lastErrorString);
+                    'An error was encountered while retrieving stock records (error code ' + this.lastError + '): ' + this.lastErrorString);
             }
             return r;
         },

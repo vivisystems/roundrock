@@ -38,32 +38,26 @@
             <label id="dialog-caption" value="&shiftchange.alert.title;" class="label-page-title"/>
             <grid class="data-form">
                 <columns>
-                    <column id="column1" flex="1"/>
+                    <column flex="1"/>
                     <column flex="1"/>
                 </columns>
                 <rows>
                     <row>
-                        <isoptionenabled id="option_sale_period" option="vivipos.fec.settings.HideSalePeriod" action="hide"
-                                         flex="1" orient="vertical">
-                            <vbox>
-                                <label value="&shiftchange.alert.current.sale.period;"/>
-                                <textbox id="current_sale_period" flex="1" value="" readonly="true" style="text-align:center"/>
-                            </vbox>
-                        </isoptionenabled>
-                        <vbox flex="1">
+                        <vbox>
+                            <label value="&shiftchange.alert.current.sale.period;"/>
+                            <textbox id="current_sale_period" flex="1" value="" readonly="true" style="text-align:center"/>
+                        </vbox>
+                        <vbox>
                             <label value="&shiftchange.alert.current.shift.number;"/>
                             <textbox id="current_shift_number" flex="1" value="" readonly="true" style="text-align:center"/>
                         </vbox>
                     </row>
                     <row>
-                        <isoptionenabled id="option_sale_period" option="vivipos.fec.settings.HideSalePeriod" action="hide"
-                                         flex="1" orient="vertical">
-                            <vbox>
-                                <label value="&shiftchange.alert.last.sale.period;"/>
-                                <textbox id="last_sale_period" flex="1" value="" readonly="true" style="text-align:center"/>
-                            </vbox>
-                        </isoptionenabled>
-                        <vbox flex="1">
+                        <vbox>
+                            <label value="&shiftchange.alert.last.sale.period;"/>
+                            <textbox id="last_sale_period" flex="1" value="" readonly="true" style="text-align:center"/>
+                        </vbox>
+                        <vbox>
                             <label value="&shiftchange.alert.last.shift.number;"/>
                             <textbox id="last_shift_number" flex="1" value="" readonly="true" style="text-align:center"/>
                         </vbox>

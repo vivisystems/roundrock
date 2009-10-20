@@ -76,9 +76,9 @@
                         self.restartClock = true;
                     } else if ( aTopic == 'TrainingMode' ) {
                         if ( aData == "start" ) {
-                        	self._isTraining = true;
+                            self._isTraining = true;
                         } else if ( aData == "exit" ) {
-                        	self._isTraining = false;
+                            self._isTraining = false;
                         }
                     }
                 }
@@ -92,9 +92,6 @@
             // ourselves
 
             this.dispatchEvent('afterInitial', null);
-
-            // recover queued orders
-            this.requestCommand('unserializeQueueFromRecoveryFile', null, 'CartQueue');
 
             // check transaction fail
             var recovered = false;
@@ -138,11 +135,11 @@
         },
 
         restart: function() {
-                try {
-                    GREUtils.restartApplication();
-                }
-                catch(err) {
-                }
+            try {
+                GREUtils.restartApplication();
+            }
+            catch(err) {
+            }
         },
 
         idleHandler: function(evt) {
@@ -154,8 +151,15 @@
                     var win = this.topmostWindow;
                     if (win.document.documentElement.id == 'viviposMainWindow'
                         && win.document.documentElement.boxObject.screenX >= 0) {
+
+                        // block UI
+                        let waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Signing off idle user..'), 200);
+
                         this.signOff(true);
+
                         this.ChangeUserDialog();
+
+                        if (waitPanel) waitPanel.hidePopup();
                     }
                 }
             }
@@ -237,7 +241,10 @@
             var aURL = 'chrome://viviecr/content/package_builder.xul';
             var aName = _('Package Builder');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {image: imageFile, icon: thumbFile };
+            var aArguments = {
+                image: imageFile,
+                icon: thumbFile
+            };
 
             if (waitPanel) waitPanel.hidePopup();
             
@@ -248,10 +255,10 @@
         },
 
         ControlPanelDialog: function () {
-        	if (GeckoJS.Session.get( "isTraining" )) {
+            if (GeckoJS.Session.get( "isTraining" )) {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('Control Panel is disabled during training.'));
-        		return;
-        	}
+                return;
+            }
 
             // check for access privilege
             if (!this.Acl.isUserInRole('acl_open_control_panel')) {
@@ -308,7 +315,11 @@
             var aURL = 'chrome://viviecr/content/plusearch.xul';
             var aName = _('Product Search');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {buffer: buf, item: item, select: addtocart};
+            var aArguments = {
+                buffer: buf,
+                item: item,
+                select: addtocart
+            };
             
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
             if (aArguments.ok) {
@@ -390,11 +401,11 @@
                 };
                 
                 var data = [
-                    _('Add Annotation') + ' [' + txn.data.seq + ']',
-                    '',
-                    _(annotationType),
-                    '',
-                    inputObj
+                _('Add Annotation') + ' [' + txn.data.seq + ']',
+                '',
+                annotationType,
+                '',
+                inputObj
                 ];
 
                 return $.popupPanel('promptAdditemPanel', data).next( function(evt){
@@ -416,31 +427,47 @@
             else {
                 var aURL = 'chrome://viviecr/content/annotate.xul';
                 var aName = _('Annotate Order');
-                var aArguments = {order: txn.data, codes: codeList, sequence: txn.data.seq, txn:txn};
+                var aArguments = {
+                    order: txn.data,
+                    codes: codeList,
+                    sequence: txn.data.seq,
+                    txn:txn
+                };
                 var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
                 this.topmostWindow.openDialog(aURL, aName, aFeatures, aArguments);
             }
         },
 
-        viewOrders: function () {
+        viewOrders: function (arg) {
             var aURL = 'chrome://viviecr/content/list_orders.xul';
             var aName = _('List Orders');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {value: this._getKeypadController().getBuffer()};
+            var aArguments = {
+                value: this._getKeypadController().getBuffer()
+            };
 
-            var searchByTableNo = GeckoJS.Configure.read('vivipos.fec.settings.SearchOrderByTableNo');
+            switch(arg) {
+                case 'table':
+                    aArguments.index = 'table_no';
+                    aArguments.criteria = _('(view)search by table number');
+                    aArguments.fuzzy = false;
+                    break;
 
-            if (searchByTableNo) {
-                aArguments.index = 'table_no';
-                aArguments.criteria = _('(view)search by table number');
-                aArguments.fuzzy = false;
+                case 'check':
+                    aArguments.index = 'check_no';
+                    aArguments.criteria = _('(view)search by check number');
+                    aArguments.fuzzy = false;
+                    break;
+
+                case 'sequence':
+                default:
+                    aArguments.index = 'sequence';
+                    aArguments.criteria = _('(view)search by order sequence');
+                    aArguments.fuzzy = true;
+                    break;
             }
-            else {
-                aArguments.index = 'sequence';
-                aArguments.criteria = _('(view)search by order sequence');
-                aArguments.fuzzy = true;
-            }
+
             //this._getKeypadController().clearBuffer();
             this.requestCommand('clearBuffer', null, 'Keypad');
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
@@ -499,7 +526,6 @@
                         //                    contains visible products. If not, notify user of error;
                         //                    otherwise, switch to the selected department
                         if(!isNaN(price)) {
-                            dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
                         }
                         else if (this.pluPanelView.getProductCount(index, true) == 0) {
@@ -519,8 +545,10 @@
                     
                     // is this group linked to other departments/groups?
                     if (dep.link_department || dep.link_group) {
-                        var categoryIndexes = [];
-                        var plugroupIndexes = [];
+                        let categoryIndexes = [];
+                        let plugroupIndexes = [];
+                        let departmentIndexes = [];
+                        let plugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
 
                         if (dep.link_department) {
                             categoryIndexes = dep.link_department.split(',');
@@ -529,7 +557,12 @@
                         if (dep.link_group) {
                             plugroupIndexes = dep.link_group.split(',');
                         }
-                        var departmentIndexes = categoryIndexes.concat(plugroupIndexes)
+                        if (plugroupsFirst) {
+                            departmentIndexes = plugroupIndexes.concat(categoryIndexes);
+                        }
+                        else {
+                            departmentIndexes = categoryIndexes.concat(plugroupIndexes);
+                        }
 
                         this.depPanelView.navigateDown(departmentIndexes);
 
@@ -588,7 +621,7 @@
 
                 if (parseInt(userModel.lastError) != 0) {
                     this._dbError(userModel.lastError, userModel.lastErrorString,
-                                  _('An error was encountered while retrieving employees (error code %S) [message #1001].', [userModel.lastError]));
+                        _('An error was encountered while retrieving employees (error code %S) [message #1001].', [userModel.lastError]));
                     return;
                 }
 
@@ -628,7 +661,7 @@
         },
 
         updateOptions: function () {
-            // used by input_line_controller to listen for option updates
+        // used by input_line_controller to listen for option updates
         },
 
         initialLogin: function () {
@@ -654,83 +687,57 @@
             }
         },
 
-        clear: function () {
-            this.quickUserSwitch(true);
-        },
-
-        enter: function () {
-            this.quickUserSwitch();
-        },
-
         quickUserSwitch: function (stop) {
             if ( this._isTraining ) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Training Mode'),
-                                      _('To use this funciton, please leave training mode first'));
+                    _('Training Mode'),
+                    _('To use this funciton, please leave training mode first'));
                 return;
             }
 
-            if (stop || this._suspendOperation) {
-                this.requestCommand('setTarget', 'Cart', 'Keypad');
+            var data = [
+            _('Switch User'),
+            _('Please enter password')
+            ];
 
-                this._suspendOperation = false;
-                this._getKeypadController().setNumberOnly(false);
-                GeckoJS.Dispatcher.removeEventListener('beforeDispatch', this._suspendOperationFilter);
-                
-                // check if has buffer (password)
-                var buf = this._getKeypadController().getBuffer().replace(/^\s*/, '').replace(/\s*$/, '');
-                this.requestCommand('clear', null, 'Cart');
+            var self = this;
+            return $.popupPanel('promptPasswordPanel', data).next( function(evt){
+                var result = evt.data;
 
-                var success = true;
+                if (result.ok) {
+                    // check if has buffer (password)
+                    self.requestCommand('clear', null, 'Cart');
 
-                // dispatch onExitPassword for onscreenvfd
-                this.dispatchEvent('onExitPassword');
+                    var password = result.input0;
 
-                if (stop != true && stop != 'true' && buf.length > 0) {
+                    if (self.Acl.securityCheckByPassword(password, true)) {
+                        self.signOff(true);
+                        self.Acl.securityCheckByPassword(password, false);
 
-                    if (this.Acl.securityCheckByPassword(buf, true)) {
-                        this.signOff(true);
-                        this.Acl.securityCheckByPassword(buf, false);
-
-                        var user = this.Acl.getUserPrincipal();
+                        var user = self.Acl.getUserPrincipal();
                         if (user) {
-                            this.setClerk();
+                            self.setClerk();
 
                             OsdUtils.info(user.description + _(' logged in'));
                         }
                         else {
                             // should always succeed, but if not, pull up the change user dialog since we've already signed off
-                            this.ChangeUserDialog();
+                            self.ChangeUserDialog();
                         }
                     }
                     else {
-                        success = false;
-                    }
-                }
-                if (!success) {
-                    if (!stop && buf.length > 0) {
-                        
                         NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                     }
                 }
-            }
-            else {
-                this.requestCommand('clear', null, 'Cart');
-                this.requestCommand('setTarget', 'Main', 'Keypad');
+            });
 
-                this.dispatchEvent('onEnterPassword');
-
-                this._suspendOperation = true;
-                this._getKeypadController().setNumberOnly(true);
-                GeckoJS.Dispatcher.addEventListener('beforeDispatch', this._suspendOperationFilter);
-            }
         },
 
         silentUserSwitch: function (newUser) {
             if ( this._isTraining ) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Training Mode'),
-                                      _('To use this funciton, please leave training mode first'));
+                    _('Training Mode'),
+                    _('To use this funciton, please leave training mode first'));
                 return;
             }
             // check if buffer (password) is empty
@@ -748,7 +755,7 @@
 
             if (parseInt(userModel.lastError) != 0) {
                 this._dbError(userModel.lastError, userModel.lastErrorString,
-                              _('An error was encountered while retrieving employees (error code %S) [message #1002].', [userModel.lastError]));
+                    _('An error was encountered while retrieving employees (error code %S) [message #1002].', [userModel.lastError]));
                 return;
             }
             
@@ -761,7 +768,7 @@
 
                 if (parseInt(userModel.lastError) != 0) {
                     this._dbError(userModel.lastError, userModel.lastErrorString,
-                                  _('An error was encountered while retrieving employees (error code %S) [message #1003].', [userModel.lastError]));
+                        _('An error was encountered while retrieving employees (error code %S) [message #1003].', [userModel.lastError]));
                     return;
                 }
 
@@ -809,8 +816,8 @@
         signOff: function (quickSignoff) {
             if ( this._isTraining ) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Training Mode'),
-                                      _('To use this funciton, please leave training mode first'));
+                    _('Training Mode'),
+                    _('To use this funciton, please leave training mode first'));
                 return;
             }
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
@@ -820,8 +827,7 @@
             var shiftReportOnQuickSwitch = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonquickswitch');
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
-            var txn = GeckoJS.Session.get('current_transaction');
-            var cartEmpty = (txn == null) || (txn.isSubmit()) || (txn.getItemsCount() <= 0);
+            var cartEmpty = !cart.ifHavingOpenedOrder();
             var principal = this.Acl.getUserPrincipal();
 
             if (principal) {
@@ -838,17 +844,19 @@
                         }
                         else {
                             var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-                                                    .getService(Components.interfaces.nsIPromptService);
-                            var check = {value: false};
+                            .getService(Components.interfaces.nsIPromptService);
+                            var check = {
+                                value: false
+                            };
 
                             var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
                             var responseDiscardCart = prompts.confirmEx(this.topmostWindow,
-                                                                        _('Sign Off'),
-                                                                        _('What do you want to do with the registered items?'),
-                                                                        flags, _('Queue'), _('Discard'), "", null, check);
+                                _('Sign Off'),
+                                _('What do you want to do with the registered items?'),
+                                flags, _('Queue'), _('Discard'), "", null, check);
                             if (responseDiscardCart == 2) return;
                         }
                     }
@@ -866,17 +874,19 @@
                         }
                         else {
                             var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-                                                    .getService(Components.interfaces.nsIPromptService);
-                            var check = {value: false};
+                            .getService(Components.interfaces.nsIPromptService);
+                            var check = {
+                                value: false
+                            };
 
                             var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
                             var responseDiscardQueue = prompts.confirmEx(this.topmostWindow,
-                                                                         _('Sign Off'),
-                                                                         _('You have one or more queued orders. What do you want to do with them?'),
-                                                                         flags, _('Keep'), _('Discard'), "", null, check);
+                                _('Sign Off'),
+                                _('You have one or more queued orders. What do you want to do with them?'),
+                                flags, _('Keep'), _('Discard'), "", null, check);
                             if (responseDiscardQueue == 2) return;
                         }
                     }
@@ -887,7 +897,7 @@
                     if (!promptDiscardCart && !promptDiscardQueue)
                         if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm sign-off'), _('Are you ready to sign off?')) == false) {
                             return;
-                    }
+                        }
                 }
                 else {
 
@@ -906,9 +916,10 @@
                     }
                     else {
                         $do('pushQueue', null, 'CartQueue');
+                        $do('cancel', true, 'Cart');
                     }
                 }
-                $do('clear', null, 'Cart');
+                $do('clear', true, 'Cart');
 
                 if (responseDiscardQueue == 1) {
                     cartQueue._removeUserQueue(principal);
@@ -921,8 +932,9 @@
                 if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
+            Transaction.removeRecoveryFile();
+            
             if (!quickSignoff) {
-                this.clear();
                 this.ChangeUserDialog();
             }
         },
@@ -951,7 +963,7 @@
 
             // release CPU for progressbar ...
             if (!sleepTime) {
-              sleepTime = 1000;
+                sleepTime = 1000;
             }
             this.sleep(sleepTime);
             return waitPanel;
@@ -959,11 +971,11 @@
 
         truncateTxnRecords: function() {
             if (GREUtils.Dialog.confirm(this.topmostWindow,
-                                        _('Remove All Transaction Records'),
-                                        _('This operation will remove all transaction records. Are you sure you want to proceed?'))) {
+                _('Remove All Transaction Records'),
+                _('This operation will remove all transaction records. Are you sure you want to proceed?'))) {
                 if (GREUtils.Dialog.confirm(this.topmostWindow,
-                                            _('Remove All Transaction Records'),
-                                            _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
+                    _('Remove All Transaction Records'),
+                    _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
 
                     var waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Removing all transaction records'), 500);
 
@@ -976,10 +988,9 @@
 
                         // remove cart queue recovery file
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                        var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
-                        if (cartQueue) {
-                            cartQueue.removeQueueRecoveryFile();
-                        }
+
+                        // truncate order_queues
+                        (new OrderQueueModel()).truncate();
 
                         // truncate order related tables
                         var orderModel = new OrderModel();
@@ -990,6 +1001,7 @@
                         r = (new OrderPaymentModel()).truncate() && r;
                         r = (new OrderObjectModel()).truncate() && r;
                         r = (new OrderItemModel()).truncate() && r;
+                        r = (new OrderItemTaxModel()).truncate() && r;
                         r = (new OrderItemCondimentModel()).truncate() && r;
                         r = (new OrderAnnotationModel()).truncate() && r;
                         r = (new OrderAdditionModel()).truncate() && r;
@@ -1006,9 +1018,9 @@
 
                         if (!r) {
                             GREUtils.Dialog.alert(this.topmostWindow,
-                                                  _('Data Operation Error'),
-                                                  _('An error was encountered while attempting to remove all transaction records [message #1011].') + '\n\n' +
-                                                  _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                _('Data Operation Error'),
+                                _('An error was encountered while attempting to remove all transaction records [message #1011].') + '\n\n' +
+                                _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
                         }
                         else {
                             // dispatch afterTruncateTxnRecords event
@@ -1024,8 +1036,8 @@
                     }
 
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Remove All Transaction Records'),
-                                          _('Removal completed. Application will now restart'));
+                        _('Remove All Transaction Records'),
+                        _('Removal completed. Application will now restart'));
 
                     try {
                         GREUtils.restartApplication();
@@ -1054,38 +1066,57 @@
 
                     var order = new OrderModel();
                     var conditions = "orders.transaction_submitted<='" + retainDate +
-                                     "' AND orders.status<='1'";
+                    "' AND orders.status<='1'";
 
                     var r = order.restoreFromBackup();
                     if (!r) {
-                        throw {errno: order.lastError,
-                               errstr: order.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S) [message #1004].', [order.lastError])};
+                        throw {
+                            errno: order.lastError,
+                            errstr: order.lastErrorString,
+                            errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S) [message #1004].', [order.lastError])
+                        };
                     }
 
                     r = order.removeOrders(conditions);
                     if (!r) {
-                        throw {errno: order.lastError,
-                               errstr: order.lastErrorString,
-                               errmsg: _('An error was encountered while expiring sales activity logs (error code %S) [message #1005].', [order.lastError])};
+                        throw {
+                            errno: order.lastError,
+                            errstr: order.lastErrorString,
+                            errmsg: _('An error was encountered while expiring sales activity logs (error code %S) [message #1005].', [order.lastError])
+                        };
                     }
 
                     // remove clock stamps
                     var clockstamp = new ClockStampModel();
                     r = clockstamp.restoreFromBackup();
                     if (!r) {
-                        throw {errno: clockstamp.lastError,
-                               errstr: clockstamp.lastErrorString,
-                               errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S) [message #1006].', [clockstamp.lastError])};
+                        throw {
+                            errno: clockstamp.lastError,
+                            errstr: clockstamp.lastErrorString,
+                            errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S) [message #1006].', [clockstamp.lastError])
+                        };
                     }
 
                     r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
                     if (!r) {
-                        throw {errno: clockstamp.lastError,
-                               errstr: clockstamp.lastErrorString,
-                               errmsg: _('An error was encountered while expiring employee attendance records (error code %S) [message #1007].', [clockstamp.lastError])};
+                        throw {
+                            errno: clockstamp.lastError,
+                            errstr: clockstamp.lastErrorString,
+                            errmsg: _('An error was encountered while expiring employee attendance records (error code %S) [message #1007].', [clockstamp.lastError])
+                        };
                     }
 
+                    // remove order queues
+                    var orderQueue = new OrderQueueModel();
+                    r = orderQueue.removeQueues(retainDate);
+                    if (!r) {
+                        throw {
+                            errno: orderQueue.lastError,
+                            errstr: orderQueue.lastErrorString,
+                            errmsg: _('An error was encountered while expiring order queues (error code %S) [message #1008].', [orderQueue.lastError])
+                        };
+                    }
+                    
                     // dispatch afterClearOrderData event
                     this.dispatchEvent('afterClearOrderData', retainDate);
 
@@ -1110,66 +1141,8 @@
             }
         },
         
-        clearOrderObjects: function( days ) {
-            // the number of days to retain
-            var retainDays = days || GeckoJS.Configure.read( "vivipos.fec.settings.OrderObjectRetaindays" ) || 0;
-
-            if ( retainDays > 0 ) {
-
-                var waitPanel = this._showWaitPanel(
-                    'wait_panel',
-                    'wait_caption',
-                    _( 'Removing expired order objects' ),
-                    500
-                );
-
-                try {
-                    var retainDate = Date.today().addDays( retainDays * -1 ).getTime() / 1000;
-
-                    // dispatch beforeClearOrderData event
-                    //this.dispatchEvent( 'beforeClearOrderObjects', retainDate );
-
-                    var orderModel = new OrderModel();
-                    var r = orderModel.restoreFromBackup();
-                    if ( !r ) {
-                        throw { 
-                           errno: orderModel.lastError,
-                           errstr: orderModel.lastErrorString,
-                           errmsg: _( 'An error was encountered while removing order objects (error code %S) [message #1008].', [ orderModel.lastError ] )
-                        };
-                    }
-
-                    var orderObjectModel = new OrderObjectModel();
-                    var sql =
-                        "DELETE " +
-                            "FROM order_objects " +
-                            "WHERE order_objects.order_id IN ( " +
-                                "SELECT id FROM orders WHERE orders.transaction_submitted <= '" + retainDate + "' AND orders.status <= '1' " +
-                            ");";
-                    r = orderObjectModel.execute( sql );
-                    if ( !r ) {
-                        throw {
-                           errno: orderObjectModel.lastError,
-                           errstr: orderObjectModel.lastErrorString,
-                           errmsg: _( 'An error was encountered while removing order objects (error code %S) [message #1009].', [ orderObjectModel.lastError ] )
-                        };
-                    }
-
-                    // dispatch afterClearOrderData event
-                    //this.dispatchEvent( 'afterClearOrderObjects', retainDate );
-
-                    delete orderModel;
-                    delete orderObjectModel
-                } catch ( e ) {
-                    this._dbError( e.errno, e.errstr, e.errmsg );
-                } finally {
-                    waitPanel.hidePopup();
-                }
-            }
-        },
-        
         stockAdjustment: function (backend) {
-            var isMaster = (new StockRecordModel()).getRemoteServiceUrl('auth') === false;
+            var isMaster = (new StockRecordModel()).isRemoteService() === false;
             var isTraining = GeckoJS.Session.get("isTraining");
             var inputObj = {};
 
@@ -1181,17 +1154,23 @@
 
                 // retrieve list of suppliers
                 var inventoryCommitmentModel = new InventoryCommitmentModel();
-                var suppliers = inventoryCommitmentModel.find('all', {fields: ['supplier'],
-                                                                      group: 'supplier',
-                                                                      limit: 3000,
-                                                                      recursive: 0});
+                var suppliers = inventoryCommitmentModel.find('all', {
+                    fields: ['supplier'],
+                    group: 'supplier',
+                    limit: 3000,
+                    recursive: 0
+                });
                 if (inventoryCommitmentModel.lastError != 0) {
                     this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
-                                  _('An error was encountered while retrieving stock adjustment records (error code %S) [message #1010].', [inventoryCommitmentModel.lastError]));
+                        _('An error was encountered while retrieving stock adjustment records (error code %S) [message #1010].', [inventoryCommitmentModel.lastError]));
                     suppliers = null;
                 }
 
-                inputObj = {commit: true, suppliers: suppliers, backend: backend};
+                inputObj = {
+                    commit: true,
+                    suppliers: suppliers,
+                    backend: backend
+                };
 
                 GREUtils.Dialog.openWindow(
                     this.topmostWindow,
@@ -1199,9 +1178,9 @@
                     _('Stock Adjustment'),
                     aFeatures,
                     inputObj
-               );
+                    );
 
-               if (!inputObj.ok || inputObj.reason == '') return;
+                if (!inputObj.ok || inputObj.reason == '') return;
             }
             
             var aURL = 'chrome://viviecr/content/stock_records.xul';
@@ -1225,9 +1204,9 @@
         },
 
         dispatch: function(arg) {
-            var args = arg.split('|');
+            var args = arg.split(',');
             $do(args[0], args[1], args[2]) ;
-            /*
+        /*
             var printer = GeckoJS.Controller.getInstanceByName('Print');
             if (printer) {
                 printer.printReport('narrow', 'This is a narrow report [0x0C]');
@@ -1253,21 +1232,26 @@
             var aURL = 'chrome://viviecr/content/wizard_first.xul';
             var aName = _('VIVIPOS Setup');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {initialized: false, restart: false, restarted: false};
+            var aArguments = {
+                initialized: false,
+                restart: false,
+                restarted: false
+            };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
         },
         
-        suspendLoadTest: function(data) {
+        suspendLoadTest: function() {
             this._suspendLoadTest = true;
         },
 
         loadTest: function(params) {
             var paramList = [];
-            if (params) paramList = params.split(',');
+            if (params) paramList = params.split('|');
             var count = parseInt(paramList[0]) || 1;
             var items = parseInt(paramList[1]) || 1;
-            var resume = parseInt(paramList[2]) || 0;
+            var store = parseInt(paramList[2]) || 0;
+            var resume = parseInt(paramList[3]) || 0;
             var customers = GeckoJS.Session.get('customers') || [];
             var products = GeckoJS.Session.get('products') || [];
             var numProds = products.length;
@@ -1279,18 +1263,25 @@
             var startIndex = 0;
             var waitPanel;
 
-            var progressBar = document.getElementById('progress');
+            var progressBar = document.getElementById('interruptible_progress');
             progressBar.mode = 'determined';
 
+            var actionButton = document.getElementById('interruptible_action');
+
+            if (actionButton) {
+                actionButton.setAttribute('label', 'Suspend');
+                actionButton.setAttribute('oncommand', '$do("suspendLoadTest", null, "Main");');
+            }
+            
             if (resume && this.loadTestState != null) {
                 startIndex = this.loadTestState;
                 this.loadTestState = null;
                 progressBar.value = startIndex * 100 / count;
-                waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+                waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
             else {
                 progressBar.value = 0;
-                waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+                waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
 
             //this.sleep(100);
@@ -1311,7 +1302,10 @@
                     
                     var customer = customers[cIndex];
                     var txn = cart._getTransaction(true);
-                    customerController.processSetCustomerResult(txn, {ok: true, customer: customer});
+                    customerController.processSetCustomerResult(txn, {
+                        ok: true,
+                        customer: customer
+                    });
                 }
 
                 for (var j = 0; j < items; j++) {
@@ -1332,28 +1326,37 @@
                     cart.addItem(item);
 
                     // delay
-                    this.sleep(100 + 100 * Math.random());
+                    this.sleep(100);
                 }
-                // finalize order with cash
-                cart.cash();
+
+                if (store) {
+                    // store 
+                    cart.storeCheck();
+                }else {
+                    // finalize order with cash
+                    cart.cash();
+                }
 
                 // update progress bar
                 progressBar.value = (i + 1) * 100 / count;
 
                 // GC & delay
                 GREUtils.gc();
-                this.sleep(1000 + 1000 * Math.random());
+                this.sleep(300);
             }
 
             waitPanel.hidePopup();
+            if (actionRow) {
+                actionRow.hidden = true;
+            }
             progressBar.mode = 'undetermined';
         },
 
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database exception: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
-                                  _('Data Operation Error'),
-                                  errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                _('Data Operation Error'),
+                errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },
 
         FunctionCustomizerDialog: function() {
@@ -1374,6 +1377,76 @@
             var aArguments = {};
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
+
+        },
+
+
+        /**
+         * openReport 
+         */
+        openReport: function(reportName) {
+
+            reportName = reportName || '';
+            if(reportName.length == 0) return false;
+            
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+
+            // use report name not report key
+            var reports = GeckoJS.Configure.read('vivipos.fec.reportpanels') || {};
+            
+            let isExists = false;
+            let pref=null;
+            let path=null;
+            let label=null;
+            let roles=null;
+            let keyFull='';
+            let l10nLabel = '';
+
+            for (let key in reports) {
+
+                pref = reports[key];
+                path = pref.path;
+                label = pref.label;
+                roles = pref.roles;
+                keyFull = 'vivipos.fec.reportpanels' + '.' + key;
+
+                // get l10n label
+                if (label.indexOf('chrome://') == 0) {
+                    l10nLabel = GeckoJS.StringBundle.getPrefLocalizedString(keyFull+'.label') || key;
+                }
+                else {
+                    l10nLabel = _(label);
+                }
+
+                if ( (key == reportName) || (l10nLabel == reportName) || (label == reportName) ) {
+                    isExists = true;
+
+                    // check custom report label
+                    // "( Custom )" will be followed by the label to indicate that the report is custom one.
+                    var re = /([a-z0-9]+-){4}[a-z0-9]+/;// regular expression for recognizing uuid which is the key of a custom report.
+                    if ( re.test( key ) )
+                        l10nLabel = "( " + _( "custom" ) + " )" + l10nLabel;
+
+                    break;
+                }
+            }
+
+            if (!isExists) {
+                // report not exists
+                NotifyUtils.warn(_('Report [%S] not exists',[reportName]));
+                return false;
+            }
+
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
+
+            if (this.Acl.isUserInRole(roles)) {
+                window.openDialog(path, "Report_" + label, features, pref);
+                return true;
+            }else{
+                NotifyUtils.warn(_('You are not authorized to access the [%S] report',[l10nLabel]));
+                return false;
+            }
 
         }
 

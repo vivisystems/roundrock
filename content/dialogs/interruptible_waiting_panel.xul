@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+
+<overlay id="waiting_panel"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <popupset id="dialogs">
+        <vivipanel id="interruptible_wait_panel" position="overlap" noautohide="true" class="container-dialog">
+            <hbox flex="1" pack="center" class="container-interruptible-wait-panel">
+                <vbox flex="1" class="container-main">
+                    <groupbox flex="1">
+                        <caption id="interruptible_wait_caption" label="" class="label-page-title"/>
+                        <spacer style="height: 20px;"/>
+                        <progressmeter id="interruptible_progress" mode="determined" value="0"/>
+                        <spacer style="height: 20px;"/>
+                    </groupbox>
+                    <hbox pack="end">
+                        <button id="interruptible_action" label="&dialog.cancelButton.label;" class="button-execute"/>
+                    </hbox>
+                </vbox>
+            </hbox>
+        </vivipanel>
+    </popupset>
+    
+</overlay>

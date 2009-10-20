@@ -5,7 +5,7 @@
      */
     function startup() {
 
-        $do('initial', false, 'Devices');
+        //$do('initial', false, 'Devices');
         $do('load', null, 'Devices');
 
     };

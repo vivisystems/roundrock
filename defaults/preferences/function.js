@@ -140,7 +140,7 @@ pref("vivipos.fec.registry.function.programmable.ledgerentry.data", "");
 
 pref("vivipos.fec.registry.function.programmable.mergeCheck.access", "acl_merge_check");
 pref("vivipos.fec.registry.function.programmable.mergeCheck.command", "mergeCheck");
-pref("vivipos.fec.registry.function.programmable.mergeCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.mergeCheck.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.mergeCheck.data", "");
 
 pref("vivipos.fec.registry.function.programmable.modifyitem.access", "acl_modify_price,acl_modify_quantity");
@@ -157,6 +157,11 @@ pref("vivipos.fec.registry.function.programmable.newTable.access", "acl_new_tabl
 pref("vivipos.fec.registry.function.programmable.newTable.command", "newTable");
 pref("vivipos.fec.registry.function.programmable.newTable.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.newTable.data", "");
+
+pref("vivipos.fec.registry.function.programmable.transferTable.access", "acl_transfer_table");
+pref("vivipos.fec.registry.function.programmable.transferTable.command", "transferTable");
+pref("vivipos.fec.registry.function.programmable.transferTable.controller", "GuestCheck");
+pref("vivipos.fec.registry.function.programmable.transferTable.data", "");
 
 pref("vivipos.fec.registry.function.programmable.opendrawer1.access", "acl_open_cashdrawer_1");
 pref("vivipos.fec.registry.function.programmable.opendrawer1.command", "openDrawer1");
@@ -273,16 +278,6 @@ pref("vivipos.fec.registry.function.programmable.recallCheck.command", "recallCh
 pref("vivipos.fec.registry.function.programmable.recallCheck.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.recallCheck.data", "");
 
-pref("vivipos.fec.registry.function.programmable.recallTable.access", "acl_recall_check");
-pref("vivipos.fec.registry.function.programmable.recallTable.command", "recallTable");
-pref("vivipos.fec.registry.function.programmable.recallTable.controller", "GuestCheck");
-pref("vivipos.fec.registry.function.programmable.recallTable.data", "");
-
-pref("vivipos.fec.registry.function.programmable.recallOrder.access", "acl_recall_check");
-pref("vivipos.fec.registry.function.programmable.recallOrder.command", "recallOrder");
-pref("vivipos.fec.registry.function.programmable.recallOrder.controller", "GuestCheck");
-pref("vivipos.fec.registry.function.programmable.recallOrder.data", "");
-
 pref("vivipos.fec.registry.function.programmable.receipt.access", "acl_issue_post_receipt");
 pref("vivipos.fec.registry.function.programmable.receipt.command", "issueReceipt");
 pref("vivipos.fec.registry.function.programmable.receipt.controller", "Print");
@@ -350,7 +345,7 @@ pref("vivipos.fec.registry.function.programmable.silentsignoff.data", "");
 
 pref("vivipos.fec.registry.function.programmable.splitCheck.access", "acl_split_check");
 pref("vivipos.fec.registry.function.programmable.splitCheck.command", "splitCheck");
-pref("vivipos.fec.registry.function.programmable.splitCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.splitCheck.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.splitCheck.data", "");
 
 pref("vivipos.fec.registry.function.programmable.stockAdjustment.access", "acl_stock_adjustment");
@@ -393,11 +388,6 @@ pref("vivipos.fec.registry.function.programmable.trainingMode.command", "start")
 pref("vivipos.fec.registry.function.programmable.trainingMode.controller", "TrainingMode");
 pref("vivipos.fec.registry.function.programmable.trainingMode.data", "");
 
-pref("vivipos.fec.registry.function.programmable.transferTable.access", "acl_transfer_table");
-pref("vivipos.fec.registry.function.programmable.transferTable.command", "transferTable");
-pref("vivipos.fec.registry.function.programmable.transferTable.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.transferTable.data", "");
-
 pref("vivipos.fec.registry.function.programmable.traymarker.access", "acl_register_tray_marker");
 pref("vivipos.fec.registry.function.programmable.traymarker.command", "addMarker");
 pref("vivipos.fec.registry.function.programmable.traymarker.controller", "Cart");
@@ -418,7 +408,17 @@ pref("vivipos.fec.registry.function.programmable.voidItem.command", "voidItem");
 pref("vivipos.fec.registry.function.programmable.voidItem.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.voidItem.data", "");
 
-pref("vivipos.fec.registry.function.programmable.splitPayment.access", "acl_split_check");
+pref("vivipos.fec.registry.function.programmable.voidSale.access", "acl_void_transactions");
+pref("vivipos.fec.registry.function.programmable.voidSale.command", "voidSale");
+pref("vivipos.fec.registry.function.programmable.voidSale.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.voidSale.data", "");
+
+pref("vivipos.fec.registry.function.programmable.splitPayment.access", "acl_split_payment");
 pref("vivipos.fec.registry.function.programmable.splitPayment.command", "splitPayment");
 pref("vivipos.fec.registry.function.programmable.splitPayment.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.splitPayment.data", "");
+
+pref("vivipos.fec.registry.function.programmable.openreport.access", "");
+pref("vivipos.fec.registry.function.programmable.openreport.command", "openReport");
+pref("vivipos.fec.registry.function.programmable.openreport.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.openreport.data", "");

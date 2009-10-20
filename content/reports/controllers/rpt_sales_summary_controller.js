@@ -366,7 +366,7 @@
                 if (record.name == 'giftcard') {
                     // check if we need to update giftcard excess record
                     if (record.amount != record.origin_amount) {
-                        var excess = record.amount - record.origin_amount;
+                        var excess = record.origin_amount - record.amount;
                         if (!giftcardExcess) {
                             giftcardExcess = {
                                 name: 'giftcard',
@@ -461,8 +461,8 @@
             var fields = [
             'SUM("orders"."total") AS "Order.NetSales"',
             'SUM( "orders"."item_subtotal" ) AS "Order.GrossSales"',
-            'CAST( AVG("orders"."total") AS INTEGER ) AS "Order.AvgNetSales"',
-            'CAST( AVG("orders"."item_subtotal") AS INTEGER ) AS "Order.AvgGrossSales"',
+            'AVG("orders"."total") AS "Order.AvgNetSales"',
+            'AVG("orders"."item_subtotal") AS "Order.AvgGrossSales"',
             'SUM( "orders"."discount_subtotal" ) AS "Order.DiscountSubtotal"',
             'SUM( "orders"."surcharge_subtotal" ) AS "Order.SurchargeSubtotal"',
             'SUM( "orders"."tax_subtotal" ) AS "Order.TaxSubtotal"',
@@ -534,14 +534,19 @@
             var end = parseInt( this._end / 1000, 10 );
             
             var fields = [
-            'order_items.tax_name',
-            'sum( order_items.included_tax ) as "included_tax"',
-            'sum( order_items.current_tax ) as "tax_subtotal"'
+            'order_item_taxes.tax_no',
+            'order_item_taxes.tax_name',
+            'sum( order_item_taxes.item_count ) as "item_count"',
+            'sum( order_item_taxes.taxable_amount ) as "taxable_amount"',
+            'sum( order_item_taxes.included_tax_subtotal ) as "included_tax"',
+            'sum( order_item_taxes.tax_subtotal ) as "tax_subtotal"'
             ];
 
             var conditions = "orders." + this._periodtype + ">='" + start +
             "' AND orders." + this._periodtype + "<='" + end +
-            "' AND orders.status='1'";
+            "' AND orders.status='1'" +
+            " AND order_item_taxes.order_item_id=''" +
+            " AND order_item_taxes.promotion_id=''";
 
             if ( this._terminalNo.length > 0)
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
@@ -549,27 +554,18 @@
             if ( this._shiftno.length > 0 )
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 			
-            var groupby = 'order_items.tax_name';
-            var orderby = 'order_items.tax_name desc';
+            var groupby = 'order_item_taxes.tax_no,order_item_taxes.tax_name';
+            var orderby = 'order_item_taxes.tax_name desc';
             
             var data = {};
-            var summary = {};
-            summary.addon_tax_total = 0;
-            summary.included_tax_total = 0;
+            var summary = {
+                addon_tax_total: 0,
+                included_tax_total: 0
+            };
             
-            var orderItem = new OrderItemModel();
+            var orderItemTax = new OrderItemTaxModel();
 
-            /*
-            data.records = orderItem.find( 'all', {
-                fields: fields,
-                conditions: conditions,
-                group: groupby,
-                order: orderby,
-                recursive: 1,
-                limit: this._csvLimit
-            } );
-            */
-            data.records = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+            data.records = orderItemTax.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_item_taxes ON ("orders"."id" = "order_item_taxes"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
 
             data.records.forEach( function( record ) {
                 summary.addon_tax_total += record.tax_subtotal;
@@ -808,7 +804,7 @@
             this._reportRecords.head.subtitle = _( '(rpt)(based on %S)', [_( '(rpt)' + this._periodtype ) ]);
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
-			
+
             this._reportRecords.body.hourly_sales = this._hourlySales();
             this._reportRecords.body.dept_sales = this._deptSalesBillboard( this._num_dept || 10 );
             this._reportRecords.body.prod_sales = this._prodSalesBillboard( this._num_product || 10 );

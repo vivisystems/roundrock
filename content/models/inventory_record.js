@@ -42,7 +42,7 @@
             if ( inventoryRecords.length > 0 ) {
 
                 var created , modified;
-                created = modified = Math.ceil(Date.now().getTime()/1000);
+                created = modified = Math.ceil((new Date()).getTime()/1000);
 
                 var sql = "BEGIN; \n" ;
 

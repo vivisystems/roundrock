@@ -45,7 +45,7 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${detail.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${detail.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Net Sales' ) + ':'}
+${_( '(rpt)Total' ) + ':'}
 ${detail.total|default:0|viviFormatPrices:true|right:24}
 {for items in detail.OrderItem}
 ------------------------
@@ -96,7 +96,7 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${foot.foot_datas.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${foot.foot_datas.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Net Sales' ) + ':'}
+${_( '(rpt)Total' ) + ':'}
 ${foot.foot_datas.total|default:0|viviFormatPrices:true|right:24}
 ------------------------
 ${foot.gen_time}

@@ -56,6 +56,7 @@
             }
             catch (e) {
                 NotifyUtils.warn(_('Failed to execute command (%S).', [cmd + ' ' + param]));
+                GeckoJS.BaseObject.log('FATAL', _('Failed to execute command (%S).', [cmd + ' ' + param]))
                 return false;
             }
         },
@@ -122,7 +123,6 @@
         },
 
         exportData: function () {
-            
             // return if import or export already in progress
             if (this._busy) {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Export Error'), _('Import/Export already in progress'));
@@ -150,6 +150,8 @@
             this.sleep(200);
 
             var exportType = this._datas[index].type;
+
+            this.log('FATAL', 'Begin export [' + exportType + '] data - ' + this._datas[index].name);
 
             switch(exportType) {
                 case "model": {
@@ -191,6 +193,7 @@
                         var database = this._datas[index].database;
                         var table = this._datas[index].table;
                         var executable = "/usr/bin/sqlite3";
+                        this._datas[index].filename = '';
 
                         for(var i = 0;i < table.length;i++) {
                             this._datas[index].filename += table[i] + ".sql ";
@@ -269,7 +272,9 @@
                                                 'display_order',
                                                 'button_color',
                                                 'font_size',
-                                                'routing'
+                                                'routing',
+                                                'non_discountable',
+                                                'non_surchargeable'
                                             ];
                                             break;
                                     }
@@ -342,7 +347,13 @@
                                                 'alt_name2',
                                                 'manual_adjustment_only',
                                                 'append_empty_btns',
-                                                'display_order'
+                                                'display_order',
+                                                'max_stock',
+                                                'scale_multiplier',
+                                                'scale_precision',
+                                                'display_mode',
+                                                'non_discountable',
+                                                'non_surchargeable'
                                             ];
                                             break;
                                     }
@@ -358,7 +369,9 @@
                                                 'button_color',
                                                 'font_size',
                                                 'cansale',
-                                                'display_order'
+                                                'display_order',
+                                                'non_discountable',
+                                                'non_surchargeable'
                                             ];
                                             break;
                                     }
@@ -601,11 +614,14 @@
                 
                 NotifyUtils.info(_('Export of [%S] to file [%S] finished!',
                                    [this._datas[index].name, fileName]));
+                GeckoJS.BaseObject.log('FATAL', _('Export of [%S] to file [%S] finished!',
+                                   [this._datas[index].name, fileName]));
             }
             catch (e) {
                 tableTmp.rollback();
                 
-                GeckoJS.BaseModel.log('ERROR', e);
+                GeckoJS.BaseModel.log('FATAL', _('Failed to export [%S] to file [%S]',
+                                    [this._datas[index].name, fileName]));
                 NotifyUtils.error(_('Failed to export [%S] to file [%S]',
                                     [this._datas[index].name, fileName]));
             }
@@ -656,6 +672,8 @@
             
             this.sleep(50);
             var importType = this._datas[index].type;
+
+            this.log('FATAL', 'Begin import [' + importType + '] data - ' + this._datas[index].Name);
 
             switch(importType){
                 case 'model': {
@@ -710,11 +728,13 @@
                             }
                             if(missingFile.length > 0) {
                                 NotifyUtils.error(_('The specified file(s) [%S] does not exist!', [missingFile]));
+                                GeckoJS.BaseModel.log('FATAL', _('The specified file(s) [%S] does not exist!', [missingFile]));
                                 waitPanel.hidePopup();
                                 return;
                             } else {
                                 //process the actual import here
                                 var executable = "/usr/bin/sqlite3";
+                                this._datas[index].filename = ''
 
                                 for(var i = 0;i < table.length;i++) {
                                     this._datas[index].filename += table[i] + ".sql ";
@@ -731,6 +751,7 @@
                             this.getListObj().refresh();
 
                             NotifyUtils.info(_('Data import from file [%S] finished!', [this._datas[index].filename]));
+                            GeckoJS.BaseObject.log('FATAL', _('Data import from file [%S] finished!', [this._datas[index].filename]));
 
                             // restart vivipos
                             this._needRestart = true;
@@ -751,11 +772,13 @@
             if(importType == "license") {
                 waitPanel.hidePopup();
                 GREUtils.Dialog.alert(this.topmostWindow, _('License Import Error'), _('License validated - import not required'));
+                GeckoJS.BaseObject.log('FATAL', _('License validated - import not required'));
                 return;
             }
             if (!GREUtils.File.exists(fileName)) {
                 waitPanel.hidePopup();
                 NotifyUtils.error(_('The specified file [%S] does not exist!', [this._datas[index].filename]));
+                GeckoJS.BaseObject.log('FATAL', _('The specified file [%S] does not exist!', [this._datas[index].filename]));
                 return;
             }
             this._busy = true;
@@ -787,6 +810,7 @@
                             this._busy = false;
                             waitPanel.hidePopup();
                             NotifyUtils.error(_('Unable to open the specified file [%S]!', [this._datas[index].filename]));
+                            GeckoJS.BaseObject.log('FATAL', _('Unable to open the specified file [%S]!', [this._datas[index].filename]));
                             return;
                         }
                         finally {
@@ -811,6 +835,7 @@
                             this._busy = false;
                             waitPanel.hidePopup();
                             NotifyUtils.error(_('Unable to open the specified file [%S]!', [this._datas[index].filename]));
+                            GeckoJS.BaseObject.log('FATAL', _('Unable to open the specified file [%S]!', [this._datas[index].filename]));
                             return;
                         }
                         break;
@@ -1786,6 +1811,7 @@
                 this.getListObj().refresh();
 
                 NotifyUtils.info(_('Import of [%S] from file [%S] finished!', [this._datas[index].name, fileName]));
+                GeckoJS.BaseObject.log('FATAL', _('Import of [%S] from file [%S] finished!', [this._datas[index].name, fileName]));
 
                 // restart vivipos
                 this._needRestart = true;
@@ -1797,6 +1823,7 @@
                 }
 
                 NotifyUtils.error(_('Failed to import [%S] from file [%S]!', [this._datas[index].name, fileName]));
+                GeckoJS.BaseObject.log('FATAL', _('Failed to import [%S] from file [%S]!', [this._datas[index].name, fileName]));
                 this.log(e);
             }
             finally {
@@ -1918,7 +1945,7 @@
                     type: 'data',
                     database: "/data/databases/vivipos_table.sqlite",
                     filename: '',
-                    table: ["tables", "table_statuses", "table_regions", "table_orders", "table_bookings"],
+                    table: ["tables", "table_statuses", "table_regions", "table_orders", "table_bookings", "table_marks", "table_order_locks", "table_settings", "table_wait_lists"],
                     imported: '',
                     exported: ''
                 },

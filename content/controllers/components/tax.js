@@ -528,7 +528,14 @@
  * @param {Number} amount
  * @return {Object} 
  */
-    TaxComponent.prototype.calcTaxAmount = function(no, amount, unitprice, qty) {
+    TaxComponent.prototype.calcTaxAmount = function(no, amount, unitprice, qty, precision, rounding) {
+
+        function roundTax(amount) {
+            var roundedAmount = GeckoJS.NumberHelper.round(Math.abs(amount), precision, rounding) || 0;
+            if (roundedAmount < 0) roundedAmount = 0 - roundedAmount;
+            return roundedAmount;
+
+        }
 
         var taxObject = null;
         amount = amount || 0;
@@ -543,6 +550,7 @@
         var taxAmount = {}; taxAmount[no] = {
             charge: 0,
             included: 0,
+            taxable: 0,
             tax: taxObject
         };
 
@@ -556,8 +564,8 @@
             default:
             case "INCLUDED":
                 taxAmount[no]['charge'] = 0;
+                var included = 0;
                 if (unitprice >= taxObject['threshold']) {
-                    var included = 0;
                     if (taxObject['rate_type'] == '$') {
                         included = qty * taxObject['rate'];
                     }else {
@@ -566,9 +574,11 @@
                     }
                     if (included > 0) taxAmount[no]['included'] = included;
                 }
+                taxAmount[no]['taxable'] = amount - included;
                 break;
                 
             case "ADDON":
+                taxAmount[no]['taxable'] = amount;
                 if (unitprice >= taxObject['threshold']) {
                     var charge = 0;
                     if (taxObject['rate_type'] == '$') {
@@ -595,12 +605,13 @@
                     var includedRateTaxes = [];
                     var includedRateAmount = 0;
 
+                    // first compute all included fixed charges
                     taxObject.CombineTax.forEach(function(cTaxObj){
                         if (cTaxObj.type == 'INCLUDED') {
                             var rate = parseFloat(cTaxObj['rate']);
                             if (cTaxObj['rate_type'] == '$') {
                                 var taxCharge = qty * rate || 0;
-                                taxAmount[no]['combine'][cTaxObj.name] = {
+                                taxAmount[no]['combine'][cTaxObj.no] = {
                                     charge: 0,
                                     included: taxCharge,
                                     tax: cTaxObj
@@ -625,35 +636,42 @@
                         for (var i = 0; i < includedRateTaxes.length - 1; i++) {
                             var cTaxObj = includedRateTaxes[i];
                             var partialIncludedAmount = cTaxObj.rate * includedRateAmount / includedRate;
-                            taxAmount[no]['combine'][cTaxObj.name] = {
+                            taxAmount[no]['combine'][cTaxObj.no] = {
                                 charge: 0,
                                 included: partialIncludedAmount,
+                                taxable: amount1 - includedRateAmount,
                                 tax: cTaxObj
                             }
                             allocatedTaxAmount += partialIncludedAmount;
                         }
 
                        var cTaxObj = includedRateTaxes[i];
-                       taxAmount[no]['combine'][cTaxObj.name] = {
+                       taxAmount[no]['combine'][cTaxObj.no] = {
                            charge: 0,
                            included: includedRateAmount - allocatedTaxAmount,
+                           taxable: amount1 - includedRateAmount,
                            tax: cTaxObj
                        }
                     }
 
-                    var totalIncluded = includedRateAmount + includedChargeAmount;
-                    var addonBasis = amount - totalIncluded;
+                    totalIncluded = includedRateAmount + includedChargeAmount;
+                    var pretaxAmount = amount - totalIncluded;
 
-                    // foreach component tax of type 'add-on'
                     taxObject.CombineTax.forEach(function(cTaxObj){
+                        // foreach component tax of type 'add-on', compute add on tax
                         if (cTaxObj.type == 'ADDON') {
-                            var cTaxAmount = this.calcTaxAmount(cTaxObj['no'], addonBasis, unitprice, qty);
-                            taxAmount[no]['combine'][cTaxObj.name] = {
+                            var cTaxAmount = this.calcTaxAmount(cTaxObj['no'], pretaxAmount, unitprice, qty, precision, rounding);
+                            taxAmount[no]['combine'][cTaxObj.no] = {
                                 charge: cTaxAmount[cTaxObj.no].charge || 0,
                                 included: cTaxAmount[cTaxObj.no].included || 0,
+                                taxable: pretaxAmount,
                                 tax: cTaxObj
                             }
                             totalCharge += cTaxAmount[cTaxObj.no].charge || 0;
+                        }
+                        else if (cTaxObj.type == 'INCLUDED') {
+                            // foreach component tax of type 'included', update taxable amount
+                            taxAmount[no]['combine'][cTaxObj.no].taxable = pretaxAmount;
                         }
                     }, this);
                 }
@@ -663,7 +681,7 @@
 
             case "VAT":
                 var totalCharge = 0;
-                taxAmount['combine'] = {};
+                taxAmount[no]['combine'] = {};
                 if (unitprice >= taxObject['threshold'] && taxObject.CombineTax != null) {
 
                     // foreach combine taxes
@@ -679,7 +697,7 @@
 
                             if (charge > 0) {
                                 totalCharge += charge;
-                                taxAmount['combine'][cTaxObj.name] = {
+                                taxAmount[no]['combine'][cTaxObj.no] = {
                                     charge: charge,
                                     tax: cTaxObj
                                 };
@@ -691,9 +709,68 @@
                 }
                 break;
         }
+        taxAmount[no]['charge'] = roundTax(taxAmount[no]['charge']);
+        taxAmount[no]['included'] = roundTax(taxAmount[no]['included']);
+
+        taxAmount[no]['tax_details'] = this.calcTaxDetails(taxAmount, no, roundTax);
+
         return taxAmount;
     };
 
+    TaxComponent.prototype.calcTaxDetails = function(taxChargeObj, no, roundTax) {
+
+        var tax_details;
+
+        if (taxChargeObj[no]['combine']) {
+            tax_details = taxChargeObj[no]['combine'];
+
+            // round individual tax components
+            var includedCTaxes = [];
+            var addonCTaxes = [];
+
+            for (var key in tax_details) {
+                var cTaxObj = tax_details[key];
+                if (cTaxObj.tax.type == 'INCLUDED') {
+                    includedCTaxes.push(cTaxObj);
+                }
+                else {
+                    addonCTaxes.push(cTaxObj);
+                }
+            };
+            // process add-on taxes
+            if (addonCTaxes.length > 0) {
+                var addonSum = 0;
+                for (var i = 0; i < addonCTaxes.length - 1; i++) {
+                    addonCTaxes[i].charge = roundTax(addonCTaxes[i].charge);
+                    addonSum += addonCTaxes[i].charge;
+                }
+
+                addonCTaxes[i].charge = roundTax(taxChargeObj[no]['charge'] - addonSum);
+            }
+
+            // process included taxes
+            if (includedCTaxes.length > 0) {
+                var includedSum = 0;
+                for (var j = 0; j < includedCTaxes.length - 1; j++) {
+                    includedCTaxes[j].included = roundTax(includedCTaxes[j].included);
+                    includedSum += includedCTaxes[j].included;
+                }
+
+                includedCTaxes[j].included = roundTax(taxChargeObj[no]['included'] - includedSum);
+            }
+        }
+        else {
+            tax_details = {};
+            tax_details[no] = {
+                charge: taxChargeObj[no].charge,
+                included: taxChargeObj[no].included,
+                taxable: taxChargeObj[no].taxable,
+                tax: taxChargeObj[no].tax
+            };
+        }
+
+        return tax_details;
+    };
 
     TaxComponent.prototype.calcOpenTaxAmount = function(rate_type, rate, amount) {
 

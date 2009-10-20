@@ -8,6 +8,8 @@
     var __controller__ = {
 
         name: 'RptOrderAnnotation',
+
+        components: ['OrderStatus'],
         
         _fileName: 'rpt_order_annotation',
 
@@ -135,20 +137,7 @@
                         }
                     }
                 }
-                switch ( parseInt( orderRecord.status, 10 ) ) {
-                    case 1:
-                        orderRecord.status = _( '(rpt)completed' );
-                        break;
-                    case 2:
-                        orderRecord.status = _( '(rpt)stored' );
-                        break;
-                    case -1:
-                        orderRecord.status = _( '(rpt)canceled' );
-                        break;
-                    case -2:
-                        orderRecord.status = _( '(rpt)voided' );
-                        break;
-                }
+                orderRecord.status = this.statusToString(orderRecord.status);
                 records[ orderRecord.type ].orders.push( orderRecord );
 				
                 records[ orderRecord.type ].summary.item_subtotal += orderRecord.item_subtotal;
@@ -159,7 +148,7 @@
                 records[ orderRecord.type ].summary.revalue_subtotal += orderRecord.revalue_subtotal;
                 records[ orderRecord.type ].summary.total += orderRecord.total;
                 records[ orderRecord.type ].summary.payment += orderRecord.payment;
-            } );
+            }, this );
             
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.orderannotation.label' );
             this._reportRecords.head.start_time = start_str;

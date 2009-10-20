@@ -80,7 +80,11 @@
                         if(!previewTemplates) {
                             doSuspend = true;
                         } else {
-                            this.previewTemplate = selectedDevices['journal-preview-template'] = previewTemplates[0];
+                            for (var tpl in previewTemplates) {
+                                var previewTemplate = tpl;
+                                break;
+                            }
+                            this._previewTemplate = selectedDevices['journal-preview-template'] = previewTemplate;
                             doSave = true;
                         }
                     }
@@ -114,21 +118,26 @@
                     evt.preventDefault();
                 }
             } catch (e) {
+                this.log('ERROR', _('Journal Controller cartStatus error: %S', [GeckoJS.BaseObject.dump(e)]));
             }
         },
 
         voidOrder: function(evt) {
             if(!this.isTraining) {
-                var txn = evt;
-                var order_id = txn.data.id;
-                var journal = this.getJournalByOrderId(order_id);
+                try {
+                    var txn = evt;
+                    var order_id = txn.data.id;
+                    var journal = this.getJournalByOrderId(order_id);
 
-                journal.void_clerk_displayname = txn.data.void_clerk_displayname;
-                journal.void_time = parseInt(new Date().getTime() / 1000);
-                journal.void_terminal_no = GeckoJS.Session.get('terminal_no');
-                journal.status = txn.data.status;
+                    journal.void_clerk_displayname = txn.data.void_clerk_displayname;
+                    journal.void_time = parseInt(new Date().getTime() / 1000);
+                    journal.void_terminal_no = GeckoJS.Session.get('terminal_no');
+                    journal.status = txn.data.status;
 
-                this.saveJournal(journal);
+                    this.saveJournal(journal);
+                } catch (e) {
+                    this.log('ERROR', _('Journal Controller voidOrder error: %S', [GeckoJS.BaseObject.dump(e)]));
+                }
             }
         },
 
@@ -152,26 +161,45 @@
                         var year = orderDate.getYear() + 1900;
                         var month = GeckoJS.String.padLeft((orderDate.getMonth() + 1), 2, 0);
                         var date = GeckoJS.String.padLeft(orderDate.getDate(), 2, 0);
-                        journal.prn_file = year + '/' + month + '/' + date + '/' + journal.sequence + '.prn';
-                        journal.preview_file = year + '/' + month + '/' + date + '/' + journal.sequence + '.html';
 
                         //produce preview file
+                        journal.preview_file = '';
                         var previewContent = this.getSelectedTemplateData(txn, true);
                         if (previewContent != '') {
-                            var previewFile = new GeckoJS.File(this._journalPath + journal.preview_file, true);
-                            previewFile.open("wb");
-                            previewFile.write(GREUtils.Gzip.deflate(previewContent));
-                            previewFile.close();
+                            let preview_file = year + '/' + month + '/' + date + '/' + journal.sequence + '.html';
+                            let previewFile = new GeckoJS.File(this._journalPath + preview_file, true);
+                            if (previewFile) {
+                                previewFile.open("wb");
+                                previewFile.write(GREUtils.Gzip.deflate(previewContent));
+                                previewFile.close();
+                                journal.preview_file = preview_file;
+                            }
+                            else {
+                                this.log('ERROR', 'Failed to get handle on preview file [' + this._journalPath + preview_file + ']');
+                            }
+                        }
+                        else {
+                            this.log('ERROR', 'No preview content to store');
                         }
 
                         //produce print file
+                        journal.prn_file = '';
                         var prnContent = this.getSelectedTemplateData(txn, false);
                         if (prnContent != '') {
-                            //var prnContent = GeckoJS.BaseObject.serialize(txn.data);
-                            var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file, true);
-                            prnFile.open("wb");
-                            prnFile.write(GREUtils.Gzip.deflate(prnContent));
-                            prnFile.close();
+                            let prn_file = year + '/' + month + '/' + date + '/' + journal.sequence + '.prn';
+                            let prnFile = new GeckoJS.File(this._journalPath + prn_file, true);
+                            if (prnFile) {
+                                prnFile.open("wb");
+                                prnFile.write(GREUtils.Gzip.deflate(prnContent));
+                                prnFile.close();
+                                journal.prn_file = prn_file;
+                            }
+                            else {
+                                this.log('ERROR', 'Failed to get handle on print file [' + this._journalPath + prn_file + ']');
+                            }
+                        }
+                        else {
+                            this.log('ERROR', 'No receipt content to store');
                         }
                         this.saveJournal(journal);
                     }
@@ -196,10 +224,10 @@
                     && win.document.documentElement.boxObject.screenX < 0)
                     win = null;
 
-                GREUtils.Dialog.alert(win,
-                                      _('Journal Error'),
-                                      _('An error was encountered while saving journal entry (error code %S) [message #702].', [journalModel.lastError])
-                                          + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                GREUtils.Dialog.(win,
+                                 _('Journal Error'),
+                                 _('An error was encountered while saving journal entry (error code %S) [message #702].', [journalModel.lastError])
+                                   + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
             }
         },
 
@@ -207,16 +235,17 @@
             var template = preview ? this._previewTemplate : this._printTemplate;
             var tpl = this._device.getTemplateData(template, false);
             var order = txn.data;
+            var result = '';
 
             // @2009-08-13 irving
-            if (!tpl) return '';
+            if (!tpl) return result;
             
             var data = {
                 txn: txn,
                 order: order
             };
             // expand data with storeContact and terminal_no
-	        if (data) {
+            if (data) {
                 data.customer = GeckoJS.Session.get('current_customer');
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
@@ -225,65 +254,18 @@
                     data.user = user.username;
                     data.display_name = user.description;
                 }
-	        }
+            }
 
             // check if item is linked to this printer and set 'linked' accordingly
             if (data && data.order) {
-                var empty = true;
-                var routingGroups = data.routingGroups;
-
-                for (var i in data.order.items) {
-                    var item = data.order.items[i];
-                    if (data.printAllRouting && (data.duplicate || item.batch == data.order.batchCount)) {
-                        item.linked = true;
-                        empty = false;
-                    }
-                    else {
-                        item.linked = false;
-
-                        // rules:
-                        //
-                        // 1. item.link_group does not contain any link groups and device.printNoRouting is true
-                        // 2. data.linkgroup intersects item.link_group
-                        // 3. item.link_group does not contain any routing groups and device.printNoRouting is true
-                        //
-                        if (data.printNoRouting) {
-                            if (item.link_group == null || item.link_group == '') {
-                                item.linked = true;
-                            }
-                        }
-
-                        if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group && item.link_group.indexOf(data.linkgroup) > -1) {
-                            item.linked = true;
-                        }
-
-                        if (!item.linked && data.printNoRouting) {
-                            var noRoutingGroups;
-                            if (routingGroups == null) {
-                                noRoutingGroups = true;
-                            }
-                            else {
-                                var groups = item.link_group.split(',');
-                                noRoutingGroups = true;
-                                for (i = 0; i < groups.length; i++) {
-                                    if (groups[i] in routingGroups) {
-                                        noRoutingGroups = false;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (noRoutingGroups) {
-                                item.linked = true;
-                            }
-                        }
-
-                        item.linked = item.linked && (data.duplicate || item.batch == data.order.batchCount);
-                        if (item.linked) empty = false;
+                if (data.order.items && data.order.items.length > 0) {
+                    for (var i in data.order.items) {
+                        data.order.items[i].linked = true;
                     }
                 }
-
-                data.hasLinkedItems = !empty;
+                else {
+                    data.hasLinkedItems = data.order.items.length;
+                }
             }
 
             data.linkgroups = null;
@@ -301,7 +283,8 @@
             	this._device.getSelectedDevices()['receipt-' + printerChoice + '-encoding'];
             	
             _templateModifiers(TrimPath, encoding);
-            var result = tpl.process(data);
+            result = tpl.process(data);
+
             return result;
         }
     };

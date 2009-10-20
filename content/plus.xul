@@ -18,7 +18,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/dialogs/interruptable_waiting_panel.xul"?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/interruptible_waiting_panel.xul"?>
 
 <window title="&plus.title;"
         hidechrome="true"
@@ -38,6 +38,9 @@
   <script src='chrome://viviecr/content/helpers/nsi_plus_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_condiments_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_plugroups_view.js'/>
+
+  <!-- include components -->
+  <script src="chrome://viviecr/content/controllers/components/tax.js" type="application/x-javascript"/>
 
   <!-- include controllers -->
   <script src="chrome://viviecr/content/controllers/plus_controller.js" type="application/x-javascript"/>

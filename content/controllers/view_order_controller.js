@@ -8,10 +8,14 @@
         name: 'ViewOrder',
 
         template: 'order_template',
+
+        components: ['OrderStatus'],
+        
         _orderId: null,
         _orderData: null,
         _orders: [],
         _index: -1,
+        _locked: false,
 
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
@@ -19,10 +23,13 @@
         },
 
         load: function(inputObj) {
-
+            
             // store global data
             this._orders = inputObj.orders;
             this._index = inputObj.position;
+
+            let recall = document.getElementById('recall');
+            if (recall) recall.hidden = !('recall' in inputObj);
 
             this.displayOrder(this._orders[this._index].id);
         },
@@ -46,10 +53,9 @@
             // get browser content body
             var bw = document.getElementById('preview_frame');
             var doc = bw.contentWindow.document.getElementById( 'abody' );
-            var print = document.getElementById('print');
+            var report = document.getElementById('report');
             var orderObj = document.getElementById('order');
             
-            // load data
             var orderModel = new OrderModel();
             var order = orderModel.findById(id, 2);
             if (parseInt(orderModel.lastError) != 0) {
@@ -57,30 +63,13 @@
                               _('An error was encountered while retrieving details of the selected order (error code %S) [message #1901].', [orderModel.lastError]));
                 return;
             }
-
+            
             if (order) {
                 // display order status
                 var branch = (order.branch == null || order.branch == '') ? ((order.branch_id == null || order.branch_id == '') ? '' : order.branch_id)
                                                                           : order.branch + ((order.branch_id == null || order.branch_id == '') ? '' : ' (' + order.branch_id + ')');
                 var location = (branch == null || branch == '') ? order.terminal_no : (branch + ' [' + order.terminal_no + ']');
-                var statusStr = '';
-                switch(parseInt(order.status)) {
-                    case -2:
-                        statusStr = _('(view)voided');
-                        break;
-
-                    case -1:
-                        statusStr = _('(view)cancelled');
-                        break;
-
-                    case 1:
-                        statusStr = _('(view)completed');
-                        break;
-
-                    case 2:
-                        statusStr = _('(view)stored');
-                        break;
-                }
+                var statusStr = this.OrderStatus.statusToString(order.status);
 
                 orderObj.value = order.sequence + ' [' + statusStr + '] ' + location;
 
@@ -91,6 +80,7 @@
 
                 var data = {};
                 data.order = order;
+                data.order.status_str = statusStr;
                 data.sequence = order.sequence;
 
                 this._orderData = data;
@@ -100,7 +90,7 @@
                 if (doc) {
                     doc.innerHTML = result;
 
-                    print.setAttribute('disabled', false);
+                    report.setAttribute('disabled', false);
                 }
 
                 this._orderId = id;
@@ -112,8 +102,8 @@
         },
 
         exportRcp: function() {
-        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print this order?' ) ) )
-        		return;
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print this order?' ) ) )
+                return;
 
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                 .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
@@ -128,29 +118,60 @@
             rcp.printReport( 'report', tpl, this._orderData );
         },
 
-        voidSale: function() {
+        reprintReceipt: function() {
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to issue a receipt copy for this order?' ) ) )
+                return;
 
-            var id = this._orderId;
+            let orderModel = new OrderModel();
+            let orderData = orderModel.readOrder(this._orderId, true); // recall use master service's datas.
 
-            if (!id) return;
-
-            // invoke Cart.voidSale in main window
-            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                                                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
-            var cartController = mainWindow.GeckoJS.Controller.getInstanceByName('Cart');
-            if (cartController.voidSale(id)) {
-                this.displayOrder(id);
+            if (!orderData) {
+                NotifyUtils.error(_('This order object does not exist [%S]', [this._orderId]));
+                return false;
             }
+
+            if (orderData.Order.status != 1 && orderData.Order.status != -2) {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Reprint Receipt'),
+                                      _('Only completed and voided orders may be reprinted'));
+                return false;
+            }
+
+            let data = orderModel.mappingOrderDataToTranData(orderData);
+
+            this.log('DEBUG', this.dump(orderData));
+            this.log('DEBUG', this.dump(data));
+
+            var txn = new Transaction(true);
+            txn.data  = data;
+
+            // temporarily remove customer from Session
+            let customer = GeckoJS.Session.get('current_customer');
+            if (customer) {
+                GeckoJS.Session.remove('current_customer');
+            }
+
+            let mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            let rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+
+            rcp.issueReceiptCopy(null, txn);
+
+            // restore customer
+            if (customer) {
+                GeckoJS.Session.set('current_customer', customer);
+            }
+        },
+
+        recallOrder: function() {
+            window.arguments[0].recall = true;
+            doOKButton();
         },
 
         validateForm: function(order) {
             var nextbtn = document.getElementById('next');
             var prevbtn = document.getElementById('prev');
-            var voidBtn = document.getElementById('void');
+            var recallbtn = document.getElementById('recall');
             
-            // enable void sale button only if order has status of 1 or 2
-            voidBtn.setAttribute('disabled', !order || order.status < 1 || !this.Acl.isUserInRole('acl_void_transactions'));
-
             if (nextbtn) {
                 if (this._index == this._orders.length - 1) {
                     nextbtn.setAttribute('disabled', true);
@@ -167,6 +188,13 @@
                 else {
                     prevbtn.removeAttribute('disabled');
                 }
+            }
+
+            if (order.status == 1 || order.status == 2) {
+                recallbtn.setAttribute('hidden', false);
+            }
+            else {
+                recallbtn.setAttribute('hidden', true);
             }
         },
 

@@ -30,6 +30,7 @@ include("chrome://viviecr/content/models/inventory_commitment.js");
 
 include('chrome://viviecr/content/models/order.js');
 include('chrome://viviecr/content/models/order_item.js');
+include('chrome://viviecr/content/models/order_item_tax.js');
 include('chrome://viviecr/content/models/order_addition.js');
 include('chrome://viviecr/content/models/order_payment.js');
 include('chrome://viviecr/content/models/order_object.js');
@@ -40,6 +41,7 @@ include('chrome://viviecr/content/models/order_promotion.js');
 include('chrome://viviecr/content/models/ledger_entry_type.js');
 include('chrome://viviecr/content/models/ledger_record.js');
 include('chrome://viviecr/content/models/ledger_receipt.js');
+include('chrome://viviecr/content/models/order_queue.js');
 
 include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/product.js');
@@ -54,6 +56,8 @@ include('chrome://viviecr/content/models/user.js');
 include('chrome://viviecr/content/models/promotion.js');
 
 include('chrome://viviecr/content/models/table.js');
+include('chrome://viviecr/content/models/table_setting.js');
+include('chrome://viviecr/content/models/table_mark.js');
 include('chrome://viviecr/content/models/table_region.js');
 include('chrome://viviecr/content/models/table_booking.js');
 include('chrome://viviecr/content/models/table_status.js');

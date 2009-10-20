@@ -8,8 +8,6 @@
 
         uses: ['Product'],
 
-        code: 'CT',
-
         _cartView: null,
         _inDialog: false,
         _returnMode: false,
@@ -77,7 +75,7 @@
 
         sessionHandler: function(evt) {
             var txn = this._getTransaction();
-            if (txn == null || txn.data == null || txn.isSubmit() || txn.isCancel())
+            if (!this.ifHavingOpenedOrder())
                 return;
 
             var key;
@@ -118,12 +116,10 @@
 
         beforeAddBuffer: function () {
 
-            var self = this;
-
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var curTransaction = cart._getTransaction();
             if (curTransaction == null) return;
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+            if (!cart.ifHavingOpenedOrder()) {
 
                 if (cart._cartView.tree) {
                     cart.dispatchEvent('onClear', curTransaction);
@@ -361,9 +357,7 @@
         ifHavingOpenedOrder: function() {
             var curTransaction = this._getTransaction();
 
-            if (curTransaction) dump( !curTransaction.isSubmit() ) ;
-            if (curTransaction) dump( !curTransaction.isCancel() ) ;
-            if( curTransaction && !curTransaction.isSubmit() && !curTransaction.isCancel() )
+            if( curTransaction && !curTransaction.isSubmit() && !curTransaction.isCancel() && !curTransaction.isVoided())
                 return true;
             return false;
         },
@@ -426,7 +420,6 @@
 
             this._cancelReturn();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot tag the selected item'));
 
@@ -531,10 +524,10 @@
 
                 var plu = this.Product.getProductById(itemTrans.id);
 
-                if (!plu) {
+                if (!plu && itemTrans.no == '') {
                     // sale department?
                     var categoriesByNo = GeckoJS.Session.get('categoriesByNo');
-                    plu = categoriesByNo[itemTrans.no];
+                    plu = categoriesByNo[itemTrans.cate_no];
                 }
             }
 
@@ -606,7 +599,7 @@
             }
 
             // transaction is submit and close success
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+            if( !this.ifHavingOpenedOrder() ) {
                 curTransaction = this._newTransaction();
             }
 
@@ -630,7 +623,7 @@
                     }
                 }
             }
-            else {
+            else if (item.cate_no) {
                 var dep = this._isItemInScaleDepartment(item);
                 if (dep != null) {
 
@@ -650,7 +643,14 @@
             if (qty == null) qty = 1;
 
             if (unit != null && unit != '') {
-                qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+
+                // convert weight only for items, not for department
+                if (item.cate_no) {
+                    qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+                }
+                else {
+                    qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+                }
             }
 
             // if item's unit of sale is individually, we convert qty to integer
@@ -662,18 +662,20 @@
             // collapse it into the current item if no surcharge/discount/marker has
             // been applied to the current item and price/tax status are the same
 
-            if (curTransaction && !this._returnMode) {
+            if (curTransaction) {
                 if (!curTransaction.isLocked(currentIndex)) {
                     var currentItem = curTransaction.getItemAt(currentIndex);
                     var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
-
                     var price = GeckoJS.Session.get('cart_set_price_value');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
-                        if (currentItem.no == plu.no &&
+                        if (((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
+                             (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
                             !currentItem.hasDiscount &&
                             !currentItem.hasSurcharge &&
                             !currentItem.hasMarker &&
                             ((price == null) || (currentItem.current_price == price)) &&
+                            (currentItem.current_qty > 0 && !this._returnMode ||
+                             currentItem.current_qty < 0 && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
 
                             // need to clear quantity source so scale multipler is not applied again
@@ -687,14 +689,17 @@
             }
 
             // if item is a sale department, check if price is set
-            if (item.cate_no == item.no) {
+            if (!('cate_no' in item)) {
                 if (GeckoJS.Session.get('cart_set_price_value') == null) {
                     NotifyUtils.error(_('Price must be given to register sale of department [%S]', [item.name]));
                     this._clearAndSubtotal();
 
                     return;
                 }
+                item.cate_no = item.no;
+                item.no = '';
             }
+
 
             if (this.dispatchEvent('beforeAddItem', item)) {
                 // check if set item selection is needed
@@ -957,6 +962,13 @@
                 return;
             }
 
+            // preprocess barcode for extension usage...
+            var event = {
+                barcode: barcode
+            }
+            if (!this.dispatchEvent('barcodeFired', event)) {
+                return;
+            }
             // NON-PLU13
             var identifier = this.Barcode.getNONPLU13Identifier(barcode);
             if (identifier) {
@@ -973,6 +985,18 @@
                     var pluno = barcode.substr(2, identifierObj.length_of_field1);
 
                     var field2 = barcode.substr(2 + parseInt(identifierObj.length_of_field1) + check_digit, identifierObj.length_of_field2) / Math.pow(10, identifierObj.decimal_point_of_field2);
+
+                    // for extension usage...
+                    event = {
+                        identifier: identifier,
+                        identifierObj: identifierObj,
+                        barcode: barcode,
+                        pluno: pluno,
+                        field2: field2
+                    }
+                    if (!this.dispatchEvent('nonPluFired', event)) {
+                        return;
+                    }
 
                     barcode = pluno;
                 }
@@ -1069,7 +1093,6 @@
 
             this._cancelReturn();
 
-            // if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
@@ -1238,7 +1261,6 @@
 
             this._getKeypadController().clearBuffer();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
@@ -1380,7 +1402,6 @@
             this._getKeypadController().clearBuffer();
             this._cancelReturn();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot void'));
 
@@ -1529,34 +1550,6 @@
             var discountAmount;
             var discountName;
 
-            if (args != null && args != '') {
-                var argList = args.split(',');
-                if (argList.length > 0) discountAmount = argList[0];
-                if (argList.length > 1) discountName = argList[1];
-            }
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            if ((discountAmount == null || discountAmount == '') && buf.length>0) {
-                discountAmount = buf;
-            }
-
-            if (discountName == null || discountName == '') {
-                discountName = '-' + discountAmount + '%';
-            }
-
-            this._addMassDiscount(discountAmount, '%', discountName);
-        },
-
-
-        addMassDiscountByPercentage: function(args) {
-            var discountAmount;
-            var discountName;
-
             if(args !=null && args != '') {
                 var argList = args.split(',');
                 if (argList.length > 0) discountAmount = argList[0];
@@ -1585,7 +1578,6 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
 
@@ -1709,7 +1701,6 @@
         _addMassDiscount: function(discountAmount, discountName) {
             var curTransaction = this._getTransaction();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
 
@@ -1737,16 +1728,20 @@
             discountAmount = parseFloat(discountAmount) / 100;
 
             var discountItem = {
+                type: '%',
                 name: discountName,
                 amount: discountAmount
 
             };
             this.dispatchEvent('beforeAddDiscount', discountItem);
 
-            var discountedItem = curTransaction.appendMassDiscount(discountItem);
+            var discountedItems = curTransaction.appendMassDiscount(discountItem);
 
-            this.dispatchEvent('afterAddDiscount', discountedItem);
+            this.dispatchEvent('afterAddDiscount', discountedItems);
 
+            if (!discountedItems || discountedItems.length == 0) {
+                NotifyUtils.warn(_('No applicable item to discount'));
+            }
             this._clearAndSubtotal();
         },
 
@@ -1835,7 +1830,6 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
 
@@ -1956,7 +1950,6 @@
         _addMassSurcharge: function(surchargeAmount, name) {
             var curTransaction = this._getTransaction();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
 
@@ -1982,15 +1975,19 @@
 
             surchargeAmount = parseFloat(surchargeAmount) / 100;
             var surchargeItem = {
+                type: '%',
                 name: name,
                 amount: surchargeAmount
             };
             this.dispatchEvent('beforeAddSurcharge', surchargeItem);
 
-            var surchargedItem = curTransaction.appendMassSurcharge(surchargeItem);
+            var surchargedItems = curTransaction.appendMassSurcharge(surchargeItem);
 
-            this.dispatchEvent('afterAddSurcharge', surchargedItem);
+            this.dispatchEvent('afterAddSurcharge', surchargedItems);
 
+            if (!surchargedItems || surchargedItems.length == 0) {
+                NotifyUtils.warn(_('No applicable item to add surcharge'));
+            }
             this._clearAndSubtotal();
         },
 
@@ -2002,7 +1999,6 @@
             this._getKeypadController().clearBuffer();
             this._cancelReturn();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot add %S', [type]));
 
@@ -2047,7 +2043,6 @@
             this._getKeypadController().clearBuffer();
             this._cancelReturn();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register %S', [name]));
 
@@ -2105,10 +2100,6 @@
                 return;
             }
 
-            // check if order is open
-            var curTransaction = this._getTransaction();
-
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
@@ -2241,7 +2232,6 @@
             // check if order is open
             var curTransaction = this._getTransaction();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
@@ -2249,18 +2239,37 @@
                 return;
             }
 
-            var payment = parseFloat(buf);
+            var payment = buf;
+            if (payment != null && payment != '') {
+                if (isNaN(payment)) {
+                    NotifyUtils.warn(_('Invalid credit card payment amount [%S]', [payment]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else {
+                    payment = parseFloat(payment);
+                    if (payment < 0) {
+                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+            else if (this._returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
-                if (payment == null || payment == 0 || isNaN(payment)) {
-                    // if amount no given, set amount to amount paid
-                    payment = paid;
-                }
-
                 // payment refund
-                if (false && payment > paid) {
+                if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
 
@@ -2341,7 +2350,6 @@
             // check if order is open
             var curTransaction = this._getTransaction();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
@@ -2349,18 +2357,37 @@
                 return;
             }
 
-            var payment = (amount != null) ? amount : parseFloat(buf);
+            var payment = (amount != null) ? amount : buf;
+            if (payment != null && payment != '') {
+                if (isNaN(payment)) {
+                    NotifyUtils.warn(_('Invalid coupon payment amount [%S]', [payment]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else {
+                    payment = parseFloat(payment);
+                    if (payment < 0) {
+                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+            else if (this._returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
-                if (payment == null || payment == 0 || isNaN(payment)) {
-                    // if amount no given, set amount to amount paid
-                    payment = paid;
-                }
-
                 // payment refund
-                if (false && payment > paid) {
+                if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
 
@@ -2433,7 +2460,6 @@
             // check if order is open
             var curTransaction = this._getTransaction();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
@@ -2441,18 +2467,37 @@
                 return;
             }
 
-            var payment = (amount != null) ? amount : parseFloat(buf);
+            var payment = (amount != null) ? amount : buf;
+            if (payment != null && payment != '') {
+                if (isNaN(payment)) {
+                    NotifyUtils.warn(_('Invalid gift card payment amount [%S]', [payment]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else {
+                    payment = parseFloat(payment);
+                    if (payment < 0) {
+                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+            else if (this._returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
-                if (payment == null || payment == 0 || isNaN(payment)) {
-                    // if amount no given, set amount to amount paid
-                    payment = paid;
-                }
-
                 // payment refund
-                if (false && payment > paid) {
+                if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
 
@@ -2528,7 +2573,6 @@
             // check if order is open
             var curTransaction = this._getTransaction();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
@@ -2536,18 +2580,37 @@
                 return;
             }
 
-            var payment = parseFloat(buf);
+            var payment = buf;
+            if (payment != null && payment != '') {
+                if (isNaN(payment)) {
+                    NotifyUtils.warn(_('Invalid check payment amount [%S]', [payment]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else {
+                    payment = parseFloat(payment);
+                    if (payment < 0) {
+                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+            else if (this._returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
-                if (payment == null || payment == 0 || isNaN(payment)) {
-                    // if amount no given, set amount to amount paid
-                    payment = paid;
-                }
-
                 // payment refund
-                if (false && payment > paid) {
+                if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
 
@@ -2653,7 +2716,7 @@
             });
             if (ledgerEntryTypeModel.lastError) {
                 this._dbError(ledgerEntryTypeModel.lastError, ledgerEntryTypeModel.lastErrorString,
-                    _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
+                              _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
                 this._clearAndSubtotal();
                 return;
             }
@@ -2736,7 +2799,6 @@
 
             this._cancelReturn();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
@@ -2751,17 +2813,38 @@
                 return;
             }
 
+            if (amount != null && amount != '') {
+                if (isNaN(amount)) {
+                    NotifyUtils.warn(_('Invalid payment amount [%S]', [amount]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else if (amount < 0) {
+                    NotifyUtils.warn(_('Payment amount [%S] must not be negative', [amount]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+            }
+            else if (returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
             var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
 
             if (returnMode) {
                 // payment refund
                 var err = false;
-                if (false && paymentsTypes.length == 0) {
+                if (paymentsTypes.length == 0) {
                     NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
                     err = true;
                 }
 
-                if (amount == null || amount == 0 || isNaN(amount)) {
+                if (!err && (amount == null || amount == 0 || isNaN(amount))) {
                     // if amount no given, set amount to amount paid
                     amount = curTransaction.getPaymentSubtotal();
                 }
@@ -2798,6 +2881,8 @@
 
             if(!amount) {
                 amount = curTransaction.getRemainTotal();
+                
+                // set amount to 0; actual amount returned is recorded in the payment change field
                 if (amount < 0) amount = 0;
             }
 
@@ -2815,24 +2900,23 @@
                 is_groupable: isGroupable,
                 transaction: curTransaction
             };
+            
+            var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
 
-            if (amount > 0) {
-                var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
-
-                if (beforeResult) {
-                    var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, isGroupable);
-                    paymentedItem.seq = curTransaction.data.seq;
-                    paymentedItem.order_id = curTransaction.data.id;
-                }
-
-                this.dispatchEvent('afterAddPayment', paymentedItem);
+            if (beforeResult) {
+                var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, isGroupable);
+                paymentedItem.seq = curTransaction.data.seq;
+                paymentedItem.order_id = curTransaction.data.id;
             }
+
+            this.dispatchEvent('afterAddPayment', paymentedItem);
 
             this._getCartlist().refresh();
             if (curTransaction.getRemainTotal() <= 0) {
                 if (!this.submit()) {
-                    // remove last payment
-                    this.voidItem();
+                    // remove last payment but not item
+                    let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
+                    if (lastItem.type !='item') this.voidItem();
                 }
             }else {
                 this._clearAndSubtotal();
@@ -2849,19 +2933,22 @@
                 return;
             }
 
-            // if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
-
             var payments = curTransaction.getPayments();
+            var paymentList = [];
             for (var key in payments) {
-                var payment = payments[key];
+                // clone a copy of payment
+                var payment = GREUtils.extend({}, payments[key]);
+
                 payment.amount = curTransaction.formatPrice(payment.amount);
                 payment.name = _(payment.name.toUpperCase());
                 payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
+
+                paymentList.push(payment);
             }
 
             var dialog_data = [
             _('Payment Details'),
-            payments
+            paymentList
             ];
 
             GeckoJS.Session.remove('cart_set_price_value');
@@ -2949,7 +3036,6 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot shift tax'));
 
@@ -2981,8 +3067,8 @@
             }
 
             var itemTrans = curTransaction.getItemAt(index);
-            if (itemTrans == null || itemTrans.type != 'item') {
-                var displayItem = curTransaction.getDisplaySeqAt(index);
+            var displayItem = curTransaction.getDisplaySeqAt(index);
+            if (displayItem == null || displayItem.type != 'item') {
                 NotifyUtils.warn(_('This operation cannot be performed on [%S]', [displayItem.name]));
 
                 this._clearAndSubtotal();
@@ -2991,6 +3077,20 @@
 
             if (itemTrans.hasMarker) {
                 NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            if (itemTrans.hasDiscount) {
+                NotifyUtils.warn(_('Please void discount on item [%S] first', [itemTrans.name]));
+
+                this._clearAndSubtotal();
+                return;
+            }
+            
+            if (itemTrans.hasSurcharge) {
+                NotifyUtils.warn(_('Please void surcharge on item [%S] first', [itemTrans.name]));
 
                 this._clearAndSubtotal();
                 return;
@@ -3042,10 +3142,9 @@
             this.dispatchEvent('onClear', curTransaction);
 
             if (!this.ifHavingOpenedOrder()) {
-                //this._cartView.empty();
-                this.cartViewEmpty();
                 GeckoJS.Session.remove('current_transaction');
-                return ;
+                this.cartViewEmpty();
+                this.subtotal();
             }
 
         },
@@ -3090,7 +3189,6 @@
                 // if the order has been stored, then it cannot be cancelled; it must be voided instead
                 if (curTransaction.data.recall == 2) {
 
-                    // XXX need rewrite
                     // determine if new items have been added
                     if (!curTransaction.isModified() || forceCancel ||
                         GREUtils.Dialog.confirm(this.topmostWindow,
@@ -3120,15 +3218,19 @@
                     this.dispatchEvent('afterCancel', curTransaction);
 
                     curTransaction.commit();
-
+                    
                 }
 
             }catch(e) {
                 this.log('WARN', 'Error Cancel order ');
             }
-
+            
             this.cartViewEmpty();
-            this.clear();
+            //@irving 10-09-2009; don't clear after cancel'
+            //this.clear();
+            //
+            // cancel success and commit
+            this.dispatchEvent('onCancelSuccess', curTransaction);
 
             this.dispatchEvent('onCancel', curTransaction);
         },
@@ -3137,12 +3239,11 @@
             var oldTransaction = this._getTransaction();
             this._cancelReturn();
 
-            //if (oldTransaction == null || oldTransaction.isCancel() || oldTransaction.isSubmit()) {
             if (oldTransaction == null) {
                 this.dispatchEvent('onGetSubtotal', null);
             }
             else {
-                if (!oldTransaction.isCancel() && !oldTransaction.isSubmit()) {
+                if (this.ifHavingOpenedOrder()) {
                     Transaction.serializeToRecoveryFile(oldTransaction);
                 }
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
@@ -3175,12 +3276,13 @@
                 oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
                 if (adjustment_amount > 0) {
                     // check if order surcharge exceed user limit
-                    var surcharge_limit = parseInt(user.order_surcharge_limit);
+                    var surcharge_limit = parseFloat(user.order_surcharge_limit);
                     if (!isNaN(surcharge_limit) && surcharge_limit > 0) {
                         var surcharge_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, surcharge_limit, user.order_surcharge_limit_type);
                         if (adjustment_amount > surcharge_limit_amount) {
                             NotifyUtils.warn(_('Total surcharge [%S] may not exceed user order surcharge limit [%S]',
-                                [adjustment_amount, surcharge_limit_amount]));
+                                [oldTransaction.formatPrice(adjustment_amount),
+                                oldTransaction.formatPrice(surcharge_limit_amount)]));
                             return false;
                         }
                     }
@@ -3188,12 +3290,13 @@
                 else if (adjustment_amount < 0) {
                     // check if order discount exceed user limit
                     adjustment_amount = 0 - adjustment_amount;
-                    var discount_limit = parseInt(user.order_discount_limit);
+                    var discount_limit = parseFloat(user.order_discount_limit);
                     if (!isNaN(discount_limit) && discount_limit > 0) {
                         var discount_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, discount_limit, user.order_discount_limit_type);
                         if (adjustment_amount > discount_limit_amount) {
                             NotifyUtils.warn(_('Total discount [%S] may not exceed user order discount limit [%S]',
-                                [adjustment_amount, discount_limit_amount]));
+                                [oldTransaction.formatPrice(adjustment_amount),
+                                oldTransaction.formatPrice(discount_limit_amount)]));
                             return false;
                         }
                     }
@@ -3202,7 +3305,7 @@
             }
 
             // blockUI when saving...
-            this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
+            var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 0);
 
             if (this.dispatchEvent('beforeSubmit', {
                 status: status,
@@ -3210,51 +3313,52 @@
             })) {
 
                 // save order unless the order is being finalized (i.e. status == 1)
-                if (status == 1) {
+                if (status == 1 || status == 2) {
                     var user = this.Acl.getUserPrincipal();
-                    if ( user != null ) {
+                    if ( user != null && status == 1) {
                         oldTransaction.data.proceeds_clerk = user.username;
                         oldTransaction.data.proceeds_clerk_displayname = user.description;
                     }
 
                     // check and dec stock
                     this.decStock(oldTransaction.data);
-
                 }
 
-
-                // save transaction to order databases.
-                var submitStatus = parseInt(oldTransaction.submit(status));
-
-                /*
-                 *   1: success
-                 *   null: input data is null
-                 *   -1: save to backup failed
-                 *   -3: can't get sequence .
-                 */
-                if (submitStatus == -1 || submitStatus == -3 ) {
-
-                    if (submitStatus == -3) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Data Operation Error'),
-                            _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #104].'));
-                    }
-                    else {
-                        NotifyUtils.error('Failed to submit order due to data operation error.')
-                    }
-                    // unblockUI
-                    this._unblockUI('blockui_panel');
-
-                    return false;
-                }
-
-                this._getKeypadController().clearBuffer();
-                this._cancelReturn(true);
-
+                var submitStatus = -99; // initial value
+                
                 try {
-                    // dispatch event for devices or extensions.
+                    // save transaction to order databases.
+                    submitStatus = parseInt(oldTransaction.submit(status));
 
+                    /*
+                     *   1: success
+                     *   null: input data is null
+                     *   -1: save to backup failed
+                     *   -3: can't get sequence .
+                     */
+                    if (submitStatus == -1 || submitStatus == -3 ) {
+
+                        if (submitStatus == -3) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence master.'));
+                        }
+                        else {
+                            NotifyUtils.error('Failed to submit order due to data operation error.')
+                        }
+                        // unblockUI
+                        this._unblockUI(waitPanel);
+
+                        return false;
+                    }
+
+                    // assign data status
                     oldTransaction.data.status = status;
+
+                    this._getKeypadController().clearBuffer();
+                    //this._cancelReturn(true);
+
+                    // dispatch event for devices or extensions.
                     this.dispatchEvent('afterSubmit', oldTransaction);
 
                     // clear register screen if needed
@@ -3265,35 +3369,52 @@
 
                 }finally{
 
+                    if (submitStatus == -99) {
+                        // fatal error at submit. and will cause commit error
+                        this.log('ERROR', 'Error on Transaction.submit(' + status + ') (' + submitStatus + ')');
+                    }
+
                     // finally commit the submit , and write transaction to databases(or to remote databases).
-                    var commitStatus = oldTransaction.commit(status);
+                    var commitStatus = -99 ;
+                    
+                    try {
+                        // commit order data to local databases or remote.
+                        commitStatus = oldTransaction.commit(status);
 
-                    if (commitStatus == -1) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Data Operation Error'),
-                            _('This order could not be committed . Please check the network connectivity to the terminal designated as the synchronization server [message #105].'));
-                        this._unblockUI('blockui_panel');
-                        return false;
-                    }
+                        if (commitStatus == -1) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
+                            this.dispatchEvent('commitOrderError', commitStatus);
+                            this._unblockUI(waitPanel);
+                            return false;
+                        }
 
-                    if (status != 2) {
-                        if (status != 1) this.clearWarning();
-                        this.dispatchEvent('onSubmit', oldTransaction);
+                        if (status != 2) {
+                            if (status != 1) this.clearWarning();
+                            this.dispatchEvent('onSubmit', oldTransaction);
+                        }
+                        else {
+                            this.dispatchEvent('onGetSubtotal', oldTransaction);
+                        }
+                    }catch(e) {
+                        // fatal error at submit. and will cause commit error
+                        this.log('ERROR', 'Error on Transaction.commit(' + status + ') (' + commitStatus + ')');
                     }
-                    else {
-                        this.dispatchEvent('onGetSubtotal', oldTransaction);
-                    }
-
                 }
 
-                this._unblockUI('blockui_panel');
+                this._unblockUI(waitPanel);
+
+                // dispatch success event
+                this.dispatchEvent('onSubmitSuccess', oldTransaction);
 
             }
             else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
 
                 // unblockUI
-                this._unblockUI('blockui_panel');
+                this._unblockUI(waitPanel);
+                return false;
             }
             return true;
         },
@@ -3304,7 +3425,6 @@
 
             var curTransaction = this._getTransaction();
 
-            //if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot pre-finalize order'));
                 this._clearAndSubtotal();
@@ -3385,11 +3505,11 @@
                         };
 
                         var data = [
-                        _('Add Annotation'),
-                        '',
-                        _(annotationType),
-                        '',
-                        inputObj
+                            _('Add Annotation') + ' [' + curTransaction.data.seq + ']',
+                            '',
+                            annotationType,
+                            '',
+                            inputObj
                         ];
 
                         var self = this;
@@ -3440,9 +3560,10 @@
         },
 
         cash: function(argString) {
+            if (argString == null) argString = '';
             var argArray = String(argString).split(',');
             var isGroupable = false;
-            var amount = parseInt( argArray[0], 10 );
+            var amount = argArray[0];
 
             if (argArray.length == 2)
                 isGroupable = argArray[1];
@@ -3452,9 +3573,8 @@
             this._getKeypadController().clearBuffer();
 
             if (buf.length>0) {
-                if (!amount) amount = parseFloat(buf);
+                if (!amount) amount = buf;
             }
-
             this._addPayment('cash', amount, null, null, null, isGroupable);
         },
 
@@ -3497,8 +3617,7 @@
                 return;
             }
 
-            // transaction is submit and close success
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+            if (!this.ifHavingOpenedOrder()) {
                 if (plu) {
                     curTransaction = this._newTransaction();
                 }
@@ -3568,7 +3687,7 @@
                 }
                 // xxxx why clone it ??
                 condimentItem = this.Product.getProductById(setItem.id);
-
+                
                 // extract cartItem's selected condiments, if any
                 if (!immediateMode && setItem.condiments != null) {
                     for (var c in setItem.condiments) {
@@ -3581,15 +3700,15 @@
             }
 
             var d = new Deferred();
-            if (condimentItem) {
+            if (immediateMode && condiments) {
+                this._appendCondiments(condiments, false);
+            }
+            else if (condimentItem) {
                 if(!condimentItem.cond_group && !immediateMode){
                     NotifyUtils.warn(_('No Condiment group associated with item [%S]', [condimentItem.name]));
 
                     this._clearAndSubtotal();
                     return d;
-                }
-                else if (immediateMode && condiments) {
-                    this._appendCondiments(condiments, false);
                 }
                 else {
                     return this._getCondimentsDialog(condimentItem.cond_group, condiments);
@@ -3651,7 +3770,7 @@
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
 
                 self._inDialog = false;
-
+                
                 var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
                     self._appendCondiments(selectedCondiments.concat(additionalItems), true);
@@ -3706,7 +3825,7 @@
 
                             if (condGroupCache[cond.condiment_group_id]) {
                                 NotifyUtils.warn(_('Condiment [%S] not added because another condiment from same group [%S] already exists',
-                                                   [cond.name, condGroupCache[cond.condiment_group_id]]));
+                                    [cond.name, condGroupCache[cond.condiment_group_id]]));
                             }
                             else {
                                 filteredCondiments.push(cond);
@@ -3760,7 +3879,6 @@
             this._getKeypadController().clearBuffer();
             this._cancelReturn();
 
-            //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot add memo'));
 
@@ -3832,16 +3950,73 @@
                     newIndex = index + val;
                 }
                 if (newIndex >= cart.rowCount) newIndex = cart.rowCount - 1;
-                if (newIndex < 0) newIndex = 0;
+                if (newIndex < 0) {
+                    if (cart.rowCount > 0) newIndex = 0;
+                    else newIndex = -1;
+                }
                 cart.selection.select(newIndex);
                 cart.ensureRowIsVisible(cart.selectedIndex);
             }
         },
 
         /**
-         * XXX Need rewrite
+         * void current transaction
          */
-        voidSale: function(id) {
+        voidSale: function() {
+
+            var curTransaction = this._getTransaction();
+
+            this._getKeypadController().clearBuffer();
+            this._cancelReturn();
+
+            // check if current transaction is already voided
+            if (!curTransaction) {
+                NotifyUtils.warn(_('No order to void'));
+                return;
+            }
+
+            if (curTransaction.isCancel() || curTransaction.isVoided()) {
+                NotifyUtils.warn(_('The order has already been cancelled or voided'));
+                return;
+            }
+
+            // check if current transaction has been stored or completed
+            if (curTransaction.data.recall != 1 && curTransaction.data.recall != 2 &&
+                curTransaction.data.status != 1 && curTransaction.data.status != 2) {
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Void Sale'),
+                                      _('This operation may only be applied to stored and completed transactions'));
+                return;
+            }
+
+            // check if transaction has been modified
+            if (curTransaction.isModified() &&
+                !GREUtils.Dialog.confirm(this.topmostWindow,
+                                         _('Confirm Void'),
+                                         _('You have made changes to this order; are you sure you want to void the order?'))) {
+                return;
+            }
+            if (this._voidSaleById(curTransaction.data.id)) {
+                Transaction.removeRecoveryFile();
+                curTransaction.data.status = -2;
+                this.dispatchEvent('onWarning', _('Sale Voided'));
+            }
+            else {
+                this.dispatchEvent('onWarning', _('Sale Not Voided'));
+            }
+        },
+
+
+        /**
+         * void sale by order id
+         *
+         * @irving: 10/5/2009
+         *
+         * this method is always invoked from within the cart; the order to be voided
+         * needs to be recalled into the cart
+         *
+         */
+        _voidSaleById: function(id) {
 
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 
@@ -3849,27 +4024,67 @@
 
             // load data
             var orderModel = new OrderModel();
-            // var order = orderModel.findById(id, 2);
-            var orders = orderModel.getCheckList("OrderId", id);
 
+            let orderData = orderModel.findById(id);
             if (parseInt(orderModel.lastError) != 0) {
                 this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                    _('An error was encountered while retrieving order records (error code %S) [message #107].', [orderModel.lastError]));
+                    _('An error was encountered while retrieving order record (error code %s) [message #107].', [orderModel.lastError]));
                 return false;
             }
 
-            if (!orders || orders.length == 0) {
+            // blockUI when access remote service
+            var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Retrieving Order'), 0);
+            let remoteOrderData = orderModel.readOrder(id, true); // recall use master service's datas.
+
+            this._unblockUI(waitPanel);
+
+            // make sure the order still exists
+            if (!orderData && !remoteOrderData) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
                     _('Failed to void: the selected order no longer exists'));
+                orderModel.releaseOrderLock(id);
                 return false;
             }
 
-            var order = orders[0];
-            if (order.status < 1) {
+            var orderStatus;
+            if (remoteOrderData) {
+                if (remoteOrderData.TableOrderLock) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Void Sale'),
+                        _('This order is already locked by other terminal. [%S,%S]',  [remoteOrderData.TableOrderLock.machine_id, remoteOrderData.TableOrderLock.machine_addr]));
+                    return false;
+                }
+                orderStatus = remoteOrderData.Order.status;
+
+                if (orderData) {
+
+                    // make sure remote order has same status and is not more recent than local order
+                    if (orderData.Order.status != remoteOrderData.Order.status) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Void Sale'),
+                            _('Failed to void: the status of the selected order has been changed by another terminal'));
+                        orderModel.releaseOrderLock(id);
+                        return false;
+                    }
+                    else if (orderData.Order.modified < remoteOrderData.Order.modified) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Void Sale'),
+                            _('Failed to void: the selected order has been modified by another terminal'));
+                        orderModel.releaseOrderLock(id);
+                        return false;
+                    }
+                }
+            }
+            else {
+                orderStatus = orderData.Order.status;
+            }
+
+            if (orderStatus < 1) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
                     _('Failed to void: the selected order is not stored or finalized'));
+                orderModel.releaseOrderLock(id);
                 return false;
             }
 
@@ -3880,17 +4095,21 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
             var inputObj = {
-                payments: order.OrderPayment,
-                paidTotal: order.payment_subtotal - order.change,
-                sequence: order.sequence,
-                roundingPrices: order.rounding_prices,
-                precisionPrices: order.precision_prices
+                payments: orderData.OrderPayment,
+                paidTotal: orderData.Order.payment_subtotal - orderData.Order.change,
+                sequence: orderData.Order.sequence,
+                roundingPrices: orderData.Order.rounding_prices,
+                precisionPrices: orderData.Order.precision_prices
             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Payment Refund'), features, inputObj);
 
+            // blockUI when saving...
+            waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Voiding Order'), 0);
+
             if (inputObj.ok) {
-                if (this.dispatchEvent('beforeVoidSale', order)) {
+
+                if (this.dispatchEvent('beforeVoidSale', orderData)) {
 
                     var user = new GeckoJS.AclComponent().getUserPrincipal();
 
@@ -3900,21 +4119,24 @@
 
                     var terminalNo = GeckoJS.Session.get('terminal_no');
 
-                    var paymentModel = new OrderPaymentModel();
                     var refundTotal = 0;
 
                     var r = true;
 
                     try {
                         // insert refund payments
+                        var order = GREUtils.extend({}, orderData.Order);
+                        order['items'] = [];
+                        order['refundPayments'] = [];
+                        
                         for (var i = 0; r && i < inputObj.refunds.length; i++) {
                             var payment = inputObj.refunds[i];
 
-                            // doing so ensures the model will save this payment in insertion mode.
-                            paymentModel.id = payment.id = '';
+                            // need to assign uuid to ensure that payments share the same uuid locally and remotely
+                            payment.id = GeckoJS.String.uuid();
 
                             // reverse amount, origin_amount, change
-                            payment.order_id = order.id;
+                            payment.order_id = orderData.Order.id;
                             payment.amount = - payment.amount;
                             payment.origin_amount = payment.amount;
                             payment.change = 0;
@@ -3933,15 +4155,7 @@
                             payment.terminal_no = terminalNo;
 
                             // save payment record
-                            r = paymentModel.savePayment(payment);
-
-                            if (!r) {
-                                throw {
-                                    errno: paymentModel.lastError,
-                                    errstr: paymentModel.lastErrorString,
-                                    errmsg: _('An error was encountered while saving refund payment (error code %S) [message #108].', [paymentModel.lastError])
-                                };
-                            }
+                            order['refundPayments'].push(payment);
 
                             refundTotal += payment.amount;
                         }
@@ -3960,36 +4174,36 @@
                         order.void_sale_period = salePeriod;
                         order.void_shift_number = shiftNumber;
 
-                        orderModel.id = order.id;
-                        r = orderModel.updateOrderMaster(order);
-                        if (!r) {
-                            throw {
-                                errno: orderModel.lastError,
-                                errstr: orderModel.lastErrorString,
-                                errmsg: _('An error was encountered while updating order status (error code %S) [message #109].', [orderModel.lastError])
-                            };
-                        }
-
-                        for (var o in order.OrderItem) {
+                        for (var o in orderData.OrderItem) {
 
                             // look up corresponding product and set the product id into the item; also reverse quantity
-                            var item = order.OrderItem[o];
+                            var item = orderData.OrderItem[o];
                             var productId = barcodesIndexes[item.product_no];
 
                             item.current_qty = - item.current_qty;
                             item.id = productId;
+
+                            order.items.push(item);
+
                         }
-                        order.items = order.OrderItem;
+
+                        // call remote service to void Order
+                        r = orderModel.voidOrder(id, order, true); // force remote service
+                        if (!r) {
+                            throw {
+                                errno: 109,
+                                errstr: 'Failed to update order to voided status',
+                                errmsg: _('An error was encountered while changing order status to voided [message #109].')
+                            };
+                        }
 
                         // restore stock
-                        //var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
-                        //alert('before updating stock level');
                         r = this.decStock(order);
                         if (!r) {
                             throw {
-                                errno: 0,
-                                errstr: '',
-                                errmsg: 'An error was encountered while updating stock level [message #110].'
+                                errno: 110,
+                                errstr: 'Failed to update stock level while voiding sale',
+                                errmsg: _('An error was encountered while updating stock level [message #110].')
                             };
                         }
 
@@ -3999,6 +4213,7 @@
                             _('Void Sale'),
                             _('Transaction [%S] successfully voided', [order.sequence]));
 
+                        this._unblockUI(waitPanel);
                         return true;
                     }
                     catch(e) {
@@ -4006,6 +4221,10 @@
                     }
                 }
             }
+            orderModel.releaseOrderLock(id);
+            
+            this._unblockUI(waitPanel);
+
             return false;
         },
 
@@ -4139,6 +4358,27 @@
             return this.requestCommand('recallOrder', null, 'GuestCheck');
         },
 
+        /**
+         * use guest_check controller
+         */
+        storeCheck: function() {
+            return this.requestCommand('storeCheck', null, 'GuestCheck');
+        },
+
+        /**
+         * use guest_check controller
+         */
+        splitCheck: function() {
+            return this.requestCommand('splitCheck', null, 'GuestCheck');
+        },
+        
+        /**
+         * use guest_check controller
+         */
+        mergeCheck: function() {
+            return this.requestCommand('mergeCheck', null, 'GuestCheck');
+        },
+        
         /**
          * use cartutils implement
          */

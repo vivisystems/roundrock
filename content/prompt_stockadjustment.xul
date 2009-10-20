@@ -58,25 +58,25 @@
                                 <label value="&stockrecords.commit.reason.label;" control="reason"/>
                             </vbox>
                             <vbox>
-			                    <menulist id="reason">
-			                        <menupopup id="reason_menupopup">
-                                        <menuitem label="&stockrecords.commit.reason.inventory;" value="inventory" oncommand="hideSupplier()"/>
+                                <menulist id="reason">
+                                    <menupopup id="reason_menupopup">
+                                    <menuitem label="&stockrecords.commit.reason.inventory;" value="inventory" oncommand="hideSupplier()"/>
                                         <menuitem label="&stockrecords.commit.reason.procure;" value="procure" oncommand="showSupplier()"/>
                                         <menuitem label="&stockrecords.commit.reason.waste;" value="waste" oncommand="hideSupplier()"/>
                                         <menuitem label="&stockrecords.commit.reason.other;" value="other" oncommand="hideSupplier()"/>
-			                        </menupopup>
-			                    </menulist>
-			                </vbox>
-			            </row>
+                                    </menupopup>
+                                </menulist>
+                            </vbox>
+                        </row>
                         <row id="supplier-row" hidden="true">
                             <vbox pack="center">
                                 <label value="&stockrecords.commit.supplier.label;" control="supplier"/>
                             </vbox>
                             <vbox flex="1">
-			                    <menulist id="supplier" editable="true">
-			                        <menupopup id="supplier_menupopup">
-			                        </menupopup>
-			                    </menulist>
+                                <menulist id="supplier" editable="true">
+                                    <menupopup id="supplier_menupopup">
+                                    </menupopup>
+                                </menulist>
                             </vbox>
                         </row>
 

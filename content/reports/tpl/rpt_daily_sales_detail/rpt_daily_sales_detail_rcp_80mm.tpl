@@ -29,7 +29,7 @@ ${_( '(rpt)Surcharge' ) + ':'|left:15}${detail.surcharge_subtotal|default:0|vivi
 ${_( '(rpt)Discount' ) + ':'|left:15}${detail.discount_subtotal|default:0|viviFormatPrices:true|right:26}
 ${_( '(rpt)Promotion' ) + ':'|left:15}${detail.promotion_subtotal|default:0|viviFormatPrices:true|right:26}
 ${_( '(rpt)Revalue' ) + ':'|left:15}${detail.revalue_subtotal|default:0|viviFormatPrices:true|right:26}
-${_( '(rpt)Net Sales' ) + ':'|left:15}${detail.total|default:0|viviFormatPrices:true|right:26}
+${_( '(rpt)Total' ) + ':'|left:15}${detail.total|default:0|viviFormatPrices:true|right:26}
 {for items in detail.OrderItem}
 ------------------------------------------
 ${'  ' + _( '(rpt)Product Number' ) + ':'|left:15}${items.product_no|right:26}
@@ -61,7 +61,7 @@ ${'    ' + _( '(rpt)Surcharge' ) + ': '|left:19}${foot.foot_datas.surcharge_subt
 ${'    ' + _( '(rpt)Discount' ) + ': '|left:19}${foot.foot_datas.discount_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Promotion' ) + ': '|left:19}${foot.foot_datas.promotion_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Revalue' ) + ': '|left:19}${foot.foot_datas.revalue_subtotal|default:0|viviFormatPrices:true|right:22}
-${'    ' + _( '(rpt)Net Sales' ) + ': '|left:19}${foot.foot_datas.total|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Total' ) + ': '|left:19}${foot.foot_datas.total|default:0|viviFormatPrices:true|right:22}
 ------------------------------------------
 ${foot.gen_time}
 [&CR]

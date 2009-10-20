@@ -19,61 +19,60 @@
         <content>
             <xul:hbox flex="1" xbl:inherits="flex,class" anonid="boxContainer" allowevents="true">
                 <xul:textbox anonid="input" decimalplaces="Infinity" flex="1" xbl:inherits="class=textboxClass,type,hidespinbuttons,min,max,size,readonly,disabled"/>
-                
                 <xul:panel anonid="numpad_panel" position="after_start" noautohide="false" noautofocus="true">
-					<xul:hbox anonid="numpad" pack="center">
-						<xul:numberpad id="multinumberpad" xbl:inherits="class=numpadClass" target=""/>
-						<xul:vbox>
-							<xul:sendkeybutton anonid="closeBtn" label="&vivitextbox.button.close;" oncommand="hide();" xbl:inherits="class=fixedbtnClass"/>
-							<xul:sendkeybutton anonid="bkeyBtn" label="&vivitextbox.button.del;" keyCode="0x08" xbl:inherits="class=fixedbtnClass"/>
-							<xul:sendkeybutton anonid="clearBtn" label="&vivitextbox.button.clear;" oncommand="clearFocusedElement();" xbl:inherits="class=fixedbtnClass"/>
-							<xul:sendkeybutton anonid="enterBtn" label="&vivitextbox.button.enter;" keyCode="0x0D" bubbles="true" oncommand="hide();" xbl:inherits="class=fixedbtnClass"/>
-						</xul:vbox>
-					</xul:hbox>
-				</xul:panel>
+                    <xul:hbox anonid="numpad" pack="center">
+                        <xul:numberpad id="multinumberpad" xbl:inherits="class=numpadClass" target=""/>
+                        <xul:vbox>
+                            <xul:sendkeybutton anonid="closeBtn" label="&vivitextbox.button.close;" oncommand="hide();" xbl:inherits="class=fixedbtnClass"/>
+                            <xul:sendkeybutton anonid="bkeyBtn" label="&vivitextbox.button.del;" keyCode="0x08" xbl:inherits="class=fixedbtnClass"/>
+                            <xul:sendkeybutton anonid="clearBtn" label="&vivitextbox.button.clear;" oncommand="clearFocusedElement();" xbl:inherits="class=fixedbtnClass"/>
+                            <xul:sendkeybutton anonid="enterBtn" label="&vivitextbox.button.enter;" keyCode="0x0D" bubbles="true" oncommand="hide();" xbl:inherits="class=fixedbtnClass"/>
+                        </xul:vbox>
+                    </xul:hbox>
+                </xul:panel>
             </xul:hbox>
         </content>
 
         <xbl:implementation>
-        	<field name="isKeypadOpened">false</field>
-        	
-        	<property name="numpad_panel" onget="return document.getAnonymousElementByAttribute( this, 'anonid', 'numpad_panel' );" readonly="true"/>
-        	
-        	<property name="textbox" onget="return this.input" readonly="true"/>
+            <field name="isKeypadOpened">false</field>
 
-        	<xbl:method name="clearFocusedElement">
-        		<body>
-        		  <![CDATA[
+            <property name="numpad_panel" onget="return document.getAnonymousElementByAttribute( this, 'anonid', 'numpad_panel' );" readonly="true"/>
+
+            <property name="textbox" onget="return this.input" readonly="true"/>
+
+            <xbl:method name="clearFocusedElement">
+                <body>
+                  <![CDATA[
                     this.input.value = "";
                     eval( this.getAttribute( 'oninput' ) );
                   ]]>
-        		</body>
-        	</xbl:method>
+                </body>
+            </xbl:method>
 
-        	<xbl:method name="select">
-        		<body>
-        		  <![CDATA[
+            <xbl:method name="select">
+                <body>
+                  <![CDATA[
                     this.input.select();
                   ]]>
-        		</body>
-        	</xbl:method>
+                </body>
+            </xbl:method>
 
-        	<xbl:method name="setSelectionRange">
+            <xbl:method name="setSelectionRange">
                 <parameter name="start"/>
                 <parameter name="end"/>
-        		<body>
-        		  <![CDATA[
+                <body>
+                  <![CDATA[
                     this.input.setSelectionRange(start, end);
                   ]]>
-        		</body>
-        	</xbl:method>
+                </body>
+            </xbl:method>
 
             <xbl:method name="hide">
-        		<body>
-        		  <![CDATA[
+                <body>
+                  <![CDATA[
                     this[ this.getAttribute( 'keypad' ) + '_panel' ].hidePopup();
-        		  ]]>
-        		</body>
+                  ]]>
+                </body>
             </xbl:method>
         	
         	<!--xbl:method name="action">
@@ -125,35 +124,35 @@
               ]]>
             </setter>
           </property-->
-          <property name="value">
-		    <getter>
-		      <![CDATA[
-		        return this.input.value;
-		      ]]>
-		    </getter>
-		    <setter>
-		      <![CDATA[
-                this.input.value = val;
-		      ]]>
-		    </setter>
-		  </property>
+            <property name="value">
+                <getter>
+                    <![CDATA[
+                        return this.input.value;
+                    ]]>
+                </getter>
+                <setter>
+                    <![CDATA[
+                        this.input.value = val;
+                    ]]>
+                </setter>
+            </property>
 
-          <property name="textbox"
-                    onget="return this.input;"
-                    readonly="true" />
+            <property name="textbox"
+                      onget="return this.input;"
+                      readonly="true" />
                     
-		  <property name="keypad">
-		    <getter>
-		      <![CDATA[
-		        return this.getAttribute( 'keypad' ) + '_panel';
-		      ]]>
-		    </getter>
-		    <setter>
-		      <![CDATA[
-		      	return this.getAttribute( 'keypad' );
-		      ]]>
-		    </setter>
-		  </property>
+            <property name="keypad">
+            <getter>
+                <![CDATA[
+                    return this.getAttribute( 'keypad' ) + '_panel';
+                ]]>
+            </getter>
+            <setter>
+                <![CDATA[
+                    return this.getAttribute( 'keypad' );
+                ]]>
+            </setter>
+            </property>
         </xbl:implementation>
 
         <handlers>

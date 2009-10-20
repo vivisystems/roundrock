@@ -8,6 +8,7 @@
 <!ENTITY tableman.tab.tableoptions.1 "Options 1">
 <!ENTITY tableman.tab.tableoptions.2 "Options 2">
 <!ENTITY tableman.tab.tableoptions.3 "Options 3">
+<!ENTITY tableman.tab.tableoptions.dock "Dock">
 
 <!ENTITY tableman.table.active "Active">
 <!ENTITY tableman.table.tableno "Table Number">
@@ -26,10 +27,13 @@
 <!ENTITY tableman.booking.count "Booking Count:">
 
 <!ENTITY tableman.booking.booking "Booking Time">
+<!ENTITY tableman.booking.partysize "Party Size">
 <!ENTITY tableman.booking.contact "Contact">
 <!ENTITY tableman.booking.telephone "Telephone">
 <!ENTITY tableman.booking.address "Address">
 <!ENTITY tableman.booking.note "Note">
+<!ENTITY tableman.booking.tableno "T.No">
+<!ENTITY tableman.booking.selectedtableno "Selected Table No" >
 
 <!ENTITY tableman.mark.name "Name">
 <!ENTITY tableman.mark.period "Duration (Minutes)">
@@ -46,6 +50,12 @@
 <!ENTITY tableman.button.savesettings "Save">
 <!ENTITY tableman.button.addtables "Add Tables">
 <!ENTITY tableman.button.clonesettingsfrommaster "Clone Master">
+<!ENTITY tableman.button.viewtablebook "View Table Book">
+<!ENTITY tableman.button.checkavailabletables "Check Available Tables">
+<!ENTITY tableman.button.getalltables "Get All Tables">
+<!ENTITY tableman.button.prevday "Previous Day">
+<!ENTITY tableman.button.today "Today">
+<!ENTITY tableman.button.nextday "Next Day">
 
 <!ENTITY tableman.properties "Properties:">
 <!ENTITY tableman.no "No:">
@@ -68,6 +78,7 @@
 <!ENTITY tableman.tableoptions.maxcheckno "Maximum check number:">
 <!ENTITY tableman.tableoptions.tablerefreshfrequence "Update frequency (seconds):">
 <!ENTITY tableman.tableoptions.quickselecttableno "Direct access main screen when clicking empty table">
+<!ENTITY tableman.tableoptions.staydownaction "Staydown selected action">
 
 <!ENTITY tableman.tableoptions.minimumchargeoptions "Minimum Charge:">
 <!ENTITY tableman.tableoptions.requestminimumcharge "Force Minimum Charge">
@@ -96,3 +107,11 @@
 <!ENTITY tableman.tableoptions.printmergecheck.auto "Print automatically">
 <!ENTITY tableman.tableoptions.printmergecheck.confirm "Confirm before print">
 
+<!ENTITY tableman.tableoptions.dockoptions.caption "Dock Options:">
+<!ENTITY tableman.tableoptions.dockoptions.isdockmode "Use Table Selector in dock mode.">
+<!ENTITY tableman.tableoptions.dockoptions.width "Table Selector Width (px)">
+<!ENTITY tableman.tableoptions.dockoptions.height "Table Selector Height (px)">
+<!ENTITY tableman.tableoptions.dockoptions.left "Dock Position Left (px)">
+<!ENTITY tableman.tableoptions.dockoptions.top "Dock Position Top (px)">
+
+<!ENTITY tableman.initialization.label "Initializing Tables...">

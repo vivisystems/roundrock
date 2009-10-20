@@ -30,7 +30,7 @@ ${'  ' + _( '(rpt)Discount' ) + ':'|left:16}${detail.discount_subtotal|viviForma
 ${'  ' + _( '(rpt)Promotion' ) + ':'|left:16}${detail.promotion_subtotal|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Revalue' ) + ':'|left:16}${detail.revalue_subtotal|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Add-on Tax' ) + ':'|left:16}${detail.tax_subtotal|viviFormatTaxes:true|right:26}
-${'  ' + _( '(rpt)Net Sales' ) + ':'|left:16}${detail.total|viviFormatPrices:true|right:26}
+${'  ' + _( '(rpt)Total' ) + ':'|left:16}${detail.total|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Payment' ) + ':'|left:16}${detail.payment|viviFormatPrices:true|right:26}
 {/for}
 {eval}
@@ -50,7 +50,7 @@ ${'  ' + _( '(rpt)Discount' ) + ':'|left:16}${foot.foot_datas.discount_subtotal|
 ${'  ' + _( '(rpt)Promotion' ) + ':'|left:16}${foot.foot_datas.promotion_subtotal|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Revalue' ) + ':'|left:16}${foot.foot_datas.revalue_subtotal|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Add-on Tax' ) + ':'|left:16}${foot.foot_datas.tax_subtotal|viviFormatTaxes:true|right:26}
-${'  ' + _( '(rpt)Net Sales' ) + ':'|left:16}${foot.foot_datas.total|viviFormatPrices:true|right:26}
+${'  ' + _( '(rpt)Total' ) + ':'|left:16}${foot.foot_datas.total|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Payment' ) + ':'|left:16}${foot.foot_datas.payment_subtotal|viviFormatPrices:true|right:26}
 ------------------------------------------
 ${foot.gen_time}

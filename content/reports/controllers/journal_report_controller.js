@@ -64,15 +64,8 @@
                 records.forEach( function( record ) {
                     delete record.Journal;
 
-                    switch ( parseInt( record.status, 10 ) ) {
-                        case 1:
-                            record.status = _( '(rpt)completed' );
-                            break;
-                        case -2:
-                            record.status = _( '(rpt)voided' );
-                            break;
-                    }
-                });
+                    record.status = this.statusToString(record.status);
+                }, this);
 
                 this._reportRecords.head.title = _( 'Journal Report' );
                 this._reportRecords.head.start_time = start_str;
@@ -99,25 +92,24 @@
             if ( div ) {
                 div.addEventListener( 'click', function( event ) {
                     if ( event.originalTarget.parentNode.id && event.originalTarget.parentNode.tagName == 'TR' )
-                        self.openJournalDialogByKey( 'id', event.originalTarget.parentNode.id );
+                        self.openJournalDialogByKey(self.window, 'id', event.originalTarget.parentNode.id );
                 }, true );
             }
         },
 
-        openJournalDialogByKey: function( key, value ) {
+        openJournalDialogByKey: function( win, key, value ) {
             var aURL = 'chrome://viviecr/content/view_journal.xul';
             var aName = _( 'Journal Details' );
             var aArguments = {
                 index: key,
-                value: value
+                value: value,
+                window: win
             };
             var posX = 0;
             var posY = 0;
             var width = GeckoJS.Session.get( 'screenwidth' );
             var height = GeckoJS.Session.get( 'screenheight' );
-
-            GREUtils.Dialog.openWindow(
-                this.topmostWindow,
+            win.openDialog(
                 aURL,
                 aName,
                 "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height,
@@ -210,7 +202,7 @@
                     if(result == 0) {
                         GREUtils.Dialog.alert( this.topmostWindow, 
                                                _('Journal Export'),
-                                               _( "An error was encountered while saving the journal export. Please ensure that space is available on the external USB thumb drive [messge #2001]." ) );
+                                               _( "An error was encountered while saving the journal export. Please ensure that space is available on the external USB thumb drive [message #2001]." ) );
                     }
                     self.sleep( 10 );
                     if( caption ) {

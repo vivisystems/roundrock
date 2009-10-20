@@ -27,7 +27,7 @@
             <tr class="fields">
                 <th style="text-align: center;">${_( '(rpt)Product Number' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Product Name' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Average Price' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Average Net Price' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Quantities Sold' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Net Sales' )}</th>

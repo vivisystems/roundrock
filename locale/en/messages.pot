@@ -186,6 +186,9 @@ msgstr "Disconnected"
 #
 ########################################################################
 
+msgid "vivipos.fec.reportpanels.productSalesReturn.label"
+msgstr "Product Sales Return"
+
 msgid "vivipos.fec.reportpanels.attendancerecord.label"
 msgstr "Attendance Record"
 
@@ -303,6 +306,9 @@ msgstr "Report - Product List"
 msgid "acl_report_productsales"
 msgstr "Report - Product Sales"
 
+msgid "acl_report_productSalesReturn"
+msgstr "Report - Product Sales Return"
+
 msgid "acl_report_promotionsummary"
 msgstr "Report - Promotion Summary"
 
@@ -383,9 +389,27 @@ msgstr "Other"
 
 ########################################################################
 #
-# Register Display - Payments
+# Report Display - Payments
 #
 ########################################################################
+
+msgid "(rpt)cash"
+msgstr "Cash"
+
+msgid "(rpt)giftcard"
+msgstr "Giftcard"
+
+msgid "(rpt)coupon"
+msgstr "Coupon"
+
+msgid "(rpt)check"
+msgstr "Check"
+
+msgid "(rpt)creditcard"
+msgstr "Credit Card"
+
+msgid "(rpt)ledger"
+msgstr "Ledger"
 
 ########################################################################
 #
@@ -1018,6 +1042,20 @@ msgid "vivipos.fec.registry.function.programmable.voidItem.name"
 msgstr "VOID"
 
 #############
+# Void Sale
+#############
+
+msgid "vivipos.fec.registry.function.programmable.voidSale.desc"
+msgstr "This function voids the stored or completed transaction in the cart. "
+" No parameter is needed."
+
+msgid "vivipos.fec.registry.function.programmable.voidSale.label"
+msgstr "Void Sale"
+
+msgid "vivipos.fec.registry.function.programmable.voidSale.name"
+msgstr "Void Sale"
+
+#############
 # House BON
 #############
 
@@ -1416,7 +1454,9 @@ msgstr "Printer Dashboard"
 msgid "vivipos.fec.registry.function.programmable.vieworders.desc"
 msgstr ""
 "This function allows the operator to quickly browse and view orders. "
-"No parameter is needed."
+"The parameter may be used to indicate the search criteria. Valid values are "
+"'sequence' for sequence number, 'table' for table number, and 'check' for "
+"check number. Default is 'sequence'."
 
 msgid "vivipos.fec.registry.function.programmable.vieworders.label"
 msgstr "View Orders"
@@ -2074,6 +2114,11 @@ msgstr "Table Manager"
 msgid "acl_view_system_log"
 msgstr "View System Log"
 
+msgid "acl_split_payment"
+msgstr "Split Payment"
+
+msgid "acl_view_all_queues"
+msgstr "View All Queues"
 ########################################################################
 #
 # List of Ports
@@ -2810,13 +2855,50 @@ msgstr "Do you want to disable [Function Customizer] for the future using?"
 
 ########################################################################
 #
-# Split Payments
+# Split Payment
 #
 ########################################################################
 
-msgid "Split Payments"
-msgstr "Split Payments"
+msgid "vivipos.fec.registry.function.programmable.splitPayment.desc"
+msgstr ""
+"This function allows operator to split payment of current register. "
 
+msgid "vivipos.fec.registry.function.programmable.splitPayment.label"
+msgstr "Split Payment"
+
+msgid "vivipos.fec.registry.function.programmable.splitPayment.name"
+msgstr "Split Payment"
+
+########################################################################
+#
+# Open Report
+#
+########################################################################
+
+msgid "vivipos.fec.registry.function.programmable.openreport.desc"
+msgstr ""
+"This function allows operator to open specific report ."
+
+msgid "vivipos.fec.registry.function.programmable.openreport.label"
+msgstr "Open Report"
+
+msgid "vivipos.fec.registry.function.programmable.openreport.name"
+msgstr "Open Report"
+
+########################################################################
+#
+# Report Period Types
+#
+########################################################################
+
+msgid "(rpt)sale_period"
+msgstr "Sale Period"
+
+msgid "(rpt)transaction_created"
+msgstr "Order Opened"
+
+msgid "(rpt)transaction_submitted"
+msgstr "Order Closed"
 
 ########################################################################
 #

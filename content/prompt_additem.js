@@ -18,11 +18,20 @@ var options;
             document.getElementById('input0').setAttribute('multiline', true);
             document.getElementById('row0').setAttribute('flex', 1);
             multiline = true;
-            document.getElementById('key_enter').setAttribute('disabled', true);
         }
         else {
             document.getElementById('input0').setAttribute('multiline', false);
             document.getElementById('row0').setAttribute('flex', 0);
+        }
+
+        // open cashdrawer?
+        if ('useraction' in inputObj) {
+            var btn = document.getElementById('useraction-btn');
+            btn.label = inputObj.useractionLabel;
+            window.UserAction = inputObj.useraction;
+        }
+        else {
+            document.getElementById('useraction-btn').setAttribute('hidden', true);
         }
 
         // fixed length?
@@ -59,7 +68,6 @@ var options;
                 document.getElementById('row1').setAttribute('flex', 0);
             }
         }
-        document.getElementById('key_enter').setAttribute('disabled', multiline);
         
         // To construct a menulist, please assign an array to inputObj.menuItems; the array is consisted of objects bearing fields value, label, and selected.
         // The first object whose 'selected' property is true will be considered the default selected menuitem.

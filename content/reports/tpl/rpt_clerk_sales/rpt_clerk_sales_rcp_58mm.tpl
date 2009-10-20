@@ -50,7 +50,7 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${order.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${order.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Net Sales' ) + ':'}
+${_( '(rpt)Total' ) + ':'}
 ${order.total|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${order.payment|default:0|viviFormatPrices:true|right:24}
@@ -94,9 +94,9 @@ ${clerk.summary.discount_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Promotion' ) + ':'}
 ${clerk.summary.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
-${clerk.summary.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Net Sales' ) + ':'}
+${_( '(rpt)Total' ) + ':'}
 ${clerk.summary.total|default:0|viviFormatPrices:true|right:24}
+${clerk.summary.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${clerk.summary.payment|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Cash' ) + ':'}

@@ -6,581 +6,334 @@
     var __controller__ = {
 
         name: 'SplitCheck',
-        _sourceCheck: null,
-        _sourceItems: [],
-        _sourceItemIdxById: [],
-
-        _splitItems: [],
-        _index: 0,
-        _splitedIndex: 0,
-        _tableStatusModel: null,
-        _cart: null,
         
-        checkOrd: function() {
-            alert('checkOrd');
+        _inputObj: null,
+        _sourceOrder: null, 
+        _sourcePanelView: null,
+
+        _splitPanelView: null,
+        _splitOrders: [] ,
+
+
+        newMinimalTransaction: function() {
+
+            let org = this._sourceOrder;
+            let tran = new Transaction(true, true) ;
+
+            tran.data.destination = org.data.destination;
+            tran.data.destination_prefix = org.data.destination_prefix;
+            tran.data.table_no = org.data.table_no;
+            //            tran.data.no_of_customers = org.data.no_of_customers;
+            tran.data.no_of_customers = 0;
+            tran.data.status = 0;
+            tran.data.recall = 2;
+
+            return tran;
+
         },
 
-        _getTableStatusModel: function() {
-            if (this._tableStatusModel == null) {
-
-                var cart = this.getCartController();
-                this._tableStatusModel = cart.GuestCheck._tableStatusModel;
-
+        selectSourceItem: function(index) {
+            if (index == -1) return;
+            let data = this._sourcePanelView.data[index];
+            if (!data || data.level >0 || data.type != 'item') {
+                // disabled
+                document.getElementById('btn_addtosplit').disabled = true;
+                document.getElementById('qty_modifier').value = 0 ;
+            }else {
+                let indexId = data.index ;
+                let item = this._sourcePanelView.items[indexId];
+                document.getElementById('btn_addtosplit').disabled = (item.current_qty <= 0);
+                document.getElementById('qty_modifier').max =  item.current_qty;
+                document.getElementById('qty_modifier').min = 1;
+                document.getElementById('qty_modifier').value = item.current_qty ;
             }
-            return this._tableStatusModel;
+            document.getElementById('btn_mergeto').disabled = true;
+            document.getElementById('splitScrollablePanel').selectedIndex = -1;
+            document.getElementById('splitScrollablePanel').view.selection.clearSelection();
         },
 
-        _getNewCheckNo: function() {
-            var i = 1;
-            var ar = [];
+        selectSplitItem: function(index) {
             
-            var r = this._getTableStatusModel().getNewCheckNo();
-
-            return "" + r;
-        },
-
-        getCartController: function() {
-            if (this._cart == null) {
-                var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
-                this._cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
-            }
-            // this._cart.dispatchEvent('onSplitCheck', null);
-
-            return this._cart;
-        },
-
-        buildOrderSequence: function(seq) {
-            var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
-            var sequenceTrackSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod') || false;
-
-            if (seq != -1) {
-                var newSeq = (seq+'');
-                if (newSeq.length < sequenceNumberLength) {
-                    newSeq = GeckoJS.String.padLeft(newSeq, sequenceNumberLength, '0');
-                }
-                if (sequenceTrackSalePeriod) {
-                    var salePeriod = GeckoJS.Session.get('sale_period');
-                    newSeq = new Date(salePeriod * 1000).toString('yyyyMMdd') + newSeq;
-                }
-                return newSeq;
-            }
-            else {
-                return seq;
-            }
-        },
-
-        splitItems: function() {
-            var self = this;
-
-            // this._splitItems = [];
-            var selectedItems = document.getElementById('sourcecheckscrollablepanel').selectedItems;
-
-            if (selectedItems.length <= 0) {
-                NotifyUtils.warn(_('Please select source items to split'));
-                return;
-            }
-
-            //
-            if (selectedItems.length == this._sourceItems.length) {
-                NotifyUtils.warn(_('Can not split all items'));
-                return;
-            }
-
-            var spliteditems = [];
-            var d = 0;
-            selectedItems.forEach(function(o){
-                spliteditems.push(self._sourceItems[o - d]);
-                self._sourceItems.splice(o - d, 1);
-                d++;
-            });
-
-            var checkNo = this._getNewCheckNo();
-
-            var check_no = checkNo;
-            var table_no = this._sourceCheck.table_no;
-            var cnt = this._splitItems.push({
-                name: (this._index + 1) + '.Check#' + check_no,
-                check_no: check_no,
-                table_no: table_no,
-                items:spliteditems
-            });
-            this._index++;
-
-            var panelView = new GeckoJS.NSITreeViewArray(this._sourceItems);
-            document.getElementById('sourcecheckscrollablepanel').datasource = panelView;
-
-            var panelView2 = new GeckoJS.NSITreeViewArray(this._splitItems[cnt - 1].items);
-            document.getElementById('splitedcheckscrollablepanel').datasource = panelView2;
-
-            var panelView3 = new GeckoJS.NSITreeViewArray(this._splitItems);
-            document.getElementById('splitedscrollablepanel').datasource = panelView3;
-            document.getElementById('splitedscrollablepanel').selection.select( cnt - 1);
-            this.selectSplitedCheck( cnt - 1);
-
-        },
-
-        selectMain: function(index) {
-            var numRanges = document.getElementById('sourcecheckscrollablepanel').view.selection.getRangeCount();
-
-            var selected = !this._sourceItems[index].selected;
-            this._sourceItems[index].selected = selected;
+            if (index == -1) return;
             
-            if (this._sourceItems.length > 0) {
-                var parentIndex = this._sourceItems[index].parent_index;
-                if (parentIndex) {
-                    var i=0;
-                    this._sourceItems.forEach(function(o){
-                        if ((o.parent_index == parentIndex) || (o.index == parentIndex)) {
-                            if (selected) {
-                                document.getElementById('sourcecheckscrollablepanel').view.selection.rangedSelect(i,i,true);
-                                o.selected = true;
-                            } else {
-                                document.getElementById('sourcecheckscrollablepanel').view.selection.clearRange(i,i,true);
-                                o.selected = false;
-                            }
-                        } else {
-                            if (o.selected) {
-                                document.getElementById('sourcecheckscrollablepanel').view.selection.rangedSelect(i,i,true);
-                            } else {
-                                document.getElementById('sourcecheckscrollablepanel').view.selection.clearRange(i,i,true);
-                            }
-                        }
-                        i++;
-                    });
-                } else {
-                    var i=0;
-
-                    var itemIndex = this._sourceItems[index].index;
-                    this._sourceItems.forEach(function(o){
-                        if ((o.parent_index == itemIndex)) {
-                            if (selected) {
-                                document.getElementById('sourcecheckscrollablepanel').view.selection.rangedSelect(i,i,true);
-                                o.selected = true;
-                            } else {
-                                document.getElementById('sourcecheckscrollablepanel').view.selection.clearRange(i,i,true);
-                                o.selected = false;
-                            }
-                        } else {
-                            if (o.selected) {
-                                document.getElementById('sourcecheckscrollablepanel').view.selection.rangedSelect(i,i,true);
-                            } else {
-                                document.getElementById('sourcecheckscrollablepanel').view.selection.clearRange(i,i,true);
-                            }
-                        }
-                        i++;
-                    });
-                }
+            let data = this._splitPanelView.data[index];
+            if (!data || data.level >0 || data.type != 'item') {
+                // disabled
+                document.getElementById('btn_mergeto').disabled = true;
+                document.getElementById('qty_modifier').value = 0 ;
+            }else {
+                let indexId = data.index ;
+                let item = this._splitPanelView.items[indexId];
+                document.getElementById('btn_mergeto').disabled = (item.current_qty <= 0);
+                document.getElementById('qty_modifier').max =  item.current_qty;
+                document.getElementById('qty_modifier').min = 1;
+                document.getElementById('qty_modifier').value = item.current_qty ;
             }
+            document.getElementById('btn_addtosplit').disabled = true;
+            document.getElementById('sourceScrollablePanel').selectedIndex = -1;
+            document.getElementById('sourceScrollablePanel').view.selection.clearSelection();
         },
 
-        selectSplitedCheck: function(index) {
-            //
-            this._splitedIndex = index;
-            if (this._splitItems.length > 0) {
-                var panelView2 = new GeckoJS.NSITreeViewArray(this._splitItems[index].items);
-                document.getElementById('splitedcheckscrollablepanel').datasource = panelView2;
 
-                document.getElementById('splited_check_no').value = this._splitItems[index].check_no;
-                document.getElementById('splited_table_no').value = this._splitItems[index].table_no;
+        createNewSplitOrder: function() {
+            
+            let count = this._splitOrders.length;
+           
+            this._splitOrders.push(this.newMinimalTransaction());
 
-            }
+            document.getElementById('splitOrderTabs').appendItem(_("SP#") + (count+1), count);
+            
         },
 
-        reverse: function() {
-            //
-            var self = this;
-            var index = document.getElementById('splitedscrollablepanel').selectedIndex;
-            var reverseitems = this._splitItems[index].items;
-            reverseitems.forEach(function(o){
-                self._sourceItems.push(o);
-            });
-            this._splitItems.splice(index, 1);
-            var cnt = this._splitItems.length;
+        selectSplitOrder: function(event) {
 
-
-            var panelView = new GeckoJS.NSITreeViewArray(this._sourceItems);
-            document.getElementById('sourcecheckscrollablepanel').datasource = panelView;
-
-            if (cnt > 0) {
-                var panelView2 = new GeckoJS.NSITreeViewArray(this._splitItems[0].items);
-                document.getElementById('splitedcheckscrollablepanel').datasource = panelView2;
-
-                var panelView3 = new GeckoJS.NSITreeViewArray(this._splitItems);
-                document.getElementById('splitedscrollablepanel').datasource = panelView3;
-                document.getElementById('splitedscrollablepanel').selection.select(0);
-            } else {
-                document.getElementById('splitedcheckscrollablepanel').datasource = [];
-                document.getElementById('splitedscrollablepanel').datasource = [];
-            }
+            var index = event.originalTarget.value;
+            var panelView2 = this._splitPanelView;
+            panelView2.setTransaction(this._splitOrders[index]);
+            
         },
         
-        getRoundedPrice: function(price, precision_prices, rounding_prices) {
-            var roundedPrice = GeckoJS.NumberHelper.round(Math.abs(price), precision_prices, rounding_prices) || 0;
-            if (price < 0) roundedPrice = 0 - roundedPrice;
-            return roundedPrice;
-        },
-        
-        getRoundedTax: function(tax, precision_taxes, rounding_taxes) {
-            var roundedTax = GeckoJS.NumberHelper.round(Math.abs(tax), precision_taxes, rounding_taxes) || 0;
-            if (tax < 0) roundedTax = 0 - roundedTax;
-            return roundedTax;
-        },
+        addToSplit: function(index) {
 
-        calcTotal: function(data) {
+            let qty = document.getElementById('qty_modifier').value;
+            let splitIndex = document.getElementById('splitOrderTabs').selectedIndex;
 
-            // this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(data));
+            let sourceTran = this._sourceOrder;
+            let targetTran = this._splitOrders[splitIndex];
 
-            var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0, qty_subtotal=0;
-            var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0, promotion_subtotal=0;
-
-            // item subtotal and grouping
-            data.items_count = 0;
-            data.items_summary = {}; // reset summary
-            for(var itemIndex in data.items ) {
-                var item = data.items[itemIndex];
-
-                // don't include set items in calculations
-                if (!item.parent_index) {
-                    tax_subtotal += parseFloat(item.current_tax);
-                    included_tax_subtotal += parseFloat(item.included_tax);
-
-                    item_surcharge_subtotal += parseFloat(item.current_surcharge);
-                    item_discount_subtotal += parseFloat(item.current_discount);
-                    item_subtotal += parseFloat(item.current_subtotal);
-
-                    qty_subtotal += (item.sale_unit == 'unit') ? item.current_qty : 1;
-                }
-
-                // summary it
-                var item_id = item.id;
-                var sumItem = GREUtils.extend({}, (data.items_summary[item_id] || {
-                    id: item_id,
-                    name: item.name,
-                    qty_subtotal: 0,
-                    subtotal: 0,
-                    discount_subtotal: 0,
-                    surcharge_subtotal: 0
-                }));
-
-                // include set items in quantity summation
-                sumItem.qty_subtotal += (item.sale_unit == 'unit') ? item.current_qty : 1;
-
-                if (!item.parent_index) {
-                    sumItem.subtotal += parseFloat(item.current_subtotal);
-                    sumItem.discount_subtotal += parseFloat(item.current_discount);
-                    sumItem.surcharge_subtotal += parseFloat(item.current_surcharge);
-                }
-                data.items_summary[item_id] = sumItem;
-
-                data.items_count++;
+            let data = sourceTran.data.display_sequences[index];
+            let item = null;
+            if (data.index) {
+                item = sourceTran.data.items[data.index];
             }
+            
+            let result = this.confirmSplitMergeItem(item, qty);
 
-            // trans subtotal
-            for(var transDisIndex in data.trans_discounts ) {
-                var disItem = data.trans_discounts[transDisIndex];
-                trans_discount_subtotal += parseFloat(disItem.current_discount);
-            }
+            if(!result) return result;
 
-            for(var transSurIndex in data.trans_surcharges ) {
-                var surItem = data.trans_surcharges[transSurIndex];
-                trans_surcharge_subtotal += parseFloat(surItem.current_surcharge);
-            }
+            targetTran.moveCloneItem(sourceTran, index, qty);
 
-            for(var payIndex in data.trans_payments ) {
-                var payItem = data.trans_payments[payIndex];
-                payment_subtotal += parseFloat(payItem.amount);
-            }
+            var panelView = this._sourcePanelView;
+            var panelView2 = this._splitPanelView;
 
-            promotion_subtotal = data.promotion_subtotal ;
+            panelView.setTransaction(sourceTran);
+            panelView2.setTransaction(targetTran);
 
-            total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal;
-            remain = total - payment_subtotal;
+            index = (index > panelView.data.length ) ? 0 : index;
+            document.getElementById('sourceScrollablePanel').selectedIndex = index;
+            this.selectSourceItem(index);
 
-            // revalue
-            if(data.autorevalue && data.revalueprices != 0) {
-                if(total>=0) {
-                    data.revalue_subtotal = 0 - parseFloat(total % data.revalueprices);
-                }else {
-                    data.revalue_subtotal = parseFloat((0 - total) % data.revalueprices);
-                    if (data.revalue_subtotal != 0)
-                        data.revalue_subtotal -= data.revalueprices;
-                }
-                total = total + data.revalue_subtotal;
-                remain = total - payment_subtotal;
-            }
-
-            data.total = this.getRoundedPrice(total, data.precision_prices, data.rounding_prices);
-            data.remain = this.getRoundedPrice(remain, data.precision_prices, data.rounding_prices);
-            data.qty_subtotal = qty_subtotal;
-            data.tax_subtotal = this.getRoundedTax(tax_subtotal, data.precision_taxes, data.rounding_taxes);
-            data.item_subtotal = this.getRoundedPrice(item_subtotal, data.precision_prices, data.rounding_prices);
-            data.included_tax_subtotal = this.getRoundedTax(included_tax_subtotal, data.precision_prices, data.rounding_prices);
-            data.item_surcharge_subtotal = this.getRoundedPrice(item_surcharge_subtotal, data.precision_prices, data.rounding_prices);
-            data.item_discount_subtotal = this.getRoundedPrice(item_discount_subtotal, data.precision_prices, data.rounding_prices);
-            data.trans_surcharge_subtotal = this.getRoundedPrice(trans_surcharge_subtotal, data.precision_prices, data.rounding_prices);
-            data.trans_discount_subtotal = this.getRoundedPrice(trans_discount_subtotal, data.precision_prices, data.rounding_prices);
-            data.payment_subtotal = this.getRoundedPrice(payment_subtotal, data.precision_prices, data.rounding_prices);
-
-            data.discount_subtotal = data.item_discount_subtotal + data.trans_discount_subtotal ;
-            data.surcharge_subtotal = data.item_surcharge_subtotal + data.trans_surcharge_subtotal;
-
-            // @todo individual setting...
-            data.status = 2;
-            // data.check_no = ?;
-            data.no_of_customers = '';
-            data.lockIndex = data.display_sequences.length;
-            // data.batchCount = ?;
-            // data.closed = ?;
-            // data.batchItemCount = ?;
-            // data.batchPaymentCount = ?;
-            // data.recall = ?;
 
         },
 
-        _genOrigOrder: function() {
-            //
-            var self = this;
-            var order = {};
+        mergeTo: function(index) {
 
-            // gen order object from items
-            for (var key in self._sourceCheck) {
-            	if (self._sourceCheck[key] == null) {
-                    order[key] = null;
-            	}
-                else if (typeof(self._sourceCheck[key]) == 'object' && self._sourceCheck[key].constructor.name == 'Array' ) {
-                    order[key] = [];
-                }
-                else if (typeof(self._sourceCheck[key]) == "object") {
-                    order[key] = {};
-                } else {
-                    order[key] = self._sourceCheck[key];
-                }
+            let qty = document.getElementById('qty_modifier').value;
+            let splitIndex = document.getElementById('splitOrderTabs').selectedIndex;
+
+            let sourceTran = this._sourceOrder;
+            let targetTran = this._splitOrders[splitIndex];
+
+            let data = targetTran.data.display_sequences[index];
+            let item = null;
+            if (data.index) {
+                item = targetTran.data.items[data.index];
             }
 
-            // merge display_sequences and items
-            this._sourceItems.forEach(function(item){
-                // items
-                order.items[item.index] = GeckoJS.BaseObject.clone(self._sourceCheck.items[item.index]);
+            let result = this.confirmSplitMergeItem(item, qty);
 
-                // display_sequences
-                self._sourceCheck.display_sequences.forEach(function(disp){
-                    if (disp.index == item.index) {
-                        var dd = GeckoJS.BaseObject.clone(disp);
-                        order.display_sequences.push(dd);
-                    }
-                });
+            if(!result) return result;
 
-                // trans_discounts object
-                // trans_surcharges object
-                // trans_payments object
-                // markers array
+            sourceTran.moveCloneItem(targetTran, index, qty);
 
-            });
+            var panelView = this._sourcePanelView;
+            var panelView2 = this._splitPanelView;
 
-            order.id = self._sourceCheck.id;
-            order.seq = self._sourceCheck.seq;
-            self.calcTotal(order);
+            panelView.setTransaction(sourceTran);
+            panelView2.setTransaction(targetTran);
 
-            return order;
+            index = (index > panelView2.data.length ) ? 0 : index;
+            document.getElementById('splitScrollablePanel').selectedIndex = index;
+            this.selectSplitItem(index);
+
         },
 
-        _genOrders: function() {
-            //
-            var self = this;
-            var orders = [];
-            var cnt = this._splitItems.length;
+        autoSplitByMarkers: function() {
+            
+            let splitIndex = -1;
 
-            this._splitItems.forEach(function(o){
+            let sourceTran = this._sourceOrder;
+            let targetTran = null;
 
-                var order = {};
+            let firstMark = false;
 
-                // gen order object from items
-                for (var key in self._sourceCheck) {
-                    if (self._sourceCheck[key] == null) {
-                        order[key] = null;
+
+            let splitObj = document.getElementById('splitOrderTabs');
+//            while (splitObj.itemCount >0) {
+//                splitObj.removeItemAt(0);
+//            }
+//            this._splitOrders = [];
+
+            
+            for(let i=0; i < sourceTran.data.display_sequences.length; i++) {
+                let data = sourceTran.data.display_sequences[i] ;
+
+                let type = data.type;
+                if (type == 'tray') {
+                    firstMark = true;
+                    splitIndex++;
+
+                    // create new transaction
+                    if (!this._splitOrders[splitIndex]) {
+                       this._splitOrders[splitIndex] = this.newMinimalTransaction();
+                       // create new tabs
+                       splitObj.appendItem(_("SP#") + (splitIndex+1), splitIndex);
                     }
-                    else if (typeof(self._sourceCheck[key]) == 'object' && self._sourceCheck[key].constructor.name == 'Array' ) {
-                        order[key] = [];
-                    }
-                    else if (typeof(self._sourceCheck[key]) == "object") {
-                        order[key] = {};
-                    } else {
-                        order[key] = self._sourceCheck[key];
-                    }
+                    targetTran = this._splitOrders[splitIndex];
+
+                }else if (type == 'item'){
+                    
+                    if (!firstMark) continue;
+
+                    let item = sourceTran.data.items[data.index];
+
+                    targetTran.moveCloneItem(sourceTran, i, item.current_qty);
+                    i--;
                 }
-
-                // merge display_sequences and items
-                o.items.forEach(function(item){
-                    // items
-                    order.items[item.index] = GeckoJS.BaseObject.clone(self._sourceCheck.items[item.index]);
-
-                    // display_sequences
-                    self._sourceCheck.display_sequences.forEach(function(disp){
-                        if (disp.index == item.index) {
-                            var dd = GeckoJS.BaseObject.clone(disp);
-                            order.display_sequences.push(dd);
-                        }
-                    });
-
-                    // trans_discounts object
-                    // trans_surcharges object
-                    // trans_payments object
-                    // markers array
-
-                });
-
-                var seq = self.buildOrderSequence(SequenceModel.getSequence('order_no', false));
-                // @todo must rewrite...
-                if (seq == '-1') {
-                    // can't get sequence
-                    NotifyUtils.error(_("can't get sequence"));
-                    return false;
-                }
-
-                order.id = GeckoJS.String.uuid();
-                // order.seq = SequenceModel.getSequence('order_no');
-                order.seq = seq;
-                order.check_no = o.check_no;
-                order.table_no = o.table_no;
-
-                self.calcTotal(order);
                 
-                orders.push(order);
-
-            });
-
-            return orders;
-            
-        },
-
-        _saveOrders: function(index) {
-
-            var self = this;
-            // var items = this._splitItems[0].items;
-
-            var origData = this._genOrigOrder();
-            var order = new OrderModel();
-
-            // lastMidifiedTime
-            origData.lastModifiedTime = origData.modified;
-            origData.modified = Math.round(new Date().getTime() / 1000 );
-            var ret = order.saveOrder(origData);
-            if (!ret) {
-
-                GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Save Order Error'),
-                        _('Failed to save order [%S]. Please restart machine immediately to ensure proper operation [message #1501].', [origData.sequence]));
-                
-                return false;
             }
 
-            // dispatch changeclerk event
-            // this.getCartController().dispatchEvent('onStore', origData);
-            this.getCartController().dispatchEvent('onSplitCheck', {view:{}, data:origData});
+            // remove all markers
+            for(let i=0; i < sourceTran.data.display_sequences.length; i++) {
+                let data = sourceTran.data.display_sequences[i] ;
 
-            // update table status
-            this._getTableStatusModel().addCheck(origData);
+                let type = data.type;
+                if (type == 'tray') {
+                    sourceTran.voidItemAt(i) ;
+                    i--;
+                }
+            }
 
-            var orders = this._genOrders();
+            var panelView = this._sourcePanelView;
+            var panelView2 = this._splitPanelView;
 
-            var check_no_list = [];
+            panelView.setTransaction(sourceTran);
 
-            orders.forEach(function(data){
+            splitObj.selectedIndex = 0;
+            panelView2.setTransaction(this._splitOrders[0]);
 
-                // save order
-                // var order = new OrderModel();
-                order.saveOrder(data);
+            this.validateButtons();
 
-                // dispatch changeclerk event
-                // this.getCartController().dispatchEvent('onStore', origData);
-                self.getCartController().dispatchEvent('onSplitCheck', {view:{}, data:data});
-
-                // update table status
-                self._getTableStatusModel().addCheck(data);
-
-            });
-            
-            NotifyUtils.info(_('Check# %S has been successfully split to Check# %S', [this._sourceCheck.check_no, check_no_list.join(',')]));
-
-            if (index >= 0)
-                return orders[this._splitedIndex];
-            else
-                return origData;
         },
+
 
         confirm: function() {
-            if (!this._splitItems || this._splitItems.length <= 0) {
-                //
-                return;
+
+            // check split status
+            let splitCount = this._splitOrders.length ;
+            let sourceTran = this._sourceOrder;
+            var inputObj = window.arguments[0];
+
+            let splitDatas = [] ;
+
+            for(let i in  this._splitOrders) {
+                let data = this._splitOrders[i];
+
+                if (data.data.items_count == 0) continue;
+
+                splitDatas.push(data.data) ;
+                
+            }
+            
+            if (splitCount == 1 && sourceTran.data.items_count == 0 || splitDatas.length == 0) {
+                return this.cancel();
+            }else {
+                
+                if (GREUtils.Dialog.confirm(this.topmostWindow,
+                    _('confirm split'),
+                    _('Are you sure you want to save all split checks')) == false) {
+                    inputObj.ok = false;
+                    window.close();
+                    return;
+                }
+
+                inputObj.source_data = sourceTran.data;
+                inputObj.split_datas = splitDatas;
+                inputObj.ok = true;
+
+                window.close();
             }
 
-            var retOrder = this._saveOrders();
-            var inputObj = window.arguments[0];
-            inputObj.ok = true;
-            inputObj.id = retOrder.id;
-            inputObj.check_no = retOrder.check_no;
-            inputObj.payit = false;
-
-            window.close();
         },
 
         cancel: function() {
             var inputObj = window.arguments[0];
-            inputObj.ok = false;
-            window.close();
-        },
-
-        paythis: function(src) {
-            if (!this._splitItems || this._splitItems.length <= 0) {
-                //
+            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                _('confirm discard'),
+                _('Are you sure you want to discard split checks')) != false) {
+                inputObj.ok = false;
+                window.close();
                 return;
             }
-            if (src) {
-                var retOrder = this._saveOrders();
-            } else {
-                var retOrder = this._saveOrders(this._splitedIndex);
-            }
-            var inputObj = window.arguments[0];
-            inputObj.ok = true;
-            inputObj.id = retOrder.id;
-            inputObj.check_no = retOrder.check_no;
-            inputObj.payit = true;
-
-            window.close();
-
-            return src;
         },
+
 
         load: function() {
 
-            var inputObj = window.arguments[0];
+            var inputObj = this._inputObj = window.arguments[0];
+            let orgTransaction = inputObj.transaction;
+            
+            let newTransaction = new Transaction(true, true);
+            newTransaction.data = orgTransaction.data;
+            this._sourceOrder = newTransaction;
 
-            this._sourceCheck = inputObj.sourceCheck;
+            var panelView = this._sourcePanelView = new NSISimpleCartView('sourceScrollablePanel');
+            panelView.setTransaction(this._sourceOrder);
 
-            for (var k in this._sourceCheck.items) {
-// this.log("k:" + k + " , " + this._sourceCheck.items[k].name);
-                this._sourceItemIdxById.push(k);
+            document.getElementById('btn_addtosplit').disabled = true;
+            document.getElementById('btn_mergeto').disabled = true;
+
+            this.validateButtons();
+
+            this.createNewSplitOrder();
+
+            // set default splited order to 0
+            document.getElementById('splitOrderTabs').selectedIndex = 0;
+            var panelView2 = this._splitPanelView = new NSISimpleCartView('splitScrollablePanel');
+            panelView2.setTransaction(this._splitOrders[0]);
+
+        },
+
+        confirmSplitMergeItem: function(item, qty) {
+            
+            if (!item || !qty) return false;
+
+            // check hasDiscount
+            if (item.hasDiscount && item.current_qty != qty /* && item.discount_type != '%'*/) {
+                result = confirm(_('Item [%S] has discount, split it will loss discout', [item.name]));
+                if (!result ) return false;
             }
 
-            document.getElementById('source_check_no').value = this._sourceCheck.check_no;
-            document.getElementById('source_table_no').value = this._sourceCheck.table_no;
+            // check hasSurcharge
+            if (item.hasSurcharge && item.current_qty != qty /* && item.surcharge_type != '%'*/) {
+                result = confirm(_('Item [%S] has surcharge, split it will loss surcharge', [item.name]));
+                if (!result ) return false;
+            }
 
-            this._sourceItems = GeckoJS.BaseObject.getValues(this._sourceCheck.items);
-            // this._sourceItems = this._sourceCheck.items;
-//this.log("sourceItems:::");
-//this.log(this.dump(this._sourceItems));
-//this.log("sourceCheckItems:::");
-//this.log(this.dump(this._sourceCheck.items));
-//this.log("sourceCheck:::");
-//this.log(this.dump(this._sourceCheck));
-            this._sourceItems.forEach(function(o){
-                o.selected = false;
-            });
+            return true;
+            
+        },
 
-            var panelView = new GeckoJS.NSITreeViewArray(this._sourceItems);
-            document.getElementById('sourcecheckscrollablepanel').datasource = panelView;
+        validateButtons: function() {
 
+            let markers = this._sourceOrder.data.markers;
+
+            if (markers.length >0) {
+                document.getElementById('btn_splitbymarks').disabled = false;
+            }else {
+                document.getElementById('btn_splitbymarks').disabled = true;
+            }
+            
         }
 
     };

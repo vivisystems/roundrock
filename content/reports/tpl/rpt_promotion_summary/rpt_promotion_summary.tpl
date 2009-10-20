@@ -30,6 +30,8 @@
                 <th style="text-align: center;">${_( '(rpt)Gross Sales' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Order Count' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Promotion Subtotal' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Add-on Tax' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Included Tax' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Matched Count' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Matched Items Quantity' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Matched Items Subtotal' )}</th>
@@ -42,6 +44,8 @@
                 <td style="text-align: right;">${entry.gross|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${entry.order_count|format:0}</td>
                 <td style="text-align: right;">${entry.promotion_subtotal|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${entry.tax_subtotal|viviFormatTaxes:true}</td>
+                <td style="text-align: right;">${entry.included_tax_subtotal|viviFormatTaxes:true}</td>
                 <td style="text-align: right;">${entry.matched_count|format:0}</td>
                 <td style="text-align: right;">${entry.matched_items_qty|format:0}</td>
                 <td style="text-align: right;">${entry.matched_items_subtotal|viviFormatPrices:true}</td>
@@ -54,6 +58,8 @@
                 <td style="text-align: center;">${result.summary.gross|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${result.summary.order_count|format:0}</td>
                 <td style="text-align: right;">${result.summary.promotion_subtotal|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${result.summary.tax_subtotal|viviFormatTaxes:true}</td>
+                <td style="text-align: right;">${result.summary.included_tax_subtotal|viviFormatTaxes:true}</td>
                 <td style="text-align: right;">${result.summary.matched_count|format:0}</td>
                 <td style="text-align: right;">${result.summary.matched_items_qty|format:0}</td>
                 <td style="text-align: right;">${result.summary.matched_items_subtotal|viviFormatPrices:true}</td>

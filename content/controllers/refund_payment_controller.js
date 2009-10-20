@@ -21,7 +21,11 @@
             return roundedPrice;
         },
 
-        formatPrice: function(price) {
+        formatPrice: function(price, showZero) {
+            if (parseFloat(price) == 0 && !showZero) {
+                return '';
+            }
+            
             var options = {
                 decimals: this._decimals,
                 thousands: this._thousands,

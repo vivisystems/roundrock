@@ -7,6 +7,10 @@
 
         name: 'ListOrders',
 
+        uses: ['Order'],
+        
+        components: ['OrderStatus'],
+
         _inputData: null,
 
         _orders: [],
@@ -39,21 +43,21 @@
             // load matching order(s)
             var conditions = '';
             var indices = inputObj.index.split(',');
-            for (var i = 0; i < indices.length; i++) {
-                if (inputObj.fuzzy) {
-                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " like '%" + this._queryStringPreprocessor(inputObj.value) + "%')";
-                }
-                else {
-                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " = '" + this._queryStringPreprocessor(inputObj.value) + "')";
+            if (inputObj.value) {
+                for (var i = 0; i < indices.length; i++) {
+                    if (inputObj.fuzzy) {
+                        conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " like '%" + this._queryStringPreprocessor(inputObj.value) + "%')";
+                    }
+                    else {
+                        conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " = '" + this._queryStringPreprocessor(inputObj.value) + "')";
+                    }
                 }
             }
-
             var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
             
             if (localOnly) {
-                conditions += " AND terminal_no = '" + this._queryStringPreprocessor(GeckoJS.Session.get('terminal_no')) + "'";
+                conditions += ((conditions == '') ? '' : ' AND ') + "terminal_no = '" + this._queryStringPreprocessor(GeckoJS.Session.get('terminal_no')) + "'";
             }
-
             var orderModel = new OrderModel();
             var orders = orderModel.find('all', {
                 fields: ['id',
@@ -65,6 +69,7 @@
                          'status',
                          'precision_prices',
                          'total',
+                         'total + change - payment_subtotal as "Order.balance"',
                          'qty_subtotal'],
                 conditions: conditions,
                 limit: 300,
@@ -82,8 +87,9 @@
                           + ',' + _('(view)order sequence')
                           + ',' + _('(view)order status')
                           + ',' + _('(view)total')
+                          + ',' + _('(view)balance')
                           + ',' + _('(view)items');
-            var fields = 'transaction_submitted,sequence,status_str,total,qty_subtotal';
+            var fields = 'transaction_submitted,sequence,status_str,total,balance,qty_subtotal';
             if (!localOnly) {
                 headers = _('(view)branch') + ',' + _('(view)terminal') + ',' + headers;
                 fields = 'branch,terminal_no,' + fields;
@@ -99,28 +105,14 @@
 
             // list orders
             orders.forEach(function(order) {
-                var statusStr = order.status;
-                switch(parseInt(order.status)) {
-                    case -2:
-                        statusStr = _('(view)voided');
-                        break;
-
-                    case -1:
-                        statusStr = _('(view)cancelled');
-                        break;
-
-                    case 1:
-                        statusStr = _('(view)completed');
-                        break;
-
-                    case 2:
-                        statusStr = _('(view)stored');
-                        break;
-                }
-                order.status_str = statusStr;
+                order.status_str = this.OrderStatus.statusToString(order.status);
 
                 this._precision_prices = order.precision_prices;
                 order.total = this._formatPrice(order.total);
+
+                if (order.status == -1 || order.status == -3) order.balance = ''
+                else order.balance = this._formatPrice(order.balance);
+                
             }, this);
 
             tree.datasource = orders;
@@ -144,20 +136,33 @@
             if (countLabelObj) {
                 countLabelObj.value = orders.length;
             }
-            
-            // disable details button initially
-            var detailsBtn = document.getElementById('details');
-            detailsBtn.setAttribute('disabled', true);
+
+            if (orders.length == 1) {
+                let vivitree = document.getElementById('orderscrollablepanel');
+                if (vivitree) vivitree.selection.select(0);
+                this.validateForm(0);
+            }
+            else {
+                this.validateForm();
+            }
         },
 
         validateForm: function(index) {
             var detailsBtn = document.getElementById('details');
+            var recallBtn = document.getElementById('recall');
             if (index > -1) {
                 detailsBtn.setAttribute('disabled', false);
+                if (this._orders[index] && (this._orders[index].status == 1 || this._orders[index].status == 2)) {
+                    recallBtn.setAttribute('disabled', false);
+                }
+                else {
+                    recallBtn.setAttribute('disabled', true);
+                }
                 this._index = index;
             }
             else {
                 detailsBtn.setAttribute('disabled', true);
+                recallBtn.setAttribute('disabled', true);
                 this._index = -1;
             }
         },
@@ -171,20 +176,43 @@
             }
             var aURL = 'chrome://viviecr/content/view_order.xul';
             var aName = _('Order Details');
-            var aArguments = {index: 'id', value: orderId, orders: this._orders, position: this._index};
+            var aArguments = {index: 'id', value: orderId, orders: this._orders, position: this._index, recall: false};
             var posX = 0;
             var posY = 0;
             var width = GeckoJS.Session.get('screenwidth');
             var height = GeckoJS.Session.get('screenheight');
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
+            window.openDialog(aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
 
-            // reload list
-            this.load(this._inputData);
-
-            this.validateForm(this._index);
+            if (aArguments.recall) {
+                this.recallOrder(orderId);
+            }
         },
         
+        recallOrder: function(orderId) {
+
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var guestcheck = mainWindow.GeckoJS.Controller.getInstanceByName('GuestCheck');
+
+            if (!orderId) {
+                if (this._index > -1) {
+                    orderId = this._orders[this._index].id;
+                }
+            }
+
+            if (orderId) {
+                if (guestcheck && guestcheck.recallOrder(orderId)) {
+                    window.close();
+                }
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Recall Order'),
+                                          _('Failed to recall the selected order'));
+                }
+            }
+        },
+
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,

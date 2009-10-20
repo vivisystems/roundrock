@@ -217,7 +217,7 @@
             	orderedData.sort( sortFunction );
             }
             
-            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.salessummary.label' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.dailysalessummary.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;

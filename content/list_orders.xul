@@ -24,6 +24,9 @@
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
 
+  <!-- include component -->
+  <script src="chrome://viviecr/content/controllers/components/order_status.js" type="application/x-javascript"/>
+
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/list_orders_controller.js" type="application/x-javascript"/>
 
@@ -55,6 +58,8 @@
                 <hbox pack="start" flex="1" class="toolbar" toolbarmode="horizontal">
                     <button id="details" label="&listorders.button.details;" disabled="false"
                             oncommand="$do('orderDetails', null, 'ListOrders')" />
+                    <button id="recall" label="&listorders.button.recall;" disabled="false" roles="acl_recall_check"
+                            oncommand="$do('recallOrder', null, 'ListOrders')" />
                 </hbox>
                 <hbox id="dialogButtons" class="exitbar">
                     <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>

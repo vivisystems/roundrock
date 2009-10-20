@@ -22,6 +22,10 @@ ${_( '(rpt)Order Count' ) + ':'}
 ${entry.order_count|format:0|right:24}
 ${_( '(rpt)Promotion Subtotal' ) + ':'}
 ${entry.promotion_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Add-on Tax' ) + ':'}
+${entry.tax_subtotal|viviFormatTaxes:true|right:24}
+${_( '(rpt)Included Tax' ) + ':'}
+${entry.included_tax_subtotal|viviFormatTaxes:true|right:24}
 ${_( '(rpt)Matched Count' ) + ':'}
 ${entry.matched_count|format:0|right:24}
 ${_( '(rpt)Matched Items Quantity' ) + ':'}
@@ -37,6 +41,10 @@ ${_( '(rpt)Order Count' ) + ':'}
 ${result.summary.order_count|format:0|right:24}
 ${_( '(rpt)Promotion Subtotal' ) + ':'}
 ${result.summary.promotion_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Add-on Tax' ) + ':'}
+${result.summary.tax_subtotal|viviFormatTaxes:true|right:24}
+${_( '(rpt)Included Tax' ) + ':'}
+${result.summary.included_tax_subtotal|viviFormatTaxes:true|right:24}
 ${_( '(rpt)Matched Count' ) + ':'}
 ${result.summary.matched_count|format:0|right:24}
 ${_( '(rpt)Matched Items Quantity' ) + ':'}

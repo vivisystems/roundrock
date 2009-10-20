@@ -12,10 +12,32 @@
         name: 'TableOrder',
 
         useDbConfig: 'table',
-        
-        belongsTo: ['TableStatus'],
 
-        behaviors: ['Sync', 'Training']
+        behaviors: ['Training'],
+
+        httpService: null,
+
+        getHttpService: function() {
+
+            try {
+                if (!this.httpService) {
+                    var syncSettings = SyncSetting.read();
+                    this.httpService = new SyncbaseHttpService();
+                    this.httpService.setSyncSettings(syncSettings);
+                    this.httpService.setHostname(syncSettings.table_hostname);
+                    this.httpService.setController('table_orders');
+                    this.httpService.setForce(true);
+                }
+            }catch(e) {
+                this.log('error ' + e);
+            }
+
+            return this.httpService;
+        },
+
+        isRemoteService: function() {
+            return this.getHttpService().isRemoteService();
+        }
 
     };
 

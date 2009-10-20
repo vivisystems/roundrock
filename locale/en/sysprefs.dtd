@@ -17,7 +17,6 @@
 <!ENTITY general.clearcartafterfinalization "Clear register screen after order is finalized">
 <!ENTITY general.allowoverstock "Allow negative stock">
 <!ENTITY general.viewlocalordersonly "View orders from this terminal only">
-<!ENTITY general.searchorderbytableno "Search orders by table number">
 <!ENTITY general.collapsecondiments "Collapse condiments into a single line">
 <!ENTITY general.departmentpopstotop "Always return to top level departments">
 <!ENTITY general.idletime "System idle time (seconds)">
@@ -30,12 +29,12 @@
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">
-<!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
-<!ENTITY login.hidesaleperiod "Hide sale period">
+<!ENTITY login.allowquicklogin "Automatically match user by password when signing in">
+<!ENTITY login.disablesaleperiod "Disable sale period">
 <!ENTITY login.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY login.disableshiftchange "Disable shift change">
 <!ENTITY login.checksaleperiod "Check sale period on every order">
-<!ENTITY login.signoffwhenidle "Sign off when idle (queue and cart content will be discarded)">
+<!ENTITY login.signoffwhenidle "Sign off when idle">
 <!ENTITY login.storedorderwhenshiftchange "Stored order policy when changing shift">
 <!ENTITY login.storedorderwhenendperiod "Stored order policy when ending sale period">
 <!ENTITY login.storedorder.none "No action">
@@ -119,6 +118,7 @@
 <!ENTITY formats.sequence.date.format "Sequence date format">
 <!ENTITY formats.sequence.number.length "Sequence number length">
 <!ENTITY formats.revalue.none "none">
+<!ENTITY formats.revalue.round-to-nearest-factor "round to nearest factor">
 <!ENTITY formats.revalue.round-down-to-factor "round down to factor">
 <!ENTITY formats.revalue.round-up-to-factor "round up to factor">
 <!ENTITY formats.revalue.round-to-5-cents "round to 5 cents">
@@ -130,7 +130,6 @@
 <!ENTITY formats.revalue.policies "Revalue policy">
 <!ENTITY formats.charsetselector "Import/Export Charset">
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
-<!ENTITY orderdata.orderobjectretaindays "Number of days to retain order objects">
 <!ENTITY orderdata.keepeachtransaction "Keep the transaction object of every completed order?">
 <!ENTITY orderdata.diskunused "Available disk space">
 <!ENTITY orderdata.orderweeklypack "Pack order data on">

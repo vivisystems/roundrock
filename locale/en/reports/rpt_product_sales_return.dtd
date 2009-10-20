@@ -1,0 +1,27 @@
+<!ENTITY productSalesReturn.title "Product Sales Return">
+<!ENTITY productSalesReturn.conditions "Conditions:">
+<!ENTITY productSalesReturn.startdate "Start Date:">
+<!ENTITY productSalesReturn.enddate "End Date:">
+<!ENTITY productSalesReturn.execute "Execute">
+<!ENTITY productSalesReturn.exportpdf "Export to PDF">
+<!ENTITY productSalesReturn.exportcsv "Export to CSV">
+<!ENTITY productSalesReturn.exportrcp "Print">
+<!ENTITY productSalesReturn.print "Print">
+<!ENTITY productSalesReturn.togglezoom "Toggle Zoom">
+<!ENTITY productSalesReturn.terminal_no "Terminal:">
+<!ENTITY productSalesReturn.sortby "Sort By:">
+<!ENTITY productSalesReturn.sortby.product_no "Product Number">
+<!ENTITY productSalesReturn.sortby.product_name "Product Name">
+<!ENTITY productSalesReturn.sortby.avg_price "Average Price">
+<!ENTITY productSalesReturn.sortby.qty "Quantities Sold">
+<!ENTITY productSalesReturn.sortby.gross "Gross Sales">
+<!ENTITY productSalesReturn.sortby.net "Net Sales">
+<!ENTITY productSalesReturn.all "List All">
+<!ENTITY productSalesReturn.periodtype "Period Type:">
+<!ENTITY productSalesReturn.transaction_created "Order Opened">
+<!ENTITY productSalesReturn.transaction_submitted "Order Closed">
+<!ENTITY productSalesReturn.saleperiod "Sale Period">
+<!ENTITY productSalesReturn.shiftno "Shift:">
+<!ENTITY productSalesReturn.department "Department:">
+<!ENTITY productSalesReturn.show "Show">
+<!ENTITY productSalesReturn.hide "Hide">

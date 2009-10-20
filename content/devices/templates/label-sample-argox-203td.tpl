@@ -2,7 +2,7 @@
 total = 0;
 linkedItems = [];
 for (id in order.items) {
-    if (order.items[id].linked) {
+    if (order.items[id].linked && order.items[id].current_qty > 0) {
         var taglist = '';
         if (order.items[id].tags != null) {
             taglist = order.items[id].tags.join(',');

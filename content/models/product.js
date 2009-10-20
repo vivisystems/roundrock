@@ -23,7 +23,7 @@
 
             useDb = useDb || false;
 
-            var startTime = Date.now().getTime();
+            var startTime = (new Date()).getTime();
 
             var products = null;
 
@@ -37,7 +37,7 @@
                 //products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,display_mode,button_color,font_size,append_empty_btns FROM products ORDER BY cate_no, display_order, name, no ");
 
             }
-            //dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
+            //dump('find all product:  ' + ((new Date()).getTime() - startTime) + '\n');
 
             return products;
 
@@ -53,7 +53,7 @@
 
             var byId ={}, indexId={}, indexCate = {}, indexCateAll={}, indexLinkGroup = {}, indexLinkGroupAll={}, indexBarcode = {};
 
-            var startTime = Date.now().getTime();
+            var startTime = (new Date()).getTime();
 
             if (!products) return ;
 
@@ -141,7 +141,7 @@
             dump(this.dump(setitemPlusets));
             */
 
-            //dump('after product.forEach:  ' + (Date.now().getTime() - startTime) + '\n');
+            //dump('after product.forEach:  ' + ((new Date()).getTime() - startTime) + '\n');
 
             GeckoJS.Session.add('productsById', byId);
             GeckoJS.Session.add('productsIndexesById', indexId);

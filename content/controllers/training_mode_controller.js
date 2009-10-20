@@ -154,7 +154,6 @@
         start: function() {
             var isTraining = GeckoJS.Session.get( "isTraining" );
 	 		
-            var trainingModeController = GeckoJS.Controller.getInstanceByName( "TrainingMode" );
             var cart = GeckoJS.Controller.getInstanceByName( "Cart" );
             
             if ( isTraining ) {
@@ -171,6 +170,8 @@
                     GeckoJS.Session.set( "isTraining", 0 );
 	 				
                     GeckoJS.Observer.notify( null, "TrainingMode", "exit" );
+
+                    this.log('FATAL', 'Leaving training mode');
 
                     // enableSyncActive
                     this.enableSyncActive();
@@ -190,6 +191,8 @@
                     GeckoJS.Session.add( "isTraining", 1 );
 			 		
                     GeckoJS.Observer.notify( null, "TrainingMode", "start" );
+
+                    this.log('FATAL', 'Entering training mode');
 
                     this._origSyncActive = ( ( new SyncSetting() ).read() ).active;
                     

@@ -15,7 +15,7 @@
         
         initial: function() {
 
-            //dump('initial Stocks \n');
+            // dump('initial Stocks \n');
 
             var self = this;
             
@@ -31,8 +31,11 @@
                 }
 
                 if (this.StockRecord.lastStatus != 200) {
-                    this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
+                    this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.StockRecord.getHostname());
                 }
+            }else {
+                // synchronize mode
+                this.StockRecord.syncAllStockRecords();
             }
             
             this.backgroundSyncing = false;
@@ -77,6 +80,11 @@
 
             }
 
+            // get handle to Main controller
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('afterTruncateTxnRecords', this.removeRecoveryDecDatas, this);
+            }
         },
 
         destroy: function() {
@@ -163,7 +171,7 @@
         decStock: function( obj ) {
            
             var datas = [];
-            var now = Math.ceil(Date.now().getTime()/1000);
+            var now = Math.ceil((new Date()).getTime()/1000);
 
             try {
 
@@ -171,9 +179,12 @@
                     var ordItem = obj.items[ o ];
                     
                     var item = this.Product.getProductById(ordItem.id);
-                    if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
+                    if ( !ordItem.stock_maintained && item && item.auto_maintain_stock ) {
                         
-                        datas.push({id: item.no+'', quantity: ordItem.current_qty, modified: now});
+                        // if returning item, check if returns may be re-stocked
+                        if (ordItem.current_qty > 0 || item.return_stock) {
+                            datas.push({id: item.no+'', quantity: ordItem.current_qty, modified: now});
+                        }
 
                         // stock had maintained
                         ordItem.stock_maintained = true;
@@ -198,7 +209,7 @@
 
                     if (this.StockRecord.lastStatus != 200) {
 
-                        this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
+                        this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.StockRecordhostname);
 
                         this.saveRecoveryDecDatas(decDatas);
                         
@@ -292,8 +303,7 @@
             }
             GREUtils.Dialog.alert(win,
                 _('Stock Server Connection Error'),
-                _('Failed to connect to stock services (error code %S). Please check the network connectivity to the terminal designated as the stock server [message #1701].',[status])
-                    +'\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                _('Failed to connect to stock services (error code %S). Please check the network connectivity to the terminal designated as the stock server [message #1701].',[status]));
         }
 
     };

@@ -19,12 +19,24 @@
 
 .container-dialog .container-wait-panel {
     background: white;
-    height: 140px;
+    height: 120px;
     margin-left: 212px;
-    margin-top: 314px;
+    margin-top: 324px;
     max-height: 120px;
     max-width: 600px;
     min-height: 120px;
+    min-width: 600px;
+    width: 600px;
+}
+
+.container-dialog .container-interruptible-wait-panel {
+    background: white;
+    height: 160px;
+    margin-left: 212px;
+    margin-top: 304px;
+    max-height: 160px;
+    max-width: 600px;
+    min-height: 160px;
     min-width: 600px;
     width: 600px;
 }
