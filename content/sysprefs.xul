@@ -98,6 +98,16 @@
                         <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="10" max="999"/>
                     </vbox>
                 </row>
+                <row>
+                    <vbox>
+                        <label control="barcode_learning_plugroup" value="&general.barcodelearning;" />
+                        <menulist id="barcode_learning_plugroup" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.BarcodeLearningPLUGroup', this.value);">
+                            <menupopup id="barcode_learning_plugroup_menupopup">
+
+                            </menupopup>
+                        </menulist>
+                    </vbox>
+                </row>
             </rows>
         </grid>
     </prefpane>

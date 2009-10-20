@@ -1011,11 +1011,34 @@
                 product: null
             };
 
+            var barcodeLearning = GeckoJS.Configure.read('vivipos.fec.settings.BarcodeLearningPLUGroup') || 'none';
+
             if (!barcodesIndexes || !barcodesIndexes[barcode]) {
                 // barcode notfound
-                event.error = true;
+                var error = false;
 
-                NotifyUtils.warn(_('Product number/barcode [%S] not found', [barcode]));
+                if(barcodeLearning == 'none') {
+                    error = true;
+                } else {
+                    if(!this.dispatchEvent('beforeBarcodeLearning', event)) {
+                        error = true;
+                    } else {
+                        var id = barcodesIndexes[barcode];
+                        var product = this.Product.getProductById(id);
+                        if(product) {
+                            event.product = product;
+                        } else {
+                            event.error = true;
+                        }
+
+                    }
+                }
+
+                if(error) {
+                    event.error = true;
+
+                    NotifyUtils.warn(_('Product number/barcode [%S] not found', [barcode]));
+                }
             }else {
                 var id = barcodesIndexes[barcode];
                 var product = this.Product.getProductById(id);

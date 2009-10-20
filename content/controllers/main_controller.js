@@ -254,6 +254,38 @@
             GREUtils.File.remove(thumbFile);
         },
 
+        AdvancedControlPanelDialog: function() {
+            if (GeckoJS.Session.get( "isTraining" )) {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('Control Panel is disabled during training.'));
+                return;
+            }
+
+            // check for access privilege
+            if (!this.Acl.isUserInRole('acl_open_control_panel')) {
+                NotifyUtils.warn(_('You are not authorized to access the control panel'));
+                return;
+            }
+
+            var aURL = 'chrome://viviecr/content/controlPanel.xul';
+            var aName = _('Control Panel');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
+
+            if (this.doRestart) {
+                this.restart();
+            }
+
+            if (this.restartClock) {
+                try {
+                    $('#clock')[0].stopClock();
+                    $('#clock')[0].startClock();
+                }
+                catch(err) {
+                }
+            }
+
+        },
+
         ControlPanelDialog: function () {
             if (GeckoJS.Session.get( "isTraining" )) {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('Control Panel is disabled during training.'));
@@ -266,7 +298,7 @@
                 return;
             }
         		
-            var aURL = 'chrome://viviecr/content/controlPanel.xul';
+            var aURL = 'chrome://viviecr/content/basicControlPanel.xul';
             var aName = _('Control Panel');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
