@@ -67,4 +67,11 @@ Bug #100:
 
 Bug #101:
     Non-discountable/non-surchargeable checks should be done in cart, not in
-    transaction.
+    transaction
+
+Bug #103:
+    TruncateTxnRecords also delete tables, regions, and table settings
+
+Bug #104:
+    View Order screen shows Recall Order button when it should not
+
