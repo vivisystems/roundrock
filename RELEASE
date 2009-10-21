@@ -75,3 +75,11 @@ Bug #103:
 Bug #104:
     View Order screen shows Recall Order button when it should not
 
+Bug #108:
+    Need better network error handling when storing orders
+
+Bug #109:
+    Added missing functions and localizations to function customizer
+A
+A
+
