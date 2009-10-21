@@ -117,7 +117,8 @@
                     retObj = this.OrderItem.saveToBackup(this.OrderItem.mappingTranToOrderItemsFields(data));
                 }
                 if (!retObj) {
-                    throw 'OrderItem';
+                    throw 'OrderItem'
+;
                 }
                 this.OrderItem.renameBackupFileWithStatus(status);
 
@@ -296,6 +297,21 @@
         },
 
 
+        /**
+         * Restore order and orders from backup to REMOTE Services server
+         * 
+         * @return {Boolean} return true if success
+         */
+        hasBackupFile: function(status) {
+
+            status = status || false;
+            let content = this.getBackupContent(status);
+
+            // content maybe {} null object string
+            return (content.length > 2);
+
+        },
+                                        
         /**
          * read order from local databases or remote services
          * 
