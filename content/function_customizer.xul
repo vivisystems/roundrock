@@ -129,7 +129,7 @@
 
                                     <tabpanel flex="1" orient="vertical">
                                         <groupbox>
-                                            <caption label="Departments"/>
+                                            <caption label="&function_customizer.tabpanel.departments.label;"/>
                                             <checkbox id="appearDept" value="true" checked="true" hidden="true" form="productsForm" name="appearDept" />
                                             <checkbox id="appearDeptColor" value="true" label="&function_customizer.products.disable_color_picker;"
                                                       form="productsForm" name="appearDeptColor" default="false" />
@@ -139,7 +139,7 @@
                                         <spacer style="height: 10px;" />
 
                                         <groupbox>
-                                            <caption label="Products"/>
+                                            <caption label="&function_customizer.tabpanel.products.label;"/>
                                             <checkbox id="appearProduct" value="true" checked="true" hidden="true" form="productsForm" name="appearProduct" />
                                             <checkbox id="appearProductImage" value="true" label="&function_customizer.products.disable_image_picker;"
                                                       form="productsForm" name="appearProductImage" default="false" />
@@ -151,7 +151,7 @@
                                         <spacer style="height: 10px;" />
 
                                         <groupbox>
-                                            <caption label="Condiments"/>
+                                            <caption label="&function_customizer.tabpanel.condiments.label;"/>
                                             <checkbox id="appearCondment" value="true" checked="true" hidden="true" form="productsForm" name="appearCondment" />
                                             <checkbox id="appearCondmentColor" value="true" label="&function_customizer.products.disable_color_picker;"
                                                       form="productsForm" name="appearCondmentColor" default="false" />
@@ -161,7 +161,7 @@
                                         <spacer style="height: 10px;" />
 
                                         <groupbox>
-                                            <caption label="Product Groups"/>
+                                            <caption label="&function_customizer.tabpanel.product_groups.label;"/>
                                             <checkbox id="appearProdGroup" value="true" checked="true" hidden="true" form="productsForm" name="appearProdGroup" />
                                             <checkbox id="appearProdGroupColor" value="true" label="&function_customizer.products.disable_color_picker;"
                                                       form="productsForm" name="appearProdGroupColor" default="false" />
@@ -464,6 +464,8 @@
                                                       form="functionsForm" name="fnCreditcard" default="false" />
                                         <checkbox id="fnGiftcard" value="true" label="Disable Giftcard"
                                                       form="functionsForm" name="fnGiftcard" default="false" />
+                                        <checkbox id="fnCheck" value="true" label="Disable Check"
+                                                      form="functionsForm" name="fnCheck" default="false" />
                                         <checkbox id="fnAddcondiment" value="true" label="Disable Addcondiment"
                                                       form="functionsForm" name="fnAddcondiment" default="false" />
                                         <checkbox id="fnAddlinkedcondiment" value="true" label="Disable Addlinkedcondiment"
@@ -517,15 +519,15 @@
                                                       form="functionsForm" name="fnSurchargeByAmount" default="false" />
                                         <checkbox id="fnSurchargeByPercentage" value="true" label="Disable SurchargeByPercentage"
                                                       form="functionsForm" name="fnSurchargeByPercentage" default="false" />
+                                        <checkbox id="fnMassDiscountByPercentage" value="true" label="Disable massDiscountByPercentage"
+                                                      form="functionsForm" name="fnMassDiscountByPercentage" default="false" />
+                                        <checkbox id="fnMassSurchargeByPercentage" value="true" label="Disable massSurchargeByPercentage"
+                                                      form="functionsForm" name="fnMassSurchargeByPercentage" default="false" />
                                     </tabpanel>
                                     <!-- Price End -->
 
                                     <!-- Devices -->
                                     <tabpanel flex="1" orient="vertical">
-                                        <checkbox id="fnCheck" value="true" label="Disable Check"
-                                                      form="functionsForm" name="fnCheck" default="false" />
-                                        <checkbox id="fnCheckcopy" value="true" label="Disable Checkcopy"
-                                                      form="functionsForm" name="fnCheckcopy" default="false" />
                                         <checkbox id="fnOpendrawer1" value="true" label="Disable Opendrawer1"
                                                       form="functionsForm" name="fnOpendrawer1" default="false" />
                                         <checkbox id="fnOpendrawer2" value="true" label="Disable Opendrawer2"
@@ -534,8 +536,12 @@
                                                       form="functionsForm" name="fnPrintcheck" default="false" />
                                         <checkbox id="fnPrinterDashboard" value="true" label="Disable PrinterDashboard"
                                                       form="functionsForm" name="fnPrinterDashboard" default="false" />
+                                        <checkbox id="fnPrintdocument" value="true" label="Disable printdocument"
+                                                      form="functionsForm" name="fnPrintdocument" default="false" />
                                         <checkbox id="fnReceipt" value="true" label="Disable Receipt"
                                                       form="functionsForm" name="fnReceipt" default="false" />
+                                        <checkbox id="fnCheckcopy" value="true" label="Disable Checkcopy"
+                                                      form="functionsForm" name="fnCheckcopy" default="false" />
                                         <checkbox id="fnReceiptcopy" value="true" label="Disable Receiptcopy"
                                                       form="functionsForm" name="fnReceiptcopy" default="false" />
                                         <checkbox id="fnScale" value="true" label="Disable Scale"
@@ -557,6 +563,8 @@
                                                       form="functionsForm" name="fnPullqueue" default="false" />
                                         <checkbox id="fnPushqueue" value="true" label="Disable Pushqueue"
                                                       form="functionsForm" name="fnPushqueue" default="false" />
+                                        <checkbox id="fnStoreCheck" value="true" label="Disable StoreCheck"
+                                                      form="functionsForm" name="fnStoreCheck" default="false" />
                                         <checkbox id="fnRecallCheck" value="true" label="Disable RecallCheck"
                                                       form="functionsForm" name="fnRecallCheck" default="false" />
                                         <checkbox id="fnSplitCheck" value="true" label="Disable SplitCheck"
@@ -567,6 +575,10 @@
                                                       form="functionsForm" name="fnTruncatetxnrecords" default="false" />
                                         <checkbox id="fnSplitPayment" value="true" label="Disable SplitPayment"
                                                       form="functionsForm" name="fnSplitPayment" default="false" />
+                                        <checkbox id="fnVoidSale" value="true" label="Disable voidSale"
+                                                      form="functionsForm" name="fnVoidSale" default="false" />
+                                        <checkbox id="fnVieworders" value="true" label="Disable Vieworders"
+                                                      form="functionsForm" name="fnVieworders" default="false" />
                                     </tabpanel>
                                     <!-- Order End-->
 
@@ -594,16 +606,16 @@
                                                       form="functionsForm" name="fnSilentsignoff" default="false" />
                                         <checkbox id="fnStockAdjustment" value="true" label="Disable StockAdjustment"
                                                       form="functionsForm" name="fnStockAdjustment" default="false" />
-                                        <checkbox id="fnStoreCheck" value="true" label="Disable StoreCheck"
-                                                      form="functionsForm" name="fnStoreCheck" default="false" />
                                         <checkbox id="fnTogglevirtualkeyboard" value="true" label="Disable Togglevirtualkeyboard"
                                                       form="functionsForm" name="fnTogglevirtualkeyboard" default="false" />
                                         <checkbox id="fnTrainingMode" value="true" label="Disable TrainingMode"
                                                       form="functionsForm" name="fnTrainingMode" default="false" />
-                                        <checkbox id="fnVieworders" value="true" label="Disable Vieworders"
-                                                      form="functionsForm" name="fnVieworders" default="false" />
                                         <checkbox id="fnCurrencyConvert" value="true" label="Disable Currency Convert"
                                                       form="functionsForm" name="fnCurrencyConvert" default="false" />
+                                        <checkbox id="fnOpenreport" value="true" label="Disable Openreport"
+                                                      form="functionsForm" name="fnOpenreport" default="false" />
+                                        <checkbox id="fnScrollcart" value="true" label="Disable Scrollcart"
+                                                      form="functionsForm" name="fnScrollcart" default="false" />
                                     </tabpanel>
                                     <!-- Others End -->
 
@@ -655,13 +667,15 @@
                                         <checkbox id="serviceSyncSettingsAdvTab" value="true" label="&sync_settings.tablabel.advanced;"
                                                           form="systemsForm" name="serviceSyncSettingsAdvTab" default="false" />
                                         <checkbox id="serviceSyncSettingsTab" value="true" checked="true" hidden="true" form="systemsForm" name="serviceSyncSettingsTab" />
-                                        <checkbox id="serviceSyncSettingsSeq" value="true" label="&sync_settings.desc.sequence_hostname;"
+                                        <checkbox id="serviceSyncSettingsSeq" value="true" label="&sync_settings.label.sequence_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsSeq" default="false" />
-                                        <checkbox id="serviceSyncSettingsTable" value="true" label="&sync_settings.desc.table_hostname;"
+                                        <checkbox id="serviceSyncSettingsSalePeriod" value="true" label="&sync_settings.label.sale_period_hostname;"
+                                                          form="systemsForm" name="serviceSyncSettingsSalePeriod" default="false" />
+                                        <checkbox id="serviceSyncSettingsTable" value="true" label="&sync_settings.label.table_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsTable" default="false" />
-                                        <checkbox id="serviceSyncSettingsStock" value="true" label="&sync_settings.desc.stock_hostname;"
+                                        <checkbox id="serviceSyncSettingsStock" value="true" label="&sync_settings.label.stock_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsStock" default="false" />
-                                        <checkbox id="serviceSyncSettingsNtp" value="true" label="&sync_settings.desc.ntp_hostname;"
+                                        <checkbox id="serviceSyncSettingsNtp" value="true" label="&sync_settings.label.ntp_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsNtp" default="false" />
                                     </tabpanel>
 
@@ -699,6 +713,8 @@
                                                       form="reportsForm" name="rptPromotionsummary" default="false" />
                                         <checkbox id="rptSalessummary" value="true" label="Disable Sales Summary Report"
                                                       form="reportsForm" name="rptSalessummary" default="false" />
+                                        <checkbox id="rptProductSalesReturn" value="true" label="Disable Product Sales Return Report"
+                                                      form="reportsForm" name="rptProductSalesReturn" default="false" />
                                         <checkbox id="rptYourorder" value="true" label="Disable Custom Sales Report"
                                                       form="reportsForm" name="rptYourorder" default="false" />
                                     </tabpanel>
