@@ -586,9 +586,29 @@
             var curTransaction = cart._getTransaction();
 
             if (! cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                cart._clearAndSubtotal();
-                return false;
+
+                // check backupFile if need to resent to table service server.
+                var order = new OrderModel();
+                if (order && order.hasBackupFile(2)) {
+
+                    var result = order.restoreOrderFromBackupToRemote();
+                    if (!result) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation Error'),
+                            _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
+                        return false;
+                    }else {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation'),
+                            _('These stored orders has been committed to the table service server.'));
+                        this.onCartOnSubmitSuccess(null);
+                        return true;
+                    }
+                } else {    
+                    NotifyUtils.warn(_('Not an open order; unable to store'));
+                    cart._clearAndSubtotal();
+                    return false;
+                }
             }
 
             this.getKeypadController().clearBuffer();
