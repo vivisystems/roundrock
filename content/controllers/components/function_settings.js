@@ -255,7 +255,8 @@
                 'fnVoidSale': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.voidSale', acl:'acl_void_transactions', checkForAcl:'fnVoidSale'},
                 'fnSplitCheck': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.splitCheck', acl:'acl_split_check', checkForAcl:'fnSplitCheck,fnSplitPayment'},
                 'fnSplitPayment': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.splitPayment', acl:'acl_split_check', checkForAcl:'fnSplitPayment,fnSplitCheck'},
-                'fnOpenreport': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.openreport'}
+                'fnOpenreport': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.openreport'},
+                'fnScrollcart': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.scrollcart'}
             }
     };
 

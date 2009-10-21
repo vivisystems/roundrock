@@ -528,8 +528,6 @@
                                     <tabpanel flex="1" orient="vertical">
                                         <checkbox id="fnCheck" value="true" label="Disable Check"
                                                       form="functionsForm" name="fnCheck" default="false" />
-                                        <checkbox id="fnCheckcopy" value="true" label="Disable Checkcopy"
-                                                      form="functionsForm" name="fnCheckcopy" default="false" />
                                         <checkbox id="fnOpendrawer1" value="true" label="Disable Opendrawer1"
                                                       form="functionsForm" name="fnOpendrawer1" default="false" />
                                         <checkbox id="fnOpendrawer2" value="true" label="Disable Opendrawer2"
@@ -542,6 +540,8 @@
                                                       form="functionsForm" name="fnPrintdocument" default="false" />
                                         <checkbox id="fnReceipt" value="true" label="Disable Receipt"
                                                       form="functionsForm" name="fnReceipt" default="false" />
+                                        <checkbox id="fnCheckcopy" value="true" label="Disable Checkcopy"
+                                                      form="functionsForm" name="fnCheckcopy" default="false" />
                                         <checkbox id="fnReceiptcopy" value="true" label="Disable Receiptcopy"
                                                       form="functionsForm" name="fnReceiptcopy" default="false" />
                                         <checkbox id="fnScale" value="true" label="Disable Scale"
@@ -614,6 +614,8 @@
                                                       form="functionsForm" name="fnCurrencyConvert" default="false" />
                                         <checkbox id="fnOpenreport" value="true" label="Disable Openreport"
                                                       form="functionsForm" name="fnOpenreport" default="false" />
+                                        <checkbox id="fnScrollcart" value="true" label="Disable Scrollcart"
+                                                      form="functionsForm" name="fnScrollcart" default="false" />
                                     </tabpanel>
                                     <!-- Others End -->
 
