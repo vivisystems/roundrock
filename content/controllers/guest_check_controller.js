@@ -599,8 +599,9 @@
                     }else {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Data Operation'),
-                            _('These stored orders has been committed to the table service server.'));
+                            _('Previously uncommitted stored order(s) have now been committed to the table service server.'));
                         this.onCartOnSubmitSuccess(null);
+                        cart.dispatchEvent('onWarning', _('STORED'));
                         return true;
                     }
                 } else {    
