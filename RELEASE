@@ -80,6 +80,7 @@ Bug #108:
 
 Bug #109:
     Added missing functions and localizations to function customizer
-A
-A
+
+Bug #110
+    Virtual Keyboard grabs keyboard focus from user input fields when it pops up
 
