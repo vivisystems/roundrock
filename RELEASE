@@ -87,3 +87,6 @@ Bug #110
 Bug #112
     Need to block UI when triggering 'Toggle Active' action until the action has completed
 
+Bug #118
+    When order finalization fails on a payment, don't void the last payment entry if the order status is submitted
+
