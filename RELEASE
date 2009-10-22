@@ -84,3 +84,6 @@ Bug #109:
 Bug #110
     Virtual Keyboard grabs keyboard focus from user input fields when it pops up
 
+Bug #112
+    Need to block UI when triggering 'Toggle Active' action until the action has completed
+
