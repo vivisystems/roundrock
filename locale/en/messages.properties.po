@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-21 17:40+0800\n"
+"POT-Creation-Date: 2009-10-22 16:40+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5831,7 +5831,7 @@ msgstr ""
 #: ../..//content/controllers/plusearch_controller.js:165
 #: ../..//content/controllers/plusearch_controller.js:170
 #: ../..//content/controllers/stock_records_controller.js:124
-#: ../..//content/controllers/table_man_controller.js:773
+#: ../..//content/controllers/table_man_controller.js:770
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:72
 msgid "Product Search"
 msgstr ""
@@ -6643,7 +6643,7 @@ msgstr ""
 #: ../..//content/controllers/select_table_controller.js:199
 #: ../..//content/controllers/select_table_controller.js:927
 #: ../..//content/controllers/select_table_controller.js:970
-#: ../..//content/controllers/table_man_controller.js:746
+#: ../..//content/controllers/table_man_controller.js:743
 msgid "All Regions"
 msgstr ""
 
@@ -7688,122 +7688,122 @@ msgstr ""
 msgid "Table number [%S] has already been assigned"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:271
-#: ../..//content/controllers/table_man_controller.js:339
+#: ../..//content/controllers/table_man_controller.js:262
+#: ../..//content/controllers/table_man_controller.js:336
 msgid "Table [%S (%S)] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:293
+#: ../..//content/controllers/table_man_controller.js:284
 msgid "confirm delete table [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:294
+#: ../..//content/controllers/table_man_controller.js:285
 msgid "Are you sure you want to delete table [%S (%S)]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:307
+#: ../..//content/controllers/table_man_controller.js:301
 msgid "Table [%S (%S)] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:366
+#: ../..//content/controllers/table_man_controller.js:363
 msgid "Add Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:366
+#: ../..//content/controllers/table_man_controller.js:363
 msgid "New Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:366
+#: ../..//content/controllers/table_man_controller.js:363
 msgid "Region Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:394
+#: ../..//content/controllers/table_man_controller.js:391
 msgid "Region [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:398
+#: ../..//content/controllers/table_man_controller.js:395
 msgid "Region [%S] has already been assigned"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:438
+#: ../..//content/controllers/table_man_controller.js:435
 msgid "Region [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:461
+#: ../..//content/controllers/table_man_controller.js:458
 msgid "confirm delete region [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:462
+#: ../..//content/controllers/table_man_controller.js:459
 msgid "Are you sure you want to delete region [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:475
+#: ../..//content/controllers/table_man_controller.js:472
 msgid "Region [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:541
+#: ../..//content/controllers/table_man_controller.js:538
 msgid "Add New Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:542
+#: ../..//content/controllers/table_man_controller.js:539
 msgid "New Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:542
+#: ../..//content/controllers/table_man_controller.js:539
 msgid "Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:572
+#: ../..//content/controllers/table_man_controller.js:569
 msgid "Table status [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:576
+#: ../..//content/controllers/table_man_controller.js:573
 msgid "Table status [%S] already exists"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:619
+#: ../..//content/controllers/table_man_controller.js:616
 msgid "Table status [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:647
+#: ../..//content/controllers/table_man_controller.js:644
 msgid "confirm delete table status [%S]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:647
+#: ../..//content/controllers/table_man_controller.js:644
 msgid "Are you sure you want to delete table status [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:659
+#: ../..//content/controllers/table_man_controller.js:656
 msgid "Table status [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:858
+#: ../..//content/controllers/table_man_controller.js:855
 msgid "Options saved successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:865
+#: ../..//content/controllers/table_man_controller.js:862
 msgid "Clone Table Management Options"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:866
+#: ../..//content/controllers/table_man_controller.js:863
 msgid "Table management options will be cloned from the table status server."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:866
+#: ../..//content/controllers/table_man_controller.js:863
 msgid "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:914
+#: ../..//content/controllers/table_man_controller.js:911
 msgid ""
 "Modification of tables and regions requires system restart to take effect."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:915
+#: ../..//content/controllers/table_man_controller.js:912
 msgid ""
 "The system will restart automatically after you return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:916
+#: ../..//content/controllers/table_man_controller.js:913
 msgid "Table Manager"
 msgstr ""
 
