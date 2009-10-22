@@ -1399,7 +1399,13 @@
                     transaction.calcPromotions();
                     transaction.calcTotal();
                     transaction.setBackgroundMode(false);
-                    transaction.submit(2);
+                    transaction.data.recall = 2;
+
+                    if (transaction.data.items_count == 0) {
+                        transaction.submit(-3);
+                    }else {    
+                        transaction.submit(2);
+                    }
 
                     for(let i in result.split_datas) {
                         
@@ -1419,6 +1425,7 @@
                         sTrans.calcPromotions();
                         sTrans.calcTotal();
                         sTrans.setBackgroundMode(false);
+                        sTrans.data.recall = 2;
                         sTrans.submit(2);
                     }
 
