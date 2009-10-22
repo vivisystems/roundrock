@@ -602,7 +602,7 @@
                             _('Data Operation'),
                             _('Previously uncommitted stored order(s) have now been committed to the table service server.'));
                         this.onCartOnSubmitSuccess(null);
-                        cart.dispatchEvent('onWarning', _('STORED'));
+                        cart.dispatchEvent('onWarning', _('ORDER COMMITTED'));
                         return true;
                     }
                 } else {    
