@@ -42,6 +42,9 @@
                 cartQueue.addEventListener('onPullQueue', this.displayOnVFD, this);
             }
 
+            // add eventListener on VFD
+            this.addEventListener('onMessage', this.displayOnVFD, this);
+
             var self = this;
             this.observer = GeckoJS.Observer.newInstance({
                 topics: [ 'acl-session-change', 'TrainingMode' ],
@@ -212,6 +215,9 @@
                 case 'initial':
                     break;
 
+                case 'onMessage':
+                    item = {line1: evt.data[0] ||'', line2: evt.data[1] || ''};
+                    break;
                 default:
                     item = evt.data;
             }
