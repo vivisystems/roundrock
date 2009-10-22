@@ -1275,7 +1275,8 @@
                 transaction.calcPromotions();
                 transaction.calcTotal();
                 transaction.setBackgroundMode(false);
-                transaction.data.status = 2
+                transaction.data.recall = 2;
+                transaction.data.status = 2;
                 transaction.submit(2);
 
                 let inherited_order_id = targetData.inherited_order_id || '' ;
@@ -1288,6 +1289,7 @@
                 targetTransaction.calcPromotions();
                 targetTransaction.calcTotal();
                 targetTransaction.setBackgroundMode(false);
+                targetTransaction.data.recall = 2;
                 targetTransaction.data.status = -3;
                 targetTransaction.data.inherited_order_id = inherited_order_id;
                 targetTransaction.data.inherited_desc = inherited_desc;
@@ -1397,7 +1399,13 @@
                     transaction.calcPromotions();
                     transaction.calcTotal();
                     transaction.setBackgroundMode(false);
-                    transaction.submit(2);
+                    transaction.data.recall = 2;
+
+                    if (transaction.data.items_count == 0) {
+                        transaction.submit(-3);
+                    }else {    
+                        transaction.submit(2);
+                    }
 
                     for(let i in result.split_datas) {
                         
@@ -1417,6 +1425,7 @@
                         sTrans.calcPromotions();
                         sTrans.calcTotal();
                         sTrans.setBackgroundMode(false);
+                        sTrans.data.recall = 2;
                         sTrans.submit(2);
                     }
 
