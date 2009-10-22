@@ -35,6 +35,7 @@
                 main.addEventListener('afterTruncateTxnRecords', this.onMainTruncateTxnRecords, this);
             }
 
+            this.addEventListener('beforeStoreCheck', this.beforeStoreCheck, this);
 
             this.tableSettings = this.TableSetting.getTableSettings() || {};
 
@@ -574,6 +575,26 @@
 
         },
 
+    
+
+        /**
+         * beforeStoreCheck
+         */
+        beforeStoreCheck: function(evt) {
+
+            var curTransaction = evt.data;
+            var isCheckGuestNum = (this.tableSettings.RequestGuestNumWhenStored && this.tableSettings.RequireGuestNum && curTransaction.data.destination == this.tableSettings.RequireGuestNum);
+
+            let guest = curTransaction.data.no_of_customers || 0;
+            guest = parseInt(guest);
+
+            if (isCheckGuestNum && guest <= 0) {
+                this.guestNum(-1);
+            }
+
+            return true;
+        },
+        
 
         /**
          * store current transaciton and close transaction.
@@ -614,8 +635,10 @@
                 return false;
             }
 
+            var beforeStoreCheck = this.dispatchEvent('beforeStoreCheck', curTransaction);
+
             // save order
-            if  (cart.submit(2)) {
+            if  (beforeStoreCheck && cart.submit(2)) {
 
                 // backward compatible
                 cart.dispatchEvent('onStore', curTransaction);
@@ -624,8 +647,10 @@
 
                 NotifyUtils.warn(_('This order has been stored!!'));
 
-                cart._getCartlist().refresh();
+                this.dispatchEvent('afterStoreCheck', curTransaction);
 
+                cart._getCartlist().refresh();
+                
                 return true;
 
             }
@@ -935,12 +960,13 @@
             
             if (evt.data.status != 1) return ;
             
-            // let destination = getXXXX;
-            var isCheckTableNo = true;
-            var isCheckGuestNum = true;
             var curTransaction = evt.data.txn;
 
-            if (isCheckTableNo && this.tableSettings.RequireTableNo && !curTransaction.data.table_no) {
+            // let destination = getXXXX;
+            var isCheckTableNo = (this.tableSettings.RequireTableNo && curTransaction.data.destination == this.tableSettings.RequireTableNo);
+            var isCheckGuestNum = (this.tableSettings.RequireGuestNum && curTransaction.data.destination == this.tableSettings.RequireGuestNum);
+
+            if (isCheckTableNo && !curTransaction.data.table_no) {
                 
                 let tableResult = this.newTable('', true);
 
@@ -950,7 +976,7 @@
             let guest = curTransaction.data.no_of_customers || 0;
             guest = parseInt(guest);
             
-            if (isCheckGuestNum && this.tableSettings.RequireGuestNum && guest <= 0) {
+            if (isCheckGuestNum && guest <= 0) {
                 this.guestNum(-1);
             }
                 

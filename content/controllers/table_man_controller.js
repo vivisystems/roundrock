@@ -715,15 +715,23 @@
             if (destinations != null) destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
 
             var destinationObj = document.getElementById('table_destination');
+            var tablenoDestinationObj = document.getElementById('tableno_destination');
+            var guestnumDestinationObj = document.getElementById('guestnum_destination');
 
             destinationObj.removeAllItems();
+            tablenoDestinationObj.removeAllItems();
+            guestnumDestinationObj.removeAllItems();
 
             // append default empty
             destinationObj.appendItem('','');
+            tablenoDestinationObj.appendItem('', 0);
+            guestnumDestinationObj.appendItem('', 0);
 
             destinations.forEach(function(data){
                 var defaultMark = (data.name == defaultDestination) ? '* ' : '';
                 destinationObj.appendItem(defaultMark+data.name, data.name);
+                tablenoDestinationObj.appendItem(defaultMark+data.name, data.name);
+                guestnumDestinationObj.appendItem(defaultMark+data.name, data.name);
             });
 
         },
