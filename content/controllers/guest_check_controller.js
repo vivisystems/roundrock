@@ -1275,8 +1275,8 @@
                 transaction.calcPromotions();
                 transaction.calcTotal();
                 transaction.setBackgroundMode(false);
-                transaction.data.recall = 2
-                transaction.data.status = 2
+                transaction.data.recall = 2;
+                transaction.data.status = 2;
                 transaction.submit(2);
 
                 let inherited_order_id = targetData.inherited_order_id || '' ;
