@@ -1275,6 +1275,7 @@
                 transaction.calcPromotions();
                 transaction.calcTotal();
                 transaction.setBackgroundMode(false);
+                transaction.data.recall = 2
                 transaction.data.status = 2
                 transaction.submit(2);
 
@@ -1288,6 +1289,7 @@
                 targetTransaction.calcPromotions();
                 targetTransaction.calcTotal();
                 targetTransaction.setBackgroundMode(false);
+                targetTransaction.data.recall = 2;
                 targetTransaction.data.status = -3;
                 targetTransaction.data.inherited_order_id = inherited_order_id;
                 targetTransaction.data.inherited_desc = inherited_desc;
