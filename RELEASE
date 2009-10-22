@@ -1,0 +1,7 @@
+1.2.0.1:
+    
+    Fixed Bug#86:
+        Table mark period 0 is infinited.
+
+    Fixed Bug#99:
+        SQLITE3 DBO Driver don't auto convert '' to 0 if column type is INTEGER.
