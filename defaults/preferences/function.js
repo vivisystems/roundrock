@@ -238,7 +238,7 @@ pref("vivipos.fec.registry.function.programmable.printcheck.command", "issueChec
 pref("vivipos.fec.registry.function.programmable.printcheck.controller", "Print");
 pref("vivipos.fec.registry.function.programmable.printcheck.data", "");
 
-pref("vivipos.fec.registry.function.programmable.printdocument.access", "acl_issue_check");
+pref("vivipos.fec.registry.function.programmable.printdocument.access", "acl_print_document");
 pref("vivipos.fec.registry.function.programmable.printdocument.command", "printDocument");
 pref("vivipos.fec.registry.function.programmable.printdocument.controller", "Print");
 pref("vivipos.fec.registry.function.programmable.printdocument.data", "");
