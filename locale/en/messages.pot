@@ -2109,6 +2109,10 @@ msgstr "Split Payment"
 
 msgid "acl_view_all_queues"
 msgstr "View All Queues"
+
+msgid "acl_print_document"
+msgstr "Print Document"
+
 ########################################################################
 #
 # List of Ports

@@ -93,3 +93,6 @@ Bug #118
 Bug #119
     Added ACL for Product Returns report; renamed Product Sales Return to Product Returns
 
+Bug #120
+    Print Document should use ACL of its own
+
