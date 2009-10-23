@@ -90,3 +90,6 @@ Bug #112
 Bug #118
     When order finalization fails on a payment, don't void the last payment entry if the order status is submitted
 
+Bug #119
+    Added ACL for Product Returns report; renamed Product Sales Return to Product Returns
+

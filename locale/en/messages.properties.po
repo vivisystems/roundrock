@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-22 16:40+0800\n"
+"POT-Creation-Date: 2009-10-23 16:45+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,9 +196,6 @@ msgstr "Disconnected"
 # List of Reports
 #
 # #######################################################################
-msgid "vivipos.fec.reportpanels.productSalesReturn.label"
-msgstr "Product Sales Return"
-
 msgid "vivipos.fec.reportpanels.attendancerecord.label"
 msgstr "Attendance Record"
 
@@ -265,6 +262,9 @@ msgstr "Stock Adjustments"
 msgid "vivipos.fec.reportpanels.purchasehistory.label"
 msgstr "Purchase History"
 
+msgid "vivipos.fec.reportpanels.productsalesreturn.label"
+msgstr "Product Returns"
+
 # #######################################################################
 #
 # List of Reports ACLs
@@ -315,8 +315,8 @@ msgstr "Report - Product List"
 msgid "acl_report_productsales"
 msgstr "Report - Product Sales"
 
-msgid "acl_report_productSalesReturn"
-msgstr "Report - Product Sales Return"
+msgid "acl_report_productsalesreturn"
+msgstr "Report - Product Returns"
 
 msgid "acl_report_promotionsummary"
 msgstr "Report - Promotion Summary"
@@ -3952,8 +3952,8 @@ msgstr ""
 #: ../..//content/controllers/changeuser_controller.js:122
 #: ../..//content/controllers/clockinout_controller.js:300
 #: ../..//content/controllers/guest_check_controller.js:597
-#: ../..//content/controllers/guest_check_controller.js:1320
-#: ../..//content/controllers/guest_check_controller.js:1447
+#: ../..//content/controllers/guest_check_controller.js:1322
+#: ../..//content/controllers/guest_check_controller.js:1456
 #: ../..//content/controllers/ledger_controller.js:312
 #: ../..//content/controllers/list_orders_controller.js:219
 #: ../..//content/controllers/main_controller.js:1021
@@ -4866,7 +4866,7 @@ msgid "Select Table Number"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:276
-#: ../..//content/controllers/guest_check_controller.js:1423
+#: ../..//content/controllers/guest_check_controller.js:1431
 msgid "Split Check"
 msgstr ""
 
@@ -4886,7 +4886,7 @@ msgid "Please use transfer table to update table no"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:444
-#: ../..//content/controllers/guest_check_controller.js:1519
+#: ../..//content/controllers/guest_check_controller.js:1528
 msgid ""
 "[%S] is an invalid table number. Table number must be defined through table "
 "manager; Please input another table number."
@@ -4897,8 +4897,8 @@ msgid "Split Payment"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:598
-#: ../..//content/controllers/guest_check_controller.js:1321
-#: ../..//content/controllers/guest_check_controller.js:1448
+#: ../..//content/controllers/guest_check_controller.js:1323
+#: ../..//content/controllers/guest_check_controller.js:1457
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #105]."
@@ -4915,8 +4915,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:605
-#: ../..//content/controllers/guest_check_controller.js:649
-msgid "STORED"
+msgid "ORDER COMMITTED"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:609
@@ -4937,6 +4936,10 @@ msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:638
 msgid "No change to store"
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:649
+msgid "STORED"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:651
@@ -5020,32 +5023,32 @@ msgstr ""
 msgid "This order has discounts or surcharge, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1294
+#: ../..//content/controllers/guest_check_controller.js:1295
 #: ../..//content/controllers/select_table_controller.js:495
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1334
+#: ../..//content/controllers/guest_check_controller.js:1336
 msgid "Check# %S has been successfully merged to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1376
+#: ../..//content/controllers/guest_check_controller.js:1378
 msgid "This order not stored order, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1380
+#: ../..//content/controllers/guest_check_controller.js:1382
 msgid "This order has been payment, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1384
+#: ../..//content/controllers/guest_check_controller.js:1386
 msgid "This order has discounts or surcharge, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1462
+#: ../..//content/controllers/guest_check_controller.js:1471
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1539
+#: ../..//content/controllers/guest_check_controller.js:1548
 msgid "Table Initialization"
 msgstr ""
 
