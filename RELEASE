@@ -99,3 +99,6 @@ Bug #120
 Bug #132
     Custom Sales Report is broken
 
+Bug #134
+    Shift change end time shown as 1970/01/01 08:00
+

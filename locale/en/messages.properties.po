@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-23 17:49+0800\n"
+"POT-Creation-Date: 2009-10-26 19:51+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2933,8 +2933,8 @@ msgstr ""
 #: ../..//content/prompt_doshiftchangeblindly.js:126
 #: ../..//content/prompt_doshiftchangeblindly.js:131
 #: ../..//content/controllers/shift_changes_controller.js:39
-#: ../..//content/controllers/shift_changes_controller.js:609
-#: ../..//content/controllers/shift_changes_controller.js:1098
+#: ../..//content/controllers/shift_changes_controller.js:611
+#: ../..//content/controllers/shift_changes_controller.js:1100
 msgid "Shift Change"
 msgstr ""
 
@@ -3963,7 +3963,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:1358
 #: ../..//content/controllers/print_controller.js:1196
 #: ../..//content/controllers/setup_wizard_controller.js:700
-#: ../..//content/controllers/shift_changes_controller.js:1536
+#: ../..//content/controllers/shift_changes_controller.js:1538
 #: ../..//content/controllers/stock_records_controller.js:730
 #: ../..//content/controllers/view_order_controller.js:206
 #: ../..//content/controllers/components/cart_utils.js:48
@@ -3998,7 +3998,7 @@ msgid "Total discount [%S] may not exceed user order discount limit [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3329
-#: ../..//content/controllers/shift_changes_controller.js:614
+#: ../..//content/controllers/shift_changes_controller.js:616
 msgid "Saving Order"
 msgstr ""
 
@@ -5490,7 +5490,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:1359
 #: ../..//content/controllers/setup_wizard_controller.js:701
 #: ../..//content/controllers/shift_changes_controller.js:41
-#: ../..//content/controllers/shift_changes_controller.js:1537
+#: ../..//content/controllers/shift_changes_controller.js:1539
 #: ../..//content/controllers/stock_records_controller.js:731
 #: ../..//content/controllers/view_order_controller.js:207
 #: ../..//content/controllers/components/cart_utils.js:49
@@ -7005,174 +7005,174 @@ msgstr ""
 msgid "Please report the discrepancy to your supervisor immediately!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:594
+#: ../..//content/controllers/shift_changes_controller.js:596
 msgid "Drawer Change Error"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:610
+#: ../..//content/controllers/shift_changes_controller.js:612
 msgid "Shift change is disabled in training mode"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:660
+#: ../..//content/controllers/shift_changes_controller.js:662
 msgid ""
 "An error was encountered while retrieving credit card and coupon payment "
 "records (error code %S) [message #1410]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:688
+#: ../..//content/controllers/shift_changes_controller.js:690
 msgid ""
 "An error was encountered while retrieving giftcard payment records (error "
 "code %S) [message #1411]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:715
+#: ../..//content/controllers/shift_changes_controller.js:717
 msgid ""
 "An error was encountered while retrieving check payment records (error code %"
 "S) [message #1412]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:741
+#: ../..//content/controllers/shift_changes_controller.js:743
 msgid ""
 "An error was encountered while retrieving cash payment records (error code %"
 "S) [message #1413]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:767
+#: ../..//content/controllers/shift_changes_controller.js:769
 msgid ""
 "An error was encountered while retrieving value-fixed cash payment records "
 "(error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:796
+#: ../..//content/controllers/shift_changes_controller.js:798
 msgid ""
 "An error was encountered while retrieving foreign cash payment records "
 "(error code %S) [message #1415]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:822
+#: ../..//content/controllers/shift_changes_controller.js:824
 msgid ""
 "An error was encountered while retrieving ledger payment records (error code "
 "%S) [message #1416]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:850
+#: ../..//content/controllers/shift_changes_controller.js:852
 msgid ""
 "An error was encountered while retrieving orders by destinations (error code "
 "%S) [message #1417]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:871
+#: ../..//content/controllers/shift_changes_controller.js:873
 msgid ""
 "An error was encountered while computing cash and ledger sums (error code %"
 "S) [message #1418]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:889
+#: ../..//content/controllers/shift_changes_controller.js:891
 msgid ""
 "An error was encountered while computing amount of cash change given out "
 "(error code %S) [message #1419]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:909
+#: ../..//content/controllers/shift_changes_controller.js:911
 msgid ""
 "An error was encountered while computing total payments received (error code "
 "%S) [message #1420]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:927
+#: ../..//content/controllers/shift_changes_controller.js:929
 msgid ""
 "An error was encountered while computing depoits received (error code %S) "
 "[message #1421]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:946
+#: ../..//content/controllers/shift_changes_controller.js:948
 msgid ""
 "An error was encountered while computing refunds given out (error code %S) "
 "[message #1422]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:964
+#: ../..//content/controllers/shift_changes_controller.js:966
 msgid ""
 "An error was encountered while computing sales revenue (error code %S) "
 "[message #1423]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:982
+#: ../..//content/controllers/shift_changes_controller.js:984
 msgid ""
 "An error was encountered while computing total sales payments received "
 "(error code %S) [message #1427]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1002
+#: ../..//content/controllers/shift_changes_controller.js:1004
 msgid ""
 "An error was encountered while computing ledger cash received (error code %"
 "S) [message #1424]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1021
+#: ../..//content/controllers/shift_changes_controller.js:1023
 msgid ""
 "An error was encountered while computing ledger cash paid (error code %S) "
 "[message #1425]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1039
+#: ../..//content/controllers/shift_changes_controller.js:1041
 msgid ""
 "An error was encountered while computing excess giftcard payments (error "
 "code %S) [message #1426]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1057
+#: ../..//content/controllers/shift_changes_controller.js:1059
 msgid ""
 "An error was encountered while retrieving order records (error code %S) "
 "[message #1428]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1128
+#: ../..//content/controllers/shift_changes_controller.js:1130
 msgid "Invalid cash drawer change amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1132
+#: ../..//content/controllers/shift_changes_controller.js:1134
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1209
+#: ../..//content/controllers/shift_changes_controller.js:1211
 msgid ""
 "An error was encountered while saving shift change record; shift may not "
 "have been closed properly [message #1427].."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1243
+#: ../..//content/controllers/shift_changes_controller.js:1245
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1244
+#: ../..//content/controllers/shift_changes_controller.js:1246
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1270
+#: ../..//content/controllers/shift_changes_controller.js:1272
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1271
+#: ../..//content/controllers/shift_changes_controller.js:1273
 msgid "Shift Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1279
+#: ../..//content/controllers/shift_changes_controller.js:1281
 msgid "Are you sure you want to print shift report?"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1294
+#: ../..//content/controllers/shift_changes_controller.js:1296
 msgid "Are you sure you want to print daily sales report?"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1431
-#: ../..//content/controllers/shift_changes_controller.js:1437
-#: ../..//content/controllers/shift_changes_controller.js:1474
-#: ../..//content/controllers/shift_changes_controller.js:1499
+#: ../..//content/controllers/shift_changes_controller.js:1433
+#: ../..//content/controllers/shift_changes_controller.js:1439
+#: ../..//content/controllers/shift_changes_controller.js:1476
+#: ../..//content/controllers/shift_changes_controller.js:1501
 msgid "Shift Error"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1432
+#: ../..//content/controllers/shift_changes_controller.js:1434
 msgid ""
 "Failed to verify current sale period. Please check the network connectivity "
 "to the terminal designated as the sale period master. You are strongly "
@@ -7180,38 +7180,38 @@ msgid ""
 "this terminal [message #1435]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1438
+#: ../..//content/controllers/shift_changes_controller.js:1440
 msgid ""
 "Failed to verify current sale period because cluster sale period has not yet "
 "been set. Please verify that the terminal designated as the sale period "
 "master has properly initialized the sale period [message #1436]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1458
+#: ../..//content/controllers/shift_changes_controller.js:1460
 msgid ""
 "Sale period has been changed from [%S] to [%S]. Order sequence number "
 "updated to [%S]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1475
+#: ../..//content/controllers/shift_changes_controller.js:1477
 msgid ""
 "Failed to verify current sale period due to errors when retrieving shift "
 "information. You are strongly advised to resolve this issue before executing "
 "any further transactions on this terminal [#1437]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1482
+#: ../..//content/controllers/shift_changes_controller.js:1484
 msgid "Shift Warning"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1483
+#: ../..//content/controllers/shift_changes_controller.js:1485
 msgid ""
 "This terminal's sale period [%S (%S)] appears to be out of sync with the "
 "cluster sale period [%S (%S)]. Please close the sale period on this terminal "
 "immediately to avoid recording transactions in the wrong sale period [#1438]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1500
+#: ../..//content/controllers/shift_changes_controller.js:1502
 msgid ""
 "A valid sale period has not been set for this terminal. Please resolve this "
 "issue before executing any further transactions on this terminal."
