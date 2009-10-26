@@ -136,8 +136,5 @@ pref("vivipos.fec.acl.roles.acl_report_run_yourorder", "acl_report_run_yourorder
 pref("vivipos.fec.acl.roles.acl_report_yourorder", "acl_report_yourorder");
 pref("vivipos.fec.acl.roles.acl_view_system_log", "acl_view_system_log");
 pref("vivipos.fec.acl.roles.acl_view_all_queues", "acl_view_all_queues");
-<<<<<<< HEAD:defaults/preferences/acl.js
 pref("vivipos.fec.acl.roles.acl_report_productsalesreturn", "acl_report_productsalesreturn");
-=======
 pref("vivipos.fec.acl.roles.acl_print_document", "acl_print_document");
->>>>>>> bug#120:defaults/preferences/acl.js
