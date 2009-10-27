@@ -1319,12 +1319,20 @@
                 }
                 this._sortedDevicemodels['receipt'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
+                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
                     devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                     devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+
+                    if (devicemodelName == selectedDevices['receipt-1-devicemodel']) {
+                        devicemodelmenu1.selectedIndex = i;
+                    }
+
+                    if (devicemodelName == selectedDevices['receipt-2-devicemodel']) {
+                        devicemodelmenu2.selectedIndex = i;
+                    }
                 }
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
 
                 /* populate encodings */
 
@@ -1430,14 +1438,30 @@
                 }
                 this._sortedDevicemodels['check'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
+                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = devicemodelmenu3.selectedIndex = devicemodelmenu4.selectedIndex = 0;
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
                     devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                     devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                     devicemodelmenu3.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                     devicemodelmenu4.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+
+                    if (devicemodelName == selectedDevices['check-1-devicemodel']) {
+                        devicemodelmenu1.selectedIndex = i;
+                    }
+
+                    if (devicemodelName == selectedDevices['check-2-devicemodel']) {
+                        devicemodelmenu2.selectedIndex = i;
+                    }
+
+                    if (devicemodelName == selectedDevices['check-3-devicemodel']) {
+                        devicemodelmenu3.selectedIndex = i;
+                    }
+
+                    if (devicemodelName == selectedDevices['check-4-devicemodel']) {
+                        devicemodelmenu4.selectedIndex = i;
+                    }
                 }
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = devicemodelmenu3.selectedIndex = devicemodelmenu4.selectedIndex = 0;
 
                 /* populate encodings */
 
@@ -1521,12 +1545,20 @@
                 }
                 this._sortedDevicemodels['report'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
+                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
                     devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                     devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+
+                    if (devicemodelName == selectedDevices['report-1-devicemodel']) {
+                        devicemodelmenu1.selectedIndex = i;
+                    }
+
+                    if (devicemodelName == selectedDevices['report-2-devicemodel']) {
+                        devicemodelmenu2.selectedIndex = i;
+                    }
                 }
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
 
                 /* populate encodings */
 
@@ -1618,12 +1650,20 @@
                 }
                 this._sortedDevicemodels['vfd'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
+                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
                     devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                     devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+
+                    if (devicemodelName == selectedDevices['vfd-1-devicemodel']) {
+                        devicemodelmenu1.selectedIndex = i;
+                    }
+
+                    if (devicemodelName == selectedDevices['vfd-2-devicemodel']) {
+                        devicemodelmenu2.selectedIndex = i;
+                    }
                 }
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
 
                 /* populate encodings */
 
@@ -1724,16 +1764,6 @@
                 tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = 0;
             }
 
-            /* apply device selections */
-            GeckoJS.FormHelper.unserializeFromObject('deviceForm', selectedDevices);
-
-            if (document.getElementById('cashdrawer-1-panel') != null) {
-                this.updateCashdrawerType([document.getElementById('cashdrawer-1-type'), '1']);
-            }
-            if (document.getElementById('cashdrawer-2-panel') != null) {
-                this.updateCashdrawerType([document.getElementById('cashdrawer-2-type'), '2']);
-            }
-
             /*
              * populate Scale panel
              *
@@ -1800,6 +1830,8 @@
             if (document.getElementById('cashdrawer-2-panel') != null) {
                 this.updateCashdrawerType([document.getElementById('cashdrawer-2-type'), '2']);
             }
+
+            /* update encoding menus */
         },
 
         populateEncodings: function (menulist, devicemodel) {
