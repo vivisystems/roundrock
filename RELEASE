@@ -102,6 +102,9 @@ Bug #132
 Bug #134
     Shift change start time shown as 1970/01/01 08:00
 
+Bug #138
+    Need to prevent unauthorized users from editing function customization settings directly
+
 Bug #139
     Device encoding selections are not correctly restored in the device configuration control panel
 
