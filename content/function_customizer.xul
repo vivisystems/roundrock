@@ -780,5 +780,8 @@
   <!-- include startup script -->
     <script type="application/x-javascript" src="chrome://viviecr/content/function_customizer.js" />
 
+    <script type="application/x-javascript" src="chrome://viviecr/content/libs/base2-jsb-fp.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/libs/Packer.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/libs/Words.js" />
 
 </window>
