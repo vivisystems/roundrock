@@ -107,3 +107,7 @@ Bug #139
 
 Bug #140
     Changing cash drawer 2 type selection in the device configuration control panel has no effect
+
+Bug #141
+    Cart warning text and number of items not cleared when instantiating new transaction
+
