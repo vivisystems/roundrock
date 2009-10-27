@@ -100,7 +100,7 @@ Bug #132
     Custom Sales Report is broken
 
 Bug #134
-    Shift change end time shown as 1970/01/01 08:00
+    Shift change start time shown as 1970/01/01 08:00
 
 Bug #139
     Device encoding selections are not correctly restored in the device configuration control panel
