@@ -1358,6 +1358,8 @@
             GeckoJS.Session.remove('cart_set_qty_value');
             GeckoJS.Session.remove('cart_set_qty_unit');
 
+            this.clearWarning();
+            
             this.subtotal();
         },
 
