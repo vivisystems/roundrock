@@ -54,6 +54,7 @@
             <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool"/>
             <preference id="pref_quietcancel" name="vivipos.fec.settings.quietcancel" type="bool"/>
             <preference id="pref_autosetdecimalpoint" name="vivipos.fec.settings.AutoSetDecimalPoint" type="bool"/>
+            <preference id="pref_disableautofinalize" name="vivipos.fec.settings.DisableAutoFinalize" type="bool"/>
         </preferences>
 
         <grid class="data-form data-form-options">
@@ -87,6 +88,7 @@
                 </row>
                 <row>
                     <checkbox preference="pref_viewlocalordersonly" id="pref_viewlocalordersonlyCtrl" label="&general.viewlocalordersonly;"/>
+                    <checkbox preference="pref_disableautofinalize" id="pref_disableautofinalizeCtrl" label="&general.disableautofinalize;"/>
                 </row>
                 <row>
                     <vbox>

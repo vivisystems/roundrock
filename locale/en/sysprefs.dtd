@@ -22,6 +22,7 @@
 <!ENTITY general.idletime "System idle time (seconds)">
 <!ENTITY general.ageverificationack "Require clerk acknowledgement for age verification">
 <!ENTITY general.autosetdecimalpoint "Adjust for decimal point automatically">
+<!ENTITY general.disableautofinalize "Disable auto-finalization on payment">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
 <!ENTITY general.ifprintwhiletraining "Print receipt and check while training?">
 <!ENTITY general.quietcancel "Do not beep when cancelling orders">
