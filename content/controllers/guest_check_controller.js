@@ -220,9 +220,26 @@
             var dialog_data = [
             inputObj
             ];
+            
             var self = this;
+            var cart = this.getCartController();
 
             try {
+
+                // check has opened order before popup
+                if (cart.ifHavingOpenedOrder() ) {
+                    // check txn is modified ?
+                    var txn = cart._getTransaction();
+                    if (txn && txn.isModified()) {
+                        NotifyUtils.warn(_('Please close the current order before returning to the table selection screen'));
+                        cart._clearAndSubtotal();
+                        return false;
+                    }else {
+                        // force cancel if order not modified.
+                        cart.cancel(true);
+                    }
+                }
+
                 var r = $.popupPanel('selectTablePanel', dialog_data);
             } catch (e) {}
 
@@ -390,20 +407,6 @@
 
             if (no.length == 0) {
                 if (!useNumberPad) {
-
-                    // check has opened order before popup
-                    if (cart.ifHavingOpenedOrder() ) {
-                        // check txn is modified ?
-                        var txn = cart._getTransaction();
-                        if (txn && txn.isModified()) {
-                            NotifyUtils.warn(_('Please close the current order before returning to the table selection screen'));
-                            cart._clearAndSubtotal();
-                            return false;
-                        }else {
-                            // force cancel if order not modified.
-                            cart.cancel(true);
-                        }
-                    }
 
                     // popup panel and return
                     return this.popupTableSelectorPanel();
