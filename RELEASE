@@ -1,3 +1,4 @@
+---------------
 Release 1.2.0.2
 ---------------
 
@@ -5,6 +6,22 @@ This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
 
 Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
 
+
+----------
+Known bugs
+----------
+
+Bug #155:
+    Hotkeys without modifiers intercepted by input line
+
+Bug #156:
+    Recalling order into cart can be time-consuming, may need to block UI to force user to wait until order has been fully recalled into the shopping cart
+
+Bug #159:
+    Application may wait indefinitely if connection to printer is lost while printing
+
+
+----------
 Bugs fixed
 ----------
 
@@ -131,3 +148,7 @@ Bug #153:
 
 Bug #157:
     Sample Kitchen 42c expanded template feeds paper even when there's nothing to print
+
+Bug #158:
+    Failed to handle remote sequence number assignment error, allowing orders without valid sequence numbers to be stored or finalized
+
