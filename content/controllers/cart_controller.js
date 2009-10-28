@@ -2653,7 +2653,7 @@
                     if (payment - balance > limit) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Check Payment Error'),
-                            _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                            _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(payment - balance), curTransaction.formatPrice(limit)]));
 
                         this._clearAndSubtotal();
                         return;
