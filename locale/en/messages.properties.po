@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-29 00:35+0800\n"
+"POT-Creation-Date: 2009-10-29 00:47+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3826,7 +3826,7 @@ msgid "Check Payment Error"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2668
-msgid "Check Cashing limit of [%S] exceeded"
+msgid "Cashing check for [%S] will exceed your limit of [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2720
