@@ -11,6 +11,8 @@
 
         name: 'StockRecords',
 
+        components: ['CartUtils'],
+        
         uses: ['Product', 'StockRecord'],
 
         _listObj: null,
@@ -82,6 +84,7 @@
                 stock.product_no = stock.no;
                 stock.product_name = stock.name;
                 stock.product_barcode = stock.barcode;
+                stock.real_sale_unit = stock.sale_unit;
                 stock.sale_unit = saleUnitCache[stock.sale_unit] || (saleUnitCache[stock.sale_unit] = _('(saleunit)' + stock.sale_unit));
             }, this);
             
@@ -255,6 +258,7 @@
                     case 'other':
                         document.getElementById('qtytype').value = _('(inventory)+/-');
                         document.getElementById('new_qty').setAttribute('name', 'delta');
+                        document.getElementById('new_qty').setAttribute('min', '-Infinity');
                         break;
                 }
                 
@@ -431,6 +435,13 @@
                 if (this._adjustmentReason == 'waste') {
                     document.getElementById('new_qty').value = 0 - item.delta;
                 }
+                if (item.real_sale_unit == 'unit') {
+                    document.getElementById('new_qty').setAttribute('decimalplaces', '0');
+                }
+                else {
+                    document.getElementById('new_qty').setAttribute('decimalplaces', 'Infinity');
+                }
+
             }
 
             this.validateForm();
@@ -466,7 +477,7 @@
                 if (priceObj) priceObj.setAttribute('disabled', true);
             }
         },
-        
+
         reset: function() {
             if (!GREUtils.Dialog.confirm(this.topmostWindow, _('Stock Control'), _('Are you sure you want to reset stock for all the products?')))
                 return;
