@@ -114,3 +114,9 @@ Bug #140
 Bug #141
     Cart warning text and number of items not cleared when instantiating new transaction
 
+Bug #142
+    Item Subtotal and Add-on Taxes not properly formatted when viewing an open check
+
+Bug #145
+    Promotion Multi-Buy type Value parameter always rounded to Integer
+
