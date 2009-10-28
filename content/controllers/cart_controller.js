@@ -319,6 +319,9 @@
 
             this._setTransactionToView(curTransaction);
 
+            // clear warning
+            this.clearWarning();
+            
             // check pricelevel schedule
             this.requestCommand('schedule', null, 'Pricelevel');
 
@@ -1360,8 +1363,6 @@
             GeckoJS.Session.remove('cart_set_qty_value');
             GeckoJS.Session.remove('cart_set_qty_unit');
 
-            this.clearWarning();
-            
             this.subtotal();
         },
 
