@@ -415,7 +415,7 @@
             let paymentList = txn.getPaymentsInBatch();
 
             if (paymentList.length > 0) {
-                this._openDrawer(drawerNo, eventType, paymentList, txn.data.seq, '', txn.data.order_id);
+                this._openDrawer(drawerNo, eventType, paymentList, txn.data.seq, '', txn.data.id);
             }
         },
 
