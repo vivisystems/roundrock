@@ -1,6 +1,9 @@
 (function() {
     // for using the checkMedia method.
     include('chrome://viviecr/content/reports/controllers/components/check_media.js');
+
+    // for using the isBuiltInSaleUnit method.
+    include('chrome://viviecr/content/controllers/components/cart_utils.js');
     
     // including models.
     include("chrome://viviecr/content/models/stock_record.js");
@@ -85,7 +88,9 @@
                 stock.product_name = stock.name;
                 stock.product_barcode = stock.barcode;
                 stock.real_sale_unit = stock.sale_unit;
-                stock.sale_unit = saleUnitCache[stock.sale_unit] || (saleUnitCache[stock.sale_unit] = _('(saleunit)' + stock.sale_unit));
+
+                stock.sale_unit = saleUnitCache[stock.sale_unit] ||
+                                 (saleUnitCache[stock.sale_unit] = (this.CartUtils.isBuiltInSaleUnit(stock.sale_unit) ? _('(saleunit)' + stock.sale_unit) : stock.sale_unit));
             }, this);
             
             // make progressbar move
