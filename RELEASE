@@ -118,5 +118,5 @@ Bug #142
     Item Subtotal and Add-on Taxes not properly formatted when viewing an open check
 
 Bug #145
-    Promotion Multi-Buy type Value parameter always rounded to Integer
+    Promotion Multi-Buy type Value parameter always rounded to Integer; promotion triggers do not always pass matched items with the lowest prices to type
 

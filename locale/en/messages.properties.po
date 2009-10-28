@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-27 18:55+0800\n"
+"POT-Creation-Date: 2009-10-28 15:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5664,16 +5664,14 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:86
-#: ../..//content/tpl/order_display_template.orig.tpl:78
-#: ../..//content/tpl/order_display_template.tpl:52
+#: ../..//content/tpl/order_display_template.tpl:58
 #: ../..//content/tpl/order_template.tpl:43
 #: ../..//content/tpl/order_template_80mm.tpl:21
 msgid "(view)submitted"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:87
-#: ../..//content/tpl/order_display_template.orig.tpl:47
-#: ../..//content/tpl/order_display_template.tpl:21
+#: ../..//content/tpl/order_display_template.tpl:27
 #: ../..//content/tpl/order_template.tpl:12
 #: ../..//content/tpl/order_template_58mm.tpl:14
 #: ../..//content/tpl/order_template_80mm.tpl:12
@@ -5681,8 +5679,7 @@ msgid "(view)order sequence"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:88
-#: ../..//content/tpl/order_display_template.orig.tpl:49
-#: ../..//content/tpl/order_display_template.tpl:23
+#: ../..//content/tpl/order_display_template.tpl:29
 #: ../..//content/tpl/order_template.tpl:14
 #: ../..//content/tpl/order_template_58mm.tpl:15
 #: ../..//content/tpl/order_template_80mm.tpl:14
@@ -5702,8 +5699,7 @@ msgid "(view)items"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:94
-#: ../..//content/tpl/order_display_template.orig.tpl:57
-#: ../..//content/tpl/order_display_template.tpl:31
+#: ../..//content/tpl/order_display_template.tpl:37
 #: ../..//content/tpl/order_template.tpl:22
 #: ../..//content/tpl/order_template_58mm.tpl:12
 #: ../..//content/tpl/order_template_80mm.tpl:13
@@ -5711,8 +5707,7 @@ msgid "(view)branch"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:94
-#: ../..//content/tpl/order_display_template.orig.tpl:55
-#: ../..//content/tpl/order_display_template.tpl:29
+#: ../..//content/tpl/order_display_template.tpl:35
 #: ../..//content/tpl/order_template.tpl:20
 #: ../..//content/tpl/order_template_58mm.tpl:16
 #: ../..//content/tpl/order_template_80mm.tpl:15
@@ -10515,217 +10510,155 @@ msgid "(rpt)Access Group"
 msgstr ""
 
 #: ../..//content/tpl/journal_template.tpl:4
-#: ../..//content/tpl/order_display_template.orig.tpl:264
 #: ../..//content/tpl/order_template.tpl:273
 msgid "Order sequence [%S] does not exist"
 msgstr ""
 
 #: ../..//content/tpl/journal_template.tpl:6
-#: ../..//content/tpl/order_display_template.orig.tpl:266
 #: ../..//content/tpl/order_template.tpl:275
 msgid "Unable to display order; no order sequence given"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:17
-msgid "(view)completed"
-msgstr ""
-
-#: ../..//content/tpl/order_display_template.orig.tpl:21
-msgid "(view)stored"
-msgstr ""
-
-#: ../..//content/tpl/order_display_template.orig.tpl:25
-msgid "(view)cancelled"
-msgstr ""
-
-#: ../..//content/tpl/order_display_template.orig.tpl:29
-#: ../..//content/tpl/order_template.tpl:51
-#: ../..//content/tpl/order_template_80mm.tpl:24
-msgid "(view)voided"
-msgstr ""
-
-#: ../..//content/tpl/order_display_template.orig.tpl:51
-#: ../..//content/tpl/order_display_template.tpl:25
+#: ../..//content/tpl/order_display_template.tpl:31
 #: ../..//content/tpl/order_template.tpl:16
 #: ../..//content/tpl/order_template_58mm.tpl:44
 #: ../..//content/tpl/order_template_80mm.tpl:38
 msgid "(view)order destination"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:62
-#: ../..//content/tpl/order_display_template.tpl:36
+#: ../..//content/tpl/order_display_template.tpl:42
 #: ../..//content/tpl/order_template.tpl:27
 #: ../..//content/tpl/order_template_58mm.tpl:17
 #: ../..//content/tpl/order_template_80mm.tpl:16
 msgid "(view)sale period"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:64
-#: ../..//content/tpl/order_display_template.tpl:38
+#: ../..//content/tpl/order_display_template.tpl:44
 #: ../..//content/tpl/order_template.tpl:29
 #: ../..//content/tpl/order_template_58mm.tpl:18
 #: ../..//content/tpl/order_template_80mm.tpl:17
 msgid "(view)shift number"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:69
-#: ../..//content/tpl/order_display_template.tpl:43
+#: ../..//content/tpl/order_display_template.tpl:49
 #: ../..//content/tpl/order_template.tpl:34
 #: ../..//content/tpl/order_template_58mm.tpl:19
 #: ../..//content/tpl/order_template_80mm.tpl:18
 msgid "(view)service clerk"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:71
-#: ../..//content/tpl/order_display_template.tpl:45
+#: ../..//content/tpl/order_display_template.tpl:51
 #: ../..//content/tpl/order_template.tpl:36
 #: ../..//content/tpl/order_template_80mm.tpl:19
 msgid "(view)opened"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:76
-#: ../..//content/tpl/order_display_template.tpl:50
+#: ../..//content/tpl/order_display_template.tpl:56
 #: ../..//content/tpl/order_template.tpl:41
 #: ../..//content/tpl/order_template_58mm.tpl:22
 #: ../..//content/tpl/order_template_80mm.tpl:20
 msgid "(view)proceeds clerk"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:84
-#: ../..//content/tpl/order_display_template.tpl:58
+#: ../..//content/tpl/order_display_template.tpl:64
 #: ../..//content/tpl/order_template.tpl:65
 #: ../..//content/tpl/order_template_80mm.tpl:33
 msgid "(view)customer"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:86
-#: ../..//content/tpl/order_display_template.tpl:60
+#: ../..//content/tpl/order_display_template.tpl:66
 #: ../..//content/tpl/order_template.tpl:67
 #: ../..//content/tpl/order_template_58mm.tpl:36
 #: ../..//content/tpl/order_template_80mm.tpl:32
 msgid "(view)customer id"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:88
-#: ../..//content/tpl/order_display_template.tpl:62
+#: ../..//content/tpl/order_display_template.tpl:68
 #: ../..//content/tpl/order_template.tpl:69
 #: ../..//content/tpl/order_template_80mm.tpl:34
 msgid "(view)contact"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:93
-#: ../..//content/tpl/order_display_template.tpl:67
+#: ../..//content/tpl/order_display_template.tpl:73
 #: ../..//content/tpl/order_template.tpl:74
 #: ../..//content/tpl/order_template_58mm.tpl:42
 #: ../..//content/tpl/order_template_80mm.tpl:37
 msgid "(view)check #"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:95
-#: ../..//content/tpl/order_display_template.tpl:69
+#: ../..//content/tpl/order_display_template.tpl:75
 #: ../..//content/tpl/order_template.tpl:76
 #: ../..//content/tpl/order_template_58mm.tpl:43
 #: ../..//content/tpl/order_template_80mm.tpl:37
 msgid "(view)table #"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:97
-#: ../..//content/tpl/order_display_template.tpl:71
+#: ../..//content/tpl/order_display_template.tpl:77
 msgid "(view)customers"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:107
-#: ../..//content/tpl/order_display_template.tpl:83
+#: ../..//content/tpl/order_display_template.tpl:89
 msgid "(view)Item"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:109
-#: ../..//content/tpl/order_display_template.tpl:85
+#: ../..//content/tpl/order_display_template.tpl:91
 msgid "(view)Qty"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:111
-#: ../..//content/tpl/order_display_template.tpl:87
+#: ../..//content/tpl/order_display_template.tpl:92
+msgid "(view)Subtotal"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:93
 msgid "(view)Price"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:112
-#: ../..//content/tpl/order_display_template.tpl:88
+#: ../..//content/tpl/order_display_template.tpl:94
 msgid "(view)Tax"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:177
-#: ../..//content/tpl/order_display_template.tpl:109
+#: ../..//content/tpl/order_display_template.tpl:115
 #: ../..//content/tpl/order_template.tpl:146
 #: ../..//content/tpl/order_template_58mm.tpl:84
 #: ../..//content/tpl/order_template_80mm.tpl:74
 msgid "(view)Item Subtotal"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:183
-#: ../..//content/tpl/order_template.tpl:155
-#: ../..//content/tpl/order_template_58mm.tpl:87
-#: ../..//content/tpl/order_template_80mm.tpl:77
-msgid "(view)Item Adjustments"
+#: ../..//content/tpl/order_display_template.tpl:121
+msgid "(view)Discount"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:202
 #: ../..//content/tpl/order_display_template.tpl:128
+msgid "(view)Surcharge"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:134
 #: ../..//content/tpl/order_template.tpl:183
 #: ../..//content/tpl/order_template_58mm.tpl:100
 #: ../..//content/tpl/order_template_80mm.tpl:90
 msgid "(view)Add-on Taxes"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:213
-#: ../..//content/tpl/order_template.tpl:202
-#: ../..//content/tpl/order_template_58mm.tpl:107
-#: ../..//content/tpl/order_template_80mm.tpl:97
-msgid "(view)Promotions"
+#: ../..//content/tpl/order_display_template.tpl:139
+msgid "(view)Promotion"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:219
-#: ../..//content/tpl/order_display_template.tpl:141
+#: ../..//content/tpl/order_display_template.tpl:147
 #: ../..//content/tpl/order_template.tpl:212
 #: ../..//content/tpl/order_template_58mm.tpl:111
 #: ../..//content/tpl/order_template_80mm.tpl:101
 msgid "(view)Revalue"
 msgstr ""
 
-#: ../..//content/tpl/order_display_template.orig.tpl:224
-#: ../..//content/tpl/order_template.tpl:218
-#: ../..//content/tpl/order_template_58mm.tpl:114
-#: ../..//content/tpl/order_template_80mm.tpl:104
-msgid "(view)Total"
-msgstr ""
-
-#: ../..//content/tpl/order_display_template.orig.tpl:242
-#: ../..//content/tpl/order_template.tpl:244
-#: ../..//content/tpl/order_template_58mm.tpl:129
-#: ../..//content/tpl/order_template_80mm.tpl:114
-msgid "(view)Payment Subtotal"
-msgstr ""
-
-#: ../..//content/tpl/order_display_template.tpl:86
-msgid "(view)Subtotal"
-msgstr ""
-
-#: ../..//content/tpl/order_display_template.tpl:115
-msgid "(view)Discount"
-msgstr ""
-
-#: ../..//content/tpl/order_display_template.tpl:122
-msgid "(view)Surcharge"
-msgstr ""
-
-#: ../..//content/tpl/order_display_template.tpl:133
-msgid "(view)Promotion"
-msgstr ""
-
 #: ../..//content/tpl/order_template.tpl:49
 #: ../..//content/tpl/order_template_58mm.tpl:26
 #: ../..//content/tpl/order_template_80mm.tpl:23
 msgid "(view)void clerk"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:51
+#: ../..//content/tpl/order_template_80mm.tpl:24
+msgid "(view)voided"
 msgstr ""
 
 #: ../..//content/tpl/order_template.tpl:56
@@ -10750,6 +10683,30 @@ msgstr ""
 #: ../..//content/tpl/order_template_58mm.tpl:45
 #: ../..//content/tpl/order_template_80mm.tpl:38
 msgid "(view)no_of_customers"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:155
+#: ../..//content/tpl/order_template_58mm.tpl:87
+#: ../..//content/tpl/order_template_80mm.tpl:77
+msgid "(view)Item Adjustments"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:202
+#: ../..//content/tpl/order_template_58mm.tpl:107
+#: ../..//content/tpl/order_template_80mm.tpl:97
+msgid "(view)Promotions"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:218
+#: ../..//content/tpl/order_template_58mm.tpl:114
+#: ../..//content/tpl/order_template_80mm.tpl:104
+msgid "(view)Total"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:244
+#: ../..//content/tpl/order_template_58mm.tpl:129
+#: ../..//content/tpl/order_template_80mm.tpl:114
+msgid "(view)Payment Subtotal"
 msgstr ""
 
 #: ../..//content/tpl/order_template.tpl:253
