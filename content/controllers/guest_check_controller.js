@@ -221,9 +221,26 @@
             var dialog_data = [
             inputObj
             ];
+            
             var self = this;
+            var cart = this.getCartController();
 
             try {
+
+                // check has opened order before popup
+                if (cart.ifHavingOpenedOrder() ) {
+                    // check txn is modified ?
+                    var txn = cart._getTransaction();
+                    if (txn && txn.isModified()) {
+                        NotifyUtils.warn(_('Please close the current order before returning to the table selection screen'));
+                        cart._clearAndSubtotal();
+                        return false;
+                    }else {
+                        // force cancel if order not modified.
+                        cart.cancel(true);
+                    }
+                }
+
                 var r = $.popupPanel('selectTablePanel', dialog_data);
             } catch (e) {}
 
@@ -391,8 +408,10 @@
 
             if (no.length == 0) {
                 if (!useNumberPad) {
+
                     // popup panel and return
                     return this.popupTableSelectorPanel();
+                    
                 }else {
                     // use callback to select table.
                     no = this.openTableNumDialog() ;
@@ -417,7 +436,7 @@
                 }
                 
                 if (curTransaction.getTableNo() != '' && curTransaction.data.recall == 2) {
-                    NotifyUtils.warn(_('Please use transfer table to update table no'));
+                    NotifyUtils.warn(_('Please use transfer table to update table number'));
                     cart._clearAndSubtotal();
                     return false;
                 }
