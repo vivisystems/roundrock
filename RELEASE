@@ -81,42 +81,48 @@ Bug #108:
 Bug #109:
     Added missing functions and localizations to function customizer
 
-Bug #110
+Bug #110:
     Virtual Keyboard grabs keyboard focus from user input fields when it pops up
 
-Bug #112
+Bug #112:
     Need to block UI when triggering 'Toggle Active' action until the action has completed
 
-Bug #118
+Bug #118:
     When order finalization fails on a payment, don't void the last payment entry if the order status is submitted
 
-Bug #119
+Bug #119:
     Added ACL for Product Returns report; renamed Product Sales Return to Product Returns
 
-Bug #120
+Bug #120:
     Print Document should use ACL of its own
 
-Bug #132
+Bug #132:
     Custom Sales Report is broken
 
-Bug #134
+Bug #134:
     Shift change start time shown as 1970/01/01 08:00
 
-Bug #138
+Bug #138:
     Need to prevent unauthorized users from editing function customization settings directly
 
-Bug #139
+Bug #139:
     Device encoding selections are not correctly restored in the device configuration control panel
 
-Bug #140
+Bug #140:
     Changing cash drawer 2 type selection in the device configuration control panel has no effect
 
-Bug #141
+Bug #141:
     Cart warning text and number of items not cleared when instantiating new transaction
 
-Bug #142
+Bug #142:
     Item Subtotal and Add-on Taxes not properly formatted when viewing an open check
 
-Bug #145
+Bug #145:
     Promotion Multi-Buy type Value parameter always rounded to Integer; promotion triggers do not always pass matched items with the lowest prices to type
+
+Bug #147:
+    When an open order exists in the cart, if the user returns to the table selection screen, transfers the order to another table, exits to the main screen, and finalizes the order, that order will get stuck in the table status server with no opportunity to clear it
+
+Bug #148:
+    Table Selection screen should always pop up on cance even if order is already closed
 
