@@ -390,8 +390,24 @@
 
             if (no.length == 0) {
                 if (!useNumberPad) {
+
+                    // check has opened order before popup
+                    if (cart.ifHavingOpenedOrder() ) {
+                        // check txn is modified ?
+                        var txn = cart._getTransaction();
+                        if (txn && txn.isModified()) {
+                            NotifyUtils.warn(_('Please close the current order before recalling an existing order'));
+                            cart._clearAndSubtotal();
+                            return false;
+                        }else {
+                            // force cancel if order not modified.
+                            cart.cancel(true);
+                        }
+                    }
+
                     // popup panel and return
                     return this.popupTableSelectorPanel();
+                    
                 }else {
                     // use callback to select table.
                     no = this.openTableNumDialog() ;
