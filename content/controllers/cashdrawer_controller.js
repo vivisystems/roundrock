@@ -203,7 +203,7 @@
 
                     for (let i = 0; i < paymentType.length; i++) {
                         let payment = paymentType[i];
-                        if ((drawer[payment.name + 'action'] == 'always') || (drawer[payment.name + 'action'] == 'finalization')) {
+                        if (drawer[payment.name + 'action'] == 'finalization') {
                             drawerActionNeeded = true;
                             sum += parseFloat(payment.amount);
                         }
