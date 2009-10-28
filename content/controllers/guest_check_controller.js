@@ -396,7 +396,7 @@
                         // check txn is modified ?
                         var txn = cart._getTransaction();
                         if (txn && txn.isModified()) {
-                            NotifyUtils.warn(_('Please close the current order before recalling an existing order'));
+                            NotifyUtils.warn(_('Please close the current order before returning to the table selection screen'));
                             cart._clearAndSubtotal();
                             return false;
                         }else {
@@ -432,7 +432,7 @@
                 }
                 
                 if (curTransaction.getTableNo() != '' && curTransaction.data.recall == 2) {
-                    NotifyUtils.warn(_('Please use transfer table to update table no'));
+                    NotifyUtils.warn(_('Please use transfer table to update table number'));
                     cart._clearAndSubtotal();
                     return false;
                 }
