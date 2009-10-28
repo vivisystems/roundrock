@@ -126,5 +126,8 @@ Bug #147:
 Bug #148:
     Table Selection screen should always pop up on cance even if order is already closed
 
-Bug #153
+Bug #153:
     When stock adjustment type is 'other', quantity cannot be set to a negative value
+
+Bug #157:
+    Sample Kitchen 42c expanded template feeds paper even when there's nothing to print
