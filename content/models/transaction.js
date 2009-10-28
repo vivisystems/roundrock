@@ -750,7 +750,7 @@
                         itemDisplay.current_qty += 'X';
                     }
                     else {
-                        itemDisplay.current_qty += ' ' + item.sale_unit;
+                        itemDisplay.current_qty += item.sale_unit;
                     }
                 }
             }

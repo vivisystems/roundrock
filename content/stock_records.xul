@@ -102,9 +102,9 @@
                             <row>
                                 <vbox>
                                     <label id="qtytype" value="" control="newquantity"/>
-                                    <vivitextbox id="new_qty" value="" maxsize="6" type="number"
+                                    <vivitextbox id="new_qty" value="" maxsize="6" type="number" decimalplaces="0" min="0" max="Infinity"
                                                  numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                                 oninput="$do('validateForm', null, 'StockRecords')" onfocus="select()"
+                                                 onfocus="select()"
                                                  form="productForm" name="new_quantity"/>
                                 </vbox>
                                 <vbox id="price_container" hidden="true">
