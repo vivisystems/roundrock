@@ -3160,7 +3160,7 @@
 
                 this.clear();
 
-                this.dispatchEvent('onCancelSuccess', nul);
+                this.dispatchEvent('onCancelSuccess', null);
 
                 // let dispatcher don't auto dispatch onCancel
                 this.dispatchedEvents['onCancel'] = true;
@@ -3178,7 +3178,7 @@
                 }catch(e) {
                 }
 
-                this.dispatchEvent('onCancelSuccess', nul);
+                this.dispatchEvent('onCancelSuccess', null);
 
                 // prevent onCancel event dispatch
                 this.dispatchedEvents['onCancel'] = true;
