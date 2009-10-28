@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-28 23:03+0800\n"
+"POT-Creation-Date: 2009-10-28 23:14+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3222,6 +3222,7 @@ msgstr ""
 #: ../..//content/controllers/aclgroups_controller.js:235
 #: ../..//content/controllers/aclgroups_controller.js:251
 #: ../..//content/controllers/annotation_controller.js:505
+#: ../..//content/controllers/annotation_controller.js:525
 #: ../..//content/controllers/condiments_controller.js:159
 #: ../..//content/controllers/condiments_controller.js:180
 #: ../..//content/controllers/condiments_controller.js:240
@@ -3331,12 +3332,6 @@ msgstr ""
 msgid ""
 "You have made changes to the current annotation code. Save changes before "
 "exiting?"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:525
-#: ../..//content/controllers/main_controller.js:859
-#: ../..//content/controllers/main_controller.js:889
-msgid "Discard"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:166
@@ -5933,6 +5928,11 @@ msgstr ""
 
 #: ../..//content/controllers/main_controller.js:859
 msgid "Queue"
+msgstr ""
+
+#: ../..//content/controllers/main_controller.js:859
+#: ../..//content/controllers/main_controller.js:889
+msgid "Discard"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:871
