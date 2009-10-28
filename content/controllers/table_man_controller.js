@@ -259,7 +259,7 @@
 
                         this._needRestart = true;
 
-                        OsdUtils.info(_('Table [%S (%S)] modified successfully', [table_no, table_name]));
+                        OsdUtils.info(_('Table [%S (%S)] modified successfully', [table.table_no, table.table_name]));
                     }
                 }
             } finally {
