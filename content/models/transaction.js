@@ -319,7 +319,7 @@
                 let seqData = self.buildOrderSequence(order_no);
                 self.data.seq_original = order_no;
                 self.data.seq_sp = seqData[0];
-                self.data_seq = seqData[1];
+                self.data.seq = seqData[1];
                 
                 if(!self.backgroundMode) GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
             }
