@@ -3199,8 +3199,6 @@
                 }catch(e) {
                 }
 
-                this.dispatchEvent('onCancelSuccess', null);
-
                 // prevent onCancel event dispatch
                 this.dispatchedEvents['onCancel'] = true;
                 this._lastCancelInvoke = now;

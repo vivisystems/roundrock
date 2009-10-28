@@ -1113,7 +1113,7 @@
             let transaction = evt.data;
 
             // recall order, release lock
-            if (transaction.data.recall == 2) {
+            if (transaction && transaction.data.recall == 2) {
                 let orderId = transaction.data.id;
 
                 let result = this.Order.releaseOrderLock(orderId);
