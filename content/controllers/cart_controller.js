@@ -2389,13 +2389,6 @@
 
             }
             else {
-                if (balance <= 0) {
-                    NotifyUtils.warn(_('No payments accepted when balance due is zero or negative'));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-
                 // if payment is still undefined, set it to current balance
                 if (payment == null || payment == 0 || isNaN(payment)) {
                     payment = balance;
@@ -2405,7 +2398,7 @@
             let self = this;
             switch(type) {
                 case 'creditcard':
-                    if (payment > balance) {
+                    if (!this._returnMode && payment > balance) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Credit Card Payment Error'),
                             _('Credit card payment may not exceed remaining balance'));
@@ -2471,7 +2464,7 @@
                     break;
 
                 case 'giftcard':
-                    if (payment > balance) {
+                    if (!this._returnMode && payment > balance) {
                         if (GREUtils.Dialog.confirm(this.topmostWindow,
                             _('confirm giftcard payment'),
                             _('Change of [%S] will NOT be given for this type of payment. Proceed?',
@@ -2514,7 +2507,7 @@
                     break;
 
                 case 'check':
-                    if (payment > balance) {
+                    if (!this._returnMode && payment > balance) {
 
                         // check user's check cashing limit
                         let user = GeckoJS.Session.get('user');
@@ -2739,11 +2732,10 @@
                 return;
             }
 
-            var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
-
             if (returnMode) {
                 // payment refund
-                var err = false;
+                let paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
+                let err = false;
                 if (paymentsTypes.length == 0) {
                     NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
                     err = true;
@@ -2778,7 +2770,6 @@
             }
             if (!allMarked) {
                 this.addMarker('total');
-            //this._getCartlist().refresh();
             }
 
             type = type || 'cash';
@@ -2817,8 +2808,6 @@
                 }
 
                 this.dispatchEvent('afterAddPayment', paymentTxnItem);
-
-                this._getCartlist().refresh();
             }
             
             let noAutoFinalize = GeckoJS.Configure.read('vivipos.fec.settings.DisableAutoFinalize') || false;
@@ -3478,7 +3467,7 @@
 
         /*
          * cash accepts up to 3 parameters:
-         *
+         *a
          * - amount
          * - finalize
          * - groupable
