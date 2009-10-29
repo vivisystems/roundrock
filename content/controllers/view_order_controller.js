@@ -16,6 +16,7 @@
         _orders: [],
         _index: -1,
         _locked: false,
+        _recall: false,
 
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
@@ -28,8 +29,9 @@
             this._orders = inputObj.orders;
             this._index = inputObj.position;
 
+            this._recall = ('recall' in inputObj);
             let recall = document.getElementById('recall');
-            if (recall) recall.hidden = !('recall' in inputObj);
+            if (recall) recall.hidden = !this._recall;
 
             this.displayOrder(this._orders[this._index].id);
         },
@@ -190,7 +192,7 @@
                 }
             }
 
-            if (order.status == 1 || order.status == 2) {
+            if (this._recall && (order.status == 1 || order.status == 2)) {
                 recallbtn.setAttribute('hidden', false);
             }
             else {

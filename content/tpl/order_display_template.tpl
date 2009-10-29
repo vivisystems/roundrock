@@ -11,6 +11,12 @@
   id = table_order.id;
   order = OrdersById[id].Order;
   transaction = OrdersById[id].TransactionData;
+  
+  TrimPath.RoundingPrices = order.rounding_prices;
+  TrimPath.PrecisionPrices = order.precision_prices;
+  TrimPath.RoundingTaxes = order.rounding_taxes;
+  TrimPath.PrecisionTaxes = order.precision_taxes;
+
 {/eval}
 <html:div class="paper">
 
@@ -107,39 +113,39 @@
             <html:tfoot>
     <html:tr>
         <html:td colspan="4" style="text-align: left;">${_('(view)Item Subtotal')}</html:td>
-        <html:td style="width: 100px; text-align: right;">${transaction.item_subtotal}</html:td>
+        <html:td style="width: 100px; text-align: right;">${transaction.item_subtotal|viviFormatPrices:true}</html:td>
         <html:td></html:td>
     </html:tr>
 {if transaction.discount_subtotal != 0}
     <html:tr>
         <html:td style="text-align: left;">${_('(view)Discount')}</html:td>
         <html:td style="text-align: right;"></html:td>
-        <html:td colspan="3" style="text-align: right;">${transaction.discount_subtotal}</html:td>
+        <html:td colspan="3" style="text-align: right;">${transaction.discount_subtotal|viviFormatPrices:true}</html:td>
     </html:tr>
 {/if}
 {if transaction.surcharge_subtotal != 0}
     <html:tr>
         <html:td style="text-align: left;">${_('(view)Surcharge')}</html:td>
         <html:td style="text-align: right;"></html:td>
-        <html:td colspan="3" style="text-align: right;">${transaction.surcharge_subtotal}</html:td>
+        <html:td colspan="3" style="text-align: right;">${transaction.surcharge_subtotal|viviFormatPrices:true}</html:td>
     </html:tr>
 {/if}
     <html:tr>
         <html:td colspan="4" style="text-align: left;">${_('(view)Add-on Taxes')}</html:td>
-        <html:td style="width: 100px; text-align: right;">${transaction.tax_subtotal}</html:td>
+        <html:td style="width: 100px; text-align: right;">${transaction.tax_subtotal|viviFormatTaxes:true}</html:td>
     </html:tr>
 {if transaction.promotion_subtotal != 0}
     <html:tr>
         <html:td style="text-align: left;">${_('(view)Promotion')}</html:td>
         <html:td style="text-align: right;"></html:td>
-        <html:td colspan="3" style="text-align: right;">${transaction.promotion_subtotal}</html:td>
+        <html:td colspan="3" style="text-align: right;">${transaction.promotion_subtotal|viviFormatPrices:true}</html:td>
     </html:tr>
 {/if}
 
 {if transaction.revalue_subtotal != 0}
     <html:tr>
         <html:td colspan="4" style="text-align: left;">${_('(view)Revalue')}</html:td>
-        <html:td style="width: 100px; text-align: right;">${transaction.revalue_subtotal}</html:td>
+        <html:td style="width: 100px; text-align: right;">${transaction.revalue_subtotal|viviFormatPrices:true}</html:td>
     </html:tr>
 {/if}
 

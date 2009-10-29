@@ -954,7 +954,7 @@
                                         <row>
                                             <label value="Type"/>
                                             <menulist id="cashdrawer-2-type"
-                                                      oncommand="$do('updateCashdrawerType', [this, 1], 'Devices')"
+                                                      oncommand="$do('updateCashdrawerType', [this, 2], 'Devices')"
                                                       form="deviceForm" name="cashdrawer-2-type">
                                                 <menupopup id="cashdrawer-2-template-popup">
                                                     <menuitem label="&devices.cashdrawer.type.gpio;" value="gpio"/>

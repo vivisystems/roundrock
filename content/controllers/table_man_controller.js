@@ -252,23 +252,14 @@
 
                     if (success) {
 
-                        // reload tables
-                        var tables = this.Table.getTables(true);
-                        var table_no = inputObj.table_no;
-                        var table_name = inputObj.table_name;
-
-                        // find table_no 's index
-                        index = -1;
-                        tables.forEach(function(table, idx){
-                            if (table.table_no == table_no) index = idx;
-                        });
-
-                        // update UI
-                        this.loadTables(index);
+                        // only repaint tree
+                        var table = GREUtils.extend(this.getTableListObj().datasource.data[index], inputObj);
+                        this.getTableListObj().datasource.data[index] = table;
+                        this.getTableListObj().treeBoxObject.invalidateRow(index);
 
                         this._needRestart = true;
 
-                        OsdUtils.info(_('Table [%S (%S)] modified successfully', [table_no, table_name]));
+                        OsdUtils.info(_('Table [%S (%S)] modified successfully', [table.table_no, table.table_name]));
                     }
                 }
             } finally {
@@ -299,8 +290,11 @@
 
                     if (success) {
 
-                        // update UI
-                        this.loadTables(nextIndex);
+                        // only repaint tree
+                        var orgCount = this.getTableListObj().datasource.data.length;
+                        this.getTableListObj().datasource.data.splice(index, 1);
+                        var newCount = this.getTableListObj().datasource.data.length;
+                        this.getTableListObj().treeBoxObject.rowCountChanged(orgCount, (newCount-orgCount), index);
 
                         this._needRestart = true;
 
@@ -331,8 +325,11 @@
 
                     if (success) {
 
-                        // update UI
-                        this.loadTables(index);
+                        // only repaint tree
+                        var table = this.getTableListObj().datasource.data[index];
+                        table.active = !table.active;
+                        this.getTableListObj().datasource.data[index] = table;
+                        this.getTableListObj().treeBoxObject.invalidateRow(index);
 
                         this._needRestart = true;
 

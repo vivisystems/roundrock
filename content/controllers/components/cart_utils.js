@@ -41,6 +41,12 @@
             return parseFloat(w.toFixed(precision));
         },
 
+        isBuiltInSaleUnit: function(unit) {
+            if (unit == 'unit' || (unit in this._weightConversionTable))
+                return true;
+            else
+                return false;
+        },
 
         dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');

@@ -73,7 +73,7 @@
         {/if}
                 <tr>
                     <td>${'Tax:'}</td>
-                    <td class="right">${order.tax_subtotal|viviFormatPrices:true}</td>
+                    <td class="right">${order.tax_subtotal|viviFormatTaxes:true}</td>
                 </tr>
                 <tr>
                     <td>${'Total:'}</td>

@@ -95,6 +95,9 @@
 .mergeBtn {
     background: transparent url(../icons/mergeTable.png) center center no-repeat !important;
 }
+.mergeBtn[checked] {
+    background: transparent url(../icons/mergeTable_selected.png) center center no-repeat !important;
+}
 .unmergeBtn {
     background: transparent url(../icons/unmergeTable.png) center center no-repeat !important;
 }

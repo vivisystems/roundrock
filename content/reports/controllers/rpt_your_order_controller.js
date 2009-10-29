@@ -11,7 +11,7 @@
         
         components: ['OrderStatus'],
 
-        _fileName: 'custom_sales_report',
+        _fileName: 'rpt_your_order',
         
         _report_title: '',
         _report_title_message: 'vivipos.fec.reportpanels.yourorder.label',

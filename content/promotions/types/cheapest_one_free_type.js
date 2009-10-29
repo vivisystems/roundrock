@@ -16,45 +16,86 @@
             var value = settings.value;
 
             var trigger = this.getTrigger();
+            var amount_mode = trigger.getSettings().amount_mode;
 
             var discount = 0 ;
-            var cheapest_itemId = '';
-            var cheapest_qty = 0;
-            var cheapest_price = -1;
 
             var amount = trigger.getMatchedAmount();
             var items = trigger.getMatchedItems();
 
             var available_qty = maximum_qty * amount;
+
+            var itemsByPrice = {};
+            var itemsByPriceArray = [] ;
+
+            var total_qty = 0;
             
             items.forEach(function(item){
-                var id = item.id;
+
                 var qty = item.current_qty;
                 var price = item.current_price;
 
-                if (price < cheapest_price || cheapest_price < 0) {
-                    cheapest_itemId = id;
-                    cheapest_price = price;
-                    cheapest_qty = qty;
-                }else if(price == cheapest_price) {
-                    cheapest_qty += qty;
+                if (itemsByPrice[price+'']) {
+                    itemsByPrice[price+''] += qty;
+                }else {
+                    itemsByPrice[price+''] = qty;
                 }
 
-            }, this);
+                total_qty += qty;
 
-            if (cheapest_itemId) {
-                var qty = (available_qty < cheapest_qty) ? available_qty : cheapest_qty;
+            });
 
-                switch(type) {
-                    case 'by_fixed_value':
-                        discount = (0 - parseFloat((cheapest_price-value)*qty));
+            // check if available_qty > total_qty ?
+            if (available_qty>total_qty) available_qty = total_qty;
+
+            for (let p in itemsByPrice) {
+                itemsByPriceArray.push({
+                    price: parseFloat(p),
+                    qty: itemsByPrice[p]
+                    });
+            }
+
+//            this.log(this.dump(itemsByPriceArray));
+
+            if (itemsByPriceArray.length > 0) {
+
+                var discount_qty = 0 ;
+
+                switch(amount_mode) {
+                    case 'single':
+                    case 'more':
+                        discount_qty = (available_qty < itemsByPriceArray[0].qty) ? available_qty : itemsByPriceArray[0].qty;
                         break;
-                    case 'by_amount_off':
-                        discount = (0 - parseFloat(value*qty));
+
+                    case 'multiple':
+                        discount_qty = available_qty;
                         break;
-                    case 'by_percentage_off':
-                        discount = (0 - parseFloat((cheapest_price * value / 100)*qty));
-                        break;
+                    
+                }
+                
+                // 
+                while (discount_qty>0) {
+
+                    let discount_item = (itemsByPriceArray.splice(0,1))[0];
+                    let cheapest_price = discount_item.price;
+                    let cheapest_qty = discount_item.qty;
+
+                    let qty2 = (discount_qty>cheapest_qty) ? cheapest_qty : discount_qty ;
+
+                    switch(type) {
+                        case 'by_fixed_value':
+                            discount += (0 - parseFloat((cheapest_price-value)*qty2));
+                            break;
+                        case 'by_amount_off':
+                            discount += (0 - parseFloat(value*qty2));
+                            break;
+                        case 'by_percentage_off':
+                            discount += (0 - parseFloat((cheapest_price * value / 100)*qty2));
+                            break;
+                    }
+                    
+                    discount_qty -= qty2;
+                    
                 }
                 
                 this.setDiscountSubtotal(discount);

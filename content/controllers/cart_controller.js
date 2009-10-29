@@ -319,6 +319,9 @@
 
             this._setTransactionToView(curTransaction);
 
+            // clear warning
+            this.clearWarning();
+            
             // check pricelevel schedule
             this.requestCommand('schedule', null, 'Pricelevel');
 
@@ -346,7 +349,9 @@
             if (curTransaction == null){
                 if(autoCreate) return this._newTransaction();
                 return null;
-            }
+            }else if (autoCreate && curTransaction.isCancel()) {
+                return this._newTransaction();
+            }    
 
             // has submit
             if (curTransaction.isSubmit() && autoCreate ) return this._newTransaction();
@@ -962,6 +967,13 @@
                 return;
             }
 
+            // preprocess barcode for extension usage...
+            var event = {
+                barcode: barcode
+            }
+            if (!this.dispatchEvent('barcodeFired', event)) {
+                return;
+            }
             // NON-PLU13
             var identifier = this.Barcode.getNONPLU13Identifier(barcode);
             if (identifier) {
@@ -978,6 +990,18 @@
                     var pluno = barcode.substr(2, identifierObj.length_of_field1);
 
                     var field2 = barcode.substr(2 + parseInt(identifierObj.length_of_field1) + check_digit, identifierObj.length_of_field2) / Math.pow(10, identifierObj.decimal_point_of_field2);
+
+                    // for extension usage...
+                    event = {
+                        identifier: identifier,
+                        identifierObj: identifierObj,
+                        barcode: barcode,
+                        pluno: pluno,
+                        field2: field2
+                    }
+                    if (!this.dispatchEvent('nonPluFired', event)) {
+                        return;
+                    }
 
                     barcode = pluno;
                 }
@@ -1532,34 +1556,6 @@
             var discountAmount;
             var discountName;
 
-            if (args != null && args != '') {
-                var argList = args.split(',');
-                if (argList.length > 0) discountAmount = argList[0];
-                if (argList.length > 1) discountName = argList[1];
-            }
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this._cancelReturn();
-
-            if ((discountAmount == null || discountAmount == '') && buf.length>0) {
-                discountAmount = buf;
-            }
-
-            if (discountName == null || discountName == '') {
-                discountName = '-' + discountAmount + '%';
-            }
-
-            this._addMassDiscount(discountAmount, '%', discountName);
-        },
-
-
-        addMassDiscountByPercentage: function(args) {
-            var discountAmount;
-            var discountName;
-
             if(args !=null && args != '') {
                 var argList = args.split(',');
                 if (argList.length > 0) discountAmount = argList[0];
@@ -1641,6 +1637,14 @@
                     NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
 
                     this._clearAndSubtotal();
+                    return;
+                }
+                let non_discountable = this.Product.isNonDiscountable(itemTrans.id, false);
+
+                if (non_discountable) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Discount Error'),
+                                          _('Product [%S] is non-discountable', [itemTrans.name]));
                     return;
                 }
             }
@@ -1895,6 +1899,14 @@
                     this._clearAndSubtotal();
                     return;
                 }
+                let non_surchargeable = this.Product.isNonSurchargeable(itemTrans.id, false);
+
+                if (non_surchargeable) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Surcharge Error'),
+                                          _('Product [%S] is non-surchargeable', [itemTrans.name]));
+                    return;
+                }
             }
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
@@ -2002,7 +2014,7 @@
         },
 
         addMarker: function(type) {
-            type = type || _('subtotal');
+            type = type || 'subtotal';
 
             var curTransaction = this._getTransaction();
 
@@ -2515,24 +2527,23 @@
                         if (payment - balance > limit) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Check Payment Error'),
-                                (limit > 0) ? _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]) :
-                                              _('You are not authorized to cash checks')
-                            );
+                                _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(payment - balance), curTransaction.formatPrice(limit)]));
 
                             this._clearAndSubtotal();
                             return;
                         }
                     }
 
-                    let data = {
-                        type: subtype || '',
-                        payment: curTransaction.formatPrice(payment)
-                    };
-
                     if (silent && subtype != '') {
                         this._addPayment('check', payment, payment, subtype, '', false, finalize);
                     }
                     else {
+                        
+                        let data = {
+                            type: subtype || '',
+                            payment: curTransaction.formatPrice(payment)
+                        };
+
                         return this._getCheckDialog(data).next(function(evt){
 
                             let result = evt.data;
@@ -2813,8 +2824,8 @@
             
             let noAutoFinalize = GeckoJS.Configure.read('vivipos.fec.settings.DisableAutoFinalize') || false;
             if (curTransaction.getRemainTotal() <= 0 && (forceFinalize || !noAutoFinalize)) {
-                if (!this.submit() && paymentTxnItem) {
-                    // remove last payment but not item
+                if (!this.submit() && !curTransaction.isSubmit() && paymentTxnItem) {
+                    // remove last payment
                     let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
                     if (lastItem.index == paymentTxnItem.id) this.voidItem();
                 }
@@ -3060,6 +3071,8 @@
 
                 this.clear();
 
+                this.dispatchEvent('onCancelSuccess', null);
+
                 // let dispatcher don't auto dispatch onCancel
                 this.dispatchedEvents['onCancel'] = true;
                 return;
@@ -3108,6 +3121,9 @@
                                 _('Failed to cancel order because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #103].'));
                         }
                         this.dispatchEvent('afterCancel', curTransaction);
+                    }
+                    else {
+                        return;
                     }
                 }
                 else {
@@ -3284,8 +3300,9 @@
                         if (commitStatus == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
-                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
+                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server. You can store the check again after network connectivity has been restored [message #105].'));
                             this.dispatchEvent('commitOrderError', commitStatus);
+                            this.dispatchEvent('onWarning', _('Network Error'));
                             this._unblockUI(waitPanel);
                             return false;
                         }
@@ -3929,6 +3946,10 @@
                 Transaction.removeRecoveryFile();
                 curTransaction.data.status = -2;
                 this.dispatchEvent('onWarning', _('Sale Voided'));
+                // remove current transaction from session
+                GeckoJS.Session.remove('current_transaction');
+                // dispatch onVoidSaleSuccess event
+                this.dispatchEvent('onVoidSaleSuccess', curTransaction);
             }
             else {
                 this.dispatchEvent('onWarning', _('Sale Not Voided'));

@@ -461,7 +461,7 @@
                 var action = prompts.confirmEx(this.topmostWindow,
                                                _('Exit'),
                                                _('You have made changes to the current hot key. Save changes before exiting?'),
-                                               flags, _('Save'), '', _('Discard'), null, check);
+                                               flags, _('Save'), '', _('Discard Changes'), null, check);
                 if (action == 1) {
                     return;
                 }

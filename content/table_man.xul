@@ -82,7 +82,7 @@
                                         <row>
                                             <vbox flex="1">
                                                 <label control="table_no" value="&tableman.table.tableno;"/>
-                                                <textbox id="current_table_no" onfocus="select()"
+                                                <textbox id="current_table_no" readonly="true"
                                                          form="tableForm" name="table_no" default=""/>
                                             </vbox>
                                             <vbox flex="1">
@@ -233,7 +233,7 @@
                                     <!-- row one -->
                                     <row>
                                         <label control="mark_name" value="&tableman.mark.name;"/>
-                                        <textbox id="mark_name" default=""
+                                        <textbox id="mark_name" default="" readonly="true"
                                                  form="markForm" name="name"/>
                                     </row>
                                     <row>

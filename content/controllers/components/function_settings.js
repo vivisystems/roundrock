@@ -139,6 +139,7 @@
                 'serviceSyncSettingsAdvTab': {type:'css', method:'hidden', selector: '#syncSettingsXUL #advanced-tab', checkForCss:'serviceSyncSettingsAdvTab'},
                 'serviceSyncSettingsTab': {type:'css', method:'hidden', selector: '#syncSettingsXUL #services-tab', checkForCss:'serviceSyncSettingsSeq,serviceSyncSettingsTable,serviceSyncSettingsStock,serviceSyncSettingsNtp'},
                 'serviceSyncSettingsSeq': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsSeqBox', checkForCss:'serviceSyncSettingsSeq'},
+                'serviceSyncSettingsSalePeriod': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsSalePeriodBox', checkForCss:'serviceSyncSettingsSalePeriod'},
                 'serviceSyncSettingsTable': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsTableBox', checkForCss:'serviceSyncSettingsTable'},
                 'serviceSyncSettingsStock': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsStockBox', checkForCss:'serviceSyncSettingsStock'},
                 'serviceSyncSettingsNtp': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsNtpBox', checkForCss:'serviceSyncSettingsNtp'}
@@ -162,6 +163,7 @@
                 'rptProductsales': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.productsales', acl:'acl_report_productsales', checkForAcl:'rptProductsales'},
                 'rptPromotionsummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.promotionsummary', acl:'acl_report_promotionsummary', checkForAcl:'rptPromotionsummary'},
                 'rptSalessummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.salessummary', acl:'acl_report_salessummary', checkForAcl:'rptSalessummary'},
+                'rptProductSalesReturn': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.productSalesReturn', acl:'acl_report_productSalesReturn', checkForAcl:'rptProductSalesReturn'},
                 'rptStocks': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.stocks', acl:'acl_report_stocks', checkForAcl:'rptStocks'},
                 'rptInventorycommitments': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.inventorycommitments', acl:'acl_report_inventorycommitments', checkForAcl:'rptInventorycommitments'},
                 'rptPurchasehistory': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.purchasehistory', acl:'acl_report_purchasehistory', checkForAcl:'rptPurchasehistory'},
@@ -188,6 +190,8 @@
                 'fnDeptbyno': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.deptbyno'},
                 'fnDiscountByAmount': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.discountByAmount', acl:'acl_register_reduction', checkForAcl:'fnDiscountByAmount'},
                 'fnDiscountByPercentage': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.discountByPercentage', acl:'acl_register_discount', checkForAcl:'fnDiscountByPercentage'},
+                'fnMassDiscountByPercentage': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.massDiscountByPercentage', acl:'acl_register_mass_discount', checkForAcl:'fnMassDiscountByPercentage'},
+                'fnMassSurchargeByPercentage': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.massSurchargeByPercentage', acl:'acl_register_mass_surcharge', checkForAcl:'fnMassSurchargeByPercentage'},
                 'fnDispatch': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.dispatch', acl:'acl_internal_access', checkForAcl:'fnDispatch'},
                 'fnEnter': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.enter', acl:'acl_register_enter', checkForAcl:'fnEnter'},
                 'fnGiftcard': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.giftcard', acl:'acl_register_giftcard', checkForAcl:'fnGiftcard'},
@@ -215,6 +219,7 @@
                 'fnPricelevel9': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.pricelevel9', acl:'acl_set_price_level_9', checkForAcl:'fnPricelevel9'},
                 'fnPricelevelshift': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.pricelevelshift', acl:'acl_change_price_level', checkForAcl:'fnPricelevelshift'},
                 'fnPrintcheck': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.printcheck', acl:'acl_issue_check', checkForAcl:'fnPrintcheck'},
+                'fnPrintdocument': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.printdocument', acl:'acl_issue_check', checkForAcl:'fnPrintdocument'},
                 'fnPrinterDashboard': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.printerDashboard', acl:'acl_printer_dashboard', checkForAcl:'fnPrinterDashboard'},
                 'fnPullqueue': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.pullqueue', acl:'acl_pull_queue', checkForAcl:'fnPullqueue'},
                 'fnPushqueue': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.pushqueue', acl:'acl_queue_order', checkForAcl:'fnPushqueue'},
@@ -247,8 +252,11 @@
                 'fnTruncatetxnrecords': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.truncatetxnrecords', acl:'acl_truncate_transaction_records', checkForAcl:'fnTruncatetxnrecords'},
                 'fnVieworders': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.vieworders', acl:'acl_view_orders', checkForAcl:'fnVieworders'},
                 'fnVoidItem': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.voidItem', acl:'acl_void_cart_item', checkForAcl:'fnVoidItem'},
+                'fnVoidSale': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.voidSale', acl:'acl_void_transactions', checkForAcl:'fnVoidSale'},
                 'fnSplitCheck': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.splitCheck', acl:'acl_split_check', checkForAcl:'fnSplitCheck,fnSplitPayment'},
-                'fnSplitPayment': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.splitPayment', acl:'acl_split_check', checkForAcl:'fnSplitPayment,fnSplitCheck'}
+                'fnSplitPayment': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.splitPayment', acl:'acl_split_check', checkForAcl:'fnSplitPayment,fnSplitCheck'},
+                'fnOpenreport': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.openreport'},
+                'fnScrollcart': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.scrollcart'}
             }
     };
 
