@@ -2538,7 +2538,6 @@
                         this._addPayment('check', payment, payment, subtype, '', false, finalize);
                     }
                     else {
-                        
                         let data = {
                             type: subtype || '',
                             payment: curTransaction.formatPrice(payment)
