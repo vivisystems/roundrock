@@ -235,7 +235,9 @@
                 });
             }
 
-            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers || '');
+            if(!this.backgroundMode) {
+                GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers || '');
+            }
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
 
@@ -317,7 +319,7 @@
                 let seqData = self.buildOrderSequence(order_no);
                 self.data.seq_original = order_no;
                 self.data.seq_sp = seqData[0];
-                self.data_seq = seqData[1];
+                self.data.seq = seqData[1];
                 
                 if(!self.backgroundMode) GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
             }
@@ -354,7 +356,11 @@
 
             if (!discard) {
 
-                this.lockItems();
+                // force storeCheck to using webservice
+                if (this.isModified()) {
+                    // lockItems and update batch
+                    this.lockItems();
+                }
 
                 // order save in main thread
                 var order = new OrderModel();
@@ -525,7 +531,6 @@
 
             type = type || 'item';
 
-            // _('Trans');
             var itemDisplay = {} ;
             var dispName;
             if (type == 'item') {
@@ -571,7 +576,7 @@
                 });
             }else if (type == 'discount') {
                 if (item.discount_name && item.discount_name.length > 0) {
-                    dispName = _(item.discount_name);
+                    dispName = item.discount_name;
                 }
                 else {
                     dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
@@ -590,7 +595,7 @@
                 });
             }else if (type == 'trans_discount') {
                 if (item.discount_name != null && item.discount_name.length > 0) {
-                    dispName = _(item.discount_name);
+                    dispName = item.discount_name;
                 }
                 else {
                     dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
@@ -609,7 +614,7 @@
                 });
             }else if (type == 'surcharge') {
                 if (item.surcharge_name && item.surcharge_name.length > 0) {
-                    dispName = _(item.surcharge_name);
+                    dispName = item.surcharge_name;
                 }
                 else {
                     dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
@@ -628,7 +633,7 @@
                 });
             }else if (type == 'trans_surcharge') {
                 if (item.surcharge_name && item.surcharge_name.length > 0) {
-                    dispName = _(item.surcharge_name);
+                    dispName = item.surcharge_name;
                 }
                 else {
                     dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
@@ -677,25 +682,29 @@
                 switch (item.name.toUpperCase()) {
 
                     case 'CREDITCARD':
-                        dispName = _(item.memo1);
+                        dispName = item.memo1;
+                        break;
+
+                    case 'CHECK':
+                        dispName = item.memo1;
                         break;
 
                     case 'COUPON':
-                        dispName = _(item.memo1);
+                        dispName = item.memo1;
                         break;
 
                     case 'GIFTCARD':
-                        dispName = _(item.memo1);
+                        dispName = item.memo1;
                         break;
 
                     case 'CASH':
                         if (item.memo1 != null && item.origin_amount != null) {
-                            dispName = _(item.memo1);
+                            dispName = item.memo1;
                             current_qty = item.origin_amount + 'X';
                             current_price = item.memo2;
                         }
                         else
-                            dispName = _(item.name.toUpperCase());
+                            dispName = _('CASH');
                         break;
 
                     default:
@@ -741,7 +750,7 @@
                         itemDisplay.current_qty += 'X';
                     }
                     else {
-                        itemDisplay.current_qty += ' ' + item.sale_unit;
+                        itemDisplay.current_qty += item.sale_unit;
                     }
                 }
             }
@@ -1460,72 +1469,60 @@
             var prevRowCount = this.data.display_sequences.length;
 
             if (item && item.type == 'item') {
-                //check if item is flagged as non-discountable
-                var productModel = new ProductModel();
-                var non_discountable = productModel.isNonDiscountable(item.id, false);
 
-                if(non_discountable == false) {
+                if (discount.type == '$') {
+                    discount_amount = discount.amount;
+                }
+                else {
+                    let fixedTaxes = this._computeIncludedFixedTaxes(item);
+                    discount_amount = (item.current_subtotal - fixedTaxes) * discount.amount;
+                }
 
+                // rounding discount
+                discount_amount = this.getRoundedPrice(discount_amount);
 
-                    if (discount.type == '$') {
-                        discount_amount = discount.amount;
-                    }
-                    else {
-                        let fixedTaxes = this._computeIncludedFixedTaxes(item);
-                        discount_amount = (item.current_subtotal - fixedTaxes) * discount.amount;
-                    }
-
-                    // rounding discount
-                    discount_amount = this.getRoundedPrice(discount_amount);
-
-                    // check if discount amount exceeds user item discount limit
-                    var user = GeckoJS.Session.get('user');
-                    var item_discount_limit = parseFloat(user.item_discount_limit);
-                    if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
-                        var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
-                        if (discount_amount > item_discount_limit_amount) {
-                            NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
-                                [this.formatPrice(discount_amount),
-                                this.formatPrice(item_discount_limit_amount)]));
-                            return;
-                        }
-                    }
-
-                    if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
-                        // discount too much
-                        NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
+                // check if discount amount exceeds user item discount limit
+                var user = GeckoJS.Session.get('user');
+                var item_discount_limit = parseFloat(user.item_discount_limit);
+                if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
+                    var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
+                    if (discount_amount > item_discount_limit_amount) {
+                        NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
                             [this.formatPrice(discount_amount),
-                            this.formatPrice(item.current_subtotal)]));
-
+                            this.formatPrice(item_discount_limit_amount)]));
                         return;
                     }
+                }
 
-                    item.current_discount = 0 - discount_amount;
-                    item.discount_name =  discount.name;
-                    item.discount_rate =  discount.amount;
-                    item.discount_type =  discount.type;
-                    item.hasDiscount = true;
+                if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
+                    // discount too much
+                    NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
+                        [this.formatPrice(discount_amount),
+                        this.formatPrice(item.current_subtotal)]));
 
-                    // create data object to push in items array
-                    let discountDisplay = this.createDisplaySeq(item.index, item, 'discount');
-
-                    // find the display index of the last entry associated with the item
-                    lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
-
-                    this.data.display_sequences.splice(++lastItemDispIndex,0,discountDisplay);
-
-                    this.calcPromotions();
-
-                    this.calcItemsTax(item);
-
-                    resultItem = item;
-
-                } else {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Discount Error'),
-                        _('This product cannot be discounted'));
                     return;
                 }
+
+                item.current_discount = 0 - discount_amount;
+                item.discount_name =  discount.name;
+                item.discount_rate =  discount.amount;
+                item.discount_type =  discount.type;
+                item.hasDiscount = true;
+
+                // create data object to push in items array
+                let discountDisplay = this.createDisplaySeq(item.index, item, 'discount');
+
+                // find the display index of the last entry associated with the item
+                lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
+
+                this.data.display_sequences.splice(++lastItemDispIndex,0,discountDisplay);
+
+                this.calcPromotions();
+
+                this.calcItemsTax(item);
+
+                resultItem = item;
+
             }else if (itemDisplay.type == 'subtotal'){
 
                 var discountItem = {
@@ -1634,59 +1631,48 @@
 
             if (item && item.type == 'item') {
 
-                var productModel = new ProductModel();
-                var non_surchargeable = productModel.isNonSurchargeable(item.id, false);
-
-                if(non_surchargeable == false) {
-
-                    if (surcharge.type == '$') {
-                        surcharge_amount = surcharge.amount;
-                    }else {
-                        let fixedTaxes = this._computeIncludedFixedTaxes(item);
-                        surcharge_amount = (item.current_subtotal - fixedTaxes) * surcharge.amount;
-                    }
-
-                    // rounding surcharge
-                    surcharge_amount = this.getRoundedPrice(surcharge_amount);
-
-                    // check if discount amount exceeds user limit
-                    var user = GeckoJS.Session.get('user');
-                    var surcharge_limit = parseFloat(user.item_surcharge_limit);
-                    if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
-                        var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
-                        if (surcharge_amount > surcharge_limit_amount) {
-                            NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
-                                [this.formatPrice(surcharge_amount),
-                                this.formatPrice(surcharge_limit_amount)]));
-                            return;
-                        }
-                    }
-
-                    item.surcharge_name = surcharge.name;
-                    item.surcharge_rate = surcharge.amount;
-                    item.surcharge_type = surcharge.type;
-                    item.current_surcharge = surcharge_amount;
-                    item.hasSurcharge = true;
-
-                    // create data object to push in items array
-                    var surchargeDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
-
-                    // find the display index of the last entry associated with the item
-                    lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
-
-                    this.data.display_sequences.splice(++lastItemDispIndex,0,surchargeDisplay);
-
-                    this.calcPromotions();
-
-                    this.calcItemsTax(item);
-
-                    resultItem = item;
-                } else {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Surcharge Error'),
-                        _('This product cannot be surcharged'));
-                    return;
+                if (surcharge.type == '$') {
+                    surcharge_amount = surcharge.amount;
+                }else {
+                    let fixedTaxes = this._computeIncludedFixedTaxes(item);
+                    surcharge_amount = (item.current_subtotal - fixedTaxes) * surcharge.amount;
                 }
+
+                // rounding surcharge
+                surcharge_amount = this.getRoundedPrice(surcharge_amount);
+
+                // check if discount amount exceeds user limit
+                var user = GeckoJS.Session.get('user');
+                var surcharge_limit = parseFloat(user.item_surcharge_limit);
+                if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
+                    var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
+                    if (surcharge_amount > surcharge_limit_amount) {
+                        NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
+                            [this.formatPrice(surcharge_amount),
+                            this.formatPrice(surcharge_limit_amount)]));
+                        return;
+                    }
+                }
+
+                item.surcharge_name = surcharge.name;
+                item.surcharge_rate = surcharge.amount;
+                item.surcharge_type = surcharge.type;
+                item.current_surcharge = surcharge_amount;
+                item.hasSurcharge = true;
+
+                // create data object to push in items array
+                var surchargeDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
+
+                // find the display index of the last entry associated with the item
+                lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
+
+                this.data.display_sequences.splice(++lastItemDispIndex,0,surchargeDisplay);
+
+                this.calcPromotions();
+
+                this.calcItemsTax(item);
+
+                resultItem = item;
 
             }else if (itemDisplay.type == 'subtotal'){
 
@@ -2302,12 +2288,25 @@
 
         hasPaymentsInBatch: function(batch) {
             if (batch == null) batch = this.data.batchCount;
-            for (var index in this.data.trans_payments) {
-                if (this.data.trans_payments[index].batch == batch) {
+            for (let i in this.data.display_sequences) {
+                let displayItem = this.data.display_sequences[i];
+                if (displayItem.type == 'payment' && displayItem.batch == batch) {
                     return true;
                 }
             }
             return false;
+        },
+
+        getPaymentsInBatch: function(batch) {
+            let paymentList = [];
+
+            if (batch == null) batch = this.data.batchCount;
+            this.data.display_sequences.forEach(function(displayItem) {
+                if (displayItem.type == 'payment' && displayItem.batch == batch) {
+                    paymentList.push(this.data.trans_payments[displayItem.index]);
+                }
+            }, this);
+            return paymentList;
         },
 
         getDisplaySeqCount: function(){

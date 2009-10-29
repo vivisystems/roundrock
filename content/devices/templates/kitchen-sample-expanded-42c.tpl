@@ -43,7 +43,7 @@ ${memo|left:42}
 [&CR]
 [&CR]
 [&PC]
+[&CR]
+[&CR]
+[&CR]
 {/if}
-[&CR]
-[&CR]
-[&CR]

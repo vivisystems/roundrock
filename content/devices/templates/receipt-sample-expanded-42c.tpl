@@ -51,9 +51,9 @@ ${item.current_qty|right:4} ${item.name|left:12} @${item.current_price|right:6} 
 {/if}
 ------------------------------------------
 {/if}
-${'Subtotal:'|left:15} ${txn.formatPrice(order.total - order.tax_subtotal)|right:26}
-${'Tax:'|left:15} ${txn.formatPrice(order.tax_subtotal)|right:26}
-${'Total:'|left:15} ${txn.formatPrice(order.total)|right:26}
+${'Subtotal:'|left:15} ${(order.total - order.tax_subtotal)|viviFormatPrices:true|right:26}
+${'Tax:'|left:15} ${order.tax_subtotal|viviFormatTaxes:true|right:26}
+${'Total:'|left:15} ${order.total|viviFormatPrices:true|right:26}
 [&CR]
 {for payment in order.trans_payments}
 {if payment.name == 'cash'}

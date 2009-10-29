@@ -778,7 +778,7 @@
             }
 
             if (status == 0) {
-                NotifyUtils.warn(_('Table [%S] Not available to unmerge. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                NotifyUtils.warn(_('Table [%S] Not available to unmerge. Status: [%S], Active: [%S]',[ table_no, status, (tableStatus?tableStatus.Table.active:1)]));
                 return ;
             }
 

@@ -10,6 +10,14 @@ ${head.end_time}
 
 ${head.title|center:24}
 {for item in body}
+{eval}
+if (item.event_type == 'finalization' || item.event_type == 'payment') {
+    payment_type = _('(rpt)' + item.payment_type);
+}
+else {
+    payment_type = item.payment_type;
+}
+{/eval}
 ------------------------
 ${_( '(rpt)Terminal' ) + ':'}
 ${item.terminal_no|right:24}
@@ -20,9 +28,11 @@ ${item.clerk_displayname|default:''|right:24}
 ${_( '(rpt)Time' ) + ':'}
 ${item.created|unixTimeToString|right:24}
 ${_( '(rpt)Event' ) + ':'}
-${_( '(rpt)' + item.event_type )|right:24}
+${_( '(drawer)' + item.event_type )|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${item.sequence|default:''|right:24}
+${_( '(rpt)Payment Type' ) + ':'}
+${payment_type|default:''|right:24}
 ${_( '(rpt)Amount' ) + ':'}
 ${item.amount|default:''|viviFormatPrices:true|right:24}
 {/for}

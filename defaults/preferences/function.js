@@ -88,12 +88,12 @@ pref("vivipos.fec.registry.function.programmable.discountByPercentage.command", 
 pref("vivipos.fec.registry.function.programmable.discountByPercentage.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.discountByPercentage.data", "");
 
-pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.access", "acl_register_mass_discount");
+pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.access", "acl_register_discount");
 pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.command", "addMassDiscountByPercentage");
 pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.massDiscountByPercentage.data", "");
 
-pref("vivipos.fec.registry.function.programmable.massSurchargeByPercentage.access", "acl_register_mass_surcharge");
+pref("vivipos.fec.registry.function.programmable.massSurchargeByPercentage.access", "acl_register_surcharge");
 pref("vivipos.fec.registry.function.programmable.massSurchargeByPercentage.command", "addMassSurchargeByPercentage");
 pref("vivipos.fec.registry.function.programmable.massSurchargeByPercentage.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.massSurchargeByPercentage.data", "");
@@ -238,7 +238,7 @@ pref("vivipos.fec.registry.function.programmable.printcheck.command", "issueChec
 pref("vivipos.fec.registry.function.programmable.printcheck.controller", "Print");
 pref("vivipos.fec.registry.function.programmable.printcheck.data", "");
 
-pref("vivipos.fec.registry.function.programmable.printdocument.access", "acl_issue_check");
+pref("vivipos.fec.registry.function.programmable.printdocument.access", "acl_print_document");
 pref("vivipos.fec.registry.function.programmable.printdocument.command", "printDocument");
 pref("vivipos.fec.registry.function.programmable.printdocument.controller", "Print");
 pref("vivipos.fec.registry.function.programmable.printdocument.data", "");
