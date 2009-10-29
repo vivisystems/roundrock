@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-29 17:04+0800\n"
+"POT-Creation-Date: 2009-10-29 17:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -843,16 +843,16 @@ msgid "vivipos.fec.registry.function.programmable.cash.desc"
 msgstr ""
 "This function registers a cash payment. The parameter field may contain up "
 "to 3 optional, comma-separated arguments. The first argument is a preset "
-"tender amount, the second argument is the 'groupable' flag, and the third "
-"and last argument is the 'finalize' flag. If the preset amount is set to "
-"'0', the user is required to enter a tender amount. If no preset is "
-"programmed, the tender amount is read from the input line. If the input line "
-"is also blank, a quick cash payment is registered. The 'groupable' flag "
-"should be set to '1' if this payment type/amount combination is to be "
-"tracked (preset amount must be specified).The 'finalize' flag controls "
+"tender amount, the second argument is the 'finalize' flag, and the third and "
+"last argument is the 'groupable' flag. If the preset amount is set to '0', "
+"the user is required to enter a tender amount. If no preset is programmed, "
+"the tender amount is read from the input line. If the input line is also "
+"blank, a quick cash payment is registered. The 'finalize' flag controls "
 "whether this function finalizes the order when the tender amount equals or "
 "exceeds the balance due; this flag is effective only when the global "
-"'Disable auto-finalization on payment' option is active."
+"'Disable auto-finalization on payment' option is active.The 'groupable' flag "
+"should be set to '1' if this payment type/amount combination is to be "
+"tracked (non-zero preset amount must be specified)."
 
 msgid "vivipos.fec.registry.function.programmable.cash.label"
 msgstr "Cash"
@@ -1078,7 +1078,8 @@ msgstr ""
 "the tender amount equals or exceeds the balance due; this flag is effective "
 "only when the global 'Disable auto-finalization on payment' option is "
 "active. The 'groupable' flag should be set to '1' if this payment type/"
-"amount combination is to be tracked (preset amount must be specified)."
+"amount combination is to be tracked (non-zero preset amount must be "
+"specified)."
 
 msgid "vivipos.fec.registry.function.programmable.currencyConvert.label"
 msgstr "Currency Exchange"
@@ -1206,8 +1207,8 @@ msgstr ""
 "this function finalizes the order when the tender amount equals or exceeds "
 "the balance due; this flag is effective only when the global 'Disable auto-"
 "finalization on payment' option is active. The 'groupable' flag should be "
-"set to '1' if this payment type/amount combination is to be tracked (preset "
-"amount must be specified)."
+"set to '1' if this payment type/amount combination is to be tracked (non-"
+"zero preset amount must be specified)."
 
 msgid "vivipos.fec.registry.function.programmable.coupon.label"
 msgstr "Coupon"
@@ -1236,7 +1237,7 @@ msgstr ""
 "tender amount equals or exceeds the balance due; this flag is effective only "
 "when the global 'Disable auto-finalization on payment' option is active. The "
 "'groupable' flag should be set to '1' if this payment type/amount "
-"combination is to be tracked (preset amount must be specified)."
+"combination is to be tracked (non-zero preset amount must be specified)."
 
 msgid "vivipos.fec.registry.function.programmable.giftcard.label"
 msgstr "Giftcard"
@@ -3079,13 +3080,13 @@ msgid "Please note one or more orders are still open"
 msgstr ""
 
 #: ../..//content/refund_payment.js:23 ../..//content/refund_payment.js:29
-#: ../..//content/controllers/cart_controller.js:3932
-#: ../..//content/controllers/cart_controller.js:3993
-#: ../..//content/controllers/cart_controller.js:4003
-#: ../..//content/controllers/cart_controller.js:4014
-#: ../..//content/controllers/cart_controller.js:4021
-#: ../..//content/controllers/cart_controller.js:4034
-#: ../..//content/controllers/cart_controller.js:4162
+#: ../..//content/controllers/cart_controller.js:3936
+#: ../..//content/controllers/cart_controller.js:3997
+#: ../..//content/controllers/cart_controller.js:4007
+#: ../..//content/controllers/cart_controller.js:4018
+#: ../..//content/controllers/cart_controller.js:4025
+#: ../..//content/controllers/cart_controller.js:4038
+#: ../..//content/controllers/cart_controller.js:4166
 msgid "Void Sale"
 msgstr ""
 
@@ -3429,7 +3430,7 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1110
 #: ../..//content/controllers/cart_controller.js:1279
 #: ../..//content/controllers/cart_controller.js:1420
-#: ../..//content/controllers/cart_controller.js:3579
+#: ../..//content/controllers/cart_controller.js:3583
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
@@ -3441,15 +3442,15 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1863
 #: ../..//content/controllers/cart_controller.js:2076
 #: ../..//content/controllers/cart_controller.js:2965
-#: ../..//content/controllers/cart_controller.js:3586
-#: ../..//content/controllers/cart_controller.js:3835
+#: ../..//content/controllers/cart_controller.js:3590
+#: ../..//content/controllers/cart_controller.js:3839
 msgid "Please select an item first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:452
 #: ../..//content/controllers/cart_controller.js:1125
-#: ../..//content/controllers/cart_controller.js:3594
-#: ../..//content/controllers/cart_controller.js:3843
+#: ../..//content/controllers/cart_controller.js:3598
+#: ../..//content/controllers/cart_controller.js:3847
 msgid "Stored items may not be modified"
 msgstr ""
 
@@ -3606,13 +3607,13 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1477
 #: ../..//content/controllers/cart_controller.js:2996
-#: ../..//content/controllers/cart_controller.js:3622
+#: ../..//content/controllers/cart_controller.js:3626
 msgid "Please void discount on item [%S] first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1483
 #: ../..//content/controllers/cart_controller.js:3003
-#: ../..//content/controllers/cart_controller.js:3628
+#: ../..//content/controllers/cart_controller.js:3632
 msgid "Please void surcharge on item [%S] first"
 msgstr ""
 
@@ -3829,12 +3830,12 @@ msgid "Check Type"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2341
-#: ../..//content/controllers/cart_controller.js:3515
+#: ../..//content/controllers/cart_controller.js:3519
 msgid "Payment Warning"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2342
-#: ../..//content/controllers/cart_controller.js:3516
+#: ../..//content/controllers/cart_controller.js:3520
 msgid ""
 "Tender entry is compulsory for this payment type, please enter an amount "
 "first"
@@ -4097,125 +4098,125 @@ msgstr ""
 msgid "Order# [%S] has been pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3559
-#: ../..//content/controllers/cart_controller.js:3570
+#: ../..//content/controllers/cart_controller.js:3563
+#: ../..//content/controllers/cart_controller.js:3574
 msgid "Not an open order; cannot add condiment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3610
+#: ../..//content/controllers/cart_controller.js:3614
 msgid "Condiments may not be added to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3616
+#: ../..//content/controllers/cart_controller.js:3620
 msgid "Cannot add condiments to an item that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3653
+#: ../..//content/controllers/cart_controller.js:3657
 msgid "No Condiment group associated with item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3772
+#: ../..//content/controllers/cart_controller.js:3776
 msgid ""
 "Condiment [%S] not added because another condiment from same group [%S] "
 "already exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3828
+#: ../..//content/controllers/cart_controller.js:3832
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3919
+#: ../..//content/controllers/cart_controller.js:3923
 msgid "No order to void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3924
+#: ../..//content/controllers/cart_controller.js:3928
 msgid "The order has already been cancelled or voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3933
+#: ../..//content/controllers/cart_controller.js:3937
 msgid "This operation may only be applied to stored and completed transactions"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3940
+#: ../..//content/controllers/cart_controller.js:3944
 msgid "Confirm Void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3941
+#: ../..//content/controllers/cart_controller.js:3945
 msgid ""
 "You have made changes to this order; are you sure you want to void the order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3947
+#: ../..//content/controllers/cart_controller.js:3951
 msgid "Sale Voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3954
+#: ../..//content/controllers/cart_controller.js:3958
 msgid "Sale Not Voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3980
+#: ../..//content/controllers/cart_controller.js:3984
 #, python-format
 msgid ""
 "An error was encountered while retrieving order record (error code %s) "
 "[message #107]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3985
+#: ../..//content/controllers/cart_controller.js:3989
 msgid "Retrieving Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3994
+#: ../..//content/controllers/cart_controller.js:3998
 msgid "Failed to void: the selected order no longer exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4004
+#: ../..//content/controllers/cart_controller.js:4008
 #: ../..//content/controllers/guest_check_controller.js:734
 #: ../..//content/controllers/guest_check_controller.js:735
 msgid "This order is already locked by other terminal. [%S,%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4015
+#: ../..//content/controllers/cart_controller.js:4019
 msgid ""
 "Failed to void: the status of the selected order has been changed by another "
 "terminal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4022
+#: ../..//content/controllers/cart_controller.js:4026
 msgid ""
 "Failed to void: the selected order has been modified by another terminal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4035
+#: ../..//content/controllers/cart_controller.js:4039
 msgid "Failed to void: the selected order is not stored or finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4054
+#: ../..//content/controllers/cart_controller.js:4058
 msgid "Payment Refund"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4057
+#: ../..//content/controllers/cart_controller.js:4061
 msgid "Voiding Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4145
+#: ../..//content/controllers/cart_controller.js:4149
 msgid ""
 "An error was encountered while changing order status to voided [message "
 "#109]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4155
+#: ../..//content/controllers/cart_controller.js:4159
 msgid "An error was encountered while updating stock level [message #110]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4163
+#: ../..//content/controllers/cart_controller.js:4167
 msgid "Transaction [%S] successfully voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4197
+#: ../..//content/controllers/cart_controller.js:4201
 msgid "Add Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4199
+#: ../..//content/controllers/cart_controller.js:4203
 msgid "Memo"
 msgstr ""
 

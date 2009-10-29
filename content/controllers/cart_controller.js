@@ -2101,8 +2101,8 @@
          *
          * - convertCode
          * - amount
-         * - groupable
          * - finalize
+         * - groupable
          *
          * if amount is 0, then the user must manually enter an amount
          *
@@ -2151,8 +2151,8 @@
             // determine if payment amount if from argument list or from buffer
             let payment;
 
-            // if amount is not defined in args, get payment amount from buffer'
-            if (amount == null || amount == '') {
+            // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
+            if (amount == null || amount == '' || amount == '0' || isNaN(amount)) {
 
                 // payment not groupable if no preset amount given
                 groupable = false;
@@ -2295,7 +2295,7 @@
         },
 
         addNonCashPayment: function(type, args) {
-            // args should be a list of up to 5 comma-separated parameters: type, amount, silent, finalize, groupable
+            // args should be a list of up to 5 comma-separated parameters: subtype, amount, silent, finalize, groupable
             let subtype = '';
             let amount;
             let silent = false;
@@ -2329,7 +2329,7 @@
             // determine if payment amount if from argument list or from buffer
             let payment;
 
-            // if amount is not defined in args or if it is '0', get payment amount from buffer'
+            // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
             if (amount == null || amount == '' || amount == '0') {
 
                 // payment not groupable if no preset amount given
@@ -3480,8 +3480,8 @@
          * cash accepts up to 3 parameters:
          *
          * - amount
-         * - groupable
          * - finalize
+         * - groupable
          *
          * if amount is 0, then the user must manually enter an amount
          *
@@ -3491,17 +3491,21 @@
             if (args == null) args = '';
             var argArray = String(args).split(',');
             var amount = argArray[0];
-            var groupable = argArray[1] || false;
-            var finalize = argArray[2] || false;
+            var finalize = argArray[1] || false;
+            var groupable = argArray[2] || false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
-            // if amount is not defined or amount is not a valid number, set amount to buffer
-
             let payment;
+
+            // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
             if (amount == null || amount == '' || amount == '0' || isNaN(amount)) {
+
+                // payment not groupable if no preset amount given
+                groupable = false;
+                
                 payment = buf;
             }
             else {
