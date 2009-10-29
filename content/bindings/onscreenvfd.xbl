@@ -68,9 +68,7 @@
                         if (transaction.data != null && transaction.data.status == 1) {
                             self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(false)));
                         }
-                        else {
-                            self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
-                        }
+                        self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
                     } else {
                         self.onClear(evt);
                     }
