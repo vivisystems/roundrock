@@ -342,6 +342,30 @@
             }
         },
 
+        /**
+         * rebuildTableStatus
+         */
+        rebuildTableStatus: function() {
+
+            if (this._isBusy) return;
+            this._isBusy = true;
+
+            try {
+
+                var success = this.TableStatus.rebuildTableStatus();
+
+                if (success) {
+
+                    this._needRestart = true;
+
+                    OsdUtils.info(_('Table status rebuilded successfully'));
+                }
+
+            } finally {
+                this._isBusy = false;
+            }
+
+        },
 
         /**
          * Add Table Region to Local Database.
@@ -662,6 +686,7 @@
             }
 
         },
+
 
         /**
          * loadMarks
@@ -994,6 +1019,7 @@
                 document.getElementById('add_mark').setAttribute('hidden', true);
                 document.getElementById('modify_mark').setAttribute('hidden', true);
                 document.getElementById('delete_mark').setAttribute('hidden', true);
+                document.getElementById('rebuild_status').setAttribute('hidden', true);
             }
 
             // settings
