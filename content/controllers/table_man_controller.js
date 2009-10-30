@@ -356,8 +356,6 @@
 
                 if (success) {
 
-                    this._needRestart = true;
-
                     OsdUtils.info(_('Table status rebuilded successfully'));
                 }
 
