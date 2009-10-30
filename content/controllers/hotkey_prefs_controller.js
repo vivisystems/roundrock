@@ -17,6 +17,7 @@
         reserveHotKeys: {
             '$13': true,
             '$190': true,
+            'ctrl-$65': true, // ctrl+a // select all
             'ctrl-$67': true, // ctrl+c // copy
             'ctrl-$79': true, // ctrl+o
             'ctrl-$81': true, // ctrl+q
@@ -24,6 +25,8 @@
             'ctrl-$83': true, // ctrl+s
             'ctrl-$86': true, // ctrl+v // paste
             'ctrl-$88': true, // ctrl+x // cut
+            'ctrl-$89': true, // ctrl+y // redo
+            'ctrl-$8a': true, // ctrl+z // undo
             'ctrl-alt-$66': true, // ctrl-alt+b // package builder
             'ctrl-alt-$70': true, // ctrl-alt+f // function manager
             'ctrl-alt-$80': true, // ctrl-alt+p // screenshot
