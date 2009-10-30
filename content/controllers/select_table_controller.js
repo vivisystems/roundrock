@@ -1196,6 +1196,9 @@
             
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'table_book', aFeatures, inputObj);
 
+            // auto refresh when close
+            this.refreshTableStatus();
+
             return true;
 
         },
