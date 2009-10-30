@@ -158,7 +158,7 @@
         /**
          * open Check No Dialog
          */
-        openCheckNoDialog: function (no){
+        openCheckNoDialog: function (no, title){
 
             no = no || '';
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
@@ -169,7 +169,9 @@
                 numpad:true
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Check Number'), aFeatures, _('Select Check Number'), '', _('Number'), '', inputObj);
+            title = title || _('Select Check Number');
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, title, aFeatures, title, '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 no = inputObj.input0;
@@ -890,6 +892,64 @@
             }
         },
 
+        /**
+         * recall by Sequence 
+         * 
+         * @param {String} seq
+         * @param {Boolean} skipRecall
+         */
+        recallBySequence: function(seq, skipRecall) {
+
+            skipRecall = skipRecall || false;
+
+            seq = seq || '';
+            if (seq.length == 0) {
+                seq = this.getKeypadController().getBuffer() || '';
+                this.getKeypadController().clearBuffer();
+            }
+            
+            if (seq.length == 0) {
+               seq = this.openCheckNoDialog(seq, _('Select Sequence'));
+            }
+
+            var conditions = "" ;
+            if (seq.length == 0 || seq == "-1") {
+                conditions = "orders.status=2";
+            }else {
+                conditions = "orders.sequence='"+seq+"' AND orders.status=2";
+            }
+
+            var orders = this.Order.getOrdersSummary(conditions, true);
+
+            if (orders.length == 0) {
+                if (seq != '') {
+                    NotifyUtils.error(_('Failed to find orders matching sequence [%S]', [seq]));
+                }
+                else {
+                    NotifyUtils.error(_('No stored orders found'));
+                }
+                return false;
+            }
+
+            // select orders
+            var orderId = "";
+            if (orders.length > 1) {
+                orderId = this.openSelectChecksDialog(orders);
+            }else if (orders.length > 0) {
+                orderId = orders[0].Order.id ;
+            }
+
+            if(orderId.length>0) {
+                if (skipRecall) {
+                    return orderId;
+                }else {
+                    return this.recallOrder(orderId);
+                }
+            }else {
+                return false;
+            }
+        },
+
 
         /**
          * recall by Table NO
@@ -956,7 +1016,7 @@
          *
          * @todo if destination is outside don't check it.
          *
-         * @param {Object) evt
+         * @param {Object} evt
          */
         onCartBeforeAddPayment: function(evt) {
             // let destination = getXXXX;
