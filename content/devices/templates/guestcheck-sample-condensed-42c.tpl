@@ -30,7 +30,7 @@ ${item.current_qty|right:4} ${item.name|left:16} ${item.current_price|right:6} $
 {/if}
 {if order.promotion_subtotal != 0}${'Promotion:'|left:15} ${order.promotion_subtotal|viviFormatPrices:true|right:26}
 {/if}
-${'Tax:'|left:15} ${order.tax_subtotal|viviFormatPrices:true|right:26}
+${'Tax:'|left:15} ${order.tax_subtotal|viviFormatTaxes:true|right:26}
 ${'Total:'|left:15} ${order.total|viviFormatPrices:true|right:26}
 ------------------------------------------
 [&CR]

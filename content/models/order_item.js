@@ -64,6 +64,7 @@
                             break;
                         case 'type':
                         case 'index':
+                        case 'tax_details':
                             break;
 
                         case 'current_qty':

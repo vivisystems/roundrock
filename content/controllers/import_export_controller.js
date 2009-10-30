@@ -196,10 +196,15 @@
                         this._datas[index].filename = '';
 
                         for(var i = 0;i < table.length;i++) {
-                            this._datas[index].filename += table[i] + ".sql ";
+                            this._datas[index].filename += table[i] + ".dat ";
+                            var exportScript = '.mode tabs\n' + 'select * from ' + table[i] + ';';
+                            var command = '/bin/echo -e "' + exportScript + '" | ' + executable + " " + database + " > " + this._exportDir + "/" + table[i] + ".dat";
+                            GREUtils.File.run("/bin/sh", [ '-c', command ], true);
+                            /*
                             var exportScript = this._scriptDir + '/' + table[i] + ".exp";
                             var command = executable + " " + database + " < " + exportScript + " > " + this._exportDir + "/" + table[i] + ".sql";
                             GREUtils.File.run("/bin/sh", [ '-c', command ], true);
+                            */
                         }
                         break;
                 }
@@ -673,7 +678,7 @@
             this.sleep(50);
             var importType = this._datas[index].type;
 
-            this.log('FATAL', 'Begin import [' + importType + '] data - ' + this._datas[index].Name);
+            this.log('FATAL', 'Begin import [' + importType + '] data - ' + this._datas[index].name);
 
             switch(importType){
                 case 'model': {
@@ -713,14 +718,15 @@
                 }
                 case "data": {
                         try {
-                            //check to see if all required .sql files are present
+                            //check to see if all required .dat files are present
                             var database = this._datas[index].database;
                             var table = this._datas[index].table;
                             var missingFile = "";
                             for(var i = 0;i < table.length;i++) {
-                                var importFile = this._importDir + "/" + table[i] + ".sql";
+                                var importFile = this._importDir + "/" + table[i] + ".dat";
                                 if (!GREUtils.File.exists(importFile)) {
-                                    missingFile += table[i] + ".sql";
+                                    //missingFile += table[i] + ".dat";
+                                    missingFile += importFile;
                                     if(i != table.length - 1) {
                                         missingFile += ", ";
                                     }
@@ -737,12 +743,15 @@
                                 this._datas[index].filename = ''
 
                                 for(var i = 0;i < table.length;i++) {
-                                    this._datas[index].filename += table[i] + ".sql ";
+                                    this._datas[index].filename += table[i] + ".dat ";
+                                    var insertData = this._importDir + '/' + table[i] + ".dat";
+                                    /*
                                     var resetScript = this._scriptDir + '/' + table[i] + ".imp";
-                                    var insertScript = this._importDir + '/' + table[i] + ".sql";
                                     var command = executable + " " + database + " < " + resetScript;
                                     GREUtils.File.run("/bin/sh", [ '-c', command ], true);
-                                    command = executable + " " + database + " < " + insertScript;
+                                    */
+                                    var command = '/bin/echo -e ".separator \\\\\\t\\\\ndelete from ' + table[i] + ';\n.import ' + insertData + ' ' + table[i] + '\n" |'  + executable + " " + database;
+                                    this.log(command);
                                     GREUtils.File.run("/bin/sh", [ '-c', command ], true);
                                 }
                             }
@@ -1936,7 +1945,7 @@
                     type: 'data',
                     database: "/data/databases/vivipos_acl.sqlite",
                     filename: '',
-                    table: ["acl_group_roles", "acl_groups", "acl_roles", "acl_users"],
+                    table: ["acl_group_roles", "acl_groups", "acl_roles"],
                     imported: '',
                     exported: ''
                 },

@@ -319,6 +319,9 @@
 
             this._setTransactionToView(curTransaction);
 
+            // clear warning
+            this.clearWarning();
+            
             // check pricelevel schedule
             this.requestCommand('schedule', null, 'Pricelevel');
 
@@ -346,7 +349,9 @@
             if (curTransaction == null){
                 if(autoCreate) return this._newTransaction();
                 return null;
-            }
+            }else if (autoCreate && curTransaction.isCancel()) {
+                return this._newTransaction();
+            }    
 
             // has submit
             if (curTransaction.isSubmit() && autoCreate ) return this._newTransaction();
@@ -1633,6 +1638,14 @@
                     this._clearAndSubtotal();
                     return;
                 }
+                let non_discountable = this.Product.isNonDiscountable(itemTrans.id, false);
+
+                if (non_discountable) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Discount Error'),
+                                          _('Product [%S] is non-discountable', [itemTrans.name]));
+                    return;
+                }
             }
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
@@ -1885,6 +1898,14 @@
                     this._clearAndSubtotal();
                     return;
                 }
+                let non_surchargeable = this.Product.isNonSurchargeable(itemTrans.id, false);
+
+                if (non_surchargeable) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Surcharge Error'),
+                                          _('Product [%S] is non-surchargeable', [itemTrans.name]));
+                    return;
+                }
             }
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
@@ -1992,7 +2013,7 @@
         },
 
         addMarker: function(type) {
-            type = type || _('subtotal');
+            type = type || 'subtotal';
 
             var curTransaction = this._getTransaction();
 
@@ -2644,7 +2665,7 @@
                     if (payment - balance > limit) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Check Payment Error'),
-                            _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                            _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(payment - balance), curTransaction.formatPrice(limit)]));
 
                         this._clearAndSubtotal();
                         return;
@@ -2913,10 +2934,10 @@
 
             this._getCartlist().refresh();
             if (curTransaction.getRemainTotal() <= 0) {
-                if (!this.submit()) {
+                if (!this.submit() && !curTransaction.isSubmit()) {
                     // remove last payment but not item
                     let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
-                    if (lastItem.type !='item') this.voidItem();
+                    if (lastItem.type =='payment') this.voidItem();
                 }
             }else {
                 this._clearAndSubtotal();
@@ -3160,6 +3181,8 @@
 
                 this.clear();
 
+                this.dispatchEvent('onCancelSuccess', null);
+
                 // let dispatcher don't auto dispatch onCancel
                 this.dispatchedEvents['onCancel'] = true;
                 return;
@@ -3208,6 +3231,9 @@
                                 _('Failed to cancel order because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #103].'));
                         }
                         this.dispatchEvent('afterCancel', curTransaction);
+                    }
+                    else {
+                        return;
                     }
                 }
                 else {
@@ -3384,8 +3410,9 @@
                         if (commitStatus == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
-                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
+                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server. You can store the check again after network connectivity has been restored [message #105].'));
                             this.dispatchEvent('commitOrderError', commitStatus);
+                            this.dispatchEvent('onWarning', _('Network Error'));
                             this._unblockUI(waitPanel);
                             return false;
                         }
@@ -4000,6 +4027,10 @@
                 Transaction.removeRecoveryFile();
                 curTransaction.data.status = -2;
                 this.dispatchEvent('onWarning', _('Sale Voided'));
+                // remove current transaction from session
+                GeckoJS.Session.remove('current_transaction');
+                // dispatch onVoidSaleSuccess event
+                this.dispatchEvent('onVoidSaleSuccess', curTransaction);
             }
             else {
                 this.dispatchEvent('onWarning', _('Sale Not Voided'));

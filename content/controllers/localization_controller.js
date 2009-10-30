@@ -324,7 +324,7 @@
             var r = prompts.confirmEx(this.topmostWindow,
                                       _('Localization'),
                                       _('Translations have been modified; save changes?'),
-                                      flags, _('Save'), '', _('Discard'), null, check);
+                                      flags, _('Save'), '', _('Discard Changes'), null, check);
             return r;
         },
 

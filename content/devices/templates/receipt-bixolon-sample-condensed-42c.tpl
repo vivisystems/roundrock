@@ -22,7 +22,7 @@ ${store.address1|left:41}
 {if store.address2.length > 0}
 ${store.address2|left:41}
 {/if}
-${store.city|left:11}${', '}${store.country|left:30}
+${store.city|left}${', '}${store.country|left:30}
 ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 ------------------------------------------
 {for item in order.items_summary}
@@ -53,9 +53,10 @@ ${'お釣:'|left:15} ${(0 - order.remain)|viviFormatPrices:true|right:26}
 {/if}
 ------------------------------------------
 [&CR]
-${'レジ:'|left:10}${order.terminal_no|left:10} ${'責:'|right:6}${order.proceeds_clerk_displayname|right:15}
-[&RESET]
 [&CTR][&IMG2][&LFT]
+[&RESET]
+${'レジ:'|left:2}${order.terminal_no|left} ${'責:'|right:2}${order.proceeds_clerk_displayname|right}
+[&RESET]
 [&CR]
 [&CR]
 [&CR]

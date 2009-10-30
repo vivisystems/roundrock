@@ -78,8 +78,8 @@
                                        _('New Multi-Buy Quantity Setting'), '', _('Multi-Buy Quantity'), _('Multi-Buy Value'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
-                var quantity = isNaN(parseInt(inputObj.input0)) ? 0 : parseInt(inputObj.input0) ;
-                var value = isNaN(parseInt(inputObj.input1)) ? 0 : parseInt(inputObj.input1) ;
+                var quantity = isNaN(parseFloat(inputObj.input0)) ? 0 : parseFloat(inputObj.input0) ;
+                var value = isNaN(parseFloat(inputObj.input1)) ? 0 : parseFloat(inputObj.input1) ;
 
                 if(quantity > 0) {
 

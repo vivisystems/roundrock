@@ -57,7 +57,7 @@ ${body.sales_summary.AvgQtySubtotal|default:0|format:2|right:24}
 ${_( '(rpt)Payment List' )}
 ------------------------
 {for detail in body.payment_list.records}
-${detail.name + ':'|left:24}
+${_('(rpt)' + detail.name) + ':'|left:24}
 ${detail.total|default:0|viviFormatPrices:true|right:24}
 {for payment in detail.detail}
 ${'  ' + payment.memo1|left:24}

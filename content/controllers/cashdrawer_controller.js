@@ -12,11 +12,13 @@
 
             this._device = GeckoJS.Controller.getInstanceByName('Devices');
             
-            // add event listener for beforeSubmit events
+            // add event listener for afterAddPayment and onStore events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
                 cart.addEventListener('afterAddPayment', this.handleOpenDrawerEvent, this);
+                cart.addEventListener('onStore', this.handleStoreOrderEvent, this);
             }
+
             // get handle to Main controller
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
@@ -194,6 +196,24 @@
                     if ((drawer[paymentType + 'action'] != 'always') && (drawer[paymentType + 'action'] != 'finalization')) return;
                     break;
 
+                case 'store':
+                    // for store events, paymentType is actually a list of payments in the current batch
+                    let drawerActionNeeded = false;
+                    let sum = 0;
+
+                    for (let i = 0; i < paymentType.length; i++) {
+                        let payment = paymentType[i];
+                        if (drawer[payment.name + 'action'] == 'finalization') {
+                            drawerActionNeeded = true;
+                            sum += parseFloat(payment.amount);
+                        }
+                    }
+                    if (!drawerActionNeeded) return;
+
+                    amount = sum;
+                    paymentType = '';
+                    break;
+
                 case 'ledger':
                     if (drawer['ledgeraction'] != 'always') return;
                     break;
@@ -335,7 +355,7 @@
                                   errmsg + '\n\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         },
 
-        // handles payment events
+        // handles regular payment and finaization events
         handleOpenDrawerEvent: function(evt) {
 
             // if preventDefault at beforePayment, but called afterPayment.
@@ -368,6 +388,35 @@
             }
 
             this._openDrawer(drawerNo, eventType, evt.data.name, evt.data.seq, evt.data.amount, evt.data.order_id);
+        },
+
+        // handles regular payment and finaization events
+        handleStoreOrderEvent: function(evt) {
+
+            if (!evt || !evt.data) return ;
+
+            var eventType = 'store';
+
+            var txn = evt.data;
+
+            // 1. get user's assigned drawer (or null)
+            // 2. pass drawer number to openDrawer()
+
+            var drawerNo = null;
+            var user = GeckoJS.Session.get('user');
+            if (user) {
+                if (user.drawer != null) {
+                    drawerNo = GeckoJS.String.trim(user.drawer);
+                    if (drawerNo == '') drawerNo = null;
+                }
+            }
+
+            // check if the current batch contains payments that require cash drawer action
+            let paymentList = txn.getPaymentsInBatch();
+
+            if (paymentList.length > 0) {
+                this._openDrawer(drawerNo, eventType, paymentList, txn.data.seq, '', txn.data.id);
+            }
         },
 
         // handles ledger entry events
