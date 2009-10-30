@@ -17,12 +17,13 @@
         reserveHotKeys: {
             '$13': true,
             '$190': true,
-            'ctrl-$67': true, // ctrl+c
+            'ctrl-$67': true, // ctrl+c // copy
             'ctrl-$79': true, // ctrl+o
             'ctrl-$81': true, // ctrl+q
             'ctrl-$82': true, // ctrl+r
             'ctrl-$83': true, // ctrl+s
-            'ctrl-$86': true, // ctrl+v
+            'ctrl-$86': true, // ctrl+v // paste
+            'ctrl-$88': true, // ctrl+x // cut
             'ctrl-alt-$66': true, // ctrl-alt+b // package builder
             'ctrl-alt-$70': true, // ctrl-alt+f // function manager
             'ctrl-alt-$80': true, // ctrl-alt+p // screenshot
@@ -120,6 +121,12 @@
 
                 var keycombo = inputData.keycombo;
                 var keydisplay = inputData.keydisplay;
+
+                if ( inputData.modifiers == 'shift' || inputData.modifiers.length == 0 ) {
+
+                    NotifyUtils.error(_('Hot Key [%S] is not allowed, please add modifiers', [keydisplay]));
+                    return ;
+                }    
 
                 if(this.reserveHotKeys[keycombo]) {
 
