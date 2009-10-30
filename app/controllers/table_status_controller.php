@@ -29,6 +29,24 @@ class TableStatusController extends AppController {
         exit;
     }
 
+    /**
+     * rebuild table status
+     */
+    function rebuildTableStatus() {
+
+        $result = $this->TableStatus->rebuildTableStatus();
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'response_data' => $result
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+    }
+
 
     /**
      * mergeTable
@@ -85,13 +103,13 @@ class TableStatusController extends AppController {
      * @param <type> $markId
      * @param <type> $clerk 
      */
-    function markTable($tableId, $markId, $clerk) {
+    function markTable($tableId, $markId, $clerk, $expire = 0) {
 
         if (empty($tableId) || empty($markId)) {
             exit;
         }
 
-        $this->TableStatus->markTable($tableId, $markId, $clerk);
+        $this->TableStatus->markTable($tableId, $markId, $clerk, $expire);
 
         $result = array('status' => 'ok', 'code' => 200 ,
             'response_data' => true

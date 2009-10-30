@@ -2,6 +2,7 @@
 App::import('Model', 'TableSetting');
 App::import('Model', 'TableMark');
 App::import('Model', 'TableBooking');
+App::import('Model', 'TableOrder');
 
 /**
  * TableStatus Model
@@ -222,6 +223,52 @@ class TableStatus extends AppModel {
 
 
     /**
+     * rebuild table status
+     */
+    function rebuildTableStatus() {
+        
+        // get order_id from orders where status = 2 in orders.
+        $orderModel = new Order();
+
+        $result2 = $orderModel->find('all', array('fields'=>'id,total,table_no,check_no,service_clerk,sequence,no_of_customers,transaction_created,status,terminal_no', 'conditions'=> 'table_no>0 AND status=2', 'recursive'=>-1));
+
+        $orders = Set::classicExtract($result2, '{n}.Order'); 
+
+        try {
+
+            $this->begin();
+
+            $rr = $this->TableOrder->query("DELETE FROM table_orders");   
+
+            $tableNoToIds = $this->Table->getTableNoToIds();
+
+            foreach ($orders as $order) {
+                $order['table_id'] = $tableNoToIds[$order['table_no']];
+                $this->TableOrder->create();
+                $this->TableOrder->save($order);
+            }
+
+
+            // update table_status
+            foreach ($tableNoToIds as $table_no => $table_id) {
+                $this->updateOrderStatusById($table_id, $table_no, false);
+            }
+
+            $this->commit();
+
+        }catch(Exception $e) {
+
+            $this->rollback();
+            return false;
+
+        }
+
+        return true;
+
+    }
+
+
+    /**
      * mergeTable
      *
      * @param <type> $masterTableId
@@ -282,9 +329,10 @@ class TableStatus extends AppModel {
      * @param <type> $tableId
      * @param <type> $markId
      * @param <type> $clerk
+     * @param <type> $expire
      * @return <type>
      */
-    function markTable($tableId, $markId, $clerk) {
+    function markTable($tableId, $markId, $clerk, $expire=0) {
 
         $table = $this->Table->find('first', array('conditions'=> array("id"=>$tableId), 'fields'=>'table_no', 'recursive'=>-1));
 
@@ -301,6 +349,8 @@ class TableStatus extends AppModel {
         $mark = $tableMark->getMarkById($markId);
 
         if (!$mark) return false;
+
+        if (!empty($exipre)) $mark['period'] = $expire;
 
         $tableNo = $table['Table']['table_no'];
 
