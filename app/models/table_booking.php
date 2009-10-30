@@ -31,13 +31,14 @@ class TableBooking extends AppModel {
         
         $tableSetting = new TableSetting();
         $tableBookingTimeout = $tableSetting->getSettingValue('TableBookingTimeout') ;
+        $tablePeriodLimit = $tableSetting->getSettingValue('TablePeriodLimit');
         
         if(empty($tableBookingTimeout)) $tableBookingTimeout = 30;
+        if(empty($tablePeriodLimit)) $tablePeriodLimit = 30;
 
-        $startTime = $bookingTime ;
-        $endTime = $startTime + $tableBookingTimeout*60;
+        $startTime = $bookingTime - $tablePeriodLimit*60;
+        $endTime = $startTime + $tableBookingTimeout*60 + $tablePeriodLimit*60;
 
-        
         $condition = "Table.id NOT IN (SELECT table_id FROM table_bookings WHERE (booking >= $startTime AND booking <= $endTime AND id != '$bookingId')) AND (Table.seats >= $partySize)";
 
         $table = new Table();
