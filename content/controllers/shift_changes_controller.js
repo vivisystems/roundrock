@@ -1232,6 +1232,9 @@
                     if (moneyOutLedgerEntry)
                         if (!ledgerController.saveLedgerEntry(moneyOutLedgerEntry)) return;
                 }
+
+                this.dispatchEvent('shiftChanged', {closing: doEndOfPeriod,
+                                                    data: shiftChangeRecord});
             }
 
             if (doEndOfPeriod) {
