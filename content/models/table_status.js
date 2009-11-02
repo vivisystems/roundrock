@@ -78,7 +78,20 @@
 
         },
 
+        /**
+         * rebuild table status
+         *
+         * @return {Boolean} success
+         */
+        rebuildTableStatus: function(){
 
+            var remoteUrl = this.getHttpService().getRemoteServiceUrl('rebuildTableStatus') ;
+            var requestUrl = remoteUrl ;
+            var success = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || false ;
+
+            return success;
+
+        },
 
         /**
          * set tables to sessions and cached by id , region
@@ -267,10 +280,11 @@
        /**
          * markTable
          */
-        markTable: function(tableId, markId, clerk) {
+        markTable: function(tableId, markId, clerk, expire) {
 
+            expire = expire || 0;
             var remoteUrl = this.getHttpService().getRemoteServiceUrl('markTable') ;
-            var requestUrl = remoteUrl + '/' + tableId + '/' + markId + '/' + encodeURIComponent(clerk);
+            var requestUrl = remoteUrl + '/' + tableId + '/' + markId + '/' + encodeURIComponent(clerk) +'/'+expire;
 
             var result = this.getHttpService().requestRemoteService('GET', requestUrl, null, false, null) || null ;
             return result;
