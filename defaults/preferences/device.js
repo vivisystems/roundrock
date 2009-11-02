@@ -115,6 +115,11 @@ pref("vivipos.fec.registry.devicemodels.argox-os-203.type", "receipt,check");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.path", "chrome://viviecr/content/devices/commands/argox-os-203.cmd");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.encodings", "English=US-ASCII,Western=ISO-8859-1,Traditional Chinese=Big5,Simplified Chinese=GB18030,Simplified Chinese=GB2312");
 
+pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.label", "Bixolon SRP 350");
+pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.type", "receipt,check,report,cashdrawer");
+pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.path", "chrome://viviecr/content/devices/commands/bixolon_srp_350_plus.cmd");
+pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,UTF-8=UTF-8,Japanese=Shift_JIS");
+
 pref("vivipos.fec.registry.devicemodels.vfdfec.label", "Firich VFD");
 pref("vivipos.fec.registry.devicemodels.vfdfec.type", "vfd");
 pref("vivipos.fec.registry.devicemodels.vfdfec.path", "chrome://viviecr/content/devices/commands/vfdfec.cmd");
