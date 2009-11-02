@@ -186,9 +186,6 @@ msgstr "Disconnected"
 #
 ########################################################################
 
-msgid "vivipos.fec.reportpanels.productSalesReturn.label"
-msgstr "Product Sales Return"
-
 msgid "vivipos.fec.reportpanels.attendancerecord.label"
 msgstr "Attendance Record"
 
@@ -255,6 +252,9 @@ msgstr "Stock Adjustments"
 msgid "vivipos.fec.reportpanels.purchasehistory.label"
 msgstr "Purchase History"
 
+msgid "vivipos.fec.reportpanels.productsalesreturn.label"
+msgstr "Product Returns"
+
 ########################################################################
 #
 # List of Reports ACLs
@@ -306,8 +306,8 @@ msgstr "Report - Product List"
 msgid "acl_report_productsales"
 msgstr "Report - Product Sales"
 
-msgid "acl_report_productSalesReturn"
-msgstr "Report - Product Sales Return"
+msgid "acl_report_productsalesreturn"
+msgstr "Report - Product Returns"
 
 msgid "acl_report_promotionsummary"
 msgstr "Report - Promotion Summary"
@@ -395,6 +395,9 @@ msgstr "Other"
 
 msgid "(rpt)cash"
 msgstr "Cash"
+
+msgid "(rpt)   - cash"
+msgstr "   - Cash"
 
 msgid "(rpt)giftcard"
 msgstr "Giftcard"
@@ -2106,6 +2109,10 @@ msgstr "Split Payment"
 
 msgid "acl_view_all_queues"
 msgstr "View All Queues"
+
+msgid "acl_print_document"
+msgstr "Print Document"
+
 ########################################################################
 #
 # List of Ports
@@ -2368,6 +2375,27 @@ msgstr "Fixed Amount"
 
 msgid "(rpt)Telephone"
 msgstr "Telephone"
+
+########################################################################
+#
+# Cash drawer event types
+#
+########################################################################
+
+msgid "(drawer)finalization"
+msgstr "Finalization"
+
+msgid "(drawer)store"
+msgstr "Store Check"
+
+msgid "(drawer)payment"
+msgstr "Payment"
+
+msgid "(drawer)nosale"
+msgstr "No Sale"
+
+msgid "(drawer)ledger"
+msgstr "Ledger"
 
 ########################################################################
 #

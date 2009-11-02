@@ -93,6 +93,7 @@
         saveOrderToBackup: function(data, isTraining) {
 
             var retObj;
+            var status = (data.status == 2 || data.recall == 2) ? '2' : false;
 
             //this.log('DEBUG', 'order data: ' + this.dump(data));
 
@@ -107,6 +108,7 @@
                 if (!retObj) {
                     throw 'Order';
                 }
+                this.renameBackupFileWithStatus(status);
 
                 if (isTraining) {
                     retObj = this.OrderItem.saveAll(this.OrderItem.mappingTranToOrderItemsFields(data));
@@ -115,8 +117,10 @@
                     retObj = this.OrderItem.saveToBackup(this.OrderItem.mappingTranToOrderItemsFields(data));
                 }
                 if (!retObj) {
-                    throw 'OrderItem';
+                    throw 'OrderItem'
+;
                 }
+                this.OrderItem.renameBackupFileWithStatus(status);
 
                 if (isTraining) {
                     retObj = this.OrderItemTax.saveAll(this.OrderItemTax.mappingTranToOrderItemTaxesFields(data));
@@ -127,6 +131,7 @@
                 if (!retObj) {
                     throw 'OrderItemTax';
                 }
+                this.OrderItemTax.renameBackupFileWithStatus(status);
 
                 if (isTraining) {
                     retObj = this.OrderAddition.saveAll(this.OrderAddition.mappingTranToOrderAdditionsFields(data));
@@ -137,6 +142,7 @@
                 if (!retObj) {
                     throw 'OrderAddition';
                 }
+                this.OrderAddition.renameBackupFileWithStatus(status);
 
                 if (isTraining) {
                     retObj = this.OrderPayment.saveAll(this.OrderPayment.mappingTranToOrderPaymentsFields(data));
@@ -147,6 +153,7 @@
                 if (!retObj) {
                     throw 'OrderPayment';
                 }
+                this.OrderPayment.renameBackupFileWithStatus(status);
 
                 if (isTraining) {
                     retObj = this.OrderAnnotation.saveAll(this.OrderAnnotation.mappingTranToOrderAnnotationsFields(data));
@@ -157,6 +164,7 @@
                 if (!retObj) {
                     throw 'OrderAnnotation';
                 }
+                this.OrderAnnotation.renameBackupFileWithStatus(status);
                     
                 if (isTraining) {
                     retObj = this.OrderItemCondiment.saveAll(this.OrderItemCondiment.mappingTranToOrderItemCondimentsFields(data));
@@ -167,6 +175,7 @@
                 if (!retObj) {
                     throw 'OrderItemCondiment';
                 }
+                this.OrderItemCondiment.renameBackupFileWithStatus(status);
 
                 if (isTraining) {
                     retObj = this.OrderPromotion.saveAll(this.OrderPromotion.mappingTranToOrderPromotionsFields(data));
@@ -177,6 +186,7 @@
                 if (!retObj) {
                     throw 'OrderPromotion';
                 }
+                this.OrderPromotion.renameBackupFileWithStatus(status);
 
                 if (isTraining) {
                     retObj = this.OrderObject.save(this.OrderObject.mappingTranToOrderObjectsFields(data));
@@ -187,6 +197,7 @@
                 if (!retObj) {
                     throw 'OrderObject';
                 }
+                this.OrderObject.renameBackupFileWithStatus(status);
 
                 return true;
 
@@ -243,16 +254,17 @@
         restoreOrderFromBackupToRemote: function() {
 
             var datas = {};
+            var status = '2';
 
-            datas['Order'] = this.getBackupContent();
-            datas['OrderItem'] = this.OrderItem.getBackupContent();
-            datas['OrderItemTax'] = this.OrderItemTax.getBackupContent();
-            datas['OrderAddition'] = this.OrderAddition.getBackupContent();
-            datas['OrderPayment'] = this.OrderPayment.getBackupContent();
-            datas['OrderAnnotation'] = this.OrderAnnotation.getBackupContent();
-            datas['OrderItemCondiment'] = this.OrderItemCondiment.getBackupContent();
-            datas['OrderPromotion'] = this.OrderPromotion.getBackupContent();
-            datas['OrderObject'] = this.OrderObject.getBackupContent();
+            datas['Order'] = this.getBackupContent(status);
+            datas['OrderItem'] = this.OrderItem.getBackupContent(status);
+            datas['OrderItemTax'] = this.OrderItemTax.getBackupContent(status);
+            datas['OrderAddition'] = this.OrderAddition.getBackupContent(status);
+            datas['OrderPayment'] = this.OrderPayment.getBackupContent(status);
+            datas['OrderAnnotation'] = this.OrderAnnotation.getBackupContent(status);
+            datas['OrderItemCondiment'] = this.OrderItemCondiment.getBackupContent(status);
+            datas['OrderPromotion'] = this.OrderPromotion.getBackupContent(status);
+            datas['OrderObject'] = this.OrderObject.getBackupContent(status);
 
             var requestUrl = this.getHttpService().getRemoteServiceUrl('saveOrdersFromBackupFormat');
             var request_data = (GeckoJS.BaseObject.serialize(datas));
@@ -262,23 +274,44 @@
 
             //if fault , use Waning dialg and drop store .
             if (success) {
+
+                this.renameBackupFileWithStatus(false, status);
                 if(success['Order']) this.restoreFromBackup();
                 //this.removeBackupFile();
-                if(success['OrderItem']) this.OrderItem.removeBackupFile();
-                if(success['OrderItemTax']) this.OrderItemTax.removeBackupFile();
-                if(success['OrderAddition']) this.OrderAddition.removeBackupFile();
+
+                if(success['OrderItem']) this.OrderItem.removeBackupFile(status);
+                if(success['OrderItemTax']) this.OrderItemTax.removeBackupFile(status);
+                if(success['OrderAddition']) this.OrderAddition.removeBackupFile(status);
+
+                this.OrderPayment.renameBackupFileWithStatus(false, status);
                 if(success['OrderPayment']) this.OrderPayment.restoreFromBackup();
                 //this.OrderPayment.removeBackupFile();
-                if(success['OrderAnnotation']) this.OrderAnnotation.removeBackupFile();
-                if(success['OrderItemCondiment']) this.OrderItemCondiment.removeBackupFile();
-                if(success['OrderPromotion']) this.OrderPromotion.removeBackupFile();
-                if(success['OrderObject']) this.OrderObject.removeBackupFile();
+                
+                if(success['OrderAnnotation']) this.OrderAnnotation.removeBackupFile(status);
+                if(success['OrderItemCondiment']) this.OrderItemCondiment.removeBackupFile(status);
+                if(success['OrderPromotion']) this.OrderPromotion.removeBackupFile(status);
+                if(success['OrderObject']) this.OrderObject.removeBackupFile(status);
             }
             return success;
 
         },
 
 
+        /**
+         * Restore order and orders from backup to REMOTE Services server
+         * 
+         * @return {Boolean} return true if success
+         */
+        hasBackupFile: function(status) {
+
+            status = status || false;
+            let content = this.getBackupContent(status);
+
+            // content maybe {} null object string
+            return (content.length > 2);
+
+        },
+                                        
         /**
          * read order from local databases or remote services
          * 

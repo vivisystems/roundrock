@@ -32,8 +32,8 @@
             var cashDrawer = new CashdrawerRecordModel();
 
             var fields = [
-            				'terminal_no',
-                    		'drawer_no',
+                            'terminal_no',
+                            'drawer_no',
                             'clerk_displayname',
                             'created',
                             'event_type',
@@ -41,7 +41,7 @@
                             'payment_type',
                             'amount',
                             'order_id'
-                        ];
+                         ];
                         
             var conditions = "created>='" + start +
                             "' AND created<='" + end + "'";

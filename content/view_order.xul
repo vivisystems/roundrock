@@ -60,7 +60,7 @@
             <spacer height="5px"/>
             <hbox flex="1">
                 <hbox flex="1" class="toolbar" toolbarmode="horizontal">
-                    <vivibutton id="recall" label="&vieworder.button.recall;" disabled="false" class="button-delete" roles="acl_recall_check" action="hide"
+                    <vivibutton id="recall" label="&vieworder.button.recall;" disabled="false" roles="acl_recall_check" action="hide"
                                 oncommand="$do('recallOrder', null, 'ViewOrder');"/>
                 </hbox>
                 <vbox pack="center" class="container-report">

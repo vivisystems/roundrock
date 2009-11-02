@@ -27,6 +27,7 @@
                 // popup table select panel
                 cart.addEventListener('onSubmitSuccess', this.onCartOnSubmitSuccess, this);
                 cart.addEventListener('onCancelSuccess', this.onCartOnCancelSuccess, this);
+                cart.addEventListener('onVoidSaleSuccess', this.onCartOnSubmitSuccess, this);
 
             }
 
@@ -220,9 +221,26 @@
             var dialog_data = [
             inputObj
             ];
+            
             var self = this;
+            var cart = this.getCartController();
 
             try {
+
+                // check has opened order before popup
+                if (cart.ifHavingOpenedOrder() ) {
+                    // check txn is modified ?
+                    var txn = cart._getTransaction();
+                    if (txn && txn.isModified()) {
+                        NotifyUtils.warn(_('Please close the current order before returning to the table selection screen'));
+                        cart._clearAndSubtotal();
+                        return false;
+                    }else {
+                        // force cancel if order not modified.
+                        cart.cancel(true);
+                    }
+                }
+
                 var r = $.popupPanel('selectTablePanel', dialog_data);
             } catch (e) {}
 
@@ -390,8 +408,10 @@
 
             if (no.length == 0) {
                 if (!useNumberPad) {
+
                     // popup panel and return
                     return this.popupTableSelectorPanel();
+                    
                 }else {
                     // use callback to select table.
                     no = this.openTableNumDialog() ;
@@ -416,7 +436,7 @@
                 }
                 
                 if (curTransaction.getTableNo() != '' && curTransaction.data.recall == 2) {
-                    NotifyUtils.warn(_('Please use transfer table to update table no'));
+                    NotifyUtils.warn(_('Please use transfer table to update table number'));
                     cart._clearAndSubtotal();
                     return false;
                 }
@@ -585,9 +605,30 @@
             var curTransaction = cart._getTransaction();
 
             if (! cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                cart._clearAndSubtotal();
-                return false;
+
+                // check backupFile if need to resent to table service server.
+                var order = new OrderModel();
+                if (order && order.hasBackupFile(2)) {
+
+                    var result = order.restoreOrderFromBackupToRemote();
+                    if (!result) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation Error'),
+                            _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
+                        return false;
+                    }else {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation'),
+                            _('Previously uncommitted stored order(s) have now been committed to the table service server.'));
+                        this.onCartOnSubmitSuccess(null);
+                        cart.dispatchEvent('onWarning', _('ORDER COMMITTED'));
+                        return true;
+                    }
+                } else {    
+                    NotifyUtils.warn(_('Not an open order; unable to store'));
+                    cart._clearAndSubtotal();
+                    return false;
+                }
             }
 
             this.getKeypadController().clearBuffer();
@@ -609,10 +650,14 @@
                 return false;
             }
 
+            /*
+             * force store check to webservices.
+             * if not modified , not update batch and lockItems.
             if (!curTransaction.isModified()) {
                 NotifyUtils.warn(_('No change to store'));
                 return false;
             }
+            */
 
             // save order
             if  (cart.submit(2)) {
@@ -642,9 +687,13 @@
             var cart = this.getCartController();
 
             if (cart.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Please close the current order before recalling an existing order'));
-                cart._clearAndSubtotal();
-                return false;
+                // check txn is modified ?
+                var txn = cart._getTransaction();
+                if (txn && txn.isModified()) {
+                    NotifyUtils.warn(_('Please close the current order before recalling an existing order'));
+                    cart._clearAndSubtotal();
+                    return false;
+                }
             }
 
             return true;
@@ -1064,7 +1113,7 @@
             let transaction = evt.data;
 
             // recall order, release lock
-            if (transaction.data.recall == 2) {
+            if (transaction && transaction.data.recall == 2) {
                 let orderId = transaction.data.id;
 
                 let result = this.Order.releaseOrderLock(orderId);
@@ -1110,12 +1159,12 @@
 
             if (r) {
 
-                r = this.Table.execute('delete from tables');
-                if (r) r = this.Table.execute('delete from table_regions');
-                if (r) r = this.Table.execute('delete from table_settings');
+                // r = this.Table.execute('delete from tables');
+                // if (r) r = this.Table.execute('delete from table_regions');
+                // if (r) r = this.Table.execute('delete from table_settings');
                 if (r) r = this.Table.execute('delete from table_orders');
                 if (r) r = this.Table.execute('delete from table_order_locks');
-                if (r) r = this.Table.execute('delete from table_marks');
+                // if (r) r = this.Table.execute('delete from table_marks');
                 if (r) r = this.Table.execute('delete from table_bookings');
                 if (r) r = this.Table.execute('delete from table_statuses');
 
@@ -1254,7 +1303,8 @@
                 transaction.calcPromotions();
                 transaction.calcTotal();
                 transaction.setBackgroundMode(false);
-                transaction.data.status = 2
+                transaction.data.recall = 2;
+                transaction.data.status = 2;
                 transaction.submit(2);
 
                 let inherited_order_id = targetData.inherited_order_id || '' ;
@@ -1267,6 +1317,7 @@
                 targetTransaction.calcPromotions();
                 targetTransaction.calcTotal();
                 targetTransaction.setBackgroundMode(false);
+                targetTransaction.data.recall = 2;
                 targetTransaction.data.status = -3;
                 targetTransaction.data.inherited_order_id = inherited_order_id;
                 targetTransaction.data.inherited_desc = inherited_desc;
@@ -1376,7 +1427,13 @@
                     transaction.calcPromotions();
                     transaction.calcTotal();
                     transaction.setBackgroundMode(false);
-                    transaction.submit(2);
+                    transaction.data.recall = 2;
+
+                    if (transaction.data.items_count == 0) {
+                        transaction.submit(-3);
+                    }else {    
+                        transaction.submit(2);
+                    }
 
                     for(let i in result.split_datas) {
                         
@@ -1396,6 +1453,7 @@
                         sTrans.calcPromotions();
                         sTrans.calcTotal();
                         sTrans.setBackgroundMode(false);
+                        sTrans.data.recall = 2;
                         sTrans.submit(2);
                     }
 

@@ -9,7 +9,7 @@ ${head.title|center:42}
 {for item in body}
 ------------------------------------------
 ${_( '(rpt)Clerk' ) + ':'|left:17}${item.clerk_displayname|default:''}
-${_( '(rpt)Event' ) + ':'|left:17}${_( '(rpt)' + item.event_type )}
+${_( '(rpt)Event' ) + ':'|left:17}${_( '(drawer)' + item.event_type )}
 ${_( '(rpt)Occurrences' ) + ':'|left:17}${item.num_occurrences|default:0|format:0}
 {/for}
 ------------------------------------------
