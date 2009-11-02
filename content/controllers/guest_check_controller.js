@@ -145,7 +145,7 @@
                 disablecancelbtn:true
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Number of Customers'), aFeatures, _('Select Number of Customers'), '', _('Number'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Number of Guests'), aFeatures, _('Enter Number of Guests'), '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -169,9 +169,9 @@
                 numpad:true
             };
 
-            title = title || _('Select Check Number');
+            title = title || _('Enter Check Number');
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, title, aFeatures, title, '', _('Number'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, title, aFeatures, title, '', '', '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 no = inputObj.input0;
@@ -199,7 +199,7 @@
 
             if (required) inputObj.disablecancelbtn = true;
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Number'), aFeatures, _('Select Table Number'), '', _('Number'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Table Number'), aFeatures, _('Enter Table Number'), '', '', '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 no = inputObj.input0;
@@ -932,7 +932,7 @@
                 }
 
                 if (seq.length == 0) {
-                   seq = this.openCheckNoDialog(seq, _('Select Sequence'));
+                   seq = this.openCheckNoDialog(seq, _('Enter Order Sequence Number'));
                 }
 
                 var conditions = "" ;
@@ -946,7 +946,7 @@
 
                 if (orders.length == 0) {
                     if (seq != '') {
-                        NotifyUtils.error(_('Failed to find orders matching sequence [%S]', [seq]));
+                        NotifyUtils.error(_('Failed to find orders matching order sequence [%S]', [seq]));
                     }
                     else {
                         NotifyUtils.error(_('No stored orders found'));
