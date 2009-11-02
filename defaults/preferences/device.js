@@ -39,9 +39,9 @@ pref("vivipos.fec.registry.templates.receipt-sample-condensed-32c.label", "chrom
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-32c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-32c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-32c.tpl");
 
-pref("vivipos.fec.registry.templates.receipt-japanese-ecr-condensed-42c.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.registry.templates.receipt-japanese-ecr-condensed-42c.type", "receipt");
-pref("vivipos.fec.registry.templates.receipt-japanese-ecr-condensed-42c.path", "chrome://viviecr/content/devices/templates/receipt-bixolon-sample-condensed-42c.tpl");
+pref("vivipos.fec.registry.templates.receipt-japanese-ecr-42c.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.receipt-japanese-ecr-42c.type", "receipt");
+pref("vivipos.fec.registry.templates.receipt-japanese-ecr-42c.path", "chrome://viviecr/content/devices/templates/receipt-bixolon-sample-condensed-42c.tpl");
 
 pref("vivipos.fec.registry.templates.queue-ticket-24c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.queue-ticket-24c.type", "check");
@@ -108,11 +108,6 @@ pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.label", "Epson TM-T88IV")
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.type", "receipt,check,report,cashdrawer");
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.path", "chrome://viviecr/content/devices/commands/epson-tm88iv.cmd");
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,UTF-8=UTF-8");
-
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.label", "Bixolon SRP 350");
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.type", "receipt,check,report,cashdrawer");
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.path", "chrome://viviecr/content/devices/commands/bixolon_srp_350_plus.cmd");
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,UTF-8=UTF-8,Japanese=Shift_JIS");
 
 pref("vivipos.fec.registry.devicemodels.epson-rp-u420.label", "Epson RP-U420");
 pref("vivipos.fec.registry.devicemodels.epson-rp-u420.type", "receipt,check");

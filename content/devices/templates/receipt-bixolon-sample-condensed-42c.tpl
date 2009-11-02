@@ -16,13 +16,11 @@ splitPayments=[order.payment_subtotal];
 {if duplicate}
 [&DWON]${'副本'|center:21}[&DWOFF]
 {/if}
-${store.branch|left:41}
-${store.telephone1|left:41}
-${store.address1|left:41}
-{if store.address2.length > 0}
-${store.address2|left:41}
-{/if}
-${store.city|left}${', '}${store.country|left:30}
+{if store.branch.length > 0}${store.branch|left:41}{/if}
+{if store.telephone1.length > 0}${store.telephone1|left:41}{/if}
+{if store.address1.length > 0}${store.address1|left:41}{/if}
+{if store.address2.length > 0}${store.address2|left:41}{/if}
+{if store.city.length > 0}${store.city|left}{/if}{if store.country > 0}${', '}${store.country|left:30}{/if}
 ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 ------------------------------------------
 {for item in order.items_summary}
@@ -55,7 +53,7 @@ ${'お釣:'|left:15} ${(0 - order.remain)|viviFormatPrices:true|right:26}
 [&CR]
 [&CTR][&IMG2][&LFT]
 [&RESET]
-${'レジ:'|left:2}${order.terminal_no|left} ${'責:'|right:2}${order.proceeds_clerk_displayname|right}
+${'レジ:'|left}${order.terminal_no|left:20} ${'責:'|right}${order.proceeds_clerk_displayname|right}
 [&RESET]
 [&CR]
 [&CR]
