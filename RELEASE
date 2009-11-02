@@ -46,3 +46,5 @@ Bug #167:
 Bug #168:
     Export to PDF and CSV functionalities for Custom Sales, Order Annotations, and Order Status reports are broken
 
+Bug #171:
+    Use of the same word 'Number' in different contexts causes translation difficulty
