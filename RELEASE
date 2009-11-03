@@ -48,3 +48,6 @@ Bug #168:
 
 Bug #171:
     Use of the same word 'Number' in different contexts causes translation difficulty
+
+Bug #174:
+    Rapidly adding items to cart causes new item to be added with previous item's price and quantity
