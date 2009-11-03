@@ -7,6 +7,13 @@ This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
 Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
 
 
+------------
+Dependencies
+------------
+
+This release requires VIVIPOS WebApp and WebServices Release 1.2.0.2 or above.
+
+
 ----------
 Known bugs
 ----------
