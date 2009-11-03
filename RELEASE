@@ -1,17 +1,18 @@
-Release 1.2.0.1
+---------------
+Release 1.2.0.2
 ---------------
 
 This is a maintenance release for VIVIPOS Web Services 1.2.0.x
 
 Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
 
+----------
 Bugs fixed
 ----------
 
-Bug #86
+Bug #160:
+    Need to be able to rebuild/reset all table statuses if table status is wrong
 
-    Table Status Duration minutes - 0 means infinite duration
 
-Bug #99
-
-    Recalled orders display empty check_no and table_no as '0'
+Bug #167:
+     Newly added bookings are not reflected in Table Selection screen when existing from the bookings screen, and previously booked tables are not precluded from being rebooked for the same time slot
