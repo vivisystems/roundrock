@@ -12,6 +12,7 @@
         _inDialog: false,
         _returnMode: false,
         _returnPersist: false,
+        _blockNextAction: false,
         _decStockBackUp: null,
 
 
@@ -22,7 +23,13 @@
                 this._lastCancelInvoke = false;
             }
 
-            return true;
+            if (this._blockNextAction) {
+                evt.preventDefault();
+                return false;
+            }
+            else {
+                return true;
+            }
         },
 
         initial: function() {
@@ -728,11 +735,22 @@
                 var self = this;
                 var cart = this._getCartlist();
 
+                this._blockNextAction = true;
                 next( function() {
                     if (addedItem.id == plu.id && !self._returnMode) {
 
                         currentIndex = curTransaction.getDisplayIndexByIndex(addedItem.index);
                         return next( function() {
+
+                            if (plu.force_memo) {
+
+                                // need to move cursor to addedItem
+                                cart.selection.select(currentIndex);
+
+                                return self.addMemo(plu);
+                            }
+
+                        }).next( function() {
 
                             if (plu.force_condiment) {
                                 var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
@@ -744,16 +762,6 @@
 
                                     return self.addCondiment(plu, null, doSIS);
                                 }
-                            }
-
-                        }).next( function() {
-
-                            if (plu.force_memo) {
-
-                                // need to move cursor to addedItem
-                                cart.selection.select(currentIndex);
-
-                                return self.addMemo(plu);
                             }
 
                         });
@@ -771,6 +779,7 @@
                         self._clearAndSubtotal();
                     }
 
+                    self._blockNextAction = false;
                 });
 
             }
