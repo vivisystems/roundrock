@@ -675,10 +675,12 @@
                     level: (level == null) ? 1 : level
                 });
             }else if(type =='payment') {
-                var dispName;
-                var current_price = '';
-                var current_qty = '';
+                let current_price = '';
+                let current_qty = '';
 
+                if (item.is_groupable) {
+                    current_qty = item.current_qty + 'X';
+                }
                 switch (item.name.toUpperCase()) {
 
                     case 'CREDITCARD':
@@ -699,12 +701,14 @@
 
                     case 'CASH':
                         if (item.memo1 != null && item.origin_amount != null) {
-                            dispName = item.memo1;
-                            current_qty = item.origin_amount + 'X';
-                            current_price = item.memo2;
+
+                            // foreign currency or groupable cash
+                            dispName = item.memo1 + item.ind_origin_amount;
+                            current_price = item.memo2 || '';
                         }
-                        else
+                        else {
                             dispName = _('CASH');
+                        }
                         break;
 
                     default:
@@ -2120,19 +2124,22 @@
         },
 
 
-        appendPayment: function(type, amount, origin_amount, memo1, memo2, isGroupable){
+        appendPayment: function(type, amount, origin_amount, memo1, memo2, qty, isGroupable){
 
             var prevRowCount = this.data.display_sequences.length;
-
+            
             var paymentId =  GeckoJS.String.uuid();
             var paymentItem = {
                 id: paymentId,
                 name: type,
-                amount: this.getRoundedPrice(amount),
-                origin_amount: origin_amount,
+                amount: this.getRoundedPrice(qty * amount),
+                origin_amount: qty * origin_amount,
                 memo1: memo1,
                 memo2: memo2,
-                is_groupable: isGroupable
+                is_groupable: isGroupable,
+                current_qty: qty,
+                ind_amount: amount,
+                ind_origin_amount: origin_amount
             };
 
             var itemDisplay = this.createDisplaySeq(paymentId, paymentItem, 'payment');
@@ -2140,6 +2147,10 @@
             var lastIndex = this.data.display_sequences.length - 1;
             this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
 
+            // remove attributes that do not need to be stored to conserve space
+            delete paymentItem.ind_amount;
+            delete paymentItem.ind_origin_amount;
+            
             this.data.trans_payments[paymentId] = paymentItem;
 
             var currentRowCount = this.data.display_sequences.length;

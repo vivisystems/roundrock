@@ -2425,7 +2425,7 @@
                             if (result.ok) {
                                 let memo1 = result.input0 || '';
                                 let memo2 = result.input1 || '';
-                                self._addPayment('creditcard', payment, payment, memo1, memo2);
+                                self._addPayment('creditcard', payment, payment, memo1, memo2, false, finalize);
                             }
                             else {
                                 self._clearAndSubtotal();
@@ -2453,7 +2453,7 @@
                                 let memo1 = result.input0 || '';
                                 let memo2 = result.input1 || '';
 
-                                self._addPayment('coupon', payment, payment, memo1, memo2);
+                                self._addPayment('coupon', payment, payment, memo1, memo2, groupable, finalize);
 
                             }
                             else {
@@ -2732,6 +2732,23 @@
                 return;
             }
 
+            var qty = 1;
+            if (isGroupable) {
+                qty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? parseInt(GeckoJS.Session.get('cart_set_qty_value')) : 1;
+                if (isNaN(qty) || qty < 1) qty = 1;
+            }
+
+            if (amount == null || amount == '' || amount == 0 || isNaN(amount)) {
+                // if amount no given, set amount to amount paid
+                if (returnMode) {
+                    amount = curTransaction.getPaymentSubtotal();
+                }
+                else {
+                    amount = curTransaction.getRemainTotal();
+                }
+                if (amount < 0) amount = 0;
+            }
+
             if (returnMode) {
                 // payment refund
                 let paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
@@ -2741,15 +2758,11 @@
                     err = true;
                 }
 
-                if (!err && (amount == null || amount == 0 || isNaN(amount))) {
-                    // if amount no given, set amount to amount paid
-                    amount = curTransaction.getPaymentSubtotal();
-                }
-
                 // payment refund
-                if (!err && amount > curTransaction.getPaymentSubtotal()) {
+                let payment = amount * qty;
+                if (!err && payment > curTransaction.getPaymentSubtotal()) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
-                        [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
+                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
                     err = true;
                 }
 
@@ -2773,14 +2786,6 @@
             }
 
             type = type || 'cash';
-            amount = amount || false;
-
-            if(!amount) {
-                amount = curTransaction.getRemainTotal();
-                
-                // set amount to 0; actual amount returned is recorded in the payment change field
-                if (amount < 0) amount = 0;
-            }
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
 
@@ -2794,7 +2799,8 @@
                 amount: amount,
                 origin_amount: origin_amount,
                 is_groupable: isGroupable,
-                transaction: curTransaction
+                transaction: curTransaction,
+                current_qty: qty
             };
             
             var paymentTxnItem;
@@ -2802,7 +2808,7 @@
             if (amount != 0) {
                 var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
                 if (beforeResult) {
-                    paymentTxnItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, isGroupable);
+                    paymentTxnItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, qty, isGroupable);
                     paymentTxnItem.seq = curTransaction.data.seq;
                     paymentTxnItem.order_id = curTransaction.data.id;
                 }
@@ -3512,8 +3518,18 @@
                 }
             }
 
-            // make sure payment is a valid number
-            this._addPayment('cash', payment, null, null, null, groupable, finalize);
+            // for groupable cash payments, construct subtype from local currency symbol and amount
+            var memo1;
+            if (groupable) {
+                let currencies = GeckoJS.Session.get('Currencies') || [];
+                if (currencies && currencies[0] && currencies[0].currency_symbol && currencies[0].currency_symbol.length > 0) {
+                    memo1 = currencies[0].currency_symbol + payment;
+                }
+                else {
+                    memo1 = _('CASH') + payment;
+                }
+            }
+            this._addPayment('cash', payment, null, memo1, null, groupable, finalize);
         },
 
         insertCondiment: function(params) {
