@@ -356,9 +356,15 @@
 
                 if (success) {
 
-                    OsdUtils.info(_('Table status rebuilded successfully'));
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Table Status'),
+                                          _('Table status rebuilt successfully'));
                 }
-
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Table Status'),
+                                          _('Failed to rebuild table status, please check the network connectivity to the terminal designated as the table status server [message #2101]'));
+                }
             } finally {
                 this._isBusy = false;
             }
