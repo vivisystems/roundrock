@@ -2172,8 +2172,7 @@
                     return;
                 }
                 else {
-                    payment = parseFloat(payment);
-                    if (payment <= 0) {
+                    if (parseFloat(payment) <= 0) {
                         NotifyUtils.warn(_('Invalid payment amount [%S]. Payment amount must be positive', [curTransaction.formatPrice(payment)]));
 
                         this._clearAndSubtotal();
@@ -2189,13 +2188,17 @@
             }
 
             if (payment != null && payment != '' && currencies && currencies.length > convertIndex) {
-                let amount = parseFloat(payment);
-                let origin_amount = amount;
                 // currency convert array
                 let currency_rate = currencies[convertIndex].currency_exchange;
-                let memo1 = currencies[convertIndex].currency;
+                if (groupable) {
+                    let memo1 = currencies[convertIndex].currency + '' + payment;
+                }
+                else {
+                    let memo1 = currencies[convertIndex].currency;
+                }
                 let memo2 = currency_rate;
-                amount = amount * currency_rate;
+                let origin_amount = payment;
+                let amount = parseFloat(origin_amount) * currency_rate;
                 this._addPayment('cash', amount, origin_amount, memo1, memo2, groupable, finalize);
             }
             else {
@@ -2788,11 +2791,6 @@
             type = type || 'cash';
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
-
-            if (returnMode) {
-                origin_amount = 0 - origin_amount;
-                amount = 0 - amount;
-            }
 
             var paymentItem = {
                 type: type,

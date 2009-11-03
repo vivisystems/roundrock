@@ -703,8 +703,13 @@
                         if (item.memo1 != null && item.origin_amount != null) {
 
                             // foreign currency or groupable cash
-                            dispName = item.memo1 + item.ind_origin_amount;
+                            dispName = item.memo1;
                             current_price = item.memo2 || '';
+
+                            // if foreign currency and not groupable, display origin amount in current unit
+                            if (!item.is_groupable && item.memo2) {
+                                current_qty = item.ind_origin_amount;
+                            }
                         }
                         else {
                             dispName = _('CASH');
@@ -2129,6 +2134,12 @@
             var prevRowCount = this.data.display_sequences.length;
             
             var paymentId =  GeckoJS.String.uuid();
+            
+            if (returnMode) {
+                origin_amount = 0 - origin_amount;
+                amount = 0 - amount;
+            }
+
             var paymentItem = {
                 id: paymentId,
                 name: type,

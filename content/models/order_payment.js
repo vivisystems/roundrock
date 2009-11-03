@@ -32,7 +32,7 @@
 
                     orderPayment['id'] = iid;
                     orderPayment['order_id'] = data.id;
-                    orderPayment['order_items_count'] = data.items_count;
+                    orderPayment['order_items_count'] = payment.current_qty;
                     orderPayment['order_total'] = data.total;
 
                     orderPayment['service_clerk'] = data.service_clerk;
@@ -79,7 +79,8 @@
                     'amount': payment.amount,
                     'origin_amount': payment.origin_amount,
                     'memo1': payment.memo1,
-                    'memo2': payment.memo2
+                    'memo2': payment.memo2,
+                    'current_qty': payment.order_items_count
                 };
                 
             }
