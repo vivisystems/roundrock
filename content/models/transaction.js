@@ -706,9 +706,9 @@
                             dispName = item.memo1;
                             current_price = item.memo2 || '';
 
-                            // if foreign currency and not groupable, display origin amount in current unit
+                            // if foreign currency and not groupable, display origin amount in field 'current_qty'
                             if (!item.is_groupable && item.memo2) {
-                                current_qty = item.ind_origin_amount;
+                                current_qty = item.origin_amount;
                             }
                         }
                         else {
@@ -2135,11 +2135,6 @@
             
             var paymentId =  GeckoJS.String.uuid();
             
-            if (returnMode) {
-                origin_amount = 0 - origin_amount;
-                amount = 0 - amount;
-            }
-
             var paymentItem = {
                 id: paymentId,
                 name: type,
@@ -2148,9 +2143,7 @@
                 memo1: memo1,
                 memo2: memo2,
                 is_groupable: isGroupable,
-                current_qty: qty,
-                ind_amount: amount,
-                ind_origin_amount: origin_amount
+                current_qty: qty
             };
 
             var itemDisplay = this.createDisplaySeq(paymentId, paymentItem, 'payment');
@@ -2158,10 +2151,6 @@
             var lastIndex = this.data.display_sequences.length - 1;
             this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
 
-            // remove attributes that do not need to be stored to conserve space
-            delete paymentItem.ind_amount;
-            delete paymentItem.ind_origin_amount;
-            
             this.data.trans_payments[paymentId] = paymentItem;
 
             var currentRowCount = this.data.display_sequences.length;

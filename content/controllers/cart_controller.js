@@ -2190,15 +2190,16 @@
             if (payment != null && payment != '' && currencies && currencies.length > convertIndex) {
                 // currency convert array
                 let currency_rate = currencies[convertIndex].currency_exchange;
+                let memo1;
                 if (groupable) {
-                    let memo1 = currencies[convertIndex].currency + '' + payment;
+                    memo1 = currencies[convertIndex].currency + '' + payment;
                 }
                 else {
-                    let memo1 = currencies[convertIndex].currency;
+                    memo1 = currencies[convertIndex].currency;
                 }
                 let memo2 = currency_rate;
-                let origin_amount = payment;
-                let amount = parseFloat(origin_amount) * currency_rate;
+                let origin_amount = parseFloat(payment);
+                let amount = origin_amount * currency_rate;
                 this._addPayment('cash', amount, origin_amount, memo1, memo2, groupable, finalize);
             }
             else {
@@ -2439,6 +2440,9 @@
 
                 case 'coupon':
                     if (silent && subtype != '') {
+                        if (groupable) {
+                            subtype += ' ' + amount;        // when groupable is true, amount is always defined with value
+                        }
                         this._addPayment('coupon', payment, payment, subtype, '', groupable, finalize);
                     }
                     else {
@@ -2791,6 +2795,11 @@
             type = type || 'cash';
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
+
+            if (returnMode) {
+                origin_amount = 0 - origin_amount;
+                amount = 0 - amount;
+            }
 
             var paymentItem = {
                 type: type,
