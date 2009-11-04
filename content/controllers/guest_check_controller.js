@@ -583,9 +583,17 @@
         beforeStoreCheck: function(evt) {
 
             var curTransaction = evt.data;
-            
-            var isCheckGuestNum = (this.tableSettings.RequireGuestOrTableNumWhenStored && this.tableSettings.RequireGuestNum && curTransaction.data.destination == this.tableSettings.RequireGuestNum);
-            var isCheckTableNo = (this.tableSettings.RequireGuestOrTableNumWhenStored && this.tableSettings.RequireTableNo && curTransaction.data.destination == this.tableSettings.RequireTableNo);
+            var isCheckGuestNum = false ;
+            var isCheckTableNo = false ; 
+             
+            if (this.tableSettings.RequireGuestOrTableNumWhenStored && this.tableSettings.RequireGuestNum) {
+                let destsByGuestNum = this.tableSettings.RequireGuestNum.split(",");
+                if (destsByGuestNum.indexOf(curTransaction.data.destination) != -1) isCheckGuestNum = true;
+            }
+            if (this.tableSettings.RequireGuestOrTableNumWhenStored && this.tableSettings.RequireTableNo) {
+                let destsByTableNo = this.tableSettings.RequireTableNo.split(",");
+                if (destsByTableNo.indexOf(curTransaction.data.destination) != -1) isCheckTableNo = true;
+            }
 
             if (isCheckTableNo && !curTransaction.data.table_no) {
                 let tableResult = this.newTable('', true);
@@ -597,7 +605,6 @@
 
             let guest = curTransaction.data.no_of_customers || 0;
             guest = parseInt(guest);
-
             if (isCheckGuestNum && guest <= 0) {
                 this.guestNum(-1);
             }
@@ -972,21 +979,25 @@
             if (evt.data.status != 1) return ;
             
             var curTransaction = evt.data.txn;
+            var isCheckGuestNum = false ;
+            var isCheckTableNo = false ;
 
-            // let destination = getXXXX;
-            var isCheckTableNo = (this.tableSettings.RequireTableNo && curTransaction.data.destination == this.tableSettings.RequireTableNo);
-            var isCheckGuestNum = (this.tableSettings.RequireGuestNum && curTransaction.data.destination == this.tableSettings.RequireGuestNum);
+            if (this.tableSettings.RequireGuestNum) {
+                let destsByGuestNum = this.tableSettings.RequireGuestNum.split(",");
+                if (destsByGuestNum.indexOf(curTransaction.data.destination) != -1) isCheckGuestNum = true;
+            }
+            if (this.tableSettings.RequireTableNo) {
+                let destsByTableNo = this.tableSettings.RequireTableNo.split(",");
+                if (destsByTableNo.indexOf(curTransaction.data.destination) != -1) isCheckTableNo = true;
+            }
 
             if (isCheckTableNo && !curTransaction.data.table_no) {
-                
                 let tableResult = this.newTable('', true);
-
                 if (!tableResult) evt.preventDefault();
             }
             
             let guest = curTransaction.data.no_of_customers || 0;
             guest = parseInt(guest);
-            
             if (isCheckGuestNum && guest <= 0) {
                 this.guestNum(-1);
             }

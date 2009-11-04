@@ -283,7 +283,7 @@
                                     <tabpanel>
                                         <vbox flex="1">
                                             <caption label="&tableman.tableoptions.options;"/>
-                                            <grid flex="1" class="data-form">
+                                            <grid flex="0" class="data-form">
                                                 <columns>
                                                     <column flex="1"/>
                                                     <column flex="1"/>
@@ -297,24 +297,33 @@
                                                         <checkbox id="staydownAction" label="&tableman.tableoptions.staydownaction;" form="settingsForm" name="StaydownAction"/>
                                                         <checkbox id="requireGuestOrTableNumWhenStored" label="&tableman.tableoptions.requireGuestOrTableNumWhenStored;" form="settingsForm" name="RequireGuestOrTableNumWhenStored"/>
                                                     </row>
-                                                    <row>
-                                                        <hbox flex="1">
-                                                            <label value="&tableman.tableoptions.requiretableno;"/>
-                                                            <menulist id="tableno_destination" form="settingsForm" name="RequireTableNo" flex="1">
-                                                                <menupopup id="tableno_destination_menupopup">
-                                                                </menupopup>
-                                                            </menulist>
-                                                        </hbox>
-                                                        <hbox flex="1">
-                                                            <label value="&tableman.tableoptions.requireguestnum;"/>
-                                                            <menulist id="guestnum_destination" form="settingsForm" name="RequireGuestNum" flex="1">
-                                                                <menupopup id="guestnum_destination_menupopup">
-                                                                </menupopup>
-                                                            </menulist>
-                                                        </hbox>
-                                                    </row>
                                                 </rows>
                                             </grid>
+                                            <vbox class="data-formsss">
+                                                <vbox flex="1" class="content-buttonpanel">
+                                                        <label value="&tableman.tableoptions.requiretableno;"/>
+                                                    <viviscrollablebuttonpanel id="tableno_destination" seltype="multiple" flex="1" cols="5" rows="2"
+                                               labelField="label"
+                                               form="settingsForm" name="RequireTableNo"
+                                               buttonClass="button-item-a"
+                                               scrollUpClass="scroll-up-button"
+                                               scrollDownClass="scroll-down-button">
+                                                        <spacer flex="1"/>
+                                                    </viviscrollablebuttonpanel>
+                                                </vbox>
+                                                <vbox flex="1" class="content-buttonpanel">
+                                                        <label value="&tableman.tableoptions.requireguestnum;"/>
+                                                    <viviscrollablebuttonpanel id="guestnum_destination" seltype="multiple" flex="1" cols="5" rows="2"
+                                               labelField="label"
+                                               form="settingsForm" name="RequireGuestNum"
+                                               buttonClass="button-item-a"
+                                               scrollUpClass="scroll-up-button"
+                                               scrollDownClass="scroll-down-button">
+                                                        <spacer flex="1"/>
+                                                    </viviscrollablebuttonpanel>
+                                                </vbox>
+                                            </vbox>
+                                            
                                         </vbox>
                                     </tabpanel>
 
@@ -323,12 +332,36 @@
                                             <caption label="&tableman.tableoptions.options;" />
                                             <grid class="data-form" flex="1">
                                                 <columns>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <label control="default_region" value="&tableman.tableoptions.defaultregion;"/>
+                                                        <menulist id="default_region" name="DefaultRegion" form="settingsForm">
+                                                            <menupopup id="default_region_menupopup">
+
+                                                            </menupopup>
+                                                        </menulist>
+                                                    </row>
+                                                    <row>
+                                                        <label control="mark_automark" value="&tableman.mark.automarkaftersubmit;"/>
+                                                        <menulist id="automark_after_submit" form="settingsForm" name="AutoMarkAfterSubmit">
+                                                            <menupopup id="automark_after_submit_menupopup">
+                                                            </menupopup>
+                                                        </menulist>
+                                                    </row>
+                                                </rows>
+                                            </grid>
+                                            
+                                            <grid class="data-form" flex="1">
+                                                <columns>
                                                     <column flex="1" />
                                                     <column flex="1" />
                                                 </columns>
                                                 <rows>
-                                                    <row>
-                                                        <!--vbox>
+                                                    <!--row>
+                                                        <vbox>
                                                             <label control="print_split_check" value="&tableman.tableoptions.printsplitcheck;"/>
                                                             <menulist id="print_split_check" name="PrintSplitCheck" form="settingsForm">
                                                                 <menupopup>
@@ -337,18 +370,8 @@
                                                                     <menuitem value="2" label="&tableman.tableoptions.printsplitcheck.confirm;" />
                                                                 </menupopup>
                                                             </menulist>
-                                                        </vbox-->
-                                                        <vbox>
-                                                            <label control="default_region" value="&tableman.tableoptions.defaultregion;"/>
-                                                            <menulist id="default_region" name="DefaultRegion" form="settingsForm">
-                                                                <menupopup id="default_region_menupopup">
-
-                                                                </menupopup>
-                                                            </menulist>
                                                         </vbox>
-                                                    </row>
-                                                    <row>
-                                                        <!--vbox>
+                                                        <vbox>
                                                             <label control="print_merge_check" value="&tableman.tableoptions.printmergecheck;"/>
                                                             <menulist id="print_merge_check" name="PrintMergeCheck" form="settingsForm">
                                                                 <menupopup>
@@ -357,15 +380,8 @@
                                                                     <menuitem value="2" label="&tableman.tableoptions.printmergecheck.confirm;" />
                                                                 </menupopup>
                                                             </menulist>
-                                                        </vbox-->
-                                                        <vbox>
-                                                            <label control="mark_automark" value="&tableman.mark.automarkaftersubmit;"/>
-                                                            <menulist id="automark_after_submit" form="settingsForm" name="AutoMarkAfterSubmit">
-                                                                <menupopup id="automark_after_submit_menupopup">
-                                                                </menupopup>
-                                                            </menulist>
                                                         </vbox>
-                                                    </row>
+                                                    </row-->
                                                     <row>
                                                         <vbox>
                                                             <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
