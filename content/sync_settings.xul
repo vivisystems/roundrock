@@ -75,7 +75,7 @@
                                     </vbox>
                                     <vbox>
                                         <label value="&sync_settings.label.interval;"/>
-                                        <vivitextbox type="number" value="60"
+                                        <vivitextbox type="number" value="60" min="30" max="86400"
                                                      numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                      form="syncSettingForm" name="interval"/>
                                     </vbox>
@@ -131,28 +131,28 @@
 
                                 <row>
                                     <label value="&sync_settings.label.batch_limit;"/>
-                                    <vivitextbox type="number" value="500"
+                                    <vivitextbox type="number" value="500" min="10" max="2000"
                                                  numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                  form="syncSettingForm" name="batch_limit"/>
                                 </row>
 
                                 <row>
                                     <label value="&sync_settings.label.error_retry;"/>
-                                    <vivitextbox type="number" value="5"
+                                    <vivitextbox type="number" value="5" min="5" max="30"
                                                  numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                  form="syncSettingForm" name="error_retry"/>
                                 </row>
 
                                 <row>
                                     <label value="&sync_settings.label.timeout;"/>
-                                    <vivitextbox type="number" value="300"
+                                    <vivitextbox type="number" value="300" min="10" max="900"
                                                  numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                  form="syncSettingForm" name="timeout" />
                                 </row>
 
                                 <row>
                                     <label value="&sync_settings.label.retain_days;"/>
-                                    <vivitextbox type="number" size="2" min="1" max="15"
+                                    <vivitextbox type="number" size="2" min="1" max="30"
                                                  numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                  form="syncSettingForm" name="retain_days"/>
                                 </row>

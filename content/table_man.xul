@@ -305,7 +305,7 @@
                                                     <row>
                                                         <vbox>
                                                             <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
-                                                            <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="5" max="999" default="60"
+                                                            <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="15" max="999" default="60"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableRefreshFrequence"/>
                                                         </vbox>
