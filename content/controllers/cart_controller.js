@@ -33,6 +33,10 @@
                         return false;
                     }
                     break;
+
+                default:
+                    this._pendingAddItemEvents = [];
+                    break;
             }
             return true;
         },
@@ -787,7 +791,7 @@
                     self._blockNextAction = false;
 
                     // has pendingAddItemEvents ??
-                    while (self._pendingAddItemEvents.length >0) {
+                    while (!self._blockNextAction && self._pendingAddItemEvents.length >0) {
                         let data = self._pendingAddItemEvents.splice(0,1)[0];
                         self.requestCommand('addItem', data, 'Cart');
                     }
