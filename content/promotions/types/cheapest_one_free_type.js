@@ -64,7 +64,8 @@
                 switch(amount_mode) {
                     case 'single':
                     case 'more':
-                        discount_qty = (available_qty < itemsByPriceArray[0].qty) ? available_qty : itemsByPriceArray[0].qty;
+                        //discount_qty = (available_qty < itemsByPriceArray[0].qty) ? available_qty : itemsByPriceArray[0].qty;
+                        discount_qty = available_qty;
                         break;
 
                     case 'multiple':
