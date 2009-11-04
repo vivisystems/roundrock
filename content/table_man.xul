@@ -295,7 +295,7 @@
                                                     </row>
                                                     <row>
                                                         <checkbox id="staydownAction" label="&tableman.tableoptions.staydownaction;" form="settingsForm" name="StaydownAction"/>
-                                                        <checkbox id="requestGuestNumWhenStored" label="&tableman.tableoptions.requestGuestNumWhenStored;" form="settingsForm" name="RequestGuestNumWhenStored"/>
+                                                        <checkbox id="requireGuestOrTableNumWhenStored" label="&tableman.tableoptions.requireGuestOrTableNumWhenStored;" form="settingsForm" name="RequireGuestOrTableNumWhenStored"/>
                                                     </row>
                                                     <row>
                                                         <hbox flex="1">

@@ -583,7 +583,17 @@
         beforeStoreCheck: function(evt) {
 
             var curTransaction = evt.data;
-            var isCheckGuestNum = (this.tableSettings.RequestGuestNumWhenStored && this.tableSettings.RequireGuestNum && curTransaction.data.destination == this.tableSettings.RequireGuestNum);
+            
+            var isCheckGuestNum = (this.tableSettings.RequireGuestOrTableNumWhenStored && this.tableSettings.RequireGuestNum && curTransaction.data.destination == this.tableSettings.RequireGuestNum);
+            var isCheckTableNo = (this.tableSettings.RequireGuestOrTableNumWhenStored && this.tableSettings.RequireTableNo && curTransaction.data.destination == this.tableSettings.RequireTableNo);
+
+            if (isCheckTableNo && !curTransaction.data.table_no) {
+                let tableResult = this.newTable('', true);
+                if (!tableResult) {
+                    evt.preventDefault();
+                    return false;
+                }
+            }
 
             let guest = curTransaction.data.no_of_customers || 0;
             guest = parseInt(guest);
@@ -636,9 +646,10 @@
             }
 
             var beforeStoreCheck = this.dispatchEvent('beforeStoreCheck', curTransaction);
+            if (!beforeStoreCheck) return false;
 
             // save order
-            if  (beforeStoreCheck && cart.submit(2)) {
+            if  (cart.submit(2)) {
 
                 // backward compatible
                 cart.dispatchEvent('onStore', curTransaction);
