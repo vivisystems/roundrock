@@ -3971,7 +3971,7 @@
                 if (index < 0) index = 0;
 
                 if (mode == 'absolute') {
-                    newIndex = val;
+                    newIndex = val - 1;
                 }
                 else if (mode == 'relative') {
                     newIndex = index + val;
