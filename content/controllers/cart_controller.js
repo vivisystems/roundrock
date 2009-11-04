@@ -15,6 +15,7 @@
         _blockNextAction: false,
         _decStockBackUp: null,
 
+        _pendingAddItemEvents: [],
 
         beforeFilter: function(evt) {
 
@@ -23,13 +24,17 @@
                 this._lastCancelInvoke = false;
             }
 
-            if (this._blockNextAction) {
-                evt.preventDefault();
-                return false;
+            switch(cmd) {
+                case 'addItem':
+                    if (this._blockNextAction) {
+                        // internal
+                        this._pendingAddItemEvents.push(this._data);
+                        evt.preventDefault();
+                        return false;
+                    }
+                    break;
             }
-            else {
-                return true;
-            }
+            return true;
         },
 
         initial: function() {
@@ -681,13 +686,13 @@
                     var price = GeckoJS.Session.get('cart_set_price_value');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
-                             (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
-                            !currentItem.hasDiscount &&
-                            !currentItem.hasSurcharge &&
-                            !currentItem.hasMarker &&
-                            ((price == null) || (currentItem.current_price == price)) &&
+                            (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
+                        !currentItem.hasDiscount &&
+                        !currentItem.hasSurcharge &&
+                        !currentItem.hasMarker &&
+                        ((price == null) || (currentItem.current_price == price)) &&
                             (currentItem.current_qty > 0 && !this._returnMode ||
-                             currentItem.current_qty < 0 && this._returnMode) &&
+                                currentItem.current_qty < 0 && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
 
                             // need to clear quantity source so scale multipler is not applied again
@@ -780,12 +785,20 @@
                     }
 
                     self._blockNextAction = false;
+
+                    // has pendingAddItemEvents ??
+                    while (self._pendingAddItemEvents.length >0) {
+                        let data = self._pendingAddItemEvents.splice(0,1)[0];
+                        self.requestCommand('addItem', data, 'Cart');
+                    }
+
                 });
 
             }
             else {
                 this._clearAndSubtotal();
             }
+                
         },
 
         _setItemSelectionDialog: function (txn, item) {
@@ -1651,8 +1664,8 @@
 
                 if (non_discountable) {
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Discount Error'),
-                                          _('Product [%S] is non-discountable', [itemTrans.name]));
+                        _('Discount Error'),
+                        _('Product [%S] is non-discountable', [itemTrans.name]));
                     return;
                 }
             }
@@ -1911,8 +1924,8 @@
 
                 if (non_surchargeable) {
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Surcharge Error'),
-                                          _('Product [%S] is non-surchargeable', [itemTrans.name]));
+                        _('Surcharge Error'),
+                        _('Product [%S] is non-surchargeable', [itemTrans.name]));
                     return;
                 }
             }
@@ -2746,7 +2759,7 @@
             });
             if (ledgerEntryTypeModel.lastError) {
                 this._dbError(ledgerEntryTypeModel.lastError, ledgerEntryTypeModel.lastErrorString,
-                              _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
+                    _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
                 this._clearAndSubtotal();
                 return;
             }
@@ -3541,11 +3554,11 @@
                         };
 
                         var data = [
-                            _('Add Annotation') + ' [' + curTransaction.data.seq + ']',
-                            '',
-                            annotationType,
-                            '',
-                            inputObj
+                        _('Add Annotation') + ' [' + curTransaction.data.seq + ']',
+                        '',
+                        annotationType,
+                        '',
+                        inputObj
                         ];
 
                         var self = this;
@@ -4020,16 +4033,16 @@
             if (curTransaction.data.recall != 1 && curTransaction.data.recall != 2 &&
                 curTransaction.data.status != 1 && curTransaction.data.status != 2) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Void Sale'),
-                                      _('This operation may only be applied to stored and completed transactions'));
+                    _('Void Sale'),
+                    _('This operation may only be applied to stored and completed transactions'));
                 return;
             }
 
             // check if transaction has been modified
             if (curTransaction.isModified() &&
                 !GREUtils.Dialog.confirm(this.topmostWindow,
-                                         _('Confirm Void'),
-                                         _('You have made changes to this order; are you sure you want to void the order?'))) {
+                    _('Confirm Void'),
+                    _('You have made changes to this order; are you sure you want to void the order?'))) {
                 return;
             }
             if (this._voidSaleById(curTransaction.data.id)) {
