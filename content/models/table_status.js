@@ -31,8 +31,8 @@
                     this.httpService = new SyncbaseHttpService();
                     this.httpService.setSyncSettings(syncSettings);
                     this.httpService.setHostname(syncSettings.table_hostname);
-                    this.httpService.setForce(true);
                     this.httpService.setController('table_status');
+                    this.httpService.setForce(true);
                 }
             }catch(e) {
                 this.log('error ' + e);
