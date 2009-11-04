@@ -26,6 +26,9 @@ Bug #159:
 Bugs fixed
 ----------
 
+Bug #145:
+    Enhanced promotion type 'cheapest one free' to behave consistently regardless of mode ('single', 'more than', or 'multiple')
+
 Bug #155:
     Hotkeys without modifiers intercepted by input line
 
@@ -58,3 +61,16 @@ Bug #171:
 
 Bug #174:
     Rapidly adding items to cart causes new item to be added with previous item's price and quantity
+
+Bug #179:
+    When specifying an absolute index for Scroll Cart function, 0-based index scheme is used instead of the more sensible 1-based index scheme
+
+Bug #181:
+    Cluster services should not be dependent on synchronization setting
+
+Bug #182:
+    Refund amount should be displayed as a negative value in shift change screenn
+
+Bug #183:
+    Table selection screen has a transparent overlay that's bigger than it needs to be, causing areas around the selection screen to be inactive
+
