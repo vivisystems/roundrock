@@ -700,24 +700,25 @@
                         break;
 
                     case 'CASH':
-                        if (item.memo1 != null && item.origin_amount != null) {
-
-                            // foreign currency or groupable cash
-                            dispName = item.memo1;
-                            current_price = item.memo2 || '';
-
-                            // if foreign currency and not groupable, display origin amount in field 'current_qty'
-                            if (!item.is_groupable && item.memo2) {
-                                current_qty = item.origin_amount;
+                        if (item.memo2 == null || item.memo2 == '') {
+                            if (item.is_groupable) {
+                                // groupable local cash
+                                dispName = item.memo1;
+                            }
+                            else {
+                                // regular cash
+                                dispName = _('(payment)CASH');
                             }
                         }
                         else {
-                            dispName = _('CASH');
+                            // foreign currency
+                            dispName = item.memo1;
+                            current_price = item.memo2 || '';
                         }
                         break;
 
                     default:
-                        dispName = _(item.name.toUpperCase());
+                        dispName = item.memo1;
                         break;
 
                 }
@@ -2139,7 +2140,7 @@
                 id: paymentId,
                 name: type,
                 amount: this.getRoundedPrice(qty * amount),
-                origin_amount: qty * origin_amount,
+                origin_amount: origin_amount,
                 memo1: memo1,
                 memo2: memo2,
                 is_groupable: isGroupable,

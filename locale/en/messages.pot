@@ -339,19 +339,19 @@ msgstr "Report - Purchase History"
 #
 ########################################################################
 
-msgid "CREDITCARD"
+msgid "(payment)CREDITCARD"
 msgstr "CC"
 
-msgid "COUPON"
+msgid "(payment)COUPON"
 msgstr "CPN"
 
-msgid "CASH"
+msgid "(payment)CASH"
 msgstr "$"
 
-msgid "CHECK"
+msgid "(payment)CHECK"
 msgstr "CHK"
 
-msgid "GIFTCARD"
+msgid "(payment)GIFTCARD"
 msgstr "GC"
 
 ########################################################################
@@ -395,9 +395,6 @@ msgstr "Other"
 
 msgid "(rpt)cash"
 msgstr "Cash"
-
-msgid "(rpt)   - cash"
-msgstr "   - Cash"
 
 msgid "(rpt)giftcard"
 msgstr "Giftcard"

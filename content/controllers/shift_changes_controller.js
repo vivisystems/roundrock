@@ -727,9 +727,9 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND order_payments.memo1 IS NULL';
-                groupby = 'order_payments.memo1, order_payments.name';
-                orderby = 'order_payments.memo1, order_payments.name';
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL';
+                groupby = 'order_payments.name';
+                orderby = 'order_payments.name';
                 var localCashDetails = orderPayment.find('all', {fields: fields,
                                                                  conditions: conditions,
                                                                  group: groupby,
@@ -745,7 +745,7 @@
                 //alert(this.dump(localCashDetails));
                 //this.log(this.dump(localCashDetails));
 
-                // next, we collect payment totals for the payments registered by pressing the function button with a fixed value.
+                // next, we collect groupable payment totals
                 fields = ['order_payments.amount as "OrderPayment.name"',
                           '( "   - " || order_payments.name ) as "OrderPayment.type"',
                           'COUNT(order_payments.name) as "OrderPayment.count"',
@@ -753,23 +753,23 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND order_payments.memo1 IS NULL AND order_payments.is_groupable = "1"';
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"';
                 groupby = 'order_payments.amount, order_payments.name';
                 orderby = 'order_payments.amount, order_payments.name';
-                var valueFixedCashPayment = orderPayment.find('all', {fields: fields,
-                                                                 conditions: conditions,
-                                                                 group: groupby,
-                                                                 order: orderby,
-                                                                 recursive: 0,
-                                                                 limit: this._limit
-                                                                });
+                var groupableCashPayment = orderPayment.find('all', {fields: fields,
+                                                                     conditions: conditions,
+                                                                     group: groupby,
+                                                                     order: orderby,
+                                                                     recursive: 0,
+                                                                     limit: this._limit
+                                                                    });
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
                            errmsg: _('An error was encountered while retrieving value-fixed cash payment records (error code %S) [message #1414].', [orderPayment.lastError])};
 
-                //alert(this.dump(valueFixedCashPayment));
-                //this.log(this.dump(valueFixedCashPayment));
+                //alert(this.dump(groupableCashPayment));
+                //this.log(this.dump(groupableCashPayment));
 
 
                 // next, we collect payment totals for cash in foreign denominations
@@ -1043,7 +1043,7 @@
                 var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
 
                 // don't include destination details yet
-                var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(valueFixedCashPayment.concat(foreignCashDetails.concat(ledgerDetails))))));
+                var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(groupableCashPayment.concat(foreignCashDetails.concat(ledgerDetails))))));
                 //shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
                 var aURL;

@@ -764,7 +764,7 @@
 
                     // single item sale?
                     if (doSIS) {
-                        self._addPayment('cash');
+                        self._addPayment('cash', null, null, null, null, false, true);
                         self.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
                     }
                     else {
@@ -2189,18 +2189,13 @@
 
             if (payment != null && payment != '' && currencies && currencies.length > convertIndex) {
                 // currency convert array
+                let currency = currencies[convertIndex].currency;
                 let currency_rate = currencies[convertIndex].currency_exchange;
-                let memo1;
-                if (groupable) {
-                    memo1 = currencies[convertIndex].currency + '' + payment;
-                }
-                else {
-                    memo1 = currencies[convertIndex].currency;
-                }
+                let memo1 = currency + payment;
                 let memo2 = currency_rate;
                 let origin_amount = parseFloat(payment);
                 let amount = origin_amount * currency_rate;
-                this._addPayment('cash', amount, origin_amount, memo1, memo2, groupable, finalize);
+                this._addPayment(currency, amount, origin_amount, memo1, memo2, groupable, finalize);
             }
             else {
                 if (buf.length==0) {
@@ -2413,7 +2408,7 @@
 
                     if (silent && subtype != '') {
                         // credit card payments not groupable
-                        this._addPayment('creditcard', payment, payment, subtype, '', false, finalize);
+                        this._addPayment('creditcard', payment, null, subtype, '', false, finalize);
                     }
                     else {
                         let data = {
@@ -2429,7 +2424,7 @@
                             if (result.ok) {
                                 let memo1 = result.input0 || '';
                                 let memo2 = result.input1 || '';
-                                self._addPayment('creditcard', payment, payment, memo1, memo2, false, finalize);
+                                self._addPayment('creditcard', payment, null, memo1, memo2, false, finalize);
                             }
                             else {
                                 self._clearAndSubtotal();
@@ -2443,7 +2438,7 @@
                         if (groupable) {
                             subtype += ' ' + amount;        // when groupable is true, amount is always defined with value
                         }
-                        this._addPayment('coupon', payment, payment, subtype, '', groupable, finalize);
+                        this._addPayment('coupon', payment, null, subtype, '', groupable, finalize);
                     }
                     else {
                         let data = {
@@ -2460,7 +2455,7 @@
                                 let memo1 = result.input0 || '';
                                 let memo2 = result.input1 || '';
 
-                                self._addPayment('coupon', payment, payment, memo1, memo2, groupable, finalize);
+                                self._addPayment('coupon', payment, null, memo1, memo2, groupable, finalize);
 
                             }
                             else {
@@ -2535,7 +2530,7 @@
                     }
 
                     if (silent && subtype != '') {
-                        this._addPayment('check', payment, payment, subtype, '', false, finalize);
+                        this._addPayment('check', payment, null, subtype, '', false, finalize);
                     }
                     else {
                         let data = {
@@ -2552,7 +2547,7 @@
                                 let memo1 = result.input0 || '';
                                 let memo2 = result.input1 || '';
 
-                                self._addPayment('check', payment, payment, memo1, memo2, false, finalize);
+                                self._addPayment('check', payment, null, memo1, memo2, false, finalize);
 
                             }
                             else {
