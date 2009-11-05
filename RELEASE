@@ -74,3 +74,6 @@ Bug #182:
 Bug #183:
     Table selection screen has a transparent overlay that's bigger than it needs to be, causing areas around the selection screen to be inactive
 
+Bug #184:
+    When port number is changed from 80 in network services, cluster services on localhost are no longer accessible
+
