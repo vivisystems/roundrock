@@ -127,20 +127,26 @@
 
                 if ( inputData.modifiers == 'shift' || inputData.modifiers.length == 0 ) {
 
-                    NotifyUtils.error(_('Hot Key [%S] is not allowed, please add modifiers', [keydisplay]));
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Hot Key Configuration'),
+                                          _('Hot Key [%S] is not allowed, please add modifiers', [keydisplay]));
                     return ;
                 }    
 
                 if(this.reserveHotKeys[keycombo]) {
 
-                    NotifyUtils.error(_('Hot Key [%S] is reserved', [keydisplay]));
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Hot Key Configuration'),
+                                          _('Hot Key [%S] is reserved', [keydisplay]));
                     return ;
                 }
 
                 var isExists = this.hotkeys.containsKey(keycombo);
                 if (isExists) {
 
-                    NotifyUtils.error(_('Hot Key [%S] already exists', [keydisplay]));
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Hot Key Configuration'),
+                                          _('Hot Key [%S] already exists', [keydisplay]));
                     return ;
                 }
                 
@@ -163,7 +169,9 @@
             var entry = this.lastLinkFunction;
 
             if (!entry) {
-                NotifyUtils.error(_('Please Linking Function to Hot Key'));
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Hot Key Configuration'),
+                                      _('Please Linking Function to Hot Key'));
                 return false;
             }
 
@@ -193,7 +201,9 @@
 
             if (!keycombo) {
 
-                NotifyUtils.error(_('Please Assign Hot Key to Linking Function'));
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Hot Key Configuration'),
+                                      _('Please Assign Hot Key to Linking Function'));
                 return false;
 
             }
@@ -204,14 +214,18 @@
 
                 if(this.reserveHotKeys[keycombo]) {
 
-                    NotifyUtils.error(_('Hot Key [%S] is reserved', [keydisplay]));
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Hot Key Configuration'),
+                                          _('Hot Key [%S] is reserved', [keydisplay]));
                     return false;
                 }
 
                 var isExists = this.hotkeys.containsKey(keycombo);
                 if (isExists) {
 
-                    NotifyUtils.error(_('Hot Key [%S] already exists', [keydisplay]));
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Hot Key Configuration'),
+                                          _('Hot Key [%S] already exists', [keydisplay]));
                     return false;
                 }
 
@@ -293,7 +307,9 @@
             }
             catch (e) {
 
-                NotifyUtils.error(_('An error occurred while removing Hot Key [%S]. The hot key may not have been removed successfully', [inputData.name]));
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Hot Key Configuration'),
+                                          _('An error occurred while removing Hot Key [%S]. The hot key may not have been removed successfully', [inputData.name]));
             }
 
         },
@@ -401,7 +417,9 @@
 
                 if (!this.hotkeys.get(keycombo)) {
 
-                    NotifyUtils.error(_('Hot Key [%S] does not exist', [keydisplay]));
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Hot Key Configuration'),
+                                          _('Hot Key [%S] does not exist', [keydisplay]));
 
                     return ;
                 }
@@ -418,8 +436,10 @@
                 }
                 
             }catch (e) {
-
-                NotifyUtils.error(_('An error occurred while searching for Hot Key [%S].', [keydisplay]));
+                
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Hot Key Configuration'),
+                                      _('An error occurred while searching for Hot Key [%S].', [keydisplay]));
             }
 
         },
