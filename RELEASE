@@ -77,3 +77,6 @@ Bug #183:
 Bug #184:
     When port number is changed from 80 in network services, cluster services on localhost are no longer accessible
 
+Bug #185:
+    superuser account may only be modified by superuser
+
