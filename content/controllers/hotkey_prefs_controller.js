@@ -89,33 +89,72 @@
 
         },
 
+        checkAvailableHotkey: function(keycombo, keydisplay, modifiers) {
+          
+            if (!keycombo) {
+
+                NotifyUtils.error(_('Please Assign Hot Key to Linking Function'));
+                return false;
+
+            }
+            
+            if(this.reserveHotKeys[keycombo]) {
+
+                NotifyUtils.error(_('Hot Key [%S] is reserved', [keydisplay]));
+                return false ;
+            }
+
+            var isExists = this.hotkeys.containsKey(keycombo);
+            if (isExists) {
+
+                NotifyUtils.error(_('Hot Key [%S] already exists', [keydisplay]));
+                return false ;
+            }
+            
+            if ( modifiers == 'shift' || modifiers.length == 0 ) {
+
+                NotifyUtils.error(_('Hot Key [%S] is not allowed, please add modifiers', [keydisplay]));
+                return false;
+            }
+            
+            return true;
+          
+        },
+
         addHotkey: function() {
 
             if (!this.confirmChangeHotkey()) {
-                return;
+                return false;
             }
 
             var aURL = 'chrome://viviecr/content/prompt_addhotkey.xul';
             var width = GeckoJS.Session.get('screenwidth') || 800;
             var height = GeckoJS.Session.get('screenheight') || 600;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + width * 0.8 + ',height=' + height * 0.9;
-            var inputObj = {hotkey: null, name: null, fn: null, fn_list: this.functionArray};
+            var inputObj = {
+                hotkey: null,
+                name: null,
+                fn: null,
+                data: null,
+                fn_list: this.functionArray
+            };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Hot Key'), features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Hot Key'), features, inputObj, this);
 
             if (inputObj.ok) {
 
                 var fn = inputObj.fn;
                 var hotkey = inputObj.hotkey;
                 var name = inputObj.name;
+                var data = inputObj.data;
 
                 var inputData = {
-                        name: name,
-                        linked: fn.name,
-                        access: fn.access,
-                        command: fn.command,
-                        controller: fn.controller,
-                        data: ''
+                    name: name,
+                    linked: fn.name,
+                    access: fn.access,
+                    command: fn.command,
+                    controller: fn.controller,
+                    data: data
                 };
 
                 inputData = GREUtils.extend(inputData, hotkey);
@@ -124,26 +163,10 @@
 
                 var keycombo = inputData.keycombo;
                 var keydisplay = inputData.keydisplay;
+                var modifiers = inputData.modifiers;
 
-                if ( inputData.modifiers == 'shift' || inputData.modifiers.length == 0 ) {
+                if (!this.checkAvailableHotkey(keycombo, keydisplay, modifiers)) return false;
 
-                    NotifyUtils.error(_('Hot Key [%S] is not allowed, please add modifiers', [keydisplay]));
-                    return ;
-                }    
-
-                if(this.reserveHotKeys[keycombo]) {
-
-                    NotifyUtils.error(_('Hot Key [%S] is reserved', [keydisplay]));
-                    return ;
-                }
-
-                var isExists = this.hotkeys.containsKey(keycombo);
-                if (isExists) {
-
-                    NotifyUtils.error(_('Hot Key [%S] already exists', [keydisplay]));
-                    return ;
-                }
-                
                 this.hotkeys.add(keycombo, inputData);
                 
                 document.getElementById('hotkey_id').value = keycombo;
@@ -155,7 +178,9 @@
                 this.locateHotkey(keycombo);
 
                 OsdUtils.info(_('Hot Key [%S] for [%S] added successfully', [keydisplay, fn.name]));
+                return true;
             }
+            return false;
         },
 
         modifyHotkey: function() {
@@ -190,30 +215,14 @@
             var id = inputData.id ;
             var keycombo = inputData.keycombo;
             var keydisplay = inputData.keydisplay;
+            var modifiers = inputData.modifiers;
 
-            if (!keycombo) {
-
-                NotifyUtils.error(_('Please Assign Hot Key to Linking Function'));
-                return false;
-
-            }
 
             // change hotkey, check if hotkey exists
 
             if (id != keycombo) {
 
-                if(this.reserveHotKeys[keycombo]) {
-
-                    NotifyUtils.error(_('Hot Key [%S] is reserved', [keydisplay]));
-                    return false;
-                }
-
-                var isExists = this.hotkeys.containsKey(keycombo);
-                if (isExists) {
-
-                    NotifyUtils.error(_('Hot Key [%S] already exists', [keydisplay]));
-                    return false;
-                }
+                if (!this.checkAvailableHotkey(keycombo, keydisplay)) return false;
 
                 // remove old
                 if (this.hotkeys.containsKey(id)) {
@@ -250,8 +259,8 @@
                 }
 
                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
-                                             _('confirm delete Hot Key [%S]', [entry.keydisplay]),
-                                             _('Are you sure you want to delete Hot Key [%S] for [%S]?', [entry.keydisplay, entry.name]))) {
+                    _('confirm delete Hot Key [%S]', [entry.keydisplay]),
+                    _('Are you sure you want to delete Hot Key [%S] for [%S]?', [entry.keydisplay, entry.name]))) {
                     return;
                 }
 
@@ -374,10 +383,12 @@
                 }
             }
 
-            var valObj = {id: entry.keycombo,
-                          name: entry.name,
-                          linked: entry.linked,
-                          data: entry.data};
+            var valObj = {
+                id: entry.keycombo,
+                name: entry.name,
+                linked: entry.linked,
+                data: entry.data
+            };
             GeckoJS.FormHelper.unserializeFromObject('hotkeyForm', valObj);
 
             document.getElementById('hotkey_hotkey').setHotkey(entry.keycombo, entry.keydisplay);
@@ -429,8 +440,8 @@
             if (this.selectedHotkeyIndex != -1 && (index == null || (index != -1 && index != this.selectedHotkeyIndex))
                 && GeckoJS.FormHelper.isFormModified('hotkeyForm')) {
                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
-                                             _('Discard Changes'),
-                                             _('You have made changes to the current destination. Are you sure you want to discard the changes?'))) {
+                    _('Discard Changes'),
+                    _('You have made changes to the current destination. Are you sure you want to discard the changes?'))) {
                     return false;
                 }
             }
@@ -462,16 +473,18 @@
             // check if hotkey form has been modified
             if (this.selectedHotkeyIndex != -1&& GeckoJS.FormHelper.isFormModified('hotkeyForm')) {
                 var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-                                        .getService(Components.interfaces.nsIPromptService);
-                var check = {data: false};
+                .getService(Components.interfaces.nsIPromptService);
+                var check = {
+                    data: false
+                };
                 var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
-                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+                prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
 
                 var action = prompts.confirmEx(this.topmostWindow,
-                                               _('Exit'),
-                                               _('You have made changes to the current hot key. Save changes before exiting?'),
-                                               flags, _('Save'), '', _('Discard Changes'), null, check);
+                    _('Exit'),
+                    _('You have made changes to the current hot key. Save changes before exiting?'),
+                    flags, _('Save'), '', _('Discard Changes'), null, check);
                 if (action == 1) {
                     return;
                 }
