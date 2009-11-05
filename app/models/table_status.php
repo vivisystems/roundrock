@@ -239,6 +239,7 @@ class TableStatus extends AppModel {
             $this->begin();
 
             $rr = $this->TableOrder->query("DELETE FROM table_orders");   
+            $rr = $this->TableOrder->query("DELETE FROM table_order_locks");
 
             $tableNoToIds = $this->Table->getTableNoToIds();
 
