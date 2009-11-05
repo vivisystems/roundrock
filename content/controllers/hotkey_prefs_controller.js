@@ -222,7 +222,7 @@
 
             if (id != keycombo) {
 
-                if (!this.checkAvailableHotkey(keycombo, keydisplay)) return false;
+                if (!this.checkAvailableHotkey(keycombo, keydisplay, modifiers)) return false;
 
                 // remove old
                 if (this.hotkeys.containsKey(id)) {
