@@ -411,6 +411,9 @@ msgstr "Credit Card"
 msgid "(rpt)ledger"
 msgstr "Ledger"
 
+msgid "(rpt)foreign currency"
+msgstr "Foreign Currency"
+
 ########################################################################
 #
 # Function Keys

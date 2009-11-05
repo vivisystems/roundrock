@@ -30,22 +30,69 @@ var options;
             
             var text;
             if (col.id == 'type') {
-                text = _('(rpt)' + this.data[row].type);
+                switch(this.data[row].type) {
+                    case 'cash':
+                    case 'giftcard':
+                    case 'coupon':
+                    case 'check':
+                    case 'creditcard':
+                        text = _('(rpt)' + this.data[row].type);
+                        break;
+
+                    default:
+                        text = _('(rpt)foreign currency');
+                        break;
+                }
+            }
+            else if (col.id == 'name') {
+                switch(this.data[row].type) {
+                    case 'cash':
+                    case 'giftcard':
+                    case 'check':
+                    case 'creditcard':
+                        text = this.data[row].name;
+                        break;
+
+                    case 'coupon':
+                        if (this.data[row].is_groupable) {
+                            text = this.data[row].name + ' ' + this.data[row].origin_amount;
+                        }
+                        else {
+                            text = this.data[row].name;
+                        }
+                        break;
+                        
+                    default:
+                        // foreign currencies
+                        text = this.data[row].type + this.data[row].name;
+                        break;
+                }
+            }
+            else if (col.id == 'count') {
+                text = this.data[row].count;
+                if (this.data[row].is_groupable) {
+                    text = 'X' + text;
+                }
             }
             else if (col.id == 'amount' || col.id == 'excess_amount' || col.id == 'change' || col.id == 'origin_amount') {
 
-                var amt = this.data[row][col.id];
-                if (col.id != 'amount') {
-                    try {
-                        if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
-                            return '';
-                        }
-                    }
-                    catch (e) {}
+                if (this.data[row].type == 'coupon' && this.data[row].is_groupable) {
+                    text = '';
                 }
-                // text = this.data[row].amount;
-                text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
-                text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                else {
+                    var amt = this.data[row][col.id];
+                    if (col.id != 'amount') {
+                        try {
+                            if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
+                                return '';
+                            }
+                        }
+                        catch (e) {}
+                    }
+                    // text = this.data[row].amount;
+                    text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
+                    text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                }
             } else {
                 text = this.data[row][col.id];
             }

@@ -2191,11 +2191,11 @@
                 // currency convert array
                 let currency = currencies[convertIndex].currency;
                 let currency_rate = currencies[convertIndex].currency_exchange;
-                let memo1 = currency + payment;
+                let memo1 = currency;
                 let memo2 = currency_rate;
-                let origin_amount = parseFloat(payment);
-                let amount = origin_amount * currency_rate;
-                this._addPayment(currency, amount, origin_amount, memo1, memo2, groupable, finalize);
+                let origin_amount = payment;
+                let amount = parseFloat(payment) * currency_rate;
+                this._addPayment('cash', amount, origin_amount, memo1, memo2, groupable, finalize);
             }
             else {
                 if (buf.length==0) {
@@ -2325,6 +2325,12 @@
                 return;
             }
 
+            let qty = 1;
+            if (groupable) {
+                qty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? parseInt(GeckoJS.Session.get('cart_set_qty_value')) : 1;
+                if (isNaN(qty) || qty < 1) qty = 1;
+            }
+
             // determine if payment amount if from argument list or from buffer
             let payment;
 
@@ -2435,10 +2441,7 @@
 
                 case 'coupon':
                     if (silent && subtype != '') {
-                        if (groupable) {
-                            subtype += ' ' + amount;        // when groupable is true, amount is always defined with value
-                        }
-                        this._addPayment('coupon', payment, null, subtype, '', groupable, finalize);
+                        this._addPayment('coupon', payment, amount, subtype, '', groupable, finalize);
                     }
                     else {
                         let data = {
@@ -2455,7 +2458,7 @@
                                 let memo1 = result.input0 || '';
                                 let memo2 = result.input1 || '';
 
-                                self._addPayment('coupon', payment, null, memo1, memo2, groupable, finalize);
+                                self._addPayment('coupon', payment, amount, memo1, memo2, groupable, finalize);
 
                             }
                             else {
@@ -2466,11 +2469,12 @@
                     break;
 
                 case 'giftcard':
-                    if (!this._returnMode && payment > balance) {
+                    let total = payment * qty;
+                    if (!this._returnMode && total > balance) {
                         if (GREUtils.Dialog.confirm(this.topmostWindow,
                             _('confirm giftcard payment'),
                             _('Change of [%S] will NOT be given for this type of payment. Proceed?',
-                                [curTransaction.formatPrice(payment - balance)])) == false) {
+                                [curTransaction.formatPrice(total - balance)])) == false) {
 
                             this._clearAndSubtotal();
                             return;
@@ -2481,7 +2485,7 @@
                     }
 
                     if (silent && subtype != '') {
-                        this._addPayment('giftcard', balance, payment, subtype, '', groupable, finalize);
+                        this._addPayment('giftcard', balance, amount, subtype, '', groupable, finalize);
                     }
                     else {
                         let data = {
@@ -2498,7 +2502,7 @@
                                 let memo1 = result.input0 || '';
                                 let memo2 = result.input1 || '';
 
-                                self._addPayment('giftcard', balance, payment, memo1, memo2, groupable, finalize);
+                                self._addPayment('giftcard', balance, amount, memo1, memo2, groupable, finalize);
 
                             }
                             else {
