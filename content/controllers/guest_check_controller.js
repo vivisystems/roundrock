@@ -559,6 +559,7 @@
             var curTransaction = cart._getTransaction();
             
             guestNum = guestNum || curTransaction.getNumberOfCustomers() || 0 ;
+            guestNum = isNaN(guestNum) ? 0 : guestNum ;
 
             if (guestNum <= 0) {
                 this.guestNum();
