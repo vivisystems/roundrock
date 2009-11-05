@@ -25,6 +25,7 @@ var options;
                 inputObj.name = GeckoJS.String.trim(document.getElementById('hotkey_name').value);
                 inputObj.fn = options.fn_list[selectedIndex];
                 inputObj.hotkey = hotkeyData;
+                inputObj.data = document.getElementById('hotkey_data').value;
                 
                 inputObj.ok = true;
                 return true;
@@ -33,7 +34,7 @@ var options;
                 inputObj.ok = false;
                 return true;
             }
-        );
+            );
 
         validateInput();
 
@@ -66,20 +67,35 @@ function selectFunction(fnTree) {
     
     var fnName = options.fn_list[index].name;
     var fnLabel = options.fn_list[index].label;
+    var fnData = options.fn_list[index].data;
+    var fnDesc = options.fn_list[index].desc;
 
     document.getElementById('hotkey_name').value = fnName;
     document.getElementById('hotkey_linked').value = fnLabel;
+    document.getElementById('hotkey_data').value = fnData;
+    document.getElementById('hotkey_function_desc').value = fnDesc;
 
     validateInput();
 }
 
 function validateInput() {
 
+    var hotKeyController = window.arguments[1];
+    
     var hotkey = document.getElementById('hotkey_hotkey').getHotkey(true);
+    var hotkeyCombo = document.getElementById('hotkey_hotkey').getHotkey(false);
     var label = GeckoJS.String.trim(document.getElementById('hotkey_name').value);
     var fn = document.getElementById('hotkey_linked').value;
 
-    var validated = hotkey != '' && label != '' && fn != '';
+    var validated = (hotkey != '' && label != '' && fn != '');
+
+    if (hotkey) {
+        try {
+            var allow = hotKeyController.checkAvailableHotkey(hotkeyCombo, hotkey);
+            validated = validated & allow ;
+        }catch(e){
+        }
+    }
     document.getElementById('ok').setAttribute('disabled', !validated);
 
 }
