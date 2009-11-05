@@ -694,6 +694,9 @@
             // remove all child...
             autoMarkObj.removeAllItems();
 
+            // append default empty
+            if(marks.length > 0) autoMarkObj.appendItem('','');
+
             marks.forEach(function(data){
                 autoMarkObj.appendItem(data.name, data.id);
             });
@@ -716,7 +719,7 @@
             destinationObj.removeAllItems();
 
             // append default empty
-            destinationObj.appendItem('','');
+            if(destinations.length > 0) destinationObj.appendItem('','');
 
             destinations.forEach(function(data){
                 var defaultMark = (data.name == defaultDestination) ? '* ' : '';
