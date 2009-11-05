@@ -519,9 +519,9 @@
         openSplitPaymentDialog: function (splitPayments, total){
 
             var aURL = 'chrome://viviecr/content/prompt_splitpayment.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=640,height=480';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=700,height=560';
             var inputObj = {
-                disablecancelbtn: true,
+                // disablecancelbtn: true,
                 total: total,
                 input:splitPayments
             };
@@ -530,6 +530,8 @@
 
             if (inputObj.ok && inputObj.input) {
                 return inputObj.input;
+            }else {
+                return false;
             }
 
             return splitPayments;
@@ -561,6 +563,7 @@
             var curTransaction = cart._getTransaction();
             
             guestNum = guestNum || curTransaction.getNumberOfCustomers() || 0 ;
+            guestNum = isNaN(guestNum) ? 0 : guestNum ;
 
             if (guestNum <= 0) {
                 this.guestNum();
@@ -587,6 +590,8 @@
 
             // open confirm dialog
             arPayments = this.openSplitPaymentDialog(arPayments, remainTotal);
+
+            if (arPayments === false ) return false;
 
             // set transaction has splitpayment mode.
             curTransaction.setSplitPayments(true);
