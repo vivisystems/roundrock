@@ -11,7 +11,7 @@ Bugs fixed
 ----------
 
 Bug #160:
-    Need to be able to rebuild/reset all table statuses if table status is wrong
+    Need to be able to rebuild/reset all table statuses and release locked orders if table status is wrong
 
 
 Bug #167:
