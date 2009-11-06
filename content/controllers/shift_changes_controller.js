@@ -637,8 +637,9 @@
 
             // catch database select errors
             try {
-                // first, we collect payment totals for credit cards and coupons
+                // first, we collect payment totals for credit cards, checks and coupons
                 var fields = ['order_payments.memo1 as "OrderPayment.name"',
+                              'order_payments.name as "OrderPayment.origin_name"',
                               'order_payments.name as "OrderPayment.type"',
                               'COUNT(order_payments.name) as "OrderPayment.count"',
                               'SUM(order_payments.amount) as "OrderPayment.amount"',
@@ -646,71 +647,38 @@
                 var conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                                  ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                                  ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                                 ' AND (order_payments.name = "creditcard" OR order_payments.name = "coupon")';
+                                 ' AND (order_payments.name = "creditcard" OR order_payments.name = "coupon" OR order_payments.name = "check")';
                 var groupby = 'order_payments.memo1, order_payments.name';
-                var orderby = 'order_payments.memo1, order_payments.name';
-                var creditcardCouponDetails = orderPayment.find('all', {fields: fields,
-                                                                        conditions: conditions,
-                                                                        group: groupby,
-                                                                        order: orderby,
-                                                                        recursive: 0,
-                                                                        limit: this._limit
-                                                                       });
+                var creditcardCheckCouponDetails = orderPayment.find('all', {fields: fields,
+                                                                             conditions: conditions,
+                                                                             group: groupby,
+                                                                             recursive: 0,
+                                                                             limit: this._limit
+                                                                            });
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving credit card and coupon payment records (error code %S) [message #1410].', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving credit card, check, and coupon payment records (error code %S) [message #1410].', [orderPayment.lastError])};
 
-                //alert(this.dump(creditcardCouponDetails));
-                //this.log(this.dump(creditcardCouponDetails));
-
-
-                // next, we collect groupable coupon payment totals
-                fields = ['order_payments.memo1 as "OrderPayment.name"',
-                          'order_payments.name as "OrderPayment.type"',
-                          'order_payments.origin_amount as "OrderPayment.origin_amount"',
-                          'order_payments.is_groupable as "OrderPayment.is_groupable"',
-                          'SUM(order_payments.order_items_count) as "OrderPayment.count"',
-                          'SUM(order_payments.amount) as "OrderPayment.amount"'];
-                conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
-                             ' AND order_payments.shift_number = "' + shiftNumber + '"' +
-                             ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND (order_payments.name = "coupon" OR order_payments.name == "giftcard") AND order_payments.is_groupable = "1"';
-                groupby = 'order_payments.memo1, order_payments.name, order_payments.origin_amount, order_payments.is_groupable';
-                orderby = 'order_payments.memo1, order_payments.origin_amount';
-                var groupableCouponPayment = orderPayment.find('all', {fields: fields,
-                                                                       conditions: conditions,
-                                                                       group: groupby,
-                                                                       order: orderby,
-                                                                       recursive: 0,
-                                                                       limit: this._limit
-                                                                      });
-                if (parseInt(orderPayment.lastError) != 0)
-                    throw {errno: orderPayment.lastError,
-                           errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving groupable coupon payment records (error code %S) [message #1414].', [orderPayment.lastError])};
-
-                //alert(this.dump(groupableCouponPayment));
-                //this.log(this.dump(groupableCouponPayment));
-
+                //alert(this.dump(creditcardCheckCouponDetails));
+                //this.log(this.dump(creditcardCheckCouponDetails));
 
                 // next, we collect payment totals for giftcard
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
+                          'order_payments.name as "OrderPayment.origin_name"',
                           'order_payments.name as "OrderPayment.type"',
                           'COUNT(order_payments.name) as "OrderPayment.count"',
                           'SUM(order_payments.amount) as "OrderPayment.amount"',
                           'SUM(order_payments.origin_amount * (order_payments.order_items_count - order_payments.is_groupable) * order_payments.is_groupable + order_payments.origin_amount) as "OrderPayment.origin_amount"',
-                          'SUM(order_payments.origin_amount * (order_payments.order_items_count - order_payments.is_groupable) * order_payments.is_groupable + order_payments.origin_amount - order_payments.amount) as "OrderPayment.origin_amount"']; // used to store excess giftcard payment amount
+                          'SUM(order_payments.origin_amount * (order_payments.order_items_count - order_payments.is_groupable) * order_payments.is_groupable + order_payments.origin_amount - order_payments.amount) as "OrderPayment.excess_amount"']; // used to store excess giftcard payment amount
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                              ' AND order_payments.name = "giftcard"';
                 groupby = 'order_payments.memo1, order_payments.name';
-                orderby = 'order_payments.memo1, order_payments.name';
                 var giftcardDetails = orderPayment.find('all', {fields: fields,
                                                                 conditions: conditions,
                                                                 group: groupby,
-                                                                order: orderby,
                                                                 recursive: 0,
                                                                 limit: this._limit
                                                                });
@@ -722,33 +690,6 @@
                 //alert(this.dump(giftcardDetails));
                 //this.log(this.dump(giftcardDetails));
 
-                // next, we collect payment totals for personal checks
-                fields = ['order_payments.memo1 as "OrderPayment.name"',
-                          'order_payments.name as "OrderPayment.type"',
-                          'COUNT(order_payments.name) as "OrderPayment.count"',
-                          'SUM(order_payments.origin_amount) as "OrderPayment.amount"',
-                          'SUM(order_payments.change) as "OrderPayment.change"'];
-                conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
-                             ' AND order_payments.shift_number = "' + shiftNumber + '"' +
-                             ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "check"';
-                groupby = 'order_payments.memo1, order_payments.name';
-                orderby = 'order_payments.memo1, order_payments.name';
-                var checkDetails = orderPayment.find('all', {fields: fields,
-                                                             conditions: conditions,
-                                                             group: groupby,
-                                                             order: orderby,
-                                                             recursive: 0,
-                                                             limit: this._limit
-                                                            });
-                if (parseInt(orderPayment.lastError) != 0)
-                    throw {errno: orderPayment.lastError,
-                           errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving check payment records (error code %S) [message #1412].', [orderPayment.lastError])};
-
-                //alert(this.dump(checkDetails));
-                //this.log(this.dump(checkDetails));
-
                 // next, we collect payment totals for cash in local denominations
                 fields = ['"" as "OrderPayment.name"',
                           'order_payments.name as "OrderPayment.type"',
@@ -759,11 +700,9 @@
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                              ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL';
                 groupby = 'order_payments.name';
-                orderby = 'order_payments.name';
                 var localCashDetails = orderPayment.find('all', {fields: fields,
                                                                  conditions: conditions,
                                                                  group: groupby,
-                                                                 order: orderby,
                                                                  recursive: 0,
                                                                  limit: this._limit
                                                                 });
@@ -775,23 +714,76 @@
                 //alert(this.dump(localCashDetails));
                 //this.log(this.dump(localCashDetails));
 
+
+                // next, we collect payment totals for cash in foreign denominations
+                fields = ['order_payments.memo1 as "OrderPayment.name"',
+                          'order_payments.name as "OrderPayment.origin_name"',
+                          'order_payments.name as "OrderPayment.type"',
+                          'COUNT(order_payments.name) as "OrderPayment.count"',
+                          'SUM(order_payments.amount) as "OrderPayment.amount"',
+                          'SUM(order_payments.origin_amount * (order_payments.order_items_count - order_payments.is_groupable) * order_payments.is_groupable + order_payments.origin_amount) as "OrderPayment.excess_amount"',
+                          'SUM(order_payments.change) as "OrderPayment.change"'];
+                conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                             ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                             ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)';
+                groupby = 'order_payments.memo1, order_payments.name';
+                var foreignCashDetails = orderPayment.find('all', {fields: fields,
+                                                                   conditions: conditions,
+                                                                   group: groupby,
+                                                                   recursive: 0,
+                                                                   limit: this._limit
+                                                                  });
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving foreign cash payment records (error code %S) [message #1415].', [orderPayment.lastError])};
+
+                //alert(this.dump(foreignCashDetails));
+                //this.log(this.dump(foreignCashDetails));
+
+                // next, we collect groupable coupon/giftcard payment totals
+                fields = ['order_payments.memo1 as "OrderPayment.name"',
+                          'order_payments.name as "OrderPayment.type"',
+                          'order_payments.origin_amount as "OrderPayment.change"',
+                          'order_payments.is_groupable as "OrderPayment.is_groupable"',
+                          '0 - SUM(order_payments.order_items_count) as "OrderPayment.count"',
+                          'SUM(order_payments.amount) as "OrderPayment.amount"',
+                          'SUM(order_payments.origin_amount * (order_payments.order_items_count - order_payments.is_groupable) * order_payments.is_groupable + order_payments.origin_amount - order_payments.amount) as "OrderPayment.excess_amount"']; // used to store excess giftcard payment amount
+                conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                             ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                             ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND (order_payments.name = "coupon" OR order_payments.name == "giftcard") AND order_payments.is_groupable = "1"';
+                groupby = 'order_payments.memo1, order_payments.origin_amount, order_payments.name, order_payments.is_groupable';
+                var groupableCouponGiftcardPayment = orderPayment.find('all', {fields: fields,
+                                                                               conditions: conditions,
+                                                                               group: groupby,
+                                                                               recursive: 0,
+                                                                               limit: this._limit
+                                                                              });
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving groupable coupon payment records (error code %S) [message #1414].', [orderPayment.lastError])};
+
+                //alert(this.dump(groupableCouponGiftcardPayment));
+                //this.log(this.dump(groupableCouponGiftcardPayment));
+
+
                 // next, we collect groupable cash payment totals
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
                           'order_payments.name as "OrderPayment.type"',
-                          'order_payments.order_items_count as "OrderPayment.count"',
-                          'order_payments.name as "OrderPayment.origin_type"',
                           'order_payments.is_groupable as "OrderPayment.is_groupable"',
+                          '0 - order_payments.order_items_count as "OrderPayment.count"',
                           'SUM(order_payments.amount) as "OrderPayment.amount"'];
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                              ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"';
-                groupby = 'order_payments.memo1';
-                orderby = 'order_payments.memo1';
+                groupby = 'order_payments.memo1, order_payments.name, order_payments.is_groupable';
                 var groupableCashPayment = orderPayment.find('all', {fields: fields,
                                                                      conditions: conditions,
                                                                      group: groupby,
-                                                                     order: orderby,
                                                                      recursive: 0,
                                                                      limit: this._limit
                                                                     });
@@ -804,48 +796,18 @@
                 //this.log(this.dump(groupableCashPayment));
 
 
-                // next, we collect payment totals for cash in foreign denominations
+                // next, we collect groupable foreign cash payment totals
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
                           'order_payments.name as "OrderPayment.type"',
-                          'order_payments.name as "OrderPayment.origin_type"',
-                          'COUNT(order_payments.name) as "OrderPayment.count"',
-                          'SUM(order_payments.amount) as "OrderPayment.amount"',
-                          'SUM(order_payments.origin_amount * (order_payments.order_items_count - order_payments.is_groupable) * order_payments.is_groupable + order_payments.origin_amount) as "OrderPayment.origin_amount"',
-                          'SUM(order_payments.change) as "OrderPayment.change"'];
-                conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
-                             ' AND order_payments.shift_number = "' + shiftNumber + '"' +
-                             ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)';
-                groupby = 'order_payments.memo1, order_payments.name';
-                orderby = 'order_payments.memo1, order_payments.name';
-                var foreignCashDetails = orderPayment.find('all', {fields: fields,
-                                                                   conditions: conditions,
-                                                                   group: groupby,
-                                                                   order: orderby,
-                                                                   recursive: 0,
-                                                                   limit: this._limit
-                                                                  });
-                if (parseInt(orderPayment.lastError) != 0)
-                    throw {errno: orderPayment.lastError,
-                           errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving foreign cash payment records (error code %S) [message #1415].', [orderPayment.lastError])};
-
-                //alert(this.dump(foreignCashDetails));
-                //this.log(this.dump(foreignCashDetails));
-
-                // next, we collect groupable foreign cash payment totals
-                fields = ['order_payments.origin_amount as "OrderPayment.name"',
-                          'order_payments.memo1 as "OrderPayment.type"',
                           'order_payments.memo2 as "OrderPayment.memo2"',
-                          'order_payments.order_items_count as "OrderPayment.count"',
                           'order_payments.is_groupable as "OrderPayment.is_groupable"',
+                          '0 - order_payments.order_items_count as "OrderPayment.count"',
                           'SUM(order_payments.amount) as "OrderPayment.amount"'];
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                              ' AND order_payments.name = "cash" AND NOT(order_payments.memo2 IS NULL) AND order_payments.is_groupable = "1"';
-                groupby = 'order_payments.memo1, order_payments.origin_amount';
-                orderby = 'order_payments.memo1, order_payments.origin_amount';
+                groupby = 'order_payments.name, order_payments.memo1, order_payments.origin_amount, order_payments.is_groupable';
                 var groupableForeignCashPayment = orderPayment.find('all', {fields: fields,
                                                                             conditions: conditions,
                                                                             group: groupby,
@@ -1087,7 +1049,7 @@
                 var ledgerOutTotal = (ledgerOutBalance && ledgerOutBalance.amount != null) ? ledgerOutBalance.amount : 0;
 
                 // compute excess giftcard payments
-                fields = ['SUM(order_payments.origin_amount - order_payments.amount) as "OrderPayment.excess_amount"'];
+                fields = ['SUM(order_payments.origin_amount * (order_payments.order_items_count - order_payments.is_groupable) * order_payments.is_groupable + order_payments.origin_amount - order_payments.amount) as "OrderPayment.excess_amount"']; // used to store excess giftcard payment amount
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
@@ -1105,8 +1067,9 @@
                 var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
 
                 // don't include destination details yet
-                var shiftChangeDetails = creditcardCouponDetails.concat(groupableCouponPayment.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(groupableCashPayment.concat(foreignCashDetails.concat(groupableForeignCashPayment.concat(ledgerDetails))))))));
-                shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
+                //var shiftChangeDetails = creditcardCheckCouponDetails.concat(groupableCouponPayment.concat(giftcardDetails.concat(localCashDetails.concat(groupableCashPayment.concat(foreignCashDetails.concat(groupableForeignCashPayment.concat(ledgerDetails)))))));
+                var shiftChangeDetails = groupableCouponGiftcardPayment.concat(creditcardCheckCouponDetails.concat(giftcardDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))));
+                shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc, is_groupable, origin_amount');
 
                 var aURL;
                 var features;

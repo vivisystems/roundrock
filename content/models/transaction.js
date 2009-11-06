@@ -692,11 +692,17 @@
                         break;
 
                     case 'COUPON':
-                        dispName = item.memo1;
+                        if (item.is_groupable)
+                            dispName = item.memo1 + ' ' + item.origin_amount;
+                        else
+                            dispName = item.memo1;
                         break;
 
                     case 'GIFTCARD':
-                        dispName = item.memo1;
+                        if (item.is_groupable)
+                            dispName = item.memo1 + ' ' + item.origin_amount;
+                        else
+                            dispName = item.memo1;
                         break;
 
                     case 'CASH':
@@ -2139,7 +2145,7 @@
             var paymentItem = {
                 id: paymentId,
                 name: type,
-                amount: this.getRoundedPrice(qty * amount),
+                amount: this.getRoundedPrice((type == 'giftcard') ? amount : qty * amount),
                 origin_amount: origin_amount,
                 memo1: memo1,
                 memo2: memo2,

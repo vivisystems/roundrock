@@ -2481,7 +2481,7 @@
                         }
                     }
                     else {
-                        balance = payment;
+                        balance = total;
                     }
 
                     if (silent && subtype != '') {
@@ -2745,7 +2745,8 @@
             }
 
             if (amount == null || amount == '' || amount == 0 || isNaN(amount)) {
-                // if amount no given, set amount to amount paid
+                // if amount no given, set amount to amount paid, and qty to 1
+                qty = 1;
                 if (returnMode) {
                     amount = curTransaction.getPaymentSubtotal();
                 }
@@ -2765,7 +2766,7 @@
                 }
 
                 // payment refund
-                let payment = amount * qty;
+                let payment = ((type == 'giftcard') ? amount : amount * qty);
                 if (!err && payment > curTransaction.getPaymentSubtotal()) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
@@ -2796,8 +2797,8 @@
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
 
             if (returnMode) {
-                origin_amount = 0 - origin_amount;
-                amount = 0 - amount;
+                if (type == 'giftcard') amount = 0 - amount;
+                qty = 0 - qty;
             }
 
             var paymentItem = {

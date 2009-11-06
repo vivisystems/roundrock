@@ -29,72 +29,129 @@ var options;
         window.viewDetailHelper.getCellValue= function(row, col) {
             
             var text;
-            if (col.id == 'type') {
-                switch(this.data[row].type) {
-                    case 'cash':
-                    case 'giftcard':
-                    case 'coupon':
-                    case 'check':
-                    case 'creditcard':
-                        text = _('(rpt)' + this.data[row].type);
-                        break;
+            switch(col.id) {
 
-                    default:
-                        text = _('(rpt)foreign currency');
-                        break;
-                }
-            }
-            else if (col.id == 'name') {
-                switch(this.data[row].type) {
-                    case 'cash':
-                    case 'giftcard':
-                    case 'check':
-                    case 'creditcard':
-                        text = this.data[row].name;
-                        break;
+                case 'type':
+                    switch(this.data[row].type) {
+                        case 'giftcard':
+                        case 'coupon':
+                        case 'check':
+                        case 'creditcard':
+                            text = _('(rpt)' + this.data[row].type);
+                            break;
 
-                    case 'coupon':
-                        if (this.data[row].is_groupable) {
-                            text = this.data[row].name + ' ' + this.data[row].origin_amount;
-                        }
-                        else {
+                        case 'cash':
+                            if (this.data[row].excess_amount != null) {
+                                // foreign currency
+                                text = _('(rpt)foreign currency');
+                            }
+                            else {
+                                text = _('(rpt)cash');
+                            }
+                            break;
+
+                        default:
+                            text = this.data[row].type;
+                            break;
+                    }
+                    if (this.data[row].count < 0) {
+                        text = '  -- ' + text;
+                    }
+                    break;
+
+                case 'name':
+                    switch(this.data[row].type) {
+                        case 'check':
+                        case 'creditcard':
                             text = this.data[row].name;
-                        }
-                        break;
-                        
-                    default:
-                        // foreign currencies
-                        text = this.data[row].type + this.data[row].name;
-                        break;
-                }
-            }
-            else if (col.id == 'count') {
-                text = this.data[row].count;
-                if (this.data[row].is_groupable) {
-                    text = 'X' + text;
-                }
-            }
-            else if (col.id == 'amount' || col.id == 'excess_amount' || col.id == 'change' || col.id == 'origin_amount') {
+                            break;
 
-                if (this.data[row].type == 'coupon' && this.data[row].is_groupable) {
-                    text = '';
-                }
-                else {
-                    var amt = this.data[row][col.id];
-                    if (col.id != 'amount') {
-                        try {
+                        case 'cash':
+                        case 'coupon':
+                        case 'giftcard':
+                            if (this.data[row].count < 0) {
+                                let amt = this.data[row].change;
+                                text = GeckoJS.NumberHelper.round(amt, precision_prices, rounding_prices) || 0;
+                                text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                                text = this.data[row].name + ' ' + text;
+                            }
+                            else {
+                                text = this.data[row].name;
+                            }
+                            break;
+                    }
+                    break;
+                    
+                case 'count':
+                    if (this.data[row].count < 0) {
+                        text = 'X' + (0 - this.data[row].count);
+                    }
+                    else {
+                        text = this.data[row].count;
+                    }
+                    break;
+                    
+                case 'excess_amount':
+                    if (this.data[row].type == 'cash' && this.data[row].excess_amount != null) {
+                        // this field actually stores origin amount of foreign currency, so don't display here
+                        text = '';
+                    }
+                    else {
+                        let amt = this.data[row][col.id];
+                        if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
+                            return '';
+                        }
+                        text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
+                        text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                    }
+                    break;
+
+                case 'origin_amount':
+                    if (this.data[row].type == 'cash' && this.data[row].excess_amount != null) {
+                        // origin amount of foreign currency actually comes from excess_amount
+                        text = this.data[row].excess_amount;
+                    }
+                    else {
+                        let amt = this.data[row][col.id];
+                        if (col.id != 'amount') {
                             if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
                                 return '';
                             }
                         }
-                        catch (e) {}
+                        text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
+                        text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
                     }
-                    // text = this.data[row].amount;
+                    break;
+
+                case 'amount':
+                    let amt = this.data[row][col.id];
+                    if (col.id != 'amount') {
+                        if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
+                            return '';
+                        }
+                    }
                     text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
                     text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
-                }
-            } else {
-                text = this.data[row][col.id];
+                    break;
+
+                case 'change':
+                    if (this.data[row].count < 0) {
+                        text = '';
+                    }
+                    else {
+                        let amt = this.data[row][col.id];
+                        if (col.id != 'amount') {
+                            if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
+                                return '';
+                            }
+                        }
+                        text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
+                        text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                    }
+                    break;
+
+                default:
+                    text = this.data[row][col.id];
             }
             return text;
         };
