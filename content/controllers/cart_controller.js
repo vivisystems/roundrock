@@ -3525,18 +3525,14 @@
                 }
             }
 
-            // for groupable cash payments, construct subtype from local currency symbol and amount
-            var memo1;
-            if (groupable) {
-                let currencies = GeckoJS.Session.get('Currencies') || [];
-                if (currencies && currencies[0] && currencies[0].currency_symbol && currencies[0].currency_symbol.length > 0) {
-                    memo1 = currencies[0].currency_symbol + payment;
-                }
-                else {
-                    memo1 = _('CASH') + payment;
-                }
+            let currencies = GeckoJS.Session.get('Currencies') || [];
+            if (currencies && currencies[0] && currencies[0].currency_symbol && currencies[0].currency_symbol.length > 0) {
+                memo1 = currencies[0].currency_symbol;
             }
-            this._addPayment('cash', payment, null, memo1, null, groupable, finalize);
+            else {
+                memo1 = '';
+            }
+            this._addPayment('cash', payment, payment, memo1, null, groupable, finalize);
         },
 
         insertCondiment: function(params) {

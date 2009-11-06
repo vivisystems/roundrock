@@ -691,7 +691,7 @@
                 //this.log(this.dump(giftcardDetails));
 
                 // next, we collect payment totals for cash in local denominations
-                fields = ['"" as "OrderPayment.name"',
+                fields = ['order_payments.memo1 as "OrderPayment.name"',
                           'order_payments.name as "OrderPayment.type"',
                           'COUNT(order_payments.name) as "OrderPayment.count"',
                           'SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
@@ -773,6 +773,7 @@
                 // next, we collect groupable cash payment totals
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
                           'order_payments.name as "OrderPayment.type"',
+                          'order_payments.origin_amount as "OrderPayment.change"',
                           'order_payments.is_groupable as "OrderPayment.is_groupable"',
                           '0 - order_payments.order_items_count as "OrderPayment.count"',
                           'SUM(order_payments.amount) as "OrderPayment.amount"'];
@@ -780,7 +781,7 @@
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                              ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"';
-                groupby = 'order_payments.memo1, order_payments.name, order_payments.is_groupable';
+                groupby = 'order_payments.memo1, order_payments.name, order_payments.origin_amount, order_payments.is_groupable';
                 var groupableCashPayment = orderPayment.find('all', {fields: fields,
                                                                      conditions: conditions,
                                                                      group: groupby,
@@ -799,7 +800,7 @@
                 // next, we collect groupable foreign cash payment totals
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
                           'order_payments.name as "OrderPayment.type"',
-                          'order_payments.memo2 as "OrderPayment.memo2"',
+                          'order_payments.origin_amount as "OrderPayment.change"',
                           'order_payments.is_groupable as "OrderPayment.is_groupable"',
                           '0 - order_payments.order_items_count as "OrderPayment.count"',
                           'SUM(order_payments.amount) as "OrderPayment.amount"'];
@@ -811,7 +812,6 @@
                 var groupableForeignCashPayment = orderPayment.find('all', {fields: fields,
                                                                             conditions: conditions,
                                                                             group: groupby,
-                                                                            order: orderby,
                                                                             recursive: 0,
                                                                             limit: this._limit
                                                                            });
@@ -885,7 +885,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND ((order_payments.name = "cash" AND order_payments.memo1 IS NULL) OR (order_payments.name = "ledger"))';
+                             ' AND ((order_payments.name = "cash" AND order_payments.memo2 IS NULL) OR (order_payments.name = "ledger"))';
                 var cashDetails = orderPayment.find('first', {fields: fields,
                                                               conditions: conditions,
                                                               recursive: 0,
@@ -903,7 +903,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo1 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))';
+                             ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))';
                 var changeDetails = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
                                                                 recursive: 0,
@@ -1067,8 +1067,7 @@
                 var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
 
                 // don't include destination details yet
-                //var shiftChangeDetails = creditcardCheckCouponDetails.concat(groupableCouponPayment.concat(giftcardDetails.concat(localCashDetails.concat(groupableCashPayment.concat(foreignCashDetails.concat(groupableForeignCashPayment.concat(ledgerDetails)))))));
-                var shiftChangeDetails = groupableCouponGiftcardPayment.concat(creditcardCheckCouponDetails.concat(giftcardDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))));
+                var shiftChangeDetails = groupableCashPayment.concat(groupableForeignCashPayment.concat(groupableCouponGiftcardPayment.concat(creditcardCheckCouponDetails.concat(giftcardDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))))));
                 shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc, is_groupable, origin_amount');
 
                 var aURL;

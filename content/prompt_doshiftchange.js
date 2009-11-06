@@ -24,6 +24,12 @@ var options;
         // set ledger entry types
         var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
         var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+        var localCurrency;
+
+        let currencies = GeckoJS.Session.get('Currencies') || [];
+        if (currencies && currencies[0] && currencies[0].currency_symbol && currencies[0].currency_symbol.length > 0) {
+            localCurrency = currencies[0].currency_symbol;
+        }
         
         window.viewDetailHelper = new GeckoJS.NSITreeViewArray(shiftChangeDetails);
         window.viewDetailHelper.getCellValue= function(row, col) {
@@ -41,12 +47,12 @@ var options;
                             break;
 
                         case 'cash':
-                            if (this.data[row].excess_amount != null) {
-                                // foreign currency
-                                text = _('(rpt)foreign currency');
+                            if (this.data[row].name == localCurrency || this.data[row].name == '') {
+                                text = _('(rpt)cash');
                             }
                             else {
-                                text = _('(rpt)cash');
+                                // foreign currency
+                                text = _('(rpt)foreign cash');
                             }
                             break;
 
@@ -54,7 +60,7 @@ var options;
                             text = this.data[row].type;
                             break;
                     }
-                    if (this.data[row].count < 0) {
+                    if (this.data[row].is_groupable) {
                         text = '  -- ' + text;
                     }
                     break;
@@ -69,11 +75,17 @@ var options;
                         case 'cash':
                         case 'coupon':
                         case 'giftcard':
-                            if (this.data[row].count < 0) {
+                            if (this.data[row].is_groupable) {
                                 let amt = this.data[row].change;
-                                text = GeckoJS.NumberHelper.round(amt, precision_prices, rounding_prices) || 0;
-                                text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
-                                text = this.data[row].name + ' ' + text;
+                                if (this.data[row].type == 'cash' && this.data[row].name != localCurrency && this.data[row].name != '') {
+                                    // foreign cash, don't format
+                                    text = this.data[row].name + ' ' + amt;
+                                }
+                                else {
+                                    text = GeckoJS.NumberHelper.round(amt, precision_prices, rounding_prices) || 0;
+                                    text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                                    text = this.data[row].name + ' ' + text;
+                                }
                             }
                             else {
                                 text = this.data[row].name;
@@ -83,7 +95,7 @@ var options;
                     break;
                     
                 case 'count':
-                    if (this.data[row].count < 0) {
+                    if (this.data[row].is_groupable) {
                         text = 'X' + (0 - this.data[row].count);
                     }
                     else {
@@ -92,7 +104,7 @@ var options;
                     break;
                     
                 case 'excess_amount':
-                    if (this.data[row].type == 'cash' && this.data[row].excess_amount != null) {
+                    if (this.data[row].is_groupable && this.data[row].name != '' && this.data[row].name != localCurrency && this.data[row].excess_amount != null) {
                         // this field actually stores origin amount of foreign currency, so don't display here
                         text = '';
                     }
@@ -135,7 +147,7 @@ var options;
                     break;
 
                 case 'change':
-                    if (this.data[row].count < 0) {
+                    if (this.data[row].is_groupable) {
                         text = '';
                     }
                     else {
