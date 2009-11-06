@@ -92,7 +92,7 @@ var options;
 
         if (remain > 0) {
            // add to last once
-           vivitexts[vivitexts.length-1].value = formatPrice(getRoundedPrice(parseFloat(vivitexts[vivitexts.length-1].value) + remain));
+           vivitexts[vivitexts.length-1].value = formatPrice(parseFloat(vivitexts[vivitexts.length-1].value) + remain);
         }
 
         for (var j=0; j < vivitexts.length; j++) {

@@ -598,7 +598,9 @@
 
             // add payment amount to cart
             arPayments.forEach(function(pAmount) {
-                cart._addPayment('cash', pAmount);
+                if (pAmount != 0) {
+                    cart._addPayment('cash', pAmount);
+                }
             });
 
         },
