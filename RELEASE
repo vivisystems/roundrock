@@ -36,7 +36,7 @@ Bug #156:
     Recalling order into cart can be time-consuming, may need to block UI to force user to wait until order has been fully recalled into the shopping cart
 
 Bug #160:
-    Need to be able to rebuild/reset all table statuses if table status is wrong
+    Need to be able to rebuild/reset all table statuses and release locked orders if table status is corrupted
 
 Bug #162:
     Payment value in onscreen VFD is not updated when recalling a completed order
@@ -78,5 +78,13 @@ Bug #184:
     When port number is changed from 80 in network services, cluster services on localhost are no longer accessible
 
 Bug #185:
-    superuser account may only be modified by superuser
+    superuser account should not be editable by users other than superuser
 
+Bug #187:
+    Need an Enter button on the Split payment screen
+
+Bug #188:
+    In Table Manage options, the automatic table status cannot be cleared once a status has been selected.
+
+Bug #189:
+    Hotkey does not work properly if the linked function has required preset data (i.e. Clear)
