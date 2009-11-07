@@ -1155,11 +1155,14 @@
 
                 if (total < minimum_charge) {
 
+                    let amount = curTransaction.formatPrice(minimum_charge);
                     if (GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('Order amount does not reach Minimum Charge'),
-                        _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\nClick OK to finalize this order by Minimum Charge, \nor, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
+                        _('Minimum Charge'),
+                        _('The total for this order is less than the minimum charge (%S). ' +
+                          'Click OK if you want to pay the minimum charge to close the order. ' +
+                          'Otherwise, please click Cancel and add more items.', [amount])) == false) {
 
-                        NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
+                        NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
                     } else {
 
                         var product = GeckoJS.BaseObject.unserialize(this.tableSettings.MinimumChargePlu);
@@ -1175,9 +1178,10 @@
                             cart.setPrice(minimum_charge - total);
                             cart.addItem(product);
 
-                            NotifyUtils.warn(_('Add difference (%S) to finalize this order by Minimum Charge.', [minimum_charge - total]));
+                            let amount = curTransaction.formatPrice(minimum_charge - total);
+                            NotifyUtils.warn(_('An additional amount of (%S) has been added to the order to meet the minimum charge', [amount]));
                         } else {
-                            NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
+                            NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
                         }
 
                     }
