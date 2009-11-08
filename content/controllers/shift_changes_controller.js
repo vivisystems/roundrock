@@ -736,7 +736,7 @@
                            errstr: orderPayment.lastErrorString,
                            errmsg: _('An error was encountered while retrieving foreign cash payment records (error code %S) [message #1415].', [orderPayment.lastError])};
 
-                alert(this.dump(foreignCashDetails));
+                //alert(this.dump(foreignCashDetails));
                 //this.log(this.dump(foreignCashDetails));
 
                 // next, we collect groupable coupon/giftcard payment totals
