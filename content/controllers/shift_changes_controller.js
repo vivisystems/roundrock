@@ -639,7 +639,6 @@
             try {
                 // first, we collect payment totals for credit cards, checks and coupons
                 var fields = ['order_payments.memo1 as "OrderPayment.name"',
-                              'order_payments.name as "OrderPayment.origin_name"',
                               'order_payments.name as "OrderPayment.type"',
                               'COUNT(order_payments.name) as "OrderPayment.count"',
                               'SUM(order_payments.amount) as "OrderPayment.amount"',
@@ -665,7 +664,6 @@
 
                 // next, we collect payment totals for giftcard
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
-                          'order_payments.name as "OrderPayment.origin_name"',
                           'order_payments.name as "OrderPayment.type"',
                           'COUNT(order_payments.name) as "OrderPayment.count"',
                           'SUM(order_payments.amount) as "OrderPayment.amount"',
@@ -717,7 +715,6 @@
 
                 // next, we collect payment totals for cash in foreign denominations
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
-                          'order_payments.name as "OrderPayment.origin_name"',
                           'order_payments.name as "OrderPayment.type"',
                           'COUNT(order_payments.name) as "OrderPayment.count"',
                           'SUM(order_payments.amount) as "OrderPayment.amount"',
@@ -739,7 +736,7 @@
                            errstr: orderPayment.lastErrorString,
                            errmsg: _('An error was encountered while retrieving foreign cash payment records (error code %S) [message #1415].', [orderPayment.lastError])};
 
-                //alert(this.dump(foreignCashDetails));
+                alert(this.dump(foreignCashDetails));
                 //this.log(this.dump(foreignCashDetails));
 
                 // next, we collect groupable coupon/giftcard payment totals
@@ -775,7 +772,7 @@
                           'order_payments.name as "OrderPayment.type"',
                           'order_payments.origin_amount as "OrderPayment.change"',
                           'order_payments.is_groupable as "OrderPayment.is_groupable"',
-                          '0 - order_payments.order_items_count as "OrderPayment.count"',
+                          '0 - SUM(order_payments.order_items_count) as "OrderPayment.count"',
                           'SUM(order_payments.amount) as "OrderPayment.amount"'];
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
@@ -802,7 +799,7 @@
                           'order_payments.name as "OrderPayment.type"',
                           'order_payments.origin_amount as "OrderPayment.change"',
                           'order_payments.is_groupable as "OrderPayment.is_groupable"',
-                          '0 - order_payments.order_items_count as "OrderPayment.count"',
+                          '0 - SUM(order_payments.order_items_count) as "OrderPayment.count"',
                           'SUM(order_payments.amount) as "OrderPayment.amount"'];
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +

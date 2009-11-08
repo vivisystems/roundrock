@@ -2850,11 +2850,27 @@
             for (var key in payments) {
                 // clone a copy of payment
                 var payment = GREUtils.extend({}, payments[key]);
-
                 payment.amount = curTransaction.formatPrice(payment.amount);
-                payment.name = _(payment.name.toUpperCase());
-                payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
+                if (payment.is_groupable) {
+                    let text = payment.current_qty + 'X';
+                    if (payment.name == 'cash' && payment.memo2 != '') {
+                        payment.origin_amount = text + payment.origin_amount;
+                    }
+                    else {
+                        payment.origin_amount = text + curTransaction.formatPrice(payment.origin_amount);
+                    }
+                }
+                else if (payment.name == 'giftcard') {
+                    payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
+                }
+                else if (payment.name == 'cash' && payment.memo2 != '') {
+                    payment.origin_amount = payment.origin_amount;
+                }
+                else {
+                    payment.origin_amount = '';
+                }
 
+                payment.name = _('(rpt)' + payment.name);
                 paymentList.push(payment);
             }
 

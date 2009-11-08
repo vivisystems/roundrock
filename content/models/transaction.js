@@ -684,42 +684,32 @@
                 switch (item.name.toUpperCase()) {
 
                     case 'CREDITCARD':
-                        dispName = item.memo1;
+                        dispName = item.memo1 || _('(cart)CREDITCARD');
                         break;
 
                     case 'CHECK':
-                        dispName = item.memo1;
+                        dispName = item.memo1 || _('(cart)CHECK');
                         break;
 
                     case 'COUPON':
-                        if (item.is_groupable)
-                            dispName = item.memo1 + ' ' + item.origin_amount;
-                        else
-                            dispName = item.memo1;
+                        dispName = item.memo1 || _('(cart)COUPON');
+                        if (item.is_groupable) {
+                            dispName += ' ' + item.origin_amount;
+                        }
                         break;
 
                     case 'GIFTCARD':
-                        if (item.is_groupable)
-                            dispName = item.memo1 + ' ' + item.origin_amount;
-                        else
-                            dispName = item.memo1;
+                        dispName = item.memo1 || _('(cart)GIFTCARD');
+                        if (item.is_groupable) {
+                            dispName += ' ' + item.origin_amount;
+                        }
                         break;
 
                     case 'CASH':
-                        if (item.memo2 == null || item.memo2 == '') {
-                            if (item.is_groupable) {
-                                // groupable local cash
-                                dispName = item.memo1;
-                            }
-                            else {
-                                // regular cash
-                                dispName = _('(payment)CASH');
-                            }
-                        }
-                        else {
-                            // foreign currency
-                            dispName = item.memo1;
-                            current_price = item.memo2 || '';
+                        dispName = item.memo1 || _('(cart)CASH');
+                        if (item.is_groupable || item.memo2 != '') {
+                            // groupable local cash
+                            dispName += item.origin_amount;
                         }
                         break;
 

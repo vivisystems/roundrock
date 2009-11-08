@@ -104,7 +104,7 @@ var options;
                     break;
                     
                 case 'excess_amount':
-                    if (this.data[row].is_groupable && this.data[row].name != '' && this.data[row].name != localCurrency && this.data[row].excess_amount != null) {
+                    if (this.data[row].type == 'cash') {
                         // this field actually stores origin amount of foreign currency, so don't display here
                         text = '';
                     }

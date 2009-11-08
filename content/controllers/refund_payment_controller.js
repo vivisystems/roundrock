@@ -11,6 +11,7 @@
         _paidTotal: 0,
         _precision: 0,
         _rounding: 0,
+        _localCurrency: '',
         _decimals: GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.',
         _thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',',
 
@@ -40,14 +41,40 @@
             this._precision = data.precisionPrices;
             this._rounding = data.roundingPrices;
 
-            this._originalPayments = GeckoJS.Array.objectExtract(data.payments, '{s}') || [];
+            let currencies = GeckoJS.Session.get('Currencies') || [];
+            if (currencies && currencies[0] && currencies[0].currency_symbol && currencies[0].currency_symbol.length > 0) {
+                this._localCurrency = currencies[0].currency_symbol;
+            }
+            else {
+                this._localCurrency = '';
+            }
             
+            this._originalPayments = GeckoJS.Array.objectExtract(data.payments, '{s}') || [];
             var seq = 1;
             this._originalPayments.forEach(function(p) {
                 p.seq = seq++;
                 p.amount = p.amount - p.change;
                 p.display_amount = this.formatPrice(p.amount);
-                p.display_origin_amount = this.formatPrice(p.origin_amount);
+
+                // if groupable, show count
+                if (p.is_groupable) {
+                    let text = p.order_items_count + 'X';
+                    if (p.name == 'cash' && p.memo2 != '') {
+                        p.display_origin_amount = text + p.origin_amount;
+                    }
+                    else {
+                        p.display_origin_amount = text + this.formatPrice(p.origin_amount);
+                    }
+                }
+                else if (p.name == 'giftcard') {
+                    p.display_origin_amount = this.formatPrice(p.origin_amount);
+                }
+                else if (p.name == 'cash' && p.memo2 != '') {
+                    p.display_origin_amount = p.origin_amount;
+                }
+                else {
+                    p.display_origin_amount = '';
+                }
             }, this);
 
             this._paidTotal = data.paidTotal;
@@ -72,17 +99,52 @@
         clonePayments: function() {
             var payments = [];
             var self = this;
-            this._originalPayments.forEach(function(p) {
+            var total = 0;
+            var hash = {};
+            var seq = 0;
+
+            this._originalPayments.forEach(function(p, i) {
                 var newPayment = GREUtils.extend({}, p);
-                newPayment.amount = self.roundPrice(newPayment.amount);
-                newPayment.display_amount = self.formatPrice(newPayment.amount);
-                payments.push(newPayment);
+
+                if (p.name == 'giftcard') {
+                    if (p.is_groupable) {
+                        newPayment.amount = self.roundPrice(p.order_items_count * p.origin_amount);
+                    }
+                    else {
+                        newPayment.amount = self.roundPrice(p.origin_amount);
+                    }
+                }
+                else {
+                    newPayment.amount = self.roundPrice(newPayment.amount);
+                }
+
+                // don't clone memo1 and memo2 for cash
+                if (p.name == 'cash') {
+                    newPayment.memo1 = self._localCurrency;
+                    newPayment.memo2 = null;
+                }
+                total += newPayment.amount;
+                if (!(newPayment.name in hash) || !(newPayment.memo1 in hash[newPayment.name])) {
+                    if (!(newPayment.name in hash)) {
+                        hash[newPayment.name] = {};
+                    }
+                    hash[newPayment.name][newPayment.memo1] = seq;
+                    newPayment.seq = ++seq;
+                    payments.push(newPayment);
+                }
+                else {
+                    payments[hash[newPayment.name][newPayment.memo1]].amount += newPayment.amount;
+                }
+            });
+
+            payments.forEach(function(p) {
+                p.display_amount = self.formatPrice(p.amount);
             });
 
             this._refundPayments = payments;
             document.getElementById('refundscrollablepanel').datasource = this._refundPayments;
 
-            this._refundTotal = this._paidTotal;
+            this._refundTotal = total;
             document.getElementById('refundTotal').value = this.formatPrice(this._refundTotal);
         },
 

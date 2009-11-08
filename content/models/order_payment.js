@@ -80,7 +80,8 @@
                     'origin_amount': payment.origin_amount,
                     'memo1': payment.memo1,
                     'memo2': payment.memo2,
-                    'current_qty': payment.order_items_count
+                    'current_qty': payment.order_items_count,
+                    'is_groupable': payment.is_groupable
                 };
                 
             }
