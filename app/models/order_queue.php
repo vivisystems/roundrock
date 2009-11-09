@@ -73,7 +73,10 @@ class OrderQueue extends AppModel {
 
         if (empty($user)) return 0;
 
-        $count = $this->find('count', array('conditions' => "user='$user'"));
+	$conditions = array();
+	$conditions['user'] = $user;
+	$conditions['status'] = 1;
+        $count = $this->find('count', array('conditions' => $conditions));
 
         return $count;
     }
