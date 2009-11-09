@@ -2863,7 +2863,7 @@
                 else if (payment.name == 'giftcard') {
                     payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
                 }
-                else if (payment.name == 'cash' && payment.memo2 != '') {
+                else if (payment.name == 'cash' && payment.memo2) {
                     payment.origin_amount = payment.origin_amount;
                 }
                 else {
@@ -3542,8 +3542,8 @@
             }
 
             let currencies = GeckoJS.Session.get('Currencies') || [];
-            if (currencies && currencies[0] && currencies[0].currency_symbol && currencies[0].currency_symbol.length > 0) {
-                memo1 = currencies[0].currency_symbol;
+            if (currencies && currencies[0] && currencies[0].currency && currencies[0].currency.length > 0) {
+                memo1 = currencies[0].currency;
             }
             else {
                 memo1 = '';

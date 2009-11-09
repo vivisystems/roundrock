@@ -1064,8 +1064,12 @@
                 var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
 
                 // don't include destination details yet
-                var shiftChangeDetails = groupableCashPayment.concat(groupableForeignCashPayment.concat(groupableCouponGiftcardPayment.concat(creditcardCheckCouponDetails.concat(giftcardDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))))));
-                shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc, is_groupable, origin_amount');
+                var shiftChangeDetails = creditcardCheckCouponDetails.concat(giftcardDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails))));
+                var groupableDetails = groupableCashPayment.concat(groupableForeignCashPayment.concat(groupableCouponGiftcardPayment));
+
+                shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc, origin_amount');
+                groupableDetails = new GeckoJS.ArrayQuery(groupableDetails).orderBy('is_groupable asc, type asc, name asc, origin_amount');
+                shiftChangeDetails = shiftChangeDetails.concat(groupableDetails);
 
                 var aURL;
                 var features;

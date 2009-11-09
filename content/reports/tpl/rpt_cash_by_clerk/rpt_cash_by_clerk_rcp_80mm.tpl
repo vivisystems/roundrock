@@ -36,8 +36,13 @@ ${_( '(rpt)Payment Type' )|left:19} ${_( '(rpt)Payment Amount' )|center:13} ${_(
   destDetails.push(detail);
 {/eval}
 {else}
+{if detail.count < 0}
+{if detail.name.length > 0}${'* ' + detail.name|left:19}{else}${'* ' + _('(rpt)' + detail.type)|left:19}{/if}
+ ${detail.amount|default:0|viviFormatPrices:true|right:13} ${'X' + (0 - detail.count)|right:8}
+{else}
 {if detail.name.length > 0}${detail.name|left:19}{else}${_('(rpt)' + detail.type)|left:19}{/if}
  ${detail.amount|default:0|viviFormatPrices:true|right:13} ${detail.count|format:0|right:8}
+{/if}
 {/if}
 {/for}
 {if destDetails.length > 0}

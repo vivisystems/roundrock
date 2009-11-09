@@ -17,7 +17,11 @@
 "","'${_( '(rpt)Payment Type' )}","'${_( '(rpt)Payment Amount' )}","'${_( '(rpt)Payment Count' )}"
 {for detail in master.ShiftChangeDetail}
 {if detail.type != 'destination'}
+{if detail.count < 0}
+"","'* ${_('(rpt)' + detail.type)}{if detail.name.length > 0} ( ${detail.name} ){/if}","${detail.amount|default:0|viviFormatPrices:true}","${0 - detail.count|format:0}"
+{else}
 "","'${_('(rpt)' + detail.type)}{if detail.name.length > 0} ( ${detail.name} ){/if}","${detail.amount|default:0|viviFormatPrices:true}","${detail.count|format:0}"
+{/if}
 {/if}
 {/for}
 ""

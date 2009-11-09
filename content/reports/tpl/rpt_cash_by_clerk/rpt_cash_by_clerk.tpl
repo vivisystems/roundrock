@@ -69,9 +69,15 @@
 {for detail in master.ShiftChangeDetail}
 {if detail.type != 'destination'}
 						    <tr>
+{if detail.count < 0}
+						        <td style="text-align: left;">* ${_('(rpt)' + detail.type)}{if detail.name.length > 0}&nbsp;( ${detail.name} ){/if}</td>
+						        <td style="text-align: right;">${detail.amount|default:0|viviFormatPrices:true}</td>
+						        <td style="text-align: right;">X ${0 - detail.count|format:0}</td>
+{else}
 						        <td style="text-align: left;">${_('(rpt)' + detail.type)}{if detail.name.length > 0}&nbsp;( ${detail.name} ){/if}</td>
 						        <td style="text-align: right;">${detail.amount|default:0|viviFormatPrices:true}</td>
 						        <td style="text-align: right;">${detail.count|format:0}</td>
+{/if}
 						    </tr>
 {/if}
 {/for}

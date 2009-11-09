@@ -42,8 +42,8 @@
             this._rounding = data.roundingPrices;
 
             let currencies = GeckoJS.Session.get('Currencies') || [];
-            if (currencies && currencies[0] && currencies[0].currency_symbol && currencies[0].currency_symbol.length > 0) {
-                this._localCurrency = currencies[0].currency_symbol;
+            if (currencies && currencies[0] && currencies[0].currency && currencies[0].currency.length > 0) {
+                this._localCurrency = currencies[0].currency;
             }
             else {
                 this._localCurrency = '';

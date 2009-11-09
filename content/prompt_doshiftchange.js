@@ -27,8 +27,8 @@ var options;
         var localCurrency;
 
         let currencies = GeckoJS.Session.get('Currencies') || [];
-        if (currencies && currencies[0] && currencies[0].currency_symbol && currencies[0].currency_symbol.length > 0) {
-            localCurrency = currencies[0].currency_symbol;
+        if (currencies && currencies[0] && currencies[0].currency && currencies[0].currency.length > 0) {
+            localCurrency = currencies[0].currency;
         }
         
         window.viewDetailHelper = new GeckoJS.NSITreeViewArray(shiftChangeDetails);
@@ -43,17 +43,8 @@ var options;
                         case 'coupon':
                         case 'check':
                         case 'creditcard':
-                            text = _('(rpt)' + this.data[row].type);
-                            break;
-
                         case 'cash':
-                            if (this.data[row].name == localCurrency || this.data[row].name == '') {
-                                text = _('(rpt)cash');
-                            }
-                            else {
-                                // foreign currency
-                                text = _('(rpt)foreign cash');
-                            }
+                            text = _('(rpt)' + this.data[row].type);
                             break;
 
                         default:
@@ -61,7 +52,7 @@ var options;
                             break;
                     }
                     if (this.data[row].is_groupable) {
-                        text = '  -- ' + text;
+                        text = '* ' + text;
                     }
                     break;
 

@@ -39,9 +39,17 @@ ${_( '(rpt)Ledger Out' ) + ':'|left:12}${master.ledger_out|default:0|viviFormatP
   destDetails.push(detail);
 {/eval}
 {else}
+{if detail.count < 0}
+* {if detail.name.length > 0}${detail.name + ':'|left:22}
+{else}
+${_('(rpt)' + detail.type) + ':'|left:22}
+{/if}
+ X${0 - detail.count|format:0|left:10}${detail.amount|default:0|viviFormatPrices:true|right:12}
+{else}
 {if detail.name.length > 0}${detail.name + ':'|left:12}{else}${_('(rpt)' + detail.type) + ':'|left:12}{/if}
 ${detail.amount|default:0|viviFormatPrices:true|right:12}
 ${'  ' + _( '(rpt)Payment Count' ) + ':'|left:12}${detail.count|format:0|right:12}
+{/if}
 {/if}
 {/for}
 {if destDetails.length > 0}
