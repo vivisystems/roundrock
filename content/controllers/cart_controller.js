@@ -3929,6 +3929,7 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
             this._cancelReturn();
 
@@ -3959,7 +3960,9 @@
             if (typeof plu == 'object' && plu.force_memo) {
                 memoItem = plu;
             }else {
+                if (!plu) plu = buf;
                 if (plu != null) plu = GeckoJS.String.trim(plu);
+                
                 var cartItem = curTransaction.getItemAt(index);
                 if (cartItem != null && cartItem.type == 'item') {
                     //xxxx why clone it? so we don't change the default memo
