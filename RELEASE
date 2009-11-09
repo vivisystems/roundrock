@@ -16,3 +16,7 @@ Bug #160:
 
 Bug #167:
      Newly added bookings are not reflected in Table Selection screen when existing from the bookings screen, and previously booked tables are not precluded from being rebooked for the same time slot
+
+Bug #191:
+    Sign-off prompts user for action on queued orders when queued orders do not exist
+
