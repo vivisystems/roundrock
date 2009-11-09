@@ -88,3 +88,7 @@ Bug #188:
 
 Bug #189:
     Hotkey does not work properly if the linked function has required preset data (i.e. Clear)
+
+Bug #190:
+    Input line automatically submits content as barcode whenever it loses focus
+
