@@ -65,6 +65,16 @@
                                         </menulist>
                                     </vbox>
                                 </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rptproducts.plugroup;"/>
+                                        <menulist id="plugroup">
+                                            <menupopup id="plugroup_menupopup">
+                                                <menuitem selected="true" label="[&rptproducts.all;]" value="all"/>
+                                            </menupopup>
+                                        </menulist>
+                                    </vbox>
+                                </row>
                             </rows>
                         </grid>
                     </hbox>
