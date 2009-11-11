@@ -93,7 +93,7 @@
 <!ENTITY tableman.tableoptions.displaytablelabel "Table Label">
 <!ENTITY tableman.tableoptions.displayseqno "Sequence Number">
 <!ENTITY tableman.tableoptions.displaybooking "Booking">
-<!ENTITY tableman.tableoptions.displayperiod "Time in use">
+<!ENTITY tableman.tableoptions.displayperiod "Time in Use">
 <!ENTITY tableman.tableoptions.displaytotal "Check Total">
 <!ENTITY tableman.tableoptions.displaycapacity "Seats">
 <!ENTITY tableman.tableoptions.displayclerk "Service Clerk">
@@ -115,6 +115,6 @@
 <!ENTITY tableman.tableoptions.dockoptions.left "Dock Position Left (px)">
 <!ENTITY tableman.tableoptions.dockoptions.top "Dock Position Top (px)">
 
-<!ENTITY tableman.tableoptions.requireGuestOrTableNumWhenStored "Required customers or table no when Stored">
+<!ENTITY tableman.tableoptions.requireGuestOrTableNumWhenStored "Require number of guests or table number when stored">
 
 <!ENTITY tableman.initialization.label "Initializing Tables...">

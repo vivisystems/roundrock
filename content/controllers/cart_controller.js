@@ -388,8 +388,8 @@
             this._cartView.setTransaction(transaction);
             GeckoJS.Session.set('current_transaction', transaction);
             GeckoJS.Session.remove('cart_last_sell_item');
-        //GeckoJS.Session.remove('cart_set_price_value');
-        //GeckoJS.Session.remove('cart_set_qty_value');
+            //GeckoJS.Session.remove('cart_set_price_value');
+            //GeckoJS.Session.remove('cart_set_qty_value');
         },
 
         _getCartlist: function() {
