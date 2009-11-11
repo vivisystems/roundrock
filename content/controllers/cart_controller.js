@@ -1206,7 +1206,7 @@
             }
 
             if (itemTrans.hasMarker) {
-                NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemTrans.name]));
+                NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemDisplay.name]));
 
                 this._clearAndSubtotal();
                 return;
@@ -1232,6 +1232,15 @@
 
                 this._clearAndSubtotal();
                 return;
+            }
+
+            if (modifyQuantity) {
+                if (newQuantity == 0 || newQuantity < 0 && itemTrans.current_qty > 0) {
+                    NotifyUtils.warn(_('Quantity must be greater than zero'));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
             }
 
             // check if zero preset price is allowed
@@ -1309,8 +1318,15 @@
                 return;
             }
 
-            if (itemTrans.hasDiscount || itemTrans.hasSurcharge || itemTrans.hasMarker) {
+            if (itemTrans.hasDiscount || itemTrans.hasSurcharge) {
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            if (itemTrans.hasMarker) {
+                NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemDisplay.name]));
 
                 this._clearAndSubtotal();
                 return;
@@ -1321,6 +1337,7 @@
             if (delta == null || isNaN(delta)) {
                 delta = 1;
             }
+
             switch(action) {
                 case 'plus':
                     newQty = parseFloat(newQty + delta);
@@ -1330,7 +1347,7 @@
                     break;
             }
             if (qty < 0) newQty = 0 - newQty;
-            if (itemTrans.sale_unit == 'unit') {
+            if (itemTrans.sale_unit == 'unit' || itemDisplay.type == 'payment') {
                 newQty = parseInt(newQty);
             }
             else {
@@ -2109,7 +2126,7 @@
          */
         currencyConvert: function(args) {
 
-            // args is a list of up to 4 parameters: convertCode, amount, groupable, finalize
+            // args is a list of up to 4 parameters: convertCode, amount, finalize, groupable
             if (args == null) args = '';
             var argArray = String(args).split(',');
             var convertCode = argArray[0];
@@ -2354,6 +2371,9 @@
                 payment = amount;
             }
 
+            let balance = curTransaction.getRemainTotal();
+            let paid = curTransaction.getPaymentSubtotal();
+
             // validate payment amount
             if (payment != null && payment != '') {
                 if (isNaN(payment)) {
@@ -2378,9 +2398,12 @@
                 this._clearAndSubtotal();
                 return;
             }
+            else if (balance < 0) {
+                NotifyUtils.warn(_('Please enter the tender amount'));
 
-            let balance = curTransaction.getRemainTotal();
-            let paid = curTransaction.getPaymentSubtotal();
+                this._clearAndSubtotal();
+                return;
+            }
 
             // refunding payment; amount being refunded must not exceed amount paid
             if (this._returnMode) {
@@ -2403,13 +2426,24 @@
             let self = this;
             switch(type) {
                 case 'creditcard':
-                    if (!this._returnMode && payment > balance) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Credit Card Payment Error'),
-                            _('Credit card payment may not exceed remaining balance'));
+                    if (!this._returnMode) {
+                        if (balance <= 0) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Credit Card Payment Error'),
+                                _('Credit card payment not permitted when no balance is due'));
 
-                        this._clearAndSubtotal();
-                        return;
+                            this._clearAndSubtotal();
+                            return;
+                        }
+
+                        if (payment > balance) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Credit Card Payment Error'),
+                                _('Credit card payment may not exceed remaining balance'));
+
+                            this._clearAndSubtotal();
+                            return;
+                        }
                     }
 
                     if (silent && subtype != '') {
@@ -2470,14 +2504,28 @@
 
                 case 'giftcard':
                     let total = payment * qty;
-                    if (!this._returnMode && total > balance) {
-                        if (GREUtils.Dialog.confirm(this.topmostWindow,
-                            _('confirm giftcard payment'),
-                            _('Change of [%S] will NOT be given for this type of payment. Proceed?',
-                                [curTransaction.formatPrice(total - balance)])) == false) {
+                    if (!this._returnMode) {
+                        if (balance <= 0) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Giftcard Payment Error'),
+                                _('Giftcard payment not permitted when no balance is due'));
 
                             this._clearAndSubtotal();
                             return;
+                        }
+
+                        if (total > balance) {
+                            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                _('confirm giftcard payment'),
+                                _('Change of [%S] will NOT be given for this type of payment. Proceed?',
+                                    [curTransaction.formatPrice(total - balance)])) == false) {
+
+                                this._clearAndSubtotal();
+                                return;
+                            }
+                        }
+                        else {
+                            balance = total;
                         }
                     }
                     else {
@@ -2805,8 +2853,10 @@
                 type: type,
                 amount: amount,
                 origin_amount: origin_amount,
-                is_groupable: isGroupable,
                 transaction: curTransaction,
+                memo1: memo1,
+                memo2: memo2,
+                is_groupable: isGroupable,
                 current_qty: qty
             };
             
@@ -2815,9 +2865,32 @@
             if (amount != 0) {
                 var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
                 if (beforeResult) {
-                    paymentTxnItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, qty, isGroupable);
-                    paymentTxnItem.seq = curTransaction.data.seq;
-                    paymentTxnItem.order_id = curTransaction.data.id;
+                    // check if paymentItem can be merged with current item
+                    let merged = false;
+                    if (isGroupable) {
+                        let currentIndex = this._cartView.getSelectedIndex();
+                        if (!curTransaction.isLocked(currentIndex)) {
+                            let currentItem = curTransaction.getItemAt(currentIndex);
+                            let currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
+                            if (currentItemDisplay && currentItemDisplay.type == 'payment'
+                                && !currentItem.hasMarker
+                                && currentItem.is_groupable
+                                && currentItem.name == type
+                                && currentItem.memo1 == memo1
+                                && currentItem.origin_amount == origin_amount
+                                && (currentItem.current_qty > 0 && !returnMode ||
+                                    currentItem.current_qty < 0 && returnMode)) {
+                                merged = true;
+                                curTransaction.modifyPaymentQty(currentItemDisplay, currentItem, amount, qty);
+                            }
+                        }
+                    }
+
+                    if (!merged) {
+                        paymentTxnItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, qty, isGroupable);
+                        paymentTxnItem.seq = curTransaction.data.seq;
+                        paymentTxnItem.order_id = curTransaction.data.id;
+                    }
                 }
 
                 this.dispatchEvent('afterAddPayment', paymentTxnItem);

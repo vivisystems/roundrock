@@ -706,10 +706,12 @@
                         break;
 
                     case 'CASH':
-                        dispName = item.memo1 || _('(cart)CASH');
-                        if (item.is_groupable || item.memo2 != '') {
+                        if (item.is_groupable || (item.memo2 != '' && item.memo2 != null)) {
                             // groupable local cash
-                            dispName += item.origin_amount;
+                            dispName = item.memo1 + item.origin_amount;
+                        }
+                        else {
+                            dispName = _('(cart)CASH');
                         }
                         break;
 
@@ -1376,6 +1378,9 @@
                         else if (displayItem.type == 'trans_surcharge') {
                             this.data.trans_surcharges[displayItem.index].hasMarker = false;
                         }
+                        else if (displayItem.type == 'payment') {
+                            this.data.trans_payments[displayItem.index].hasMarker = false;
+                        }
                         else if (displayItem.type == 'subtotal' ||
                             displayItem.type == 'total' ||
                             displayItem.type == 'tray') {
@@ -1872,6 +1877,12 @@
                 surItem.hasMarker  = true;
             }
 
+            // trans_payments
+            for(var payIndex in this.data.trans_payments ) {
+                var payItem = this.data.trans_payments[payIndex];
+                payItem.hasMarker  = true;
+            }
+            
             var itemDisplay = this.createDisplaySeq(index, markerItem, type);
 
             var lastIndex = this.data.display_sequences.length - 1;
@@ -2159,6 +2170,20 @@
             return paymentItem;
         },
 
+        modifyPaymentQty: function(paymentDisplay, paymentItem, amount, qty) {
+            if (paymentItem.is_groupable);
+
+            paymentItem.amount += amount;
+            paymentItem.current_qty += qty;
+
+            newPaymentDisplay = this.createDisplaySeq(paymentItem.index, paymentItem, 'payment');
+            GREUtils.extend(paymentDisplay, newPaymentDisplay);
+            
+            this.calcTotal();
+
+            return paymentItem;
+        },
+
         getItemAt: function(index, nofollow){
 
             if (index < 0 || index >= this.data.display_sequences.length) return null;
@@ -2207,6 +2232,9 @@
                 case 'mass_discount':
                     item = this.data.items[itemIndex];
                     break;
+
+                case 'payment':
+                    item = this.data.trans_payments[itemIndex];
 
             }
             return item;
