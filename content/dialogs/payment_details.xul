@@ -30,8 +30,8 @@
                     <label id="paymentDetails-title" class="label-page-title"/>
                     <vbox flex="1" class="content-listbox">
                         <vivitree id="paymentscrollablepanel" flex="1"
-                                  headers="&paymentdetails.amount;,&paymentdetails.origin_amount;,&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.note2;"
-                                  fields="amount,origin_amount,name,memo1,memo2"
+                                  headers="&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.amount;,&paymentdetails.origin_amount;,&paymentdetails.note2;"
+                                  fields="name,memo1,amount,origin_amount,memo2"
                                   class="standard" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                     </vbox>
                     

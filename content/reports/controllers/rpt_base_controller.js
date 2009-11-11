@@ -48,7 +48,24 @@
         
         _fileName: '', // for use of template file.
         _exportedFileName: '', // appellation for the exported files.
+        _decimals: GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.',
+        _thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',',
+        _precision: GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0,
         
+        formatPrice: function(price, showZero) {
+            if (parseFloat(price) == 0 && !showZero) {
+                return '';
+            }
+
+            var options = {
+                decimals: this._decimals,
+                thousands: this._thousands,
+                places: ((this._precision>0)?this._precision:0)
+            };
+            // format display precision
+            return GeckoJS.NumberHelper.format(price, options);
+        },
+
         getCaptionId: function() {
             return this._waiting_caption_id;
         },

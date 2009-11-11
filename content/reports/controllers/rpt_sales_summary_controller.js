@@ -301,7 +301,7 @@
             'order_payments.memo1',
             'sum( order_payments.change) as "change"',
             'sum( order_payments.amount) as "amount"',
-            'sum( ifnull(order_payments.origin_amount, 0) ) as "origin_amount"'
+            'sum( ifnull(((order_payments.order_items_count - 1) * order_payments.is_groupable + 1) * order_payments.origin_amount, 0)) as "origin_amount"',
             ];
 
             var conditions = "orders." + this._periodtype + ">='" + start +
@@ -338,7 +338,7 @@
             } );
             */
             var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
-
+            
             var paymentList = {};
             var giftcardExcess;
             var cashChange = 0;
@@ -347,7 +347,7 @@
             var Currencies = GeckoJS.Session.get('Currencies');
             var localCurrencySymbol = '';
             if (Currencies && Currencies.length > 0) {
-                localCurrencySymbol = Currencies[0].currency_symbol;
+                localCurrencySymbol = Currencies[0].currency || _('(rpt)cash');
             }
             records.forEach( function( record ) {
 
@@ -366,6 +366,7 @@
                 if (record.name == 'giftcard') {
                     // check if we need to update giftcard excess record
                     if (record.amount != record.origin_amount) {
+                        let origin_amount = record.origin_amount;
                         var excess = record.origin_amount - record.amount;
                         if (!giftcardExcess) {
                             giftcardExcess = {
@@ -388,12 +389,12 @@
                 summary.payment_total += record.amount;
 
                 if (record.name == 'cash') {
-                    if (record.memo1) {
-                        record.amount = record.origin_amount;
-                    }
-                    else {
+                    if (record.memo1 == '' || record.memo1 == localCurrencySymbol) {
                         record.memo1 = localCurrencySymbol;
                         cashRecord = record;
+                    }
+                    else {
+                        record.amount = record.origin_amount;
                     }
                 }
             });

@@ -225,13 +225,10 @@
 {if order.OrderPayment}
 {for payment in order.OrderPayment}
     <tr>
-        <td>&nbsp;&nbsp;${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : _(payment.name)}</td>
-        <td colspan="2">${(payment.memo1 != null && payment.memo1 != '') ? _(payment.name) : ''}</td>
-{if payment.name == 'cash' || payment.name == 'giftcard'}
+        <td>&nbsp;&nbsp;${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : _('(rpt)' + payment.name)}</td>
+        <td>{if payment.name == 'giftcard' || payment.name == 'coupon' || payment.name == 'check' || payment.name == 'creditcard'}${_('(rpt)' + payment.name)}{/if}</td>
+        <td>{if payment.is_groupable}${payment.order_items_count|format:0}X{/if}</td>
         <td style="text-align: right;">${(payment.origin_amount != null && payment.origin_amount != '') ? payment.origin_amount : ''|viviFormatPrices:true}</td>
-{else}
-        <td/>
-{/if}
         <td style="text-align: right;">${payment.amount|viviFormatPrices:true}</td>
         <td/>
     </tr>

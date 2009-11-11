@@ -12,7 +12,7 @@
         _fileName: 'rpt_cash_by_clerk',
         
         _set_reportData: function( start, end, shiftNo, terminalNo, limit ) {
-        	var d = new Date();
+            var d = new Date();
             d.setTime( start );
             var start_str = d.toString( 'yyyy/MM/dd HH:mm' );
             d.setTime( end );
@@ -20,6 +20,12 @@
 
             start = parseInt(start / 1000, 10);
             end = parseInt(end / 1000, 10);
+
+            let currencies = GeckoJS.Session.get('Currencies') || [];
+            let localCurrency = '';
+            if (currencies && currencies[0] && currencies[0].currency && currencies[0].currency.length > 0) {
+                localCurrency = currencies[0].currency;
+            }
 
             var fields = [];
             var conditions = "shift_changes.sale_period >= '" + start +
@@ -49,7 +55,25 @@
                 o.starttime = d.toString('yy/MM/dd HH:mm');
                 d.setTime( o.endtime * 1000 );
                 o.endtime = d.toString('yy/MM/dd HH:mm');
-            });
+
+                // process shift change details for display purposes
+                let details = o.ShiftChangeDetail || [];
+                details.forEach(function(d) {
+                    if (d.type != 'destination') {
+                        if (d.count < 0) {
+                            //groupable payment; append amount to name
+                            if (d.type != 'cash' || d.name == '' || d.name == localCurrency) {
+                                // format payments in local currency
+                                d.name += ' ' + this.formatPrice(d.change);
+                            }
+                            else {
+                                // don't format foreign currency
+                                d.name += ' ' + d.change;
+                            }
+                        }
+                    }
+                }, this);
+            }, this);
             
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.cashbyclerk.label' );
             this._reportRecords.head.start_time = start_str;
@@ -80,20 +104,20 @@
             document.getElementById( 'shift_no' ).value = parameters.shiftNo;
             document.getElementById( 'terminal_no' ).value = parameters.terminalNo;
 
-        	this._set_reportData( parameters.start, parameters.end, parameters.shiftNo, parameters.terminalNo );
+            this._set_reportData( parameters.start, parameters.end, parameters.shiftNo, parameters.terminalNo );
         },
         
         printShiftChangeReport: function( start, end, shiftNo, terminalNo ) {
-        	// the parameters 'start' and 'end' are both thirteen-digit integer.
-        	
-        	this._set_reportData( start, end, shiftNo, terminalNo );
-        	this._setTemplateDataHead();
-        	
-        	var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-				.getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
-			var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
-			
-			var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
+            // the parameters 'start' and 'end' are both thirteen-digit integer.
+
+            this._set_reportData( start, end, shiftNo, terminalNo );
+            this._setTemplateDataHead();
+
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                            .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
+            var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+
+            var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
 
             var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
             var file = GREUtils.File.getFile( path );
@@ -103,10 +127,10 @@
         },
         
         getProcessedTpl: function( start, end, shiftNo, terminalNo ) {
-        	// the parameters 'start' and 'end' are both thirteen-digit integer.
-        	
-        	this._set_reportData( start, end, shiftNo, terminalNo );
-        	this._setTemplateDataHead();
+            // the parameters 'start' and 'end' are both thirteen-digit integer.
+
+            this._set_reportData( start, end, shiftNo, terminalNo );
+            this._setTemplateDataHead();
 
             var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
             var file = GREUtils.File.getFile( path );
