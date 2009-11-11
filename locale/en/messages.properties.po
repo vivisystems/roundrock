@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-11-11 14:44+0800\n"
+"POT-Creation-Date: 2009-11-11 14:47+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2760,6 +2760,9 @@ msgstr "Internal VFD Template"
 msgid "vivipos.fec.registry.templates.vfd-internal-non-en.label"
 msgstr "Internal VFD (non-en)"
 
+msgid "vivipos.fec.registry.templates.receipt-japanese-ecr-42c.label"
+msgstr "Sample Japanese ECR"
+
 # #######################################################################
 #
 # List of Import / Export
@@ -4234,7 +4237,7 @@ msgstr ""
 #: ../..//content/controllers/print_controller.js:755
 #: ../..//content/controllers/print_controller.js:799
 #: ../..//content/controllers/scale_controller.js:55
-#: ../..//content/controllers/vfd_controller.js:179
+#: ../..//content/controllers/vfd_controller.js:182
 msgid "Error in device manager! Please check your device configuration"
 msgstr ""
 
@@ -4258,13 +4261,13 @@ msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:283
 #: ../..//content/controllers/print_controller.js:849
-#: ../..//content/controllers/vfd_controller.js:253
+#: ../..//content/controllers/vfd_controller.js:259
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:346
 #: ../..//content/controllers/print_controller.js:1119
-#: ../..//content/controllers/vfd_controller.js:334
+#: ../..//content/controllers/vfd_controller.js:340
 msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
 
@@ -8094,11 +8097,11 @@ msgstr ""
 msgid "You have made changes to the current user. Save changes before exiting?"
 msgstr ""
 
-#: ../..//content/controllers/vfd_controller.js:184
+#: ../..//content/controllers/vfd_controller.js:187
 msgid "Error in VFD controller; no worker thread available!"
 msgstr ""
 
-#: ../..//content/controllers/vfd_controller.js:258
+#: ../..//content/controllers/vfd_controller.js:264
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
