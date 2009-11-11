@@ -2882,6 +2882,9 @@
                                     currentItem.current_qty < 0 && returnMode)) {
                                 merged = true;
                                 curTransaction.modifyPaymentQty(currentItemDisplay, currentItem, amount, qty);
+
+                                this._getCartlist().refresh();
+
                             }
                         }
                     }
