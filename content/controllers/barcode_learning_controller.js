@@ -32,6 +32,7 @@
                     department:department.name,
                     department_no: department.no
                 };
+
                 GREUtils.Dialog.openWindow(
                     this.topmostWindow,
                     aURL,
@@ -59,6 +60,37 @@
                     prodData.rate = inputObj.tax_rate;
                     prodData.barcode = inputObj.barcode;
                     prodData.visible = '0';
+
+                    //validate PLU duplication
+                    var prods = GeckoJS.Session.get('products');
+
+                    if (prodData.no.length <= 0) {
+
+                        NotifyUtils.warn(_('Product number must not be empty.'));
+                        return;
+                    } else if (prodData.name.length <= 0) {
+
+                        NotifyUtils.warn(_('Product name must not be empty.'));
+                        return;
+                    } else {
+                        if (prods) {
+                            for (var i = 0; i < prods.length; i++) {
+                                var o = prods[i];
+                                if (o.no == prodData.no) {
+                                    NotifyUtils.warn(_('Product number [%S] already exists; product not added', [prodData.no]));
+                                    return;
+                                } else if (o.name.toLowerCase() == prodData.name.toLowerCase() && o.cate_no == prodData.cate_no) {
+                                    if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                                                _('Duplicate Product Name [%S]', [prodData.name]),
+                                                                _('One or more products with name [%S] already exist in department no. [%S]. Are you sure this is the name you want?', [prodData.name, prodData.cate_no]))) {
+                                        NotifyUtils.warn(_('Product name [%S] already exists in department no. [%S]; product not added', [prodData.name, prodData.cate_no]));
+                                        return;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
 
                     var learningGroup = GeckoJS.Configure.read('vivipos.fec.settings.BarcodeLearningPLUGroup');
                     if(learningGroup != 'none') {

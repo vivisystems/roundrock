@@ -49,7 +49,7 @@
                             <hbox>
                                 <vbox flex="1">
                                     <label id="barcode_label" value="" control="barcode_value"/>
-                                    <textbox id="barcode_value" flex="1" value="" oninput="validateInput()" onfocus="select()"/>
+                                    <textbox id="barcode_value" flex="1" value="" oninput="validateInput()" onfocus="select()" disabled="true"/>
                                 </vbox>
                                 <vbox flex="1">
                                     <label id="plu_label" value="" control="plu_value"/>
@@ -74,14 +74,14 @@
                                 <vbox flex="1">
                                     <label id="tax_label" value="" control="tax_value"/>
                                     <label id="tax_rate" value="" hidden="true" default=""/>
-                                    <textbox id="tax_value" flex="1" value=""
+                                    <textbox id="tax_value" flex="1" value="" class="button-item-c"
                                              oninput="validateInput()" onfocus="select()"
                                              onclick="$do('getRate','null','BarcodeLearning');"/>
                                 </vbox>
                                 <vbox flex="1">
                                     <label id="department_label" value="" control="department_value"/>
                                     <label id="department_no" value="" hidden="true" default=""/>
-                                    <textbox id="department_value" flex="1" value=""
+                                    <textbox id="department_value" flex="1" value="" class="button-item-c"
                                              oninput="validateInput()" onfocus="select()"
                                              onclick="$do('getDepartment','null','BarcodeLearning');"/>
                                 </vbox>
