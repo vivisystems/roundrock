@@ -653,6 +653,8 @@
 
                 var fnPanel = document.getElementById('functionPanel');
                 if (fnPanel) fnPanel.home();
+
+                this.dispatchEvent('signedOn', user);
             }
             else {
                 GeckoJS.Session.clear('user');
@@ -932,6 +934,8 @@
                 if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
+            this.dispatchEvent('signedOff', principal);
+            
             Transaction.removeRecoveryFile();
             
             if (!quickSignoff) {
