@@ -841,13 +841,18 @@ msgstr "PLUS"
 # ##############
 msgid "vivipos.fec.registry.function.programmable.cash.desc"
 msgstr ""
-"This function registers a cash payment. The parameter field can be used to "
-"program a preset cash payment amount. If a preset amount of '0' is "
-"specified, the user is required to enter a tender amount. If no preset is "
-"programmed, the payment amount is read from the input line  If the input "
-"line is also blank, a quick cash payment is registered. A second, optional "
-"parameter may be set to '1' to indicate that a counter should be maintained, "
-"on a per shift basis, on payments made with this function key."
+"This function registers a cash payment. The parameter field may contain up "
+"to 3 optional, comma-separated arguments. The first argument is a preset "
+"tender amount, the second argument is the 'finalize' flag, and the third and "
+"last argument is the 'groupable' flag. If the preset amount is set to '0', "
+"the user is required to enter a tender amount. If no preset is programmed, "
+"the tender amount is read from the input line. If the input line is also "
+"blank, a quick cash payment is registered. The 'finalize' flag controls "
+"whether this function finalizes the order when the tender amount equals or "
+"exceeds the balance due; this flag is effective only when the global "
+"'Disable auto-finalization on payment' option is active.The 'groupable' flag "
+"should be set to '1' if this payment type/amount combination is to be "
+"tracked (non-zero preset amount must be specified)."
 
 msgid "vivipos.fec.registry.function.programmable.cash.label"
 msgstr "Cash"
@@ -1063,8 +1068,18 @@ msgstr "Sign Off"
 # ##########################
 msgid "vivipos.fec.registry.function.programmable.currencyConvert.desc"
 msgstr ""
-"This function registers a currency conversion. The parameter must be set to "
-"the currency code representing the foreign current to convert from."
+"This function registers a currency conversion. The parameter field may "
+"contain up to 4 optional, comma-separated arguments. The first argument is "
+"the currency code representing the foreign current to convert from, the "
+"second argument is a preset tender amount, the third argument is the "
+"'finalize' flag, and the fourth and last argument is the 'groupable' flag. "
+"If no preset is programmed, the tender amount is read from the input line. "
+"The 'finalize' flag controls whether this function finalizes the order when "
+"the tender amount equals or exceeds the balance due; this flag is effective "
+"only when the global 'Disable auto-finalization on payment' option is "
+"active. The 'groupable' flag should be set to '1' if this payment type/"
+"amount combination is to be tracked (non-zero preset amount must be "
+"specified)."
 
 msgid "vivipos.fec.registry.function.programmable.currencyConvert.label"
 msgstr "Currency Exchange"
@@ -1153,15 +1168,19 @@ msgstr "Item Refund"
 msgid "vivipos.fec.registry.function.programmable.creditcard.desc"
 msgstr ""
 "This function registers a credit card payment. The parameter field may "
-"contain up to 3 optional, comma-separated arguments. The first argument is "
-"the credit card sub-type; the second argument is a preset tender amount, and "
-"the third argument is a silent flag. Sub-type should be set to the credit "
-"card type such as VISA, JCB, etc. If the preset amount is set to '0', the "
-"user is required to enter a tender amount. If no preset is programmed, the "
-"tender amount is read from the input line  If the input line is also blank, "
-"a quick credit card payment is registered. Normally the user will be "
-"prompted to confirm the payment; if the silent flag is set to '1', the "
-"confirmation screen will be passed."
+"contain up to 4 optional, comma-separated arguments. The first argument is "
+"the credit card sub-type, the second argument is a preset tender amount, the "
+"third argument is the 'silent' flag, and the fourth and last argument is the "
+"'finalize' flag. Sub-type should be set to the credit card type such as "
+"VISA, JCB, etc. If the preset amount is set to '0', the user is required to "
+"enter a tender amount. If no preset is programmed, the tender amount is read "
+"from the input line. If the input line is also blank, a quick credit card "
+"payment is registered. Normally the user will be prompted to confirm the "
+"payment; if the silent flag is set to '1', the confirmation screen will be "
+"skipped. The 'finalize' flag controls whether this function finalizes the "
+"order when the tender amount equals or exceeds the balance due; this flag is "
+"effective only when the global 'Disable auto-finalization on payment' option "
+"is active."
 
 msgid "vivipos.fec.registry.function.programmable.creditcard.label"
 msgstr "Credit Card"
@@ -1175,15 +1194,21 @@ msgstr "Credit Card"
 msgid "vivipos.fec.registry.function.programmable.coupon.desc"
 msgstr ""
 "This function registers a coupon payment. The parameter field may contain up "
-"to 3 optional, comma-separated arguments. The first argument is the coupon "
-"sub-type; the second argument is a preset tender amount, and the third "
-"argument is a silent flag. Sub-type is used for differentiate between "
-"different possible coupon types. If the preset amount is set to '0', the "
-"user is required to enter a tender amount. If no preset is programmed, the "
-"tender amount is read from the input line  If the input line is also blank, "
-"a quick coupon payment is registered. Normally the user will be prompted to "
-"confirm the payment; if the silent flag is set to '1', the confirmation "
-"screen will be passed."
+"to 5 optional, comma-separated arguments. The first argument is the coupon "
+"sub-type, the second argument is a preset tender amount, the third argument "
+"is the 'silent' flag, the fourth argument is the 'finalize' flag, and the "
+"fifth and last argument is the 'groupable' flag. Sub-type is used for "
+"differentiate between different possible coupon types. If the preset amount "
+"is set to '0', the user is required to enter a tender amount. If no preset "
+"is programmed, the tender amount is read from the input line  If the input "
+"line is also blank, a quick coupon payment is registered. Normally the user "
+"will be prompted to confirm the payment; if the silent flag is set to '1', "
+"the confirmation screen will be skipped.The 'finalize' flag controls whether "
+"this function finalizes the order when the tender amount equals or exceeds "
+"the balance due; this flag is effective only when the global 'Disable auto-"
+"finalization on payment' option is active. The 'groupable' flag should be "
+"set to '1' if this payment type/amount combination is to be tracked (non-"
+"zero preset amount must be specified)."
 
 msgid "vivipos.fec.registry.function.programmable.coupon.label"
 msgstr "Coupon"
@@ -1196,17 +1221,23 @@ msgstr "Coupon"
 # ######################
 msgid "vivipos.fec.registry.function.programmable.giftcard.desc"
 msgstr ""
-"This function registers a coupon payment. A giftcard payment is similar to a "
-"coupon payment, except that no change is given on a giftcard payment.  The "
-"parameter field may contain up to 3 optional, comma-separated arguments. The "
-"first argument is the giftcard sub-type; the second argument is a preset "
-"tender amount, and the third argument is a silent flag. Sub-type is used for "
-"differentiate between different possible giftcard types. If the preset "
-"amount is set to '0', the user is required to enter a tender amount. If no "
-"preset is programmed, the tender amount is read from the input line  If the "
-"input line is also blank, a quick giftcard payment is registered. Normally "
-"the user will be prompted to confirm the payment; if the silent flag is set "
-"to '1', the confirmation screen will be passed."
+"This function registers a giftcard payment. A giftcard payment is similar to "
+"a coupon payment, except that no change is given on a giftcard payment. The "
+"parameter field may contain up to 5 optional, comma-separated arguments. The "
+"first argument is the giftcard sub-type, the second argument is a preset "
+"tender amount, the third argument is the 'silent' flag, the fourth argument "
+"is the 'finalize' flag, and the fifth and last argument is the 'groupable' "
+"flag. Sub-type is used for differentiate between different possible giftcard "
+"types. If the preset amount is set to '0', the user is required to enter a "
+"tender amount. If no preset is programmed, the tender amount is read from "
+"the input line. If the input line is also blank, a quick giftcard payment is "
+"registered. Normally the user will be prompted to confirm the payment; if "
+"the silent flag is set to '1', the confirmation screen will be skipped.The "
+"'finalize' flag controls whether this function finalizes the order when the "
+"tender amount equals or exceeds the balance due; this flag is effective only "
+"when the global 'Disable auto-finalization on payment' option is active. The "
+"'groupable' flag should be set to '1' if this payment type/amount "
+"combination is to be tracked (non-zero preset amount must be specified)."
 
 msgid "vivipos.fec.registry.function.programmable.giftcard.label"
 msgstr "Giftcard"
@@ -1220,15 +1251,18 @@ msgstr "Giftcard"
 msgid "vivipos.fec.registry.function.programmable.check.desc"
 msgstr ""
 "This function registers a check payment. The parameter field may contain up "
-"to 3 optional, comma-separated arguments. The first argument is the check "
-"sub-type; the second argument is a preset tender amount, and the third "
-"argument is a silent flag. Sub-type is used for differentiate between "
-"different possible check types. If the preset amount is set to '0', the user "
-"is required to enter a tender amount. If no preset is programmed, the tender "
-"amount is read from the input line  If the input line is also blank, a quick "
-"check payment is registered. Normally the user will be prompted to confirm "
-"the payment; if the silent flag is set to '1', the confirmation screen will "
-"be passed."
+"to 4 optional, comma-separated arguments. The first argument is the check "
+"sub-type; the second argument is a preset tender amount, the third argument "
+"is the silent flag, and the fourth and last argument is the 'finalize' flag. "
+"Sub-type is used for differentiate between different possible check types. "
+"If the preset amount is set to '0', the user is required to enter a tender "
+"amount. If no preset is programmed, the tender amount is read from the input "
+"line  If the input line is also blank, a quick check payment is registered. "
+"Normally the user will be prompted to confirm the payment; if the silent "
+"flag is set to '1', the confirmation screen will be skipped.The 'finalize' "
+"flag controls whether this function finalizes the order when the tender "
+"amount equals or exceeds the balance due; this flag is effective only when "
+"the global 'Disable auto-finalization on payment' option is active. "
 
 msgid "vivipos.fec.registry.function.programmable.check.label"
 msgstr "Check"
@@ -3049,13 +3083,13 @@ msgid "Please note one or more orders are still open"
 msgstr ""
 
 #: ../..//content/refund_payment.js:23 ../..//content/refund_payment.js:29
-#: ../..//content/controllers/cart_controller.js:3890
-#: ../..//content/controllers/cart_controller.js:3951
-#: ../..//content/controllers/cart_controller.js:3961
-#: ../..//content/controllers/cart_controller.js:3972
-#: ../..//content/controllers/cart_controller.js:3979
-#: ../..//content/controllers/cart_controller.js:3992
-#: ../..//content/controllers/cart_controller.js:4120
+#: ../..//content/controllers/cart_controller.js:3965
+#: ../..//content/controllers/cart_controller.js:4026
+#: ../..//content/controllers/cart_controller.js:4036
+#: ../..//content/controllers/cart_controller.js:4047
+#: ../..//content/controllers/cart_controller.js:4054
+#: ../..//content/controllers/cart_controller.js:4067
+#: ../..//content/controllers/cart_controller.js:4195
 msgid "Void Sale"
 msgstr ""
 
@@ -3399,7 +3433,7 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1136
 #: ../..//content/controllers/cart_controller.js:1305
 #: ../..//content/controllers/cart_controller.js:1446
-#: ../..//content/controllers/cart_controller.js:3534
+#: ../..//content/controllers/cart_controller.js:3609
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
@@ -3410,16 +3444,16 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1453
 #: ../..//content/controllers/cart_controller.js:1889
 #: ../..//content/controllers/cart_controller.js:2102
-#: ../..//content/controllers/cart_controller.js:2919
-#: ../..//content/controllers/cart_controller.js:3541
-#: ../..//content/controllers/cart_controller.js:3791
+#: ../..//content/controllers/cart_controller.js:2991
+#: ../..//content/controllers/cart_controller.js:3616
+#: ../..//content/controllers/cart_controller.js:3866
 msgid "Please select an item first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:468
 #: ../..//content/controllers/cart_controller.js:1151
-#: ../..//content/controllers/cart_controller.js:3549
-#: ../..//content/controllers/cart_controller.js:3799
+#: ../..//content/controllers/cart_controller.js:3624
+#: ../..//content/controllers/cart_controller.js:3874
 msgid "Stored items may not be modified"
 msgstr ""
 
@@ -3575,14 +3609,14 @@ msgid "Cannot VOID an entry that has been subtotaled"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1503
-#: ../..//content/controllers/cart_controller.js:2950
-#: ../..//content/controllers/cart_controller.js:3577
+#: ../..//content/controllers/cart_controller.js:3022
+#: ../..//content/controllers/cart_controller.js:3652
 msgid "Please void discount on item [%S] first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1509
-#: ../..//content/controllers/cart_controller.js:2957
-#: ../..//content/controllers/cart_controller.js:3583
+#: ../..//content/controllers/cart_controller.js:3029
+#: ../..//content/controllers/cart_controller.js:3658
 msgid "Please void surcharge on item [%S] first"
 msgstr ""
 
@@ -3620,7 +3654,7 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1663
 #: ../..//content/controllers/cart_controller.js:1923
-#: ../..//content/controllers/cart_controller.js:2943
+#: ../..//content/controllers/cart_controller.js:3015
 msgid "Cannot modify an item that has been subtotaled"
 msgstr ""
 
@@ -3716,242 +3750,245 @@ msgstr ""
 msgid "House Bon may not be applied to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2145
+#: ../..//content/controllers/cart_controller.js:2164
 msgid "The selected currency [%S] has not been configured"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2152
-#: ../..//content/controllers/cart_controller.js:2286
-#: ../..//content/controllers/cart_controller.js:2664
+#: ../..//content/controllers/cart_controller.js:2171
+#: ../..//content/controllers/cart_controller.js:2349
+#: ../..//content/controllers/cart_controller.js:2731
 msgid "Not an open order; cannot register payments"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2170
-msgid "Please enter an amount first"
+#: ../..//content/controllers/cart_controller.js:2195
+#: ../..//content/controllers/cart_controller.js:2381
+#: ../..//content/controllers/cart_controller.js:2746
+msgid "Invalid payment amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2173
-msgid "Please configure the selected currency entry first [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2190
-msgid "Credit Card Remark"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2191
-#: ../..//content/controllers/cart_controller.js:2212
-#: ../..//content/controllers/cart_controller.js:2233
-#: ../..//content/controllers/cart_controller.js:2254
-msgid "Payment"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2192
-msgid "Card Type"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2193
-msgid "Card Remark"
+#: ../..//content/controllers/cart_controller.js:2203
+#: ../..//content/controllers/cart_controller.js:2389
+#: ../..//content/controllers/cart_controller.js:2754
+msgid "Invalid payment amount [%S]. Payment amount must be positive"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2211
-#: ../..//content/controllers/cart_controller.js:2214
-msgid "Coupon Remark"
+#: ../..//content/controllers/cart_controller.js:2397
+#: ../..//content/controllers/cart_controller.js:2762
+msgid "Please enter the amount to refund"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2213
-msgid "Coupon Type"
+#: ../..//content/controllers/cart_controller.js:2229
+msgid "Please enter an amount first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2232
-#: ../..//content/controllers/cart_controller.js:2235
+msgid "Please configure the selected currency entry first [%S]"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2249
+msgid "Credit Card Remark"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2250
+#: ../..//content/controllers/cart_controller.js:2271
+#: ../..//content/controllers/cart_controller.js:2292
+#: ../..//content/controllers/cart_controller.js:2313
+msgid "Payment"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2251
+msgid "Card Type"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2252
+msgid "Card Remark"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2270
+#: ../..//content/controllers/cart_controller.js:2273
+msgid "Coupon Remark"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2272
+msgid "Coupon Type"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2291
+#: ../..//content/controllers/cart_controller.js:2294
 msgid "Giftcard Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2234
+#: ../..//content/controllers/cart_controller.js:2293
 msgid "Giftcard Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2253
-#: ../..//content/controllers/cart_controller.js:2256
+#: ../..//content/controllers/cart_controller.js:2312
+#: ../..//content/controllers/cart_controller.js:2315
 msgid "Check Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2255
+#: ../..//content/controllers/cart_controller.js:2314
 msgid "Check Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2301
-#: ../..//content/controllers/cart_controller.js:3470
+#: ../..//content/controllers/cart_controller.js:2367
+#: ../..//content/controllers/cart_controller.js:3545
 msgid "Payment Warning"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2302
-#: ../..//content/controllers/cart_controller.js:3471
+#: ../..//content/controllers/cart_controller.js:2368
+#: ../..//content/controllers/cart_controller.js:3546
 msgid ""
 "Tender entry is compulsory for this payment type, please enter an amount "
 "first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2315
-#: ../..//content/controllers/cart_controller.js:2679
-msgid "Invalid payment amount [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2323
-#: ../..//content/controllers/cart_controller.js:2687
-msgid "Invalid payment amount [%S]. Payment amount must be positive"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2331
-#: ../..//content/controllers/cart_controller.js:2695
-msgid "Please enter the amount to refund"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2343
+#: ../..//content/controllers/cart_controller.js:2409
 msgid "Refund amount [%S] may not exceed amount paid [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2353
+#: ../..//content/controllers/cart_controller.js:2419
 msgid "No payments accepted when balance due is zero or negative"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2370
+#: ../..//content/controllers/cart_controller.js:2436
 msgid "Credit Card Payment Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2371
+#: ../..//content/controllers/cart_controller.js:2437
 msgid "Credit card payment may not exceed remaining balance"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2435
+#: ../..//content/controllers/cart_controller.js:2502
 msgid "confirm giftcard payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2436
+#: ../..//content/controllers/cart_controller.js:2503
 msgid "Change of [%S] will NOT be given for this type of payment. Proceed?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2488
+#: ../..//content/controllers/cart_controller.js:2555
 msgid "Check Payment Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2489
+#: ../..//content/controllers/cart_controller.js:2556
 msgid "Cashing check for [%S] will exceed your limit of [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2560
+#: ../..//content/controllers/cart_controller.js:2627
 msgid "Please complete or cancel transaction first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2580
+#: ../..//content/controllers/cart_controller.js:2647
 #, python-format
 msgid ""
 "An error was encountered while retrieving ledger entry types (error code %s) "
 "[message #106]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2606
+#: ../..//content/controllers/cart_controller.js:2673
 msgid "unknown user"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2617
+#: ../..//content/controllers/cart_controller.js:2684
 msgid "Specified ledger entry type [%S] is not defined"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2627
+#: ../..//content/controllers/cart_controller.js:2694
 msgid "Add New Ledger Entry"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2646
+#: ../..//content/controllers/cart_controller.js:2713
 #: ../..//content/controllers/ledger_controller.js:202
 msgid "Transaction [%S] for amount of [%S] successfully logged to the ledger"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2650
+#: ../..//content/controllers/cart_controller.js:2717
 #: ../..//content/controllers/ledger_controller.js:207
 msgid "Failed to log transaction [%S] for amount of [%S] to the ledger"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2671
+#: ../..//content/controllers/cart_controller.js:2738
 msgid "Nothing has been registered yet; cannot register payments"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2707
+#: ../..//content/controllers/cart_controller.js:2774
 msgid "No payment has been made; cannot register refund payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2718
+#: ../..//content/controllers/cart_controller.js:2785
 msgid "Refund amount [%S] may not exceed payment amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2795
+#: ../..//content/controllers/cart_controller.js:2867
 msgid "No order for which to show payment status"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2814
+#: ../..//content/controllers/cart_controller.js:2886
 msgid "Payment Details"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2845
-#: ../..//content/controllers/cart_controller.js:2848
-#: ../..//content/controllers/cart_controller.js:2856
+#: ../..//content/controllers/cart_controller.js:2917
+#: ../..//content/controllers/cart_controller.js:2920
+#: ../..//content/controllers/cart_controller.js:2928
 msgid "Scale"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2845
+#: ../..//content/controllers/cart_controller.js:2917
 msgid ""
 "No reading from scale: please make sure scale is powered on and properly "
 "connected"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2848
+#: ../..//content/controllers/cart_controller.js:2920
 msgid ""
 "No stable reading from scale: please remove and re-place item securely on "
 "the scale"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2857
+#: ../..//content/controllers/cart_controller.js:2929
 msgid ""
 "Invalid scale reading [%S]: please remove and re-place item securely on the "
 "scale."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2861
+#: ../..//content/controllers/cart_controller.js:2933
 msgid "Weight read from scale"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2904
+#: ../..//content/controllers/cart_controller.js:2976
 msgid "Not an open order; cannot shift tax"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2912
+#: ../..//content/controllers/cart_controller.js:2984
 msgid "This order is being finalized and tax status may not be changed"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2927
+#: ../..//content/controllers/cart_controller.js:2999
 msgid "Tax status may not be changed on stored items"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2936
+#: ../..//content/controllers/cart_controller.js:3008
 msgid "This operation cannot be performed on [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2974
+#: ../..//content/controllers/cart_controller.js:3046
 msgid "The tax status indicated does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3061
+#: ../..//content/controllers/cart_controller.js:3133
 msgid "confirm cancel"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3062
+#: ../..//content/controllers/cart_controller.js:3134
 msgid "Are you sure you want to discard changes made to this order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3068
-#: ../..//content/controllers/cart_controller.js:3073
-#: ../..//content/controllers/cart_controller.js:3212
-#: ../..//content/controllers/cart_controller.js:3255
+#: ../..//content/controllers/cart_controller.js:3140
+#: ../..//content/controllers/cart_controller.js:3145
+#: ../..//content/controllers/cart_controller.js:3284
+#: ../..//content/controllers/cart_controller.js:3327
 #: ../..//content/controllers/cashdrawer_controller.js:354
 #: ../..//content/controllers/changeuser_controller.js:122
 #: ../..//content/controllers/clockinout_controller.js:300
@@ -3971,218 +4008,218 @@ msgstr ""
 msgid "Data Operation Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3069
+#: ../..//content/controllers/cart_controller.js:3141
 msgid "Failed to cancel order due to data operation error [message #102]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3074
+#: ../..//content/controllers/cart_controller.js:3146
 msgid ""
 "Failed to cancel order because a valid sequence number cannot be obtained. "
 "Please check the network connectivity to the terminal designated as the "
 "order sequence server [message #103]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3137
+#: ../..//content/controllers/cart_controller.js:3209
 msgid "Order Finalization"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3138
+#: ../..//content/controllers/cart_controller.js:3210
 msgid "Current order has non-zero balance and may not be closed"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3152
+#: ../..//content/controllers/cart_controller.js:3224
 msgid "Total surcharge [%S] may not exceed user order surcharge limit [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3166
+#: ../..//content/controllers/cart_controller.js:3238
 msgid "Total discount [%S] may not exceed user order discount limit [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3177
+#: ../..//content/controllers/cart_controller.js:3249
 #: ../..//content/controllers/shift_changes_controller.js:616
 msgid "Saving Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3213
+#: ../..//content/controllers/cart_controller.js:3285
 msgid ""
 "This order could not be saved because a valid sequence number cannot be "
 "obtained. Please check the network connectivity to the terminal designated "
 "as the order sequence master."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3256
+#: ../..//content/controllers/cart_controller.js:3328
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server. You can store the check "
 "again after network connectivity has been restored [message #105]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3258
+#: ../..//content/controllers/cart_controller.js:3330
 msgid "Network Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3299
+#: ../..//content/controllers/cart_controller.js:3371
 msgid "Not an open order; cannot pre-finalize order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3305
+#: ../..//content/controllers/cart_controller.js:3377
 msgid "The order is already pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3311
+#: ../..//content/controllers/cart_controller.js:3383
 msgid "The order is empty; cannot pre-finalize order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3331
-#: ../..//content/controllers/cart_controller.js:3349
+#: ../..//content/controllers/cart_controller.js:3403
+#: ../..//content/controllers/cart_controller.js:3421
 msgid "confirm destination"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3332
+#: ../..//content/controllers/cart_controller.js:3404
 msgid ""
 "The order destination is different from [%S], proceed with pre-finalization?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3350
+#: ../..//content/controllers/cart_controller.js:3422
 msgid ""
 "Destinations other than [%S] found in the order, proceed with pre-"
 "finalization?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3378
+#: ../..//content/controllers/cart_controller.js:3450
 #: ../..//content/controllers/main_controller.js:404
 msgid "Add Annotation"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3398
-#: ../..//content/controllers/cart_controller.js:3422
+#: ../..//content/controllers/cart_controller.js:3470
+#: ../..//content/controllers/cart_controller.js:3494
 msgid "PRE-FINALIZED"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3403
-#: ../..//content/controllers/cart_controller.js:3427
+#: ../..//content/controllers/cart_controller.js:3475
+#: ../..//content/controllers/cart_controller.js:3499
 msgid "Order# [%S] has been pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3514
-#: ../..//content/controllers/cart_controller.js:3525
+#: ../..//content/controllers/cart_controller.js:3589
+#: ../..//content/controllers/cart_controller.js:3600
 msgid "Not an open order; cannot add condiment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3565
+#: ../..//content/controllers/cart_controller.js:3640
 msgid "Condiments may not be added to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3571
+#: ../..//content/controllers/cart_controller.js:3646
 msgid "Cannot add condiments to an item that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3608
+#: ../..//content/controllers/cart_controller.js:3683
 msgid "No Condiment group associated with item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3727
+#: ../..//content/controllers/cart_controller.js:3802
 msgid ""
 "Condiment [%S] not added because another condiment from same group [%S] "
 "already exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3784
+#: ../..//content/controllers/cart_controller.js:3859
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3877
+#: ../..//content/controllers/cart_controller.js:3952
 msgid "No order to void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3882
+#: ../..//content/controllers/cart_controller.js:3957
 msgid "The order has already been cancelled or voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3891
+#: ../..//content/controllers/cart_controller.js:3966
 msgid "This operation may only be applied to stored and completed transactions"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3898
+#: ../..//content/controllers/cart_controller.js:3973
 msgid "Confirm Void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3899
+#: ../..//content/controllers/cart_controller.js:3974
 msgid ""
 "You have made changes to this order; are you sure you want to void the order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3905
+#: ../..//content/controllers/cart_controller.js:3980
 msgid "Sale Voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3912
+#: ../..//content/controllers/cart_controller.js:3987
 msgid "Sale Not Voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3938
+#: ../..//content/controllers/cart_controller.js:4013
 #, python-format
 msgid ""
 "An error was encountered while retrieving order record (error code %s) "
 "[message #107]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3943
+#: ../..//content/controllers/cart_controller.js:4018
 msgid "Retrieving Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3952
+#: ../..//content/controllers/cart_controller.js:4027
 msgid "Failed to void: the selected order no longer exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3962
+#: ../..//content/controllers/cart_controller.js:4037
 #: ../..//content/controllers/guest_check_controller.js:790
 #: ../..//content/controllers/guest_check_controller.js:791
 msgid "This order is already locked by other terminal. [%S,%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3973
+#: ../..//content/controllers/cart_controller.js:4048
 msgid ""
 "Failed to void: the status of the selected order has been changed by another "
 "terminal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3980
+#: ../..//content/controllers/cart_controller.js:4055
 msgid ""
 "Failed to void: the selected order has been modified by another terminal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3993
+#: ../..//content/controllers/cart_controller.js:4068
 msgid "Failed to void: the selected order is not stored or finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4012
+#: ../..//content/controllers/cart_controller.js:4087
 msgid "Payment Refund"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4015
+#: ../..//content/controllers/cart_controller.js:4090
 msgid "Voiding Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4103
+#: ../..//content/controllers/cart_controller.js:4178
 msgid ""
 "An error was encountered while changing order status to voided [message "
 "#109]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4113
+#: ../..//content/controllers/cart_controller.js:4188
 msgid "An error was encountered while updating stock level [message #110]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4121
+#: ../..//content/controllers/cart_controller.js:4196
 msgid "Transaction [%S] successfully voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4155
+#: ../..//content/controllers/cart_controller.js:4230
 msgid "Add Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4157
+#: ../..//content/controllers/cart_controller.js:4232
 msgid "Memo"
 msgstr ""
 

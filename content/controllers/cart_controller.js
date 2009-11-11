@@ -2122,7 +2122,26 @@
 
         },
 
-        currencyConvert: function(convertCode) {
+        /*
+         * currencyConvert accepts up to 4 parameters:
+         *
+         * - convertCode
+         * - amount
+         * - finalize
+         * - groupable
+         *
+         * if amount is 0, then the user must manually enter an amount
+         *
+         */
+        currencyConvert: function(args) {
+
+            // args is a list of up to 4 parameters: convertCode, amount, groupable, finalize
+            if (args == null) args = '';
+            var argArray = String(args).split(',');
+            var convertCode = argArray[0];
+            var amount = argArray[1];
+            var finalize = argArray[2] || false;
+            var groupable = argArray[3] || false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer(true);
@@ -2155,15 +2174,55 @@
                 return;
             }
 
-            if (buf.length>0 && currencies && currencies.length > convertIndex) {
-                var amount = parseFloat(buf);
-                var origin_amount = amount;
+            // determine if payment amount if from argument list or from buffer
+            let payment;
+
+            // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
+            if (amount == null || amount == '' || amount == '0' || isNaN(amount)) {
+
+                // payment not groupable if no preset amount given
+                groupable = false;
+
+                payment = buf;
+            }
+            else {
+                payment = amount;
+            }
+
+            // validate payment amount
+            if (payment != null && payment != '') {
+                if (isNaN(payment)) {
+                    NotifyUtils.warn(_('Invalid payment amount [%S]', [payment]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else {
+                    payment = parseFloat(payment);
+                    if (payment <= 0) {
+                        NotifyUtils.warn(_('Invalid payment amount [%S]. Payment amount must be positive', [curTransaction.formatPrice(payment)]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+            else if (this._returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            if (payment != null && payment != '' && currencies && currencies.length > convertIndex) {
+                let amount = parseFloat(payment);
+                let origin_amount = amount;
                 // currency convert array
-                var currency_rate = currencies[convertIndex].currency_exchange;
-                var memo1 = currencies[convertIndex].currency;
-                var memo2 = currency_rate;
+                let currency_rate = currencies[convertIndex].currency_exchange;
+                let memo1 = currencies[convertIndex].currency;
+                let memo2 = currency_rate;
                 amount = amount * currency_rate;
-                this._addPayment('cash', amount, origin_amount, memo1, memo2);
+                this._addPayment('cash', amount, origin_amount, memo1, memo2, groupable, finalize);
             }
             else {
                 if (buf.length==0) {
@@ -2262,17 +2321,21 @@
         },
 
         addNonCashPayment: function(type, args) {
-            // args should be a list of up to 3 comma-separated parameters: type, amount, silent
+            // args should be a list of up to 5 comma-separated parameters: subtype, amount, silent, finalize, groupable
             let subtype = '';
             let amount;
             let silent = false;
+            let finalize = false;
+            let groupable = false;
 
             if (args != null && args != '') {
                 let argList = args.split(',');
                 subtype = argList[0];
                 if (subtype == null) subtype = '';
                 if (argList[1] != null && argList[1] != '') amount = argList[1];
-                silent = argList[2];
+                silent = argList[2] || false;
+                finalize = argList[3] || false;
+                groupable = argList[4] || false;
             }
 
             // check if has buffer
@@ -2292,8 +2355,11 @@
             // determine if payment amount if from argument list or from buffer
             let payment;
 
-            // if amount is not defined in args or if it is '0', get payment amount from buffer'
+            // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
             if (amount == null || amount == '' || amount == '0') {
+
+                // payment not groupable if no preset amount given
+                groupable = false;
 
                 // if amount is '0', then we force the payment amount to be read from buffer'
                 if (amount == '0' && (buf == null || buf == '')) {
@@ -2375,7 +2441,8 @@
                     }
 
                     if (silent && subtype != '') {
-                        this._addPayment('creditcard', payment, payment, subtype, '');
+                        // credit card payments not groupable
+                        this._addPayment('creditcard', payment, payment, subtype, '', false, finalize);
                     }
                     else {
                         let data = {
@@ -2402,7 +2469,7 @@
 
                 case 'coupon':
                     if (silent && subtype != '') {
-                        this._addPayment('coupon', payment, payment, subtype, '');
+                        this._addPayment('coupon', payment, payment, subtype, '', groupable, finalize);
                     }
                     else {
                         let data = {
@@ -2445,7 +2512,7 @@
                     }
 
                     if (silent && subtype != '') {
-                        this._addPayment('giftcard', balance, payment, subtype, '');
+                        this._addPayment('giftcard', balance, payment, subtype, '', groupable, finalize);
                     }
                     else {
                         let data = {
@@ -2462,7 +2529,7 @@
                                 let memo1 = result.input0 || '';
                                 let memo2 = result.input1 || '';
 
-                                self._addPayment('giftcard', balance, payment, memo1, memo2);
+                                self._addPayment('giftcard', balance, payment, memo1, memo2, groupable, finalize);
 
                             }
                             else {
@@ -2494,7 +2561,7 @@
                     }
 
                     if (silent && subtype != '') {
-                        this._addPayment('check', payment, payment, subtype, '');
+                        this._addPayment('check', payment, payment, subtype, '', false, finalize);
                     }
                     else {
                         let data = {
@@ -2511,7 +2578,7 @@
                                 let memo1 = result.input0 || '';
                                 let memo2 = result.input1 || '';
 
-                                self._addPayment('check', payment, payment, memo1, memo2);
+                                self._addPayment('check', payment, payment, memo1, memo2, false, finalize);
 
                             }
                             else {
@@ -2653,7 +2720,7 @@
             this._clearAndSubtotal();
         },
 
-        _addPayment: function(type, amount, origin_amount, memo1, memo2, isGroupable) {
+        _addPayment: function(type, amount, origin_amount, memo1, memo2, isGroupable, forceFinalize) {
 
             var curTransaction = this._getTransaction();
             var returnMode = this._returnMode;
@@ -2765,22 +2832,27 @@
                 transaction: curTransaction
             };
             
-            var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
+            var paymentTxnItem;
 
-            if (beforeResult) {
-                var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, isGroupable);
-                paymentedItem.seq = curTransaction.data.seq;
-                paymentedItem.order_id = curTransaction.data.id;
+            if (amount != 0) {
+                var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
+                if (beforeResult) {
+                    paymentTxnItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, isGroupable);
+                    paymentTxnItem.seq = curTransaction.data.seq;
+                    paymentTxnItem.order_id = curTransaction.data.id;
+                }
+
+                this.dispatchEvent('afterAddPayment', paymentTxnItem);
+
+                this._getCartlist().refresh();
             }
-
-            this.dispatchEvent('afterAddPayment', paymentedItem);
-
-            this._getCartlist().refresh();
-            if (curTransaction.getRemainTotal() <= 0) {
-                if (!this.submit() && !curTransaction.isSubmit()) {
-                    // remove last payment but not item
+            
+            let noAutoFinalize = GeckoJS.Configure.read('vivipos.fec.settings.DisableAutoFinalize') || false;
+            if (curTransaction.getRemainTotal() <= 0 && (forceFinalize || !noAutoFinalize)) {
+                if (!this.submit() && !curTransaction.isSubmit() && paymentTxnItem) {
+                    // remove last payment
                     let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
-                    if (lastItem.type =='payment') this.voidItem();
+                    if (lastItem.index == paymentTxnItem.id) this.voidItem();
                 }
             }else {
                 this._clearAndSubtotal();
@@ -3431,10 +3503,11 @@
 
 
         /*
-         * cash accepts up to 2 parameters:
+         * cash accepts up to 3 parameters:
          *
          * - amount
-         * - isGroupable
+         * - finalize
+         * - groupable
          *
          * if amount is 0, then the user must manually enter an amount
          *
@@ -3443,20 +3516,22 @@
         cash: function(args) {
             if (args == null) args = '';
             var argArray = String(args).split(',');
-            var isGroupable = false;
             var amount = argArray[0];
-
-            if (argArray.length == 2)
-                isGroupable = argArray[1];
+            var finalize = argArray[1] || false;
+            var groupable = argArray[2] || false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
-            // if amount is not defined or amount is not a valid number, set amount to buffer
-
             let payment;
+
+            // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
             if (amount == null || amount == '' || amount == '0' || isNaN(amount)) {
+
+                // payment not groupable if no preset amount given
+                groupable = false;
+                
                 payment = buf;
             }
             else {
@@ -3475,7 +3550,7 @@
             }
 
             // make sure payment is a valid number
-            this._addPayment('cash', payment, null, null, null, isGroupable);
+            this._addPayment('cash', payment, null, null, null, groupable, finalize);
         },
 
         insertCondiment: function(params) {
