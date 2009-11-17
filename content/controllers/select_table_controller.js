@@ -600,7 +600,7 @@
 
                 case 'denyTable':
                     // XXX deny Table, notify message ?
-                    NotifyUtils.warn(_('Table [%S] Not available to select. Status: [%S], Active: [%S]',[ table_no, status, active]));
+                    NotifyUtils.warn(_('Table [%S] is not available for selection. Status [%S], Active [%S]',[ table_no, status, active]));
                     break;
 
                 case 'selectTableOrder':
@@ -628,10 +628,10 @@
             try {
                 let ordersId = GeckoJS.BaseObject.getKeys(tableStatus.OrdersById);
                 if (!tableStatus || tableStatus.TableOrder.length != ordersId.length) {
-                    NotifyUtils.error(_('Table [%S] Not available to view order.',[table_no]));
+                    NotifyUtils.error(_('Table [%S] is not available!',[table_no]));
                 }
             }catch(e) {
-                NotifyUtils.error(_('Table [%S] Not available to view order.',[table_no]));
+                NotifyUtils.error(_('Table [%S] is not available!',[table_no]));
                 return;
             }
 
@@ -721,11 +721,11 @@
                     || (tableStatus.TableStatus.status == 3 && tableStatus.TableStatus.mark_op_deny)
                     || (masterTableId==slaveTableId) ) {
 
-                    NotifyUtils.warn(_('Table [%S] Not available to merge. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                    NotifyUtils.warn(_('Table [%S] is not available for merging. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                     return ;
                 }
             }else if (!table.active || (masterTableId==slaveTableId) ) {
-                NotifyUtils.warn(_('Table [%S] Not available to merge. Status: [%S], Active: [%S]',[ table_no, 0, 0]));
+                NotifyUtils.warn(_('Table [%S] is not available for merging. Status [%S], Active [%S]',[ table_no, 0, 0]));
                 return ;
             }
 
@@ -740,7 +740,7 @@
                 case 'mergeTableSlave':
                     if (tableStatus && tableStatus.TableStatus.status != 0) {
                         // check available
-                        NotifyUtils.warn(_('Table [%S] Not available to merge. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                        NotifyUtils.warn(_('Table [%S] is not available for merging. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                         return;
                     }
                     masterTableId = this._actionData.id;
@@ -778,7 +778,7 @@
             }
 
             if (status == 0) {
-                NotifyUtils.warn(_('Table [%S] Not available to unmerge. Status: [%S], Active: [%S]',[ table_no, status, (tableStatus?tableStatus.Table.active:1)]));
+                NotifyUtils.warn(_('Table [%S] is not available for unmerging. Status [%S], Active [%S]',[ table_no, status, (tableStatus?tableStatus.Table.active:1)]));
                 return ;
             }
 
@@ -840,11 +840,11 @@
                 if ((!tableStatus.Table.active && tableStatus.TableStatus.order_count == 0) || tableStatus.TableStatus.status == 2
                     || (tableStatus.TableStatus.status == 1) ) {
 
-                    NotifyUtils.warn(_('Table [%S] Not available to mark. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                    NotifyUtils.warn(_('Table [%S] is not available for marking. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                     return ;
                 }
             }else if (!table.active) {
-                NotifyUtils.warn(_('Table [%S] Not available to mark. Status: [%S], Active: [%S]',[ table_no, 0, 0]));
+                NotifyUtils.warn(_('Table [%S] is not available fr marking. Status [%S], Active [%S]',[ table_no, 0, 0]));
                 return ;
             }
 
@@ -893,7 +893,7 @@
             }
 
             if (status != 3) {
-                NotifyUtils.warn(_('Table [%S] Not available to unmark. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                NotifyUtils.warn(_('Table [%S] is not available for unmarking. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                 return ;
             }
 
@@ -1062,11 +1062,11 @@
 
             if (tableStatus) {
                 if ((!tableStatus.Table.active && tableStatus.TableStatus.order_count == 0) || tableStatus.TableStatus.status == 2 || isSameTable) {
-                    NotifyUtils.warn(_('Table [%S] Not available to transfer. Status: [%S], Active: [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                    NotifyUtils.warn(_('Table [%S] is not available for transfer. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
                     return ;
                 }
             }else if (!table.active || isSameTable) {
-                NotifyUtils.warn(_('Table [%S] Not available to transfer. Status: [%S], Active: [%S]',[ table_no, 0, 0]));
+                NotifyUtils.warn(_('Table [%S] is not available for transfer. Status [%S], Active [%S]',[ table_no, 0, 0]));
                 return ;
             }
 

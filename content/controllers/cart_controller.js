@@ -3025,10 +3025,10 @@
                 // configuration error; alert already posted; do nothing here
                 }
                 else if (weight == null) {
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No reading from scale: please make sure scale is powered on and properly connected'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No reading from scale; please make sure scale is powered on and properly connected'));
                 }
                 else if (weight.value == null) {
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No stable reading from scale: please remove and re-place item securely on the scale'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No stable reading from scale; please remove and re-place item securely on the scale'));
                 }
                 else {
                     var qty = parseFloat(weight.value);
@@ -3037,7 +3037,7 @@
                     if (isNaN(qty) || qty <= 0) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Scale'),
-                            _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
+                            _('Invalid scale reading [%S]; please remove and re-place item securely on the scale.', [weight.value]));
                     }
                     else {
                         this.setQty(qty, false, weight.unit, true);
@@ -4102,7 +4102,7 @@
             if (!orderData && !remoteOrderData) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
-                    _('Failed to void: the selected order no longer exists'));
+                    _('Failed to void; the selected order no longer exists'));
                 orderModel.releaseOrderLock(id);
                 return false;
             }
@@ -4123,14 +4123,14 @@
                     if (orderData.Order.status != remoteOrderData.Order.status) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Void Sale'),
-                            _('Failed to void: the status of the selected order has been changed by another terminal'));
+                            _('Failed to void; the status of the selected order has been changed by another terminal'));
                         orderModel.releaseOrderLock(id);
                         return false;
                     }
                     else if (orderData.Order.modified < remoteOrderData.Order.modified) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Void Sale'),
-                            _('Failed to void: the selected order has been modified by another terminal'));
+                            _('Failed to void; the selected order has been modified by another terminal'));
                         orderModel.releaseOrderLock(id);
                         return false;
                     }
@@ -4143,7 +4143,7 @@
             if (orderStatus < 1) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
-                    _('Failed to void: the selected order is not stored or finalized'));
+                    _('Failed to void; the selected order is not stored or finalized'));
                 orderModel.releaseOrderLock(id);
                 return false;
             }

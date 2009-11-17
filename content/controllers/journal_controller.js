@@ -118,7 +118,7 @@
                     evt.preventDefault();
                 }
             } catch (e) {
-                this.log('ERROR', _('Journal Controller cartStatus error: %S', [GeckoJS.BaseObject.dump(e)]));
+                this.log('ERROR', _('Journal Controller cartStatus error [%S]', [GeckoJS.BaseObject.dump(e)]));
             }
         },
 
@@ -136,7 +136,7 @@
 
                     this.saveJournal(journal);
                 } catch (e) {
-                    this.log('ERROR', _('Journal Controller voidOrder error: %S', [GeckoJS.BaseObject.dump(e)]));
+                    this.log('ERROR', _('Journal Controller voidOrder error [%S]', [GeckoJS.BaseObject.dump(e)]));
                 }
             }
         },
@@ -204,7 +204,7 @@
                         this.saveJournal(journal);
                     }
                 } catch (e) {
-                    this.log('ERROR', _('Journal Controller submitOrder error: %S', [GeckoJS.BaseObject.dump(e)]));
+                    this.log('ERROR', _('Journal Controller submitOrder error [%S]', [GeckoJS.BaseObject.dump(e)]));
                 }
             }
         },

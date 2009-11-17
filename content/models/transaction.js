@@ -1535,7 +1535,7 @@
                 for (var checkItemIndex in this.data.items ) {
                     var checkitem = this.data.items[checkItemIndex];
                     if (checkitem.type == 'item' && checkitem.current_qty < 0) {
-                        NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
+                        NotifyUtils.warn(_('Please note that return item(s) are present'));
                         break;
                     }
                 }
@@ -1689,7 +1689,7 @@
                 for (var checkItemIndex in this.data.items ) {
                     var checkitem = this.data.items[checkItemIndex];
                     if (checkitem.type == 'item' && checkitem.current_qty < 0) {
-                        NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
+                        NotifyUtils.warn(_('Please note that return item(s) are present'));
                         break;
                     }
                 }

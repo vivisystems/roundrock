@@ -733,7 +733,7 @@
             GREUtils.Dialog.alert(
                 this.topmostWindow,
                 _('Import Product Stock'),
-                _('Product stock information imported: %S successes, %S failures)', [count, unmatchedRecords.length])
+                _('Product stock information imported; %S successes, %S failures)', [count, unmatchedRecords.length])
             );
 
             // renew the content of the tree.

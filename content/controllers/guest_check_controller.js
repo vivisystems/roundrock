@@ -341,7 +341,7 @@
             }
 
             if (isDeny) {
-                NotifyUtils.warn(_('Table [%S] Not available to select. Status: [%S], Active: [%S]',[ table_no, status, active]));
+                NotifyUtils.warn(_('Table [%S] is not available for selection. Status [%S], Active [%S]',[ table_no, status, active]));
                 return false;
             }else {
                 return true;
