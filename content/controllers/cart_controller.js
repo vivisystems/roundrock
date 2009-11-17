@@ -3323,6 +3323,13 @@
             }
 
             if (status == 1) {
+
+                // dispatch PrepareFinalization event to make required adjustments
+                if (!this.dispatchEvent('PrepareFinalization', oldTransaction)) {
+                    this.dispatchEvent('onGetSubtotal', oldTransaction);
+                    return false;
+                };
+
                 var user = GeckoJS.Session.get('user');
                 var adjustment_amount = oldTransaction.data.trans_discount_subtotal + oldTransaction.data.trans_surcharge_subtotal +
                 oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
@@ -3496,7 +3503,7 @@
                 return;
             }
 
-            if (!this.dispatchEvent('beforePreFinalize', curTransaction)) {
+            if (!this.dispatchEvent('PrepareFinalization', curTransaction)) {
                 this._clearAndSubtotal();
                 return;
             }

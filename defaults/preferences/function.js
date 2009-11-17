@@ -432,3 +432,8 @@ pref("vivipos.fec.registry.function.programmable.openreport.access", "");
 pref("vivipos.fec.registry.function.programmable.openreport.command", "openReport");
 pref("vivipos.fec.registry.function.programmable.openreport.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.openreport.data", "");
+
+pref("vivipos.fec.registry.function.programmable.prepareguestcheck.access", "acl_issue_check");
+pref("vivipos.fec.registry.function.programmable.prepareguestcheck.command", "prepareGuestCheck");
+pref("vivipos.fec.registry.function.programmable.prepareguestcheck.controller", "Print");
+pref("vivipos.fec.registry.function.programmable.prepareguestcheck.data", "");
