@@ -48,28 +48,16 @@
                         <row id="row0">
                             <hbox>
                                 <vbox flex="1">
-                                    <label id="barcode_label" value="" control="barcode_value"/>
-                                    <textbox id="barcode_value" flex="1" value="" oninput="validateInput()" onfocus="select()" disabled="true"/>
-                                </vbox>
-                                <vbox flex="1">
                                     <label id="plu_label" value="" control="plu_value"/>
                                     <textbox id="plu_value" flex="1" value="" oninput="validateInput()" onfocus="select()"/>
                                 </vbox>
-                            </hbox>
-                        </row>
-                        <row id="row1">
-                            <hbox>
                                 <vbox flex="1">
                                     <label id="name_label" value="" control="name_value"/>
                                     <textbox id="name_value" flex="1" value="" oninput="validateInput()" onfocus="select()"/>
                                 </vbox>
-                                <vbox flex="1">
-                                    <label id="price_label" value="" control="price_value"/>
-                                    <textbox id="price_value" flex="1" value="" oninput="validateInput()" onfocus="select()"/>
-                                </vbox>
                             </hbox>
                         </row>
-                        <row id="row2">
+                        <row id="row1">
                             <hbox>
                                 <vbox flex="1">
                                     <label id="tax_label" value="" control="tax_value"/>
@@ -79,12 +67,34 @@
                                              onclick="$do('getRate','null','BarcodeLearning');"/>
                                 </vbox>
                                 <vbox flex="1">
+                                    <label id="price_label" value="" control="price_value"/>
+                                    <vivitextbox id="price_value" flex="1" value="" oninput="validateInput()" onfocus="select()"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                    />
+                                </vbox>
+                            </hbox>
+                        </row>
+                        <row id="row2">
+                            <hbox>
+                                <vbox flex="0" hidden="true" >
+                                    <label id="barcode_label" value="" control="barcode_value"/>
+                                    <textbox id="barcode_value" flex="1" value="" oninput="validateInput()" onfocus="select()" disabled="true"/>
+                                </vbox>
+                                <viviscrollablebuttonpanel id="departmentpickerscrollpanel" seltype="single" flex="1" cols="5" rows="6" labelField="name"
+                                                               oncommand=""
+                                                               class="ItemScrollablepanel"
+                                                               buttonClass="ItemButtonA"
+                                                               scrollUpClass="ScrollUp"
+                                                               scrollDownClass="ScrollDown">
+                                    <spacer flex="1"/>
+                                </viviscrollablebuttonpanel>
+<!--                            <vbox flex="1">
                                     <label id="department_label" value="" control="department_value"/>
                                     <label id="department_no" value="" hidden="true" default=""/>
                                     <textbox id="department_value" flex="1" value="" class="button-item-c"
                                              oninput="validateInput()" onfocus="select()"
                                              onclick="$do('getDepartment','null','BarcodeLearning');"/>
-                                </vbox>
+                                </vbox>-->
                             </hbox>
                         </row>
                     </rows>
