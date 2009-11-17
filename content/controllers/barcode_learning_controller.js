@@ -13,10 +13,11 @@
 
         addBarcodeLearningItem: function(evt) {
             try {
+                this.dispatchEvent('beforeAddBarcodeLearningItem', evt);
                 var barcode      = evt.data.barcode;
-                var pluNumber    = barcode;
-                var productName  = barcode;
-                var price        = 0;
+                var pluNumber    = evt.data.pluNumber || barcode;
+                var productName  = evt.data.productName || barcode;
+                var price        = evt.data.price || 0;
                 var tax          = this.getDefaultRate();
                 var department   = this.getFirstDepartment();
                 var screenwidth  = GeckoJS.Session.get('screenwidth') || 800;

@@ -80,25 +80,22 @@
                                     <label id="barcode_label" value="" control="barcode_value"/>
                                     <textbox id="barcode_value" flex="1" value="" oninput="validateInput()" onfocus="select()" disabled="true"/>
                                 </vbox>
-                                <viviscrollablebuttonpanel id="departmentpickerscrollpanel" seltype="single" flex="1" cols="5" rows="6" labelField="name"
-                                                               oncommand=""
-                                                               class="ItemScrollablepanel"
-                                                               buttonClass="ItemButtonA"
-                                                               scrollUpClass="ScrollUp"
-                                                               scrollDownClass="ScrollDown">
-                                    <spacer flex="1"/>
-                                </viviscrollablebuttonpanel>
-<!--                            <vbox flex="1">
-                                    <label id="department_label" value="" control="department_value"/>
-                                    <label id="department_no" value="" hidden="true" default=""/>
-                                    <textbox id="department_value" flex="1" value="" class="button-item-c"
-                                             oninput="validateInput()" onfocus="select()"
-                                             onclick="$do('getDepartment','null','BarcodeLearning');"/>
-                                </vbox>-->
                             </hbox>
                         </row>
                     </rows>
                 </grid>
+                <vbox class="data-formsss">
+                    <vbox flex="1" class="content-buttonpanel">
+                        <label id="department_label" value=""/>
+                        <viviscrollablebuttonpanel id="department_no" seltype="single" flex="1" cols="5" rows="2"
+                           labelField="name"
+                           buttonClass="button-item-a"
+                           scrollUpClass="scroll-up-button"
+                           scrollDownClass="scroll-down-button">
+                           <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                    </vbox>
+                </vbox>
             </groupbox>
             <hbox id="numpad" pack="center">
                 <numberpad id="multinumberpad" class="numpad"/>
