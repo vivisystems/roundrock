@@ -4242,6 +4242,7 @@
 
                             item.current_qty = - item.current_qty;
                             item.id = productId;
+                            delete item.stock_maintained;
 
                             order.items.push(item);
 
