@@ -69,6 +69,15 @@
                 events.addListener('clear', this.sessionHandler, this);
             }
 
+            // catch main controller's updateOptions event
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('onUpdateOptions', this.updateCartOptions, this);
+            }
+
+            // initialize cart options
+            this.updateCartOptions();
+
             // add Observer for startTrainingMode event.
             var self = this;
             this.observer = GeckoJS.Observer.newInstance( {
@@ -88,6 +97,32 @@
             if (this.observer) this.observer.unregister();
         },
 
+
+        updateCartOptions: function() {
+            let cartList = this._getCartlist();
+            if (cartList) {
+                let scrollMode = GeckoJS.Configure.read('vivipos.fec.settings.CartScrollMode') || 'cursor-line';
+                let mode, unit;
+                switch(scrollMode) {
+                    case 'cursor-line':
+                        mode = 'cursor';
+                        unit = 'line';
+                        break;
+
+                    case 'view-page':
+                        mode = 'view';
+                        unit = 'page';
+                        break;
+
+                    default:
+                        mode = 'cursor';
+                        unit = 'line';
+                        break;
+                }
+                cartList.setAttribute('scrollMode', mode);
+                cartList.setAttribute('scrollUnit', unit);
+            }
+        },
 
         sessionHandler: function(evt) {
             var txn = this._getTransaction();
