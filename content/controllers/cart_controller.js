@@ -2219,7 +2219,7 @@
                     NotifyUtils.warn(_('Please enter an amount first'));
                 }
                 else if (currencies == null || currencies.length <= convertIndex) {
-                    NotifyUtils.warn(_('Please configure the selected currency entry first [%S]', [convertIndex]));
+                    NotifyUtils.warn(_('Please configure the currency entry first [%S]', [convertIndex]));
                 }
                 this._clearAndSubtotal();
                 return;
@@ -2350,6 +2350,7 @@
 
             // determine if payment amount if from argument list or from buffer
             let payment;
+            let balance = curTransaction.getRemainTotal();
 
             // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
             if (amount == null || amount == '' || amount == '0') {
@@ -2358,7 +2359,7 @@
                 groupable = false;
 
                 // if amount is '0', then we force the payment amount to be read from buffer'
-                if (amount == '0' && (buf == null || buf == '')) {
+                if (amount == '0' && balance > 0 && (buf == null || buf == '')) {
                     GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Payment Warning'),
                                           _('Tender entry is compulsory for this payment type, please enter an amount first'));
@@ -3608,12 +3609,17 @@
 
             // if amount is 0, verify that buffer is not empty and contains a valid number
             if (amount == '0') {
-                if (payment == null || payment == '') {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Payment Warning'),
-                                          _('Tender entry is compulsory for this payment type, please enter an amount first'));
-                    this._clearAndSubtotal();
-                    return;
+
+                // skip this validation if amount due is negative
+                let curTransaction = this._getTransaction();
+                if (this.ifHavingOpenedOrder() && curTransaction.getRemainTotal() > 0) {
+                    if (payment == null || payment == '') {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                                              _('Payment Warning'),
+                                              _('Tender entry is compulsory for this payment type, please enter an amount first'));
+                        this._clearAndSubtotal();
+                        return;
+                    }
                 }
             }
 
