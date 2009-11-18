@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.0.3
+Release 1.2.0.4
 ---------------
 
 This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
@@ -26,69 +26,23 @@ Bug #159:
 Bugs fixed
 ----------
 
-Bug #145:
-    Enhanced promotion type 'cheapest one free' to behave consistently regardless of mode ('single', 'more than', or 'multiple')
+Bug #192:
+    Many text messages failed to display using the proper locale due to presence of the symbol ':' in the base text
 
-Bug #155:
-    Hotkeys without modifiers intercepted by input line
+Bug #196:
+    Stock levels are not adjusted when sales are voided
 
-Bug #156:
-    Recalling order into cart can be time-consuming, may need to block UI to force user to wait until order has been fully recalled into the shopping cart
+Bug #198:
 
-Bug #160:
-    Need to be able to rebuild/reset all table statuses and release locked orders if table status is corrupted
 
-Bug #162:
-    Payment value in onscreen VFD is not updated when recalling a completed order
+Bug #205:
+    The built-in install.rdf template used by the package builder does not conform to the new guidelines (<targetApplication> section is out of date)
 
-Bug #163:
-    Label fields too short in 80mm Shift change report template
+Bug #206:
+    Scrolling the cart one line at a time is too tedious when large number of items have been registered; a new view-based page scrolling mode is now supported
 
-Bug #164:
-    The Product Returns report ignores returned items whose sale unit is not 'unit'
+Bug #207:
+    Quickly tapping on function 'Return Cart Item' twice will cause the return quantity to be set to 0
 
-Bug #166:
-    Restored Recall By Sequence and Recall By Table functions
-
-Bug #167:
-    Newly added bookings are not reflected in Table Selection screen when existing from the bookings screen, and previously booked tables are not precluded from being rebooked for the same time slot
-
-Bug #168:
-    Export to PDF and CSV functionalities for Custom Sales, Order Annotations, and Order Status reports are broken
-
-Bug #171:
-    Use of the same word 'Number' in different contexts causes translation difficulty
-
-Bug #174:
-    Rapidly adding items to cart causes new item to be added with previous item's price and quantity
-
-Bug #179:
-    When specifying an absolute index for Scroll Cart function, 0-based index scheme is used instead of the more sensible 1-based index scheme
-
-Bug #181:
-    Cluster services should not be dependent on synchronization setting
-
-Bug #182:
-    Refund amount should be displayed as a negative value in shift change screenn
-
-Bug #183:
-    Table selection screen has a transparent overlay that's bigger than it needs to be, causing areas around the selection screen to be inactive
-
-Bug #184:
-    When port number is changed from 80 in network services, cluster services on localhost are no longer accessible
-
-Bug #185:
-    superuser account should not be editable by users other than superuser
-
-Bug #187:
-    Need an Enter button on the Split payment screen
-
-Bug #188:
-    In Table Manage options, the automatic table status cannot be cleared once a status has been selected.
-
-Bug #189:
-    Hotkey does not work properly if the linked function has required preset data (i.e. Clear)
-
-Bug #190:
-    Input line automatically submits content as barcode whenever it loses focus
-
+Bug #208:
+    Revalue computation produces wrong result for policies 'to nearest factor' and 'round to 10 cents (round down 5 cents)' when the transaction total is negative
