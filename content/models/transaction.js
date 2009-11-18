@@ -2685,10 +2685,10 @@
                         let high = factor - low;
 
                         if (high >= low) {
-                            revalue_subtotal = -low;
+                            revalue_subtotal = (total >= 0) ? -low : low;
                         }
                         else {
-                            revalue_subtotal = high;
+                            revalue_subtotal = (total >= 0) ? high : -high;
                         }
                     }
                     break;
@@ -2715,13 +2715,14 @@
                     else {
                         roundedTotal = y / 10;
                     }
-                    revalue_subtotal = roundedTotal - total;
+                    revalue_subtotal = (total > 0) ? (roundedTotal - total) : (- total - roundedTotal);
                     break;
 
                 case 'round-to-25-cents':
                     roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-quarter');
                     if (total < 0) roundedTotal = 0 - roundedTotal;
                     revalue_subtotal = roundedTotal - total;
+                    alert(revalue_subtotal + ', ' + roundedTotal + ', ' + total);
                     break;
 
                 case 'round-to-50-cents':
