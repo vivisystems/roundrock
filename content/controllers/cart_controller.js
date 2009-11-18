@@ -2408,9 +2408,11 @@
 
             // refunding payment; amount being refunded must not exceed amount paid
             if (this._returnMode) {
-                if (payment > paid) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
-                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                let total = curTransaction.getTotal();
+                let maxRefund = (total >= 0 ? paid : (paid - total));
+                if (payment > maxRefund) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed [%S]',
+                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(maxRefund)]));
 
                     this._clearAndSubtotal();
                     return;
@@ -2807,22 +2809,14 @@
 
             if (returnMode) {
                 // payment refund
-                let paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
-                let err = false;
-                if (paymentsTypes.length == 0) {
-                    NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
-                    err = true;
-                }
+                let total = curTransaction.getTotal();
+                let paid = curTransaction.getPaymentSubtotal();
+                let maxRefund = (total >= 0 ? paid : (paid - total));
 
-                // payment refund
-                let payment = ((type == 'giftcard') ? amount : amount * qty);
-                if (!err && payment > curTransaction.getPaymentSubtotal()) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
-                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
-                    err = true;
-                }
+                if (amount > maxRefund) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not [%S]',
+                        [curTransaction.formatPrice(amount), curTransaction.formatPrice(maxRefund)]));
 
-                if (err) {
                     this._clearAndSubtotal();
                     return;
                 }
@@ -2848,6 +2842,7 @@
             if (returnMode) {
                 if (type == 'giftcard') amount = 0 - amount;
                 qty = 0 - qty;
+                if (!isGroupable) origin_amount = 0 - origin_amount;
             }
 
             var paymentItem = {
