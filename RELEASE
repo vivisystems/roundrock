@@ -46,3 +46,6 @@ Bug #207:
 
 Bug #208:
     Revalue computation produces wrong result for policies 'to nearest factor' and 'round to 10 cents (round down 5 cents)' when the transaction total is negative
+
+Bug #210:
+    Remove obsolete preferences
