@@ -823,8 +823,6 @@
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
             var autoDiscardQueue = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardqueue');
             var mustEmptyQueue = GeckoJS.Configure.read('vivipos.fec.settings.mustemptyqueue');
-            var shiftReportOnSignOff = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonsignoff');
-            var shiftReportOnQuickSwitch = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonquickswitch');
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
             var cartEmpty = !cart.ifHavingOpenedOrder();
@@ -904,10 +902,6 @@
                     // quick sign-off, don't prompt, just queue order
                     responseDiscardCart = (autoDiscardCart) ? 1 : 0;
                     responseDiscardQueue = (autoDiscardQueue || mustEmptyQueue) ? 1 : 0;
-                }
-
-                // print shift report
-                if ((shiftReportOnSignOff && !quickSignoff) || (shiftReportOnQuickSwitch && quickSignoff)) {
                 }
 
                 if (!cartEmpty) {
