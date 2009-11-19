@@ -36,11 +36,20 @@
             // make sure terminal_no is alphanumeric only
             if (!this.isAlphaNumeric(obj['machine_id'])) {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Network Service Settings'),
-                                      _('Terminal number must only contain [a-zA-Z] and [0-9]'));
+                    _('Terminal number must only contain [a-zA-Z] and [0-9]'));
                 data.cancel = true;
             }
             else {
                 data.changed = this.Form.isFormModified('syncSettingForm');
+            }
+        },
+
+        onSelectTab: function(tabItem) {
+            let id = tabItem ? tabItem.id : '';
+            switch (id) {
+                case 'irc-tab':
+                    this.initialIrcLists();
+                    break;
             }
         },
         
@@ -134,16 +143,18 @@
             
             if (this.Form.isFormModified('syncSettingForm')) {
                 var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-                                        .getService(Components.interfaces.nsIPromptService);
-                var check = {data: false};
+                .getService(Components.interfaces.nsIPromptService);
+                var check = {
+                    data: false
+                };
                 var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
-                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+                prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
 
                 var action = prompts.confirmEx(this.topmostWindow,
-                                               _('Exit'),
-                                               _('You have made changes to network service settings. Save changes before exiting?'),
-                                               flags, _('Save'), '', _('Discard Changes'), null, check);
+                    _('Exit'),
+                    _('You have made changes to network service settings. Save changes before exiting?'),
+                    flags, _('Save'), '', _('Discard Changes'), null, check);
                 if (action == 1) {
                     return;
                 }
@@ -152,7 +163,58 @@
                 }
             }
             window.close();
+        },
+
+        initialIrcLists: function() {
+            
+        },
+
+        onSelectIrcPackage: function(index) {
+            
+        },
+
+        createIrcPackage: function(submit) {
+
+            submit = submit || false;
+
+            if (!submit) {
+                // disable ui buttons
+                $('#irc-edit-tabs')[0].selectedIndex = 1;
+                $('#ircCreatePackage').attr({ disabled: 'true' });
+                $('#ircRemovePackage').attr({ disabled: 'true' });
+                $('#irc-detail-tab').attr({ disabled: 'true' });
+                $('#irc-edit-tab').attr({ disabled: 'false' });
+                this.Form.reset('ircEdit');
+                return ;
+            }
+
+            var datas = this.Form.serializeToObject('ircEdit');
+            alert('submit' + this.dump(datas));
+
+            // enable ui buttons
+            this.cancelCreateIrcPackage();
+
+
+        },
+
+        cancelCreateIrcPackage: function() {
+            
+                // enable ui buttons
+                $('#irc-edit-tabs')[0].selectedIndex = 0;
+                $('#ircCreatePackage').attr({ disabled: 'false' });
+                $('#irc-detail-tab').attr({ disabled: 'false' });
+                $('#irc-edit-tab').attr({ disabled: 'true' });
+                $('#ircRemovePackage').attr({ disabled: 'true' });
+                return ;
+        },
+
+
+
+        removeIrcPackage: function(index) {
+
         }
+
+
     };
 
     GeckoJS.Controller.extend(__controller__);
