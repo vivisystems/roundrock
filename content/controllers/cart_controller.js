@@ -545,6 +545,8 @@
 
             var exit = false;
 
+            this._getKeypadController().clearBuffer();
+
             if(!this.ifHavingOpenedOrder()) {
                 NotifyUtils.warn(_('Not an open order; cannot return the selected item'));
 
@@ -565,51 +567,31 @@
             }
 
             if (!exit) {
-                itemTrans = curTransaction.getItemAt(index, true);
+                itemTrans = curTransaction.getItemAt(index);
                 itemDisplay = curTransaction.getDisplaySeqAt(index);
 
-                if (!exit && itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+                if (!exit && itemDisplay.type != 'item') {
                     NotifyUtils.warn(_('The selected item [%S] is not a product and cannot be returned', [itemDisplay.name]));
 
                     exit = true;
                 }
             }
 
-            // locate product
             if (!exit) {
 
-                var plu = this.Product.getProductById(itemTrans.id);
+                let qty = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : null;
 
-                if (!plu && itemTrans.no == '') {
-                    // sale department?
-                    var categoriesByNo = GeckoJS.Session.get('categoriesByNo');
-                    plu = categoriesByNo[itemTrans.cate_no];
+                if (qty == null) {
+                    qty = Math.abs(itemTrans.current_qty);
                 }
-            }
 
-            if (!exit) {
-                if (plu) {
-                    var currentReturnMode = this._returnMode;
-                    this._returnMode = true;
-
-                    // determine price:
-                    // 1. if manually entered into keypad buffer, use that price
-                    // 2. otherwise, use price from selected cart item
-                    var buf = this._getKeypadController().getBuffer(true);
-                    if (!buf) {
-                        this.setPrice(itemTrans.current_price);
-                    }
-
-                    this.addItem(plu);
-
-                    this._returnMode = currentReturnMode;
+                if (itemTrans.current_qty < 0) {
+                    this.modifyQty('plus', qty);
                 }
                 else {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Memory Error'),
-                        _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation [message #101].', [itemDisplay.name]));
-                    exit = true;
+                    curTransaction.returnItemAtIndex(index, qty);
                 }
+                exit = true;
             }
 
             if (exit) {
@@ -700,13 +682,13 @@
 
             if (unit != null && unit != '') {
 
-                // convert weight only for items, not for department
-                if (item.cate_no) {
-                    qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+                // for now (1.2.0.x), since departments don't have scale multipler and precision, we use fixed values for them
+                // @TODO 1.2.0.x
+                if (!('cate_no' in item)) {
+                    item.scale_multipler = 1;
+                    item.scale_precision = 2;
                 }
-                else {
-                    qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
-                }
+                qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
             }
 
             // if item's unit of sale is individually, we convert qty to integer
@@ -1295,15 +1277,18 @@
                 return;
             }
 
-            // check if zero preset price is allowed
-            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
+            // check if zero preset price is allowed if item is type 'item''
 
-            if (positivePriceRequired && curTransaction != null) {
-                if (curTransaction.checkSellPrice(itemTrans) <= 0) {
-                    NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
+            if (itemDisplay.type == 'item') {
+                var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
 
-                    this._clearAndSubtotal();
-                    return;
+                if (positivePriceRequired && curTransaction != null) {
+                    if (curTransaction.checkSellPrice(itemTrans) <= 0) {
+                        NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
                 }
             }
 
