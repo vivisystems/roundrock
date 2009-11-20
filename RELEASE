@@ -49,3 +49,7 @@ Bug #208:
 
 Bug #210:
     Remove obsolete preferences
+
+Bug #211:
+    Should not display the message 'CANCELLED' when cancelling a recalled open order since the order is actually not cancelled (only that the shopping cart is cleared)
+
