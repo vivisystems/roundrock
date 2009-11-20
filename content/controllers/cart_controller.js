@@ -2808,7 +2808,9 @@
 
             if (!entryType || inputObj.amount == null) {
                 var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
+                var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
+                var screenheight = GeckoJS.Session.get('screenheight') || 600;
+                var features = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
 
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Ledger Entry'), features, inputObj);
             }
@@ -4152,7 +4154,7 @@
             var aURL = 'chrome://viviecr/content/refund_payment.xul';
             var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
             var screenheight = GeckoJS.Session.get('screenheight') || 600;
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var features = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
 
             var inputObj = {
                 payments: orderData.OrderPayment,
