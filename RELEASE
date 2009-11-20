@@ -53,3 +53,5 @@ Bug #210:
 Bug #211:
     Should not display the message 'CANCELLED' when cancelling a recalled open order since the order is actually not cancelled (only that the shopping cart is cleared)
 
+Bug #212:
+    Title bar is visible on the ledger entry window, and window size is fixed
