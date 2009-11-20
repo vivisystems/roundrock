@@ -614,6 +614,13 @@
                                     </columns>
                                     <rows>
                                         <row>
+                                            <label value="&devices.template.label;"/>
+                                            <menulist id="report-2-template" form="deviceForm" name="report-2-template">
+                                                <menupopup id="report-2-template-popup">
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
                                             <label value="&devices.port.label;"/>
                                             <menulist id="report-2-port" form="deviceForm" name="report-2-port">
                                                 <menupopup id="report-2-port-popup">
