@@ -3256,7 +3256,7 @@
                                 _('Data Operation Error'),
                                 _('Failed to cancel order because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #103].'));
                         }
-                        this.dispatchEvent('afterCancel', curTransaction);
+                        this.dispatchEvent('onClear', curTransaction);
                     }
                     else {
                         return;
