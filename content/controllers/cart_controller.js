@@ -2268,7 +2268,7 @@
                     NotifyUtils.warn(_('Please enter an amount first'));
                 }
                 else if (currencies == null || currencies.length <= convertIndex) {
-                    NotifyUtils.warn(_('Please configure the selected currency entry first [%S]', [convertIndex]));
+                    NotifyUtils.warn(_('Please configure the currency entry first [%S]', [convertIndex]));
                 }
                 this._clearAndSubtotal();
                 return;
@@ -2399,6 +2399,7 @@
 
             // determine if payment amount if from argument list or from buffer
             let payment;
+            let balance = curTransaction.getRemainTotal();
 
             // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
             if (amount == null || amount == '' || amount == '0') {
@@ -2407,7 +2408,7 @@
                 groupable = false;
 
                 // if amount is '0', then we force the payment amount to be read from buffer'
-                if (amount == '0' && (buf == null || buf == '')) {
+                if (amount == '0' && balance > 0 && (buf == null || buf == '')) {
                     GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Payment Warning'),
                                           _('Tender entry is compulsory for this payment type, please enter an amount first'));
@@ -2456,9 +2457,11 @@
 
             // refunding payment; amount being refunded must not exceed amount paid
             if (this._returnMode) {
-                if (payment > paid) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
-                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                let total = curTransaction.getTotal();
+                let maxRefund = (total >= 0 ? paid : (paid - total));
+                if (payment > maxRefund) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed [%S]',
+                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(maxRefund)]));
 
                     this._clearAndSubtotal();
                     return;
@@ -2855,22 +2858,14 @@
 
             if (returnMode) {
                 // payment refund
-                let paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
-                let err = false;
-                if (paymentsTypes.length == 0) {
-                    NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
-                    err = true;
-                }
+                let total = curTransaction.getTotal();
+                let paid = curTransaction.getPaymentSubtotal();
+                let maxRefund = (total >= 0 ? paid : (paid - total));
 
-                // payment refund
-                let payment = ((type == 'giftcard') ? amount : amount * qty);
-                if (!err && payment > curTransaction.getPaymentSubtotal()) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
-                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
-                    err = true;
-                }
+                if (amount > maxRefund) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not [%S]',
+                        [curTransaction.formatPrice(amount), curTransaction.formatPrice(maxRefund)]));
 
-                if (err) {
                     this._clearAndSubtotal();
                     return;
                 }
@@ -2896,6 +2891,7 @@
             if (returnMode) {
                 if (type == 'giftcard') amount = 0 - amount;
                 qty = 0 - qty;
+                if (!isGroupable) origin_amount = 0 - origin_amount;
             }
 
             var paymentItem = {
@@ -3657,12 +3653,17 @@
 
             // if amount is 0, verify that buffer is not empty and contains a valid number
             if (amount == '0') {
-                if (payment == null || payment == '') {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Payment Warning'),
-                                          _('Tender entry is compulsory for this payment type, please enter an amount first'));
-                    this._clearAndSubtotal();
-                    return;
+
+                // skip this validation if amount due is negative
+                let curTransaction = this._getTransaction();
+                if (this.ifHavingOpenedOrder() && curTransaction.getRemainTotal() > 0) {
+                    if (payment == null || payment == '') {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                                              _('Payment Warning'),
+                                              _('Tender entry is compulsory for this payment type, please enter an amount first'));
+                        this._clearAndSubtotal();
+                        return;
+                    }
                 }
             }
 
