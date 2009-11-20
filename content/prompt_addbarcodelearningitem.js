@@ -88,14 +88,13 @@ var options;
         document.getElementById('tax_value').value = inputObj.tax;
         document.getElementById('tax_rate').setAttribute('value', inputObj.tax_rate);
         document.getElementById('tax_rate').value = inputObj.tax_rate;
-        document.getElementById('department_value').setAttribute('value', inputObj.department);
-        document.getElementById('department_value').value = inputObj.department;
-        document.getElementById('department_no').setAttribute('value', inputObj.department_no);
-        document.getElementById('department_no').value = inputObj.department_no;
 
-        // document.getElementById('cancel').setAttribute('disabled', false);
         var disablecancelbtn = ('disablecancelbtn' in inputObj);
         document.getElementById('cancel').setAttribute('hidden', disablecancelbtn);
+
+        var depts = GeckoJS.Session.get('categories');
+        document.getElementById('department_no').datasource = depts;
+        document.getElementById('department_no').selectedItems = [0];
 
         doSetOKCancel(
             function(){
@@ -105,8 +104,7 @@ var options;
                 inputObj.price         = GeckoJS.String.trim(document.getElementById('price_value').value);
                 inputObj.tax           = document.getElementById('tax_value').value;
                 inputObj.tax_rate      = document.getElementById('tax_rate').value;
-                inputObj.department    = document.getElementById('department_value').value;
-                inputObj.department_no = document.getElementById('department_no').value;
+                inputObj.department_no = depts[document.getElementById('department_no').selectedItems].no;
                 inputObj.ok = true;
                 return true;
             },

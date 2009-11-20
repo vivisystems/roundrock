@@ -13,14 +13,17 @@
 
         addBarcodeLearningItem: function(evt) {
             try {
-                var barcode     = evt.data.barcode;
-                var pluNumber   = barcode;
-                var productName = barcode;
-                var price       = 0;
-                var tax         = this.getDefaultRate();
-                var department  = this.getFirstDepartment();
-                var aURL        = 'chrome://viviecr/content/prompt_addbarcodelearningitem.xul';
-                var aFeatures   = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=500';
+                this.dispatchEvent('beforeAddBarcodeLearningItem', evt);
+                var barcode      = evt.data.barcode;
+                var pluNumber    = evt.data.pluNumber || barcode;
+                var productName  = evt.data.productName || barcode;
+                var price        = evt.data.price || 0;
+                var tax          = this.getDefaultRate();
+                var department   = this.getFirstDepartment();
+                var screenwidth  = GeckoJS.Session.get('screenwidth') || 800;
+                var screenheight = GeckoJS.Session.get('screenheight') || 600;
+                var aURL         = 'chrome://viviecr/content/prompt_addbarcodelearningitem.xul';
+                var aFeatures    = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
                 var inputObj = {
                     barcode:barcode,
@@ -147,7 +150,9 @@
         getRate: function () {
             var rate = $('#tax_rate').val();
             var aURL = 'chrome://viviecr/content/select_tax.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=450';
+            var screenwidth  = GeckoJS.Session.get('screenwidth') || 800;
+            var screenheight = GeckoJS.Session.get('screenheight') || 600;
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 rate: rate
             };
@@ -167,14 +172,15 @@
         getDepartment: function () {
             var cate_no = $('#department_no').val();
             var cates_data = GeckoJS.Session.get('categories');
-
+            var screenwidth  = GeckoJS.Session.get('screenwidth') || 800;
+            var screenheight = GeckoJS.Session.get('screenheight') || 600;
             var aURL = 'chrome://viviecr/content/select_department.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=500';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 cate_no: cate_no,
                 depsData: cates_data
             };
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_department', features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_department', aFeatures, inputObj);
 
             if (inputObj.ok && inputObj.cate_no) {
                 $('#department_no').val(inputObj.cate_no);
