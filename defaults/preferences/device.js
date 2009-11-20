@@ -28,7 +28,7 @@ pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.type", "che
 pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/guestcheck-sample-condensed-42c.tpl");
 
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "check");
+pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "check,label");
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.path", "chrome://viviecr/content/devices/templates/label-sample-argox-203td.tpl");
 
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "chrome://viviecr/locale/messages.properties");
@@ -137,3 +137,8 @@ pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.controller", "Sc
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.iterations", 10);
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.stables", 0);
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.tries", 5);
+
+pref("vivipos.fec.registry.devicemodels.epson-tm-u200.label", "Epson TM-U200 Series");
+pref("vivipos.fec.registry.devicemodels.epson-tm-u200.type", "receipt,check,report,label");
+pref("vivipos.fec.registry.devicemodels.epson-tm-u200.path", "chrome://device-epson-tm-u200/content/devices/commands/epson-tm-u200.cmd");
+pref("vivipos.fec.registry.devicemodels.epson-tm-u200.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
