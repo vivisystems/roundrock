@@ -156,7 +156,9 @@
                 this.OrderPayment.renameBackupFileWithStatus(status);
 
                 if (isTraining) {
-                    retObj = this.OrderAnnotation.saveAll(this.OrderAnnotation.mappingTranToOrderAnnotationsFields(data));
+                    // need to remove existing annotations
+                    retObj = this.OrderAnnotation.removeFromOrder(data.id);
+                    if (retObj) retObj = this.OrderAnnotation.saveAll(this.OrderAnnotation.mappingTranToOrderAnnotationsFields(data));
                 }
                 else {
                     retObj = this.OrderAnnotation.saveToBackup(this.OrderAnnotation.mappingTranToOrderAnnotationsFields(data));
