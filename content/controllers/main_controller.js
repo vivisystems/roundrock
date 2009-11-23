@@ -970,6 +970,11 @@
         },
 
         truncateTxnRecords: function() {
+            if (this._isTraining) {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('This function is not available in training mode'));
+                return;
+            }
+
             if (GREUtils.Dialog.confirm(this.topmostWindow,
                 _('Remove All Transaction Records'),
                 _('This operation will remove all transaction records. Are you sure you want to proceed?'))) {
