@@ -299,7 +299,8 @@
                 }
 
                 // remove the products which no longer exist from stock_record table.
-                sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON (s.id = p.no) WHERE p.no IS NULL;";
+                // sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON (s.id = p.no) WHERE p.no IS NULL;";
+                sql = "SELECT s.id FROM stock_records s WHERE s.id NOT IN (SELECT s.id FROM products p INNER JOIN stock_records s ON (p.no = s.id));";
                 var stockRecords = stockRecordModel.getDataSource().fetchAll(sql);
 
                 // detach the file.
@@ -314,7 +315,7 @@
             } else {
                 document.getElementById('toolbar').setAttribute('hidden', true);
             }
-                        
+
             this.reload();
         },
         
