@@ -44,7 +44,11 @@
                 <vbox id="main_deck" flex="1">
                     <hbox class="block-40 content-box">
                         <vbox pack="center">
+                            <spacer flex="1"/>
                             <image id="thumbnail" src="" style="min-width: 160px; max-width: 160px;"/>
+                            <spacer flex="1"/>
+                            <checkbox id="customcode" label="&packagebuilder.customcode;" checked="false"/>
+                            <checkbox id="timezone" label="&packagebuilder.timezone;" checked="false"/>
                         </vbox>
                         <spacer width="5px"/>
                         <vbox flex="1">
@@ -85,12 +89,7 @@
                             <textbox id="locales" default=""/>
                         </vbox>
                     </hbox>
-                    <hbox>
-                        <checkbox id="customcode" label="&packagebuilder.customcode;" checked="false"/>
-                        <spacer width="10px"/>
-                        <checkbox id="timezone" label="&packagebuilder.timezone;" checked="false"/>
-                    </hbox>
-                    <separator orient="horizontal" class="groove-thin"/>
+                    <separator orient="horizontal" class="groove"/>
                     <hbox flex="1" class="content-box">
                         <vbox flex="1">
                             <label value="&packagebuilder.localization;" class="label-sub-title"/>
