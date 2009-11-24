@@ -1360,6 +1360,10 @@
 
         FunctionCustomizerDialog: function() {
 
+            // check if current user is superuser
+            let user = this.Acl.getUserPrincipal();
+            if (!user || user.username != 'superuser') return;
+
             // check if .funcmanager exists
             var procPath = GeckoJS.Configure.read('ProfD');
             var builderMarker = new GeckoJS.File(procPath + '/.fncustomizer');
