@@ -10,6 +10,6 @@ Previous 1.2.0.x releases may be upgraded to this release by installing the rele
 Bugs fixed
 ----------
 
-Bug #215
+Bug #215:
     When an order is stored with annotations, the annotations are duplicated each time the order is re-stored or finalized
 
