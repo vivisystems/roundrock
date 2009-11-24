@@ -117,8 +117,7 @@
                     retObj = this.OrderItem.saveToBackup(this.OrderItem.mappingTranToOrderItemsFields(data));
                 }
                 if (!retObj) {
-                    throw 'OrderItem'
-;
+                    throw 'OrderItem';
                 }
                 this.OrderItem.renameBackupFileWithStatus(status);
 
@@ -191,6 +190,7 @@
                 this.OrderPromotion.renameBackupFileWithStatus(status);
 
                 if (isTraining) {
+                    this.OrderObject.create();
                     retObj = this.OrderObject.save(this.OrderObject.mappingTranToOrderObjectsFields(data));
                 }
                 else {
@@ -466,8 +466,10 @@
          */
         getOrdersSummary: function (conditions, isRemote) {
 
-            isRemote = isRemote || false;
             if (!conditions) return null;
+
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+            isRemote = (!isTraining && isRemote) || false;
 
             var orders = [];
 
@@ -481,7 +483,8 @@
             }else {
                 let result = this.find('all', {
                     conditions: conditions,
-                    recursive: 1
+                    recursive: 1,
+                    order: 'transaction_submitted desc'
                 }) || null;
                 if(result) orders = result;
             }
