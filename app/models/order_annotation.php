@@ -35,6 +35,31 @@ class OrderAnnotation extends AppModel {
 
         return $result;
     }
+
+    function removeFromOrder ($orders) {
+
+        $result = true;
+        try {
+
+	  $order_ids = array_keys($orders);
+          $idstr = implode("','", $order_ids);
+
+	   $ids =  $this->find('all', array('conditions'=>"order_id IN ('$idstr')", 'fields'=>'id'));
+
+	   foreach ($ids as $annotation) {
+		   $this->del($annotation['OrderAnnotation']['id']);
+	   }
+		
+        }catch(Exception $e) {
+
+            CakeLog::write('error', 'Exception removeFromOrder \n' .
+                '  Exception: ' . $e->getMessage() . "\n" );
+
+            $result = false;
+        }
+
+        return $result;
+    }
 }
 
 ?>

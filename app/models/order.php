@@ -113,6 +113,8 @@ class Order extends AppModel {
         // save order_annotations
             $orderAnnotations = json_decode($datas['OrderAnnotation'], true);
             if (is_array($orderAnnotations)) {
+		    // remove old annotation
+		$this->OrderAnnotation->removeFromOrder($orders);
                 $r = $this->OrderAnnotation->saveOrderAnnotations(array_values($orderAnnotations));
                 $result['OrderAnnotation'] = $r;
             }
