@@ -537,7 +537,7 @@
         },
 
         // handles user initiated check requests
-        issueCheck: function(printers, duplicate) {
+        issueCheck: function(printers, duplicate, finalize) {
             var deviceController = this.getDeviceController();
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
 
@@ -560,7 +560,7 @@
                 return; // fatal error ?
             }
 
-            if (!duplicate && !txn.isStored() && !txn.isSubmit()) {
+            if (!duplicate && !finalize && !txn.isStored() && !txn.isSubmit()) {
 
                 NotifyUtils.warn(_('Order has not been stored yet; cannot issue check'));
                 return;
@@ -610,6 +610,19 @@
 
         issueCheckCopy: function(printers) {
             this.issueCheck(printers, true);
+        },
+
+        prepareGuestCheck: function(printers) {
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var txn = cart._getTransaction();
+
+            if (cart.dispatchEvent('PrepareFinalization', txn)) {
+
+                // print guest check if printers is not empty
+                if (printers != null && printers != '') {
+                    this.issueCheck(printers, false, true);
+                }
+            }
         },
 
         // print on all enabled check printers
