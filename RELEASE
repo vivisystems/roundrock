@@ -94,3 +94,10 @@ Bug #223:
 
 Bug #224:
     Update of order records by extensions during 'afterSubmit' event may be overwritten
+
+Bug #225:
+    Accounts belonging to the built-in "admin" group are used for technical support and should be hidden from the Sign In/Out screen
+
+Bug #226:
+    Accounts belonging to the built-in "admin" group are used for technical support and should be hidden from the Clock In/Out screen
+
