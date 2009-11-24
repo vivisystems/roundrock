@@ -25,6 +25,7 @@
                 //cart.addEventListener('beforeAddPayment', this.onCartBeforeAddPayment, this);
 
                 // popup table select panel
+                cart.addEventListener('PrepareFinalization', this.onCartBeforeSubmit, this);
                 cart.addEventListener('onSubmitSuccess', this.onCartOnSubmitSuccess, this);
                 cart.addEventListener('onCancelSuccess', this.onCartOnCancelSuccess, this);
                 cart.addEventListener('onVoidSaleSuccess', this.onCartOnSubmitSuccess, this);
@@ -1089,12 +1090,12 @@
          */
         onCartBeforeSubmit: function(evt) {
             
-            if (evt.data.status != 1) return ;
-            
+            if (evt.data.status != 1 && typeof evt.data.status != 'undefined') return ;
+
             // let destination = getXXXX;
             var isCheckTableNo = true;
             var isCheckGuestNum = true;
-            var curTransaction = evt.data.txn;
+            var curTransaction = evt.data.txn || evt.data;
 
             if (isCheckTableNo && this.tableSettings.RequireTableNo && !curTransaction.data.table_no) {
                 
