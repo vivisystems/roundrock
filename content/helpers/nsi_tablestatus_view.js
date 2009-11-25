@@ -19,6 +19,7 @@
             if (tables) {
                 this._data = tables;
                 //this._tablesId = GeckoJS.Array.objectExtract(tables, '{n}.id');
+                this.tree.startOffset = 0;
                 this.tree.invalidate();
                 this.tree.selectedIndex = -1;
                 this.tree.selectedItems = [];
