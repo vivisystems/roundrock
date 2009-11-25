@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-11-24 17:12+0800\n"
+"POT-Creation-Date: 2009-11-25 20:41+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3952,8 +3952,8 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:3424
 #: ../..//content/controllers/cart_controller.js:3467
 #: ../..//content/controllers/cashdrawer_controller.js:354
-#: ../..//content/controllers/changeuser_controller.js:122
-#: ../..//content/controllers/clockinout_controller.js:300
+#: ../..//content/controllers/changeuser_controller.js:123
+#: ../..//content/controllers/clockinout_controller.js:301
 #: ../..//content/controllers/guest_check_controller.js:628
 #: ../..//content/controllers/guest_check_controller.js:1453
 #: ../..//content/controllers/guest_check_controller.js:1587
@@ -4271,7 +4271,7 @@ msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:355
-#: ../..//content/controllers/changeuser_controller.js:123
+#: ../..//content/controllers/changeuser_controller.js:124
 #: ../..//content/controllers/print_controller.js:1210
 msgid ""
 "Please restart the terminal, and if the problem persists, contact technical "
@@ -4302,102 +4302,102 @@ msgid ""
 "code %S) [message #204]."
 msgstr ""
 
-#: ../..//content/controllers/changeuser_controller.js:25
+#: ../..//content/controllers/changeuser_controller.js:26
 msgid ""
 "An error was encountered while retrieving employee records (error code %S) "
 "[message #301]."
 msgstr ""
 
-#: ../..//content/controllers/changeuser_controller.js:80
-#: ../..//content/controllers/changeuser_controller.js:92
+#: ../..//content/controllers/changeuser_controller.js:81
+#: ../..//content/controllers/changeuser_controller.js:93
 #: ../..//content/controllers/main_controller.js:729
 #: ../..//content/controllers/main_controller.js:808
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr ""
 
-#: ../..//content/controllers/changeuser_controller.js:86
+#: ../..//content/controllers/changeuser_controller.js:87
 msgid "Authentication failed! Please select a user"
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:38
+#: ../..//content/controllers/clockinout_controller.js:39
 msgid ""
 "An error was encountered while retrieving employee records (error code %S) "
 "[message #401]."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:59
+#: ../..//content/controllers/clockinout_controller.js:60
 msgid ""
 "An error was encountered while retrieving jobs (error code %S) [message "
 "#402]."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:95
-#: ../..//content/controllers/clockinout_controller.js:132
-#: ../..//content/controllers/clockinout_controller.js:201
+#: ../..//content/controllers/clockinout_controller.js:96
+#: ../..//content/controllers/clockinout_controller.js:133
+#: ../..//content/controllers/clockinout_controller.js:202
 msgid "Please select a user first."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:103
-#: ../..//content/controllers/clockinout_controller.js:179
-#: ../..//content/controllers/clockinout_controller.js:233
+#: ../..//content/controllers/clockinout_controller.js:104
+#: ../..//content/controllers/clockinout_controller.js:180
+#: ../..//content/controllers/clockinout_controller.js:234
 msgid "Please enter the passcode."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:105
-#: ../..//content/controllers/clockinout_controller.js:235
+#: ../..//content/controllers/clockinout_controller.js:106
+#: ../..//content/controllers/clockinout_controller.js:236
 msgid "Authentication Failed! Please make sure the passcode is correct."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:148
+#: ../..//content/controllers/clockinout_controller.js:149
 msgid ""
 "An error was encountered while retrieving employee records (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:149
-#: ../..//content/controllers/clockinout_controller.js:175
+#: ../..//content/controllers/clockinout_controller.js:150
+#: ../..//content/controllers/clockinout_controller.js:176
 msgid "Failed to clock user in."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:160
+#: ../..//content/controllers/clockinout_controller.js:161
 msgid "Please select a job first."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:173
+#: ../..//content/controllers/clockinout_controller.js:174
 msgid ""
 "An error was encountered while clocking employee [%S] in (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:181
+#: ../..//content/controllers/clockinout_controller.js:182
 msgid "Authentication Failed!. Please make sure the passcode is correct."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:213
+#: ../..//content/controllers/clockinout_controller.js:214
 msgid ""
 "An error was encountered while retrieving employee attendance record (error "
 "code %S)."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:214
-#: ../..//content/controllers/clockinout_controller.js:221
+#: ../..//content/controllers/clockinout_controller.js:215
+#: ../..//content/controllers/clockinout_controller.js:222
 msgid "Failed to clock user out."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:220
+#: ../..//content/controllers/clockinout_controller.js:221
 msgid ""
 "An error was encountered while clocking employee [%S] out (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:226
+#: ../..//content/controllers/clockinout_controller.js:227
 msgid "Not clocked in yet."
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:260
+#: ../..//content/controllers/clockinout_controller.js:261
 msgid ""
 "An error was encountered while retrieving employee attendance records (error "
 "code %S). "
 msgstr ""
 
-#: ../..//content/controllers/clockinout_controller.js:301
+#: ../..//content/controllers/clockinout_controller.js:302
 msgid ""
 "Please restart the terminal, and if the problem persists, please contact "
 "technical support immediately."
@@ -5497,37 +5497,37 @@ msgid ""
 "the changes?"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:117
-#: ../..//content/controllers/journal_controller.js:228
+#: ../..//content/controllers/journal_controller.js:128
+#: ../..//content/controllers/journal_controller.js:239
 msgid "Journal Error"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:117
+#: ../..//content/controllers/journal_controller.js:128
 msgid ""
 "No electronic journal preview template detected.  Electronic journal entry "
 "will not be recorded properly if a preview template is not installed "
 "[message #701]."
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:121
+#: ../..//content/controllers/journal_controller.js:132
 msgid "Journal Controller cartStatus error [%S]"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:139
+#: ../..//content/controllers/journal_controller.js:150
 msgid "Journal Controller voidOrder error [%S]"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:207
+#: ../..//content/controllers/journal_controller.js:218
 msgid "Journal Controller submitOrder error [%S]"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:229
+#: ../..//content/controllers/journal_controller.js:240
 msgid ""
 "An error was encountered while saving journal entry (error code %S) [message "
 "#702]."
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:230
+#: ../..//content/controllers/journal_controller.js:241
 #: ../..//content/controllers/ledger_controller.js:315
 #: ../..//content/controllers/list_orders_controller.js:220
 #: ../..//content/controllers/main_controller.js:1022
@@ -7467,7 +7467,7 @@ msgid "imported from [%S]"
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:737
-msgid "Product stock information imported; %S successes, %S failures)"
+msgid "Product stock information imported; %S successes, %S failures"
 msgstr ""
 
 #: ../..//content/controllers/stocks_controller.js:118
