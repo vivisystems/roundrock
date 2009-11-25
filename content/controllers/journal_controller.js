@@ -13,6 +13,8 @@
         _previewTemplate: "",
         _device: null,
         deviceSelected: false,
+        isTraining: false,
+        isDisabled: false,
         
         initial: function() {
             if (this._dataPath == null) {
@@ -20,26 +22,35 @@
             }
             this._journalPath = this._dataPath + "/journal/";
 
-            var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            cart.addEventListener('afterSubmit', this.submitOrder, this);
-            cart.addEventListener('afterVoidSale', this.voidOrder, this);
+            this.isDisabled = GeckoJS.Configure.read('vivipos.fec.settings.internal.disableJournal') || false;
+            if (this.isDisabled) this.isTraining = true;
 
-            this.checkDevices();
+            if (!this.isDisabled) {
+
+                var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                cart.addEventListener('afterSubmit', this.submitOrder, this);
+                cart.addEventListener('afterVoidSale', this.voidOrder, this);
+
+                this.checkDevices();
             
-            cart.addEventListener('beforeFilter', this.cartStatus, this);
-            // add Observer for startTrainingMode event.
-            var self = this;
-            this.observer = GeckoJS.Observer.newInstance( {
-                topics: [ "TrainingMode" ],
+                cart.addEventListener('beforeFilter', this.cartStatus, this);
 
-                observe: function( aSubject, aTopic, aData ) {
-                    if ( aData == "start" ) {
-                        self.isTraining = true;
-                    } else if ( aData == "exit" ) {
-                        self.isTraining = false;
+                // add Observer for startTrainingMode event.
+                var self = this;
+                this.observer = GeckoJS.Observer.newInstance( {
+                    topics: [ "TrainingMode" ],
+
+                    observe: function( aSubject, aTopic, aData ) {
+                        if ( aData == "start" ) {
+                            self.isTraining = true;
+                        } else if ( aData == "exit" ) {
+                            self.isTraining = false;
+                            if(self.isDisabled) self.isTraining = true;
+                        }
                     }
-                }
-            } ).register();
+                } ).register();
+                
+            }
         },
 
         checkDevices: function() {
@@ -225,78 +236,78 @@
                     win = null;
 
                 GREUtils.Dialog.(win,
-                                 _('Journal Error'),
-                                 _('An error was encountered while saving journal entry (error code %S) [message #702].', [journalModel.lastError])
-                                   + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
-            }
-        },
-
-        getSelectedTemplateData: function(txn, preview) {
-            var template = preview ? this._previewTemplate : this._printTemplate;
-            var tpl = this._device.getTemplateData(template, false);
-            var order = txn.data;
-            var result = '';
-
-            // @2009-08-13 irving
-            if (!tpl) return result;
-            
-            var data = {
-                txn: txn,
-                order: order
-            };
-            // expand data with storeContact and terminal_no
-            if (data) {
-                data.customer = GeckoJS.Session.get('current_customer');
-                data.store = GeckoJS.Session.get('storeContact');
-                if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
-                var user = this.Acl.getUserPrincipal();
-                if (user) {
-                    data.user = user.username;
-                    data.display_name = user.description;
-                }
-            }
-
-            // check if item is linked to this printer and set 'linked' accordingly
-            if (data && data.order) {
-                if (data.order.items && data.order.items.length > 0) {
-                    for (var i in data.order.items) {
-                        data.order.items[i].linked = true;
-                    }
-                }
-                else {
-                    data.hasLinkedItems = data.order.items.length;
-                }
-            }
-
-            data.linkgroups = null;
-            data.printNoRouting = 1;
-            data.routingGroups = null;
-            data.autoPrint = 'submit';
-            data.duplicate = true;
-
-            var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
-            var printerChoice = selectedDevices['journal-print-template'];
-
-            var encoding =
-            	preview ?
-            	"UTF-8" :
-            	this._device.getSelectedDevices()['receipt-' + printerChoice + '-encoding'];
-            	
-            _templateModifiers(TrimPath, encoding);
-            result = tpl.process(data);
-
-            return result;
+                _('Journal Error'),
+                _('An error was encountered while saving journal entry (error code %S) [message #702].', [journalModel.lastError])
+                + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
-    };
+    },
+
+    getSelectedTemplateData: function(txn, preview) {
+        var template = preview ? this._previewTemplate : this._printTemplate;
+        var tpl = this._device.getTemplateData(template, false);
+        var order = txn.data;
+        var result = '';
+
+        // @2009-08-13 irving
+        if (!tpl) return result;
+            
+        var data = {
+            txn: txn,
+            order: order
+        };
+        // expand data with storeContact and terminal_no
+        if (data) {
+            data.customer = GeckoJS.Session.get('current_customer');
+            data.store = GeckoJS.Session.get('storeContact');
+            if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
+            var user = this.Acl.getUserPrincipal();
+            if (user) {
+                data.user = user.username;
+                data.display_name = user.description;
+            }
+        }
+
+        // check if item is linked to this printer and set 'linked' accordingly
+        if (data && data.order) {
+            if (data.order.items && data.order.items.length > 0) {
+                for (var i in data.order.items) {
+                    data.order.items[i].linked = true;
+                }
+            }
+            else {
+                data.hasLinkedItems = data.order.items.length;
+            }
+        }
+
+        data.linkgroups = null;
+        data.printNoRouting = 1;
+        data.routingGroups = null;
+        data.autoPrint = 'submit';
+        data.duplicate = true;
+
+        var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
+        var printerChoice = selectedDevices['journal-print-template'];
+
+        var encoding =
+        preview ?
+        "UTF-8" :
+        this._device.getSelectedDevices()['receipt-' + printerChoice + '-encoding'];
+            	
+        _templateModifiers(TrimPath, encoding);
+        result = tpl.process(data);
+
+        return result;
+    }
+};
 
 	 
-    GeckoJS.Controller.extend( __controller__ );
+GeckoJS.Controller.extend( __controller__ );
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');
         if(main) main.addEventListener('afterInitial', function() {
-                                            main.requestCommand('initial', null, 'Journal');
-                                      });
+            main.requestCommand('initial', null, 'Journal');
+        });
 
     }, false);
 } )();
