@@ -148,9 +148,7 @@
                 if (signOff) {
 
                     // make sure top most window is Vivipos Main window
-                    var win = this.topmostWindow;
-                    if (win.document.documentElement.id == 'viviposMainWindow'
-                        && win.document.documentElement.boxObject.screenX >= 0) {
+                    if (this.isMainWindowOnTop()) {
 
                         // block UI
                         let waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Signing off idle user..'), 200);
@@ -161,6 +159,37 @@
 
                         if (waitPanel) waitPanel.hidePopup();
                     }
+                }
+            }
+        },
+
+        isMainWindowOnTop: function(close) {
+            // check if top most window is Vivipos Main window
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX >= 0) {
+
+                // check if any vivipanel is open
+                var panels = $("vivipanel") || [];
+
+                for (let i = 0; i < panels.length; i++) {
+                    if ((panels[i].state == 'open') && !(panels[i].getAttribute('noblock'))) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            return false;
+
+        },
+
+        closeAllPopupPanels: function() {
+            var panels = $("vivipanel") || [];
+
+            for (let i = 0; i < panels.length; i++) {
+                if (panels[i].state == 'open') {
+                    panels[i].hidePopup();
                 }
             }
         },
@@ -820,6 +849,14 @@
                     _('To use this funciton, please leave training mode first'));
                 return;
             }
+
+            // if not in quickSignoff mode, don't sign off unless we are on the main screen
+            if (!quickSignoff) {
+                if (!this.isMainWindowOnTop()) {
+                    return;
+                }
+            }
+
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
             var autoDiscardQueue = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardqueue');
             var mustEmptyQueue = GeckoJS.Configure.read('vivipos.fec.settings.mustemptyqueue');
@@ -933,7 +970,10 @@
             }
 
             Transaction.removeRecoveryFile();
-            
+
+            // close all poup panels
+            this.closeAllPopupPanels();
+
             if (!quickSignoff) {
                 this.ChangeUserDialog();
             }
