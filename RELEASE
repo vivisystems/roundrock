@@ -101,6 +101,9 @@ Bug #225:
 Bug #226:
     Accounts belonging to the built-in "admin" group are used for technical support and should be hidden from the Clock In/Out screen
 
+Bug #227:
+    Need to reduce disk usage to allow system to run with 1GB of storage
+
 Bug #228:
     Translations for some of the report/template headings for the Stock Adjustment Report fail to show up
 
