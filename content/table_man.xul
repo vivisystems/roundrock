@@ -297,6 +297,10 @@
                                                         <checkbox id="staydownAction" label="&tableman.tableoptions.staydownaction;" form="settingsForm" name="StaydownAction"/>
                                                         <checkbox id="requireGuestOrTableNumWhenStored" label="&tableman.tableoptions.requireGuestOrTableNumWhenStored;" form="settingsForm" name="RequireGuestOrTableNumWhenStored"/>
                                                     </row>
+                                                    <row>
+                                                        <checkbox id="showAvailableSeatTable" label="&tableman.tableoptions.showAvailableSeatTable;" form="settingsForm" name="ShowAvailableSeatTable"/>
+                                                        <spacer />
+                                                    </row>
                                                 </rows>
                                             </grid>
                                             <vbox class="data-formsss">

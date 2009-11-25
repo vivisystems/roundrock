@@ -756,6 +756,7 @@
 
             // append all regions
             defaultRegionObj.appendItem(_('All Regions'),'ALL');
+            defaultRegionObj.appendItem(_('Available Tables'),'AVAILABLE');
 
             regions.forEach(function(data){
                 regionObj.appendItem(data.name, data.id);
