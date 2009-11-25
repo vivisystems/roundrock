@@ -292,7 +292,7 @@
                                                     <row flex="1">
                                                         <label value="&sync_settings.label.irc_clients;"/>
                                     <vivitree id="ircDetailClientsTree" flex="1" class="standard"
-                                  headers="&sync_settings.label.irc_machineid_header;,&sync_settings.label.irc_downloaded_header;" fields="machine_id,downloaded" hidecolumnpicker="true" />
+                                  headers="&sync_settings.label.irc_machineid_header;,&sync_settings.label.irc_downloaded_header;,&sync_settings.label.irc_downloaded_header;" fields="machine_id,downloaded" hidecolumnpicker="true" />
                                                     </row>
                                                 </rows>
                                             </grid>
