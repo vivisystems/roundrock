@@ -828,15 +828,19 @@
             // set destination action if table specific or set to default
             if (curTransaction.data.table_no && !isNaN(parseInt(curTransaction.data.table_no))) {
                 var table = this.Table.getTableByNo(curTransaction.data.table_no);
-                curTransaction.setTableName(table.table_name);
-                if (table.table_region_id) {
-                    let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
-                    curTransaction.setTableRegionName(region.name);
-                }
-                
-                if (table.destination) {
-                    this.requestCommand('setDestination', table.destination, 'Destinations');
-                } else {
+                if (table) {
+                    curTransaction.setTableNo(curTransaction.data.table_no);
+                    curTransaction.setTableName(table.table_name);
+                    if (table.table_region_id) {
+                        let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
+                        curTransaction.setTableRegionName(region.name);
+                    }
+                    
+                    if (table.destination) {
+                        this.requestCommand('setDestination', table.destination, 'Destinations');
+                    }
+                }else {
+                    curTransaction.setTableNo(''); // reset table_no to empty
                     var defaultDest = GeckoJS.Session.get('defaultDestination') || false;
                     if (defaultDest) {
                         this.requestCommand('setDestination', defaultDest, 'Destinations');
