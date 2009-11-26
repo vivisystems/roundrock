@@ -103,6 +103,8 @@
                 destination_prefix: '',
 
                 table_no: '',
+                table_name: '',
+                table_region_name: '',
                 check_no: '',
 
                 no_of_customers: '',
@@ -3236,6 +3238,26 @@
             tableNo = tableNo ? (parseInt(tableNo)+'') : '';
             if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_table_number', tableNo);
             this.data.table_no = tableNo;
+        },
+
+        getTableName: function() {
+            return this.data.table_name || '';
+        },
+
+        setTableName: function(tableName) {
+            tableName = tableName || '';
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_table_name', tableName);
+            this.data.table_name = tableName;
+        },
+
+        getTableRegionName: function() {
+            return this.data.table_region_name || '';
+        },
+
+        setTableRegionName: function(tableRegionName) {
+            tableRegionName = tableRegionName || '';
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_table_region_name', tableRegionName);
+            this.data.table_region_name = tableRegionName;
         },
 
         getCheckNo: function() {
