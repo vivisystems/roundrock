@@ -159,10 +159,12 @@
 
         _restart: function() {
             // restart vivipos
-            // return;
-            // opener.opener.vivipos.suspendSavePreference = true;
             GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
-        // GeckoJS.Observer.notify(null, 'prepare-to-quit', this);
+        },
+
+        _reboot: function() {
+            // reboot vivipos
+            GeckoJS.Observer.notify(null, 'prepare-to-reboot', this);
         },
 
         _showWaitPanel: function(message) {
@@ -270,7 +272,11 @@
                     this.flushPrefs(); // flush it.
                     
                     if (this.execute(this._scriptPath + "restore.sh", args )) {
-                        this._restart();
+                        if(withSystem) {
+                            this._reboot();
+                        }else {
+                            this._restart();
+                        }
                         NotifyUtils.info(_('<Restore from Local backup> is done!!'));
                     }
                 }
@@ -318,7 +324,11 @@
                     this.flushPrefs(); // flush it.
 
                     if (this.execute(this._scriptPath + "restore.sh", args)){
-                        this._restart();
+                        if(withSystem) {
+                            this._reboot();
+                        }else {
+                            this._restart();
+                        }
                         NotifyUtils.info(_('<Restore from Stick> is done!!'));
                     }
                 }
