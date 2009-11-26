@@ -459,6 +459,12 @@
 
                 // update Table No
                 curTransaction.setTableNo(no);
+                curTransaction.setTableName(table.table_name);
+                if (table.table_region_id) {
+                    let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
+                    curTransaction.setTableRegionName(region.name);
+                }
+
                 cart._clearAndSubtotal();
 
                 return true;
@@ -819,8 +825,13 @@
             curTransaction.updateCartView(-1, -1);
 
             // set destination action if table specific or set to default
-            if (curTransaction.data.table_no && curTransaction.data.table_no.length > 0) {
+            if (curTransaction.data.table_no && !isNaN(parseInt(curTransaction.data.table_no))) {
                 var table = this.Table.getTableByNo(curTransaction.data.table_no);
+                curTransaction.setTableName(table.table_name);
+                if (table.table_region_id) {
+                    let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
+                    curTransaction.setTableRegionName(region.name);
+                }
                 
                 if (table.destination) {
                     this.requestCommand('setDestination', table.destination, 'Destinations');
