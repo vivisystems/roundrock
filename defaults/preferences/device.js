@@ -31,6 +31,10 @@ pref("vivipos.fec.registry.templates.label-sample-argox-203td.label", "chrome://
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "check");
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.path", "chrome://viviecr/content/devices/templates/label-sample-argox-203td.tpl");
 
+pref("vivipos.fec.registry.templates.label-simple.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.label-simple.type", "label");
+pref("vivipos.fec.registry.templates.label-simple.path", "chrome://viviecr/content/devices/templates/label-simple.tpl");
+
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-24c.tpl");
@@ -111,7 +115,7 @@ pref("vivipos.fec.registry.devicemodels.epson-rp-u420.path", "chrome://viviecr/c
 pref("vivipos.fec.registry.devicemodels.epson-rp-u420.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
 
 pref("vivipos.fec.registry.devicemodels.argox-os-203.label", "Argox OS-203");
-pref("vivipos.fec.registry.devicemodels.argox-os-203.type", "receipt,check");
+pref("vivipos.fec.registry.devicemodels.argox-os-203.type", "receipt,check,label");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.path", "chrome://viviecr/content/devices/commands/argox-os-203.cmd");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.encodings", "English=US-ASCII,Western=ISO-8859-1,Traditional Chinese=Big5,Simplified Chinese=GB18030,Simplified Chinese=GB2312");
 
