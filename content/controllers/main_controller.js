@@ -12,6 +12,7 @@
         pluPanelView: null,
 
         doRestart: false,
+        doReboot: false,
         restartClock: false,
 
         _suspendLoadTest: false,
@@ -72,6 +73,8 @@
                 observe: function(aSubject, aTopic, aData) {
                     if (aTopic == 'prepare-to-restart' || aData == 'addons-restart-app') {
                         self.doRestart = true;
+                    } else if (aTopic == 'prepare-to-reboot') {
+                        self.doReboot = true;
                     } else if (aTopic == 'restart-clock') {
                         self.restartClock = true;
                     } else if ( aTopic == 'TrainingMode' ) {
@@ -270,6 +273,10 @@
             var aName = _('Control Panel');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
+
+            if (this.doReboot) {
+                this.rebootMachine();
+            }
 
             if (this.doRestart) {
                 this.restart();
