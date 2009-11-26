@@ -107,3 +107,5 @@ Bug #227:
 Bug #228:
     Translations for some of the report/template headings for the Stock Adjustment Report fail to show up
 
+Bug #229:
+    Need to be able to print table number and table region in templates
