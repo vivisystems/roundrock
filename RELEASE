@@ -109,3 +109,6 @@ Bug #228:
 
 Bug #229:
     Need to be able to print table number and table region in templates
+
+Bug #230:
+    When performing a system restore with system settings, restored CUPS settings do not take effect until the terminal is rebooted
