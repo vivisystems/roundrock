@@ -616,12 +616,11 @@
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var txn = cart._getTransaction();
 
-            if (cart.dispatchEvent('PrepareFinalization', txn)) {
+            cart.dispatchEvent('PrepareFinalization', txn);
 
-                // print guest check if printers is not empty
-                if (printers != null && printers != '') {
-                    this.issueCheck(printers, false, true);
-                }
+            // print guest check if printers is not empty
+            if (printers != null && printers != '') {
+                this.issueCheck(printers, false, true);
             }
         },
 
