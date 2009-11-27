@@ -259,8 +259,9 @@
                 args.push(this._localbackupDir + dir);
                 if (withSystem) args.push('with-system');
 
-                var confirmMessage = _("Do you want to restore [%S] from local backup?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
+                var confirmMessage = _("Do you want to restore [%S] from local backup?", [datas[index].time]);
                 if (withSystem) confirmMessage += "\n\n" + _("restore_with_system.confirm_message");
+                else confirmMessage += "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
 
                 if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Restore"), confirmMessage )) {
 
