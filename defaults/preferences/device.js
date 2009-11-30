@@ -31,9 +31,9 @@ pref("vivipos.fec.registry.templates.label-sample-argox-203td.label", "chrome://
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "check");
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.path", "chrome://viviecr/content/devices/templates/label-sample-argox-203td.tpl");
 
-pref("vivipos.fec.registry.templates.label-simple.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.registry.templates.label-simple.type", "label");
-pref("vivipos.fec.registry.templates.label-simple.path", "chrome://viviecr/content/devices/templates/label-simple.tpl");
+pref("vivipos.fec.registry.templates.label-simple-testing-2.label", "label-simple-testing-2");
+pref("vivipos.fec.registry.templates.label-simple-testing-2.type", "label");
+pref("vivipos.fec.registry.templates.label-simple-testing-2.path", "chrome://viviecr/content/devices/templates/label-simple-testing-2.tpl");
 
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.type", "receipt");
