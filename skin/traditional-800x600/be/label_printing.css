@@ -1,0 +1,105 @@
+.custom-content-tabbox {
+    margin: 4px;
+}
+
+.custom-content-tabbox tab {
+    background: white ;
+    border:none;
+    color: #4f4f51;
+    font-size: 10pt;
+    padding: 3px 5px;
+    -moz-appearance: none;
+}
+
+.custom-content-tabbox tab hbox {
+    -moz-box-orient: vertical;
+    -moz-box-align: center;
+}
+
+.custom-content-tabbox tab[selected=true] {
+    background-color: #847860;
+    background-image: none;
+    color: white;
+    font-weight: bold;
+    -moz-border-radius-topleft: 6px;
+    -moz-border-radius-topright: 6px;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-user-focus: ignore;
+}
+
+.custom-content-tabbox tabpanels {
+    background: none;
+    border: none;
+    -moz-appearance: none;
+}
+
+.custom-content-tabbox tabpanel {
+    border-top: 1px solid #c1ab8e;
+    padding-top: 5px;
+}
+
+.ExeBtn {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 3px solid;
+    color: #6c6050;
+    font-size: 12pt;
+    margin: 0 5px;
+    max-height: 70px;
+    min-height: 50px;
+    max-width: 80px;
+    min-width: 80px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-radius: 6px;
+}
+
+.ExeBtn:active {
+    border: 2px solid;
+    color: #603913;
+    -moz-border-top-colors: #ee9400 #ee9400;
+    -moz-border-right-colors: #ee9400 #ee9400;
+    -moz-border-bottom-colors: #ee9400 #ee9400;
+    -moz-border-left-colors: #ee9400 #ee9400;
+}
+
+.filebar button{
+    background-color: white ;
+    background-image: none;
+    border: 2px solid;
+    color: #4d4234;
+    font-size: 12pt;
+    margin: 5px;
+    min-height: 40px;
+    min-width: 75px;
+    padding: 8px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #918570 white;
+    -moz-border-left-colors: #918570 white;
+    -moz-border-right-colors: #918570 white;
+    -moz-border-bottom-colors: #918570 white;
+    -moz-border-radius: 6px;
+}
+
+.filebar button:active{
+    -moz-border-top-colors: gray black;
+    -moz-border-left-colors: gray black;
+    -moz-border-right-colors: gray #918570;
+    -moz-border-bottom-colors: gray #918570;
+}
+
+.filebar button[disabled=true] {
+    background-color: gray black ;
+    border-width: 0px !important
+}
+
+.PrintBtn {
+	background: transparent url(../images/icon_print.png) center left no-repeat !important;
+        border-width: 0px !important;
+	height: 60px;
+	padding-left: 58px;
+	-moz-appearance: none;
+}
