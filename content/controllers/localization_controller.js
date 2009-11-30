@@ -10,6 +10,7 @@
         _packages: null,
         _dirtyBit: false,
         _dirtyFiles: {},
+        _requireRestart: false,
         _currentPkg: null,
         _currentLocale: null,
         _currentLocalIndex: -1,
@@ -360,6 +361,13 @@
                     this.save();
                 }
             }
+            if (this._requireRestart) {
+                if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                            _('Localization Editor'),
+                                            _('Localization changes require system restart to take full effect. Do you want to restart now (after returning to the main screen?)'))) {
+                    GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+                }
+            }
             window.close();
         },
 
@@ -589,6 +597,7 @@
                     }
                 }
                 this._dirtyFiles = {};
+                this._requireRestart = this._requireRestart || this._dirtyBit;
                 this._dirtyBit = false;
 
                 this._validateForm();
