@@ -25,6 +25,7 @@
                 //cart.addEventListener('beforeAddPayment', this.onCartBeforeAddPayment, this);
 
                 // popup table select panel
+                cart.addEventListener('PrepareFinalization', this.onCartBeforeSubmit, this);
                 cart.addEventListener('onSubmitSuccess', this.onCartOnSubmitSuccess, this);
                 cart.addEventListener('onCancelSuccess', this.onCartOnCancelSuccess, this);
                 cart.addEventListener('onVoidSaleSuccess', this.onCartOnSubmitSuccess, this);
@@ -341,7 +342,7 @@
             }
 
             if (isDeny) {
-                NotifyUtils.warn(_('Table [%S] Not available to select. Status: [%S], Active: [%S]',[ table_no, status, active]));
+                NotifyUtils.warn(_('Table [%S] is not available for selection. Status [%S], Active [%S]',[ table_no, status, active]));
                 return false;
             }else {
                 return true;
@@ -459,6 +460,12 @@
 
                 // update Table No
                 curTransaction.setTableNo(no);
+                curTransaction.setTableName(table.table_name);
+                if (table.table_region_id) {
+                    let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
+                    curTransaction.setTableRegionName(region.name);
+                }
+
                 cart._clearAndSubtotal();
 
                 return true;
@@ -819,12 +826,21 @@
             curTransaction.updateCartView(-1, -1);
 
             // set destination action if table specific or set to default
-            if (curTransaction.data.table_no && curTransaction.data.table_no.length > 0) {
+            if (curTransaction.data.table_no && !isNaN(parseInt(curTransaction.data.table_no))) {
                 var table = this.Table.getTableByNo(curTransaction.data.table_no);
-                
-                if (table.destination) {
-                    this.requestCommand('setDestination', table.destination, 'Destinations');
-                } else {
+                if (table) {
+                    curTransaction.setTableNo(curTransaction.data.table_no);
+                    curTransaction.setTableName(table.table_name);
+                    if (table.table_region_id) {
+                        let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
+                        curTransaction.setTableRegionName(region.name);
+                    }
+                    
+                    if (table.destination) {
+                        this.requestCommand('setDestination', table.destination, 'Destinations');
+                    }
+                }else {
+                    curTransaction.setTableNo(''); // reset table_no to empty
                     var defaultDest = GeckoJS.Session.get('defaultDestination') || false;
                     if (defaultDest) {
                         this.requestCommand('setDestination', defaultDest, 'Destinations');
@@ -1089,12 +1105,12 @@
          */
         onCartBeforeSubmit: function(evt) {
             
-            if (evt.data.status != 1) return ;
-            
+            if (evt.data.status != 1 && typeof evt.data.status != 'undefined') return ;
+
             // let destination = getXXXX;
             var isCheckTableNo = true;
             var isCheckGuestNum = true;
-            var curTransaction = evt.data.txn;
+            var curTransaction = evt.data.txn || evt.data;
 
             if (isCheckTableNo && this.tableSettings.RequireTableNo && !curTransaction.data.table_no) {
                 

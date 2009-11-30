@@ -57,7 +57,7 @@
         <tfoot>
             <tr>
                 <td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' ) + ': '}${commitment.products.length|format:0}</td>
-                <td colspan="2" style="text-align: left;">${_( "(rpt)Summary" + ': ' )}</td>
+                <td colspan="2" style="text-align: left;">${_( "(rpt)Summary" ) + ': '}</td>
                 <td colspan="1" style="text-align: right;">${commitment.summary.value|format:0}</td>
 {if commitment.type == "procure"}
                 <td colspan="1"></td>

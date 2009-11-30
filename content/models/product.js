@@ -70,6 +70,7 @@
 
                 product.SetItem = setitems;
                 */
+               let visible = GeckoJS.String.parseBoolean(product.visible);
 
                 product._full_object_ = false;
 
@@ -103,7 +104,7 @@
                         }
                     }*/
 
-                    if(GeckoJS.String.parseBoolean(product.visible)) {
+                    if(visible) {
                         indexCate[(product.cate_no+"")].push((product.id+""));
                         if (product.append_empty_btns && product.append_empty_btns > 0) {
                             for (var jj=0; jj<product.append_empty_btns; jj++ ) {
@@ -123,7 +124,7 @@
                             indexLinkGroupAll[group] = [];
                         }
                         indexLinkGroupAll[(group+"")].push((product.id+""));
-                        if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
+                        if(visible) indexLinkGroup[(group+"")].push((product.id+""));
 
                     });
                 }
@@ -194,6 +195,7 @@
             var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
             var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
             var insertIndex;
+            var visible = GeckoJS.String.parseBoolean(product.visible);
 
             try {
 
@@ -220,7 +222,7 @@
                             indexCateAll[(product.cate_no+"")].splice(insertIndex, 0, product.id+"");
                             //indexCateAll[(product.cate_no+"")].push((product.id+""));
 
-                            if(GeckoJS.String.parseBoolean(product.visible)) {
+                            if(visible) {
                                 insertIndex = this.locateProductIndex(product, indexCate[(product.cate_no+"")]);
                                 indexCate[(product.cate_no+"")].splice(insertIndex++, 0, product.id+"");
                                 //indexCate[(product.cate_no+"")].push((product.id+""));
@@ -245,7 +247,7 @@
                                     indexLinkGroupAll[group] = [];
                                 }
                                 indexLinkGroupAll[(group+"")].push((product.id+""));
-                                if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
+                                if(visible) indexLinkGroup[(group+"")].push((product.id+""));
                             });
                         }
                         break;
@@ -317,7 +319,7 @@
                                     //indexCateAll[(product.cate_no+"")].push((product.id+""));
                                 }
 
-                                if(GeckoJS.String.parseBoolean(product.visible)) {
+                                if(visible) {
                                     insertIndex = this.locateProductIndex(product, indexCate[(product.cate_no+"")]);
                                     indexCate[(product.cate_no+"")].splice(insertIndex++, 0, product.id+"");
                                     //indexCate[(product.cate_no+"")].push((product.id+""));
@@ -335,8 +337,8 @@
 
                         // support append empty buttons
                         if (!reordered && oldProduct.append_empty_btns != product.append_empty_btns) {
-                            var index = -1;
-                            for (var i = 0; i < indexCateArray.length; i++) {
+                            let index = -1;
+                            for (let i = 0; i < indexCateArray.length; i++) {
                                 if (indexCateArray[i] == oldProduct.id) {
                                     index = i;
                                     break;
@@ -345,7 +347,7 @@
                             if (index > -1) {
                                 indexCateArray.splice(index+1, oldProduct.append_empty_btns);
 
-                                for(var kk = 0; kk < product.append_empty_btns; kk++) {
+                                for(let kk = 0; kk < product.append_empty_btns; kk++) {
                                     indexCateArray.splice(index+1, 0, "");
                                 }
 
@@ -355,6 +357,8 @@
 
                         // remove product group(s) that have been unlinked
                         var newgroups = [];
+                        var newgroupAction = {};
+
                         if (product.link_group && product.link_group.length > 0) {
                             newgroups = product.link_group.split(',');
                         }
@@ -365,34 +369,43 @@
 
                             groups.forEach(function(group) {
 
-                                var index = newgroups.indexOf(group);
-                                if (newgroups.indexOf(group) != -1) {
-                                    newgroups[index] = -1;
-                                    return;
-                                }
+                                var location = newgroups.indexOf(group);
 
                                 var indexLinkGroupArray = indexLinkGroup[(group+"")];
                                 var indexLinkGroupAllArray = indexLinkGroupAll[(group+"")];
 
-                                var index = -1;
-                                for (var i = 0; i < indexLinkGroupAllArray.length; i++) {
-                                    if (indexLinkGroupAllArray[i] == oldProduct.id) {
-                                        index = i;
-                                        break;
+                                // if current link group is not in new link groups, remove product from indexLinkGroupAllArray
+                                if (location == -1) {
+                                    let index = -1;
+                                    for (let i = 0; i < indexLinkGroupAllArray.length; i++) {
+                                        if (indexLinkGroupAllArray[i] == oldProduct.id) {
+                                            index = i;
+                                            break;
+                                        }
                                     }
+                                    if (index > -1)
+                                        indexLinkGroupAllArray.splice(index, 1);
                                 }
-                                if (index > -1)
-                                    indexLinkGroupAllArray.splice(index, 1);
 
-                                var index = -1;
-                                for (var i = 0; i < indexLinkGroupArray.length; i++) {
-                                    if (indexLinkGroupArray[i] == oldProduct.id) {
-                                        index = i;
-                                        break;
+                                if (location == -1 || !visible) {
+                                    let index = -1;
+                                    for (let i = 0; i < indexLinkGroupArray.length; i++) {
+                                        if (indexLinkGroupArray[i] == oldProduct.id) {
+                                            index = i;
+                                            break;
+                                        }
                                     }
+                                    if (index > -1)
+                                        indexLinkGroupArray.splice(index, 1);
                                 }
-                                if (index > -1)
-                                    indexLinkGroupArray.splice(index, 1);
+
+                                // if group exists in new link groups and product is currently visible then
+                                //   mark group action as 'noop' (-1)
+                                // else if group exists in new link groups and product is current invisible
+                                //   mark group action as 'add to indexLinkGroup only' (-2)
+                                if (location != -1) {
+                                    newgroupAction[group] = oldProduct.visible ? -1 : -2;
+                                }
                             });
                         }
 
@@ -401,14 +414,12 @@
 
                             newgroups.forEach(function(group) {
 
-                                if (group == -1) return;
-
                                 if (typeof indexLinkGroup[group] == 'undefined') {
                                     indexLinkGroup[group] = [];
                                     indexLinkGroupAll[group] = [];
                                 }
-                                indexLinkGroupAll[(group+"")].push((product.id+""));
-                                if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
+                                if (!(group in newgroupAction)) indexLinkGroupAll[(group+"")].push((product.id+""));
+                                if (visible && (!(group in newgroupAction) || newgroupAction[group] == -2)) indexLinkGroup[(group+"")].push((product.id+""));
 
                             });
                         }

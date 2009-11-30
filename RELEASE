@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.0.3
+Release 1.2.0.4
 ---------------
 
 This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
@@ -11,7 +11,7 @@ Previous 1.2.0.x releases may be upgraded to this release by installing the rele
 Dependencies
 ------------
 
-This release requires VIVIPOS WebApp and WebServices Release 1.2.0.2 or above.
+This release requires VIVIPOS WebApp and WebServices Release 1.2.0.3 or above. You should also install Release 1.2.0.4 of the appropriate language pack to resolve translation-related bugs.
 
 
 ----------
@@ -26,69 +26,89 @@ Bug #159:
 Bugs fixed
 ----------
 
-Bug #145:
-    Enhanced promotion type 'cheapest one free' to behave consistently regardless of mode ('single', 'more than', or 'multiple')
+Bug #192:
+    Many text messages failed to display using the proper locale due to presence of the symbol ':' in the base text
 
-Bug #155:
-    Hotkeys without modifiers intercepted by input line
+Bug #193:
+    Translation for description of View Order function is wrong (requires 1.2.0.4 language packs)
 
-Bug #156:
-    Recalling order into cart can be time-consuming, may need to block UI to force user to wait until order has been fully recalled into the shopping cart
+Bug #194:
+    Traditional/Simplified Chinese translations of "Check Cash Limit (0 = no check cashing)" in the "Employees" control panel are incorrect
 
-Bug #160:
-    Need to be able to rebuild/reset all table statuses and release locked orders if table status is corrupted
+Bug #196:
+    Stock levels are not adjusted when sales are voided
 
-Bug #162:
-    Payment value in onscreen VFD is not updated when recalling a completed order
+Bug #198:
+    Need to be able to trigger minimum charge and other finalization validation procedures both manually (via function key) or automatically (when (pre-)finalizing the order)
 
-Bug #163:
-    Label fields too short in 80mm Shift change report template
+Bug #205:
+    The built-in install.rdf template used by the package builder does not conform to the new guidelines (<targetApplication> section is out of date)
 
-Bug #164:
-    The Product Returns report ignores returned items whose sale unit is not 'unit'
+Bug #206:
+    Scrolling the cart one line at a time is too tedious when large number of items have been registered; a new view-based page scrolling mode is now supported
 
-Bug #166:
-    Restored Recall By Sequence and Recall By Table functions
+Bug #207:
+    Quickly tapping on function 'Return Cart Item' twice will cause the return quantity to be set to 0
 
-Bug #167:
-    Newly added bookings are not reflected in Table Selection screen when existing from the bookings screen, and previously booked tables are not precluded from being rebooked for the same time slot
+Bug #208:
+    Revalue computation produces wrong result for policies 'to nearest factor' and 'round to 10 cents (round down 5 cents)' when the transaction total is negative
 
-Bug #168:
-    Export to PDF and CSV functionalities for Custom Sales, Order Annotations, and Order Status reports are broken
+Bug #209:
+    Unable to save promotion rule when trigger type 'Multi Product Group' is selected
 
-Bug #171:
-    Use of the same word 'Number' in different contexts causes translation difficulty
+Bug #210:
+    Remove obsolete preferences
 
-Bug #174:
-    Rapidly adding items to cart causes new item to be added with previous item's price and quantity
+Bug #211:
+    Should not display the message 'CANCELLED' when cancelling a recalled open order since the order is actually not cancelled (only that the shopping cart is cleared)
 
-Bug #179:
-    When specifying an absolute index for Scroll Cart function, 0-based index scheme is used instead of the more sensible 1-based index scheme
+Bug #212:
+    Title bar is visible on the ledger entry window, and window size is fixed
 
-Bug #181:
-    Cluster services should not be dependent on synchronization setting
+Bug #215:
+    When an order is stored with annotations, the annotations are duplicated each time the order is re-stored or finalized
 
-Bug #182:
-    Refund amount should be displayed as a negative value in shift change screenn
+Bug #216:
+    Function customizer should only be accessible to the superuser
 
-Bug #183:
-    Table selection screen has a transparent overlay that's bigger than it needs to be, causing areas around the selection screen to be inactive
+Bug #217:
+    Accessing the stock control screen takes an excessive amount of time due to poorly structured SQL query
 
-Bug #184:
-    When port number is changed from 80 in network services, cluster services on localhost are no longer accessible
+Bug #218:
+    Storing/recalling orders do not work in training mode
 
-Bug #185:
-    superuser account should not be editable by users other than superuser
+Bug #219:
+    Updates to a product's "Show on menu" attribute are not immediately reflected in the product panel if the active department is a product group to which the product has been linked
 
-Bug #187:
-    Need an Enter button on the Split payment screen
+Bug #220:
+    Should not be able to truncate transaction records in training mode
 
-Bug #188:
-    In Table Manage options, the automatic table status cannot be cleared once a status has been selected.
+Bug #221:
+    Translations of the function description for "Product Search" are inaccurate (requires 1.2.0.4 language packs)
 
-Bug #189:
-    Hotkey does not work properly if the linked function has required preset data (i.e. Clear)
+Bug #222:
+    Unable to exit from Product Group screen after deleting one or more product groups when navigation links have been configured
 
-Bug #190:
-    Input line automatically submits content as barcode whenever it loses focus
+Bug #223:
+    Use of CSS class "groove-thin" for the <separator> tag is deprecated
 
+Bug #224:
+    Update of order records by extensions during 'afterSubmit' event may be overwritten
+
+Bug #225:
+    Accounts belonging to the built-in "admin" group are used for technical support and should be hidden from the Sign In/Out screen
+
+Bug #226:
+    Accounts belonging to the built-in "admin" group are used for technical support and should be hidden from the Clock In/Out screen
+
+Bug #227:
+    Need to reduce disk usage to allow system to run with 1GB of storage
+
+Bug #228:
+    Translations for some of the report/template headings for the Stock Adjustment Report fail to show up
+
+Bug #229:
+    Need to be able to print table number and table region in templates
+
+Bug #230:
+    When performing a system restore with system settings, restored CUPS settings do not take effect until the terminal is rebooted
