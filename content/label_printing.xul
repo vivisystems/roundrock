@@ -37,11 +37,10 @@
   <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_products_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_plus_view.js'/>
-  <script src='chrome://viviecr/content/helpers/nsi_condiments_view.js'/>
-  <script src='chrome://viviecr/content/helpers/nsi_plugroups_view.js'/>
+  <!--script src='chrome://viviecr/content/helpers/nsi_condiments_view.js'/-->
+  <!--script src='chrome://viviecr/content/helpers/nsi_plugroups_view.js'/-->
 
   <!-- include components -->
-
 
   <!-- include controllers -->
   <script src="chrome://viviecr/content/controllers/label_printing_controller.js" type="application/x-javascript"/>
@@ -113,13 +112,13 @@
                                                 <row>
                                                     <vbox>
                                                         <label value="&label_printing.procurement.startdate;"/>
-                                                        <vividatetimepicker id="start_date" value="" type="popup" />
+                                                        <vividatetimepicker id="start_date" value="" type="popup"/>
                                                     </vbox>
                                                 </row>
                                                 <row>
                                                     <vbox>
                                                         <label value="&label_printing.procurement.enddate;"/>
-                                                        <vividatetimepicker id="end_date" value="" type="popup" />
+                                                        <vividatetimepicker id="end_date" value="" type="popup"/>
                                                     </vbox>
                                                 </row>
                                             </rows>
