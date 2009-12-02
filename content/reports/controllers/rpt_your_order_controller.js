@@ -9,8 +9,6 @@
         
         name: 'RptYourOrder',
         
-        components: ['OrderStatus'],
-
         _fileName: 'rpt_your_order',
         
         _report_title: '',

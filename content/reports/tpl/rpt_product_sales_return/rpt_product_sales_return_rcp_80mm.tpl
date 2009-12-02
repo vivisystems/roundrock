@@ -10,21 +10,28 @@ ${head.title|center:42}
 ${category.no} - ${category.name}
 {for item in category.orderItems}
 ------------------------------------------
-${_( '(rpt)Product Number' ) + ':'|left:16}${item.product_no|right:26}
-${_( '(rpt)Product Name' ) + ':'|left:16}${item.product_name|right:26}
-${_( '(rpt)Average Price' ) + ':'|left:16}${item.avg_price|viviFormatPrices:true|right:26}
-${_( '(rpt)Quantities Sold' ) + ':'|left:16}${item.qty|format:0|right:26}
-${_( '(rpt)Gross Sales' ) + ':'|left:16}${item.gross|viviFormatPrices:true|right:26}
-${_( '(rpt)Net Sales' ) + ':'|left:16}${item.net|viviFormatPrices:true|right:26}
-${_( '(rpt)Order Sequence' ) + ':'|left:16}${item.order_sequence|viviFormatPrices:true|right:26}
+${_( '(rpt)Product Number' ) + ':'|left:20}${item.product_no|right:22}
+${_( '(rpt)Product Name' ) + ':'|left:20}${item.product_name|right:22}
+${_( '(rpt)Average Price' ) + ':'|left:20}${item.avg_price|viviFormatPrices:true|right:22}
+{if item.units > 0}
+${_( '(rpt)Units Returned' ) + ':'|left:20}${item.units|format:0|right:22}
+{/if}
+{if item.quantity != ''}
+${_( '(rpt)Quantity Returned' ) + ':'|left:20}${item.quantity|right:22}
+{/if}
+${_( '(rpt)Gross Returns' ) + ':'|left:20}${item.gross|viviFormatPrices:true|right:22}
+${_( '(rpt)Net Returns' ) + ':'|left:20}${item.net|viviFormatPrices:true|right:22}
+${_( '(rpt)Order Sequence' ) + ':'|left:20}${item.order_sequence|viviFormatPrices:true|right:22}
 {/for}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ': '|left:16}${category.orderItems.length|format:0|right:26}
+${_( '(rpt)Records Found' ) + ': '|left:20}${category.orderItems.length|format:0|right:22}
 ------------------------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Quantities Sold' ) + ':'|left:16}${category.summary.qty|format:0|right:26}
-${_( '(rpt)Gross Sales' ) + ':'|left:16}${category.summary.gross|viviFormatPrices:true|right:26}
-${_( '(rpt)Net Sales' ) + ':'|left:16}${category.summary.net|viviFormatPrices:true|right:26}
+{if category.summary.units > 0}
+${_( '(rpt)Units Returned' ) + ':'|left:20}${category.summary.units|format:0|right:22}
+{/if}
+${_( '(rpt)Gross Returns' ) + ':'|left:20}${category.summary.gross|viviFormatPrices:true|right:22}
+${_( '(rpt)Net Returns' ) + ':'|left:20}${category.summary.net|viviFormatPrices:true|right:22}
 {/for}
 ------------------------------------------
 ${foot.gen_time}

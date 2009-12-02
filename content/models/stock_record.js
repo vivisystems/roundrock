@@ -33,6 +33,7 @@
                     this.httpService.setSyncSettings(syncSettings);
                     this.httpService.setHostname(syncSettings.stock_hostname);
                     this.httpService.setController('stocks');
+                    this.httpService.setForce(true);
                 }
             }catch(e) {
                 this.log('error ' + e);
@@ -46,9 +47,8 @@
         },
 
         isRemoteService: function() {
-            return this.getHttpService().isRemoteService();
+            return !this.getHttpService().isLocalhost();
         },
-
 
         getLastModifiedRecords: function(lastModified) {
             
@@ -95,10 +95,10 @@
             this.getLastModifiedRecords(this.lastModified);
 
             // sync remote stock record to cached .
-            var remoteUrl = this.getHttpService().getRemoteServiceUrl('getLastModifiedRecords');
 
-            if(remoteUrl) {
+            if(this.isRemoteService()) {
                 
+                var remoteUrl = this.getHttpService().getRemoteServiceUrl('getLastModifiedRecords');
                 var requestUrl = remoteUrl + '/' + this.lastModified;
 
                 var cb = function(response_data/*remoteStocks*/) {
@@ -262,10 +262,10 @@
 
             //this.log('DEBUG', 'decreaseStockRecords datas: ' + this.dump(datas));
 
-            var remoteUrl = this.getHttpService().getRemoteServiceUrl('decreaseStockRecords');
 
-            if(remoteUrl) {
+            if(this.isRemoteService()) {
 
+                var remoteUrl = this.getHttpService().getRemoteServiceUrl('decreaseStockRecords');
                 var requestUrl = remoteUrl + '/' + this.lastModified;
 
                 var request_data = GeckoJS.BaseObject.serialize(datas);

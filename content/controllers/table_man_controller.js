@@ -342,6 +342,34 @@
             }
         },
 
+        /**
+         * rebuildTableStatus
+         */
+        rebuildTableStatus: function() {
+
+            if (this._isBusy) return;
+            this._isBusy = true;
+
+            try {
+
+                var success = this.TableStatus.rebuildTableStatus();
+
+                if (success) {
+
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Table Status'),
+                                          _('Table status rebuilt successfully'));
+                }
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Table Status'),
+                                          _('Failed to rebuild table status, please check the network connectivity to the terminal designated as the table status server [message #2101]'));
+                }
+            } finally {
+                this._isBusy = false;
+            }
+
+        },
 
         /**
          * Add Table Region to Local Database.
@@ -663,6 +691,7 @@
 
         },
 
+
         /**
          * loadMarks
          * 
@@ -694,6 +723,9 @@
             // remove all child...
             autoMarkObj.removeAllItems();
 
+            // append default empty
+            if(marks.length > 0) autoMarkObj.appendItem('','');
+
             marks.forEach(function(data){
                 autoMarkObj.appendItem(data.name, data.id);
             });
@@ -716,7 +748,7 @@
             destinationObj.removeAllItems();
 
             // append default empty
-            destinationObj.appendItem('','');
+            if(destinations.length > 0) destinationObj.appendItem('','');
 
             destinations.forEach(function(data){
                 var defaultMark = (data.name == defaultDestination) ? '* ' : '';
@@ -994,6 +1026,7 @@
                 document.getElementById('add_mark').setAttribute('hidden', true);
                 document.getElementById('modify_mark').setAttribute('hidden', true);
                 document.getElementById('delete_mark').setAttribute('hidden', true);
+                document.getElementById('rebuild_status').setAttribute('hidden', true);
             }
 
             // settings

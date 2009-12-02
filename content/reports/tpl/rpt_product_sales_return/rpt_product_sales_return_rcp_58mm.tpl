@@ -19,11 +19,17 @@ ${_( '(rpt)Product Name' ) + ':'|left:24}
 ${item.product_name|right:24}
 ${_( '(rpt)Average Price' ) + ':'|left:24}
 ${item.avg_price|viviFormatPrices:true|right:24}
-${_( '(rpt)Quantities Sold' ) + ':'|left:24}
-${item.qty|format:0|right:24}
-${_( '(rpt)Gross Sales' ) + ':'}
+{if item.units > 0}
+${_( '(rpt)Units Returned' ) + ':'|left:24}
+${item.units|format:0|right:24}
+{/if}
+{if item.quantity != ''}
+${_( '(rpt)Quantity Returned' ) + ':'|left:24}
+${item.quantity|right:24}
+{/if}
+${_( '(rpt)Gross Returns' ) + ':'}
 ${item.gross|viviFormatPrices:true|right:24}
-${_( '(rpt)Net Sales' ) + ':'}
+${_( '(rpt)Net Returns' ) + ':'}
 ${item.net|viviFormatPrices:true|right:24}
 ${item.order_sequence|viviFormatPrices:true|right:24}
 {/for}
@@ -31,11 +37,13 @@ ${item.order_sequence|viviFormatPrices:true|right:24}
 ${_( '(rpt)Records Found' ) + ': '}${category.orderItems.length|format:0}
 ------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Quantities Sold' ) + ':'}
-${category.summary.qty|format:0|right:24}
-${_( '(rpt)Gross Sales' ) + ':'}
+{if item.units > 0}
+${_( '(rpt)Units Returned' ) + ':'}
+${category.summary.units|format:0|right:24}
+{/if}
+${_( '(rpt)Gross Returns' ) + ':'}
 ${category.summary.gross|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Net Sales' ) + ':'}
+${_( '(rpt)Net Returns' ) + ':'}
 ${category.summary.net|default:0|viviFormatPrices:true|right:24}
 {/for}
 ------------------------
