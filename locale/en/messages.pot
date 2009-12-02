@@ -2361,6 +2361,12 @@ msgstr "NO"
 #
 ########################################################################
 
+msgid "vivipos.fec.registry.layouts.jcm.label"
+msgstr "Japanese ECR Layout"
+
+msgid "vivipos.fec.registry.layouts.jcm.desc"
+msgstr "Simple ECR Layout based on JCM G4610J"
+
 msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
 

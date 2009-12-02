@@ -31,7 +31,7 @@
           <hbox class="menubtn">
             <vbox>
               <hbox>
-                <button id="plusButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_department.png"
+                <button id="plusButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_plus.png"
                         oncommand="loadPlus();"
                 />
               </hbox>
