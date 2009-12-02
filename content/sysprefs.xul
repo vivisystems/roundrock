@@ -104,7 +104,8 @@
                         <label control="barcode_learning_plugroup" value="&general.barcodelearning;" />
                         <menulist id="barcode_learning_plugroup" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.BarcodeLearningPLUGroup', this.value);">
                             <menupopup id="barcode_learning_plugroup_menupopup">
-
+                            </menupopup>
+                        </menulist>
                     </vbox>
                     <vbox>
                         <label control="cartscrollmode" value="&general.cartscrollmode;"/>
