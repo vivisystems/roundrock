@@ -29,7 +29,6 @@
     <vbox>
         <hbox>
           <hbox class="menubtn">
-            <vbox>
               <hbox>
                 <button id="plusButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_plus.png"
                         oncommand="loadPlus();"
@@ -40,41 +39,6 @@
                         oncommand="loadReports();"
                 />
               </hbox>
-              <hbox>
-                <!--<button id="stockButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_stocks.png"
-                        oncommand="loadStockcontrol();"
-                />-->
-              </hbox>
-            </vbox>
-            <vbox>
-              <hbox>
-                <!--<button id="departmentsButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_plus.png"
-                        oncommand="loadDepartment();"
-                />-->
-              </hbox>
-              <hbox>
-                <!--<button id="condimentsButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_condiments.png"
-                        oncommand="loadCondiments();"
-                />-->
-              </hbox>
-              <hbox>
-                
-              </hbox>
-            </vbox>
-            <vbox>
-              <hbox>
-                <!--<button id="plugroupsButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_plugroups.png"
-                        oncommand="loadPlugroups();"
-                />-->
-              </hbox>
-              <hbox>
-                <!--<button id="customersButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_customerdata.png"
-                        oncommand="loadCustomers();"
-                />-->
-              </hbox>
-              <hbox>
-              </hbox>
-            </vbox>
           </hbox>
           <vbox class="setting_btn">
             <button label="" oncommand="advancedControlPanel();" />
