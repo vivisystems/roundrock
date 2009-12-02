@@ -12,6 +12,7 @@
         pluPanelView: null,
 
         doRestart: false,
+        doReboot: false,
         restartClock: false,
 
         _suspendLoadTest: false,
@@ -67,11 +68,13 @@
             
             // observer restart topic
             this.observer = GeckoJS.Observer.newInstance({
-                topics: ['prepare-to-restart', 'restart-clock', 'addons-message-notification', 'TrainingMode' ],
+                topics: ['prepare-to-restart', 'prepare-to-reboot', 'restart-clock', 'addons-message-notification', 'TrainingMode' ],
 
                 observe: function(aSubject, aTopic, aData) {
                     if (aTopic == 'prepare-to-restart' || aData == 'addons-restart-app') {
                         self.doRestart = true;
+                    } else if (aTopic == 'prepare-to-reboot') {
+                        self.doReboot = true;
                     } else if (aTopic == 'restart-clock') {
                         self.restartClock = true;
                     } else if ( aTopic == 'TrainingMode' ) {
@@ -270,6 +273,10 @@
             var aName = _('Control Panel');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
+
+            if (this.doReboot) {
+                this.rebootMachine();
+            }
 
             if (this.doRestart) {
                 this.restart();
@@ -825,8 +832,6 @@
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
             var autoDiscardQueue = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardqueue');
             var mustEmptyQueue = GeckoJS.Configure.read('vivipos.fec.settings.mustemptyqueue');
-            var shiftReportOnSignOff = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonsignoff');
-            var shiftReportOnQuickSwitch = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonquickswitch');
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
             var cartEmpty = !cart.ifHavingOpenedOrder();
@@ -908,10 +913,6 @@
                     responseDiscardQueue = (autoDiscardQueue || mustEmptyQueue) ? 1 : 0;
                 }
 
-                // print shift report
-                if ((shiftReportOnSignOff && !quickSignoff) || (shiftReportOnQuickSwitch && quickSignoff)) {
-                }
-
                 if (!cartEmpty) {
                     if (responseDiscardCart == 1) {
                         $do('cancel', true, 'Cart');
@@ -974,6 +975,11 @@
         },
 
         truncateTxnRecords: function() {
+            if (this._isTraining) {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('This function is not available in training mode'));
+                return;
+            }
+
             if (GREUtils.Dialog.confirm(this.topmostWindow,
                 _('Remove All Transaction Records'),
                 _('This operation will remove all transaction records. Are you sure you want to proceed?'))) {
@@ -1364,6 +1370,10 @@
         },
 
         FunctionCustomizerDialog: function() {
+
+            // check if current user is superuser
+            let user = this.Acl.getUserPrincipal();
+            if (!user || user.username != 'superuser') return;
 
             // check if .funcmanager exists
             var procPath = GeckoJS.Configure.read('ProfD');

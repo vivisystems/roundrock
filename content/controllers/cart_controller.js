@@ -69,6 +69,15 @@
                 events.addListener('clear', this.sessionHandler, this);
             }
 
+            // catch main controller's updateOptions event
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('onUpdateOptions', this.updateCartOptions, this);
+            }
+
+            // initialize cart options
+            this.updateCartOptions();
+
             // add Observer for startTrainingMode event.
             var self = this;
             this.observer = GeckoJS.Observer.newInstance( {
@@ -88,6 +97,32 @@
             if (this.observer) this.observer.unregister();
         },
 
+
+        updateCartOptions: function() {
+            let cartList = this._getCartlist();
+            if (cartList) {
+                let scrollMode = GeckoJS.Configure.read('vivipos.fec.settings.CartScrollMode') || 'cursor-line';
+                let mode, unit;
+                switch(scrollMode) {
+                    case 'cursor-line':
+                        mode = 'cursor';
+                        unit = 'line';
+                        break;
+
+                    case 'view-page':
+                        mode = 'view';
+                        unit = 'page';
+                        break;
+
+                    default:
+                        mode = 'cursor';
+                        unit = 'line';
+                        break;
+                }
+                cartList.setAttribute('scrollMode', mode);
+                cartList.setAttribute('scrollUnit', unit);
+            }
+        },
 
         sessionHandler: function(evt) {
             var txn = this._getTransaction();
@@ -510,6 +545,8 @@
 
             var exit = false;
 
+            this._getKeypadController().clearBuffer();
+
             if(!this.ifHavingOpenedOrder()) {
                 NotifyUtils.warn(_('Not an open order; cannot return the selected item'));
 
@@ -530,51 +567,31 @@
             }
 
             if (!exit) {
-                itemTrans = curTransaction.getItemAt(index, true);
+                itemTrans = curTransaction.getItemAt(index);
                 itemDisplay = curTransaction.getDisplaySeqAt(index);
 
-                if (!exit && itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+                if (!exit && itemDisplay.type != 'item') {
                     NotifyUtils.warn(_('The selected item [%S] is not a product and cannot be returned', [itemDisplay.name]));
 
                     exit = true;
                 }
             }
 
-            // locate product
             if (!exit) {
 
-                var plu = this.Product.getProductById(itemTrans.id);
+                let qty = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : null;
 
-                if (!plu && itemTrans.no == '') {
-                    // sale department?
-                    var categoriesByNo = GeckoJS.Session.get('categoriesByNo');
-                    plu = categoriesByNo[itemTrans.cate_no];
+                if (qty == null) {
+                    qty = Math.abs(itemTrans.current_qty);
                 }
-            }
 
-            if (!exit) {
-                if (plu) {
-                    var currentReturnMode = this._returnMode;
-                    this._returnMode = true;
-
-                    // determine price:
-                    // 1. if manually entered into keypad buffer, use that price
-                    // 2. otherwise, use price from selected cart item
-                    var buf = this._getKeypadController().getBuffer(true);
-                    if (!buf) {
-                        this.setPrice(itemTrans.current_price);
-                    }
-
-                    this.addItem(plu);
-
-                    this._returnMode = currentReturnMode;
+                if (itemTrans.current_qty < 0) {
+                    this.modifyQty('plus', qty);
                 }
                 else {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Memory Error'),
-                        _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation [message #101].', [itemDisplay.name]));
-                    exit = true;
+                    curTransaction.returnItemAtIndex(index, qty);
                 }
+                exit = true;
             }
 
             if (exit) {
@@ -665,13 +682,13 @@
 
             if (unit != null && unit != '') {
 
-                // convert weight only for items, not for department
-                if (item.cate_no) {
-                    qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+                // for now (1.2.0.x), since departments don't have scale multipler and precision, we use fixed values for them
+                // @TODO 1.2.0.x
+                if (!('cate_no' in item)) {
+                    item.scale_multipler = 1;
+                    item.scale_precision = 2;
                 }
-                else {
-                    qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
-                }
+                qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
             }
 
             // if item's unit of sale is individually, we convert qty to integer
@@ -1292,16 +1309,17 @@
                 }
             }
 
-            // check if zero preset price is allowed
-            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
+            // check if zero preset price is allowed if item is type 'item''
+            if (itemDisplay.type == 'item') {
+                var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
 
-            if (positivePriceRequired && curTransaction != null) {
-                let sellPrice = curTransaction.checkSellPrice(itemTrans);
-                if (sellPrice <= 0) {
-                    NotifyUtils.warn(_('Product [%S] may not be modified to a zero or negative price [%S]', [itemTrans.name, curTransaction.formatPrice(sellPrice)]));
+                if (positivePriceRequired && curTransaction != null) {
+                    if (curTransaction.checkSellPrice(itemTrans) <= 0) {
+                        NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
 
-                    this._clearAndSubtotal();
-                    return;
+                        this._clearAndSubtotal();
+                        return;
+                    }
                 }
             }
 
@@ -2421,7 +2439,6 @@
                 payment = amount;
             }
 
-            let balance = curTransaction.getRemainTotal();
             let paid = curTransaction.getPaymentSubtotal();
 
             // validate payment amount
@@ -2762,7 +2779,9 @@
 
             if (!entryType || inputObj.amount == null) {
                 var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
+                var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
+                var screenheight = GeckoJS.Session.get('screenheight') || 600;
+                var features = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
 
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Ledger Entry'), features, inputObj);
             }
@@ -3027,10 +3046,10 @@
                 // configuration error; alert already posted; do nothing here
                 }
                 else if (weight == null) {
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No reading from scale: please make sure scale is powered on and properly connected'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No reading from scale; please make sure scale is powered on and properly connected'));
                 }
                 else if (weight.value == null) {
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No stable reading from scale: please remove and re-place item securely on the scale'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No stable reading from scale; please remove and re-place item securely on the scale'));
                 }
                 else {
                     var qty = parseFloat(weight.value);
@@ -3039,7 +3058,7 @@
                     if (isNaN(qty) || qty <= 0) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Scale'),
-                            _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
+                            _('Invalid scale reading [%S]; please remove and re-place item securely on the scale.', [weight.value]));
                     }
                     else {
                         this.setQty(qty, false, weight.unit, true);
@@ -3258,7 +3277,7 @@
                                 _('Data Operation Error'),
                                 _('Failed to cancel order because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #103].'));
                         }
-                        this.dispatchEvent('afterCancel', curTransaction);
+                        this.dispatchEvent('onClear', curTransaction);
                     }
                     else {
                         return;
@@ -3325,6 +3344,13 @@
             }
 
             if (status == 1) {
+
+                // dispatch PrepareFinalization event to make required adjustments
+                if (!this.dispatchEvent('PrepareFinalization', oldTransaction)) {
+                    this.dispatchEvent('onGetSubtotal', oldTransaction);
+                    return false;
+                };
+
                 var user = GeckoJS.Session.get('user');
                 var adjustment_amount = oldTransaction.data.trans_discount_subtotal + oldTransaction.data.trans_surcharge_subtotal +
                 oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
@@ -3498,7 +3524,7 @@
                 return;
             }
 
-            if (!this.dispatchEvent('beforePreFinalize', curTransaction)) {
+            if (!this.dispatchEvent('PrepareFinalization', curTransaction)) {
                 this._clearAndSubtotal();
                 return;
             }
@@ -4148,7 +4174,7 @@
             if (!orderData && !remoteOrderData) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
-                    _('Failed to void: the selected order no longer exists'));
+                    _('Failed to void; the selected order no longer exists'));
                 orderModel.releaseOrderLock(id);
                 return false;
             }
@@ -4169,14 +4195,14 @@
                     if (orderData.Order.status != remoteOrderData.Order.status) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Void Sale'),
-                            _('Failed to void: the status of the selected order has been changed by another terminal'));
+                            _('Failed to void; the status of the selected order has been changed by another terminal'));
                         orderModel.releaseOrderLock(id);
                         return false;
                     }
                     else if (orderData.Order.modified < remoteOrderData.Order.modified) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Void Sale'),
-                            _('Failed to void: the selected order has been modified by another terminal'));
+                            _('Failed to void; the selected order has been modified by another terminal'));
                         orderModel.releaseOrderLock(id);
                         return false;
                     }
@@ -4189,7 +4215,7 @@
             if (orderStatus < 1) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
-                    _('Failed to void: the selected order is not stored or finalized'));
+                    _('Failed to void; the selected order is not stored or finalized'));
                 orderModel.releaseOrderLock(id);
                 return false;
             }
@@ -4198,7 +4224,7 @@
             var aURL = 'chrome://viviecr/content/refund_payment.xul';
             var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
             var screenheight = GeckoJS.Session.get('screenheight') || 600;
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var features = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
 
             var inputObj = {
                 payments: orderData.OrderPayment,
@@ -4288,6 +4314,7 @@
 
                             item.current_qty = - item.current_qty;
                             item.id = productId;
+                            delete item.stock_maintained;
 
                             order.items.push(item);
 

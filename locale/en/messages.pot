@@ -551,9 +551,9 @@ msgstr "Issue Receipt Copy"
 msgid "vivipos.fec.registry.function.programmable.receiptcopy.name"
 msgstr "Issue Receipt Copy"
 
-#####################
-# Issue Guest Check 
-#####################
+###############
+# Issue Check 
+###############
 
 msgid "vivipos.fec.registry.function.programmable.printcheck.desc"
 msgstr ""
@@ -567,9 +567,9 @@ msgstr "Issue Check"
 msgid "vivipos.fec.registry.function.programmable.printcheck.name"
 msgstr "Issue Check"
 
-##########################
-# Issue Guest Check Copy
-##########################
+####################
+# Issue Check Copy
+####################
 
 msgid "vivipos.fec.registry.function.programmable.checkcopy.desc"
 msgstr ""
@@ -582,6 +582,23 @@ msgstr "Issue Check Copy"
 
 msgid "vivipos.fec.registry.function.programmable.checkcopy.name"
 msgstr "Issue Check Copy"
+
+#######################
+# Prepare Guest Check
+#######################
+
+msgid "vivipos.fec.registry.function.programmable.prepareguestcheck.desc"
+msgstr ""
+"This function prepares and optionally prints a guest check. "
+"To issue a guest check, the parameter should be 1, 2, 3, or 4, "
+"indicating the printer to print the check on. If no parameter is "
+"given, no guest check will be printed."
+
+msgid "vivipos.fec.registry.function.programmable.prepareguestcheck.label"
+msgstr "Prepare Guest Check"
+
+msgid "vivipos.fec.registry.function.programmable.prepareguestcheck.name"
+msgstr "Prepare Guest Check"
 
 #####################
 # Print Document Check

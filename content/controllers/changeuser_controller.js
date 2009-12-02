@@ -17,6 +17,7 @@
 
             var userModel = new UserModel();
             var users = userModel.find('all', {
+                conditions: '"users"."group" != "admin"',
                 order: 'username'
             });
 
