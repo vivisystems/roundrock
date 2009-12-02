@@ -41,3 +41,10 @@
 <!ENTITY    function_customizer.groupbox.types.caption "Types">
 <!ENTITY    function_customizer.groupbox.generaloptions.caption "General Options">
 <!ENTITY    function_customizer.groupbox.addons.caption "Addons">
+
+<!ENTITY    function_customizer.tabpanel.departments.label "Departments">
+<!ENTITY    function_customizer.tabpanel.products.label "Products">
+<!ENTITY    function_customizer.tabpanel.condiments.label "Condiments">
+<!ENTITY    function_customizer.tabpanel.product_groups.label "Product Groups">
+
+<!ENTITY    function_customizer.systems.internal.disableJournal "Disable Journal System">

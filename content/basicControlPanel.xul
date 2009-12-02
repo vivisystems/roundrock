@@ -31,23 +31,6 @@
           <hbox class="menubtn">
             <vbox>
               <hbox>
-                <button id="departmentsButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_plus.png"
-                        oncommand="loadDepartment();"
-                />
-              </hbox>
-              <hbox>
-                <button id="condimentsButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_condiments.png"
-                        oncommand="loadCondiments();"
-                />
-              </hbox>
-              <hbox>
-                <button id="stockButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_stocks.png"
-                        oncommand="loadStockcontrol();"
-                />
-              </hbox>
-            </vbox>
-            <vbox>
-              <hbox>
                 <button id="plusButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_department.png"
                         oncommand="loadPlus();"
                 />
@@ -58,19 +41,36 @@
                 />
               </hbox>
               <hbox>
+                <!--<button id="stockButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_stocks.png"
+                        oncommand="loadStockcontrol();"
+                />-->
+              </hbox>
+            </vbox>
+            <vbox>
+              <hbox>
+                <!--<button id="departmentsButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_plus.png"
+                        oncommand="loadDepartment();"
+                />-->
+              </hbox>
+              <hbox>
+                <!--<button id="condimentsButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_condiments.png"
+                        oncommand="loadCondiments();"
+                />-->
+              </hbox>
+              <hbox>
                 
               </hbox>
             </vbox>
             <vbox>
               <hbox>
-                <button id="plugroupsButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_plugroups.png"
+                <!--<button id="plugroupsButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_plugroups.png"
                         oncommand="loadPlugroups();"
-                />
+                />-->
               </hbox>
               <hbox>
-                <button id="customersButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_customerdata.png"
+                <!--<button id="customersButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_customerdata.png"
                         oncommand="loadCustomers();"
-                />
+                />-->
               </hbox>
               <hbox>
               </hbox>

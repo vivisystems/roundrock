@@ -10,20 +10,13 @@
 <!ENTITY users.pricelevel "Default Price Level">
 <!ENTITY users.job "Default Job">
 <!ENTITY users.drawer "Assigned Drawer">
-<!ENTITY users.limit.item.discount "Item Discount Limit">
-<!ENTITY users.limit.order.discount "Order Discount Limit">
+<!ENTITY users.limit.item.discount "Item Discount Limit (0 = no limit)">
+<!ENTITY users.limit.order.discount "Order Discount Limit (0 = no limit)">
 <!ENTITY users.limit.type.percentage "Percentage">
 <!ENTITY users.limit.type.absolute "Amount">
-<!ENTITY users.limit.cash.check "Check Cashing Limit">
-<!ENTITY users.limit.item.surcharge "Item Surcharge Limit">
-<!ENTITY users.limit.order.surcharge "Order Surcharge Limit">
-<!ENTITY users.limit.plu.quantity "Product Quantity Limit">
-<!ENTITY users.limit.plu.price "Product Price Limit">
-<!ENTITY users.limit.item.coupon "Item Coupon Limit">
-<!ENTITY users.limit.order.coupon "Order Coupon Limit">
-<!ENTITY users.minimum.check.number "Minimum Check Number">
-<!ENTITY users.maximum.check.number "Maximum Check Number">
-<!ENTITY users.maximum.open.checks "Maximum Number of Open Checks">
+<!ENTITY users.limit.cash.check "Check Cashing Limit (0 = no check cashing)">
+<!ENTITY users.limit.item.surcharge "Item Surcharge Limit (0 = no limit)">
+<!ENTITY users.limit.order.surcharge "Order Surcharge Limit (0 = no limit)">
 <!ENTITY users.action.add "Add">
 <!ENTITY users.action.modify "Modify">
 <!ENTITY users.action.delete "Delete">

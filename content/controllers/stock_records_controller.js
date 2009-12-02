@@ -1,6 +1,9 @@
 (function() {
     // for using the checkMedia method.
     include('chrome://viviecr/content/reports/controllers/components/check_media.js');
+
+    // for using the isBuiltInSaleUnit method.
+    include('chrome://viviecr/content/controllers/components/cart_utils.js');
     
     // including models.
     include("chrome://viviecr/content/models/stock_record.js");
@@ -11,6 +14,8 @@
 
         name: 'StockRecords',
 
+        components: ['CartUtils'],
+        
         uses: ['Product', 'StockRecord'],
 
         _listObj: null,
@@ -82,7 +87,10 @@
                 stock.product_no = stock.no;
                 stock.product_name = stock.name;
                 stock.product_barcode = stock.barcode;
-                stock.sale_unit = saleUnitCache[stock.sale_unit] || (saleUnitCache[stock.sale_unit] = _('(saleunit)' + stock.sale_unit));
+                stock.real_sale_unit = stock.sale_unit;
+
+                stock.sale_unit = saleUnitCache[stock.sale_unit] ||
+                                 (saleUnitCache[stock.sale_unit] = (this.CartUtils.isBuiltInSaleUnit(stock.sale_unit) ? _('(saleunit)' + stock.sale_unit) : stock.sale_unit));
             }, this);
             
             // make progressbar move
@@ -255,6 +263,7 @@
                     case 'other':
                         document.getElementById('qtytype').value = _('(inventory)+/-');
                         document.getElementById('new_qty').setAttribute('name', 'delta');
+                        document.getElementById('new_qty').setAttribute('min', '-Infinity');
                         break;
                 }
                 
@@ -290,7 +299,8 @@
                 }
 
                 // remove the products which no longer exist from stock_record table.
-                sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON (s.id = p.no) WHERE p.no IS NULL;";
+                // sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON (s.id = p.no) WHERE p.no IS NULL;";
+                sql = "SELECT s.id FROM stock_records s WHERE s.id NOT IN (SELECT s.id FROM products p INNER JOIN stock_records s ON (p.no = s.id));";
                 var stockRecords = stockRecordModel.getDataSource().fetchAll(sql);
 
                 // detach the file.
@@ -305,7 +315,7 @@
             } else {
                 document.getElementById('toolbar').setAttribute('hidden', true);
             }
-                        
+
             this.reload();
         },
         
@@ -431,6 +441,13 @@
                 if (this._adjustmentReason == 'waste') {
                     document.getElementById('new_qty').value = 0 - item.delta;
                 }
+                if (item.real_sale_unit == 'unit') {
+                    document.getElementById('new_qty').setAttribute('decimalplaces', '0');
+                }
+                else {
+                    document.getElementById('new_qty').setAttribute('decimalplaces', 'Infinity');
+                }
+
             }
 
             this.validateForm();
@@ -466,7 +483,7 @@
                 if (priceObj) priceObj.setAttribute('disabled', true);
             }
         },
-        
+
         reset: function() {
             if (!GREUtils.Dialog.confirm(this.topmostWindow, _('Stock Control'), _('Are you sure you want to reset stock for all the products?')))
                 return;
@@ -717,7 +734,7 @@
             GREUtils.Dialog.alert(
                 this.topmostWindow,
                 _('Import Product Stock'),
-                _('Product stock information imported: %S successes, %S failures)', [count, unmatchedRecords.length])
+                _('Product stock information imported; %S successes, %S failures', [count, unmatchedRecords.length])
             );
 
             // renew the content of the tree.

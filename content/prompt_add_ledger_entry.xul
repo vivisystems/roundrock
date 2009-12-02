@@ -13,7 +13,10 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" width="720" height="550">
+<window title="&prompt.addentry.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
   <script type="application/x-javascript" src="chrome://viviecr/content/prompt_add_ledger_entry.js"/>

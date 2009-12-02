@@ -82,7 +82,7 @@
                                         <row>
                                             <vbox flex="1">
                                                 <label control="table_no" value="&tableman.table.tableno;"/>
-                                                <textbox id="current_table_no" onfocus="select()"
+                                                <textbox id="current_table_no" readonly="true"
                                                          form="tableForm" name="table_no" default=""/>
                                             </vbox>
                                             <vbox flex="1">
@@ -136,8 +136,9 @@
                                     <button id="add_table" disabled="false" label="&tableman.button.add;" hidden="false" class="button-add" oncommand="$do('addTable', null, 'TableMan');"/>
                                     <button id="modify_table" disabled="false" label="&tableman.button.modify;" hidden="false" class="button-modify" oncommand="$do('modifyTable', null, 'TableMan');"/>
                                     <button id="toggleactive_table" disabled="false" label="&tableman.button.toggleactive;" hidden="false" class="button-modify" oncommand="$do('toggleTable', null, 'TableMan');"/>
-                                    <spacer flex="1"/>
                                     <button id="delete_table" disabled="false" label="&tableman.button.delete;" hidden="false" class="button-delete" oncommand="$do('deleteTable', null, 'TableMan');"/>
+                                    <spacer flex="1"/>
+                                    <button id="rebuild_status"  label="&tableman.button.rebuild_status;" hidden="false" class="button-modify" oncommand="$do('rebuildTableStatus', null, 'TableMan');"/>
                                 </hbox>
                                 <hbox id="search_dialogButtons" pack="end" class="exitbar">
                                     <button id="search_vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
@@ -233,7 +234,7 @@
                                     <!-- row one -->
                                     <row>
                                         <label control="mark_name" value="&tableman.mark.name;"/>
-                                        <textbox id="mark_name" default=""
+                                        <textbox id="mark_name" default="" readonly="true"
                                                  form="markForm" name="name"/>
                                     </row>
                                     <row>
@@ -304,7 +305,7 @@
                                                     <row>
                                                         <vbox>
                                                             <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
-                                                            <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="5" max="999" default="60"
+                                                            <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="15" max="999" default="60"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableRefreshFrequence"/>
                                                         </vbox>

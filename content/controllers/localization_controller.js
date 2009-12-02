@@ -324,7 +324,7 @@
             var r = prompts.confirmEx(this.topmostWindow,
                                       _('Localization'),
                                       _('Translations have been modified; save changes?'),
-                                      flags, _('Save'), '', _('Discard'), null, check);
+                                      flags, _('Save'), '', _('Discard Changes'), null, check);
             return r;
         },
 
@@ -666,7 +666,7 @@
             }
             catch (e) {
                 this.log('ERROR', 'Failed to load install.rdf for package:locale [' + pkg.pkgName + ':' + locale + '] at [' + installRDF + ']');
-                NotifyUtils.error(_('Failed to load install.rdf for package:locale [%S:%S] at path [%S]', [pkg.pkgName, locale, installRDF]));
+                NotifyUtils.error(_('Failed to load install.rdf for package-locale [%S-%S] at path [%S]', [pkg.pkgName, locale, installRDF]));
 
                 return;
             }

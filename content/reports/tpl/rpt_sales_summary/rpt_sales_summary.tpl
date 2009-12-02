@@ -130,7 +130,7 @@
                 <tbody>
     {for detail in body.payment_list.records}
                     <tr>
-                        <td style="text-align: left;">${detail.name|default:''}</td>
+                        <td style="text-align: left;">${_('(rpt)' + detail.name)|default:''}</td>
                         <td style="text-align: right;">${detail.total|default:0|viviFormatPrices:true}</td>
                     </tr>
     {for payment in detail.detail}

@@ -12,8 +12,10 @@
         _inDialog: false,
         _returnMode: false,
         _returnPersist: false,
+        _blockNextAction: false,
         _decStockBackUp: null,
 
+        _pendingAddItemEvents: [],
 
         beforeFilter: function(evt) {
 
@@ -22,6 +24,20 @@
                 this._lastCancelInvoke = false;
             }
 
+            switch(cmd) {
+                case 'addItem':
+                    if (this._blockNextAction) {
+                        // internal
+                        this._pendingAddItemEvents.push(this._data);
+                        evt.preventDefault();
+                        return false;
+                    }
+                    break;
+
+                default:
+                    this._pendingAddItemEvents = [];
+                    break;
+            }
             return true;
         },
 
@@ -53,6 +69,15 @@
                 events.addListener('clear', this.sessionHandler, this);
             }
 
+            // catch main controller's updateOptions event
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('onUpdateOptions', this.updateCartOptions, this);
+            }
+
+            // initialize cart options
+            this.updateCartOptions();
+
             // add Observer for startTrainingMode event.
             var self = this;
             this.observer = GeckoJS.Observer.newInstance( {
@@ -72,6 +97,32 @@
             if (this.observer) this.observer.unregister();
         },
 
+
+        updateCartOptions: function() {
+            let cartList = this._getCartlist();
+            if (cartList) {
+                let scrollMode = GeckoJS.Configure.read('vivipos.fec.settings.CartScrollMode') || 'cursor-line';
+                let mode, unit;
+                switch(scrollMode) {
+                    case 'cursor-line':
+                        mode = 'cursor';
+                        unit = 'line';
+                        break;
+
+                    case 'view-page':
+                        mode = 'view';
+                        unit = 'page';
+                        break;
+
+                    default:
+                        mode = 'cursor';
+                        unit = 'line';
+                        break;
+                }
+                cartList.setAttribute('scrollMode', mode);
+                cartList.setAttribute('scrollUnit', unit);
+            }
+        },
 
         sessionHandler: function(evt) {
             var txn = this._getTransaction();
@@ -319,6 +370,9 @@
 
             this._setTransactionToView(curTransaction);
 
+            // clear warning
+            this.clearWarning();
+            
             // check pricelevel schedule
             this.requestCommand('schedule', null, 'Pricelevel');
 
@@ -346,7 +400,9 @@
             if (curTransaction == null){
                 if(autoCreate) return this._newTransaction();
                 return null;
-            }
+            }else if (autoCreate && curTransaction.isCancel()) {
+                return this._newTransaction();
+            }    
 
             // has submit
             if (curTransaction.isSubmit() && autoCreate ) return this._newTransaction();
@@ -489,6 +545,8 @@
 
             var exit = false;
 
+            this._getKeypadController().clearBuffer();
+
             if(!this.ifHavingOpenedOrder()) {
                 NotifyUtils.warn(_('Not an open order; cannot return the selected item'));
 
@@ -509,51 +567,31 @@
             }
 
             if (!exit) {
-                itemTrans = curTransaction.getItemAt(index, true);
+                itemTrans = curTransaction.getItemAt(index);
                 itemDisplay = curTransaction.getDisplaySeqAt(index);
 
-                if (!exit && itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+                if (!exit && itemDisplay.type != 'item') {
                     NotifyUtils.warn(_('The selected item [%S] is not a product and cannot be returned', [itemDisplay.name]));
 
                     exit = true;
                 }
             }
 
-            // locate product
             if (!exit) {
 
-                var plu = this.Product.getProductById(itemTrans.id);
+                let qty = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : null;
 
-                if (!plu && itemTrans.no == '') {
-                    // sale department?
-                    var categoriesByNo = GeckoJS.Session.get('categoriesByNo');
-                    plu = categoriesByNo[itemTrans.cate_no];
+                if (qty == null) {
+                    qty = Math.abs(itemTrans.current_qty);
                 }
-            }
 
-            if (!exit) {
-                if (plu) {
-                    var currentReturnMode = this._returnMode;
-                    this._returnMode = true;
-
-                    // determine price:
-                    // 1. if manually entered into keypad buffer, use that price
-                    // 2. otherwise, use price from selected cart item
-                    var buf = this._getKeypadController().getBuffer(true);
-                    if (!buf) {
-                        this.setPrice(itemTrans.current_price);
-                    }
-
-                    this.addItem(plu);
-
-                    this._returnMode = currentReturnMode;
+                if (itemTrans.current_qty < 0) {
+                    this.modifyQty('plus', qty);
                 }
                 else {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Memory Error'),
-                        _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation [message #101].', [itemDisplay.name]));
-                    exit = true;
+                    curTransaction.returnItemAtIndex(index, qty);
                 }
+                exit = true;
             }
 
             if (exit) {
@@ -644,13 +682,13 @@
 
             if (unit != null && unit != '') {
 
-                // convert weight only for items, not for department
-                if (item.cate_no) {
-                    qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+                // for now (1.2.0.x), since departments don't have scale multipler and precision, we use fixed values for them
+                // @TODO 1.2.0.x
+                if (!('cate_no' in item)) {
+                    item.scale_multipler = 1;
+                    item.scale_precision = 2;
                 }
-                else {
-                    qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
-                }
+                qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
             }
 
             // if item's unit of sale is individually, we convert qty to integer
@@ -669,13 +707,13 @@
                     var price = GeckoJS.Session.get('cart_set_price_value');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
-                             (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
-                            !currentItem.hasDiscount &&
-                            !currentItem.hasSurcharge &&
-                            !currentItem.hasMarker &&
-                            ((price == null) || (currentItem.current_price == price)) &&
+                            (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
+                        !currentItem.hasDiscount &&
+                        !currentItem.hasSurcharge &&
+                        !currentItem.hasMarker &&
+                        ((price == null) || (currentItem.current_price == price)) &&
                             (currentItem.current_qty > 0 && !this._returnMode ||
-                             currentItem.current_qty < 0 && this._returnMode) &&
+                                currentItem.current_qty < 0 && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
 
                             // need to clear quantity source so scale multipler is not applied again
@@ -723,11 +761,22 @@
                 var self = this;
                 var cart = this._getCartlist();
 
+                this._blockNextAction = true;
                 next( function() {
                     if (addedItem.id == plu.id && !self._returnMode) {
 
                         currentIndex = curTransaction.getDisplayIndexByIndex(addedItem.index);
                         return next( function() {
+
+                            if (plu.force_memo) {
+
+                                // need to move cursor to addedItem
+                                cart.selection.select(currentIndex);
+
+                                return self.addMemo(plu);
+                            }
+
+                        }).next( function() {
 
                             if (plu.force_condiment) {
                                 var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
@@ -739,16 +788,6 @@
 
                                     return self.addCondiment(plu, null, doSIS);
                                 }
-                            }
-
-                        }).next( function() {
-
-                            if (plu.force_memo) {
-
-                                // need to move cursor to addedItem
-                                cart.selection.select(currentIndex);
-
-                                return self.addMemo(plu);
                             }
 
                         });
@@ -766,12 +805,21 @@
                         self._clearAndSubtotal();
                     }
 
+                    self._blockNextAction = false;
+
+                    // has pendingAddItemEvents ??
+                    while (!self._blockNextAction && self._pendingAddItemEvents.length >0) {
+                        let data = self._pendingAddItemEvents.splice(0,1)[0];
+                        self.requestCommand('addItem', data, 'Cart');
+                    }
+
                 });
 
             }
             else {
                 this._clearAndSubtotal();
             }
+                
         },
 
         _setItemSelectionDialog: function (txn, item) {
@@ -1252,15 +1300,18 @@
                 return;
             }
 
-            // check if zero preset price is allowed
-            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
+            // check if zero preset price is allowed if item is type 'item''
 
-            if (positivePriceRequired && curTransaction != null) {
-                if (curTransaction.checkSellPrice(itemTrans) <= 0) {
-                    NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
+            if (itemDisplay.type == 'item') {
+                var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
 
-                    this._clearAndSubtotal();
-                    return;
+                if (positivePriceRequired && curTransaction != null) {
+                    if (curTransaction.checkSellPrice(itemTrans) <= 0) {
+                        NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
                 }
             }
 
@@ -1656,6 +1707,14 @@
                     this._clearAndSubtotal();
                     return;
                 }
+                let non_discountable = this.Product.isNonDiscountable(itemTrans.id, false);
+
+                if (non_discountable) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Discount Error'),
+                        _('Product [%S] is non-discountable', [itemTrans.name]));
+                    return;
+                }
             }
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
@@ -1908,6 +1967,14 @@
                     this._clearAndSubtotal();
                     return;
                 }
+                let non_surchargeable = this.Product.isNonSurchargeable(itemTrans.id, false);
+
+                if (non_surchargeable) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Surcharge Error'),
+                        _('Product [%S] is non-surchargeable', [itemTrans.name]));
+                    return;
+                }
             }
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
@@ -2015,7 +2082,7 @@
         },
 
         addMarker: function(type) {
-            type = type || _('subtotal');
+            type = type || 'subtotal';
 
             var curTransaction = this._getTransaction();
 
@@ -2667,7 +2734,7 @@
                     if (payment - balance > limit) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Check Payment Error'),
-                            _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                            _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(payment - balance), curTransaction.formatPrice(limit)]));
 
                         this._clearAndSubtotal();
                         return;
@@ -2739,7 +2806,7 @@
             });
             if (ledgerEntryTypeModel.lastError) {
                 this._dbError(ledgerEntryTypeModel.lastError, ledgerEntryTypeModel.lastErrorString,
-                              _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
+                    _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
                 this._clearAndSubtotal();
                 return;
             }
@@ -2784,7 +2851,9 @@
 
             if (!entryType || inputObj.amount == null) {
                 var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
+                var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
+                var screenheight = GeckoJS.Session.get('screenheight') || 600;
+                var features = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
 
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Ledger Entry'), features, inputObj);
             }
@@ -2936,10 +3005,10 @@
 
             this._getCartlist().refresh();
             if (curTransaction.getRemainTotal() <= 0) {
-                if (!this.submit()) {
+                if (!this.submit() && !curTransaction.isSubmit()) {
                     // remove last payment but not item
                     let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
-                    if (lastItem.type !='item') this.voidItem();
+                    if (lastItem.type =='payment') this.voidItem();
                 }
             }else {
                 this._clearAndSubtotal();
@@ -3001,10 +3070,10 @@
                 // configuration error; alert already posted; do nothing here
                 }
                 else if (weight == null) {
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No reading from scale: please make sure scale is powered on and properly connected'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No reading from scale; please make sure scale is powered on and properly connected'));
                 }
                 else if (weight.value == null) {
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No stable reading from scale: please remove and re-place item securely on the scale'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No stable reading from scale; please remove and re-place item securely on the scale'));
                 }
                 else {
                     var qty = parseFloat(weight.value);
@@ -3013,7 +3082,7 @@
                     if (isNaN(qty) || qty <= 0) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Scale'),
-                            _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
+                            _('Invalid scale reading [%S]; please remove and re-place item securely on the scale.', [weight.value]));
                     }
                     else {
                         this.setQty(qty, false, weight.unit, true);
@@ -3183,6 +3252,8 @@
 
                 this.clear();
 
+                this.dispatchEvent('onCancelSuccess', null);
+
                 // let dispatcher don't auto dispatch onCancel
                 this.dispatchedEvents['onCancel'] = true;
                 return;
@@ -3230,7 +3301,10 @@
                                 _('Data Operation Error'),
                                 _('Failed to cancel order because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #103].'));
                         }
-                        this.dispatchEvent('afterCancel', curTransaction);
+                        this.dispatchEvent('onClear', curTransaction);
+                    }
+                    else {
+                        return;
                     }
                 }
                 else {
@@ -3294,6 +3368,13 @@
             }
 
             if (status == 1) {
+
+                // dispatch PrepareFinalization event to make required adjustments
+                if (!this.dispatchEvent('PrepareFinalization', oldTransaction)) {
+                    this.dispatchEvent('onGetSubtotal', oldTransaction);
+                    return false;
+                };
+
                 var user = GeckoJS.Session.get('user');
                 var adjustment_amount = oldTransaction.data.trans_discount_subtotal + oldTransaction.data.trans_surcharge_subtotal +
                 oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
@@ -3407,8 +3488,9 @@
                         if (commitStatus == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
-                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #105].'));
+                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server. You can store the check again after network connectivity has been restored [message #105].'));
                             this.dispatchEvent('commitOrderError', commitStatus);
+                            this.dispatchEvent('onWarning', _('Network Error'));
                             this._unblockUI(waitPanel);
                             return false;
                         }
@@ -3466,7 +3548,7 @@
                 return;
             }
 
-            if (!this.dispatchEvent('beforePreFinalize', curTransaction)) {
+            if (!this.dispatchEvent('PrepareFinalization', curTransaction)) {
                 this._clearAndSubtotal();
                 return;
             }
@@ -3528,11 +3610,11 @@
                         };
 
                         var data = [
-                            _('Add Annotation') + ' [' + curTransaction.data.seq + ']',
-                            '',
-                            annotationType,
-                            '',
-                            inputObj
+                        _('Add Annotation') + ' [' + curTransaction.data.seq + ']',
+                        '',
+                        annotationType,
+                        '',
+                        inputObj
                         ];
 
                         var self = this;
@@ -3899,6 +3981,7 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
             this._cancelReturn();
 
@@ -3929,7 +4012,9 @@
             if (typeof plu == 'object' && plu.force_memo) {
                 memoItem = plu;
             }else {
+                if (!plu) plu = buf;
                 if (plu != null) plu = GeckoJS.String.trim(plu);
+                
                 var cartItem = curTransaction.getItemAt(index);
                 if (cartItem != null && cartItem.type == 'item') {
                     //xxxx why clone it? so we don't change the default memo
@@ -3967,7 +4052,7 @@
                 if (index < 0) index = 0;
 
                 if (mode == 'absolute') {
-                    newIndex = val;
+                    newIndex = val - 1;
                 }
                 else if (mode == 'relative') {
                     newIndex = index + val;
@@ -4007,22 +4092,26 @@
             if (curTransaction.data.recall != 1 && curTransaction.data.recall != 2 &&
                 curTransaction.data.status != 1 && curTransaction.data.status != 2) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Void Sale'),
-                                      _('This operation may only be applied to stored and completed transactions'));
+                    _('Void Sale'),
+                    _('This operation may only be applied to stored and completed transactions'));
                 return;
             }
 
             // check if transaction has been modified
             if (curTransaction.isModified() &&
                 !GREUtils.Dialog.confirm(this.topmostWindow,
-                                         _('Confirm Void'),
-                                         _('You have made changes to this order; are you sure you want to void the order?'))) {
+                    _('Confirm Void'),
+                    _('You have made changes to this order; are you sure you want to void the order?'))) {
                 return;
             }
             if (this._voidSaleById(curTransaction.data.id)) {
                 Transaction.removeRecoveryFile();
                 curTransaction.data.status = -2;
                 this.dispatchEvent('onWarning', _('Sale Voided'));
+                // remove current transaction from session
+                GeckoJS.Session.remove('current_transaction');
+                // dispatch onVoidSaleSuccess event
+                this.dispatchEvent('onVoidSaleSuccess', curTransaction);
             }
             else {
                 this.dispatchEvent('onWarning', _('Sale Not Voided'));
@@ -4065,7 +4154,7 @@
             if (!orderData && !remoteOrderData) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
-                    _('Failed to void: the selected order no longer exists'));
+                    _('Failed to void; the selected order no longer exists'));
                 orderModel.releaseOrderLock(id);
                 return false;
             }
@@ -4086,14 +4175,14 @@
                     if (orderData.Order.status != remoteOrderData.Order.status) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Void Sale'),
-                            _('Failed to void: the status of the selected order has been changed by another terminal'));
+                            _('Failed to void; the status of the selected order has been changed by another terminal'));
                         orderModel.releaseOrderLock(id);
                         return false;
                     }
                     else if (orderData.Order.modified < remoteOrderData.Order.modified) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Void Sale'),
-                            _('Failed to void: the selected order has been modified by another terminal'));
+                            _('Failed to void; the selected order has been modified by another terminal'));
                         orderModel.releaseOrderLock(id);
                         return false;
                     }
@@ -4106,7 +4195,7 @@
             if (orderStatus < 1) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Void Sale'),
-                    _('Failed to void: the selected order is not stored or finalized'));
+                    _('Failed to void; the selected order is not stored or finalized'));
                 orderModel.releaseOrderLock(id);
                 return false;
             }
@@ -4115,7 +4204,7 @@
             var aURL = 'chrome://viviecr/content/refund_payment.xul';
             var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
             var screenheight = GeckoJS.Session.get('screenheight') || 600;
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var features = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
 
             var inputObj = {
                 payments: orderData.OrderPayment,
@@ -4205,6 +4294,7 @@
 
                             item.current_qty = - item.current_qty;
                             item.id = productId;
+                            delete item.stock_maintained;
 
                             order.items.push(item);
 

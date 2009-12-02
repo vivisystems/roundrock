@@ -23,7 +23,6 @@
                 <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.layout.HideDeptScrollbar" type="bool"/>
                 <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.layout.HideSoldOutButtons" type="bool"/>
 
-                <preference id="pref_hideunitpricecolumn" name="vivipos.fec.settings.layout.HideUnitPriceColumn" type="bool"/>
                 <preference id="pref_showtoolbar" name="vivipos.fec.settings.layout.ShowToolbar" type="bool" />
                 <preference id="pref_registeratleft" name="vivipos.fec.settings.layout.RegisterAtLeft" type="bool"/>
                 <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.layout.HideFPScrollbar" type="bool"/>

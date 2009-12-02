@@ -121,7 +121,7 @@
             // only store valid shift marker into session
             if (salePeriod != -1 && salePeriod != '') {
                 GeckoJS.Session.set('current_shift', currentShift);
-                //this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
+                this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
             }
             GeckoJS.Session.set('shift_number', shiftNumber);
             GeckoJS.Session.set('sale_period', salePeriod);
@@ -577,13 +577,15 @@
                 this._setShift(newSalePeriod, newShiftNumber, false, false);
             }
             else {
-                this._updateSession({
-                    terminal_no: GeckoJS.Session.get('terminal_no'),
-                    sale_period: newSalePeriod,
-                    shift_number: newShiftNumber,
-                    end_of_period: false,
-                    end_of_shift: false
-                });
+                // don't update shift marker, but need to update session
+                let lastShift = this._getShiftMarker();
+                if (lastShift) {
+                    lastShift.sale_period = newSalePeriod;
+                    lastShift.shift_number = newShiftNumber;
+                    lastShift.end_of_period = false;
+                    lastShift.end_of_shift = false;
+                    this._updateSession(lastShift);
+                }
             }
 
             if (warnOnChangeDiscrepancy) {
@@ -1079,7 +1081,7 @@
                     balance: paymentsReceived + ledgerInTotal + ledgerOutTotal,
                     salesRevenue: salesRevenue,
                     deposit: deposits,
-                    refund: 0 - refunds,
+                    refund: refunds,
                     credit: credit,
                     ledgerInTotal: ledgerInTotal,
                     ledgerOutTotal: ledgerOutTotal,

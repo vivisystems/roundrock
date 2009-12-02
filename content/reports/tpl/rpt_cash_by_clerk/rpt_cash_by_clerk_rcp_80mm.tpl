@@ -12,18 +12,18 @@ ${_( '(rpt)Sale Period' )|center:11} ${_( '(rpt)Start Time' )|center:14}  ${_( '
 ----------- --------------  --------------
 ${master.sale_period|unixTimeToString:'yyyy-MM-dd'|left:11} ${master.starttime|center:14}  ${master.endtime|center:14}
 ------------------------------------------
-${_( '(rpt)Terminal' ) + ':'|left:12}${master.terminal_no|right:30}
-${_( '(rpt)Shift' ) + ':'|left:12}${master.shift_number|right:30}
-${_( '(rpt)Balance' ) + ':'|left:12}${master.balance|default:0|viviFormatPrices:true|right:30}
-${_( '(rpt)Cash' ) + ':'|left:12}${master.cash|default:0|viviFormatPrices:true|right:30}
-${_( '(rpt)Declared Cash' ) + ':'|left:12}${master.reported_cash|default:0|viviFormatPrices:true|right:30}
-${_( '(rpt)Total' ) + ':'|left:12}${master.sales|default:0|viviFormatPrices:true|right:30}
-${_( '(rpt)Giftcard Excess' ) + ':'|left:12}${master.excess|default:0|viviFormatPrices:true|right:30}
-${_( '(rpt)Deposit' ) + ':'|left:12}${master.deposit|default:0|viviFormatPrices:true|right:30}
-${_( '(rpt)Refund' ) + ':'|left:12}${master.refund|default:0|viviFormatPrices:true|right:30}
-${_( '(rpt)Credit' ) + ':'|left:12}${master.credit|default:0|viviFormatPrices:true|right:30}
-${_( '(rpt)Ledger In' ) + ':'|left:12}${master.ledger_in|default:0|viviFormatPrices:true|right:30}
-${_( '(rpt)Ledger Out' ) + ':'|left:12}${master.ledger_out|default:0|viviFormatPrices:true|right:30}
+${_( '(rpt)Terminal' ) + ':'|left:30}${master.terminal_no|right:12}
+${_( '(rpt)Shift' ) + ':'|left:30}${master.shift_number|right:12}
+${_( '(rpt)Balance' ) + ':'|left:30}${master.balance|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Cash' ) + ':'|left:30}${master.cash|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Declared Cash' ) + ':'|left:30}${master.reported_cash|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Total' ) + ':'|left:30}${master.sales|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Giftcard Excess' ) + ':'|left:30}${master.excess|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Deposit' ) + ':'|left:30}${master.deposit|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Refund' ) + ':'|left:30}${master.refund|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Credit' ) + ':'|left:30}${master.credit|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Ledger In' ) + ':'|left:30}${master.ledger_in|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Ledger Out' ) + ':'|left:30}${master.ledger_out|default:0|viviFormatPrices:true|right:12}
 ------------------------------------------
 ${_( '(rpt)Payment Type' )|left:19} ${_( '(rpt)Payment Amount' )|center:13} ${_( '(rpt)Payment Count' )|right:8}
 ------------------- ------------- --------

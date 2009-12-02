@@ -38,7 +38,7 @@ ${item.qty_subtotal + 'X'|left:5}${item.name|left:17}${item.subtotal|viviFormatP
 {/if}
 {if order.promotion_subtotal != 0}${'Promotion:'|left:10}${order.promotion_subtotal|viviFormatPrices:true|right:21}[&CR]
 {/if}
-${'Tax:'|left:4}${order.tax_subtotal|viviFormatPrices:true|right:27}[&CR]
+${'Tax:'|left:4}${order.tax_subtotal|viviFormatTaxes:true|right:27}[&CR]
 ${'Total:'|left:6}${order.total|viviFormatPrices:true|right:25}[&CR]
 [&CR]
 ${'Received:'|left:9}${receivePayment|viviFormatPrices:true|right:22}[&CR]

@@ -29,16 +29,16 @@ TrainingBehavior.prototype.switchDBConf = function() {
     if ( this.model.useDbConfig == 'backup' )
         return;
     
-	var isTraining = GeckoJS.Session.get( "isTraining" );
+    var isTraining = GeckoJS.Session.get( "isTraining" );
     if( !this.model.useDbConfigBak )
     	this.model.useDbConfigBak = this.model.useDbConfig;
 
     if ( isTraining ) {
     	this.model.useDbConfig = this.dbConfig;
-   	} else {
-   		this.model.useDbConfig = this.model.useDbConfigBak;
-   	}
-   	this.switchRelativeDBConf( this.model );
+    } else {
+        this.model.useDbConfig = this.model.useDbConfigBak;
+    }
+    this.switchRelativeDBConf( this.model );
 };
 
 TrainingBehavior.prototype.beforeSave = function( event ) {

@@ -140,36 +140,35 @@
                                 <grid class="data-form-2">
                                     <columns>
                                         <column flex="1"/>
-                                        <column flex="0"/>
                                     </columns>
                                     <rows>
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.item.discount;" control="item_discount_limit"/>
-                                                <vivitextbox id="item_discount_limit" type="number" hidespinbuttons="true"
+                                                <vivitextbox id="item_discount_limit" type="number"
                                                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" size="10"
                                                              form="userForm" name="item_discount_limit" default="0"/>
-                                            </vbox>
-                                            <vbox pack="end">
                                                 <radiogroup id="item_discount_limit_type" orient="horizontal" value="%"
                                                             form="userForm" name="item_discount_limit_type" default="%">
-                                                    <radio label="&users.limit.type.percentage;" value="%"/>
-                                                    <radio label="&users.limit.type.absolute;" value="$"/>
+                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"
+                                                           form="userForm"/>
+                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"
+                                                           form="userForm"/>
                                                 </radiogroup>
                                             </vbox>
                                         </row>
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.order.discount;" control="order_discount_limit"/>
-                                                <vivitextbox id="order_discount_limit" type="number" hidespinbuttons="true" size="10"
+                                                <vivitextbox id="order_discount_limit" type="number" size="10"
                                                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="order_discount_limit" default="0"/>
-                                            </vbox>
-                                            <vbox pack="end">
                                                 <radiogroup id="order_discount_limit_type" orient="horizontal" value="%"
                                                             form="userForm" name="order_discount_limit_type" default="%">
-                                                    <radio label="&users.limit.type.percentage;" value="%"/>
-                                                    <radio label="&users.limit.type.absolute;" value="$"/>
+                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"
+                                                           form="userForm"/>
+                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"
+                                                           form="userForm"/>
                                                 </radiogroup>
                                             </vbox>
                                         </row>
@@ -177,60 +176,33 @@
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.item.surcharge;" control="item_surcharge_limit"/>
-                                                <vivitextbox id="item_surcharge_limit" type="number" hidespinbuttons="true" size="10"
+                                                <vivitextbox id="item_surcharge_limit" type="number" size="10"
                                                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="item_surcharge_limit" default="0"/>
-                                            </vbox>
-                                            <vbox pack="end">
                                                 <radiogroup id="item_surcharge_limit_type"  orient="horizontal" value="%"
                                                             form="userForm" name="item_surcharge_limit_type" default="%">
-                                                    <radio label="&users.limit.type.percentage;" value="%"/>
-                                                    <radio label="&users.limit.type.absolute;" value="$"/>
+                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"
+                                                           form="userForm"/>
+                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"
+                                                           form="userForm"/>
                                                 </radiogroup>
                                             </vbox>
                                         </row>
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.order.surcharge;" control="order_surcharge_limit"/>
-                                                <vivitextbox id="order_surcharge_limit" type="number" hidespinbuttons="true" size="10"
+                                                <vivitextbox id="order_surcharge_limit" type="number" size="10"
                                                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="order_surcharge_limit" default="0"/>
-                                            </vbox>
-                                            <vbox pack="end">
                                                 <radiogroup id="order_surcharge_limit_type"  orient="horizontal" value="%"
                                                             form="userForm" name="order_surcharge_limit_type" default="%">
-                                                    <radio label="&users.limit.type.percentage;" value="%"/>
-                                                    <radio label="&users.limit.type.absolute;" value="$"/>
+                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"
+                                                           form="userForm"/>
+                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"
+                                                           form="userForm"/>
                                                 </radiogroup>
                                             </vbox>
                                         </row>
-<!--
-                                        <row>
-                                            <vbox>
-                                                <label value="&users.limit.plu.quantity;" control="max_plu_qty"/>
-                                                <textbox id="max_plu_qty" form="userForm" name="max_plu_qty" width="100px" onfocus="this.select()"
-                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
-                                            </vbox>
-                                            <vbox>
-                                                <label value="&users.limit.plu.price;" control="max_plu_price"/>
-                                                <textbox id="max_plu_price" form="userForm" name="max_plu_price" width="100px" onfocus="this.select()"
-                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
-                                            </vbox>
-                                        </row>
-
-                                        <row>
-                                            <vbox>
-                                                <label value="&users.limit.item.coupon;" control="item_coupon_limit"/>
-                                                <textbox id="item_coupon_limit" form="userForm" name="item_coupon_limit" width="100px" onfocus="this.select()"
-                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
-                                            </vbox>
-                                            <vbox>
-                                                <label value="&users.limit.order.coupon;" control="order_coupon_limit"/>
-                                                <textbox id="order_coupon_limit" form="userForm" name="order_coupon_limit" width="100px" onfocus="this.select()"
-                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
-                                            </vbox>
-                                        </row>
--->
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.cash.check;" control="max_cash_check"/>

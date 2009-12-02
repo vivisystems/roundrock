@@ -56,6 +56,7 @@
 <!ENTITY tableman.button.prevday "Previous Day">
 <!ENTITY tableman.button.today "Today">
 <!ENTITY tableman.button.nextday "Next Day">
+<!ENTITY tableman.button.rebuild_status "Rebuild Status">
 
 <!ENTITY tableman.properties "Properties:">
 <!ENTITY tableman.no "No:">

@@ -45,6 +45,7 @@
 			    <sendkeybutton id="bkeyBtn" label="&numberpad.keylabel.del;" keyCode='0x08' class="button-fixed"/>
 			    <sendkeybutton id="clearBtn" label="&numberpad.keylabel.clear;" class="button-fixed"
 					   oncommand="clearFocusedElement(this.target);"/>
+                <sendkeybutton id="enterBtn" label="&numberpad.keylabel.enter;" keyCode="0x0D" class="button-fixed"/>
 			</hbox>
 		    </vbox>
 		</hbox>

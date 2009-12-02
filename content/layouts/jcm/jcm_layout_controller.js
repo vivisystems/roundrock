@@ -268,7 +268,7 @@
                 toolbar.setAttribute('hidden', showToolbar ? 'false' : 'true');
                 fnPanel.removeAttribute('hidden');
             }
-            if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
+            if (cartList) cartList.setAttribute('dir', !registerAtLeft ? 'reverse': 'normal');
             if (checkTrackingStatus) {
                 checkTrackingStatus.setAttribute('hidden', checkTrackingMode ? 'false' : 'true');
             }
