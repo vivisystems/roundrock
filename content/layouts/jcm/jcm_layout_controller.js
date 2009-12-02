@@ -12,6 +12,65 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
                 main.addEventListener('onSetClerk', this.home, this);
+                main.AdvancedControlPanelDialog = function() {
+                    if (GeckoJS.Session.get( "isTraining" )) {
+                        GREUtils.Dialog.alert(main.topmostWindow, _('Training Mode'), _('Control Panel is disabled during training.'));
+                        return;
+                    }
+
+                    // check for access privilege
+                    if (!main.Acl.isUserInRole('acl_open_control_panel')) {
+                        NotifyUtils.warn(_('You are not authorized to access the control panel'));
+                        return;
+                    }
+
+                    var aURL = 'chrome://viviecr/content/controlPanel.xul';
+                    var aName = _('Control Panel');
+                    var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + main.screenwidth + ',height=' + main.screenheight;
+                    GREUtils.Dialog.openWindow(main.topmostWindow, aURL, aName, aFeatures);
+
+                    if (main.doRestart) {
+                        main.restart();
+                    }
+
+                    if (main.restartClock) {
+                        try {
+                            $('#clock')[0].stopClock();
+                            $('#clock')[0].startClock();
+                        }
+                        catch(err) {
+                        }
+                    }
+
+                };
+                main.ControlPanelDialog = function () {
+                    if (GeckoJS.Session.get( "isTraining" )) {
+                        GREUtils.Dialog.alert(main.topmostWindow, _('Training Mode'), _('Control Panel is disabled during training.'));
+                        return;
+                    }
+
+                    var aURL = 'chrome://viviecr/content/layouts/jcm/basicControlPanel.xul';
+                    var aName = _('Control Panel');
+                    var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + main.screenwidth + ',height=' + main.screenheight;
+                    GREUtils.Dialog.openWindow(main.topmostWindow, aURL, aName, aFeatures);
+
+                    if (main.doReboot) {
+                        main.rebootMachine();
+                    }
+
+                    if (main.doRestart) {
+                        main.restart();
+                    }
+
+                    if (main.restartClock) {
+                        try {
+                            $('#clock')[0].stopClock();
+                            $('#clock')[0].startClock();
+                        }
+                        catch(err) {
+                        }
+                    }
+                };
             }
         },
 

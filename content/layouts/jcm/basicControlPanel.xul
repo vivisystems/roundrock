@@ -18,7 +18,7 @@
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
 
   <!-- include startup script -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/basicControlPanel.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/layouts/jcm/basicControlPanel.js" />
 
     <keyset id="keyset_extensions">
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
