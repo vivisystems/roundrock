@@ -2372,7 +2372,6 @@
                 payment = amount;
             }
 
-            let balance = curTransaction.getRemainTotal();
             let paid = curTransaction.getPaymentSubtotal();
 
             // validate payment amount
