@@ -676,9 +676,13 @@
                 }
             }
 
+            let qtyFromInput = true;
             var qty = GeckoJS.Session.get('cart_set_qty_value');
             var unit = GeckoJS.Session.get('cart_set_qty_unit');
-            if (qty == null) qty = 1;
+            if (qty == null) {
+                qty = 1;
+                qtyFromInput = false;
+            }
 
             if (unit != null && unit != '') {
 
@@ -706,12 +710,13 @@
                     var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
                     var price = GeckoJS.Session.get('cart_set_price_value');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
-                        if (((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
+                        if (!qtyFromInput &&
+                            ((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
                             (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
-                        !currentItem.hasDiscount &&
-                        !currentItem.hasSurcharge &&
-                        !currentItem.hasMarker &&
-                        ((price == null) || (currentItem.current_price == price)) &&
+                            !currentItem.hasDiscount &&
+                            !currentItem.hasSurcharge &&
+                            !currentItem.hasMarker &&
+                            ((price == null) || (currentItem.current_price == price)) &&
                             (currentItem.current_qty > 0 && !this._returnMode ||
                                 currentItem.current_qty < 0 && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
