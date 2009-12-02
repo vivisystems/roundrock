@@ -169,20 +169,6 @@
                 </vbox>
 
                 <vbox flex="1" class="container-right">
-                    <grid class="">
-                        <columns>
-                            <column flex="1" />
-                        </columns>
-                        <rows>
-                            <row>
-                        <vbox flex="0">
-                                    <menulist  id="tabList" form="" name="" label = "&lable_printing.loadList;" oncommand = "$do('loadList', this.selectedIndex, 'Tab');">
-                                        <menupopup id="tabList-popup"/>
-                                    </menulist>
-                                </vbox>
-                                </row>
-                                     </rows>
-                    </grid >
                     <grid class="data-form-2">
                         <columns>
                             <column flex="0" /><column flex="1" />
