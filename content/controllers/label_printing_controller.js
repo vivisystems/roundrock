@@ -24,6 +24,7 @@
        _commitments: [],
        _fileNameList: [],      
        _replaceProducts: [],
+       _barcodeTypeList: [],
        tabList:[],
 
        _selCateIndex: -1,
@@ -467,7 +468,7 @@
                 GREUtils.Dialog.alert(this.topmostWindow, _('Save Tab List'), _('The List is empty'));
                 return ;
             }
-         
+           if(this._tabListPanel.selectedIndex != -1)
             this.modifyCount();
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
@@ -730,14 +731,29 @@
                     return action;
              }
          },
-         testing: function(){
 
-             GeckoJS.FormHelper.reset('setProductForm');
+         getBarcodeTypeList: function(){
 
-             if( GeckoJS.FormHelper.isFormModified('setProductForm'))
-                 alert('modify');
-             else alert('unmodify');
-         },
+             var typeString = GeckoJS.Configure.read('vivipos.fec.registry.templates.label-simple-testing-2.barcodetype');
+             var i = 0;
+             
+             while(typeString != ""){
+
+                 var end = typeString.indexOf(',');
+                 var type = typeString.slice(0,end);                
+
+                 this._barcodeTypeList[i] = type;
+                 i++;
+                 
+                 typeString = typeString.slice(end+1);
+
+                 if(typeString.indexOf(',') == -1){
+
+                     this._barcodeTypeList[i] = typeString;
+                     typeString = "";
+                 }
+             }
+        },
         
          exit: function() {
 
