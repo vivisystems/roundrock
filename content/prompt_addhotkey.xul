@@ -53,6 +53,12 @@
                         <label value="&hotkey.prefs.linked.label;"/>
                         <textbox id="hotkey_linked" value="" readonly="true"/>
                     </row>
+
+                    <!-- function label -->
+                    <row>
+                        <label value="&hotkey.prefs.data.label;"/>
+                        <textbox id="hotkey_data" value="" default=""/>
+                    </row>
                 </rows>
             </grid>
 

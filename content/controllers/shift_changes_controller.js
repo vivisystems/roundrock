@@ -1106,7 +1106,7 @@
                     balance: paymentsReceived + ledgerInTotal + ledgerOutTotal,
                     salesRevenue: salesRevenue,
                     deposit: deposits,
-                    refund: 0 - refunds,
+                    refund: refunds,
                     credit: credit,
                     ledgerInTotal: ledgerInTotal,
                     ledgerOutTotal: ledgerOutTotal,

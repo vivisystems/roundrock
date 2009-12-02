@@ -401,8 +401,8 @@
             else {
                 textBox.value = '';
             }
-            textBox.select();
             textBox.focus();
+            textBox.select();
 
             this.validateAnnotateForm();
         },
@@ -411,8 +411,7 @@
             this.getTypeListObj().selection.select(index);
 
             var textBox = this.getTextboxObj();
-            textBox.select();
-            textBox.focus();
+            textBox.reset();
             
             this.validateAnnotateForm();
         },

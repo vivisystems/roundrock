@@ -68,9 +68,7 @@
                         if (transaction.data != null && transaction.data.status == 1) {
                             self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(false)));
                         }
-                        else {
-                            self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
-                        }
+                        self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
                     } else {
                         self.onClear(evt);
                     }
@@ -225,7 +223,6 @@
                 this.cartevents.addListener('onReturnAll', this.onReturnAll, this);
                 this.cartevents.addListener('onSetQty', this.onSetQty, this);
                 this.cartevents.addListener('onClear', this.onClear, this);
-                this.cartevents.addListener('onCancel', this.onCancel, this);
                 this.cartevents.addListener('afterCancel', this.afterCancel, this);
                 this.cartevents.addListener('afterSubmit', this.afterSubmit, this);
                 this.cartevents.addListener('onWarning', this.onWarning, this);
@@ -281,7 +278,6 @@
                     
                     this.cartevents.removeListener('onSetQty', this.onSetQty);
                     this.cartevents.removeListener('onClear', this.onClear);
-                    this.cartevents.removeListener('onCancel', this.onCancel);
                     this.cartevents.removeListener('afterCancel', this.afterCancel);
                     this.cartevents.removeListener('afterSubmit', this.afterSubmit);
                     this.cartevents.removeListener('onWarning', this.onWarning);

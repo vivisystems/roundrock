@@ -30,7 +30,6 @@
                 items: {},
                 items_count: 0,
                 items_summary: {},
-                items_stock_maintained: {},
 
                 /*
                  * order_additions
@@ -104,6 +103,8 @@
                 destination_prefix: '',
 
                 table_no: '',
+                table_name: '',
+                table_region_name: '',
                 check_no: '',
 
                 no_of_customers: '',
@@ -1115,8 +1116,20 @@
 
                             // sum condiments
                             var condiment_subtotal = 0;
+                            let qty = setitem.current_qty;
+                            if (setitem.sale_unit != 'unit') {
+                                if (qty > 0) {
+                                    qty = 1;
+                                }
+                                else if (qty < 0) {
+                                    qty = -1;
+                                }
+                                else {
+                                    qty = 0;
+                                }
+                            }
                             for(var cn in setitem.condiments) {
-                                condiment_subtotal += parseFloat(setitem.condiments[cn].price) * setitem.current_qty;
+                                condiment_subtotal += parseFloat(setitem.condiments[cn].price) * qty;
                             }
                             setitem.current_condiment = condiment_subtotal;
 
@@ -1168,8 +1181,20 @@
                         }
                         // sum condiments
                         var condiment_subtotal = 0;
+                        let qty = targetItem.current_qty;
+                        if (targetItem.sale_unit != 'unit') {
+                            if (qty > 0) {
+                                qty = 1;
+                            }
+                            else if (qty < 0) {
+                                qty = -1;
+                            }
+                            else {
+                                qty = 0;
+                            }
+                        }
                         for(var cn in targetItem.condiments) {
-                            condiment_subtotal += parseFloat(targetItem.condiments[cn].price) * targetItem.current_qty;
+                            condiment_subtotal += parseFloat(targetItem.condiments[cn].price) * qty;
                         }
 
                         targetItem.current_condiment = condiment_subtotal;
@@ -1331,8 +1356,20 @@
                         var condiment_subtotal = 0;
 
                         // sum condiments
+                        let qty = targetItem.current_qty;
+                        if (targetItem.sale_unit != 'unit') {
+                            if (qty > 0) {
+                                qty = 1;
+                            }
+                            else if (qty < 0) {
+                                qty = -1;
+                            }
+                            else {
+                                qty = 0;
+                            }
+                        }
                         for(var cn in targetItem.condiments) {
-                            condiment_subtotal += parseFloat(targetItem.condiments[cn].price) * targetItem.current_qty;
+                            condiment_subtotal += parseFloat(targetItem.condiments[cn].price) * qty;
                         }
 
                         targetItem.current_condiment = condiment_subtotal;
@@ -1422,8 +1459,20 @@
             var setmenu_subtotal = 0;
 
             // sum condiments
+            let qty = item.current_qty;
+            if (item.sale_unit != 'unit') {
+                if (qty > 0) {
+                    qty = 1;
+                }
+                else if (qty < 0) {
+                    qty = -1;
+                }
+                else {
+                    qty = 0;
+                }
+            }
             for(var cn in item.condiments) {
-                condiment_subtotal += parseFloat(item.condiments[cn].price) * item.current_qty;
+                condiment_subtotal += parseFloat(item.condiments[cn].price) * qty;
             }
 
             item.current_condiment = condiment_subtotal;
@@ -1439,7 +1488,7 @@
             });
 
             item.current_subtotal = this.getRoundedPrice((subtotal + setmenu_subtotal + condiment_subtotal) * item.price_modifier);
-            itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+            if (!item.parent_index) itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
 
             Transaction.events.dispatch('onCalcItemSubtotal', item, this);
         },
@@ -1469,7 +1518,7 @@
         },
 
         appendDiscount: function(index, discount){
-
+            
             var item = this.getItemAt(index);
             var itemDisplay = this.getDisplaySeqAt(index); // last seq
             var itemIndex = itemDisplay.index;
@@ -1546,7 +1595,8 @@
                 for (var checkItemIndex in this.data.items ) {
                     var checkitem = this.data.items[checkItemIndex];
                     if (checkitem.type == 'item' && checkitem.current_qty < 0) {
-                        NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
+                        NotifyUtils.warn(_('Please note that return item(s) are present'));
+                        break;
                     }
                 }
 
@@ -1699,7 +1749,8 @@
                 for (var checkItemIndex in this.data.items ) {
                     var checkitem = this.data.items[checkItemIndex];
                     if (checkitem.type == 'item' && checkitem.current_qty < 0) {
-                        NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
+                        NotifyUtils.warn(_('Please note that return item(s) are present'));
+                        break;
                     }
                 }
 
@@ -1966,8 +2017,20 @@
                     var condiment_subtotal = 0;
 
                     // sum condiments
+                    let qty = item.current_qty;
+                    if (item.sale_unit != 'unit') {
+                        if (qty > 0) {
+                            qty = 1;
+                        }
+                        else if (qty < 0) {
+                            qty = -1;
+                        }
+                        else {
+                            qty = 0;
+                        }
+                    }
                     for(var cn in item.condiments) {
-                        condiment_subtotal += parseFloat(item.condiments[cn].price) * item.current_qty;
+                        condiment_subtotal += parseFloat(item.condiments[cn].price) * qty;
                     }
 
                     item.current_condiment = condiment_subtotal;
@@ -2238,6 +2301,173 @@
 
             }
             return item;
+        },
+
+        returnItemAtIndex: function(index, qty) {
+            var displayItems = this.data.display_sequences;
+            var transItems = this.data.items;
+
+            var ptr = index;
+            var itemDisplay = displayItems[ptr++];
+
+            if (itemDisplay.type == 'item') {
+
+                var prevRowCount = displayItems.length;
+
+                var origQty;
+                var origItemIndex = itemDisplay.index;
+                var newItem;
+                var newItemIndex;
+                var newDispIndex;
+                var lastItemDispIndex;
+                var lastItem;
+                var discount;
+                var surcharge;
+
+                // scan through display sequence and replicate related display and order items
+                while (itemDisplay && (itemDisplay.index == origItemIndex ||
+                                       itemDisplay.parent_index == origItemIndex ||
+                                       (transItems[itemDisplay.index] && transItems[itemDisplay.index].parent_index == origItemIndex))) {
+
+                    switch(itemDisplay.type) {
+                        case 'item':
+                            let origItem = transItems[itemDisplay.index];
+                            origQty = origItem.current_qty;
+
+                            // replicate original item
+                            newItem = GREUtils.extend({}, origItem);
+
+                            // store discount & surcharge information
+                            if (newItem.hasDiscount) {
+                                discount = {name: newItem.discount_name,
+                                            amount: newItem.discount_rate,
+                                            type: newItem.discount_type};
+                            }
+                            else {
+                                discount = null;
+                            }
+
+                            if (newItem.hasSurcharge) {
+                                surcharge = {name: newItem.surcharge_name,
+                                             amount: newItem.surcharge_rate,
+                                             type: newItem.surcharge_type};
+                            }
+                            else {
+                                surcharge = null;
+                            }
+
+                            // update various fields
+                            newItemIndex = newItem['index'] = GeckoJS.String.uuid();
+                            newItem['current_qty'] = -qty;
+                            newItem['stock_maintained'] = false;
+                            newItem['discount_name'] = '';
+                            newItem['discount_rate'] = '';
+                            newItem['discount_type'] = '';
+                            newItem['current_discount'] = 0;
+                            newItem['surcharge_name'] = '';
+                            newItem['surcharge_rate'] = '';
+                            newItem['surcharge_type'] = '';
+                            newItem['current_surcharge'] = 0;
+                            newItem['hasDiscount'] = false;
+                            newItem['hasSurcharge'] = false;
+                            newItem['hasMarker'] = false;
+
+                            newItem['condiments'] = GREUtils.extend({}, origItem['condiments']);
+                            newItem['collapsedCondiments'] = GREUtils.extend({}, origItem['collapsedCondiments']);
+
+                            delete newItem['stock_status'];
+                            delete newItem['tax_details'];
+
+                            transItems[newItemIndex] = newItem;
+                            this.data.items_count++;
+
+                            // replicate display sequence
+                            let newDispItem = this.createDisplaySeq(newItemIndex, newItem, itemDisplay.type, itemDisplay.level);
+                            displayItems.push(newDispItem);
+
+                            lastItemDispIndex = newDispIndex = displayItems.length - 1;
+                            lastItem = newItem;
+
+                            this.calcItemSubtotal(newItem);
+                            this.calcItemsTax(newItem);
+
+                            break;
+
+                        case 'setitem':
+                            let origSetItem = transItems[itemDisplay.index];
+
+                            // replicate original set item
+                            let newSetItem = GREUtils.extend({}, origSetItem);
+
+                            // update various fields
+                            let newSetItemIndex = GeckoJS.String.uuid();
+                            newSetItem['index'] = newSetItemIndex;
+                            newSetItem['current_qty'] = - origSetItem['current_qty'] * qty / origQty;
+                            newSetItem['stock_maintained'] = false;
+                            newSetItem['parent_index'] = newItemIndex;
+
+                            newSetItem['condiments'] = GREUtils.extend({}, origSetItem['condiments']);
+                            newSetItem['collapsedCondiments'] = GREUtils.extend({}, origSetItem['collapsedCondiments']);
+
+                            delete newSetItem['stock_status'];
+                            delete newSetItem['tax_details'];
+
+                            transItems[newSetItemIndex] = newSetItem;
+
+                            // replicate display sequence
+                            let newDispSetItem = this.createDisplaySeq(newSetItemIndex, newSetItem, itemDisplay.type, itemDisplay.level);
+                            displayItems.push(newDispSetItem);
+
+                            lastItemDispIndex = displayItems.length - 1;
+                            lastItem = newSetItem;
+
+                            break;
+
+                        case 'memo':
+                            this.appendMemo(lastItemDispIndex, itemDisplay.name);
+                            prevRowCount++;
+                            break;
+
+                        case 'condiment':
+                            // only update display items here
+                            let newCondDisp = GREUtils.extend({}, itemDisplay)
+                            newCondDisp.index = lastItem.index;
+                            displayItems.push(newCondDisp);
+
+                            this.calcItemSubtotal(lastItem);
+                            break;
+
+                        case 'discount':
+                            // use stored discount
+                            if (discount) {
+                                this.calcItemSubtotal(newItem);
+                                this.calcItemsTax(newItem);
+                                this.appendDiscount(lastItemDispIndex, discount);
+                                prevRowCount++;
+                            }
+                            break;
+
+                        case 'surcharge':
+                            // use stored surcharge
+                            if (surcharge) {
+                                this.calcItemSubtotal(newItem);
+                                this.calcItemsTax(newItem);
+                                this.appendSurcharge(lastItemDispIndex, surcharge);
+                                prevRowCount++;
+                            }
+                            break;
+                    }
+
+                    itemDisplay = displayItems[ptr++];
+                }
+
+                this.calcItemSubtotal(newItem);
+                this.calcItemsTax(newItem);
+                this.calcPromotions();
+                this.calcTotal();
+                
+                this.updateCartView(prevRowCount, displayItems.length, newDispIndex);
+            }
         },
 
         lockItems: function(index) {
@@ -2667,11 +2897,12 @@
                         item.current_tax = 0 - item.current_tax;
                         item.included_tax = 0 - item.included_tax;
 
-                        // process combined taxes, if any
+                        // process component taxes, if any
                         for (var key in item.tax_details) {
                             var cTaxObj = item.tax_details[key];
                             cTaxObj.charge = 0 - cTaxObj.charge;
                             cTaxObj.included = 0 - cTaxObj.included;
+                            cTaxObj.taxable = 0 - cTaxObj.taxable;
                         };
                     }
                 }
@@ -2719,10 +2950,10 @@
                         let high = factor - low;
 
                         if (high >= low) {
-                            revalue_subtotal = -low;
+                            revalue_subtotal = (total >= 0) ? -low : low;
                         }
                         else {
-                            revalue_subtotal = high;
+                            revalue_subtotal = (total >= 0) ? high : -high;
                         }
                     }
                     break;
@@ -2749,13 +2980,14 @@
                     else {
                         roundedTotal = y / 10;
                     }
-                    revalue_subtotal = roundedTotal - total;
+                    revalue_subtotal = (total > 0) ? (roundedTotal - total) : (- total - roundedTotal);
                     break;
 
                 case 'round-to-25-cents':
                     roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-quarter');
                     if (total < 0) roundedTotal = 0 - roundedTotal;
                     revalue_subtotal = roundedTotal - total;
+                    alert(revalue_subtotal + ', ' + roundedTotal + ', ' + total);
                     break;
 
                 case 'round-to-50-cents':
@@ -2797,7 +3029,7 @@
                     item_discount_subtotal += parseFloat(item.current_discount);
                     item_subtotal += parseFloat(item.current_subtotal);
 
-                    qty_subtotal += (item.sale_unit == 'unit') ? item.current_qty : 1;
+                    qty_subtotal += item.current_qty;
 
                     // summarize tax details
                     if (item.tax_details) {
@@ -3042,6 +3274,26 @@
             tableNo = tableNo ? (parseInt(tableNo)+'') : '';
             if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_table_number', tableNo);
             this.data.table_no = tableNo;
+        },
+
+        getTableName: function() {
+            return this.data.table_name || '';
+        },
+
+        setTableName: function(tableName) {
+            tableName = tableName || '';
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_table_name', tableName);
+            this.data.table_name = tableName;
+        },
+
+        getTableRegionName: function() {
+            return this.data.table_region_name || '';
+        },
+
+        setTableRegionName: function(tableRegionName) {
+            tableRegionName = tableRegionName || '';
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_table_region_name', tableRegionName);
+            this.data.table_region_name = tableRegionName;
         },
 
         getCheckNo: function() {

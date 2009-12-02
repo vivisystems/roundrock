@@ -182,8 +182,14 @@
             
             var hostname = this.getHostname();
             var protocol = this.getProtocol();
-            var port = this.getPort();
+            var port = (this.isLocalhost() ? '80' : this.getPort());
             var controller = this.getController();
+
+            if (hostname.indexOf(':') != -1) {
+                var tmpArray = hostname.split(':');
+                hostname = tmpArray[0];
+                port = tmpArray[1];
+            }    
 
             var url = protocol + '://' +
                       hostname + ':' +

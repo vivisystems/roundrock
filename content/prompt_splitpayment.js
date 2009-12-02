@@ -36,6 +36,8 @@ var options;
                 textNodes[i].addEventListener('focus', gotFocus, false);
         }
         
+        recalc();
+        
         document.getElementById('input0').focus();
     }
 
@@ -49,6 +51,27 @@ var options;
 
     window.recalc = function recalc() {
 
+      var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+      var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+      var decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
+      var thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
+
+      var getRoundedPrice = function(price) {
+            var roundedPrice = GeckoJS.NumberHelper.round(Math.abs(price), precision_prices, rounding_prices) || 0;
+            if (price < 0) roundedPrice = 0 - roundedPrice;
+            return roundedPrice;
+        };
+
+      var formatPrice= function(price) {
+            var options = {
+                decimals: decimals,
+                thousands: thousands,
+                places: ((precision_prices>0)?precision_prices:0)
+            };
+            // format display precision
+            return GeckoJS.NumberHelper.format(price, options);
+        };
+
         var arPayments = [];
         var vivitexts = document.getElementsByTagName('textbox');
         var total = inputObj.total;
@@ -56,20 +79,20 @@ var options;
 
         for (var i=0; i < vivitexts.length; i++) {
             let v = vivitexts[i];
-            var val = parseFloat(v.value);
+            var val = getRoundedPrice(parseFloat(v.value));
             if (val < 0) {
                 val = 0 ;
             }else if (val > remain){
                 val = remain;
             }
-            v.value = val;
+            v.value = formatPrice(val);
             remain -= val;
 
         }
 
         if (remain > 0) {
            // add to last once
-           vivitexts[vivitexts.length-1].value = parseFloat(vivitexts[vivitexts.length-1].value) + remain;
+           vivitexts[vivitexts.length-1].value = formatPrice(parseFloat(vivitexts[vivitexts.length-1].value) + remain);
         }
 
         for (var j=0; j < vivitexts.length; j++) {
@@ -116,6 +139,7 @@ var options;
 		}else {
 			label.value = num + ": " ;
 			textbox.addEventListener('change', recalc, true);
+//			textbox.addEventListener('input', recalc, true);
 		}
 
 		num++;

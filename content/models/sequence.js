@@ -43,6 +43,7 @@
                     this.httpService.setSyncSettings(syncSettings);
                     this.httpService.setHostname(syncSettings.sequence_hostname);
                     this.httpService.setController('sequences');
+                    this.httpService.setForce(true);
                 }
             }catch(e) {
                 this.log('error ' + e);
@@ -51,20 +52,24 @@
             return this.httpService;
         },
         
-   
+        isRemoteService: function() {
+            return !this.getHttpService().isLocalhost();
+        },
+        
         getSequence: function(key, async, callback) {
             
             key = key || "default";
             async = async || false;
             callback = (typeof callback == 'function') ?  callback : null;
 
-            var remoteUrl = this.getHttpService().getRemoteServiceUrl('getSequence');
+            var isRemote = this.isRemoteService();
             var seq = -1;
 
             var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
 
-            if (remoteUrl && !isTraining) {
+            if (isRemote && !isTraining) {
 
+                var remoteUrl = this.getHttpService().getRemoteServiceUrl('getSequence');
                 remoteUrl += '/'+key;
                 seq = this.getHttpService().requestRemoteService('GET', remoteUrl, null, async, callback) || -1 ;
 
@@ -97,10 +102,11 @@
             if (isTraining) return true;
 
             var result = false;
-            var remoteUrl = this.getHttpService().getRemoteServiceUrl('setSequence');
+            var isRemote = this.isRemoteService();
 
-            if (remoteUrl) {
+            if (isRemote) {
 
+                var remoteUrl = this.getHttpService().getRemoteServiceUrl('setSequence');
                 remoteUrl += '/'+key+'/'+value;
                 result = this.getHttpService().requestRemoteService('GET', remoteUrl) || false ;
 
@@ -122,10 +128,11 @@
             if (isTraining) return true;
 
             var result = false;
-            var remoteUrl = this.getHttpService().getRemoteServiceUrl('setSequenceMaxValue');
+            var isRemote = this.isRemoteService();
 
-            if (remoteUrl) {
+            if (isRemote) {
 
+                var remoteUrl = this.getHttpService().getRemoteServiceUrl('setSequenceMaxValue');
                 remoteUrl += '/'+key+'/'+value;
                 result = this.getHttpService().requestRemoteService('GET', remoteUrl) || false ;
 

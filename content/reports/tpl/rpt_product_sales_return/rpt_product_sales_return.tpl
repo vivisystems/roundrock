@@ -28,9 +28,10 @@
                 <th style="text-align: center;">${_( '(rpt)Product Number' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Product Name' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Average Price' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Quantities Sold' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Net Sales' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Units Returned' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Quantity Returned' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Gross Returns' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Net Returns' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Order Sequence' )}</th>
             </tr>
         </thead>
@@ -40,7 +41,12 @@
                 <td style="text-align: left;">${item.product_no}</td>
                 <td style="text-align: left;">${item.product_name}</td>
                 <td style="text-align: right;">${item.avg_price|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${item.qty|format:0}</td>
+{if item.units == 0}
+                <td/>
+{else}
+                <td style="text-align: right;">${item.units|format:0}</td>
+{/if}
+                <td style="text-align: right;">${item.quantity}</td>
                 <td style="text-align: right;">${item.gross|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.net|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;" class="hyperlink">${item.order_sequence}</td>
@@ -51,8 +57,12 @@
             <tr>
                 <td style="text-align: left;">${_( '(rpt)Records Found' ) + ': '}${category.orderItems.length|format:0}</td>
                 <td colspan="2" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
-                <td style="text-align: right;">${category.summary.qty|format:0}</td>
-                <td style="text-align: right;">${category.summary.gross|default:0|viviFormatPrices:true}</td>
+{if category.summary.units == 0}
+                <td/>
+{else}
+                <td style="text-align: right;">${category.summary.units|format:0}</td>
+{/if}
+                <td colspan="2" style="text-align: right;">${category.summary.gross|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${category.summary.net|default:0|viviFormatPrices:true}</td>
             </tr>
         </tfoot>

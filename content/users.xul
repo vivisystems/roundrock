@@ -150,8 +150,10 @@
                                                              form="userForm" name="item_discount_limit" default="0"/>
                                                 <radiogroup id="item_discount_limit_type" orient="horizontal" value="%"
                                                             form="userForm" name="item_discount_limit_type" default="%">
-                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"/>
-                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"/>
+                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"
+                                                           form="userForm"/>
+                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"
+                                                           form="userForm"/>
                                                 </radiogroup>
                                             </vbox>
                                         </row>
@@ -163,8 +165,10 @@
                                                              form="userForm" name="order_discount_limit" default="0"/>
                                                 <radiogroup id="order_discount_limit_type" orient="horizontal" value="%"
                                                             form="userForm" name="order_discount_limit_type" default="%">
-                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"/>
-                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"/>
+                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"
+                                                           form="userForm"/>
+                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"
+                                                           form="userForm"/>
                                                 </radiogroup>
                                             </vbox>
                                         </row>
@@ -177,8 +181,10 @@
                                                              form="userForm" name="item_surcharge_limit" default="0"/>
                                                 <radiogroup id="item_surcharge_limit_type"  orient="horizontal" value="%"
                                                             form="userForm" name="item_surcharge_limit_type" default="%">
-                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"/>
-                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"/>
+                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"
+                                                           form="userForm"/>
+                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"
+                                                           form="userForm"/>
                                                 </radiogroup>
                                             </vbox>
                                         </row>
@@ -190,8 +196,10 @@
                                                              form="userForm" name="order_surcharge_limit" default="0"/>
                                                 <radiogroup id="order_surcharge_limit_type"  orient="horizontal" value="%"
                                                             form="userForm" name="order_surcharge_limit_type" default="%">
-                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"/>
-                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"/>
+                                                    <radio flex="1" label="&users.limit.type.percentage;" value="%"
+                                                           form="userForm"/>
+                                                    <radio flex="1" label="&users.limit.type.absolute;" value="$"
+                                                           form="userForm"/>
                                                 </radiogroup>
                                             </vbox>
                                         </row>
