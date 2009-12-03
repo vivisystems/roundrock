@@ -1,4 +1,4 @@
-var options;
+    var options;
 
 (function(){
     var caption0 = window.arguments[0];

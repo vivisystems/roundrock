@@ -20,6 +20,8 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/interruptible_waiting_panel.xul"?>
 
+
+
 <window title="&label_printing.title;"
         hidechrome="true"
         oncommand = "$do('detectTabList', null,'Tab');"
@@ -33,6 +35,7 @@
   <script src="chrome://viviecr/content/models/product.js" type="application/x-javascript"/>
 
   <!-- include views -->
+
   <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_products_view.js'/>
@@ -100,13 +103,10 @@
 
                             <tabpanel  orient="vertical" >
                                 <hbox>
-                                    <vbox flex="1">
-                                        <vbox>
-                                         <checkbox id="checkAperiod" label="By Aperiod"
-                                      form="staticCondimentForm" name="supportSoldout" oncommand="$do('selectByAperiod', null, 'Tab');"/> </vbox>
+                                    <vbox flex="1">                                      
                                         <grid flex="1" class="data-form-2">
                                             <columns>
-                                                <column flex="1"/>
+                                                <column flex="1"/><column flex="1"/>
                                             </columns>
                                             <rows >
                                                 <row>
@@ -114,23 +114,18 @@
                                                         <label value="&label_printing.procurement.startdate;"/>
                                                         <vividatetimepicker id="start_date" value="" type="popup"/>
                                                     </vbox>
-                                                </row>
-                                                <row>
                                                     <vbox>
                                                         <label value="&label_printing.procurement.enddate;"/>
                                                         <vividatetimepicker id="end_date" value="" type="popup"/>
                                                     </vbox>
-                                                </row>
+                                                </row>                      
                                             </rows>
                                         </grid>
                                     </vbox>
                                    
                                 </hbox>
                                 <!--hbox align="right"> <button  class="ExeBtn"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('selectAperiod', null, 'Tab');"/></hbox-->
-                                <vbox  flex="1">
-                                     <checkbox id="checkCommitment" label="By Commitment"
-                                      form="staticCondimentForm" name="supportSoldout" oncommand="$do('selectByCommitment', null, 'Tab');"/>
-
+                                <vbox  flex="1">                                    
                                     <vbox flex="1" class="content-listbox">
                                         <vivitree   id="commitmentscrollableTablist" seltype = "multiple" flex="1" hidecolumnpicker="true" class="standard"
                                                headers="&lable_printing.commitmentList.heading.date;,&lable_printing.commitmentList.heading.memo;,&lable_printing.commitmentList.heading.supplier;"
@@ -224,8 +219,8 @@
             <hbox>
                 <hbox flex="1">
                     <hbox flex="1" class="toolbar" toolbarmode="horizontal">
-                        <vivibutton id="print"   disabled="false" class="PrintBtn" oncommand="$do('printList', null, 'Tab');" />
-                        <!--vivibutton id="test"   disabled="false" label='test' oncommand="$do('getBarcodeTypeList', null, 'Tab');" /--> <!--&plus.button.action.modify;-->
+                        <vivibutton id="print"   disabled="false" class="PrintBtn" oncommand="$do('checkBarcodeDialog', null, 'Tab');" />
+                        <vivibutton id="test"   disabled="false" label='test' oncommand="$do('getBarcodeTypeList', null, 'Tab');" /> <!--&plus.button.action.modify;-->
                         <space flex = "1"/>
                         <button id="modify_product" label="&lable_printing.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyCount', null, 'Tab');" />
                         <button id="delete_product" label="&lable_printing.button.action.deleteProduct;" disabled="true" class="button-delete" oncommand="$do('removeTabListProduct', null, 'Tab');" />     <!--&plus.button.action.delete;-->

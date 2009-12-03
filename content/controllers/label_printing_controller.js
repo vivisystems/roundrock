@@ -15,8 +15,6 @@
        _deleteListButton: null,
        _modifyProductButton: null,
        _deleteProduct:null,
-       _aperiodCheckbox:null,
-       _commitmentCheckbox:null,
        
        _categoriesByNo: {},
        _categoryIndexByNo: {},
@@ -198,18 +196,7 @@
 
        executeProcurement: function(){
 
-           var selection = this.checkAperiodOrCommitment();
-
-           switch(selection){
-
-               case 'aperiod' : this.selectAperiod();
-                                return;
-
-               case 'commitment' : this.selectCommitment();
-                                    return;
-           }
-
-           return ;
+       
        },
 
         selectCommitment: function(){
@@ -311,20 +298,6 @@
                 this._tabListPanel.datasource = this.validateList();
                 this._priority++;
            }
-       },
-
-       checkAperiodOrCommitment: function(){
-
-          var aperoid = "aperiod" ;
-          var commitment = "commitment" ;
-
-          if(this._aperiodCheckbox.checked)
-               return  aperoid;
-
-          else if(this._commitmentCheckbox)
-               return commitment;
-
-          else return 0;
        },
 
        validateList: function(){
@@ -610,18 +583,6 @@
             GeckoJS.FormHelper.reset('setProductForm');
         },
 
-        selectByAperiod: function(){
-
-            this._aperiodCheckbox.cheselectByAperiodcked = true;
-            this._commitmentCheckbox.checked = false;
-        },
-
-        selectByCommitment:  function(){
-
-            this._aperiodCheckbox.checked = false;
-            this._commitmentCheckbox.checked = true;
-        },
-
         printList: function(){
         
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
@@ -639,9 +600,6 @@
             this._deleteListButton = document.getElementById('delete_list');
             this._modifyProductButton = document.getElementById('modify_product');
             this._deleteProduct= document.getElementById('delete_product');
-
-            this._aperiodCheckbox = document.getElementById('checkAperiod');
-            this._commitmentCheckbox = document.getElementById('checkCommitment');
 
             this._tabListPanel = document.getElementById('printscrollableTablist');
           
@@ -742,17 +700,46 @@
                  var end = typeString.indexOf(',');
                  var type = typeString.slice(0,end);                
 
-                 this._barcodeTypeList[i] = type;
+                 this._barcodeTypeList.push({no:i, name:type});
                  i++;
                  
                  typeString = typeString.slice(end+1);
 
                  if(typeString.indexOf(',') == -1){
 
-                     this._barcodeTypeList[i] = typeString;
+                     this._barcodeTypeList.push({no:i, name:typeString});
                      typeString = "";
                  }
              }
+        },
+
+        checkBarcodeDialog: function(){
+        /*
+            var aURL = 'chrome://viviecr/content/select_tax.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var inputObj = {
+                taxes: this._barcodeTypeList
+            };           
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
+            if (inputObj.ok) {alert(inputObj.name);}*/
+
+             var rate = $('#rate').val();
+            var aURL = 'chrome://viviecr/content/select_tax.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var inputObj = {
+                rate: rate
+            };
+
+            var taxes = GeckoJS.Session.get('taxes');
+            if(taxes == null) taxes = this.Tax.getTaxList();
+
+            inputObj.taxes = taxes;
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_rate', aFeatures, inputObj);
+            if (inputObj.ok) {
+               alert(inputObj.name);
+            }
         },
         
          exit: function() {
