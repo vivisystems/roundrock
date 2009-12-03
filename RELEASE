@@ -29,6 +29,9 @@ Bugs fixed
 Bug #202:
     Need a built-in hotkey for signing off
 
+Bug #237:
+    POS front end does not get focus on the input line when first power on
+
 Bug #239:
     Only admin users may assign other users to the admin group 
 
