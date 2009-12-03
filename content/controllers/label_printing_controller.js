@@ -415,31 +415,31 @@
            
 
             if(product.level_enable1 ){
-                 this._priceMenuList.appendItem('Price Level1   '+product.price_level1);
+                 this._priceMenuList.appendItem('Price Level1   '+product.price_level1, product.price_level1);
             }
             if(product.level_enable2 ){
-                 this._priceMenuList.appendItem('Price Level2   '+product.price_level2);
+                 this._priceMenuList.appendItem('Price Level2   '+product.price_level2, product.price_level2);
             }
             if(product.level_enable3 ){
-                 this._priceMenuList.appendItem('Price Level3   '+product.price_level3);
+                 this._priceMenuList.appendItem('Price Level3   '+product.price_level3, product.price_level3);
             }
             if(product.level_enable4 ){
-                 this._priceMenuList.appendItem('Price Level4   '+product.price_level4);
+                 this._priceMenuList.appendItem('Price Level4   '+product.price_level4, product.price_level4);
             }
             if(product.level_enable5 ){
-                 this._priceMenuList.appendItem('Price Level5   '+product.price_level5);
+                 this._priceMenuList.appendItem('Price Level5   '+product.price_level5, product.price_level5);
             }
             if(product.level_enable6 ){
-                 this._priceMenuList.appendItem('Price Level6   '+product.price_level6);
+                 this._priceMenuList.appendItem('Price Level6   '+product.price_level6, product.price_level6);
             }
             if(product.level_enable7 ){
-                 this._priceMenuList.appendItem('Price Level7   '+product.price_level7);
+                 this._priceMenuList.appendItem('Price Level7   '+product.price_level7, product.price_level7);
             }
             if(product.level_enable8 ){
-                 this._priceMenuList.appendItem('Price Level8   '+product.price_level8);
+                 this._priceMenuList.appendItem('Price Level8   '+product.price_level8, product.price_level8);
             }
             if(product.level_enable9 ){
-                 this._priceMenuList.appendItem('Price Level9   '+product.price_level9);
+                 this._priceMenuList.appendItem('Price Level9   '+product.price_level9, product.price_level9);
             }
 
 
@@ -451,7 +451,7 @@
            //     return ;
                
             this.tabList[this._tabListPanel.selectedIndex].count = this._countTextbox.value;
-            this.tabList[this._tabListPanel.selectedIndex].price_level1 = this._priceTextbox.value;
+            this.tabList[this._tabListPanel.selectedIndex].selectedPrice = this._priceMenuList.value;
             
             GeckoJS.FormHelper.unserializeFromObject('setProductForm', this.tabList[this._tabListPanel.selectedIndex]);
 
