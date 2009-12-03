@@ -25,3 +25,12 @@ Bug #159:
 ----------
 Bugs fixed
 ----------
+
+Bug #202:
+    Need a built-in hotkey for signing off
+
+Bug #239:
+    Only admin users may assign other users to the admin group 
+
+Bug #240:
+    Truncate Transaction Records may cause transaction records to be truncated on all synchronized terminals 
