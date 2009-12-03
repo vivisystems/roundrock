@@ -930,7 +930,7 @@
 
                 var deposits = (depositTotal && depositTotal.amount != null) ? depositTotal.amount : 0;
 
-                // compute refunds (payments with order status of -2 and from previous sale period/shift or a different terminal)
+                // compute refunds (payments made in the current shift with order status of -2)
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
