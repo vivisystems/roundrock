@@ -37,3 +37,7 @@ Bug #239:
 
 Bug #240:
     Truncate Transaction Records may cause transaction records to be truncated on all synchronized terminals 
+
+Bug #242:
+    When confirming refund payments while voiding sale, refund payment amount is switched with original payment amount
+
