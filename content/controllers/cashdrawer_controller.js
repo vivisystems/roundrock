@@ -476,7 +476,7 @@
                            errmsg: _('An error was encountered while removing all backup cashdrawer activity logs (error code %S) [message #203].', [model.lastError])};
                 }
 
-                r = model.truncate();
+                r = model.execute('delete from cashdrawer_records');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,

@@ -268,7 +268,7 @@
         truncateData: function(evt) {
             try {
                 var model = new ShiftChangeModel();
-                var r = model.truncate();
+                var r = model.execute('delete from shift_changes');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -276,14 +276,14 @@
                 }
 
                 model = new ShiftChangeDetailModel();
-                r = model.truncate();
+                r = model.execute('delete from shift_change_details');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
                            errmsg: _('An error was encountered while removing all shift change details (error code %S) [message #1408].', [model.lastError])};
                 }
 
-                r = this.ShiftMarker.truncate();
+                r = this.ShiftMarker.execute('delete from shift_markers');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,

@@ -124,7 +124,7 @@
                            errmsg: _('An error was encountered while removing all backup ledger activity logs (error code %S) [messages #805].', [model.lastError])};
                 }
 
-                r = model.truncate();
+                r = model.execute('delete from ledger_records');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -139,7 +139,7 @@
                            errmsg: _('An error was encountered while removing all backup ledger receipts (error code %S) [messages #807].', [model.lastError])};
                 }
 
-                r = model.truncate();
+                r = model.execute('delete from ledger_receipts');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
