@@ -14,6 +14,7 @@
        _tabListPanel: null,
        _countTextbox: null,
        _priceTextbox: null,
+       _priceMenuList:null,
        _deleteListButton: null,
        _modifyProductButton: null,
        _deleteProduct:null,
@@ -98,6 +99,7 @@
                         {
                             products[i].priority = this._priority;
                             products[i].count = inputObj.input0;
+                            products[i].selectedPrice = products[i].price_level1;
                             this.tabList.push(products[i]);
                         }
                 /* 3.3 show tabList[] */
@@ -324,7 +326,7 @@
                this._modifyProductButton.disabled = true;
                this._deleteProduct.disabled = true;
                return ;
-           }else{ this.setCount(this._tabListPanel.selectedIndex); }
+           }else{ /*this.setCount(this._tabListPanel.selectedIndex); */}
 
            if(this._tabListPanel.selectedIndex >= 0){
 
@@ -398,12 +400,50 @@
         setCount: function(index){
 
             GeckoJS.FormHelper.unserializeFromObject('setProductForm', this.tabList[index]);
-          
+            this.setPrice(index);
             this._modifyProductButton.disabled = false;
             this._deleteProduct.disabled = false;
             this._countTextbox.disabled = false ;
-            this._priceTextbox.disabled = false ;
+      //      this._priceTextbox.disabled = false ;
          },
+
+        setPrice:function(index){
+
+            var product = this.tabList[index];
+
+            this._priceMenuList.removeAllItems();
+           
+
+            if(product.level_enable1 ){
+                 this._priceMenuList.appendItem('Price Level1   '+product.price_level1);
+            }
+            if(product.level_enable2 ){
+                 this._priceMenuList.appendItem('Price Level2   '+product.price_level2);
+            }
+            if(product.level_enable3 ){
+                 this._priceMenuList.appendItem('Price Level3   '+product.price_level3);
+            }
+            if(product.level_enable4 ){
+                 this._priceMenuList.appendItem('Price Level4   '+product.price_level4);
+            }
+            if(product.level_enable5 ){
+                 this._priceMenuList.appendItem('Price Level5   '+product.price_level5);
+            }
+            if(product.level_enable6 ){
+                 this._priceMenuList.appendItem('Price Level6   '+product.price_level6);
+            }
+            if(product.level_enable7 ){
+                 this._priceMenuList.appendItem('Price Level7   '+product.price_level7);
+            }
+            if(product.level_enable8 ){
+                 this._priceMenuList.appendItem('Price Level8   '+product.price_level8);
+            }
+            if(product.level_enable9 ){
+                 this._priceMenuList.appendItem('Price Level9   '+product.price_level9);
+            }
+
+
+        },
 
         modifyCount: function(){             
 
@@ -599,6 +639,7 @@
             
             this._countTextbox = document.getElementById('count_textbox');
             this._priceTextbox  = document.getElementById('price_level1_textbox');
+            this._priceMenuList = document.getElementById('priceList');
             this._deleteListButton = document.getElementById('delete_list');
             this._modifyProductButton = document.getElementById('modify_product');
             this._deleteProduct= document.getElementById('delete_product');

@@ -181,7 +181,7 @@
 
                                 <vbox flex="0">
                                     <menulist  id="tabList" form="" name="" label = "&lable_printing.loadList;" oncommand = "$do('loadList', this.selectedIndex, 'Tab');">
-                                        <menupopup id="tabList-popup"/>
+                                        <!--menupopup id="tabList-popup"/-->
                                     </menulist>
                                 </vbox>
                             </row>
@@ -191,7 +191,7 @@
                     <vbox flex="1" class="content-listbox">
                         <vivitree        id="printscrollableTablist" flex="1" hidecolumnpicker="true" class="standard"
                                     headers="&lable_printing.tabList.heading.name;, &lable_printing.tabList.heading.price;, &lable_printing.tabList.heading.count;"
-                                     fields="name,price_level1,count"
+                                     fields="name,selectedPrice,count"
                                    onselect="$do('setCount', this.selectedIndex, 'Tab');"/>
                     </vbox>
 
@@ -201,10 +201,11 @@
                         </columns>
                         <rows>
                             <row>
-                                <vbox>
-                                    <label value="&lable_printing.product.price;"/>
-                                    <textbox  id="price_level1_textbox" form= "setProductForm" type="number"
-                                         default="0" onfocus="select()" name="price_level1" disabled="true"/>
+                                <vbox  flex="0">
+                                    <label value="lable_printing.pricLevel;"/>
+                                     <menulist  id="priceList" form="setProductForm" name="" label = "Price Level" >
+                                       
+                                    </menulist>
                                 </vbox>
                                 <vbox>
                                     <label value="&lable_printing.product.count;"/> <!--&tabs.product.count;-->
