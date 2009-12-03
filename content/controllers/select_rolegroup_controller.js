@@ -18,14 +18,17 @@
         load: function (data) {
 
             var listObj = this.getListObj();
-            var groups = this.Acl.getGroupList();
+            var groups = this.Acl.getGroupList() || [];
+
+            if (data.hideadmin) {
+                groups = groups.filter(function(g) {return g.name != 'admin'});
+            }
 
             var panelView =  new NSIRoleGroupsView(groups);
             this.getListObj().datasource = panelView;
             this._listDatas = groups;
-            var index = 0;
             if (data) {
-                listObj.value = data;            
+                listObj.value = data.rolegroup;
             };
 
             this.select();
