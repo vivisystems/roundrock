@@ -6,6 +6,8 @@
 
        uses: ['Product', 'InventoryRecord'],
 
+       screenwidth: 800,
+       screenheight: 600,
        catePanelView: null,
        individualcatePanelView:null,
        productPanelView: null,
@@ -714,7 +716,7 @@
         },
 
         checkBarcodeDialog: function(){
-        /*
+        
             var aURL = 'chrome://viviecr/content/select_tax.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
@@ -722,24 +724,8 @@
             };           
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
-            if (inputObj.ok) {alert(inputObj.name);}*/
+            if (inputObj.ok) {alert(inputObj.name);}
 
-             var rate = $('#rate').val();
-            var aURL = 'chrome://viviecr/content/select_tax.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var inputObj = {
-                rate: rate
-            };
-
-            var taxes = GeckoJS.Session.get('taxes');
-            if(taxes == null) taxes = this.Tax.getTaxList();
-
-            inputObj.taxes = taxes;
-
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_rate', aFeatures, inputObj);
-            if (inputObj.ok) {
-               alert(inputObj.name);
-            }
         },
         
          exit: function() {
