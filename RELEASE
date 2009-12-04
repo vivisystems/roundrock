@@ -41,3 +41,5 @@ Bug #240:
 Bug #242:
     When confirming refund payments while voiding sale, refund payment amount is switched with original payment amount
 
+Bug #243:
+     Region button labels on Table Selection screen are cropped
