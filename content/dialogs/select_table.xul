@@ -34,15 +34,15 @@
         <vbox class="EmptyArea" >
             <hbox flex="1">
                 <spacer class="LeftRegionMenuPadding"/>
-                <button id="btn_prior_region" class="button-fixed" label="&selecttable.priorregion;" disabled="false"
-                        oncommand="$do('menuChangeRegion', 'previous', 'SelectTable');" />
+                <vivibutton id="btn_prior_region" class="button-fixed" label="&selecttable.priorregion;" disabled="false"
+                            oncommand="$do('menuChangeRegion', 'previous', 'SelectTable');" />
                 <menulist id="table_region" flex="1" class="RegionMenu" oncommand="$do('setRegion', this.value, 'SelectTable');">
                     <menupopup id="table_region_menupopup">
 
                     </menupopup>
                 </menulist>
-                <button id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"
-                        oncommand="$do('menuChangeRegion', 'next', 'SelectTable');" />
+                <vivibutton id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"
+                            oncommand="$do('menuChangeRegion', 'next', 'SelectTable');" />
             </hbox>
             <hbox id="promptBox" class="MsgPnl2">
                 <vbox class="PromptBox2" flex="0">
@@ -53,7 +53,7 @@
             </hbox>
             <spacer flex="1" />
         </vbox>
-        <stack flex="1" class="MainPanel">
+        <stack id="tableDock" flex="1" class="MainPanel">
             
             <label id="queues" hidden="true" value="" />
             <hbox >
