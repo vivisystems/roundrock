@@ -51,7 +51,7 @@
 
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/label_printing.js" />
-  
+
     <vbox id="plusXUL" flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-a">
             <hbox  flex="1">
@@ -59,10 +59,10 @@
                     <label value="&label_printing.title;" class="label-page-title"/>
                     <tabbox flex="1" class="custom-content-tabbox">
                         <tabs id="mode_tabs">
-                            <tab id="tab_departmentMode" label="&label_printing.tab.departmentMode;"/>  
-                            <tab id="tab_individualMode" label="&label_printing.tab.individualMode;"/> 
-                            <tab id="tab_procurementMode" label="&label_printing.tab.procurementMode;"/> 
-                            <tab id="tab_searchMode" label="&label_printing.tab.searchMode;"/> 
+                            <tab id="tab_departmentMode" label="&label_printing.tab.departmentMode;"/>
+                            <tab id="tab_individualMode" label="&label_printing.tab.individualMode;"/>
+                            <tab id="tab_procurementMode" label="&label_printing.tab.procurementMode;"/>
+                            <tab id="tab_searchMode" label="&label_printing.tab.searchMode;"/>
                         </tabs>
                         <tabpanels id="tabpanels" flex="1">
                             <tabpanel  flex="1" orient="vertical">
@@ -103,7 +103,7 @@
 
                             <tabpanel  orient="vertical" >
                                 <hbox>
-                                    <vbox flex="1">                                      
+                                    <vbox flex="1">
                                         <grid flex="1" class="data-form-2">
                                             <columns>
                                                 <column flex="1"/><column flex="1"/>
@@ -118,19 +118,19 @@
                                                         <label value="&label_printing.procurement.enddate;"/>
                                                         <vividatetimepicker id="end_date" value="" type="popup"/>
                                                     </vbox>
-                                                </row>                      
+                                                </row>
                                             </rows>
                                         </grid>
                                     </vbox>
-                                   
+
                                 </hbox>
                                 <!--hbox align="right"> <button  class="ExeBtn"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('selectAperiod', null, 'Tab');"/></hbox-->
-                                <vbox  flex="1">                                    
+                                <vbox  flex="1">
                                     <vbox flex="1" class="content-listbox">
-                                        <vivitree   id="commitmentscrollableTablist" seltype = "multiple" flex="1" hidecolumnpicker="true" class="standard"
+                                        <vivitree   id="commitmentscrollableTablist" seltype = "single" flex="1" hidecolumnpicker="true" class="standard"
                                                headers="&lable_printing.commitmentList.heading.date;,&lable_printing.commitmentList.heading.memo;,&lable_printing.commitmentList.heading.supplier;"
                                                 fields="date,memo,supplier"
-                                              onselect="$do('selectByCommitment', null, 'Tab');"/>
+                                              onselect="$do('selectCommitment', null, 'Tab');"/>
                                     </vbox>
                                     <vbox >
                                         <!--button class="ExeBtn"  flex="1"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('selectCommitment', null, 'Tab');"/-->
@@ -138,7 +138,7 @@
                                     </vbox>
                                 </vbox>
 
-                                  <hbox align="right"> <button  class="ExeBtn"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('executeProcurement', null, 'Tab');"/></hbox>
+                                  <hbox align="right"> <button  class="ExeBtn"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('searchCommitments', null, 'Tab');"/></hbox>
                             </tabpanel>
 
                             <tabpanel orient="vertical">
@@ -147,9 +147,9 @@
                                     <vivitextbox id="plu" flex="1"
                                         numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                             onenter="$do('searchPlu2', this.value, 'PluSearch'); event.preventDefault();"/>
-                                                     
+
                                     <vivibutton id="ekeyBtn" class="button-fixed" label="&lable_printing.numpad.advsearch;"
-                                         oncommand="$do('searchPlu2', document.getElementById('plu').value, 'PluSearch');$do('detectOnlyOneMatch',this.selectedIndex, 'Tab');"/>
+                                         oncommand="$do('setSearchButtonTrue',null, 'Tab');$do('searchPlu2', document.getElementById('plu').value, 'PluSearch');$do('detectOnlyOneMatch',this.selectedIndex, 'Tab');"/>
                                 </hbox>
 
                                 <vbox flex="1" class="content-listbox">
@@ -187,7 +187,7 @@
                             </row>
                         </rows>
                     </grid >
-                        
+
                     <vbox flex="1" class="content-listbox">
                         <vivitree        id="printscrollableTablist" flex="1" hidecolumnpicker="true" class="standard"
                                     headers="&lable_printing.tabList.heading.name;, &lable_printing.tabList.heading.price;, &lable_printing.tabList.heading.count;"
@@ -203,8 +203,8 @@
                             <row>
                                 <vbox  flex="0">
                                     <label value="lable_printing.pricLevel;"/>
-                                     <menulist  id="priceList" form="setProductForm" name="" label = "Price Level" >
-                                       
+                                     <menulist  id="priceList" form="setProductForm" name="" label = "Price Level" onfocus="select()">
+
                                     </menulist>
                                 </vbox>
                                 <vbox>
@@ -221,7 +221,7 @@
                 <hbox flex="1">
                     <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <vivibutton id="print"   disabled="false" class="PrintBtn" oncommand="$do('checkBarcodeDialog', null, 'Tab');" />
-                        <vivibutton id="test"   disabled="false" label='test' oncommand="$do('getBarcodeTypeList', null, 'Tab');" /> <!--&plus.button.action.modify;-->
+                        <vivibutton id="test"   disabled="false" label='test' oncommand="$do('testing', null, 'Tab');" /> <!--&plus.button.action.modify;-->
                         <space flex = "1"/>
                         <button id="modify_product" label="&lable_printing.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyCount', null, 'Tab');" />
                         <button id="delete_product" label="&lable_printing.button.action.deleteProduct;" disabled="true" class="button-delete" oncommand="$do('removeTabListProduct', null, 'Tab');" />     <!--&plus.button.action.delete;-->

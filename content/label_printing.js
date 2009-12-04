@@ -7,7 +7,7 @@ function startup() {
 
     $do('createDepartmentPanel', null, 'Tab');
     $do('createIndividualDepartmentPanel', null, 'Tab');
-    $do('loadCommitments', null, 'Tab');
+ //   $do('loadCommitments', null, 'Tab');
  //   $do('createFilterRows', null, 'PluSearch');
     $do('load', null, 'Tab');
  //   $('#imageBrowseBtn')[0].addEventListener('command', selectImages, false);

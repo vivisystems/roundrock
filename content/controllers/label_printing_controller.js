@@ -18,12 +18,12 @@
        _deleteListButton: null,
        _modifyProductButton: null,
        _deleteProduct:null,
-       
+
        _categoriesByNo: {},
        _categoryIndexByNo: {},
        _menulistElement: null,
        _commitments: [],
-       _fileNameList: [],      
+       _fileNameList: [],
        _replaceProducts: [],
        _barcodeTypeList: [],
        tabList:[],
@@ -34,9 +34,10 @@
 
        _isSave: false,
        _isModify: false,
-       
+       _searchButton: true,
+
         createDepartmentPanel: function (){
-            
+
             // construct categoryByNo lookup table
             var categories = GeckoJS.Session.get('categories') || [];
             for (var i = 0; i < categories.length; i++) {
@@ -159,7 +160,7 @@
         },
 
         clickPluPanel: function(index){
-         
+
             var product = this.productPanelView.getCurrentIndexData(index);
             var cloneProduct = GeckoJS.BaseObject.clone(product);
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
@@ -174,9 +175,10 @@
 
             /* 3.if 'ok' button == true */
             if (inputObj.ok && inputObj.input0 ) {
-                
+
                 cloneProduct.priority = this._priority;
                 cloneProduct.count = inputObj.input0;
+                cloneProduct.selectedPrice = cloneProduct.price_level1;
                 this.tabList.push(cloneProduct);
                 this._tabListPanel.datasource = this.validateList();
                 this._priority++;
@@ -198,9 +200,47 @@
            commitmentList.datasource = CommitmentDateList ;
        },
 
-       executeProcurement: function(){
+       searchCommitments: function(){
 
-       
+            var start = document.getElementById('start_date');
+            var end = document.getElementById('end_date');
+
+            var startTime = start.value/1000
+            var endTime = end.value/1000
+
+       /*     var productDB = this.Product.getDataSource().path + '/' + this.Product.getDataSource().database;
+            var sql = "ATTACH '" + productDB + "' AS vivipos;";
+
+            this.InventoryRecord.execute( sql );
+            this.sleep(100);*/
+
+           var inventoryCommitmentModel = new InventoryCommitmentModel();
+           this._commitments = inventoryCommitmentModel.getDataSource().fetchAll("SELECT * FROM Inventory_commitments WHERE type='procure' AND created >= '"+startTime+"' AND created <= '"+endTime+"'");
+           var commitmentList = document.getElementById('commitmentscrollableTablist');
+           var CommitmentDateList = [];
+
+           for(var i = 0; i < this._commitments.length; i++){
+
+               var theDay = new Date(this._commitments[i].created*1000);
+               CommitmentDateList.push({date:theDay.toLocaleDateString(), memo: this._commitments[i].memo, supplier: this._commitments[i].supplier})
+           }
+           commitmentList.datasource = CommitmentDateList ;
+
+         /*
+            var query = "SELECT * FROM inventory_records INNER JOIN products WHERE inventory_records.created >= '"+startTime+"' AND inventory_records.created <= '"+endTime+"'  AND inventory_records.product_no = products.no"
+
+            var selectedCommitment = this.InventoryRecord.getDataSource().fetchAll(query);
+
+            selectedCommitment = this.countProductQuentity(selectedCommitment);
+
+            for(var i = 0 ; i< selectedCommitment.length ; i++){
+
+                selectedCommitment[i].priority = this._priority;
+                selectedCommitment[i].count = selectedCommitment[i].value;
+                this.tabList.push(selectedCommitment[i]);
+            }
+            this._tabListPanel.datasource = this.validateList();
+            this._priority++;*/
        },
 
         selectCommitment: function(){
@@ -209,41 +249,42 @@
 
             var productDB = this.Product.getDataSource().path + '/' + this.Product.getDataSource().database;
             var sql = "ATTACH '" + productDB + "' AS vivipos;";
-        
+
             this.InventoryRecord.execute( sql );
 
             this.sleep(100);
-            var selectedCommitmentString ="(";
-                  /* selected multiple commitment 
+ /*           var selectedCommitmentString ="(";
+                  /* selected multiple commitment
                    * the query is
                    *               "SELECT * FROM inventory_records INNER JOIN products
                    *                WHERE all selected.commitment_id by OR
                    *                AND inventory_records.product_no = products.no"          */
-            for(var index = 0 ; index < commitmentListObj.selectedItems.length ; index ++){
+  /*          for(var index = 0 ; index < commitmentListObj.selectedItems.length ; index ++){
 
                 selectedCommitmentString = selectedCommitmentString + "inventory_records.commitment_id = '" + this._commitments[commitmentListObj.selectedItems[index]].id + "'";
                     /* if not last element */
-                if(!(index +1 == commitmentListObj.selectedItems.length))
+ /*               if(!(index +1 == commitmentListObj.selectedItems.length))
                     selectedCommitmentString = selectedCommitmentString + " OR ";
             }
+*/
+            var selectedCommitmentString = "inventory_records.commitment_id = '" + this._commitments[commitmentListObj.selectedIndex].id + "'";
 
-            selectedCommitmentString = selectedCommitmentString + ")";
-     
-            var query = "SELECT * FROM inventory_records INNER JOIN products WHERE" + selectedCommitmentString + "AND inventory_records.product_no = products.no"
+            var query = "SELECT * FROM inventory_records INNER JOIN products WHERE " + selectedCommitmentString + " AND inventory_records.product_no = products.no"
 
-            var selectedCommitment = this.InventoryRecord.getDataSource().fetchAll(query);
+            var commitmentProducts = this.InventoryRecord.getDataSource().fetchAll(query);
 
-            selectedCommitment = this.countProductQuentity(selectedCommitment);
-              
-            for(var i = 0 ; i< selectedCommitment.length ; i++){
+          //  selectedCommitment = this.countProductQuentity(selectedCommitment);
 
-                selectedCommitment[i].priority = this._priority;
-                selectedCommitment[i].count = selectedCommitment[i].value;
-                this.tabList.push(selectedCommitment[i]);
+            for(var i = 0 ; i< commitmentProducts.length ; i++){
+
+                commitmentProducts[i].priority = this._priority;
+                commitmentProducts[i].count = commitmentProducts[i].value;
+                commitmentProducts[i].selectedPrice = commitmentProducts[i].price_level1;
+                this.tabList.push(commitmentProducts[i]);
             }
             this._tabListPanel.datasource = this.validateList();
             this._priority++;
-            
+
        },
 
        selectAperiod: function(){
@@ -265,7 +306,7 @@
             var selectedCommitment = this.InventoryRecord.getDataSource().fetchAll(query);
 
             selectedCommitment = this.countProductQuentity(selectedCommitment);
-              
+
             for(var i = 0 ; i< selectedCommitment.length ; i++){
 
                 selectedCommitment[i].priority = this._priority;
@@ -278,11 +319,14 @@
 
        addBySearch: function(index){
 
+          if(this._searchButton) return;
+
            var searchVivitreeObject = document.getElementById('plusearchscrollablepanel');
            var product = searchVivitreeObject._datasource.data[index];
-           
+
                 product.priority = this._priority;
                 product.count = 1;
+                product.selectedPrice = product.price_level1;
                 this.tabList.push(product);
                 this._tabListPanel.datasource = this.validateList();
                 this._priority++;
@@ -298,14 +342,26 @@
                 var product = searchVivitreeObject._datasource.data[0];
                 product.priority = this._priority;
                 product.count = 1;
+                product.selectedPrice = product.price_level1;
                 this.tabList.push(product);
                 this._tabListPanel.datasource = this.validateList();
                 this._priority++;
            }
+           this._searchButton = false;
+       },
+
+       setSearchButtonFalse: function(){
+
+          this._searchButton = false;
+       },
+
+       setSearchButtonTrue: function(){
+
+          this._searchButton = true;
        },
 
        validateList: function(){
- 
+
             /* is element repeated ?
              * 1.find repeated item
              * 2.check priority
@@ -379,7 +435,7 @@
 
                         list[i].value = list[i].value + list[j].value
                         list.splice(j,1);
-                        return list;                      
+                        return list;
                     }
                 }
             }
@@ -404,7 +460,9 @@
             this._modifyProductButton.disabled = false;
             this._deleteProduct.disabled = false;
             this._countTextbox.disabled = false ;
+      //      this._priceMenuList.selectedIndex = -1;
       //      this._priceTextbox.disabled = false ;
+          this._priceMenuList.disabled = false ;
          },
 
         setPrice:function(index){
@@ -412,7 +470,7 @@
             var product = this.tabList[index];
 
             this._priceMenuList.removeAllItems();
-           
+            this._priceMenuList.setAttribute('label',_('Price Level'));
 
             if(product.level_enable1 ){
                  this._priceMenuList.appendItem('Price Level1   '+product.price_level1, product.price_level1);
@@ -445,23 +503,23 @@
 
         },
 
-        modifyCount: function(){             
+        modifyCount: function(){
 
            // if( !GeckoJS.FormHelper.isFormModified('setProductForm'))
            //     return ;
-               
+           if(this._tabListPanel.selectedIndex == -1) return ;
             this.tabList[this._tabListPanel.selectedIndex].count = this._countTextbox.value;
             this.tabList[this._tabListPanel.selectedIndex].selectedPrice = this._priceMenuList.value;
-            
+
             GeckoJS.FormHelper.unserializeFromObject('setProductForm', this.tabList[this._tabListPanel.selectedIndex]);
 
             this.validateList();
             this._tabListPanel.refresh();
-           
+
         },
 
         removeTabListProduct: function(){
-         
+
              this.tabList.splice( this._tabListPanel.selectedIndex, 1);
              this._tabListPanel.datasource = this.tabList;
              this.validateList();
@@ -498,7 +556,7 @@
 
              /* 3.if 'ok' button == true */
             if (inputObj.ok && inputObj.input0 ){
-                
+
             var listName = inputObj.input0;
             var isFileNameExist = Array.indexOf(this._fileNameList, listName)
 
@@ -517,17 +575,17 @@
 
              GeckoJS.Configure.write('vivipos.fec.settings.tabs.fileName', GeckoJS.BaseObject.serialize(this._fileNameList));
              GeckoJS.Configure.write('vivipos.fec.settings.tabs.'+listName, GeckoJS.BaseObject.serialize(this.tabList));
-             
+
              this._isSave = true ;
              this._menulistElement.removeAllItems();
              this.load();
-                
+
                  if(isFileNameExist == -1){
 
                      GREUtils.Dialog.alert(this.topmostWindow,'',
                         _( 'New tab list' ) + ' ' + listName + ' ' + _( 'has been generated' ) + '.'
                      );
-                         
+
                     this._menulistElement.selectedIndex = this._fileNameList.length;
                     this._selListIndex = this._fileNameList.length -1;
                 }
@@ -542,7 +600,7 @@
                     this._selListIndex = isFileNameExist;
                 }
                 this._deleteListButton.disabled = false ;
-            } 
+            }
         },
 
         loadList: function(index){
@@ -579,7 +637,7 @@
            this._tabListPanel.datasource = this.initialPriority();
            this._tabListPanel.refresh();
            this.initialPriceCount();
-            
+
            this._isSave = true ;
            this._deleteListButton.disabled = false ;
        },
@@ -607,17 +665,21 @@
 
             this.tabList = [];
             this._selListIndex = -1;
-            
+
             this._deleteListButton.disabled = true;
             this._modifyProductButton.disabled = true;
             this._deleteProduct.disabled = true;
             this._countTextbox.disabled = true;
-            this._priceTextbox.disabled = true;
+            //this._priceTextbox.disabled = true;
+            this._priceMenuList.disabled = true;
 
             this._tabListPanel.datasource = this.tabList;
+            this._tabListPanel.selection.clearSelection();
+            this._tabListPanel.selectedIndex = -1 ;
             this._tabListPanel.refresh();
 
             this.initialPriceCount();
+           // this.setPrice();
         },
 
         initialPriceCount: function(){
@@ -626,17 +688,17 @@
         },
 
         printList: function(){
-        
+
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                     .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
-            
+
             var label = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
 
             try{ label.printLabel(this.tabList);}catch(e){alert(e);}
         },
 
         load: function(){
-            
+
             this._countTextbox = document.getElementById('count_textbox');
             this._priceTextbox  = document.getElementById('price_level1_textbox');
             this._priceMenuList = document.getElementById('priceList');
@@ -645,7 +707,7 @@
             this._deleteProduct= document.getElementById('delete_product');
 
             this._tabListPanel = document.getElementById('printscrollableTablist');
-          
+
             /* load savedList*/
             this._menulistElement = document.getElementById('tabList');
             this._fileNameList = GeckoJS.BaseObject.unserialize( GeckoJS.Configure.read('vivipos.fec.settings.tabs.fileName'));
@@ -653,12 +715,12 @@
 
             if(!this._fileNameList)
                this._fileNameList = [];
-       
+
             for(var i = 0; i < this._fileNameList.length; i++){
 
                 this._menulistElement.appendItem( this._fileNameList[i]);
             }
-         
+
             var today = new Date();
             var yy = today.getYear() + 1900;InventoryCommitmentModel
             var mm = today.getMonth();
@@ -669,8 +731,10 @@
 
             document.getElementById( 'start_date' ).value = start;
             document.getElementById( 'end_date' ).value = end;
-            
+
             GeckoJS.FormHelper.reset('setProductForm');
+
+            this.getBarcodeTypeList();
          },
 
          alertReplaceProducts: function (){
@@ -683,7 +747,7 @@
              for(var i =0 ; i<this._replaceProducts.length;i++){
                          alert = alert + this._replaceProducts[i].name + "\n";
              }
-             
+
              GREUtils.Dialog.alert(this.topmostWindow, _('Replaces products'),
                                       _(alert + "have been replaced"));
 
@@ -737,15 +801,15 @@
 
              var typeString = GeckoJS.Configure.read('vivipos.fec.registry.templates.label-simple-testing-2.barcodetype');
              var i = 0;
-             
+
              while(typeString != ""){
 
                  var end = typeString.indexOf(',');
-                 var type = typeString.slice(0,end);                
+                 var type = typeString.slice(0,end);
 
                  this._barcodeTypeList.push({no:i, name:type});
                  i++;
-                 
+
                  typeString = typeString.slice(end+1);
 
                  if(typeString.indexOf(',') == -1){
@@ -757,18 +821,157 @@
         },
 
         checkBarcodeDialog: function(){
-        
+
             var aURL = 'chrome://viviecr/content/select_tax.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
                 taxes: this._barcodeTypeList
-            };           
+            };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
             if (inputObj.ok) {alert(inputObj.name);}
 
         },
-        
+
+        /* length: variable
+        /* valid codes 0~9, A~Z, $ % * + - . / and space  */
+        checkBarcodeType3OF9: function(list){
+
+            var object = { illegalList:[], islegal: true };
+
+            for(var i =0 ; i< list.length ; i++){
+
+          //      if  list[i].barcode.
+                for(var j = 0 ; j< list[i].barcode.length ; j++ ){
+
+                    if( !(
+                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j] <= 57 )|| // 0~9
+                             (list[i].barcode[j].charCodeAt(0) >= 65 && list[i].barcode[j] <= 90 )|| // A~Z
+                              list[i].barcode[j].charCodeAt(0) == 36                              || // $
+                              list[i].barcode[j].charCodeAt(0) == 37                              || // %
+                              list[i].barcode[j].charCodeAt(0) == 42                              || // *
+                              list[i].barcode[j].charCodeAt(0) == 43                              || // +
+                              list[i].barcode[j].charCodeAt(0) == 45                              || // -
+                              list[i].barcode[j].charCodeAt(0) == 46                              || // .
+                              list[i].barcode[j].charCodeAt(0) == 47                              || // /
+                              list[i].barcode[j].charCodeAt(0) == 32                                 // space
+                          )
+                      ) // find illegal char do
+                               {
+                                   object.illegalList.push( list[i] ); 
+                                   object.islegal = false ;
+                                   break;
+                               }
+                }
+            }
+            return object ; 
+        },
+
+        /* length: variable
+         * valid codes: 0~9, A~Z, $ % * + - . / and space  */
+        checkBarcodeType128: function(list){
+
+            var object = { illegalList:[], islegal: true };
+
+            for(var i =0 ; i< list.length ; i++){
+
+          //      if  list[i].barcode.
+                for(var j = 0 ; j< list[i].barcode.length ; j++ ){
+
+                    if( !(
+                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j] <= 57 )||
+                             (list[i].barcode[j].charCodeAt(0) >= 65 && list[i].barcode[j] <= 90 )||
+                              list[i].barcode[j].charCodeAt(0) == 36                              ||
+                              list[i].barcode[j].charCodeAt(0) == 37                              ||
+                              list[i].barcode[j].charCodeAt(0) == 42                              ||
+                              list[i].barcode[j].charCodeAt(0) == 43                              ||
+                              list[i].barcode[j].charCodeAt(0) == 45                              ||
+                              list[i].barcode[j].charCodeAt(0) == 46                              ||
+                              list[i].barcode[j].charCodeAt(0) == 47                              ||
+                              list[i].barcode[j].charCodeAt(0) == 32
+                          )
+                      ) // find illegal char do
+                               {
+                                   object.illegalList.push( list[i] );
+                                   object.islegal = false ;
+                                   break;
+                               }
+                }
+            }
+            return object ;
+        },
+
+        /* length: 11 + 1 
+         * valid codes: 0~9  */
+        checkBarcodeTypeUPCA: function(list){
+
+            var object = { illegalList:[], islegal: true };
+
+            for(var i =0 ; i< list.length ; i++){
+
+          //      if  list[i].barcode.
+                for(var j = 0 ; j< list[i].barcode.length ; j++ ){
+
+                    if(list[i].barcode.length != 11)
+                        {
+                                   object.illegalList.push( list[i] );
+                                   object.islegal = false ;
+                                   break;
+                        }
+
+                    if( !(
+                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j] <= 57 ) // 0~9
+                          )
+                      ) // find illegal char do
+                               {
+                                   object.illegalList.push( list[i] );
+                                   object.islegal = false ;
+                                   break;
+                               }
+                }
+            }
+            return object ;
+        },
+
+        /* length: 12 + 1
+         * valid codes: 0~9  */
+        checkBarcodeTypeEAN13: function(list){
+
+             var object = { illegalList:[], islegal: true };
+
+            for(var i =0 ; i< list.length ; i++){
+
+          //      if  list[i].barcode.
+                for(var j = 0 ; j< list[i].barcode.length ; j++ ){
+
+                    if(list[i].barcode.length != 12)
+                        {
+                                   object.illegalList.push( list[i] );
+                                   object.islegal = false ;
+                                   break;
+                        }
+
+                    if( !(
+                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j] <= 57 ) // 0~9
+                          )
+                      ) // find illegal char do
+                               {
+                                   object.illegalList.push( list[i] );
+                                   object.islegal = false ;
+                                   break;
+                               }
+                }
+            }
+            return object ;
+        },
+
+        testing: function(){
+
+            var list = [{barcode:'1234'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
+           
+            this.checkBarcodeTypeEAN13(list);
+        },
+
          exit: function() {
 
              if( (this.tabList != "" && !this._isSave) || GeckoJS.FormHelper.isFormModified('setProductForm')){
@@ -780,7 +983,7 @@
                      case 0: this.modifyCount();
                              this.saveList();
                               window.close();
-                         
+
                      case 1: return ;
 
                      case 2: window.close();
