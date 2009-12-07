@@ -72,4 +72,4 @@
 <!ENTITY rptyourorder.status.stored "Stored">
 <!ENTITY rptyourorder.status.cancelled "Cancelled">
 <!ENTITY rptyourorder.status.voided "Voided">
-<!ENTITY rptyourorder.destination "Destinaltion:">
+<!ENTITY rptyourorder.destination "Destination:">
