@@ -41,6 +41,14 @@ ${'    ' + payment.memo1 + ':'|left:26}${payment.amount|default:0|viviFormatPric
 
 ${_( '(rpt)Summary' ) + ':'|left:26}${body.payment_list.summary.payment_total|default:0|viviFormatPrices:true|right:16}
 ------------------------------------------
+${_( '(rpt)Groupable Payments' )}
+{for detail in body.groupable_payments.records}
+{eval}
+   paymentType = detail.memo1 + ' ' + TrimPath.parseTemplate_etc.modifierDef['viviFormatPrices'](detail.amount, true);
+{/eval}
+  ${paymentType|left:31} ${'X ' + detail.count|right:8}
+{/for}
+------------------------------------------
 ${_( '(rpt)Destination Summary' )}
 {for detail in body.destination_summary.data}
 ${'  ' + detail.destination + ':'|left:26}${detail.num_trans|default:0|format:0|right:16}

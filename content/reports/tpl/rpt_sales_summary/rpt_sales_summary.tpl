@@ -150,6 +150,25 @@
             </table>
             <br />
 
+            <table id="body-table">
+                <caption>${_( '(rpt)Groupable Payments' )}</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">${_( '(rpt)Groupable Payment Type' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Groupable Payment Count' )}</th>
+                    </tr>
+                </thead>
+                <tbody>
+    {for detail in body.groupable_payments.records}
+                    <tr>
+                        <td style="text-align: left;">${detail.memo1|default:''} ${detail.amount|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">X ${detail.count}</td>
+                    </tr>
+    {/for}
+                </tbody>
+            </table>
+            <br />
+
         </td>
         
         <td valign="top">

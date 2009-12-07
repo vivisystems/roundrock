@@ -708,7 +708,7 @@
                     case 'CASH':
                         if (item.is_groupable || (item.memo2 != '' && item.memo2 != null)) {
                             // groupable local cash
-                            dispName = item.memo1 + item.origin_amount;
+                            dispName = item.memo1 + this.formatPrice(item.origin_amount);
                         }
                         else {
                             dispName = _('(cart)CASH');

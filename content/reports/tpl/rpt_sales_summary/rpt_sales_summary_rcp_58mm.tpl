@@ -67,6 +67,13 @@ ${payment.amount|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Summary' ) + ':'}
 ${body.payment_list.summary.payment_total|default:0|viviFormatPrices:true|right:24}
 ------------------------
+${_( '(rpt)Groupable Payments' )}
+------------------------
+{for detail in body.groupable_payments.records}
+${detail.memo1|default:''} ${detail.amount|viviFormatPrices:true}
+${'X ' + detail.count|right:24}
+{/for}
+------------------------
 ${_( '(rpt)Destination Summary' )}
 ------------------------
 {for detail in body.destination_summary.data}
