@@ -201,15 +201,15 @@
                         </columns>
                         <rows>
                             <row>
-                                <vbox  flex="0">
+                                <vbox  >
                                     <label value="lable_printing.pricLevel;"/>
-                                     <menulist  id="priceList" form="setProductForm" name="" label = "Price Level" onfocus="select()">
+                                    <menulist  id="priceList" class="pricelevel"  form="setProductForm" name="selectedPrice" label = "" onfocus="select()" >
 
                                     </menulist>
                                 </vbox>
                                 <vbox>
                                     <label value="&lable_printing.product.count;"/> <!--&tabs.product.count;-->
-                                    <textbox  id="count_textbox" form= "setProductForm" type="number"
+                                    <vivitextbox numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"  id="count_textbox" form= "setProductForm" type="number"
                                          default="0" onfocus="select()" name="count" disabled="true"/>
                                 </vbox>
                             </row>

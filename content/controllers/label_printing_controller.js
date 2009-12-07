@@ -456,13 +456,16 @@
         setCount: function(index){
 
             GeckoJS.FormHelper.unserializeFromObject('setProductForm', this.tabList[index]);
+            
             this.setPrice(index);
+
             this._modifyProductButton.disabled = false;
             this._deleteProduct.disabled = false;
-            this._countTextbox.disabled = false ;
+            this._countTextbox.removeAttribute('disabled');
       //      this._priceMenuList.selectedIndex = -1;
       //      this._priceTextbox.disabled = false ;
-          this._priceMenuList.disabled = false ;
+            this._priceMenuList.disabled = false ;
+            this._priceMenuList.selectedIndex = this.findMatchPrice( this._priceMenuList, this.tabList[index].selectedPrice );
          },
 
         setPrice:function(index){
@@ -505,14 +508,14 @@
 
         modifyCount: function(){
 
-           // if( !GeckoJS.FormHelper.isFormModified('setProductForm'))
-           //     return ;
-           if(this._tabListPanel.selectedIndex == -1) return ;
+            if( !GeckoJS.FormHelper.isFormModified('setProductForm'))
+               return ;
+            if(this._tabListPanel.selectedIndex == -1) return ;
             this.tabList[this._tabListPanel.selectedIndex].count = this._countTextbox.value;
             this.tabList[this._tabListPanel.selectedIndex].selectedPrice = this._priceMenuList.value;
 
-            GeckoJS.FormHelper.unserializeFromObject('setProductForm', this.tabList[this._tabListPanel.selectedIndex]);
-
+            GeckoJS.FormHelper.unserializeFromObject('setProductForm', this.tabList[this._tabListPanel.selectedIndex]);            
+            
             this.validateList();
             this._tabListPanel.refresh();
 
@@ -669,7 +672,7 @@
             this._deleteListButton.disabled = true;
             this._modifyProductButton.disabled = true;
             this._deleteProduct.disabled = true;
-            this._countTextbox.disabled = true;
+            this._countTextbox.setAttribute('disabled',true);
             //this._priceTextbox.disabled = true;
             this._priceMenuList.disabled = true;
 
@@ -685,6 +688,7 @@
         initialPriceCount: function(){
 
             GeckoJS.FormHelper.reset('setProductForm');
+            this._priceMenuList.setAttribute('label',_('Price Level'));
         },
 
         printList: function(){
@@ -699,8 +703,7 @@
 
         load: function(){
 
-            this._countTextbox = document.getElementById('count_textbox');
-            this._priceTextbox  = document.getElementById('price_level1_textbox');
+            this._countTextbox = document.getElementById('count_textbox');            
             this._priceMenuList = document.getElementById('priceList');
             this._deleteListButton = document.getElementById('delete_list');
             this._modifyProductButton = document.getElementById('modify_product');
@@ -733,8 +736,9 @@
             document.getElementById( 'end_date' ).value = end;
 
             GeckoJS.FormHelper.reset('setProductForm');
+            this._priceMenuList.setAttribute('label',_('Price Level'));
 
-            this.getBarcodeTypeList();
+            this.getBarcodeTypeList();           
          },
 
          alertReplaceProducts: function (){
@@ -754,6 +758,18 @@
              this._replaceProducts = [];
          },
 
+         alertIllegalBarcodeProduct: function(list){
+
+           var alert = "";
+
+             for(var i =0 ; i<list.length;i++){
+                         alert = alert + list[i].name +' '+list[i].barcode+"\n";
+             }
+
+             GREUtils.Dialog.alert(this.topmostWindow, _('Product barcode illegal'),
+                                      _(alert + "Barcode illegal"));
+         },
+
          initialPriority: function(){
 
              for(var i = 0; i < this.tabList.length ;i++){
@@ -761,6 +777,15 @@
                  this.tabList[i].priority = 0 ;
              }
              return this.tabList ;
+         },
+
+         findMatchPrice: function(priceObj, price){
+             
+             for(var x = 0 ; x < priceObj.itemCount ; x++){
+
+                if( priceObj.menupopup.childNodes[x].value == price)
+                    return x ;
+             }
          },
 
          checkSave: function(selecetedCase, messege){
@@ -829,7 +854,49 @@
             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
-            if (inputObj.ok) {alert(inputObj.name);}
+            if (inputObj.ok) {
+
+            var object ={};
+                switch(inputObj.name)
+                {
+                       case  '3OF9':
+                                         object = this.checkBarcodeTypeEAN13(this.tabList);
+                                         //if  find illegal barcode
+                                         if(object.islegal == false){
+                                         //alert illegal barcode product
+                                         this.alertIllegalBarcodeProduct(object.illegalList);
+                                         return;
+                                         }else{ /*do print*/alert('do print'); return;}
+
+                       case  '128': 
+                                         object = this.checkBarcodeType128(this.tabList);
+                                         // find illegal barcode
+                                         if(object.islegal == false){
+                                         //alert illegal barcode product
+                                         this.alertIllegalBarcodeProduct(object.illegalList);
+                                         return;
+                                         }else{ /*do print*/alert('do print'); return;}
+
+                       case  'UPC-A':    
+                                         object = this.checkBarcodeTypeUPCA(this.tabList);
+                                         // find illegal barcode
+                                         if(object.islegal == false){
+                                         //alert illegal barcode product
+                                         this.alertIllegalBarcodeProduct(object.illegalList);
+                                         return;
+                                         }else{ /*do print*/alert('do print'); return;}
+
+                       case  'EAN-13':   
+                                         object = this.checkBarcodeTypeEAN13(this.tabList);
+                                         // find illegal barcode
+                                         if(object.islegal == false){
+                                         //alert illegal barcode product
+                                         this.alertIllegalBarcodeProduct(object.illegalList);
+                                         return;
+                                         }else{ /*do print*/alert('do print'); return;}
+                }
+               
+            }
 
         },
 
@@ -969,7 +1036,9 @@
 
             var list = [{barcode:'1234'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
            
-            this.checkBarcodeTypeEAN13(list);
+            var object = this.checkBarcodeTypeEAN13(list);
+
+            this.alertIllegalBarcodeProduct(object.illegalList);
         },
 
          exit: function() {
