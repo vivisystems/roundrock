@@ -2579,7 +2579,7 @@
                     }
 
                     if (silent && subtype != '') {
-                        this._addPayment('giftcard', balance, amount, subtype, '', groupable, finalize);
+                        this._addPayment('giftcard', balance, payment, subtype, '', groupable, finalize);
                     }
                     else {
                         let data = {
@@ -2596,7 +2596,7 @@
                                 let memo1 = result.input0 || '';
                                 let memo2 = result.input1 || '';
 
-                                self._addPayment('giftcard', balance, amount, memo1, memo2, groupable, finalize);
+                                self._addPayment('giftcard', balance, payment, memo1, memo2, groupable, finalize);
 
                             }
                             else {
