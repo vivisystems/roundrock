@@ -42,4 +42,7 @@ Bug #242:
     When confirming refund payments while voiding sale, refund payment amount is switched with original payment amount
 
 Bug #243:
-     Region button labels on Table Selection screen are cropped
+    Region button labels on Table Selection screen are cropped
+
+Bug #244:
+    Fixed typo on Custom Sales Report screen ('Destinaltion')
