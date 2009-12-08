@@ -1717,22 +1717,22 @@ msgstr "Number of Guests"
 msgid "vivipos.fec.registry.function.programmable.guestNum.name"
 msgstr "Number of Guests"
 
-################
-# Recall Order
-################
+#####################
+# Recall By Sequence
+#####################
 
-msgid "vivipos.fec.registry.function.programmable.recallOrder.desc"
+msgid "vivipos.fec.registry.function.programmable.recallBySequence.desc"
 msgstr ""
 "This function recalls a previously stored check for further action via "
 "sequence number. If the operator click this function button without sequence "
 "number input, a screen will pop-up for the selection of stored check. The "
 "parameter field must be empty."
 
-msgid "vivipos.fec.registry.function.programmable.recallOrder.label"
-msgstr "Recall Order"
+msgid "vivipos.fec.registry.function.programmable.recallBySequence.label"
+msgstr "Recall By Sequence"
 
-msgid "vivipos.fec.registry.function.programmable.recallOrder.name"
-msgstr "Recall Order"
+msgid "vivipos.fec.registry.function.programmable.recallBySequence.name"
+msgstr "Recall By Sequence"
 
 ################
 # Recall Table

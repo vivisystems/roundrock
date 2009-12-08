@@ -343,15 +343,15 @@
 
 
             if (this.isDock()) {
-                top = tableSettings.TableDockTop;
-                left = tableSettings.TableDockLeft;
-                width = tableSettings.TableDockWidth;
-                height = tableSettings.TableDockHeight;
+                top = tableSettings.TableDockTop +'px';
+                left = tableSettings.TableDockLeft + 'px';
+                width = tableSettings.TableDockWidth + 'px';
+                height = tableSettings.TableDockHeight +'px';
             } else {
-                top = 0;
-                left = 0;
-                width = screenwidth;
-                height = screenheight;
+                top = 0+'px';
+                left = 0+'px';
+                width = screenwidth+'px';
+                height = screenheight+'px';
             }
 
             $.installPanel($panel[0], {
@@ -1195,6 +1195,9 @@
             var inputObj = {};
             
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'table_book', aFeatures, inputObj);
+
+            // auto refresh when close
+            this.refreshTableStatus();
 
             return true;
 

@@ -145,7 +145,7 @@
                 disablecancelbtn:true
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Number of Customers'), aFeatures, _('Select Number of Customers'), '', _('Number'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Number of Guests'), aFeatures, _('Enter Number of Guests'), '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -158,7 +158,7 @@
         /**
          * open Check No Dialog
          */
-        openCheckNoDialog: function (no){
+        openCheckNoDialog: function (no, title){
 
             no = no || '';
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
@@ -169,7 +169,9 @@
                 numpad:true
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Check Number'), aFeatures, _('Select Check Number'), '', _('Number'), '', inputObj);
+            title = title || _('Enter Check Number');
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, title, aFeatures, title, '', '', '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 no = inputObj.input0;
@@ -183,19 +185,21 @@
         /**
          * open Table No Dialog
          */
-        openTableNumDialog: function (){
+        openTableNumDialog: function (required){
 
+            if (!required) required = false;
             var no = '';
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
             var inputObj = {
                 input0:'',
                 require0:true,
-                numpad:true,
-                disablecancelbtn:true
+                numpad:true
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Number'), aFeatures, _('Select Table Number'), '', _('Number'), '', inputObj);
+            if (required) inputObj.disablecancelbtn = true;
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Table Number'), aFeatures, _('Enter Table Number'), '', '', '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 no = inputObj.input0;
@@ -414,7 +418,7 @@
                     
                 }else {
                     // use callback to select table.
-                    no = this.openTableNumDialog() ;
+                    no = this.openTableNumDialog(true) ;
                 }
             }
 
@@ -515,9 +519,9 @@
         openSplitPaymentDialog: function (splitPayments, total){
 
             var aURL = 'chrome://viviecr/content/prompt_splitpayment.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=640,height=480';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=700,height=560';
             var inputObj = {
-                disablecancelbtn: true,
+                // disablecancelbtn: true,
                 total: total,
                 input:splitPayments
             };
@@ -526,6 +530,8 @@
 
             if (inputObj.ok && inputObj.input) {
                 return inputObj.input;
+            }else {
+                return false;
             }
 
             return splitPayments;
@@ -557,6 +563,7 @@
             var curTransaction = cart._getTransaction();
             
             guestNum = guestNum || curTransaction.getNumberOfCustomers() || 0 ;
+            guestNum = isNaN(guestNum) ? 0 : guestNum ;
 
             if (guestNum <= 0) {
                 this.guestNum();
@@ -584,12 +591,16 @@
             // open confirm dialog
             arPayments = this.openSplitPaymentDialog(arPayments, remainTotal);
 
+            if (arPayments === false ) return false;
+
             // set transaction has splitpayment mode.
             curTransaction.setSplitPayments(true);
 
             // add payment amount to cart
             arPayments.forEach(function(pAmount) {
-                cart._addPayment('cash', pAmount);
+                if (pAmount != 0) {
+                    cart._addPayment('cash', pAmount);
+                }
             });
 
         },
@@ -690,7 +701,9 @@
                 // check txn is modified ?
                 var txn = cart._getTransaction();
                 if (txn && txn.isModified()) {
-                    NotifyUtils.warn(_('Please close the current order before recalling an existing order'));
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Recall Order'),
+                                          _('Please close the current order before recalling an existing order'));
                     cart._clearAndSubtotal();
                     return false;
                 }
@@ -840,53 +853,135 @@
          */
         recallCheck: function(checkNo, skipRecall) {
 
-            skipRecall = skipRecall || false;
-
-            checkNo = checkNo || '';
-            if (checkNo.length == 0) {
-                checkNo = this.getKeypadController().getBuffer() || '';
-                this.getKeypadController().clearBuffer();
-            }
-            
-            if (checkNo.length == 0) {
-                checkNo = this.openCheckNoDialog(checkNo);
+            let cart = this.getCartController();
+            let waitPanel;
+            if (cart) {
+                waitPanel = cart._blockUI('blockui_panel', 'common_wait', _('Recall Check'), 0);
             }
 
-            var conditions = "" ;
-            if (checkNo.length == 0 || checkNo == "-1") {
-                conditions = "orders.status=2";
-            }else {
-                conditions = "orders.check_no='"+checkNo+"' AND orders.status=2";
-            }
+            try {
+                skipRecall = skipRecall || false;
 
-            var orders = this.Order.getOrdersSummary(conditions, true);
-
-            if (orders.length == 0) {
-                if (checkNo != '') {
-                    NotifyUtils.error(_('Failed to find orders matching check number [%S]', [checkNo]));
+                checkNo = checkNo || '';
+                if (checkNo.length == 0) {
+                    checkNo = this.getKeypadController().getBuffer() || '';
+                    this.getKeypadController().clearBuffer();
                 }
-                else {
-                    NotifyUtils.error(_('No stored orders found'));
+
+                if (checkNo.length == 0) {
+                    checkNo = this.openCheckNoDialog(checkNo);
                 }
-                return false;
-            }
 
-            // select orders
-            var orderId = "";
-            if (orders.length > 1) {
-                orderId = this.openSelectChecksDialog(orders);
-            }else if (orders.length > 0) {
-                orderId = orders[0].Order.id ;
-            }
-
-            if(orderId.length>0) {
-                if (skipRecall) {
-                    return orderId;
+                var conditions = "" ;
+                if (checkNo.length == 0 || checkNo == "-1") {
+                    conditions = "orders.status=2";
                 }else {
-                    return this.recallOrder(orderId);
+                    conditions = "orders.check_no='"+checkNo+"' AND orders.status=2";
                 }
-            }else {
-                return false;
+
+                var orders = this.Order.getOrdersSummary(conditions, true);
+
+                if (orders.length == 0) {
+                    if (checkNo != '') {
+                        NotifyUtils.error(_('Failed to find orders matching check number [%S]', [checkNo]));
+                    }
+                    else {
+                        NotifyUtils.error(_('No stored orders found'));
+                    }
+                    return false;
+                }
+
+                // select orders
+                var orderId = "";
+                if (orders.length > 1) {
+                    orderId = this.openSelectChecksDialog(orders);
+                }else if (orders.length > 0) {
+                    orderId = orders[0].Order.id ;
+                }
+
+                if(orderId.length>0) {
+                    if (skipRecall) {
+                        return orderId;
+                    }else {
+                        return this.recallOrder(orderId);
+                    }
+                }else {
+                    return false;
+                }
+            }
+            catch(e) {}
+            finally {
+                if (waitPanel) cart._unblockUI(waitPanel);
+            }
+        },
+
+        /**
+         * recall by Sequence 
+         * 
+         * @param {String} seq
+         * @param {Boolean} skipRecall
+         */
+        recallBySequence: function(seq, skipRecall) {
+
+            let cart = this.getCartController();
+            let waitPanel;
+            if (cart) {
+                waitPanel = cart._blockUI('blockui_panel', 'common_wait', _('Recall Check'), 0);
+            }
+
+            try {
+                skipRecall = skipRecall || false;
+
+                seq = seq || '';
+                if (seq.length == 0) {
+                    seq = this.getKeypadController().getBuffer() || '';
+                    this.getKeypadController().clearBuffer();
+                }
+
+                if (seq.length == 0) {
+                   seq = this.openCheckNoDialog(seq, _('Enter Order Sequence Number'));
+                }
+
+                var conditions = "" ;
+                if (seq.length == 0 || seq == "-1") {
+                    conditions = "orders.status=2";
+                }else {
+                    conditions = "orders.sequence='"+seq+"' AND orders.status=2";
+                }
+
+                var orders = this.Order.getOrdersSummary(conditions, true);
+
+                if (orders.length == 0) {
+                    if (seq != '') {
+                        NotifyUtils.error(_('Failed to find orders matching order sequence [%S]', [seq]));
+                    }
+                    else {
+                        NotifyUtils.error(_('No stored orders found'));
+                    }
+                    return false;
+                }
+
+                // select orders
+                var orderId = "";
+                if (orders.length > 1) {
+                    orderId = this.openSelectChecksDialog(orders);
+                }else if (orders.length > 0) {
+                    orderId = orders[0].Order.id ;
+                }
+
+                if(orderId.length>0) {
+                    if (skipRecall) {
+                        return orderId;
+                    }else {
+                        return this.recallOrder(orderId);
+                    }
+                }else {
+                    return false;
+                }
+            }
+            catch(e) {}
+            finally {
+                if (waitPanel) cart._unblockUI(waitPanel);
             }
         },
 
@@ -901,49 +996,61 @@
          */
         recallTable: function(tableNo) {
 
-            if (!this.beforeRecall(orderId)) return false;
-            
-            tableNo = tableNo || '';
-            if (tableNo.length == 0) {
-                tableNo = this.getKeypadController().getBuffer() || '';
-                this.getKeypadController().clearBuffer();
+            let cart = this.getCartController();
+            let waitPanel;
+            if (cart) {
+                waitPanel = cart._blockUI('blockui_panel', 'common_wait', _('Recall Check'), 0);
             }
 
-            if (tableNo.length == 0 ) {
-                tableNo = this.openTableNumDialog(false);
-            }
+            try {
+                if (!this.beforeRecall(orderId)) return false;
 
-            var conditions = "" ;
-            if (tableNo.length == 0 ) {
-                conditions = "orders.status=2";
-            }else {
-                conditions = "orders.table_no='"+tableNo+"' AND orders.status=2";
-            }
-
-            var orders = this.Order.getOrdersSummary(conditions, true);
-
-            if (orders.length == 0) {
-                if (tableNo != '') {
-                    NotifyUtils.error(_('Failed to find orders matching table number [%S]', [tableNo]));
+                tableNo = tableNo || '';
+                if (tableNo.length == 0) {
+                    tableNo = this.getKeypadController().getBuffer() || '';
+                    this.getKeypadController().clearBuffer();
                 }
-                else {
-                    NotifyUtils.error(_('No stored orders found'));
+
+                if (tableNo.length == 0 ) {
+                    tableNo = this.openTableNumDialog(false);
                 }
-                return false;
-            }
 
-            // select orders
-            var orderId = "";
-            if (orders.length > 1) {
-                orderId = this.openSelectChecksDialog(orders);
-            }else {
-                orderId = orders[0].Order.id ;
-            }
+                var conditions = "" ;
+                if (tableNo.length == 0 ) {
+                    conditions = "orders.status=2";
+                }else {
+                    conditions = "orders.table_no='"+tableNo+"' AND orders.status=2";
+                }
 
-            if(orderId.length>0) {
-                return this.recallOrder(orderId);
-            }else {
-                return false;
+                var orders = this.Order.getOrdersSummary(conditions, true);
+
+                if (orders.length == 0) {
+                    if (tableNo != '') {
+                        NotifyUtils.error(_('Failed to find orders matching table number [%S]', [tableNo]));
+                    }
+                    else {
+                        NotifyUtils.error(_('No stored orders found'));
+                    }
+                    return false;
+                }
+
+                // select orders
+                var orderId = "";
+                if (orders.length > 1) {
+                    orderId = this.openSelectChecksDialog(orders);
+                }else {
+                    orderId = orders[0].Order.id ;
+                }
+
+                if(orderId.length>0) {
+                    return this.recallOrder(orderId);
+                }else {
+                    return false;
+                }
+            }
+            catch(e) {}
+            finally {
+                if (waitPanel) cart._unblockUI(waitPanel);
             }
 
         },
@@ -956,7 +1063,7 @@
          *
          * @todo if destination is outside don't check it.
          *
-         * @param {Object) evt
+         * @param {Object} evt
          */
         onCartBeforeAddPayment: function(evt) {
             // let destination = getXXXX;
@@ -1048,11 +1155,14 @@
 
                 if (total < minimum_charge) {
 
+                    let amount = curTransaction.formatPrice(minimum_charge);
                     if (GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('Order amount does not reach Minimum Charge'),
-                        _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\nClick OK to finalize this order by Minimum Charge, \nor, click Cancel to return shopping cart and add more items.', [minimum_charge])) == false) {
+                        _('Minimum Charge'),
+                        _('The total for this order is less than the minimum charge (%S). ' +
+                          'Click OK if you want to pay the minimum charge to close the order. ' +
+                          'Otherwise, please click Cancel and add more items.', [amount])) == false) {
 
-                        NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
+                        NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
                     } else {
 
                         var product = GeckoJS.BaseObject.unserialize(this.tableSettings.MinimumChargePlu);
@@ -1068,9 +1178,10 @@
                             cart.setPrice(minimum_charge - total);
                             cart.addItem(product);
 
-                            NotifyUtils.warn(_('Add difference (%S) to finalize this order by Minimum Charge.', [minimum_charge - total]));
+                            let amount = curTransaction.formatPrice(minimum_charge - total);
+                            NotifyUtils.warn(_('An additional amount of (%S) has been added to the order to meet the minimum charge', [amount]));
                         } else {
-                            NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
+                            NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
                         }
 
                     }
@@ -1528,7 +1639,7 @@
                     return false ;
                 }
 
-                var newTableNo = this.openTableNumDialog();
+                var newTableNo = this.openTableNumDialog(true);
 
 
                 var orgTable = this.Table.getTableByNo(txn.data.table_no);

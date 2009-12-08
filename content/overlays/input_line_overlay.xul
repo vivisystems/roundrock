@@ -9,7 +9,8 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/overlays/controllers/input_line_controller.js" />
 
     <box id="inputLinePanelContainer">
-        <textbox id="inputLineTextBox" rows="2" flex="1" class="main-input-line" onkeypress="inputLineKeypress(event.keyCode)" onchange="$do('onChange', this.value, 'InputLine');" />
+        <textbox id="inputLineTextBox" rows="2" flex="1" class="main-input-line"
+                 onkeypress="inputLineKeypress(event.keyCode)"/>
         <html:div id="detectFontContainer" style="display: none;" class="main-input-line"></html:div>
     </box>
 

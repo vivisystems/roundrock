@@ -12,8 +12,10 @@
         _inDialog: false,
         _returnMode: false,
         _returnPersist: false,
+        _blockNextAction: false,
         _decStockBackUp: null,
 
+        _pendingAddItemEvents: [],
 
         beforeFilter: function(evt) {
 
@@ -22,6 +24,20 @@
                 this._lastCancelInvoke = false;
             }
 
+            switch(cmd) {
+                case 'addItem':
+                    if (this._blockNextAction) {
+                        // internal
+                        this._pendingAddItemEvents.push(this._data);
+                        evt.preventDefault();
+                        return false;
+                    }
+                    break;
+
+                default:
+                    this._pendingAddItemEvents = [];
+                    break;
+            }
             return true;
         },
 
@@ -674,13 +690,13 @@
                     var price = GeckoJS.Session.get('cart_set_price_value');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
-                             (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
-                            !currentItem.hasDiscount &&
-                            !currentItem.hasSurcharge &&
-                            !currentItem.hasMarker &&
-                            ((price == null) || (currentItem.current_price == price)) &&
+                            (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
+                        !currentItem.hasDiscount &&
+                        !currentItem.hasSurcharge &&
+                        !currentItem.hasMarker &&
+                        ((price == null) || (currentItem.current_price == price)) &&
                             (currentItem.current_qty > 0 && !this._returnMode ||
-                             currentItem.current_qty < 0 && this._returnMode) &&
+                                currentItem.current_qty < 0 && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
 
                             // need to clear quantity source so scale multipler is not applied again
@@ -728,11 +744,22 @@
                 var self = this;
                 var cart = this._getCartlist();
 
+                this._blockNextAction = true;
                 next( function() {
                     if (addedItem.id == plu.id && !self._returnMode) {
 
                         currentIndex = curTransaction.getDisplayIndexByIndex(addedItem.index);
                         return next( function() {
+
+                            if (plu.force_memo) {
+
+                                // need to move cursor to addedItem
+                                cart.selection.select(currentIndex);
+
+                                return self.addMemo(plu);
+                            }
+
+                        }).next( function() {
 
                             if (plu.force_condiment) {
                                 var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
@@ -744,16 +771,6 @@
 
                                     return self.addCondiment(plu, null, doSIS);
                                 }
-                            }
-
-                        }).next( function() {
-
-                            if (plu.force_memo) {
-
-                                // need to move cursor to addedItem
-                                cart.selection.select(currentIndex);
-
-                                return self.addMemo(plu);
                             }
 
                         });
@@ -771,12 +788,21 @@
                         self._clearAndSubtotal();
                     }
 
+                    self._blockNextAction = false;
+
+                    // has pendingAddItemEvents ??
+                    while (!self._blockNextAction && self._pendingAddItemEvents.length >0) {
+                        let data = self._pendingAddItemEvents.splice(0,1)[0];
+                        self.requestCommand('addItem', data, 'Cart');
+                    }
+
                 });
 
             }
             else {
                 this._clearAndSubtotal();
             }
+                
         },
 
         _setItemSelectionDialog: function (txn, item) {
@@ -1660,8 +1686,8 @@
 
                 if (non_discountable) {
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Discount Error'),
-                                          _('Product [%S] is non-discountable', [itemTrans.name]));
+                        _('Discount Error'),
+                        _('Product [%S] is non-discountable', [itemTrans.name]));
                     return;
                 }
             }
@@ -1920,8 +1946,8 @@
 
                 if (non_surchargeable) {
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Surcharge Error'),
-                                          _('Product [%S] is non-surchargeable', [itemTrans.name]));
+                        _('Surcharge Error'),
+                        _('Product [%S] is non-surchargeable', [itemTrans.name]));
                     return;
                 }
             }
@@ -2665,7 +2691,7 @@
             });
             if (ledgerEntryTypeModel.lastError) {
                 this._dbError(ledgerEntryTypeModel.lastError, ledgerEntryTypeModel.lastErrorString,
-                              _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
+                    _('An error was encountered while retrieving ledger entry types (error code %s) [message #106].', [ledgerEntryTypeModel.lastError]));
                 this._clearAndSubtotal();
                 return;
             }
@@ -3515,11 +3541,11 @@
                         };
 
                         var data = [
-                            _('Add Annotation') + ' [' + curTransaction.data.seq + ']',
-                            '',
-                            annotationType,
-                            '',
-                            inputObj
+                        _('Add Annotation') + ' [' + curTransaction.data.seq + ']',
+                        '',
+                        annotationType,
+                        '',
+                        inputObj
                         ];
 
                         var self = this;
@@ -3930,6 +3956,7 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
             this._cancelReturn();
 
@@ -3960,7 +3987,9 @@
             if (typeof plu == 'object' && plu.force_memo) {
                 memoItem = plu;
             }else {
+                if (!plu) plu = buf;
                 if (plu != null) plu = GeckoJS.String.trim(plu);
+                
                 var cartItem = curTransaction.getItemAt(index);
                 if (cartItem != null && cartItem.type == 'item') {
                     //xxxx why clone it? so we don't change the default memo
@@ -3998,7 +4027,7 @@
                 if (index < 0) index = 0;
 
                 if (mode == 'absolute') {
-                    newIndex = val;
+                    newIndex = val - 1;
                 }
                 else if (mode == 'relative') {
                     newIndex = index + val;
@@ -4038,16 +4067,16 @@
             if (curTransaction.data.recall != 1 && curTransaction.data.recall != 2 &&
                 curTransaction.data.status != 1 && curTransaction.data.status != 2) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Void Sale'),
-                                      _('This operation may only be applied to stored and completed transactions'));
+                    _('Void Sale'),
+                    _('This operation may only be applied to stored and completed transactions'));
                 return;
             }
 
             // check if transaction has been modified
             if (curTransaction.isModified() &&
                 !GREUtils.Dialog.confirm(this.topmostWindow,
-                                         _('Confirm Void'),
-                                         _('You have made changes to this order; are you sure you want to void the order?'))) {
+                    _('Confirm Void'),
+                    _('You have made changes to this order; are you sure you want to void the order?'))) {
                 return;
             }
             if (this._voidSaleById(curTransaction.data.id)) {

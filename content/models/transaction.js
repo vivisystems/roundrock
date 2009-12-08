@@ -1547,6 +1547,7 @@
                     var checkitem = this.data.items[checkItemIndex];
                     if (checkitem.type == 'item' && checkitem.current_qty < 0) {
                         NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
+                        break;
                     }
                 }
 
@@ -1700,6 +1701,7 @@
                     var checkitem = this.data.items[checkItemIndex];
                     if (checkitem.type == 'item' && checkitem.current_qty < 0) {
                         NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
+                        break;
                     }
                 }
 
