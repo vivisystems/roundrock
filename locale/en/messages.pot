@@ -255,6 +255,9 @@ msgstr "Purchase History"
 msgid "vivipos.fec.reportpanels.productsalesreturn.label"
 msgstr "Product Returns"
 
+msgid "vivipos.fec.reportpanels.paymentdetails.label"
+msgstr "Payment Details"
+
 ########################################################################
 #
 # List of Reports ACLs
@@ -332,6 +335,9 @@ msgstr "Report - Stock Adjustments"
 
 msgid "acl_report_purchasehistory"
 msgstr "Report - Purchase History"
+
+msgid "acl_report_paymentdetails"
+msgstr "Report - Payment Details"
 
 ########################################################################
 #

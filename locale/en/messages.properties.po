@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-11-07 15:09+0800\n"
+"POT-Creation-Date: 2009-12-08 14:25+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,6 +265,9 @@ msgstr "Purchase History"
 msgid "vivipos.fec.reportpanels.productsalesreturn.label"
 msgstr "Product Returns"
 
+msgid "vivipos.fec.reportpanels.paymentdetails.label"
+msgstr "Payment Details"
+
 # #######################################################################
 #
 # List of Reports ACLs
@@ -341,6 +344,9 @@ msgstr "Report - Stock Adjustments"
 
 msgid "acl_report_purchasehistory"
 msgstr "Report - Purchase History"
+
+msgid "acl_report_paymentdetails"
+msgstr "Report - Payment Details"
 
 # #######################################################################
 #
@@ -2958,11 +2964,15 @@ msgstr ""
 msgid "Please select at least one group of settings to clone"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:46
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:804
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:72
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:42
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:39
+#: ../..//content/prompt_doshiftchange.js:47
+#: ../..//content/controllers/cart_controller.js:2949
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:856
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:73
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:77
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:45
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:49
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:40
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:43
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:39
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_csv.tpl:16
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_58mm.tpl:15
@@ -2977,12 +2987,12 @@ msgstr ""
 msgid "(rpt)"
 msgstr ""
 
+#: ../..//content/prompt_doshiftchange.js:221
 #: ../..//content/prompt_doshiftchange.js:230
-#: ../..//content/prompt_doshiftchange.js:239
-#: ../..//content/prompt_doshiftchange.js:244
+#: ../..//content/prompt_doshiftchange.js:235
+#: ../..//content/prompt_doshiftchange.js:272
 #: ../..//content/prompt_doshiftchange.js:281
-#: ../..//content/prompt_doshiftchange.js:290
-#: ../..//content/prompt_doshiftchange.js:295
+#: ../..//content/prompt_doshiftchange.js:286
 #: ../..//content/prompt_doshiftchangeblindly.js:65
 #: ../..//content/prompt_doshiftchangeblindly.js:74
 #: ../..//content/prompt_doshiftchangeblindly.js:79
@@ -2991,33 +3001,33 @@ msgstr ""
 #: ../..//content/prompt_doshiftchangeblindly.js:131
 #: ../..//content/controllers/shift_changes_controller.js:39
 #: ../..//content/controllers/shift_changes_controller.js:611
-#: ../..//content/controllers/shift_changes_controller.js:1124
+#: ../..//content/controllers/shift_changes_controller.js:1125
 msgid "Shift Change"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:231
+#: ../..//content/prompt_doshiftchange.js:222
 #: ../..//content/prompt_doshiftchangeblindly.js:66
 msgid ""
 "You may not end the current sale period while there are registered items in "
 "the cart"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:240
-#: ../..//content/prompt_doshiftchange.js:291
+#: ../..//content/prompt_doshiftchange.js:231
+#: ../..//content/prompt_doshiftchange.js:282
 #: ../..//content/prompt_doshiftchangeblindly.js:75
 msgid "Please note that one or more orders are still open"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:245
+#: ../..//content/prompt_doshiftchange.js:236
 #: ../..//content/prompt_doshiftchangeblindly.js:80
 msgid "You may not end the current sale period while orders are still open"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:251
-#: ../..//content/prompt_doshiftchange.js:255
-#: ../..//content/prompt_doshiftchange.js:259
-#: ../..//content/prompt_doshiftchange.js:263
-#: ../..//content/prompt_doshiftchange.js:306
+#: ../..//content/prompt_doshiftchange.js:242
+#: ../..//content/prompt_doshiftchange.js:246
+#: ../..//content/prompt_doshiftchange.js:250
+#: ../..//content/prompt_doshiftchange.js:254
+#: ../..//content/prompt_doshiftchange.js:297
 #: ../..//content/prompt_doshiftchangeblindly.js:86
 #: ../..//content/prompt_doshiftchangeblindly.js:90
 #: ../..//content/prompt_doshiftchangeblindly.js:94
@@ -3026,48 +3036,48 @@ msgstr ""
 msgid "confirm end sale period"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:251
+#: ../..//content/prompt_doshiftchange.js:242
 #: ../..//content/prompt_doshiftchangeblindly.js:86
 msgid "Change may not be left in the drawer at the end of sale period"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:255
-#: ../..//content/prompt_doshiftchange.js:302
+#: ../..//content/prompt_doshiftchange.js:246
+#: ../..//content/prompt_doshiftchange.js:293
 #: ../..//content/prompt_doshiftchangeblindly.js:90
 #: ../..//content/prompt_doshiftchangeblindly.js:138
 msgid "Drawer change may not be negative"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:259
-#: ../..//content/prompt_doshiftchange.js:306
+#: ../..//content/prompt_doshiftchange.js:250
+#: ../..//content/prompt_doshiftchange.js:297
 msgid "Drawer change may not exceed available cash"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:263
+#: ../..//content/prompt_doshiftchange.js:254
 #: ../..//content/prompt_doshiftchangeblindly.js:98
 msgid "Please confirm end of sale period"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:282
+#: ../..//content/prompt_doshiftchange.js:273
 #: ../..//content/prompt_doshiftchangeblindly.js:118
 msgid ""
 "You may not end the current shift while there are registered items in the "
 "cart"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:296
+#: ../..//content/prompt_doshiftchange.js:287
 #: ../..//content/prompt_doshiftchangeblindly.js:132
 msgid "You may not close the current shift while orders are still open"
 msgstr ""
 
+#: ../..//content/prompt_doshiftchange.js:293
 #: ../..//content/prompt_doshiftchange.js:302
-#: ../..//content/prompt_doshiftchange.js:311
 #: ../..//content/prompt_doshiftchangeblindly.js:138
 #: ../..//content/prompt_doshiftchangeblindly.js:147
 msgid "confirm shift change"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:311
+#: ../..//content/prompt_doshiftchange.js:302
 #: ../..//content/prompt_doshiftchangeblindly.js:147
 msgid "Please confirm shift change"
 msgstr ""
@@ -3082,13 +3092,13 @@ msgid "Please note one or more orders are still open"
 msgstr ""
 
 #: ../..//content/refund_payment.js:23 ../..//content/refund_payment.js:29
-#: ../..//content/controllers/cart_controller.js:3944
-#: ../..//content/controllers/cart_controller.js:4005
-#: ../..//content/controllers/cart_controller.js:4015
-#: ../..//content/controllers/cart_controller.js:4026
-#: ../..//content/controllers/cart_controller.js:4033
-#: ../..//content/controllers/cart_controller.js:4046
-#: ../..//content/controllers/cart_controller.js:4174
+#: ../..//content/controllers/cart_controller.js:4041
+#: ../..//content/controllers/cart_controller.js:4102
+#: ../..//content/controllers/cart_controller.js:4112
+#: ../..//content/controllers/cart_controller.js:4123
+#: ../..//content/controllers/cart_controller.js:4130
+#: ../..//content/controllers/cart_controller.js:4143
+#: ../..//content/controllers/cart_controller.js:4271
 msgid "Void Sale"
 msgstr ""
 
@@ -3400,7 +3410,8 @@ msgid "Product [%S] may not be registered with a zero or negative price [%S]!"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:186
-#: ../..//content/controllers/cart_controller.js:1351
+#: ../..//content/controllers/cart_controller.js:1239
+#: ../..//content/controllers/cart_controller.js:1368
 msgid "Quantity must be greater than zero"
 msgstr ""
 
@@ -3430,29 +3441,29 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:437
 #: ../..//content/controllers/cart_controller.js:1110
-#: ../..//content/controllers/cart_controller.js:1279
-#: ../..//content/controllers/cart_controller.js:1420
-#: ../..//content/controllers/cart_controller.js:3591
+#: ../..//content/controllers/cart_controller.js:1288
+#: ../..//content/controllers/cart_controller.js:1437
+#: ../..//content/controllers/cart_controller.js:3688
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:444
 #: ../..//content/controllers/cart_controller.js:511
 #: ../..//content/controllers/cart_controller.js:1117
-#: ../..//content/controllers/cart_controller.js:1286
-#: ../..//content/controllers/cart_controller.js:1427
-#: ../..//content/controllers/cart_controller.js:1863
-#: ../..//content/controllers/cart_controller.js:2076
-#: ../..//content/controllers/cart_controller.js:2967
-#: ../..//content/controllers/cart_controller.js:3598
-#: ../..//content/controllers/cart_controller.js:3847
+#: ../..//content/controllers/cart_controller.js:1295
+#: ../..//content/controllers/cart_controller.js:1444
+#: ../..//content/controllers/cart_controller.js:1880
+#: ../..//content/controllers/cart_controller.js:2093
+#: ../..//content/controllers/cart_controller.js:3059
+#: ../..//content/controllers/cart_controller.js:3695
+#: ../..//content/controllers/cart_controller.js:3944
 msgid "Please select an item first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:452
 #: ../..//content/controllers/cart_controller.js:1125
-#: ../..//content/controllers/cart_controller.js:3606
-#: ../..//content/controllers/cart_controller.js:3855
+#: ../..//content/controllers/cart_controller.js:3703
+#: ../..//content/controllers/cart_controller.js:3952
 msgid "Stored items may not be modified"
 msgstr ""
 
@@ -3524,7 +3535,7 @@ msgid "Department number not provided"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1102
-#: ../..//content/controllers/cart_controller.js:1271
+#: ../..//content/controllers/cart_controller.js:1280
 msgid "Not an open order; cannot modify the selected item"
 msgstr ""
 
@@ -3553,11 +3564,12 @@ msgid "Not authorized to modify condiment price"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1202
-#: ../..//content/controllers/cart_controller.js:1313
+#: ../..//content/controllers/cart_controller.js:1322
 msgid "Cannot modify; selected item [%S] has discount or surcharge applied"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1209
+#: ../..//content/controllers/cart_controller.js:1329
 msgid "Cannot modify; selected item [%S] has been subtotaled"
 msgstr ""
 
@@ -3569,421 +3581,438 @@ msgstr ""
 msgid "Not authorized to modify quantity"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1243
+#: ../..//content/controllers/cart_controller.js:1252
 msgid "Product [%S] may not be modified to a zero or negative price [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1299
+#: ../..//content/controllers/cart_controller.js:1308
 msgid "Quantity of product set item [%S] may not be modified"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1302
+#: ../..//content/controllers/cart_controller.js:1311
 msgid "Quantity of condiment [%S] may not be modified"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1305
+#: ../..//content/controllers/cart_controller.js:1314
 msgid "Cannot modify quantity of selected item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1412
+#: ../..//content/controllers/cart_controller.js:1429
 msgid "Not an open order; cannot void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1435
+#: ../..//content/controllers/cart_controller.js:1452
 msgid "Stored items may not be voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1450
+#: ../..//content/controllers/cart_controller.js:1467
 msgid "Cannot VOID the selected item [%S]. It is not the last registered item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1457
+#: ../..//content/controllers/cart_controller.js:1474
 msgid ""
 "The select item [%S] is a member of a product set and cannot be VOIDed "
 "individually"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1468
+#: ../..//content/controllers/cart_controller.js:1485
 msgid "Cannot VOID an entry that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1477
-#: ../..//content/controllers/cart_controller.js:2998
-#: ../..//content/controllers/cart_controller.js:3634
+#: ../..//content/controllers/cart_controller.js:1494
+#: ../..//content/controllers/cart_controller.js:3090
+#: ../..//content/controllers/cart_controller.js:3731
 msgid "Please void discount on item [%S] first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1483
-#: ../..//content/controllers/cart_controller.js:3005
-#: ../..//content/controllers/cart_controller.js:3640
+#: ../..//content/controllers/cart_controller.js:1500
+#: ../..//content/controllers/cart_controller.js:3097
+#: ../..//content/controllers/cart_controller.js:3737
 msgid "Please void surcharge on item [%S] first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1588
-#: ../..//content/controllers/cart_controller.js:1719
+#: ../..//content/controllers/cart_controller.js:1605
+#: ../..//content/controllers/cart_controller.js:1736
 msgid "Not an open order; cannot add discount"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1596
-#: ../..//content/controllers/cart_controller.js:1727
+#: ../..//content/controllers/cart_controller.js:1613
+#: ../..//content/controllers/cart_controller.js:1744
 msgid "This order is being finalized and discount may not be registered"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1603
+#: ../..//content/controllers/cart_controller.js:1620
 msgid "Please select an item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1611
+#: ../..//content/controllers/cart_controller.js:1628
 msgid "Discount may not be registered against stored items"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1625
-#: ../..//content/controllers/cart_controller.js:1660
-#: ../..//content/controllers/cart_controller.js:1885
-#: ../..//content/controllers/cart_controller.js:1920
+#: ../..//content/controllers/cart_controller.js:1642
+#: ../..//content/controllers/cart_controller.js:1677
+#: ../..//content/controllers/cart_controller.js:1902
+#: ../..//content/controllers/cart_controller.js:1937
 msgid "Discount has been already been registered on item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1631
-#: ../..//content/controllers/cart_controller.js:1654
-#: ../..//content/controllers/cart_controller.js:1891
-#: ../..//content/controllers/cart_controller.js:1914
+#: ../..//content/controllers/cart_controller.js:1648
+#: ../..//content/controllers/cart_controller.js:1671
+#: ../..//content/controllers/cart_controller.js:1908
+#: ../..//content/controllers/cart_controller.js:1931
 msgid "Surcharge has been already been registered on item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1637
-#: ../..//content/controllers/cart_controller.js:1897
-#: ../..//content/controllers/cart_controller.js:2991
+#: ../..//content/controllers/cart_controller.js:1654
+#: ../..//content/controllers/cart_controller.js:1914
+#: ../..//content/controllers/cart_controller.js:3083
 msgid "Cannot modify an item that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1646
+#: ../..//content/controllers/cart_controller.js:1663
 msgid "Discount Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1647
+#: ../..//content/controllers/cart_controller.js:1664
 msgid "Product [%S] is non-discountable"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1666
+#: ../..//content/controllers/cart_controller.js:1683
 msgid "Cannot apply discount to [%S]. It is not the last registered item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1673
+#: ../..//content/controllers/cart_controller.js:1690
 msgid "Discount may not be applied to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1681
+#: ../..//content/controllers/cart_controller.js:1698
 msgid "Please enter the discount amount"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1684
-#: ../..//content/controllers/cart_controller.js:1737
+#: ../..//content/controllers/cart_controller.js:1701
+#: ../..//content/controllers/cart_controller.js:1754
 msgid "Please enter the discount percentage"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1757
+#: ../..//content/controllers/cart_controller.js:1774
 msgid "No applicable item to discount"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1848
-#: ../..//content/controllers/cart_controller.js:1976
+#: ../..//content/controllers/cart_controller.js:1865
+#: ../..//content/controllers/cart_controller.js:1993
 msgid "Not an open order; cannot add surcharge"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1856
-#: ../..//content/controllers/cart_controller.js:1984
+#: ../..//content/controllers/cart_controller.js:1873
+#: ../..//content/controllers/cart_controller.js:2001
 msgid "This order is being finalized and surcharge may not be registered"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1871
+#: ../..//content/controllers/cart_controller.js:1888
 msgid "Surcharge may not be registered against stored items"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1906
+#: ../..//content/controllers/cart_controller.js:1923
 msgid "Surcharge Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1907
+#: ../..//content/controllers/cart_controller.js:1924
 msgid "Product [%S] is non-surchargeable"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1926
+#: ../..//content/controllers/cart_controller.js:1943
 msgid "Cannot apply surcharge to [%S]. It is not the last registered item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1933
+#: ../..//content/controllers/cart_controller.js:1950
 msgid "Surcharge may not be applied to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1941
+#: ../..//content/controllers/cart_controller.js:1958
 msgid "Please enter the surcharge amount"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1944
-#: ../..//content/controllers/cart_controller.js:1993
+#: ../..//content/controllers/cart_controller.js:1961
+#: ../..//content/controllers/cart_controller.js:2010
 msgid "Please enter the surcharge percentage"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2011
+#: ../..//content/controllers/cart_controller.js:2028
 msgid "No applicable item to add surcharge"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2025
+#: ../..//content/controllers/cart_controller.js:2042
 msgid "Not an open order; cannot add %S"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2032
+#: ../..//content/controllers/cart_controller.js:2049
 msgid "Nothing has been registered yet; cannot add %S"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2061
+#: ../..//content/controllers/cart_controller.js:2078
 msgid "House Bon"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2069
+#: ../..//content/controllers/cart_controller.js:2086
 msgid "Not an open order; cannot register %S"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2091
+#: ../..//content/controllers/cart_controller.js:2108
 msgid "House Bon may not be applied to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2138
+#: ../..//content/controllers/cart_controller.js:2155
 msgid "The selected currency [%S] has not been configured"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2145
-#: ../..//content/controllers/cart_controller.js:2322
-#: ../..//content/controllers/cart_controller.js:2704
+#: ../..//content/controllers/cart_controller.js:2162
+#: ../..//content/controllers/cart_controller.js:2339
+#: ../..//content/controllers/cart_controller.js:2752
 msgid "Not an open order; cannot register payments"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2169
-#: ../..//content/controllers/cart_controller.js:2360
-#: ../..//content/controllers/cart_controller.js:2719
+#: ../..//content/controllers/cart_controller.js:2186
+#: ../..//content/controllers/cart_controller.js:2380
+#: ../..//content/controllers/cart_controller.js:2767
 msgid "Invalid payment amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2176
-#: ../..//content/controllers/cart_controller.js:2368
-#: ../..//content/controllers/cart_controller.js:2727
+#: ../..//content/controllers/cart_controller.js:2193
+#: ../..//content/controllers/cart_controller.js:2388
+#: ../..//content/controllers/cart_controller.js:2775
 msgid "Invalid payment amount [%S]. Payment amount must be positive"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2184
-#: ../..//content/controllers/cart_controller.js:2376
-#: ../..//content/controllers/cart_controller.js:2735
+#: ../..//content/controllers/cart_controller.js:2201
+#: ../..//content/controllers/cart_controller.js:2396
+#: ../..//content/controllers/cart_controller.js:2783
 msgid "Please enter the amount to refund"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2202
+#: ../..//content/controllers/cart_controller.js:2219
 msgid "Please enter an amount first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2205
-msgid "Please configure the selected currency entry first [%S]"
+#: ../..//content/controllers/cart_controller.js:2222
+msgid "Please configure the currency entry first [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2222
+#: ../..//content/controllers/cart_controller.js:2239
 msgid "Credit Card Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2223
-#: ../..//content/controllers/cart_controller.js:2244
-#: ../..//content/controllers/cart_controller.js:2265
-#: ../..//content/controllers/cart_controller.js:2286
+#: ../..//content/controllers/cart_controller.js:2240
+#: ../..//content/controllers/cart_controller.js:2261
+#: ../..//content/controllers/cart_controller.js:2282
+#: ../..//content/controllers/cart_controller.js:2303
 msgid "Payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2224
+#: ../..//content/controllers/cart_controller.js:2241
 msgid "Card Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2225
+#: ../..//content/controllers/cart_controller.js:2242
 msgid "Card Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2243
-#: ../..//content/controllers/cart_controller.js:2246
+#: ../..//content/controllers/cart_controller.js:2260
+#: ../..//content/controllers/cart_controller.js:2263
 msgid "Coupon Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2245
+#: ../..//content/controllers/cart_controller.js:2262
 msgid "Coupon Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2264
-#: ../..//content/controllers/cart_controller.js:2267
+#: ../..//content/controllers/cart_controller.js:2281
+#: ../..//content/controllers/cart_controller.js:2284
 msgid "Giftcard Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2266
+#: ../..//content/controllers/cart_controller.js:2283
 msgid "Giftcard Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2285
-#: ../..//content/controllers/cart_controller.js:2288
+#: ../..//content/controllers/cart_controller.js:2302
+#: ../..//content/controllers/cart_controller.js:2305
 msgid "Check Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2287
+#: ../..//content/controllers/cart_controller.js:2304
 msgid "Check Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2346
-#: ../..//content/controllers/cart_controller.js:3521
+#: ../..//content/controllers/cart_controller.js:2364
+#: ../..//content/controllers/cart_controller.js:3617
 msgid "Payment Warning"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2347
-#: ../..//content/controllers/cart_controller.js:3522
+#: ../..//content/controllers/cart_controller.js:2365
+#: ../..//content/controllers/cart_controller.js:3618
 msgid ""
 "Tender entry is compulsory for this payment type, please enter an amount "
 "first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2388
+#: ../..//content/controllers/cart_controller.js:2402
+msgid "Please enter the tender amount"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2411
 msgid "Refund amount [%S] may not exceed amount paid [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2408
+#: ../..//content/controllers/cart_controller.js:2432
+#: ../..//content/controllers/cart_controller.js:2441
 msgid "Credit Card Payment Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2409
+#: ../..//content/controllers/cart_controller.js:2433
+msgid "Credit card payment not permitted when no balance is due"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2442
 msgid "Credit card payment may not exceed remaining balance"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2475
+#: ../..//content/controllers/cart_controller.js:2510
+msgid "Giftcard Payment Error"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2511
+msgid "Giftcard payment not permitted when no balance is due"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2519
 msgid "confirm giftcard payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2476
+#: ../..//content/controllers/cart_controller.js:2520
 msgid "Change of [%S] will NOT be given for this type of payment. Proceed?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2528
+#: ../..//content/controllers/cart_controller.js:2576
 msgid "Check Payment Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2529
+#: ../..//content/controllers/cart_controller.js:2577
 msgid "Cashing check for [%S] will exceed your limit of [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2600
+#: ../..//content/controllers/cart_controller.js:2648
 msgid "Please complete or cancel transaction first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2620
+#: ../..//content/controllers/cart_controller.js:2668
 #, python-format
 msgid ""
 "An error was encountered while retrieving ledger entry types (error code %s) "
 "[message #106]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2646
+#: ../..//content/controllers/cart_controller.js:2694
 msgid "unknown user"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2657
+#: ../..//content/controllers/cart_controller.js:2705
 msgid "Specified ledger entry type [%S] is not defined"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2667
+#: ../..//content/controllers/cart_controller.js:2715
 msgid "Add New Ledger Entry"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2686
+#: ../..//content/controllers/cart_controller.js:2734
 #: ../..//content/controllers/ledger_controller.js:202
 msgid "Transaction [%S] for amount of [%S] successfully logged to the ledger"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2690
+#: ../..//content/controllers/cart_controller.js:2738
 #: ../..//content/controllers/ledger_controller.js:207
 msgid "Failed to log transaction [%S] for amount of [%S] to the ledger"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2711
+#: ../..//content/controllers/cart_controller.js:2759
 msgid "Nothing has been registered yet; cannot register payments"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2764
+#: ../..//content/controllers/cart_controller.js:2812
 msgid "No payment has been made; cannot register refund payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2771
+#: ../..//content/controllers/cart_controller.js:2819
 msgid "Refund amount [%S] may not exceed payment amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2843
+#: ../..//content/controllers/cart_controller.js:2919
 msgid "No order for which to show payment status"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2862
+#: ../..//content/controllers/cart_controller.js:2954
 msgid "Payment Details"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2893
-#: ../..//content/controllers/cart_controller.js:2896
-#: ../..//content/controllers/cart_controller.js:2904
+#: ../..//content/controllers/cart_controller.js:2985
+#: ../..//content/controllers/cart_controller.js:2988
+#: ../..//content/controllers/cart_controller.js:2996
 msgid "Scale"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2893
+#: ../..//content/controllers/cart_controller.js:2985
 msgid ""
 "No reading from scale: please make sure scale is powered on and properly "
 "connected"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2896
+#: ../..//content/controllers/cart_controller.js:2988
 msgid ""
 "No stable reading from scale: please remove and re-place item securely on "
 "the scale"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2905
+#: ../..//content/controllers/cart_controller.js:2997
 msgid ""
 "Invalid scale reading [%S]: please remove and re-place item securely on the "
 "scale."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2909
+#: ../..//content/controllers/cart_controller.js:3001
 msgid "Weight read from scale"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2952
+#: ../..//content/controllers/cart_controller.js:3044
 msgid "Not an open order; cannot shift tax"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2960
+#: ../..//content/controllers/cart_controller.js:3052
 msgid "This order is being finalized and tax status may not be changed"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2975
+#: ../..//content/controllers/cart_controller.js:3067
 msgid "Tax status may not be changed on stored items"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2984
+#: ../..//content/controllers/cart_controller.js:3076
 msgid "This operation cannot be performed on [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3022
+#: ../..//content/controllers/cart_controller.js:3114
 msgid "The tax status indicated does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3109
+#: ../..//content/controllers/cart_controller.js:3201
 msgid "confirm cancel"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3110
+#: ../..//content/controllers/cart_controller.js:3202
 msgid "Are you sure you want to discard changes made to this order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3116
-#: ../..//content/controllers/cart_controller.js:3121
-#: ../..//content/controllers/cart_controller.js:3260
-#: ../..//content/controllers/cart_controller.js:3303
+#: ../..//content/controllers/cart_controller.js:3208
+#: ../..//content/controllers/cart_controller.js:3213
+#: ../..//content/controllers/cart_controller.js:3352
+#: ../..//content/controllers/cart_controller.js:3395
 #: ../..//content/controllers/cashdrawer_controller.js:354
 #: ../..//content/controllers/changeuser_controller.js:122
 #: ../..//content/controllers/clockinout_controller.js:300
@@ -3996,225 +4025,225 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:1358
 #: ../..//content/controllers/print_controller.js:1196
 #: ../..//content/controllers/setup_wizard_controller.js:700
-#: ../..//content/controllers/shift_changes_controller.js:1562
+#: ../..//content/controllers/shift_changes_controller.js:1563
 #: ../..//content/controllers/stock_records_controller.js:746
 #: ../..//content/controllers/view_order_controller.js:206
 #: ../..//content/controllers/components/cart_utils.js:54
 msgid "Data Operation Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3117
+#: ../..//content/controllers/cart_controller.js:3209
 msgid "Failed to cancel order due to data operation error [message #102]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3122
+#: ../..//content/controllers/cart_controller.js:3214
 msgid ""
 "Failed to cancel order because a valid sequence number cannot be obtained. "
 "Please check the network connectivity to the terminal designated as the "
 "order sequence server [message #103]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3185
+#: ../..//content/controllers/cart_controller.js:3277
 msgid "Order Finalization"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3186
+#: ../..//content/controllers/cart_controller.js:3278
 msgid "Current order has non-zero balance and may not be closed"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3200
+#: ../..//content/controllers/cart_controller.js:3292
 msgid "Total surcharge [%S] may not exceed user order surcharge limit [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3214
+#: ../..//content/controllers/cart_controller.js:3306
 msgid "Total discount [%S] may not exceed user order discount limit [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3225
+#: ../..//content/controllers/cart_controller.js:3317
 #: ../..//content/controllers/shift_changes_controller.js:616
 msgid "Saving Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3261
+#: ../..//content/controllers/cart_controller.js:3353
 msgid ""
 "This order could not be saved because a valid sequence number cannot be "
 "obtained. Please check the network connectivity to the terminal designated "
 "as the order sequence master."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3304
+#: ../..//content/controllers/cart_controller.js:3396
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server. You can store the check "
 "again after network connectivity has been restored [message #105]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3306
+#: ../..//content/controllers/cart_controller.js:3398
 msgid "Network Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3347
+#: ../..//content/controllers/cart_controller.js:3439
 msgid "Not an open order; cannot pre-finalize order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3353
+#: ../..//content/controllers/cart_controller.js:3445
 msgid "The order is already pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3359
+#: ../..//content/controllers/cart_controller.js:3451
 msgid "The order is empty; cannot pre-finalize order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3379
-#: ../..//content/controllers/cart_controller.js:3397
+#: ../..//content/controllers/cart_controller.js:3471
+#: ../..//content/controllers/cart_controller.js:3489
 msgid "confirm destination"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3380
+#: ../..//content/controllers/cart_controller.js:3472
 msgid ""
 "The order destination is different from [%S], proceed with pre-finalization?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3398
+#: ../..//content/controllers/cart_controller.js:3490
 msgid ""
 "Destinations other than [%S] found in the order, proceed with pre-"
 "finalization?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3426
+#: ../..//content/controllers/cart_controller.js:3518
 #: ../..//content/controllers/main_controller.js:404
 msgid "Add Annotation"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3446
-#: ../..//content/controllers/cart_controller.js:3470
+#: ../..//content/controllers/cart_controller.js:3538
+#: ../..//content/controllers/cart_controller.js:3562
 msgid "PRE-FINALIZED"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3451
-#: ../..//content/controllers/cart_controller.js:3475
+#: ../..//content/controllers/cart_controller.js:3543
+#: ../..//content/controllers/cart_controller.js:3567
 msgid "Order# [%S] has been pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3571
-#: ../..//content/controllers/cart_controller.js:3582
+#: ../..//content/controllers/cart_controller.js:3668
+#: ../..//content/controllers/cart_controller.js:3679
 msgid "Not an open order; cannot add condiment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3622
+#: ../..//content/controllers/cart_controller.js:3719
 msgid "Condiments may not be added to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3628
+#: ../..//content/controllers/cart_controller.js:3725
 msgid "Cannot add condiments to an item that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3665
+#: ../..//content/controllers/cart_controller.js:3762
 msgid "No Condiment group associated with item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3784
+#: ../..//content/controllers/cart_controller.js:3881
 msgid ""
 "Condiment [%S] not added because another condiment from same group [%S] "
 "already exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3840
+#: ../..//content/controllers/cart_controller.js:3937
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3931
+#: ../..//content/controllers/cart_controller.js:4028
 msgid "No order to void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3936
+#: ../..//content/controllers/cart_controller.js:4033
 msgid "The order has already been cancelled or voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3945
+#: ../..//content/controllers/cart_controller.js:4042
 msgid "This operation may only be applied to stored and completed transactions"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3952
+#: ../..//content/controllers/cart_controller.js:4049
 msgid "Confirm Void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3953
+#: ../..//content/controllers/cart_controller.js:4050
 msgid ""
 "You have made changes to this order; are you sure you want to void the order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3959
+#: ../..//content/controllers/cart_controller.js:4056
 msgid "Sale Voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3966
+#: ../..//content/controllers/cart_controller.js:4063
 msgid "Sale Not Voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3992
+#: ../..//content/controllers/cart_controller.js:4089
 #, python-format
 msgid ""
 "An error was encountered while retrieving order record (error code %s) "
 "[message #107]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3997
+#: ../..//content/controllers/cart_controller.js:4094
 msgid "Retrieving Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4006
+#: ../..//content/controllers/cart_controller.js:4103
 msgid "Failed to void: the selected order no longer exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4016
+#: ../..//content/controllers/cart_controller.js:4113
 #: ../..//content/controllers/guest_check_controller.js:734
 #: ../..//content/controllers/guest_check_controller.js:735
 msgid "This order is already locked by other terminal. [%S,%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4027
+#: ../..//content/controllers/cart_controller.js:4124
 msgid ""
 "Failed to void: the status of the selected order has been changed by another "
 "terminal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4034
+#: ../..//content/controllers/cart_controller.js:4131
 msgid ""
 "Failed to void: the selected order has been modified by another terminal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4047
+#: ../..//content/controllers/cart_controller.js:4144
 msgid "Failed to void: the selected order is not stored or finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4066
+#: ../..//content/controllers/cart_controller.js:4163
 msgid "Payment Refund"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4069
+#: ../..//content/controllers/cart_controller.js:4166
 msgid "Voiding Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4157
+#: ../..//content/controllers/cart_controller.js:4254
 msgid ""
 "An error was encountered while changing order status to voided [message "
 "#109]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4167
+#: ../..//content/controllers/cart_controller.js:4264
 msgid "An error was encountered while updating stock level [message #110]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4175
+#: ../..//content/controllers/cart_controller.js:4272
 msgid "Transaction [%S] successfully voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4209
+#: ../..//content/controllers/cart_controller.js:4306
 msgid "Add Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4211
+#: ../..//content/controllers/cart_controller.js:4308
 msgid "Memo"
 msgstr ""
 
@@ -5528,7 +5557,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:1359
 #: ../..//content/controllers/setup_wizard_controller.js:701
 #: ../..//content/controllers/shift_changes_controller.js:41
-#: ../..//content/controllers/shift_changes_controller.js:1563
+#: ../..//content/controllers/shift_changes_controller.js:1564
 #: ../..//content/controllers/stock_records_controller.js:747
 #: ../..//content/controllers/view_order_controller.js:207
 #: ../..//content/controllers/components/cart_utils.js:55
@@ -5753,7 +5782,7 @@ msgid "(view)terminal"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:178
-#: ../..//content/reports/controllers/rpt_base_controller.js:422
+#: ../..//content/reports/controllers/rpt_base_controller.js:439
 msgid "Order Details"
 msgstr ""
 
@@ -6633,7 +6662,7 @@ msgid ""
 "been modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/refund_payment_controller.js:103
+#: ../..//content/controllers/refund_payment_controller.js:165
 msgid "Refund payment amount must be a valid, positive number"
 msgstr ""
 
@@ -7051,172 +7080,172 @@ msgstr ""
 msgid "Shift change is disabled in training mode"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:661
+#: ../..//content/controllers/shift_changes_controller.js:660
 msgid ""
 "An error was encountered while retrieving credit card, check, and coupon "
 "payment records (error code %S) [message #1410]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:688
+#: ../..//content/controllers/shift_changes_controller.js:686
 msgid ""
 "An error was encountered while retrieving giftcard payment records (error "
 "code %S) [message #1411]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:712
+#: ../..//content/controllers/shift_changes_controller.js:710
 msgid ""
 "An error was encountered while retrieving cash payment records (error code %"
 "S) [message #1413]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:740
+#: ../..//content/controllers/shift_changes_controller.js:737
 msgid ""
 "An error was encountered while retrieving foreign cash payment records "
 "(error code %S) [message #1415]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:767
+#: ../..//content/controllers/shift_changes_controller.js:764
 msgid ""
 "An error was encountered while retrieving groupable coupon payment records "
 "(error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:794
+#: ../..//content/controllers/shift_changes_controller.js:791
 msgid ""
 "An error was encountered while retrieving groupable cash payment records "
 "(error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:821
+#: ../..//content/controllers/shift_changes_controller.js:818
 msgid ""
 "An error was encountered while retrieving groupable foreign cash payment "
 "records (error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:848
+#: ../..//content/controllers/shift_changes_controller.js:845
 msgid ""
 "An error was encountered while retrieving ledger payment records (error code "
 "%S) [message #1416]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:876
+#: ../..//content/controllers/shift_changes_controller.js:873
 msgid ""
 "An error was encountered while retrieving orders by destinations (error code "
 "%S) [message #1417]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:897
+#: ../..//content/controllers/shift_changes_controller.js:894
 msgid ""
 "An error was encountered while computing cash and ledger sums (error code %"
 "S) [message #1418]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:915
+#: ../..//content/controllers/shift_changes_controller.js:912
 msgid ""
 "An error was encountered while computing amount of cash change given out "
 "(error code %S) [message #1419]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:935
+#: ../..//content/controllers/shift_changes_controller.js:932
 msgid ""
 "An error was encountered while computing total payments received (error code "
 "%S) [message #1420]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:953
+#: ../..//content/controllers/shift_changes_controller.js:950
 msgid ""
 "An error was encountered while computing depoits received (error code %S) "
 "[message #1421]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:972
+#: ../..//content/controllers/shift_changes_controller.js:969
 msgid ""
 "An error was encountered while computing refunds given out (error code %S) "
 "[message #1422]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:990
+#: ../..//content/controllers/shift_changes_controller.js:987
 msgid ""
 "An error was encountered while computing sales revenue (error code %S) "
 "[message #1423]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1008
+#: ../..//content/controllers/shift_changes_controller.js:1005
 msgid ""
 "An error was encountered while computing total sales payments received "
 "(error code %S) [message #1427]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1028
+#: ../..//content/controllers/shift_changes_controller.js:1025
 msgid ""
 "An error was encountered while computing ledger cash received (error code %"
 "S) [message #1424]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1047
+#: ../..//content/controllers/shift_changes_controller.js:1044
 msgid ""
 "An error was encountered while computing ledger cash paid (error code %S) "
 "[message #1425]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1065
+#: ../..//content/controllers/shift_changes_controller.js:1062
 msgid ""
 "An error was encountered while computing excess giftcard payments (error "
 "code %S) [message #1426]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1083
+#: ../..//content/controllers/shift_changes_controller.js:1084
 msgid ""
 "An error was encountered while retrieving order records (error code %S) "
 "[message #1428]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1154
+#: ../..//content/controllers/shift_changes_controller.js:1155
 msgid "Invalid cash drawer change amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1158
+#: ../..//content/controllers/shift_changes_controller.js:1159
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1235
+#: ../..//content/controllers/shift_changes_controller.js:1236
 msgid ""
 "An error was encountered while saving shift change record; shift may not "
 "have been closed properly [message #1427].."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1269
+#: ../..//content/controllers/shift_changes_controller.js:1270
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1270
+#: ../..//content/controllers/shift_changes_controller.js:1271
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1296
+#: ../..//content/controllers/shift_changes_controller.js:1297
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1297
+#: ../..//content/controllers/shift_changes_controller.js:1298
 msgid "Shift Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1305
+#: ../..//content/controllers/shift_changes_controller.js:1306
 msgid "Are you sure you want to print shift report?"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1320
+#: ../..//content/controllers/shift_changes_controller.js:1321
 msgid "Are you sure you want to print daily sales report?"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1457
-#: ../..//content/controllers/shift_changes_controller.js:1463
-#: ../..//content/controllers/shift_changes_controller.js:1500
-#: ../..//content/controllers/shift_changes_controller.js:1525
+#: ../..//content/controllers/shift_changes_controller.js:1458
+#: ../..//content/controllers/shift_changes_controller.js:1464
+#: ../..//content/controllers/shift_changes_controller.js:1501
+#: ../..//content/controllers/shift_changes_controller.js:1526
 msgid "Shift Error"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1458
+#: ../..//content/controllers/shift_changes_controller.js:1459
 msgid ""
 "Failed to verify current sale period. Please check the network connectivity "
 "to the terminal designated as the sale period master. You are strongly "
@@ -7224,38 +7253,38 @@ msgid ""
 "this terminal [message #1435]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1464
+#: ../..//content/controllers/shift_changes_controller.js:1465
 msgid ""
 "Failed to verify current sale period because cluster sale period has not yet "
 "been set. Please verify that the terminal designated as the sale period "
 "master has properly initialized the sale period [message #1436]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1484
+#: ../..//content/controllers/shift_changes_controller.js:1485
 msgid ""
 "Sale period has been changed from [%S] to [%S]. Order sequence number "
 "updated to [%S]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1501
+#: ../..//content/controllers/shift_changes_controller.js:1502
 msgid ""
 "Failed to verify current sale period due to errors when retrieving shift "
 "information. You are strongly advised to resolve this issue before executing "
 "any further transactions on this terminal [#1437]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1508
+#: ../..//content/controllers/shift_changes_controller.js:1509
 msgid "Shift Warning"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1509
+#: ../..//content/controllers/shift_changes_controller.js:1510
 msgid ""
 "This terminal's sale period [%S (%S)] appears to be out of sync with the "
 "cluster sale period [%S (%S)]. Please close the sale period on this terminal "
 "immediately to avoid recording transactions in the wrong sale period [#1438]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1526
+#: ../..//content/controllers/shift_changes_controller.js:1527
 msgid ""
 "A valid sale period has not been set for this terminal. Please resolve this "
 "issue before executing any further transactions on this terminal."
@@ -8199,52 +8228,52 @@ msgstr ""
 msgid "(sector)"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1358
+#: ../..//content/models/transaction.js:1353
 msgid "Cannot VOID a payment that has been subtotaled"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1503
+#: ../..//content/models/transaction.js:1501
 msgid "Discount amount [%S] may not exceed user item discount limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1512
+#: ../..//content/models/transaction.js:1510
 msgid "Discount amount [%S] may not exceed item amount [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1551
-#: ../..//content/models/transaction.js:1704
+#: ../..//content/models/transaction.js:1549
+#: ../..//content/models/transaction.js:1702
 msgid "ATTENTION: return item(s) are present"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1569
+#: ../..//content/models/transaction.js:1567
 msgid "Discount amount [%S] may not exceed remaining balance [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1663
+#: ../..//content/models/transaction.js:1661
 msgid "Surcharge amount [%S] may not exceed user item surcharge limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1943
+#: ../..//content/models/transaction.js:1947
 msgid "Condiment [%S] already added to [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1980
+#: ../..//content/models/transaction.js:1984
 msgid "Condiment may only be added to an item"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2453
+#: ../..//content/models/transaction.js:2474
 msgid "Price HALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2468
+#: ../..//content/models/transaction.js:2489
 msgid "Price adjusted from [%S] to current HALO [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2477
+#: ../..//content/models/transaction.js:2498
 msgid "Price LALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2492
+#: ../..//content/models/transaction.js:2513
 msgid "Price adjusted from [%S] to current LALO [%S]"
 msgstr ""
 
@@ -8407,8 +8436,8 @@ msgstr ""
 
 #: ../..//content/reports/controllers/journal_report_controller.js:142
 #: ../..//content/reports/controllers/journal_report_controller.js:151
-#: ../..//content/reports/controllers/rpt_base_controller.js:232
-#: ../..//content/reports/controllers/rpt_base_controller.js:277
+#: ../..//content/reports/controllers/rpt_base_controller.js:249
+#: ../..//content/reports/controllers/rpt_base_controller.js:294
 msgid "Media not found!! Please attach a USB thumb drive..."
 msgstr ""
 
@@ -8422,25 +8451,25 @@ msgid ""
 "space is available on the external USB thumb drive [message #2001]."
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:214
+#: ../..//content/reports/controllers/rpt_base_controller.js:231
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:222
+#: ../..//content/reports/controllers/rpt_base_controller.js:239
 msgid ""
 "The document is too large to be exported in .PDF format, please export as ."
 "CSV file instead!"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:268
+#: ../..//content/reports/controllers/rpt_base_controller.js:285
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:331
+#: ../..//content/reports/controllers/rpt_base_controller.js:348
 msgid "Are you sure you want to print this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:483
+#: ../..//content/reports/controllers/rpt_base_controller.js:500
 msgid "The thumb drive does not have enough free space!"
 msgstr ""
 
@@ -8471,25 +8500,25 @@ msgid "(rpt)Supplier"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_purchase_history_controller.js:164
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:219
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:121
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:77
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:238
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:128
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:85
 msgid "(rpt)Product"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:373
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:374
 msgid "(rpt)giftcard excess amount"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:750
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:802
 msgid "(rpt)Item Discount/Surcharge"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:778
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:830
 msgid "(rpt)Order Discount/Surcharge"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:804
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:856
 msgid "(rpt)(based on %S)"
 msgstr ""
 
@@ -8972,25 +9001,25 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary_rcp_80mm.tpl:25
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:29
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:81
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:163
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:193
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:221
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:182
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:212
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:240
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:15
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:40
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:108
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:115
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:125
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:122
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:132
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:144
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:153
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:139
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:151
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:160
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:12
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:25
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:68
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:73
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:79
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:84
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:91
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:97
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:76
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:81
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:87
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:92
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:99
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:105
 #: /tmp/your_order_report.js:37
 msgid "(rpt)Gross Sales"
 msgstr ""
@@ -9387,29 +9416,29 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary.tpl:57
 #: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary_rcp_58mm.tpl:37
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:146
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:178
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:207
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:235
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:296
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:326
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:356
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:384
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:197
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:226
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:254
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:315
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:345
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:375
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:403
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:67
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:95
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:112
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:129
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:148
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:169
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:188
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:205
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:102
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:119
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:136
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:155
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:176
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:195
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:212
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:42
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:59
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:71
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:82
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:94
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:107
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:119
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:130
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:67
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:79
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:90
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:102
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:115
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:127
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:138
 #: ../..//content/reports/tpl/rpt_your_order/rpt_your_order.tpl:66
 #: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:49
 #: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:38
@@ -9590,28 +9619,28 @@ msgid "(rpt)Payment Amount"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:67
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:44
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:51
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:28
 msgid "(rpt)Payment Count"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:83
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:45
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:249
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:89
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:50
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:268
 #: /tmp/your_order_report.js:10
 msgid "(rpt)Destination"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:84
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:45
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:90
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:50
 msgid "(rpt)Destination Amount"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:85
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:51
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:45
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:250
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:74
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:91
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:59
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:50
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:269
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:81
 msgid "(rpt)Destination Count"
 msgstr ""
 
@@ -9714,13 +9743,13 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:17
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:31
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:69
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:161
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:180
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:34
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:140
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:149
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:147
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:156
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:22
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:89
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:95
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:97
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:103
 #: /tmp/your_order_report.js:33
 msgid "(rpt)Number of Guests"
 msgstr ""
@@ -9888,9 +9917,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl:73
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_58mm.tpl:56
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_80mm.tpl:37
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:278
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:85
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:53
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:297
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:92
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:61
 msgid "(rpt)Tax Name"
 msgstr ""
 
@@ -9912,16 +9941,16 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_purchase_history/rpt_purchase_history.tpl:33
 #: ../..//content/reports/tpl/rpt_purchase_history/rpt_purchase_history_rcp_58mm.tpl:34
 #: ../..//content/reports/tpl/rpt_purchase_history/rpt_purchase_history_rcp_80mm.tpl:26
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:192
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:220
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:106
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:211
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:239
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:113
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:123
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:120
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:130
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:67
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:72
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:78
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:83
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:137
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:75
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:80
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:86
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:91
 msgid "(rpt)Quantity"
 msgstr ""
 
@@ -9992,9 +10021,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales.tpl:29
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_58mm.tpl:20
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:14
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:160
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:138
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:88
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:179
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:145
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:96
 msgid "(rpt)Hour"
 msgstr ""
 
@@ -10004,13 +10033,13 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:16
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:30
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:65
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:162
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:181
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:32
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:142
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:151
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:149
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:158
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:21
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:90
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:96
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:98
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:104
 msgid "(rpt)Number of Orders"
 msgstr ""
 
@@ -10351,169 +10380,183 @@ msgstr ""
 msgid "(rpt)Payment List"
 msgstr ""
 
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:154
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:70
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:44
+msgid "(rpt)Groupable Payments"
+msgstr ""
+
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:157
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:135
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:86
+msgid "(rpt)Groupable Payment Type"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:158
+msgid "(rpt)Groupable Payment Count"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:176
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:142
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:94
 msgid "(rpt)Hourly Sales"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:188
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:101
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:64
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:207
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:108
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:72
 msgid "(rpt)Top Department Sales"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:191
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:104
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:66
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:210
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:111
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:74
 msgid "(rpt)Department"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:216
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:118
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:75
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:235
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:125
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:83
 msgid "(rpt)Top Product Sales"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:246
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:70
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:44
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:265
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:77
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:52
 msgid "(rpt)Destination Summary"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:251
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:76
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:47
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:270
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:83
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:55
 msgid "(rpt)Destination Gross Sales"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:252
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:78
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:48
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:271
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:85
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:56
 msgid "(rpt)Destination Average Gross Sales"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:275
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:82
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:51
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:294
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:89
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:59
 msgid "(rpt)Tax Summary"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:279
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:87
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:54
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:298
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:94
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:62
 msgid "(rpt)Taxable Amount"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:280
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:89
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:299
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:96
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:55
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:60
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:103
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:63
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:68
 msgid "(rpt)Add-On Tax Amount"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:281
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:91
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:300
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:98
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:56
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:61
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:105
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:64
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:69
 msgid "(rpt)Included Tax Amount"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:305
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:156
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:99
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:324
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:163
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:107
 msgid "(rpt)Discount Summary"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:308
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:159
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:101
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:327
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:166
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:109
 msgid "(rpt)Discount Name"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:309
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:161
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:102
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:328
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:168
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:110
 msgid "(rpt)Discount Type"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:310
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:163
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:329
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:170
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:103
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:108
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:177
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:111
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:116
 msgid "(rpt)Discount Count"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:311
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:165
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:330
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:172
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:104
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:109
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:179
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:112
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:117
 msgid "(rpt)Discount Amount"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:335
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:175
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:111
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:354
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:182
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:119
 msgid "(rpt)Surcharge Summary"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:338
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:178
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:113
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:357
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:185
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:121
 msgid "(rpt)Surcharge Name"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:339
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:180
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:114
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:358
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:187
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:122
 msgid "(rpt)Surcharge Type"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:340
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:182
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:359
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:189
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:115
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:120
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:196
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:123
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:128
 msgid "(rpt)Surcharge Count"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:341
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:184
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:360
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:191
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:116
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:121
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:198
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:124
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:129
 msgid "(rpt)Surcharge Amount"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:365
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:194
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:123
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:384
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:201
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:131
 msgid "(rpt)Promotion Summary"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:368
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:197
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:125
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:387
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:204
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:133
 msgid "(rpt)Promotion Name"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:369
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:199
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:388
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:206
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:126
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:131
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:213
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:134
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:139
 msgid "(rpt)Promotion Count"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:370
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:201
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:389
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:208
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:127
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:132
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:215
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:135
+#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:140
 msgid "(rpt)Promotion Amount"
 msgstr ""
 
