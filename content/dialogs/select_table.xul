@@ -41,8 +41,8 @@
 
                     </menupopup>
                 </menulist>
-                <button id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"
-                        oncommand="$do('menuChangeRegion', 'next', 'SelectTable');" />
+                <vivibutton id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"
+                            oncommand="$do('menuChangeRegion', 'next', 'SelectTable');" />
 
                 <hbox align="center" id="availableSeatsBox">
                     <spacer style="min-width: 20px;" />
