@@ -4,6 +4,7 @@
 <!ENTITY category.layout.panels "Panels">
 <!ENTITY category.layout.cart "Cart">
 <!ENTITY category.layout.banner "Banner">
+<!ENTITY category.layout.logo "Logo">
 <!ENTITY category.general "General">
 <!ENTITY category.formats "Numbers &amp; Formats">
 <!ENTITY category.login "Sign In/Out">
@@ -83,6 +84,10 @@
 <!ENTITY layout.showclockinicon "Show clock-in icon">
 <!ENTITY layout.showvirtualkeyboardicon "Show virtual keyboard icon">
 <!ENTITY layout.showconfigicon "Show control panel icon">
+<!ENTITY layout.logoheight "Logo Height">
+<!ENTITY layout.logowidth "Logo Width">
+<!ENTITY layout.addlogo "Add Logo">
+<!ENTITY layout.removelogo "Remove Logo">
 <!ENTITY plufilter.filtername "Filter Name">
 <!ENTITY plufilter.index "Index">
 <!ENTITY plufilter.length "Length">

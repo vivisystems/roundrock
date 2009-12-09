@@ -1,5 +1,6 @@
 
 function prefs_overlay_startup() {
+    alert('in prefs overlay startup');
     var prefwin = document.getElementById('prefwin');
     var displayPane = document.getElementById('displaySettingsPane');
     var logoPane = document.getElementById('logoSettingsPane');

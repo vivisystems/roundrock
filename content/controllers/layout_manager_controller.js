@@ -45,6 +45,7 @@
             if (layouts[selectedLayout]) {
                 prefsOverlayUri = layouts[selectedLayout]['prefs_overlay_uri'] || prefsOverlayUri;
             }
+            alert('preference URI: ' + prefsOverlayUri);
             try {
                 document.loadOverlay(prefsOverlayUri, observer);
             }
