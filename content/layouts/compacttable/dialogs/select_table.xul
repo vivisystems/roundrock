@@ -38,8 +38,8 @@
 
 
     <vbox class="selectTableMaindialog" >
-        <vbox class="EmptyArea">
-            <hbox flex="0">
+        <hbox>
+            <hbox flex="1" class="EmptyArea">
 
                 <menulist id="table_region" style="display: none;" width="300px" oncommand="$do('setRegion', this.value, 'SelectTable');">
                     <menupopup id="table_region_menupopup">
@@ -51,7 +51,14 @@
 
                 </arrowscrollbox>
             </hbox>
-        </vbox>
+            <hbox align="center" id="availableSeatsBox">
+                <spacer style="min-width: 20px;" />
+                <vivitextbox id="availableSeats" size="2" onchange="$do('setAvailableSeats', this.value, 'SelectTable');" onenter="event.stopPropagation();"
+                             value="0" numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" type="number"/>
+                <spacer style="min-width: 15px;" />
+            </hbox>
+
+        </hbox>
         <stack flex="1" class="MainPanel">
             <label id="queues" hidden="true" value="" />
             <hbox >
@@ -80,7 +87,7 @@
                 </hbox>-->
                 <hbox>
                     <button class="fixedbtnAlt" id="bookingTableBtn" label="&selecttable.compacttable.bookingtable;" group="func" oncommand="$do('openTableBookDialog', null, 'SelectTable');"/>
-                    <button class="fixedbtnAlt" id="selectTableBtn" label="&selecttable.compacttable.selectno;;" checked="checked" type="radio" group="func" oncommand="$do('setAction', 'selectTable', 'SelectTable');"/>
+                    <button class="fixedbtnAlt" id="selectTableBtn" label="&selecttable.compacttable.selectno;" checked="checked" type="radio" group="func" oncommand="$do('setAction', 'selectTable', 'SelectTable');"/>
                     <button class="fixedbtnAlt" id="mergeTableBtn" label="&selecttable.compacttable.mergetable;" type="radio" group="func" oncommand="$do('setAction', 'mergeTable', 'SelectTable');"/>
                     <button class="fixedbtnAlt" id="unmergeTableBtn" label="&selecttable.compacttable.unmergetable;" type="radio" group="func" oncommand="$do('setAction', 'unmergeTable', 'SelectTable');"/>
                     <button class="fixedbtnAlt" id="markTableBtn" label="&selecttable.compacttable.marktable;" type="radio" group="func" oncommand="$do('setAction', 'markTable', 'SelectTable');"/>

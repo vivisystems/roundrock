@@ -46,7 +46,7 @@
 
                 <hbox align="center" id="availableSeatsBox">
                     <spacer style="min-width: 20px;" />
-                    <label control="booking_telephone" value="&selecttable.availableSeats;" align="center" />
+                    <label control="availableSeats" value="&selecttable.availableSeats;" align="center" />
                     <vivitextbox id="availableSeats" size="3" onchange="$do('setAvailableSeats', this.value, 'SelectTable');" onenter="event.stopPropagation();"
                          value="1" numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" type="number"/>
                 </hbox>

@@ -3,16 +3,9 @@
     height: 416px;
     max-width: 666px;
     max-height: 416px;
-    -moz-box-align: center;
+    margin-left: 10px;
 }
-.maindialog{
-    width: 1024px;
-    height: 768px;
-    min-width: 1024px;
-    min-height: 768px;
-    max-width: 1024px;
-    max-height: 768px;
-}
+
 .EmptyArea {
     max-height: 47px;
     min-height: 47px;
@@ -102,8 +95,8 @@
     display: none;
 }
 .content-arrow-scrollbox {
-    max-width: 650px;
-    min-width: 650px;
+    max-width: 450px;
+    min-width: 450px;
     -moz-box-pack: start;
 }
 
@@ -474,3 +467,124 @@
 ol {
     list-style-type: decimal;
 }
+
+/*-----------------------------------------------------------------------------
+ * Number pad for use with vivitextbox
+ *-----------------------------------------------------------------------------
+ */
+
+.selectTableMaindialog .numpad row,
+.selectTableMaindialog .numpad column {
+    border: 0px;
+    padding: 0px;
+}
+
+.selectTableMaindialog .numpad sendkeybutton {
+    background: transparent url(../images/m_numbtn.png) center center no-repeat;
+    border: 0px solid;
+    color: #47657d;
+    font-size: 34px;
+    font-weight: bold !important;
+    height: 55px;
+    list-style-type: none;
+    margin: 2px 0px 0px 3px;
+    max-height: 55px;
+    max-width:92px;
+    min-height: 55px;
+    min-width:92px;
+    overflow: hidden;
+    padding: 0px;
+    width: 92px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+}
+
+.selectTableMaindialog .numpad sendkeybutton:active{
+	background: transparent url(../images/m_numbtn_a.png) center center no-repeat;
+}
+
+/*-----------------------------------------------------------------------------
+ * Spin buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.selectTableMaindialog spinbuttons {
+    background: none;
+    border: none;
+    -moz-appearance: none;
+}
+
+.selectTableMaindialog .spinbuttons-box {
+    margin-left: 3px;
+    -moz-box-orient: horizontal;
+}
+
+.selectTableMaindialog .spinbuttons-button {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 2px solid ;
+    cursor: pointer;
+    min-height: 40px;
+    min-width: 42px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #b6b6b6 #fff;
+    -moz-border-right-colors: #b6b6b6 #fff;
+    -moz-border-bottom-colors: #b6b6b6 #fff;
+    -moz-border-left-colors: #b6b6b6 #fff;
+}
+
+.selectTableMaindialog .spinbuttons-button[disabled=true] {
+    background: #ddd;
+    -moz-appearance: none;
+    -moz-border-top-colors: #bababa #bababa !important;
+    -moz-border-right-colors: #bababa #bababa !important;
+    -moz-border-bottom-colors: #bababa #bababa !important;
+    -moz-border-left-colors: #bababa #bababa !important;
+}
+
+.selectTableMaindialog .spinbuttons-button:active {
+    border: 2px solid ;
+    -moz-border-top-colors: #00a99d #00a99d;
+    -moz-border-right-colors: #00a99d #00a99d;
+    -moz-border-bottom-colors: #00a99d #00a99d;
+    -moz-border-left-colors: #00a99d #00a99d;
+}
+
+.selectTableMaindialog .spinbuttons-button hbox {
+    -moz-box-pack: center;
+}
+
+.selectTableMaindialog .spinbuttons-button label {
+    display: none;
+}
+
+.selectTableMaindialog .spinbuttons-button image {
+    margin-left: -15px;
+}
+
+.selectTableMaindialog .spinbuttons-up {
+    list-style-image: url(../images/spinup.png);
+    margin-right: 2px !important;
+}
+
+.selectTableMaindialog .spinbuttons-down {
+    list-style-image: url(../images/spindown.png);
+}
+
+.selectTableMaindialog #availableSeats {
+}
+
+.selectTableMaindialog #availableSeats .textbox-input-box {
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #b7b7b2 !important;
+    font-family: monospace;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    min-width: 42px;
+    -moz-appearance: none !important;
+    -moz-border-top-colors: #b7b7b2;
+    -moz-border-left-colors:  #b7b7b2;
+    -moz-border-bottom-colors:  #b7b7b2;
+    -moz-border-right-colors:  #b7b7b2;
+}
+
