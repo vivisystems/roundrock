@@ -46,3 +46,6 @@ Bug #243:
 
 Bug #244:
     Fixed typo on Custom Sales Report screen ('Destinaltion')
+
+Bug #247:
+    Item and order tax entries are duplicated in order_item_taxes each time an order is stored
