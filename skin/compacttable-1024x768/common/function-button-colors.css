@@ -1,0 +1,112 @@
+/*--------------------------------------------------------------------------
+ *
+ * FUNCTION BUTTON COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.function-button-color-default {
+    background: #C8D3E5;
+    -moz-appearance: none;
+    color:#222222;
+    border:none;
+  }
+
+.function-button-color-1 {
+    background: #71C0BD;
+    -moz-appearance: none;
+   color:#222222;
+   border:none;
+   }
+
+.function-button-color-2 {
+    background: #789BBF  !important;
+    -moz-appearance: none;
+    color:#fff;
+    border:none;
+}
+
+.function-button-color-3 {
+    background: #8E6D40; 
+    -moz-appearance: none;
+    color:#262728;
+    border:none;
+}
+
+.function-button-color-4 {
+    background: #DEE539;
+    -moz-appearance: none;
+    color:#3A3B1B;
+    border:none;
+
+    
+}
+
+.function-button-color-5 {
+    background: #849459;
+    -moz-appearance: none;
+    color:#222222;
+    border:none;
+ 
+}
+
+.function-button-color-6 {
+    background: #A96EDE;
+    -moz-appearance: none;
+    color:#fff;
+    border:none;
+ 
+}
+
+.function-button-color-7 {
+    background: #E5DF89 ;
+    -moz-appearance: none;
+    color:#3F2F52;
+    border:none;
+  
+}
+
+.function-button-color-8 {
+    background: #E59F6B ;
+    -moz-appearance: none;
+    color:#77593B;
+    border:none;
+  
+}
+
+.function-button-color-9 {
+    background: #E5E5E5 ;
+    -moz-appearance: none;
+    color:#945E37;
+    border:none;
+ 
+}
+
+.function-button-color-10 {
+    background: #CA7385 ;
+    -moz-appearance: none;
+    color:#222222;
+    border:none;
+ 
+}
+
+.function-button-color-11 {
+    background: #E5C88F ;
+    -moz-appearance: none;
+    color:#59543E;
+    border:none;
+    
+}
+
+.function-button-color-default[selected], .function-button-color-1[selected],
+.function-button-color-2[selected], .function-button-color-3[selected], .function-button-color-4[selected],
+.function-button-color-5[selected], .function-button-color-6[selected], .function-button-color-7[selected],
+.function-button-color-8[selected], .function-button-color-9[selected], .function-button-color-10[selected],
+.function-button-color-11[selected] {
+    background:none;
+    border:#440E62 solid 3px ;
+    -moz-border-top-colors: #440E62 #440E62 #440E62 ;
+    -moz-border-right-colors: #440E62 #440E62 #440E62 ;
+    -moz-border-bottom-colors: #440E62 #440E62 #440E62 ;
+    -moz-border-left-colors: #440E62 #440E62 #440E62 ;
+}

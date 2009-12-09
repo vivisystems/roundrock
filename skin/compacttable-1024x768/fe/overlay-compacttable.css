@@ -1,0 +1,256 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Main Screen Styles
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .main-panel  {
+    background: transparent url(../images/background.jpg) 0 0 no-repeat;
+    border: 0px solid red;
+    height: 768px;
+    width: 1024px;
+}
+
+.main-overlay .left-panel {
+    max-width: 669px;
+    min-width: 669px;
+    width: 669px;
+}
+
+.main-overlay .table-status-panel {
+    height: 416px;
+    max-height: 416px;
+    min-height: 416px;
+}
+
+.main-overlay .right-panel {
+    max-width: 355px;
+    min-width: 355px;
+    width: 355px;
+}
+
+.main-overlay .function-toolbar {
+    min-width: 44px;
+    max-width: 44px;
+    width: 44px;
+}
+
+.main-overlay .main-wait-panel {
+    background: white none center center no-repeat;
+    height: 140px;
+    margin: 314px 212px 314px 212px;
+    width: 600px;
+}
+
+.main-overlay .main-wait-dialog {
+    background: white;
+    border: 3px solid #c1ab8e;
+    margin: 8px;
+    padding: 4px;
+    -moz-border-radius: 8px;
+}
+
+#statusbar-display .statusbarpanel-text {
+    display: none;
+}
+
+.main-overlay .compacttablelogo {
+    background:#f5f2e7 url(../images/compacttable_logo.png) center center no-repeat;
+    max-width:210px;
+    max-height:46px;
+    min-width:210px;
+    min-height:46px;
+    width:210px;
+    height:46px;
+    border: none;
+    margin-bottom: 4px;
+}
+
+.main-overlay .customerpnl label, .main-overlay .customerpnl description {
+    font-size: 8pt;
+    color: #4c3a3a;
+}
+
+.main-overlay .customerpnl label {
+    min-width: 34px;
+}
+
+.main-overlay .customerpnl label.right {
+    min-width: 0px;
+}
+
+.main-overlay .customerpnl textbox {
+    -moz-appearance: none;
+    background: none;
+    min-height: 35px;
+    max-height: 35px;
+    border: none;
+    border: 1px solid #a39898;
+    -moz-border-top-colors:    #a39898;
+    -moz-border-right-colors:  #a39898;
+    -moz-border-bottom-colors: #a39898;
+    -moz-border-left-colors:   #a39898;
+    margin: 1px;
+}
+.main-overlay .customerpnl button {
+    color:#ffffff;
+    font-size:10pt;
+    max-width:77px;
+    max-height:32px;
+    min-width:77px;
+    min-height:32px;
+    width:77px;
+    height:32px;
+    border:none;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    background:#5E4A4A;
+    margin: 3px;
+}
+
+.main-overlay .customerpnl button:hover{
+    background:#896565;
+    -moz-appearance: none;
+}
+.main-overlay .customerpnl button[disabled=true]{
+    background:#D7D7D7;
+    -moz-appearance: none;
+}
+.main-overlay .customerpnl button label {
+    color: white;
+}
+.main-overlay .customerpnl row, .main-overlay .customerpnl hbox {
+    /*-moz-box-align: center;*/
+}
+
+.main-overlay .custom-content-customer-list {
+    margin-top: 2px;
+}
+.main-overlay .custom-content-customer-list treecols {
+    max-height: 18px;
+}
+.main-overlay .custom-content-customer-list treecol,
+.main-overlay .custom-content-customer-list treecolpicker{
+    -moz-appearance: none;
+    background: white;
+    border: 1px solid white;
+}
+.main-overlay .custom-content-customer-list scrollbar {
+    max-height: 34px;
+    max-width: 34px;
+    display: none;
+}
+.main-overlay .button-main-deck{
+    color:#ffffff;
+    font-size:11pt;
+    max-height:38px;
+    min-height:38px;
+    height:38px;
+    border:none;
+    -moz-border-radius: 3px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    background:#4c3a3a;
+    margin: 3px;
+    -moz-box-flex: 1;
+}
+.main-overlay .button-main-deck:hover,
+.main-overlay .button-main-deck:active{
+      -moz-appearance: none;
+    background:#8F7A75;
+}
+.main-overlay .button-main-deck[disabled=true]{
+    -moz-appearance: none;
+    border: none;
+    background:#F0F0EE;
+    border: none;
+}
+.main-overlay .plusFunction button{
+    background: #BFBFB7;
+    border: none;
+    color: #554e4d; 
+    -moz-appearance: none;
+    min-height: 36px;
+    margin: 2px;
+    -moz-box-flex: 1;
+}
+.main-overlay .plusFunction button:hover {
+    background: #d9d1a1;
+}
+.main-overlay .plusFunction button[disabled=true] {
+    background: #f0f0ee;
+    color: #d1d1c1;
+}
+
+.main-overlay .numpad row,
+.main-overlay .numpad column {
+    border: 0px;
+    padding: 0px;
+}
+
+.main-overlay .numpad sendkeybutton {
+    background: #9addf6;
+    border: 0px solid;
+    color: #47657d;
+    font-size: 34px;
+    font-weight: bold !important;
+    height: 55px;
+    list-style-type: none;
+    margin: 2px;
+    max-height: 55px;
+    max-width:70px;
+    min-height: 55px;
+    min-width:70px;
+    overflow: hidden;
+    padding: 0px;
+    width: 70px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+}
+.main-overlay .numpad sendkeybutton label,
+.main-overlay .numpad sendkeybutton description{
+    font-size: 30px !important;
+    -moz-appearance: none;
+    color: #23224b;
+}
+
+
+.main-overlay .fixedbtn {
+    min-width:70px;
+    max-width:70px;
+    border: none;
+    width: 70px;
+    min-height:55px;
+    max-height:55px;
+    height: 55px;
+    margin:  2px;
+    padding: 0px;
+    list-style-type: none;
+    color: #1d3144;
+    font-weight: bold !important;
+    font-size: 15px;
+    overflow: hidden;
+    text-wrap: normal;
+    word-wrap: break-word;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-box-align:center;
+    -moz-box-pack:center;
+
+    background: #9ebcd9;
+}
+.main-overlay .fixedbtn label,
+.main-overlay .fixedbtn description{
+    font-size: 15px;
+    -moz-appearance: none;
+    color: #1d3144;
+}
+
+
+.boxarea {
+    background: none;
+    border: 1px solid #4c3a3a;
+    padding: 5px;
+    margin: 3px 2px;
+}

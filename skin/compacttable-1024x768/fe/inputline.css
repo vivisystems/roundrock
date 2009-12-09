@@ -1,0 +1,25 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Main Screen Input line
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .main-input-line {
+    font-family: monospace;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    padding: 1px 10px;
+    max-height: 30px;
+    min-height: 28px;
+    margin-bottom: 2px;
+    -moz-appearance: none;
+    border: 1px solid #b7b7b2;
+    -moz-border-top-colors: #b7b7b2;
+    -moz-border-left-colors:  #b7b7b2;
+    -moz-border-bottom-colors:  #b7b7b2;
+    -moz-border-right-colors:  #b7b7b2;
+    max-width: 654px;
+    /*-moz-box-flex: 1;*/
+    background: transparent url(../images/pencil.png) right center no-repeat;
+}

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/layout.dtd">
+
+<?xml-stylesheet href="chrome://viviecr/skin/fe/overlay-compacttable.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/vfdpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/orderstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/department.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/product.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/condiment.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/cart.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/inputline.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/promotions_status.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/terminalstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/functionpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
+
+<!--<?xml-stylesheet href="chrome://viviecr/skin/custom/table_win.css" type="text/css"?>-->
+<?xml-stylesheet href="chrome://viviecr/skin/custom/order_display_template.css" type="text/css"?>
+
+<?xul-overlay href="chrome://viviecr/content/layouts/compacttable/overlays/vfdPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/layouts/compacttable/dialogs/select_table.xul" ?>
+
+<overlay id="traditionalLayoutOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script src='chrome://viviecr/content/layouts/compacttable/compacttable_layout_controller.js'/>
+    <script>
+        function setMainDeck(index)
+        {
+            document.getElementById("rightPanelDeck").setAttribute("selectedIndex",index);
+            if(index == '1') {
+                document.getElementById("functionpanel").home();
+            }
+        }
+    </script>
+
+    <box id="main-container">
+
+        <box id="mainPanel" flex="1" class="main-panel" orient="horizontal">
+
+            <box id="leftPanel" orient="vertical" class="left-panel">
+                <box id="tableStatusPanelContainer" flex="1" class="table-status-panel boxarea"/>
+                <vbox flex="1" class="boxarea">
+                    <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
+                    <box flex="1" id="vfdPanelContainer"/>
+                    <hbox>
+                        <box flex="1" id="cartlistPanelContainer"/>
+
+                    </hbox>
+                </vbox>
+            </box>
+
+            <spacer id="panelSpacer" flex="1"/>
+
+            <vbox id="rightPanelWrapper" class="right-panel">
+                <vbox class="boxarea" align="center">
+                    <box id="logoPanelContainer" flex="0" orient="horizontal" panel="&layout.panel.logo;">
+                        <image id="logoImage" />
+                    </box>
+                    <!--<box id="logoBox" orient="horizontal" class="compacttablelogo" panel="&layout.panel.logo;"/>-->
+                    <box id="customerPanelContainer" panel="" class="customerpnl"/>
+                </vbox>
+                <vbox flex="0" class="plusFunction">
+                    <hbox>
+                        <button label="Dine-in" class="font-small" oncommand="$do('functionButton', 1, 'Layout');" />
+                        <button label="Take-out" class="font-small" oncommand="$do('functionButton', 2, 'Layout');" />
+                        <button label="Delivery" class="font-small" oncommand="$do('functionButton', 3, 'Layout');" />
+                        <button label="Void" class="font-small" oncommand="$do('functionButton', 4, 'Layout');" />
+                    </hbox>
+                    <hbox>
+                        <button label="StoreChk" class="font-small" oncommand="$do('functionButton', 5, 'Layout');" />
+                        <button label="Dispatch" class="font-small" oncommand="$do('functionButton', 6, 'Layout');" />
+                        <button label="Pre-finalize" class="font-small" oncommand="$do('functionButton', 7, 'Layout');" />
+                        <button label="Cancel" class="font-small" oncommand="$do('functionButton', 8, 'Layout');" />
+                    </hbox>
+                </vbox>
+                <vbox class="boxarea">
+                    <deck id="rightPanelDeck" flex="1">
+                        <vbox flex="1">
+                            <box id="rightPanel" flex="1" orient="vertical">
+                                <box id="categoryPanelContainer" orient="vertical" class="categoryPanel" panel="&layout.panel.departments;"/>
+                                <box id="productPanelContainer" flex="1" class="productPanel" panel="&layout.panel.products;"/>
+                                <box id="staticCondimentsPanelContainer" panel=""/>
+                            </box>
+
+                        </vbox>
+                        <vbox flex="1">
+                            <box id="rightPanel" flex="1" orient="vertical">
+                                <box id="functionPanelContainer" flex="1" panel="&layout.panel.function;"/>
+                            </box>
+
+                        </vbox>
+                    </deck>
+                    <hbox>
+                        <button class="button-main-deck" label="Function Panel" oncommand="setMainDeck('1');" />
+                        <button class="button-main-deck" label="Menu" oncommand="setMainDeck('0');" />
+                    </hbox>
+                </vbox>
+            </vbox>
+
+        </box>
+
+    </box>
+
+</overlay>

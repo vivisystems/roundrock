@@ -1,0 +1,96 @@
+/*--------------------------------------------------------------------------
+ *
+ * DEPARTMENT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.department-button-color-default {
+    background: #D8C8E5 !important;
+    border: none;
+    -moz-appearance: none;
+    
+}
+
+.department-button-color-1 {
+    background: #C0ACC3 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.department-button-color-2 {
+    background: #D9A3B5 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.department-button-color-3 {
+    background: #B29FD1 !important;
+    border: none;
+    -moz-appearance: none;   
+}
+
+.department-button-color-4 {
+    background: #A49BB1 !important;
+    border: none; 
+    -moz-appearance: none;
+}
+
+.department-button-color-5 {
+    background: #9A86B7 !important;
+    border: none; 
+    -moz-appearance: none;
+}
+
+.department-button-color-6 {
+    background: #BC6EB2 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+
+.department-button-color-7 {
+    background: #9C68A8 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+
+.department-button-color-8 {
+    background: #818FB0 !important;
+    border: none; 
+    -moz-appearance: none;
+}
+
+.department-button-color-9 {
+    background: #94ACE5 !important;
+    border: none; 
+    -moz-appearance: none;
+}
+
+.department-button-color-10 {
+    background: #6463A9 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.department-button-color-11 {
+    background: #814C93 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.department-button-color-default[disabled=false][selected], .department-button-color-1[disabled=false][selected],
+.department-button-color-2[disabled=false][selected], .department-button-color-3[disabled=false][selected],
+.department-button-color-4[disabled=false][selected], .department-button-color-5[disabled=false][selected],
+.department-button-color-6[disabled=false][selected], .department-button-color-7[disabled=false][selected],
+.department-button-color-8[disabled=false][selected], .department-button-color-9[disabled=false][selected],
+.department-button-color-10[disabled=false][selected], .department-button-color-11[disabled=false][selected] {
+    /*list-style-image: url(chrome://viviecr/skin/images/con_sel.png) !important;*/
+    font-style: italic;
+    border: 3px solid red;
+    -moz-border-top-colors: red red red !important;
+    -moz-border-left-colors: red red red !important;
+    -moz-border-bottom-colors: red red red !important;
+    -moz-border-right-colors: red red red !important;
+}
