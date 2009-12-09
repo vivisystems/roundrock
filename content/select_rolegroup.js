@@ -10,7 +10,7 @@
      */
     function startup() {
 
-        $do('load', inputObj.rolegroup, 'SelectRolegroup');
+        $do('load', inputObj, 'SelectRolegroup');
 
         // used in select_rolegroup
         doSetOKCancel(

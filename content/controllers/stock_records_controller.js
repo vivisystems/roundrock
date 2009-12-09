@@ -322,7 +322,7 @@
         _emptyStockRelativeTables: function() {
             try {
                 var model = new StockRecordModel();
-                var r = model.truncate();
+                var r = model.execute('delete from stock_records');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -330,7 +330,7 @@
                 }
 
                 model = new InventoryRecordModel();
-                r = model.truncate();
+                r = model.execute('delete from inventory_records');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -338,7 +338,7 @@
                 }
 
                 model = new InventoryCommitmentModel();
-                r = model.truncate();
+                r = model.execute('delete from inventory_commitments');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,

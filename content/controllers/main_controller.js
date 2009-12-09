@@ -1040,24 +1040,24 @@
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
 
                         // truncate order_queues
-                        (new OrderQueueModel()).truncate();
+                        (new OrderQueueModel()).execute('delete from order_queues');
 
                         // truncate order related tables
                         var orderModel = new OrderModel();
-                        var r = orderModel.truncate();
+                        var r = orderModel.execute('delete from orders');
                         
-                        r = (new OrderReceiptModel()).truncate() && r;
-                        r = (new OrderPromotionModel()).truncate() && r;
-                        r = (new OrderPaymentModel()).truncate() && r;
-                        r = (new OrderObjectModel()).truncate() && r;
-                        r = (new OrderItemModel()).truncate() && r;
-                        r = (new OrderItemTaxModel()).truncate() && r;
-                        r = (new OrderItemCondimentModel()).truncate() && r;
-                        r = (new OrderAnnotationModel()).truncate() && r;
-                        r = (new OrderAdditionModel()).truncate() && r;
+                        r = (new OrderReceiptModel()).execute('delete from order_receipts') && r;
+                        r = (new OrderPromotionModel()).execute('delete from order_promotions') && r;
+                        r = (new OrderPaymentModel()).execute('delete from order_payments') && r;
+                        r = (new OrderObjectModel()).execute('delete from order_objects') && r;
+                        r = (new OrderItemModel()).execute('delete from order_items') && r;
+                        r = (new OrderItemTaxModel()).execute('delete from order_item_taxes') && r;
+                        r = (new OrderItemCondimentModel()).execute('delete from order_item_condiments') && r;
+                        r = (new OrderAnnotationModel()).execute('delete from order_annotations') && r;
+                        r = (new OrderAdditionModel()).execute('delete from order_additions') && r;
 
                         // truncate clockin/out timestamps
-                        r = (new ClockStampModel()).truncate() && r;
+                        r = (new ClockStampModel()).execute('delete from clock_stamps') && r;
 
                         // truncate sync tables
                         r = orderModel.execute('delete from syncs') && r;

@@ -8,6 +8,7 @@
 	
         _listObj: null,
         _selectedIndex: -1,
+        _listParams: {},
         _userAdded: false,
         _userModified: false,
 
@@ -112,11 +113,20 @@
 
             if (this._userAdded) {
                 var panel = this.getListObj();
-                var data = panel.datasource.data;
-                var newIndex = data.length;
 
-                this.requestCommand('list', newIndex);
+                this._listParams.index = -1;
+                this.requestCommand('list', this._listParams);
 
+                // locate newly added user
+                var data = this.getListObj().datasource.data;
+                for (var newIndex = 0; newIndex < data.length; newIndex++) {
+                    if (data[newIndex].username == evt.data.username) {
+                        break;
+                    }
+                }
+
+                this.requestCommand('view', data[newIndex].id);
+                
                 this._selectedIndex = newIndex;
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
@@ -153,9 +163,19 @@
         afterScaffoldEdit: function (evt) {
             if (this._userModified) {
                 var panel = this.getListObj();
-                var index = panel.selectedIndex;
 
-                this.requestCommand('list', index);
+                this._listParams.index = -1;
+                this.requestCommand('list', this._listParams);
+
+                // locate newly added user
+                var data = panel.datasource.data;
+                for (var index = 0; index < data.length; index++) {
+                    if (data[index].username == evt.data.username) {
+                        break;
+                    }
+                }
+
+                this.requestCommand('view', data[index].id);
 
                 this._selectedIndex = index;
                 panel.selectedIndex = index;
@@ -293,7 +313,8 @@
                 GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', '');
             }
 
-            this.requestCommand('list', index);
+            this._listParams.index = index;
+            this.requestCommand('list', this._listParams);
 
             this._selectedIndex = index;
             panel.selectedIndex = index;
@@ -312,10 +333,12 @@
         afterScaffoldIndex: function(evt) {
 
             var panel = this.getListObj();
-
             panel.datasource.data = evt.data;
             panel.ensureIndexIsVisible(panel.selectedIndex);
-            
+
+            if (panel.selectedIndex == -1) {
+                this.disableFields(true);
+            }
         },
 
         getRoleGroup: function () {
@@ -325,7 +348,8 @@
             var aURL = 'chrome://viviecr/content/select_rolegroup.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
-                rolegroup: rolegroup
+                rolegroup: rolegroup,
+                hideadmin: this._listParams.hideadmin
             };
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Access Group'), aFeatures, inputObj);
 
@@ -391,7 +415,17 @@
             }
             panel.datasource = panelView;
             
-            this.requestCommand('list', -1);
+            // if current user is not a member of admin group, filter out members of admin group from evt.data
+            let user = this.Acl.getUserPrincipal();
+            if (!user || !user.AclGroup || user.AclGroup.name != 'admin') {
+                this._listParams = {
+                    conditions: '"User.group" != \'admin\'',
+                    order: 'displayname',
+                    hideadmin: true
+                }
+            }
+            this._listParams.index = -1;
+            this.requestCommand('list', this._listParams);
 
             this._selectedIndex = -1;
             panel.selectedItems = [-1];
@@ -460,14 +494,13 @@
                 return;
             }
 
-            this.requestCommand('list', index);
+            this._listParams.index = index;
+            this.requestCommand('list', this._listParams);
 
             this._selectedIndex = index;
             panel.selectedItems = [index];
             panel.selectedIndex = index;
             panel.ensureIndexIsVisible(index);
-
-            this.validateForm(true);
 
             // if selected user is superuser and the current user is not superuser, make all fields read-only
             var selectedUser = panel.datasource.data[index];
@@ -475,6 +508,7 @@
 
             this.disableFields(selectedUser.username == 'superuser' && currentUser.username != 'superuser');
 
+            this.validateForm(true);
         },
 
         disableFields: function(status) {
@@ -515,6 +549,7 @@
 
             var setdefaultBtn = document.getElementById('set_default');
             var cleardefaultBtn = document.getElementById('clear_default');
+            var aclgroupTextbox = document.getElementById('user_group');
 
             // return if not in form
             var addBtn = document.getElementById('add_user');
@@ -542,13 +577,17 @@
                 //document.getElementById('tab3').removeAttribute('disabled');
 
                 // check for root user
-                if (user.username == 'superuser' && currentUser.username != 'superuser') {
+                if (user.username == 'superuser') {
                     delBtn.setAttribute('disabled', true);
-                    modBtn.setAttribute('disabled', true);
+                    aclgroupTextbox.setAttribute('disabled', true);
+                    if (currentUser.username != 'superuser') {
+                        modBtn.setAttribute('disabled', true);
+                    }
                 }
                 else {
                     delBtn.setAttribute('disabled', false);
                     modBtn.setAttribute('disabled', false);
+                    aclgroupTextbox.removeAttribute('disabled');
                 }
 
                 var defaultId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
