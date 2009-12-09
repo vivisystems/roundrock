@@ -51,7 +51,7 @@
 
     <box id="main-container">
 
-        <box id="mainPanel" flex="1" class="main-panel" orient="horizontal">
+        <box id="mainPanel" flex="1" class="main-panel-right" orient="horizontal">
 
             <box id="leftPanel" orient="vertical" class="left-panel">
                 <box id="tableStatusPanelContainer" flex="1" class="table-status-panel boxarea"/>

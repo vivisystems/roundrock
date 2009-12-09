@@ -13,10 +13,10 @@
 
 /******** for html ********/
 .report {
-	height: 1px;
-	min-height: 1px;
-  padding: 7px;
-	margin: 0px;
+    height: 1px;
+    margin: 0px;
+    min-height: 1px;
+    padding: 7px;
 	
 }
 .size {
@@ -24,162 +24,160 @@
 }
 
 .paper {
-	width: 736px;
+    margin: 0px auto;
+    max-height: 600px;
     max-width: 736px;
-	min-height: 580px;
-	max-height: 600px;
-	overflow-y:auto;
-	margin: 0px auto;
-  padding: 10px;
+    min-height: 580px;
+    overflow-y:auto;
+    padding: 10px;
+    width: 736px;
 }
 
 .PageTitle  {
-	text-align: center;
-	font-size: 10pt;
-	color: #534741;
-	font-weight: bold;
-	border-bottom: 3px #b5b093 double;
-	background: url(images/report_title_bg.gif) repeat-x bottom center;
-	padding: 8px;
-	margin: 10px 0;
+    background: url(images/report_title_bg.gif) repeat-x bottom center;
+    border-bottom: 3px #b5b093 double;
+    color: #534741;
+    font-size: 10pt;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 8px;
+    text-align: center;
 }
 
 .tableTitle  {
-	text-align: center;
-	font-size: 10pt;
-	color: #534741;
-	margin: 0px 10px;
+    color: #534741;
+    font-size: 10pt;
+    margin: 0px 10px;
+    text-align: center;
 }
 
 /* who print, when, time range, ...etc */
 .ReportDate {
-	font-size: 8pt;
-	color: black;
-	background-color: #f5f2e9;
-	padding: 3px 10px;
-	width: 95%;
-	margin: 15px auto;	
+    background-color: #f5f2e9;
+    color: black;
+    font-size: 8pt;
+    margin: 15px auto;
+    padding: 3px 10px;
+    width: 95%;
 }
 
 
 #body-table {
-  width: 98%;
-  margin: 10px auto 0px auto;
-/*  font: 100% sans-serif; */
-  border-collapse: collapse;
-  empty-cells: show;
-  }
+    border-collapse: collapse;
+    empty-cells: show;
+    margin: 10px auto 0px auto;
+    /*  font: 100% sans-serif; */
+    width: 98%;
+}
 
 #body-table > caption {
-  text-align: left;
-  font-weight: bold;
-  font-size: 12pt;
-  color: #292929;
-  margin: 10px 5px;
-  list-style-image: url(images/table_title.gif);
+    color: #292929;
+    font-size: 12pt;
+    font-weight: bold;
+    list-style-image: url(images/table_title.gif);
+    margin: 10px 5px;
+    text-align: left;
 }
 
 
 /* basic shared rules */
 #body-table th,
 #body-table tbody td {
-  text-align: right;
-  border-bottom: 1px solid #c3c3c3;
-  }
+    border-bottom: 1px solid #c3c3c3;
+    text-align: right;
+}
 
 #body-table th {
-  font-weight: bold;
-  padding-left: .5em;
-  }
+    font-weight: bold;
+    padding-left: .5em;
+}
 
 
 /* header */
 #body-table > thead > tr:first-child > th {
-  text-align: center;
-  color: #56523a;
-  border-top: 2px solid #b5b093;
-  border-bottom: 1px solid #b5b093;
-  background-color: #f5f2ec;
-  font-size: 10pt;
-  padding: 4px;
+    background-color: #f5f2ec;
+    border-bottom: 1px solid #b5b093;
+    border-top: 2px solid #b5b093;
+    color: #56523a;
+    font-size: 10pt;
+    padding: 4px;
+    text-align: center;
 }
 
 #body-table > thead > tr + tr > th {
-  font-style: italic;
-  color: gray;
-  }
+    color: gray;
+    font-style: italic;
+}
 
 /* fix size of superscript */
 #body-table sup {
-  font-size: 75%;
-  }
+    font-size: 75%;
+}
 
 /* body */
 #body-table td {
-  padding:4px 8px;
-  font-size: 10pt;
-  color: #484848;
+    color: #484848;
+    font-size: 10pt;
+    padding:4px 8px;
 }
 
 #body-table tbody th:after {
-  content: ":";
-  }
+    content: ":";
+}
 
 
 /* footer */
 #body-table tfoot {
-  font-weight: bold;
-  }
+    font-weight: bold;
+}
 
 #body-table tfoot th {
-  color: #2e2e2e;
-  }
+    color: #2e2e2e;
+}
 
 #body-table tfoot th:after {
-  content: ":";
-  }
+    content: ":";
+}
 
 #body-table tfoot td {
-  text-align: right;
+    text-align: right;
 }
 
 #body-table > tfoot > tr:first-child td {
-  border-top: 2pt solid #c3c3c3;
-  border-bottom: none;
-  font-size: 10pt;
+    border-bottom: none;
+    border-top: 2pt solid #c3c3c3;
+    font-size: 10pt;
 }
 
 
 /** for print use **/
 @media print {
-	.report {
-		padding: 0px;
-		margin: 0px;
-		background: white;
-	}
-	
-	.paper {
-		width: 17cm;
-		padding: 10px;
-		background: none;
-		border: none;
-	}
+    .report {
+        background: white;
+        margin: 0px;
+        padding: 0px;
+    }
 
-	.ReportDate {
-		border: 1px solid #555;
-	}
-		
-	#body-table > thead {
-		display: table-header-group;
-	}
+    .paper {
+        background: none;
+        border: none;
+        padding: 10px;
+        width: 17cm;
+    }
 
-	#body-table > thead > tr:first-child > th {
-	  background-color: #f5f2ec;
-	}
-	
-	#body-table > caption {
-	  page-break-before: always;
-  }
-	
+    .ReportDate {
+        border: 1px solid #555;
+    }
+
+    #body-table > thead {
+        display: table-header-group;
+    }
+
+    #body-table > thead > tr:first-child > th {
+        background-color: #f5f2ec;
+    }
+
+    #body-table > caption {
+        page-break-before: always;
+    }
 }
-

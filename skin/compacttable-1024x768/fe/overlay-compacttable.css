@@ -5,8 +5,15 @@
  *-----------------------------------------------------------------------------
  */
 
-.main-overlay .main-panel  {
-    background: transparent url(../images/background.jpg) 0 0 no-repeat;
+.main-overlay .main-panel-right  {
+    background: transparent url(../images/background-right.jpg) 0 0 no-repeat;
+    border: 0px solid red;
+    height: 768px;
+    width: 1024px;
+}
+
+.main-overlay .main-panel-left  {
+    background: transparent url(../images/background-left.jpg) 0 0 no-repeat;
     border: 0px solid red;
     height: 768px;
     width: 1024px;

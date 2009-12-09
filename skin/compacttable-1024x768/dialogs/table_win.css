@@ -188,7 +188,9 @@
 }
 .tableFunction button:hover{
       background:#FFFCD6;
-      -moz-appearance: none;
+}
+.tableFunction button[checked]{
+      background:#FFFCD6;
 }
 .tableFunction button[disabled=true]{
      background:#E9E9E9;

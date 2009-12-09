@@ -110,64 +110,20 @@
             // update logo image source
             var logoImageObj = document.getElementById('logoImage');
             if (logoImageObj) {
-                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
-                var sDstDir = datapath + "/images/pluimages/";
-                if (!sDstDir) sDstDir = '/data/images/pluimages/';
-                sDstDir = (sDstDir + '/').replace(/\/+/g,'/');
-
-                this.logoSrcBase = 'file://' + sDstDir + 'logo.png';
+                this.logoSrc = this._getLogoSrc();
                 this.logoImageObj = logoImageObj;
 
-                logoImageObj.src = this.logoSrcBase;
+                logoImageObj.src = this.logoSrc;
             }
-            
         },
 
-        declareOldStatus: function( evt ) {
-            evt.data.Order.old_status = evt.data.Order.status;
-        },
+        _getLogoSrc: function() {
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
+            var sDstDir = datapath + "/images/pluimages/";
+            if (!sDstDir) sDstDir = '/data/images/pluimages/';
+            sDstDir = (sDstDir + '/').replace(/\/+/g,'/');
 
-        printCheckAfterVoiding: function( evt ) {
-            var cartController = GeckoJS.Controller.getInstanceByName('Cart');
-            try {
-                var notifyKitchen = false;
-                if ( GREUtils.Dialog.confirm( cartController.topmostWindow, '', _( 'Do you want the kitchen to know the cancellation?' ) ) ) {
-                    notifyKitchen = true;
-                }
-
-                var evtOrder = evt.data;
-                var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
-                var guestCheck = mainWindow.GeckoJS.Controller.getInstanceByName('GuestCheck');
-
-                var transaction = new Transaction(true);
-                transaction.data = guestCheck.getTransactionDataByOrderId( evtOrder.id );
-                transaction.data.void_sale = true;
-                transaction.data.voidKitchen = true;
-                transaction.data.noOrder = true;
-
-                if ( evtOrder.member ) {
-                    var customerModel = new CustomerModel();
-                    var customerRecord = customerModel.find( "first", {
-                        conditions: "customer_id = '" + evtOrder.member + "'"
-                    } );
-
-                    transaction.data.customer = customerRecord;
-                }
-                var printController = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
-                if( printController ) {
-                    if(notifyKitchen) {
-                        printController.printChecks( transaction, null, 'store', null );
-                    }
-
-                    //print receipt if order was previously in completed status
-                    if( evtOrder.old_status == '1' ) {
-                        printController.printReceipts( transaction, null, 'store', true );
-                    }
-                }
-            } catch(e) {
-                this.log(e);
-            }
+            return 'file://' + sDstDir + 'logo.png';
         },
 
         home: function() {
@@ -370,8 +326,13 @@
 
                 logoContainer.setAttribute('hidden', false);
 
-                if (this.logoImageObj && this.logoSrcBase) {
-                    this.logoImageObj.src = this.logoSrcBase + '?' + this._logoImageCounter++;
+                if (!this.logoSrc) this.logoSrc = this._getLogoSrc();
+                if (!this.logoImageObj) this.logoImageObj = document.getElementById('logoImage');
+
+                if (this.logoImageObj && this.logoSrc) {
+                    this.logoImageObj.src = this.logoSrc + '?' + this._logoImageCounter++;
+                    this.logoImageObj.setAttribute('height', logoHeight);
+                    this.logoImageObj.setAttribute('width', logoWidth);
                 }
             }
             else {
@@ -493,7 +454,6 @@
             // not any layout templates support it
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.RegisterAtLeft') || false;
             var productPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.ProductPanelOnTop') || false;
-            var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideTagColumn') || false;
             var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowToolbar') || false;
             var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox') || false;
 
@@ -516,7 +476,10 @@
             if (hideBottomBox) bottombox.setAttribute('hidden', 'true');
             else bottombox.removeAttribute('hidden');
             
-            if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
+            if (hbox) {
+                hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
+                hbox.setAttribute('class', registerAtLeft ? 'main-panel-left' : 'main-panel-right');
+            }
             if (productPanel) productPanel.setAttribute('dir', productPanelOnTop ? 'reverse' : 'normal');
 
             if (deptPanel) deptPanel.setAttribute('dir', !registerAtLeft ? 'normal' : 'reverse');
@@ -531,7 +494,7 @@
                 toolbar.setAttribute('hidden', showToolbar ? 'false' : 'true');
                 fnPanel.removeAttribute('hidden');
             }
-            if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
+            if (cartList) cartList.setAttribute('dir', 'normal');
             if (checkTrackingStatus) {
                 checkTrackingStatus.setAttribute('hidden', checkTrackingMode ? 'false' : 'true');
             }

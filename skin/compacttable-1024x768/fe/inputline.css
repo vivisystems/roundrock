@@ -21,5 +21,9 @@
     -moz-border-right-colors:  #b7b7b2;
     max-width: 654px;
     /*-moz-box-flex: 1;*/
+}
+
+.main-overlay #inputLinePanelContainer {
+    padding-right: 30px;
     background: transparent url(../images/pencil.png) right center no-repeat;
 }
