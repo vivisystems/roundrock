@@ -44,20 +44,19 @@
                 <vivibutton id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"
                             oncommand="$do('menuChangeRegion', 'next', 'SelectTable');" />
 
-                <hbox align="center" id="availableSeatsBox">
-                    <spacer style="min-width: 20px;" />
-                    <label control="booking_telephone" value="&selecttable.availableSeats;" align="center" />
-                    <vivitextbox id="availableSeats" size="3" onchange="$do('setAvailableSeats', this.value, 'SelectTable');" onenter="event.stopPropagation();"
-                         value="1" numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" type="number"/>
-                </hbox>
-
             </hbox>
             <hbox id="promptBox" class="MsgPnl2">
-                <vbox class="PromptBox2" flex="0">
-                <label id="prompt_1" value="prompt 1" class="PromptLabel1" />
-                <label id="prompt_2" value="prompt 2" class="PromptLabel2" />
-                <!--label id="prompt_3" value="prompt 3" class="PromptLabel3" /-->
+                <vbox class="PromptBox2" flex="1">
+                    <label id="prompt_1" value="prompt 1" class="PromptLabel1" />
+                    <label id="prompt_2" value="prompt 2" class="PromptLabel2" />
+                    <!--label id="prompt_3" value="prompt 3" class="PromptLabel3" /-->
                 </vbox>
+
+                <hbox align="center" id="availableSeatsBox">
+                    <spacer style="min-width: 20px;" />
+                    <vivitextbox id="availableSeats" size="3" onchange="$do('setAvailableSeats', this.value, 'SelectTable');" onenter="event.stopPropagation();"
+                                 value="0" numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" type="number"/>
+                </hbox>
             </hbox>
             <spacer flex="1" />
         </vbox>
