@@ -124,7 +124,7 @@
                            errmsg: _('An error was encountered while removing all backup ledger activity logs (error code %S) [messages #805].', [model.lastError])};
                 }
 
-                r = model.truncate();
+                r = model.execute('delete from ledger_records');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -139,7 +139,7 @@
                            errmsg: _('An error was encountered while removing all backup ledger receipts (error code %S) [messages #807].', [model.lastError])};
                 }
 
-                r = model.truncate();
+                r = model.execute('delete from ledger_receipts');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -189,7 +189,9 @@
         addLedgerEntryFromForm: function() {
 
             var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
+            var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
+            var screenheight = GeckoJS.Session.get('screenheight') || 600;
+            var features = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {}
 
             inputObj.entry_types = this.LedgerEntryType.find('all', {order: 'mode, type'});

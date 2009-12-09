@@ -68,8 +68,9 @@
 <!ENTITY rptyourorder.button.recordsettings "Save Settings">
 <!ENTITY rptyourorder.button.removereport "Remove Me">
 <!ENTITY rptyourorder.status "Status:">
-<!ENTITY rptyourorder.status.completed "Complete">
+<!ENTITY rptyourorder.status.completed "Completed">
 <!ENTITY rptyourorder.status.stored "Stored">
 <!ENTITY rptyourorder.status.cancelled "Cancelled">
 <!ENTITY rptyourorder.status.voided "Voided">
-<!ENTITY rptyourorder.destination "Destinaltion:">
+<!ENTITY rptyourorder.status.merged "Merged">
+<!ENTITY rptyourorder.destination "Destination:">

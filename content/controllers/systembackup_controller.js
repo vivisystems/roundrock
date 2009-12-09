@@ -159,10 +159,12 @@
 
         _restart: function() {
             // restart vivipos
-            // return;
-            // opener.opener.vivipos.suspendSavePreference = true;
             GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
-        // GeckoJS.Observer.notify(null, 'prepare-to-quit', this);
+        },
+
+        _reboot: function() {
+            // reboot vivipos
+            GeckoJS.Observer.notify(null, 'prepare-to-reboot', this);
         },
 
         _showWaitPanel: function(message) {
@@ -257,8 +259,9 @@
                 args.push(this._localbackupDir + dir);
                 if (withSystem) args.push('with-system');
 
-                var confirmMessage = _("Do you want to restore [%S] from local backup?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
+                var confirmMessage = _("Do you want to restore [%S] from local backup?", [datas[index].time]);
                 if (withSystem) confirmMessage += "\n\n" + _("restore_with_system.confirm_message");
+                else confirmMessage += "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
 
                 if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Restore"), confirmMessage )) {
 
@@ -270,7 +273,11 @@
                     this.flushPrefs(); // flush it.
                     
                     if (this.execute(this._scriptPath + "restore.sh", args )) {
-                        this._restart();
+                        if(withSystem) {
+                            this._reboot();
+                        }else {
+                            this._restart();
+                        }
                         NotifyUtils.info(_('<Restore from Local backup> is done!!'));
                     }
                 }
@@ -318,7 +325,11 @@
                     this.flushPrefs(); // flush it.
 
                     if (this.execute(this._scriptPath + "restore.sh", args)){
-                        this._restart();
+                        if(withSystem) {
+                            this._reboot();
+                        }else {
+                            this._restart();
+                        }
                         NotifyUtils.info(_('<Restore from Stick> is done!!'));
                     }
                 }

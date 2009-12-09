@@ -630,7 +630,7 @@
                                 <tabs id="systemsTabs">
                                     <tab label="&function_customizer.tab.controlpanel;"/>
                                     <tab label="&function_customizer.tab.services;" />
-                                    <!--tab label="&function_customizer.tab.others;"/-->
+                                    <tab label="&function_customizer.tab.others;"/>
                                 </tabs>
                                 <tabpanels id="systemsTabpanels" flex="1">
 
@@ -677,6 +677,11 @@
                                                           form="systemsForm" name="serviceSyncSettingsStock" default="false" />
                                         <checkbox id="serviceSyncSettingsNtp" value="true" label="&sync_settings.label.ntp_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsNtp" default="false" />
+                                    </tabpanel>
+
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="internalDisableJournal" value="true" label="&function_customizer.systems.internal.disableJournal;"
+                                                          form="systemsForm" name="internalDisableJournal" default="false" />
                                     </tabpanel>
 
                                 </tabpanels>

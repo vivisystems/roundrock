@@ -54,6 +54,7 @@
             <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool"/>
             <preference id="pref_quietcancel" name="vivipos.fec.settings.quietcancel" type="bool"/>
             <preference id="pref_autosetdecimalpoint" name="vivipos.fec.settings.AutoSetDecimalPoint" type="bool"/>
+            <preference id="pref_cartscrollmode" name="vivipos.fec.settings.CartScrollMode" type="unichar"/>
         </preferences>
 
         <grid class="data-form data-form-options">
@@ -96,6 +97,17 @@
                     <vbox>
                         <label control="idletime" value="&general.idletime;"/>
                         <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="10" max="999"/>
+                    </vbox>
+                </row>
+                <row>
+                    <vbox>
+                        <label control="cartscrollmode" value="&general.cartscrollmode;"/>
+                        <menulist id="cartscrollmode" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.CartScrollMode', this.value)">
+                            <menupopup>
+                                <menuitem label="&general.cartscrollmode.cursor-line;" value="cursor-line"/>
+                                <menuitem label="&general.cartscrollmode.view-page;" value="view-page"/>
+                            </menupopup>
+                        </menulist>
                     </vbox>
                 </row>
             </rows>
@@ -304,14 +316,9 @@
 
     <prefpane id="orderDataSettingsPane" label="&category.orderdata;">
         <preferences>
-            <preference id="pref_keepeachtransaction" name="vivipos.fec.settings.KeepEachTransaction" type="bool"/>
             <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>
             <preference id="pref_orderweeklypack" name="vivipos.fec.settings.OrderWeeklyPack" type="int"/>
             <preference id="pref_inventory_adjustment_retaindays" name="vivipos.fec.settings.InventoryAdjustmentRetainDays" type="int"/>
-
-            <preference id="pref_requirecheckno" name="vivipos.fec.settings.RequireCheckNo" type="bool"/>
-            <preference id="pref_requiretableno" name="vivipos.fec.settings.RequireTableNo" type="bool"/>
-
         </preferences>
         <grid class="data-form data-form-options">
             <columns>
@@ -323,10 +330,6 @@
                     <label value="&orderdata.diskunused;"/>
                     <label id="disk_unused" value="100MB"/>
                 </row>
-                <!--row>
-                    <label value="&orderdata.keepeachtransaction;"/>
-                    <checkbox preference="pref_keepeachtransaction" id="keepEachTransaction" checked="false"/>
-                </row-->
                 <row>
                     <label value="&orderdata.orderretaindays;"/>
                     <textbox preference="pref_orderretaindays" id="orderRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>

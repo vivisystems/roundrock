@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.0.3
+Release 1.2.0.5
 ---------------
 
 This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
@@ -11,7 +11,7 @@ Previous 1.2.0.x releases may be upgraded to this release by installing the rele
 Dependencies
 ------------
 
-This release requires VIVIPOS WebApp and WebServices Release 1.2.0.2 or above.
+This release requires VIVIPOS WebApp and WebServices Release 1.2.0.3 or above. You should also install Release 1.2.0.5 of the appropriate language pack to resolve translation-related bugs.
 
 
 ----------
@@ -26,69 +26,26 @@ Bug #159:
 Bugs fixed
 ----------
 
-Bug #145:
-    Enhanced promotion type 'cheapest one free' to behave consistently regardless of mode ('single', 'more than', or 'multiple')
+Bug #202:
+    Need a built-in hotkey for signing off
 
-Bug #155:
-    Hotkeys without modifiers intercepted by input line
+Bug #237:
+    POS front end does not get focus on the input line when first power on
 
-Bug #156:
-    Recalling order into cart can be time-consuming, may need to block UI to force user to wait until order has been fully recalled into the shopping cart
+Bug #239:
+    Only admin users may assign other users to the admin group 
 
-Bug #160:
-    Need to be able to rebuild/reset all table statuses and release locked orders if table status is corrupted
+Bug #240:
+    Truncate Transaction Records may cause transaction records to be truncated on all synchronized terminals 
 
-Bug #162:
-    Payment value in onscreen VFD is not updated when recalling a completed order
+Bug #242:
+    When confirming refund payments while voiding sale, refund payment amount is switched with original payment amount
 
-Bug #163:
-    Label fields too short in 80mm Shift change report template
+Bug #243:
+    Region button labels on Table Selection screen are cropped
 
-Bug #164:
-    The Product Returns report ignores returned items whose sale unit is not 'unit'
+Bug #244:
+    Fixed typo on Custom Sales Report screen ('Destinaltion')
 
-Bug #166:
-    Restored Recall By Sequence and Recall By Table functions
-
-Bug #167:
-    Newly added bookings are not reflected in Table Selection screen when existing from the bookings screen, and previously booked tables are not precluded from being rebooked for the same time slot
-
-Bug #168:
-    Export to PDF and CSV functionalities for Custom Sales, Order Annotations, and Order Status reports are broken
-
-Bug #171:
-    Use of the same word 'Number' in different contexts causes translation difficulty
-
-Bug #174:
-    Rapidly adding items to cart causes new item to be added with previous item's price and quantity
-
-Bug #179:
-    When specifying an absolute index for Scroll Cart function, 0-based index scheme is used instead of the more sensible 1-based index scheme
-
-Bug #181:
-    Cluster services should not be dependent on synchronization setting
-
-Bug #182:
-    Refund amount should be displayed as a negative value in shift change screenn
-
-Bug #183:
-    Table selection screen has a transparent overlay that's bigger than it needs to be, causing areas around the selection screen to be inactive
-
-Bug #184:
-    When port number is changed from 80 in network services, cluster services on localhost are no longer accessible
-
-Bug #185:
-    superuser account should not be editable by users other than superuser
-
-Bug #187:
-    Need an Enter button on the Split payment screen
-
-Bug #188:
-    In Table Manage options, the automatic table status cannot be cleared once a status has been selected.
-
-Bug #189:
-    Hotkey does not work properly if the linked function has required preset data (i.e. Clear)
-
-Bug #190:
-    Input line automatically submits content as barcode whenever it loses focus
-
+Bug #247:
+    Item and order tax entries are duplicated in order_item_taxes each time an order is stored

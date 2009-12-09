@@ -46,3 +46,5 @@
 <!ENTITY    function_customizer.tabpanel.products.label "Products">
 <!ENTITY    function_customizer.tabpanel.condiments.label "Condiments">
 <!ENTITY    function_customizer.tabpanel.product_groups.label "Product Groups">
+
+<!ENTITY    function_customizer.systems.internal.disableJournal "Disable Journal System">
