@@ -30,3 +30,4 @@
 <!ENTITY selecttable.changeclerk  "Change Clerk">
 <!ENTITY selecttable.priorregion  "Prior Region">
 <!ENTITY selecttable.nextregion  "Next Region">
+<!ENTITY selecttable.availableSeats  "Available Seats">

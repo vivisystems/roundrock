@@ -68,8 +68,8 @@
                     // extractObject
                     tables = GeckoJS.Array.objectExtract(tables, "{n}.Table");
 
-                    // update tables to database;
-                    // this.saveTables(tables);
+                // update tables to database;
+                // this.saveTables(tables);
                 }else {
                     tables = this.find('all', {
                         recursive: 0,
@@ -173,7 +173,7 @@
 
             let count = this.find('count', {
                 conditions: "table_no='"+table_no+"'"
-                });
+            });
 
             if(count>0) return false;
 
@@ -223,7 +223,7 @@
                 this.id = id;
                 var data = {
                     active: !table.active
-                    };
+                };
                 return this.save(data);
             } else {
                 return false;
@@ -235,7 +235,7 @@
         /**
          * 
          */
-       getTablesById: function (useDb) {
+        getTablesById: function (useDb) {
             useDb = useDb || false;
 
             var tables = null;
@@ -245,8 +245,8 @@
             }
 
             if (tables == null) {
-               this.getTables(true);
-               tables = GeckoJS.Session.get('tablesById');
+                this.getTables(true);
+                tables = GeckoJS.Session.get('tablesById');
             }
 
             return tables;
@@ -266,8 +266,8 @@
             }
 
             if (tables == null) {
-               this.getTables(true);
-               tables = GeckoJS.Session.get('tablesByNo');
+                this.getTables(true);
+                tables = GeckoJS.Session.get('tablesByNo');
             }
 
             return tables;
@@ -278,7 +278,7 @@
          * 
          */
         getTablesByRegion: function (useDb) {
-           useDb = useDb || false;
+            useDb = useDb || false;
 
             var tables = null;
 
@@ -287,8 +287,8 @@
             }
 
             if (tables == null) {
-               this.getTables(true);
-               tables = GeckoJS.Session.get('tablesByRegion');
+                this.getTables(true);
+                tables = GeckoJS.Session.get('tablesByRegion');
             }
 
             return tables;
@@ -328,6 +328,45 @@
 
             return tables[regionId] || [] ;
 
+        },
+
+        /**
+         * getAvailableTables
+         */
+        getAvailableTables: function(showAvailableSeatTable) {
+            var tables = this.getTablesById();
+            
+            try {
+                var tables_statuses = this.TableStatus.getTablesStatusById();
+
+                for (let tableId in tables_statuses) {
+                    let tableStatus = tables_statuses[tableId]['TableStatus'];
+                    let table = tables_statuses[tableId]['Table'];
+
+                    let available = true;
+
+                    if (tableStatus.status == 3 && tableStatus.mark_op_deny) available = false;
+                    if (!table.active) available = false;
+                    if (tableStatus.status == 2) available = false;
+
+                    if (tableStatus.status == 1) {
+                        if (!showAvailableSeatTable) {
+                            available = false;
+                        }else {
+                            let tableSeat = table.seat;
+                            let customers = tableStatus.sum_customer;
+                            if (customers >= tableSeat) available = false;
+                        }
+                    }
+                
+                    if (!available) delete tables[tableId];
+                }
+
+            }catch(e) {
+                this.log('WARN', 'getAvailableTables Error', e);
+            }
+
+            return GeckoJS.BaseObject.getValues(tables);
         }
 
     };

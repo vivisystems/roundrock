@@ -41,8 +41,16 @@
 
                     </menupopup>
                 </menulist>
-                <vivibutton id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"
-                            oncommand="$do('menuChangeRegion', 'next', 'SelectTable');" />
+                <button id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"
+                        oncommand="$do('menuChangeRegion', 'next', 'SelectTable');" />
+
+                <hbox align="center" id="availableSeatsBox">
+                    <spacer style="min-width: 20px;" />
+                    <label control="booking_telephone" value="&selecttable.availableSeats;" align="center" />
+                    <vivitextbox id="availableSeats" size="3" onchange="$do('setAvailableSeats', this.value, 'SelectTable');" onenter="event.stopPropagation();"
+                         value="1" numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" type="number"/>
+                </hbox>
+
             </hbox>
             <hbox id="promptBox" class="MsgPnl2">
                 <vbox class="PromptBox2" flex="0">

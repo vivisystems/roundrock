@@ -37,6 +37,7 @@
                 main.addEventListener('afterTruncateTxnRecords', this.onMainTruncateTxnRecords, this);
             }
 
+            this.addEventListener('beforeStoreCheck', this.beforeStoreCheck, this);
 
             this.tableSettings = this.TableSetting.getTableSettings() || {};
 
@@ -612,6 +613,43 @@
 
         },
 
+    
+
+        /**
+         * beforeStoreCheck
+         */
+        beforeStoreCheck: function(evt) {
+
+            var curTransaction = evt.data;
+            var isCheckGuestNum = false ;
+            var isCheckTableNo = false ; 
+             
+            if (this.tableSettings.RequireGuestOrTableNumWhenStored && this.tableSettings.RequireGuestNum) {
+                let destsByGuestNum = this.tableSettings.RequireGuestNum.split(",");
+                if (destsByGuestNum.indexOf(curTransaction.data.destination) != -1) isCheckGuestNum = true;
+            }
+            if (this.tableSettings.RequireGuestOrTableNumWhenStored && this.tableSettings.RequireTableNo) {
+                let destsByTableNo = this.tableSettings.RequireTableNo.split(",");
+                if (destsByTableNo.indexOf(curTransaction.data.destination) != -1) isCheckTableNo = true;
+            }
+
+            if (isCheckTableNo && !curTransaction.data.table_no) {
+                let tableResult = this.newTable('', true);
+                if (!tableResult) {
+                    evt.preventDefault();
+                    return false;
+                }
+            }
+
+            let guest = curTransaction.data.no_of_customers || 0;
+            guest = parseInt(guest);
+            if (isCheckGuestNum && guest <= 0) {
+                this.guestNum(-1);
+            }
+
+            return true;
+        },
+        
 
         /**
          * store current transaciton and close transaction.
@@ -677,6 +715,9 @@
             }
             */
 
+            var beforeStoreCheck = this.dispatchEvent('beforeStoreCheck', curTransaction);
+            if (!beforeStoreCheck) return false;
+
             // save order
             if  (cart.submit(2)) {
 
@@ -687,8 +728,10 @@
 
                 NotifyUtils.warn(_('This order has been stored!!'));
 
-                cart._getCartlist().refresh();
+                this.dispatchEvent('afterStoreCheck', curTransaction);
 
+                cart._getCartlist().refresh();
+                
                 return true;
 
             }
@@ -1112,17 +1155,23 @@
             var isCheckGuestNum = true;
             var curTransaction = evt.data.txn || evt.data;
 
-            if (isCheckTableNo && this.tableSettings.RequireTableNo && !curTransaction.data.table_no) {
-                
-                let tableResult = this.newTable('', true);
+            if (this.tableSettings.RequireGuestNum) {
+                let destsByGuestNum = this.tableSettings.RequireGuestNum.split(",");
+                if (destsByGuestNum.indexOf(curTransaction.data.destination) != -1) isCheckGuestNum = true;
+            }
+            if (this.tableSettings.RequireTableNo) {
+                let destsByTableNo = this.tableSettings.RequireTableNo.split(",");
+                if (destsByTableNo.indexOf(curTransaction.data.destination) != -1) isCheckTableNo = true;
+            }
 
+            if (isCheckTableNo && !curTransaction.data.table_no) {
+                let tableResult = this.newTable('', true);
                 if (!tableResult) evt.preventDefault();
             }
             
             let guest = curTransaction.data.no_of_customers || 0;
             guest = parseInt(guest);
-            
-            if (isCheckGuestNum && this.tableSettings.RequireGuestNum && guest <= 0) {
+            if (isCheckGuestNum && guest <= 0) {
                 this.guestNum(-1);
             }
                 

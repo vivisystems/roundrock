@@ -742,9 +742,9 @@
             var defaultDestination = GeckoJS.Configure.read('vivipos.fec.settings.DefaultDestination');
             
             if (destinations != null) destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
-
+            var destinations2 = [];
+            
             var destinationObj = document.getElementById('table_destination');
-
             destinationObj.removeAllItems();
 
             // append default empty
@@ -753,7 +753,19 @@
             destinations.forEach(function(data){
                 var defaultMark = (data.name == defaultDestination) ? '* ' : '';
                 destinationObj.appendItem(defaultMark+data.name, data.name);
+
+                data.label =  defaultMark+data.name ;
+                destinations2.push(data);
+                
             });
+
+            // update require buttons
+            var tablenoDestinationObj = document.getElementById('tableno_destination');
+            var guestnumDestinationObj = document.getElementById('guestnum_destination');
+
+            tablenoDestinationObj.datasource = destinations2;
+            guestnumDestinationObj.datasource = destinations2;
+
 
         },
 
@@ -773,6 +785,7 @@
 
             // append all regions
             defaultRegionObj.appendItem(_('All Regions'),'ALL');
+            defaultRegionObj.appendItem(_('Available Tables'),'AVAILABLE');
 
             regions.forEach(function(data){
                 regionObj.appendItem(data.name, data.id);
@@ -841,6 +854,42 @@
             var settings = this.TableSetting.getTableSettings(true, remote);
             this.Form.reset('settingsForm');
             this.Form.unserializeFromObject('settingsForm', settings);
+
+
+            // update require buttons
+            var tablenoDestinationObj = document.getElementById('tableno_destination');
+            var guestnumDestinationObj = document.getElementById('guestnum_destination');
+
+            let datasourceDestinations = GeckoJS.Array.objectExtract(tablenoDestinationObj.datasource.data, '{n}.name');
+
+            // update destination settings
+            if(settings.RequireTableNo) {
+                
+                let destsByTableNo = settings.RequireTableNo.split(",");
+                let selectedItems = [];
+
+                destsByTableNo.forEach(function(dest) {
+                    let index = GeckoJS.Array.inArray(dest, datasourceDestinations);
+                    if (index != -1) selectedItems.push(index);
+                });
+
+                tablenoDestinationObj.selectedItems = selectedItems ;
+                
+            }
+
+            if (settings.RequireGuestNum) {
+
+                let destsByGuestNum = settings.RequireGuestNum.split(",");
+                let selectedItems = [];
+
+                destsByGuestNum.forEach(function(dest) {
+                    let index = GeckoJS.Array.inArray(dest, datasourceDestinations);
+                    if (index != -1) selectedItems.push(index);
+                });
+
+                guestnumDestinationObj.selectedItems = selectedItems ;
+            }
+
             return settings;
 
         },
@@ -852,6 +901,32 @@
 
             // get form values , only checked
             var settings = this.Form.serializeToObject('settingsForm', true);
+
+            var tablenoDestinationObj = document.getElementById('tableno_destination');
+            var guestnumDestinationObj = document.getElementById('guestnum_destination');
+
+            let datasourceDestinations = GeckoJS.Array.objectExtract(tablenoDestinationObj.datasource.data, '{n}.name');
+
+            if(settings.RequireTableNo) {
+                let destsByTableNo = settings.RequireTableNo.split(",");
+                let selectedItems = [];
+                destsByTableNo.forEach(function(idx) {
+                    selectedItems.push( datasourceDestinations[idx]);
+
+                });
+                settings.RequireTableNo = selectedItems.toString();
+            }
+
+            if (settings.RequireGuestNum) {
+                let destsByGuestNum = settings.RequireGuestNum.split(",");
+                let selectedItems = [];
+                destsByGuestNum.forEach(function(idx) {
+                    selectedItems.push( datasourceDestinations[idx]);
+
+                });
+                settings.RequireGuestNum = selectedItems.toString();
+            }
+            // get require destination
             this.TableSetting.saveTableSettings(settings);
 
             

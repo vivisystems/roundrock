@@ -197,6 +197,7 @@
             
             // append all regions
             regionObj.appendItem(_('All Regions'),'ALL');
+            regionObj.appendItem(_('Available Tables'),'AVAILABLE');
 
             regions.forEach(function(data){
                 regionObj.appendItem(data.name, data.id);
@@ -244,20 +245,46 @@
          * setTablesByRegion
          */
         setTablesByRegion: function(region) {
-            region = region || 'ALL';    
+
+            region = region || 'ALL';
+            seat = parseInt(document.getElementById('availableSeats').value) || 1;
+
+            var tableSettings = this.getTableSettings();
+            var showAvailableSeatTable = ( tableSettings.ShowAvailableSeatTable || false );
 
             var tables = [];
-            if (region != 'ALL') {
-                tables = this.Table.getTablesByRegionId(region);
-            }else {
-                tables = this.Table.getTables();
+
+            switch(region) {
+                default:
+                    tables = this.Table.getTablesByRegionId(region);
+                    break;
+                case 'ALL':
+                    tables = this.Table.getTables();
+                    break;
+                case 'AVAILABLE':
+                    tables = this.Table.getAvailableTables(showAvailableSeatTable);
+                    break;
+                
+            }
+
+            // filter seats
+            let availableTables = [];
+            for(i=0; i<tables.length; i++) {
+                if (seat <= tables[i].seats) {
+                    availableTables.push(tables[i]);
+                }
             }
 
             this.getTablesViewHelper().setRegion(region);
-            this.getTablesViewHelper().setTables(tables);
+            this.getTablesViewHelper().setTables(availableTables);
             
         },
 
+        setAvailableSeats: function() {
+
+            this.setTablesByRegion(this.getSelectedRegion());
+            
+        },
 
         /**
          * refreshTableStatus
@@ -271,16 +298,22 @@
             if (this._blockRefreshTableStatus || !isOpen) return;
 
             try{
+                
                 this._blockRefreshTableStatus = true;
                 
                 // update status
                 let updatedTablesStatus = this.Table.TableStatus.getTablesStatus(true);
 
-                if (updatedTablesStatus && updatedTablesStatus.length > 0) {
-                    this.getTablesViewHelper().refreshUpdatedTablesStatus(updatedTablesStatus);
+                if (this.getSelectedRegion() == 'AVAILABLE') {
+                    this.setTablesByRegion('AVAILABLE');
                 }else {
-                    this.getTablesViewHelper().refreshTablesStatusPeriod();
+                    if (updatedTablesStatus && updatedTablesStatus.length > 0) {
+                        this.getTablesViewHelper().refreshUpdatedTablesStatus(updatedTablesStatus);
+                    }else {
+                        this.getTablesViewHelper().refreshTablesStatusPeriod();
+                    }
                 }
+
             }finally{
                 this._blockRefreshTableStatus = false;
             }
