@@ -381,6 +381,19 @@
                     var selectedRegion = self.getSelectedRegion();
 
                     try {
+                        // size region button label
+                        let priorRegion = document.getElementById('btn_prior_region');
+                        let nextRegion = document.getElementById('btn_next_region');
+                        if (priorRegion) {
+                            priorRegion.resizeLabel();
+                        }
+                        if (nextRegion) {
+                            nextRegion.resizeLabel();
+                        }
+
+                        // size stack
+                        $('#tableDock').css({'min-width': width, 'max-width': width});
+                        
                         // init tables and status view
                         self.getTableButtonsPanelObj().datasource = self.getTablesViewHelper();
                         // update tables by region

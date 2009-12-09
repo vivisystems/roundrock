@@ -268,7 +268,7 @@
         truncateData: function(evt) {
             try {
                 var model = new ShiftChangeModel();
-                var r = model.truncate();
+                var r = model.execute('delete from shift_changes');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -276,14 +276,14 @@
                 }
 
                 model = new ShiftChangeDetailModel();
-                r = model.truncate();
+                r = model.execute('delete from shift_change_details');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
                            errmsg: _('An error was encountered while removing all shift change details (error code %S) [message #1408].', [model.lastError])};
                 }
 
-                r = this.ShiftMarker.truncate();
+                r = this.ShiftMarker.execute('delete from shift_markers');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -930,7 +930,7 @@
 
                 var deposits = (depositTotal && depositTotal.amount != null) ? depositTotal.amount : 0;
 
-                // compute refunds (payments with order status of -2 and from previous sale period/shift or a different terminal)
+                // compute refunds (payments made in the current shift with order status of -2)
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
