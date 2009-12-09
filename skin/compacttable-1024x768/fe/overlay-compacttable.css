@@ -55,16 +55,8 @@
     display: none;
 }
 
-.main-overlay .compacttablelogo {
-    background:#f5f2e7 url(../images/compacttable_logo.png) center center no-repeat;
-    max-width:210px;
-    max-height:46px;
-    min-width:210px;
-    min-height:46px;
-    width:210px;
-    height:46px;
-    border: none;
-    margin-bottom: 4px;
+.main-overlay .logoContainer {
+    -moz-box-pack: center
 }
 
 .main-overlay .customerpnl label, .main-overlay .customerpnl description {

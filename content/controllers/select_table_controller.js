@@ -105,9 +105,9 @@
         },
 
         /**
-         * hidenTableSelectorPanel
+         * hideTableSelectorPanel
          */
-        hidenTableSelectorPanel: function() {
+        hideTableSelectorPanel: function() {
             try {
                 if (!this.isDock()) $.hidePanel('selectTablePanel');
             } catch (e) {}
@@ -1000,7 +1000,7 @@
 
             // dockMode ?
             if (result && !this.isDock()) {
-                this.hidenTableSelectorPanel();
+                this.hideTableSelectorPanel();
             }
         },
 
@@ -1021,7 +1021,7 @@
 
             // dockMode ?
             if (result && !this.isDock()) {
-                this.hidenTableSelectorPanel();
+                this.hideTableSelectorPanel();
             }
         },
 

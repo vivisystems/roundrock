@@ -90,10 +90,10 @@
                         <vbox>
                             <label control="logoHeight" value="&layout.logoheight;"/>
                             <textbox preference="pref_logoheight" id="logoHeight" type="number" size="3" maxlength="3" min="0" max="200"
-                                     onchange="document.getElementById('logoimage').setAttribute('style', 'max-height: ' + this.value + 'px;');"/>
+                                     onchange="resizeLogo();"/>
                             <label control="logoHeight" value="&layout.logowidth;"/>
-                            <textbox preference="pref_logowidth" id="logoWidth" type="number" size="3" maxlength="3" min="0" max="200"
-                                     onchange="document.getElementById('logoimage').setAttribute('style', 'max-width: ' + this.value + 'px;');"/>
+                            <textbox preference="pref_logowidth" id="logoWidth" type="number" size="3" maxlength="3" min="0" max="350"
+                                     onchange="resizeLogo();"/>
                         </vbox>
                     </row>
                 </rows>

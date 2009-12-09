@@ -70,22 +70,22 @@
         <hbox class="tableFunction">
             <deck id="bottom_button_deck">
                 <!--<hbox>
-                    <button class="fixedbtnAlt" id="merge_table" label="&selecttable.mergetable;" oncommand="$do('doMergeTable', null, 'SelectTable');" />
-                    <button class="fixedbtnAlt" id="unmerge_table" label="&selecttable.unmergetable;" oncommand="$do('doUnmergeTable', null, 'SelectTable');" />
-                    <button class="fixedbtnAlt" id="booking_table" label="&selecttable.bookingtable;" oncommand="$do('doBookingTable', null, 'SelectTable');" />
-                    <button class="fixedbtnAlt" id="add_table_mark" label="&selecttable.marktable;"  oncommand="$do('doMarkTable', null, 'SelectTable');"/>
-                    <button class="fixedbtnAlt" id="clear_table_mark" label="&selecttable.unmarktable;" oncommand="$do('doUnmarkTable', null, 'SelectTable');"/>
-                    <button class="fixedbtnAlt" id="add_table_marks" label="&selecttable.markregion;" oncommand="$do('doMarkRegionTable', null, 'SelectTable');"/>
-                    <button class="fixedbtnAlt" id="clear_table_marks" label="&selecttable.unmarkregion;"  oncommand="$do('doUnmarkRegionTable', null, 'SelectTable');"/>
+                    <button class="fixedbtnAlt" id="merge_table" label="&selecttable.compacttable.mergetable;" oncommand="$do('doMergeTable', null, 'SelectTable');" />
+                    <button class="fixedbtnAlt" id="unmerge_table" label="&selecttable.compacttable.unmergetable;" oncommand="$do('doUnmergeTable', null, 'SelectTable');" />
+                    <button class="fixedbtnAlt" id="booking_table" label="&selecttable.compacttable.bookingtable;" oncommand="$do('doBookingTable', null, 'SelectTable');" />
+                    <button class="fixedbtnAlt" id="add_table_mark" label="&selecttable.compacttable.marktable;"  oncommand="$do('doMarkTable', null, 'SelectTable');"/>
+                    <button class="fixedbtnAlt" id="clear_table_mark" label="&selecttable.compacttable.unmarktable;" oncommand="$do('doUnmarkTable', null, 'SelectTable');"/>
+                    <button class="fixedbtnAlt" id="add_table_marks" label="&selecttable.compacttable.markregion;" oncommand="$do('doMarkRegionTable', null, 'SelectTable');"/>
+                    <button class="fixedbtnAlt" id="clear_table_marks" label="&selecttable.compacttable.unmarkregion;"  oncommand="$do('doUnmarkRegionTable', null, 'SelectTable');"/>
                 </hbox>-->
                 <hbox>
-                    <button class="fixedbtnAlt" id="bookingTableBtn" label="&selecttable.bookingtable;" group="func" oncommand="$do('openTableBookDialog', null, 'SelectTable');"/>
-                    <button class="fixedbtnAlt" id="mergeTableBtn" label="&selecttable.mergetable;" type="radio" group="func" oncommand="$do('setAction', 'mergeTable', 'SelectTable');"/>
-                    <button class="fixedbtnAlt" id="unmergeTableBtn" label="&selecttable.unmergetable;" type="radio" group="func" oncommand="$do('setAction', 'unmergeTable', 'SelectTable');"/>
-                    <button class="fixedbtnAlt" id="markTableBtn" label="&selecttable.marktable;" type="radio" group="func" oncommand="$do('setAction', 'markTable', 'SelectTable');"/>
-                    <button class="fixedbtnAlt" id="unmarkTableBtn" label="&selecttable.unmarktable;" type="radio" group="func" oncommand="$do('setAction', 'unmarkTable', 'SelectTable');"/>
-                    <!--<button class="fixedbtnAlt" id="addmarksBtn" label="&selecttable.markregion;" type="radio" group="func" oncommand="$do('executeMarkRegion', null, 'SelectTable');"/>
-                    <button class="fixedbtnAlt" id="clearMarksBtn" label="&selecttable.unmarkregion;" type="radio" group="func" oncommand="$do('executeUnmarkRegion', null, 'SelectTable');"/>-->
+                    <button class="fixedbtnAlt" id="bookingTableBtn" label="&selecttable.compacttable.bookingtable;" group="func" oncommand="$do('openTableBookDialog', null, 'SelectTable');"/>
+                    <button class="fixedbtnAlt" id="mergeTableBtn" label="&selecttable.compacttable.mergetable;" type="radio" group="func" oncommand="$do('setAction', 'mergeTable', 'SelectTable');"/>
+                    <button class="fixedbtnAlt" id="unmergeTableBtn" label="&selecttable.compacttable.unmergetable;" type="radio" group="func" oncommand="$do('setAction', 'unmergeTable', 'SelectTable');"/>
+                    <button class="fixedbtnAlt" id="markTableBtn" label="&selecttable.compacttable.marktable;" type="radio" group="func" oncommand="$do('setAction', 'markTable', 'SelectTable');"/>
+                    <button class="fixedbtnAlt" id="unmarkTableBtn" label="&selecttable.compacttable.unmarktable;" type="radio" group="func" oncommand="$do('setAction', 'unmarkTable', 'SelectTable');"/>
+                    <!--<button class="fixedbtnAlt" id="addmarksBtn" label="&selecttable.compacttable.markregion;" type="radio" group="func" oncommand="$do('executeMarkRegion', null, 'SelectTable');"/>
+                    <button class="fixedbtnAlt" id="clearMarksBtn" label="&selecttable.compacttable.unmarkregion;" type="radio" group="func" oncommand="$do('executeUnmarkRegion', null, 'SelectTable');"/>-->
                 </hbox>
             </deck>
         </hbox>
@@ -113,32 +113,32 @@
             <!--<vbox flex="1" class="CheckBtns">
                 <button class="closecBtn" oncommand="$do('doCloseOrderPanel', null, 'SelectTable');"/>
                 <spacer height="30px" />
-                <button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
+                <button class="selectcBtn" id="recall_check" label="&selecttable.compacttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
                 <button class="newBtn" id="new_check" oncommand="$do('doSelectTableNo', 'true', 'SelectTable');" />
-                <button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
-                <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
-                <button class="changeBtn" id="trans_table" label="&selecttable.transtable;" type="radio" group="func" default="false" oncommand="$do('doTransTable', null, 'SelectTable');"/>
+                <button class="splitcBtn" id="split_check" label="&selecttable.compacttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
+                <button class="mergecBtn" id="merge_check" label="&selecttable.compacttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
+                <button class="changeBtn" id="trans_table" label="&selecttable.compacttable.transtable;" type="radio" group="func" default="false" oncommand="$do('doTransTable', null, 'SelectTable');"/>
                 <spacer height="30px" />
-                <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" type="radio" group="func" default="false" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>
+                <button class="clerkBtn" id="change_clerk" label="&selecttable.compacttable.changeclerk;" type="radio" group="func" default="false" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>
             </vbox>-->
             <vbox flex="1" class="CheckBtns">
                 <button class="closecBtn" oncommand="document.getElementById('order_display_panel').hidePopup();"/>
                 <spacer height="30px" />
-                <button class="selectcBtn" id="selectCheckBtn" label="&selecttable.recallcheck;" group='funcOrderDisp' oncommand="$do('recallOrder', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                <button class="selectcBtn" id="selectCheckBtn" label="&selecttable.compacttable.recallcheck;" group='funcOrderDisp' oncommand="$do('recallOrder', document.getElementById('orders_tab').value, 'SelectTable');"/>
                 <spacer height="10px" />
                 <box id="splitCheckBox" >
-                <button class="splitcBtn" id="splitCheckBtn" label="&selecttable.splitcheck;" group='funcOrderDisp' oncommand="$do('splitCheck', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                <button class="splitcBtn" id="splitCheckBtn" label="&selecttable.compacttable.splitcheck;" group='funcOrderDisp' oncommand="$do('splitCheck', document.getElementById('orders_tab').value, 'SelectTable');"/>
                 </box>
                 <box id="mergeCheckBox" >
-                <button class="mergecBtn" id="mergeCheckBtn" label="&selecttable.mergecheck;" group='_func2' oncommand="$do('mergeCheck', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                <button class="mergecBtn" id="mergeCheckBtn" label="&selecttable.compacttable.mergecheck;" group='_func2' oncommand="$do('mergeCheck', document.getElementById('orders_tab').value, 'SelectTable');"/>
                 </box>
                 <spacer height="10px" />
                 <box id="transTableBox" >
-                <button class="changeBtn" id="changeBtn" label="&selecttable.transtable;" group='funcOrderDisp' oncommand="$do('transferTable',  document.getElementById('orders_tab').value, 'SelectTable');"/>
+                <button class="changeBtn" id="changeBtn" label="&selecttable.compacttable.transtable;" group='funcOrderDisp' oncommand="$do('transferTable',  document.getElementById('orders_tab').value, 'SelectTable');"/>
                 </box>
-                <button class="newTableBtn" id="newTableBtn" label="&selecttable.transtable;" group='funcOrderDisp' oncommand="$do('newTable', document.getElementById('order_selected_table_id').value, 'SelectTable');"/>
+                <button class="newTableBtn" id="newTableBtn" label="&selecttable.compacttable.transtable;" group='funcOrderDisp' oncommand="$do('newTable', document.getElementById('order_selected_table_id').value, 'SelectTable');"/>
                 <spacer height="20px" />
-                <button class="clerkBtn" id="clerkBtn" label="&selecttable.changeclerk;" group='funcOrderDisp' oncommand="$do('changeClerk', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                <button class="clerkBtn" id="clerkBtn" label="&selecttable.compacttable.changeclerk;" group='funcOrderDisp' oncommand="$do('changeClerk', document.getElementById('orders_tab').value, 'SelectTable');"/>
             </vbox>
         </hbox>
     </panel>

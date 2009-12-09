@@ -19,7 +19,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
 
-<!--<?xml-stylesheet href="chrome://viviecr/skin/custom/table_win.css" type="text/css"?>-->
 <?xml-stylesheet href="chrome://viviecr/skin/custom/order_display_template.css" type="text/css"?>
 
 <?xul-overlay href="chrome://viviecr/content/layouts/compacttable/overlays/vfdPanelOverlay.xul" ?>
@@ -70,10 +69,9 @@
 
             <vbox id="rightPanelWrapper" class="right-panel">
                 <vbox class="boxarea" align="center">
-                    <box id="logoPanelContainer" flex="0" orient="horizontal" panel="&layout.panel.logo;">
+                    <box id="logoPanelContainer" flex="0" orient="horizontal" panel="&layout.panel.logo;" class="logoContainer">
                         <image id="logoImage" />
                     </box>
-                    <!--<box id="logoBox" orient="horizontal" class="compacttablelogo" panel="&layout.panel.logo;"/>-->
                     <box id="customerPanelContainer" panel="" class="customerpnl"/>
                 </vbox>
                 <vbox flex="0" class="plusFunction">

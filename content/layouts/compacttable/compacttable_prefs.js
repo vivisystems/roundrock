@@ -1,6 +1,5 @@
 
 function prefs_overlay_startup() {
-    alert('in prefs overlay startup');
     var prefwin = document.getElementById('prefwin');
     var displayPane = document.getElementById('displaySettingsPane');
     var logoPane = document.getElementById('logoSettingsPane');
@@ -25,12 +24,20 @@ function prefs_overlay_startup() {
         if (isNaN(logoHeight)) logoHeight = 50;
         if (isNaN(logoWidth)) logoWidth = 50;
         logoImageObj.src = 'file://' + sDstDir + 'logo.png';
-        logoImageObj.setAttribute('style', 'max-height: ' + logoHeight + 'px;');
-        logoImageObj.setAttribute('style', 'max-width: ' + logoWidth + 'px;');
+        logoImageObj.setAttribute('style', 'max-height: ' + logoHeight + 'px; max-width: ' + logoWidth + 'px;');
     }
 }
 
-
+function resizeLogo() {
+    var logoImageObj = document.getElementById('logoimage');
+    if (logoImageObj) {
+        var logoWidth = document.getElementById('logoWidth').value;
+        var logoHeight = document.getElementById('logoHeight').value;
+        if (isNaN(logoHeight)) logoHeight = 50;
+        if (isNaN(logoWidth)) logoWidth = 50;
+        logoImageObj.setAttribute('style', 'max-height: ' + logoHeight + 'px; max-width: ' + logoWidth + 'px;');
+    }
+}
 /**
  * Browse and select image
  */

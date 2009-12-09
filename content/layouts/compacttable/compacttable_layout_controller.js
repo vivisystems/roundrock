@@ -106,16 +106,6 @@
 
                 }catch(e){GeckoJS.BaseObject.log(e);}
             };
-/*
-            if(selectTable) {
-
-                selectTable._tableDock = true;
-                selectTable._tableDockTop = 0;
-                selectTable._tableDockLeft = 0;
-                selectTable._tableDockWidth = 400;
-                selectTable._tableDockHeight = 400;
-
-            }*/
 
             // update logo image source
             var logoImageObj = document.getElementById('logoImage');
@@ -130,7 +120,7 @@
 
                 logoImageObj.src = this.logoSrcBase;
             }
-
+            
         },
 
         declareOldStatus: function( evt ) {
