@@ -6,6 +6,8 @@
 
        uses: ['Product', 'InventoryRecord'],
 
+       components: ['Barcode'],
+
        screenwidth: 800,
        screenheight: 600,
        catePanelView: null,
@@ -470,6 +472,7 @@
             this._priceMenuList.selectedIndex = this.findMatchPrice( this._priceMenuList, this.tabList[index].selectedPrice );
          },
 
+      /* load product info and set pricelevel menulist*/
         setPrice:function(index){
             
             var product = this.tabList[index];
@@ -858,7 +861,7 @@
                 taxes: this._barcodeTypeList
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Barcode'), aFeatures, inputObj);
             if (inputObj.ok) {
 
             var object ={};
@@ -1007,12 +1010,12 @@
           //      if  list[i].barcode.
                 for(var j = 0 ; j< list[i].barcode.length ; j++ ){
 
-                    if(list[i].barcode.length != 12)
+              /*      if(list[i].barcode.length != 12)
                         {
                                    object.illegalList.push( list[i] );
                                    object.islegal = false ;
                                    break;
-                        }
+                        }*/
 
                     if( !(
                              (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j].charCodeAt(0) <= 57 ) // 0~9
@@ -1034,7 +1037,21 @@
            
             var object = this.checkBarcodeType3OF9(list);
 
-            this.alertIllegalBarcodeProduct(object.illegalList);
+         //   this.alertIllegalBarcodeProduct(object.illegalList);
+
+           try{ alert(this.Barcode.getEAN13CheckDigit('123456789123'));}catch(e){alert(e);}
+        },
+
+        selectTemplate: function(){
+
+            var aURL = 'chrome://viviecr/content/select_template.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var inputObj = {
+                taxes: this._barcodeTypeList
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
+            if (inputObj.ok) {}
         },
 
          exit: function() {

@@ -44,7 +44,7 @@
   <!--script src='chrome://viviecr/content/helpers/nsi_plugroups_view.js'/-->
 
   <!-- include components -->
-
+  <script src="chrome://viviecr/content/controllers/components/barcode.js" type="application/x-javascript"/>
   <!-- include controllers -->
   <script src="chrome://viviecr/content/controllers/label_printing_controller.js" type="application/x-javascript"/>
   <script src="chrome://viviecr/content/controllers/plusearch_controller.js" type="application/x-javascript"/>
@@ -215,6 +215,7 @@
                     <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <vivibutton id="print"   disabled="false" class="PrintBtn" oncommand="$do('checkBarcodeDialog', null, 'Tab');" />
                         <vivibutton id="test"   disabled="false" label='test' oncommand="$do('testing', null, 'Tab');" /> <!--&plus.button.action.modify;-->
+                        <vivibutton id="tpl UI"   disabled="false" label='tpl UI' oncommand="$do('selectTemplate', null, 'Tab');" /> <!--&plus.button.action.modify;-->
                         <space flex = "1"/>
                         <button id="modify_product" label="&lable_printing.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyCount', null, 'Tab');" />
                         <button id="delete_product" label="&lable_printing.button.action.deleteProduct;" disabled="true" class="button-delete" oncommand="$do('removeTabListProduct', null, 'Tab');" />     <!--&plus.button.action.delete;-->
