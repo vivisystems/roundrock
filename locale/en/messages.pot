@@ -2759,12 +2759,6 @@ msgstr "Set Items"
 msgid "License"
 msgstr "License"
 
-msgid "(rpt)Void Clerk"
-msgstr "Void Clerk"
-
-msgid "(rpt)Void Time"
-msgstr "Void Time"
-
 ########################################################################
 #
 # List of Built-in Templates
