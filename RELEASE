@@ -49,3 +49,18 @@ Bug #244:
 
 Bug #247:
     Item and order tax entries are duplicated in order_item_taxes each time an order is stored
+
+Bug #249:
+    Number of voided orders in Sales Summary Report should be the number of stored/closed orders from the selected time period that have been voided, not the number of orders voided in the selected time period
+
+Bug #250:
+    When entering drawer cash amount on signing in a new shift, user should be given opportunity to re-enter cash amount
+
+Bug #251:
+    Order Status Repport should allow search by the sale period and shift and actual time when an order is voided. The report should also display void details
+
+Bug #252:
+    Computation of fixed-amount add-on included taxes on return items is incorrect
+
+Bug #253:
+    Modifying a registered item causes the item to revert to its preset tax status
