@@ -217,6 +217,7 @@
 
                 GREUtils.Dialog.openWindow(win, aURL, title, aFeatures, title, '', _('Enter amount of cash in drawer'), '', inputObj);
             }
+            return inputObj.input0;
         },
 
         _getSalePeriod: function() {
