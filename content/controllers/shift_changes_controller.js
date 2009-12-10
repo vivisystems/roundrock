@@ -180,7 +180,7 @@
             GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
         },
 
-        _DrawerChangeDialog: function() {
+        _DrawerChangeDialog: function(recordedAmount) {
 
             // open drawer first
             var cashdrawerController = GeckoJS.Controller.getInstanceByName('CashDrawer');
@@ -189,20 +189,34 @@
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=500,height=500';
             var title = _('Verify Drawer Change');
-            var inputObj = {
-                input0:null, require0:true, disablecancelbtn:true, numberOnly0: true, numpad: true,
-                useraction: function() {cashdrawerController.openDrawerForShiftChange();},
-                useractionLabel: _('Open Drawer')
-            };
             var win = this.topmostWindow;
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
             }
 
+            var inputObj = {
+                input0:null, require0:true, disablecancelbtn:true, numberOnly0: true, numpad: true,
+                useraction: function() {cashdrawerController.openDrawerForShiftChange();},
+                useractionLabel: _('Open Drawer')
+            };
+
             GREUtils.Dialog.openWindow(win, aURL, title, aFeatures, title, '', _('Enter amount of cash in drawer'), '', inputObj);
 
-            return inputObj.input0;
+            while (parseFloat(inputObj.input0) != recordedAmount) {
+
+        	if (GREUtils.Dialog.confirm(win, title, _('The amount you entered is different from the recorded amount. Are you sure you have entered the correct amount? You may press "Cancel" to re-enter the drawer cash amount.'))) {
+                    return inputObj.input0;
+                }
+
+                inputObj = {
+                    input0:null, require0:true, disablecancelbtn:true, numberOnly0: true, numpad: true,
+                    useraction: function() {cashdrawerController.openDrawerForShiftChange();},
+                    useractionLabel: _('Open Drawer')
+                };
+
+                GREUtils.Dialog.openWindow(win, aURL, title, aFeatures, title, '', _('Enter amount of cash in drawer'), '', inputObj);
+            }
         },
 
         _getSalePeriod: function() {
@@ -527,8 +541,8 @@
                     var ledgerMemo = '';
 
                     // prompt user to enter cash drawer amount
-                    var userAmount = this._DrawerChangeDialog();
                     var recordedAmount = parseFloat(cashEntry.amount);
+                    var userAmount = this._DrawerChangeDialog(recordedAmount);
                     var deltaEntry;
                     
                     userAmount = parseFloat(userAmount);
