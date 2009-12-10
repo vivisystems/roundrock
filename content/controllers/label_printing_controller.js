@@ -208,12 +208,6 @@
             var startTime = start.value/1000
             var endTime = end.value/1000
 
-       /*     var productDB = this.Product.getDataSource().path + '/' + this.Product.getDataSource().database;
-            var sql = "ATTACH '" + productDB + "' AS vivipos;";
-
-            this.InventoryRecord.execute( sql );
-            this.sleep(100);*/
-
            var inventoryCommitmentModel = new InventoryCommitmentModel();
            this._commitments = inventoryCommitmentModel.getDataSource().fetchAll("SELECT * FROM Inventory_commitments WHERE type='procure' AND created >= '"+startTime+"' AND created <= '"+endTime+"'");
            var commitmentList = document.getElementById('commitmentscrollableTablist');
@@ -224,7 +218,9 @@
                var theDay = new Date(this._commitments[i].created*1000);
                CommitmentDateList.push({date:theDay.toLocaleDateString(), memo: this._commitments[i].memo, supplier: this._commitments[i].supplier})
            }
+           
            commitmentList.datasource = CommitmentDateList ;
+           
 
          /*
             var query = "SELECT * FROM inventory_records INNER JOIN products WHERE inventory_records.created >= '"+startTime+"' AND inventory_records.created <= '"+endTime+"'  AND inventory_records.product_no = products.no"
@@ -271,9 +267,7 @@
 
             var query = "SELECT * FROM inventory_records INNER JOIN products WHERE " + selectedCommitmentString + " AND inventory_records.product_no = products.no"
 
-            var commitmentProducts = this.InventoryRecord.getDataSource().fetchAll(query);
-
-          //  selectedCommitment = this.countProductQuentity(selectedCommitment);
+            var commitmentProducts = this.InventoryRecord.getDataSource().fetchAll(query);          
 
             for(var i = 0 ; i< commitmentProducts.length ; i++){
 
@@ -286,7 +280,7 @@
             this._priority++;
 
        },
-
+/*
        selectAperiod: function(){
 
             var start = document.getElementById('start_date');
@@ -315,19 +309,22 @@
             }
             this._tabListPanel.datasource = this.validateList();
             this._priority++;
-       },
+       },*/
 
        addBySearch: function(index){
 
           if(this._searchButton) return;
 
            var searchVivitreeObject = document.getElementById('plusearchscrollablepanel');
-           var product = searchVivitreeObject._datasource.data[index];
 
-                product.priority = this._priority;
-                product.count = 1;
-                product.selectedPrice = product.price_level1;
-                this.tabList.push(product);
+           var product = searchVivitreeObject.datasource.data[index];
+           var cloneProduct = GeckoJS.BaseObject.clone(product);
+
+
+                cloneProduct.priority = this._priority;
+                cloneProduct.count = 1;
+                cloneProduct.selectedPrice = cloneProduct.price_level1;
+                this.tabList.push(cloneProduct);
                 this._tabListPanel.datasource = this.validateList();
                 this._priority++;
 
@@ -372,6 +369,9 @@
              }
            this.alertReplaceProducts();
            this._isSave = false ;
+
+           this.setCount(this._tabListPanel.selectedIndex);
+
            return this.tabList;
         },
 
@@ -455,6 +455,8 @@
 
         setCount: function(index){
 
+            if(index == -1 ) return;
+
             GeckoJS.FormHelper.unserializeFromObject('setProductForm', this.tabList[index]);
             
             this.setPrice(index);
@@ -469,38 +471,38 @@
          },
 
         setPrice:function(index){
-
+            
             var product = this.tabList[index];
 
             this._priceMenuList.removeAllItems();
             this._priceMenuList.setAttribute('label',_('Price Level'));
 
             if(product.level_enable1 ){
-                 this._priceMenuList.appendItem('Price Level1   '+product.price_level1, product.price_level1);
+                 this._priceMenuList.appendItem('Level1   '+product.price_level1, product.price_level1);
             }
             if(product.level_enable2 ){
-                 this._priceMenuList.appendItem('Price Level2   '+product.price_level2, product.price_level2);
+                 this._priceMenuList.appendItem('Level2   '+product.price_level2, product.price_level2);
             }
             if(product.level_enable3 ){
-                 this._priceMenuList.appendItem('Price Level3   '+product.price_level3, product.price_level3);
+                 this._priceMenuList.appendItem('Level3   '+product.price_level3, product.price_level3);
             }
             if(product.level_enable4 ){
-                 this._priceMenuList.appendItem('Price Level4   '+product.price_level4, product.price_level4);
+                 this._priceMenuList.appendItem('Level4   '+product.price_level4, product.price_level4);
             }
             if(product.level_enable5 ){
-                 this._priceMenuList.appendItem('Price Level5   '+product.price_level5, product.price_level5);
+                 this._priceMenuList.appendItem('Level5   '+product.price_level5, product.price_level5);
             }
             if(product.level_enable6 ){
-                 this._priceMenuList.appendItem('Price Level6   '+product.price_level6, product.price_level6);
+                 this._priceMenuList.appendItem('Level6   '+product.price_level6, product.price_level6);
             }
             if(product.level_enable7 ){
-                 this._priceMenuList.appendItem('Price Level7   '+product.price_level7, product.price_level7);
+                 this._priceMenuList.appendItem('Level7   '+product.price_level7, product.price_level7);
             }
             if(product.level_enable8 ){
-                 this._priceMenuList.appendItem('Price Level8   '+product.price_level8, product.price_level8);
+                 this._priceMenuList.appendItem('Level8   '+product.price_level8, product.price_level8);
             }
             if(product.level_enable9 ){
-                 this._priceMenuList.appendItem('Price Level9   '+product.price_level9, product.price_level9);
+                 this._priceMenuList.appendItem('Level9   '+product.price_level9, product.price_level9);
             }
 
 
@@ -541,7 +543,7 @@
 
             if(this.tabList == ""){
 
-                GREUtils.Dialog.alert(this.topmostWindow, _('Save Tab List'), _('The List is empty'));
+                GREUtils.Dialog.alert(this.topmostWindow, _('Save File'), _('The List is empty'));
                 return ;
             }
            if(this._tabListPanel.selectedIndex != -1)
@@ -586,7 +588,7 @@
                  if(isFileNameExist == -1){
 
                      GREUtils.Dialog.alert(this.topmostWindow,'',
-                        _( 'New tab list' ) + ' ' + listName + ' ' + _( 'has been generated' ) + '.'
+                        _( 'New file' ) + ' ' + listName + ' ' + _( 'has been generated' ) + '.'
                      );
 
                     this._menulistElement.selectedIndex = this._fileNameList.length;
@@ -596,7 +598,7 @@
 
                     GREUtils.Dialog.alert(
                         this.topmostWindow,'',
-                        _( 'Tab list' ) + ' ' + listName + ' ' + _( 'has been replaced' ) + '.'
+                        _( 'The file' ) + ' ' + listName + ' ' + _( 'has been replaced' ) + '.'
                     );
                     isFileNameExist = Array.indexOf(this._fileNameList, listName)
                     this._menulistElement.selectedIndex = isFileNameExist + 1 ;
@@ -631,6 +633,7 @@
 
             this._selListIndex = index-1;
             this.doLoadList();
+            this._tabListPanel.selection.clearSelection();
         },
 
        doLoadList: function(){
@@ -640,9 +643,8 @@
            this._tabListPanel.datasource = this.initialPriority();
            this._tabListPanel.refresh();
            this.initialPriceCount();
-
            this._isSave = true ;
-           this._deleteListButton.disabled = false ;
+           this._deleteListButton.disabled = false ;     
        },
 
        deleteList: function(){
@@ -691,14 +693,14 @@
             this._priceMenuList.setAttribute('label',_('Price Level'));
         },
 
-        printList: function(){
+        printList: function(barcodeType){
 
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                     .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
 
             var label = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
 
-            try{ label.printLabel(this.tabList);}catch(e){alert(e);}
+            try{ label.printLabel(this.tabList, barcodeType);}catch(e){alert(e);}
         },
 
         load: function(){
@@ -737,8 +739,11 @@
 
             GeckoJS.FormHelper.reset('setProductForm');
             this._priceMenuList.setAttribute('label',_('Price Level'));
+         },
 
-            this.getBarcodeTypeList();           
+         loadBarcodeTypes: function(){
+
+             this.getBarcodeTypeList();   
          },
 
          alertReplaceProducts: function (){
@@ -860,13 +865,13 @@
                 switch(inputObj.name)
                 {
                        case  '3OF9':
-                                         object = this.checkBarcodeTypeEAN13(this.tabList);
+                                         object = this.checkBarcodeType3OF9(this.tabList);
                                          //if  find illegal barcode
                                          if(object.islegal == false){
                                          //alert illegal barcode product
                                          this.alertIllegalBarcodeProduct(object.illegalList);
                                          return;
-                                         }else{ /*do print*/alert('do print'); return;}
+                                         }else{ /*do print*/this.printList('A');  return;}
 
                        case  '128': 
                                          object = this.checkBarcodeType128(this.tabList);
@@ -875,7 +880,7 @@
                                          //alert illegal barcode product
                                          this.alertIllegalBarcodeProduct(object.illegalList);
                                          return;
-                                         }else{ /*do print*/alert('do print'); return;}
+                                         }else{ /*do print*/this.printList('E'); return;}
 
                        case  'UPC-A':    
                                          object = this.checkBarcodeTypeUPCA(this.tabList);
@@ -884,7 +889,7 @@
                                          //alert illegal barcode product
                                          this.alertIllegalBarcodeProduct(object.illegalList);
                                          return;
-                                         }else{ /*do print*/alert('do print'); return;}
+                                         }else{ /*do print*/this.printList('B'); return;}
 
                        case  'EAN-13':   
                                          object = this.checkBarcodeTypeEAN13(this.tabList);
@@ -893,7 +898,7 @@
                                          //alert illegal barcode product
                                          this.alertIllegalBarcodeProduct(object.illegalList);
                                          return;
-                                         }else{ /*do print*/alert('do print'); return;}
+                                         }else{ /*do print*/this.printList('F'); return;}
                 }
                
             }
@@ -912,8 +917,8 @@
                 for(var j = 0 ; j< list[i].barcode.length ; j++ ){
 
                     if( !(
-                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j] <= 57 )|| // 0~9
-                             (list[i].barcode[j].charCodeAt(0) >= 65 && list[i].barcode[j] <= 90 )|| // A~Z
+                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j].charCodeAt(0) <= 57 )|| // 0~9
+                             (list[i].barcode[j].charCodeAt(0) >= 65 && list[i].barcode[j].charCodeAt(0) <= 90 )|| // A~Z
                               list[i].barcode[j].charCodeAt(0) == 36                              || // $
                               list[i].barcode[j].charCodeAt(0) == 37                              || // %
                               list[i].barcode[j].charCodeAt(0) == 42                              || // *
@@ -934,8 +939,8 @@
             return object ; 
         },
 
-        /* length: variable
-         * valid codes: 0~9, A~Z, $ % * + - . / and space  */
+        /* length: 30
+         * valid codes: ASCII 0~127 */
         checkBarcodeType128: function(list){
 
             var object = { illegalList:[], islegal: true };
@@ -945,19 +950,10 @@
           //      if  list[i].barcode.
                 for(var j = 0 ; j< list[i].barcode.length ; j++ ){
 
-                    if( !(
-                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j] <= 57 )||
-                             (list[i].barcode[j].charCodeAt(0) >= 65 && list[i].barcode[j] <= 90 )||
-                              list[i].barcode[j].charCodeAt(0) == 36                              ||
-                              list[i].barcode[j].charCodeAt(0) == 37                              ||
-                              list[i].barcode[j].charCodeAt(0) == 42                              ||
-                              list[i].barcode[j].charCodeAt(0) == 43                              ||
-                              list[i].barcode[j].charCodeAt(0) == 45                              ||
-                              list[i].barcode[j].charCodeAt(0) == 46                              ||
-                              list[i].barcode[j].charCodeAt(0) == 47                              ||
-                              list[i].barcode[j].charCodeAt(0) == 32
+                     if( !(
+                             (list[i].barcode[j].charCodeAt(0) >= 0 && list[i].barcode[j].charCodeAt(0) <= 127 ) // code 128
                           )
-                      ) // find illegal char do
+                       ) // // find illegal char do
                                {
                                    object.illegalList.push( list[i] );
                                    object.islegal = false ;
@@ -987,7 +983,7 @@
                         }
 
                     if( !(
-                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j] <= 57 ) // 0~9
+                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j].charCodeAt(0) <= 57 ) // 0~9
                           )
                       ) // find illegal char do
                                {
@@ -1019,7 +1015,7 @@
                         }
 
                     if( !(
-                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j] <= 57 ) // 0~9
+                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j].charCodeAt(0) <= 57 ) // 0~9
                           )
                       ) // find illegal char do
                                {
@@ -1034,9 +1030,9 @@
 
         testing: function(){
 
-            var list = [{barcode:'1234'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
+            var list = [{barcode:'BA1234'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
            
-            var object = this.checkBarcodeTypeEAN13(list);
+            var object = this.checkBarcodeType3OF9(list);
 
             this.alertIllegalBarcodeProduct(object.illegalList);
         },

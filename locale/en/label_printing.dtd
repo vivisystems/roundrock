@@ -5,6 +5,7 @@
 <!ENTITY lable_printing.numpad.advsearch "SEARCH">
 <!ENTITY lable_printing.search.heading.no "Number">
 <!ENTITY lable_printing.search.heading.name "Name">
+<!ENTITY lable_printing.pricLevel "Price Level">
 
 <!ENTITY lable_printing.commitmentList.heading.date "Date">
 <!ENTITY lable_printing.commitmentList.heading.memo "Memo">
@@ -25,7 +26,7 @@
 <!ENTITY label_printing.procurement.startdate "Start Data">
 <!ENTITY label_printing.procurement.enddate "End Data">
 
-<!ENTITY lable_printing.button.action.execute "Execute">
+<!ENTITY lable_printing.button.action.execute "Search">
 <!ENTITY lable_printing.button.action.save "Save">
 <!ENTITY lable_printing.button.action.deleteList "Delete">
 <!ENTITY lable_printing.button.action.modify "Modify">

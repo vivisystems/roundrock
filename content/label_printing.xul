@@ -55,7 +55,7 @@
     <vbox id="plusXUL" flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-a">
             <hbox  flex="1">
-                <vbox flex="1" class="container-left block-55">
+                <vbox flex="1" class="container-left block-50">
                     <label value="&label_printing.title;" class="label-page-title"/>
                     <tabbox flex="1" class="custom-content-tabbox">
                         <tabs id="mode_tabs">
@@ -122,23 +122,16 @@
                                             </rows>
                                         </grid>
                                     </vbox>
-
-                                </hbox>
-                                <!--hbox align="right"> <button  class="ExeBtn"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('selectAperiod', null, 'Tab');"/></hbox-->
+                                </hbox>                         
                                 <vbox  flex="1">
                                     <vbox flex="1" class="content-listbox">
                                         <vivitree   id="commitmentscrollableTablist" seltype = "single" flex="1" hidecolumnpicker="true" class="standard"
                                                headers="&lable_printing.commitmentList.heading.date;,&lable_printing.commitmentList.heading.memo;,&lable_printing.commitmentList.heading.supplier;"
                                                 fields="date,memo,supplier"
                                               onselect="$do('selectCommitment', null, 'Tab');"/>
-                                    </vbox>
-                                    <vbox >
-                                        <!--button class="ExeBtn"  flex="1"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('selectCommitment', null, 'Tab');"/-->
-                                        <!--button class="ExeBtn"  flex="1"   id="execute" label="Testing" disabled="false"  oncommand="$do('testing', null, 'Tab');"/-->
-                                    </vbox>
+                                    </vbox>                                   
                                 </vbox>
-
-                                  <hbox align="right"> <button  class="ExeBtn"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('searchCommitments', null, 'Tab');"/></hbox>
+                                <hbox align="right"> <button  class="ExeBtn"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('searchCommitments', null, 'Tab');"/></hbox>
                             </tabpanel>
 
                             <tabpanel orient="vertical">
@@ -181,7 +174,7 @@
 
                                 <vbox flex="0">
                                     <menulist  id="tabList" form="" name="" label = "&lable_printing.loadList;" oncommand = "$do('loadList', this.selectedIndex, 'Tab');">
-                                        <!--menupopup id="tabList-popup"/-->
+                                        
                                     </menulist>
                                 </vbox>
                             </row>
@@ -202,8 +195,8 @@
                         <rows>
                             <row>
                                 <vbox  >
-                                    <label value="lable_printing.pricLevel;"/>
-                                    <menulist  id="priceList" class="pricelevel"  form="setProductForm" name="selectedPrice" label = "" onfocus="select()" >
+                                    <label value="&lable_printing.pricLevel;"/>
+                                    <menulist id="priceList" class="pricelevel"  form="setProductForm" name="selectedPrice" label = "&lable_printing.pricLevel;" onfocus="select()" >
 
                                     </menulist>
                                 </vbox>
