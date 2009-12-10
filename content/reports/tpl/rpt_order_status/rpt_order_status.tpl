@@ -89,7 +89,7 @@
             <tfoot>
                 <tr>
                     <td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' )}: ${foot.foot_datas.rowCount|format:0} <br/>${_( '(rpt)Records Displayed' ) }: ${body.length|format:0}</td>
-                    <td colspan="7" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
+                    <td colspan="11" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
                     <td style="text-align: right;">${foot.foot_datas.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.discount_subtotal|viviFormatPrices:true}</td>
