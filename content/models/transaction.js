@@ -854,8 +854,6 @@
                 var setItemProductId = barcodesIndexes[setitem.preset_no];
                 var setItemProduct = self.Product.getProductById(setItemProductId);
 
-                //alert(setItemProductId + ':' + self.dump(setItemProduct));
-
                 if (setItemProduct) {
                     var setItemQty = setitem.quantity * sellQty;
                     var setItemPrice = setitem.price;
@@ -2951,7 +2949,6 @@
                     roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-quarter');
                     if (total < 0) roundedTotal = 0 - roundedTotal;
                     revalue_subtotal = roundedTotal - total;
-                    alert(revalue_subtotal + ', ' + roundedTotal + ', ' + total);
                     break;
 
                 case 'round-to-50-cents':
