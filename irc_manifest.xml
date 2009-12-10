@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<irc xmlns="http://www.vivipos.com.tw/2010/irc-syntax-ns#">
+
+    <module name="products">
+        <action>
+            <type>db</type>
+            <database>vivipos.sqlite</database>
+            <table>products</table>
+        </action>
+        <action>
+            <type>db</type>
+            <database>vivipos.sqlite</database>
+            <table>categories</table>
+        </action>
+        <action>
+            <type>db</type>
+            <database>vivipos.sqlite</database>
+            <table>users</table>
+        </action>
+        <action>
+            <type>file</type>
+            <file>/data/images/</file>
+        </action>
+        <action>
+            <type>pref</type>
+            <key>vivipos.fec.registry.import_export.charset</key>
+        </action>
+        <action>
+            <type>pref</type>
+            <key>vivipos.fec.settings.functionpanel</key>
+        </action>
+        <action>
+            <type>pref</type>
+            <key>vivipos.fec.report</key>
+        </action>
+    </module>
+
+    <module name="general_settings">
+    </module>
+
+    <module name="promotions">
+    </module>
+
+    <module name="employees">
+    </module>
+
+    <module name="function_keys">
+    </module>
+
+    <module name="members">
+    </module>
+     
+    <module name="addons">
+        <action>
+            <type>file</type>
+            <file>/data/profile/extensions*</file>
+        </action>
+    </module>
+
+</irc>
+

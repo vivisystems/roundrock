@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-10-29 03:15+0800\n"
+"POT-Creation-Date: 2009-12-08 16:24+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2848,6 +2848,32 @@ msgstr "Order Opened"
 msgid "(rpt)transaction_submitted"
 msgstr "Order Closed"
 
+# #######################################################################
+#
+# IRC Modules
+#
+# #######################################################################
+msgid "vivipos.fec.irc.modules.products.label"
+msgstr "Product Related"
+
+msgid "vivipos.fec.irc.modules.general_settings.label"
+msgstr "General Settings"
+
+msgid "vivipos.fec.irc.modules.promotions.label"
+msgstr "Promotions"
+
+msgid "vivipos.fec.irc.modules.employees.label"
+msgstr "Employees"
+
+msgid "vivipos.fec.irc.modules.function_keys.label"
+msgstr "Function Keys"
+
+msgid "vivipos.fec.irc.modules.members.label"
+msgstr "Members"
+
+msgid "vivipos.fec.irc.modules.addons.label"
+msgstr "Addons"
+
 #: ../..//content/datetime.js:29
 msgid "confirm timezone change"
 msgstr ""
@@ -3181,7 +3207,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:88
 #: ../..//content/controllers/static_condiments_controller.js:484
 #: ../..//content/controllers/storecontact_controller.js:176
-#: ../..//content/controllers/sync_settings_controller.js:144
+#: ../..//content/controllers/sync_settings_controller.js:161
 #: ../..//content/controllers/taxes_controller.js:88
 #: ../..//content/controllers/users_controller.js:419
 msgid "Exit"
@@ -3213,7 +3239,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:178
-#: ../..//content/controllers/sync_settings_controller.js:146
+#: ../..//content/controllers/sync_settings_controller.js:163
 #: ../..//content/controllers/taxes_controller.js:90
 #: ../..//content/controllers/users_controller.js:421
 msgid "Save"
@@ -3252,7 +3278,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:178
-#: ../..//content/controllers/sync_settings_controller.js:146
+#: ../..//content/controllers/sync_settings_controller.js:163
 #: ../..//content/controllers/taxes_controller.js:90
 #: ../..//content/controllers/taxes_controller.js:106
 #: ../..//content/controllers/users_controller.js:400
@@ -5728,7 +5754,7 @@ msgid "Failed to recall the selected order"
 msgstr ""
 
 #: ../..//content/controllers/localekeyboard_controller.js:58
-#: ../..//content/controllers/sync_settings_controller.js:73
+#: ../..//content/controllers/sync_settings_controller.js:88
 msgid "No changes to save"
 msgstr ""
 
@@ -7501,30 +7527,30 @@ msgid ""
 "exiting?"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:38
+#: ../..//content/controllers/sync_settings_controller.js:44
 msgid "Network Service Settings"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:39
+#: ../..//content/controllers/sync_settings_controller.js:45
 msgid "Terminal number must only contain [a-zA-Z] and [0-9]"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:58
+#: ../..//content/controllers/sync_settings_controller.js:73
 msgid "confirm network service settings change"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:59
+#: ../..//content/controllers/sync_settings_controller.js:74
 msgid ""
 "Network service settings changes require system restart to take effect. If "
 "you save the changes now, the system will restart automatically after you "
 "return to the Main Screen. Do you want to save your changes?"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:130
+#: ../..//content/controllers/sync_settings_controller.js:145
 msgid "Network service settings saved"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:145
+#: ../..//content/controllers/sync_settings_controller.js:162
 msgid ""
 "You have made changes to network service settings. Save changes before "
 "exiting?"

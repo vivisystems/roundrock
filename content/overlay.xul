@@ -38,6 +38,9 @@
   <!-- include base controller -->
   <script src='chrome://viviecr/content/controller/app_controller.js' type="application/x-javascript;version=1.7"/>
 
+  <!-- irc -->
+  <script src='chrome://viviecr/content/controllers/irc_controller.js' type="application/x-javascript;version=1.8"/>
+
   <!-- front-end UI controllers -->
   <script src='chrome://viviecr/content/controllers/main_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/cart_controller.js' type='application/x-javascript;version=1.8'/>

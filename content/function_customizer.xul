@@ -677,6 +677,8 @@
                                                           form="systemsForm" name="serviceSyncSettingsStock" default="false" />
                                         <checkbox id="serviceSyncSettingsNtp" value="true" label="&sync_settings.label.ntp_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsNtp" default="false" />
+                                        <checkbox id="serviceSyncSettingsIRC" value="true" label="&sync_settings.label.irc_hostname;"
+                                                          form="systemsForm" name="serviceSyncSettingsIRC" default="false" />
                                     </tabpanel>
 
                                 </tabpanels>

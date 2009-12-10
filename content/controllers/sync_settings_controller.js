@@ -4,6 +4,32 @@
         
         name: 'SyncSettings',
 
+        ircModules: {},
+
+        ircPackages: [],
+
+        httpServiceIRC: null,
+
+        getHttpServiceIRC: function() {
+
+            try {
+                if (!this.httpServiceIRC) {
+                    var syncSettings = SyncSetting.read();
+                    this.httpServiceIRC = new SyncbaseHttpService();
+                    this.httpServiceIRC.setSyncSettings(syncSettings);
+                    // this.httpServiceIRC.setHostname(syncSettings.irc_hostname);
+                    this.httpServiceIRC.setHostname('localhost');
+                    this.httpServiceIRC.setController('irc');
+                    this.httpServiceIRC.setForce(true);
+                }
+            }catch(e) {
+                this.log('error ' + e);
+            }
+
+            return this.httpServiceIRC;
+        },
+
+
         // initial SyncSettings
         initial: function (warn) {
 
@@ -22,6 +48,8 @@
             settings.pull_order = GeckoJS.String.parseBoolean(settings.pull_order);
 
             this.Form.unserializeFromObject('syncSettingForm', settings);
+
+            this.initialIrcModules();
         },
 
         isAlphaNumeric: function(str) {
@@ -165,11 +193,91 @@
             window.close();
         },
 
+
+        initialIrcModules: function(){
+
+            var ircModulePrefs = GeckoJS.Configure.read('vivipos.fec.irc.modules') || {};
+            var ircModules = this.ircModules = {};
+
+            for (let key in ircModulePrefs) {
+
+                let l10nLabel = "";
+                let pref = ircModulePrefs[key];
+                let name = pref.name;
+                let label = pref.label;
+                let l10nKey = 'vivipos.fec.irc.modules' + '.' + key;
+
+                // get l10n label
+                if (label.indexOf('chrome://') == 0) {
+                    l10nLabel = GeckoJS.StringBundle.getPrefLocalizedString(l10nKey+'.label') || name;
+                } else {
+                    l10nLabel = _(label);
+                }
+
+                ircModules[name] = {key: key, name: name, label: l10nLabel};
+
+            }
+
+            var ircModulesObj = document.getElementById('ircModules');
+            ircModulesObj.datasource = GeckoJS.BaseObject.getValues(ircModules);
+
+        },
+
+
         initialIrcLists: function() {
+
+            var httpService = this.getHttpServiceIRC();
             
+            var remoteUrl = httpService.getRemoteServiceUrl('getPackages');
+            var requestUrl = remoteUrl;
+            var packages = httpService.requestRemoteService('GET', requestUrl) || [] ;
+
+            this.ircPackages = packages;
+
+            document.getElementById('ircPackagesTree').datasource = packages;
+
+            $('#ircRemovePackage').attr({disabled: 'true'});
+
+            document.getElementById('ircPackagesTree').selectedIndex = -1;
+            document.getElementById('ircPackagesTree').currentIndex = -1;
+            document.getElementById('ircPackagesTree').selectedItems = [];
+            document.getElementById('ircPackagesTree').selection.select(-1);
+
+            this.Form.reset('ircDetail');
+
         },
 
         onSelectIrcPackage: function(index) {
+
+            if (index < 0) return false ;
+            
+            var ircPackage = this.ircPackages[index] || false;
+            if (!ircPackage) return false;
+
+
+            let data = GREUtils.extend({}, ircPackage);
+
+            data.activation = (new Date(ircPackage.activation*1000)).toLocaleString();
+            data.filesize = GeckoJS.NumberHelper.toReadableSize(ircPackage.filesize);
+            data.module_labels = ircPackage.module_labels.split(",").join("\n");
+
+            let clients = [];
+            for (var i in ircPackage.status) {
+                let status = ircPackage.status[i];
+                let downloaded = '';
+                let updated = '';
+                if (status.downloaded) {
+                    downloaded = (new Date(status.downloaded*1000)).toLocaleDateString();
+                }
+                clients.push({machine_id: status.machine_id, downloaded: downloaded, updated: updated});
+            }
+
+            document.getElementById('ircDetailClientsTree').datasource = clients;
+
+            this.Form.unserializeFromObject('ircDetail', data);           
+
+            $('#ircRemovePackage').attr({disabled: 'false'});
+
             
         },
 
@@ -177,20 +285,64 @@
 
             submit = submit || false;
 
+            // cancel process
             if (!submit) {
                 // disable ui buttons
                 $('#irc-edit-tabs')[0].selectedIndex = 1;
-                $('#ircCreatePackage').attr({ disabled: 'true' });
-                $('#ircRemovePackage').attr({ disabled: 'true' });
-                $('#irc-detail-tab').attr({ disabled: 'true' });
-                $('#irc-edit-tab').attr({ disabled: 'false' });
+                $('#ircCreatePackage').attr({disabled: 'true'});
+                $('#ircRemovePackage').attr({disabled: 'true'});
+                $('#irc-detail-tab').attr({disabled: 'true'});
+                $('#irc-edit-tab').attr({disabled: 'false'});
                 this.Form.reset('ircEdit');
                 return ;
             }
 
             var datas = this.Form.serializeToObject('ircEdit');
-            alert('submit' + this.dump(datas));
 
+            // process selected irc modules to module name array
+            var ircModulesObj = document.getElementById('ircModules');
+            var ircModules = GeckoJS.BaseObject.getValues(this.ircModules);
+            var selectedModules = [];
+            var selectedModuleLabels = [];
+            for (var i in ircModulesObj.selectedItems) {
+                selectedModules.push(ircModules[ircModulesObj.selectedItems[i]].name);
+                selectedModuleLabels.push(ircModules[ircModulesObj.selectedItems[i]].label);
+            }
+
+            if (selectedModules.length == 0) {
+                NotifyUtils.warn(_('Please select modules'));
+                return false;
+            }
+
+            datas.modules = selectedModules.join(",");
+            datas.module_labels = selectedModuleLabels.join(",");
+
+            // convert javascript ms to sec
+            datas.activation = Math.floor(datas.activation/1000);
+
+            var query_string = GeckoJS.String.httpBuildQuery(datas);
+
+            var httpService = this.getHttpServiceIRC();
+
+            var remoteUrl = httpService.getRemoteServiceUrl('createPackage');
+            var requestUrl = remoteUrl + '/?' + query_string;
+
+            var waitPanel = document.getElementById('wait_panel');
+            document.getElementById('wait_caption').setAttribute('label', _('IRC Package Creating'));
+            waitPanel.openPopupAtScreen(0, 0);
+            
+            var success = httpService.requestRemoteService('GET', requestUrl) || false ;
+
+            waitPanel.hidePopup();
+            
+            if (success) {
+                OsdUtils.info(_('Package [%S] created successfully', [success]));
+            }else {
+                NotifyUtils.warn(_('Package not available to created.'));
+            }
+
+            this.initialIrcLists();
+            
             // enable ui buttons
             this.cancelCreateIrcPackage();
 
@@ -198,19 +350,49 @@
         },
 
         cancelCreateIrcPackage: function() {
-            
+
+                document.getElementById('ircPackagesTree').selectedIndex = -1;
+                document.getElementById('ircPackagesTree').currentIndex = -1;
+                document.getElementById('ircPackagesTree').selectedItems = [];
+                document.getElementById('ircPackagesTree').selection.select(-1);
+
                 // enable ui buttons
                 $('#irc-edit-tabs')[0].selectedIndex = 0;
-                $('#ircCreatePackage').attr({ disabled: 'false' });
-                $('#irc-detail-tab').attr({ disabled: 'false' });
-                $('#irc-edit-tab').attr({ disabled: 'true' });
-                $('#ircRemovePackage').attr({ disabled: 'true' });
+                $('#ircCreatePackage').attr({disabled: 'false'});
+                $('#irc-detail-tab').attr({disabled: 'false'});
+                $('#irc-edit-tab').attr({disabled: 'true'});
+                $('#ircRemovePackage').attr({disabled: 'true'});
+                
                 return ;
         },
 
 
-
         removeIrcPackage: function(index) {
+
+            if (index < 0) return false ;
+
+            var ircPackage = this.ircPackages[index] || false;
+            if (!ircPackage) return false;
+
+            var file = ircPackage.file;
+
+            var httpService = this.getHttpServiceIRC();
+
+            var remoteUrl = httpService.getRemoteServiceUrl('removePackage');
+            var requestUrl = remoteUrl + '/' + file;
+
+            var success = httpService.requestRemoteService('GET', requestUrl) || false ;
+
+            if (success) {
+                OsdUtils.info(_('Package [%S] removed successfully', [file]));
+            }else {
+                NotifyUtils.warn(_('Package not available to remove.'));
+            }
+
+            this.initialIrcLists();
+
+            // enable ui buttons
+            this.cancelCreateIrcPackage();
 
         }
 

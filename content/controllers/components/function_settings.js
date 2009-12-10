@@ -142,7 +142,8 @@
                 'serviceSyncSettingsSalePeriod': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsSalePeriodBox', checkForCss:'serviceSyncSettingsSalePeriod'},
                 'serviceSyncSettingsTable': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsTableBox', checkForCss:'serviceSyncSettingsTable'},
                 'serviceSyncSettingsStock': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsStockBox', checkForCss:'serviceSyncSettingsStock'},
-                'serviceSyncSettingsNtp': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsNtpBox', checkForCss:'serviceSyncSettingsNtp'}
+                'serviceSyncSettingsNtp': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsNtpBox', checkForCss:'serviceSyncSettingsNtp'},
+                'serviceSyncSettingsIRC': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsIrcBox, #syncSettingsXUL #irc-tab', checkForCss:'serviceSyncSettingsIRC'}
             },
             
             reportsForm: {
