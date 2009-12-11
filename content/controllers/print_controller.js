@@ -845,7 +845,7 @@
             this.printSlip('report', null, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
         },
 
-         printLabel: function(list, barcodeType){
+         printLabel: function(list, barcodeType, template){
               
             //1.getDeviceController
             var device = this.getDeviceController();
@@ -870,7 +870,7 @@
 
             //3.get set up
             var enabledDevices = device.getEnabledDevices('report', printer);
-            var template = enabledDevices[0].template;
+         //   var template = enabledDevices[0].template;
             var port = enabledDevices[0].port;
             var portspeed = enabledDevices[0].portspeed;
             var handshaking = enabledDevices[0].handshaking;
@@ -881,7 +881,7 @@
 
             _templateModifiers(TrimPath, encoding);
             //4.call printSlip
-            this.printSlip('label', data, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
+        //    this.printSlip('label', data, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
         },
 
         // print slip using the given parameters

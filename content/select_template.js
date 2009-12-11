@@ -1,5 +1,6 @@
 (function(){
 
+     var inputObj = window.arguments[0];
     /**
      * Window Startup
      */
@@ -38,7 +39,19 @@
         progress.value = 0;*/
 
         doSetOKCancel(
-            function(){ /*
+            function(){
+
+                var templatePanel = document.getElementById('imagePanel');
+
+                if(templatePanel.selectedIndex == -1){
+
+                    alert('please select a template');
+                    return;
+                }
+                      
+
+                inputObj.selectedTemplate = templatePanel.datasource.data[templatePanel.selectedIndex].leafName.split('.')[0];
+                /*
 
                 var items = document.getElementById('taxscrollablepanel').selectedItems;
 
@@ -54,12 +67,12 @@
                 }
                 inputObj.ok = true;
                 return true;*/
-                alert('ok');
+                inputObj.ok = true;
+                return true;
             },
-            function(){/*
+            function(){
                 inputObj.ok = false;
-                return true;*/
-                alert('cancel');
+                return true;                
             }
             );
 

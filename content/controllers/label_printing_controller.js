@@ -20,6 +20,7 @@
        _deleteListButton: null,
        _modifyProductButton: null,
        _deleteProduct:null,
+       _template:null,
 
        _categoriesByNo: {},
        _categoryIndexByNo: {},
@@ -703,7 +704,7 @@
 
             var label = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
 
-            try{ label.printLabel(this.tabList, barcodeType);}catch(e){alert(e);}
+            try{ label.printLabel(this.tabList, barcodeType, this._template);}catch(e){alert(e);}
         },
 
         load: function(){
@@ -1047,11 +1048,15 @@
             var aURL = 'chrome://viviecr/content/select_template.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
-                taxes: this._barcodeTypeList
+                selectedTemplate: ""
             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
-            if (inputObj.ok) {}
+            if (inputObj.ok) {
+
+                this._template = inputObj.selectedTemplate
+                alert(inputObj.selectedTemplate);
+            }
         },
 
          exit: function() {
