@@ -67,3 +67,6 @@ Bug #253:
 
 Bug #255:
     In the Detailed Tax Report, order-related totals are tallied once per tax type, leading to incorrect summarization values
+
+Bug #257:
+    Cropping of text displayed in onscreen VFD is based on a fixed number of characters regardless of the actual screen resolution (i.e. 12" vs. 15")
