@@ -42,7 +42,8 @@
     background-color: #fff;
     border: 5px solid #5e4a4a;
     height: 58px;
-    max-width: 70px;
+    width: 73px;
+    max-width: 73px;
 }
 
 .main-overlay .tblLabel {

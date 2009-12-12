@@ -10,19 +10,19 @@
   <box id="vfdPanelContainer" orient="vertical" flex="0">
     <vbox id="vfdPanel" flex="1" class="vfd-pad">
         <hbox>
-        <onscreenvfd id="onscreenvfd" value="" flex="1"
-                     class="vfd-vbox" labelClass="vfd-label" trainingClass="vfd-pad-training"
-                     inputController="inputLineTextBox"/>
-        <vivisessionstatus id="vivipos_fec_tbl" 
-                           class="tbl"
-                           columns="1"
-                           noseparator="true"
-                           labels="&viviorderstatus.tablenumber.label;"
-                           ratios="0"
-                           keys="vivipos_fec_table_number"
-                           labelClass="tblLabel"
-                           valueClass="tblValue"
-                           />
+            <onscreenvfd id="onscreenvfd" value="" flex="1"
+                         class="vfd-vbox" labelClass="vfd-label" trainingClass="vfd-pad-training"
+                         inputController="inputLineTextBox"/>
+            <vivisessionstatus id="vivipos_fec_tbl"
+                               class="tbl"
+                               columns="1"
+                               noseparator="true"
+                               labels="&viviorderstatus.tablenumber.label;"
+                               ratios="0"
+                               keys="vivipos_fec_table_number"
+                               labelClass="tblLabel"
+                               valueClass="tblValue"
+                               />
         </hbox>
 
         <vivisessionstatus id="vivipos_fec_order_status" flex="1"
