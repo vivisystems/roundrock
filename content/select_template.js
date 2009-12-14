@@ -80,7 +80,17 @@
 
         $do('loadImage', path, 'ImageManager');
 
-    }; 
+    };
+
+    function setTemplate(){
+        
+         var templatePanel = document.getElementById('imagePanel');
+         var templateName = document.getElementById('templateName');
+
+         var name = templatePanel.datasource.data[templatePanel.selectedIndex].leafName.split('.')[0] + '.tpl';
+
+         templateName.setAttribute('label', name);
+    };
 
     window.addEventListener('load', startup, true);
 

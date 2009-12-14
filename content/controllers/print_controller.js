@@ -881,7 +881,7 @@
 
             _templateModifiers(TrimPath, encoding);
             //4.call printSlip
-        //    this.printSlip('label', data, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
+            this.printSlip('label', data, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
         },
 
         // print slip using the given parameters

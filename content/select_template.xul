@@ -31,6 +31,7 @@
 
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/image_manager_controller.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/select_template_controller.js" type="application/x-javascript"/>
 
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/select_template.js" />
@@ -47,7 +48,7 @@
                     <vbox flex="1" class="content-buttonpanel">
                         <viviscrollablebuttonpanel id="imagePanel" flex="1" cols="3" rows="3" dir="normal"
                                                    labelField="leafName" imageField="path"
-                                                   oncommand="$do('select',this.selectedIndex, 'ImageManager');"
+                                                   oncommand="$do('setTemplate',this.selectedIndex, 'SelectTemplate');"
                                                    class="custom-content-image-list" buttonClass="custom-content-thumbnail"
                                                    scrollUpClass="scroll-up-button"
                                                    scrollDownClass="scroll-down-button">
@@ -56,14 +57,16 @@
                         <hbox class="custom-content-image-info">
                            <label value="Template:" />
                            <label value=" "/>
-                           <label id="" value="template name" />
+                           <label id="templateName" value="template name" />
                            
                         </hbox>
                     </vbox>
                 </vbox>
 
                 <vbox id="managerPanel" class="toolbar block-20" toolbarmode="vertical">
-
+                    <label value="Barcode"/>           
+                    <textbox id="rate_name" readonly="true" class="button-item-c"
+                             onclick="$do('selectBarcode',null, 'SelectTemplate');"  form="" name="" value="Code 39"/>
 
                 </vbox>
             </hbox>

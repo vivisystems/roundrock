@@ -697,14 +697,14 @@
             this._priceMenuList.setAttribute('label',_('Price Level'));
         },
 
-        printList: function(barcodeType){
+        printList: function(barcodeType, template){
 
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                     .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
 
             var label = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
 
-            try{ label.printLabel(this.tabList, barcodeType, this._template);}catch(e){alert(e);}
+            label.printLabel(this.tabList, barcodeType, template);
         },
 
         load: function(){
@@ -1054,8 +1054,9 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
             if (inputObj.ok) {
 
-                this._template = inputObj.selectedTemplate
-                alert(inputObj.selectedTemplate);
+               var template = inputObj.selectedTemplate
+                
+               this.printList('A', template);
             }
         },
 
