@@ -4,10 +4,14 @@
 
         name: 'Layout',
 
+        uses: ['TableSetting'],
+
         bannerSrcBase: '',
         defaultSrcBase: '',
         logoImageObj: null,
         _logoImageCounter: 0,
+        components: ['OrderStatus'],
+        tableSettings: null,
 
         initial: function() {
 
@@ -19,9 +23,11 @@
                 main.addEventListener('onSetClerk', this.home, this);
             }
 
-            var cartController = GeckoJS.Controller.getInstanceByName('Cart');
-            cartController.addEventListener('beforeVoidSale', this.declareOldStatus, this);
-            cartController.addEventListener('afterVoidSale', this.printCheckAfterVoiding, this);
+            // add event listener for table operations
+            var guestCheck = GeckoJS.Controller.getInstanceByName('GuestCheck');
+            if(guestCheck) {
+                guestCheck.addEventListener('beforeSetAction', this.setTableAction, this);
+            }
 
             var selectTable = GeckoJS.Controller.getInstanceByName('SelectTable');
             selectTable.setRegionMenuItem = function () {
@@ -54,7 +60,6 @@
                 selectTable._regionIndex = 0;
                 document.getElementById('table_region').selectedIndex = this._regionIndex;
 
-    //
                 var regionBox = document.getElementById('regBox');
 
                 var btnAll = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:button");
@@ -117,6 +122,103 @@
             }
         },
 
+        /**
+         * expandOverlayPanel
+         */
+        expandOverlayPanel: function() {
+            
+            var panel = $('#selectTablePanel')[0];
+
+            var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+            var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
+            let top = 0+'px';
+            let left = 0+'px';
+            let width = screenwidth+'px';
+            let height = screenheight+'px';
+
+            $(panel.popupOverlay).css({
+                    top: top,
+                    left: left,
+                    width: width,
+                    height: height,
+                    'z-index': 900
+                });
+        },
+
+        /**
+         * restoreOverlayPanel
+         */
+        restoreOverlayPanel: function() {
+
+            var panel = $('#selectTablePanel')[0];
+
+            var tableSettings = this.getTableSettings();
+
+            let top = tableSettings.TableDockTop +'px';
+            let left = tableSettings.TableDockLeft + 'px';
+            let width = tableSettings.TableDockWidth + 'px';
+            let height = tableSettings.TableDockHeight +'px';
+
+            $(panel.popupOverlay).css({
+                    top: top,
+                    left: left,
+                    width: width,
+                    height: height,
+                    'z-index': 900
+                });
+        },
+
+        getTableSettings: function() {
+            if(!this.tableSettings) {
+                this.tableSettings = this.TableSetting.getTableSettings();
+            }
+            return this.tableSettings;
+        },
+
+        validateTableAction: function() {
+
+        },
+
+        setTableAction: function(evt) {
+            let cart = GeckoJS.Controller.getInstanceByName('Cart');
+            let txn = cart._getTransaction();
+            if (cart.ifHavingOpenedOrder() && txn.data.recall) {
+                // check txn is modified ?
+                if (txn && txn.isModified()) {
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Table Operation'), _('Please close the transaction in progress first'));
+                    cart._clearAndSubtotal();
+                    evt.preventDefault();
+                    return;
+                }else {
+                    // force cancel if order not modified.
+                    cart.cancel(true);
+                }
+            }
+
+            let action = evt.data;
+            switch(action) {
+                case 'selectTable':
+                    this.hidePromptBox();
+                    break;
+
+                default:
+                    this.showPromptBox();
+                    break;
+            }
+        },
+
+        showPromptBox: function() {
+            // expand overlay panel to cover entire screen
+            this.expandOverlayPanel();
+            document.getElementById('prompt_box').hidden = false;
+        },
+
+        hidePromptBox: function() {
+            this.restoreOverlayPanel();
+            document.getElementById('prompt_box').hidden = true;
+        },
+        
         _getLogoSrc: function() {
             var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
             var sDstDir = datapath + "/images/pluimages/";

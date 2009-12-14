@@ -496,7 +496,13 @@
          * also setPromptLable and clean unused data.
          */
         setAction: function(action) {
+            let controller = this.getGuestCheckController();
+            if (this.action != action && !controller.dispatchEvent('beforeSetAction', action)) {
+                action = 'selectTable';
+            }
+
             this.action = action;
+
             switch(action) {
                 case 'selectTable':
                     this.setActionButtonChecked(action);

@@ -38,7 +38,7 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script src='chrome://viviecr/content/layouts/compacttable/compacttable_layout_controller.js'/>
+    <script src='chrome://viviecr/content/layouts/compacttable/compacttable_layout_controller.js' type='application/x-javascript;version=1.7'/>
     <script>
         function setMainDeck(index)
         {
@@ -58,10 +58,7 @@
                 <vbox flex="1" class="boxarea">
                     <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
                     <box flex="1" id="vfdPanelContainer"/>
-                    <hbox>
-                        <box flex="1" id="cartlistPanelContainer"/>
-
-                    </hbox>
+                    <box flex="1" id="cartlistPanelContainer"/>
                 </vbox>
             </box>
 
