@@ -1,6 +1,6 @@
 ( function() {
 
-     var __model__ = {
+    var __model__ = {
         name: 'App',
         
         /**
@@ -24,14 +24,82 @@
         },
 
         /**
+         * rename backup file with status
+         *
+         * @param {Number} newStatus
+         * @param {Number} orgStatus
+         */
+        renameBackupFileWithStatus: function(newStatus, orgStatus) {
+
+            newStatus = newStatus || false;
+            orgStatus = orgStatus || false;
+            var backupDbConfig = 'backup';
+            var newDataSource = GeckoJS.ConnectionManager.getDataSource(backupDbConfig);
+
+            if (!newDataSource) return false;
+
+            var backupPath = newDataSource.path;
+
+            var backupFile = backupPath + "/" + this.table + ".db";
+            var newBackupFile = backupPath + "/" + this.table + ".db";
+
+            if (orgStatus) {
+                backupFile = backupPath + "/" + this.table + "_" + orgStatus + ".db";
+            }
+            if (newStatus) {
+                newBackupFile = backupPath + "/" + this.table + "_" + newStatus + ".db";
+            }
+
+            if (backupFile != newBackupFile) {
+
+                if (GeckoJS.File.exists(newBackupFile)) {
+                    // append data into
+                    try {
+                        var d1 = GREUtils.JSON.decodeFromFile(backupFile);
+                        var d2 = GREUtils.JSON.decodeFromFile(newBackupFile);
+
+                        // clone data
+                        for (let key in d1) {
+                            d2[key] = GREUtils.extend({}, d1[key], d2[key]);
+                        }
+                        
+                        // save
+                        GREUtils.JSON.encodeToFile(newBackupFile, d2);
+
+                        // remove old
+                        GeckoJS.File.remove(backupFile);
+                        
+                        return true;
+
+                    }catch(e) {
+                    }
+                    return false;
+                }else {
+
+                    var result = GeckoJS.File.copy( backupFile, newBackupFile);
+
+                    if (result) {
+                        GeckoJS.File.remove(backupFile);
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            return false;
+            
+        },
+
+        /**
          * get backup content if exists 
          * 
          * XXX need move to SDK ?
          * 
          * @return {String} database content.
          */
-        getBackupContent: function() {
+        getBackupContent: function(status) {
 
+            status = status || false;
             var backupDbConfig = 'backup';
             var newDataSource = GeckoJS.ConnectionManager.getDataSource(backupDbConfig);
 
@@ -42,6 +110,10 @@
             var backupPath = newDataSource.path;
 
             var backupFile = backupPath + "/" + this.table + ".db";
+
+            if (status) {
+                backupFile = backupPath + "/" + this.table + "_" + status + ".db";
+            }
 
             var f = new GeckoJS.File(backupFile);
 
@@ -63,8 +135,9 @@
          *
          * @return {Boolean} true if file removed success
          */
-        removeBackupFile: function() {
+        removeBackupFile: function(status) {
 
+            status = status || false;
             var backupDbConfig = 'backup';
             var newDataSource = GeckoJS.ConnectionManager.getDataSource(backupDbConfig);
 
@@ -74,8 +147,9 @@
 
             var backupFile = backupPath + "/" + this.table + ".db";
 
-
-            dump('remove = ' + backupFile + '\n');
+            if (status) {
+                backupFile = backupPath + "/" + this.table + "_" + status + ".db";
+            }
 
             return GeckoJS.File.remove(backupFile);
 

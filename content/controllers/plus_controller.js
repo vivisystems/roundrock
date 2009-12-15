@@ -710,7 +710,7 @@
                 var action = prompts.confirmEx(this.topmostWindow,
                                                _('Exit'),
                                                _('You have made changes to the current product. Save changes before exiting?'),
-                                               flags, _('Save'), '', _('Discard'), null, check);
+                                               flags, _('Save'), '', _('Discard Changes'), null, check);
                 if (action == 1) {
                     return;
                 }
@@ -1001,14 +1001,10 @@
                 }
 
                 if (newIndex == prods.length) newIndex = -1;
-
-                if (!this._setCateNo) {
-                    // if current department is a product group, product may have been unlinked so we need to re-scan
-                    var data = this.productPanelView.data;
-                    if (data[newIndex].id != inputData.id) {
-                        this._selectedIndex = -1;
-                        this.clickPluPanel(newIndex);
-                    }
+                
+                if (!(newIndex in prods) || prods[newIndex].id != inputData.id) {
+                    this._selectedIndex = -1;
+                    this.clickPluPanel(newIndex);
                 }
                 
                 // update stock_records

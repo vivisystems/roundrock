@@ -30,7 +30,7 @@
                     let tax = item.tax_details[taxno].tax;
 
                     let orderItemTax = {};
-                    orderItemTax['id'] = '';
+                    orderItemTax['id'] = iid + taxno;
                     orderItemTax['order_id'] = data.id;
                     orderItemTax['order_item_id'] = iid;
                     orderItemTax['promotion_id'] = '';
@@ -60,7 +60,7 @@
                     let tax = taxDetails.tax;
 
                     let promotionTax = {};
-                    promotionTax['id'] = '';
+                    promotionTax['id'] = promotion.id + taxno;
                     promotionTax['order_id'] = data.id;
                     promotionTax['order_item_id'] = '';
                     promotionTax['promotion_id'] = promotion.id;
@@ -84,7 +84,7 @@
                 let tax = taxDetails.tax;
 
                 let orderTax = {};
-                orderTax['id'] = '';
+                orderTax['id'] = data.id + taxno;
                 orderTax['order_id'] = data.id;
                 orderTax['order_item_id'] = '';
                 orderTax['promotion_id'] = '';
@@ -126,6 +126,7 @@
                     tax_details['tax_subtotal'] = parseFloat(taxDetailsData.tax_subtotal);
                     tax_details['included_tax_subtotal'] = parseFloat(taxDetailsData.included_tax_subtotal);
                     tax_details['item_count'] = parseInt(taxDetailsData.item_count);
+                    tax_details['taxable_amount'] = parseFloat(taxDetailsData.taxable_amount);
                     tax_details['tax'] = {
                         no: taxDetailsData.tax_no,
                         name: taxDetailsData.tax_name,
@@ -143,6 +144,7 @@
 
                     item_tax_details['charge'] = parseFloat(taxDetailsData.tax_subtotal);
                     item_tax_details['included'] = parseFloat(taxDetailsData.included_tax_subtotal);
+                    item_tax_details['taxable'] = parseFloat(taxDetailsData.taxable_amount);
                     item_tax_details['tax'] = {
                         no: taxDetailsData.tax_no,
                         name: taxDetailsData.tax_name,
@@ -166,6 +168,7 @@
 
                             promo_tax_details['charge'] = parseFloat(taxDetailsData.tax_subtotal);
                             promo_tax_details['included'] = parseFloat(taxDetailsData.included_tax_subtotal);
+                            promo_tax_details['taxable'] = parseFloat(taxDetailsData.taxable_amount);
                             promo_tax_details['tax'] = {
                                 no: taxDetailsData.tax_no,
                                 name: taxDetailsData.tax_name,
@@ -184,11 +187,13 @@
                                 promotions_tax_details[taxDetailsData.tax_no] = {
                                     tax_subtotal: 0,
                                     included_tax_subtotal: 0,
+                                    taxable_amount: 0,
                                     tax: promo_tax_details.tax
                                 };
                             }
                             promotions_tax_details[taxDetailsData.tax_no].tax_subtotal += promo_tax_details.charge;
                             promotions_tax_details[taxDetailsData.tax_no].included_tax_subtotal += promo_tax_details.included;
+                            promotions_tax_details[taxDetailsData.tax_no].taxable_amount += promo_tax_details.taxable_amount;
 
                         }
                     }

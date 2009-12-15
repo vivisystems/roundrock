@@ -28,6 +28,8 @@
                 inputBox.addEventListener('input', function(evt){
                     keypadController.buf = evt.target.value;
                 }, true);
+
+                inputBox.focus();
             }
 
             this.updateDecimalPoint();
@@ -98,26 +100,15 @@
             }
         },
 
-        onChange: function(text) {
-            var keypad = this.getKeypadController();
-            keypad.buf = text;
-            if (keypad.target == 'Cart') {
-                var cart = this.getCartController();
-                cart.data = keypad.getBuffer();
-                keypad.clearBuffer();
-                cart.addItemByBarcode(cart.data);
-            }
-            else {
-                this.getMainController().enter();
-            }
-        },
-
         onPress: function(keycode) {
 
             // fixed quick user switch in password type.
             var keypad = this.getKeypadController();
-            if (keycode == 13 && keypad.target == 'Main' ) {
-                this.getMainController().enter();
+            if (keycode == 13 && keypad.target == 'Cart') {
+                var cart = this.getCartController();
+                cart.data = keypad.getBuffer();
+                keypad.clearBuffer();
+                cart.addItemByBarcode(cart.data);
             }
             
         },

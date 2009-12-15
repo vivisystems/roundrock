@@ -12,6 +12,7 @@
         pluPanelView: null,
 
         doRestart: false,
+        doReboot: false,
         restartClock: false,
 
         _suspendLoadTest: false,
@@ -67,11 +68,13 @@
             
             // observer restart topic
             this.observer = GeckoJS.Observer.newInstance({
-                topics: ['prepare-to-restart', 'restart-clock', 'addons-message-notification', 'TrainingMode' ],
+                topics: ['prepare-to-restart', 'prepare-to-reboot', 'restart-clock', 'addons-message-notification', 'TrainingMode' ],
 
                 observe: function(aSubject, aTopic, aData) {
                     if (aTopic == 'prepare-to-restart' || aData == 'addons-restart-app') {
                         self.doRestart = true;
+                    } else if (aTopic == 'prepare-to-reboot') {
+                        self.doReboot = true;
                     } else if (aTopic == 'restart-clock') {
                         self.restartClock = true;
                     } else if ( aTopic == 'TrainingMode' ) {
@@ -148,9 +151,7 @@
                 if (signOff) {
 
                     // make sure top most window is Vivipos Main window
-                    var win = this.topmostWindow;
-                    if (win.document.documentElement.id == 'viviposMainWindow'
-                        && win.document.documentElement.boxObject.screenX >= 0) {
+                    if (this.isMainWindowOnTop()) {
 
                         // block UI
                         let waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Signing off idle user..'), 200);
@@ -161,6 +162,37 @@
 
                         if (waitPanel) waitPanel.hidePopup();
                     }
+                }
+            }
+        },
+
+        isMainWindowOnTop: function(close) {
+            // check if top most window is Vivipos Main window
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX >= 0) {
+
+                // check if any vivipanel is open
+                var panels = $("vivipanel") || [];
+
+                for (let i = 0; i < panels.length; i++) {
+                    if ((panels[i].state == 'open') && !(panels[i].getAttribute('noblock'))) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            return false;
+
+        },
+
+        closeAllPopupPanels: function() {
+            var panels = $("vivipanel") || [];
+
+            for (let i = 0; i < panels.length; i++) {
+                if (panels[i].state == 'open') {
+                    panels[i].hidePopup();
                 }
             }
         },
@@ -270,6 +302,10 @@
             var aName = _('Control Panel');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
+
+            if (this.doReboot) {
+                this.rebootMachine();
+            }
 
             if (this.doRestart) {
                 this.restart();
@@ -820,11 +856,17 @@
                     _('To use this funciton, please leave training mode first'));
                 return;
             }
+
+            // if not in quickSignoff mode, don't sign off unless we are on the main screen
+            if (!quickSignoff) {
+                if (!this.isMainWindowOnTop()) {
+                    return;
+                }
+            }
+
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
             var autoDiscardQueue = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardqueue');
             var mustEmptyQueue = GeckoJS.Configure.read('vivipos.fec.settings.mustemptyqueue');
-            var shiftReportOnSignOff = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonsignoff');
-            var shiftReportOnQuickSwitch = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonquickswitch');
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
             var cartEmpty = !cart.ifHavingOpenedOrder();
@@ -906,10 +948,6 @@
                     responseDiscardQueue = (autoDiscardQueue || mustEmptyQueue) ? 1 : 0;
                 }
 
-                // print shift report
-                if ((shiftReportOnSignOff && !quickSignoff) || (shiftReportOnQuickSwitch && quickSignoff)) {
-                }
-
                 if (!cartEmpty) {
                     if (responseDiscardCart == 1) {
                         $do('cancel', true, 'Cart');
@@ -933,7 +971,10 @@
             }
 
             Transaction.removeRecoveryFile();
-            
+
+            // close all poup panels
+            this.closeAllPopupPanels();
+
             if (!quickSignoff) {
                 this.ChangeUserDialog();
             }
@@ -970,6 +1011,11 @@
         },
 
         truncateTxnRecords: function() {
+            if (this._isTraining) {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('This function is not available in training mode'));
+                return;
+            }
+
             if (GREUtils.Dialog.confirm(this.topmostWindow,
                 _('Remove All Transaction Records'),
                 _('This operation will remove all transaction records. Are you sure you want to proceed?'))) {
@@ -990,24 +1036,24 @@
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
 
                         // truncate order_queues
-                        (new OrderQueueModel()).truncate();
+                        (new OrderQueueModel()).execute('delete from order_queues');
 
                         // truncate order related tables
                         var orderModel = new OrderModel();
-                        var r = orderModel.truncate();
+                        var r = orderModel.execute('delete from orders');
                         
-                        r = (new OrderReceiptModel()).truncate() && r;
-                        r = (new OrderPromotionModel()).truncate() && r;
-                        r = (new OrderPaymentModel()).truncate() && r;
-                        r = (new OrderObjectModel()).truncate() && r;
-                        r = (new OrderItemModel()).truncate() && r;
-                        r = (new OrderItemTaxModel()).truncate() && r;
-                        r = (new OrderItemCondimentModel()).truncate() && r;
-                        r = (new OrderAnnotationModel()).truncate() && r;
-                        r = (new OrderAdditionModel()).truncate() && r;
+                        r = (new OrderReceiptModel()).execute('delete from order_receipts') && r;
+                        r = (new OrderPromotionModel()).execute('delete from order_promotions') && r;
+                        r = (new OrderPaymentModel()).execute('delete from order_payments') && r;
+                        r = (new OrderObjectModel()).execute('delete from order_objects') && r;
+                        r = (new OrderItemModel()).execute('delete from order_items') && r;
+                        r = (new OrderItemTaxModel()).execute('delete from order_item_taxes') && r;
+                        r = (new OrderItemCondimentModel()).execute('delete from order_item_condiments') && r;
+                        r = (new OrderAnnotationModel()).execute('delete from order_annotations') && r;
+                        r = (new OrderAdditionModel()).execute('delete from order_additions') && r;
 
                         // truncate clockin/out timestamps
-                        r = (new ClockStampModel()).truncate() && r;
+                        r = (new ClockStampModel()).execute('delete from clock_stamps') && r;
 
                         // truncate sync tables
                         r = orderModel.execute('delete from syncs') && r;
@@ -1360,6 +1406,10 @@
         },
 
         FunctionCustomizerDialog: function() {
+
+            // check if current user is superuser
+            let user = this.Acl.getUserPrincipal();
+            if (!user || user.username != 'superuser') return;
 
             // check if .funcmanager exists
             var procPath = GeckoJS.Configure.read('ProfD');

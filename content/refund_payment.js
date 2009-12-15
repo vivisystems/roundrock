@@ -28,7 +28,7 @@
                     proceed = GREUtils.Dialog.confirm(topwin,
                                                       _('Void Sale'),
                                                       _('Refund payment amount [%S] is different from payment amount [%S]. Are you sure you want to void transaction [%S] now?',
-                                                        [rcp.formatPrice(inputObj.paidTotal, true), rcp.formatPrice(inputObj.refundTotal, true), inputObj.sequence]));
+                                                        [rcp.formatPrice(inputObj.refundTotal, true), rcp.formatPrice(inputObj.paidTotal, true), inputObj.sequence]));
                 }
                 if (proceed) {
                     inputObj.ok = true;

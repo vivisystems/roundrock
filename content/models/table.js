@@ -31,6 +31,7 @@
                     this.httpService.setSyncSettings(syncSettings);
                     this.httpService.setHostname(syncSettings.table_hostname);
                     this.httpService.setController('tables');
+                    this.httpService.setForce(true);
                 }
             }catch(e) {
                 this.log('error ' + e);
@@ -40,7 +41,7 @@
         },
 
         isRemoteService: function() {
-            return this.getHttpService().isRemoteService();
+            return !this.getHttpService().isLocalhost();
         },
 
 

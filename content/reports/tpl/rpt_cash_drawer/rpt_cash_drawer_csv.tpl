@@ -11,7 +11,15 @@
 
 "${_( '(rpt)Terminal' )}","${_( '(rpt)Drawer' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Time' )}","${_( '(rpt)Event' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Payment Type' )}","${_( '(rpt)Amount' )}"
 {for item in body}
-"'${item.terminal_no}","${item.drawer_no}","'${item.clerk_displayname|default:''}","${item.created|unixTimeToString}","${_( '(rpt)' + item.event_type )}","'${item.sequence}","${item.payment_type}","${item.amount}"
+{eval}
+if (item.event_type == 'finalization' || item.event_type == 'payment') {
+    payment_type = _('(rpt)' + item.payment_type);
+}
+else {
+    payment_type = item.payment_type;
+}
+{/eval}
+"'${item.terminal_no}","${item.drawer_no}","'${item.clerk_displayname|default:''}","${item.created|unixTimeToString}","${_( '(drawer)' + item.event_type )}","'${item.sequence}","${payment_type}","${item.amount}"
 {/for}
 "${_( '(rpt)Records Found' ) + ':'}","${body.length|default:0}"
 

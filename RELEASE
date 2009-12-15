@@ -1,0 +1,51 @@
+---------------
+Release 1.2.0.5
+---------------
+
+This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
+
+Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
+
+
+------------
+Dependencies
+------------
+
+This release requires VIVIPOS WebApp and WebServices Release 1.2.0.3 or above. You should also install Release 1.2.0.5 of the appropriate language pack to resolve translation-related bugs.
+
+
+----------
+Known bugs
+----------
+
+Bug #159:
+    Application may wait indefinitely if connection to printer is lost while printing
+
+
+----------
+Bugs fixed
+----------
+
+Bug #202:
+    Need a built-in hotkey for signing off
+
+Bug #237:
+    POS front end does not get focus on the input line when first power on
+
+Bug #239:
+    Only admin users may assign other users to the admin group 
+
+Bug #240:
+    Truncate Transaction Records may cause transaction records to be truncated on all synchronized terminals 
+
+Bug #242:
+    When confirming refund payments while voiding sale, refund payment amount is switched with original payment amount
+
+Bug #243:
+    Region button labels on Table Selection screen are cropped
+
+Bug #244:
+    Fixed typo on Custom Sales Report screen ('Destinaltion')
+
+Bug #247:
+    Item and order tax entries are duplicated in order_item_taxes each time an order is stored

@@ -34,14 +34,22 @@
         </thead>
         <tbody>
 {for item in body}
+{eval}
+if (item.event_type == 'finalization' || item.event_type == 'payment') {
+    payment_type = _('(rpt)' + item.payment_type);
+}
+else {
+    payment_type = item.payment_type;
+}
+{/eval}
             <tr id="${item.order_id}">
                 <td style="text-align: left;">${item.terminal_no}</td>
                 <td style="text-align: left;">${item.drawer_no}</td>
                 <td style="text-align: left;">${item.clerk_displayname|default:''}</td>
                 <td style="text-align: left;">${item.created|unixTimeToString}</td>
-                <td style="text-align: left;">${_( '(rpt)' + item.event_type )}</td>
+                <td style="text-align: left;">${_( '(drawer)' + item.event_type )}</td>
                 <td style="text-align: left;" class="hyperlink">${item.sequence|default:''}</td>
-                <td style="text-align: left;">${item.payment_type}</td>
+                <td style="text-align: left;">${payment_type}</td>
                 <td style="text-align: right;">${item.amount|default:''|viviFormatPrices:true}</td>
             </tr>
 {/for}

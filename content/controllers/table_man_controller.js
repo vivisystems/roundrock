@@ -252,23 +252,14 @@
 
                     if (success) {
 
-                        // reload tables
-                        var tables = this.Table.getTables(true);
-                        var table_no = inputObj.table_no;
-                        var table_name = inputObj.table_name;
-
-                        // find table_no 's index
-                        index = -1;
-                        tables.forEach(function(table, idx){
-                            if (table.table_no == table_no) index = idx;
-                        });
-
-                        // update UI
-                        this.loadTables(index);
+                        // only repaint tree
+                        var table = GREUtils.extend(this.getTableListObj().datasource.data[index], inputObj);
+                        this.getTableListObj().datasource.data[index] = table;
+                        this.getTableListObj().treeBoxObject.invalidateRow(index);
 
                         this._needRestart = true;
 
-                        OsdUtils.info(_('Table [%S (%S)] modified successfully', [table_no, table_name]));
+                        OsdUtils.info(_('Table [%S (%S)] modified successfully', [table.table_no, table.table_name]));
                     }
                 }
             } finally {
@@ -299,8 +290,11 @@
 
                     if (success) {
 
-                        // update UI
-                        this.loadTables(nextIndex);
+                        // only repaint tree
+                        var orgCount = this.getTableListObj().datasource.data.length;
+                        this.getTableListObj().datasource.data.splice(index, 1);
+                        var newCount = this.getTableListObj().datasource.data.length;
+                        this.getTableListObj().treeBoxObject.rowCountChanged(orgCount, (newCount-orgCount), index);
 
                         this._needRestart = true;
 
@@ -331,8 +325,11 @@
 
                     if (success) {
 
-                        // update UI
-                        this.loadTables(index);
+                        // only repaint tree
+                        var table = this.getTableListObj().datasource.data[index];
+                        table.active = !table.active;
+                        this.getTableListObj().datasource.data[index] = table;
+                        this.getTableListObj().treeBoxObject.invalidateRow(index);
 
                         this._needRestart = true;
 
@@ -345,6 +342,34 @@
             }
         },
 
+        /**
+         * rebuildTableStatus
+         */
+        rebuildTableStatus: function() {
+
+            if (this._isBusy) return;
+            this._isBusy = true;
+
+            try {
+
+                var success = this.TableStatus.rebuildTableStatus();
+
+                if (success) {
+
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Table Status'),
+                                          _('Table status rebuilt successfully'));
+                }
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Table Status'),
+                                          _('Failed to rebuild table status, please check the network connectivity to the terminal designated as the table status server [message #2101]'));
+                }
+            } finally {
+                this._isBusy = false;
+            }
+
+        },
 
         /**
          * Add Table Region to Local Database.
@@ -666,6 +691,7 @@
 
         },
 
+
         /**
          * loadMarks
          * 
@@ -697,6 +723,9 @@
             // remove all child...
             autoMarkObj.removeAllItems();
 
+            // append default empty
+            if(marks.length > 0) autoMarkObj.appendItem('','');
+
             marks.forEach(function(data){
                 autoMarkObj.appendItem(data.name, data.id);
             });
@@ -719,7 +748,7 @@
             destinationObj.removeAllItems();
 
             // append default empty
-            destinationObj.appendItem('','');
+            if(destinations.length > 0) destinationObj.appendItem('','');
 
             destinations.forEach(function(data){
                 var defaultMark = (data.name == defaultDestination) ? '* ' : '';
@@ -1072,6 +1101,7 @@
                 document.getElementById('add_mark').setAttribute('hidden', true);
                 document.getElementById('modify_mark').setAttribute('hidden', true);
                 document.getElementById('delete_mark').setAttribute('hidden', true);
+                document.getElementById('rebuild_status').setAttribute('hidden', true);
             }
 
             // settings

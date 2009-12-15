@@ -45,6 +45,7 @@
                               headers="&annotations.type;,&annotations.text;"
                               fields="type,text"
                               onselect="$do('selectView',this.selectedIndex, 'Annotations');"
+                              onclick="$do('selectView',this.selectedIndex, 'Annotations');"
                               class="standard"
                               scrollUpClass="scroll-up-button" dir="normal"
                               scrollDownClass="scroll-down-button"/>

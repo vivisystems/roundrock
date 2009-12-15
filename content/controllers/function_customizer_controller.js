@@ -8,6 +8,8 @@
 
         profD: GeckoJS.Configure.read('CORE.ProfD'),
 
+        packer: null,
+
         ready: function() {
 
             // update locale language
@@ -82,6 +84,7 @@
                 
             }
 
+            this.packer = new Packer;
 
         },
 
@@ -92,23 +95,42 @@
             GeckoJS.File.remove(this.profD+"/chrome/userConfigure.js");
             GeckoJS.File.remove(this.profD+"/chrome/userChrome.css");
 
+            var confJS ="", chromeCSS ="";
+
             for (var formName in obj) {
 
-                var buf = this.FunctionSettings.processPrefsSettings(formName, obj[formName]);
+                let buf = this.FunctionSettings.processPrefsSettings(formName, obj[formName]);
 
                 // write products to userConfigure.js
-                if(buf.length > 0) GeckoJS.File.appendLine(this.profD+"/chrome/userConfigure.js", buf);
+                if(buf.length > 0) {
+                    // GeckoJS.File.appendLine(this.profD+"/chrome/userConfigure.js", buf);
+                    confJS+=buf;
+                }
             }
 
             for (var formName in obj) {
 
-                var buf = this.FunctionSettings.processCssSettings(formName, obj[formName]);
+                let buf = this.FunctionSettings.processCssSettings(formName, obj[formName]);
 
                 // write products to userChrome.css
                 if(buf.length > 0) {
-                    GeckoJS.File.appendLine(this.profD+"/chrome/userChrome.css", buf);
+                    // GeckoJS.File.appendLine(this.profD+"/chrome/userChrome.css", buf);
+                    chromeCSS+=buf;
                 }
             }
+
+            // packer userChrome and userConfigure
+            // combine css to js
+
+            let evalCode = "var chromeCSS = '" + encodeURIComponent(chromeCSS) + "';";
+            evalCode += "var chromeCSSFile = '" + this.profD+"/chrome/userChrome.css" + "';";
+            evalCode += "if(GREUtils) GREUtils.File.writeAllBytes( chromeCSSFile, decodeURIComponent(chromeCSS) );";
+
+            let codeJS = confJS + "\n" + evalCode;
+
+            let packedJS = this.packer.pack(codeJS, true, false);
+
+            GREUtils.File.writeAllBytes(this.profD+"/chrome/userConfigure.js", packedJS);
 
             if (GREUtils.Dialog.confirm(this.topmostWindow, _('function_customizer.saved_confirm.title'),
                                                             _('function_customizer.saved_confirm')

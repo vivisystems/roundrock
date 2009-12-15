@@ -18,7 +18,7 @@
 
         <content>
             <xul:hbox flex="1" xbl:inherits="flex,class" anonid="boxContainer" allowevents="true">
-                <xul:textbox anonid="input" decimalplaces="Infinity" flex="1" xbl:inherits="value,class=textboxClass,type,hidespinbuttons,min,max,size,readonly,disabled"/>
+                <xul:textbox anonid="input" decimalplaces="Infinity" flex="1" xbl:inherits="value,class=textboxClass,decimalplaces,type,hidespinbuttons,min,max,size,readonly,disabled"/>
                 <xul:panel anonid="numpad_panel" position="after_start" noautohide="false" noautofocus="true">
                     <xul:hbox anonid="numpad" pack="center">
                         <xul:numberpad id="multinumberpad" xbl:inherits="class=numpadClass" target=""/>

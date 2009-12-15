@@ -37,7 +37,7 @@
 "${_( '(rpt)Payment List' )}"
 "","${_( '(rpt)Payment' )}","${_( '(rpt)Payment Amount' )}"
 {for detail in body.payment_list.records}
-"","'${detail.name|default:''}","","${detail.total|default:0|viviFormatPrices:true}"
+"","'${_('(rpt)' + detail.name)|default:''}","","${detail.total|default:0|viviFormatPrices:true}"
 {for payment in detail.detail}
 "","","'${payment.memo1|default:''}","${payment.amount|default:0|viviFormatPrices:true}"
 {/for}

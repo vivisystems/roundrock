@@ -27,41 +27,40 @@
     <!-- script type="application/x-javascript" src="chrome://viviecr/content/table_book.js" / -->
 
     <popupset id="dialogs">
-        <vivipanel id="selectTablePanel" noautohide="false" class="container-dialog">
+        <vivipanel id="selectTablePanel" noautohide="false" class="container-dialog" noblock="1">
 
 
     <vbox id="selectTableXUL" flex="1" class="maindialog">
         <vbox class="EmptyArea" >
             <hbox flex="1">
                 <spacer class="LeftRegionMenuPadding"/>
-                <button id="btn_prior_region" class="button-fixed" label="&selecttable.priorregion;" disabled="false"
-                        oncommand="$do('menuChangeRegion', 'previous', 'SelectTable');" />
+                <vivibutton id="btn_prior_region" class="button-fixed" label="&selecttable.priorregion;" disabled="false"
+                            oncommand="$do('menuChangeRegion', 'previous', 'SelectTable');" />
                 <menulist id="table_region" flex="1" class="RegionMenu" oncommand="$do('setRegion', this.value, 'SelectTable');">
                     <menupopup id="table_region_menupopup">
 
                     </menupopup>
                 </menulist>
-                <button id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"
-                        oncommand="$do('menuChangeRegion', 'next', 'SelectTable');" />
-
-                <hbox align="center" id="availableSeatsBox">
-                    <spacer style="min-width: 20px;" />
-                    <label control="booking_telephone" value="&selecttable.availableSeats;" align="center" />
-                    <vivitextbox id="availableSeats" size="3" onchange="$do('setAvailableSeats', this.value, 'SelectTable');" onenter="event.stopPropagation();"
-                         value="1" numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" type="number"/>
-                </hbox>
+                <vivibutton id="btn_next_region" class="button-fixed" label="&selecttable.nextregion;" disabled="false"
+                            oncommand="$do('menuChangeRegion', 'next', 'SelectTable');" />
 
             </hbox>
             <hbox id="promptBox" class="MsgPnl2">
-                <vbox class="PromptBox2" flex="0">
-                <label id="prompt_1" value="prompt 1" class="PromptLabel1" />
-                <label id="prompt_2" value="prompt 2" class="PromptLabel2" />
-                <!--label id="prompt_3" value="prompt 3" class="PromptLabel3" /-->
+                <vbox class="PromptBox2" flex="1">
+                    <label id="prompt_1" value="prompt 1" class="PromptLabel1" />
+                    <label id="prompt_2" value="prompt 2" class="PromptLabel2" />
+                    <!--label id="prompt_3" value="prompt 3" class="PromptLabel3" /-->
                 </vbox>
+
+                <hbox align="center" id="availableSeatsBox">
+                    <spacer style="min-width: 20px;" />
+                    <vivitextbox id="availableSeats" size="3" onchange="$do('setAvailableSeats', this.value, 'SelectTable');" onenter="event.stopPropagation();"
+                                 value="0" numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" type="number"/>
+                </hbox>
             </hbox>
             <spacer flex="1" />
         </vbox>
-        <stack flex="1" class="MainPanel">
+        <stack id="tableDock" flex="1" class="MainPanel">
             
             <label id="queues" hidden="true" value="" />
             <hbox >
