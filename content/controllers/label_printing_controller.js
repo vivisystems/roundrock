@@ -30,6 +30,7 @@
        _replaceProducts: [],
        _barcodeTypeList: [],
        tabList:[],
+       legalList:[],
 
        _selCateIndex: -1,
        _selListIndex: -1,
@@ -75,14 +76,15 @@
 
                 /* 2.open dialogWindos */
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=350,height=400';
             var inputObj = {
-                            input0:null, require0:true, numberOnly0:true
+                            input0:null, require0:true, numberOnly0:true,
+                            numpad:true
                      //   input1:null, require1:false
                             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _(''), features,
-                                       _(category.name), '', _('Count'), '', inputObj);
+                                       _(category.name), _('How many ...?'), _('Count'), '', inputObj);
 
             /* 3.if 'ok' button == true */
             if (inputObj.ok && inputObj.input0 ){
@@ -167,14 +169,15 @@
             var product = this.productPanelView.getCurrentIndexData(index);
             var cloneProduct = GeckoJS.BaseObject.clone(product);
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=350,height=400';
             var inputObj = {
-                          input0:null, require0:true, numberOnly0:true
+                          input0:null, require0:true, numberOnly0:true,
+                          numpad:true
                      //   input1:null, require1:false
                            };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _(''), features,
-                                       _(product.name), '', _('Count'), '', inputObj);
+                                       _(product.name),_('How many....?'), _('Count'), '', inputObj);
 
             /* 3.if 'ok' button == true */
             if (inputObj.ok && inputObj.input0 ) {
@@ -704,8 +707,9 @@
 
             var label = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
 
-            label.printLabel(this.tabList, barcodeType, template);
+            label.printLabel(this.legalList, barcodeType, template);
         },
+       
 
         load: function(){
 
@@ -771,12 +775,12 @@
 
            var alert = "";
 
-             for(var i =0 ; i<list.length;i++){
+            for(var i =0 ; i<list.length;i++){
+                    
                          alert = alert + list[i].name +' '+list[i].barcode+"\n";
              }
 
-             GREUtils.Dialog.alert(this.topmostWindow, _('Product barcode illegal'),
-                                      _(alert + "Barcode illegal"));
+             return alert;
          },
 
          initialPriority: function(){
@@ -826,6 +830,18 @@
                    * action = 1  No  */
                     var action = prompts.confirmEx(this.topmostWindow,
                                                _('Replace'),messege,
+                                               flags, _('Yes'), _('No'), '', null, check);
+                    return action;
+
+              case 'barcode':
+
+                   var check = {data: false};
+                   var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                               prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING ;
+                  /* action = 0  Yes
+                   * action = 1  No  */
+                    var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Barcode Warning'),messege,
                                                flags, _('Yes'), _('No'), '', null, check);
                     return action;
              }
@@ -909,37 +925,44 @@
 
         },
 
+        isvalidCode39: function( barcode ){
+
+            for(var j = 0 ; j< barcode.length ; j++ ){
+
+                    if( !(
+                             (barcode[j].charCodeAt(0) >= 48 && barcode[j].charCodeAt(0) <= 57 )|| // 0~9
+                             (barcode[j].charCodeAt(0) >= 65 && barcode[j].charCodeAt(0) <= 90 )|| // A~Z
+                              barcode[j].charCodeAt(0) == 36                              || // $
+                              barcode[j].charCodeAt(0) == 37                              || // %
+                              barcode[j].charCodeAt(0) == 42                              || // *
+                              barcode[j].charCodeAt(0) == 43                              || // +
+                              barcode[j].charCodeAt(0) == 45                              || // -
+                              barcode[j].charCodeAt(0) == 46                              || // .
+                              barcode[j].charCodeAt(0) == 47                              || // /
+                              barcode[j].charCodeAt(0) == 32                                 // space
+                          )
+                      ) // find illegal char do
+                               { return false;}
+            }
+            return true;
+        },
+
         /* length: variable
         /* valid codes 0~9, A~Z, $ % * + - . / and space  */
         checkBarcodeType3OF9: function(list){
-
-            var object = { illegalList:[], islegal: true };
+          
+            var object = { legalList:[], illegalList:[], islegal: true };
 
             for(var i =0 ; i< list.length ; i++){
 
-          //      if  list[i].barcode.
-                for(var j = 0 ; j< list[i].barcode.length ; j++ ){
-
-                    if( !(
-                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j].charCodeAt(0) <= 57 )|| // 0~9
-                             (list[i].barcode[j].charCodeAt(0) >= 65 && list[i].barcode[j].charCodeAt(0) <= 90 )|| // A~Z
-                              list[i].barcode[j].charCodeAt(0) == 36                              || // $
-                              list[i].barcode[j].charCodeAt(0) == 37                              || // %
-                              list[i].barcode[j].charCodeAt(0) == 42                              || // *
-                              list[i].barcode[j].charCodeAt(0) == 43                              || // +
-                              list[i].barcode[j].charCodeAt(0) == 45                              || // -
-                              list[i].barcode[j].charCodeAt(0) == 46                              || // .
-                              list[i].barcode[j].charCodeAt(0) == 47                              || // /
-                              list[i].barcode[j].charCodeAt(0) == 32                                 // space
-                          )
-                      ) // find illegal char do
-                               {
-                                   object.illegalList.push( list[i] ); 
-                                   object.islegal = false ;
-                                   break;
-                               }
+                if(this.isvalidCode39(list[i].barcode))
+                     object.legalList.push(list[i]);
+                                  
+                else{
+                     object.illegalList.push(list[i]);
+                     object.islegal = false;
                 }
-            }
+            }          
             return object ; 
         },
 
@@ -1032,15 +1055,66 @@
             return object ;
         },
 
+        printlabel: function(){
+
+          if(this.tabList == ""){
+
+                GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('The List is empty'));
+                return ;
+            }
+       //     var list = [{barcode:'BA12^^^34'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
+
+            var object = this.checkBarcodeType3OF9(this.tabList);
+            
+            this.legalList = object.legalList;
+
+            if(!object.islegal){
+                var alert = this.alertIllegalBarcodeProduct(object.illegalList);
+
+                var action = this.checkSave('barcode',_("find unvalidated barcode")+"\n" +alert +"\n"+ _("continue print ?"));
+
+                     switch( action )
+                     {
+                         case 0:
+                                 this.selectTemplate();
+                                 return;
+
+                         case 1:
+                                 return;
+
+                     }
+
+            }
+            this.selectTemplate();
+        },
+        
         testing: function(){
 
-            var list = [{barcode:'BA1234'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
+           
+            var list = [{barcode:'BA12^^^34'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
            
             var object = this.checkBarcodeType3OF9(list);
 
-         //   this.alertIllegalBarcodeProduct(object.illegalList);
+            var alert = this.alertIllegalBarcodeProduct(object.illegalList);
 
-           try{ alert(this.Barcode.getEAN13CheckDigit('123456789123'));}catch(e){alert(e);}
+            var action = this.checkSave('barcode',_("find unvalidated barcode")+"\n" +alert +"\n"+ _("continue print ?"));
+
+                 switch( action )
+                 {
+                     case 0:
+                             window.alert('do print legal');
+                             break;
+
+                     case 1:
+                             
+                             break;
+                  
+                 }
+
+        //    this.alertIllegalBarcodeProduct(object.illegalList);
+       //     this.alertIllegalBarcodeProduct(object.legalList);
+
+         //  try{ alert(this.Barcode.getEAN13CheckDigit('123456789123'));}catch(e){alert(e);}
         },
 
         selectTemplate: function(){
