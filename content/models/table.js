@@ -334,7 +334,11 @@
          * getAvailableTables
          */
         getAvailableTables: function(showAvailableSeatTable) {
+
             var tables = this.getTablesById();
+            
+            // needed clone object reference
+            var availableTables = GREUtils.extend({}, tables);
             
             try {
                 var tables_statuses = this.TableStatus.getTablesStatusById();
@@ -358,15 +362,15 @@
                             if (customers >= tableSeat) available = false;
                         }
                     }
-                
-                    if (!available) delete tables[tableId];
+
+                    if (!available) delete availableTables[tableId];
                 }
 
             }catch(e) {
                 this.log('WARN', 'getAvailableTables Error', e);
             }
 
-            return GeckoJS.BaseObject.getValues(tables);
+            return GeckoJS.BaseObject.getValues(availableTables);
         }
 
     };
