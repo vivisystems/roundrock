@@ -1,0 +1,56 @@
+#!/bin/sh
+#
+
+#
+# execute php irc client
+#
+cmd=${1:-help}
+pid=$$
+dir=`dirname $0`
+
+cd $dir ;
+
+# check irc_packages dir exists
+if [ ! -d "/data/irc_packages" ]; then
+    mkdir /data/irc_packages;
+    chmod 0775 /data/irc_packages;
+fi
+if [ ! -d "/data/irc_packages/tmp" ]; then
+    mkdir /data/irc_packages/tmp;
+    chmod 0775 /data/irc_packages/tmp;
+fi
+if [ ! -d "/data/irc_packages/root" ]; then
+    mkdir /data/irc_packages/root;
+    chmod 0775 /data/irc_packages/root;
+fi
+if [ ! -d "/data/irc_packages/queues" ]; then
+    mkdir /data/irc_packages/queues;
+    chmod 0775 /data/irc_packages/queues;
+fi
+if [ ! -d "/data/backups/irc_backup" ]; then
+    mkdir /data/backups/irc_backup;
+    chmod 0775 /data/backups/irc_backup;
+fi
+
+
+if [ "$cmd" = "sync" ]; then
+    echo `date +%s` > /tmp/irc_client.request
+else
+#    echo "irc start"
+
+    # chown and mode of /data/profile 
+    chown -R root:root /data/profile
+    chmod -R 0775 /data/profile
+
+    # chown and mode of /data/scripts 
+    chown -R root:root /data/scripts
+    chmod -R 0775 /data/scripts
+
+    # chown and mode of /data/images 
+    chown -R root:root /data/images
+    chmod -R 0775 /data/images
+ 
+    ${dir}/cake/console/cake -app ${dir}/app irc_client ${cmd}
+    
+    
+fi

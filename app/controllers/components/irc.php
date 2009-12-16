@@ -17,6 +17,8 @@ class IrcComponent extends Object {
 
     var $databasesPath = "/data/databases";
 
+    var $backupsPath = "/data/backups";
+
     var $profilePath = "/data/profile";
 
     var $extensionsPath = "/data/profile/extensions";
@@ -33,12 +35,15 @@ class IrcComponent extends Object {
 
     var $workingDir = "";
 
+
+
     /**
      * Constructor.
      */
     function __construct() {
         parent::__construct();
     }
+
 
     /**
      * Initializes the component, gets a reference to Controller::$parameters.
@@ -58,8 +63,10 @@ class IrcComponent extends Object {
         $this->profilePath = Configure::read('PROFILE_PATH');
         $this->extensionsPath = Configure::read('PROFILE_PATH') . "/extensions";
         $this->ircPackagePath = Configure::read('DATA_PATH') . "/irc_packages";
+        $this->backupsPath = Configure::read('DATA_PATH') . "/backups";
 
     }
+
 
     /**
      * The startup method
@@ -72,6 +79,10 @@ class IrcComponent extends Object {
     }
 
 
+    /**
+     *
+     * @return <type>
+     */
     function getIrcManifests() {
 
         if (count($this->ircManifests)) return $this->ircManifests;
@@ -88,6 +99,10 @@ class IrcComponent extends Object {
     }
 
 
+    /**
+     *
+     * @param <type> $xmlfile
+     */
     function parseIrcManifest($xmlfile) {
 
         $xmlObj = simplexml_load_file($xmlfile);
@@ -107,6 +122,11 @@ class IrcComponent extends Object {
 
     }
 
+
+    /**
+     *
+     * @return <type>
+     */
     function getPrefsJs() {
 
         if (!empty($this->prefsJs)) return $this->prefsJs;
@@ -122,6 +142,11 @@ class IrcComponent extends Object {
 
     }
 
+
+    /**
+     *
+     * @param <type> $newPrefsJs
+     */
     function appendPrefsJs($newPrefsJs) {
 
         if (file_exists($this->profilePath."/prefs.js")) {
@@ -135,6 +160,10 @@ class IrcComponent extends Object {
     }
 
 
+    /**
+     *
+     * @return <type>
+     */
     function getWorkingDir() {
 
         if (!empty($this->workingDir)) return $this->workingDir ;
@@ -173,6 +202,12 @@ class IrcComponent extends Object {
         return $workingDir;
     }
 
+
+    /**
+     *
+     * @param <type> $workingDir
+     * @return <type>
+     */
     function removeWorkingDir($workingDir) {
 
         $workingDir = $this->workingDir;
@@ -189,6 +224,94 @@ class IrcComponent extends Object {
     }
 
 
+    function copyToBackup($type="prefs", $file) {
+
+        $backupDir = $this->backupsPath . "/irc_backup";
+        $dataDir = $backupDir . "/data";
+        $databaseDir = $dataDir . "/databases";
+        $profileDir = $dataDir . "/profile";
+
+        // init dirs
+        if(!is_dir($backupDir)) {
+            if (!mkdir($backupDir, 0775)) return false;
+        }
+        if(!is_dir($dataDir)) {
+            if (!mkdir($dataDir, 0775)) return false;
+        }
+        if(!is_dir($databaseDir)) {
+            if (!mkdir($databaseDir, 0775)) return false;
+        }
+        if(!is_dir($profileDir)) {
+            if (!mkdir($profileDir, 0775)) return false;
+        }
+
+        switch($type) {
+            default:
+            case 'pref':
+                $source = $this->profilePath ."/prefs.js";
+                $target = $profileDir . "/prefs.js";
+
+                if (!file_exists($target)) {
+                    copy($source, $target);
+                }
+                break;
+
+            case 'db':
+                $source = $file;
+                $sourceDirname = dirname($source);
+                $targetDir = $backupDir . $sourceDirname;
+                $target = $targetDir ."/".basename($source);
+
+                if (!file_exists($target)) {
+                    mkdir ($targetDir, 0775, true);
+                    copy($source, $target);
+                }
+                break;
+        }
+
+        return true;
+
+    }
+
+    function createTbzBackup($type="prefs", $file) {
+
+        $backupDir = $this->backupsPath . "/irc_backup";
+        $dataDir = $backupDir . "/data";
+        $databaseDir = $dataDir . "/databases";
+        $profileDir = $dataDir . "/profile";
+
+        // create databases.tbz
+        if (is_dir($databaseDir)) {
+            chdir($databaseDir);
+            $tbzFile = $backupDir ."/databases.tbz";
+
+            $cmd = sprintf("%s -cjf %s .", $this->tarBin, $tbzFile);
+            $result = shell_exec($cmd);
+
+        }
+
+        // create profile.tbz
+        if (is_dir($profileDir)) {
+            chdir($profileDir);
+            $tbzFile = $backupDir ."/profile.tbz";
+
+            $cmd = sprintf("%s -cjf %s .", $this->tarBin, $tbzFile);
+            $result = shell_exec($cmd);
+
+        }
+
+        $folder = new Folder($dataDir);
+        return $folder->delete();
+
+    }
+
+
+    /**
+     *
+     * @param <type> $tbzFile
+     * @param <type> $tbzDescFile
+     * @return <type>
+     */
     function movePackageToQueue($tbzFile, $tbzDescFile) {
 
         if(!is_dir($this->ircPackagePath)) {
@@ -204,6 +327,14 @@ class IrcComponent extends Object {
 
     }
 
+
+    /**
+     *
+     * @param <type> $workingDir
+     * @param <type> $action
+     * @param <type> $mode
+     * @return <type>
+     */
     function processAction($workingDir, $action, $mode='create') {
 
         if(empty($action)) return false;
@@ -234,6 +365,13 @@ class IrcComponent extends Object {
     }
 
 
+    /**
+     *
+     * @param <type> $workingDir
+     * @param <type> $action
+     * @param <type> $mode
+     * @return <type>
+     */
     function processDbAction($workingDir, $action, $mode='create') {
 
         $database = $action['database'];
@@ -253,9 +391,10 @@ class IrcComponent extends Object {
 
                 $exportFile = $workingDir ."/dbs/" . $database . "__" . $table . ".csv";
 
-                $versionSql = "pragma user_version";
-                $cmdSql = sprintf("%s %s \"%s\"", $this->sqlite3Bin, $databaseFile, $versionSql);
-                $version = chop(shell_exec($cmdSql));
+                //$versionSql = "pragma user_version";
+                $tableSchemaSql = ".schema $table";
+                $cmdSql = sprintf("%s %s \"%s\"", $this->sqlite3Bin, $databaseFile, $tableSchemaSql);
+                $version = md5(chop(shell_exec($cmdSql)));
 
                 $sql = "SELECT * FROM $table" ;
                 $cmd = sprintf("%s -list %s \"%s\" > %s", $this->sqlite3Bin, $databaseFile, $sql, $exportFile);
@@ -275,11 +414,15 @@ class IrcComponent extends Object {
                 $masterDatabaseVersion = $action['database_version'];
                 $exportFile = $workingDir ."/dbs/". $action['export_file'];
 
-                $versionSql = "pragma user_version";
-                $cmdSql = sprintf("%s %s \"%s\"", $this->sqlite3Bin, $databaseFile, $versionSql);
-                $version = chop(shell_exec($cmdSql));
+                //$versionSql = "pragma user_version";
+                $tableSchemaSql = ".schema $table";
+                $cmdSql = sprintf("%s %s \"%s\"", $this->sqlite3Bin, $databaseFile, $tableSchemaSql);
+                $version = md5(chop(shell_exec($cmdSql)));
 
                 if ($masterDatabaseVersion != $version) return false;
+
+                // backup first
+                $this->copyToBackup('db', $databaseFile);
 
                 // delete old datas
                 $deleteSql = "DELETE FROM $table" ;
@@ -301,6 +444,14 @@ class IrcComponent extends Object {
 
     }
 
+
+    /**
+     *
+     * @param <type> $workingDir
+     * @param <type> $action
+     * @param <type> $mode
+     * @return <type>
+     */
     function processPrefAction($workingDir, $action, $mode='create') {
 
         $prefsJs = $this->getPrefsJs();
@@ -330,6 +481,9 @@ class IrcComponent extends Object {
 
             case 'unpack':
 
+                // backup first
+                $this->copyToBackup('pref', '');
+
                 $exportFile = $workingDir ."/prefs/". $action['export_file'];
                 $newPrefs = file_get_contents($exportFile);
                 $this->appendPrefsJs($newPrefs);
@@ -344,6 +498,13 @@ class IrcComponent extends Object {
     }
 
 
+    /**
+     *
+     * @param <type> $workingDir
+     * @param <type> $action
+     * @param <type> $mode
+     * @return <type>
+     */
     function processFileAction($workingDir, $action, $mode='create') {
 
         $file = $action['file'] ;
@@ -381,8 +542,15 @@ class IrcComponent extends Object {
     }
 
 
+    /**
+     *
+     * @param <type> $workingDir
+     * @param <type> $action
+     * @param <type> $mode
+     * @return <type>
+     */
     function processScriptAction($workingDir, $action, $mode='create') {
-    // using tar
+
         $file = $action['file'] ;
 
         if (!file_exists($file)) return false;
@@ -391,14 +559,22 @@ class IrcComponent extends Object {
 
         $result = shell_exec($cmd);
 
-        $action['export_file'] = basename($result);
-
-        return $action;
-
+        if (!empty($result)) {
+            return json_decode($result, true);
+        }else {
+            return false;
+        }
 
     }
 
 
+    /**
+     *
+     * @param <type> $activation
+     * @param <type> $workingDir
+     * @param <type> $restoreActions
+     * @return <type>
+     */
     function createTbzPackage($activation, $workingDir, $restoreActions) {
 
         $now = date("YmdHis", $activation);
@@ -418,6 +594,12 @@ class IrcComponent extends Object {
     }
 
 
+    /**
+     *
+     * @param <type> $workingDir
+     * @param <type> $tbzFile
+     * @return <type>
+     */
     function unpackTbzPackage($workingDir, $tbzFile) {
 
         $cmd = sprintf("%s -xjf %s -C %s", $this->tarBin, $tbzFile, $workingDir);
@@ -436,18 +618,58 @@ class IrcComponent extends Object {
 
     }
 
+
+    /**
+     *
+     * @param <type> $tbzFile
+     * @param <type> $unpackLogs
+     * @return <type>
+     */
     function saveUnpackPackageLog($tbzFile, $unpackLogs) {
-        
+
         // saved and mark done
         $packagesQueuePath = $this->ircPackagePath."/queues/";
-        
+
         $tbzUnpackLogFile = $tbzFile . ".unpacklog.json";
 
         file_put_contents($packagesQueuePath.$tbzUnpackLogFile, json_encode($unpackLogs));
 
         return true;
-        
+
     }
+
+
+    /**
+     *
+     * @param <type> $machineId
+     * @param <type> $tbzFile
+     * @param <type> $updateStatus
+     * @return <type>
+     */
+    function updatePackageStatus($machineId, $tbzFile, $updateStatus) {
+
+        $packagesQueuePath = $this->ircPackagePath."/queues/";
+
+        $statusFile = $packagesQueuePath . $tbzFile . ".status.json";
+
+        $status = array();
+
+        if (file_exists($statusFile)) {
+            $status = json_decode(file_get_contents($statusFile), true);
+        }
+
+        if(empty($status[$machineId])) {
+             $status[$machineId] = array( $updateStatus => time() , 'machine_id' => $machineId);
+        }else {
+             $status[$machineId][$updateStatus] = time();
+        }
+
+        file_put_contents($statusFile, json_encode($status));
+
+        return true;
+
+    }
+
 
     /**
      * getPackages
@@ -461,19 +683,41 @@ class IrcComponent extends Object {
 
         $folder = new Folder($packagesQueuePath);
 
-        $jsonFiles = $folder->find(".*\.json", true);
+        $jsonFiles = $folder->find(".*\.tbz\.json", true);
 
         foreach ( $jsonFiles as $jsonFile) {
-            $packages[] = json_decode(file_get_contents($packagesQueuePath.$jsonFile), true);
+
+            $packageDesc = json_decode(file_get_contents($packagesQueuePath.$jsonFile), true);
+
+            $packageStatusFile = $packagesQueuePath . $packageDesc['file'].".status.json";
+            $packageUnpackLogFile = $packagesQueuePath . $packageDesc['file'].".unpacklog.json";
+
+            if (file_exists($packageStatusFile)) {
+                $packageDesc['status'] = array_values(json_decode(file_get_contents($packageStatusFile), true));
+            }
+
+            if (file_exists($packageUnpackLogFile)) {
+                $packageDesc['unpacked'] = true;
+            }
+
+            $packages[] = $packageDesc;
         }
 
         return $packages;
     }
 
+
     /**
-     * createPackage
+     *
+     * @param <type> $activation
+     * @param <type> $modules
+     * @param <type> $description
+     * @param <type> $moduleLabels
+     * @return <type>
      */
     function createPackage($activation, $modules="", $description="", $moduleLabels="") {
+
+        $now = time();
 
         $ircManifests = $this->getIrcManifests();
 
@@ -482,7 +726,7 @@ class IrcComponent extends Object {
             $selectedModules = explode(",", $modules);
         }else {
             $selectedModules = array_keys($ircManifests);
-            $modules = $selectedModules;
+            $modules = implode(",", $selectedModules);
         }
 
         if (empty($moduleLabels)) {
@@ -518,6 +762,7 @@ class IrcComponent extends Object {
         $machine_id = $this->syncSettings['machine_id'];
 
         $ircPackageDesc = array(
+            'created' => $now,
             'created_machine_id' => $machine_id,
             'modules' => $modules,
             'module_labels' => $moduleLabels,
@@ -540,8 +785,11 @@ class IrcComponent extends Object {
         return basename($tbzFile);
     }
 
+
     /**
-     * removePackage
+     *
+     * @param <type> $file
+     * @return <type>
      */
     function removePackage($file) {
 
@@ -551,6 +799,7 @@ class IrcComponent extends Object {
         $tbzDescFile = $tbzFile . ".json";
         $tbzLogFile = $tbzFile . ".log.json";
         $tbzUnpackLogFile = $tbzFile . ".unpacklog.json";
+        $tbzStatusFile = $tbzFile . ".status.json";
 
         if (file_exists($tbzFile)) {
             unlink($tbzFile);
@@ -568,12 +817,18 @@ class IrcComponent extends Object {
             unlink($tbzUnpackLogFile);
         }
 
+        if (file_exists($tbzStatusFile)) {
+            unlink($tbzStatusFile);
+        }
+
         return true;
     }
 
 
     /**
-     * unpackPackage
+     *
+     * @param <type> $file
+     * @return <type>
      */
     function unpackPackage($file) {
 
@@ -591,11 +846,11 @@ class IrcComponent extends Object {
         $unpackActions = $this->unpackTbzPackage($workingDir, $tbzFile);
 
         $unpackLogs = array();
-        
+
         // process actions
         foreach($unpackActions as $action) {
             $actionResult = $this->processAction($workingDir, $action, 'unpack');
-            
+
             $action['success'] = $actionResult;
             $unpackLogs[] = $action;
         }
@@ -608,6 +863,101 @@ class IrcComponent extends Object {
     }
 
 
+    /**
+     *
+     * @param $files
+     * @return unknown_type
+     */
+    function unpackPackages($files) {
+
+        $result = true ;
+
+        foreach ($files as $file) {
+
+            $result &= $this->unpackPackage($file);
+
+        }
+
+        // create backup
+        $this->createTbzBackup();
+
+        return !empty($result);
+
+    }
+
+
+    /**
+     *
+     * @return <type>
+     */
+    function getLastDownloaded() {
+
+        $lastDownloadedTime = time();
+
+        $lastDownloadedFile = $this->ircPackagePath . "/last_downloaded" ;
+
+        if (file_exists($lastDownloadedFile)) {
+            $lastDownloadedTime = file_get_contents($lastDownloadedFile);
+        }else {
+            file_put_contents($lastDownloadedFile, $lastDownloadedTime);
+        }
+
+        return $lastDownloadedTime;
+    }
+
+
+    /**
+     *
+     * @param <type> $lastDownloadedTime
+     * @return <type>
+     */
+    function setLastDownloaded($lastDownloadedTime) {
+
+        $lastDownloadedFile = $this->ircPackagePath . "/last_downloaded" ;
+
+        file_put_contents($lastDownloadedFile, $lastDownloadedTime);
+
+        return $lastDownloadedTime;
+
+    }
+
+
+    /**
+     *
+     * @param <type> $url
+     * @param <type> $file
+     * @return <type>
+     */
+    function curlDownloadFile($url, $file) {
+
+        if (($curl = curl_init($url)) == false) {
+            throw new Exception("curl_init error for url $url.");
+        }
+
+        // set timeout
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, (int)$this->syncSettings['timeout']);
+
+        if (($fp = fopen($file, "wb")) === false) {
+            throw new Exception("fopen error for filename $file");
+        }
+
+        // output to file
+        curl_setopt($curl, CURLOPT_FILE, $fp);
+
+        // set binary mode
+        curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
+        if (curl_exec($curl) === false) {
+            fclose($fp);
+            unlink($fileName);
+            throw new Exception("curl_exec error for url $url.");
+        } else {
+            fclose($fp);
+        }
+
+        curl_close($curl);
+
+        return $file;
+    }
 }
 
 ?>
