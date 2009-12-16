@@ -224,6 +224,13 @@ class IrcComponent extends Object {
     }
 
 
+    /**
+     * Copy database or prefs.js to backup directory if not exists
+     *
+     * @param $type
+     * @param $file
+     * @return unknown_type
+     */
     function copyToBackup($type="prefs", $file) {
 
         $backupDir = $this->backupsPath . "/irc_backup";
@@ -273,6 +280,14 @@ class IrcComponent extends Object {
 
     }
 
+
+    /**
+     * Create backup tbz packages(databases.tbz/profile.tbz)
+     *
+     * @param $type
+     * @param $file
+     * @return unknown_type
+     */
     function createTbzBackup($type="prefs", $file) {
 
         $backupDir = $this->backupsPath . "/irc_backup";
@@ -307,6 +322,7 @@ class IrcComponent extends Object {
 
 
     /**
+     * Move Package From tmp to queue directory
      *
      * @param <type> $tbzFile
      * @param <type> $tbzDescFile
@@ -923,6 +939,9 @@ class IrcComponent extends Object {
 
 
     /**
+     * Using CURL Ext to download binary file.
+     *
+     * Using fopen's handle to CURLOPT_FILE let CURL writing out to file not return output.
      *
      * @param <type> $url
      * @param <type> $file

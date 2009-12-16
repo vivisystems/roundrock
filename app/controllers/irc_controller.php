@@ -9,6 +9,11 @@ class IrcController extends AppController {
     var $components = array('SyncHandler', 'Security', 'Irc');
 
 
+    /**
+     * Get HttpSocket Object with preconfig auth mode and password
+     *
+     * @return HttpSocket
+     */
     function &getHttpSocket() {
 
         $password = $this->syncSettings['password'] ;
@@ -30,6 +35,13 @@ class IrcController extends AppController {
     }
 
 
+    /**
+     * beforeFilter
+     *
+     * discard downloadPackages / downloadFile for basic auth
+     *
+     * @see app/AppController#beforeFilter()
+     */
     function beforeFilter() {
 
     // downloadPackages call by background php , skip auth
@@ -40,7 +52,11 @@ class IrcController extends AppController {
 
 
     /**
-     * getPackages
+     * Return all IRC packages and status
+     *
+     * Called by VIVIECR - Sync Setting
+     *
+     * @return unknown_type
      */
     function getPackages() {
 
@@ -62,7 +78,11 @@ class IrcController extends AppController {
 
 
     /**
-     * create package
+     * Create IRC Package
+     *
+     * Called by VIVIECR - Sync Setting
+     *
+     * @return unknown_type
      */
     function createPackage() {
 
@@ -91,7 +111,12 @@ class IrcController extends AppController {
 
 
     /**
-     * remove package
+     * Remove IRC Package and status
+     *
+     * Called by VIVIECR - Sync Setting
+     *
+     * @param $file
+     * @return unknown_type
      */
     function removePackage($file) {
 
@@ -114,18 +139,29 @@ class IrcController extends AppController {
     }
 
 
+    /**
+     * Check available updates for this terminal
+     *
+     * ignore package if created by self
+     *
+     * Called by VIVIECR - Startup / Setting Events
+     *
+     * @return unknown_type
+     */
     function checkAvailableUpdates() {
 
         $result = array('status' => 'error', 'code' => 400 );
 
         $now = time();
 
+        $machineId = $this->SyncHandler->getRequestClientMachineId();
+
         $packages = $this->Irc->getPackages();
 
         $availablePackages = array();
 
         foreach($packages as $package) {
-            if ($package['activation'] <= $now && empty($package['unpacked'])) {
+            if ($package['activation'] <= $now && empty($package['unpacked']) && $package['created_machine_id'] != $machineId) {
                 $availablePackages[$package['created']] = $package;
             }
         }
@@ -149,16 +185,26 @@ class IrcController extends AppController {
     }
 
 
+    /**
+     * Apply available updates
+     *
+     *
+     * Called by VIVIECR - Startup / Setting Events
+     *
+     * @return unknown_type
+     */
     function applyAvailableUpdates() {
 
         $now = time();
+
+        $machineId = $this->SyncHandler->getRequestClientMachineId();
 
         $packages = $this->Irc->getPackages();
 
         $availablePackages = array();
 
         foreach($packages as $package) {
-            if ($package['activation'] <= $now && empty($package['unpacked'])) {
+            if ($package['activation'] <= $now && empty($package['unpacked']) && $package['created_machine_id'] != $machineId) {
                 $availablePackages[$package['created']] = $package;
             }
         }
@@ -177,12 +223,14 @@ class IrcController extends AppController {
 
         exit;
 
-
-
     }
 
+
     /**
-     * unpack package
+     * Unpack IRC Package and updating master updated status.
+     *
+     * @param $file
+     * @return unknown_type
      */
     function unpackPackage($file) {
 
@@ -222,8 +270,12 @@ class IrcController extends AppController {
 
     }
 
+
     /**
-     * unpack packages
+     * Unpack IRC Packages and updating master updated status.
+     *
+     * @param $files
+     * @return unknown_type
      */
     function unpackPackages($files) {
 
@@ -270,7 +322,9 @@ class IrcController extends AppController {
 
 
     /**
-     * create package full settings
+     * Create IRC package with full settings
+     *
+     * @return unknown_type
      */
     function createFullPackage() {
 

@@ -13,23 +13,19 @@ cd $dir ;
 # check irc_packages dir exists
 if [ ! -d "/data/irc_packages" ]; then
     mkdir /data/irc_packages;
-    chmod 0775 /data/irc_packages;
+    chmod g+rwx /data/irc_packages;
 fi
 if [ ! -d "/data/irc_packages/tmp" ]; then
     mkdir /data/irc_packages/tmp;
-    chmod 0775 /data/irc_packages/tmp;
-fi
-if [ ! -d "/data/irc_packages/root" ]; then
-    mkdir /data/irc_packages/root;
-    chmod 0775 /data/irc_packages/root;
+    chmod g+rwx /data/irc_packages/tmp;
 fi
 if [ ! -d "/data/irc_packages/queues" ]; then
     mkdir /data/irc_packages/queues;
-    chmod 0775 /data/irc_packages/queues;
+    chmod g+rwx /data/irc_packages/queues;
 fi
 if [ ! -d "/data/backups/irc_backup" ]; then
     mkdir /data/backups/irc_backup;
-    chmod 0775 /data/backups/irc_backup;
+    chmod g+rwx /data/backups/irc_backup;
 fi
 
 
@@ -40,17 +36,20 @@ else
 
     # chown and mode of /data/profile 
     chown -R root:root /data/profile
-    chmod -R 0775 /data/profile
+    chmod -R g+rw /data/profile
 
     # chown and mode of /data/scripts 
     chown -R root:root /data/scripts
-    chmod -R 0775 /data/scripts
+    chmod -R g+rw /data/scripts
 
     # chown and mode of /data/images 
     chown -R root:root /data/images
-    chmod -R 0775 /data/images
+    chmod -R g+rw /data/images
+
+    # chown and mode of /data/databases 
+    chown -R root:root /data/databases
+    chmod -R g+rw /data/databases
  
     ${dir}/cake/console/cake -app ${dir}/app irc_client ${cmd}
-    
     
 fi
