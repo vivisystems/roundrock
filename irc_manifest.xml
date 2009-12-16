@@ -65,6 +65,10 @@
         </action>
         <action>
             <type>pref</type>
+            <key>vivipos.fec.registry.import_export.charset</key>
+        </action>
+        <action>
+            <type>pref</type>
             <key>vivipos.fec.settings.Condiment</key>
         </action>
         <action>
@@ -81,7 +85,11 @@
         </action>
         <action>
             <type>pref</type>
-            <key>vivipos.fec.settings.Plu</key>
+            <key>vivipos.fec.settings.PluCols</key>
+        </action>
+        <action>
+            <type>pref</type>
+            <key>vivipos.fec.settings.PluRows</key>
         </action>
         <action>
             <type>pref</type>
@@ -242,6 +250,14 @@
         <action>
             <type>pref</type>
             <key>vivipos.fec.settings.department.pops.to.top</key>
+        </action>
+        <action>
+	        <type>pref</type>
+	        <key>vivipos.fec.settings.InventoryAdjustmentRetainDays</key>
+        </action>
+        <action>
+            <type>pref</type>
+            <key>vivipos.fec.settings.OrderRetainDays</key>
         </action>
     </module>
 
