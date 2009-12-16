@@ -3,9 +3,11 @@ function prefs_overlay_startup() {
     var prefwin = document.getElementById('prefwin');
     var displayPane = document.getElementById('displaySettingsPane');
     var logoPane = document.getElementById('logoSettingsPane');
+    var expressKeyPane = document.getElementById('expressKeySettingsPane');
 
     if (displayPane) prefwin.addPane(displayPane);
     if (logoPane) prefwin.addPane(logoPane);
+    if (expressKeyPane) prefwin.addPane(expressKeyPane);
 
     var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
     var sDstDir = datapath + "/images/pluimages/";

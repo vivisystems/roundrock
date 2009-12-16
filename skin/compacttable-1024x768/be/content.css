@@ -90,6 +90,11 @@
     margin: 5px;
 }
 
+.container-be .content-formbox label {
+    font-size: 12pt;
+    color: #372213;
+}
+
 /*-----------------------------------------------------------------------------
  * Option box
  *-----------------------------------------------------------------------------
@@ -141,6 +146,10 @@
     color: #372213;
 }
 
+.container-be .data-form button label {
+    font-size: inherit;
+}
+
 .container-be .data-form-2 {
 	border-right: 2px solid white;
 	background: #f0efe8;
@@ -161,6 +170,10 @@
 .container-be .data-form-2 label {
     font-size: 12pt;
     color: #372213;
+}
+
+.container-be .data-form-2 button label {
+    font-size: inherit;
 }
 
 .container-be .data-form-options {
@@ -190,9 +203,11 @@
 .container-be .scroll-up-button[disabled=false]:active {
     background-position:-40px 0;
 }
+
 .container-be .scroll-up-button[disabled=true] {
     background-position:-80px 0;
 }
+
 .container-be .scroll-up-button description {
     display: none;
 }
@@ -221,7 +236,7 @@
 }
 
 .container-be .scroll-down-button[disabled=true] {
-    background-position:-80px 0;
+    background-position: -80px 0;
 }
 
 .container-be .scroll-down-button description {

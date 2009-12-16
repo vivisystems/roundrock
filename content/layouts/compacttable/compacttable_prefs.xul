@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
+<!DOCTYPE window [
+  <!ENTITY % Sysprefs SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
+  %Sysprefs;
+  <!ENTITY % CompactTable SYSTEM "chrome://viviecr/locale/compacttable_prefs.dtd">
+  %CompactTable;
+  ]>
+
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/buttons.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 
 <overlay id="CompactTablePrefsOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -8,7 +19,8 @@
 
     <prefwindow id="prefwin">
 
-        <script src='chrome://viviecr/content/layouts/compacttable/compacttable_prefs.js'/>
+        <!--script src='chrome://viviecr/content/layouts/compacttable/compacttable_prefs.js'/-->
+        <script src='chrome://viviecr/content/layouts/compacttable/compacttable_prefs_controller.js' type='text/javascript;version=1.7'/>
 
         <prefpane id="displaySettingsPane" label="&category.layout.general;">
             <preferences>
@@ -90,29 +102,107 @@
                         <vbox>
                             <label control="logoHeight" value="&layout.logoheight;"/>
                             <textbox preference="pref_logoheight" id="logoHeight" type="number" size="3" maxlength="3" min="0" max="200"
-                                     onchange="resizeLogo();"/>
+                                     onchange="$do('resizeLogo', null, 'CompactTablePrefs');"/>
                             <label control="logoHeight" value="&layout.logowidth;"/>
                             <textbox preference="pref_logowidth" id="logoWidth" type="number" size="3" maxlength="3" min="0" max="350"
-                                     onchange="resizeLogo();"/>
+                                     onchange="$do('resizeLogo', null, 'CompactTablePrefs');"/>
                         </vbox>
                     </row>
                 </rows>
             </grid>
+
             <vbox flex="1">
                 <hbox pack="center" align="center"
                       style="-moz-border-radius: 8px; border: 3px solid #c1ab8e; margin: 4px; max-height: 200px; min-height: 200px; height: 200px;"
                       >
                     <image id="logoimage" flex="1" validate="always"/>
                 </hbox>
-                <spacer style="height: 10px;" />
+                <spacer style="height: 10px;"/>
                 <hbox flex="0" pack="center">
                     <button id="logoBrowseBtn" class="button-execute" label="&layout.addlogo;" image="chrome://viviecr/skin/images/add.png"
-                            oncommand="selectImage('logoimage', 'logo.png')"/>
+                            oncommand="$do('selectImage', ['logoimage', 'logo.png'], 'CompactTablePrefs');"/>
                     <spacer style="height: 4px;" />
                     <button id="logoRemoveBtn" class="button-execute" label="&layout.removelogo;" image="chrome://viviecr/skin/images/cancel.png"
-                            oncommand="removeImage('logoimage', 'logo.png')"/>
+                            oncommand="$do('removeImage', ['logoimage', 'logo.png'], 'CompactTablePrefs');"/>
                 </hbox>
-                <spacer style="width: 20px;" />
+                <spacer style="width: 20px;"/>
+            </vbox>
+            
+        </prefpane>
+
+        <prefpane id="expressKeySettingsPane" label="&category.layout.compacttable.expresskey;" class="layout-be">
+            <vbox flex="1" class="layout-b" style="padding-right: 10px;">
+                <vbox class="container-top">
+                    <vbox flex="1" class="content-listbox">
+                        <vivitree id="expresskey_prefs_tree" flex="1" class="standard"
+                                  headers="&category.layout.compacttable.expresskey.heading.key;,&category.layout.compacttable.expresskey.heading.function;,&category.layout.compacttable.expresskey.heading.label;"
+                                  fields="key,command,label"
+                                  seltype="single"
+                                  reverse="true"
+                                  rows="8"
+                                  hidevscroll="true"
+                                  onselect="$do('selectExpressKey', this, 'CompactTablePrefs')"/>
+                    </vbox>
+                </vbox>
+
+                <hbox flex="1">
+                    <grid orient="vertical" class="data-form" flex="0">
+                        <columns>
+                            <column flex="0"/>
+                            <column flex="0"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <textbox id="expresskey_index" hidden="true"
+                                         form="expressKeyForm" name="index" default=""/>
+                                <label value="&category.layout.compacttable.expresskey.index;"/>
+                                <textbox id="expresskey_name" size="10" value="" readonly="true" disabled="true"/>
+                            </row>
+
+                            <row>
+                                <label value="&category.layout.compacttable.expresskey.linked;"/>
+                                <hbox flex="1">
+                                    <textbox id="expresskey_linked" size="10" value="" readonly="true" disabled="true"
+                                             form="expressKeyForm" name="linked" default=""/>
+                                    <button id="expresskey_unlink" icon="cancel"
+                                            label="&category.layout.compacttable.unlinkkey.label;"
+                                            class="button-item-a"
+                                            oncommand="$do('unlinkFunction', null, 'CompactTablePrefs');"/>
+                                </hbox>
+                            </row>
+
+                            <row>
+                                <label value="&category.layout.compacttable.expresskey.label;"/>
+                                <textbox id="expresskey_label" size="10" value="" readonly="true"
+                                         form="expressKeyForm" name="label" default=""/>
+                            </row>
+
+                            <row>
+                                <label value="&category.layout.compacttable.expresskey.data;"/>
+                                <textbox id="expresskey_data" size="10" value="" readonly="true"
+                                         form="expressKeyForm" name="data" default=""/>
+                            </row>
+
+                            <row>
+                                <button id="expresskey_link" icon="apply"
+                                        label="&category.layout.compacttable.linkkey.label;"
+                                        disabled="true" class="button-item-a"
+                                        oncommand="$do('linkFunction', null, 'CompactTablePrefs');"/>
+                            </row>
+                        </rows>
+                    </grid>
+
+                    <vbox flex="1" class="content-listbox">
+                        <vivitree id="expresskey_function_tree" flex="1"
+                                  class="standard"
+                                  headers="&category.layout.compacttable.function.label;,&category.layout.compacttable.label.label;"
+                                  fields="name,label"
+                                  seltype="single" hidecolumnpicker="true"
+                                  onselect="$do('selectFunctionKey', this, 'CompactTablePrefs');"/>
+                        <textbox id="expresskey_function_desc" class="textbox-description"
+                                 wrap="true" readonly="true" multiline="true" rows="3"/>
+                    </vbox>
+                </hbox>
             </vbox>
         </prefpane>
 

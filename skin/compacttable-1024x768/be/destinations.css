@@ -11,6 +11,7 @@
 }
 
 #destscrollablepanel tree #pricelevel,
+#destscrollablepanel tree #taxname,
 #destscrollablepanel tree #prefix,
 #destscrollablepanel tree #name {
     text-align: center;

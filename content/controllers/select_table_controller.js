@@ -644,10 +644,11 @@
                 active = 0
             }
 
+            let result = false;
             switch (command) {
                 default:
                 case 'newTable':
-                    this.newTable(table_id);
+                    result = this.newTable(table_id);
                     break;
 
                 case 'denyTable':
@@ -656,10 +657,14 @@
                     break;
 
                 case 'selectTableOrder':
-                    this.executeSelectTableOrder(table_id);
+                    result = this.executeSelectTableOrder(table_id);
                     break;
             }
 
+            // if selectTable action fails, clear selection
+            if (!result) {
+                this.getTableButtonsPanelObj().selectedItems = [];
+            }
             return true;
 
 
@@ -774,10 +779,12 @@
                     || (masterTableId==slaveTableId) ) {
 
                     NotifyUtils.warn(_('Table [%S] is not available for merging. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                    this.getTableButtonsPanelObj().selectedItems = [];
                     return ;
                 }
             }else if (!table.active || (masterTableId==slaveTableId) ) {
                 NotifyUtils.warn(_('Table [%S] is not available for merging. Status [%S], Active [%S]',[ table_no, 0, 0]));
+                this.getTableButtonsPanelObj().selectedItems = [];
                 return ;
             }
 
@@ -793,6 +800,7 @@
                     if (tableStatus && tableStatus.TableStatus.status != 0) {
                         // check available
                         NotifyUtils.warn(_('Table [%S] is not available for merging. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                        this.getTableButtonsPanelObj().selectedItems = [];
                         return;
                     }
                     masterTableId = this._actionData.id;
@@ -831,6 +839,7 @@
 
             if (status == 0) {
                 NotifyUtils.warn(_('Table [%S] is not available for unmerging. Status [%S], Active [%S]',[ table_no, status, (tableStatus?tableStatus.Table.active:1)]));
+                this.getTableButtonsPanelObj().selectedItems = [];
                 return ;
             }
 
@@ -893,10 +902,12 @@
                     || (tableStatus.TableStatus.status == 1) ) {
 
                     NotifyUtils.warn(_('Table [%S] is not available for marking. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                    this.getTableButtonsPanelObj().selectedItems = [];
                     return ;
                 }
             }else if (!table.active) {
                 NotifyUtils.warn(_('Table [%S] is not available fr marking. Status [%S], Active [%S]',[ table_no, 0, 0]));
+                this.getTableButtonsPanelObj().selectedItems = [];
                 return ;
             }
 
@@ -907,6 +918,7 @@
 
             if (!markId) {
                 // XXX error message ?
+                this.getTableButtonsPanelObj().selectedItems = [];
                 return false;
             }
             
@@ -946,6 +958,7 @@
 
             if (status != 3) {
                 NotifyUtils.warn(_('Table [%S] is not available for unmarking. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                this.getTableButtonsPanelObj().selectedItems = [];
                 return ;
             }
 
