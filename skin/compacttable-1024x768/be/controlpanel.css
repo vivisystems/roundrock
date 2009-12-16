@@ -18,7 +18,7 @@
 }
 
 /* Product Area */
-.ProductBox {
+.ProductBox {E
     margin: 37px 0 0 56px;
     padding: 116px 0 0 0;
 }
@@ -160,7 +160,7 @@
 
 .EmployeeBtn {
     background: white;
-    border: 11px solid #c4bdac;
+    border: 10px solid #c4bdac;
     color: black;
     font-size: 12px;
     height: 123px;
