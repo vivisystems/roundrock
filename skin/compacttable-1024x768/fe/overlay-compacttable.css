@@ -165,7 +165,7 @@
     background:#F0F0EE;
     border: none;
 }
-.main-overlay .plusFunction button{
+.main-overlay .plusFunction vivibutton{
     background: #BFBFB7;
     border: none;
     color: #554e4d; 
@@ -174,10 +174,10 @@
     margin: 2px;
     -moz-box-flex: 1;
 }
-.main-overlay .plusFunction button:hover {
+.main-overlay .plusFunction vivibutton:hover {
     background: #d9d1a1;
 }
-.main-overlay .plusFunction button[disabled=true] {
+.main-overlay .plusFunction vivibutton[disabled=true] {
     background: #f0f0ee;
     color: #d1d1c1;
 }
@@ -252,4 +252,11 @@
     border: 1px solid #4c3a3a;
     padding: 5px;
     margin: 3px 2px;
+}
+
+
+.main-overlay .expresskey {
+    max-width: 85px;
+    min-width: 85px;
+    width: 85px;
 }

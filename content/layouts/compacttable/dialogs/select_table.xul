@@ -30,11 +30,9 @@
             document.getElementById("bottom_button_deck").setAttribute("selectedIndex",index);
         }
     </script>
-    
-    <!-- script type="application/x-javascript" src="chrome://viviecr/content/table_book.js" / -->
 
     <popupset id="dialogs">
-        <vivipanel id="selectTablePanel" noautohide="false">
+        <vivipanel id="selectTablePanel" noautohide="false" noblock="true">
 
             <vbox flex="1">
                 <vbox class="selectTableMaindialog" >
@@ -51,8 +49,7 @@
 
                             </arrowscrollbox>
                         </hbox>
-                        <hbox align="center" id="availableSeatsBox">
-                            <spacer style="min-width: 5px;" />
+                        <hbox align="center" id="availableSeatsBox" class="EmptyArea">
                             <vivitextbox id="availableSeats" size="2" onchange="$do('setAvailableSeats', this.value, 'SelectTable');" onenter="event.stopPropagation();"
                                          value="0" numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" type="number"/>
                         </hbox>
@@ -75,15 +72,6 @@
                     </stack>
                     <hbox class="tableFunction">
                         <deck id="bottom_button_deck">
-                            <!--<hbox>
-                                <button class="fixedbtnAlt" id="merge_table" label="&selecttable.compacttable.mergetable;" oncommand="$do('doMergeTable', null, 'SelectTable');" />
-                                <button class="fixedbtnAlt" id="unmerge_table" label="&selecttable.compacttable.unmergetable;" oncommand="$do('doUnmergeTable', null, 'SelectTable');" />
-                                <button class="fixedbtnAlt" id="booking_table" label="&selecttable.compacttable.bookingtable;" oncommand="$do('doBookingTable', null, 'SelectTable');" />
-                                <button class="fixedbtnAlt" id="add_table_mark" label="&selecttable.compacttable.marktable;"  oncommand="$do('doMarkTable', null, 'SelectTable');"/>
-                                <button class="fixedbtnAlt" id="clear_table_mark" label="&selecttable.compacttable.unmarktable;" oncommand="$do('doUnmarkTable', null, 'SelectTable');"/>
-                                <button class="fixedbtnAlt" id="add_table_marks" label="&selecttable.compacttable.markregion;" oncommand="$do('doMarkRegionTable', null, 'SelectTable');"/>
-                                <button class="fixedbtnAlt" id="clear_table_marks" label="&selecttable.compacttable.unmarkregion;"  oncommand="$do('doUnmarkRegionTable', null, 'SelectTable');"/>
-                            </hbox>-->
                             <hbox>
                                 <button class="fixedbtnAlt" id="bookingTableBtn" label="&selecttable.compacttable.bookingtable;" group="func" oncommand="$do('openTableBookDialog', null, 'SelectTable');"/>
                                 <button class="fixedbtnAlt" id="selectTableBtn" label="&selecttable.compacttable.selectno;" checked="checked" type="radio" group="func" oncommand="$do('setAction', 'selectTable', 'SelectTable');"/>
@@ -91,8 +79,6 @@
                                 <button class="fixedbtnAlt" id="unmergeTableBtn" label="&selecttable.compacttable.unmergetable;" type="radio" group="func" oncommand="$do('setAction', 'unmergeTable', 'SelectTable');"/>
                                 <button class="fixedbtnAlt" id="markTableBtn" label="&selecttable.compacttable.marktable;" type="radio" group="func" oncommand="$do('setAction', 'markTable', 'SelectTable');"/>
                                 <button class="fixedbtnAlt" id="unmarkTableBtn" label="&selecttable.compacttable.unmarktable;" type="radio" group="func" oncommand="$do('setAction', 'unmarkTable', 'SelectTable');"/>
-                                <!--<button class="fixedbtnAlt" id="addmarksBtn" label="&selecttable.compacttable.markregion;" type="radio" group="func" oncommand="$do('executeMarkRegion', null, 'SelectTable');"/>
-                                <button class="fixedbtnAlt" id="clearMarksBtn" label="&selecttable.compacttable.unmarkregion;" type="radio" group="func" oncommand="$do('executeUnmarkRegion', null, 'SelectTable');"/>-->
                             </hbox>
                         </deck>
                     </hbox>
@@ -109,17 +95,6 @@
                 <hbox flex="1" class="PromptPnlBg">
                     <label id="order_selected_table_id" hidden="true" />
                     <html:div id="order_display_div" style="width: 750px;" />
-                    <!--<vbox flex="1" class="CheckBtns">
-                        <button class="closecBtn" oncommand="$do('doCloseOrderPanel', null, 'SelectTable');"/>
-                        <spacer height="30px" />
-                        <button class="selectcBtn" id="recall_check" label="&selecttable.compacttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
-                        <button class="newBtn" id="new_check" oncommand="$do('doSelectTableNo', 'true', 'SelectTable');" />
-                        <button class="splitcBtn" id="split_check" label="&selecttable.compacttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
-                        <button class="mergecBtn" id="merge_check" label="&selecttable.compacttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
-                        <button class="changeBtn" id="trans_table" label="&selecttable.compacttable.transtable;" type="radio" group="func" default="false" oncommand="$do('doTransTable', null, 'SelectTable');"/>
-                        <spacer height="30px" />
-                        <button class="clerkBtn" id="change_clerk" label="&selecttable.compacttable.changeclerk;" type="radio" group="func" default="false" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>
-                    </vbox>-->
                     <vbox flex="1" class="CheckBtns">
                         <button class="closecBtn" oncommand="document.getElementById('order_display_panel').hidePopup();"/>
                         <spacer height="30px" />

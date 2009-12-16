@@ -10,7 +10,8 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/buttons.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/custom/compacttable_prefs.css" type="text/css"?>
 
 <overlay id="CompactTablePrefsOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -130,77 +131,81 @@
             
         </prefpane>
 
-        <prefpane id="expressKeySettingsPane" label="&category.layout.compacttable.expresskey;" class="layout-be">
-            <vbox flex="1" class="layout-b" style="padding-right: 10px;">
-                <vbox class="container-top">
-                    <vbox flex="1" class="content-listbox">
-                        <vivitree id="expresskey_prefs_tree" flex="1" class="standard"
-                                  headers="&category.layout.compacttable.expresskey.heading.key;,&category.layout.compacttable.expresskey.heading.function;,&category.layout.compacttable.expresskey.heading.label;"
-                                  fields="key,command,label"
-                                  seltype="single"
-                                  reverse="true"
-                                  rows="8"
-                                  hidevscroll="true"
-                                  onselect="$do('selectExpressKey', this, 'CompactTablePrefs')"/>
-                    </vbox>
-                </vbox>
+        <prefpane id="expressKeySettingsPane" label="&category.layout.compacttable.expresskey;">
+            <vbox flex="1">
+                <vivitree id="expresskey_prefs_tree" flex="1" class="standard custom-express-key-list"
+                          headers="&category.layout.compacttable.expresskey.heading.key;,&category.layout.compacttable.expresskey.heading.function;,&category.layout.compacttable.expresskey.heading.label;"
+                          fields="name,linked,label"
+                          seltype="single"
+                          reverse="true"
+                          rows="8"
+                          hidevscroll="true"
+                          onselect="$do('selectExpressKey', this, 'CompactTablePrefs')"/>
 
                 <hbox flex="1">
-                    <grid orient="vertical" class="data-form" flex="0">
-                        <columns>
-                            <column flex="0"/>
-                            <column flex="0"/>
-                        </columns>
-                        <rows>
-                            <row>
-                                <textbox id="expresskey_index" hidden="true"
-                                         form="expressKeyForm" name="index" default=""/>
-                                <label value="&category.layout.compacttable.expresskey.index;"/>
-                                <textbox id="expresskey_name" size="10" value="" readonly="true" disabled="true"/>
-                            </row>
+                    <vbox class="custom-content-formbox">
+                        <textbox id="expresskey_functionid" value="" readonly="true" hidden="true"
+                                 form="expressKeyForm" name="functionid" default=""/>
+                        <grid orient="vertical" class="custom-data-form">
+                            <columns>
+                                <column/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="&category.layout.compacttable.expresskey.index;"/>
+                                    <textbox id="expresskey_name" size="14" value="" readonly="true" disabled="true"
+                                             form="expressKeyForm" name="name" default=""/>
+                                </row>
 
-                            <row>
-                                <label value="&category.layout.compacttable.expresskey.linked;"/>
-                                <hbox flex="1">
-                                    <textbox id="expresskey_linked" size="10" value="" readonly="true" disabled="true"
+                                <row>
+                                    <label value="&category.layout.compacttable.expresskey.linked;"/>
+                                    <textbox id="expresskey_linked" size="14" value="" readonly="true" disabled="true"
                                              form="expressKeyForm" name="linked" default=""/>
-                                    <button id="expresskey_unlink" icon="cancel"
-                                            label="&category.layout.compacttable.unlinkkey.label;"
-                                            class="button-item-a"
-                                            oncommand="$do('unlinkFunction', null, 'CompactTablePrefs');"/>
-                                </hbox>
-                            </row>
+                                </row>
 
-                            <row>
-                                <label value="&category.layout.compacttable.expresskey.label;"/>
-                                <textbox id="expresskey_label" size="10" value="" readonly="true"
-                                         form="expressKeyForm" name="label" default=""/>
-                            </row>
+                                <row>
+                                    <label value="&category.layout.compacttable.expresskey.label;"/>
+                                    <textbox id="expresskey_label" size="14" value="" readonly="true"
+                                             form="expressKeyForm" name="label" default=""/>
+                                </row>
 
-                            <row>
-                                <label value="&category.layout.compacttable.expresskey.data;"/>
-                                <textbox id="expresskey_data" size="10" value="" readonly="true"
-                                         form="expressKeyForm" name="data" default=""/>
-                            </row>
+                                <row>
+                                    <label value="&category.layout.compacttable.expresskey.data;"/>
+                                    <textbox id="expresskey_data" size="14" value="" readonly="true"
+                                             form="expressKeyForm" name="data" default=""/>
+                                </row>
+                            </rows>
+                        </grid>
+                        <hbox flex="1">
+                            <button id="expresskey_unlink" icon="cancel" disabled="true" flex="1"
+                                    label="&category.layout.compacttable.unlinkkey.label;"
+                                    class="button-item-a"
+                                    oncommand="$do('unlinkFunction', null, 'CompactTablePrefs');"/>
+                            <spacer width="8px"/>
+                            <button id="expresskey_update" icon="apply" disabled="true" flex="1"
+                                    label="&category.layout.compacttable.update.label;"
+                                    class="button-item-a"
+                                    oncommand="$do('updateExpressKey', null, 'CompactTablePrefs');"/>
+                        </hbox>
+                    </vbox>
 
-                            <row>
-                                <button id="expresskey_link" icon="apply"
-                                        label="&category.layout.compacttable.linkkey.label;"
-                                        disabled="true" class="button-item-a"
-                                        oncommand="$do('linkFunction', null, 'CompactTablePrefs');"/>
-                            </row>
-                        </rows>
-                    </grid>
-
-                    <vbox flex="1" class="content-listbox">
+                    <vbox flex="1">
                         <vivitree id="expresskey_function_tree" flex="1"
                                   class="standard"
                                   headers="&category.layout.compacttable.function.label;,&category.layout.compacttable.label.label;"
                                   fields="name,label"
                                   seltype="single" hidecolumnpicker="true"
                                   onselect="$do('selectFunctionKey', this, 'CompactTablePrefs');"/>
-                        <textbox id="expresskey_function_desc" class="textbox-description"
-                                 wrap="true" readonly="true" multiline="true" rows="3"/>
+                        <hbox>
+                            <textbox id="expresskey_function_desc" class="textbox-description" flex="1"
+                                     wrap="true" readonly="true" multiline="true" rows="3"/>
+                            <spacer width="5px"/>
+                            <button id="expresskey_link" icon="apply"
+                                    label="&category.layout.compacttable.linkkey.label;"
+                                    disabled="true" class="button-item-a"
+                                    oncommand="$do('linkFunction', null, 'CompactTablePrefs');"/>
+                        </hbox>
                     </vbox>
                 </hbox>
             </vbox>

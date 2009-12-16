@@ -12,9 +12,11 @@
         _logoImageCounter: 0,
         components: ['OrderStatus'],
         tableSettings: null,
+        keySettings: null,
+        prefix: 'vivipos.fec.settings.layout.compacttable.keys',
 
         initial: function() {
-
+            
             this.resetLayout(true);
 
             // add event listener for SetClerk event
@@ -120,8 +122,62 @@
 
                 logoImageObj.src = this.logoSrc;
             }
+
+            // update express keys
+            this.updateExpressKeys();
         },
 
+        getKeySettings: function() {
+            if (!this.keySettings) {
+                let keys = [];
+                let keyPrefs = GeckoJS.Configure.read(this.prefix) || [];
+                let indices = GeckoJS.BaseObject.getKeys(keyPrefs);
+                for (let index = 0; index < indices.length; index++) {
+                    let i = indices[index];
+                    keys[i] = {
+                        functionid: (keyPrefs[i] && keyPrefs[i].functionid) ? keyPrefs[i].functionid : '',
+                        linked: (keyPrefs[i] && keyPrefs[i].linked) ? keyPrefs[i].linked : '',
+                        command: (keyPrefs[i] && keyPrefs[i].command) ? keyPrefs[i].command : '',
+                        label: (keyPrefs[i] && keyPrefs[i].label) ? keyPrefs[i].label : '',
+                        access: (keyPrefs[i] && keyPrefs[i].access) ? keyPrefs[i].access : '',
+                        controller: (keyPrefs[i] && keyPrefs[i].controller) ? keyPrefs[i].controller : '',
+                        data: (keyPrefs[i] && keyPrefs[i].data) ? keyPrefs[i].data : ''
+                    }
+                }
+                this.keySettings = keys;
+            }
+            return this.keySettings;
+        },
+
+        updateExpressKeys: function(keys) {
+            if (keys) {
+                this.keySettings = keys;
+            }
+            else {
+                keys = this.getKeySettings();
+            }
+            for (let i = 0; i < keys.length; i++) {
+                let key = keys[i];
+                let keyObj = document.getElementById('expressKey' + parseInt(i+1));
+                if (key.linked && (!key.access || this.Acl.isUserInRole(key.access))) {
+                    keyObj.label = key.label;
+                    keyObj.removeAttribute('disabled');
+                }
+                else {
+                    keyObj.label = '';
+                    keyObj.setAttribute('disabled', 'true');
+                }
+            }
+        },
+
+        invokeExpressKey: function(index) {
+            let key = this.getKeySettings()[--index];
+
+            if (key.linked && key.command && key.controller && this.Acl.isUserInRole(key.access)) {
+                this.requestCommand(key.command, key.data, key.controller);
+            }
+        },
+        
         /**
          * expandOverlayPanel
          */
@@ -231,6 +287,7 @@
         home: function() {
             var fnPanel = document.getElementById('functionpanel');
             if (fnPanel) fnPanel.home();
+            this.updateExpressKeys();
         },
 
         functionButton: function (buttonNumber) {

@@ -20,6 +20,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
 
 <?xml-stylesheet href="chrome://viviecr/skin/custom/order_display_template.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/custom/compacttable_layout.css" type="text/css"?>
 
 <?xul-overlay href="chrome://viviecr/content/layouts/compacttable/overlays/vfdPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
@@ -73,16 +74,16 @@
                 </vbox>
                 <vbox flex="0" class="plusFunction">
                     <hbox>
-                        <button label="Dine-in" class="font-small" oncommand="$do('functionButton', 1, 'Layout');" />
-                        <button label="Take-out" class="font-small" oncommand="$do('functionButton', 2, 'Layout');" />
-                        <button label="Delivery" class="font-small" oncommand="$do('functionButton', 3, 'Layout');" />
-                        <button label="Void" class="font-small" oncommand="$do('functionButton', 4, 'Layout');" />
+                        <vivibutton id="expressKey1" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 1, 'Layout');" />
+                        <vivibutton id="expressKey2" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 2, 'Layout');" />
+                        <vivibutton id="expressKey3" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 3, 'Layout');" />
+                        <vivibutton id="expressKey4" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 4, 'Layout');" />
                     </hbox>
                     <hbox>
-                        <button label="StoreChk" class="font-small" oncommand="$do('functionButton', 5, 'Layout');" />
-                        <button label="Dispatch" class="font-small" oncommand="$do('functionButton', 6, 'Layout');" />
-                        <button label="Pre-finalize" class="font-small" oncommand="$do('functionButton', 7, 'Layout');" />
-                        <button label="Cancel" class="font-small" oncommand="$do('functionButton', 8, 'Layout');" />
+                        <vivibutton id="expressKey5" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 5, 'Layout');" />
+                        <vivibutton id="expressKey6" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 6, 'Layout');" />
+                        <vivibutton id="expressKey7" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 7, 'Layout');" />
+                        <vivibutton id="expressKey8" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 8, 'Layout');" />
                     </hbox>
                 </vbox>
                 <vbox class="boxarea">
