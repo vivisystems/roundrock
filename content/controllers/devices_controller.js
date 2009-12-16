@@ -8,7 +8,7 @@
         _ports: null,
         _portspeeds: null,
         _devicemodels: null,
-        _selectedDcevices: null,
+        _selectedDevices: null,
         _sortedDevicemodels: {},
         _portControlService: null,
         _sortedPorts: [],

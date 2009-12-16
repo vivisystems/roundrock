@@ -7,10 +7,14 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/plusearch.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/plus.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -23,6 +27,12 @@
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include views -->
+  <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_products_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_plus_view.js'/>
 
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/plusearch_controller.js" type="application/x-javascript"/>
@@ -41,7 +51,7 @@
             <!-- Left side -->
             <vbox flex="1"  class="container-left block-40">
                 <caption label="&plus.search.title;" class="label-page-title"/>
-                <tabbox flex="1" class="custom-content-tabbox">
+                <tabbox id="mode_tabbox" flex="1" class="custom-content-tabbox">
                     <tabs id="mode_tabs">
                         <tab id="tab_normalmode" label="&plus.tab.normalmode;"/>
                         <tab id="tab_filtermode" label="&plus.tab.filtermode;"/>
@@ -51,7 +61,7 @@
                             <!-- Begin Catalogs -->
                             <vbox class="content-buttonpanel" flex="1">
                                 <viviscrollablebuttonpanel id="catescrollablepanel" dir="reverse" flex="1" cols="2" rows="3" labelField="name" imageField="no"
-                                                           oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
+                                                           oncommand="$do('changePluPanel',this.selectedIndex, 'PluSearch');"
                                                            buttonClass="button-department"
                                                            scrollUpClass="scroll-up-button"
                                                            scrollDownClass="scroll-down-button">
@@ -62,7 +72,7 @@
                             <vbox class="content-buttonpanel" flex="1">
                                 <viviscrollablebuttonpanel id="prodscrollablepanel" flex="5" dir="reverse" cols="2" rows="5" labelField="name" imageField="no"
                                                            ensureVisible="true"
-                                                           oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
+                                                           oncommand="$do('clickPluPanel',this.selectedIndex, 'PluSearch');"
                                                            buttonClass="button-plu button-medium-image"
                                                            scrollUpClass="scroll-up-button"
                                                            scrollDownClass="scroll-down-button">

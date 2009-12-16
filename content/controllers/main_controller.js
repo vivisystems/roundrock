@@ -310,6 +310,7 @@
 
         PLUSearchDialog: function (addtocart) {
             var buf = this._getKeypadController().getBuffer();
+            this.requestCommand('clearBuffer', null, 'Keypad');
 
             var item;
             var txn = GeckoJS.Session.get('current_transaction');
