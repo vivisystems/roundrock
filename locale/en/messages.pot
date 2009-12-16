@@ -2936,8 +2936,8 @@ msgstr "Employees"
 msgid "vivipos.fec.irc.modules.function_keys.label"
 msgstr "Function Keys"
 
-msgid "vivipos.fec.irc.modules.members.label"
-msgstr "Members"
+msgid "vivipos.fec.irc.modules.reports.label"
+msgstr "Reports"
 
 msgid "vivipos.fec.irc.modules.addons.label"
 msgstr "Addons"

@@ -14,8 +14,8 @@ pref("vivipos.fec.irc.modules.employees.label", "chrome://viviecr/locale/message
 pref("vivipos.fec.irc.modules.function_keys.name", "function_keys");
 pref("vivipos.fec.irc.modules.function_keys.label", "chrome://viviecr/locale/messages.properties");
 
-pref("vivipos.fec.irc.modules.members.name", "members");
-pref("vivipos.fec.irc.modules.members.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.irc.modules.reports.name", "reports");
+pref("vivipos.fec.irc.modules.reports.label", "chrome://viviecr/locale/messages.properties");
 
 pref("vivipos.fec.irc.modules.addons.name", "addons");
 pref("vivipos.fec.irc.modules.addons.label", "chrome://viviecr/locale/messages.properties");

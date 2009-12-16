@@ -57,7 +57,7 @@
                             this._services[service] = this.syncSettings[service];
                         }
                     }
-                    if (this.syncSettings && this.syncSettings.active == 1) {
+                    if (this.syncSettings /*&& this.syncSettings.active == 1*/) {
 
                         this.username = 'vivipos';
                         this.password = this.syncSettings.password ;

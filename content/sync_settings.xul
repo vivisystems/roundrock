@@ -113,16 +113,14 @@
                                         <textbox value="localhost"
                                                  form="syncSettingForm" name="irc_hostname"/>
                                         <label value="&sync_settings.label.irc_interval;"/>
-                                        <vivitextbox type="number" value="60"
+                                        <vivitextbox type="number" min="30"
                                                      numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                      form="syncSettingForm" name="irc_interval"/>
                                     </vbox>
                                     <vbox>
                                         <label value="&sync_settings.label.irc_update_type;"/>
                                         <vbox>
-                                            <checkbox form="syncSettingForm" name="irc_update_when_idle" label="&sync_settings.label.irc_update_when_idle;" checked="false"/>
-                                            <checkbox form="syncSettingForm" name="irc_update_when_each_sale" label="&sync_settings.label.irc_update_when_each_sale;" checked="false"/>
-                                            <checkbox form="syncSettingForm" name="irc_update_whe_sign" label="&sync_settings.label.irc_update_whe_sign;" checked="false"/>
+                                            <checkbox form="syncSettingForm" name="irc_update_when_sign" label="&sync_settings.label.irc_update_when_sign;" />
                                         </vbox>
                                     </vbox>
                                 </row>

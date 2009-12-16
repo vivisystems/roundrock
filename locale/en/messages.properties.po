@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-08 16:24+0800\n"
+"POT-Creation-Date: 2009-12-16 19:50+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2868,8 +2868,8 @@ msgstr "Employees"
 msgid "vivipos.fec.irc.modules.function_keys.label"
 msgstr "Function Keys"
 
-msgid "vivipos.fec.irc.modules.members.label"
-msgstr "Members"
+msgid "vivipos.fec.irc.modules.reports.label"
+msgstr "Reports"
 
 msgid "vivipos.fec.irc.modules.addons.label"
 msgstr "Addons"
@@ -3207,7 +3207,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:88
 #: ../..//content/controllers/static_condiments_controller.js:484
 #: ../..//content/controllers/storecontact_controller.js:176
-#: ../..//content/controllers/sync_settings_controller.js:161
+#: ../..//content/controllers/sync_settings_controller.js:184
 #: ../..//content/controllers/taxes_controller.js:88
 #: ../..//content/controllers/users_controller.js:419
 msgid "Exit"
@@ -3239,7 +3239,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:178
-#: ../..//content/controllers/sync_settings_controller.js:163
+#: ../..//content/controllers/sync_settings_controller.js:186
 #: ../..//content/controllers/taxes_controller.js:90
 #: ../..//content/controllers/users_controller.js:421
 msgid "Save"
@@ -3278,7 +3278,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:178
-#: ../..//content/controllers/sync_settings_controller.js:163
+#: ../..//content/controllers/sync_settings_controller.js:186
 #: ../..//content/controllers/taxes_controller.js:90
 #: ../..//content/controllers/taxes_controller.js:106
 #: ../..//content/controllers/users_controller.js:400
@@ -5431,6 +5431,48 @@ msgstr ""
 msgid "Product"
 msgstr ""
 
+#: ../..//content/controllers/irc_controller.js:116
+msgid "Checking Available Updates"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:126
+msgid "Available Updates"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:151
+msgid "Updating Available Updates"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:185
+#: ../..//content/controllers/main_controller.js:1193
+msgid "Reboot"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:185
+msgid "Updating success"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:185
+#: ../..//content/controllers/main_controller.js:1193
+msgid "Please confirm to reboot the terminal"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:209
+#: ../..//content/controllers/irc_controller.js:238
+msgid "IRC Dialog"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:272
+msgid "IRC Update Server Connection Error"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:274
+msgid ""
+"Failed to connect to IRC Update services (error code %S). Please check the "
+"network connectivity to the terminal designated as the IRC Update server "
+"[message #1701]."
+msgstr ""
+
 #: ../..//content/controllers/jobs_controller.js:37
 msgid "Add New Job"
 msgstr ""
@@ -5754,7 +5796,7 @@ msgid "Failed to recall the selected order"
 msgstr ""
 
 #: ../..//content/controllers/localekeyboard_controller.js:58
-#: ../..//content/controllers/sync_settings_controller.js:88
+#: ../..//content/controllers/sync_settings_controller.js:111
 msgid "No changes to save"
 msgstr ""
 
@@ -6064,14 +6106,6 @@ msgstr ""
 
 #: ../..//content/controllers/main_controller.js:1189
 msgid "Adjust Stock"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:1193
-msgid "Reboot"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:1193
-msgid "Please confirm to reboot the terminal"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:1200
@@ -7527,33 +7561,57 @@ msgid ""
 "exiting?"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:44
+#: ../..//content/controllers/sync_settings_controller.js:67
 msgid "Network Service Settings"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:45
+#: ../..//content/controllers/sync_settings_controller.js:68
 msgid "Terminal number must only contain [a-zA-Z] and [0-9]"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:73
+#: ../..//content/controllers/sync_settings_controller.js:96
 msgid "confirm network service settings change"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:74
+#: ../..//content/controllers/sync_settings_controller.js:97
 msgid ""
 "Network service settings changes require system restart to take effect. If "
 "you save the changes now, the system will restart automatically after you "
 "return to the Main Screen. Do you want to save your changes?"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:145
+#: ../..//content/controllers/sync_settings_controller.js:168
 msgid "Network service settings saved"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:162
+#: ../..//content/controllers/sync_settings_controller.js:185
 msgid ""
 "You have made changes to network service settings. Save changes before "
 "exiting?"
+msgstr ""
+
+#: ../..//content/controllers/sync_settings_controller.js:317
+msgid "Please select modules"
+msgstr ""
+
+#: ../..//content/controllers/sync_settings_controller.js:335
+msgid "IRC Package Creating"
+msgstr ""
+
+#: ../..//content/controllers/sync_settings_controller.js:343
+msgid "Package [%S] created successfully"
+msgstr ""
+
+#: ../..//content/controllers/sync_settings_controller.js:345
+msgid "Package not available to created."
+msgstr ""
+
+#: ../..//content/controllers/sync_settings_controller.js:391
+msgid "Package [%S] removed successfully"
+msgstr ""
+
+#: ../..//content/controllers/sync_settings_controller.js:393
+msgid "Package not available to remove."
 msgstr ""
 
 #: ../..//content/controllers/systembackup_controller.js:183

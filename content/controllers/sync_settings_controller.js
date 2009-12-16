@@ -46,6 +46,7 @@
             settings.advance_sale_period = GeckoJS.String.parseBoolean(settings.advance_sale_period);
             settings.table_active = GeckoJS.String.parseBoolean(settings.table_active);
             settings.pull_order = GeckoJS.String.parseBoolean(settings.pull_order);
+            settings.irc_update_when_sign = GeckoJS.String.parseBoolean(settings.irc_update_when_sign);
 
             this.Form.unserializeFromObject('syncSettingForm', settings);
 
@@ -268,6 +269,9 @@
                 let updated = '';
                 if (status.downloaded) {
                     downloaded = (new Date(status.downloaded*1000)).toLocaleDateString();
+                }
+                if (status.updated) {
+                	updated = (new Date(status.updated*1000)).toLocaleDateString();
                 }
                 clients.push({machine_id: status.machine_id, downloaded: downloaded, updated: updated});
             }

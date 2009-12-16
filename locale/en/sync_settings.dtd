@@ -3,7 +3,7 @@
 <!ENTITY sync_settings.tablabel.basic "Basic">
 <!ENTITY sync_settings.tablabel.advanced "Advanced">
 <!ENTITY sync_settings.tablabel.services "Local Services">
-<!ENTITY sync_settings.tablabel.irc "Internal Register Comms">
+<!ENTITY sync_settings.tablabel.irc "Inter Register Comms">
 
 <!ENTITY sync_settings.label.active "Enable Network Services">
 <!ENTITY sync_settings.label.protocol "Protocol:">
@@ -70,6 +70,7 @@
 
 <!ENTITY sync_settings.label.irc_hostname "IRC Service Hostname or IP:">
 <!ENTITY sync_settings.label.irc_update_type "Updating IRC Package When:">
-<!ENTITY sync_settings.label.irc_update_when_idle "Idle">
-<!ENTITY sync_settings.label.irc_update_when_each_sale "Each Sale">
-<!ENTITY sync_settings.label.irc_update_whe_sign "SignOn/SignOff">
+<!ENTITY sync_settings.label.irc_update_when_sign "SignOn/SignOff">
+
+<!ENTITY sync_settings.button.irc_ok "OK">
+<!ENTITY sync_settings.button.irc_later "LATER">
