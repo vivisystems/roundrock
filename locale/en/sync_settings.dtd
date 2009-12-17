@@ -70,8 +70,10 @@
 
 <!ENTITY sync_settings.label.irc_hostname "IRC Service Hostname or IP:">
 <!ENTITY sync_settings.label.irc_update_type "Updating IRC Package When:">
-<!ENTITY sync_settings.label.irc_update_when_sign "SignOn/SignOff">
-<!ENTITY sync_settings.label.irc_update_when_shutdown_reboot "Shutdown/Reboot">
+<!ENTITY sync_settings.label.irc_update_when_signon "SignOn">
+<!ENTITY sync_settings.label.irc_update_when_signoff "SignOff">
+<!ENTITY sync_settings.label.irc_update_when_shutdown "Shutdown">
+<!ENTITY sync_settings.label.irc_update_when_reboot "Reboot">
 
 <!ENTITY sync_settings.button.irc_ok "OK">
 <!ENTITY sync_settings.button.irc_later "LATER">

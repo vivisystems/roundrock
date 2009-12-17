@@ -119,9 +119,12 @@
                                     </vbox>
                                     <vbox>
                                         <label value="&sync_settings.label.irc_update_type;"/>
-                                        <vbox>
-                                            <checkbox form="syncSettingForm" name="irc_update_when_sign" label="&sync_settings.label.irc_update_when_sign;" />
-                                            <checkbox form="syncSettingForm" name="irc_update_when_shutdown_reboot" label="&sync_settings.label.irc_update_when_shutdown_reboot;" />
+                                        <vbox flex="1">
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_signon" label="&sync_settings.label.irc_update_when_signon;" />
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_signoff" label="&sync_settings.label.irc_update_when_signoff;" />
+
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_reboot" label="&sync_settings.label.irc_update_when_reboot;" />
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_shutdown" label="&sync_settings.label.irc_update_when_shutdown;" />
                                         </vbox>
                                     </vbox>
                                 </row>

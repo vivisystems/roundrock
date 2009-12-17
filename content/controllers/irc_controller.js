@@ -66,21 +66,25 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
 				
-                if (syncSettings.irc_update_when_sign) {
+                if (syncSettings.irc_update_when_signon) {
                     main.addEventListener('signedOn', function() {
                         self.checkAvailableUpdates();
                     });
-					
+                }
+
+                if (syncSettings.irc_update_when_signoff) {
                     main.addEventListener('signedOff', function() {
                         self.checkAvailableUpdates();
                     });
                 }
 
-                if (syncSettings.irc_update_when_shutdown_reboot) {
+                if (syncSettings.irc_update_when_reboot) {
                     main.addEventListener('beforeReboot', function() {
                         self.checkAvailableUpdates(true);
                     });
+                }
 
+                if (syncSettings.irc_update_when_shutdown) {
                     main.addEventListener('beforeShutdown', function() {
                         self.checkAvailableUpdates(true);
                     });

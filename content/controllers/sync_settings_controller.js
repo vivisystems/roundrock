@@ -46,8 +46,10 @@
             settings.advance_sale_period = GeckoJS.String.parseBoolean(settings.advance_sale_period);
             settings.table_active = GeckoJS.String.parseBoolean(settings.table_active);
             settings.pull_order = GeckoJS.String.parseBoolean(settings.pull_order);
-            settings.irc_update_when_sign = GeckoJS.String.parseBoolean(settings.irc_update_when_sign);
-            settings.irc_update_when_shutdown_reboot = GeckoJS.String.parseBoolean(settings.irc_update_when_shutdown_reboot);
+            settings.irc_update_when_signon = GeckoJS.String.parseBoolean(settings.irc_update_when_signon);
+            settings.irc_update_when_signoff = GeckoJS.String.parseBoolean(settings.irc_update_when_signoff);
+            settings.irc_update_when_reboot = GeckoJS.String.parseBoolean(settings.irc_update_when_reboot);
+            settings.irc_update_when_shutdown = GeckoJS.String.parseBoolean(settings.irc_update_when_shutdown);
 
             this.Form.unserializeFromObject('syncSettingForm', settings);
 
