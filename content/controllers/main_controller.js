@@ -1193,6 +1193,7 @@
             if (GREUtils.Dialog.confirm(this.topmostWindow, _('Reboot'), _('Please confirm to reboot the terminal')) == false) {
                 return;
             }
+            this.dispatchEvent('beforeReboot', null);
             this.rebootMachine();
         },
 
@@ -1200,6 +1201,7 @@
             if (GREUtils.Dialog.confirm(this.topmostWindow, _('Shutdown'), _('Please confirm to shut down the terminal')) == false) {
                 return;
             }
+            this.dispatchEvent('beforeShutdown', null);
             this.shutdownMachine();
         },
 

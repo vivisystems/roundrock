@@ -47,6 +47,7 @@
             settings.table_active = GeckoJS.String.parseBoolean(settings.table_active);
             settings.pull_order = GeckoJS.String.parseBoolean(settings.pull_order);
             settings.irc_update_when_sign = GeckoJS.String.parseBoolean(settings.irc_update_when_sign);
+            settings.irc_update_when_shutdown_reboot = GeckoJS.String.parseBoolean(settings.irc_update_when_shutdown_reboot);
 
             this.Form.unserializeFromObject('syncSettingForm', settings);
 

@@ -328,11 +328,7 @@
     <module name="reports">
         <action>
             <type>pref</type>
-            <key>vivipos.fec.settings.functionpanel</key>
-        </action>
-        <action>
-            <type>pref</type>
-            <key>vivipos.fec.settings.hotkeys</key>
+            <key>vivipos.fec.report</key>
         </action>
     </module>
     

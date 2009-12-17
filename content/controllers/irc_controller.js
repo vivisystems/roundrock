@@ -75,6 +75,16 @@
                         self.checkAvailableUpdates();
                     });
                 }
+
+                if (syncSettings.irc_update_when_shutdown_reboot) {
+                    main.addEventListener('beforeReboot', function() {
+                        self.checkAvailableUpdates(true);
+                    });
+
+                    main.addEventListener('beforeShutdown', function() {
+                        self.checkAvailableUpdates(true);
+                    });
+                }
 				
             }
 
@@ -107,19 +117,24 @@
         /**
          * checkAvailableUpdates
          */
-        checkAvailableUpdates : function() {
+        checkAvailableUpdates : function(skipReboot) {
 
+            skipReboot = skipReboot || false;
+            
             var httpService = this.getHttpServiceIRC();
 
             var remoteUrl = httpService.getRemoteServiceUrl('checkAvailableUpdates');
             var requestUrl = remoteUrl;
 
-            var alertWin = this.showProgressDialog(_('Checking Available Updates'));
-
-            var packages = httpService.requestRemoteService('GET', requestUrl)
-            || [];
-
-            alertWin.close();
+            var alertWin = null;
+            try {
+                alertWin = this.showProgressDialog(_('Checking Available Updates'));
+                var packages = httpService.requestRemoteService('GET', requestUrl) || [];
+            }catch(e) {
+                this.log('ERROR', 'Error checkAvailableUpdates', e);
+            }finally {
+                alertWin.close();
+            }
 			
             if (packages && packages.length) {
 				
@@ -128,7 +143,7 @@
 				
                 if (result) {
                     // now apply updates
-                    this.applyAvailableUpdates(packages);
+                    this.applyAvailableUpdates(packages, skipReboot);
                 }
 				
             }
@@ -141,8 +156,10 @@
          *
          * @param {Object} packages
          */
-        applyAvailableUpdates: function(packages) {
+        applyAvailableUpdates: function(packages, skipReboot) {
 
+            skipReboot = skipReboot || false;
+            
             var pkgs = [];
             packages.forEach(function(pkg) {
                 pkgs.push(pkg.file) ;
@@ -159,14 +176,18 @@
             var remoteUrl = httpService.getRemoteServiceUrl('applyAvailableUpdates');
             var requestUrl = remoteUrl;
 
-            var alertWin = this.showProgressDialog(_('Updating Available Updates'));
-
-            var result = httpService.requestRemoteService('GET', requestUrl)
-            || false;
-		
-            alertWin.close();
+            var alertWin = null;
+            var result = false;
+            try {
+                alertWin = this.showProgressDialog(_('Updating Available Updates'));
+                result = httpService.requestRemoteService('GET', requestUrl) || false;
+            }catch(e) {
+                this.log('ERROR', 'Error applyAvailableUpdates', e);
+            }finally {
+                alertWin.close();
+            }
  
-            if (result) {
+            if (result && !skipReboot) {
                 this.reboot();
             }
 			
@@ -241,12 +262,18 @@
             + width + ',height=' + height;
 
             var win = this.topmostWindow;
+            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+            .getService(Components.interfaces.nsIWindowMediator)
+            .getMostRecentWindow("Vivipos:Main");
+
+            win = mainWindow;
+
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
             }
 
-            var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName,
+            var alertWin = GREUtils.Dialog.openWindow(null, aURL, aName,
                 aFeatures, aArguments);
 
             return alertWin;
@@ -277,6 +304,12 @@
             + width + ',height=' + height;
 
             var win = this.topmostWindow;
+            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+            .getService(Components.interfaces.nsIWindowMediator)
+            .getMostRecentWindow("Vivipos:Main");
+
+            win = mainWindow;
+
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;

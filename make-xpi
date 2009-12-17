@@ -24,4 +24,4 @@ else
 fi
 
 
-zip -r ${filename} chrome.manifest install.rdf content/ defaults/ locale/ skin/
+zip -r ${filename} chrome.manifest install.rdf irc_manifest.xml content/ defaults/ locale/ skin/
