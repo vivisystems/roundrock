@@ -336,7 +336,13 @@
                 var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
                 // mPrefService.readUserPrefs(null);
                 mPrefService.savePrefFile(null);
-                this.sleep(500);
+                this.sleep(200);
+
+                // chmod to 664
+                var prefsjs = GeckoJS.Configure.read('ProfD') + '/prefs.js';
+                var nsiPrefs = GREUtils.File.getFile(prefsjs);
+                nsiPrefs.permissions = 0664;
+
             }catch(e) {
                 this.log('ERROR', 'Error reload prefs.js');
             }
