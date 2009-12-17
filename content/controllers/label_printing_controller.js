@@ -78,8 +78,8 @@
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=350,height=400';
             var inputObj = {
-                            input0:null, require0:true, numberOnly0:true,
-                            numpad:true
+                            input0:null, require0:true, numberOnly0:true,digitOnly0:true,
+                             numpad:{}, type0:"number"
                      //   input1:null, require1:false
                             };
 
@@ -397,7 +397,7 @@
            }
        },
 
-       /* If find the repeated products in list. Compare ther priority, then delete low priority.
+       /* If found the repeated products in list. Compare ther priority, then delete low priority.
         * biger number is higher priority*/
        removeRepeatedProduct: function(){
 
@@ -473,6 +473,8 @@
       //      this._priceMenuList.selectedIndex = -1;
       //      this._priceTextbox.disabled = false ;
             this._priceMenuList.disabled = false ;
+
+            if(this.tabList.length != 0)
             this._priceMenuList.selectedIndex = this.findMatchPrice( this._priceMenuList, this.tabList[index].selectedPrice );
          },
 
@@ -480,6 +482,9 @@
         setPrice:function(index){
             
             var product = this.tabList[index];
+
+            if(!product)
+                return;
 
             this._priceMenuList.removeAllItems();
             this._priceMenuList.setAttribute('label',_('Price Level'));
@@ -540,8 +545,7 @@
 
              if(this.tabList == ""){
 
-                 this._countTextbox.value = 0;
-                 this._priceTextbox.value = 0;
+                 this._countTextbox.value = 0;         
                  this.initialList();
              }
         },
@@ -678,15 +682,17 @@
             this.tabList = [];
             this._selListIndex = -1;
 
+            this._tabListPanel.selection.clearSelection();
             this._deleteListButton.disabled = true;
             this._modifyProductButton.disabled = true;
             this._deleteProduct.disabled = true;
             this._countTextbox.setAttribute('disabled',true);
             //this._priceTextbox.disabled = true;
             this._priceMenuList.disabled = true;
+            
 
             this._tabListPanel.datasource = this.tabList;
-            this._tabListPanel.selection.clearSelection();
+            
             this._tabListPanel.selectedIndex = -1 ;
             this._tabListPanel.refresh();
 
@@ -766,7 +772,7 @@
              }
 
              GREUtils.Dialog.alert(this.topmostWindow, _('Replaces products'),
-                                      _(alert + "have been replaced"));
+                                      alert + _("have been replaced"));
 
              this._replaceProducts = [];
          },
@@ -1062,11 +1068,19 @@
                 GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('The List is empty'));
                 return ;
             }
+
        //     var list = [{barcode:'BA12^^^34'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
 
             var object = this.checkBarcodeType3OF9(this.tabList);
             
             this.legalList = object.legalList;
+
+            if(this.legalList.length == 0){
+
+                GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('unvalidated barcode'));
+                return ;
+            }
+
 
             if(!object.islegal){
                 var alert = this.alertIllegalBarcodeProduct(object.illegalList);
@@ -1087,6 +1101,8 @@
             }
             this.selectTemplate();
         },
+
+        
         
         testing: function(){
 
@@ -1122,15 +1138,28 @@
             var aURL = 'chrome://viviecr/content/select_template.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
-                selectedTemplate: ""
+                selectedTemplate: "",
+                selectedBarcode: ""
             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
             if (inputObj.ok) {
 
                var template = inputObj.selectedTemplate
+               var barcode = inputObj.selectedBarcode
+               var barcodeType = this.getBarcodeType(barcode)
                 
-               this.printList('A', template);
+               this.printList(barcodeType, template);
+            }
+        },
+
+        getBarcodeType: function(barcode){
+
+            switch(barcode)
+            {
+                case 'Code 39':
+                                 return 'A';
+
             }
         },
 

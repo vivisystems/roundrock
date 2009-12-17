@@ -65,7 +65,7 @@
 
                 <vbox id="managerPanel" class="toolbar block-20" toolbarmode="vertical">
                     <label value="Barcode"/>           
-                    <textbox id="rate_name" readonly="true" class="button-item-c"
+                    <textbox id="barcode" readonly="true" class="button-item-c"
                              onclick="$do('selectBarcode',null, 'SelectTemplate');"  form="" name="" value="Code 39"/>
 
                 </vbox>

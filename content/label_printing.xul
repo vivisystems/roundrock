@@ -202,8 +202,8 @@
                                 </vbox>
                                 <vbox>
                                     <label value="&lable_printing.product.count;"/> <!--&tabs.product.count;-->
-                                    <vivitextbox numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"  id="count_textbox" form= "setProductForm" type="number"
-                                         default="0" onfocus="select()" name="count" disabled="true"/>
+                                    <vivitextbox numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"  id="count_textbox" form= "setProductForm" type="number" decimalplaces = "0"
+                                         default="0" min="1" onfocus="select()" name="count" disabled="true"/>
                                 </vbox>
                             </row>
                         </rows>
@@ -215,7 +215,7 @@
                     <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <vivibutton id="print"   disabled="false" class="PrintBtn" oncommand="$do('printlabel', null, 'Tab');" />
                         <vivibutton id="test"   disabled="false" label='test' oncommand="$do('testing', null, 'Tab');" /> <!--&plus.button.action.modify;-->
-                        <vivibutton id="tpl UI"   disabled="false" label='tpl UI' oncommand="$do('selectTemplate', null, 'Tab');" /> <!--&plus.button.action.modify;-->
+                        <vivibutton id="tpl UI"   disabled="false" label='tpl UI' oncommand="$do('checkBarcodeDialog', null, 'Tab');" /> <!--&plus.button.action.modify;-->
                         <space flex = "1"/>
                         <button id="modify_product" label="&lable_printing.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyCount', null, 'Tab');" />
                         <button id="delete_product" label="&lable_printing.button.action.deleteProduct;" disabled="true" class="button-delete" oncommand="$do('removeTabListProduct', null, 'Tab');" />     <!--&plus.button.action.delete;-->
