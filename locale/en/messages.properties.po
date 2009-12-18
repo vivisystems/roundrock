@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-18 19:15+0800\n"
+"POT-Creation-Date: 2009-12-18 19:53+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8626,8 +8626,31 @@ msgid ""
 "parameter field"
 msgstr ""
 
-#: ../..//content/overlays/controllers/cart_status_controller.js:150
-msgid "(cartstatus)"
+#: ../..//content/overlays/controllers/cart_status_controller.js:106
+#: ../..//content/overlays/controllers/cart_status_controller.js:111
+msgid "(cartstatus)no-txn"
+msgstr ""
+
+#: ../..//content/overlays/controllers/cart_status_controller.js:115
+msgid "(cartstatus)voided-txn"
+msgstr ""
+
+#: ../..//content/overlays/controllers/cart_status_controller.js:120
+msgid "(cartstatus)closed-txn"
+msgstr ""
+
+#: ../..//content/overlays/controllers/cart_status_controller.js:125
+#: ../..//content/overlays/controllers/cart_status_controller.js:129
+#: ../..//content/overlays/controllers/cart_status_controller.js:140
+msgid "(cartstatus)locked-txn"
+msgstr ""
+
+#: ../..//content/overlays/controllers/cart_status_controller.js:136
+msgid "(cartstatus)open-recalled-txn"
+msgstr ""
+
+#: ../..//content/overlays/controllers/cart_status_controller.js:144
+msgid "(cartstatus)open-txn"
 msgstr ""
 
 #: ../..//content/reports/controllers/journal_report_controller.js:70
