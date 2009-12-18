@@ -2,8 +2,8 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
-  <!ENTITY % PLUs SYSTEM "chrome://viviecr/locale/label_printing.dtd">
-  %PLUs;
+  <!ENTITY % Label SYSTEM "chrome://viviecr/locale/label_printing.dtd">
+  %Label;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
@@ -12,6 +12,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/stocks.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/label_printing.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
@@ -203,7 +204,7 @@
                                 <vbox>
                                     <label value="&lable_printing.product.count;"/> <!--&tabs.product.count;-->
                                     <vivitextbox numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"  id="count_textbox" form= "setProductForm" type="number" decimalplaces = "0"
-                                         default="0" min="1" onfocus="select()" name="count" disabled="true"/>
+                                         default="1" min="1" onfocus="select()" name="count" disabled="true"/>
                                 </vbox>
                             </row>
                         </rows>
@@ -228,4 +229,30 @@
             </hbox>
         </vbox>
     </vbox>
+
+    <vivipanel id="error_panel" position="overlap" class="container-dialog">
+        <hbox flex="1" class="custom-container-error-panel">
+            <vbox flex="1" class="container-main custom-container-error-dialog">
+                <caption label="&lable_printing.error.title;" class="label-page-title"/>
+                <vbox flex="1" class="content-listbox">
+                    <label value="&lable_printing.error.messege;" class="label-alert"/>
+                    <vivitree id="errorscrollablepanel" flex="1"
+                              headers="&lable_printing.error.heading.name;,&lable_printing.error.heading.barcode;"
+                              fields="name,barcode"
+                              class="standard custom-content-error-list"
+                             />
+                </vbox>
+               <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                   <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="$do('continuePrinting', null, 'Tab')"/>
+                   <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="document.getElementById('error_panel').hidePopup()"/>
+                                  
+                    <!--button id="close_error" default="true" class="button-exit"
+                            oncommand="document.getElementById('error_panel').hidePopup()"/-->
+                </hbox>
+            </vbox>
+        </hbox>
+    </vivipanel>
+
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs"/>
 </window>

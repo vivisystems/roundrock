@@ -32,7 +32,10 @@
 <!ENTITY lable_printing.button.action.modify "Modify">
 <!ENTITY lable_printing.button.action.deleteProduct "Delete">
 
-
+<!ENTITY lable_printing.error.title "Modify">
+<!ENTITY lable_printing.error.messege "Delete">
+<!ENTITY lable_printing.error.heading.name "Name">
+<!ENTITY lable_printing.error.heading.barcode "Barcode">
 
 
 

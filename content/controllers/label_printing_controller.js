@@ -1083,11 +1083,11 @@
 
 
             if(!object.islegal){
-                var alert = this.alertIllegalBarcodeProduct(object.illegalList);
+      //          var alert = this.alertIllegalBarcodeProduct(object.illegalList);
 
-                var action = this.checkSave('barcode',_("find unvalidated barcode")+"\n" +alert +"\n"+ _("continue print ?"));
-
-                     switch( action )
+      //          var action = this.checkSave('barcode',_("find unvalidated barcode")+"\n" +alert +"\n"+ _("continue print ?"));
+                 this.alertErrorpanel(object.illegalList);
+       /*              switch( action )
                      {
                          case 0:
                                  this.selectTemplate();
@@ -1097,12 +1097,29 @@
                                  return;
 
                      }
-
-            }
-            this.selectTemplate();
+*/
+            }else{ this.selectTemplate(); }
+      //      
         },
 
-        
+        alertErrorpanel: function(list){
+
+            var errorPanel = document.getElementById('error_panel');
+                if (errorPanel) {
+                    var errorlist = document.getElementById('errorscrollablepanel');
+                    if (errorlist) {
+                        errorlist.datasource = list;
+
+                        errorPanel.openPopupAtScreen(0, 0);
+                    }
+                }
+        },
+
+        continuePrinting: function(){
+
+             document.getElementById('error_panel').hidePopup();
+             this.selectTemplate();
+        },
         
         testing: function(){
 

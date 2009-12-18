@@ -2,8 +2,8 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
-  <!ENTITY % ImageManaer SYSTEM "chrome://viviecr/locale/imagemanager.dtd">
-  %ImageManaer;
+  <!ENTITY % SelectTemplate SYSTEM "chrome://viviecr/locale/select_template.dtd">
+  %SelectTemplate;
   ]>
 
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
@@ -44,7 +44,7 @@
         <vbox flex="1" class="container-main layout-a">
             <hbox flex="1">
                 <vbox flex="1" class="container-left">
-                    <caption label="Select a template" class="label-page-title" />
+                    <caption label="&select_template.title;" class="label-page-title" />
                     <vbox flex="1" class="content-buttonpanel">
                         <viviscrollablebuttonpanel id="imagePanel" flex="1" cols="3" rows="3" dir="normal"
                                                    labelField="leafName" imageField="path"
@@ -55,16 +55,16 @@
                             <spacer flex="1"/>
                         </viviscrollablebuttonpanel>
                         <hbox class="custom-content-image-info">
-                           <label value="Template:" />
+                           <label value="&select_template.templateName.label;" />
                            <label value=" "/>
-                           <label id="templateName" value="template name" />
+                           <label id="templateName" value="" />
                            
                         </hbox>
                     </vbox>
                 </vbox>
 
                 <vbox id="managerPanel" class="toolbar block-20" toolbarmode="vertical">
-                    <label value="Barcode"/>           
+                    <label value="&select_template.barcode;"/>
                     <textbox id="barcode" readonly="true" class="button-item-c"
                              onclick="$do('selectBarcode',null, 'SelectTemplate');"  form="" name="" value="Code 39"/>
 
