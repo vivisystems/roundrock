@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % SyncSettings SYSTEM "chrome://viviecr/locale/sync_settings.dtd">
+  %SyncSettings;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window
+    hidechrome="true" 
+    xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	
+	<script type="application/x-javascript" src="chrome://viviecr/content/alert_irc_update.js" />
+
+	<vbox flex="1" class="container-dialog">
+		<vbox flex="1" class="container-main">
+
+			<vbox flex="1" id="progressBox" hidden="true">
+				<label id="progress-caption" value=""
+					class="label-page-title" />
+				<spacer style="height: 20px;" />
+				<progressmeter id="progress" mode="undetermined"
+					value="0" />
+				<spacer style="height: 20px;" />
+			</vbox>
+
+			<vbox flex="1" id="infoBox" hidden="true">
+                <label id="info-caption" value=""
+                    class="label-page-title" />
+                <spacer style="height: 20px;" />
+			    <textbox id="info-packages" flex="1" readonly="true" multiline="true"></textbox>
+
+                    <hbox>
+                        <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                            <button disabled="false" label="&sync_settings.button.irc_ok;" default="true" oncommand="window.arguments[0].result=true; window.close();"/>
+                            <spacer style="min-width: 40px;" />
+                            <button disabled="false" label="&sync_settings.button.irc_later;" default="true" oncommand="window.arguments[0].result=false; window.close();"/>
+                        </hbox>
+                    </hbox>
+			    
+			</vbox>
+
+		</vbox>
+	</vbox>
+
+</window>
