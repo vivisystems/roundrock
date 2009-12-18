@@ -109,6 +109,33 @@
                 fieldListObj.datasource = data;
                 fieldListObj.value = selectedItems;
             }
+
+            // populate cart status dock target panels
+            var selectedElement = GeckoJS.Configure.read('vivipos.fec.settings.layout.cartstatus.selectedElement') || '';
+            var selectedDirection = GeckoJS.Configure.read('vivipos.fec.settings.layout.cartstatus.selectedDirection') || 'none';
+
+            // populate relation element list
+            var elemObj = document.getElementById('cartstatus_relation_element');
+            var elements = mainWindow.$('box[panel]');
+            for (var j = 0; j < elements.length; j++) {
+                elemObj.appendItem(elements[j].getAttribute('panel'), elements[j].getAttribute('id'));
+            };
+
+            $('#cartstatus_relation_element').val(selectedElement);
+            $('#cartstatus_relation_direction').val(selectedDirection);
+            
+            if (selectedDirection == 'none') {
+                document.getElementById('cartstatus_relation_element').setAttribute('disabled', true);
+            }
+        },
+
+        setCartStatusPosition: function(selectedDirection) {
+            if (selectedDirection == 'none') {
+                document.getElementById('cartstatus_relation_element').setAttribute('disabled', true);
+            }
+            else {
+                document.getElementById('cartstatus_relation_element').removeAttribute('disabled');
+            }
         },
 
         appendItem: function(box, data, value) {
@@ -241,6 +268,13 @@
                 GREUtils.Dialog.alert(this.topmostWindow, _('Layout Manager'), _('Layout settings saved'));
             }
 
+            // update cart status panel
+            var dir = document.getElementById('cartstatus_relation_direction').value;
+            var elem = document.getElementById('cartstatus_relation_element').value;
+
+            GeckoJS.Configure.write('vivipos.fec.settings.layout.cartstatus.selectedElement', elem);
+            GeckoJS.Configure.write('vivipos.fec.settings.layout.cartstatus.selectedDirection', dir);
+
             // update cart display fields
             var fieldListObj = document.getElementById('cartscrollablepanel');
             var selectedItems = fieldListObj.selectedItems;
@@ -260,8 +294,8 @@
             this.dispatchEvent('onUpdateOptions', null);
             
             // change button height
-            var layout = mainWindow.GeckoJS.Controller.getInstanceByName('Layout');
-            if (layout) layout.requestCommand('resetLayout', null, 'Layout');
+            var layoutController = mainWindow.GeckoJS.Controller.getInstanceByName('Layout');
+            if (layoutController) layoutController.requestCommand('resetLayout', null, 'Layout');
 
             window.close();
         }

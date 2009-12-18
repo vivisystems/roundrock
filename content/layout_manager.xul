@@ -114,6 +114,20 @@
                         <textbox preference="pref_fnheight" id="fnheight" type="number" min="200" max="999"  size="3" maxlength="3"/>
                     </vbox>
                 </row>
+                <row>
+                    <label value="&layout.cartstatus.position;"/>
+                    <menulist id="cartstatus_relation_direction" flex="1" oncommand="$do('setCartStatusPosition', this.value, 'LayoutManager');">
+                        <menupopup>
+                            <menuitem label="&layout.cartstatus.position.none.label;" selected="true" value="none"/>
+                            <menuitem label="&layout.cartstatus.position.dir_before.label;" value="before"/>
+                            <menuitem label="&layout.cartstatus.position.dir_after.label;" value="after"/>
+                        </menupopup>
+                    </menulist>
+                    <menulist id="cartstatus_relation_element" flex="1">
+                        <menupopup>
+                        </menupopup>
+                    </menulist>
+                </row>
             </rows>
         </grid>
 
