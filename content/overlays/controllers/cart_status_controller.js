@@ -126,7 +126,7 @@
                         }
                         else {
                             status = 'stored-txn';
-                            status_str = _('(cartstatus)locked-txn');
+                            status_str = _('(cartstatus)stored-txn');
                         }
                     }
                 }
