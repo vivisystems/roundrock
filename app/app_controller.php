@@ -15,11 +15,22 @@ class AppController extends Controller {
      */
     var $syncSettings = array();
 
+
+    /**
+     * beforeFilter check
+     */
+    function beforeFilter() {
+        if ($this->Security != null && $this->SyncHandler != null) {
+            $this->Security->requireLogin();
+        }
+    }
+
+
     /**
      * default index , eat all response
      */
     function index () {
-        echo "";
+        echo "index";
         exit;
     }
 

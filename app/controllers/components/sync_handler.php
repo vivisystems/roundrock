@@ -83,9 +83,6 @@ class SyncHandlerComponent extends Object {
      * @access public
      */
     function startup(&$controller) {
-        if ($controller->Security != null) {
-            $controller->Security->requireLogin();            
-        }
     }
 
 

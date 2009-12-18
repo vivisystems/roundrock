@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+
+#
+# execute php irc client
+#
+cmd=${1:-help}
+pid=$$
+dir=`dirname $0`
+
+cd $dir ;
+
+# check irc_packages dir exists
+if [ ! -d "/data/irc_packages" ]; then
+    mkdir /data/irc_packages;
+    chmod g+rwx /data/irc_packages;
+fi
+if [ ! -d "/data/irc_packages/tmp" ]; then
+    mkdir /data/irc_packages/tmp;
+    chmod g+rwx /data/irc_packages/tmp;
+fi
+if [ ! -d "/data/irc_packages/queues" ]; then
+    mkdir /data/irc_packages/queues;
+    chmod g+rwx /data/irc_packages/queues;
+fi
+if [ ! -d "/data/backups/irc_backup" ]; then
+    mkdir /data/backups/irc_backup;
+    chmod g+rwx /data/backups/irc_backup;
+fi
+
+
+if [ "$cmd" = "sync" ]; then
+    echo `date +%s` > /tmp/irc_client.request
+else
+
+    # chown and mode of /data/profile 
+    chown -R root:root /data/profile
+    chmod -R g+rw /data/profile
+
+    # chown and mode of /data/scripts 
+    chown -R root:root /data/scripts
+    chmod -R g+rw /data/scripts
+
+    # chown and mode of /data/images 
+    chown -R root:root /data/images
+    chmod -R g+rw /data/images
+
+    # chown and mode of /data/databases 
+    chown -R root:root /data/databases
+    chmod -R g+rw /data/databases
+
+    # kill exists running services
+    run_pid=`ps auxww|grep "php -q" | grep "irc_client" | grep -v grep | awk '{print $2}'`
+
+    if [ -n "$run_pid" ]; then
+        kill -9 $run_pid;
+    fi
+ 
+    ${dir}/cake/console/cake -app ${dir}/app irc_client ${cmd}
+    
+fi

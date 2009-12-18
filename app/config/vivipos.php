@@ -2,6 +2,7 @@
 /*
  * SETTING DEFAULT
  */
+$DATA_PATH = '/data';
 $DATABASE_PATH = '/data/databases';
 $SYNCHRONOUS = 'NORMAL';
 $JOURNAL_MODE = 'MEMORY';
@@ -50,6 +51,8 @@ if (($sync_settings = Cache::read('sync_settings')) === false) {
 }
 Configure::write('sync_settings', $sync_settings);
 
-// $db4log for sync
-Configure::write('sync_logfile', "/var/log/sync_log.db");
+// write vivipos settings to configure
+Configure::write('DATA_PATH', $DATA_PATH);
+Configure::write('DATABASE_PATH', $DATABASE_PATH);
+Configure::write('PROFILE_PATH', $PROFILE_PATH);
 ?>

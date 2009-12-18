@@ -11,9 +11,42 @@ dir=`dirname $0`
 cd $dir ;
 
 if [ "$cmd" = "sync" ]; then
-
     echo `date +%s` > /tmp/sync_client.request
-
 else
-    exec ${dir}/cake/console/cake -app ${dir}/app sync_client ${cmd}
+
+    # kill exists running services
+    run_pid=`ps auxww|grep "php -q" | grep "sync_client" | grep -v grep | awk '{print $2}'`
+
+    if [ -n "$run_pid" ]; then
+        kill -9 $run_pid;
+    fi
+
+    ${dir}/cake/console/cake -app ${dir}/app sync_client ${cmd}
 fi
+
+#
+# if cmd is start also bring irc client up
+# because we don't want to update /etc/init.d and OS NOW!!!
+#
+if [ "$cmd" = "start" ]; then
+    if [ -x "${dir}/irc_client" ]; then
+        ${dir}/irc_client start
+    fi
+fi
+
+
+#
+# check all extensions run-parts if cake.d exists 
+#
+if [ "$cmd" = "start" ]; then
+    CAKESHELLDIR=/data/profile/extensions/*/cake.d
+    CAKESHELLFILES=$(run-parts --list $CAKESHELLDIR)
+    if [ -n "$CAKESHELLFILES" ]; then
+        set +e
+        for CAKESHELLFILE in $CAKESHELLFILES; do
+            $CAKESHELLFILE start
+        done
+        set -e
+    fi
+fi
+
