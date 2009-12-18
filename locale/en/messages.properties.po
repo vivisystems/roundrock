@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-18 19:04+0800\n"
+"POT-Creation-Date: 2009-12-18 19:15+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8624,6 +8624,10 @@ msgstr ""
 msgid ""
 "This function scrolls the function panel to the page indicated in the "
 "parameter field"
+msgstr ""
+
+#: ../..//content/overlays/controllers/cart_status_controller.js:150
+msgid "(cartstatus)"
 msgstr ""
 
 #: ../..//content/reports/controllers/journal_report_controller.js:70
