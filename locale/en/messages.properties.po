@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-18 14:20+0800\n"
+"POT-Creation-Date: 2009-12-18 18:11+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3176,7 +3176,7 @@ msgstr ""
 #: ../..//content/controllers/currencysetup_controller.js:86
 #: ../..//content/controllers/departments_controller.js:164
 #: ../..//content/controllers/destination_controller.js:424
-#: ../..//content/controllers/devices_controller.js:1623
+#: ../..//content/controllers/devices_controller.js:1628
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:136
 #: ../..//content/controllers/hotkey_prefs_controller.js:500
 #: ../..//content/controllers/jobs_controller.js:227
@@ -3207,7 +3207,7 @@ msgstr ""
 #: ../..//content/controllers/currencysetup_controller.js:88
 #: ../..//content/controllers/departments_controller.js:166
 #: ../..//content/controllers/destination_controller.js:426
-#: ../..//content/controllers/devices_controller.js:1625
+#: ../..//content/controllers/devices_controller.js:1630
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:138
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
 #: ../..//content/controllers/jobs_controller.js:229
@@ -3239,7 +3239,7 @@ msgstr ""
 #: ../..//content/controllers/departments_controller.js:182
 #: ../..//content/controllers/destination_controller.js:405
 #: ../..//content/controllers/destination_controller.js:426
-#: ../..//content/controllers/devices_controller.js:1625
+#: ../..//content/controllers/devices_controller.js:1630
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:138
 #: ../..//content/controllers/hotkey_prefs_controller.js:458
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
@@ -4682,8 +4682,8 @@ msgstr ""
 #: ../..//content/controllers/devices_controller.js:63
 #: ../..//content/controllers/devices_controller.js:68
 #: ../..//content/controllers/devices_controller.js:87
-#: ../..//content/controllers/devices_controller.js:1576
-#: ../..//content/controllers/devices_controller.js:1594
+#: ../..//content/controllers/devices_controller.js:1581
+#: ../..//content/controllers/devices_controller.js:1599
 #: ../..//content/controllers/scale_controller.js:67
 #: ../..//content/controllers/scale_controller.js:88
 #: ../..//content/controllers/scale_controller.js:98
@@ -4696,17 +4696,17 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:69
-#: ../..//content/controllers/devices_controller.js:1577
+#: ../..//content/controllers/devices_controller.js:1582
 msgid "No device has been enabled for receipt and/or check printing!"
 msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:80
-#: ../..//content/controllers/devices_controller.js:1587
+#: ../..//content/controllers/devices_controller.js:1592
 msgid "Device"
 msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:80
-#: ../..//content/controllers/devices_controller.js:1587
+#: ../..//content/controllers/devices_controller.js:1592
 msgid "Port"
 msgstr ""
 
@@ -4752,17 +4752,17 @@ msgstr ""
 msgid "Scale %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:1595
+#: ../..//content/controllers/devices_controller.js:1600
 msgid ""
 "The following enabled devices appear to be offline, do you still want to "
 "save the new configuration?"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:1608
+#: ../..//content/controllers/devices_controller.js:1613
 msgid "Device configuration saved"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:1624
+#: ../..//content/controllers/devices_controller.js:1629
 msgid ""
 "You have made changes to device configuration. Save changes before exiting?"
 msgstr ""
@@ -5849,8 +5849,8 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:353
 #: ../..//content/controllers/plus_controller.js:552
 #: ../..//content/controllers/plus_controller.js:1095
-#: ../..//content/controllers/plusearch_controller.js:239
-#: ../..//content/controllers/plusearch_controller.js:244
+#: ../..//content/controllers/plusearch_controller.js:240
+#: ../..//content/controllers/plusearch_controller.js:245
 #: ../..//content/controllers/stock_records_controller.js:132
 #: ../..//content/controllers/table_man_controller.js:802
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:72
@@ -6397,11 +6397,11 @@ msgstr ""
 msgid "You have not selected any properties to clone."
 msgstr ""
 
-#: ../..//content/controllers/plusearch_controller.js:240
+#: ../..//content/controllers/plusearch_controller.js:241
 msgid "No products found with conditions"
 msgstr ""
 
-#: ../..//content/controllers/plusearch_controller.js:245
+#: ../..//content/controllers/plusearch_controller.js:246
 msgid "Product [%S] Not Found!"
 msgstr ""
 
