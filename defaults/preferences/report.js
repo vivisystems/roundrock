@@ -117,3 +117,8 @@ pref("vivipos.fec.reportpanels.yourorder.icon", "chrome://viviecr/content/skin/i
 pref("vivipos.fec.reportpanels.yourorder.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.reportpanels.yourorder.path", "chrome://viviecr/content/reports/rpt_your_order.xul");
 pref("vivipos.fec.reportpanels.yourorder.roles", "acl_report_run_yourorder");
+
+pref("vivipos.fec.reportpanels.paymentdetails.icon", "chrome://viviecr/content/skin/icons/reporticon_cash.png");
+pref("vivipos.fec.reportpanels.paymentdetails.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.reportpanels.paymentdetails.path", "chrome://viviecr/content/reports/rpt_payment_details.xul");
+pref("vivipos.fec.reportpanels.paymentdetails.roles", "acl_report_paymentdetails");
