@@ -65,6 +65,9 @@ Bug #252:
 Bug #253:
     Modifying a registered item causes the item to revert to its preset tax status
 
+Bug #254:
+    When 'Subtotal' is selected for Promotion type 'Fixed Value', if trigger amount mode is multiple, the fixed subtotal is applied on the sum of all matching items and not on sums of individual sets of matching items
+
 Bug #255:
     In the Detailed Tax Report, order-related totals are tallied once per tax type, leading to incorrect summarization values
 
