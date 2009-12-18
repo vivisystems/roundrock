@@ -147,10 +147,11 @@
 
         clickPluPanel: function(index) {
             let data = this.productPanelView.getCurrentIndexData(index);
-
-            document.getElementById('plu').value = (data.no || '');
-            if (data.no && data.no.length > 0) {
-                this.searchPlu(data.no, false, false, true);
+            if (data) {
+                document.getElementById('plu').value = (data.no || '');
+                if (data.no && data.no.length > 0) {
+                    this.searchPlu(data.no, false, false, true);
+                }
             }
         },
 
