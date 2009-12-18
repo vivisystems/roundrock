@@ -39,6 +39,9 @@
 
             this.addEventListener('beforeStoreCheck', this.beforeStoreCheck, this);
 
+            this.addEventListener('afterNewTable', this.afterNewTable, this);
+
+
             this.tableSettings = this.TableSetting.getTableSettings() || {};
 
             // table window is first win
@@ -469,6 +472,8 @@
 
                 cart._clearAndSubtotal();
 
+                this.dispatchEvent('afterNewTable', curTransaction);
+
                 return true;
                 
             }else {
@@ -650,6 +655,29 @@
             return true;
         },
         
+
+        /**
+         * afterNewTable
+         */
+        afterNewTable: function(evt) {
+
+            var curTransaction = evt.data;
+            var isCheckGuestNum = false ;
+
+            if (this.tableSettings.RequireGuestNumWhenNewTable && this.tableSettings.RequireGuestNum) {
+                let destsByGuestNum = this.tableSettings.RequireGuestNum.split(",");
+                if (destsByGuestNum.indexOf(curTransaction.data.destination) != -1) isCheckGuestNum = true;
+            }
+
+            let guest = curTransaction.data.no_of_customers || 0;
+            guest = parseInt(guest);
+            if (isCheckGuestNum && guest <= 0) {
+                this.guestNum(-1);
+            }
+
+            return true;
+        },
+
 
         /**
          * store current transaciton and close transaction.

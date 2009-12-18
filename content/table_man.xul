@@ -300,7 +300,7 @@
                                                     </row>
                                                     <row>
                                                         <checkbox id="showAvailableSeatTable" label="&tableman.tableoptions.showAvailableSeatTable;" form="settingsForm" name="ShowAvailableSeatTable"/>
-                                                        <spacer />
+                                                        <checkbox id="requireGuestNumWhenNewTable" label="&tableman.tableoptions.requireGuestNumWhenNewTable;" form="settingsForm" name="RequireGuestNumWhenNewTable"/>
                                                     </row>
                                                 </rows>
                                             </grid>
