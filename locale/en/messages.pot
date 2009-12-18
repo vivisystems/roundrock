@@ -2421,6 +2421,12 @@ msgstr "Simple Retail Layout"
 msgid "vivipos.fec.registry.layouts.simple_retail.desc"
 msgstr "Simple Retail Layout (for businesses that rely mostly on barcode scanning. Product images, if provided, will be displayed when the product is registered.)"
 
+msgid "vivipos.fec.registry.layouts.compacttable.label"
+msgstr "Compact Table Layout"
+
+msgid "vivipos.fec.registry.layouts.compacttable.desc"
+msgstr "Compact Table Layout (For table service, with table grid on the main screen)"
+
 ########################################################################
 #
 # Tax Types & Rate Types

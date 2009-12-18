@@ -304,7 +304,7 @@
                                                     </row>
                                                 </rows>
                                             </grid>
-                                            <vbox class="data-formsss">
+                                            <vbox class="data-formsss" flex="1">
                                                 <vbox flex="1" class="content-buttonpanel">
                                                         <label value="&tableman.tableoptions.requiretableno;"/>
                                                     <viviscrollablebuttonpanel id="tableno_destination" seltype="multiple" flex="1" cols="5" rows="2"

@@ -1,0 +1,118 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Front End Product Panel
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .prodscrollablepanel {
+	background: none;
+	margin: 0px 2px 0px 0px;
+	padding: 2px 0;
+	-moz-appearance: none;
+	-moz-background-clip: border;
+    
+}
+.main-overlay .prodscrollablepanel vivibuttonpanel {
+	margin-top: 2px;
+	margin-right: 4px;
+	margin-bottom: 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ *  Front-end product buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .button-product {
+    background: #e5fcd3;
+    border: none;
+    margin: 0 0 2px 2px;
+    min-width: 50px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+    color: #3e3e3e;
+}
+
+.main-overlay .button-product[disabled=true] {
+    background: none;
+    border: none;
+}
+
+.main-overlay .button-product hbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-box-orient: vertical;
+}
+
+.main-overlay .button-product description {
+    text-wrap: normal;
+    word-wrap: break-word;
+}
+
+/*-----------------------------------------------------------------------------
+ * scroll buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .product-scroll-up-button {
+    background: transparent url(../images/chatup.png) 0 0 no-repeat;
+    border: 0px;
+    margin: 2px 0px 0px 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+.main-overlay .product-scroll-down-button {
+    background: transparent url(../images/chatdown.png) 0 0 no-repeat;
+    border: 0px;
+    margin: 0px 0px 2px 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+
+.main-overlay .product-scroll-up-button[disabled=false]:active,
+.main-overlay .product-scroll-down-button[disabled=false]:active,
+.main-overlay .product-scroll-up-button[disabled=false]:hover,
+.main-overlay .product-scroll-down-button[disabled=false]:hover {
+    background-position: -40px 0;
+}
+.main-overlay .product-scroll-up-button[disabled=true],
+.main-overlay .product-scroll-down-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .product-scroll-up-button label,
+.main-overlay .product-scroll-up-button description,
+.main-overlay .product-scroll-down-button label,
+.main-overlay .product-scroll-down-button description {
+    display: none;
+}
+
+
+.main-overlay .prodscrollablepanel .scrollablepanel-scrollbar {
+	margin: 2px 0 2px 2px;
+}
+
+.main-overlay .prodscrollablepanel image {
+	height: 32px;
+	width: 32px;
+}
+
+
