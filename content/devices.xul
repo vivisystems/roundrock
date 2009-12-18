@@ -46,12 +46,9 @@
         <vbox flex="1" class="container-main layout-a">
             <tabbox flex="1" class="content-tabbox">
                 <arrowscrollbox orient="horizontal" class="content-arrow-scrollbox">
-                    <tabs>
+                    <tabs id="device-tabs">
                         <tab id="receipt-tab" label="&devices.tab.receipt.label;"/>
-                        <tab id="check1-tab" label="&devices.tab.check1.label;"/>
-                        <tab id="check2-tab" label="&devices.tab.check2.label;"/>
-                        <tab id="check3-tab" label="&devices.tab.check3.label;"/>
-                        <tab id="check4-tab" label="&devices.tab.check4.label;"/>
+                        <tab id="check-%d-tab" label="&devices.tab.check.label;"/>
                         <tab id="report-tab" label="&devices.tab.report.label;"/>
                         <tab id="vfd-tab" label="&devices.tab.vfd.label;"/>
                         <tab id="cashdrawer-1-tab" label="&devices.tab.cashdrawer1.label;"/>
@@ -61,7 +58,7 @@
                     </tabs>
                 </arrowscrollbox>
 
-                <tabpanels>
+                <tabpanels id="device-tabpanels">
 
                     <!-- Receipt printer configuration -->
                     <tabpanel id="receipt-panel" flex="1" orient="horizontal">
@@ -199,12 +196,12 @@
                     </tabpanel>
 
                     <!-- Check printer configuration -->
-                    <tabpanel id="check-1-panel" orient="horizontal">
+                    <tabpanel id="check-%d-panel" orient="horizontal" cloneTarget="true">
 
                         <!-- Check Printer 1 -->
                         <vbox flex="1" class="custom-content-device">
-                            <checkbox label="&devices.check.printer.1.label;" value="false"
-                                      form="deviceForm" name="check-1-enabled" default="false"/>
+                            <checkbox id="check-%d-enabled" label="&devices.check.printer.label; %d" value="false" cloneTarget="true"
+                                      form="deviceForm" name="check-%d-enabled" default="false"/>
                             <hbox class="custom-content-device-details">
                                 <grid class="data-form block-50">
                                     <columns>
@@ -214,29 +211,29 @@
                                     <rows>
                                         <row>
                                             <label value="&devices.template.label;"/>
-                                            <menulist id="check-1-template" form="deviceForm" name="check-1-template">
-                                                <menupopup id="check-1-template-popup">
+                                            <menulist id="check-%d-template" form="deviceForm" name="check-%d-template" cloneTarget="true">
+                                                <menupopup id="check-%d-template-popup" cloneTarget="true">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.port.label;"/>
-                                            <menulist id="check-1-port" form="deviceForm" name="check-1-port">
-                                                <menupopup id="check-1-port-popup">
+                                            <menulist id="check-%d-port" form="deviceForm" name="check-%d-port" cloneTarget="true">
+                                                <menupopup id="check-%d-port-popup" cloneTarget="true">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.portspeed.label;"/>
-                                            <menulist id="check-1-portspeed" form="deviceForm" name="check-1-portspeed">
-                                                <menupopup id="check-1-portspeed-popup">
+                                            <menulist id="check-%d-portspeed" form="deviceForm" name="check-%d-portspeed" cloneTarget="true">
+                                                <menupopup id="check-%d-portspeed-popup" cloneTarget="true">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.handshaking.label;"/>
-                                            <menulist id="check-1-handshaking" form="deviceForm" name="check-1-handshaking">
-                                                <menupopup id="check-1-handshaking-popup">
+                                            <menulist id="check-%d-handshaking" form="deviceForm" name="check-%d-handshaking" cloneTarget="true">
+                                                <menupopup id="check-%d-handshaking-popup" cloneTarget="true">
                                                     <menuitem label="&devices.handshaking.hardware;" value="h"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
@@ -245,294 +242,45 @@
                                         </row>
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
-                                            <menulist id="check-1-devicemodel" form="deviceForm" name="check-1-devicemodel"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('check-1-encoding'), 'check'], 'Devices')">
-                                                <menupopup id="check-1-devicemodel-popup">
+                                            <menulist id="check-%d-devicemodel" form="deviceForm" name="check-%d-devicemodel" cloneTarget="true"
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('check-%d-encoding'), 'check'], 'Devices')">
+                                                <menupopup id="check-%d-devicemodel-popup" cloneTarget="true">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.deviceencoding.label;"/>
-                                            <menulist id="check-1-encoding" name="check-1-encoding" form="deviceForm">
-                                                <menupopup id="check-1-encoding-popup">
+                                            <menulist id="check-%d-encoding" name="check-%d-encoding" form="deviceForm" cloneTarget="true">
+                                                <menupopup id="check-%d-encoding-popup" cloneTarget="true">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.check.autoprint.label;"/>
-                                            <textbox id="check-1-autoprint" value="0" size="1" default="0" type="number" min="0" max="9"
-                                                     form="deviceForm" name="check-1-autoprint"/>
+                                            <textbox id="check-%d-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" cloneTarget="true"
+                                                     form="deviceForm" name="check-%d-autoprint"/>
                                         </row>
                                     </rows>
                                 </grid>
 
                                 <vbox flex="1" class="content-buttonpanel">
-                                    <viviscrollablebuttonpanel id="check-1-group_listscrollablepanel" seltype="toggle"
+                                    <viviscrollablebuttonpanel id="check-%d-group_listscrollablepanel" seltype="toggle" cloneTarget="true"
                                                                flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                buttonClass="button-plugroup"
                                                                scrollUpClass="scroll-up-button"
                                                                scrollDownClass="scroll-down-button"                   
-                                                               form="deviceForm" name="check-1-link-group" default="">
+                                                               form="deviceForm" name="check-%d-link-group" default="">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="check-1-print-no-routing" name="check-1-print-no-routing" form="deviceForm" checked="false" default="0" label="&devices.check.print.no.routing.label;"/>
-                                    <checkbox id="check-1-print-all-routing" name="check-1-print-all-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.all.routing.label;"/>
+                                    <checkbox id="check-%d-print-no-routing" cloneTarget="true"
+                                              name="check-%d-print-no-routing" form="deviceForm" checked="false" default="0" label="&devices.check.print.no.routing.label;"/>
+                                    <checkbox id="check-%d-print-all-routing" cloneTarget="true"
+                                              name="check-%d-print-all-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.all.routing.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
                     </tabpanel>
                     
-                    <tabpanel id="check-2-panel" orient="horizontal">
-
-                        <!-- Check Printer 2 -->
-                        <vbox flex="1" class="custom-content-device">
-                            <checkbox label="&devices.check.printer.2.label;" value="false"
-                                      form="deviceForm" name="check-2-enabled" default="false"/>
-                            <hbox class="custom-content-device-details">
-                                <grid class="data-form block-50">
-                                    <columns>
-                                        <column flex="0"/>
-                                        <column flex="1"/>
-                                    </columns>
-                                    <rows>
-                                        <row>
-                                            <label value="&devices.template.label;"/>
-                                            <menulist id="check-2-template" form="deviceForm" name="check-2-template">
-                                                <menupopup id="check-2-template-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.port.label;"/>
-                                            <menulist id="check-2-port" form="deviceForm" name="check-2-port">
-                                                <menupopup id="check-2-port-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.portspeed.label;"/>
-                                            <menulist id="check-2-portspeed" form="deviceForm" name="check-2-portspeed">
-                                                <menupopup id="check-2-portspeed-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.handshaking.label;"/>
-                                            <menulist id="check-2-handshaking" form="deviceForm" name="check-2-handshaking">
-                                                <menupopup id="check-2-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.hardware;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
-                                                    <menuitem label="&devices.handshaking.none;" value="n"/>
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.devicemodel.label;"/>
-                                            <menulist id="check-2-devicemodel" form="deviceForm" name="check-2-devicemodel"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('check-2-encoding'), 'check'], 'Devices')">
-                                                <menupopup id="check-2-devicemodel-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.deviceencoding.label;"/>
-                                            <menulist id="check-2-encoding" name="check-2-encoding" form="deviceForm">
-                                                <menupopup id="check-2-encoding-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.check.autoprint.label;"/>
-                                            <textbox id="check-2-autoprint" value="0" size="1" default="0" type="number" min="0" max="9"
-                                                     form="deviceForm" name="check-2-autoprint"/>
-                                        </row>
-                                    </rows>
-                                </grid>
-
-                                <vbox flex="1" class="content-buttonpanel">
-                                    <viviscrollablebuttonpanel id="check-2-group_listscrollablepanel" seltype="toggle"
-                                                               flex="1" cols="3" rows="4" labelField="name" imageField="no"
-                                                               buttonClass="button-plugroup"
-                                                               scrollUpClass="scroll-up-button"
-                                                               scrollDownClass="scroll-down-button"
-                                                               form="deviceForm" name="check-2-link-group" default="">
-                                        <spacer flex="1"/>
-                                    </viviscrollablebuttonpanel>
-                                    <checkbox id="check-2-print-no-routing" name="check-2-print-no-routing" form="deviceForm" checked="false" default="0" label="&devices.check.print.no.routing.label;"/>
-                                    <checkbox id="check-2-print-all-routing" name="check-2-print-all-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.all.routing.label;"/>
-                                </vbox>
-                            </hbox>
-                        </vbox>
-
-                    </tabpanel>
-
-                    <tabpanel id="check-3-panel" orient="horizontal">
-
-                        <!-- Check Printer 3 -->
-                        <vbox flex="1" class="custom-content-device">
-                            <checkbox label="&devices.check.printer.3.label;" value="false"
-                                      form="deviceForm" name="check-3-enabled" default="false"/>
-                            <hbox class="custom-content-device-details">
-                                <grid class="data-form block-50">
-                                    <columns>
-                                        <column flex="0"/>
-                                        <column flex="1"/>
-                                    </columns>
-                                    <rows>
-                                        <row>
-                                            <label value="&devices.template.label;"/>
-                                            <menulist id="check-3-template" form="deviceForm" name="check-3-template">
-                                                <menupopup id="check-3-template-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.port.label;"/>
-                                            <menulist id="check-3-port" form="deviceForm" name="check-3-port">
-                                                <menupopup id="check-3-port-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.portspeed.label;"/>
-                                            <menulist id="check-3-portspeed" form="deviceForm" name="check-3-portspeed">
-                                                <menupopup id="check-3-portspeed-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.handshaking.label;"/>
-                                            <menulist id="check-3-handshaking" form="deviceForm" name="check-3-handshaking">
-                                                <menupopup id="check-3-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.hardware;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
-                                                    <menuitem label="&devices.handshaking.none;" value="n"/>
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.devicemodel.label;"/>
-                                            <menulist id="check-3-devicemodel" form="deviceForm" name="check-3-devicemodel"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('check-3-encoding'), 'check'], 'Devices')">
-                                                <menupopup id="check-3-devicemodel-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.deviceencoding.label;"/>
-                                            <menulist id="check-3-encoding" name="check-3-encoding" form="deviceForm">
-                                                <menupopup id="check-3-encoding-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.check.autoprint.label;"/>
-                                            <textbox id="check-3-autoprint" value="0" size="1" default="0" type="number" min="0" max="9"
-                                                     form="deviceForm" name="check-3-autoprint"/>
-                                        </row>
-                                    </rows>
-                                </grid>
-
-                                <vbox flex="1" class="content-buttonpanel">
-                                    <viviscrollablebuttonpanel id="check-3-group_listscrollablepanel" seltype="toggle"
-                                                               flex="1" cols="3" rows="4" labelField="name" imageField="no"
-                                                               buttonClass="button-plugroup"
-                                                               scrollUpClass="scroll-up-button"
-                                                               scrollDownClass="scroll-down-button"
-                                                               form="deviceForm" name="check-3-link-group" default="">
-                                        <spacer flex="1"/>
-                                    </viviscrollablebuttonpanel>
-                                    <checkbox id="check-3-print-no-routing" name="check-3-print-no-routing" form="deviceForm" checked="false" default="0" label="&devices.check.print.no.routing.label;"/>
-                                    <checkbox id="check-3-print-all-routing" name="check-3-print-all-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.all.routing.label;"/>
-                                </vbox>
-                            </hbox>
-                        </vbox>
-                    </tabpanel>
-
-                    <tabpanel id="check-4-panel" orient="horizontal">
-
-                        <!-- Check Printer 4 -->
-                        <vbox flex="1" class="custom-content-device">
-                            <checkbox label="&devices.check.printer.4.label;" value="false"
-                                      form="deviceForm" name="check-4-enabled" default="false"/>
-                            <hbox class="custom-content-device-details">
-                                <grid class="data-form block-50">
-                                    <columns>
-                                        <column flex="0"/>
-                                        <column flex="1"/>
-                                    </columns>
-                                    <rows>
-                                        <row>
-                                            <label value="&devices.template.label;"/>
-                                            <menulist id="check-4-template" form="deviceForm" name="check-4-template">
-                                                <menupopup id="check-4-template-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.port.label;"/>
-                                            <menulist id="check-4-port" form="deviceForm" name="check-4-port">
-                                                <menupopup id="check-4-port-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.portspeed.label;"/>
-                                            <menulist id="check-4-portspeed" form="deviceForm" name="check-4-portspeed">
-                                                <menupopup id="check-4-portspeed-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.handshaking.label;"/>
-                                            <menulist id="check-4-handshaking" form="deviceForm" name="check-4-handshaking">
-                                                <menupopup id="check-4-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.hardware;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
-                                                    <menuitem label="&devices.handshaking.none;" value="n"/>
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.devicemodel.label;"/>
-                                            <menulist id="check-4-devicemodel" form="deviceForm" name="check-4-devicemodel"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('check-4-encoding'), 'check'], 'Devices')">
-                                                <menupopup id="check-4-devicemodel-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.deviceencoding.label;"/>
-                                            <menulist id="check-4-encoding" name="check-4-encoding" form="deviceForm">
-                                                <menupopup id="check-4-encoding-popup">
-                                                </menupopup>
-                                            </menulist>
-                                        </row>
-                                        <row>
-                                            <label value="&devices.check.autoprint.label;"/>
-                                            <textbox id="check-4-autoprint" value="0" size="1" default="0" type="number" min="0" max="9"
-                                                     form="deviceForm" name="check-4-autoprint"/>
-                                        </row>
-                                    </rows>
-                                </grid>
-
-                                <vbox flex="1" class="content-buttonpanel">
-                                    <viviscrollablebuttonpanel id="check-4-group_listscrollablepanel" seltype="toggle"
-                                                               flex="1" cols="3" rows="4" labelField="name" imageField="no"
-                                                               buttonClass="button-plugroup"
-                                                               scrollUpClass="scroll-up-button"
-                                                               scrollDownClass="scroll-down-button"
-                                                               form="deviceForm" name="check-4-link-group" default="">
-                                        <spacer flex="1"/>
-                                    </viviscrollablebuttonpanel>
-                                    <checkbox id="check-4-print-no-routing" name="check-4-print-no-routing" form="deviceForm" checked="false" default="0" label="&devices.check.print.no.routing.label;"/>
-                                    <checkbox id="check-4-print-all-routing" name="check-4-print-all-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.all.routing.label;"/>
-                                </vbox>
-                            </hbox>
-                        </vbox>
-
-                    </tabpanel>
-
                     <!-- Report/Label Printer -->
                     <tabpanel id="report-panel" orient="horizontal">
 
