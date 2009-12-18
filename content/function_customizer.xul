@@ -316,9 +316,9 @@
 
                                     <!-- Devices Support -->
                                     <tabpanel flex="1" orient="vertical">
-                                        <!--checkbox id="devReceipt2" value="true" label="&devices.receipt.printer.2.label;"
+                                        <checkbox id="devReceipt2" value="true" label="&devices.receipt.printer.2.label;"
                                                       form="toolsForm" name="devReceipt2" default="false" />
-                                        <checkbox id="devCheck1" value="true" label="&devices.check.printer.1.label;"
+                                        <!--checkbox id="devCheck1" value="true" label="&devices.check.printer.1.label;"
                                                       form="toolsForm" name="devCheck1" default="false" />
                                         <checkbox id="devCheck2" value="true" label="&devices.check.printer.2.label;"
                                                       form="toolsForm" name="devCheck2" default="false" />
