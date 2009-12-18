@@ -957,6 +957,11 @@
             var encodingmenu = data[1];
             var type = data[2];
 
+            if (!encodingmenu) {
+                let encodingmenu_id = devicemenu.id.replace(/devicemodel$/, 'encoding') ;
+                encodingmenu = document.getElementById(encodingmenu_id);
+            }
+
             if (devicemenu == null || encodingmenu == null) return;
 
             var selectedDeviceIndex = devicemenu.selectedIndex;

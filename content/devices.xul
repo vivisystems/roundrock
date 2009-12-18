@@ -243,7 +243,7 @@
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
                                             <menulist id="check-%d-devicemodel" form="deviceForm" name="check-%d-devicemodel" cloneTarget="true"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('check-%d-encoding'), 'check'], 'Devices')">
+                                                      oncommand="$do('updateEncodings', [this, null, 'check'], 'Devices')">
                                                 <menupopup id="check-%d-devicemodel-popup" cloneTarget="true">
                                                 </menupopup>
                                             </menulist>

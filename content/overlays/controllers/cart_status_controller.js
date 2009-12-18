@@ -43,7 +43,7 @@
 
             var selectedElement = GeckoJS.Configure.read('vivipos.fec.settings.layout.cartstatus.selectedElement') || '';
             var selectedDirection = GeckoJS.Configure.read('vivipos.fec.settings.layout.cartstatus.selectedDirection') || 'none';
-            var selectedPanel = GeckoJS.Configure.read('vivipos.fec.settings.layout.cartstatus.selectedPanel') || '';
+            var selectedPanel = this.statusContainerObjId;
 
             // show active panel, hide all the rest
             var panel = this.getStatusContainerObj();
