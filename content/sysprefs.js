@@ -30,6 +30,11 @@
         var spNode = document.getElementById('storedorderwhenendperiod');
         if (spNode) spNode.value = sp;
 
+        // initialize cart scroll mode
+        var sm = GeckoJS.Configure.read('vivipos.fec.settings.CartScrollMode') || 'cursor-line';
+        var smNode = document.getElementById('cartscrollmode');
+        if (smNode) smNode.value = sm;
+
         //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;

@@ -168,6 +168,10 @@
 
                 items_summary[orderItem.id] = itemSummary;
 
+                // convert weight to current_qty if needed
+                if (orderItem['sale_unit'] != 'unit') {
+                    orderItem['current_qty'] = orderItem['weight']
+                }
             }
             data.items = items;
             data.items_summary = items_summary;

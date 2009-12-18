@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.0.2
+Release 1.2.0.4
 ---------------
 
 This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
@@ -7,15 +7,16 @@ This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
 Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
 
 
+------------
+Dependencies
+------------
+
+This release requires VIVIPOS WebApp and WebServices Release 1.2.0.3 or above. You should also install Release 1.2.0.4 of the appropriate language pack to resolve translation-related bugs.
+
+
 ----------
 Known bugs
 ----------
-
-Bug #155:
-    Hotkeys without modifiers intercepted by input line
-
-Bug #156:
-    Recalling order into cart can be time-consuming, may need to block UI to force user to wait until order has been fully recalled into the shopping cart
 
 Bug #159:
     Application may wait indefinitely if connection to printer is lost while printing
@@ -25,130 +26,89 @@ Bug #159:
 Bugs fixed
 ----------
 
-Bug #71:
-    Sample receipt templates do not format taxes properly
+Bug #192:
+    Many text messages failed to display using the proper locale due to presence of the symbol ':' in the base text
 
-Bug #72:
-    Storing a check with payment does not automatically open the cash drawer
+Bug #193:
+    Translation for description of View Order function is wrong (requires 1.2.0.4 language packs)
 
-Bug #73:
-    Upon import of ACL permissions, VARCHAR fields in acl tables may be
-    inadvertantly converted to numeric values
+Bug #194:
+    Traditional/Simplified Chinese translations of "Check Cash Limit (0 = no check cashing)" in the "Employees" control panel are incorrect
 
-Bug #79:
-    Employee check cashing limit of 0 is inconsistent with meaning of 0 in
-    discount/surcharge limits
+Bug #196:
+    Stock levels are not adjusted when sales are voided
 
-Bug #82:
-    Taxable amount not restored when order is recalled
+Bug #198:
+    Need to be able to trigger minimum charge and other finalization validation procedures both manually (via function key) or automatically (when (pre-)finalizing the order)
 
-Bug #83:
-    Backing out of cancelling a stored order leaves cart in an erroneous
-    state
+Bug #205:
+    The built-in install.rdf template used by the package builder does not conform to the new guidelines (<targetApplication> section is out of date)
 
-Bug #84:
-    Merge Table icon not highlighted when selected
+Bug #206:
+    Scrolling the cart one line at a time is too tedious when large number of items have been registered; a new view-based page scrolling mode is now supported
 
-Bug #87:
-    Void Sale needs to auto-popup Table selection panel if it is first
-    window
+Bug #207:
+    Quickly tapping on function 'Return Cart Item' twice will cause the return quantity to be set to 0
 
-Bug #88:
-    Store check need to support change of number of customers/destinations
+Bug #208:
+    Revalue computation produces wrong result for policies 'to nearest factor' and 'round to 10 cents (round down 5 cents)' when the transaction total is negative
 
-Bug #89:
-    Can't recall order if previous order in cart
+Bug #209:
+    Unable to save promotion rule when trigger type 'Multi Product Group' is selected
 
-Bug #90:
-    Cart display of check payments is inconsistent with other payment types
+Bug #210:
+    Remove obsolete preferences
 
-Bug #91:
-    Payment types not localized in shift change screen and in sales summary
-    report
+Bug #211:
+    Should not display the message 'CANCELLED' when cancelling a recalled open order since the order is actually not cancelled (only that the shopping cart is cleared)
 
-Bug #93:
-    Sales summary report from end of sale period screen has broken tax
-    summaries
+Bug #212:
+    Title bar is visible on the ledger entry window, and window size is fixed
 
-Bug #94:
-    Groupable payments not correctly localized in shift change reports
+Bug #215:
+    When an order is stored with annotations, the annotations are duplicated each time the order is re-stored or finalized
 
-Bug #95:
-    Models not passed through localization
+Bug #216:
+    Function customizer should only be accessible to the superuser
 
-Bug #98:
-    Mass discount & mass surcharge function ACL issues
+Bug #217:
+    Accessing the stock control screen takes an excessive amount of time due to poorly structured SQL query
 
-Bug #100:
-    Discount/Surcharge names should not be passed through localization
+Bug #218:
+    Storing/recalling orders do not work in training mode
 
-Bug #101:
-    Non-discountable/non-surchargeable checks should be done in cart, not in
-    transaction
+Bug #219:
+    Updates to a product's "Show on menu" attribute are not immediately reflected in the product panel if the active department is a product group to which the product has been linked
 
-Bug #103:
-    TruncateTxnRecords also delete tables, regions, and table settings
+Bug #220:
+    Should not be able to truncate transaction records in training mode
 
-Bug #104:
-    View Order screen shows Recall Order button when it should not
+Bug #221:
+    Translations of the function description for "Product Search" are inaccurate (requires 1.2.0.4 language packs)
 
-Bug #108:
-    Need better network error handling when storing orders
+Bug #222:
+    Unable to exit from Product Group screen after deleting one or more product groups when navigation links have been configured
 
-Bug #109:
-    Added missing functions and localizations to function customizer
+Bug #223:
+    Use of CSS class "groove-thin" for the <separator> tag is deprecated
 
-Bug #110:
-    Virtual Keyboard grabs keyboard focus from user input fields when it pops up
+Bug #224:
+    Update of order records by extensions during 'afterSubmit' event may be overwritten
 
-Bug #112:
-    Need to block UI when triggering 'Toggle Active' action until the action has completed
+Bug #225:
+    Accounts belonging to the built-in "admin" group are used for technical support and should be hidden from the Sign In/Out screen
 
-Bug #118:
-    When order finalization fails on a payment, don't void the last payment entry if the order status is submitted
+Bug #226:
+    Accounts belonging to the built-in "admin" group are used for technical support and should be hidden from the Clock In/Out screen
 
-Bug #119:
-    Added ACL for Product Returns report; renamed Product Sales Return to Product Returns
+Bug #227:
+    Need to reduce disk usage to allow system to run with 1GB of storage
 
-Bug #120:
-    Print Document should use ACL of its own
+Bug #228:
+    Translations for some of the report/template headings for the Stock Adjustment Report fail to show up
 
-Bug #132:
-    Custom Sales Report is broken
+Bug #229:
+    Need to be able to print table number and table region in templates
 
-Bug #134:
-    Shift change start time shown as 1970/01/01 08:00
-
-Bug #138:
-    Need to prevent unauthorized users from editing function customization settings directly
-
-Bug #139:
-    Device encoding selections are not correctly restored in the device configuration control panel
-
-Bug #140:
-    Changing cash drawer 2 type selection in the device configuration control panel has no effect
-
-Bug #141:
-    Cart warning text and number of items not cleared when instantiating new transaction
-
-Bug #142:
-    Item Subtotal and Add-on Taxes not properly formatted when viewing an open check
-
-Bug #145:
-    Promotion Multi-Buy type Value parameter always rounded to Integer; promotion triggers do not always pass matched items with the lowest prices to type
-
-Bug #147:
-    When an open order exists in the cart, if the user returns to the table selection screen, transfers the order to another table, exits to the main screen, and finalizes the order, that order will get stuck in the table status server with no opportunity to clear it
-
-Bug #148:
-    Table Selection screen should always pop up on cance even if order is already closed
-
-Bug #153:
-    When stock adjustment type is 'other', quantity cannot be set to a negative value
-
-Bug #157:
-    Sample Kitchen 42c expanded template feeds paper even when there's nothing to print
-
-Bug #158:
-    Failed to handle remote sequence number assignment error, allowing orders without valid sequence numbers to be stored or finalized
-
+Bug #230:
+    When performing a system restore with system settings, restored CUPS settings do not take effect until the terminal is rebooted

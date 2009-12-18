@@ -1,10 +1,10 @@
 <!ENTITY sync_settings.title "Synchronize">
 
-<!ENTITY sync_settings.tablabel.basic "Basic">
-<!ENTITY sync_settings.tablabel.advanced "Advanced">
-<!ENTITY sync_settings.tablabel.services "Local Services">
+<!ENTITY sync_settings.tablabel.basic "Synchronization Settings">
+<!ENTITY sync_settings.tablabel.advanced "Protocol Settings">
+<!ENTITY sync_settings.tablabel.services "Cluster Services">
 
-<!ENTITY sync_settings.label.active "Enable Network Services">
+<!ENTITY sync_settings.label.active "Enable Synchronization">
 <!ENTITY sync_settings.label.protocol "Protocol:">
 <!ENTITY sync_settings.label.hostname "Synchronization Server Hostname or IP:">
 <!ENTITY sync_settings.label.port "Port:">

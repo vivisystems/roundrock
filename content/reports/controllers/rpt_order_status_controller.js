@@ -9,8 +9,6 @@
 
         name: 'RptOrderStatus',
         
-        components: ['OrderStatus'],
-
         _fileName: "rpt_order_status",
 
         _set_reportRecords: function( limit ) {

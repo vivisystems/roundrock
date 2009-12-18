@@ -146,7 +146,7 @@
 
             this.imagefilesView = new ImageFilesView(dir);
 
-            var limitSetting = GeckoJS.Configure.read('vivipos.fec.settings.image.disklimit');
+            var limitSetting = GeckoJS.Configure.read('vivipos.fec.settings.image.disklimit') || 0;
             if (limitSetting > this._disklimit) this._disklimit = limitSetting;
 
             this.query('#imagePanel')[0].datasource = this.imagefilesView;

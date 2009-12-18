@@ -11,11 +11,11 @@
         <em:type>2</em:type> <!-- type=extension --> 
 
         <em:targetApplication>
-          <!-- Toolkit -->
+          <!-- VIVIPOS APP ENGINE -->
           <Description>
-            <em:id>toolkit@mozilla.org</em:id>
-            <em:minVersion>1.9a1</em:minVersion>
-            <em:maxVersion>1.9.*</em:maxVersion>
+            <em:id>{7aacc14f-1abc-4243-b48e-63b953c0476a}</em:id>
+            <em:minVersion>1.2.0.0</em:minVersion>
+            <em:maxVersion>1.2.*</em:maxVersion>
           </Description>
         </em:targetApplication>
         

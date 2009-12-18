@@ -142,7 +142,9 @@
                 'serviceSyncSettingsSalePeriod': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsSalePeriodBox', checkForCss:'serviceSyncSettingsSalePeriod'},
                 'serviceSyncSettingsTable': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsTableBox', checkForCss:'serviceSyncSettingsTable'},
                 'serviceSyncSettingsStock': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsStockBox', checkForCss:'serviceSyncSettingsStock'},
-                'serviceSyncSettingsNtp': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsNtpBox', checkForCss:'serviceSyncSettingsNtp'}
+                'serviceSyncSettingsNtp': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsNtpBox', checkForCss:'serviceSyncSettingsNtp'},
+
+                'internalDisableJournal': {type:'prefs', method:'write', key:'vivipos.fec.settings.internal.disableJournal', preftype:'boolean'}
             },
             
             reportsForm: {

@@ -36,7 +36,7 @@
         },
 
         isRemoteService: function() {
-            return this.getHttpService().isRemoteService();
+            return !this.getHttpService().isLocalhost();
         }
 
     };

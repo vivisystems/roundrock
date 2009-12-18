@@ -15,16 +15,6 @@ var options;
      */
     function startup() {
         try {
-        // open cashdrawer?
-        if ('useraction' in inputObj) {
-            var btn = document.getElementById('useraction-btn');
-            btn.label = inputObj.useractionLabel;
-            window.UserAction = inputObj.useraction;
-        }
-        else {
-            document.getElementById('useraction-btn').setAttribute('hidden', true);
-        }
-
         // To construct a menulist, please assign an array to inputObj.menuItems; the array is consisted of objects bearing fields value, label, and selected.
         // The first object whose 'selected' property is true will be considered the default selected menuitem.
         // hide menu?
@@ -121,6 +111,8 @@ var options;
             for (var i = 0; i < textNodes.length; i++)
                 textNodes[i].addEventListener('focus', gotFocus, false);
         }
+
+        validateInput();
         
         //document.getElementById('input0').focus();
         }catch(e){GeckoJS.BaseObject.log(e);}
@@ -150,6 +142,13 @@ function clearFocusedElement(target) {
     if (focused.tagName == 'html:input' || focused.tagName == 'textbox') focused.value = '';
 }
 
+function updateName() {
+    var selectedIndex = document.getElementById('department_no').selectedItems;
+    var data = GeckoJS.Session.get('categories');
+    var department = data[selectedIndex];
+    document.getElementById('name_value').value = department.name;
+}
+
 
 function validateInput() {
     var validated = false;
@@ -169,7 +168,8 @@ function validateInput() {
     if(trimmed_barcode_value.length > 0 &&
         trimmed_plu_value.length > 0 &&
         trimmed_name_value.length > 0 &&
-        trimmed_price_value.length > 0) {
+        trimmed_price_value.length > 0 &&
+        trimmed_price_value > 0) {
         validated = true;
     }
 

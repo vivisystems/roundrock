@@ -9,8 +9,6 @@
 
         name: 'RptOrderAnnotation',
 
-        components: ['OrderStatus'],
-        
         _fileName: 'rpt_order_annotation',
 
         _set_reportRecords: function(limit) {

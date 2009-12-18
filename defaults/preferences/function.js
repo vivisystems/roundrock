@@ -278,6 +278,16 @@ pref("vivipos.fec.registry.function.programmable.recallCheck.command", "recallCh
 pref("vivipos.fec.registry.function.programmable.recallCheck.controller", "GuestCheck");
 pref("vivipos.fec.registry.function.programmable.recallCheck.data", "");
 
+pref("vivipos.fec.registry.function.programmable.recallBySequence.access", "acl_recall_check");
+pref("vivipos.fec.registry.function.programmable.recallBySequence.command", "recallBySequence");
+pref("vivipos.fec.registry.function.programmable.recallBySequence.controller", "GuestCheck");
+pref("vivipos.fec.registry.function.programmable.recallBySequence.data", "");
+
+pref("vivipos.fec.registry.function.programmable.recallTable.access", "acl_recall_check");
+pref("vivipos.fec.registry.function.programmable.recallTable.command", "recallTable");
+pref("vivipos.fec.registry.function.programmable.recallTable.controller", "GuestCheck");
+pref("vivipos.fec.registry.function.programmable.recallTable.data", "");
+
 pref("vivipos.fec.registry.function.programmable.receipt.access", "acl_issue_post_receipt");
 pref("vivipos.fec.registry.function.programmable.receipt.command", "issueReceipt");
 pref("vivipos.fec.registry.function.programmable.receipt.controller", "Print");
@@ -422,3 +432,8 @@ pref("vivipos.fec.registry.function.programmable.openreport.access", "");
 pref("vivipos.fec.registry.function.programmable.openreport.command", "openReport");
 pref("vivipos.fec.registry.function.programmable.openreport.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.openreport.data", "");
+
+pref("vivipos.fec.registry.function.programmable.prepareguestcheck.access", "acl_issue_check");
+pref("vivipos.fec.registry.function.programmable.prepareguestcheck.command", "prepareGuestCheck");
+pref("vivipos.fec.registry.function.programmable.prepareguestcheck.controller", "Print");
+pref("vivipos.fec.registry.function.programmable.prepareguestcheck.data", "");
