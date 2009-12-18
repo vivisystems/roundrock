@@ -1238,7 +1238,10 @@
             //            main.dispatchEvent('onFirstLoad', null);
             if (tableSettings.TableWinAsFirstWin) {
                 // just popup table selector
-                this.popupTableSelectorPanel();
+                var curTransaction = GeckoJS.Session.get('current_transaction') || {recoveryMode: false};
+                if (!curTransaction.recoveryMode) {
+                    this.popupTableSelectorPanel();
+                }
             }
 
         },
