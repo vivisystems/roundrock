@@ -70,3 +70,28 @@ Bug #255:
 
 Bug #257:
     Cropping of text displayed in onscreen VFD is based on a fixed number of characters regardless of the actual screen resolution (i.e. 12" vs. 15")
+
+Bug #258:
+    Product Search should allow browsing by departments/product groups
+
+Bug #259:
+    Icon labels in the Employees section of the control panel are cropped on 15" terminals
+
+Bug #261:
+    Number of devices should be parameterized
+
+Bug #263:
+    Setup Wizard defines obsolete preference 'DefaultLogin'
+
+Bug #265:
+    Need visual reminder of current order status
+
+Bug #267:
+    Need to ensure that terminal number in Network Services configuration is not blank
+
+Bug #268:
+    Table selection screen should not pop up when starting in recovery mode
+
+Bug #269:
+    Multiple error message #105's exist
+
