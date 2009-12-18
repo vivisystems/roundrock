@@ -100,54 +100,52 @@
             }
         },
 
-        updateCartStatus1: function() {
-            let txn = this.getTransaction();
-            if (txn && txn.data) {
-                alert('void event: ' + txn.data.status);
-            }
-            else {
-                alert('void event: no txn');
-            }
-            this.updateCartStatus();
-        },
-
         updateCartStatus: function() {
 
             let status = 'no-txn';
+            let status_str = _('(cartstatus)no-txn');
             let txn = this.getTransaction();
             if (txn) {
                 if (txn.isCancel()) {
                     status = 'no-txn';
+                    status_str = _('(cartstatus)no-txn');
                 }
                 else if (txn.isVoided()) {
                     status = 'voided-txn';
+                    status_str = _('(cartstatus)voided-txn');
                 }
                 else if (txn.isSubmit()) {
                     if (txn.data.status == 1) {
                         status = 'closed-txn';
+                        status_str = _('(cartstatus)closed-txn');
                     }
                     else {
                         if (txn.isClosed()) {
                             status = 'locked-txn'
+                            status_str = _('(cartstatus)locked-txn');
                         }
                         else {
                             status = 'stored-txn';
+                            status_str = _('(cartstatus)locked-txn');
                         }
                     }
                 }
                 else {
                     if (txn.isStored()) {
                         status = 'open-recalled-txn';
+                        status_str = _('(cartstatus)open-recalled-txn');
                     }
                     else if (txn.isClosed()) {
                         status = 'locked-txn'
+                        status_str = _('(cartstatus)locked-txn');
                     }
                     else {
                         status = 'open-txn';
+                        status_str = _('(cartstatus)open-txn');
                     }
                 }
             }
-            this.getStatusTextObj().setAttribute('value', _('(cartstatus)' + status));
+            this.getStatusTextObj().setAttribute('value', status_str);
             this.getStatusTextObj().setAttribute('status', status);
         }
     };
