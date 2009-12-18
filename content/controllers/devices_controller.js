@@ -1503,36 +1503,6 @@
 
             if (document.getElementById('report-panel') != null) {
 
-                /* populate templates */
-
-                var tmplmenu2 = document.getElementById('report-2-template');
-                var templates = this.getTemplates('label');
-
-                var sortedTemplates = [];
-                for (var tmpl in templates) {
-                    var newTemplate = GREUtils.extend({}, templates[tmpl]);
-
-                    newTemplate.name = tmpl;
-
-                    var label = newTemplate.label;
-                    if (label.indexOf('chrome://') == 0) {
-                        var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
-                        label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
-                    }
-                    else {
-                        label = _(label);
-                    }
-                    newTemplate.label = label;
-                    sortedTemplates.push(newTemplate);
-                }
-                sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
-
-                for (var i in sortedTemplates) {
-                    var tmplName = sortedTemplates[i].name;
-                    tmplmenu2.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                }
-                tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = tmplmenu3.selectedIndex = tmplmenu4.selectedIndex = 0;
-
                 /* populate device ports */
 
                 var portmenu1 = document.getElementById('report-1-port');
@@ -1565,36 +1535,25 @@
                 var devicemodelmenu2 = document.getElementById('report-2-devicemodel');
                 var devicemodels = this.getDeviceModels();
 
-                var sortedReportDevicemodels = [];
-                var sortedLabelDevicemodels = [];
+                var sortedDevicemodels = [];
                 for (var devicemodel in devicemodels) {
                     if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('report') > -1) {
-                        let newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
                         newDevicemodel.name = devicemodel;
-                        sortedReportDevicemodels.push(newDevicemodel);
-                    }
-                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('label') > -1) {
-                        let newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
-                        newDevicemodel.name = devicemodel;
-                        sortedLabelDevicemodels.push(newDevicemodel);
+                        sortedDevicemodels.push(newDevicemodel);
                     }
                 }
-                this._sortedDevicemodels['report'] = sortedReportDevicemodels = new GeckoJS.ArrayQuery(sortedReportDevicemodels).orderBy('label asc');
-                this._sortedDevicemodels['label'] = sortedLabelDevicemodels = new GeckoJS.ArrayQuery(sortedLabelDevicemodels).orderBy('label asc');
+                this._sortedDevicemodels['report'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
                 devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
-                for (var i in sortedReportDevicemodels) {
-                    let devicemodelName = sortedReportDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(_(sortedReportDevicemodels[i].label), devicemodelName, '');
+                for (var i in sortedDevicemodels) {
+                    var devicemodelName = sortedDevicemodels[i].name;
+                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
 
                     if (devicemodelName == selectedDevices['report-1-devicemodel']) {
                         devicemodelmenu1.selectedIndex = i;
                     }
-                }
-
-                for (var i in sortedLabelDevicemodels) {
-                    let devicemodelName = sortedLabelDevicemodels[i].name;
-                    devicemodelmenu2.appendItem(_(sortedLabelDevicemodels[i].label), devicemodelName, '');
 
                     if (devicemodelName == selectedDevices['report-2-devicemodel']) {
                         devicemodelmenu2.selectedIndex = i;
@@ -1606,8 +1565,8 @@
                 var encodingmenu1 = document.getElementById('report-1-encoding');
                 var encodingmenu2 = document.getElementById('report-2-encoding');
 
-                this.populateEncodings(encodingmenu1, sortedReportDevicemodels[devicemodelmenu1.selectedIndex]);
-                this.populateEncodings(encodingmenu2, sortedLabelDevicemodels[devicemodelmenu2.selectedIndex]);
+                this.populateEncodings(encodingmenu1, sortedDevicemodels[devicemodelmenu1.selectedIndex]);
+                this.populateEncodings(encodingmenu2, sortedDevicemodels[devicemodelmenu2.selectedIndex]);
             }
 
             /*
