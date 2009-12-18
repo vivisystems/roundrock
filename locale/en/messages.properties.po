@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-18 18:45+0800\n"
+"POT-Creation-Date: 2009-12-18 18:47+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3011,8 +3011,8 @@ msgstr ""
 #: ../..//content/prompt_doshiftchange.js:47
 #: ../..//content/controllers/cart_controller.js:3018
 #: ../..//content/reports/controllers/rpt_sales_summary_controller.js:852
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:73
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:77
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:72
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:76
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:45
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:49
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:40
@@ -9087,7 +9087,7 @@ msgstr ""
 
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_58mm.tpl:25
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_80mm.tpl:22
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:29
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:28
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:19
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:11
 #: ../..//content/reports/tpl/rpt_clerk_sales/rpt_clerk_sales.tpl:29
@@ -9117,7 +9117,7 @@ msgstr ""
 
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_58mm.tpl:27
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_80mm.tpl:23
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:30
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:29
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:21
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:16
 #: ../..//content/reports/tpl/rpt_clerk_sales/rpt_clerk_sales.tpl:30
@@ -9697,13 +9697,13 @@ msgstr ""
 msgid "(rpt)Total Work Time"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:31
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:30
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:22
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:17
 msgid "(rpt)Balance"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:32
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:31
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:23
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:18
 #: ../..//content/reports/tpl/rpt_clerk_sales/rpt_clerk_sales.tpl:44
@@ -9725,13 +9725,13 @@ msgstr ""
 msgid "(rpt)Cash"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:33
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:32
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:24
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:19
 msgid "(rpt)Declared Cash"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:34
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:33
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:25
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:20
 #: ../..//content/reports/tpl/rpt_clerk_sales/rpt_clerk_sales.tpl:36
@@ -9789,43 +9789,43 @@ msgstr ""
 msgid "(rpt)Total"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:35
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:34
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:26
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:21
 msgid "(rpt)Giftcard Excess"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:36
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:35
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:27
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:22
 msgid "(rpt)Deposit"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:37
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:36
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:28
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:23
 msgid "(rpt)Refund"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:38
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:37
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:29
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:24
 msgid "(rpt)Credit"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:39
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:38
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:30
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:25
 msgid "(rpt)Ledger In"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:40
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:39
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:31
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:26
 msgid "(rpt)Ledger Out"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:65
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:64
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:28
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:31
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_58mm.tpl:34
@@ -9833,33 +9833,33 @@ msgstr ""
 msgid "(rpt)Payment Type"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:66
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:65
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:28
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:127
 msgid "(rpt)Payment Amount"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:67
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:51
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:66
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:54
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:28
 msgid "(rpt)Payment Count"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:89
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:50
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:92
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:53
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:268
 #: /tmp/your_order_report.js:10
 msgid "(rpt)Destination"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:90
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:50
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:93
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:53
 msgid "(rpt)Destination Amount"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:91
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:59
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:50
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:94
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:62
+#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:53
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:269
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:81
 msgid "(rpt)Destination Count"
