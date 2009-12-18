@@ -316,7 +316,7 @@
 
                                     <!-- Devices Support -->
                                     <tabpanel flex="1" orient="vertical">
-                                        <checkbox id="devReceipt2" value="true" label="&devices.receipt.printer.2.label;"
+                                        <!--checkbox id="devReceipt2" value="true" label="&devices.receipt.printer.2.label;"
                                                       form="toolsForm" name="devReceipt2" default="false" />
                                         <checkbox id="devCheck1" value="true" label="&devices.check.printer.1.label;"
                                                       form="toolsForm" name="devCheck1" default="false" />
@@ -325,7 +325,7 @@
                                         <checkbox id="devCheck3" value="true" label="&devices.check.printer.3.label;"
                                                       form="toolsForm" name="devCheck3" default="false" />
                                         <checkbox id="devCheck4" value="true" label="&devices.check.printer.4.label;"
-                                                      form="toolsForm" name="devCheck4" default="false" />
+                                                      form="toolsForm" name="devCheck4" default="false" /-->
 
                                         <checkbox id="devReportLabel" value="true" checked="true" hidden="true" form="toolsForm" name="devReportLabel" />
                                         <checkbox id="devReport" value="true" label="&devices.report.printer.1.label;"
@@ -346,6 +346,12 @@
 
                                         <checkbox id="devJournal" value="true" label="&devices.tab.journal.label;"
                                                       form="toolsForm" name="devJournal" default="false" />
+
+                                        <hbox>
+                                            <label value="&function_customizer.devices.max_checkprinter;" control="attrDevicesCheckPrinter" />
+                                            <textbox id="attrDevicesCheckPrinter" form="toolsForm" name="attrDevicesCheckPrinter" value="4" type="number" size="2" maxlength="2" min="1" max="99" />
+                                        </hbox>
+
                                     </tabpanel>
                                     <!-- Devices Support End -->
 
