@@ -7,6 +7,8 @@
 
         $do('createFilterRows', null, 'PluSearch');
 
+        $do('createNavigationPanel', null, 'PluSearch');
+
         doSetOKCancel(
             function(){
                 // inputObj.condiments = document.getElementById('condiments').value;
