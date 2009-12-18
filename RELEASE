@@ -49,3 +49,52 @@ Bug #244:
 
 Bug #247:
     Item and order tax entries are duplicated in order_item_taxes each time an order is stored
+
+Bug #249:
+    Number of voided orders in Sales Summary Report should be the number of stored/closed orders from the selected time period that have been voided, not the number of orders voided in the selected time period
+
+Bug #250:
+    When entering drawer cash amount on signing in a new shift, user should be given opportunity to re-enter cash amount
+
+Bug #251:
+    Order Status Repport should allow search by the sale period and shift and actual time when an order is voided. The report should also display void details
+
+Bug #252:
+    Computation of fixed-amount add-on included taxes on return items is incorrect
+
+Bug #253:
+    Modifying a registered item causes the item to revert to its preset tax status
+
+Bug #254:
+    When 'Subtotal' is selected for Promotion type 'Fixed Value', if trigger amount mode is multiple, the fixed subtotal is applied on the sum of all matching items and not on sums of individual sets of matching items
+
+Bug #255:
+    In the Detailed Tax Report, order-related totals are tallied once per tax type, leading to incorrect summarization values
+
+Bug #257:
+    Cropping of text displayed in onscreen VFD is based on a fixed number of characters regardless of the actual screen resolution (i.e. 12" vs. 15")
+
+Bug #258:
+    Product Search should allow browsing by departments/product groups
+
+Bug #259:
+    Icon labels in the Employees section of the control panel are cropped on 15" terminals
+
+Bug #261:
+    Number of devices should be parameterized
+
+Bug #263:
+    Setup Wizard defines obsolete preference 'DefaultLogin'
+
+Bug #265:
+    Need visual reminder of current order status
+
+Bug #267:
+    Need to ensure that terminal number in Network Services configuration is not blank
+
+Bug #268:
+    Table selection screen should not pop up when starting in recovery mode
+
+Bug #269:
+    Multiple error message #105's exist
+

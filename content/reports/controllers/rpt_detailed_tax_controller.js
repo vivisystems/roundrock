@@ -88,7 +88,6 @@
                 revalue_subtotal: 0,
                 taxes: {}
             };
-
             // summarize orders
             var records = {};
             var taxList = [];
@@ -101,20 +100,20 @@
                     records[ oid ][ 'surcharge_subtotal' ] = data.Order.surcharge_subtotal;
                     records[ oid ][ 'discount_subtotal' ] = data.Order.discount_subtotal;
                     records[ oid ][ 'taxes' ] = {};
-                }
                 
-                summary.total += data.Order.total;
-                summary.item_subtotal += data.Order.item_subtotal;
-                summary.tax_subtotal += data.Order.tax_subtotal;
-                summary.included_tax_subtotal += data.Order.included_tax_subtotal;
-                summary.surcharge_subtotal += data.Order.surcharge_subtotal;
-                summary.item_surcharge_subtotal += data.Order.item_surcharge_subtotal;
-                summary.trans_surcharge_subtotal += data.Order.trans_surcharge_subtotal;
-                summary.discount_subtotal += data.Order.discount_subtotal;
-                summary.item_discount_subtotal += data.Order.item_discount_subtotal;
-                summary.trans_discount_subtotal += data.Order.trans_discount_subtotal;
-                summary.promotion_subtotal += data.Order.promotion_subtotal;
-                summary.revalue_subtotal += data.Order.revalue_subtotal;
+                    summary.total += data.Order.total;
+                    summary.item_subtotal += data.Order.item_subtotal;
+                    summary.tax_subtotal += data.Order.tax_subtotal;
+                    summary.included_tax_subtotal += data.Order.included_tax_subtotal;
+                    summary.surcharge_subtotal += data.Order.surcharge_subtotal;
+                    summary.item_surcharge_subtotal += data.Order.item_surcharge_subtotal;
+                    summary.trans_surcharge_subtotal += data.Order.trans_surcharge_subtotal;
+                    summary.discount_subtotal += data.Order.discount_subtotal;
+                    summary.item_discount_subtotal += data.Order.item_discount_subtotal;
+                    summary.trans_discount_subtotal += data.Order.trans_discount_subtotal;
+                    summary.promotion_subtotal += data.Order.promotion_subtotal;
+                    summary.revalue_subtotal += data.Order.revalue_subtotal;
+                }
 
                 let tax_amount, tax = data.Tax;
                 if (tax.tax_type == 'INCLUDED') {
@@ -186,10 +185,11 @@
             this._reportRecords.taxList = taxList;
 			
             this._reportRecords.foot.summary = summary;
-
+/*
             this.log('DEBUG', 'order records: ' + this.dump(records));
             this.log('DEBUG', 'tax list: ' + this.dump(taxList));
             this.log('DEBUG', 'tax summary: ' + this.dump(summary));
+*/
         },
 
         _set_reportRecords: function(limit) {

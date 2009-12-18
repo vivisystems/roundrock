@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-10 03:04+0800\n"
+"POT-Creation-Date: 2009-12-18 18:05+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -550,9 +550,9 @@ msgstr "Issue Receipt Copy"
 # ##############
 msgid "vivipos.fec.registry.function.programmable.printcheck.desc"
 msgstr ""
-"This function issues a check. The parameter should be 1, 2, 3, or 4, "
-"indicating the printer to issue the check on. If no parameter is given, the "
-"check will be printed on all enabled check printers."
+"This function issues a check. The parameter should be a number indicating "
+"the printer to issue the check on. If no parameter is given, the check will "
+"be printed on all enabled check printers."
 
 msgid "vivipos.fec.registry.function.programmable.printcheck.label"
 msgstr "Issue Check"
@@ -565,7 +565,7 @@ msgstr "Issue Check"
 # ###################
 msgid "vivipos.fec.registry.function.programmable.checkcopy.desc"
 msgstr ""
-"This function issues a check copy. The parameter should be 1, 2, 3, or 4, "
+"This function issues a check copy. The parameter should be a number "
 "indicating the printer to issue the check on. If no parameter is given, the "
 "check will be printed on all enabled check printers."
 
@@ -581,8 +581,8 @@ msgstr "Issue Check Copy"
 msgid "vivipos.fec.registry.function.programmable.prepareguestcheck.desc"
 msgstr ""
 "This function prepares and optionally prints a guest check. To issue a guest "
-"check, the parameter should be 1, 2, 3, or 4, indicating the printer to "
-"print the check on. If no parameter is given, no guest check will be printed."
+"check, the parameter should be a number indicating the printer to print the "
+"check on. If no parameter is given, no guest check will be printed."
 
 msgid "vivipos.fec.registry.function.programmable.prepareguestcheck.label"
 msgstr "Prepare Guest Check"
@@ -596,8 +596,7 @@ msgstr "Prepare Guest Check"
 msgid "vivipos.fec.registry.function.programmable.printdocument.desc"
 msgstr ""
 "This function prints a document on a designated check printer. The parameter "
-"must be set to 1, 2, 3, or 4, indicating the printer to print the document "
-"on."
+"must be set to a number indicating the printer to print the document on."
 
 msgid "vivipos.fec.registry.function.programmable.printdocument.label"
 msgstr "Print Document"
@@ -2750,12 +2749,6 @@ msgstr "Set Items"
 msgid "License"
 msgstr "License"
 
-msgid "(rpt)Void Clerk"
-msgstr "Void Clerk"
-
-msgid "(rpt)Void Time"
-msgstr "Void Time"
-
 # #######################################################################
 #
 # List of Built-in Templates
@@ -2950,8 +2943,8 @@ msgid ""
 msgstr ""
 
 #: ../..//content/overlay.js:23
-#: ../..//content/controllers/main_controller.js:1283
-#: ../..//content/controllers/setup_wizard_controller.js:683
+#: ../..//content/controllers/main_controller.js:1284
+#: ../..//content/controllers/setup_wizard_controller.js:681
 msgid "VIVIPOS Setup"
 msgstr ""
 
@@ -2978,7 +2971,7 @@ msgstr ""
 
 #: ../..//content/prompt_doshiftchange.js:47
 #: ../..//content/controllers/cart_controller.js:3018
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:805
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:801
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:73
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:77
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:45
@@ -3012,8 +3005,8 @@ msgstr ""
 #: ../..//content/prompt_doshiftchangeblindly.js:126
 #: ../..//content/prompt_doshiftchangeblindly.js:131
 #: ../..//content/controllers/shift_changes_controller.js:39
-#: ../..//content/controllers/shift_changes_controller.js:611
-#: ../..//content/controllers/shift_changes_controller.js:1125
+#: ../..//content/controllers/shift_changes_controller.js:626
+#: ../..//content/controllers/shift_changes_controller.js:1140
 msgid "Shift Change"
 msgstr ""
 
@@ -3126,7 +3119,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/reportPanel.js:74
-#: ../..//content/controllers/main_controller.js:1483
+#: ../..//content/controllers/main_controller.js:1484
 msgid "custom"
 msgstr ""
 
@@ -3251,7 +3244,7 @@ msgstr ""
 #: ../..//content/controllers/currencysetup_controller.js:86
 #: ../..//content/controllers/departments_controller.js:164
 #: ../..//content/controllers/destination_controller.js:424
-#: ../..//content/controllers/devices_controller.js:1906
+#: ../..//content/controllers/devices_controller.js:1623
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:136
 #: ../..//content/controllers/hotkey_prefs_controller.js:500
 #: ../..//content/controllers/jobs_controller.js:227
@@ -3282,7 +3275,7 @@ msgstr ""
 #: ../..//content/controllers/currencysetup_controller.js:88
 #: ../..//content/controllers/departments_controller.js:166
 #: ../..//content/controllers/destination_controller.js:426
-#: ../..//content/controllers/devices_controller.js:1908
+#: ../..//content/controllers/devices_controller.js:1625
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:138
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
 #: ../..//content/controllers/jobs_controller.js:229
@@ -3314,7 +3307,7 @@ msgstr ""
 #: ../..//content/controllers/departments_controller.js:182
 #: ../..//content/controllers/destination_controller.js:405
 #: ../..//content/controllers/destination_controller.js:426
-#: ../..//content/controllers/devices_controller.js:1908
+#: ../..//content/controllers/devices_controller.js:1625
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:138
 #: ../..//content/controllers/hotkey_prefs_controller.js:458
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
@@ -3579,7 +3572,7 @@ msgid "The item [%S] (%S) is sold out"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:737
-#: ../..//content/controllers/main_controller.js:568
+#: ../..//content/controllers/main_controller.js:569
 msgid "Price must be given to register sale of department [%S]"
 msgstr ""
 
@@ -4090,11 +4083,11 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1651
 #: ../..//content/controllers/ledger_controller.js:314
 #: ../..//content/controllers/list_orders_controller.js:219
-#: ../..//content/controllers/main_controller.js:1071
-#: ../..//content/controllers/main_controller.js:1408
+#: ../..//content/controllers/main_controller.js:1072
+#: ../..//content/controllers/main_controller.js:1409
 #: ../..//content/controllers/print_controller.js:1208
-#: ../..//content/controllers/setup_wizard_controller.js:700
-#: ../..//content/controllers/shift_changes_controller.js:1566
+#: ../..//content/controllers/setup_wizard_controller.js:698
+#: ../..//content/controllers/shift_changes_controller.js:1581
 #: ../..//content/controllers/stock_records_controller.js:747
 #: ../..//content/controllers/view_order_controller.js:206
 #: ../..//content/controllers/components/cart_utils.js:54
@@ -4129,7 +4122,7 @@ msgid "Total discount [%S] may not exceed user order discount limit [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3393
-#: ../..//content/controllers/shift_changes_controller.js:616
+#: ../..//content/controllers/shift_changes_controller.js:631
 msgid "Saving Order"
 msgstr ""
 
@@ -4180,7 +4173,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3594
-#: ../..//content/controllers/main_controller.js:440
+#: ../..//content/controllers/main_controller.js:441
 msgid "Add Annotation"
 msgstr ""
 
@@ -4441,8 +4434,8 @@ msgstr ""
 
 #: ../..//content/controllers/changeuser_controller.js:81
 #: ../..//content/controllers/changeuser_controller.js:93
-#: ../..//content/controllers/main_controller.js:767
-#: ../..//content/controllers/main_controller.js:846
+#: ../..//content/controllers/main_controller.js:768
+#: ../..//content/controllers/main_controller.js:847
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr ""
 
@@ -4817,114 +4810,90 @@ msgid ""
 "exiting?"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:56
-#: ../..//content/controllers/devices_controller.js:61
-#: ../..//content/controllers/devices_controller.js:80
-#: ../..//content/controllers/devices_controller.js:1859
-#: ../..//content/controllers/devices_controller.js:1877
+#: ../..//content/controllers/devices_controller.js:63
+#: ../..//content/controllers/devices_controller.js:68
+#: ../..//content/controllers/devices_controller.js:87
+#: ../..//content/controllers/devices_controller.js:1576
+#: ../..//content/controllers/devices_controller.js:1594
 #: ../..//content/controllers/scale_controller.js:67
 #: ../..//content/controllers/scale_controller.js:88
 #: ../..//content/controllers/scale_controller.js:98
 msgid "Device Status"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:57
+#: ../..//content/controllers/devices_controller.js:64
 msgid ""
 "Please remember to configure devices to enable receipt and check printing"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:62
-#: ../..//content/controllers/devices_controller.js:1860
+#: ../..//content/controllers/devices_controller.js:69
+#: ../..//content/controllers/devices_controller.js:1577
 msgid "No device has been enabled for receipt and/or check printing!"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:73
-#: ../..//content/controllers/devices_controller.js:1870
+#: ../..//content/controllers/devices_controller.js:80
+#: ../..//content/controllers/devices_controller.js:1587
 msgid "Device"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:73
-#: ../..//content/controllers/devices_controller.js:1870
+#: ../..//content/controllers/devices_controller.js:80
+#: ../..//content/controllers/devices_controller.js:1587
 msgid "Port"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:81
+#: ../..//content/controllers/devices_controller.js:88
 msgid ""
 "The following enabled devices appear to be offline, please ensure that they "
 "are functioning correctly"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:459
-#: ../..//content/controllers/devices_controller.js:463
-#: ../..//content/controllers/devices_controller.js:465
-#: ../..//content/controllers/devices_controller.js:481
-#: ../..//content/controllers/devices_controller.js:485
-#: ../..//content/controllers/devices_controller.js:487
+#: ../..//content/controllers/devices_controller.js:415
+#: ../..//content/controllers/devices_controller.js:419
+#: ../..//content/controllers/devices_controller.js:421
 msgid "Receipt Printer %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:503
-#: ../..//content/controllers/devices_controller.js:507
-#: ../..//content/controllers/devices_controller.js:509
-#: ../..//content/controllers/devices_controller.js:525
-#: ../..//content/controllers/devices_controller.js:529
-#: ../..//content/controllers/devices_controller.js:531
-#: ../..//content/controllers/devices_controller.js:547
-#: ../..//content/controllers/devices_controller.js:551
-#: ../..//content/controllers/devices_controller.js:553
-#: ../..//content/controllers/devices_controller.js:569
-#: ../..//content/controllers/devices_controller.js:573
-#: ../..//content/controllers/devices_controller.js:575
+#: ../..//content/controllers/devices_controller.js:441
+#: ../..//content/controllers/devices_controller.js:445
+#: ../..//content/controllers/devices_controller.js:447
 msgid "Check Printer %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:591
-#: ../..//content/controllers/devices_controller.js:595
-#: ../..//content/controllers/devices_controller.js:597
-#: ../..//content/controllers/devices_controller.js:613
-#: ../..//content/controllers/devices_controller.js:617
-#: ../..//content/controllers/devices_controller.js:619
+#: ../..//content/controllers/devices_controller.js:466
+#: ../..//content/controllers/devices_controller.js:470
+#: ../..//content/controllers/devices_controller.js:472
 msgid "Report Printer %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:635
-#: ../..//content/controllers/devices_controller.js:639
-#: ../..//content/controllers/devices_controller.js:641
-#: ../..//content/controllers/devices_controller.js:656
-#: ../..//content/controllers/devices_controller.js:660
-#: ../..//content/controllers/devices_controller.js:662
+#: ../..//content/controllers/devices_controller.js:491
+#: ../..//content/controllers/devices_controller.js:495
+#: ../..//content/controllers/devices_controller.js:497
 msgid "VFD %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:682
-#: ../..//content/controllers/devices_controller.js:686
-#: ../..//content/controllers/devices_controller.js:688
-#: ../..//content/controllers/devices_controller.js:709
-#: ../..//content/controllers/devices_controller.js:713
-#: ../..//content/controllers/devices_controller.js:715
+#: ../..//content/controllers/devices_controller.js:520
+#: ../..//content/controllers/devices_controller.js:524
+#: ../..//content/controllers/devices_controller.js:526
 msgid "Cash Drawer %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:730
-#: ../..//content/controllers/devices_controller.js:734
-#: ../..//content/controllers/devices_controller.js:736
-#: ../..//content/controllers/devices_controller.js:756
-#: ../..//content/controllers/devices_controller.js:760
-#: ../..//content/controllers/devices_controller.js:762
+#: ../..//content/controllers/devices_controller.js:544
+#: ../..//content/controllers/devices_controller.js:548
+#: ../..//content/controllers/devices_controller.js:550
 msgid "Scale %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:1878
+#: ../..//content/controllers/devices_controller.js:1595
 msgid ""
 "The following enabled devices appear to be offline, do you still want to "
 "save the new configuration?"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:1891
+#: ../..//content/controllers/devices_controller.js:1608
 msgid "Device configuration saved"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:1907
+#: ../..//content/controllers/devices_controller.js:1624
 msgid ""
 "You have made changes to device configuration. Save changes before exiting?"
 msgstr ""
@@ -5043,11 +5012,9 @@ msgid "Split Payment"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:673
-#: ../..//content/controllers/guest_check_controller.js:1518
-#: ../..//content/controllers/guest_check_controller.js:1652
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
-"the terminal designated as the table service server [message #105]."
+"the terminal designated as the table service server [message #502]."
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:677
@@ -5193,6 +5160,12 @@ msgstr ""
 msgid "Merge Check"
 msgstr ""
 
+#: ../..//content/controllers/guest_check_controller.js:1518
+msgid ""
+"This order could not be committed. Please check the network connectivity to "
+"the terminal designated as the table service server [message #503]."
+msgstr ""
+
 #: ../..//content/controllers/guest_check_controller.js:1531
 msgid "Check# %S has been successfully merged to Check# %S"
 msgstr ""
@@ -5207,6 +5180,12 @@ msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:1581
 msgid "This order has discounts or surcharge, can not be split"
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:1652
+msgid ""
+"This order could not be committed. Please check the network connectivity to "
+"the terminal designated as the table service server [message #504]."
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:1666
@@ -5657,11 +5636,11 @@ msgstr ""
 #: ../..//content/controllers/journal_controller.js:241
 #: ../..//content/controllers/ledger_controller.js:315
 #: ../..//content/controllers/list_orders_controller.js:220
-#: ../..//content/controllers/main_controller.js:1073
-#: ../..//content/controllers/main_controller.js:1409
-#: ../..//content/controllers/setup_wizard_controller.js:701
+#: ../..//content/controllers/main_controller.js:1074
+#: ../..//content/controllers/main_controller.js:1410
+#: ../..//content/controllers/setup_wizard_controller.js:699
 #: ../..//content/controllers/shift_changes_controller.js:41
-#: ../..//content/controllers/shift_changes_controller.js:1567
+#: ../..//content/controllers/shift_changes_controller.js:1582
 #: ../..//content/controllers/stock_records_controller.js:748
 #: ../..//content/controllers/view_order_controller.js:207
 #: ../..//content/controllers/components/cart_utils.js:55
@@ -5678,21 +5657,21 @@ msgstr ""
 msgid "Failed to load preference panel(s) for selected layout"
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:228
+#: ../..//content/controllers/layout_manager_controller.js:255
 msgid ""
 "If you change layout now, the system will restart automatically after you "
 "return to the Main Screen. Are you sure you want to change layout?"
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:230
+#: ../..//content/controllers/layout_manager_controller.js:257
 msgid "Confirm Change Layout"
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:241
+#: ../..//content/controllers/layout_manager_controller.js:268
 msgid "Layout Manager"
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:241
+#: ../..//content/controllers/layout_manager_controller.js:268
 msgid "Layout settings saved"
 msgstr ""
 
@@ -5967,10 +5946,10 @@ msgid "Package Builder"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:291
-#: ../..//content/controllers/main_controller.js:731
-#: ../..//content/controllers/main_controller.js:777
-#: ../..//content/controllers/main_controller.js:857
-#: ../..//content/controllers/main_controller.js:1019
+#: ../..//content/controllers/main_controller.js:732
+#: ../..//content/controllers/main_controller.js:778
+#: ../..//content/controllers/main_controller.js:858
+#: ../..//content/controllers/main_controller.js:1020
 #: ../..//content/controllers/training_mode_controller.js:105
 #: ../..//content/controllers/training_mode_controller.js:115
 #: ../..//content/controllers/training_mode_controller.js:125
@@ -6001,213 +5980,213 @@ msgstr ""
 msgid "Clock In/Out"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:352
+#: ../..//content/controllers/main_controller.js:353
 #: ../..//content/controllers/plus_controller.js:552
 #: ../..//content/controllers/plus_controller.js:1095
-#: ../..//content/controllers/plusearch_controller.js:165
-#: ../..//content/controllers/plusearch_controller.js:170
+#: ../..//content/controllers/plusearch_controller.js:240
+#: ../..//content/controllers/plusearch_controller.js:245
 #: ../..//content/controllers/stock_records_controller.js:132
 #: ../..//content/controllers/table_man_controller.js:815
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:72
 msgid "Product Search"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:379
+#: ../..//content/controllers/main_controller.js:380
 #: ../..//content/controllers/print_controller.js:1180
 msgid "Printer Dashboard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:389
+#: ../..//content/controllers/main_controller.js:390
 msgid "No order to add/view annotations"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:465
+#: ../..//content/controllers/main_controller.js:466
 msgid "Annotate Order"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:480
+#: ../..//content/controllers/main_controller.js:481
 msgid "List Orders"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:489
+#: ../..//content/controllers/main_controller.js:490
 msgid "(view)search by table number"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:495
+#: ../..//content/controllers/main_controller.js:496
 msgid "(view)search by check number"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:502
+#: ../..//content/controllers/main_controller.js:503
 msgid "(view)search by order sequence"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:660
+#: ../..//content/controllers/main_controller.js:661
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1001]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:732
-#: ../..//content/controllers/main_controller.js:778
-#: ../..//content/controllers/main_controller.js:858
+#: ../..//content/controllers/main_controller.js:733
+#: ../..//content/controllers/main_controller.js:779
+#: ../..//content/controllers/main_controller.js:859
 msgid "To use this funciton, please leave training mode first"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:737
+#: ../..//content/controllers/main_controller.js:738
 msgid "Switch User"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:738
+#: ../..//content/controllers/main_controller.js:739
 msgid "Please enter password"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:759
-#: ../..//content/controllers/main_controller.js:839
+#: ../..//content/controllers/main_controller.js:760
+#: ../..//content/controllers/main_controller.js:840
 msgid " logged in"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:796
+#: ../..//content/controllers/main_controller.js:797
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1002]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:809
+#: ../..//content/controllers/main_controller.js:810
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1003]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:814
+#: ../..//content/controllers/main_controller.js:815
 msgid "User [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:850
+#: ../..//content/controllers/main_controller.js:851
 msgid "Please enter passcode first."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:886
-#: ../..//content/controllers/main_controller.js:901
-#: ../..//content/controllers/main_controller.js:915
-#: ../..//content/controllers/main_controller.js:931
+#: ../..//content/controllers/main_controller.js:887
+#: ../..//content/controllers/main_controller.js:902
+#: ../..//content/controllers/main_controller.js:916
+#: ../..//content/controllers/main_controller.js:932
 msgid "Sign Off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:886
+#: ../..//content/controllers/main_controller.js:887
 msgid "Discard items that have been registered?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:902
+#: ../..//content/controllers/main_controller.js:903
 msgid "What do you want to do with the registered items?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:903
+#: ../..//content/controllers/main_controller.js:904
 msgid "Queue"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:903
-#: ../..//content/controllers/main_controller.js:933
+#: ../..//content/controllers/main_controller.js:904
+#: ../..//content/controllers/main_controller.js:934
 msgid "Discard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:915
+#: ../..//content/controllers/main_controller.js:916
 msgid "You have one or more queued orders. Discard them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:932
+#: ../..//content/controllers/main_controller.js:933
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:933
+#: ../..//content/controllers/main_controller.js:934
 msgid "Keep"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:942
+#: ../..//content/controllers/main_controller.js:943
 msgid "confirm sign-off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:942
+#: ../..//content/controllers/main_controller.js:943
 msgid "Are you ready to sign off?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1019
+#: ../..//content/controllers/main_controller.js:1020
 msgid "This function is not available in training mode"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1024
-#: ../..//content/controllers/main_controller.js:1027
-#: ../..//content/controllers/main_controller.js:1089
+#: ../..//content/controllers/main_controller.js:1025
+#: ../..//content/controllers/main_controller.js:1028
+#: ../..//content/controllers/main_controller.js:1090
 msgid "Remove All Transaction Records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1025
+#: ../..//content/controllers/main_controller.js:1026
 msgid ""
 "This operation will remove all transaction records. Are you sure you want to "
 "proceed?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1028
+#: ../..//content/controllers/main_controller.js:1029
 msgid ""
 "Data will not be recoverable once removed. It is strongly recommended that "
 "the system be backed up before truncating transaction records. Proceed with "
 "data removal?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1030
+#: ../..//content/controllers/main_controller.js:1031
 msgid "Removing all transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1072
+#: ../..//content/controllers/main_controller.js:1073
 msgid ""
 "An error was encountered while attempting to remove all transaction records "
 "[message #1011]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1090
+#: ../..//content/controllers/main_controller.js:1091
 msgid "Removal completed. Application will now restart"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1109
+#: ../..//content/controllers/main_controller.js:1110
 msgid "Removing expired transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1126
+#: ../..//content/controllers/main_controller.js:1127
 msgid ""
 "An error was encountered while expiring backup sales activity logs (error "
 "code %S) [message #1004]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1135
+#: ../..//content/controllers/main_controller.js:1136
 msgid ""
 "An error was encountered while expiring sales activity logs (error code %S) "
 "[message #1005]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1146
+#: ../..//content/controllers/main_controller.js:1147
 msgid ""
 "An error was encountered while expiring backup employee attendance records "
 "(error code %S) [message #1006]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1155
+#: ../..//content/controllers/main_controller.js:1156
 msgid ""
 "An error was encountered while expiring employee attendance records (error "
 "code %S) [message #1007]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1166
+#: ../..//content/controllers/main_controller.js:1167
 msgid ""
 "An error was encountered while expiring order queues (error code %S) "
 "[message #1008]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1215
+#: ../..//content/controllers/main_controller.js:1216
 msgid ""
 "An error was encountered while retrieving stock adjustment records (error "
 "code %S) [message #1010]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1228
+#: ../..//content/controllers/main_controller.js:1229
 #: ../..//content/controllers/stock_records_controller.js:517
 #: ../..//content/controllers/stock_records_controller.js:575
 #: ../..//content/controllers/stock_records_controller.js:591
@@ -6215,35 +6194,35 @@ msgstr ""
 msgid "Stock Adjustment"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1239
+#: ../..//content/controllers/main_controller.js:1240
 msgid "Adjust Stock"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1243
+#: ../..//content/controllers/main_controller.js:1244
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1243
+#: ../..//content/controllers/main_controller.js:1244
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1250
+#: ../..//content/controllers/main_controller.js:1251
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1250
+#: ../..//content/controllers/main_controller.js:1251
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1429
+#: ../..//content/controllers/main_controller.js:1430
 msgid "Function Customizer"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1491
+#: ../..//content/controllers/main_controller.js:1492
 msgid "Report [%S] not exists"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1501
+#: ../..//content/controllers/main_controller.js:1502
 msgid "You are not authorized to access the [%S] report"
 msgstr ""
 
@@ -6524,11 +6503,11 @@ msgstr ""
 msgid "You have not selected any properties to clone."
 msgstr ""
 
-#: ../..//content/controllers/plusearch_controller.js:166
+#: ../..//content/controllers/plusearch_controller.js:241
 msgid "No products found with conditions"
 msgstr ""
 
-#: ../..//content/controllers/plusearch_controller.js:171
+#: ../..//content/controllers/plusearch_controller.js:246
 msgid "Product [%S] Not Found!"
 msgstr ""
 
@@ -6788,12 +6767,12 @@ msgstr ""
 
 #: ../..//content/controllers/select_checks_controller.js:78
 #: ../..//content/models/order_queue.js:154
-#: ../..//content/bindings/onscreenvfd.xbl:65
-#: ../..//content/bindings/onscreenvfd.xbl:126
-#: ../..//content/bindings/onscreenvfd.xbl:148
-#: ../..//content/bindings/onscreenvfd.xbl:155
-#: ../..//content/bindings/onscreenvfd.xbl:173
-#: ../..//content/bindings/onscreenvfd.xbl:178
+#: ../..//content/bindings/onscreenvfd.xbl:68
+#: ../..//content/bindings/onscreenvfd.xbl:129
+#: ../..//content/bindings/onscreenvfd.xbl:151
+#: ../..//content/bindings/onscreenvfd.xbl:158
+#: ../..//content/bindings/onscreenvfd.xbl:176
+#: ../..//content/bindings/onscreenvfd.xbl:181
 msgid "TAL"
 msgstr ""
 
@@ -6971,31 +6950,31 @@ msgstr ""
 msgid "(taxRateType)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:624
+#: ../..//content/controllers/setup_wizard_controller.js:622
 msgid ""
 "An error was encountered while accessing administrator account (error code %"
 "S) [message #1302]."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:632
+#: ../..//content/controllers/setup_wizard_controller.js:630
 msgid ""
 "An error was encountered while updating administrator password (error code %"
 "S) [message #1303]."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:645
+#: ../..//content/controllers/setup_wizard_controller.js:643
 msgid ""
 "An error was encountered while accessing store information (error code %S) "
 "[message #1304]."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:658
+#: ../..//content/controllers/setup_wizard_controller.js:656
 msgid ""
 "An error was encountered while updating store information (error code %S) "
 "[message #1305]."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:684
+#: ../..//content/controllers/setup_wizard_controller.js:682
 msgid ""
 "Unless you plan to restore the terminal from a previously taken backup, you "
 "are strongly advised to complete the setup process to ensure that the "
@@ -7027,65 +7006,74 @@ msgstr ""
 msgid "Verify Drawer Change"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:195
+#: ../..//content/controllers/shift_changes_controller.js:201
+#: ../..//content/controllers/shift_changes_controller.js:215
 msgid "Open Drawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:203
+#: ../..//content/controllers/shift_changes_controller.js:204
+#: ../..//content/controllers/shift_changes_controller.js:218
 msgid "Enter amount of cash in drawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:236
+#: ../..//content/controllers/shift_changes_controller.js:208
+msgid ""
+"The amount you entered is different from the recorded amount. Are you sure "
+"you have entered the correct amount? You may press \"Cancel\" to re-enter "
+"the drawer cash amount."
+msgstr ""
+
+#: ../..//content/controllers/shift_changes_controller.js:251
 msgid ""
 "An error was encountered while expiring backup shift change records (error "
 "code %S) [message #1403]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:243
+#: ../..//content/controllers/shift_changes_controller.js:258
 msgid ""
 "An error was encountered while expiring shift change records (error code %S) "
 "[message #1404]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:251
+#: ../..//content/controllers/shift_changes_controller.js:266
 msgid ""
 "An error was encountered while expiring backup shift change details (error "
 "code %S) [message #1405]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:258
+#: ../..//content/controllers/shift_changes_controller.js:273
 msgid ""
 "An error was encountered while expiring shift change details (error code %S) "
 "[message #1406]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:275
+#: ../..//content/controllers/shift_changes_controller.js:290
 msgid ""
 "An error was encountered while removing all shift change records (error code "
 "%S) [message #1407]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:283
+#: ../..//content/controllers/shift_changes_controller.js:298
 msgid ""
 "An error was encountered while removing all shift change details (error code "
 "%S) [message #1408]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:290
+#: ../..//content/controllers/shift_changes_controller.js:305
 msgid ""
 "An error was encountered while removing shift change marker (error code %S) "
 "[message #1409]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:324
-#: ../..//content/controllers/shift_changes_controller.js:338
-#: ../..//content/controllers/shift_changes_controller.js:350
-#: ../..//content/controllers/shift_changes_controller.js:395
-#: ../..//content/controllers/shift_changes_controller.js:419
+#: ../..//content/controllers/shift_changes_controller.js:339
+#: ../..//content/controllers/shift_changes_controller.js:353
+#: ../..//content/controllers/shift_changes_controller.js:365
+#: ../..//content/controllers/shift_changes_controller.js:410
+#: ../..//content/controllers/shift_changes_controller.js:434
 msgid "Shift Change Error"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:325
+#: ../..//content/controllers/shift_changes_controller.js:340
 msgid ""
 "Failed to start shift because current sale period could not be determined. "
 "Please check the network connectivity to the terminal designated as the sale "
@@ -7093,251 +7081,251 @@ msgid ""
 "#1430]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:339
+#: ../..//content/controllers/shift_changes_controller.js:354
 msgid ""
 "Failed to start shift because cluster sale period [%S] is invalid. Please "
 "verify that the terminal designated as the sale period master has been "
 "properly configured [message #1431]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:351
+#: ../..//content/controllers/shift_changes_controller.js:366
 msgid ""
 "Failed to start shift because cluster sale period has not yet been set. "
 "Please verify that the terminal designated as the sale period master has "
 "properly initialized the sale period [message #1432]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:396
+#: ../..//content/controllers/shift_changes_controller.js:411
 msgid ""
 "Failed to start sale period because order sequence number could not be "
 "reset. Please make sure that the terminal designated as the sequence number "
 "master is working normally [message #1433]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:420
+#: ../..//content/controllers/shift_changes_controller.js:435
 msgid ""
 "Failed to start sale period because cluster sale period could not be "
 "updated. Please check the network connectivity to the terminal designated as "
 "the sale period master [message #1434]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:465
-#: ../..//content/controllers/shift_changes_controller.js:473
+#: ../..//content/controllers/shift_changes_controller.js:480
+#: ../..//content/controllers/shift_changes_controller.js:488
 msgid "Shift Change Warning"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:466
+#: ../..//content/controllers/shift_changes_controller.js:481
 msgid ""
 "This terminal's sale period [%S] appears to be ahead of the cluster sale "
 "period [%S]. Transactions will be recorded in the cluster sale period [%S] "
 "and shift [%S] instead."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:474
+#: ../..//content/controllers/shift_changes_controller.js:489
 msgid ""
 "This terminal's sale period [%S] appears to be out of sync with the cluster "
 "sale period [%S]. Please close the sale period on this terminal immediately "
 "to avoid recording transactions in the wrong sale period."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:538
+#: ../..//content/controllers/shift_changes_controller.js:553
 msgid "Drawer change on record [%S], user reported change [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:551
+#: ../..//content/controllers/shift_changes_controller.js:566
 msgid "(Ledger Type)Drawer Change Discrepancy"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:560
+#: ../..//content/controllers/shift_changes_controller.js:575
 msgid "IMPORTANT!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:561
+#: ../..//content/controllers/shift_changes_controller.js:576
 msgid "Cash reported [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:562
+#: ../..//content/controllers/shift_changes_controller.js:577
 msgid "Cash recorded from last shift [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:563
+#: ../..//content/controllers/shift_changes_controller.js:578
 msgid "Please report the discrepancy to your supervisor immediately!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:596
+#: ../..//content/controllers/shift_changes_controller.js:611
 msgid "Drawer Change Error"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:612
+#: ../..//content/controllers/shift_changes_controller.js:627
 msgid "Shift change is disabled in training mode"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:660
+#: ../..//content/controllers/shift_changes_controller.js:675
 msgid ""
 "An error was encountered while retrieving credit card, check, and coupon "
 "payment records (error code %S) [message #1410]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:686
+#: ../..//content/controllers/shift_changes_controller.js:701
 msgid ""
 "An error was encountered while retrieving giftcard payment records (error "
 "code %S) [message #1411]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:710
+#: ../..//content/controllers/shift_changes_controller.js:725
 msgid ""
 "An error was encountered while retrieving cash payment records (error code %"
 "S) [message #1413]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:737
+#: ../..//content/controllers/shift_changes_controller.js:752
 msgid ""
 "An error was encountered while retrieving foreign cash payment records "
 "(error code %S) [message #1415]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:764
+#: ../..//content/controllers/shift_changes_controller.js:779
 msgid ""
 "An error was encountered while retrieving groupable coupon payment records "
 "(error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:791
+#: ../..//content/controllers/shift_changes_controller.js:806
 msgid ""
 "An error was encountered while retrieving groupable cash payment records "
 "(error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:818
+#: ../..//content/controllers/shift_changes_controller.js:833
 msgid ""
 "An error was encountered while retrieving groupable foreign cash payment "
 "records (error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:845
+#: ../..//content/controllers/shift_changes_controller.js:860
 msgid ""
 "An error was encountered while retrieving ledger payment records (error code "
 "%S) [message #1416]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:873
+#: ../..//content/controllers/shift_changes_controller.js:888
 msgid ""
 "An error was encountered while retrieving orders by destinations (error code "
 "%S) [message #1417]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:894
+#: ../..//content/controllers/shift_changes_controller.js:909
 msgid ""
 "An error was encountered while computing cash and ledger sums (error code %"
 "S) [message #1418]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:912
+#: ../..//content/controllers/shift_changes_controller.js:927
 msgid ""
 "An error was encountered while computing amount of cash change given out "
 "(error code %S) [message #1419]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:932
+#: ../..//content/controllers/shift_changes_controller.js:947
 msgid ""
 "An error was encountered while computing total payments received (error code "
 "%S) [message #1420]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:950
+#: ../..//content/controllers/shift_changes_controller.js:965
 msgid ""
 "An error was encountered while computing depoits received (error code %S) "
 "[message #1421]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:969
+#: ../..//content/controllers/shift_changes_controller.js:984
 msgid ""
 "An error was encountered while computing refunds given out (error code %S) "
 "[message #1422]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:987
+#: ../..//content/controllers/shift_changes_controller.js:1002
 msgid ""
 "An error was encountered while computing sales revenue (error code %S) "
 "[message #1423]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1005
+#: ../..//content/controllers/shift_changes_controller.js:1020
 msgid ""
 "An error was encountered while computing total sales payments received "
 "(error code %S) [message #1427]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1025
+#: ../..//content/controllers/shift_changes_controller.js:1040
 msgid ""
 "An error was encountered while computing ledger cash received (error code %"
 "S) [message #1424]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1044
+#: ../..//content/controllers/shift_changes_controller.js:1059
 msgid ""
 "An error was encountered while computing ledger cash paid (error code %S) "
 "[message #1425]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1062
+#: ../..//content/controllers/shift_changes_controller.js:1077
 msgid ""
 "An error was encountered while computing excess giftcard payments (error "
 "code %S) [message #1426]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1084
+#: ../..//content/controllers/shift_changes_controller.js:1099
 msgid ""
 "An error was encountered while retrieving order records (error code %S) "
 "[message #1428]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1155
+#: ../..//content/controllers/shift_changes_controller.js:1170
 msgid "Invalid cash drawer change amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1159
+#: ../..//content/controllers/shift_changes_controller.js:1174
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1236
+#: ../..//content/controllers/shift_changes_controller.js:1251
 msgid ""
 "An error was encountered while saving shift change record; shift may not "
 "have been closed properly [message #1427].."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1273
+#: ../..//content/controllers/shift_changes_controller.js:1288
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1274
+#: ../..//content/controllers/shift_changes_controller.js:1289
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1300
+#: ../..//content/controllers/shift_changes_controller.js:1315
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1301
+#: ../..//content/controllers/shift_changes_controller.js:1316
 msgid "Shift Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1309
+#: ../..//content/controllers/shift_changes_controller.js:1324
 msgid "Are you sure you want to print shift report?"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1324
+#: ../..//content/controllers/shift_changes_controller.js:1339
 msgid "Are you sure you want to print daily sales report?"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1461
-#: ../..//content/controllers/shift_changes_controller.js:1467
-#: ../..//content/controllers/shift_changes_controller.js:1504
-#: ../..//content/controllers/shift_changes_controller.js:1529
+#: ../..//content/controllers/shift_changes_controller.js:1476
+#: ../..//content/controllers/shift_changes_controller.js:1482
+#: ../..//content/controllers/shift_changes_controller.js:1519
+#: ../..//content/controllers/shift_changes_controller.js:1544
 msgid "Shift Error"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1462
+#: ../..//content/controllers/shift_changes_controller.js:1477
 msgid ""
 "Failed to verify current sale period. Please check the network connectivity "
 "to the terminal designated as the sale period master. You are strongly "
@@ -7345,38 +7333,38 @@ msgid ""
 "this terminal [message #1435]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1468
+#: ../..//content/controllers/shift_changes_controller.js:1483
 msgid ""
 "Failed to verify current sale period because cluster sale period has not yet "
 "been set. Please verify that the terminal designated as the sale period "
 "master has properly initialized the sale period [message #1436]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1488
+#: ../..//content/controllers/shift_changes_controller.js:1503
 msgid ""
 "Sale period has been changed from [%S] to [%S]. Order sequence number "
 "updated to [%S]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1505
+#: ../..//content/controllers/shift_changes_controller.js:1520
 msgid ""
 "Failed to verify current sale period due to errors when retrieving shift "
 "information. You are strongly advised to resolve this issue before executing "
 "any further transactions on this terminal [#1437]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1512
+#: ../..//content/controllers/shift_changes_controller.js:1527
 msgid "Shift Warning"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1513
+#: ../..//content/controllers/shift_changes_controller.js:1528
 msgid ""
 "This terminal's sale period [%S (%S)] appears to be out of sync with the "
 "cluster sale period [%S (%S)]. Please close the sale period on this terminal "
 "immediately to avoid recording transactions in the wrong sale period [#1438]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1530
+#: ../..//content/controllers/shift_changes_controller.js:1545
 msgid ""
 "A valid sale period has not been set for this terminal. Please resolve this "
 "issue before executing any further transactions on this terminal."
@@ -8340,52 +8328,52 @@ msgstr ""
 msgid "(sector)"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1390
+#: ../..//content/models/transaction.js:1391
 msgid "Cannot VOID a payment that has been subtotaled"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1550
+#: ../..//content/models/transaction.js:1551
 msgid "Discount amount [%S] may not exceed user item discount limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1559
+#: ../..//content/models/transaction.js:1560
 msgid "Discount amount [%S] may not exceed item amount [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1598
-#: ../..//content/models/transaction.js:1752
+#: ../..//content/models/transaction.js:1599
+#: ../..//content/models/transaction.js:1753
 msgid "Please note that return item(s) are present"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1617
+#: ../..//content/models/transaction.js:1618
 msgid "Discount amount [%S] may not exceed remaining balance [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1711
+#: ../..//content/models/transaction.js:1712
 msgid "Surcharge amount [%S] may not exceed user item surcharge limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1998
+#: ../..//content/models/transaction.js:1999
 msgid "Condiment [%S] already added to [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2047
+#: ../..//content/models/transaction.js:2048
 msgid "Condiment may only be added to an item"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2704
+#: ../..//content/models/transaction.js:2705
 msgid "Price HALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2719
+#: ../..//content/models/transaction.js:2720
 msgid "Price adjusted from [%S] to current HALO [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2728
+#: ../..//content/models/transaction.js:2729
 msgid "Price LALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2743
+#: ../..//content/models/transaction.js:2744
 msgid "Price adjusted from [%S] to current LALO [%S]"
 msgstr ""
 
@@ -8420,62 +8408,62 @@ msgstr ""
 msgid "Free"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:67
-#: ../..//content/bindings/onscreenvfd.xbl:127
-#: ../..//content/bindings/onscreenvfd.xbl:149
+#: ../..//content/bindings/onscreenvfd.xbl:70
+#: ../..//content/bindings/onscreenvfd.xbl:130
+#: ../..//content/bindings/onscreenvfd.xbl:152
 msgid "REM"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:69
-#: ../..//content/bindings/onscreenvfd.xbl:180
+#: ../..//content/bindings/onscreenvfd.xbl:72
+#: ../..//content/bindings/onscreenvfd.xbl:183
 msgid "CHG"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:71
-#: ../..//content/bindings/onscreenvfd.xbl:128
-#: ../..//content/bindings/onscreenvfd.xbl:150
-#: ../..//content/bindings/onscreenvfd.xbl:179
+#: ../..//content/bindings/onscreenvfd.xbl:74
+#: ../..//content/bindings/onscreenvfd.xbl:131
+#: ../..//content/bindings/onscreenvfd.xbl:153
+#: ../..//content/bindings/onscreenvfd.xbl:182
 msgid "PAY"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:78
+#: ../..//content/bindings/onscreenvfd.xbl:81
 msgid "Return Single"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:82
+#: ../..//content/bindings/onscreenvfd.xbl:85
 msgid "Return All"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:91
+#: ../..//content/bindings/onscreenvfd.xbl:94
 msgid "I"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:96
+#: ../..//content/bindings/onscreenvfd.xbl:99
 msgid "QTY"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:103
+#: ../..//content/bindings/onscreenvfd.xbl:106
 msgid "Change Clerk"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:105
+#: ../..//content/bindings/onscreenvfd.xbl:108
 msgid "Password"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:152
+#: ../..//content/bindings/onscreenvfd.xbl:155
 msgid "CANCELLED"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:153
-#: ../..//content/bindings/onscreenvfd.xbl:165
+#: ../..//content/bindings/onscreenvfd.xbl:156
+#: ../..//content/bindings/onscreenvfd.xbl:168
 msgid "SEQ#"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:164
+#: ../..//content/bindings/onscreenvfd.xbl:167
 msgid "QUEUED"
 msgstr ""
 
-#: ../..//content/bindings/onscreenvfd.xbl:181
+#: ../..//content/bindings/onscreenvfd.xbl:184
 msgid "Sale Completed"
 msgstr ""
 
@@ -8622,15 +8610,15 @@ msgstr ""
 msgid "(rpt)giftcard excess amount"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:751
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:747
 msgid "(rpt)Item Discount/Surcharge"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:779
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:775
 msgid "(rpt)Order Discount/Surcharge"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:805
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:801
 msgid "(rpt)(based on %S)"
 msgstr ""
 
@@ -8968,6 +8956,20 @@ msgstr ""
 msgid "(rpt)Status"
 msgstr ""
 
+#: ../..//content/reports/tpl/journal_report/journal_report.tpl:28
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:30
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:36
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:26
+msgid "(rpt)Void Clerk"
+msgstr ""
+
+#: ../..//content/reports/tpl/journal_report/journal_report.tpl:29
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:33
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:42
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:29
+msgid "(rpt)Void Time"
+msgstr ""
+
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_58mm.tpl:25
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_80mm.tpl:22
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:29
@@ -9036,18 +9038,18 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:30
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:30
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:22
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:30
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:35
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:25
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:34
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:45
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:31
 #: /tmp/your_order_report.js:30
 msgid "(rpt)Invoice Number"
 msgstr ""
 
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_58mm.tpl:37
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_80mm.tpl:26
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:31
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:37
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:26
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:35
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:47
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:32
 #: /tmp/your_order_report.js:31
 msgid "(rpt)Invoice Count"
 msgstr ""
@@ -9078,7 +9080,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:36
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:32
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:40
-#: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_csv.tpl:12
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:34
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:59
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:80
@@ -9092,11 +9093,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:63
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:28
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:44
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:32
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:39
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:69
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:27
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:47
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:36
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:49
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:79
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:33
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:53
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:32
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:25
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:36
@@ -9164,11 +9165,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:65
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:29
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:45
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:33
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:41
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:71
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:28
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:48
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:37
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:51
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:81
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:34
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:54
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:31
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:19
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:14
@@ -9208,11 +9209,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:67
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:30
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:46
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:34
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:43
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:73
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:29
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:49
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:38
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:53
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:83
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:35
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:55
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:32
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:21
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:15
@@ -9245,7 +9246,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:19
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:40
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:35
-#: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_csv.tpl:12
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:40
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:86
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:27
@@ -9255,11 +9255,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:69
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:31
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:47
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:35
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:45
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:75
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:30
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:50
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:39
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:55
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:85
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:36
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:56
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:33
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:23
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:16
@@ -9292,7 +9292,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:20
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:41
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:36
-#: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_csv.tpl:12
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:42
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:88
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:28
@@ -9302,11 +9301,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:71
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:32
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:48
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:36
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:47
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:77
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:31
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:51
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:40
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:57
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:87
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:37
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:57
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:34
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:25
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:17
@@ -9339,7 +9338,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:16
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:37
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:37
-#: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_csv.tpl:12
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:44
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:90
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:29
@@ -9349,11 +9347,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:73
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:33
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:49
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:37
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:49
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:79
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:32
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:52
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:41
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:59
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:89
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:38
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:58
 #: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary.tpl:33
 #: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary_rcp_58mm.tpl:25
 #: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary_rcp_58mm.tpl:44
@@ -9402,11 +9400,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:77
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:35
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:51
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:39
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:53
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:83
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:34
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:54
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:43
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:63
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:93
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:40
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:60
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:126
 #: /tmp/your_order_report.js:44
 msgid "(rpt)Payment"
@@ -9451,9 +9449,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:102
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:60
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:41
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:79
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:63
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:43
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:91
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:73
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:49
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:50
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:31
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:22
@@ -9507,9 +9505,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:86
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:62
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:43
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:80
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:68
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:46
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:92
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:78
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:52
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:51
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:33
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:24
@@ -9636,7 +9634,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:21
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:42
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:31
-#: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_csv.tpl:12
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:32
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:78
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:23
@@ -9651,11 +9648,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:75
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:34
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:50
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:38
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:51
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:81
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:33
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:53
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:42
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:61
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:91
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:39
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:59
 #: ../..//content/reports/tpl/rpt_purchase_history/rpt_purchase_history.tpl:36
 #: ../..//content/reports/tpl/rpt_purchase_history/rpt_purchase_history_rcp_58mm.tpl:25
 #: ../..//content/reports/tpl/rpt_purchase_history/rpt_purchase_history_rcp_58mm.tpl:40
@@ -9802,9 +9799,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:93
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:68
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:48
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:79
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:65
-#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:44
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:91
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:75
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:50
 #: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:129
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:117
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:74
@@ -10080,7 +10077,6 @@ msgid "(rpt)Department Name"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:33
-#: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_csv.tpl:12
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:36
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:82
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:25
@@ -10089,7 +10085,6 @@ msgid "(rpt)Order Surcharge"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:34
-#: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_csv.tpl:12
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:38
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:84
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:26
@@ -10098,7 +10093,6 @@ msgid "(rpt)Order Discount"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:38
-#: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_csv.tpl:12
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:46
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:92
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:30
@@ -10253,6 +10247,19 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:36
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:22
 msgid "(rpt)Row Limit Excess"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:31
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:38
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:27
+#: /tmp/your_order_report.js:26
+msgid "(rpt)Void Sale Period"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:32
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:40
+#: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:28
+msgid "(rpt)Void Shift"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:30
@@ -11014,10 +11021,6 @@ msgstr ""
 
 #: /tmp/your_order_report.js:25
 msgid "(rpt)Voided Clerk Display Name"
-msgstr ""
-
-#: /tmp/your_order_report.js:26
-msgid "(rpt)Void Sale Period"
 msgstr ""
 
 #: /tmp/your_order_report.js:27

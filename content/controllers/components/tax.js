@@ -629,7 +629,7 @@
                         var amount1 = amount - includedChargeAmount;
 
                         // compute total included tax charge
-                        var includedRateAmount = amount1 - ( amount1 / (100 + includedRate) * 100);
+                        includedRateAmount = amount1 - ( amount1 / (100 + includedRate) * 100);
 
                         // allocate included tax amount to individual rate-based included taxes
                         var allocatedTaxAmount = 0;

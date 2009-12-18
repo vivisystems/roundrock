@@ -28,8 +28,9 @@
                     break;
 
                 case "by_subtotal":
+                    var amount = trigger.getMatchedAmount();
                     subtotal = trigger.getMatchedItemsSubtotal();
-                    discount = (0 - parseFloat(subtotal - value));
+                    discount = (0 - parseFloat(subtotal - amount*value));
                     break;
             }
 

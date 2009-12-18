@@ -8,10 +8,17 @@
         _ports: null,
         _portspeeds: null,
         _devicemodels: null,
-        _selectedDcevices: null,
+        _selectedDevices: null,
         _sortedDevicemodels: {},
         _portControlService: null,
         _sortedPorts: [],
+        _deviceLimitPrefix: 'vivipos.fec.settings.devices.limit',
+        _maxChecks: null,
+        _maxReceipts: 2,
+        _maxVFDs: 2,
+        _maxDrawers: 2,
+        _maxScales: 2,
+        _maxReports: 2,
 
         // load device configuration and selections
         initial: function (warn) {
@@ -105,6 +112,14 @@
             */
         },
 
+        getMaxChecks: function() {
+            if (this._maxChecks == null) {
+                // get maximum number of check devices
+                this._maxChecks = GeckoJS.Configure.read(this._deviceLimitPrefix + '.check') || 4;
+            }
+            return this._maxChecks;
+        },
+
         // load and cache device templates and commands
         loadEnabledDevices: function (enabledDevices) {
 
@@ -112,145 +127,83 @@
             var deviceTemplates = {};
             var devicemodels = this.getDeviceModels();
             var templates = this.getTemplates();
-            // collect all enabled templates device models
+
             if (enabledDevices != null) {
-                if (enabledDevices['receipt-1-enabled']) {
-                    // check if template already loaded
-                    var template = enabledDevices['receipt-1-template'];
-                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
+                // receipts
+                for (let i = 1; i <= this._maxReceipts; i++) {
+                    let id = 'receipt-' + i;
+                    if (enabledDevices[id + '-enabled']) {
+                        // check if template already loaded
+                        let template = enabledDevices[id + '-template'];
+                        if (template != null && !(template in deviceTemplates) && templates[template] != null) {
+                                deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                        }
+
+                        // check if device already loaded
+                        let device = enabledDevices[id + '-devicemodel'];
+                        if (device != null && device != null && !(device in deviceCommands) && devicemodels[device] != null) {
+                            deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                        }
+                    }
+                }
+
+                // checks
+                let maxChecks = this.getMaxChecks();
+                for (let i = 1; i <= maxChecks; i++) {
+                    let id = 'check-' + i;
+                    if (enabledDevices[id + '-enabled']) {
+                        // check if template already loaded
+                        let template = templates[id + '-template'];
+                        if (template != null && !(template in deviceTemplates) && templates[template] != null) {
                             deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
-                    }
+                        }
 
-                    // check if device already loaded
-                    var device = enabledDevices['receipt-1-devicemodel'];
-                    if (device != null && device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
-                    }
-                }
-
-                if (enabledDevices['receipt-2-enabled']) {
-                    // check if template already loaded
-                    var template = enabledDevices['receipt-2-template'];
-                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
-                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
-                    }
-
-                    // check if device already loaded
-                    var device = enabledDevices['receipt-2-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                        // check if device already loaded
+                        let device = enabledDevices[id + '-devicemodel'];
+                        if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
+                            deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                        }
                     }
                 }
 
-                if (enabledDevices['check-1-enabled']) {
-                    // check if template already loaded
-                    var template = templates['check-1-template'];
-                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
-                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
-                    }
-
-                    // check if device already loaded
-                    var device = enabledDevices['check-1-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                // reports
+                for (let i = 1; i <= this._maxReports; i++) {
+                    let id = 'report-' + i;
+                    if (enabledDevices[id + '-enabled']) {
+                        // check if device already loaded
+                        let device = enabledDevices[id + '-devicemodel'];
+                        if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
+                            deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                        }
                     }
                 }
 
-                if (enabledDevices['check-2-enabled']) {
-                    var template = templates['check-2-template'];
-                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
-                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
-                    }
+                // vfds
+                for (let i = 1; i <= this._maxVFDs; i++) {
+                    let id = 'vfd-' + i;
+                    if (enabledDevices[id + '-enabled']) {
+                        let template = templates[id + '-template'];
+                        if (template != null && !(template in deviceTemplates) && templates[template] != null) {
+                            deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                        }
 
-                    // check if device already loaded
-                    var device = enabledDevices['check-2-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
-                    }
-                }
-
-                if (enabledDevices['check-3-enabled']) {
-                    // check if template already loaded
-                    var template = templates['check-3-template'];
-                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
-                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
-                    }
-
-                    // check if device already loaded
-                    var device = enabledDevices['check-3-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                        // check if device already loaded
+                        let device = enabledDevices[id + '-devicemodel'];
+                        if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
+                            deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                        }
                     }
                 }
 
-                if (enabledDevices['check-4-enabled']) {
-                    var template = templates['check-4-template'];
-                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
-                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
-                    }
-
-                    // check if device already loaded
-                    var device = enabledDevices['check-4-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
-                    }
-                }
-
-                if (enabledDevices['report-1-enabled']) {
-                    // check if device already loaded
-                    var device = enabledDevices['report-1-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
-                    }
-                }
-
-                if (enabledDevices['report-2-enabled']) {
-                    // check if device already loaded
-                    var device = enabledDevices['report-2-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
-                    }
-                }
-
-                if (enabledDevices['vfd-1-enabled']) {
-                    var template = templates['vfd-1-template'];
-                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
-                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
-                    }
-
-                    // check if device already loaded
-                    var device = enabledDevices['vfd-1-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
-                    }
-                }
-
-                if (enabledDevices['vfd-2-enabled']) {
-                    var template = templates['vfd-2-template'];
-                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
-                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
-                    }
-
-                    // check if device already loaded
-                    var device = enabledDevices['vfd-2-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
-                    }
-                }
-
-                if (enabledDevices['cashdrawer-1-enabled'] && (enabledDevices['cashdrawer-1-type'] == 'printer')) {
-                    // check if device already loaded
-                    var device = enabledDevices['cashdrawer-1-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
-                    }
-                }
-
-                if (enabledDevices['cashdrawer-2-enabled'] && (enabledDevices['cashdrawer-2-type'] == 'printer')) {
-                    // check if device already loaded
-                    var device = enabledDevices['cashdrawer-2-devicemodel'];
-                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
-                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                // cashdrawers
+                for (let i = 1; i <= this._maxDrawers; i++) {
+                    let id = 'cashdrawer-' + i;
+                    if (enabledDevices[id + '-enabled'] && (enabledDevices[id + '-type'] == 'printer')) {
+                        // check if device already loaded
+                        let device = enabledDevices['cashdrawer-1-devicemodel'];
+                        if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
+                            deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                        }
                     }
                 }
             }
@@ -444,322 +397,157 @@
             var status;
             var printerEnabled = false;
 
-            // receipt printer 1
             if (selectedDevices != null) {
-                if (selectedDevices['receipt-1-enabled']) {
-                    var port = selectedDevices['receipt-1-port'];
-                    status = 0;
-                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['receipt-1-handshaking'], 1);
-                                break;
-                        }
-                        statuses.push([_('Receipt Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Receipt Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Receipt Printer %S', [1]), 'unknown', status]);
-                    }
-                    printerEnabled = true;
-                }
 
-                // receipt printer 2
-                if (selectedDevices['receipt-2-enabled']) {
-                    var port = selectedDevices['receipt-2-port'];
-                    status = 0;
-                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['receipt-2-handshaking'], 1);
-                                break;
+                // receipts
+                for (let i = 1; i <= this._maxReceipts; i++) {
+                    let id = 'receipt-' + i;
+                    if (selectedDevices[id + '-enabled']) {
+                        let port = selectedDevices[id + '-port'];
+                        status = 0;
+                        if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
+                            switch(ports[port].type) {
+                                case 'serial':
+                                case 'usb':
+                                    status = this.checkSerialPort(ports[port].path, selectedDevices[id + '-handshaking'], 1);
+                                    break;
+                            }
+                            statuses.push([_('Receipt Printer %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         }
-                        statuses.push([_('Receipt Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Receipt Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Receipt Printer %S', [2]), 'unknown', status]);
-                    }
-                    printerEnabled = true;
-                }
-
-                // check printer 1
-                if (selectedDevices['check-1-enabled']) {
-                    var port = selectedDevices['check-1-port'];
-                    status = 0;
-                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['check-1-handshaking'], 1);
-                                break;
+                        else {
+                            if (ports != null && port!= null && ports[port] != null)
+                                statuses.push([_('Receipt Printer %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            else
+                                statuses.push([_('Receipt Printer %S', [i]), 'unknown', status]);
                         }
-                        statuses.push([_('Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Check Printer %S', [1]), 'unknown', status]);
-                    }
-                    printerEnabled = true;
-                }
-
-                // check printer 2
-                if (selectedDevices['check-2-enabled']) {
-                    var port = selectedDevices['check-2-port'];
-                    status = 0;
-                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['check-2-handshaking'], 1);
-                                break;
-                        }
-                        statuses.push([_('Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Check Printer %S', [2]), 'unknown', status]);
-                    }
-                    printerEnabled = true;
-                }
-
-                // check printer 3
-                if (selectedDevices['check-3-enabled']) {
-                    var port = selectedDevices['check-3-port'];
-                    status = 0;
-                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['check-3-handshaking'], 1);
-                                break;
-                        }
-                        statuses.push([_('Check Printer %S', [3]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Check Printer %S', [3]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Check Printer %S', [3]), 'unknown', status]);
-                    }
-                    printerEnabled = true;
-                }
-
-                // check printer 4
-                if (selectedDevices['check-4-enabled']) {
-                    var port = selectedDevices['check-4-port'];
-                    status = 0;
-                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['check-4-handshaking'], 1);
-                                break;
-                        }
-                        statuses.push([_('Check Printer %S', [4]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Check Printer %S', [4]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Check Printer %S', [4]), 'unknown', status]);
-                    }
-                    printerEnabled = true;
-                }
-
-                // report printer 1
-                if (selectedDevices['report-1-enabled']) {
-                    var port = selectedDevices['report-1-port'];
-                    status = 0;
-                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['report-1-handshaking'], 1);
-                                break;
-                        }
-                        statuses.push([_('Report Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Report Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Report Printer %S', [1]), 'unknown', status]);
-                    }
-                    printerEnabled = true;
-                }
-
-                // report printer 2
-                if (selectedDevices['report-2-enabled']) {
-                    var port = selectedDevices['report-2-port'];
-                    status = 0;
-                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['report-2-handshaking'], 1);
-                                break;
-                        }
-                        statuses.push([_('Report Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Report Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Report Printer %S', [2]), 'unknown', status]);
-                    }
-                    printerEnabled = true;
-                }
-
-                // VFD 1
-                if (selectedDevices['vfd-1-enabled']) {
-                    var port = selectedDevices['vfd-1-port'];
-                    status = 0;
-                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['vfd-1-handshaking'], 1);
-                                break;
-                        }
-                        statuses.push([_('VFD %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('VFD %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('VFD %S', [1]), 'unknown', status]);
+                        printerEnabled = true;
                     }
                 }
 
-                // VFD 2
-                if (selectedDevices['vfd-2-enabled']) {
-                    var port = selectedDevices['vfd-2-port'];
-                    status = 0;
-                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['vfd-2-handshaking'], 1);
-                                break;
+                // checks
+                let maxChecks = this.getMaxChecks();
+                for (let i = 1; i <= maxChecks; i++) {
+                    let id = 'check-' + i;
+                    if (selectedDevices[id + '-enabled']) {
+                        let port = selectedDevices[id + '-port'];
+                        status = 0;
+                        if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
+                            switch(ports[port].type) {
+                                case 'serial':
+                                case 'usb':
+                                    status = this.checkSerialPort(ports[port].path, selectedDevices[id + '-handshaking'], 1);
+                                    break;
+                            }
+                            statuses.push([_('Check Printer %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         }
-                        statuses.push([_('VFD %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('VFD %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('VFD %S', [2]), 'unknown', status]);
+                        else {
+                            if (ports != null && port!= null && ports[port] != null)
+                                statuses.push([_('Check Printer %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            else
+                                statuses.push([_('Check Printer %S', [i]), 'unknown', status]);
+                        }
+                        printerEnabled = true;
                     }
                 }
 
-                // Cashdrawer 1
-                if (selectedDevices['cashdrawer-1-enabled']) {
-                    var type = selectedDevices['cashdrawer-1-type'];
-                    status = 0;
-                    if (type == 'gpio') {
-                            status = this.checkGPIOPort();
+                // reports
+                for (let i = 1; i <= this._maxReports; i++) {
+                    let id = 'report-' + i;
+                    if (selectedDevices[id + '-enabled']) {
+                        let port = selectedDevices[id + '-port'];
+                        status = 0;
+                        if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
+                            switch(ports[port].type) {
+                                case 'serial':
+                                case 'usb':
+                                    status = this.checkSerialPort(ports[port].path, selectedDevices[id + '-handshaking'], 1);
+                                    break;
+                            }
+                            statuses.push([_('Report Printer %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        }
+                        else {
+                            if (ports != null && port!= null && ports[port] != null)
+                                statuses.push([_('Report Printer %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            else
+                                statuses.push([_('Report Printer %S', [i]), 'unknown', status]);
+                        }
+                        printerEnabled = true;
                     }
-                    else {
-                        var port = selectedDevices['cashdrawer-1-port'];
+                }
+
+                // vfds
+                for (let i = 1; i <= this._maxVFDs; i++) {
+                    let id = 'vfd-' + i;
+                    if (selectedDevices[id + '-enabled']) {
+                        let port = selectedDevices[id + '-port'];
+                        status = 0;
+                        if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
+                            switch(ports[port].type) {
+                                case 'serial':
+                                case 'usb':
+                                    status = this.checkSerialPort(ports[port].path, selectedDevices[id + '-handshaking'], 1);
+                                    break;
+                            }
+                            statuses.push([_('VFD %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        }
+                        else {
+                            if (ports != null && port!= null && ports[port] != null)
+                                statuses.push([_('VFD %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            else
+                                statuses.push([_('VFD %S', [i]), 'unknown', status]);
+                        }
+                    }
+                }
+
+                // vfds
+                for (let i = 1; i <= this._maxDrawers; i++) {
+                    let id = 'cashdrawer-' + i;
+                    if (selectedDevices[id + '-enabled']) {
+                        let type = selectedDevices[id + '-type'];
+                        status = 0;
+                        if (type == 'gpio') {
+                                status = this.checkGPIOPort();
+                        }
+                        else {
+                            var port = selectedDevices[id + '-port'];
+                            if (ports != null &&  port != null && ports[port] != null && ports[port].path != null) {
+                                switch(ports[port].type) {
+                                    case 'serial':
+                                    case 'usb':
+                                        status = this.checkSerialPort(ports[port].path, selectedDevices[id + '-handshaking'], 1);
+                                        break;
+                                }
+                                statuses.push([_('Cash Drawer %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            }
+                            else {
+                                if (ports != null && port!= null && ports[port] != null)
+                                    statuses.push([_('Cash Drawer %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                                else
+                                    statuses.push([_('Cash Drawer %S', [i]), 'unknown', status]);
+                            }
+                        }
+                    }
+                }
+
+                // scales
+                for (let i = 1; i <= this._maxScales; i++) {
+                    let id = 'scale-' + i;
+                    if (selectedDevices[id + '-enabled']) {
+                        let port = selectedDevices[id + '-port'];
                         if (ports != null &&  port != null && ports[port] != null && ports[port].path != null) {
                             switch(ports[port].type) {
                                 case 'serial':
                                 case 'usb':
-                                    status = this.checkSerialPort(ports[port].path, selectedDevices['cashdrawer-1-handshaking'], 1);
+                                    status = this.checkSerialPort(ports[port].path, selectedDevices[id + '-handshaking'], 1);
                                     break;
                             }
-                            statuses.push([_('Cash Drawer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            statuses.push([_('Scale %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         }
                         else {
                             if (ports != null && port!= null && ports[port] != null)
-                                statuses.push([_('Cash Drawer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                                statuses.push([_('Scale %S', [i]), ports[port].label + ' (' + ports[port].path + ')', status]);
                             else
-                                statuses.push([_('Cash Drawer %S', [1]), 'unknown', status]);
-                        }
-                    }
-                }
-
-                // Cashdrawer 2
-                if (selectedDevices['cashdrawer-2-enabled']) {
-                    var type = selectedDevices['cashdrawer-2-type'];
-                    status = 0;
-                    if (type == 'gpio') {
-                            status = this.checkGPIOPort();
-                    }
-                    else {
-                        var port = selectedDevices['cashdrawer-2-port'];
-                        if (ports != null &&  port != null && ports[port] != null && ports[port].path != null) {
-                            switch(ports[port].type) {
-                                case 'serial':
-                                case 'usb':
-                                    status = this.checkSerialPort(ports[port].path, selectedDevices['cashdrawer-2-handshaking'], 1);
-                                    break;
-                            }
-                            statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        }
-                        else {
-                            if (ports != null && port!= null && ports[port] != null)
-                                statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                            else
-                                statuses.push([_('Cash Drawer %S', [2]), 'unknown', status]);
-                        }
-                    }
-                }
-
-                // Scale 1
-                if (selectedDevices['scale-1-enabled']) {
-                    var port = selectedDevices['scale-1-port'];
-                    if (ports != null &&  port != null && ports[port] != null && ports[port].path != null) {
-                        switch(ports[port].type) {
-                            case 'serial':
-                            case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['scale-1-handshaking'], 1);
-                                break;
-                        }
-                        statuses.push([_('Scale %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                    }
-                    else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Scale %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Scale %S', [1]), 'unknown', status]);
-                    }
-                }
-
-                // Scale 2
-                if (selectedDevices['scale-2-enabled']) {
-                    var type = selectedDevices['scale-2-type'];
-                    status = 0;
-                    if (type == 'gpio') {
-                            status = this.checkGPIOPort();
-                    }
-                    else {
-                        var port = selectedDevices['scale-2-port'];
-                        if (ports != null &&  port != null && ports[port] != null && ports[port].path != null) {
-                            switch(ports[port].type) {
-                                case 'serial':
-                                case 'usb':
-                                    status = this.checkSerialPort(ports[port].path, selectedDevices['scale-2-handshaking'], 1);
-                                    break;
-                            }
-                            statuses.push([_('Scale %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        }
-                        else {
-                            if (ports != null && port!= null && ports[port] != null)
-                                statuses.push([_('Scale %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                            else
-                                statuses.push([_('Scale %S', [2]), 'unknown', status]);
+                                statuses.push([_('Scale %S', [i]), 'unknown', status]);
                         }
                     }
                 }
@@ -852,7 +640,6 @@
         getSerialPortControlService: function() {
             if (this._portControlService == null) {
                 this._portControlService = GREUtils.XPCOM.getService("@firich.com.tw/serial_port_control_unix;1", "nsISerialPortControlUnix");
-//				this._portControlService = GREUtils.XPCOM.getService("@firich.com.tw/file_port_control_unix;1", "nsIFilePortControlUnix");
 																													
             }
             return this._portControlService;
@@ -1006,14 +793,16 @@
             return this._selectedDevices;
         },
 
-        // returns true if the specified link_group is associated with check1/2/3/4
+        // returns true if the specified link_group is associated with any of the check devices
         isGroupLinked: function(link_group_id) {
             var selectedDevices = this.getSelectedDevices();
 
-            return (selectedDevices['check-1-link-group'].indexOf(link_group_id) > -1 ||
-                    selectedDevices['check-2-link-group'].indexOf(link_group_id) > -1 ||
-                    selectedDevices['check-3-link-group'].indexOf(link_group_id) > -1||
-                    selectedDevices['check-4-link-group'].indexOf(link_group_id) > -1);
+            let maxChecks = this.getMaxChecks();
+            for (let i = 1; i < maxChecks; i++) {
+                if (selectedDevices['check-' + i + '-link-group'].indexOf(link_group_id) > -1)
+                    return true;
+            }
+            return false;
         },
 
         // check if the device of the given type [receipt, check, report, vfd, cashdrawer] and number is enabled
@@ -1034,12 +823,34 @@
                     }
                 }
                 else {
-                    if (selectedDevices[type + '-1-enabled'] || selectedDevices[type + '-2-enabled'] || selectedDevices[type + '-3-enabled'] || selectedDevices[type + '-4-enabled']) {
-                        return 1;
+                    let numDevices = 0;
+                    let maxChecks = this.getMaxChecks();
+                    switch(type) {
+                        case 'receipt':
+                            numDevices = this._maxReceipts;
+                            break;
+
+                        case 'check':
+                            numDevices = maxChecks;
+                            break;
+
+                        case 'report':
+                            numDevices = this._maxReports;
+                            break;
+
+                        case 'vfd':
+                            numDevices = this._maxVFDs;
+                            break;
+
+                        case 'cashdrawer':
+                            numDevices = this._maxDrawers;
+                            break;
+
                     }
-                    else {
-                        return 0;
+                    for (let i = 1; i <= numDevices; i++) {
+                        if (selectedDevices[type + '-' + i + '-enabled']) return 1;
                     }
+                    return 0;
                 }
             }
             else {
@@ -1051,95 +862,88 @@
             var enabledDevices = [];
             var selectedDevices = this.getSelectedDevices();
             if (selectedDevices != null) {
-                if (selectedDevices[type + '-1-enabled'] && (number == null || number == 1)) {
-                    enabledDevices.push({
-                        type: selectedDevices[type + '-1-type'],
-                        template: selectedDevices[type + '-1-template'],
-                        port: selectedDevices[type + '-1-port'],
-                        portspeed: selectedDevices[type + '-1-portspeed'],
-                        handshaking: selectedDevices[type + '-1-handshaking'],
-                        devicemodel: selectedDevices[type + '-1-devicemodel'],
-                        encoding: selectedDevices[type + '-1-encoding'],
-                        autoprint: selectedDevices[type + '-1-autoprint'],
-                        supportsstatus: selectedDevices[type + '-1-supports-status'],
-                        gpiopulses: selectedDevices[type + '-1-gpio-pulses'],
-                        linkgroup: selectedDevices[type + '-1-link-group'],
-                        printNoRouting: selectedDevices[type + '-1-print-no-routing'],
-                        printAllRouting: selectedDevices[type + '-1-print-all-routing'],
-                        cashaction: selectedDevices[type + '-1-cash-action'],
-                        creditcardaction: selectedDevices[type + '-1-creditcard-action'],
-                        checkaction: selectedDevices[type + '-1-check-action'],
-                        couponaction: selectedDevices[type + '-1-coupon-action'],
-                        giftcardaction: selectedDevices[type + '-1-giftcard-action'],
-                        ledgeraction: selectedDevices[type + '-1-ledger-action'],
-                        paperwidth: selectedDevices[type + '-1-paperwidth'],
-                        tare: selectedDevices[type + '-1-tare'],
-                        multiplier: selectedDevices[type + '-1-multiplier'],
-                        number: 1
-                    });
-                }
-                if (selectedDevices[type + '-2-enabled'] && (number == null || number == 2)) {
-                    enabledDevices.push({
-                        type: selectedDevices[type + '-2-type'],
-                        template: selectedDevices[type + '-2-template'],
-                        port: selectedDevices[type + '-2-port'],
-                        portspeed: selectedDevices[type + '-2-portspeed'],
-                        handshaking: selectedDevices[type + '-2-handshaking'],
-                        devicemodel: selectedDevices[type + '-2-devicemodel'],
-                        encoding: selectedDevices[type + '-2-encoding'],
-                        autoprint: selectedDevices[type + '-2-autoprint'],
-                        supportsstatus: selectedDevices[type + '-2-supports-status'],
-                        gpiopulses: selectedDevices[type + '-2-gpio-pulses'],
-                        linkgroup: selectedDevices[type + '-2-link-group'],
-                        printNoRouting: selectedDevices[type + '-2-print-no-routing'],
-                        printAllRouting: selectedDevices[type + '-2-print-all-routing'],
-                        cashaction: selectedDevices[type + '-2-cash-action'],
-                        creditcardaction: selectedDevices[type + '-2-creditcard-action'],
-                        checkaction: selectedDevices[type + '-2-check-action'],
-                        couponaction: selectedDevices[type + '-2-coupon-action'],
-                        giftcardaction: selectedDevices[type + '-2-giftcard-action'],
-                        ledgeraction: selectedDevices[type + '-2-ledger-action'],
-                        tare: selectedDevices[type + '-1-tare'],
-                        multiplier: selectedDevices[type + '-1-multiplier'],
-                        number: 2
-                    });
-                }
+                if (number == null) {
+                    let numDevices = 0;
+                    let maxChecks = this.getMaxChecks();
+                    switch(type) {
+                        case 'receipt':
+                            numDevices = this._maxReceipts;
+                            break;
 
-                if (type == 'check') {
-                    if (selectedDevices[type + '-3-enabled'] && (number == null || number == 3)) {
-                        enabledDevices.push({
-                            type: selectedDevices[type + '-3-type'],
-                            template: selectedDevices[type + '-3-template'],
-                            port: selectedDevices[type + '-3-port'],
-                            portspeed: selectedDevices[type + '-3-portspeed'],
-                            handshaking: selectedDevices[type + '-3-handshaking'],
-                            devicemodel: selectedDevices[type + '-3-devicemodel'],
-                            encoding: selectedDevices[type + '-3-encoding'],
-                            autoprint: selectedDevices[type + '-3-autoprint'],
-                            supportsstatus: selectedDevices[type + '-3-supports-status'],
-                            gpiopulses: selectedDevices[type + '-3-gpio-pulses'],
-                            linkgroup: selectedDevices[type + '-3-link-group'],
-                            printNoRouting: selectedDevices[type + '-3-print-no-routing'],
-                            printAllRouting: selectedDevices[type + '-3-print-all-routing'],
-                            number: 3
-                        });
+                        case 'check':
+                            numDevices = maxChecks;
+                            break;
+
+                        case 'report':
+                            numDevices = this._maxReports;
+                            break;
+
+                        case 'vfd':
+                            numDevices = this._maxVFDs;
+                            break;
+
+                        case 'cashdrawer':
+                            numDevices = this._maxDrawers;
+                            break;
                     }
-                    if (selectedDevices[type + '-4-enabled'] && (number == null || number == 4)) {
+                    for (let i = 1; i <= numDevices; i++) {
+                        let id = type + '-' + i;
+                        if (selectedDevices[id + '-enabled']) {
+                            enabledDevices.push({
+                                type: selectedDevices[id + '-type'],
+                                template: selectedDevices[id + '-template'],
+                                port: selectedDevices[id + '-port'],
+                                portspeed: selectedDevices[id + '-portspeed'],
+                                handshaking: selectedDevices[id + '-handshaking'],
+                                devicemodel: selectedDevices[id + '-devicemodel'],
+                                encoding: selectedDevices[id + '-encoding'],
+                                autoprint: selectedDevices[id + '-autoprint'],
+                                supportsstatus: selectedDevices[id + '-supports-status'],
+                                gpiopulses: selectedDevices[id + '-gpio-pulses'],
+                                linkgroup: selectedDevices[id + '-link-group'],
+                                printNoRouting: selectedDevices[id + '-print-no-routing'],
+                                printAllRouting: selectedDevices[id + '-print-all-routing'],
+                                cashaction: selectedDevices[id + '-cash-action'],
+                                creditcardaction: selectedDevices[id + '-creditcard-action'],
+                                checkaction: selectedDevices[id + '-check-action'],
+                                couponaction: selectedDevices[id + '-coupon-action'],
+                                giftcardaction: selectedDevices[id + '-giftcard-action'],
+                                ledgeraction: selectedDevices[id + '-ledger-action'],
+                                paperwidth: selectedDevices[id + '-paperwidth'],
+                                tare: selectedDevices[id + '-tare'],
+                                multiplier: selectedDevices[id + '-multiplier'],
+                                number: i
+                            });
+                        }
+                    }
+                }
+                else {
+                    let id = type + '-' + parseInt(number);
+                    if (selectedDevices[id + '-enabled']) {
                         enabledDevices.push({
-                            type: selectedDevices[type + '-4-type'],
-                            template: selectedDevices[type + '-4-template'],
-                            port: selectedDevices[type + '-4-port'],
-                            portspeed: selectedDevices[type + '-4-portspeed'],
-                            handshaking: selectedDevices[type + '-4-handshaking'],
-                            devicemodel: selectedDevices[type + '-4-devicemodel'],
-                            encoding: selectedDevices[type + '-4-encoding'],
-                            autoprint: selectedDevices[type + '-4-autoprint'],
-                            supportsstatus: selectedDevices[type + '-4-supports-status'],
-                            gpiopulses: selectedDevices[type + '-4-gpio-pulses'],
-                            linkgroup: selectedDevices[type + '-4-link-group'],
-                            printNoRouting: selectedDevices[type + '-4-print-no-routing'],
-                            printAllRouting: selectedDevices[type + '-4-print-all-routing'],
-                            number: 4
+                            type: selectedDevices[id + '-type'],
+                            template: selectedDevices[id + '-template'],
+                            port: selectedDevices[id + '-port'],
+                            portspeed: selectedDevices[id + '-portspeed'],
+                            handshaking: selectedDevices[id + '-handshaking'],
+                            devicemodel: selectedDevices[id + '-devicemodel'],
+                            encoding: selectedDevices[id + '-encoding'],
+                            autoprint: selectedDevices[id + '-autoprint'],
+                            supportsstatus: selectedDevices[id + '-supports-status'],
+                            gpiopulses: selectedDevices[id + '-gpio-pulses'],
+                            linkgroup: selectedDevices[id + '-link-group'],
+                            printNoRouting: selectedDevices[id + '-print-no-routing'],
+                            printAllRouting: selectedDevices[id + '-print-all-routing'],
+                            cashaction: selectedDevices[id + '-cash-action'],
+                            creditcardaction: selectedDevices[id + '-creditcard-action'],
+                            checkaction: selectedDevices[id + '-check-action'],
+                            couponaction: selectedDevices[id + '-coupon-action'],
+                            giftcardaction: selectedDevices[id + '-giftcard-action'],
+                            ledgeraction: selectedDevices[id + '-ledger-action'],
+                            paperwidth: selectedDevices[id + '-paperwidth'],
+                            tare: selectedDevices[id + '-tare'],
+                            multiplier: selectedDevices[id + '-multiplier'],
+                            number: number
                         });
                     }
                 }
@@ -1219,6 +1023,59 @@
             }
         },
 
+        buildCheckDevices: function(numDevices) {
+
+            /* create check device configuration tabs */
+            let parentTabNode = document.getElementById('device-tabs');
+            let beforeTabNode = document.getElementById('report-tab');
+
+            let parentNode = document.getElementById('device-tabpanels');
+            let beforeNode = document.getElementById('report-panel');
+
+            let srcTabNode = document.getElementById('check-%d-tab');
+            let srcTabPanelNode = document.getElementById('check-%d-panel');
+
+            let lastTabNode = beforeTabNode, lastTabPanelNode = beforeNode;
+
+            for (let j = numDevices; j > 0; j--) {
+                // clone tab panel
+                let cloneTabPanelNode = srcTabPanelNode.cloneNode(true);
+                $(cloneTabPanelNode).attr('id', $(srcTabPanelNode).attr('id').replace('%d', j));
+
+                let childNodes = $(cloneTabPanelNode).find('[cloneTarget]');
+
+                let id, name, oncommand;
+                for (let i = 0; i < childNodes.length; i++) {
+                    let node = childNodes[i];
+                    if (id = $(node).attr('id')) {
+                        $(node).attr('id', id.replace('%d', j));
+                    }
+                    if (name = $(node).attr('name')) {
+                        $(node).attr('name', name.replace('%d', j));
+                    }
+                    if (label = $(node).attr('label')) {
+                        $(node).attr('label', label.replace('%d', j));
+                    }
+                    if (oncommand = $(node).attr('oncommand')) {
+                        $(node).attr('oncommand', oncommand.replace('%d', j));
+                    }
+                }
+                parentNode.insertBefore(cloneTabPanelNode, lastTabPanelNode);
+                lastTabPanelNode = cloneTabPanelNode;
+
+                // clone tab
+                let cloneTabNode = srcTabNode.cloneNode(true);
+                $(cloneTabNode).attr('id', $(srcTabNode).attr('id').replace('%d', j));
+                $(cloneTabNode).attr('label', $(srcTabNode).attr('label') + ' ' + j);
+                parentTabNode.insertBefore(cloneTabNode, lastTabNode);
+                lastTabNode = cloneTabNode;
+            }
+
+            parentTabNode.removeChild(srcTabNode);
+            parentNode.removeChild(srcTabPanelNode);
+
+        },
+
         // initialize UI forms
         load: function() {
 
@@ -1236,8 +1093,63 @@
             // prepare portspeeds
             var portspeeds = this.getPortSpeeds();
 
+            var devicemodels = this.getDeviceModels();
+
+            let sortedReceiptDeviceModels = [];
+            let sortedCheckDeviceModels = [];
+            let sortedReportDeviceModels = [];
+            let sortedVFDDeviceModels = [];
+            let sortedDrawerDeviceModels = [];
+            let sortedScaleDeviceModels = [];
+            for (var devicemodel in devicemodels) {
+
+                // extract receipt device models
+                if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('receipt') > -1) {
+                    let newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                    newDevicemodel.name = devicemodel;
+                    sortedReceiptDeviceModels.push(newDevicemodel);
+                }
+
+                if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('check') > -1) {
+                    let newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                    newDevicemodel.name = devicemodel;
+                    sortedCheckDeviceModels.push(newDevicemodel);
+                }
+
+                if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('report') > -1) {
+                    let newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                    newDevicemodel.name = devicemodel;
+                    sortedReportDeviceModels.push(newDevicemodel);
+                }
+
+                if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('vfd') > -1) {
+                    let newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                    newDevicemodel.name = devicemodel;
+                    sortedVFDDeviceModels.push(newDevicemodel);
+                }
+
+                if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('cashdrawer') > -1) {
+                    let newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                    newDevicemodel.name = devicemodel;
+                    sortedDrawerDeviceModels.push(newDevicemodel);
+                }
+
+                if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('scale') > -1) {
+                    let newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                    newDevicemodel.name = devicemodel;
+                    sortedScaleDeviceModels.push(newDevicemodel);
+                }
+            }
+            this._sortedDevicemodels['receipt'] = sortedReceiptDeviceModels = new GeckoJS.ArrayQuery(sortedReceiptDeviceModels).orderBy('label asc');
+            this._sortedDevicemodels['check'] = sortedCheckDeviceModels = new GeckoJS.ArrayQuery(sortedCheckDeviceModels).orderBy('label asc');
+            this._sortedDevicemodels['report'] = sortedReportDeviceModels = new GeckoJS.ArrayQuery(sortedReportDeviceModels).orderBy('label asc');
+            this._sortedDevicemodels['vfd'] = sortedVFDDeviceModels = new GeckoJS.ArrayQuery(sortedVFDDeviceModels).orderBy('label asc');
+            this._sortedDevicemodels['cashdrawer'] = sortedDrawerDeviceModels = new GeckoJS.ArrayQuery(sortedDrawerDeviceModels).orderBy('label asc');
+            this._sortedDevicemodels['scale'] = sortedScaleDeviceModels = new GeckoJS.ArrayQuery(sortedScaleDeviceModels).orderBy('label asc');
+
+
             /*
-             * populate receipt panel
+             * populate receipt panel(s)
              *
              */
 
@@ -1245,17 +1157,13 @@
 
             //this.log(GeckoJS.BaseObject.dump(selectedDevices));
 
-            if (document.getElementById('receipt-panel') != null) {
+            if (this._maxReceipts > 0) {
 
-                /* populate templates */
-
-                var tmplmenu1 = document.getElementById('receipt-1-template');
-                var tmplmenu2 = document.getElementById('receipt-2-template');
-                var templates = this.getTemplates('receipt');
-
-                var sortedTemplates = [];
-                for (var tmpl in templates) {
-                    var newTemplate = GREUtils.extend({}, templates[tmpl]);
+                /* sort receipt templates */
+                let templates = this.getTemplates('receipt');
+                let sortedTemplates = [];
+                for (let tmpl in templates) {
+                    let newTemplate = GREUtils.extend({}, templates[tmpl]);
                     newTemplate.name = tmpl;
 
                     var label = newTemplate.label;
@@ -1271,102 +1179,73 @@
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
-                for (var i in sortedTemplates) {
-                    var tmplName = sortedTemplates[i].name;
-                    tmplmenu1.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                    tmplmenu2.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                }
-                tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = 0;
+                for (let j = 1; j <= this._maxReceipts; j++) {
 
-                /* populate device ports */
-
-                var portmenu1 = document.getElementById('receipt-1-port');
-                var portmenu2 = document.getElementById('receipt-2-port');
-                for (var i in sortedPorts) {
-                    if (sortedPorts[i].support.indexOf('receipt') > -1) {
-                        var portName = sortedPorts[i].name;
-                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    /* templates */
+                    let tmplmenu = document.getElementById('receipt-' + j + '-template');
+                    for (let i in sortedTemplates) {
+                        let tmplName = sortedTemplates[i].name;
+                        tmplmenu.appendItem(_(sortedTemplates[i].label), tmplName, '');
                     }
-                }
-                portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
+                    tmplmenu.selectedIndex = 0;
 
-                /* populate device portspeeds */
-
-                var portspeedmenu1 = document.getElementById('receipt-1-portspeed');
-                var portspeedmenu2 = document.getElementById('receipt-2-portspeed');
-                
-                for (var i in portspeeds) {
-                    var portspeed = portspeeds[i];
-                    portspeedmenu1.appendItem(portspeed, portspeed, '');
-                    portspeedmenu2.appendItem(portspeed, portspeed, '');
-                }
-                portspeedmenu1.selectedIndex = portspeedmenu2.selectedIndex = 0;
-
-                /* populate device models */
-
-                var devicemodelmenu1 = document.getElementById('receipt-1-devicemodel');
-                var devicemodelmenu2 = document.getElementById('receipt-2-devicemodel');
-                var devicemodels = this.getDeviceModels();
-
-                var sortedDevicemodels = [];
-                for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('receipt') > -1) {
-                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
-                        newDevicemodel.name = devicemodel;
-                        sortedDevicemodels.push(newDevicemodel);
+                    /* ports */
+                    let portmenu = document.getElementById('receipt-' + j + '-port');
+                    for (let i in sortedPorts) {
+                        if (sortedPorts[i].support.indexOf('receipt') > -1) {
+                            let portName = sortedPorts[i].name;
+                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                        }
                     }
-                }
-                this._sortedDevicemodels['receipt'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                    portmenu.selectedIndex = 0;
 
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
-                for (var i in sortedDevicemodels) {
-                    var devicemodelName = sortedDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
-                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    /* port speeds */
+                    let portspeedmenu = document.getElementById('receipt-' + j + '-portspeed');
+                    for (let i in portspeeds) {
+                        let portspeed = portspeeds[i];
+                        portspeedmenu.appendItem(portspeed, portspeed, '');
+                    }
+                    portspeedmenu.selectedIndex = 0;
 
-                    if (devicemodelName == selectedDevices['receipt-1-devicemodel']) {
-                        devicemodelmenu1.selectedIndex = i;
+                    /* device models */
+                    let devicemodelmenu = document.getElementById('receipt-' + j + '-devicemodel');
+                    devicemodelmenu.selectedIndex = 0;
+                    for (let i in sortedReceiptDeviceModels) {
+                        var devicemodelName = sortedReceiptDeviceModels[i].name;
+                        devicemodelmenu.appendItem(_(sortedReceiptDeviceModels[i].label), devicemodelName, '');
+
+                        if (devicemodelName == selectedDevices['receipt-' + j + '-devicemodel']) {
+                            devicemodelmenu.selectedIndex = i;
+                        }
                     }
 
-                    if (devicemodelName == selectedDevices['receipt-2-devicemodel']) {
-                        devicemodelmenu2.selectedIndex = i;
-                    }
+                    /* encodings */
+                    let encodingmenu = document.getElementById('receipt-' + j + '-encoding');
+                    this.populateEncodings(encodingmenu, sortedReceiptDeviceModels[devicemodelmenu.selectedIndex]);
                 }
-
-                /* populate encodings */
-
-                var encodingmenu1 = document.getElementById('receipt-1-encoding');
-                var encodingmenu2 = document.getElementById('receipt-2-encoding');
-
-                this.populateEncodings(encodingmenu1, sortedDevicemodels[devicemodelmenu1.selectedIndex]);
-                this.populateEncodings(encodingmenu2, sortedDevicemodels[devicemodelmenu2.selectedIndex]);
             }
 
             /*
-             * populate check panel
+             * populate check panel(s)
              *
              */
 
-            //if (document.getElementById('check-panel') != null) {
+            let maxChecks = this.getMaxChecks();
+            if (maxChecks > 0) {
 
-                /* populate templates */
+                this.buildCheckDevices(maxChecks);
 
-                var tmplmenu1 = document.getElementById('check-1-template');
-                var tmplmenu2 = document.getElementById('check-2-template');
-                var tmplmenu3 = document.getElementById('check-3-template');
-                var tmplmenu4 = document.getElementById('check-4-template');
-                var templates = this.getTemplates('check');
-
-                var sortedTemplates = [];
-                for (var tmpl in templates) {
+                /* sort check templates */
+                let templates = this.getTemplates('check');
+                let sortedTemplates = [];
+                for (let tmpl in templates) {
                     var newTemplate = GREUtils.extend({}, templates[tmpl]);
 
                     newTemplate.name = tmpl;
 
-                    var label = newTemplate.label;
+                    let label = newTemplate.label;
                     if (label.indexOf('chrome://') == 0) {
-                        var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                        let keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
                         label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                     }
                     else {
@@ -1377,196 +1256,109 @@
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
-                for (var i in sortedTemplates) {
-                    var tmplName = sortedTemplates[i].name;
-                    tmplmenu1.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                    tmplmenu2.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                    tmplmenu3.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                    tmplmenu4.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                }
-                tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = tmplmenu3.selectedIndex = tmplmenu4.selectedIndex = 0;
-
-                /* populate device ports */
-
-                var portmenu1 = document.getElementById('check-1-port');
-                var portmenu2 = document.getElementById('check-2-port');
-                var portmenu3 = document.getElementById('check-3-port');
-                var portmenu4 = document.getElementById('check-4-port');
-
-                for (var i in sortedPorts) {
-                    if (sortedPorts[i].support.indexOf('check') > -1) {
-                        var portName = sortedPorts[i].name;
-                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
-                        portmenu3.appendItem(_(sortedPorts[i].label), portName, '');
-                        portmenu4.appendItem(_(sortedPorts[i].label), portName, '');
-                    }
-                }
-                portmenu1.selectedIndex = portmenu2.selectedIndex = portmenu3.selectedIndex = portmenu4.selectedIndex = 0;
-
-                /* populate device portspeeds */
-
-                var portspeedmenu1 = document.getElementById('check-1-portspeed');
-                var portspeedmenu2 = document.getElementById('check-2-portspeed');
-                var portspeedmenu3 = document.getElementById('check-3-portspeed');
-                var portspeedmenu4 = document.getElementById('check-4-portspeed');
-
-                for (var i in portspeeds) {
-                    var portspeed = portspeeds[i];
-                    portspeedmenu1.appendItem(portspeed, portspeed, '');
-                    portspeedmenu2.appendItem(portspeed, portspeed, '');
-                    portspeedmenu3.appendItem(portspeed, portspeed, '');
-                    portspeedmenu4.appendItem(portspeed, portspeed, '');
-                }
-                portspeedmenu1.selectedIndex = portspeedmenu2.selectedIndex = portspeedmenu3.selectedIndex = portspeedmenu4.selectedIndex = 0;
-
-                /* populate device models */
-
-                var devicemodelmenu1 = document.getElementById('check-1-devicemodel');
-                var devicemodelmenu2 = document.getElementById('check-2-devicemodel');
-                var devicemodelmenu3 = document.getElementById('check-3-devicemodel');
-                var devicemodelmenu4 = document.getElementById('check-4-devicemodel');
-                var devicemodels = this.getDeviceModels();
-
-                var sortedDevicemodels = [];
-                for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('check') > -1) {
-                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
-                        newDevicemodel.name = devicemodel;
-                        sortedDevicemodels.push(newDevicemodel);
-                    }
-                }
-                this._sortedDevicemodels['check'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
-
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = devicemodelmenu3.selectedIndex = devicemodelmenu4.selectedIndex = 0;
-                for (var i in sortedDevicemodels) {
-                    var devicemodelName = sortedDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
-                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
-                    devicemodelmenu3.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
-                    devicemodelmenu4.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
-
-                    if (devicemodelName == selectedDevices['check-1-devicemodel']) {
-                        devicemodelmenu1.selectedIndex = i;
-                    }
-
-                    if (devicemodelName == selectedDevices['check-2-devicemodel']) {
-                        devicemodelmenu2.selectedIndex = i;
-                    }
-
-                    if (devicemodelName == selectedDevices['check-3-devicemodel']) {
-                        devicemodelmenu3.selectedIndex = i;
-                    }
-
-                    if (devicemodelName == selectedDevices['check-4-devicemodel']) {
-                        devicemodelmenu4.selectedIndex = i;
-                    }
-                }
-
-                /* populate encodings */
-
-                var encodingmenu1 = document.getElementById('check-1-encoding');
-                var encodingmenu2 = document.getElementById('check-2-encoding');
-                var encodingmenu3 = document.getElementById('check-3-encoding');
-                var encodingmenu4 = document.getElementById('check-4-encoding');
-
-                this.populateEncodings(encodingmenu1, sortedDevicemodels[devicemodelmenu1.selectedIndex]);
-                this.populateEncodings(encodingmenu2, sortedDevicemodels[devicemodelmenu2.selectedIndex]);
-                this.populateEncodings(encodingmenu3, sortedDevicemodels[devicemodelmenu3.selectedIndex]);
-                this.populateEncodings(encodingmenu4, sortedDevicemodels[devicemodelmenu4.selectedIndex]);
-
-                var pluGroupModel = new PlugroupModel();
-                var groups = pluGroupModel.findByIndex('all', {
+                // collect routing groups
+                let pluGroupModel = new PlugroupModel();
+                let groups = pluGroupModel.findByIndex('all', {
                     index: 'routing',
                     value: 1,
                     order: 'display_order, name'
                 });
-                var check1_group_listscrollablepanel = document.getElementById('check-1-group_listscrollablepanel');
-                var check2_group_listscrollablepanel = document.getElementById('check-2-group_listscrollablepanel');
-                var check3_group_listscrollablepanel = document.getElementById('check-3-group_listscrollablepanel');
-                var check4_group_listscrollablepanel = document.getElementById('check-4-group_listscrollablepanel');
-                var plugroupPanelView1 = new NSIPluGroupsView(groups);
-                var plugroupPanelView2 = new NSIPluGroupsView(groups);
-                var plugroupPanelView3 = new NSIPluGroupsView(groups);
-                var plugroupPanelView4 = new NSIPluGroupsView(groups);
-                check1_group_listscrollablepanel.datasource = plugroupPanelView1;
-                check2_group_listscrollablepanel.datasource = plugroupPanelView2;
-                check3_group_listscrollablepanel.datasource = plugroupPanelView3;
-                check4_group_listscrollablepanel.datasource = plugroupPanelView4;
-            //}
 
+                for (let j = 1; j <= maxChecks; j++) {
+
+                    /* templates */
+                    let tmplmenu = document.getElementById('check-' + j + '-template');
+                    for (let i in sortedTemplates) {
+                        let tmplName = sortedTemplates[i].name;
+                        tmplmenu.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                    }
+                    tmplmenu.selectedIndex = 0;
+
+                    /* device ports */
+                    let portmenu = document.getElementById('check-' + j + '-port');
+                    for (let i in sortedPorts) {
+                        if (sortedPorts[i].support.indexOf('check') > -1) {
+                            let portName = sortedPorts[i].name;
+                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                        }
+                    }
+                    portmenu.selectedIndex = 0;
+
+                    /* device portspeeds */
+                    let portspeedmenu = document.getElementById('check-' + j + '-portspeed');
+                    for (let i in portspeeds) {
+                        let portspeed = portspeeds[i];
+                        portspeedmenu.appendItem(portspeed, portspeed, '');
+                    }
+                    portspeedmenu.selectedIndex = 0;
+
+                    /* device models */
+                    let devicemodelmenu = document.getElementById('check-' + j + '-devicemodel');
+                    devicemodelmenu.selectedIndex = 0;
+                    for (let i in sortedCheckDeviceModels) {
+                        let devicemodelName = sortedCheckDeviceModels[i].name;
+                        devicemodelmenu.appendItem(_(sortedCheckDeviceModels[i].label), devicemodelName, '');
+
+                        if (devicemodelName == selectedDevices['check-' + j + '-devicemodel']) {
+                            devicemodelmenu.selectedIndex = i;
+                        }
+                    }
+
+                    /* encodings */
+                    let encodingmenu = document.getElementById('check-' + j + '-encoding');
+                    this.populateEncodings(encodingmenu, sortedCheckDeviceModels[devicemodelmenu.selectedIndex]);
+
+                    let check_group_listscrollablepanel = document.getElementById('check-' + j + '-group_listscrollablepanel');
+                    let plugroupPanelView = new NSIPluGroupsView(groups);
+                    check_group_listscrollablepanel.datasource = plugroupPanelView;
+                }
+            }
 
             /*
-             * populate report panel
+             * populate report/label panel(s)
              *
              */
 
-            if (document.getElementById('report-panel') != null) {
+            if (this._maxReports > 0) {
 
-                /* populate device ports */
+                for (let j = 1; j <= this._maxReports; j++) {
+                    let portmenu = document.getElementById('report-' + j + '-port');
 
-                var portmenu1 = document.getElementById('report-1-port');
-                var portmenu2 = document.getElementById('report-2-port');
-
-                for (var i in sortedPorts) {
-                    if (sortedPorts[i].support.indexOf('report') > -1) {
-                        var portName = sortedPorts[i].name;
-                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    /* device ports */
+                    for (let i in sortedPorts) {
+                        if (sortedPorts[i].support.indexOf('report') > -1) {
+                            let portName = sortedPorts[i].name;
+                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                        }
                     }
-                }
-                portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
+                    portmenu.selectedIndex = 0;
 
-                /* populate device portspeeds */
+                    /* device portspeeds */
+                    let portspeedmenu = document.getElementById('report-' + j + '-portspeed');
 
-                var portspeedmenu1 = document.getElementById('report-1-portspeed');
-                var portspeedmenu2 = document.getElementById('report-2-portspeed');
-
-                for (var i in portspeeds) {
-                    var portspeed = portspeeds[i];
-                    portspeedmenu1.appendItem(portspeed, portspeed, '');
-                    portspeedmenu2.appendItem(portspeed, portspeed, '');
-                }
-                portspeedmenu1.selectedIndex = portspeedmenu2.selectedIndex = 0;
-
-                /* populate device models */
-
-                var devicemodelmenu1 = document.getElementById('report-1-devicemodel');
-                var devicemodelmenu2 = document.getElementById('report-2-devicemodel');
-                var devicemodels = this.getDeviceModels();
-
-                var sortedDevicemodels = [];
-                for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('report') > -1) {
-                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
-                        newDevicemodel.name = devicemodel;
-                        sortedDevicemodels.push(newDevicemodel);
+                    for (let i in portspeeds) {
+                        let portspeed = portspeeds[i];
+                        portspeedmenu.appendItem(portspeed, portspeed, '');
                     }
-                }
-                this._sortedDevicemodels['report'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                    portspeedmenu.selectedIndex = 0;
 
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
-                for (var i in sortedDevicemodels) {
-                    var devicemodelName = sortedDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
-                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    /* device models */
+                    let devicemodelmenu = document.getElementById('report-' + j + '-devicemodel');
+                    devicemodelmenu.selectedIndex = 0;
+                    for (let i in sortedReportDeviceModels) {
+                        let devicemodelName = sortedReportDeviceModels[i].name;
+                        devicemodelmenu.appendItem(_(sortedReportDeviceModels[i].label), devicemodelName, '');
 
-                    if (devicemodelName == selectedDevices['report-1-devicemodel']) {
-                        devicemodelmenu1.selectedIndex = i;
+                        if (devicemodelName == selectedDevices['report-' + j + '-devicemodel']) {
+                            devicemodelmenu.selectedIndex = i;
+                        }
                     }
 
-                    if (devicemodelName == selectedDevices['report-2-devicemodel']) {
-                        devicemodelmenu2.selectedIndex = i;
-                    }
+                    /* encodings */
+                    let encodingmenu = document.getElementById('report-' + j + '-encoding');
+
+                    this.populateEncodings(encodingmenu, sortedReportDeviceModels[devicemodelmenu.selectedIndex]);
                 }
-
-                /* populate encodings */
-
-                var encodingmenu1 = document.getElementById('report-1-encoding');
-                var encodingmenu2 = document.getElementById('report-2-encoding');
-
-                this.populateEncodings(encodingmenu1, sortedDevicemodels[devicemodelmenu1.selectedIndex]);
-                this.populateEncodings(encodingmenu2, sortedDevicemodels[devicemodelmenu2.selectedIndex]);
             }
 
             /*
@@ -1574,23 +1366,19 @@
              *
              */
 
-            if (document.getElementById('vfd-panel') != null) {
+            if (this._maxVFDs > 0) {
 
-                /* populate templates */
-
-                var tmplmenu1 = document.getElementById('vfd-1-template');
-                var tmplmenu2 = document.getElementById('vfd-2-template');
-                var templates = this.getTemplates('vfd');
-
-                var sortedTemplates = [];
-                for (var tmpl in templates) {
-                    var newTemplate = GREUtils.extend({}, templates[tmpl]);
+                /* sort vfd templates */
+                let templates = this.getTemplates('vfd');
+                let sortedTemplates = [];
+                for (let tmpl in templates) {
+                    let newTemplate = GREUtils.extend({}, templates[tmpl]);
 
                     newTemplate.name = tmpl;
 
-                    var label = newTemplate.label;
+                    let label = newTemplate.label;
                     if (label.indexOf('chrome://') == 0) {
-                        var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                        let keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
                         label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                     }
                     else {
@@ -1601,77 +1389,51 @@
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
-                for (var i in sortedTemplates) {
-                    var tmplName = sortedTemplates[i].name;
-                    tmplmenu1.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                    tmplmenu2.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                }
-                tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = 0;
+                for (let j = 1; j <= this._maxVFDs; j++) {
 
-                /* populate device ports */
-
-                var portmenu1 = document.getElementById('vfd-1-port');
-                var portmenu2 = document.getElementById('vfd-2-port');
-
-                for (var i in sortedPorts) {
-                    if (sortedPorts[i].support.indexOf('vfd') > -1) {
-                        var portName = sortedPorts[i].name;
-                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    /* templates */
+                    let tmplmenu = document.getElementById('vfd-' + j + '-template');
+                    for (let i in sortedTemplates) {
+                        let tmplName = sortedTemplates[i].name;
+                        tmplmenu.appendItem(_(sortedTemplates[i].label), tmplName, '');
                     }
-                }
-                portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
+                    tmplmenu.selectedIndex = 0;
 
-                /* populate device portspeeds */
-
-                var portspeedmenu1 = document.getElementById('vfd-1-portspeed');
-                var portspeedmenu2 = document.getElementById('vfd-2-portspeed');
-
-                for (var i in portspeeds) {
-                    var portspeed = portspeeds[i];
-                    portspeedmenu1.appendItem(portspeed, portspeed, '');
-                    portspeedmenu2.appendItem(portspeed, portspeed, '');
-                }
-                portspeedmenu1.selectedIndex = portspeedmenu2.selectedIndex = 0;
-
-                /* populate device models */
-
-                var devicemodelmenu1 = document.getElementById('vfd-1-devicemodel');
-                var devicemodelmenu2 = document.getElementById('vfd-2-devicemodel');
-                var devicemodels = this.getDeviceModels();
-
-                var sortedDevicemodels = [];
-                for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('vfd') > -1) {
-                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
-                        newDevicemodel.name = devicemodel;
-                        sortedDevicemodels.push(newDevicemodel);
+                    /* device ports */
+                    let portmenu = document.getElementById('vfd-' + j + '-port');
+                    for (let i in sortedPorts) {
+                        if (sortedPorts[i].support.indexOf('vfd') > -1) {
+                            let portName = sortedPorts[i].name;
+                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                        }
                     }
-                }
-                this._sortedDevicemodels['vfd'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                    portmenu.selectedIndex = 0;
 
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
-                for (var i in sortedDevicemodels) {
-                    var devicemodelName = sortedDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
-                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    /* device portspeeds */
+                    let portspeedmenu = document.getElementById('vfd-' + j + '-portspeed');
+                    for (let i in portspeeds) {
+                        let portspeed = portspeeds[i];
+                        portspeedmenu.appendItem(portspeed, portspeed, '');
+                    }
+                    portspeedmenu.selectedIndex = 0;
 
-                    if (devicemodelName == selectedDevices['vfd-1-devicemodel']) {
-                        devicemodelmenu1.selectedIndex = i;
+                    /* device models */
+                    let devicemodelmenu = document.getElementById('vfd-' + j + '-devicemodel');
+                    devicemodelmenu.selectedIndex = 0;
+                    for (let i in sortedVFDDeviceModels) {
+                        let devicemodelName = sortedVFDDeviceModels[i].name;
+                        devicemodelmenu.appendItem(_(sortedVFDDeviceModels[i].label), devicemodelName, '');
+
+                        if (devicemodelName == selectedDevices['vfd-' + j + '-devicemodel']) {
+                            devicemodelmenu.selectedIndex = i;
+                        }
                     }
 
-                    if (devicemodelName == selectedDevices['vfd-2-devicemodel']) {
-                        devicemodelmenu2.selectedIndex = i;
-                    }
+                    /* encodings */
+                    let encodingmenu = document.getElementById('vfd-' + j + '-encoding');
+
+                    this.populateEncodings(encodingmenu, sortedVFDDeviceModels[devicemodelmenu.selectedIndex]);
                 }
-
-                /* populate encodings */
-
-                var encodingmenu1 = document.getElementById('vfd-1-encoding');
-                var encodingmenu2 = document.getElementById('vfd-2-encoding');
-
-                this.populateEncodings(encodingmenu1, sortedDevicemodels[devicemodelmenu1.selectedIndex]);
-                this.populateEncodings(encodingmenu2, sortedDevicemodels[devicemodelmenu2.selectedIndex]);
             }
 
             /*
@@ -1679,74 +1441,52 @@
              *
              */
 
-            if (document.getElementById('cashdrawer-1-panel') != null && document.getElementById('cashdrawer-2-panel') != null) {
+             if (this._maxDrawers > 0) {
 
-                /* populate device ports */
+                for (let j = 1; j <= this._maxDrawers; j++) {
 
-                var portmenu1 = document.getElementById('cashdrawer-1-port');
-                var portmenu2 = document.getElementById('cashdrawer-2-port');
-
-                for (var i in sortedPorts) {
-                    if (sortedPorts[i].support.indexOf('cashdrawer') > -1) {
-                        var portName = sortedPorts[i].name;
-                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    /* device ports */
+                    let portmenu = document.getElementById('cashdrawer-' + j + '-port');
+                    for (let i in sortedPorts) {
+                        if (sortedPorts[i].support.indexOf('cashdrawer') > -1) {
+                            let portName = sortedPorts[i].name;
+                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                        }
                     }
-                }
-                portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
+                    portmenu.selectedIndex = 0;
 
-                /* populate device portspeeds */
-
-                var portspeedmenu1 = document.getElementById('cashdrawer-1-portspeed');
-                var portspeedmenu2 = document.getElementById('cashdrawer-2-portspeed');
-
-                for (var i in portspeeds) {
-                    var portspeed = portspeeds[i];
-                    portspeedmenu1.appendItem(portspeed, portspeed, '');
-                    portspeedmenu2.appendItem(portspeed, portspeed, '');
-                }
-                portspeedmenu1.selectedIndex = portspeedmenu2.selectedIndex = 0;
-
-                /* populate device models */
-
-                var devicemodelmenu1 = document.getElementById('cashdrawer-1-devicemodel');
-                var devicemodelmenu2 = document.getElementById('cashdrawer-2-devicemodel');
-                var devicemodels = this.getDeviceModels();
-
-                var sortedDevicemodels = [];
-                for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('cashdrawer') > -1) {
-                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
-                        newDevicemodel.name = devicemodel;
-                        sortedDevicemodels.push(newDevicemodel);
+                    /* device portspeeds */
+                    let portspeedmenu = document.getElementById('cashdrawer-' + j + '-portspeed');
+                    for (let i in portspeeds) {
+                        let portspeed = portspeeds[i];
+                        portspeedmenu.appendItem(portspeed, portspeed, '');
                     }
-                }
-                sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                    portspeedmenu.selectedIndex = 0;
 
-                for (var i in sortedDevicemodels) {
-                    var devicemodelName = sortedDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
-                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    /* device models */
+                    let devicemodelmenu = document.getElementById('cashdrawer-' + j + '-devicemodel');
+                    for (let i in sortedDrawerDeviceModels) {
+                        let devicemodelName = sortedDrawerDeviceModels[i].name;
+                        devicemodelmenu.appendItem(_(sortedDrawerDeviceModels[i].label), devicemodelName, '');
+                    }
+                    devicemodelmenu.selectedIndex = 0;
                 }
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
             }
 
             if (document.getElementById('journal-panel') != null) {
 
-                /* populate templates */
+                let tmplmenu = document.getElementById('journal-preview-template');
+                let templates = this.getTemplates('preview');
 
-                var tmplmenu1 = document.getElementById('journal-preview-template');
-                var templates = this.getTemplates('preview');
-
-                var sortedTemplates = [];
-                for (var tmpl in templates) {
-                    var newTemplate = GREUtils.extend({}, templates[tmpl]);
+                let sortedTemplates = [];
+                for (let tmpl in templates) {
+                    let newTemplate = GREUtils.extend({}, templates[tmpl]);
 
                     newTemplate.name = tmpl;
 
-                    var label = newTemplate.label;
+                    let label = newTemplate.label;
                     if (label.indexOf('chrome://') == 0) {
-                        var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                        let keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
                         label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                     }
                     else {
@@ -1757,11 +1497,11 @@
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
-                for (var i in sortedTemplates) {
-                    var tmplName = sortedTemplates[i].name;
-                    tmplmenu1.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                for (let i in sortedTemplates) {
+                    let tmplName = sortedTemplates[i].name;
+                    tmplmenu.appendItem(_(sortedTemplates[i].label), tmplName, '');
                 }
-                tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = 0;
+                tmplmenu.selectedIndex = 0;
             }
 
             /*
@@ -1769,69 +1509,46 @@
              *
              */
 
-            if (document.getElementById('scale-panel') != null) {
+             if (this._maxScales > 0) {
 
-                /* populate device ports */
+                for (let j = 1; j <= this._maxScales; j++) {
 
-                var portmenu1 = document.getElementById('scale-1-port');
-                var portmenu2 = document.getElementById('scale-2-port');
-
-                for (var i in sortedPorts) {
-                    if (sortedPorts[i].support.indexOf('scale') > -1) {
-                        var portName = sortedPorts[i].name;
-                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    /* device ports */
+                    let portmenu = document.getElementById('scale-' + j + '-port');
+                    for (let i in sortedPorts) {
+                        if (sortedPorts[i].support.indexOf('scale') > -1) {
+                            let portName = sortedPorts[i].name;
+                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                        }
                     }
-                }
-                portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
+                    portmenu.selectedIndex = 0;
 
-                /* populate device portspeeds */
-
-                var portspeedmenu1 = document.getElementById('scale-1-portspeed');
-                var portspeedmenu2 = document.getElementById('scale-2-portspeed');
-
-                for (var i in portspeeds) {
-                    var portspeed = portspeeds[i];
-                    portspeedmenu1.appendItem(portspeed, portspeed, '');
-                    portspeedmenu2.appendItem(portspeed, portspeed, '');
-                }
-                portspeedmenu1.selectedIndex = portspeedmenu2.selectedIndex = 0;
-
-                /* populate device models */
-
-                var devicemodelmenu1 = document.getElementById('scale-1-devicemodel');
-                var devicemodelmenu2 = document.getElementById('scale-2-devicemodel');
-                var devicemodels = this.getDeviceModels();
-
-                var sortedDevicemodels = [];
-                for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('scale') > -1) {
-                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
-                        newDevicemodel.name = devicemodel;
-                        sortedDevicemodels.push(newDevicemodel);
+                    /* device portspeeds */
+                    let portspeedmenu = document.getElementById('scale-' + j + '-portspeed');
+                    for (let i in portspeeds) {
+                        let portspeed = portspeeds[i];
+                        portspeedmenu.appendItem(portspeed, portspeed, '');
                     }
-                }
-                sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                    portspeedmenu.selectedIndex = 0;
 
-                for (var i in sortedDevicemodels) {
-                    var devicemodelName = sortedDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
-                    devicemodelmenu2.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
+                    /* device models */
+                    let devicemodelmenu = document.getElementById('scale-' + j + '-devicemodel');
+                    for (let i in sortedScaleDeviceModels) {
+                        var devicemodelName = sortedScaleDeviceModels[i].name;
+                        devicemodelmenu.appendItem(sortedScaleDeviceModels[i].label, devicemodelName, '');
+                    }
+                    devicemodelmenu.selectedIndex = 0;
                 }
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
             }
 
             /* apply device selections */
             GeckoJS.FormHelper.unserializeFromObject('deviceForm', selectedDevices);
 
-            if (document.getElementById('cashdrawer-1-panel') != null) {
-                this.updateCashdrawerType([document.getElementById('cashdrawer-1-type'), '1']);
+            for (let j = 1; j <= this._maxDrawers; j++) {
+                if (document.getElementById('cashdrawer-' + j + '-panel') != null) {
+                    this.updateCashdrawerType([document.getElementById('cashdrawer-' + j + '-type'), j]);
+                }
             }
-            if (document.getElementById('cashdrawer-2-panel') != null) {
-                this.updateCashdrawerType([document.getElementById('cashdrawer-2-type'), '2']);
-            }
-
-            /* update encoding menus */
         },
 
         populateEncodings: function (menulist, devicemodel) {

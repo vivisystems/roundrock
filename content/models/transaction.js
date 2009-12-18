@@ -862,8 +862,6 @@
                 var setItemProductId = barcodesIndexes[setitem.preset_no];
                 var setItemProduct = self.Product.getProductById(setItemProductId);
 
-                //alert(setItemProductId + ':' + self.dump(setItemProduct));
-
                 if (setItemProduct) {
                     var setItemQty = setitem.quantity * sellQty;
                     var setItemPrice = setitem.price;
@@ -962,6 +960,9 @@
             var prod = this.Product.getProductById(itemTrans.id);
             if(prod) {
                 item = GREUtils.extend({}, prod);
+
+                // need to use registered tax status
+                item.rate = itemTrans.tax_name;
             }else {
                 item = GREUtils.extend({},itemTrans);
             }
@@ -991,8 +992,8 @@
                     if (itemTrans.current_qty < 0 && sellQty > 0) sellQty = 0 - sellQty;
 
                     sellPrice = (GeckoJS.Session.get('cart_set_price_value') != null)
-                    ? GeckoJS.Session.get('cart_set_price_value')
-                    : (GeckoJS.Session.get('cart_set_qty_value') != null) ? sellPrice : null;
+                                ? GeckoJS.Session.get('cart_set_price_value')
+                                : (GeckoJS.Session.get('cart_set_qty_value') != null) ? sellPrice : null;
 
                     sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
                 }
@@ -1080,7 +1081,7 @@
                         let defaultTaxNo = GeckoJS.Session.get('defaultTaxNo');
                         if (defaultTaxNo) item.rate = defaultTaxNo;
                     }
-
+                    
                     // create data object to push in items array
                     itemModified = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
                     itemTrans.current_qty = itemModified.current_qty;
@@ -2835,7 +2836,7 @@
                         item.tax_type = tax.type;
 
                         var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
-                        var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge), item.current_price, item.current_qty, this.data.precision_taxes, this.data.rounding_taxes);
+                        var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge), Math.abs(item.current_price), Math.abs(item.current_qty), this.data.precision_taxes, this.data.rounding_taxes);
 
                         // rounding tax
                         item.current_tax =  this.getRoundedTax(taxChargeObj[item.tax_name].charge);
@@ -2987,7 +2988,6 @@
                     roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-quarter');
                     if (total < 0) roundedTotal = 0 - roundedTotal;
                     revalue_subtotal = roundedTotal - total;
-                    alert(revalue_subtotal + ', ' + roundedTotal + ', ' + total);
                     break;
 
                 case 'round-to-50-cents':

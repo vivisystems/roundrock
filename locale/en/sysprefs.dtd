@@ -85,6 +85,10 @@
 <!ENTITY layout.showclockinicon "Show clock-in icon">
 <!ENTITY layout.showvirtualkeyboardicon "Show virtual keyboard icon">
 <!ENTITY layout.showconfigicon "Show control panel icon">
+<!ENTITY layout.cartstatus.position "Cart Status dock position">
+<!ENTITY layout.cartstatus.position.none.label "none">
+<!ENTITY layout.cartstatus.position.dir_before.label "before">
+<!ENTITY layout.cartstatus.position.dir_after.label "after">
 <!ENTITY plufilter.filtername "Filter Name">
 <!ENTITY plufilter.index "Index">
 <!ENTITY plufilter.length "Length">

@@ -9,7 +9,8 @@
 "${_( '(rpt)Start Time' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
 
-"${_( '(rpt)Terminal' )}","${_( '(rpt)Sale Period' )}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Invoice Number' )}",${_( '(rpt)Total' )}","${_('(rpt)Gross Sales')}","${_( '(rpt)Order Surcharge' )}","${_( '(rpt)Order Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Included Tax' )}"{for tax in taxList},"${tax.no + ' ' + _( '(rpt)Gross Sales' )}","${tax.no}"{/for}
+"${_( '(rpt)Terminal' )}","${_( '(rpt)Sale Period' )}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Total' )}","${_('(rpt)Gross Sales')}","${_( '(rpt)Order Surcharge' )}","${_( '(rpt)Order Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Included Tax' )}"{for tax in taxList},"'${tax.no + ' ' + _( '(rpt)Gross Sales' )}","'${tax.no}"{/for}
+
 {for item in body}
 {eval}
   TrimPath.RoundingPrices = item.Order.rounding_prices;
@@ -17,8 +18,8 @@
   TrimPath.RoundingTaxes = item.Order.rounding_taxes;
   TrimPath.PrecisionTaxes = item.Order.precision_taxes;
 {/eval}
-,""
-"'${item.Order.terminal_no}","'${item.Order.sale_period|unixTimeToString:'saleperiod'}","'${item.Order.shift_number}","'${item.Order.time|unixTimeToString}","'${item.Order.sequence}","'${item.Order.invoice_no|default:''}","${item.Order.total|default:0|viviFormatPrices:true}","${item.Order.item_subtotal|default:0|viviFormatPrices:true}","${item.trans_surcharge_subtotal|default:0|viviFormatPrices:true}","${item.trans_discount_subtotal|default:0|viviFormatPrices:true}","${item.Order.promotion_subtotal|default:0|viviFormatPrices:true}","${item.Order.revalue_subtotal|default:0|viviFormatPrices:true}","${item.Order.tax_subtotal|default:0|viviFormatTaxes:true}","${item.Order.included_tax_subtotal|default:0|viviFormatTaxes:true}"{for tax in taxList}
+
+"'${item.Order.terminal_no}","'${item.Order.sale_period|unixTimeToString:'saleperiod'}","'${item.Order.shift_number}","'${item.Order.time|unixTimeToString}","'${item.Order.sequence}","'${item.Order.invoice_no|default:''}","${item.Order.total|default:0|viviFormatPrices:true}","${item.Order.item_subtotal|default:0|viviFormatPrices:true}","${item.trans_surcharge_subtotal|default:0|viviFormatPrices:true}","${item.trans_discount_subtotal|default:0|viviFormatPrices:true}","${item.Order.promotion_subtotal|default:0|viviFormatPrices:true}","${item.Order.revalue_subtotal|default:0|viviFormatPrices:true}","${item.Order.tax_subtotal|default:0|viviFormatTaxes:true}","${item.Order.included_tax_subtotal|default:0|viviFormatTaxes:true}",{for tax in taxList}
 {eval}
 if (item.taxes && tax.no in item.taxes) {
    item_subtotal = item.taxes[tax.no].item_subtotal;
@@ -29,7 +30,7 @@ else {
    tax_subtotal = 0;
 }
 {/eval}
-,"${item_subtotal|default:0|viviFormatTaxes:true}","${tax_subtotal|default:0|viviFormatTaxes:true}"{/for}
+,"${item_subtotal|default:0|viviFormatTaxes:true}","${tax_subtotal|default:0|viviFormatTaxes:true}"{/for}""
 {/for}
 {eval}
   delete TrimPath.RoundingPrices;

@@ -16,7 +16,7 @@
                     </xul:columns>
                     <xul:rows>
                         <xul:row flex="1">
-                            <xul:textbox anonid="label0_0" disabled="true" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="label0_0" size="2" disabled="true" xbl:inherits="class=labelClass,value"></xul:textbox>
                             <xul:textbox anonid="label0_1" disabled="true" style="color: yellow; align: right;" xbl:inherits="class=labelClass,value"></xul:textbox>
                         </xul:row>
                         <xul:row flex="1">
@@ -26,6 +26,7 @@
                     </xul:rows>
                 </xul:grid>
             </xul:hbox>
+            <html:div anonid="detectFontWidthContainer" style="display: none;" xbl:inherits="class=labelClass"></html:div>
         </content>
   
         <xbl:implementation>
@@ -37,6 +38,7 @@
             <field name="_label0_1">null</field>
             <field name="_label1_0">null</field>
             <field name="_label1_1">null</field>
+            <field name="_fontWidth">10</field>
             <field name="_inputController">null</field>
 
             <constructor>
@@ -56,6 +58,7 @@
                 this.cartQueueEvents = GeckoJS.Controller.getInstanceByName('CartQueue').events;
                 this.mainevents = GeckoJS.Controller.getInstanceByName('Main').events;
 
+                this._fontWidth = this._detectFontWidth();
 
                 var self = this;
 
@@ -297,6 +300,57 @@
             ]]>
             </destructor>
 	
+            <xbl:method name="_detectFontWidth">
+                <xbl:body>
+                <![CDATA[
+                    var h = document.getAnonymousElementByAttribute(this, "anonid", "detectFontWidthContainer");
+                    var d = document.createElementNS("http://www.w3.org/1999/xhtml","html:div");
+                    var s = document.createElementNS("http://www.w3.org/1999/xhtml","html:span");
+                    var fontWidth = 0;
+
+                    h.style.display = "block";
+                    d.appendChild(s);
+                    s.textContent       = "0123456789ABCDEF";
+                    h.appendChild(d);
+                    var defaultWidth   = s.offsetWidth;
+
+                    // remove fontDetectContainer
+                    h.removeChild(d);
+
+                    h.style.display = "none";
+
+                    fontWidth = Math.floor(defaultWidth/16);
+
+                    return fontWidth;
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="_cropText">
+                <xbl:parameter name="text"/>
+                <xbl:parameter name="container"/>
+                <xbl:body>
+                <![CDATA[
+                    var input = document.getAnonymousElementByAttribute(container, "class", "textbox-input");
+
+                    var textWidth = text.length * this._fontWidth;
+                    var innerWidth = input.clientWidth;
+
+                    // need to account for left and right padding
+                    var leftPadding = $(input).css('padding-left').replace('px', '', 'g');
+                    var rightPadding = $(input).css('padding-right').replace('px', '', 'g');
+                    var displayWidth = innerWidth - leftPadding - rightPadding;
+
+                    if (textWidth > displayWidth) {
+                        var maxlen = parseInt(displayWidth / this._fontWidth);
+                        text = text.substr(0, maxlen - 4) + "..." + text.substr(text.length - 1, 1);
+                    }
+
+                    return text;
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
             <xbl:method name="switchTrainingMode">
                 <xbl:parameter name="isTraining"/>
                 <xbl:body>
@@ -327,9 +381,7 @@
                 <xbl:body>
                 <![CDATA[
 
-                    if(val.length > this._maxlen) {
-                        val = val.substr(0,this._maxlen-4) + "..." + val.substr(val.length-1,1);
-                    }
+                    val = this._cropText(val, this._label0_0);
                     this._label0_0.value = val;
                 ]]>
                 </xbl:body>
@@ -339,9 +391,7 @@
                 <xbl:body>
                 <![CDATA[
 
-                    if(val.length > this._maxlen) {
-                        val = val.substr(0,this._maxlen-4) + "..." + val.substr(val.length-1,1);
-                    }
+                    val = this._cropText(val, this._label0_1);
                     this._label0_1.value = val;
                 ]]>
                 </xbl:body>
@@ -351,9 +401,7 @@
                 <xbl:body>
                 <![CDATA[
 
-                    if(val.length > this._maxlen) {
-                        val = val.substr(0,this._maxlen-4) + "..." + val.substr(val.length-1,1);
-                    }
+                    val = this._cropText(val, this._label1_0);
                     this._label1_0.value = val;
                 ]]>
                 </xbl:body>
@@ -369,9 +417,7 @@
                         val = newval;
                     }
 
-                    if(val.length > this._maxlen) {
-                        val = val.substr(0,this._maxlen-4) + "..." + val.substr(val.length-1,1);
-                    }
+                    val = this._cropText(val, this._label1_1);
                     this._label1_1.value = val;
                 ]]>
                 </xbl:body>
