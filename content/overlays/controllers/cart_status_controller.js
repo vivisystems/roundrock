@@ -131,13 +131,13 @@
                     }
                 }
                 else {
-                    if (txn.isStored()) {
-                        status = 'open-recalled-txn';
-                        status_str = _('(cartstatus)open-recalled-txn');
-                    }
-                    else if (txn.isClosed()) {
+                    if (txn.isClosed()) {
                         status = 'locked-txn'
                         status_str = _('(cartstatus)locked-txn');
+                    }
+                    else if (txn.isStored()) {
+                        status = 'open-recalled-txn';
+                        status_str = _('(cartstatus)open-recalled-txn');
                     }
                     else {
                         status = 'open-txn';
