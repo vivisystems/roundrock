@@ -4,6 +4,8 @@
   %Dialog;
   <!ENTITY % Numberpad SYSTEM "chrome://viviecr/locale/numberpad.dtd">
   %Numberpad;
+  <!ENTITY % Barcodelearning SYSTEM "chrome://viviecr/locale/barcodelearning.dtd">
+  %Barcodelearning;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
@@ -87,9 +89,10 @@
                 <vbox class="data-formsss">
                     <vbox flex="1" class="content-buttonpanel">
                         <label id="department_label" value=""/>
-                        <viviscrollablebuttonpanel id="department_no" seltype="single" flex="1" cols="5" rows="2"
+                        <viviscrollablebuttonpanel id="department_no" seltype="single" flex="1" cols="5" rows="3"
                            labelField="name"
                            buttonClass="button-item-a"
+                           buttonHeight="70"
                            scrollUpClass="scroll-up-button"
                            scrollDownClass="scroll-down-button">
                            <spacer flex="1"/>
@@ -110,7 +113,7 @@
                 <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
                     <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
                     <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
-                    <button id="useraction-btn" oncommand="UserAction();"/>
+                    <button id="update_name" label="&barcodelearning.button.updatename;" disabled="false" oncommand="updateName();"/>
                 </hbox>
                 <hbox pack="end" class="exitbar">
                     <button id="vkb" class="button-vkb" oncommand="opener.VirtualKeyboard.toggle()"/>
@@ -118,5 +121,4 @@
             </hbox>
         </vbox>
     </vbox>
-    
 </window>
