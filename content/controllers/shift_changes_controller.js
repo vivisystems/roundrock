@@ -1123,7 +1123,6 @@
             if (inputObj.ok) {
 
                 // cancel current transaction
-                var cart = GeckoJS.Controller.getInstanceByName('Cart');
                 if (cart) {
                     cart.cancel(true);
                 }
@@ -1255,9 +1254,9 @@
                 this.requestCommand('clearOrderData', null, 'Main');
 
                 // offer options to power off or restart and to print shift and day reports
-                var aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=300';
-                var parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
+                aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=300';
+                let parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Sale Period Close'), features, parms);
 
                 // power off or restart
@@ -1282,9 +1281,9 @@
             else if (doEndOfShift) {
 
                 // shift change notification and print option
-                var aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=200';
-                var message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
+                aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=300';
+                let message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Close'), features, message);
 
                 this.requestCommand('signOff', true, 'Main');
@@ -1293,8 +1292,8 @@
         },
         
         printShiftReport: function( all ) {
-        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print shift report?' ) ) )
-        		return;
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print shift report?' ) ) )
+                return;
 
             var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
             var salePeriod = this._getSalePeriod() * 1000;
@@ -1307,15 +1306,16 @@
             reportController.printShiftChangeReport( salePeriod, salePeriod, shiftNumber, terminalNo );
         },
 
-        printDailySales: function() {
-        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
-        		return;
+        printDailySales: function(shift) {
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+                return;
         	
             var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var shiftNumber = shift ? this._getShiftNumber().toString() : '';
 
-            reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', '' );
+            reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', shiftNumber );
         },
         
         reviewShiftReport: function( all ) {
@@ -1324,7 +1324,7 @@
 
 			var shiftNumber = '';
 			if ( !all )
-				shiftNumber = this._getShiftNumber().toString();
+                            shiftNumber = this._getShiftNumber().toString();
 				
 			var parameters = {
 				start: salePeriod,
@@ -1340,19 +1340,19 @@
 		    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
 
-        reviewDailySales: function() {
+        reviewDailySales: function( shift ) {
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
             var periodType = 'sale_period';
-            var shiftNo = '';
+            var shiftNo = shift ? this._getShiftNumber().toString() : '';
             
             var parameters = {
-				start: salePeriod,
-				end: salePeriod,
-				periodtype: periodType,
-				shiftno: shiftNo,
-				terminalNo: terminalNo
-			};
+                                start: salePeriod,
+                                end: salePeriod,
+                                periodtype: periodType,
+                                shiftno: shiftNo,
+                                terminalNo: terminalNo
+            };
 
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
             
