@@ -468,8 +468,8 @@
 
         _salesSummary: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+            let start = parseInt( this._start / 1000, 10 );
+            let end = parseInt( this._end / 1000, 10 );
 
             var fields = [
             'SUM("orders"."total") AS "Order.NetSales"',
@@ -522,6 +522,26 @@
                     orderRecord.AvgGrossSalesPerGuest = 0;
                 }
             }
+            // if breakout set menu, run another query on order items
+            if (orderRecord && this._breakout_setmenu) {
+                let qtySubtotal = 0;
+                let orderItem = new OrderItemModel();
+
+                let fields = [
+                    'SUM("order_items"."current_qty") as "qty"',
+                ];
+
+                let record = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions);
+                if (record && record[0]) {
+                    qtySubtotal = record[0].qty;
+                }
+                
+                orderRecord.QtySubtotal = qtySubtotal;
+                if (orderRecord.OrderNum != 0) {
+                    orderRecord.AvgQtySubtotal = qtySubtotal / orderRecord.OrderNum;
+                }
+            }
+
             // get the number of voided orders.
             var where = "status = -2";
             	
