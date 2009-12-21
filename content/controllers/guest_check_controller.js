@@ -120,13 +120,14 @@
         /**
          * print Check (current Transaction)
          */
-        printChecks: function(txn, autoPrint) {
+        printChecks: function(txn, autoPrint, duplicate) {
 
+            duplicate = duplicate || false;
             txn = txn || this.getCartController()._getTransaction();
             autoPrint = autoPrint || '';
 
             // print check
-            this.getPrintController().printChecks(txn, null, autoPrint);
+            this.getPrintController().printChecks(txn, null, autoPrint, duplicate);
 
         },
 
@@ -676,9 +677,9 @@
                 case 'transferTable':
                     // only process products in this link_group
                     if (hasLinkedItems) {
-                    let newTemplate = this.tableSettings.PrintCheckAfterTransferTableTemplate || '';
-                    // use new template to print transfer table
-                    eventData.template = newTemplate;
+                        let newTemplate = this.tableSettings.PrintCheckAfterTransferTableTemplate || '';
+                        // use new template to print transfer table
+                        eventData.template = newTemplate;
                     }
                     break;
             }
@@ -1834,7 +1835,7 @@
                             newTxnData.org_table_region_name = orgRegionName;
                             newTxnData.transfer_table_time =  new Date().getTime() /1000;
 
-                            this.printChecks({data: newTxnData}, 'transferTable');
+                            this.printChecks({data: newTxnData}, 'transferTable', true);
                         }
 
                     }
