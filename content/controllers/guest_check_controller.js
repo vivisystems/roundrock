@@ -655,6 +655,16 @@
 
             return true;
         },
+
+
+        /**
+         *
+         */
+        beforePrintSlipGetTemplate: function(evt) {
+
+
+            
+        },
         
 
         /**
