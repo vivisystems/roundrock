@@ -1209,9 +1209,8 @@
             
             if (evt.data.status != 1 && typeof evt.data.status != 'undefined') return ;
 
-            // let destination = getXXXX;
-            var isCheckTableNo = true;
-            var isCheckGuestNum = true;
+            var isCheckTableNo = false;
+            var isCheckGuestNum = false;
             var curTransaction = evt.data.txn || evt.data;
 
             if (this.tableSettings.RequireGuestNum) {
