@@ -31,8 +31,14 @@ pref("vivipos.fec.registry.templates.label-sample-argox-203td.label", "chrome://
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "check");
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.path", "chrome://viviecr/content/devices/templates/label-sample-argox-203td.tpl");
 
+pref("vivipos.fec.registry.templates.label-simple-testing-1.label", "label-simple-testing-1");
+pref("vivipos.fec.registry.templates.label-simple-testing-1.type", "label");
+pref("vivipos.fec.registry.templates.label-simple-testing-1.barcodetype", "3OF9,128,UPC-A,EAN-13");
+pref("vivipos.fec.registry.templates.label-simple-testing-1.path", "chrome://viviecr/content/devices/templates/label-simple-testing-1.tpl");
+
 pref("vivipos.fec.registry.templates.label-simple-testing-2.label", "label-simple-testing-2");
 pref("vivipos.fec.registry.templates.label-simple-testing-2.type", "label");
+pref("vivipos.fec.registry.templates.label-simple-testing-2.barcodetype", "3OF9,128,UPC-A,EAN-13");
 pref("vivipos.fec.registry.templates.label-simple-testing-2.path", "chrome://viviecr/content/devices/templates/label-simple-testing-2.tpl");
 
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "chrome://viviecr/locale/messages.properties");

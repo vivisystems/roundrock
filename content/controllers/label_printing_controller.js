@@ -171,8 +171,8 @@
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=350,height=400';
             var inputObj = {
-                          input0:null, require0:true, numberOnly0:true,
-                          numpad:true
+                          input0:null, require0:true, numberOnly0:true,digitOnly0:true,
+                          numpad:{}, type0:"number"
                      //   input1:null, require1:false
                            };
 
