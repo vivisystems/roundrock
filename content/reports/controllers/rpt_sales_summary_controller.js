@@ -16,7 +16,7 @@
         _terminalNo: null,
         _periodtype: null,
         _shiftno: null,
-        
+        _breakout_setmenu: false,
         _fileName: 'rpt_sales_summary',
 
         _getConditions: function() {
@@ -27,9 +27,10 @@
             this._shiftno = document.getElementById( 'shift_no' ).value;
             this._num_dept = document.getElementById( 'num_dept' ).value;
             this._num_product = document.getElementById( 'num_product' ).value;
+            this._breakout_setmenu = document.getElementById( 'breakout_setmenu' ).checked;
         },
         
-        _setConditions: function( start, end, terminalNo, periodtype, shiftno, num_dept, num_product ) {
+        _setConditions: function( start, end, terminalNo, periodtype, shiftno, num_dept, num_product, breakout_setmenu ) {
             this._start = start;
             this._end = end;
             this._terminalNo = terminalNo;
@@ -37,18 +38,24 @@
             this._shiftno = shiftno;
             this._num_dept = num_dept;
             this._num_product = num_product;
+            this._breakout_setmenu = breakout_setmenu;
         },
         
         setConditionsAnd_reportRecords: function( parameters ) {
+            parameters.num_dept = parameters.num_dept || 10;
+            parameters.num_product = parameters.num_product || 10;
+            parameters.breakout_setmenu = parameters.breakout_setmenu || false;
+
             document.getElementById( 'start_date' ).value = parameters.start;
             document.getElementById( 'end_date' ).value = parameters.end;
             document.getElementById( 'terminal_no' ).value = parameters.terminalNo;
             document.getElementById( 'period_type' ).value = parameters.periodtype;
             document.getElementById( 'shift_no' ).value = parameters.shiftno;
-            document.getElementById( 'num_dept' ).value = parameters.num_dept || 10;
-            document.getElementById( 'num_product' ).value = parameters.num_product || 10;
-
-            this._setConditions( parameters.start, parameters.end, parameters.terminalNo, parameters.periodtype, parameters.shiftno, parameters.num_dept || 10, parameters.num_product || 10 );
+            document.getElementById( 'num_dept' ).value = parameters.num_dept;
+            document.getElementById( 'num_product' ).value = parameters.num_product;
+            document.getElementById( 'breakout_setmenu' ).checked = parameters.breakout_setmenu;
+            
+            this._setConditions( parameters.start, parameters.end, parameters.terminalNo, parameters.periodtype, parameters.shiftno, parameters.num_dept, parameters.num_product, parameters.breakout_setmenu );
             this._set_reportData();
         },
 
@@ -146,6 +153,9 @@
             if ( this._shiftno.length > 0 )
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
+            if ( !this._breakout_setmenu )
+                conditions += " AND order_items.parent_index IS NULL";
+            
             var groupby = 'order_items.cate_no';
             var orderby = '"gross" DESC, "qty" DESC';
             
@@ -235,6 +245,9 @@
             if ( this._shiftno.length > 0 )
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
+            if ( !this._breakout_setmenu )
+                conditions += " AND order_items.parent_index IS NULL";
+            
             var groupby = 'order_items.product_no';
             var orderby = '"gross" DESC, "qty" DESC';
             
