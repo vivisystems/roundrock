@@ -25,7 +25,7 @@
         // (8) Limit
         */
 
-        _setData: function( start, end, periodType, shiftNo, sortby, terminalNo, department, limit ) {
+        _setData: function( start, end, periodType, shiftNo, sortby, terminalNo, department, breakoutSetmenu, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 
@@ -76,6 +76,9 @@
             if ( shiftNo.length > 0 )
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
 
+            if ( !breakoutSetmenu )
+                conditions += " AND order_items.parent_index IS NULL";
+            
             var orderby = '';
 
             switch( sortby ) {
@@ -92,7 +95,6 @@
                     break;
             }
             
-            var deptCondition = '';
             if ( department != 'all' ) {
                 conditions += " AND order_items.cate_no = '" + this._queryStringPreprocessor( department ) + "'";
             }
@@ -104,9 +106,10 @@
 
            var categories = {};
 
-           var orderItemRecords = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
-
-            orderItemRecords.forEach( function( record ) {
+           var orderItemRecords = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
+alert(conditions);
+this.log(this.dump(orderItemRecords));
+           orderItemRecords.forEach( function( record ) {
 
                 if (record['weight'] < 0) {
                     record['units'] = 0;
@@ -229,9 +232,9 @@
             
             var sortby = document.getElementById( 'sortby' ).value;
             var department = document.getElementById( 'department' ).value;
-            //var noSalesProduct = document.getElementById( 'no_sales_product' ).value;
+            var breakoutSetmenu = document.getElementById( 'breakout_setmenu' ).checked;
 
-            this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, limit );
+            this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, breakoutSetmenu, limit );
         },
 
         execute: function() {
