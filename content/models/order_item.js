@@ -92,6 +92,7 @@
 
         mappingOrderItemsFieldsToTran: function(orderData, data) {
 
+            var productModel = new ProductModel();
             var items = {};
             var items_summary = {};
 
@@ -148,6 +149,13 @@
                             break;
                     }
                 }
+
+                // check non stored data and rebuild from product databases
+                if (!orderItem.link_group) {
+                    let product = productModel.getProductById(orderItem.id);
+                    orderItem['link_group'] = product.link_group;
+                }
+                
                 orderItem.index = itemIndex;
                 items[itemIndex] = orderItem;
                 
