@@ -23,7 +23,17 @@
      */
     function startup() {
 
-        $do( 'load', null, 'RptSalesSummary' );
+        var parameters = window.arguments[ 0 ];
+
+        if (parameters && parameters.setparms) {
+            $do( 'setConditionsAnd_reportRecords', parameters, 'RptSalesSummary');
+            $do( '_setTemplateDataHead', null, 'RptSalesSummary');
+            $do( '_setTemplateDataFoot', null, 'RptSalesSummary');
+            $do( '_exploit_reportRecords', null, 'RptSalesSummary');
+        }
+        else {
+            $do( 'load', null, 'RptSalesSummary' );
+        }
 
     };
 

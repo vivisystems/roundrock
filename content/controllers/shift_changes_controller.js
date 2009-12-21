@@ -1322,22 +1322,23 @@
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get('terminal_no');
 
-			var shiftNumber = '';
-			if ( !all )
-				shiftNumber = this._getShiftNumber().toString();
-				
-			var parameters = {
-				start: salePeriod,
-				end: salePeriod,
-				shiftNo: shiftNumber,
-				terminalNo: terminalNo
-			};
+            var shiftNumber = '';
+            if ( !all )
+                    shiftNumber = this._getShiftNumber().toString();
+
+            var parameters = {
+                    start: salePeriod,
+                    end: salePeriod,
+                    shiftNo: shiftNumber,
+                    terminalNo: terminalNo,
+                    setparms: true
+            };
 		
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );
 		    
-		    var aURL = 'chrome://viviecr/content/rpt_cash_by_clerk.xul';
-		    var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-		    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
+            var aURL = 'chrome://viviecr/content/reports/rpt_cash_by_clerk.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
 
         reviewDailySales: function() {
@@ -1351,12 +1352,13 @@
 				end: salePeriod,
 				periodtype: periodType,
 				shiftno: shiftNo,
-				terminalNo: terminalNo
+				terminalNo: terminalNo,
+                                setparms: true
 			};
 
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
             
-            var aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
+            var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
