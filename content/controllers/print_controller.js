@@ -632,7 +632,7 @@
         // printer = null: print on all auto-print enabled printers
 
         printChecks: function(txn, printer, autoPrint, duplicate) {
-            
+
             var device = this.getDeviceController();
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -968,6 +968,30 @@
 
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
+
+                // make extensions has chance to modify template or update data before parse template
+                let eventData =  {  data: data,
+                                    template: template,
+                                    port: port,
+                                    portspeed: portspeed,
+                                    handshaking: handshaking,
+                                    devicemodel: devicemodel,
+                                    encoding: encoding,
+                                    printer: printer,
+                                    devicetype: deviceType };
+
+                if (!this.dispatchEvent('beforePrintSlipGetTemplate', eventData)) {
+                    return;
+                }
+                // reassign from eventData to local variables. data is passed by reference , don't need to reassigned.
+                template = eventData.template;
+                port = eventData.port;
+                portspeed = eventData.portspeed;
+                handshaking = eventData.handshaking;
+                devicemodel = eventData.devicemodel;
+                encoding = eventData.encoding;
+                printer = eventData.printer;
+                deviceType = eventData.devicetype;
 
                 //this.log('DEBUG', 'type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
                 tpl = this.getTemplateData(template, false);

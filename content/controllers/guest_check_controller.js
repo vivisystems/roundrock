@@ -41,7 +41,11 @@
 
             this.addEventListener('afterNewTable', this.afterNewTable, this);
 
-
+            var printer = this.getPrintController();
+            if (printer) {
+                printer.addEventListener('beforePrintSlipGetTemplate', this.beforePrintSlipGetTemplate, this);
+            }
+            
             this.tableSettings = this.TableSetting.getTableSettings() || {};
 
             // table window is first win
@@ -116,16 +120,13 @@
         /**
          * print Check (current Transaction)
          */
-        printChecks: function(txn) {
+        printChecks: function(txn, autoPrint) {
 
             txn = txn || this.getCartController()._getTransaction();
+            autoPrint = autoPrint || '';
 
-            // var printer = 1;
-            var printer;
-            var autoPrint = false;
-            var duplicate = 1;
             // print check
-            this.getPrintController().printChecks(txn, printer, autoPrint, duplicate);
+            this.getPrintController().printChecks(txn, autoPrint);
 
         },
 
@@ -1745,6 +1746,9 @@
                     if (this.isTableAvailable(newTable)) {
                         result = this.Order.transferTable(orderId, orgTable.id, newTable.id);
                         this.recallOrder(orderId, true);
+
+                        // after transfer table dispatch event and print checks
+                        
                     }
 
                 }else {
