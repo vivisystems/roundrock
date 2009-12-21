@@ -79,7 +79,11 @@
         onSelectTab: function(tabItem) {
             let id = tabItem ? tabItem.id : '';
             switch (id) {
+                default:
+                    $('#save').attr({hidden: 'false'});
+                    break;
                 case 'irc-tab':
+                    $('#save').attr({hidden: 'true'});
                     this.initialIrcLists();
                     break;
             }
@@ -300,6 +304,11 @@
                 $('#ircRemovePackage').attr({disabled: 'true'});
                 $('#irc-detail-tab').attr({disabled: 'true'});
                 $('#irc-edit-tab').attr({disabled: 'false'});
+
+                $('#basic-tab').attr({disabled: 'true'});
+                $('#advanced-tab').attr({disabled: 'true'});
+                $('#services-tab').attr({disabled: 'true'});
+
                 this.Form.reset('ircEdit');
                 return ;
             }
@@ -369,7 +378,11 @@
                 $('#irc-detail-tab').attr({disabled: 'false'});
                 $('#irc-edit-tab').attr({disabled: 'true'});
                 $('#ircRemovePackage').attr({disabled: 'true'});
-                
+
+                $('#basic-tab').attr({disabled: 'false'});
+                $('#advanced-tab').attr({disabled: 'false'});
+                $('#services-tab').attr({disabled: 'false'});
+
                 return ;
         },
 
