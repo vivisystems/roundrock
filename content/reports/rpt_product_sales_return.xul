@@ -31,9 +31,9 @@
 
     <vbox flex="1" class="container-report">
         <vbox flex="1" class="container-main">
-		    <vbox>
-		        <label value="&productSalesReturn.title;" class="label-page-title"/>
-		        <hbox>
+            <vbox>
+                <label value="&productSalesReturn.title;" class="label-page-title"/>
+                <hbox>
                     <hbox flex="1">
                         <grid flex="1" class="data-form">
                             <columns>
@@ -95,12 +95,13 @@
                                             </menupopup>
                                         </menulist>
                                     </vbox>
+                                    <checkbox id="breakout_setmenu" label="&productSalesReturn.breakout_setmenu;" checked="false"/>
                                 </row>
                             </rows>
                         </grid>
                     </hbox>
-		            <button id="execute" label="&productSalesReturn.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptProductSalesReturn');"/>
-		        </hbox>
+                    <button id="execute" label="&productSalesReturn.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptProductSalesReturn');"/>
+                </hbox>
             </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->

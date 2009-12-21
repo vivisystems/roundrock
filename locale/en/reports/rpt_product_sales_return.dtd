@@ -25,3 +25,5 @@
 <!ENTITY productSalesReturn.department "Department:">
 <!ENTITY productSalesReturn.show "Show">
 <!ENTITY productSalesReturn.hide "Hide">
+<!ENTITY productSalesReturn.breakout_setmenu "Break out Set Menu">
+
