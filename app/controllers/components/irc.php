@@ -405,13 +405,13 @@ class IrcComponent extends Object {
             default:
             case 'create':
 
-                if (strpos($database, '/') == false) {
+                if (strpos($database, '/') === false) {
                     $databaseFile = $this->databasesPath ."/" . $action['database'];
                 }else {
                     $databaseFile = $action['database'];
                 }
 
-                $exportFile = $workingDir ."/dbs/" . $database . "__" . $table . ".csv";
+                $exportFile = $workingDir ."/dbs/" . urlencode($database) . "__" . urlencode($table) . ".csv";
 
                 //$versionSql = "pragma user_version";
                 $tableSchemaSql = ".schema $table";
