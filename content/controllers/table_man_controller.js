@@ -23,6 +23,7 @@
 
         _needRestart: false,
 
+        _templates: null,
 
         initial: function() {
         },
@@ -357,13 +358,13 @@
                 if (success) {
 
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Table Status'),
-                                          _('Table status rebuilt successfully'));
+                        _('Table Status'),
+                        _('Table status rebuilt successfully'));
                 }
                 else {
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Table Status'),
-                                          _('Failed to rebuild table status, please check the network connectivity to the terminal designated as the table status server [message #2101]'));
+                        _('Table Status'),
+                        _('Failed to rebuild table status, please check the network connectivity to the terminal designated as the table status server [message #2101]'));
                 }
             } finally {
                 this._isBusy = false;
@@ -809,6 +810,39 @@
             }
         },
 
+
+        setPrintCheckTemplates: function() {
+
+            var transferTableTemplateObj = document.getElementById('print_check_after_transfer_table_template');
+            transferTableTemplateObj.removeAllItems();
+
+            /* sort receipt templates */
+            let templates = this.getTemplates('check');
+            let sortedTemplates = [];
+            for (let tmpl in templates) {
+                let newTemplate = GREUtils.extend({}, templates[tmpl]);
+                newTemplate.name = tmpl;
+
+                var label = newTemplate.label;
+                if (label.indexOf('chrome://') == 0) {
+                    var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                    label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                }
+                else {
+                    label = _(label);
+                }
+                newTemplate.label = label;
+                sortedTemplates.push(newTemplate);
+            }
+            sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
+
+            for (let i in sortedTemplates) {
+                let tmplName = sortedTemplates[i].name;
+                transferTableTemplateObj.appendItem(_(sortedTemplates[i].label), tmplName, '');
+            }
+
+        },
+
         searchDialog: function () {
 
             var aURL = "chrome://viviecr/content/plusearch.xul";
@@ -975,6 +1009,26 @@
 
         },
 
+        // return template registry objects
+        getTemplates: function (type) {
+            if (this._templates == null) {
+                this._templates = GeckoJS.Configure.read('vivipos.fec.registry.templates');
+            }
+            if (!type) {
+                return this._templates;
+            }
+            else {
+                var templates = {};
+                for (var tmpl in this._templates) {
+                    var tpl = this._templates[tmpl];
+                    if (tpl.type && tpl.type.indexOf(type) > -1) {
+                        templates[tmpl] = tpl;
+                    }
+                }
+                return templates;
+            }
+        },
+
 
         /**
          * callback function when document onload.
@@ -1000,6 +1054,9 @@
 
             // update destination menu UI.
             this.setDestinationMenuItem();
+
+            // get template with check type
+            this.setPrintCheckTemplates('check');
 
             // get table settings and update UI
             this.readTableSettings();

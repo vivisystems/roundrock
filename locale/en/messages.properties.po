@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-18 20:07+0800\n"
+"POT-Creation-Date: 2009-12-21 19:21+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2818,6 +2818,9 @@ msgstr "Internal VFD (non-en)"
 msgid "vivipos.fec.registry.templates.receipt-japanese-ecr-42c.label"
 msgstr "Sample Japanese ECR"
 
+msgid "vivipos.fec.registry.templates.kitchen-transfertable-42c.label"
+msgstr "Sample Kitchen 42c After Transfer Table"
+
 # #######################################################################
 #
 # List of Import / Export
@@ -4120,14 +4123,14 @@ msgstr ""
 #: ../..//content/controllers/cashdrawer_controller.js:354
 #: ../..//content/controllers/changeuser_controller.js:124
 #: ../..//content/controllers/clockinout_controller.js:301
-#: ../..//content/controllers/guest_check_controller.js:700
-#: ../..//content/controllers/guest_check_controller.js:1545
-#: ../..//content/controllers/guest_check_controller.js:1679
+#: ../..//content/controllers/guest_check_controller.js:731
+#: ../..//content/controllers/guest_check_controller.js:1576
+#: ../..//content/controllers/guest_check_controller.js:1710
 #: ../..//content/controllers/ledger_controller.js:314
 #: ../..//content/controllers/list_orders_controller.js:219
 #: ../..//content/controllers/main_controller.js:1200
 #: ../..//content/controllers/main_controller.js:1539
-#: ../..//content/controllers/print_controller.js:1208
+#: ../..//content/controllers/print_controller.js:1232
 #: ../..//content/controllers/setup_wizard_controller.js:698
 #: ../..//content/controllers/shift_changes_controller.js:1581
 #: ../..//content/controllers/stock_records_controller.js:747
@@ -4301,8 +4304,8 @@ msgid "Failed to void; the selected order no longer exists"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4192
-#: ../..//content/controllers/guest_check_controller.js:825
-#: ../..//content/controllers/guest_check_controller.js:826
+#: ../..//content/controllers/guest_check_controller.js:856
+#: ../..//content/controllers/guest_check_controller.js:857
 msgid "This order is already locked by other terminal. [%S,%S]"
 msgstr ""
 
@@ -4431,14 +4434,14 @@ msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:346
-#: ../..//content/controllers/print_controller.js:1131
+#: ../..//content/controllers/print_controller.js:1155
 #: ../..//content/controllers/vfd_controller.js:340
 msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:355
 #: ../..//content/controllers/changeuser_controller.js:125
-#: ../..//content/controllers/print_controller.js:1209
+#: ../..//content/controllers/print_controller.js:1233
 msgid ""
 "Please restart the terminal, and if the problem persists, contact technical "
 "support immediately."
@@ -4992,249 +4995,261 @@ msgstr ""
 msgid "."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:153
+#: ../..//content/controllers/guest_check_controller.js:155
 msgid "Number of Guests"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:153
+#: ../..//content/controllers/guest_check_controller.js:155
 msgid "Enter Number of Guests"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:153
+#: ../..//content/controllers/guest_check_controller.js:155
 msgid "Number"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:177
+#: ../..//content/controllers/guest_check_controller.js:179
 msgid "Enter Check Number"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:207
-#: ../..//content/controllers/table_man_controller.js:188
+#: ../..//content/controllers/guest_check_controller.js:209
+#: ../..//content/controllers/table_man_controller.js:189
 msgid "Table Number"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:207
+#: ../..//content/controllers/guest_check_controller.js:209
 msgid "Enter Table Number"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:244
+#: ../..//content/controllers/guest_check_controller.js:246
 msgid ""
 "Please close the current order before returning to the table selection screen"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:302
-#: ../..//content/controllers/guest_check_controller.js:1654
+#: ../..//content/controllers/guest_check_controller.js:304
+#: ../..//content/controllers/guest_check_controller.js:1685
 msgid "Split Check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:349
+#: ../..//content/controllers/guest_check_controller.js:351
 #: ../..//content/controllers/select_table_controller.js:656
 msgid "Table [%S] is not available for selection. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:368
-#: ../..//content/controllers/guest_check_controller.js:442
-#: ../..//content/controllers/guest_check_controller.js:500
+#: ../..//content/controllers/guest_check_controller.js:370
+#: ../..//content/controllers/guest_check_controller.js:444
+#: ../..//content/controllers/guest_check_controller.js:502
 msgid "Please open a new order first"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:448
+#: ../..//content/controllers/guest_check_controller.js:450
 msgid "Please use transfer table to update table number"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:480
-#: ../..//content/controllers/guest_check_controller.js:1751
+#: ../..//content/controllers/guest_check_controller.js:482
+#: ../..//content/controllers/guest_check_controller.js:1791
 msgid ""
 "[%S] is an invalid table number. Table number must be defined through table "
 "manager; Please input another table number."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:542
+#: ../..//content/controllers/guest_check_controller.js:544
 msgid "Split Payment"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:701
+#: ../..//content/controllers/guest_check_controller.js:732
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #502]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:705
+#: ../..//content/controllers/guest_check_controller.js:736
 msgid "Data Operation"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:706
+#: ../..//content/controllers/guest_check_controller.js:737
 msgid ""
 "Previously uncommitted stored order(s) have now been committed to the table "
 "service server."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:708
+#: ../..//content/controllers/guest_check_controller.js:739
 msgid "ORDER COMMITTED"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:712
+#: ../..//content/controllers/guest_check_controller.js:743
 msgid "Not an open order; unable to store"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:723
+#: ../..//content/controllers/guest_check_controller.js:754
 msgid "This order has been submitted"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:728
+#: ../..//content/controllers/guest_check_controller.js:759
 msgid "This order is closed pending payment and may only be finalized"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:733
+#: ../..//content/controllers/guest_check_controller.js:764
 msgid "This order is empty"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:741
+#: ../..//content/controllers/guest_check_controller.js:772
 msgid "No change to store"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:755
+#: ../..//content/controllers/guest_check_controller.js:786
 msgid "STORED"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:757
+#: ../..//content/controllers/guest_check_controller.js:788
 msgid "This order has been stored!!"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:783
+#: ../..//content/controllers/guest_check_controller.js:814
 #: ../..//content/controllers/list_orders_controller.js:210
 msgid "Recall Order"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:784
+#: ../..//content/controllers/guest_check_controller.js:815
 msgid "Please close the current order before recalling an existing order"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:818
+#: ../..//content/controllers/guest_check_controller.js:849
 msgid "The requested order is not available"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:834
+#: ../..//content/controllers/guest_check_controller.js:865
 msgid "This order cannot be recalled [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:925
+#: ../..//content/controllers/guest_check_controller.js:956
 msgid "RECALL# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:946
-#: ../..//content/controllers/guest_check_controller.js:1016
-#: ../..//content/controllers/guest_check_controller.js:1089
+#: ../..//content/controllers/guest_check_controller.js:977
+#: ../..//content/controllers/guest_check_controller.js:1047
+#: ../..//content/controllers/guest_check_controller.js:1120
 msgid "Recall Check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:973
+#: ../..//content/controllers/guest_check_controller.js:1004
 msgid "Failed to find orders matching check number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:976
-#: ../..//content/controllers/guest_check_controller.js:1046
-#: ../..//content/controllers/guest_check_controller.js:1119
+#: ../..//content/controllers/guest_check_controller.js:1007
+#: ../..//content/controllers/guest_check_controller.js:1077
+#: ../..//content/controllers/guest_check_controller.js:1150
 msgid "No stored orders found"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1029
+#: ../..//content/controllers/guest_check_controller.js:1060
 msgid "Enter Order Sequence Number"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1043
+#: ../..//content/controllers/guest_check_controller.js:1074
 msgid "Failed to find orders matching order sequence [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1116
+#: ../..//content/controllers/guest_check_controller.js:1147
 msgid "Failed to find orders matching table number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1253
+#: ../..//content/controllers/guest_check_controller.js:1284
 msgid "Minimum Charge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1254
+#: ../..//content/controllers/guest_check_controller.js:1285
 msgid "The total for this order is less than the minimum charge (%S). "
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1258
-#: ../..//content/controllers/guest_check_controller.js:1277
+#: ../..//content/controllers/guest_check_controller.js:1289
+#: ../..//content/controllers/guest_check_controller.js:1308
 msgid "The total for this order is less than the minimum charge (%S)"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1275
+#: ../..//content/controllers/guest_check_controller.js:1306
 msgid ""
 "An additional amount of (%S) has been added to the order to meet the minimum "
 "charge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1388
+#: ../..//content/controllers/guest_check_controller.js:1419
 msgid ""
 "An error was encountered while attempting to remove all table status records "
 "(error code %S) [message #501]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1393
+#: ../..//content/controllers/guest_check_controller.js:1424
 msgid ""
 "An error was encountered while attempting to remove all table status records "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1460
+#: ../..//content/controllers/guest_check_controller.js:1491
 msgid "The same order can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1472
+#: ../..//content/controllers/guest_check_controller.js:1503
 msgid "This order not stored order, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1476
+#: ../..//content/controllers/guest_check_controller.js:1507
 msgid "This order has been payment, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1481
+#: ../..//content/controllers/guest_check_controller.js:1512
 msgid "This order has discounts or surcharge, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1518
+#: ../..//content/controllers/guest_check_controller.js:1549
 #: ../..//content/controllers/select_table_controller.js:547
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1546
+#: ../..//content/controllers/guest_check_controller.js:1577
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #503]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1559
+#: ../..//content/controllers/guest_check_controller.js:1590
 msgid "Check# %S has been successfully merged to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1601
+#: ../..//content/controllers/guest_check_controller.js:1632
 msgid "This order not stored order, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1605
+#: ../..//content/controllers/guest_check_controller.js:1636
 msgid "This order has been payment, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1609
+#: ../..//content/controllers/guest_check_controller.js:1640
 msgid "This order has discounts or surcharge, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1680
+#: ../..//content/controllers/guest_check_controller.js:1711
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #504]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1694
+#: ../..//content/controllers/guest_check_controller.js:1725
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1771
+#: ../..//content/controllers/guest_check_controller.js:1826
+msgid "Transfer Table"
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:1827
+msgid "Transfer table From (%S) To (%S)"
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:1828
+msgid "Are you sure you want to print transfer table check"
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:1861
 msgid "Table Initialization"
 msgstr ""
 
@@ -6070,13 +6085,13 @@ msgstr ""
 #: ../..//content/controllers/plusearch_controller.js:240
 #: ../..//content/controllers/plusearch_controller.js:245
 #: ../..//content/controllers/stock_records_controller.js:132
-#: ../..//content/controllers/table_man_controller.js:815
+#: ../..//content/controllers/table_man_controller.js:849
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:72
 msgid "Product Search"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:382
-#: ../..//content/controllers/print_controller.js:1180
+#: ../..//content/controllers/print_controller.js:1204
 msgid "Printer Dashboard"
 msgstr ""
 
@@ -6666,7 +6681,7 @@ msgid "The specified receipt printer [%S] is not enabled"
 msgstr ""
 
 #: ../..//content/controllers/print_controller.js:528
-#: ../..//content/controllers/print_controller.js:1104
+#: ../..//content/controllers/print_controller.js:1128
 msgid "A receipt has already been issued for this order on printer [%S]"
 msgstr ""
 
@@ -6729,11 +6744,11 @@ msgstr ""
 msgid "Error in Print controller; no worker thread available!"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:975
+#: ../..//content/controllers/print_controller.js:999
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:982
+#: ../..//content/controllers/print_controller.js:1006
 msgid "Error in parsing template [%S]!"
 msgstr ""
 
@@ -6855,12 +6870,12 @@ msgstr ""
 #: ../..//content/controllers/select_table_controller.js:199
 #: ../..//content/controllers/select_table_controller.js:992
 #: ../..//content/controllers/select_table_controller.js:1035
-#: ../..//content/controllers/table_man_controller.js:787
+#: ../..//content/controllers/table_man_controller.js:788
 msgid "All Regions"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:200
-#: ../..//content/controllers/table_man_controller.js:788
+#: ../..//content/controllers/table_man_controller.js:789
 msgid "Available Tables"
 msgstr ""
 
@@ -7899,178 +7914,178 @@ msgstr ""
 msgid "No Promotion"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:131
+#: ../..//content/controllers/table_man_controller.js:132
 msgid "Add Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:131
+#: ../..//content/controllers/table_man_controller.js:132
 msgid "Adding New Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:131
+#: ../..//content/controllers/table_man_controller.js:132
 msgid "Number of New Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:131
+#: ../..//content/controllers/table_man_controller.js:132
 msgid "Number of Seats per Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:156
+#: ../..//content/controllers/table_man_controller.js:157
 msgid "[%S] new tables added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:188
+#: ../..//content/controllers/table_man_controller.js:189
 msgid "Add Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:188
+#: ../..//content/controllers/table_man_controller.js:189
 msgid "New Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:188
+#: ../..//content/controllers/table_man_controller.js:189
 msgid "Table Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:193
+#: ../..//content/controllers/table_man_controller.js:194
 msgid "Table number [%S] is invalid"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:225
+#: ../..//content/controllers/table_man_controller.js:226
 msgid "Table number [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:229
+#: ../..//content/controllers/table_man_controller.js:230
 msgid "Table number [%S] has already been assigned"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:262
-#: ../..//content/controllers/table_man_controller.js:336
+#: ../..//content/controllers/table_man_controller.js:263
+#: ../..//content/controllers/table_man_controller.js:337
 msgid "Table [%S (%S)] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:284
+#: ../..//content/controllers/table_man_controller.js:285
 msgid "confirm delete table [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:285
+#: ../..//content/controllers/table_man_controller.js:286
 msgid "Are you sure you want to delete table [%S (%S)]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:301
+#: ../..//content/controllers/table_man_controller.js:302
 msgid "Table [%S (%S)] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:360
-#: ../..//content/controllers/table_man_controller.js:365
-#: ../..//content/controllers/table_man_controller.js:567
+#: ../..//content/controllers/table_man_controller.js:361
+#: ../..//content/controllers/table_man_controller.js:366
+#: ../..//content/controllers/table_man_controller.js:568
 msgid "Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:361
+#: ../..//content/controllers/table_man_controller.js:362
 msgid "Table status rebuilt successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:366
+#: ../..//content/controllers/table_man_controller.js:367
 msgid ""
 "Failed to rebuild table status, please check the network connectivity to the "
 "terminal designated as the table status server [message #2101]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:391
+#: ../..//content/controllers/table_man_controller.js:392
 msgid "Add Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:391
+#: ../..//content/controllers/table_man_controller.js:392
 msgid "New Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:391
+#: ../..//content/controllers/table_man_controller.js:392
 msgid "Region Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:419
+#: ../..//content/controllers/table_man_controller.js:420
 msgid "Region [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:423
+#: ../..//content/controllers/table_man_controller.js:424
 msgid "Region [%S] has already been assigned"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:463
+#: ../..//content/controllers/table_man_controller.js:464
 msgid "Region [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:486
+#: ../..//content/controllers/table_man_controller.js:487
 msgid "confirm delete region [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:487
+#: ../..//content/controllers/table_man_controller.js:488
 msgid "Are you sure you want to delete region [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:500
+#: ../..//content/controllers/table_man_controller.js:501
 msgid "Region [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:566
+#: ../..//content/controllers/table_man_controller.js:567
 msgid "Add New Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:567
+#: ../..//content/controllers/table_man_controller.js:568
 msgid "New Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:597
+#: ../..//content/controllers/table_man_controller.js:598
 msgid "Table status [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:601
+#: ../..//content/controllers/table_man_controller.js:602
 msgid "Table status [%S] already exists"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:644
+#: ../..//content/controllers/table_man_controller.js:645
 msgid "Table status [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:672
+#: ../..//content/controllers/table_man_controller.js:673
 msgid "confirm delete table status [%S]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:672
+#: ../..//content/controllers/table_man_controller.js:673
 msgid "Are you sure you want to delete table status [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:684
+#: ../..//content/controllers/table_man_controller.js:685
 msgid "Table status [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:962
+#: ../..//content/controllers/table_man_controller.js:996
 msgid "Options saved successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:969
+#: ../..//content/controllers/table_man_controller.js:1003
 msgid "Clone Table Management Options"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:970
+#: ../..//content/controllers/table_man_controller.js:1004
 msgid "Table management options will be cloned from the table status server."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:970
+#: ../..//content/controllers/table_man_controller.js:1004
 msgid "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1018
+#: ../..//content/controllers/table_man_controller.js:1075
 msgid ""
 "Modification of tables and regions requires system restart to take effect."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1019
+#: ../..//content/controllers/table_man_controller.js:1076
 msgid ""
 "The system will restart automatically after you return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1020
+#: ../..//content/controllers/table_man_controller.js:1077
 msgid "Table Manager"
 msgstr ""
 
@@ -8640,7 +8655,7 @@ msgid "(cartstatus)closed-txn"
 msgstr ""
 
 #: ../..//content/overlays/controllers/cart_status_controller.js:125
-#: ../..//content/overlays/controllers/cart_status_controller.js:140
+#: ../..//content/overlays/controllers/cart_status_controller.js:136
 msgid "(cartstatus)locked-txn"
 msgstr ""
 
@@ -8648,7 +8663,7 @@ msgstr ""
 msgid "(cartstatus)stored-txn"
 msgstr ""
 
-#: ../..//content/overlays/controllers/cart_status_controller.js:136
+#: ../..//content/overlays/controllers/cart_status_controller.js:140
 msgid "(cartstatus)open-recalled-txn"
 msgstr ""
 

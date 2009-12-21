@@ -151,3 +151,7 @@ pref("vivipos.fec.registry.devicemodels.epson-tm-u200.label", "Epson TM-U200 Ser
 pref("vivipos.fec.registry.devicemodels.epson-tm-u200.type", "receipt,check,report,label");
 pref("vivipos.fec.registry.devicemodels.epson-tm-u200.path", "chrome://device-epson-tm-u200/content/devices/commands/epson-tm-u200.cmd");
 pref("vivipos.fec.registry.devicemodels.epson-tm-u200.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
+
+pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.type", "check");
+pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.path", "chrome://viviecr/content/devices/templates/kitchen-transfertable-42c.tpl");

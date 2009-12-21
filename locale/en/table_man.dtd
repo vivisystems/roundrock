@@ -100,14 +100,12 @@
 <!ENTITY tableman.tableoptions.displayclerk "Service Clerk">
 
 <!ENTITY tableman.tableoptions.defaultregion "Default Region:">
-<!ENTITY tableman.tableoptions.printsplitcheck "Print Splited Check:">
-<!ENTITY tableman.tableoptions.printsplitcheck.none "None">
-<!ENTITY tableman.tableoptions.printsplitcheck.auto "Print automatically">
-<!ENTITY tableman.tableoptions.printsplitcheck.confirm "Confirm before print">
-<!ENTITY tableman.tableoptions.printmergecheck "Print Merged Check:">
-<!ENTITY tableman.tableoptions.printmergecheck.none "None">
-<!ENTITY tableman.tableoptions.printmergecheck.auto "Print automatically">
-<!ENTITY tableman.tableoptions.printmergecheck.confirm "Confirm before print">
+
+<!ENTITY tableman.tableoptions.printCheckAfterTransferTable "Print Check after Transfer Table">
+<!ENTITY tableman.tableoptions.printCheckAfterTransferTable.none "None">
+<!ENTITY tableman.tableoptions.printCheckAfterTransferTable.auto "Print automatically">
+<!ENTITY tableman.tableoptions.printCheckAfterTransferTable.confirm "Confirm before print">
+<!ENTITY tableman.tableoptions.printCheckAfterTransferTable.template "Print Check after Transfer Table Template: ">
 
 <!ENTITY tableman.tableoptions.dockoptions.caption "Dock Options:">
 <!ENTITY tableman.tableoptions.dockoptions.isdockmode "Use Table Selector in dock mode.">
