@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-21 19:21+0800\n"
+"POT-Creation-Date: 2009-12-22 02:48+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3302,7 +3302,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:88
 #: ../..//content/controllers/static_condiments_controller.js:484
 #: ../..//content/controllers/storecontact_controller.js:176
-#: ../..//content/controllers/sync_settings_controller.js:187
+#: ../..//content/controllers/sync_settings_controller.js:191
 #: ../..//content/controllers/taxes_controller.js:88
 #: ../..//content/controllers/users_controller.js:471
 msgid "Exit"
@@ -3334,7 +3334,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:178
-#: ../..//content/controllers/sync_settings_controller.js:189
+#: ../..//content/controllers/sync_settings_controller.js:193
 #: ../..//content/controllers/taxes_controller.js:90
 #: ../..//content/controllers/users_controller.js:473
 msgid "Save"
@@ -3373,7 +3373,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:178
-#: ../..//content/controllers/sync_settings_controller.js:189
+#: ../..//content/controllers/sync_settings_controller.js:193
 #: ../..//content/controllers/taxes_controller.js:90
 #: ../..//content/controllers/taxes_controller.js:106
 #: ../..//content/controllers/users_controller.js:452
@@ -4124,8 +4124,8 @@ msgstr ""
 #: ../..//content/controllers/changeuser_controller.js:124
 #: ../..//content/controllers/clockinout_controller.js:301
 #: ../..//content/controllers/guest_check_controller.js:731
-#: ../..//content/controllers/guest_check_controller.js:1576
-#: ../..//content/controllers/guest_check_controller.js:1710
+#: ../..//content/controllers/guest_check_controller.js:1575
+#: ../..//content/controllers/guest_check_controller.js:1709
 #: ../..//content/controllers/ledger_controller.js:314
 #: ../..//content/controllers/list_orders_controller.js:219
 #: ../..//content/controllers/main_controller.js:1200
@@ -5026,7 +5026,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:304
-#: ../..//content/controllers/guest_check_controller.js:1685
+#: ../..//content/controllers/guest_check_controller.js:1684
 msgid "Split Check"
 msgstr ""
 
@@ -5046,7 +5046,7 @@ msgid "Please use transfer table to update table number"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:482
-#: ../..//content/controllers/guest_check_controller.js:1791
+#: ../..//content/controllers/guest_check_controller.js:1790
 msgid ""
 "[%S] is an invalid table number. Table number must be defined through table "
 "manager; Please input another table number."
@@ -5153,103 +5153,103 @@ msgstr ""
 msgid "Failed to find orders matching table number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1284
+#: ../..//content/controllers/guest_check_controller.js:1283
 msgid "Minimum Charge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1285
+#: ../..//content/controllers/guest_check_controller.js:1284
 msgid "The total for this order is less than the minimum charge (%S). "
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1289
-#: ../..//content/controllers/guest_check_controller.js:1308
+#: ../..//content/controllers/guest_check_controller.js:1288
+#: ../..//content/controllers/guest_check_controller.js:1307
 msgid "The total for this order is less than the minimum charge (%S)"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1306
+#: ../..//content/controllers/guest_check_controller.js:1305
 msgid ""
 "An additional amount of (%S) has been added to the order to meet the minimum "
 "charge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1419
+#: ../..//content/controllers/guest_check_controller.js:1418
 msgid ""
 "An error was encountered while attempting to remove all table status records "
 "(error code %S) [message #501]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1424
+#: ../..//content/controllers/guest_check_controller.js:1423
 msgid ""
 "An error was encountered while attempting to remove all table status records "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1491
+#: ../..//content/controllers/guest_check_controller.js:1490
 msgid "The same order can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1503
+#: ../..//content/controllers/guest_check_controller.js:1502
 msgid "This order not stored order, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1507
+#: ../..//content/controllers/guest_check_controller.js:1506
 msgid "This order has been payment, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1512
+#: ../..//content/controllers/guest_check_controller.js:1511
 msgid "This order has discounts or surcharge, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1549
+#: ../..//content/controllers/guest_check_controller.js:1548
 #: ../..//content/controllers/select_table_controller.js:547
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1577
+#: ../..//content/controllers/guest_check_controller.js:1576
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #503]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1590
+#: ../..//content/controllers/guest_check_controller.js:1589
 msgid "Check# %S has been successfully merged to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1632
+#: ../..//content/controllers/guest_check_controller.js:1631
 msgid "This order not stored order, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1636
+#: ../..//content/controllers/guest_check_controller.js:1635
 msgid "This order has been payment, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1640
+#: ../..//content/controllers/guest_check_controller.js:1639
 msgid "This order has discounts or surcharge, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1711
+#: ../..//content/controllers/guest_check_controller.js:1710
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #504]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1725
+#: ../..//content/controllers/guest_check_controller.js:1724
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1826
+#: ../..//content/controllers/guest_check_controller.js:1825
 msgid "Transfer Table"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1827
+#: ../..//content/controllers/guest_check_controller.js:1826
 msgid "Transfer table From (%S) To (%S)"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1828
+#: ../..//content/controllers/guest_check_controller.js:1827
 msgid "Are you sure you want to print transfer table check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1861
+#: ../..//content/controllers/guest_check_controller.js:1860
 msgid "Table Initialization"
 msgstr ""
 
@@ -5620,34 +5620,43 @@ msgstr ""
 msgid "Available Updates"
 msgstr ""
 
-#: ../..//content/controllers/irc_controller.js:186
+#: ../..//content/controllers/irc_controller.js:188
 msgid "Updating Available Updates"
 msgstr ""
 
-#: ../..//content/controllers/irc_controller.js:229
+#: ../..//content/controllers/irc_controller.js:235
+msgid "Restart"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:235
+#: ../..//content/controllers/irc_controller.js:258
+msgid "Updating success"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:235
+msgid "Please confirm to restart the terminal"
+msgstr ""
+
+#: ../..//content/controllers/irc_controller.js:258
 #: ../..//content/controllers/main_controller.js:1372
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/irc_controller.js:229
-msgid "Updating success"
-msgstr ""
-
-#: ../..//content/controllers/irc_controller.js:229
+#: ../..//content/controllers/irc_controller.js:258
 #: ../..//content/controllers/main_controller.js:1372
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/irc_controller.js:259
-#: ../..//content/controllers/irc_controller.js:300
+#: ../..//content/controllers/irc_controller.js:288
+#: ../..//content/controllers/irc_controller.js:329
 msgid "IRC Dialog"
 msgstr ""
 
-#: ../..//content/controllers/irc_controller.js:340
+#: ../..//content/controllers/irc_controller.js:369
 msgid "IRC Update Server Connection Error"
 msgstr ""
 
-#: ../..//content/controllers/irc_controller.js:341
+#: ../..//content/controllers/irc_controller.js:370
 msgid ""
 "Failed to connect to IRC Update services (error code %S). Please check the "
 "network connectivity to the terminal designated as the IRC Update server "
@@ -5973,7 +5982,7 @@ msgid "Failed to recall the selected order"
 msgstr ""
 
 #: ../..//content/controllers/localekeyboard_controller.js:58
-#: ../..//content/controllers/sync_settings_controller.js:114
+#: ../..//content/controllers/sync_settings_controller.js:118
 msgid "No changes to save"
 msgstr ""
 
@@ -7753,48 +7762,48 @@ msgstr ""
 msgid "Terminal number must only contain [a-zA-Z] and [0-9]"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:99
+#: ../..//content/controllers/sync_settings_controller.js:103
 msgid "confirm network service settings change"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:100
+#: ../..//content/controllers/sync_settings_controller.js:104
 msgid ""
 "Network service settings changes require system restart to take effect. If "
 "you save the changes now, the system will restart automatically after you "
 "return to the Main Screen. Do you want to save your changes?"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:171
+#: ../..//content/controllers/sync_settings_controller.js:175
 msgid "Network service settings saved"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:188
+#: ../..//content/controllers/sync_settings_controller.js:192
 msgid ""
 "You have made changes to network service settings. Save changes before "
 "exiting?"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:320
+#: ../..//content/controllers/sync_settings_controller.js:329
 msgid "Please select modules"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:338
+#: ../..//content/controllers/sync_settings_controller.js:347
 msgid "IRC Package Creating"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:346
+#: ../..//content/controllers/sync_settings_controller.js:355
 msgid "Package [%S] created successfully"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:348
+#: ../..//content/controllers/sync_settings_controller.js:357
 msgid "Package not available to created."
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:394
+#: ../..//content/controllers/sync_settings_controller.js:407
 msgid "Package [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:396
+#: ../..//content/controllers/sync_settings_controller.js:409
 msgid "Package not available to remove."
 msgstr ""
 
