@@ -389,6 +389,25 @@
                                                     </row-->
                                                     <row>
                                                         <vbox>
+                                                            <label control="print_check_after_transfer_table" value="&tableman.tableoptions.printCheckAfterTransferTable;"/>
+                                                            <menulist id="print_check_after_transfer_table" name="PrintCheckAfterTransferTable" form="settingsForm">
+                                                                <menupopup>
+                                                                    <menuitem value="0" label="&tableman.tableoptions.printCheckAfterTransferTable.none;" />
+                                                                    <menuitem value="1" label="&tableman.tableoptions.printCheckAfterTransferTable.auto;" />
+                                                                    <menuitem value="2" label="&tableman.tableoptions.printCheckAfterTransferTable.confirm;" />
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                        <vbox>
+                                                            <label control="print_check_after_transfer_table_template" value="&tableman.tableoptions.printCheckAfterTransferTable.template;"/>
+                                                            <menulist id="print_check_after_transfer_table_template" name="PrintCheckAfterTransferTableTemplate" form="settingsForm">
+                                                                <menupopup>
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
                                                             <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
                                                             <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="15" max="999" default="60"
                                                                  onfocus="select()"

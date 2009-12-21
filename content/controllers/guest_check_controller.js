@@ -126,7 +126,7 @@
             autoPrint = autoPrint || '';
 
             // print check
-            this.getPrintController().printChecks(txn, autoPrint);
+            this.getPrintController().printChecks(txn, null, autoPrint);
 
         },
 
@@ -662,7 +662,26 @@
          */
         beforePrintSlipGetTemplate: function(evt) {
 
+            let eventData = evt.data;
+            let data = eventData.data;
+            let template = eventData.template;
+            let devicetype = eventData.devicetype;
 
+            let autoPrint = data.autoPrint || 'skip';
+            let hasLinkedItems = data.hasLinkedItems;
+            let txn = data.txn;
+
+            // transferTable
+            switch(autoPrint) {
+                case 'transferTable':
+                    // only process products in this link_group
+                    if (hasLinkedItems) {
+                    let newTemplate = this.tableSettings.PrintCheckAfterTransferTableTemplate || '';
+                    // use new template to print transfer table
+                    eventData.template = newTemplate;
+                    }
+                    break;
+            }
             
         },
         
@@ -1725,12 +1744,16 @@
             data = data || false ;
             var result = false;
             let fnTrigger = false;
-            
+
+            var orderId = '';
+            var orgTableId = '';
+            var newTableId = '';
+
             if(data && typeof data =='object') {
 
-                var orderId = data.orderId || '';
-                var orgTableId = data.orgTableId || '';
-                var newTableId = data.newTableId || '';
+                orderId = data.orderId || '';
+                orgTableId = data.orgTableId || '';
+                newTableId = data.newTableId || '';
 
                 result = this.Order.transferTable(orderId, orgTableId, newTableId);
 
@@ -1745,20 +1768,22 @@
 
                 var newTableNo = this.openTableNumDialog(true);
 
+                orderId = txn.data.id;
 
                 var orgTable = this.Table.getTableByNo(txn.data.table_no);
                 var newTable = this.Table.getTableByNo(newTableNo);
-                var orderId = txn.data.id;
-
+               
                 // check table available
                 if (orgTable && newTable && (txn.data.table_no != newTableNo)) {
 
                     if (this.isTableAvailable(newTable)) {
+
+                        orgTableId = orgTable.id;
+                        newTableId = newTable.id;
+
                         result = this.Order.transferTable(orderId, orgTable.id, newTable.id);
                         this.recallOrder(orderId, true);
 
-                        // after transfer table dispatch event and print checks
-                        
                     }
 
                 }else {
@@ -1766,6 +1791,56 @@
                     return false;
                 }
                 
+            }
+
+            if (result) {
+
+                let orgTable = this.Table.getTableById(orgTableId);
+                let orgTableName = orgTable.table_name;
+                let orgTableNo = orgTable.table_no;
+                let orgRegionName = '';
+                if (orgTable.table_region_id) {
+                    let orgRegion = this.Table.TableRegion.getTableRegionById(orgTable.table_region_id);
+                    orgRegionName = orgRegion.name;
+                }
+
+                let newTable = this.Table.getTableById(newTableId);
+                let newTableName = newTable.table_name;
+                let newRegionName = '';
+                if (newTable.table_region_id) {
+                    let newRegion = this.Table.TableRegion.getTableRegionById(newTable.table_region_id);
+                    newRegionName = newRegion.name;
+                }
+
+                // after transfer table dispatch event and print checks
+                let isPrintCheck = parseInt(this.tableSettings.PrintCheckAfterTransferTable || 0);
+                let printCheckTemplate = this.tableSettings.PrintCheckAfterTransferTableTemplate || '';
+
+                if (isPrintCheck >0 && printCheckTemplate) {
+
+                    let confirmed = true;
+
+                    if (isPrintCheck == 2) {
+                        confirmed = GREUtils.Dialog.confirm(this.topmostWindow,
+                            _('Transfer Table'),
+                            _('Transfer table From (%S) To (%S)', [orgTableName, newTableName]) + '\n' +
+                            _('Are you sure you want to print transfer table check'));
+
+                        if (confirmed) {
+                            
+                            let newTxnData = this.getTransactionDataByOrderId(orderId);
+                            newTxnData.org_table_no = orgTableNo;
+                            newTxnData.org_table_name = orgTableName;
+                            newTxnData.org_table_region_name = orgRegionName;
+                            newTxnData.transfer_table_time =  new Date().getTime() /1000;
+
+                            this.printChecks({data: newTxnData}, 'transferTable');
+                        }
+
+                    }
+
+                }
+
             }
 
             return result;
