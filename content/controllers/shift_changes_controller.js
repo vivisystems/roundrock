@@ -661,6 +661,7 @@
                 var conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                                  ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                                  ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                                 ' AND orders.status != -1' +
                                  ' AND (order_payments.name = "creditcard" OR order_payments.name = "coupon")';
                 var groupby = 'order_payments.memo1, order_payments.name';
                 var orderby = 'order_payments.memo1, order_payments.name';
@@ -668,7 +669,7 @@
                                                                         conditions: conditions,
                                                                         group: groupby,
                                                                         order: orderby,
-                                                                        recursive: 0,
+                                                                        recursive: 1,
                                                                         limit: this._limit
                                                                        });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -689,6 +690,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1' +
                              ' AND order_payments.name = "giftcard"';
                 groupby = 'order_payments.memo1, order_payments.name';
                 orderby = 'order_payments.memo1, order_payments.name';
@@ -696,7 +698,7 @@
                                                                 conditions: conditions,
                                                                 group: groupby,
                                                                 order: orderby,
-                                                                recursive: 0,
+                                                                recursive: 1,
                                                                 limit: this._limit
                                                                });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -716,6 +718,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1' +
                              ' AND order_payments.name = "check"';
                 groupby = 'order_payments.memo1, order_payments.name';
                 orderby = 'order_payments.memo1, order_payments.name';
@@ -723,7 +726,7 @@
                                                              conditions: conditions,
                                                              group: groupby,
                                                              order: orderby,
-                                                             recursive: 0,
+                                                             recursive: 1,
                                                              limit: this._limit
                                                             });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -742,6 +745,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1' +
                              ' AND order_payments.name = "cash" AND order_payments.memo1 IS NULL';
                 groupby = 'order_payments.memo1, order_payments.name';
                 orderby = 'order_payments.memo1, order_payments.name';
@@ -749,7 +753,7 @@
                                                                  conditions: conditions,
                                                                  group: groupby,
                                                                  order: orderby,
-                                                                 recursive: 0,
+                                                                 recursive: 1,
                                                                  limit: this._limit
                                                                 });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -768,6 +772,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1' +
                              ' AND order_payments.name = "cash" AND order_payments.memo1 IS NULL AND order_payments.is_groupable = "1"';
                 groupby = 'order_payments.amount, order_payments.name';
                 orderby = 'order_payments.amount, order_payments.name';
@@ -775,7 +780,7 @@
                                                                  conditions: conditions,
                                                                  group: groupby,
                                                                  order: orderby,
-                                                                 recursive: 0,
+                                                                 recursive: 1,
                                                                  limit: this._limit
                                                                 });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -797,6 +802,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1' +
                              ' AND order_payments.name = "cash" AND NOT (order_payments.memo1 IS NULL)';
                 groupby = 'order_payments.memo1, order_payments.name';
                 orderby = 'order_payments.memo1, order_payments.name';
@@ -804,7 +810,7 @@
                                                                    conditions: conditions,
                                                                    group: groupby,
                                                                    order: orderby,
-                                                                   recursive: 0,
+                                                                   recursive: 1,
                                                                    limit: this._limit
                                                                   });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -876,10 +882,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND (orders.status != -1 OR orders.status IS NULL)' +
                              ' AND ((order_payments.name = "cash" AND order_payments.memo1 IS NULL) OR (order_payments.name = "ledger"))';
                 var cashDetails = orderPayment.find('first', {fields: fields,
                                                               conditions: conditions,
-                                                              recursive: 0,
+                                                              recursive: 1,
                                                               limit: this._limit
                                                              });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -894,10 +901,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1' +
                              ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo1 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))';
                 var changeDetails = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
-                                                                recursive: 0,
+                                                                recursive: 1,
                                                                 limit: this._limit
                                                                });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -914,10 +922,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1'
                              ' AND order_payments.name != "ledger"';
                 var paymentTotal = orderPayment.find('first', {fields: fields,
                                                                conditions: conditions,
-                                                               recursive: 0,
+                                                               recursive: 1,
                                                                limit: this._limit
                                                               });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -1044,10 +1053,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1'
                              ' AND order_payments.name = "giftcard"';
                 var giftcardTotal = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
-                                                                recursive: 0,
+                                                                recursive: 1,
                                                                 limit: this._limit
                                                                });
                 if (parseInt(orderPayment.lastError) != 0)
