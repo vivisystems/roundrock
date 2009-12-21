@@ -21,7 +21,7 @@
      * Controller Startup
      */
     function startup() {
-		var parameters = window.arguments[ 0 ];
+        var parameters = window.arguments[ 0 ];
 
         $do( 'setConditionsAnd_reportRecords', parameters, 'RptSalesSummary');
         $do( '_setTemplateDataHead', null, 'RptSalesSummary');

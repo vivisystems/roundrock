@@ -15,3 +15,4 @@
 <!ENTITY rptsalessummary.shiftno "Shift:">
 <!ENTITY rptsalessummary.numdept "Number of departments:">
 <!ENTITY rptsalessummary.numproduct "Number of products:">
+<!ENTITY rptsalessummary.breakout.setmenu "Break out Set Menu">

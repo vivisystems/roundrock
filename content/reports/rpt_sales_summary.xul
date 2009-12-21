@@ -32,9 +32,9 @@
 
     <vbox flex="1" class="container-report">
         <vbox flex="1" class="container-main">
-		  	<vbox><!--this vbox is for the splitter to shadow the caption.-->
-		        <label value="&rptsalessummary.title;"  class="label-page-title"/>
-		        <hbox>
+            <vbox><!--this vbox is for the splitter to shadow the caption.-->
+                <label value="&rptsalessummary.title;"  class="label-page-title"/>
+                <hbox>
                     <hbox flex="1">
                         <grid flex="1" class="data-form">
                             <columns>
@@ -83,13 +83,14 @@
                                         <label value="&rptsalessummary.terminal_no;"/>
                                         <textbox id="terminal_no" value=""/>
                                     </vbox>
+                                    <checkbox id="breakout_setmenu" checked="false" label="&rptsalessummary.breakout.setmenu;"/>
                                 </row>
                             </rows>
                         </grid>
                     </hbox>
-		            <button id="execute" label="&rptsalessummary.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptSalesSummary');"/>
-		        </hbox>
-        	</vbox>
+                    <button id="execute" label="&rptsalessummary.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptSalesSummary');"/>
+                </hbox>
+            </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->
             </splitter>
