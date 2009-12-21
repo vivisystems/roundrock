@@ -11,7 +11,7 @@
         
         _fileName: "rpt_product_sales",
         
-        _setData: function( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, limit ) {
+        _setData: function( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, breakout_setmenu, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 
@@ -39,6 +39,10 @@
             
             if ( shiftNo.length > 0 )
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+
+            if ( !breakout_setmenu ) {
+                conditions += " AND order_items.parent_index IS NULL";
+            }
 
             var groupby = "order_items.product_no";
 
@@ -228,8 +232,9 @@
             var department = document.getElementById( 'department' ).value;
             var empty_department = document.getElementById( 'empty_department' ).value;
             var noSalesProduct = document.getElementById( 'no_sales_product' ).value;
+            var breakoutSetmenu = document.getElementById( 'breakout_setmenu' ).checked;
 
-            this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, limit );
+            this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, breakoutSetmenu, limit );
         },
         
         exportCsv: function() {
