@@ -332,7 +332,7 @@
         </action>
     </module>
     
-    <module name="addons">
+    <module name="addons" reboot="true">
         <action>
             <type>file</type>
             <file>/data/profile/extensions*</file>

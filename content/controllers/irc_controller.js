@@ -163,9 +163,11 @@
         applyAvailableUpdates: function(packages, skipReboot) {
 
             skipReboot = skipReboot || false;
-            
+            isNeedReboot = false;
+
             var pkgs = [];
             packages.forEach(function(pkg) {
+                isNeedReboot |= pkg.reboot;
                 pkgs.push(pkg.file) ;
             });
 
@@ -192,7 +194,11 @@
             }
  
             if (result && !skipReboot) {
-                this.reboot();
+                if (isNeedReboot) {
+                    this.reboot();
+                } else {
+                    this.restart();
+                }
             }
 			
 			
@@ -218,6 +224,29 @@
             }catch(e) {
                 this.log('ERROR', 'Error reload prefs.js');
             }
+        },
+
+
+        /**
+         * restart
+         */
+        restart: function() {
+
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Restart'), _('Updating success') + '\n\n' + _('Please confirm to restart the terminal')) == false) {
+                return;
+            }
+
+            // log user process
+            this.log('FATAL', 'applyAvailableUpdates success and restart');
+
+            try {
+                GREUtils.restartApplication();
+                window.stop();
+                window.close();
+            }catch(e) {
+                this.log('ERROR', 'Error restart', e);
+            }
+
         },
 
 
