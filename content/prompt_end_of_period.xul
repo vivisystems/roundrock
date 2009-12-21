@@ -52,15 +52,15 @@
                             </vbox>
                         </isoptionenabled>
                     	<vbox flex="1">
-		                    <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.all.shifts;" flex="1"
+                            <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.all.shifts;" flex="1"
                                         roles="acl_report_cashbyclerk" action="hide"
                                         oncommand="opener.$do('reviewShiftReport', true, 'ShiftChanges');"/>
-		                </vbox>
-		                <vbox flex="1">
-		                	<vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.daily.sales;" flex="1"
+                        </vbox>
+                        <vbox flex="1">
+                            <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.daily.sales;" flex="1"
                                         roles="acl_report_dailysalessummary" action="hide"
                                         oncommand="opener.$do('reviewDailySales', null, 'ShiftChanges');"/>
-		                </vbox>
+                        </vbox>
                     </row>
                     <row flex="1">
                         <isoptionenabled option="vivipos.fec.settings.DisableShiftChange" action="hide" flex="1">
@@ -71,15 +71,15 @@
                             </vbox>
                         </isoptionenabled>
                     	<vbox>
-		                    <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.all.shifts;" flex="1"
+                            <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.all.shifts;" flex="1"
                                         roles="acl_report_cashbyclerk" action="hide"
                                         oncommand="opener.$do('printShiftReport', true, 'ShiftChanges');"/>
-		                </vbox>
-		                <vbox>
-		                	<vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales;" flex="1"
+                        </vbox>
+                        <vbox>
+                            <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales;" flex="1"
                                         roles="acl_report_dailysalessummary" action="hide"
                                         oncommand="opener.$do('printDailySales', null, 'ShiftChanges');"/>
-		                </vbox>
+                        </vbox>
                     </row>
                 </rows>
             </grid>
