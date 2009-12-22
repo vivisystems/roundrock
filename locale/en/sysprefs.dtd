@@ -25,10 +25,7 @@
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
 <!ENTITY general.ifprintwhiletraining "Print receipt and check while training?">
 <!ENTITY general.quietcancel "Do not beep when cancelling orders">
-<<<<<<< HEAD:locale/en/sysprefs.dtd
-=======
 <!ENTITY general.barcodelearning "Assign barcode learning product group">
->>>>>>> bug#66:locale/en/sysprefs.dtd
 <!ENTITY general.cartscrollmode "Scroll mode for register screen">
 <!ENTITY general.cartscrollmode.cursor-line "Cursor mode (line-by-line)">
 <!ENTITY general.cartscrollmode.view-page "View mode (page-by-page)">
