@@ -7,12 +7,12 @@ App::import('Core', array('HttpSocket','CakeLog'));
  */
 class IrcComponent extends Object {
 
-/**
- * Holds the copy of SyncSettings
- *
- * @var array
- * @access public
- */
+    /**
+     * Holds the copy of SyncSettings
+     *
+     * @var array
+     * @access public
+     */
     var $syncSettings = array();
 
     var $databasesPath = "/data/databases";
@@ -108,14 +108,20 @@ class IrcComponent extends Object {
         $xmlObj = simplexml_load_file($xmlfile);
 
         foreach ($xmlObj->module as $module) {
+
             $moduleArray = get_object_vars($module);
+
             $name = $moduleArray['@attributes']['name'];
+
+            $reboot = false;
+            if(isset($moduleArray['@attributes']['reboot'])) $reboot = ($this->boolVal($moduleArray['@attributes']['reboot']) == 1);
+
             $actions = array();
             foreach ($module->action as $action) {
                 $actions[] = get_object_vars($action);
             }
 
-            $this->ircManifests[$name] = $actions;
+            $this->ircManifests[$name] = array('name'=>$name, 'reboot'=>$reboot, 'actions'=>$actions);
 
         }
 
@@ -132,7 +138,7 @@ class IrcComponent extends Object {
         if (!empty($this->prefsJs)) return $this->prefsJs;
 
         if (file_exists($this->profilePath."/prefs.js")) {
-        //$prefsJs = file_get_contents("/data/profile/prefs.js");
+            //$prefsJs = file_get_contents("/data/profile/prefs.js");
             $prefsJs = file($this->profilePath."/prefs.js");
             $this->prefsJs = $prefsJs;
             return $this->prefsJs;
@@ -399,13 +405,13 @@ class IrcComponent extends Object {
             default:
             case 'create':
 
-                if (strpos($database, '/') == false) {
+                if (strpos($database, '/') === false) {
                     $databaseFile = $this->databasesPath ."/" . $action['database'];
                 }else {
                     $databaseFile = $action['database'];
                 }
 
-                $exportFile = $workingDir ."/dbs/" . $database . "__" . $table . ".csv";
+                $exportFile = $workingDir ."/dbs/" . urlencode($database) . "__" . urlencode($table) . ".csv";
 
                 //$versionSql = "pragma user_version";
                 $tableSchemaSql = ".schema $table";
@@ -497,7 +503,7 @@ class IrcComponent extends Object {
 
             case 'unpack':
 
-                // backup first
+            // backup first
                 $this->copyToBackup('pref', '');
 
                 $exportFile = $workingDir ."/prefs/". $action['export_file'];
@@ -675,9 +681,9 @@ class IrcComponent extends Object {
         }
 
         if(empty($status[$machineId])) {
-             $status[$machineId] = array( $updateStatus => time() , 'machine_id' => $machineId);
+            $status[$machineId] = array( $updateStatus => time() , 'machine_id' => $machineId);
         }else {
-             $status[$machineId][$updateStatus] = time();
+            $status[$machineId][$updateStatus] = time();
         }
 
         file_put_contents($statusFile, json_encode($status));
@@ -754,12 +760,17 @@ class IrcComponent extends Object {
         if(!$workingDir) return false;
 
         $restoreActions = array() ;
+        $reboot = false;
 
         // forloop each selected modules
-        foreach ($selectedModules as $module) {
+        foreach ($selectedModules as $moduleName) {
 
-        // get irc actions for module
-            $actions = $ircManifests[$module];
+            // get irc actions for module
+            $module = $ircManifests[$moduleName];
+            $actions = $module['actions'];
+
+            // is this module need reboot
+            $reboot |= $module['reboot'];
 
             // process actions
             foreach($actions as $action) {
@@ -778,15 +789,16 @@ class IrcComponent extends Object {
         $machine_id = $this->syncSettings['machine_id'];
 
         $ircPackageDesc = array(
-            'created' => $now,
-            'created_machine_id' => $machine_id,
-            'modules' => $modules,
-            'module_labels' => $moduleLabels,
-            'activation' => $activation,
-            'description' => $description,
-            'file' => basename($tbzFile),
-            'checksum' => $tbzMd5,
-            'filesize' => filesize($tbzFile)
+                'created' => $now,
+                'created_machine_id' => $machine_id,
+                'modules' => $modules,
+                'module_labels' => $moduleLabels,
+                'activation' => $activation,
+                'description' => $description,
+                'file' => basename($tbzFile),
+                'checksum' => $tbzMd5,
+                'filesize' => filesize($tbzFile),
+                'reboot' => $reboot
         );
 
         $tbzDescFile = $tbzFile .".json";
@@ -977,6 +989,25 @@ class IrcComponent extends Object {
 
         return $file;
     }
+
+    function boolVal($var) {
+        switch ($var) {
+            case $var == true:
+            case $var == 1:
+            // case $var == '1': // no need for this, because we used
+            // $val == 1 not $var === 1
+            case strtolower($var) == 'true':
+            case strtolower($var) == 'on':
+            case strtolower($var) == 'yes':
+            case strtolower($var) == 'y':
+                $out = 1;
+                break;
+            default: $out = 0;
+        }
+
+        return $out;
+    }
+
 }
 
 ?>
