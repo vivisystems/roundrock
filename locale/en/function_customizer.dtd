@@ -48,3 +48,4 @@
 <!ENTITY    function_customizer.tabpanel.product_groups.label "Product Groups">
 
 <!ENTITY    function_customizer.systems.internal.disableJournal "Disable Journal System">
+<!ENTITY    function_customizer.devices.max_checkprinter "Maximum Check Printer:">

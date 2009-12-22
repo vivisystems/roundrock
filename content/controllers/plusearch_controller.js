@@ -7,6 +7,10 @@
         _listObj: null,
         _listDatas: null,
         _filterDatas: null,
+        _categoriesByNo: {},
+        _categoryIndexByNo: {},
+        _selectedIndex: -1,
+        _selCateIndex: -1,
 
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
@@ -18,6 +22,50 @@
                 this._listObj = document.getElementById('plusearchscrollablepanel');
             }
             return this._listObj;
+        },
+
+        createNavigationPanel: function () {
+            // construct categoryByNo lookup table
+            var categories = GeckoJS.Session.get('categories') || [];
+            for (var i = 0; i < categories.length; i++) {
+                this._categoriesByNo['' + categories[i].no] = categories[i];
+                this._categoryIndexByNo['' + categories[i].no] = i;
+            };
+
+            // NSIDepartmentsView use rows and columns from preferences, so let's
+            // save rows and columns attribute values here and restore them later
+            var catpanel = document.getElementById('catescrollablepanel');
+            var rows = catpanel.getAttribute('rows');
+            var cols = catpanel.getAttribute('cols');
+
+            this.catePanelView =  new NSIDepartmentsView('catescrollablepanel');
+
+            // restore department panel rows and columns here
+            catpanel.setAttribute('rows', rows);
+            catpanel.setAttribute('cols', cols);
+            catpanel.initGrid();
+
+            var prodpanel = document.getElementById('prodscrollablepanel');
+            rows = prodpanel.getAttribute('rows');
+            cols = prodpanel.getAttribute('cols');
+
+            this.productPanelView = new NSIPlusView('prodscrollablepanel');
+
+            // restore department panel rows and columns here
+            prodpanel.setAttribute('rows', rows);
+            prodpanel.setAttribute('cols', cols);
+            prodpanel.initGrid();
+
+            this.catePanelView.hideInvisible = false;
+            this.catePanelView.refreshView(true);
+
+            this.productPanelView.hideInvisible = false;
+            this.productPanelView.updateProducts();
+
+            this.productPanelView.setCatePanelView(this.catePanelView);
+
+            catpanel.selectedIndex = -1;
+            catpanel.selectedItems = [];
         },
 
         createFilterRows: function() {
@@ -75,7 +123,6 @@
                     searchMessage += ('    ' + o.filtername + '=' + f + '\n');
                 }
             });
-            // this.load(pattern);
             this.searchPlu(pattern, searchMessage, nofillform);
         },
 
@@ -85,6 +132,27 @@
             this._filterDatas.forEach(function(o){
                 document.getElementById('filter_' + i++).value = "";
             });
+        },
+
+        changePluPanel: function(index) {
+
+            if (this._selCateIndex == index) {
+                return;
+            }
+
+            this.productPanelView.setCatePanelIndex(index);
+
+            this.clickPluPanel(-1);
+        },
+
+        clickPluPanel: function(index) {
+            let data = this.productPanelView.getCurrentIndexData(index);
+            if (data) {
+                document.getElementById('plu').value = (data.no || '');
+                if (data.no && data.no.length > 0) {
+                    this.searchPlu(data.no, false, false, true);
+                }
+            }
         },
 
         load: function(barcode, advanced) {
@@ -107,11 +175,16 @@
             }, this);
             this._listDatas = datas;
             this.getListObj().datasource = datas;
+
         },
 
         select: function(index) {
             //
             var data = this._listDatas ? this._listDatas[index] : null;
+            this.selectProduct(data);
+        },
+
+        selectProduct: function(data) {
             if (data) {
                 GeckoJS.FormHelper.unserializeFromObject('productForm', data);
                 // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
@@ -123,7 +196,6 @@
                     saleUnitMenu.insertItemAt(0, data.sale_unit, data.sale_unit);
                     saleUnitMenu.value = data.sale_unit;
                 }
-
             }
         },
 
@@ -147,7 +219,10 @@
             }
         },
 
-        searchPlu: function (barcode, advanced, nofillform) {
+        searchPlu: function (barcode, advanced, nofillform, noswitchtab) {
+            
+            if (!noswitchtab) document.getElementById('mode_tabbox').selectedIndex = 1;
+            
             barcode = barcode.replace(/[_\xa0]+$/, '');
             if (barcode == "") return;
 

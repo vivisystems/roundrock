@@ -557,7 +557,7 @@ msgstr "Issue Receipt Copy"
 
 msgid "vivipos.fec.registry.function.programmable.printcheck.desc"
 msgstr ""
-"This function issues a check. The parameter should be 1, 2, 3, or 4, "
+"This function issues a check. The parameter should be a number "
 "indicating the printer to issue the check on. If no parameter is "
 "given, the check will be printed on all enabled check printers."
 
@@ -573,7 +573,7 @@ msgstr "Issue Check"
 
 msgid "vivipos.fec.registry.function.programmable.checkcopy.desc"
 msgstr ""
-"This function issues a check copy. The parameter should be 1, 2, 3, or 4, "
+"This function issues a check copy. The parameter should be a number "
 "indicating the printer to issue the check on. If no parameter is "
 "given, the check will be printed on all enabled check printers."
 
@@ -590,7 +590,7 @@ msgstr "Issue Check Copy"
 msgid "vivipos.fec.registry.function.programmable.prepareguestcheck.desc"
 msgstr ""
 "This function prepares and optionally prints a guest check. "
-"To issue a guest check, the parameter should be 1, 2, 3, or 4, "
+"To issue a guest check, the parameter should be a number "
 "indicating the printer to print the check on. If no parameter is "
 "given, no guest check will be printed."
 
@@ -607,7 +607,7 @@ msgstr "Prepare Guest Check"
 msgid "vivipos.fec.registry.function.programmable.printdocument.desc"
 msgstr ""
 "This function prints a document on a designated check printer. The "
-"parameter must be set to 1, 2, 3, or 4, indicating the printer to "
+"parameter must be set to a number indicating the printer to "
 "print the document on."
 
 msgid "vivipos.fec.registry.function.programmable.printdocument.label"
@@ -2778,12 +2778,6 @@ msgstr "Set Items"
 msgid "License"
 msgstr "License"
 
-msgid "(rpt)Void Clerk"
-msgstr "Void Clerk"
-
-msgid "(rpt)Void Time"
-msgstr "Void Time"
-
 ########################################################################
 #
 # List of Built-in Templates
@@ -2837,6 +2831,9 @@ msgstr "Internal VFD Template"
 
 msgid "vivipos.fec.registry.templates.vfd-internal-non-en.label"
 msgstr "Internal VFD (non-en)"
+
+msgid "vivipos.fec.registry.templates.vfd-internal-24c.label"
+msgstr "Internal VFD Template 24c"
 
 ########################################################################
 #

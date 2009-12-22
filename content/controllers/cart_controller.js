@@ -4109,7 +4109,7 @@
                 curTransaction.data.status = -2;
                 this.dispatchEvent('onWarning', _('Sale Voided'));
                 // remove current transaction from session
-                GeckoJS.Session.remove('current_transaction');
+                //GeckoJS.Session.remove('current_transaction');
                 // dispatch onVoidSaleSuccess event
                 this.dispatchEvent('onVoidSaleSuccess', curTransaction);
             }

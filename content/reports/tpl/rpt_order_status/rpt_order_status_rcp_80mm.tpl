@@ -7,7 +7,7 @@ ${head.start_time} ~ ${head.end_time}
 [&CR]
 ${head.title|center:42}
 ------------------------------------------
-${_( '(rpt)Terminal' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Sequence' )|left:14}
+${_( '(rpt)Terminal' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Sequence' )|right:14}
 --------  ----------  --------------------
 {for detail in body}
 {eval}
@@ -19,9 +19,15 @@ ${_( '(rpt)Terminal' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Sequence
 ${detail.terminal_no|left:8}  ${detail.time|unixTimeToString|left:16}  ${detail.sequence|left:14}
 ${'  ' + _( '(rpt)Clerk' ) + ':'|left:16}${detail.service_clerk_displayname|default:''|right:26}
 ${detail.proceeds_clerk_displayname|default:''|right:42}
-${'  ' + _( '(rpt)Sale Period' ) + ':'|left:16}${detail.time|unixTimeToString:'saleperiod'|right:26}
+${'  ' + _( '(rpt)Sale Period' ) + ':'|left:16}${detail.sale_period|unixTimeToString:'saleperiod'|right:26}
 ${'  ' + _( '(rpt)Shift' ) + ':'|left:16}${detail.shift_number|default:''|right:26}
-${'  ' + _( '(rpt)Status' ) + ':'|left:16}${detail.status|right:26}
+${'  ' + _( '(rpt)Status' ) + ':'|left:16}${detail.status_str|right:26}
+{if detail.status == -2}
+${'  ' + _( '(rpt)Void Clerk' ) + ':'|left:16}${detail.void_clerk_displayname|default:''|right:26}
+${'  ' + _( '(rpt)Void Sale Period' ) + ':'|left:16}${detail.void_sale_period|unixTimeToString:'saleperiod'|right:26}
+${'  ' + _( '(rpt)Void Shift' ) + ':'|left:16}${detail.void_shift_number|default:''|right:26}
+${'  ' + _( '(rpt)Void Time' ) + ':'|left:16}${detail.transaction_voided|unixTimeToString|right:26}
+{/if}
 ${'  ' + _( '(rpt)Invoice Number' ) + ':'|left:16}${detail.invoice_no|default:''|right:26}
 ${'  ' + _( '(rpt)Invoice Count' ) + ':'|left:16}${detail.invoice_count|default:''|right:26}
 ${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:16}${detail.item_subtotal|viviFormatPrices:true|right:26}
@@ -32,6 +38,7 @@ ${'  ' + _( '(rpt)Revalue' ) + ':'|left:16}${detail.revalue_subtotal|viviFormatP
 ${'  ' + _( '(rpt)Add-on Tax' ) + ':'|left:16}${detail.tax_subtotal|viviFormatTaxes:true|right:26}
 ${'  ' + _( '(rpt)Total' ) + ':'|left:16}${detail.total|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Payment' ) + ':'|left:16}${detail.payment|viviFormatPrices:true|right:26}
+------------------------------------------
 {/for}
 {eval}
   delete TrimPath.RoundingPrices;
@@ -39,7 +46,6 @@ ${'  ' + _( '(rpt)Payment' ) + ':'|left:16}${detail.payment|viviFormatPrices:tru
   delete TrimPath.RoundingTaxes;
   delete TrimPath.PrecisionTaxes;
 {/eval}
-------------------------------------------
 ${_( '(rpt)Records Found' ) + ':'|left:30}${foot.foot_datas.rowCount|right:12}
 ${_( '(rpt)Records Displayed' ) + ':'|left:30}${body.length|right:12}
 ------------------------------------------

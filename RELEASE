@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.0.4
+Release 1.2.0.5
 ---------------
 
 This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
@@ -11,7 +11,7 @@ Previous 1.2.0.x releases may be upgraded to this release by installing the rele
 Dependencies
 ------------
 
-This release requires VIVIPOS WebApp and WebServices Release 1.2.0.3 or above. You should also install Release 1.2.0.4 of the appropriate language pack to resolve translation-related bugs.
+This release requires VIVIPOS WebApp and WebServices Release 1.2.0.3 or above. You should also install Release 1.2.0.5 of the appropriate language pack to resolve translation-related bugs.
 
 
 ----------
@@ -26,89 +26,75 @@ Bug #159:
 Bugs fixed
 ----------
 
-Bug #192:
-    Many text messages failed to display using the proper locale due to presence of the symbol ':' in the base text
+Bug #202:
+    Need a built-in hotkey for signing off
 
-Bug #193:
-    Translation for description of View Order function is wrong (requires 1.2.0.4 language packs)
+Bug #237:
+    POS front end does not get focus on the input line when first power on
 
-Bug #194:
-    Traditional/Simplified Chinese translations of "Check Cash Limit (0 = no check cashing)" in the "Employees" control panel are incorrect
+Bug #239:
+    Only admin users may assign other users to the admin group 
 
-Bug #196:
-    Stock levels are not adjusted when sales are voided
+Bug #240:
+    Truncate Transaction Records may cause transaction records to be truncated on all synchronized terminals 
 
-Bug #198:
-    Need to be able to trigger minimum charge and other finalization validation procedures both manually (via function key) or automatically (when (pre-)finalizing the order)
+Bug #242:
+    When confirming refund payments while voiding sale, refund payment amount is switched with original payment amount
 
-Bug #205:
-    The built-in install.rdf template used by the package builder does not conform to the new guidelines (<targetApplication> section is out of date)
+Bug #243:
+    Region button labels on Table Selection screen are cropped
 
-Bug #206:
-    Scrolling the cart one line at a time is too tedious when large number of items have been registered; a new view-based page scrolling mode is now supported
+Bug #244:
+    Fixed typo on Custom Sales Report screen ('Destinaltion')
 
-Bug #207:
-    Quickly tapping on function 'Return Cart Item' twice will cause the return quantity to be set to 0
+Bug #247:
+    Item and order tax entries are duplicated in order_item_taxes each time an order is stored
 
-Bug #208:
-    Revalue computation produces wrong result for policies 'to nearest factor' and 'round to 10 cents (round down 5 cents)' when the transaction total is negative
+Bug #249:
+    Number of voided orders in Sales Summary Report should be the number of stored/closed orders from the selected time period that have been voided, not the number of orders voided in the selected time period
 
-Bug #209:
-    Unable to save promotion rule when trigger type 'Multi Product Group' is selected
+Bug #250:
+    When entering drawer cash amount on signing in a new shift, user should be given opportunity to re-enter cash amount
 
-Bug #210:
-    Remove obsolete preferences
+Bug #251:
+    Order Status Repport should allow search by the sale period and shift and actual time when an order is voided. The report should also display void details
 
-Bug #211:
-    Should not display the message 'CANCELLED' when cancelling a recalled open order since the order is actually not cancelled (only that the shopping cart is cleared)
+Bug #252:
+    Computation of fixed-amount add-on included taxes on return items is incorrect
 
-Bug #212:
-    Title bar is visible on the ledger entry window, and window size is fixed
+Bug #253:
+    Modifying a registered item causes the item to revert to its preset tax status
 
-Bug #215:
-    When an order is stored with annotations, the annotations are duplicated each time the order is re-stored or finalized
+Bug #254:
+    When 'Subtotal' is selected for Promotion type 'Fixed Value', if trigger amount mode is multiple, the fixed subtotal is applied on the sum of all matching items and not on sums of individual sets of matching items
 
-Bug #216:
-    Function customizer should only be accessible to the superuser
+Bug #255:
+    In the Detailed Tax Report, order-related totals are tallied once per tax type, leading to incorrect summarization values
 
-Bug #217:
-    Accessing the stock control screen takes an excessive amount of time due to poorly structured SQL query
+Bug #257:
+    Cropping of text displayed in onscreen VFD is based on a fixed number of characters regardless of the actual screen resolution (i.e. 12" vs. 15")
 
-Bug #218:
-    Storing/recalling orders do not work in training mode
+Bug #258:
+    Product Search should allow browsing by departments/product groups
 
-Bug #219:
-    Updates to a product's "Show on menu" attribute are not immediately reflected in the product panel if the active department is a product group to which the product has been linked
+Bug #259:
+    Icon labels in the Employees section of the control panel are cropped on 15" terminals
 
-Bug #220:
-    Should not be able to truncate transaction records in training mode
+Bug #261:
+    Number of devices should be parameterized
 
-Bug #221:
-    Translations of the function description for "Product Search" are inaccurate (requires 1.2.0.4 language packs)
+Bug #263:
+    Setup Wizard defines obsolete preference 'DefaultLogin'
 
-Bug #222:
-    Unable to exit from Product Group screen after deleting one or more product groups when navigation links have been configured
+Bug #265:
+    Need visual reminder of current order status
 
-Bug #223:
-    Use of CSS class "groove-thin" for the <separator> tag is deprecated
+Bug #267:
+    Need to ensure that terminal number in Network Services configuration is not blank
 
-Bug #224:
-    Update of order records by extensions during 'afterSubmit' event may be overwritten
+Bug #268:
+    Table selection screen should not pop up when starting in recovery mode
 
-Bug #225:
-    Accounts belonging to the built-in "admin" group are used for technical support and should be hidden from the Sign In/Out screen
+Bug #269:
+    Multiple error message #105's exist
 
-Bug #226:
-    Accounts belonging to the built-in "admin" group are used for technical support and should be hidden from the Clock In/Out screen
-
-Bug #227:
-    Need to reduce disk usage to allow system to run with 1GB of storage
-
-Bug #228:
-    Translations for some of the report/template headings for the Stock Adjustment Report fail to show up
-
-Bug #229:
-    Need to be able to print table number and table region in templates
-
-Bug #230:
-    When performing a system restore with system settings, restored CUPS settings do not take effect until the terminal is rebooted
