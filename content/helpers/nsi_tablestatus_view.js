@@ -143,8 +143,7 @@
                 checks = status.order_count || 0;
                 guest_num = status.sum_customer || 0;
 
-                // format display precision
-                subtotal = GeckoJS.NumberHelper.format(status.sum_total, options);
+                subtotal = status.sum_total || 0;
                 table_status = status.status || 0;
                 mark = status.mark || '';
                 mark_user = status.mark_user || '';
@@ -184,7 +183,8 @@
             btn.seq_no = tableSettings.DisplaySeqNo ? seq : '';
             btn.check_no = tableSettings.DisplayCheckNo ? check_no : '';
             btn.num_subtotal = tableSettings.DisplayTotal ? subtotal : 0;
-            btn.subtotal = tableSettings.DisplayTotal ? ((btn.num_subtotal>0) ? (_("T#")+btn.num_subtotal) : '') : '';
+            // format display precision
+            btn.subtotal = tableSettings.DisplayTotal ? ((btn.num_subtotal>0) ? (_("T#")+GeckoJS.NumberHelper.format(btn.num_subtotal, options)) : '') : '';
             btn.capacity = tableSettings.DisplayCapacity ? capacity : '';
             btn.clerk = tableSettings.DisplayClerk ? clerk : '';
 
