@@ -39,6 +39,10 @@ pref("vivipos.fec.registry.templates.receipt-sample-condensed-32c.label", "chrom
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-32c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-32c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-32c.tpl");
 
+pref("vivipos.fec.registry.templates.receipt-japanese-ecr-42c.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.receipt-japanese-ecr-42c.type", "receipt");
+pref("vivipos.fec.registry.templates.receipt-japanese-ecr-42c.path", "chrome://viviecr/content/devices/templates/receipt-bixolon-sample-condensed-42c.tpl");
+
 pref("vivipos.fec.registry.templates.queue-ticket-24c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.queue-ticket-24c.type", "check");
 pref("vivipos.fec.registry.templates.queue-ticket-24c.path", "chrome://viviecr/content/devices/templates/queue-ticket-24c.tpl");
