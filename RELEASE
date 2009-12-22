@@ -49,3 +49,7 @@ Bug #278:
 
 Bug #280:
     On the table selection screen, table totals are not shown correctly when amount is greater or equal to 1000
+
+Bug #282:
+    The "Stored order policy when changing shift" dropdown menu in Sign In/Out tab of General Options extends beyond its containing box
+
