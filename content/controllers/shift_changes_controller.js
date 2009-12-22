@@ -661,7 +661,9 @@
                 var conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                                  ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                                  ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                                 ' AND (order_payments.name = "creditcard" OR order_payments.name = "coupon" OR order_payments.name = "check")';
+                                 ' AND (order_payments.name = "creditcard" OR order_payments.name = "coupon" OR order_payments.name = "check")' +
+                                 ' AND orders.status != -1';
+
                 var groupby = 'order_payments.memo1, order_payments.name';
                 var creditcardCheckCouponDetails = orderPayment.find('all', {fields: fields,
                                                                              conditions: conditions,
@@ -687,12 +689,14 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1' +
                              ' AND order_payments.name = "giftcard"';
                 groupby = 'order_payments.memo1, order_payments.name';
                 var giftcardDetails = orderPayment.find('all', {fields: fields,
                                                                 conditions: conditions,
                                                                 group: groupby,
-                                                                recursive: 0,
+                                                                order: orderby,
+                                                                recursive: 1,
                                                                 limit: this._limit
                                                                });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -711,12 +715,15 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL';
-                groupby = 'order_payments.name';
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL' +
+                             ' AND orders.status != -1';
+                groupby = 'order_payments.memo1, order_payments.name';
+                orderby = 'order_payments.memo1, order_payments.name';
                 var localCashDetails = orderPayment.find('all', {fields: fields,
                                                                  conditions: conditions,
                                                                  group: groupby,
-                                                                 recursive: 0,
+                                                                 order: orderby,
+                                                                 recursive: 1,
                                                                  limit: this._limit
                                                                 });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -727,6 +734,32 @@
                 //alert(this.dump(localCashDetails));
                 //this.log(this.dump(localCashDetails));
 
+                // next, we collect payment totals for the payments registered by pressing the function button with a fixed value.
+                fields = ['order_payments.amount as "OrderPayment.name"',
+                          '( "   - " || order_payments.name ) as "OrderPayment.type"',
+                          'COUNT(order_payments.name) as "OrderPayment.count"',
+                          'SUM(order_payments.amount) as "OrderPayment.amount"'];
+                conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                             ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                             ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1' +
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"';
+                groupby = 'order_payments.amount, order_payments.name';
+                orderby = 'order_payments.amount, order_payments.name';
+                var valueFixedCashPayment = orderPayment.find('all', {fields: fields,
+                                                                 conditions: conditions,
+                                                                 group: groupby,
+                                                                 order: orderby,
+                                                                 recursive: 1,
+                                                                 limit: this._limit
+                                                                });
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving value-fixed cash payment records (error code %S) [message #1414].', [orderPayment.lastError])};
+
+                //alert(this.dump(valueFixedCashPayment));
+                //this.log(this.dump(valueFixedCashPayment));
 
                 // next, we collect payment totals for cash in foreign denominations
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
@@ -738,12 +771,14 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)';
+                             ' AND order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)' +
+                             ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.name';
                 var foreignCashDetails = orderPayment.find('all', {fields: fields,
                                                                    conditions: conditions,
                                                                    group: groupby,
-                                                                   recursive: 0,
+                                                                   order: orderby,
+                                                                   recursive: 1,
                                                                    limit: this._limit
                                                                   });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -765,12 +800,13 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND (order_payments.name = "coupon" OR order_payments.name == "giftcard") AND order_payments.is_groupable = "1"';
+                             ' AND (order_payments.name = "coupon" OR order_payments.name == "giftcard") AND order_payments.is_groupable = "1"' +
+                             ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.origin_amount, order_payments.name, order_payments.is_groupable';
                 var groupableCouponGiftcardPayment = orderPayment.find('all', {fields: fields,
                                                                                conditions: conditions,
                                                                                group: groupby,
-                                                                               recursive: 0,
+                                                                               recursive: 1,
                                                                                limit: this._limit
                                                                               });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -792,12 +828,13 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"';
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"' +
+                             ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.name, order_payments.origin_amount, order_payments.is_groupable';
                 var groupableCashPayment = orderPayment.find('all', {fields: fields,
                                                                      conditions: conditions,
                                                                      group: groupby,
-                                                                     recursive: 0,
+                                                                     recursive: 1,
                                                                      limit: this._limit
                                                                     });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -819,12 +856,13 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND NOT(order_payments.memo2 IS NULL) AND order_payments.is_groupable = "1"';
+                             ' AND order_payments.name = "cash" AND NOT(order_payments.memo2 IS NULL) AND order_payments.is_groupable = "1"' +
+                             ' AND orders.status != -1';
                 groupby = 'order_payments.name, order_payments.memo1, order_payments.origin_amount, order_payments.is_groupable';
                 var groupableForeignCashPayment = orderPayment.find('all', {fields: fields,
                                                                             conditions: conditions,
                                                                             group: groupby,
-                                                                            recursive: 0,
+                                                                            recursive: 1,
                                                                             limit: this._limit
                                                                            });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -897,10 +935,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND ((order_payments.name = "cash" AND order_payments.memo2 IS NULL) OR (order_payments.name = "ledger"))';
+                             ' AND ((order_payments.name = "cash" AND order_payments.memo2 IS NULL) OR (order_payments.name = "ledger"))' +
+                             ' AND (orders.status != -1 OR orders.status IS NULL)';
                 var cashDetails = orderPayment.find('first', {fields: fields,
                                                               conditions: conditions,
-                                                              recursive: 0,
+                                                              recursive: 1,
                                                               limit: this._limit
                                                              });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -915,10 +954,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))';
+                             ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))' +
+                             ' AND orders.status != -1';
                 var changeDetails = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
-                                                                recursive: 0,
+                                                                recursive: 1,
                                                                 limit: this._limit
                                                                });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -935,10 +975,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name != "ledger"';
+                             ' AND order_payments.name != "ledger"' +
+                             ' AND orders.status != -1';
                 var paymentTotal = orderPayment.find('first', {fields: fields,
                                                                conditions: conditions,
-                                                               recursive: 0,
+                                                               recursive: 1,
                                                                limit: this._limit
                                                               });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -1065,10 +1106,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "giftcard"';
+                             ' AND order_payments.name = "giftcard"' +
+                             ' AND orders.status != -1';
                 var giftcardTotal = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
-                                                                recursive: 0,
+                                                                recursive: 1,
                                                                 limit: this._limit
                                                                });
                 if (parseInt(orderPayment.lastError) != 0)
