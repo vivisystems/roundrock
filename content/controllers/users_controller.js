@@ -114,18 +114,15 @@
             if (this._userAdded) {
                 var panel = this.getListObj();
 
-                this._listParams.index = -1;
-                this.requestCommand('list', this._listParams);
-
                 // locate newly added user
-                var data = this.getListObj().datasource.data;
+                var data = (new UserModel()).find('all', this._listParams);
                 for (var newIndex = 0; newIndex < data.length; newIndex++) {
                     if (data[newIndex].username == evt.data.username) {
                         break;
                     }
                 }
-
-                this.requestCommand('view', data[newIndex].id);
+                this._listParams.index = newIndex;
+                this.requestCommand('list', this._listParams);
                 
                 this._selectedIndex = newIndex;
                 panel.selectedIndex = newIndex;
@@ -164,24 +161,22 @@
             if (this._userModified) {
                 var panel = this.getListObj();
 
-                this._listParams.index = -1;
-                this.requestCommand('list', this._listParams);
-
                 // locate newly added user
-                var data = panel.datasource.data;
+                var data = (new UserModel()).find('all', this._listParams);
                 for (var index = 0; index < data.length; index++) {
                     if (data[index].username == evt.data.username) {
                         break;
                     }
                 }
 
-                this.requestCommand('view', data[index].id);
+                this._listParams.index = index;
+                this.requestCommand('list', this._listParams);
 
                 this._selectedIndex = index;
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
                 panel.ensureIndexIsVisible(index);
-
+                
                 OsdUtils.info(_('Employee [%S] modified successfully', [evt.data.displayname]));
 
                 // if
@@ -422,6 +417,11 @@
                     conditions: '"User.group" != \'admin\'',
                     order: 'displayname',
                     hideadmin: true
+                }
+            }
+            else {
+                this._listParams = {
+                    order: 'displayname',
                 }
             }
             this._listParams.index = -1;
