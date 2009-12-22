@@ -155,3 +155,7 @@ pref("vivipos.fec.registry.devicemodels.epson-tm-u200.encodings", "English=US-AS
 pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.type", "check");
 pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.path", "chrome://viviecr/content/devices/templates/kitchen-transfertable-42c.tpl");
+
+pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.type", "check");
+pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.path", "chrome://viviecr/content/devices/templates/kitchen-transfertable-expanded-42c.tpl");
