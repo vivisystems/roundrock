@@ -107,8 +107,6 @@
            var categories = {};
 
            var orderItemRecords = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
-alert(conditions);
-this.log(this.dump(orderItemRecords));
            orderItemRecords.forEach( function( record ) {
 
                 if (record['weight'] < 0) {
