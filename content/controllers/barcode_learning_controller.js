@@ -13,14 +13,17 @@
 
         addBarcodeLearningItem: function(evt) {
             try {
-                var barcode     = evt.data.barcode;
-                var pluNumber   = barcode;
-                var productName = barcode;
-                var price       = 0;
-                var tax         = this.getDefaultRate();
-                var department  = this.getFirstDepartment();
-                var aURL        = 'chrome://viviecr/content/prompt_addbarcodelearningitem.xul';
-                var aFeatures   = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=500';
+                this.dispatchEvent('beforeAddBarcodeLearningItem', evt);
+                var department   = this.getFirstDepartment();
+                var barcode      = evt.data.barcode;
+                var pluNumber    = evt.data.pluNumber || barcode;
+                var productName  = evt.data.productName || department.name;
+                var price        = evt.data.price || 0;
+                var tax          = this.getDefaultRate();
+                var screenwidth  = GeckoJS.Session.get('screenwidth') || 800;
+                var screenheight = GeckoJS.Session.get('screenheight') || 600;
+                var aURL         = 'chrome://viviecr/content/prompt_addbarcodelearningitem.xul';
+                var aFeatures    = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
                 var inputObj = {
                     barcode:barcode,
@@ -32,6 +35,7 @@
                     department:department.name,
                     department_no: department.no
                 };
+
                 GREUtils.Dialog.openWindow(
                     this.topmostWindow,
                     aURL,
@@ -59,6 +63,37 @@
                     prodData.rate = inputObj.tax_rate;
                     prodData.barcode = inputObj.barcode;
                     prodData.visible = '0';
+
+                    //validate PLU duplication
+                    var prods = GeckoJS.Session.get('products');
+
+                    if (prodData.no.length <= 0) {
+
+                        NotifyUtils.warn(_('Product number must not be empty.'));
+                        return;
+                    } else if (prodData.name.length <= 0) {
+
+                        NotifyUtils.warn(_('Product name must not be empty.'));
+                        return;
+                    } else {
+                        if (prods) {
+                            for (var i = 0; i < prods.length; i++) {
+                                var o = prods[i];
+                                if (o.no == prodData.no) {
+                                    NotifyUtils.warn(_('Product number [%S] already exists; product not added', [prodData.no]));
+                                    return;
+                                } else if (o.name.toLowerCase() == prodData.name.toLowerCase() && o.cate_no == prodData.cate_no) {
+                                    if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                                                _('Duplicate Product Name [%S]', [prodData.name]),
+                                                                _('One or more products with name [%S] already exist in department no. [%S]. Are you sure this is the name you want?', [prodData.name, prodData.cate_no]))) {
+                                        NotifyUtils.warn(_('Product name [%S] already exists in department no. [%S]; product not added', [prodData.name, prodData.cate_no]));
+                                        return;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
 
                     var learningGroup = GeckoJS.Configure.read('vivipos.fec.settings.BarcodeLearningPLUGroup');
                     if(learningGroup != 'none') {
@@ -115,7 +150,9 @@
         getRate: function () {
             var rate = $('#tax_rate').val();
             var aURL = 'chrome://viviecr/content/select_tax.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=450';
+            var screenwidth  = GeckoJS.Session.get('screenwidth') || 800;
+            var screenheight = GeckoJS.Session.get('screenheight') || 600;
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 rate: rate
             };
@@ -135,14 +172,15 @@
         getDepartment: function () {
             var cate_no = $('#department_no').val();
             var cates_data = GeckoJS.Session.get('categories');
-
+            var screenwidth  = GeckoJS.Session.get('screenwidth') || 800;
+            var screenheight = GeckoJS.Session.get('screenheight') || 600;
             var aURL = 'chrome://viviecr/content/select_department.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=500';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 cate_no: cate_no,
                 depsData: cates_data
             };
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_department', features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_department', aFeatures, inputObj);
 
             if (inputObj.ok && inputObj.cate_no) {
                 $('#department_no').val(inputObj.cate_no);

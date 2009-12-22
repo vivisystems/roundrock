@@ -297,12 +297,23 @@
                 NotifyUtils.warn(_('You are not authorized to access the control panel'));
                 return;
             }
+<<<<<<< HEAD:content/controllers/main_controller.js
 
+=======
+        		
+>>>>>>> bug#66:content/controllers/main_controller.js
             var aURL = 'chrome://viviecr/content/controlPanel.xul';
             var aName = _('Control Panel');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
 
+<<<<<<< HEAD:content/controllers/main_controller.js
+=======
+            if (this.doReboot) {
+                this.rebootMachine();
+            }
+
+>>>>>>> bug#66:content/controllers/main_controller.js
             if (this.doRestart) {
                 this.restart();
             }
@@ -315,6 +326,10 @@
                 catch(err) {
                 }
             }
+<<<<<<< HEAD:content/controllers/main_controller.js
+=======
+
+>>>>>>> bug#66:content/controllers/main_controller.js
         },
 
         ChangeUserDialog: function () {

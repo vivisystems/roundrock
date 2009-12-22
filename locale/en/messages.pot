@@ -2835,6 +2835,9 @@ msgstr "Internal VFD (non-en)"
 msgid "vivipos.fec.registry.templates.vfd-internal-24c.label"
 msgstr "Internal VFD Template 24c"
 
+msgid "vivipos.fec.registry.templates.receipt-japanese-ecr-42c.label"
+msgstr "Sample Japanese ECR"
+
 ########################################################################
 #
 # List of Import / Export
