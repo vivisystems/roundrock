@@ -13,7 +13,7 @@
     include( 'chrome://viviecr/content/models/product.js' );
 
     // include controllers  and register itself
-	include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
+    include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
     include( 'chrome://viviecr/content/reports/controllers/rpt_sales_summary_controller.js' );
     include( 'chrome://viviecr/content/reports/controllers/components/browser_print.js' );
     include( 'chrome://viviecr/content/reports/controllers/components/csv_export.js' );
@@ -23,7 +23,17 @@
      */
     function startup() {
 
-        $do( 'load', null, 'RptSalesSummary' );
+        var parameters = window.arguments[ 0 ];
+
+        if (parameters && parameters.setparms) {
+            $do( 'setConditionsAnd_reportRecords', parameters, 'RptSalesSummary');
+            $do( '_setTemplateDataHead', null, 'RptSalesSummary');
+            $do( '_setTemplateDataFoot', null, 'RptSalesSummary');
+            $do( '_exploit_reportRecords', null, 'RptSalesSummary');
+        }
+        else {
+            $do( 'load', null, 'RptSalesSummary' );
+        }
 
     };
 

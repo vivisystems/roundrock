@@ -16,7 +16,7 @@
         _terminalNo: null,
         _periodtype: null,
         _shiftno: null,
-        
+        _breakout_setmenu: false,
         _fileName: 'rpt_sales_summary',
 
         _getConditions: function() {
@@ -27,9 +27,10 @@
             this._shiftno = document.getElementById( 'shift_no' ).value;
             this._num_dept = document.getElementById( 'num_dept' ).value;
             this._num_product = document.getElementById( 'num_product' ).value;
+            this._breakout_setmenu = document.getElementById( 'breakout_setmenu' ).checked;
         },
         
-        _setConditions: function( start, end, terminalNo, periodtype, shiftno, num_dept, num_product ) {
+        _setConditions: function( start, end, terminalNo, periodtype, shiftno, num_dept, num_product, breakout_setmenu ) {
             this._start = start;
             this._end = end;
             this._terminalNo = terminalNo;
@@ -37,18 +38,24 @@
             this._shiftno = shiftno;
             this._num_dept = num_dept;
             this._num_product = num_product;
+            this._breakout_setmenu = breakout_setmenu;
         },
         
         setConditionsAnd_reportRecords: function( parameters ) {
+            parameters.num_dept = parameters.num_dept || 10;
+            parameters.num_product = parameters.num_product || 10;
+            parameters.breakout_setmenu = parameters.breakout_setmenu || false;
+
             document.getElementById( 'start_date' ).value = parameters.start;
             document.getElementById( 'end_date' ).value = parameters.end;
             document.getElementById( 'terminal_no' ).value = parameters.terminalNo;
             document.getElementById( 'period_type' ).value = parameters.periodtype;
             document.getElementById( 'shift_no' ).value = parameters.shiftno;
-            document.getElementById( 'num_dept' ).value = parameters.num_dept || 10;
-            document.getElementById( 'num_product' ).value = parameters.num_product || 10;
-
-            this._setConditions( parameters.start, parameters.end, parameters.terminalNo, parameters.periodtype, parameters.shiftno, parameters.num_dept || 10, parameters.num_product || 10 );
+            document.getElementById( 'num_dept' ).value = parameters.num_dept;
+            document.getElementById( 'num_product' ).value = parameters.num_product;
+            document.getElementById( 'breakout_setmenu' ).checked = parameters.breakout_setmenu;
+            
+            this._setConditions( parameters.start, parameters.end, parameters.terminalNo, parameters.periodtype, parameters.shiftno, parameters.num_dept, parameters.num_product, parameters.breakout_setmenu );
             this._set_reportData();
         },
 
@@ -146,6 +153,9 @@
             if ( this._shiftno.length > 0 )
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
+            if ( !this._breakout_setmenu )
+                conditions += " AND order_items.parent_index IS NULL";
+            
             var groupby = 'order_items.cate_no';
             var orderby = '"gross" DESC, "qty" DESC';
             
@@ -235,6 +245,9 @@
             if ( this._shiftno.length > 0 )
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
+            if ( !this._breakout_setmenu )
+                conditions += " AND order_items.parent_index IS NULL";
+            
             var groupby = 'order_items.product_no';
             var orderby = '"gross" DESC, "qty" DESC';
             
@@ -507,8 +520,8 @@
 
         _salesSummary: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+            let start = parseInt( this._start / 1000, 10 );
+            let end = parseInt( this._end / 1000, 10 );
 
             var fields = [
                 'SUM("orders"."total") AS "Order.NetSales"',
@@ -561,6 +574,26 @@
                     orderRecord.AvgGrossSalesPerGuest = 0;
                 }
             }
+            // if breakout set menu, run another query on order items
+            if (orderRecord && this._breakout_setmenu) {
+                let qtySubtotal = 0;
+                let orderItem = new OrderItemModel();
+
+                let fields = [
+                    'SUM("order_items"."current_qty") as "qty"',
+                ];
+
+                let record = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions);
+                if (record && record[0]) {
+                    qtySubtotal = record[0].qty;
+                }
+                
+                orderRecord.QtySubtotal = qtySubtotal;
+                if (orderRecord.OrderNum != 0) {
+                    orderRecord.AvgQtySubtotal = qtySubtotal / orderRecord.OrderNum;
+                }
+            }
+
             // get the number of voided orders.
             var where = "status = -2";
             	
