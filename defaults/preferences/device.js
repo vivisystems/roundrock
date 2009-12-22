@@ -63,6 +63,10 @@ pref("vivipos.fec.registry.templates.vfd-internal-non-en.label", "chrome://vivie
 pref("vivipos.fec.registry.templates.vfd-internal-non-en.type", "vfd");
 pref("vivipos.fec.registry.templates.vfd-internal-non-en.path", "chrome://viviecr/content/devices/templates/vfd-internal-non-en.tpl");
 
+pref("vivipos.fec.registry.templates.vfd-internal-24c.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.vfd-internal-24c.type", "vfd");
+pref("vivipos.fec.registry.templates.vfd-internal-24c.path", "chrome://viviecr/content/devices/templates/vfd-internal-24c.tpl");
+
 pref("vivipos.fec.registry.ports.com1.label", "COM 1");
 pref("vivipos.fec.registry.ports.com1.type", "serial");
 pref("vivipos.fec.registry.ports.com1.path", "/dev/ttyS0");

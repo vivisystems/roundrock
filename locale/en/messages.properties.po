@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-18 20:03+0800\n"
+"POT-Creation-Date: 2009-12-22 13:47+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2746,6 +2746,9 @@ msgstr "Internal VFD Template"
 
 msgid "vivipos.fec.registry.templates.vfd-internal-non-en.label"
 msgstr "Internal VFD (non-en)"
+
+msgid "vivipos.fec.registry.templates.vfd-internal-24c.label"
+msgstr "Internal VFD Template 24c"
 
 # #######################################################################
 #
@@ -8423,7 +8426,7 @@ msgid "(cartstatus)closed-txn"
 msgstr ""
 
 #: ../..//content/overlays/controllers/cart_status_controller.js:125
-#: ../..//content/overlays/controllers/cart_status_controller.js:140
+#: ../..//content/overlays/controllers/cart_status_controller.js:136
 msgid "(cartstatus)locked-txn"
 msgstr ""
 
@@ -8431,7 +8434,7 @@ msgstr ""
 msgid "(cartstatus)stored-txn"
 msgstr ""
 
-#: ../..//content/overlays/controllers/cart_status_controller.js:136
+#: ../..//content/overlays/controllers/cart_status_controller.js:140
 msgid "(cartstatus)open-recalled-txn"
 msgstr ""
 

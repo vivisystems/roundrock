@@ -2813,6 +2813,9 @@ msgstr "Internal VFD Template"
 msgid "vivipos.fec.registry.templates.vfd-internal-non-en.label"
 msgstr "Internal VFD (non-en)"
 
+msgid "vivipos.fec.registry.templates.vfd-internal-24c.label"
+msgstr "Internal VFD Template 24c"
+
 ########################################################################
 #
 # List of Import / Export
