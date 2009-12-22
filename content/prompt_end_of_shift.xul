@@ -51,9 +51,21 @@
                                         oncommand="opener.$do('reviewShiftReport', null, 'ShiftChanges');"/>
                         </vbox>
                         <vbox flex="1">
+                            <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.daily.sales;" flex="1"
+                                        roles="acl_report_dailysalessummary" action="hide"
+                                        oncommand="opener.$do('reviewDailySales', true, 'ShiftChanges');"/>
+                        </vbox>
+                    </row>
+                    <row flex="1">
+                        <vbox flex="1">
                             <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;" flex="1"
                                         roles="acl_report_cashbyclerk" action="hide"
                                         oncommand="opener.$do('printShiftReport', null, 'ShiftChanges');"/>
+                        </vbox>
+                        <vbox flex="1">
+                            <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales;" flex="1"
+                                        roles="acl_report_dailysalessummary" action="hide"
+                                        oncommand="opener.$do('printDailySales', true, 'ShiftChanges');"/>
                         </vbox>
                     </row>
                 </rows>

@@ -661,7 +661,9 @@
                 var conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                                  ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                                  ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                                 ' AND (order_payments.name = "creditcard" OR order_payments.name = "coupon" OR order_payments.name = "check")';
+                                 ' AND (order_payments.name = "creditcard" OR order_payments.name = "coupon" OR order_payments.name = "check")' +
+                                 ' AND orders.status != -1';
+
                 var groupby = 'order_payments.memo1, order_payments.name';
                 var creditcardCheckCouponDetails = orderPayment.find('all', {fields: fields,
                                                                              conditions: conditions,
@@ -687,12 +689,14 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1' +
                              ' AND order_payments.name = "giftcard"';
                 groupby = 'order_payments.memo1, order_payments.name';
                 var giftcardDetails = orderPayment.find('all', {fields: fields,
                                                                 conditions: conditions,
                                                                 group: groupby,
-                                                                recursive: 0,
+                                                                order: orderby,
+                                                                recursive: 1,
                                                                 limit: this._limit
                                                                });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -711,12 +715,15 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL';
-                groupby = 'order_payments.name';
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL' +
+                             ' AND orders.status != -1';
+                groupby = 'order_payments.memo1, order_payments.name';
+                orderby = 'order_payments.memo1, order_payments.name';
                 var localCashDetails = orderPayment.find('all', {fields: fields,
                                                                  conditions: conditions,
                                                                  group: groupby,
-                                                                 recursive: 0,
+                                                                 order: orderby,
+                                                                 recursive: 1,
                                                                  limit: this._limit
                                                                 });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -727,6 +734,32 @@
                 //alert(this.dump(localCashDetails));
                 //this.log(this.dump(localCashDetails));
 
+                // next, we collect payment totals for the payments registered by pressing the function button with a fixed value.
+                fields = ['order_payments.amount as "OrderPayment.name"',
+                          '( "   - " || order_payments.name ) as "OrderPayment.type"',
+                          'COUNT(order_payments.name) as "OrderPayment.count"',
+                          'SUM(order_payments.amount) as "OrderPayment.amount"'];
+                conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                             ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                             ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                             ' AND orders.status != -1' +
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"';
+                groupby = 'order_payments.amount, order_payments.name';
+                orderby = 'order_payments.amount, order_payments.name';
+                var valueFixedCashPayment = orderPayment.find('all', {fields: fields,
+                                                                 conditions: conditions,
+                                                                 group: groupby,
+                                                                 order: orderby,
+                                                                 recursive: 1,
+                                                                 limit: this._limit
+                                                                });
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving value-fixed cash payment records (error code %S) [message #1414].', [orderPayment.lastError])};
+
+                //alert(this.dump(valueFixedCashPayment));
+                //this.log(this.dump(valueFixedCashPayment));
 
                 // next, we collect payment totals for cash in foreign denominations
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
@@ -738,12 +771,14 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)';
+                             ' AND order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)' +
+                             ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.name';
                 var foreignCashDetails = orderPayment.find('all', {fields: fields,
                                                                    conditions: conditions,
                                                                    group: groupby,
-                                                                   recursive: 0,
+                                                                   order: orderby,
+                                                                   recursive: 1,
                                                                    limit: this._limit
                                                                   });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -765,12 +800,13 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND (order_payments.name = "coupon" OR order_payments.name == "giftcard") AND order_payments.is_groupable = "1"';
+                             ' AND (order_payments.name = "coupon" OR order_payments.name == "giftcard") AND order_payments.is_groupable = "1"' +
+                             ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.origin_amount, order_payments.name, order_payments.is_groupable';
                 var groupableCouponGiftcardPayment = orderPayment.find('all', {fields: fields,
                                                                                conditions: conditions,
                                                                                group: groupby,
-                                                                               recursive: 0,
+                                                                               recursive: 1,
                                                                                limit: this._limit
                                                                               });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -792,12 +828,13 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"';
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"' +
+                             ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.name, order_payments.origin_amount, order_payments.is_groupable';
                 var groupableCashPayment = orderPayment.find('all', {fields: fields,
                                                                      conditions: conditions,
                                                                      group: groupby,
-                                                                     recursive: 0,
+                                                                     recursive: 1,
                                                                      limit: this._limit
                                                                     });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -819,12 +856,13 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND NOT(order_payments.memo2 IS NULL) AND order_payments.is_groupable = "1"';
+                             ' AND order_payments.name = "cash" AND NOT(order_payments.memo2 IS NULL) AND order_payments.is_groupable = "1"' +
+                             ' AND orders.status != -1';
                 groupby = 'order_payments.name, order_payments.memo1, order_payments.origin_amount, order_payments.is_groupable';
                 var groupableForeignCashPayment = orderPayment.find('all', {fields: fields,
                                                                             conditions: conditions,
                                                                             group: groupby,
-                                                                            recursive: 0,
+                                                                            recursive: 1,
                                                                             limit: this._limit
                                                                            });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -897,10 +935,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND ((order_payments.name = "cash" AND order_payments.memo2 IS NULL) OR (order_payments.name = "ledger"))';
+                             ' AND ((order_payments.name = "cash" AND order_payments.memo2 IS NULL) OR (order_payments.name = "ledger"))' +
+                             ' AND (orders.status != -1 OR orders.status IS NULL)';
                 var cashDetails = orderPayment.find('first', {fields: fields,
                                                               conditions: conditions,
-                                                              recursive: 0,
+                                                              recursive: 1,
                                                               limit: this._limit
                                                              });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -915,10 +954,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))';
+                             ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))' +
+                             ' AND orders.status != -1';
                 var changeDetails = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
-                                                                recursive: 0,
+                                                                recursive: 1,
                                                                 limit: this._limit
                                                                });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -935,10 +975,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name != "ledger"';
+                             ' AND order_payments.name != "ledger"' +
+                             ' AND orders.status != -1';
                 var paymentTotal = orderPayment.find('first', {fields: fields,
                                                                conditions: conditions,
-                                                               recursive: 0,
+                                                               recursive: 1,
                                                                limit: this._limit
                                                               });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -1065,10 +1106,11 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "giftcard"';
+                             ' AND order_payments.name = "giftcard"' +
+                             ' AND orders.status != -1';
                 var giftcardTotal = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
-                                                                recursive: 0,
+                                                                recursive: 1,
                                                                 limit: this._limit
                                                                });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -1148,7 +1190,6 @@
             if (inputObj.ok) {
 
                 // cancel current transaction
-                var cart = GeckoJS.Controller.getInstanceByName('Cart');
                 if (cart) {
                     cart.cancel(true);
                 }
@@ -1283,9 +1324,9 @@
                 this.requestCommand('clearOrderData', null, 'Main');
 
                 // offer options to power off or restart and to print shift and day reports
-                var aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=300';
-                var parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
+                aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=300';
+                let parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Sale Period Close'), features, parms);
 
                 // power off or restart
@@ -1310,9 +1351,9 @@
             else if (doEndOfShift) {
 
                 // shift change notification and print option
-                var aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=200';
-                var message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
+                aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=300';
+                let message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Close'), features, message);
 
                 this.requestCommand('signOff', true, 'Main');
@@ -1321,8 +1362,8 @@
         },
         
         printShiftReport: function( all ) {
-        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print shift report?' ) ) )
-        		return;
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print shift report?' ) ) )
+                return;
 
             var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
             var salePeriod = this._getSalePeriod() * 1000;
@@ -1335,56 +1376,59 @@
             reportController.printShiftChangeReport( salePeriod, salePeriod, shiftNumber, terminalNo );
         },
 
-        printDailySales: function() {
-        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
-        		return;
+        printDailySales: function(shift) {
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+                return;
         	
             var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var shiftNumber = shift ? this._getShiftNumber().toString() : '';
 
-            reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', '' );
+            reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', shiftNumber );
         },
         
         reviewShiftReport: function( all ) {
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get('terminal_no');
 
-			var shiftNumber = '';
-			if ( !all )
-				shiftNumber = this._getShiftNumber().toString();
-				
-			var parameters = {
-				start: salePeriod,
-				end: salePeriod,
-				shiftNo: shiftNumber,
-				terminalNo: terminalNo
-			};
+            var shiftNumber = '';
+            if ( !all )
+                    shiftNumber = this._getShiftNumber().toString();
+
+            var parameters = {
+                    start: salePeriod,
+                    end: salePeriod,
+                    shiftNo: shiftNumber,
+                    terminalNo: terminalNo,
+                    setparms: true
+            };
 		
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );
 		    
-		    var aURL = 'chrome://viviecr/content/rpt_cash_by_clerk.xul';
-		    var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-		    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
+            var aURL = 'chrome://viviecr/content/reports/rpt_cash_by_clerk.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
 
-        reviewDailySales: function() {
+        reviewDailySales: function( shift ) {
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
             var periodType = 'sale_period';
-            var shiftNo = '';
+            var shiftNo = shift ? this._getShiftNumber().toString() : '';
             
             var parameters = {
-				start: salePeriod,
-				end: salePeriod,
-				periodtype: periodType,
-				shiftno: shiftNo,
-				terminalNo: terminalNo
-			};
+                start: salePeriod,
+                end: salePeriod,
+                periodtype: periodType,
+                shiftno: shiftNo,
+                terminalNo: terminalNo,
+                setparms: true
+            };
 
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
             
-            var aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
+            var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
