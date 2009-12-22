@@ -1,10 +1,6 @@
 <!ENTITY devices.title "Device Configuration">
 <!ENTITY devices.tab.receipt.label "Receipt">
 <!ENTITY devices.tab.check.label "Check">
-<!ENTITY devices.tab.check1.label "Check 1">
-<!ENTITY devices.tab.check2.label "Check 2">
-<!ENTITY devices.tab.check3.label "Check 3">
-<!ENTITY devices.tab.check4.label "Check 4">
 <!ENTITY devices.tab.report.label "Report/Label">
 <!ENTITY devices.tab.vfd.label "VFD">
 <!ENTITY devices.tab.cashdrawer1.label "Drawer 1">
@@ -23,10 +19,7 @@
 <!ENTITY devices.devicemodel.label "Device Model">
 <!ENTITY devices.deviceencoding.label "Encoding">
 <!ENTITY devices.receipt.autoprint.label "Auto-print after payment finalization">
-<!ENTITY devices.check.printer.1.label "Check Printer 1">
-<!ENTITY devices.check.printer.2.label "Check Printer 2">
-<!ENTITY devices.check.printer.3.label "Check Printer 3">
-<!ENTITY devices.check.printer.4.label "Check Printer 4">
+<!ENTITY devices.check.printer.label "Check Printer">
 <!ENTITY devices.check.autoprint.label "Auto-print copies">
 <!ENTITY devices.check.print.no.routing.label "Print items with no routing groups">
 <!ENTITY devices.check.print.all.routing.label "Print all items">

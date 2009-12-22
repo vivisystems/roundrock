@@ -34,7 +34,7 @@
             var obj = this.Form.serializeToObject('syncSettingForm', false);
 
             // make sure terminal_no is alphanumeric only
-            if (!this.isAlphaNumeric(obj['machine_id'])) {
+            if (!this.isAlphaNumeric(obj['machine_id']) || obj['machine_id'].length==0) {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Network Service Settings'),
                                       _('Terminal number must only contain [a-zA-Z] and [0-9]'));
                 data.cancel = true;

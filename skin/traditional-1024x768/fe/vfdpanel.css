@@ -23,6 +23,7 @@
     font-family: monospace;
     font-size: 15pt;
     font-weight: bold !important;
+    padding-right: 3px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;

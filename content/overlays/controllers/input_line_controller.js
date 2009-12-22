@@ -28,6 +28,8 @@
                 inputBox.addEventListener('input', function(evt){
                     keypadController.buf = evt.target.value;
                 }, true);
+
+                inputBox.focus();
             }
 
             this.updateDecimalPoint();
