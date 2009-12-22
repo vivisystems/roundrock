@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-21 19:21+0800\n"
+"POT-Creation-Date: 2009-12-22 11:01+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2819,7 +2819,10 @@ msgid "vivipos.fec.registry.templates.receipt-japanese-ecr-42c.label"
 msgstr "Sample Japanese ECR"
 
 msgid "vivipos.fec.registry.templates.kitchen-transfertable-42c.label"
-msgstr "Sample Kitchen 42c After Transfer Table"
+msgstr "Sample Transfer Table 42c "
+
+msgid "vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.label"
+msgstr "Sample Transfer Table 42c expanded"
 
 # #######################################################################
 #
