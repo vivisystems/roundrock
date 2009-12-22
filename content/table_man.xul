@@ -277,6 +277,7 @@
                                     <tab id="tab_options1" label="&tableman.tab.tableoptions.1;"/>
                                     <tab id="tab_options2" label="&tableman.tab.tableoptions.2;"/>
                                     <tab id="tab_options3" label="&tableman.tab.tableoptions.3;"/>
+                                    <tab id="tab_options3" label="&tableman.tab.tableoptions.print;"/>
                                     <tab id="tab_options_dock" label="&tableman.tab.tableoptions.dock;"/>
                                 </tabs>
                                 <tabpanels flex="1">
@@ -365,47 +366,6 @@
                                                     <column flex="1" />
                                                 </columns>
                                                 <rows>
-                                                    <!--row>
-                                                        <vbox>
-                                                            <label control="print_split_check" value="&tableman.tableoptions.printsplitcheck;"/>
-                                                            <menulist id="print_split_check" name="PrintSplitCheck" form="settingsForm">
-                                                                <menupopup>
-                                                                    <menuitem value="0" label="&tableman.tableoptions.printsplitcheck.none;" />
-                                                                    <menuitem value="1" label="&tableman.tableoptions.printsplitcheck.auto;" />
-                                                                    <menuitem value="2" label="&tableman.tableoptions.printsplitcheck.confirm;" />
-                                                                </menupopup>
-                                                            </menulist>
-                                                        </vbox>
-                                                        <vbox>
-                                                            <label control="print_merge_check" value="&tableman.tableoptions.printmergecheck;"/>
-                                                            <menulist id="print_merge_check" name="PrintMergeCheck" form="settingsForm">
-                                                                <menupopup>
-                                                                    <menuitem value="0" label="&tableman.tableoptions.printmergecheck.none;" />
-                                                                    <menuitem value="1" label="&tableman.tableoptions.printmergecheck.auto;" />
-                                                                    <menuitem value="2" label="&tableman.tableoptions.printmergecheck.confirm;" />
-                                                                </menupopup>
-                                                            </menulist>
-                                                        </vbox>
-                                                    </row-->
-                                                    <row>
-                                                        <vbox>
-                                                            <label control="print_check_after_transfer_table" value="&tableman.tableoptions.printCheckAfterTransferTable;"/>
-                                                            <menulist id="print_check_after_transfer_table" name="PrintCheckAfterTransferTable" form="settingsForm">
-                                                                <menupopup>
-                                                                    <menuitem value="0" label="&tableman.tableoptions.printCheckAfterTransferTable.none;" />
-                                                                    <menuitem value="1" label="&tableman.tableoptions.printCheckAfterTransferTable.auto;" />
-                                                                    <menuitem value="2" label="&tableman.tableoptions.printCheckAfterTransferTable.confirm;" />
-                                                                </menupopup>
-                                                            </menulist>
-                                                        </vbox>
-                                                        <vbox>
-                                                            <label control="print_check_after_transfer_table_template" value="&tableman.tableoptions.printCheckAfterTransferTable.template;"/>
-                                                            <menulist id="print_check_after_transfer_table_template" name="PrintCheckAfterTransferTableTemplate" form="settingsForm">
-                                                                <menupopup>
-                                                                </menupopup>
-                                                            </menulist>
-                                                        </vbox>
-                                                    </row>
                                                     <row>
                                                         <vbox>
                                                             <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
@@ -522,6 +482,40 @@
                                             </rows>
                                         </grid>
                                     </tabpanel>
+
+                                    <tabpanel>
+                                        <vbox flex="1">
+                                            <caption label="&tableman.tableoptions.dockoptions.caption;"/>
+                                            <grid flex="1" class="data-form">
+                                                <columns>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="print_check_after_transfer_table" value="&tableman.tableoptions.printCheckAfterTransferTable;"/>
+                                                            <menulist id="print_check_after_transfer_table" name="PrintCheckAfterTransferTable" form="settingsForm">
+                                                                <menupopup>
+                                                                    <menuitem value="0" label="&tableman.tableoptions.printCheckAfterTransferTable.none;" />
+                                                                    <menuitem value="1" label="&tableman.tableoptions.printCheckAfterTransferTable.auto;" />
+                                                                    <menuitem value="2" label="&tableman.tableoptions.printCheckAfterTransferTable.confirm;" />
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                        <vbox>
+                                                            <label control="print_check_after_transfer_table_template" value="&tableman.tableoptions.printCheckAfterTransferTable.template;"/>
+                                                            <menulist id="print_check_after_transfer_table_template" name="PrintCheckAfterTransferTableTemplate" form="settingsForm">
+                                                                <menupopup>
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                    </row>
+                                                </rows>
+                                            </grid>
+                                        </vbox>
+                                    </tabpanel>
+
                                     <tabpanel>
                                         <vbox flex="1">
                                             <caption label="&tableman.tableoptions.dockoptions.caption;"/>
