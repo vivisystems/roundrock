@@ -255,9 +255,33 @@
 
         },
 
+        refreshSelectIrcPackage: function() {
+
+            var index = document.getElementById('ircPackagesTree').selectedIndex;
+
+            if (index < 0) return false ;
+
+            var ircPackage = this.ircPackages[index] || false;
+            if (!ircPackage) return false;
+
+            // try refresh package status
+            var httpService = this.getHttpServiceIRC();
+            var remoteUrl = httpService.getRemoteServiceUrl('getPackage');
+            var requestUrl = remoteUrl + "/" + ircPackage['file'];
+            var newPackageStatus = httpService.requestRemoteService('GET', requestUrl) || false ;
+
+            if (newPackageStatus) {
+                this.ircPackages[index] = ircPackage = newPackageStatus;
+            }
+            
+        },
+        
         onSelectIrcPackage: function(index) {
 
             if (index < 0) return false ;
+
+            // refresh first
+            this.refreshSelectIrcPackage();
             
             var ircPackage = this.ircPackages[index] || false;
             if (!ircPackage) return false;
@@ -288,6 +312,7 @@
             this.Form.unserializeFromObject('ircDetail', data);           
 
             $('#ircRemovePackage').attr({disabled: 'false'});
+            $('#ircRefreshPackage').attr({disabled: 'false'});
 
             
         },
@@ -302,6 +327,7 @@
                 $('#irc-edit-tabs')[0].selectedIndex = 1;
                 $('#ircCreatePackage').attr({disabled: 'true'});
                 $('#ircRemovePackage').attr({disabled: 'true'});
+                $('#ircRefreshPackage').attr({disabled: 'true'});
                 $('#irc-detail-tab').attr({disabled: 'true'});
                 $('#irc-edit-tab').attr({disabled: 'false'});
 
@@ -378,6 +404,7 @@
                 $('#irc-detail-tab').attr({disabled: 'false'});
                 $('#irc-edit-tab').attr({disabled: 'true'});
                 $('#ircRemovePackage').attr({disabled: 'true'});
+                $('#ircRefreshPackage').attr({disabled: 'true'});
 
                 $('#basic-tab').attr({disabled: 'false'});
                 $('#advanced-tab').attr({disabled: 'false'});

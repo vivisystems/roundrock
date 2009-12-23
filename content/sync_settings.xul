@@ -112,10 +112,22 @@
                                         <label value="&sync_settings.label.irc_hostname;"/>
                                         <textbox value="localhost"
                                                  form="syncSettingForm" name="irc_hostname"/>
+                                        <vbox>
+                                            <hbox>
                                         <label value="&sync_settings.label.irc_interval;"/>
-                                        <vivitextbox type="number" min="30"
+                                        <spacer flex="1"/>
+                                        <vivitextbox type="number" min="30" size="4"
                                                      numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                      form="syncSettingForm" name="irc_interval"/>
+                                            </hbox>
+                                            <hbox>
+                                        <label value="&sync_settings.label.irc_expire_days;"/>
+                                        <spacer flex="1"/>
+                                        <vivitextbox type="number" min="0" size="4"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     form="syncSettingForm" name="irc_expire_days"/>
+                                            </hbox>
+                                        </vbox>
                                     </vbox>
                                     <vbox>
                                         <label value="&sync_settings.label.irc_update_type;"/>
@@ -270,6 +282,7 @@
                                 <hbox flex="0" class="toolbar" toolbarmode="vertical" align="left">
                                     <vivibutton id="ircCreatePackage" label="&sync_settings.button.irc_create_package;" oncommand="$do('createIrcPackage',null, 'SyncSettings');"/>
                                     <vivibutton id="ircRemovePackage" label="&sync_settings.button.irc_remove_package;" oncommand="$do('removeIrcPackage',document.getElementById('ircPackagesTree').selectedIndex, 'SyncSettings');" disabled="true" />
+                                    <button id="ircRefreshPackage" image="chrome://viviecr/skin/images/reload.png" oncommand="$do('refreshSelectIrcPackage',document.getElementById('ircPackagesTree').selectedIndex, 'SyncSettings');" disabled="true" />
                                 </hbox>
                             </vbox>
                             <vbox flex="3" id="ircEditBox">
