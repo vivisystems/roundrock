@@ -169,6 +169,40 @@ class IrcController extends AppController {
 
 
     /**
+     * Get Last Error Package Message
+     *
+     * Called by VIVIECR - Sync Setting
+     *
+     * @param $file
+     * @return unknown_type
+     */
+    function getLastErrorPackageMessage() {
+
+        $result = array('status' => 'error', 'code' => 400 );
+
+        $messages = array();
+
+        $lastErrorPackage = $this->Irc->getLastErrorPackage();
+
+        if ($lastErrorPackage) {
+            $logs = $this->Irc->readUnpackPackageLog($lastErrorPackage);
+            foreach($logs as $log) {
+                if (!$log['success']) $messages[] = $log;
+            }
+        }
+
+        $result = array('status' => 'ok', 'code' => 200 );
+        $result['response_data'] = array('last_error_package'=>$lastErrorPackage, 'logs'=>$messages);
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json');
+
+        echo $responseResult ;
+        exit;
+
+    }
+
+
+    /**
      * Check available updates for this terminal
      *
      * ignore package if created by self
