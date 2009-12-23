@@ -115,6 +115,10 @@
                                             </menupopup>
                                         </menulist>
                                     </vbox>
+                                    <vbox>
+                                        <label value="Department .. Group"/>
+                                        
+                                    </vbox>
                                 </row>
                             </rows>
                         </grid>
