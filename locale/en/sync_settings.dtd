@@ -45,7 +45,8 @@
 <!ENTITY sync_settings.label.ntp_hostname "Network Time Service">
 <!ENTITY sync_settings.desc.ntp_hostname "This service synchronizes time across a cluster of terminals. Please enter the hostname or IP address of the server, or localhost if the service is not needed.">
 
-<!ENTITY sync_settings.label.irc_interval "Checking IRC Package Interval:">
+<!ENTITY sync_settings.label.irc_interval "Checking IRC Package Interval(Second):">
+<!ENTITY sync_settings.label.irc_expire_days "Remove expire packages(Days):">
 <!ENTITY sync_settings.label.irc_packages "Packages:">
 <!ENTITY sync_settings.label.irc_packages_header "Filename">
 <!ENTITY sync_settings.label.irc_machineid_header "Machine ID">
