@@ -668,7 +668,7 @@
                 var creditcardCheckCouponDetails = orderPayment.find('all', {fields: fields,
                                                                              conditions: conditions,
                                                                              group: groupby,
-                                                                             recursive: 0,
+                                                                             recursive: 1,
                                                                              limit: this._limit
                                                                             });
                 if (parseInt(orderPayment.lastError) != 0)
@@ -691,6 +691,7 @@
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                              ' AND orders.status != -1' +
                              ' AND order_payments.name = "giftcard"';
+                var orderby = 'order_payments.memo1, order_payments.name';
                 groupby = 'order_payments.memo1, order_payments.name';
                 var giftcardDetails = orderPayment.find('all', {fields: fields,
                                                                 conditions: conditions,
