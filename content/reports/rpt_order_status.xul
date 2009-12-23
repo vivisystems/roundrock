@@ -58,11 +58,16 @@
                                         <label value="&rptorderstatus.periodtype;"/>
                                         <menulist id="period_type">
                                             <menupopup id="period_type_menupopup">
-                                                <menuitem selected="true" label="&rptorderstatus.transaction_created;" value="transaction_created"/>
-                                                <menuitem selected="false" label="&rptorderstatus.transaction_submitted;" value="transaction_submitted"/>
-                                                <menuitem selected="false" label="&rptorderstatus.sale_period;" value="sale_period"/>
-                                                <menuitem selected="false" label="&rptorderstatus.void_sale_period;" value="void_sale_period"/>
-                                                <menuitem selected="false" label="&rptorderstatus.void_time;" value="transaction_voided"/>
+                                                <menuitem selected="true" label="&rptorderstatus.transaction_created;" value="transaction_created"
+                                                          oncommand="document.getElementById('orderstatus_deck').selectedIndex = 0;"/>
+                                                <menuitem selected="false" label="&rptorderstatus.transaction_submitted;" value="transaction_submitted"
+                                                          oncommand="document.getElementById('orderstatus_deck').selectedIndex = 0;"/>
+                                                <menuitem selected="false" label="&rptorderstatus.sale_period;" value="sale_period"
+                                                          oncommand="document.getElementById('orderstatus_deck').selectedIndex = 0;"/>
+                                                <menuitem selected="false" label="&rptorderstatus.void_sale_period;" value="void_sale_period"
+                                                          oncommand="document.getElementById('orderstatus_deck').selectedIndex = 1;"/>
+                                                <menuitem selected="false" label="&rptorderstatus.void_time;" value="transaction_voided"
+                                                          oncommand="document.getElementById('orderstatus_deck').selectedIndex = 1;"/>
                                             </menupopup>
                                         </menulist>
                                     </vbox>
@@ -74,16 +79,23 @@
                                 <row>
                                     <vbox>
                                         <label value="&rptorderstatus.orderstatus;"/>
-                                        <menulist id="orderstatus">
-                                            <menupopup id="orderstatus_menupopup">
-                                                <menuitem selected="true" label="[&rptorderstatus.all;]" value="all"/>
-                                                <menuitem selected="false" label="&rptorderstatus.finalizedorder;" value="1"/>
-                                                <menuitem selected="false" label="&rptorderstatus.savedorder;" value="2"/>
-                                                <menuitem selected="false" label="&rptorderstatus.cancelledorder;" value="-1"/>
-                                                <menuitem selected="false" label="&rptorderstatus.voidedorder;" value="-2"/>
-                                                <menuitem selected="false" label="&rptorderstatus.mergedorder;" value="-3"/>
-                                            </menupopup>
-                                        </menulist>
+                                        <deck id="orderstatus_deck" selectedIndex="0">
+                                            <menulist id="orderstatus">
+                                                <menupopup id="orderstatus_menupopup">
+                                                    <menuitem selected="true" label="[&rptorderstatus.all;]" value="all"/>
+                                                    <menuitem selected="false" label="&rptorderstatus.finalizedorder;" value="1"/>
+                                                    <menuitem selected="false" label="&rptorderstatus.savedorder;" value="2"/>
+                                                    <menuitem selected="false" label="&rptorderstatus.cancelledorder;" value="-1"/>
+                                                    <menuitem selected="false" label="&rptorderstatus.voidedorder;" value="-2"/>
+                                                    <menuitem selected="false" label="&rptorderstatus.mergedorder;" value="-3"/>
+                                                </menupopup>
+                                            </menulist>
+                                            <menulist id="orderstatus">
+                                                <menupopup id="orderstatus_menupopup" value="-2">
+                                                    <menuitem selected="true" label="&rptorderstatus.voidedorder;" value="-2"/>
+                                                </menupopup>
+                                            </menulist>
+                                        </deck>
                                     </vbox>
                                     <vbox>
                                         <label value="&rptorderstatus.terminal_no;"/>
