@@ -38,9 +38,11 @@
             // force checking when vivipos startup
             var syncSettings = SyncSetting.read();
             var hostname = syncSettings.irc_hostname;
+
+            /*
             if (hostname == 'localhost' || hostname == '127.0.0.1') {
                 return ;
-            }
+            }*/
 
             // check update
             this.checkAvailableUpdates();
@@ -58,9 +60,11 @@
 			
             var syncSettings = SyncSetting.read();
             var hostname = syncSettings.irc_hostname;
+
+            /*
             if (hostname == 'localhost' || hostname == '127.0.0.1') {
                 return ;
-            }
+            }*/
 			
             // add main listener
             var main = GeckoJS.Controller.getInstanceByName('Main');
@@ -89,6 +93,10 @@
                         self.checkAvailableUpdates(true);
                     });
                 }
+
+                main.addEventListener('onClearOrderData', function() {
+                    self.removeExpirePackages();
+                });
 				
             }
 
@@ -133,13 +141,13 @@
             var alertWin = null;
             try {
                 alertWin = this.showProgressDialog(_('Checking Available Updates'));
-                var packages = httpService.requestRemoteService('GET', requestUrl) || [];
+                var packages = httpService.requestRemoteService('GET', requestUrl) || false;
             }catch(e) {
                 this.log('ERROR', 'Error checkAvailableUpdates', e);
             }finally {
                 alertWin.close();
             }
-			
+
             if (packages && packages.length) {
 				
                 // show info
@@ -150,6 +158,8 @@
                     this.applyAvailableUpdates(packages, skipReboot);
                 }
 				
+            }else if (packages === false) {
+                this._serverError(_('Failed to check IRC Update packages or has apply IRC packages error before [message #2101]'));
             }
 
         },
@@ -163,7 +173,7 @@
         applyAvailableUpdates: function(packages, skipReboot) {
 
             skipReboot = skipReboot || false;
-            isNeedReboot = false;
+            var isNeedReboot = false;
 
             var pkgs = [];
             packages.forEach(function(pkg) {
@@ -199,6 +209,8 @@
                 } else {
                     this.restart();
                 }
+            }else {
+                this._serverError(_('Failed to apply IRC Update packages [message #2102]'));
             }
 			
 			
@@ -270,6 +282,34 @@
                 this.log('ERROR', 'Error reboot', e);
             }
             
+
+        },
+
+
+        /**
+         * removeExpirePackages
+         */
+        removeExpirePackages: function() {
+
+            var syncSettings = SyncSetting.read();
+
+            var ircExpireDays = syncSettings['irc_expire_days'] || 0;
+            
+            var httpService = this.getHttpServiceIRC();
+
+            var remoteUrl = httpService.getRemoteServiceUrl('removeExpirePackages');
+            var requestUrl = remoteUrl + '/' + ircExpireDays;
+
+            var alertWin = null;
+            try {
+                alertWin = this.showProgressDialog(_('Removing Exipre IRC Packages'));
+                var result = httpService.requestRemoteService('GET', requestUrl) || false;
+            }catch(e) {
+                this.log('ERROR', 'Error removeExpirePackages', e);
+            }finally {
+                alertWin.close();
+            }
+
 
         },
         
@@ -358,17 +398,16 @@
         /**
          * _serverError
          */
-        _serverError : function(state, status, hostname) {
-            this.log('ERROR', 'IRC Update Server error: ' + state + ' [' + status
-                + '] at ' + hostname);
+        _serverError : function(message) {
+
+            this.log('ERROR', 'IRC Update error: ' + message);
+            
             var win = this.topmostWindow;
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
             }
-            GREUtils.Dialog.alert(win, _('IRC Update Server Connection Error'),
-                _('Failed to connect to IRC Update services (error code %S). Please check the network connectivity to the terminal designated as the IRC Update server [message #1701].',
-                [ status ]));
+            GREUtils.Dialog.alert(win, _('IRC Update Error'), message );
         }
 
     };
