@@ -680,6 +680,26 @@ class IrcComponent extends Object {
 
     /**
      *
+     * @param <type> $tbzFile
+     * @param <type> $unpackLogs
+     * @return <type>
+     */
+    function readUnpackPackageLog($tbzFile) {
+
+        // saved and mark done
+        $packagesQueuePath = $this->ircPackagePath."/queues/";
+
+        $tbzUnpackLogFile = $packagesQueuePath . $tbzFile . ".unpacklog.json";
+
+        if (!file_exists($tbzUnpackLogFile)) return false;
+
+        return json_decode(file_get_contents($tbzUnpackLogFile), true);
+
+    }
+
+
+    /**
+     *
      * @param <type> $machineId
      * @param <type> $tbzFile
      * @param <type> $updateStatus
@@ -900,6 +920,14 @@ class IrcComponent extends Object {
             unlink($tbzStatusFile);
         }
 
+        $packagesQueuePath = $this->ircPackagePath."/queues/";
+
+        $folder = new Folder($packagesQueuePath);
+
+        $jsonFiles = $folder->find(".*\.tbz\.json", true);
+
+        if (count($jsonFiles) <= 0) $this->removeLastErrorPackage();
+
         return true;
     }
 
@@ -1026,7 +1054,7 @@ class IrcComponent extends Object {
         $lastErrorPackageFile = $this->ircPackagePath . "/last_error_package" ;
 
         if (file_exists($lastErrorPackageFile)) {
-            $lastErrorPackage = file_get_contents($lastErrorPackageFile);
+            $lastErrorPackage = chop(file_get_contents($lastErrorPackageFile));
         }
 
         return $lastErrorPackage;
@@ -1047,6 +1075,24 @@ class IrcComponent extends Object {
         }
 
         return $lastErrorPackage;
+
+    }
+
+
+    /**
+     *
+     * @param <type> $lastDownloadedTime
+     * @return <type>
+     */
+    function removeLastErrorPackage() {
+
+        $lastErrorPackageFile = $this->ircPackagePath . "/last_error_package" ;
+
+        if (file_exists($lastErrorPackageFile)) {
+            @unlink($lastErrorPackageFile);
+        }
+
+        return true;
 
     }
 
