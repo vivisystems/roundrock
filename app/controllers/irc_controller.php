@@ -612,7 +612,10 @@ class IrcController extends AppController {
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json');
 
         echo $responseResult ;
-        exit;
+
+        if (!$this->params['skipExit']) {
+            exit;
+        }
 
     }
 
