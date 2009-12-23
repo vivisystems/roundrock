@@ -47,7 +47,36 @@ class IrcController extends AppController {
     // downloadPackages call by background php , skip auth
         if ($this->params['action'] == 'downloadPackages' || $this->params['action'] == 'downloadFile') return;
 
+        if ($this->params['action'] == 'removeExpirePackages' && $this->params['skipAuth']) return ;
+
         parent::beforeFilter();
+    }
+
+
+    /**
+     * Return all IRC packages and status
+     *
+     * Called by VIVIECR - Sync Setting
+     *
+     * @param $file
+     * @return unknown_type
+     */
+    function getPackage($file) {
+
+        $result = array('status' => 'error', 'code' => 400 );
+
+        $package = $this->Irc->getPackage($file);
+
+        if (is_array($package)) {
+            $result = array('status' => 'ok', 'code' => 200 );
+            $result['response_data'] = $package;
+        }
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json');
+
+        echo $responseResult ;
+        exit;
+
     }
 
 
@@ -156,6 +185,8 @@ class IrcController extends AppController {
 
         $machineId = $this->SyncHandler->getRequestClientMachineId();
 
+        $lastErrorPackage = $this->Irc->getLastErrorPackage();
+
         $packages = $this->Irc->getPackages();
 
         $availablePackages = array();
@@ -169,10 +200,9 @@ class IrcController extends AppController {
         ksort($availablePackages);
         $ksortedPackages = array_values($availablePackages);
 
-        if (true) {
+        if (empty($lastErrorPackage)) {
 
             $result = array('status' => 'ok', 'code' => 200 );
-            // $result['response_data'] = $stocks;
             $result['response_data'] = $ksortedPackages;
 
         }
@@ -277,7 +307,7 @@ class IrcController extends AppController {
      * @param $files
      * @return unknown_type
      */
-    function unpackPackages($files) {
+    function unpackPackages($files="") {
 
         $ircURL = $this->syncSettings['protocol'] . '://' .
                   $this->syncSettings['irc_hostname'] . ':' .
@@ -289,13 +319,19 @@ class IrcController extends AppController {
 
         $success = false;
 
-        $arFiles = explode(",", $files);
+        if (strlen($files) > 0) {
+            $arFiles = explode(",", $files);
+        }else {
+            $arFiles = array();
+        }
 
-        $success = $this->Irc->unpackPackages($arFiles);
+        $successFiles = $this->Irc->unpackPackages($arFiles);
 
-        if ($success) {
+        $success = (count($arFiles) == count($successFiles));
 
-            foreach ($arFiles as $file) {
+        if (count($successFiles) > 0) {
+
+            foreach ($successFiles as $file) {
 
                 $http =& $this->getHttpSocket();
 
@@ -309,9 +345,10 @@ class IrcController extends AppController {
                 unset($http);
             }
 
-            $result = array('status' => 'ok', 'code' => 200 );
-            $result['response_data'] = $success;
         }
+
+        $result = array('status' => 'ok', 'code' => 200 );
+        $result['response_data'] = $success;
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json');
 
@@ -554,6 +591,30 @@ class IrcController extends AppController {
 
     }
 
+
+    /**
+     * removeExpirePackages
+     * @param <type> $expireDays
+     */
+    function removeExpirePackages($expireDays=0) {
+
+        $result = array('status' => 'error', 'code' => 400 );
+
+        $success = false;
+
+        $success = $this->Irc->removeExpirePackages($expireDays);
+
+        if ($success) {
+            $result = array('status' => 'ok', 'code' => 200 );
+            $result['response_data'] = $success;
+        }
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json');
+
+        echo $responseResult ;
+        exit;
+
+    }
 
 }
 ?>

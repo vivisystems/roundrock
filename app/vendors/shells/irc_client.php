@@ -149,6 +149,14 @@ class IrcClientShell extends SyncBaseShell {
 
 
     /**
+     * removeExpirePackages
+     */
+    function removeExpirePackages($expireDays) {
+        $result = $this->requestAction("/irc/removeExpirePackages/".$expireDays, array('skipAuth'=>true));
+    }
+
+
+    /**
      * start as daemon
      *
      */
@@ -167,6 +175,10 @@ class IrcClientShell extends SyncBaseShell {
         $error_retry = $syncSettings['error_retry'];
         $timeout = $syncSettings['timeout'];
         $hostname = $syncSettings['irc_hostname'];
+        $expireDays = $syncSettings['irc_expire_days'];
+
+        // remove expire irc packages before start process.
+        $this->removeExpirePackages($expireDays);
 
         $shell =& $this;
 
