@@ -141,7 +141,7 @@
             var alertWin = null;
             try {
                 alertWin = this.showProgressDialog(_('Checking Available Updates'));
-                var packages = httpService.requestRemoteService('GET', requestUrl) || false;
+                var packages = httpService.requestRemoteService('GET', requestUrl);
             }catch(e) {
                 this.log('ERROR', 'Error checkAvailableUpdates', e);
             }finally {
@@ -196,7 +196,7 @@
             var result = false;
             try {
                 alertWin = this.showProgressDialog(_('Updating Available Updates'));
-                result = httpService.requestRemoteService('GET', requestUrl) || false;
+                result = httpService.requestRemoteService('GET', requestUrl);
             }catch(e) {
                 this.log('ERROR', 'Error applyAvailableUpdates', e);
             }finally {
@@ -211,6 +211,15 @@
                 }
             }else {
                 this._serverError(_('Failed to apply IRC Update packages [message #2102]'));
+                
+                remoteUrl = httpService.getRemoteServiceUrl('getLastErrorPackageMessage');
+                requestUrl = remoteUrl;
+
+                var result2 = httpService.requestRemoteService('GET', requestUrl) || false;
+                
+                if (result2) {
+                    this.log('ERROR', 'Failed unpack irc package [' + result2['last_error_package'] + '\n' + this.dump(result2['logs']));
+                }
             }
 			
 			
