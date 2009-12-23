@@ -152,7 +152,7 @@ class IrcClientShell extends SyncBaseShell {
      * removeExpirePackages
      */
     function removeExpirePackages($expireDays) {
-        $result = $this->requestAction("/irc/removeExpirePackages/".$expireDays, array('skipAuth'=>true));
+        $result = $this->requestAction("/irc/removeExpirePackages/".$expireDays, array('skipAuth'=>true, 'skipExit'=>true));
     }
 
 
