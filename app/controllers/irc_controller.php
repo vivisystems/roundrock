@@ -20,13 +20,13 @@ class IrcController extends AppController {
         $timeout = $this->syncSettings['timeout'] ;
 
         $http_config = array('request' => array(
-            'auth' => array(
-            'method' => 'Basic',
-            'user'=>'vivipos',
-            'pass'=> $password
-            )
-            ),
-            'timeout' => $timeout
+                        'auth' => array(
+                                'method' => 'Basic',
+                                'user'=>'vivipos',
+                                'pass'=> $password
+                        )
+                ),
+                'timeout' => $timeout
         );
         // auth from server
         $http = new HttpSocket($http_config);
@@ -44,7 +44,7 @@ class IrcController extends AppController {
      */
     function beforeFilter() {
 
-    // downloadPackages call by background php , skip auth
+        // downloadPackages call by background php , skip auth
         if ($this->params['action'] == 'downloadPackages' || $this->params['action'] == 'downloadFile') return;
 
         if ($this->params['action'] == 'removeExpirePackages' && $this->params['skipAuth']) return ;
@@ -221,23 +221,28 @@ class IrcController extends AppController {
 
         $lastErrorPackage = $this->Irc->getLastErrorPackage();
 
-        $packages = $this->Irc->getPackages();
-
-        $availablePackages = array();
-
-        foreach($packages as $package) {
-            if ($package['activation'] <= $now && empty($package['unpacked']) && $package['created_machine_id'] != $machineId) {
-                $availablePackages[$package['created']] = $package;
-            }
-        }
-
-        ksort($availablePackages);
-        $ksortedPackages = array_values($availablePackages);
-
         if (empty($lastErrorPackage)) {
+            
+            $packages = $this->Irc->getPackages();
+
+            $availablePackages = array();
+
+            foreach($packages as $package) {
+                if ($package['activation'] <= $now && empty($package['unpacked']) && $package['created_machine_id'] != $machineId) {
+                    $availablePackages[$package['created']] = $package;
+                }
+            }
+
+            ksort($availablePackages);
+            $ksortedPackages = array_values($availablePackages);
 
             $result = array('status' => 'ok', 'code' => 200 );
             $result['response_data'] = $ksortedPackages;
+
+        }else {
+
+            $result = array('status' => 'ok', 'code' => 200 );
+            $result['response_data'] = false;
 
         }
 
@@ -299,8 +304,8 @@ class IrcController extends AppController {
     function unpackPackage($file) {
 
         $ircURL = $this->syncSettings['protocol'] . '://' .
-                  $this->syncSettings['irc_hostname'] . ':' .
-                  $this->syncSettings['port'] . '/irc/';
+                $this->syncSettings['irc_hostname'] . ':' .
+                $this->syncSettings['port'] . '/irc/';
 
         $updatePackageStatusURL = $ircURL . 'updatePackageStatus' . '/';
 
@@ -344,8 +349,8 @@ class IrcController extends AppController {
     function unpackPackages($files="") {
 
         $ircURL = $this->syncSettings['protocol'] . '://' .
-                  $this->syncSettings['irc_hostname'] . ':' .
-                  $this->syncSettings['port'] . '/irc/';
+                $this->syncSettings['irc_hostname'] . ':' .
+                $this->syncSettings['port'] . '/irc/';
 
         $updatePackageStatusURL = $ircURL . 'updatePackageStatus' . '/';
 
@@ -537,8 +542,8 @@ class IrcController extends AppController {
         $http =& $this->getHttpSocket();
 
         $ircURL = $this->syncSettings['protocol'] . '://' .
-                  $this->syncSettings['irc_hostname'] . ':' .
-                  $this->syncSettings['port'] . '/irc/';
+                $this->syncSettings['irc_hostname'] . ':' .
+                $this->syncSettings['port'] . '/irc/';
 
         $getAvailablePackagesListURL = $ircURL . 'getAvailablePackagesList' . '/' . $lastDownloaded;
         $downloadFileURL = $ircURL . 'downloadFile' . '/';
@@ -609,12 +614,12 @@ class IrcController extends AppController {
             }catch (Exception $e) {
 
                 CakeLog::write('warning', "Exception downloadPackages [$fileURL] to [$file]\n" .
-                    '  Exception: ' . $e->getMessage() . "\n");
+                        '  Exception: ' . $e->getMessage() . "\n");
 
-                    // remove tmp file
-                    if (file_exists($file)) {
-                        @unklink($file);
-                    }
+                // remove tmp file
+                if (file_exists($file)) {
+                    @unklink($file);
+                }
             }
 
         }
