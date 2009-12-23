@@ -1291,7 +1291,7 @@
             if (tableSettings.TableWinAsFirstWin) {
                 // just popup table selector
                 var curTransaction = GeckoJS.Session.get('current_transaction') || {recoveryMode: false};
-                if (!curTransaction.recoveryMode) {
+                if (this.isDock() || !curTransaction.recoveryMode) {
                     this.popupTableSelectorPanel();
                 }
             }
