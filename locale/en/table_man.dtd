@@ -89,6 +89,7 @@
 <!ENTITY tableman.tableoptions.globalminimumchargeperguest "Global Minimum Charge per guest">
 <!ENTITY tableman.tableoptions.minimumchargefor "Apply Minimum Charge on:">
 <!ENTITY tableman.tableoptions.minimumchargeplu "Plu for Minimum Charge">
+<!ENTITY tableman.tableoptions.annotation_for_override_minimumcharge "Annotation for override Minimum Charge">
 
 <!ENTITY tableman.tableoptions.displayoptions "Display Elements:">
 <!ENTITY tableman.tableoptions.displaycheckno "Check Number">
