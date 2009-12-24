@@ -266,9 +266,9 @@
             try {
                 // chown directory
                 GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/profile' ], true);
-                GeckoJS.File.run('/bin/chmod', ['-R', 'root:root', '/data/scripts' ], true);
-                GeckoJS.File.run('/bin/chmod', ['-R', 'root:root', '/data/databases' ], true);
-                GeckoJS.File.run('/bin/chmod', ['-R', 'root:root', '/data/images' ], true);
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/scripts' ], true);
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/databases' ], true);
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/images' ], true);
 
                 // chmod directory mode
                 GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/profile' ], true);
