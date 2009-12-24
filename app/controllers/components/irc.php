@@ -565,7 +565,7 @@ class IrcComponent extends Object {
             case 'unpack':
 
                 $exportFile = $workingDir ."/files/". $action['export_file'];
-                $cmd = sprintf("%s -xf %s -C /", $this->tarBin, $exportFile);
+                $cmd = sprintf("%s -xmf %s -C /", $this->tarBin, $exportFile);
 
                 $output = array(); $returnVal = 0;
                 exec($cmd, $output, $returnVal);
