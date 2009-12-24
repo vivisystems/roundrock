@@ -137,8 +137,11 @@
                                                             ))
             {
 
-
                 try {
+
+                    // clear cache
+                    this.clearCache();
+
                     GREUtils.restartApplication();
                 }
                 catch(err) {
@@ -234,6 +237,25 @@
             obj = GeckoJS.BaseObject.unserialize(buf);
 
             return obj;
+        },
+
+
+        clearCache: function() {
+
+            var cacheDir = this.profD + "/Cache";
+
+            var lists = GeckoJS.Dir.readDir(cacheDir,  {type: 'f'});
+
+            try {
+
+                lists.forEach(function (file) {
+                    file.remove(false);
+                });
+
+            }catch(e) {
+                // maybe can't remove
+            }
+            
         }
 
     };
