@@ -322,6 +322,38 @@
 
         },
 
+
+        /**
+         * openMinimumChargeDialog
+         *
+         * @param {Number} amount
+         * @return {Number} new amount
+         */
+        openMinimumChargeDialog: function (amount){
+
+            amount = amount || 0;
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
+            var inputObj = {
+                input0:amount,
+                type0:'number',
+                digitOnly0:true,
+                require0:true,
+                numpad:true,
+                disablecancelbtn:true
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Minimum Charge'), aFeatures, _('Enter Minimum Charge'), '', _('Number'), '', inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }
+
+            return amount;
+        },
+
+
+
         /**
          * isTableAvailable
          *
@@ -1283,6 +1315,7 @@
                 if (total < minimum_charge) {
 
                     let amount = curTransaction.formatPrice(minimum_charge);
+                    let overrideAmount = 0;
 
                     var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                             .getService(Components.interfaces.nsIPromptService);
@@ -1306,47 +1339,62 @@
                                                      'Otherwise, please click Cancel and add more items.', [amount]),
                                                    flags, '', '', _('Override'), null, check);
 
-                    if (action == 0) {
 
-                        // add MinimumChargePlu to cart
-
-                        var product = GeckoJS.BaseObject.unserialize(this.tableSettings.MinimumChargePlu);
-
-                        if (product) {
-                            
-                            var cart = this.getCartController();
-
-                            // remove last payment
-                            let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
-                            if (lastItem.type == 'payment') cart.voidItem();
-
-                            cart.setPrice(minimum_charge - total);
-                            cart.addItem(product);
-
-                            let amount = curTransaction.formatPrice(minimum_charge - total);
-                            NotifyUtils.warn(_('An additional amount of (%S) has been added to the order to meet the minimum charge', [amount]));
-                        } else {
-                            NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
-                        }
-
-                        evt.preventDefault();
-                        
-                    }else if (action == 2) {
+                    if (action == 2) {
 
                         // set to current transaction to ignore check again.
                         curTransaction.data.override_minimumcharge = true;
 
                         let user = this.Acl.getUserPrincipal();
 
-                        let amount = curTransaction.formatPrice(minimum_charge - total);
+                        overrideAmount = this.openMinimumChargeDialog(minimum_charge - total);
+
+                        let amount = curTransaction.formatPrice(minimum_charge - total - overrideAmount);
                         
                         // add annotation
                         var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
                         if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
                         curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S), override amount (%S)', [user.description, amount]);
 
+                        if (overrideAmount > 0) {
+                            // add plu to cart
+                            action = 0;
+                        }
 
-                    }else {
+                    }
+
+
+                    if (action == 0) {
+                        
+                        // add MinimumChargePlu to cart
+
+                        var product = GeckoJS.BaseObject.unserialize(this.tableSettings.MinimumChargePlu);
+
+                        if (product) {
+
+                            var cart = this.getCartController();
+
+                            // remove last payment
+                            let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
+                            if (lastItem.type == 'payment') cart.voidItem();
+
+                            let newPrice = minimum_charge - total;
+                            if (overrideAmount > 0) {
+                                newPrice = overrideAmount;
+                            }
+
+                            cart.setPrice(newPrice);
+                            cart.addItem(product);
+
+                            let amount = curTransaction.formatPrice(newPrice);
+                            NotifyUtils.warn(_('An additional amount of (%S) has been added to the order to meet the minimum charge', [amount]));
+                        } else {
+                            NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
+                        }
+
+                        evt.preventDefault();
+
+                    }else if (action == 1){
 
                         NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
 
