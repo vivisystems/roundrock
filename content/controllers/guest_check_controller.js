@@ -337,7 +337,7 @@
                 disablecancelbtn:true
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Minimum Charge'), aFeatures, _('Enter Minimum Charge'), '', _('Number'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Minimum Charge'), aFeatures, _('Original Minimum Charge (%S)',[amount]), '', _('New Minimum Charge'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -1159,10 +1159,7 @@
             }
                 
             var isCheckTableMinimumCharge = true;
-
-            // override minimum charge
-            if(curTransaction.data.override_minimumcharge) isCheckTableMinimumCharge = false;
-            
+           
             var table_no = curTransaction.data.table_no || '';
             var guests = curTransaction.data.no_of_customers || 0;
 
@@ -1203,12 +1200,17 @@
                     minimum_charge_per_guest = table.minimum_charge_per_guest || minimum_charge_per_guest;
                 }
 
-                var minimum_charge = Math.max(minimum_charge_per_table, minimum_charge_per_guest * guests);
+                var org_minimum_charge = Math.max(minimum_charge_per_table, minimum_charge_per_guest * guests);
+                var minimum_charge = org_minimum_charge;
+
+                if (typeof curTransaction.data.override_minimumcharge != 'undefined') {
+                       // set to current transaction minimum charge
+                        minimum_charge = curTransaction.data.override_minimumcharge;
+                }
 
                 if (total < minimum_charge) {
 
                     let amount = curTransaction.formatPrice(minimum_charge);
-                    let overrideAmount = 0;
 
                     var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                             .getService(Components.interfaces.nsIPromptService);
@@ -1235,23 +1237,23 @@
 
                     if (action == 2) {
 
-                        // set to current transaction to ignore check again.
-                        curTransaction.data.override_minimumcharge = true;
+                        let newMinimumCharge = this.openMinimumChargeDialog(minimum_charge);
 
-                        let user = this.Acl.getUserPrincipal();
+                        // set to current transaction minimum charge
+                        curTransaction.data.override_minimumcharge = newMinimumCharge;
+                        minimum_charge = newMinimumCharge;
 
-                        overrideAmount = this.openMinimumChargeDialog(minimum_charge - total);
-
-                        let amount = curTransaction.formatPrice(minimum_charge - total - overrideAmount);
-                        
-                        // add annotation
-                        var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
-                        if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
-                        curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S), override amount (%S)', [user.description, amount]);
-
-                        if (overrideAmount > 0) {
+                        if ((minimum_charge - total) > 0) {
                             // add plu to cart
                             action = 0;
+                        }else {
+
+                            // add annotation
+                            let user = this.Acl.getUserPrincipal();
+                            var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
+                            if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
+                            curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S), original minimum charge (%S), new minimum charge (%S), comp amount (%S)', [user.description, curTransaction.formatPrice(org_minimum_charge), curTransaction.formatPrice(minimum_charge), curTransaction.formatPrice(org_minimum_charge - total)]);
+
                         }
 
                     }
@@ -1272,10 +1274,7 @@
                             if (lastItem.type == 'payment') cart.voidItem();
 
                             let newPrice = minimum_charge - total;
-                            if (overrideAmount > 0) {
-                                newPrice = overrideAmount;
-                            }
-
+                            
                             cart.setPrice(newPrice);
                             cart.addItem(product);
 
@@ -1294,6 +1293,19 @@
                         evt.preventDefault();
 
                     }
+
+                }else {
+
+                    if (typeof curTransaction.data.override_minimumcharge != 'undefined' && (org_minimum_charge > total) ) {
+
+                            // add annotation
+                            let user = this.Acl.getUserPrincipal();
+                            var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
+                            if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
+                            curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S), original minimum charge (%S), new minimum charge (%S), comp amount (%S)', [user.description, curTransaction.formatPrice(org_minimum_charge), curTransaction.formatPrice(minimum_charge), curTransaction.formatPrice(org_minimum_charge - total)]);
+
+                    }
+                    
 
                 }
             }
