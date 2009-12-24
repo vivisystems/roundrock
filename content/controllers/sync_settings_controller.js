@@ -309,6 +309,7 @@
 
             document.getElementById('ircDetailClientsTree').datasource = clients;
 
+            this.Form.reset('ircDetail');
             this.Form.unserializeFromObject('ircDetail', data);           
 
             $('#ircRemovePackage').attr({disabled: 'false'});

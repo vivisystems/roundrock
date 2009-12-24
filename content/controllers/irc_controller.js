@@ -132,11 +132,14 @@
         checkAvailableUpdates : function(skipReboot) {
 
             skipReboot = skipReboot || false;
+
+            var syncSettings = SyncSetting.read();
+            var workgroup = syncSettings['irc_workgroup'];
             
             var httpService = this.getHttpServiceIRC();
 
             var remoteUrl = httpService.getRemoteServiceUrl('checkAvailableUpdates');
-            var requestUrl = remoteUrl;
+            var requestUrl = remoteUrl + '/' + workgroup;
 
             var alertWin = null;
             try {
@@ -186,11 +189,14 @@
 
             // write prefs to disk and sync
             this.flushPrefs();
-			
+
+            var syncSettings = SyncSetting.read();
+            var workgroup = syncSettings['irc_workgroup'];
+
             var httpService = this.getHttpServiceIRC();
 
             var remoteUrl = httpService.getRemoteServiceUrl('applyAvailableUpdates');
-            var requestUrl = remoteUrl;
+            var requestUrl = remoteUrl + '/' + workgroup;
 
             var alertWin = null;
             var result = false;
