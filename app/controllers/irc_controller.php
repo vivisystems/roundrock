@@ -123,8 +123,9 @@ class IrcController extends AppController {
         $moduleLabels = $_REQUEST['module_labels'];
         $activation = $_REQUEST['activation'];
         $description = $_REQUEST['description'];
+        $workgroup = $_REQUEST['workgroup'];
 
-        $success = $this->Irc->createPackage($activation, $modules, $description, $moduleLabels);
+        $success = $this->Irc->createPackage($activation, $modules, $description, $moduleLabels, $workgroup);
 
         if ($success) {
             $result = array('status' => 'ok', 'code' => 200 );
@@ -209,9 +210,10 @@ class IrcController extends AppController {
      *
      * Called by VIVIECR - Startup / Setting Events
      *
+     * @param String $workgroup
      * @return unknown_type
      */
-    function checkAvailableUpdates() {
+    function checkAvailableUpdates($workgroup="") {
 
         $result = array('status' => 'error', 'code' => 400 );
 
@@ -229,7 +231,14 @@ class IrcController extends AppController {
 
             foreach($packages as $package) {
                 if ($package['activation'] <= $now && empty($package['unpacked']) && $package['created_machine_id'] != $machineId) {
-                    $availablePackages[$package['created']] = $package;
+
+                    // check workgroup
+                    if ( empty($workgroup) || empty($package['workgroup']) ) {
+                        $availablePackages[$package['created']] = $package;
+                    }else if ( strcasecmp(chop($workgroup), chop($package['workgroup'])) == 0 ) {
+                        $availablePackages[$package['created']] = $package;
+                    }
+                    
                 }
             }
 
@@ -260,9 +269,10 @@ class IrcController extends AppController {
      *
      * Called by VIVIECR - Startup / Setting Events
      *
+     * @param String $workgroup
      * @return unknown_type
      */
-    function applyAvailableUpdates() {
+    function applyAvailableUpdates($workgroup="") {
 
         $now = time();
 
@@ -274,7 +284,14 @@ class IrcController extends AppController {
 
         foreach($packages as $package) {
             if ($package['activation'] <= $now && empty($package['unpacked']) && $package['created_machine_id'] != $machineId) {
-                $availablePackages[$package['created']] = $package;
+
+                // check workgroup
+                if ( empty($workgroup) || empty($package['workgroup']) ) {
+                    $availablePackages[$package['created']] = $package;
+                }else if ( strcasecmp(chop($workgroup), chop($package['workgroup'])) == 0 ) {
+                    $availablePackages[$package['created']] = $package;
+                }
+
             }
         }
 
@@ -408,9 +425,11 @@ class IrcController extends AppController {
 
         $success = false;
 
-        $activation = time();
+        $activation = (empty($_REQUEST['activation'])) ? time() : $_REQUEST['activation'];
+        $description = (empty($_REQUEST['description'])) ? 'FULL MODULES' : $_REQUEST['description'];
+        $workgroup = (empty($_REQUEST['workgroup'])) ? '' : $_REQUEST['workgroup'];
 
-        $success = $this->Irc->createPackage($activation, '', 'FULL IRC PACKAGE', '');
+        $success = $this->Irc->createPackage($activation, '', $description, '', $workgroup);
 
         if ($success) {
             $result = array('status' => 'ok', 'code' => 200 );
