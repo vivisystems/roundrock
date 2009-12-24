@@ -247,6 +247,12 @@
                 var prefsjs = GeckoJS.Configure.read('ProfD') + '/prefs.js';
                 var nsiPrefs = GREUtils.File.getFile(prefsjs);
                 nsiPrefs.permissions = 0664;
+
+                // chmod directory mode
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/profile' ], true);
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/scripts' ], true);
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/databases' ], true);
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/images' ], true);
                 
             }catch(e) {
                 this.log('ERROR', 'Error reload prefs.js');
