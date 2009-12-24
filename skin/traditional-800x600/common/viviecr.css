@@ -23,10 +23,10 @@
  *-----------------------------------------------------------------------------
  */
 
-.column-fixed-2 {
-    max-width: 380px;
-    min-width: 380px;
-    width: 380px;
+.column-fixed-2 * {
+    max-width: 366px;
+    min-width: 366px;
+    width: 366px;
 }
 
 .column-fixed-3 {
