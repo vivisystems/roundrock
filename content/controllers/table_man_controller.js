@@ -796,6 +796,33 @@
             }
         },
 
+
+        /**
+         * setAnnotationMenuItem
+         */
+        setAnnotationMenuItem: function() {
+            
+            var annotationsObj = document.getElementById('annotationForOverrideMinimumCharge');
+
+            annotationsObj.removeAllItems();
+
+            var datas = GeckoJS.Configure.read('vivipos.fec.settings.Annotations');
+            if (datas != null) {
+                var codeDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
+
+                if (codeDatas) {
+                    codeDatas.forEach(function(annotation) {
+                        annotationsObj.appendItem(annotation.code + ' - ' + annotation.type , annotation.type);
+                    });
+
+                    annotationsObj.selectedIndex = 0;
+                }
+                
+            }
+            
+        },
+
+
         searchDialog: function () {
 
             var aURL = "chrome://viviecr/content/plusearch.xul";
@@ -922,6 +949,9 @@
 
             // load minimum charge item
             this.setMinimumChargeForMenuItem();
+
+            // load annotation
+            this.setAnnotationMenuItem();
 
             // update destination menu UI.
             this.setDestinationMenuItem();

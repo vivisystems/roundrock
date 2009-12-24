@@ -333,6 +333,9 @@ msgstr "Report - Stock Adjustments"
 msgid "acl_report_purchasehistory"
 msgstr "Report - Purchase History"
 
+msgid "acl_override_minimumcharge"
+msgstr "Allow Override Minimum Charge"
+
 ########################################################################
 #
 # Register Display - Payments
