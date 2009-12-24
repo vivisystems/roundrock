@@ -134,7 +134,7 @@
             skipReboot = skipReboot || false;
 
             var syncSettings = SyncSetting.read();
-            var workgroup = syncSettings['irc_workgroup'];
+            var workgroup = syncSettings['irc_workgroup'] || '';
             
             var httpService = this.getHttpServiceIRC();
 
@@ -194,7 +194,7 @@
             this.changeDirModes();
 
             var syncSettings = SyncSetting.read();
-            var workgroup = syncSettings['irc_workgroup'];
+            var workgroup = syncSettings['irc_workgroup'] || '';
 
             var httpService = this.getHttpServiceIRC();
 
