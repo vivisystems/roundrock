@@ -107,23 +107,43 @@
                                     <spacer style="min-height: 10px;"/>
                                     <spacer />
                                 </row>
+                            </rows>
+                        </grid>
+
+                        <grid class="data-form-2">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+
                                 <row id="syncSettingsIrcBox" flex="1">
                                     <vbox>
-                                        <label value="&sync_settings.label.irc_hostname;"/>
-                                        <textbox value="localhost"
-                                                 form="syncSettingForm" name="irc_hostname"/>
+                                        <hbox>
+                                            <vbox>
+                                                <label value="&sync_settings.label.irc_hostname;"/>
+                                                <textbox value="localhost"
+                                                         form="syncSettingForm" name="irc_hostname"/>
+                                            </vbox>
+                                            <spacer flex="1" />
+                                            <vbox>
+                                                <label value="&sync_settings.label.irc_workgroup;"/>
+                                                <textbox value=""
+                                                         form="syncSettingForm" name="irc_workgroup"/>
+                                            </vbox>
+                                        </hbox>
                                         <vbox>
                                             <hbox>
-                                        <label value="&sync_settings.label.irc_interval;"/>
-                                        <spacer flex="1"/>
-                                        <vivitextbox type="number" min="30" size="4"
+                                                <label value="&sync_settings.label.irc_interval;"/>
+                                                <spacer flex="1"/>
+                                                <vivitextbox type="number" min="30" size="4"
                                                      numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                      form="syncSettingForm" name="irc_interval"/>
                                             </hbox>
                                             <hbox>
-                                        <label value="&sync_settings.label.irc_expire_days;"/>
-                                        <spacer flex="1"/>
-                                        <vivitextbox type="number" min="0" size="4"
+                                                <label value="&sync_settings.label.irc_expire_days;"/>
+                                                <spacer flex="1"/>
+                                                <vivitextbox type="number" min="0" size="4"
                                                      numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                      form="syncSettingForm" name="irc_expire_days"/>
                                             </hbox>
@@ -316,8 +336,12 @@
                                                         <textbox name="activation" form="ircDetail" readonly="true" />
                                                     </row>
                                                     <row>
+                                                        <label value="&sync_settings.label.irc_workgroup;"/>
+                                                        <textbox name="workgroup" form="ircDetail" readonly="true" />
+                                                    </row>
+                                                    <row>
                                                         <label value="&sync_settings.label.irc_modules;"/>
-                                                        <textbox name="module_labels" form="ircDetail" readonly="true" multiline="true" rows="4"/>
+                                                        <textbox name="module_labels" form="ircDetail" readonly="true" multiline="true" rows="2"/>
                                                     </row>
                                                     <row flex="1">
                                                         <label value="&sync_settings.label.irc_clients;"/>
@@ -343,16 +367,21 @@
                                                         <label value="&sync_settings.label.irc_activation;"/>
                                                         <vividatetimepicker name="activation" type="popup" form="ircEdit" />
                                                     </row>
+                                                    <row>
+                                                        <label value="&sync_settings.label.irc_workgroup;"/>
+                                                        <hbox>
+                                                            <textbox name="workgroup" form="ircEdit" />
+                                                            <label value="&sync_settings.label.irc_workgroup_desc;"/>
+                                                        </hbox>
+                                                    </row>
                                                     <row flex="2">
                                                         <label value="&sync_settings.label.irc_modules;"/>
-                                <viviscrollablebuttonpanel id="ircModules" seltype="multiple" flex="1" cols="2" rows="5" labelField="label"
-                                                           buttonClass="button-item-a"
-                                                           scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
-                                                           form="ircEdit" name="modules">
-                                    <spacer flex="1"/>
-                                </viviscrollablebuttonpanel>
-
-
+                                                        <viviscrollablebuttonpanel id="ircModules" seltype="multiple" flex="1" cols="2" rows="5" labelField="label"
+                                                                                   buttonClass="button-item-a"
+                                                                                   scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
+                                                                                   form="ircEdit" name="modules">
+                                                            <spacer flex="1"/>
+                                                        </viviscrollablebuttonpanel>
                                                     </row>
                                                     <row flex="1">
                                                         <spacer />
