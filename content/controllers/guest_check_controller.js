@@ -1221,6 +1221,8 @@
                         } else {
                             NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
                         }
+
+                        evt.preventDefault();
                         
                     }else if (action == 2) {
 
