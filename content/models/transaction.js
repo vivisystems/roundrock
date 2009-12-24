@@ -2184,11 +2184,16 @@
                 current_subtotal: ''
             };
 
+            var level = 0;
 
             if (item) {
                 item.memo = memo;
+                if (targetDisplayItem.type == 'setitem')
+                    level = 2;
+                else
+                    level = 1;
             }
-            var level = targetDisplayItem.type == 'setitem' ? 2 : null;
+            
             var newItemDisplay = this.createDisplaySeq(itemIndex, memoItem, 'memo', level);
 
             this.data.display_sequences.splice(index+1,0,newItemDisplay);
