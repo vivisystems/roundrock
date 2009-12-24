@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-24 19:26+0800\n"
+"POT-Creation-Date: 2009-12-24 20:07+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4130,8 +4130,8 @@ msgstr ""
 #: ../..//content/controllers/changeuser_controller.js:124
 #: ../..//content/controllers/clockinout_controller.js:301
 #: ../..//content/controllers/guest_check_controller.js:763
-#: ../..//content/controllers/guest_check_controller.js:1666
-#: ../..//content/controllers/guest_check_controller.js:1800
+#: ../..//content/controllers/guest_check_controller.js:1678
+#: ../..//content/controllers/guest_check_controller.js:1812
 #: ../..//content/controllers/ledger_controller.js:314
 #: ../..//content/controllers/list_orders_controller.js:219
 #: ../..//content/controllers/main_controller.js:1200
@@ -5010,7 +5010,6 @@ msgid "Enter Number of Guests"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:155
-#: ../..//content/controllers/guest_check_controller.js:346
 msgid "Number"
 msgstr ""
 
@@ -5033,17 +5032,21 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:304
-#: ../..//content/controllers/guest_check_controller.js:1775
+#: ../..//content/controllers/guest_check_controller.js:1787
 msgid "Split Check"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:346
-#: ../..//content/controllers/guest_check_controller.js:1336
+#: ../..//content/controllers/guest_check_controller.js:1338
 msgid "Minimum Charge"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:346
-msgid "Enter Minimum Charge"
+msgid "Original Minimum Charge (%S)"
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:346
+msgid "New Minimum Charge"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:383
@@ -5062,7 +5065,7 @@ msgid "Please use transfer table to update table number"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:514
-#: ../..//content/controllers/guest_check_controller.js:1881
+#: ../..//content/controllers/guest_check_controller.js:1893
 msgid ""
 "[%S] is an invalid table number. Table number must be defined through table "
 "manager; Please input another table number."
@@ -5169,107 +5172,110 @@ msgstr ""
 msgid "Failed to find orders matching table number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1337
+#: ../..//content/controllers/guest_check_controller.js:1339
 msgid "The total for this order is less than the minimum charge (%S). "
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1340
+#: ../..//content/controllers/guest_check_controller.js:1342
 msgid "Override"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1357
-msgid "override minimum charge. override clerk (%S), override amount (%S)"
+#: ../..//content/controllers/guest_check_controller.js:1362
+#: ../..//content/controllers/guest_check_controller.js:1412
+msgid ""
+"override minimum charge. override clerk (%S), original minimum charge (%S), "
+"new minimum charge (%S), comp amount (%S)"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1390
+#: ../..//content/controllers/guest_check_controller.js:1389
 msgid ""
 "An additional amount of (%S) has been added to the order to meet the minimum "
 "charge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1392
-#: ../..//content/controllers/guest_check_controller.js:1399
+#: ../..//content/controllers/guest_check_controller.js:1391
+#: ../..//content/controllers/guest_check_controller.js:1398
 msgid "The total for this order is less than the minimum charge (%S)"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1509
+#: ../..//content/controllers/guest_check_controller.js:1521
 msgid ""
 "An error was encountered while attempting to remove all table status records "
 "(error code %S) [message #501]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1514
+#: ../..//content/controllers/guest_check_controller.js:1526
 msgid ""
 "An error was encountered while attempting to remove all table status records "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1581
+#: ../..//content/controllers/guest_check_controller.js:1593
 msgid "The same order can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1593
+#: ../..//content/controllers/guest_check_controller.js:1605
 msgid "This order not stored order, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1597
+#: ../..//content/controllers/guest_check_controller.js:1609
 msgid "This order has been payment, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1602
+#: ../..//content/controllers/guest_check_controller.js:1614
 msgid "This order has discounts or surcharge, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1639
+#: ../..//content/controllers/guest_check_controller.js:1651
 #: ../..//content/controllers/select_table_controller.js:547
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1667
+#: ../..//content/controllers/guest_check_controller.js:1679
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #503]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1680
+#: ../..//content/controllers/guest_check_controller.js:1692
 msgid "Check# %S has been successfully merged to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1722
+#: ../..//content/controllers/guest_check_controller.js:1734
 msgid "This order not stored order, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1726
+#: ../..//content/controllers/guest_check_controller.js:1738
 msgid "This order has been payment, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1730
+#: ../..//content/controllers/guest_check_controller.js:1742
 msgid "This order has discounts or surcharge, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1801
+#: ../..//content/controllers/guest_check_controller.js:1813
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #504]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1815
+#: ../..//content/controllers/guest_check_controller.js:1827
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1916
+#: ../..//content/controllers/guest_check_controller.js:1928
 msgid "Transfer Table"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1917
+#: ../..//content/controllers/guest_check_controller.js:1929
 msgid "Transfer table From (%S) To (%S)"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1918
+#: ../..//content/controllers/guest_check_controller.js:1930
 msgid "Are you sure you want to print transfer table check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1951
+#: ../..//content/controllers/guest_check_controller.js:1963
 msgid "Table Initialization"
 msgstr ""
 
