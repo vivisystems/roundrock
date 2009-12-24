@@ -309,6 +309,7 @@
 
             document.getElementById('ircDetailClientsTree').datasource = clients;
 
+            this.Form.reset('ircDetail');
             this.Form.unserializeFromObject('ircDetail', data);           
 
             $('#ircRemovePackage').attr({disabled: 'false'});
@@ -372,7 +373,10 @@
             var waitPanel = document.getElementById('wait_panel');
             document.getElementById('wait_caption').setAttribute('label', _('IRC Package Creating'));
             waitPanel.openPopupAtScreen(0, 0);
-            
+
+            // chmod before create packages
+            this.changeDirModes();
+
             var success = httpService.requestRemoteService('GET', requestUrl) || false ;
 
             waitPanel.hidePopup();
@@ -441,7 +445,27 @@
             // enable ui buttons
             this.cancelCreateIrcPackage();
 
+        },
+
+        changeDirModes: function() {
+
+            try {
+                // chown directory
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/profile' ], true);
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/scripts' ], true);
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/databases' ], true);
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/images' ], true);
+
+                // chmod directory mode
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/profile' ], true);
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/scripts' ], true);
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/databases' ], true);
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/images' ], true);
+            }catch(e) {
+                this.log('ERROR', 'Error changeDirModes');
+            }
         }
+
 
 
     };

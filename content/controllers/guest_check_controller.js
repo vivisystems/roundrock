@@ -1234,6 +1234,10 @@
             }
                 
             var isCheckTableMinimumCharge = true;
+
+            // override minimum charge
+            if(curTransaction.data.override_minimumcharge) isCheckTableMinimumCharge = false;
+            
             var table_no = curTransaction.data.table_no || '';
             var guests = curTransaction.data.no_of_customers || 0;
 
@@ -1279,14 +1283,32 @@
                 if (total < minimum_charge) {
 
                     let amount = curTransaction.formatPrice(minimum_charge);
-                    if (GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('Minimum Charge'),
-                        _('The total for this order is less than the minimum charge (%S). ' +
-                          'Click OK if you want to pay the minimum charge to close the order. ' +
-                          'Otherwise, please click Cancel and add more items.', [amount])) == false) {
 
-                        NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
-                    } else {
+                    var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                            .getService(Components.interfaces.nsIPromptService);
+
+                    var check = {data: false};
+                    var flags = null;
+
+                    if (this.Acl.isUserInRole("acl_override_minimumcharge")) {
+                        flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_OK +
+                                prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                                prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+                    }else {
+                        flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_OK +
+                                prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL;
+                    }
+
+                    var action = prompts.confirmEx(this.topmostWindow,
+                                                   _('Minimum Charge'),
+                                                   _('The total for this order is less than the minimum charge (%S). ' +
+                                                     'Click OK if you want to pay the minimum charge to close the order. ' +
+                                                     'Otherwise, please click Cancel and add more items.', [amount]),
+                                                   flags, '', '', _('Override'), null, check);
+
+                    if (action == 0) {
+
+                        // add MinimumChargePlu to cart
 
                         var product = GeckoJS.BaseObject.unserialize(this.tableSettings.MinimumChargePlu);
 
@@ -1307,9 +1329,30 @@
                             NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
                         }
 
-                    }
+                        evt.preventDefault();
+                        
+                    }else if (action == 2) {
 
-                    evt.preventDefault();
+                        // set to current transaction to ignore check again.
+                        curTransaction.data.override_minimumcharge = true;
+
+                        let user = this.Acl.getUserPrincipal();
+
+                        let amount = curTransaction.formatPrice(minimum_charge - total);
+                        
+                        // add annotation
+                        var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
+                        if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
+                        curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S), override amount (%S)', [user.description, amount]);
+
+
+                    }else {
+
+                        NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
+
+                        evt.preventDefault();
+
+                    }
 
                 }
             }

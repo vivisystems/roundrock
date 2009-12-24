@@ -339,6 +339,9 @@ msgstr "Report - Purchase History"
 msgid "acl_report_paymentdetails"
 msgstr "Report - Payment Details"
 
+msgid "acl_override_minimumcharge"
+msgstr "Allow Override Minimum Charge"
+
 ########################################################################
 #
 # Register Display - Payments

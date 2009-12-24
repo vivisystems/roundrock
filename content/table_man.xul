@@ -454,6 +454,16 @@
                                                             </hbox>
                                                         </vbox>
                                                     </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="annotationForOverrideMinimumCharge" value="&tableman.tableoptions.annotation_for_override_minimumcharge;"/>
+                                                                <menulist id="annotationForOverrideMinimumCharge" form="settingsForm" name="AnnotationForOverrideMinimumCharge">
+                                                                    <menupopup id="annotationForOverrideMinimumCharge_menupopup">
+                                                                    </menupopup>
+                                                                </menulist>
+                                                        </vbox>
+                                                        <spacer />
+                                                    </row>
                                                 </rows>
                                             </grid>
                                         </vbox>

@@ -132,11 +132,14 @@
         checkAvailableUpdates : function(skipReboot) {
 
             skipReboot = skipReboot || false;
+
+            var syncSettings = SyncSetting.read();
+            var workgroup = syncSettings['irc_workgroup'] || '';
             
             var httpService = this.getHttpServiceIRC();
 
             var remoteUrl = httpService.getRemoteServiceUrl('checkAvailableUpdates');
-            var requestUrl = remoteUrl;
+            var requestUrl = remoteUrl + '/' + workgroup;
 
             var alertWin = null;
             try {
@@ -186,11 +189,17 @@
 
             // write prefs to disk and sync
             this.flushPrefs();
-			
+
+            // chmod
+            this.changeDirModes();
+
+            var syncSettings = SyncSetting.read();
+            var workgroup = syncSettings['irc_workgroup'] || '';
+
             var httpService = this.getHttpServiceIRC();
 
             var remoteUrl = httpService.getRemoteServiceUrl('applyAvailableUpdates');
-            var requestUrl = remoteUrl;
+            var requestUrl = remoteUrl + '/' + workgroup;
 
             var alertWin = null;
             var result = false;
@@ -200,7 +209,11 @@
             }catch(e) {
                 this.log('ERROR', 'Error applyAvailableUpdates', e);
             }finally {
+                
                 alertWin.close();
+
+                // chmod
+                this.changeDirModes();
             }
  
             if (result && !skipReboot) {
@@ -241,12 +254,32 @@
                 var prefsjs = GeckoJS.Configure.read('ProfD') + '/prefs.js';
                 var nsiPrefs = GREUtils.File.getFile(prefsjs);
                 nsiPrefs.permissions = 0664;
-                
+               
             }catch(e) {
                 this.log('ERROR', 'Error reload prefs.js');
             }
         },
 
+
+        changeDirModes: function() {
+
+            try {
+                // chown directory
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/profile' ], true);
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/scripts' ], true);
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/databases' ], true);
+                GeckoJS.File.run('/bin/chown', ['-R', 'root:root', '/data/images' ], true);
+
+                // chmod directory mode
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/profile' ], true);
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/scripts' ], true);
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/databases' ], true);
+                GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/images' ], true);
+            }catch(e) {
+                this.log('ERROR', 'Error changeDirModes');
+            }
+
+        },
 
         /**
          * restart
