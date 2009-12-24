@@ -20,13 +20,13 @@ class IrcController extends AppController {
         $timeout = $this->syncSettings['timeout'] ;
 
         $http_config = array('request' => array(
-            'auth' => array(
-            'method' => 'Basic',
-            'user'=>'vivipos',
-            'pass'=> $password
-            )
-            ),
-            'timeout' => $timeout
+                        'auth' => array(
+                                'method' => 'Basic',
+                                'user'=>'vivipos',
+                                'pass'=> $password
+                        )
+                ),
+                'timeout' => $timeout
         );
         // auth from server
         $http = new HttpSocket($http_config);
@@ -44,10 +44,39 @@ class IrcController extends AppController {
      */
     function beforeFilter() {
 
-    // downloadPackages call by background php , skip auth
+        // downloadPackages call by background php , skip auth
         if ($this->params['action'] == 'downloadPackages' || $this->params['action'] == 'downloadFile') return;
 
+        if ($this->params['action'] == 'removeExpirePackages' && $this->params['skipAuth']) return ;
+
         parent::beforeFilter();
+    }
+
+
+    /**
+     * Return all IRC packages and status
+     *
+     * Called by VIVIECR - Sync Setting
+     *
+     * @param $file
+     * @return unknown_type
+     */
+    function getPackage($file) {
+
+        $result = array('status' => 'error', 'code' => 400 );
+
+        $package = $this->Irc->getPackage($file);
+
+        if (is_array($package)) {
+            $result = array('status' => 'ok', 'code' => 200 );
+            $result['response_data'] = $package;
+        }
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json');
+
+        echo $responseResult ;
+        exit;
+
     }
 
 
@@ -94,8 +123,9 @@ class IrcController extends AppController {
         $moduleLabels = $_REQUEST['module_labels'];
         $activation = $_REQUEST['activation'];
         $description = $_REQUEST['description'];
+        $workgroup = $_REQUEST['workgroup'];
 
-        $success = $this->Irc->createPackage($activation, $modules, $description, $moduleLabels);
+        $success = $this->Irc->createPackage($activation, $modules, $description, $moduleLabels, $workgroup);
 
         if ($success) {
             $result = array('status' => 'ok', 'code' => 200 );
@@ -140,15 +170,50 @@ class IrcController extends AppController {
 
 
     /**
+     * Get Last Error Package Message
+     *
+     * Called by VIVIECR - Sync Setting
+     *
+     * @param $file
+     * @return unknown_type
+     */
+    function getLastErrorPackageMessage() {
+
+        $result = array('status' => 'error', 'code' => 400 );
+
+        $messages = array();
+
+        $lastErrorPackage = $this->Irc->getLastErrorPackage();
+
+        if ($lastErrorPackage) {
+            $logs = $this->Irc->readUnpackPackageLog($lastErrorPackage);
+            foreach($logs as $log) {
+                if (!$log['success']) $messages[] = $log;
+            }
+        }
+
+        $result = array('status' => 'ok', 'code' => 200 );
+        $result['response_data'] = array('last_error_package'=>$lastErrorPackage, 'logs'=>$messages);
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json');
+
+        echo $responseResult ;
+        exit;
+
+    }
+
+
+    /**
      * Check available updates for this terminal
      *
      * ignore package if created by self
      *
      * Called by VIVIECR - Startup / Setting Events
      *
+     * @param String $workgroup
      * @return unknown_type
      */
-    function checkAvailableUpdates() {
+    function checkAvailableUpdates($workgroup="") {
 
         $result = array('status' => 'error', 'code' => 400 );
 
@@ -156,24 +221,37 @@ class IrcController extends AppController {
 
         $machineId = $this->SyncHandler->getRequestClientMachineId();
 
-        $packages = $this->Irc->getPackages();
+        $lastErrorPackage = $this->Irc->getLastErrorPackage();
 
-        $availablePackages = array();
+        if (empty($lastErrorPackage)) {
+            
+            $packages = $this->Irc->getPackages();
 
-        foreach($packages as $package) {
-            if ($package['activation'] <= $now && empty($package['unpacked']) && $package['created_machine_id'] != $machineId) {
-                $availablePackages[$package['created']] = $package;
+            $availablePackages = array();
+
+            foreach($packages as $package) {
+                if ($package['activation'] <= $now && empty($package['unpacked']) && $package['created_machine_id'] != $machineId) {
+
+                    // check workgroup
+                    if ( empty($workgroup) || empty($package['workgroup']) ) {
+                        $availablePackages[$package['created']] = $package;
+                    }else if ( strcasecmp(chop($workgroup), chop($package['workgroup'])) == 0 ) {
+                        $availablePackages[$package['created']] = $package;
+                    }
+                    
+                }
             }
-        }
 
-        ksort($availablePackages);
-        $ksortedPackages = array_values($availablePackages);
-
-        if (true) {
+            ksort($availablePackages);
+            $ksortedPackages = array_values($availablePackages);
 
             $result = array('status' => 'ok', 'code' => 200 );
-            // $result['response_data'] = $stocks;
             $result['response_data'] = $ksortedPackages;
+
+        }else {
+
+            $result = array('status' => 'ok', 'code' => 200 );
+            $result['response_data'] = false;
 
         }
 
@@ -191,9 +269,10 @@ class IrcController extends AppController {
      *
      * Called by VIVIECR - Startup / Setting Events
      *
+     * @param String $workgroup
      * @return unknown_type
      */
-    function applyAvailableUpdates() {
+    function applyAvailableUpdates($workgroup="") {
 
         $now = time();
 
@@ -205,7 +284,14 @@ class IrcController extends AppController {
 
         foreach($packages as $package) {
             if ($package['activation'] <= $now && empty($package['unpacked']) && $package['created_machine_id'] != $machineId) {
-                $availablePackages[$package['created']] = $package;
+
+                // check workgroup
+                if ( empty($workgroup) || empty($package['workgroup']) ) {
+                    $availablePackages[$package['created']] = $package;
+                }else if ( strcasecmp(chop($workgroup), chop($package['workgroup'])) == 0 ) {
+                    $availablePackages[$package['created']] = $package;
+                }
+
             }
         }
 
@@ -235,8 +321,8 @@ class IrcController extends AppController {
     function unpackPackage($file) {
 
         $ircURL = $this->syncSettings['protocol'] . '://' .
-                  $this->syncSettings['irc_hostname'] . ':' .
-                  $this->syncSettings['port'] . '/irc/';
+                $this->syncSettings['irc_hostname'] . ':' .
+                $this->syncSettings['port'] . '/irc/';
 
         $updatePackageStatusURL = $ircURL . 'updatePackageStatus' . '/';
 
@@ -277,11 +363,11 @@ class IrcController extends AppController {
      * @param $files
      * @return unknown_type
      */
-    function unpackPackages($files) {
+    function unpackPackages($files="") {
 
         $ircURL = $this->syncSettings['protocol'] . '://' .
-                  $this->syncSettings['irc_hostname'] . ':' .
-                  $this->syncSettings['port'] . '/irc/';
+                $this->syncSettings['irc_hostname'] . ':' .
+                $this->syncSettings['port'] . '/irc/';
 
         $updatePackageStatusURL = $ircURL . 'updatePackageStatus' . '/';
 
@@ -289,13 +375,19 @@ class IrcController extends AppController {
 
         $success = false;
 
-        $arFiles = explode(",", $files);
+        if (strlen($files) > 0) {
+            $arFiles = explode(",", $files);
+        }else {
+            $arFiles = array();
+        }
 
-        $success = $this->Irc->unpackPackages($arFiles);
+        $successFiles = $this->Irc->unpackPackages($arFiles);
 
-        if ($success) {
+        $success = (count($arFiles) == count($successFiles));
 
-            foreach ($arFiles as $file) {
+        if (count($successFiles) > 0) {
+
+            foreach ($successFiles as $file) {
 
                 $http =& $this->getHttpSocket();
 
@@ -309,9 +401,10 @@ class IrcController extends AppController {
                 unset($http);
             }
 
-            $result = array('status' => 'ok', 'code' => 200 );
-            $result['response_data'] = $success;
         }
+
+        $result = array('status' => 'ok', 'code' => 200 );
+        $result['response_data'] = $success;
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json');
 
@@ -332,9 +425,11 @@ class IrcController extends AppController {
 
         $success = false;
 
-        $activation = time();
+        $activation = (empty($_REQUEST['activation'])) ? time() : $_REQUEST['activation'];
+        $description = (empty($_REQUEST['description'])) ? 'FULL MODULES' : $_REQUEST['description'];
+        $workgroup = (empty($_REQUEST['workgroup'])) ? '' : $_REQUEST['workgroup'];
 
-        $success = $this->Irc->createPackage($activation, '', 'FULL IRC PACKAGE', '');
+        $success = $this->Irc->createPackage($activation, '', $description, '', $workgroup);
 
         if ($success) {
             $result = array('status' => 'ok', 'code' => 200 );
@@ -466,8 +561,8 @@ class IrcController extends AppController {
         $http =& $this->getHttpSocket();
 
         $ircURL = $this->syncSettings['protocol'] . '://' .
-                  $this->syncSettings['irc_hostname'] . ':' .
-                  $this->syncSettings['port'] . '/irc/';
+                $this->syncSettings['irc_hostname'] . ':' .
+                $this->syncSettings['port'] . '/irc/';
 
         $getAvailablePackagesListURL = $ircURL . 'getAvailablePackagesList' . '/' . $lastDownloaded;
         $downloadFileURL = $ircURL . 'downloadFile' . '/';
@@ -538,12 +633,12 @@ class IrcController extends AppController {
             }catch (Exception $e) {
 
                 CakeLog::write('warning', "Exception downloadPackages [$fileURL] to [$file]\n" .
-                    '  Exception: ' . $e->getMessage() . "\n");
+                        '  Exception: ' . $e->getMessage() . "\n");
 
-                    // remove tmp file
-                    if (file_exists($file)) {
-                        @unklink($file);
-                    }
+                // remove tmp file
+                if (file_exists($file)) {
+                    @unklink($file);
+                }
             }
 
         }
@@ -554,6 +649,33 @@ class IrcController extends AppController {
 
     }
 
+
+    /**
+     * removeExpirePackages
+     * @param <type> $expireDays
+     */
+    function removeExpirePackages($expireDays=0) {
+
+        $result = array('status' => 'error', 'code' => 400 );
+
+        $success = false;
+
+        $success = $this->Irc->removeExpirePackages($expireDays);
+
+        if ($success) {
+            $result = array('status' => 'ok', 'code' => 200 );
+            $result['response_data'] = $success;
+        }
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json');
+
+        echo $responseResult ;
+
+        if (!$this->params['skipExit']) {
+            exit;
+        }
+
+    }
 
 }
 ?>

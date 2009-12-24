@@ -416,7 +416,11 @@ class IrcComponent extends Object {
                 //$versionSql = "pragma user_version";
                 $tableSchemaSql = ".schema $table";
                 $cmdSql = sprintf("%s %s \"%s\"", $this->sqlite3Bin, $databaseFile, $tableSchemaSql);
-                $version = md5(chop(shell_exec($cmdSql)));
+                $returnStr = shell_exec($cmdSql);
+                if (preg_match("/^Error/i", $returnStr)) {
+                    return false;
+                }
+                $version = md5(chop($returnStr));
 
                 $sql = "SELECT * FROM $table" ;
                 $cmd = sprintf("%s -list %s \"%s\" > %s", $this->sqlite3Bin, $databaseFile, $sql, $exportFile);
@@ -431,6 +435,7 @@ class IrcComponent extends Object {
                 break;
 
             case 'unpack':
+
 
                 $databaseFile = $action['database_file'];
                 $masterDatabaseVersion = $action['database_version'];
@@ -448,13 +453,19 @@ class IrcComponent extends Object {
 
                 // delete old datas
                 $deleteSql = "DELETE FROM $table" ;
-                $cmdDelSql = sprintf("%s %s \"%s\"", $this->sqlite3Bin, $databaseFile, $deleteSql);
-                shell_exec($cmdDelSql);
+                $cmdDelSql = sprintf("%s %s \"%s\" 2>&1", $this->sqlite3Bin, $databaseFile, $deleteSql);
+                $returnStr = shell_exec($cmdDelSql);
+                if (preg_match("/^Error/i", $returnStr)) {
+                    return false;
+                }
 
                 // import new datas
-                $sql = ".import $exportFile $table" ;
-                $cmd = sprintf("%s -list %s \"%s\"", $this->sqlite3Bin, $databaseFile, $sql);
-                shell_exec($cmd);
+                $sql = ".import $exportFile {$table}" ;
+                $cmd = sprintf("%s -list %s \"%s\" 2>&1 ", $this->sqlite3Bin, $databaseFile, $sql);
+                $returnStr = shell_exec($cmd);
+                if (preg_match("/^Error/i", $returnStr)) {
+                    return false;
+                }
 
                 $result = true;
 
@@ -503,7 +514,7 @@ class IrcComponent extends Object {
 
             case 'unpack':
 
-            // backup first
+                // backup first
                 $this->copyToBackup('pref', '');
 
                 $exportFile = $workingDir ."/prefs/". $action['export_file'];
@@ -534,27 +545,33 @@ class IrcComponent extends Object {
         $result = false;
 
         switch($mode) {
+            
             default:
             case 'create':
 
                 $exportFile = $workingDir ."/files/" . urlencode($file). ".tar";
                 $cmd = sprintf("%s -cf %s %s", $this->tarBin, $exportFile, $file);
-                $result = shell_exec($cmd);
 
-                $action['export_file'] = basename($exportFile);
+                $output = array(); $returnVal = 0;
+                exec($cmd, $output, $returnVal);
 
-                $result = $action;
+                if ($returnVal == 0) {
+                    $action['export_file'] = basename($exportFile);
+                    $result = $action;
+                }
 
                 break;
 
             case 'unpack':
 
                 $exportFile = $workingDir ."/files/". $action['export_file'];
-
                 $cmd = sprintf("%s -xf %s -C /", $this->tarBin, $exportFile);
-                shell_exec($cmd);
 
-                $result = true;
+                $output = array(); $returnVal = 0;
+                exec($cmd, $output, $returnVal);
+
+                $result = ($returnVal == 0);
+                
                 break;
 
         }
@@ -663,6 +680,26 @@ class IrcComponent extends Object {
 
     /**
      *
+     * @param <type> $tbzFile
+     * @param <type> $unpackLogs
+     * @return <type>
+     */
+    function readUnpackPackageLog($tbzFile) {
+
+        // saved and mark done
+        $packagesQueuePath = $this->ircPackagePath."/queues/";
+
+        $tbzUnpackLogFile = $packagesQueuePath . $tbzFile . ".unpacklog.json";
+
+        if (!file_exists($tbzUnpackLogFile)) return false;
+
+        return json_decode(file_get_contents($tbzUnpackLogFile), true);
+
+    }
+
+
+    /**
+     *
      * @param <type> $machineId
      * @param <type> $tbzFile
      * @param <type> $updateStatus
@@ -690,6 +727,40 @@ class IrcComponent extends Object {
 
         return true;
 
+    }
+
+    
+    /**
+     * getPackage
+     * @param String file
+     * @return <type>
+     */
+    function getPackage($file) {
+
+        $packagesQueuePath = $this->ircPackagePath."/queues/";
+
+        $jsonFile = $file. ".json";
+
+        if (file_exists($packagesQueuePath.$jsonFile)) {
+
+            $packageDesc = json_decode(file_get_contents($packagesQueuePath.$jsonFile), true);
+
+            $packageStatusFile = $packagesQueuePath . $packageDesc['file'].".status.json";
+            $packageUnpackLogFile = $packagesQueuePath . $packageDesc['file'].".unpacklog.json";
+
+            if (file_exists($packageStatusFile)) {
+                $packageDesc['status'] = array_values(json_decode(file_get_contents($packageStatusFile), true));
+            }
+
+            if (file_exists($packageUnpackLogFile)) {
+                $packageDesc['unpacked'] = true;
+            }
+
+            return $packageDesc;
+
+        }
+
+        return false;
     }
 
 
@@ -737,7 +808,7 @@ class IrcComponent extends Object {
      * @param <type> $moduleLabels
      * @return <type>
      */
-    function createPackage($activation, $modules="", $description="", $moduleLabels="") {
+    function createPackage($activation, $modules="", $description="", $moduleLabels="", $workgroup="") {
 
         $now = time();
 
@@ -794,6 +865,7 @@ class IrcComponent extends Object {
                 'modules' => $modules,
                 'module_labels' => $moduleLabels,
                 'activation' => $activation,
+                'workgroup' => $workgroup,
                 'description' => $description,
                 'file' => basename($tbzFile),
                 'checksum' => $tbzMd5,
@@ -849,6 +921,14 @@ class IrcComponent extends Object {
             unlink($tbzStatusFile);
         }
 
+        $packagesQueuePath = $this->ircPackagePath."/queues/";
+
+        $folder = new Folder($packagesQueuePath);
+
+        $jsonFiles = $folder->find(".*\.tbz\.json", true);
+
+        if (count($jsonFiles) <= 0) $this->removeLastErrorPackage();
+
         return true;
     }
 
@@ -874,20 +954,26 @@ class IrcComponent extends Object {
         $unpackActions = $this->unpackTbzPackage($workingDir, $tbzFile);
 
         $unpackLogs = array();
+        $success = true;
 
         // process actions
         foreach($unpackActions as $action) {
             $actionResult = $this->processAction($workingDir, $action, 'unpack');
 
             $action['success'] = $actionResult;
+
+            $success &= $actionResult;
+            
             $unpackLogs[] = $action;
         }
+
+        if (!$success) $this->setLastErrorPackage($file);
 
         $this->saveUnpackPackageLog($file, $unpackLogs);
 
         $this->removeWorkingDir($workingDir);
 
-        return true;
+        return $success;
     }
 
 
@@ -899,17 +985,25 @@ class IrcComponent extends Object {
     function unpackPackages($files) {
 
         $result = true ;
+        $successFiles = array();
+
+        if (empty($files)) return $successFiles;
 
         foreach ($files as $file) {
 
             $result &= $this->unpackPackage($file);
+
+            if (!$result) break;
+
+            // append to success list
+            $successFiles[] = $file;
 
         }
 
         // create backup
         $this->createTbzBackup();
 
-        return !empty($result);
+        return $successFiles;
 
     }
 
@@ -946,6 +1040,60 @@ class IrcComponent extends Object {
         file_put_contents($lastDownloadedFile, $lastDownloadedTime);
 
         return $lastDownloadedTime;
+
+    }
+
+
+    /**
+     *
+     * @return <type>
+     */
+    function getLastErrorPackage() {
+
+        $lastErrorPackage = false;
+
+        $lastErrorPackageFile = $this->ircPackagePath . "/last_error_package" ;
+
+        if (file_exists($lastErrorPackageFile)) {
+            $lastErrorPackage = chop(file_get_contents($lastErrorPackageFile));
+        }
+
+        return $lastErrorPackage;
+    }
+
+
+    /**
+     *
+     * @param <type> $lastDownloadedTime
+     * @return <type>
+     */
+    function setLastErrorPackage($lastErrorPackage=false) {
+
+        if ($lastErrorPackage) {
+            $lastErrorPackageFile = $this->ircPackagePath . "/last_error_package" ;
+
+            file_put_contents($lastErrorPackageFile, $lastErrorPackage);
+        }
+
+        return $lastErrorPackage;
+
+    }
+
+
+    /**
+     *
+     * @param <type> $lastDownloadedTime
+     * @return <type>
+     */
+    function removeLastErrorPackage() {
+
+        $lastErrorPackageFile = $this->ircPackagePath . "/last_error_package" ;
+
+        if (file_exists($lastErrorPackageFile)) {
+            @unlink($lastErrorPackageFile);
+        }
+
+        return true;
 
     }
 
@@ -1008,6 +1156,30 @@ class IrcComponent extends Object {
         return $out;
     }
 
+
+    /**
+     * removeExpirePackages
+     *
+     * @param <type> $expireDays
+     * @return <type>
+     */
+    function removeExpirePackages($expireDays=0) {
+        if ($expireDays <= 0) return true;
+
+        $expireTime = time() - 86400*$expireDays;
+
+        $packages = $this->getPackages();
+
+        foreach ($packages as $package) {
+
+            if ($package['activation'] <= $expireTime) {
+                $this->removePackage($package['file']);
+            }
+
+        }
+        return true;
+        
+    }
 }
 
 ?>
