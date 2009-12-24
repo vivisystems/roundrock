@@ -808,7 +808,7 @@ class IrcComponent extends Object {
      * @param <type> $moduleLabels
      * @return <type>
      */
-    function createPackage($activation, $modules="", $description="", $moduleLabels="") {
+    function createPackage($activation, $modules="", $description="", $moduleLabels="", $workgroup="") {
 
         $now = time();
 
@@ -865,6 +865,7 @@ class IrcComponent extends Object {
                 'modules' => $modules,
                 'module_labels' => $moduleLabels,
                 'activation' => $activation,
+                'workgroup' => $workgroup,
                 'description' => $description,
                 'file' => basename($tbzFile),
                 'checksum' => $tbzMd5,
