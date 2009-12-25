@@ -353,7 +353,6 @@
         },
 
 
-
         /**
          * isTableAvailable
          *
@@ -1325,29 +1324,41 @@
                     var check = {data: false};
                     var flags = null;
 
-                    if (this.Acl.isUserInRole("acl_override_minimumcharge")) {
-                        flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_OK +
-                                prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
-                                prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
-                    }else {
-                        flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_OK +
-                                prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL;
-                    }
+                    flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_OK +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
 
                     var action = prompts.confirmEx(this.topmostWindow,
                                                    _('Minimum Charge'),
                                                    _('The total for this order is less than the minimum charge (%S). ' +
                                                      'Click OK if you want to pay the minimum charge to close the order. ' +
                                                      'Otherwise, please click Cancel and add more items.', [amount]),
-                                                   flags, '', '', _('Override'), null, check);
+                                                   flags, '', '', _('Override Minimum Charge'), null, check);
 
 
                     if (action == 2) {
+
+                        let user = null;
+
+                        if (!this.Acl.isUserInRole("acl_override_minimumcharge")) {
+                            user = this.getMainController().openUserInRoleDialog("acl_override_minimumcharge", true);
+                            
+                            if (!user) {
+                                NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
+                                evt.preventDefault();
+                                return ;
+                            }
+
+                        }else {
+                            user = this.Acl.getUserPrincipal();
+                        }
 
                         let newMinimumCharge = this.openMinimumChargeDialog(minimum_charge);
 
                         // set to current transaction minimum charge
                         curTransaction.data.override_minimumcharge = newMinimumCharge;
+                        curTransaction.data.override_minimumcharge_user = user;
+                        
                         minimum_charge = newMinimumCharge;
 
                         if ((minimum_charge - total) > 0) {
@@ -1356,7 +1367,6 @@
                         }else {
 
                             // add annotation
-                            let user = this.Acl.getUserPrincipal();
                             var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
                             if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
                             curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S), original minimum charge (%S), new minimum charge (%S), comp amount (%S)', [user.description, curTransaction.formatPrice(org_minimum_charge), curTransaction.formatPrice(minimum_charge), curTransaction.formatPrice(org_minimum_charge - total)]);
@@ -1399,6 +1409,11 @@
 
                         evt.preventDefault();
 
+                    }else if (action == 2) {
+
+                    }else {
+                        NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
+                        evt.preventDefault();
                     }
 
                 }else {
@@ -1406,7 +1421,7 @@
                     if (typeof curTransaction.data.override_minimumcharge != 'undefined' && (org_minimum_charge > total) ) {
 
                             // add annotation
-                            let user = this.Acl.getUserPrincipal();
+                            let user = curTransaction.data.override_minimumcharge_user;
                             var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
                             if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
                             curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S), original minimum charge (%S), new minimum charge (%S), comp amount (%S)', [user.description, curTransaction.formatPrice(org_minimum_charge), curTransaction.formatPrice(minimum_charge), curTransaction.formatPrice(org_minimum_charge - total)]);
