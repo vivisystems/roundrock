@@ -1633,6 +1633,82 @@
                 return false;
             }
 
+        },
+
+
+        /**
+         * openUserInRoleDialog
+         *
+         * @param {String} role can use comma for multiple roles
+         * @param {Boolean} ignoreSuperuser
+         * @return {Object} user
+         */
+        openUserInRoleDialog: function (role, ignoreSuperuser){
+
+            role = role || '';
+            ignoreSuperuser = ignoreSuperuser || false;
+
+            var self = this;
+
+            var usersInRole = [];
+            var groupRoles = {};
+            var roles = role.split(",");
+
+            var users = (new UserModel()).find('all', {recursive: 0});
+
+            users.forEach(function(user) {
+
+                if (ignoreSuperuser && user.username == 'superuser') return ;
+
+                let group = user.group;
+                let rolesInGroup = [];
+
+                if (group && groupRoles[group]) {
+                    rolesInGroup = groupRoles[group];
+                }else if (group){
+                    rolesInGroup = self.Acl.getRoleListInGroup(group);
+                    groupRoles[group] = rolesInGroup;
+                }else {
+                    // not thing
+                }
+
+                let isInRole = false;
+
+                roles.forEach(function(r){
+
+                   if(r.length==0) {
+                       isInRole = true;
+                       return;
+                   }
+
+                   if (GeckoJS.Array.inArray(r, rolesInGroup) != -1) {
+                       isInRole = true;
+                       return ;
+                   }
+                });
+
+                if (isInRole) {
+                    usersInRole.push(user);
+                }
+
+            });
+
+            var aURL = 'chrome://viviecr/content/prompt_select_user.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=640,height=500';
+            var inputObj = {
+                users: usersInRole,
+                user: null,
+                numpad:true
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select User'), aFeatures, _('Select User'), inputObj);
+
+            if (inputObj.ok && inputObj.user) {
+                inputObj.user.description =  inputObj.user.description || inputObj.user.displayname;
+                return inputObj.user;
+            }
+
+            return null;
         }
 
 
