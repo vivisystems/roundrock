@@ -1,0 +1,42 @@
+<!ENTITY label_printing.title  "Label Printing">
+
+<!ENTITY lable_printing.loadList "Load list">
+<!ENTITY lable_printing.search.label "Search">
+<!ENTITY lable_printing.numpad.advsearch "SEARCH">
+<!ENTITY lable_printing.search.heading.no "Number">
+<!ENTITY lable_printing.search.heading.name "Name">
+<!ENTITY lable_printing.pricLevel "Price Level">
+
+<!ENTITY lable_printing.commitmentList.heading.date "Date">
+<!ENTITY lable_printing.commitmentList.heading.memo "Memo">
+<!ENTITY lable_printing.commitmentList.heading.supplier "Supplier">
+
+<!ENTITY lable_printing.tabList.heading.name "Name">
+<!ENTITY lable_printing.tabList.heading.price "Price">
+<!ENTITY lable_printing.tabList.heading.count "Count">
+
+<!ENTITY lable_printing.product.price "Price">
+<!ENTITY lable_printing.product.count "Count">
+
+<!ENTITY label_printing.tab.departmentMode "Department">
+<!ENTITY label_printing.tab.individualMode "Individual">
+<!ENTITY label_printing.tab.procurementMode "Procurement">
+<!ENTITY label_printing.tab.searchMode "Search">
+
+<!ENTITY label_printing.procurement.startdate "Start Data">
+<!ENTITY label_printing.procurement.enddate "End Data">
+
+<!ENTITY lable_printing.button.action.execute "Search">
+<!ENTITY lable_printing.button.action.save "Save">
+<!ENTITY lable_printing.button.action.deleteList "Delete">
+<!ENTITY lable_printing.button.action.modify "Modify">
+<!ENTITY lable_printing.button.action.deleteProduct "Delete">
+
+<!ENTITY lable_printing.error.title "Modify">
+<!ENTITY lable_printing.error.messege "Delete">
+<!ENTITY lable_printing.error.heading.name "Name">
+<!ENTITY lable_printing.error.heading.barcode "Barcode">
+
+
+
+

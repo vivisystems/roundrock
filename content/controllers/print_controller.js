@@ -845,6 +845,45 @@
             this.printSlip('report', null, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
         },
 
+         printLabel: function(list, barcodeType, template){
+              
+            //1.getDeviceController
+            var device = this.getDeviceController();
+
+            //2.dectct Enable
+              // check device settings
+            var printer = 2;
+
+            switch (device.isDeviceEnabled('report', printer)) {
+                case -2:
+                    NotifyUtils.warn(_('The specified report/label printer [%S] is not configured', [printer]));
+                    return;
+
+                case -1:
+                    NotifyUtils.warn(_('Invalid report/label printer [%S]', [printer]));
+                    return;
+
+                case 0:
+                    NotifyUtils.warn(_('The specified report/label printer [%S] is not enabled', [printer]));
+                    return;
+            }
+
+            //3.get set up
+            var enabledDevices = device.getEnabledDevices('report', printer);
+         //   var template = enabledDevices[0].template;
+            var port = enabledDevices[0].port;
+            var portspeed = enabledDevices[0].portspeed;
+            var handshaking = enabledDevices[0].handshaking;
+            var devicemodel = enabledDevices[0].devicemodel;
+            var encoding = enabledDevices[0].encoding;
+
+            var data = { product: list, barcodeType: barcodeType };
+
+            _templateModifiers(TrimPath, encoding);
+            //4.call printSlip
+            this.printSlip('label', data, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
+        },
+
         // print slip using the given parameters
         printSlip: function(deviceType, data, template, port, portspeed, handshaking, devicemodel, encoding, printer, copies) {
         	var isTraining = GeckoJS.Session.get( "isTraining" );
