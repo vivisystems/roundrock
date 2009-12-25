@@ -1704,6 +1704,7 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select User'), aFeatures, _('Select User'), inputObj);
 
             if (inputObj.ok && inputObj.user) {
+                inputObj.user.discription =  inputObj.user.discription || inputObj.user.displayname;
                 return inputObj.user;
             }
 
