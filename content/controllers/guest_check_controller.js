@@ -1369,7 +1369,7 @@
                             // add annotation
                             var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
                             if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
-                            curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S), original minimum charge (%S), new minimum charge (%S), comp amount (%S)', [user.description, curTransaction.formatPrice(org_minimum_charge), curTransaction.formatPrice(minimum_charge), curTransaction.formatPrice(org_minimum_charge - total)]);
+                            curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S,%S), original minimum charge (%S), new minimum charge (%S), comp amount (%S)', [user.username, user.description, curTransaction.formatPrice(org_minimum_charge), curTransaction.formatPrice(minimum_charge), curTransaction.formatPrice(org_minimum_charge - total)]);
 
                         }
 
@@ -1424,7 +1424,7 @@
                             let user = curTransaction.data.override_minimumcharge_user;
                             var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
                             if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
-                            curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S), original minimum charge (%S), new minimum charge (%S), comp amount (%S)', [user.description, curTransaction.formatPrice(org_minimum_charge), curTransaction.formatPrice(minimum_charge), curTransaction.formatPrice(org_minimum_charge - total)]);
+                            curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S,%S), original minimum charge (%S), new minimum charge (%S), comp amount (%S)', [user.username, user.description, curTransaction.formatPrice(org_minimum_charge), curTransaction.formatPrice(minimum_charge), curTransaction.formatPrice(org_minimum_charge - total)]);
 
                     }
                     
