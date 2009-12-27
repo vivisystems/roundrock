@@ -3010,8 +3010,12 @@
 
                 payment.amount = curTransaction.formatPrice(payment.amount);
                 payment.name = _(payment.name.toUpperCase());
-                payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
 
+                if (payment.origin_amount)
+                    payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
+                else
+                    payment.origin_amount = '';
+                
                 paymentList.push(payment);
             }
 
