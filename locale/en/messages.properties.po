@@ -4,6 +4,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#: ../..//content/controllers/label_printing_controller.js:86
+#: ../..//content/controllers/label_printing_controller.js:179
+#: ../..//content/controllers/label_printing_controller.js:570
 #, fuzzy
 msgid ""
 msgstr ""
@@ -13,7 +16,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-25 12:11+0800\n"
+"POT-Creation-Date: 2009-12-27 13:36+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3195,6 +3198,14 @@ msgstr ""
 msgid "Lost Status"
 msgstr ""
 
+#: ../..//content/select_template.js:17
+msgid "Template"
+msgstr ""
+
+#: ../..//content/select_template.js:17
+msgid "please select a template"
+msgstr ""
+
 #: ../..//content/sysprefs.js:60
 msgid "Do not pack"
 msgstr ""
@@ -3312,6 +3323,7 @@ msgstr ""
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:136
 #: ../..//content/controllers/hotkey_prefs_controller.js:500
 #: ../..//content/controllers/jobs_controller.js:227
+#: ../..//content/controllers/label_printing_controller.js:826
 #: ../..//content/controllers/ledger_entry_types_controller.js:271
 #: ../..//content/controllers/localekeyboard_controller.js:73
 #: ../..//content/controllers/nonplu_setting_controller.js:217
@@ -3343,6 +3355,7 @@ msgstr ""
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:138
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
 #: ../..//content/controllers/jobs_controller.js:229
+#: ../..//content/controllers/label_printing_controller.js:827
 #: ../..//content/controllers/ledger_entry_types_controller.js:273
 #: ../..//content/controllers/localekeyboard_controller.js:75
 #: ../..//content/controllers/localization_controller.js:328
@@ -3377,6 +3390,7 @@ msgstr ""
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
 #: ../..//content/controllers/jobs_controller.js:229
 #: ../..//content/controllers/jobs_controller.js:245
+#: ../..//content/controllers/label_printing_controller.js:827
 #: ../..//content/controllers/ledger_entry_types_controller.js:252
 #: ../..//content/controllers/ledger_entry_types_controller.js:273
 #: ../..//content/controllers/localekeyboard_controller.js:75
@@ -4149,7 +4163,7 @@ msgstr ""
 #: ../..//content/controllers/list_orders_controller.js:219
 #: ../..//content/controllers/main_controller.js:1200
 #: ../..//content/controllers/main_controller.js:1539
-#: ../..//content/controllers/print_controller.js:1232
+#: ../..//content/controllers/print_controller.js:1271
 #: ../..//content/controllers/setup_wizard_controller.js:698
 #: ../..//content/controllers/shift_changes_controller.js:1626
 #: ../..//content/controllers/stock_records_controller.js:747
@@ -4447,20 +4461,20 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:283
-#: ../..//content/controllers/print_controller.js:861
+#: ../..//content/controllers/print_controller.js:900
 #: ../..//content/controllers/vfd_controller.js:259
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:346
-#: ../..//content/controllers/print_controller.js:1155
+#: ../..//content/controllers/print_controller.js:1194
 #: ../..//content/controllers/vfd_controller.js:340
 msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:355
 #: ../..//content/controllers/changeuser_controller.js:125
-#: ../..//content/controllers/print_controller.js:1233
+#: ../..//content/controllers/print_controller.js:1272
 msgid ""
 "Please restart the terminal, and if the problem persists, contact technical "
 "support immediately."
@@ -5192,8 +5206,8 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1372
 #: ../..//content/controllers/guest_check_controller.js:1427
 msgid ""
-"override minimum charge. override clerk (%S), original minimum charge (%S), "
-"new minimum charge (%S), comp amount (%S)"
+"override minimum charge. override clerk (%S,%S), original minimum charge (%"
+"S), new minimum charge (%S), comp amount (%S)"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:1399
@@ -5559,6 +5573,8 @@ msgstr ""
 #: ../..//content/controllers/import_export_controller.js:617
 #: ../..//content/controllers/import_export_controller.js:759
 #: ../..//content/controllers/import_export_controller.js:1819
+#: ../..//content/controllers/label_printing_controller.js:839
+#: ../..//content/controllers/label_printing_controller.js:851
 msgid "Yes"
 msgstr ""
 
@@ -5792,6 +5808,116 @@ msgstr ""
 msgid ""
 "Please restart the machine, and if the problem persists, please contact "
 "technical support immediately."
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:87
+msgid "How many ...?"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:87
+#: ../..//content/controllers/label_printing_controller.js:180
+msgid "Count"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:180
+msgid "How many....?"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:490
+#: ../..//content/controllers/label_printing_controller.js:706
+#: ../..//content/controllers/label_printing_controller.js:755
+msgid "Price Level"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:557
+msgid "Save File"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:557
+#: ../..//content/controllers/label_printing_controller.js:1068
+msgid "The List is empty"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:571
+msgid "Save List"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:571
+msgid "FileName"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:602
+msgid "New file"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:602
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:477
+msgid "has been generated"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:612
+msgid "The file"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:612
+msgid "has been replaced"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:625
+msgid "Save list before loading?"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:774
+msgid "Replaces products"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:775
+msgid "have been replaced"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:838
+msgid "Replace"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:839
+#: ../..//content/controllers/label_printing_controller.js:851
+msgid "No"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:850
+msgid "Barcode Warning"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:887
+#: ../..//content/controllers/select_template_controller.js:28
+msgid "Select Barcode"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:1068
+#: ../..//content/controllers/label_printing_controller.js:1080
+msgid "Print label"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:1080
+msgid "unvalidated barcode"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:1088
+#: ../..//content/controllers/label_printing_controller.js:1133
+msgid "find unvalidated barcode"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:1088
+#: ../..//content/controllers/label_printing_controller.js:1133
+msgid "continue print ?"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:1162
+msgid "select_rate"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:1187
+msgid "Save list before existing?"
 msgstr ""
 
 #: ../..//content/controllers/layout_manager_controller.js:53
@@ -6137,7 +6263,7 @@ msgid "Product Search"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:382
-#: ../..//content/controllers/print_controller.js:1204
+#: ../..//content/controllers/print_controller.js:1243
 msgid "Printer Dashboard"
 msgstr ""
 
@@ -6356,7 +6482,7 @@ msgid "Function Customizer"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:1622
-msgid "Report [%S] not exists"
+msgid "Report [%S] does not exist"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:1632
@@ -6731,7 +6857,7 @@ msgid "The specified receipt printer [%S] is not enabled"
 msgstr ""
 
 #: ../..//content/controllers/print_controller.js:528
-#: ../..//content/controllers/print_controller.js:1128
+#: ../..//content/controllers/print_controller.js:1167
 msgid "A receipt has already been issued for this order on printer [%S]"
 msgstr ""
 
@@ -6779,26 +6905,29 @@ msgid "The specified check printer [%S] is not configured"
 msgstr ""
 
 #: ../..//content/controllers/print_controller.js:820
+#: ../..//content/controllers/print_controller.js:859
 msgid "The specified report/label printer [%S] is not configured"
 msgstr ""
 
 #: ../..//content/controllers/print_controller.js:824
+#: ../..//content/controllers/print_controller.js:863
 msgid "Invalid report/label printer [%S]"
 msgstr ""
 
 #: ../..//content/controllers/print_controller.js:828
+#: ../..//content/controllers/print_controller.js:867
 msgid "The specified report/label printer [%S] is not enabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:855
+#: ../..//content/controllers/print_controller.js:894
 msgid "Error in Print controller; no worker thread available!"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:999
+#: ../..//content/controllers/print_controller.js:1038
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:1006
+#: ../..//content/controllers/print_controller.js:1045
 msgid "Error in parsing template [%S]!"
 msgstr ""
 
@@ -8532,19 +8661,19 @@ msgstr ""
 msgid "Condiment may only be added to an item"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2705
+#: ../..//content/models/transaction.js:2710
 msgid "Price HALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2720
+#: ../..//content/models/transaction.js:2725
 msgid "Price adjusted from [%S] to current HALO [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2729
+#: ../..//content/models/transaction.js:2734
 msgid "Price LALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2744
+#: ../..//content/models/transaction.js:2749
 msgid "Price adjusted from [%S] to current LALO [%S]"
 msgstr ""
 
@@ -8838,10 +8967,6 @@ msgstr ""
 
 #: ../..//content/reports/controllers/rpt_your_order_controller.js:477
 msgid "New report"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:477
-msgid "has been generated"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_your_order_controller.js:490

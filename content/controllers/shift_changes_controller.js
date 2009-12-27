@@ -1398,11 +1398,11 @@
                     shiftNumber = this._getShiftNumber().toString();
 
             var parameters = {
-                    start: salePeriod,
-                    end: salePeriod,
-                    shiftNo: shiftNumber,
-                    terminalNo: terminalNo,
-                    setparms: true
+                start: salePeriod,
+                end: salePeriod,
+                shiftNo: shiftNumber,
+                terminalNo: terminalNo,
+                setparms: true
             };
 		
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );

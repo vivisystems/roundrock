@@ -1618,8 +1618,8 @@
             }
 
             if (!isExists) {
-                // report not exists
-                NotifyUtils.warn(_('Report [%S] not exists',[reportName]));
+                // report does not exist
+                NotifyUtils.warn(_('Report [%S] does not exist',[reportName]));
                 return false;
             }
 
