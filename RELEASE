@@ -60,4 +60,7 @@ Bug #285:
     If period type of "Time Voided" or "Sale Period Voided" is selected, all selections of order status other than "Voided" is meaningless and should therefore not be shown at all
 
 Bug #286:
-     Transaction-level memos should not be indented, otherwise it is difficult to differentiate it from item memos
+    Transaction-level memos should not be indented, otherwise it is difficult to differentiate it from item memos
+
+Bug #287:
+    On payment status screen, origin amount for cash payment in local currency is always shown as 0 (zero)
