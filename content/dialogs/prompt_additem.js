@@ -27,7 +27,7 @@ var promptAdditem_options;
 
             init: function(evt) {
                 
-                /*
+            /*
                 var textNodes = document.getElementsByTagName('textbox');
                 if (textNodes != null && textNodes.length > 0) {
                     for (var i = 0; i < textNodes.length; i++)
@@ -104,6 +104,7 @@ var promptAdditem_options;
                 if ('readonly0' in inputObj && inputObj.readonly0) {
                     document.getElementById('promptAdditem-input0').setAttribute('readonly', true);
                 }
+
                 try {
                     // hide numberpad
                     //document.getElementById('promptAdditem-numpad').setAttribute('hidden', !('numpad' in inputObj));
@@ -122,6 +123,22 @@ var promptAdditem_options;
                     
                     document.getElementById('promptAdditem-cancel').setAttribute('disabled', false);
 
+                    // update listbox
+                    var seltextObj = document.getElementById('promptAdditem-seltext');
+                    if (inputObj.text) {
+
+                        var seltextsArray = [];
+                        var seltexts = inputObj.text.split('|');
+                        seltexts.forEach(function(st) {
+                            seltextsArray.push({
+                                text: st
+                            });
+                        });
+                        seltextObj.datasource = seltextsArray;
+                    }else {
+                        seltextObj.setAttribute('hidden', 'true');
+                    }
+
                     promptAdditem_validateInput();
                     
                 }catch(e) {
@@ -131,7 +148,7 @@ var promptAdditem_options;
             },
 
             shown: function(evt) {
-                document.getElementById('promptAdditem-input0').focus();
+                document.getElementById('promptAdditem-input0').focus();                
             },
 
             hide: function (evt) {
@@ -158,7 +175,7 @@ var promptAdditem_options;
 
 
     function gotFocus() {
-        /*
+    /*
         var focusedElement = document.commandDispatcher.focusedElement;
         if (focusedElement.tagName == 'html:input' || focusedElement.tagName == 'textbox') {
             focusedElement.select();
@@ -235,5 +252,14 @@ function promptAdditem_validateInput() {
         validated = validated && trimmed1.length == fixedLength1;
     }
     document.getElementById('promptAdditem-ok').setAttribute('disabled', !validated);
+
+}
+
+function promptAdditem_selectText(index) {
+
+    var seltextObj = document.getElementById('promptAdditem-seltext');
+    var textObj = document.getElementById('promptAdditem-input0');
+    
+    textObj.value = (seltextObj.datasource.data[seltextObj.selectedIndex]).text || '';
 
 }

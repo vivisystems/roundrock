@@ -68,7 +68,7 @@
                     return;
                 }
 
-                this._codeDatas.push({code: annotationCode, type: inputObj.input1});
+                this._codeDatas.push({code: annotationCode, type: inputObj.input1, text: ''});
 
                 this.saveAnnotationCodes();
 
@@ -90,6 +90,7 @@
             if (index > -1) {
                 if (inputObj.code != null && inputObj.code.length > 0) {
                     this._codeDatas[index].type = GeckoJS.String.trim(inputObj.type);
+                    this._codeDatas[index].text = GeckoJS.String.trim(inputObj.text);
 
                     this.saveAnnotationCodes();
 
@@ -182,6 +183,7 @@
             panel.treeBoxObject.ensureRowIsVisible(index);
             if (index > -1) {
                 var inputObj = this._codeDatas[index];
+                GeckoJS.FormHelper.reset('annotationCodeForm');
                 GeckoJS.FormHelper.unserializeFromObject('annotationCodeForm', inputObj);
 
             }
@@ -412,8 +414,35 @@
 
             var textBox = this.getTextboxObj();
             textBox.reset();
-            
+
+            // if seltext exists
+            var seltextObj = document.getElementById('annotation_seltext');
+            let text = this._typeDatas[index]['text'];
+            if (text) {
+                seltextObj.removeAttribute('hidden');
+
+                let seltexts = text.split('|');
+                let settextsArray = [] ;
+                seltexts.forEach(function(st) {
+                    settextsArray.push({text: st});
+                });
+
+                seltextObj.datasource = settextsArray;
+                
+            }else {
+                // hidden seltext
+                seltextObj.setAttribute('hidden', "true");
+            }
             this.validateAnnotateForm();
+        },
+
+        selectText: function(index) {
+
+            var textBox = this.getTextboxObj();
+            var seltextObj = document.getElementById('annotation_seltext');
+
+            textBox.value = seltextObj.datasource.data[seltextObj.selectedIndex].text || '' ;
+
         },
 
         validateAnnotateForm: function() {
@@ -478,6 +507,18 @@
             }
             else {
                 return results[0].type;
+            }
+        },
+
+        getAnnotationText: function(annotationCode) {
+            // check if annotation is valid
+            var annotations = GeckoJS.Session.get('annotations');
+            var results = new GeckoJS.ArrayQuery(annotations).filter('code = \'' + annotationCode + '\'');
+            if (results == null || results.length == 0) {
+                return null;
+            }
+            else {
+                return results[0].text;
             }
         },
 

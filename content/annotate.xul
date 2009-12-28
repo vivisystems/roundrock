@@ -64,9 +64,13 @@
                 </vbox>
                 <vbox flex="1" class="content-formbox">
                     <label value="&annotations.text;"/>
-                    <textbox id="annotation_text" multiline="true" flex="1"
+                    <textbox id="annotation_text" multiline="true" flex="1" rows="2"
                              oninput="$do('validateAnnotateForm', null, 'Annotations');"
                              form="annotateForm" name="text" default=""/>
+                    <vivitree id="annotation_seltext" flex="1" class="standard" rows="3"
+                          fields="text"
+                          hidecolumnpicker="true"
+                          onselect="$do('selectText',this.selectedIndex, 'Annotations');"/>
                 </vbox>
             </hbox>
             <hbox>
