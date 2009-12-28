@@ -25,6 +25,9 @@
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
 <!ENTITY general.ifprintwhiletraining "Print receipt and check while training?">
 <!ENTITY general.quietcancel "Do not beep when cancelling orders">
+<!ENTITY general.cartscrollmode "Scroll mode for register screen">
+<!ENTITY general.cartscrollmode.cursor-line "Cursor mode (line-by-line)">
+<!ENTITY general.cartscrollmode.view-page "View mode (page-by-page)">
 <!ENTITY login.requirecashdeclaration "Require cash declaration before shift change">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
@@ -80,6 +83,10 @@
 <!ENTITY layout.showclockinicon "Show clock-in icon">
 <!ENTITY layout.showvirtualkeyboardicon "Show virtual keyboard icon">
 <!ENTITY layout.showconfigicon "Show control panel icon">
+<!ENTITY layout.cartstatus.position "Cart Status dock position">
+<!ENTITY layout.cartstatus.position.none.label "none">
+<!ENTITY layout.cartstatus.position.dir_before.label "before">
+<!ENTITY layout.cartstatus.position.dir_after.label "after">
 <!ENTITY plufilter.filtername "Filter Name">
 <!ENTITY plufilter.index "Index">
 <!ENTITY plufilter.length "Length">

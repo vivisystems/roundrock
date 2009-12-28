@@ -53,6 +53,17 @@
 
             data['annotations'] = annotations;
             
+        },
+
+        removeFromOrder: function(order_id) {
+            var records = this.find('all', {
+                conditions: 'order_id = "' + order_id + '"'
+            }) || [];
+            records.forEach(function(r) {
+                this.del(r.id);
+            }, this);
+
+            return true;
         }
 
     };

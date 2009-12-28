@@ -180,7 +180,7 @@
             GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
         },
 
-        _DrawerChangeDialog: function() {
+        _DrawerChangeDialog: function(recordedAmount) {
 
             // open drawer first
             var cashdrawerController = GeckoJS.Controller.getInstanceByName('CashDrawer');
@@ -189,19 +189,34 @@
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=500,height=500';
             var title = _('Verify Drawer Change');
-            var inputObj = {
-                input0:null, require0:true, disablecancelbtn:true, numberOnly0: true, numpad: true,
-                useraction: function() {cashdrawerController.openDrawerForShiftChange();},
-                useractionLabel: _('Open Drawer')
-            };
             var win = this.topmostWindow;
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
             }
 
+            var inputObj = {
+                input0:null, require0:true, disablecancelbtn:true, numberOnly0: true, numpad: true,
+                useraction: function() {cashdrawerController.openDrawerForShiftChange();},
+                useractionLabel: _('Open Drawer')
+            };
+
             GREUtils.Dialog.openWindow(win, aURL, title, aFeatures, title, '', _('Enter amount of cash in drawer'), '', inputObj);
 
+            while (parseFloat(inputObj.input0) != recordedAmount) {
+
+        	if (GREUtils.Dialog.confirm(win, title, _('The amount you entered is different from the recorded amount. Are you sure you have entered the correct amount? You may press "Cancel" to re-enter the drawer cash amount.'))) {
+                    return inputObj.input0;
+                }
+
+                inputObj = {
+                    input0:null, require0:true, disablecancelbtn:true, numberOnly0: true, numpad: true,
+                    useraction: function() {cashdrawerController.openDrawerForShiftChange();},
+                    useractionLabel: _('Open Drawer')
+                };
+
+                GREUtils.Dialog.openWindow(win, aURL, title, aFeatures, title, '', _('Enter amount of cash in drawer'), '', inputObj);
+            }
             return inputObj.input0;
         },
 
@@ -268,7 +283,7 @@
         truncateData: function(evt) {
             try {
                 var model = new ShiftChangeModel();
-                var r = model.truncate();
+                var r = model.execute('delete from shift_changes');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -276,14 +291,14 @@
                 }
 
                 model = new ShiftChangeDetailModel();
-                r = model.truncate();
+                r = model.execute('delete from shift_change_details');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
                            errmsg: _('An error was encountered while removing all shift change details (error code %S) [message #1408].', [model.lastError])};
                 }
 
-                r = this.ShiftMarker.truncate();
+                r = this.ShiftMarker.execute('delete from shift_markers');
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
@@ -527,8 +542,8 @@
                     var ledgerMemo = '';
 
                     // prompt user to enter cash drawer amount
-                    var userAmount = this._DrawerChangeDialog();
                     var recordedAmount = parseFloat(cashEntry.amount);
+                    var userAmount = this._DrawerChangeDialog(recordedAmount);
                     var deltaEntry;
                     
                     userAmount = parseFloat(userAmount);
@@ -930,7 +945,7 @@
 
                 var deposits = (depositTotal && depositTotal.amount != null) ? depositTotal.amount : 0;
 
-                // compute refunds (payments with order status of -2 and from previous sale period/shift or a different terminal)
+                // compute refunds (payments made in the current shift with order status of -2)
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
@@ -1081,7 +1096,7 @@
                     balance: paymentsReceived + ledgerInTotal + ledgerOutTotal,
                     salesRevenue: salesRevenue,
                     deposit: deposits,
-                    refund: 0 - refunds,
+                    refund: refunds,
                     credit: credit,
                     ledgerInTotal: ledgerInTotal,
                     ledgerOutTotal: ledgerOutTotal,

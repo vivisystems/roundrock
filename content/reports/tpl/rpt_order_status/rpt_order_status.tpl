@@ -27,6 +27,10 @@
                     <th style="text-align: center;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Sequence' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Status' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Void Clerk' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Void Sale Period' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Void Shift' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Void Time' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Invoice Number' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Invoice Count' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Gross Sales' )}</th>
@@ -54,7 +58,15 @@
                     <td style="text-align: center;">${detail.shift_number|default:''}</td>
                     <td style="text-align: center;">${detail.time|unixTimeToString}</td>
                     <td style="text-align: center;" class="hyperlink">${detail.sequence}</td>
-                    <td style="text-align: center;">${detail.status}</td>
+                    <td style="text-align: center;">${detail.status_str}</td>
+                {if detail.status == -2}
+                    <td style="text-align: center;">${detail.void_clerk_displayname|default:''}</td>
+                    <td style="text-align: center;">${detail.void_sale_period|unixTimeToString:'saleperiod'}</td>
+                    <td style="text-align: center;">${detail.void_shift_number|default:''}</td>
+                    <td style="text-align: center;">${detail.transaction_voided|unixTimeToString}</td>
+                {else}
+                    <td colspan="4"/>
+                {/if}
                     <td style="text-align: center;">${detail.invoice_no|default:''}</td>
                     <td style="text-align: center;">${detail.invoice_count|default:''}</td>
                     <td style="text-align: right;">${detail.item_subtotal|viviFormatPrices:true}</td>
@@ -77,7 +89,7 @@
             <tfoot>
                 <tr>
                     <td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' )}: ${foot.foot_datas.rowCount|format:0} <br/>${_( '(rpt)Records Displayed' ) }: ${body.length|format:0}</td>
-                    <td colspan="7" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
+                    <td colspan="11" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
                     <td style="text-align: right;">${foot.foot_datas.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.discount_subtotal|viviFormatPrices:true}</td>

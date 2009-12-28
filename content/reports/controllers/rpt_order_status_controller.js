@@ -9,8 +9,6 @@
 
         name: 'RptOrderStatus',
         
-        components: ['OrderStatus'],
-
         _fileName: "rpt_order_status",
 
         _set_reportRecords: function( limit ) {
@@ -34,7 +32,7 @@
             end = parseInt(end / 1000, 10);
 
             var timeField = periodType;
-            if (periodType == 'sale_period') {
+            if (periodType == 'sale_period' || periodType == 'void_sale_period' || periodType == 'void_time') {
                 timeField = 'transaction_submitted';
             }
             var fields = [
@@ -60,6 +58,10 @@
             'orders.invoice_count',
             'orders.sale_period',
             'orders.shift_number',
+            'orders.void_sale_period',
+            'orders.void_shift_number',
+            'orders.transaction_voided',
+            'orders.void_clerk_displayname',
             'orders.terminal_no',
             'orders.rounding_prices',
             'orders.precision_prices',
@@ -74,8 +76,14 @@
             if ( orderstatus != 'all' )
                 conditions += " AND orders.status = " + orderstatus;
                             
-            if ( shiftNo.length > 0 )
-                conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+            if ( shiftNo.length > 0 ) {
+                if (periodType == 'void_sale_period') {
+                    conditions += " AND orders.void_shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+                }
+                else {
+                    conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+                }
+            }
 				
             if (terminalNo.length > 0)
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
@@ -143,7 +151,7 @@
                 promotion_subtotal += record.promotion_subtotal;
                 revalue_subtotal += record.revalue_subtotal;
 
-                record.status = this.statusToString(record.status);
+                record.status_str = this.statusToString(record.status);
             }, this);
 
             var footRecords = {

@@ -141,7 +141,7 @@
                                 </viviscrollablebuttonpanel>
                             </vbox>
 
-                            <separator class="groove-thin" style="margin: 5px"/>
+                            <separator class="groove" style="margin: 5px"/>
 
                             <vbox flex="1" class="content-buttonpanel">
                                 <label value="&plugroups.links.plugroup;"/>

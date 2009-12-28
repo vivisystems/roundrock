@@ -303,9 +303,6 @@
 
 .MsgPnl2 {
     -moz-appearance: none;
-    border: none;
-    margin-left: 80px;
-    margin-right: 40px;
     background: transparent url(../images/msgbg2.png) center center repeat;
 }
 

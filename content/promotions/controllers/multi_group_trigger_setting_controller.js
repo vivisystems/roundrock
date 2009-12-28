@@ -60,7 +60,7 @@
             var firstGroup =  panelView1.getValue();
             var secondGroup = panelView2.getValue();
 
-            if (firstGroup.id == secondGroup.id) {
+            if (firstGroup == secondGroup) {
                 NotifyUtils.warn(_('First Group and Second Group Can not be the same.'));
                 return ;
             }

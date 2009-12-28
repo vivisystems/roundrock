@@ -10,7 +10,7 @@
   <box id="vfdPanelContainer" orient="vertical" flex="0">
     <vbox id="vfdPanel" flex="1" class="vfd-pad">
 
-        <onscreenvfd id="onscreenvfd" maxlen="17" value=""
+        <onscreenvfd id="onscreenvfd" value=""
                      class="vfd-vbox" labelClass="vfd-label" trainingClass="vfd-pad-training"
                      inputController="inputLineTextBox"/>
 

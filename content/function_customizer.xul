@@ -318,14 +318,14 @@
                                     <tabpanel flex="1" orient="vertical">
                                         <checkbox id="devReceipt2" value="true" label="&devices.receipt.printer.2.label;"
                                                       form="toolsForm" name="devReceipt2" default="false" />
-                                        <checkbox id="devCheck1" value="true" label="&devices.check.printer.1.label;"
+                                        <!--checkbox id="devCheck1" value="true" label="&devices.check.printer.1.label;"
                                                       form="toolsForm" name="devCheck1" default="false" />
                                         <checkbox id="devCheck2" value="true" label="&devices.check.printer.2.label;"
                                                       form="toolsForm" name="devCheck2" default="false" />
                                         <checkbox id="devCheck3" value="true" label="&devices.check.printer.3.label;"
                                                       form="toolsForm" name="devCheck3" default="false" />
                                         <checkbox id="devCheck4" value="true" label="&devices.check.printer.4.label;"
-                                                      form="toolsForm" name="devCheck4" default="false" />
+                                                      form="toolsForm" name="devCheck4" default="false" /-->
 
                                         <checkbox id="devReportLabel" value="true" checked="true" hidden="true" form="toolsForm" name="devReportLabel" />
                                         <checkbox id="devReport" value="true" label="&devices.report.printer.1.label;"
@@ -346,6 +346,12 @@
 
                                         <checkbox id="devJournal" value="true" label="&devices.tab.journal.label;"
                                                       form="toolsForm" name="devJournal" default="false" />
+
+                                        <hbox>
+                                            <label value="&function_customizer.devices.max_checkprinter;" control="attrDevicesCheckPrinter" />
+                                            <textbox id="attrDevicesCheckPrinter" form="toolsForm" name="attrDevicesCheckPrinter" value="4" type="number" size="2" maxlength="2" min="1" max="16" />
+                                        </hbox>
+
                                     </tabpanel>
                                     <!-- Devices Support End -->
 
@@ -630,7 +636,7 @@
                                 <tabs id="systemsTabs">
                                     <tab label="&function_customizer.tab.controlpanel;"/>
                                     <tab label="&function_customizer.tab.services;" />
-                                    <!--tab label="&function_customizer.tab.others;"/-->
+                                    <tab label="&function_customizer.tab.others;"/>
                                 </tabs>
                                 <tabpanels id="systemsTabpanels" flex="1">
 
@@ -677,6 +683,11 @@
                                                           form="systemsForm" name="serviceSyncSettingsStock" default="false" />
                                         <checkbox id="serviceSyncSettingsNtp" value="true" label="&sync_settings.label.ntp_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsNtp" default="false" />
+                                    </tabpanel>
+
+                                    <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="internalDisableJournal" value="true" label="&function_customizer.systems.internal.disableJournal;"
+                                                          form="systemsForm" name="internalDisableJournal" default="false" />
                                     </tabpanel>
 
                                 </tabpanels>

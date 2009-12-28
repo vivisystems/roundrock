@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.0.2
+Release 1.2.0.5
 ---------------
 
 This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
@@ -7,15 +7,16 @@ This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
 Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
 
 
+------------
+Dependencies
+------------
+
+This release requires VIVIPOS WebApp and WebServices Release 1.2.0.3 or above. You should also install Release 1.2.0.5 of the appropriate language pack to resolve translation-related bugs.
+
+
 ----------
 Known bugs
 ----------
-
-Bug #155:
-    Hotkeys without modifiers intercepted by input line
-
-Bug #156:
-    Recalling order into cart can be time-consuming, may need to block UI to force user to wait until order has been fully recalled into the shopping cart
 
 Bug #159:
     Application may wait indefinitely if connection to printer is lost while printing
@@ -25,130 +26,75 @@ Bug #159:
 Bugs fixed
 ----------
 
-Bug #71:
-    Sample receipt templates do not format taxes properly
+Bug #202:
+    Need a built-in hotkey for signing off
 
-Bug #72:
-    Storing a check with payment does not automatically open the cash drawer
+Bug #237:
+    POS front end does not get focus on the input line when first power on
 
-Bug #73:
-    Upon import of ACL permissions, VARCHAR fields in acl tables may be
-    inadvertantly converted to numeric values
+Bug #239:
+    Only admin users may assign other users to the admin group 
 
-Bug #79:
-    Employee check cashing limit of 0 is inconsistent with meaning of 0 in
-    discount/surcharge limits
+Bug #240:
+    Truncate Transaction Records may cause transaction records to be truncated on all synchronized terminals 
 
-Bug #82:
-    Taxable amount not restored when order is recalled
+Bug #242:
+    When confirming refund payments while voiding sale, refund payment amount is switched with original payment amount
 
-Bug #83:
-    Backing out of cancelling a stored order leaves cart in an erroneous
-    state
+Bug #243:
+    Region button labels on Table Selection screen are cropped
 
-Bug #84:
-    Merge Table icon not highlighted when selected
+Bug #244:
+    Fixed typo on Custom Sales Report screen ('Destinaltion')
 
-Bug #87:
-    Void Sale needs to auto-popup Table selection panel if it is first
-    window
+Bug #247:
+    Item and order tax entries are duplicated in order_item_taxes each time an order is stored
 
-Bug #88:
-    Store check need to support change of number of customers/destinations
+Bug #249:
+    Number of voided orders in Sales Summary Report should be the number of stored/closed orders from the selected time period that have been voided, not the number of orders voided in the selected time period
 
-Bug #89:
-    Can't recall order if previous order in cart
+Bug #250:
+    When entering drawer cash amount on signing in a new shift, user should be given opportunity to re-enter cash amount
 
-Bug #90:
-    Cart display of check payments is inconsistent with other payment types
+Bug #251:
+    Order Status Repport should allow search by the sale period and shift and actual time when an order is voided. The report should also display void details
 
-Bug #91:
-    Payment types not localized in shift change screen and in sales summary
-    report
+Bug #252:
+    Computation of fixed-amount add-on included taxes on return items is incorrect
 
-Bug #93:
-    Sales summary report from end of sale period screen has broken tax
-    summaries
+Bug #253:
+    Modifying a registered item causes the item to revert to its preset tax status
 
-Bug #94:
-    Groupable payments not correctly localized in shift change reports
+Bug #254:
+    When 'Subtotal' is selected for Promotion type 'Fixed Value', if trigger amount mode is multiple, the fixed subtotal is applied on the sum of all matching items and not on sums of individual sets of matching items
 
-Bug #95:
-    Models not passed through localization
+Bug #255:
+    In the Detailed Tax Report, order-related totals are tallied once per tax type, leading to incorrect summarization values
 
-Bug #98:
-    Mass discount & mass surcharge function ACL issues
+Bug #257:
+    Cropping of text displayed in onscreen VFD is based on a fixed number of characters regardless of the actual screen resolution (i.e. 12" vs. 15")
 
-Bug #100:
-    Discount/Surcharge names should not be passed through localization
+Bug #258:
+    Product Search should allow browsing by departments/product groups
 
-Bug #101:
-    Non-discountable/non-surchargeable checks should be done in cart, not in
-    transaction
+Bug #259:
+    Icon labels in the Employees section of the control panel are cropped on 15" terminals
 
-Bug #103:
-    TruncateTxnRecords also delete tables, regions, and table settings
+Bug #261:
+    Number of devices should be parameterized
 
-Bug #104:
-    View Order screen shows Recall Order button when it should not
+Bug #263:
+    Setup Wizard defines obsolete preference 'DefaultLogin'
 
-Bug #108:
-    Need better network error handling when storing orders
+Bug #265:
+    Need visual reminder of current order status
 
-Bug #109:
-    Added missing functions and localizations to function customizer
+Bug #267:
+    Need to ensure that terminal number in Network Services configuration is not blank
 
-Bug #110:
-    Virtual Keyboard grabs keyboard focus from user input fields when it pops up
+Bug #268:
+    Table selection screen should not pop up when starting in recovery mode
 
-Bug #112:
-    Need to block UI when triggering 'Toggle Active' action until the action has completed
-
-Bug #118:
-    When order finalization fails on a payment, don't void the last payment entry if the order status is submitted
-
-Bug #119:
-    Added ACL for Product Returns report; renamed Product Sales Return to Product Returns
-
-Bug #120:
-    Print Document should use ACL of its own
-
-Bug #132:
-    Custom Sales Report is broken
-
-Bug #134:
-    Shift change start time shown as 1970/01/01 08:00
-
-Bug #138:
-    Need to prevent unauthorized users from editing function customization settings directly
-
-Bug #139:
-    Device encoding selections are not correctly restored in the device configuration control panel
-
-Bug #140:
-    Changing cash drawer 2 type selection in the device configuration control panel has no effect
-
-Bug #141:
-    Cart warning text and number of items not cleared when instantiating new transaction
-
-Bug #142:
-    Item Subtotal and Add-on Taxes not properly formatted when viewing an open check
-
-Bug #145:
-    Promotion Multi-Buy type Value parameter always rounded to Integer; promotion triggers do not always pass matched items with the lowest prices to type
-
-Bug #147:
-    When an open order exists in the cart, if the user returns to the table selection screen, transfers the order to another table, exits to the main screen, and finalizes the order, that order will get stuck in the table status server with no opportunity to clear it
-
-Bug #148:
-    Table Selection screen should always pop up on cance even if order is already closed
-
-Bug #153:
-    When stock adjustment type is 'other', quantity cannot be set to a negative value
-
-Bug #157:
-    Sample Kitchen 42c expanded template feeds paper even when there's nothing to print
-
-Bug #158:
-    Failed to handle remote sequence number assignment error, allowing orders without valid sequence numbers to be stored or finalized
+Bug #269:
+    Multiple error message #105's exist
 

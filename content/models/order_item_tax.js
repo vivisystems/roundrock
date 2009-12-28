@@ -30,7 +30,7 @@
                     let tax = item.tax_details[taxno].tax;
 
                     let orderItemTax = {};
-                    orderItemTax['id'] = '';
+                    orderItemTax['id'] = iid + taxno;
                     orderItemTax['order_id'] = data.id;
                     orderItemTax['order_item_id'] = iid;
                     orderItemTax['promotion_id'] = '';
@@ -60,7 +60,7 @@
                     let tax = taxDetails.tax;
 
                     let promotionTax = {};
-                    promotionTax['id'] = '';
+                    promotionTax['id'] = promotion.id + taxno;
                     promotionTax['order_id'] = data.id;
                     promotionTax['order_item_id'] = '';
                     promotionTax['promotion_id'] = promotion.id;
@@ -84,7 +84,7 @@
                 let tax = taxDetails.tax;
 
                 let orderTax = {};
-                orderTax['id'] = '';
+                orderTax['id'] = data.id + taxno;
                 orderTax['order_id'] = data.id;
                 orderTax['order_item_id'] = '';
                 orderTax['promotion_id'] = '';

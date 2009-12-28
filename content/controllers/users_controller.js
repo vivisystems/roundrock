@@ -8,6 +8,7 @@
 	
         _listObj: null,
         _selectedIndex: -1,
+        _listParams: {},
         _userAdded: false,
         _userModified: false,
 
@@ -81,14 +82,18 @@
 
             if (user_name != null && user_name.length > 0) {
 
-                NotifyUtils.warn(_('Duplicate user name [%S]; user not added.', [user.username]));
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('New Employee'),
+                                      _('Duplicate user name [%S]; user not added.', [user.username]));
                 evt.preventDefault();
                 return ;
             }
 
             if (display_name != null && display_name.length > 0) {
 
-                NotifyUtils.warn(_('Duplicate display name [%S]; user not added.', [user.displayname]));
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('New Employee'),
+                                      _('Duplicate display name [%S]; user not added.', [user.displayname]));
                 evt.preventDefault();
                 return ;
             }
@@ -108,11 +113,20 @@
 
             if (this._userAdded) {
                 var panel = this.getListObj();
-                var data = panel.datasource.data;
-                var newIndex = data.length;
 
-                this.requestCommand('list', newIndex);
+                this._listParams.index = -1;
+                this.requestCommand('list', this._listParams);
 
+                // locate newly added user
+                var data = this.getListObj().datasource.data;
+                for (var newIndex = 0; newIndex < data.length; newIndex++) {
+                    if (data[newIndex].username == evt.data.username) {
+                        break;
+                    }
+                }
+
+                this.requestCommand('view', data[newIndex].id);
+                
                 this._selectedIndex = newIndex;
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
@@ -139,7 +153,9 @@
                     evt.preventDefault();
                     this._userModified = false;
                         
-                    NotifyUtils.warn(_('Duplicate display name [%S]; user not modified.', [evt.data.displayname]));
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Modify Employee'),
+                                          _('Duplicate display name [%S]; user not modified.', [evt.data.displayname]));
                 }
             }
         },
@@ -147,9 +163,19 @@
         afterScaffoldEdit: function (evt) {
             if (this._userModified) {
                 var panel = this.getListObj();
-                var index = panel.selectedIndex;
 
-                this.requestCommand('list', index);
+                this._listParams.index = -1;
+                this.requestCommand('list', this._listParams);
+
+                // locate newly added user
+                var data = panel.datasource.data;
+                for (var index = 0; index < data.length; index++) {
+                    if (data[index].username == evt.data.username) {
+                        break;
+                    }
+                }
+
+                this.requestCommand('view', data[index].id);
 
                 this._selectedIndex = index;
                 panel.selectedIndex = index;
@@ -207,7 +233,9 @@
                     var warn = true;
                     if (device) {
                         if (!(device.deviceExists('cashdrawer', drawer))) {
-                            NotifyUtils.warn(_('The assigned drawer [%S] does not exist!', [drawer]));
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                                  _('Modify Employee'),
+                                                  _('The assigned drawer [%S] does not exist!', [drawer]));
                         }
                         else {
                             var enabledDrawers = device.getEnabledDevices('cashdrawer');
@@ -222,12 +250,16 @@
                                 });
                             }
                             if (warn) {
-                                NotifyUtils.warn(_('The assigned drawer [%S] is not yet enabled!', [drawer]));
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                                      _('Modify Employee'),
+                                                      _('The assigned drawer [%S] is not yet enabled!', [drawer]));
                             }
                         }
                     }
                     else {
-                        NotifyUtils.error(_('Error detected in device manager; unable to verify cash drawer configuration'));
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                                              _('Modify Employee'),
+                                              _('Error detected in device manager; unable to verify cash drawer configuration'));
                         this.log('Devices controller returns null instance when checking user cash drawer assignment');
                     }
                 }
@@ -242,15 +274,21 @@
             var currentUser = GeckoJS.Session.get('user');
 
             if (defaultUserID == evt.data.id) {
-                NotifyUtils.warn(_('[%S] is the default user and may not be deleted', [displayname]));
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Delete Employee'),
+                                      _('[%S] is the default user and may not be deleted', [displayname]));
                 evt.preventDefault();
             }
             else if (currentUser != null && currentUser.id == evt.data.id) {
-                NotifyUtils.warn(_('[%S] is the current user and may not be deleted', [displayname]));
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Delete Employee'),
+                                      _('[%S] is the current user and may not be deleted', [displayname]));
                 evt.preventDefault();
             }
             else if (evt.data.username == 'superuser') {
-                NotifyUtils.warn(_('[%S] may not be deleted', [displayname]));
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Delete Employee'),
+                                      _('[%S] may not be deleted', [displayname]));
                 evt.preventDefault();
             }
             else if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [displayname]), _('Are you sure?')) == false) {
@@ -275,7 +313,8 @@
                 GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', '');
             }
 
-            this.requestCommand('list', index);
+            this._listParams.index = index;
+            this.requestCommand('list', this._listParams);
 
             this._selectedIndex = index;
             panel.selectedIndex = index;
@@ -294,10 +333,12 @@
         afterScaffoldIndex: function(evt) {
 
             var panel = this.getListObj();
-
             panel.datasource.data = evt.data;
             panel.ensureIndexIsVisible(panel.selectedIndex);
-            
+
+            if (panel.selectedIndex == -1) {
+                this.disableFields(true);
+            }
         },
 
         getRoleGroup: function () {
@@ -307,7 +348,8 @@
             var aURL = 'chrome://viviecr/content/select_rolegroup.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
-                rolegroup: rolegroup
+                rolegroup: rolegroup,
+                hideadmin: this._listParams.hideadmin
             };
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Access Group'), aFeatures, inputObj);
 
@@ -373,7 +415,17 @@
             }
             panel.datasource = panelView;
             
-            this.requestCommand('list', -1);
+            // if current user is not a member of admin group, filter out members of admin group from evt.data
+            let user = this.Acl.getUserPrincipal();
+            if (!user || !user.AclGroup || user.AclGroup.name != 'admin') {
+                this._listParams = {
+                    conditions: '"User.group" != \'admin\'',
+                    order: 'displayname',
+                    hideadmin: true
+                }
+            }
+            this._listParams.index = -1;
+            this.requestCommand('list', this._listParams);
 
             this._selectedIndex = -1;
             panel.selectedItems = [-1];
@@ -442,17 +494,30 @@
                 return;
             }
 
-            this.requestCommand('list', index);
+            this._listParams.index = index;
+            this.requestCommand('list', this._listParams);
 
             this._selectedIndex = index;
             panel.selectedItems = [index];
             panel.selectedIndex = index;
             panel.ensureIndexIsVisible(index);
-            
-            this.validateForm(true);
 
+            // if selected user is superuser and the current user is not superuser, make all fields read-only
+            var selectedUser = panel.datasource.data[index];
+            var currentUser = this.Acl.getUserPrincipal();
+
+            this.disableFields(selectedUser.username == 'superuser' && currentUser.username != 'superuser');
+
+            this.validateForm(true);
         },
-        
+
+        disableFields: function(status) {
+            jQuery('[form=userForm]').each(function() {
+                if (status) this.setAttribute('disabled', status);
+                else this.removeAttribute('disabled');
+            });
+        },
+
         setDefaultUser: function() {
             var panel = this.getListObj();
             var view = panel.datasource;
@@ -484,6 +549,7 @@
 
             var setdefaultBtn = document.getElementById('set_default');
             var cleardefaultBtn = document.getElementById('clear_default');
+            var aclgroupTextbox = document.getElementById('user_group');
 
             // return if not in form
             var addBtn = document.getElementById('add_user');
@@ -491,7 +557,6 @@
             
             var modBtn = document.getElementById('modify_user');
             var delBtn = document.getElementById('delete_user');
-            var roleTextbox = document.getElementById('user_group');
 
             if (resetTabs) document.getElementById('tabs').selectedIndex = 0;
 
@@ -504,27 +569,25 @@
                 var password = document.getElementById('user_password').value.replace(/^\s*/, '').replace(/\s*$/, '');
                 var displayname = document.getElementById('display_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
                 var numeric = password.replace(/[0-9.]*/, '');
+                var currentUser = this.Acl.getUserPrincipal();
+
                 modBtn.setAttribute('disabled', password.length < 1 || displayname.length < 1 || numeric.length > 0);
                 document.getElementById('tab1').removeAttribute('disabled');
                 document.getElementById('tab2').removeAttribute('disabled');
                 //document.getElementById('tab3').removeAttribute('disabled');
 
-                var textboxes = document.getElementsByTagName('textbox');
-                if (textboxes) {
-                    for (var i = 0; i < textboxes.length; i++) {
-                        textboxes[i].removeAttribute('disabled');
-                    }
-                }
-                document.getElementById('default_price_level').removeAttribute('disabled');
-                document.getElementById('user_drawer').removeAttribute('disabled');
-
                 // check for root user
                 if (user.username == 'superuser') {
                     delBtn.setAttribute('disabled', true);
-                    roleTextbox.setAttribute('disabled', true);
+                    aclgroupTextbox.setAttribute('disabled', true);
+                    if (currentUser.username != 'superuser') {
+                        modBtn.setAttribute('disabled', true);
+                    }
                 }
                 else {
                     delBtn.setAttribute('disabled', false);
+                    modBtn.setAttribute('disabled', false);
+                    aclgroupTextbox.removeAttribute('disabled');
                 }
 
                 var defaultId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
@@ -539,16 +602,6 @@
                 document.getElementById('tab1').setAttribute('disabled', true);
                 document.getElementById('tab2').setAttribute('disabled', true);
                 //document.getElementById('tab3').setAttribute('disabled', true);
-
-                var textboxes = document.getElementsByTagName('textbox');
-                if (textboxes) {
-                    for (var i = 0; i < textboxes.length; i++) {
-                        textboxes[i].disabled = true;
-                    }
-                }
-
-                document.getElementById('default_price_level').setAttribute('disabled', true);
-                document.getElementById('user_drawer').setAttribute('disabled', true);
             }
         }
     };

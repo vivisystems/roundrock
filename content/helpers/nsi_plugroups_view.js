@@ -9,7 +9,9 @@
 
             var data = this.data;
             selectedItems.forEach(function(idx){
-                selectedItemsStr.push(data[idx].id);
+                if (idx >= 0 && idx < data.length) {
+                    selectedItemsStr.push(data[idx].id);
+                }
             });
 
             return selectedItemsStr.join(',');

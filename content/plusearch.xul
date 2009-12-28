@@ -7,13 +7,18 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/plusearch.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/plus.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window title="&plus.title;"
+<window title="&plus.search.title;"
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -22,6 +27,12 @@
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include views -->
+  <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_products_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_plus_view.js'/>
 
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/plusearch_controller.js" type="application/x-javascript"/>
@@ -39,32 +50,67 @@
 
             <!-- Left side -->
             <vbox flex="1"  class="container-left block-40">
-                <caption label="&plus.title;" class="label-page-title"/>
-                <label value="&plus.search.label;" class="label-sub-title"/>
-                <vivitextbox id="plu" value=""
-                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"/>
-                <groupbox id="advance_search" orient="vertical">
-                    <caption label="&plus.search.advancesearch;:" class="label-sub-title"/>
-                    <grid class="data-form-2">
-                        <columns>
-                            <column flex="1"/>
-                            <column flex="1"/>
-                        </columns>
-                        <rows id="rows_filter">
+                <caption label="&plus.search.title;" class="label-page-title"/>
+                <tabbox id="mode_tabbox" flex="1" class="custom-content-tabbox">
+                    <tabs id="mode_tabs">
+                        <tab id="tab_normalmode" label="&plus.tab.normalmode;"/>
+                        <tab id="tab_filtermode" label="&plus.tab.filtermode;"/>
+                    </tabs>
+                    <tabpanels id="tabpanels" flex="1">
+                        <tabpanel flex="1" orient="vertical">
+                            <!-- Begin Catalogs -->
+                            <vbox class="content-buttonpanel" flex="1">
+                                <viviscrollablebuttonpanel id="catescrollablepanel" dir="reverse" flex="1" cols="2" rows="3" labelField="name" imageField="no"
+                                                           oncommand="$do('changePluPanel',this.selectedIndex, 'PluSearch');"
+                                                           buttonClass="button-department"
+                                                           scrollUpClass="scroll-up-button"
+                                                           scrollDownClass="scroll-down-button">
+                                    <spacer flex="1"/>
+                                </viviscrollablebuttonpanel>
+                            </vbox>
+                            <!-- Begin PLUs -->
+                            <vbox class="content-buttonpanel" flex="1">
+                                <viviscrollablebuttonpanel id="prodscrollablepanel" flex="5" dir="reverse" cols="2" rows="5" labelField="name" imageField="no"
+                                                           ensureVisible="true"
+                                                           oncommand="$do('clickPluPanel',this.selectedIndex, 'PluSearch');"
+                                                           buttonClass="button-plu button-medium-image"
+                                                           scrollUpClass="scroll-up-button"
+                                                           scrollDownClass="scroll-down-button">
+                                    <spacer flex="1"/>
+                                </viviscrollablebuttonpanel>
+                            </vbox>
+                            <!-- End PLUs -->
+                        </tabpanel>
 
-                        </rows>
-                    </grid>
-                    <hbox pack="center">
-                        <vivibutton id="advSearchBtn" label="&plus.button.numpad.advsearch;" class="button-fixed" oncommand="$do('advSearch', null, 'PluSearch');"/>
-                        <vivibutton id="advClearBtn" label="&plus.button.numpad.advclear;" class="button-fixed" oncommand="$do('advClear', null, 'PluSearch');"/>
-                    </hbox>
-                </groupbox>
-                <vbox flex="1" class="content-listbox">
-                    <vivitree id="plusearchscrollablepanel" flex="1" class="standard"
-                              headers="&plus.search.heading.no;,&plus.search.heading.name;"
-                              fields="no,name" hidecolumnpicker="true"
-                              onselect="$do('select',this.selectedIndex, 'PluSearch');"/>
-                </vbox>
+                        <tabpanel orient="vertical">
+                            <label value="&plus.search.label;" class="label-sub-title"/>
+                            <vivitextbox id="plu" value=""
+                                         numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"/>
+                            <groupbox id="advance_search" orient="vertical">
+                                <caption label="&plus.search.advancesearch;:" class="label-sub-title"/>
+                                <grid class="data-form-2">
+                                    <columns>
+                                        <column flex="1"/>
+                                        <column flex="1"/>
+                                    </columns>
+                                    <rows id="rows_filter">
+
+                                    </rows>
+                                </grid>
+                                <hbox pack="center">
+                                    <vivibutton id="advSearchBtn" label="&plus.button.numpad.advsearch;" class="button-fixed" oncommand="$do('advSearch', null, 'PluSearch');"/>
+                                    <vivibutton id="advClearBtn" label="&plus.button.numpad.advclear;" class="button-fixed" oncommand="$do('advClear', null, 'PluSearch');"/>
+                                </hbox>
+                            </groupbox>
+                            <vbox flex="1" class="content-listbox">
+                                <vivitree id="plusearchscrollablepanel" flex="1" class="standard"
+                                          headers="&plus.search.heading.no;,&plus.search.heading.name;"
+                                          fields="no,name" hidecolumnpicker="true"
+                                          onselect="$do('select',this.selectedIndex, 'PluSearch');"/>
+                            </vbox>
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>
             </vbox> 
             
             <!-- Right side -->

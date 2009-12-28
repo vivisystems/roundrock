@@ -31,7 +31,17 @@ ${detail.time|unixTimeToString|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
 ${_( '(rpt)Status' ) + ':'}
-${detail.status|right:24}
+${detail.status_str|right:24}
+{if detail.status == -2}
+${_( '(rpt)Void Clerk' ) + ':'}
+  ${detail.void_clerk_displayname|right:22}
+${_( '(rpt)Void Sale Period' ) + ':'}
+${detail.void_sale_period|unixTimeToString:'saleperiod'|right:24}
+${_( '(rpt)Void Shift' ) + ':'}
+${detail.void_shift_number|default:''|right:24}
+${_( '(rpt)Void Time' ) + ':'}
+${detail.transaction_voided|unixTimeToString|right:24}
+{/if}
 ${_( '(rpt)Invoice Number' ) + ':'}
 ${detail.invoice_no|right:24}
 ${_( '(rpt)Invoice Count' ) + ':'}

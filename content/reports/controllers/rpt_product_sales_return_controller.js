@@ -52,8 +52,10 @@
                 'order_items.product_no',
                 'order_items.product_name',
                 'order_items.current_qty as qty',
-                'order_items.current_subtotal as gross',
-                '(order_items.current_subtotal + order_items.current_discount + order_items.current_surcharge) as net',
+                'order_items.weight as weight',
+                'order_items.sale_unit',
+                '(0 - order_items.current_subtotal) as gross',
+                '(0 - order_items.current_subtotal - order_items.current_discount - order_items.current_surcharge) as net',
                 'order_items.cate_no',
                 'order_items.cate_name',
                 'sequence as "order_sequence"'
@@ -65,7 +67,7 @@
             var conditions = "orders." + periodType + ">='" + start +
                 "' AND orders." + periodType + "<='" + end + "'" +
                 " AND orders.status = 1" +
-                " AND order_items.current_qty < 0";  
+                " AND (order_items.current_qty < 0 OR order_items.weight < 0)";
 
             
             if (terminalNo.length > 0)
@@ -104,16 +106,25 @@
 
            var orderItemRecords = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
 
-
-            var net_sale = 0;
             orderItemRecords.forEach( function( record ) {
-                //delete record.OrderItem;
- 
-                if (record['qty'] != 0)
-                    record[ 'avg_price' ] = record[ 'gross' ] / record[ 'qty' ];
-                else
-                    record[ 'avg_price' ] = 0.0;
 
+                if (record['weight'] < 0) {
+                    record['units'] = 0;
+                    record['weight'] = 0 - record['weight'];
+                    record[ 'avg_price' ] = record[ 'gross' ] / record[ 'weight' ];
+                    record['quantity'] = record['weight'] + record['sale_unit'];
+                }
+                else {
+                    record['units'] = 0 - record['qty'];
+                    if (record['qty'] != 0) {
+                        record[ 'avg_price' ] = record[ 'gross' ] / record[ 'units' ];
+                    }
+                    else {
+                        record[ 'avg_price' ] = 0.0;
+                    }
+                    record['quantity'] = '';
+                }
+                
                 // Here assigne record info into the categories array.
                 // The structure, is by category and then by order item 
                 //
@@ -141,10 +152,10 @@
                 if ( categories[ record.cate_no ].summary === undefined )  
                     categories[ record.cate_no ].summary = {};
 
-                if ( categories[ record.cate_no ].summary.qty === undefined ) 
-                    categories[ record.cate_no ].summary.qty = record.qty;
+                if ( categories[ record.cate_no ].summary.units === undefined )
+                    categories[ record.cate_no ].summary.units = record.units;
                 else  
-                    categories[ record.cate_no ].summary.qty += record.qty;
+                    categories[ record.cate_no ].summary.units += record.units;
                 
 
                 // add the gross summary figure
