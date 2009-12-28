@@ -590,7 +590,7 @@
                     arPayments[i-1] = remain;
                 }else {
                     let amount = curTransaction.getRoundedPrice(remain/(guestNum-i+1));
-                    arPayments[i-1] = amount;
+                    arPayments[i-1] = curTransaction.formatPrice(amount);
                     remain-=amount;
                 }
             }
