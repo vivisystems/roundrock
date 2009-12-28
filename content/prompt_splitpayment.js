@@ -56,6 +56,7 @@ var options;
       var decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
       var thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
+
       var getRoundedPrice = function(price) {
             var roundedPrice = GeckoJS.NumberHelper.round(Math.abs(price), precision_prices, rounding_prices) || 0;
             if (price < 0) roundedPrice = 0 - roundedPrice;
@@ -72,6 +73,13 @@ var options;
             return GeckoJS.NumberHelper.format(price, options);
         };
 
+        var viviParseFloat = function(str, thousands, decimals) {
+            var arStr = str.split(decimals);
+            // replace number part
+            arStr[0] = arStr[0].replace(thousands, "", "g");
+            return parseFloat(arStr.join("."));
+        };
+
         var arPayments = [];
         var vivitexts = document.getElementsByTagName('textbox');
         var total = inputObj.total;
@@ -80,9 +88,8 @@ var options;
         for (var i=0; i < vivitexts.length; i++) {
 
             let v = vivitexts[i];
-            let tValue = (v.value+"").replace(thousands, "", "g").replace(decimals, ".", "g");
 
-            var val = getRoundedPrice(parseFloat(tValue));
+            var val = getRoundedPrice(viviParseFloat(v.value, thousands, decimals));
             if (val < 0) {
                 val = 0 ;
             }else if (val > remain){
@@ -95,13 +102,12 @@ var options;
 
         if (remain > 0) {
            // add to last once
-           vivitexts[vivitexts.length-1].value = formatPrice(parseFloat(vivitexts[vivitexts.length-1].value) + remain);
+           vivitexts[vivitexts.length-1].value = formatPrice(viviParseFloat(vivitexts[vivitexts.length-1].value, thousands, decimals) + remain);
         }
 
         for (var j=0; j < vivitexts.length; j++) {
             let v = vivitexts[j];
-            let tValue = (v.value+"").replace(thousands, "", "g").replace(decimals, ".", "g");
-            arPayments.push(parseFloat(tValue));
+            arPayments.push(viviParseFloat(v.value, thousands, decimals));
         }
 
         inputObj.input = arPayments ;
