@@ -80,7 +80,7 @@ var options;
         for (var i=0; i < vivitexts.length; i++) {
 
             let v = vivitexts[i];
-            let tValue = (v.value+"").replace(thousands, "").replace(decimals, ".");
+            let tValue = (v.value+"").replace(thousands, "", "g").replace(decimals, ".", "g");
 
             var val = getRoundedPrice(parseFloat(tValue));
             if (val < 0) {
@@ -100,7 +100,7 @@ var options;
 
         for (var j=0; j < vivitexts.length; j++) {
             let v = vivitexts[j];
-            let tValue = (v.value+"").replace(thousands, "").replace(decimals, ".");
+            let tValue = (v.value+"").replace(thousands, "", "g").replace(decimals, ".", "g");
             arPayments.push(parseFloat(tValue));
         }
 
