@@ -107,7 +107,7 @@ var options;
 
         for (var j=0; j < vivitexts.length; j++) {
             let v = vivitexts[j];
-            arPayments.push(parseFloat(v.value));
+            arPayments.push(viviParseFloat(v.value, thousands, decimals));
         }
 
         inputObj.input = arPayments ;
