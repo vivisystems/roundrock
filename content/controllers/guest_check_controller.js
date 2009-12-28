@@ -569,7 +569,7 @@
             var inputObj = {
                 // disablecancelbtn: true,
                 total: total,
-                input:splitPayments
+                input: splitPayments
             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Split Payment'), aFeatures, _('Split Payment'), inputObj);
