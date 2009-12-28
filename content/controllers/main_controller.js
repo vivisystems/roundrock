@@ -399,9 +399,11 @@
 
                 var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
                 var annotationType;
+                var annotationText;
 
                 if (codeList.length == 1 && codeList[0] != null && codeList[0] != '') {
                     annotationType = annotationController.getAnnotationType(codeList[0]);
+                    annotationText = annotationController.getAnnotationText(codeList[0]);
                 }
             }
 
@@ -431,10 +433,12 @@
                 var inputObj = {
                     input0: text,
                     require0: false,
-                    multiline0: 4,
+                    multiline0: 2,
                     readonly0: readonly,
                     sequence: txn.data.seq,
-                    numpad: true
+                    numpad: true,
+                    type: annotationType,
+                    text: annotationText
                 };
                 
                 var data = [

@@ -4002,11 +4002,24 @@
 
             var d = new Deferred();
 
+            // if plu is string, check annotation code == plu ?
+
             var memo;
             if (typeof plu == 'object' || plu == null || plu == '') {
                 return this._getMemoDialog(memoItem ? memoItem.memo : '');
-            }
-            else {
+            }else if (typeof plu == 'string') {
+                var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+                var annotationText = annotationController.getAnnotationText(plu);
+
+                if (annotationText) {
+                    return this._getMemoDialog(plu);
+                }else {
+                    memo = GeckoJS.String.trim(plu);
+                    curTransaction.appendMemo(index, memo);
+                    this._clearAndSubtotal();
+                }
+
+            }else {
                 memo = GeckoJS.String.trim(plu);
                 curTransaction.appendMemo(index, memo);
                 this._clearAndSubtotal();
@@ -4326,7 +4339,17 @@
             var self = this;
 
             var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+            var annotationText = memo ? annotationController.getAnnotationText(memo) : false ;
             var annotationTypes = annotationController.getAllAnnotationTypes();
+
+            // if memo is annotation code
+            if (annotationText) {
+                    annotationTypes = [] ;
+                    var texts = annotationText.split('|');
+                    texts.forEach(function(t){
+                        annotationTypes.push({type: t, text: t});
+                    });
+            }
 
             var inputObj = {
                 input0: memo || '',

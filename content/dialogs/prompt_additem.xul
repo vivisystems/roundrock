@@ -33,11 +33,15 @@
                             <column flex="1"/>
                         </columns>
                         <rows>
-                            <row id="promptAdditem-row0">
-                                <vbox>
+                            <row id="promptAdditem-row0" flex="1">
+                                <vbox flex="1">
                                     <label id="promptAdditem-title0" value="" control="promptAdditem-input0"/>
-                                    <textbox id="promptAdditem-input0" flex="1" value=""
+                                    <textbox id="promptAdditem-input0" flex="1" value="" rows="2"
                                              oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
+                                    <vivitree id="promptAdditem-seltext" flex="1" class="standard" rows="3"
+                                          fields="text"
+                                          hidecolumnpicker="true"
+                                          onselect="promptAdditem_selectText(this.selectedIndex);"/>
                                 </vbox>
                             </row>
                             <row id="promptAdditem-row1">
