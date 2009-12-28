@@ -598,21 +598,30 @@
 
                 if (itemTrans.current_qty < 0) {
                     this.modifyQty('plus', qty);
+                    exit = true;
                 }
                 else {
                     curTransaction.returnItemAtIndex(index, qty);
+                    exit = true;
 
                     // auto add memo
                     if (code) {
-                        return this.addMemo(code);
+
+                        var self = this;
+                        // don't dispatch right now
+                        exit = false;
+                        return this.addMemo(code).next(function(){
+                            self.dispatchEvent('afterReturnCartItem', curTransaction);
+                        });
+
                     }
                 }
-                exit = true;
             }
 
             if (exit) {
                 this._getKeypadController().clearBuffer();
                 this._clearAndSubtotal();
+                this.dispatchEvent('afterReturnCartItem', curTransaction);
             }
         },
 
