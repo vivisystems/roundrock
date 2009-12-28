@@ -604,7 +604,7 @@
 
                     // auto add memo
                     if (code) {
-                        this.addMemo(code);
+                        return this.addMemo(code);
                     }
                 }
                 exit = true;
