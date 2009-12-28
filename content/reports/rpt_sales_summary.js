@@ -30,6 +30,7 @@
             $do( '_setTemplateDataHead', null, 'RptSalesSummary');
             $do( '_setTemplateDataFoot', null, 'RptSalesSummary');
             $do( '_exploit_reportRecords', null, 'RptSalesSummary');
+            $do( 'toggleSize', null, 'RptSalesSummary');
         }
         else {
             $do( 'load', null, 'RptSalesSummary' );
