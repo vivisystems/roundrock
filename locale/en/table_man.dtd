@@ -120,3 +120,9 @@
 <!ENTITY tableman.tableoptions.requireGuestNumWhenNewTable "Required number of guests when open new table">
 
 <!ENTITY tableman.initialization.label "Initializing Tables...">
+
+<!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem "Print Check after Return Cart Item">
+<!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.none "None">
+<!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.auto "Print and Store automatically">
+<!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.confirm "Confirm before print">
+<!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.template "Print Check after Return Cart Item Template: ">

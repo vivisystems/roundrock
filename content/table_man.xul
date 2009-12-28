@@ -521,6 +521,25 @@
                                                             </menulist>
                                                         </vbox>
                                                     </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="print_check_after_return_cart_item" value="&tableman.tableoptions.printCheckAfterReturnCartItem;"/>
+                                                            <menulist id="print_check_after_return_cart_item" name="PrintCheckAfterReturnCartItem" form="settingsForm">
+                                                                <menupopup>
+                                                                    <menuitem value="0" label="&tableman.tableoptions.printCheckAfterReturnCartItem.none;" />
+                                                                    <menuitem value="1" label="&tableman.tableoptions.printCheckAfterReturnCartItem.auto;" />
+                                                                    <menuitem value="2" label="&tableman.tableoptions.printCheckAfterReturnCartItem.confirm;" />
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                        <vbox>
+                                                            <label control="print_check_after_return_cart_item_template" value="&tableman.tableoptions.printCheckAfterReturnCartItem.template;"/>
+                                                            <menulist id="print_check_after_return_cart_item_template" name="PrintCheckReturnCartItemTemplate" form="settingsForm">
+                                                                <menupopup>
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                    </row>
                                                 </rows>
                                             </grid>
                                         </vbox>

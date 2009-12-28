@@ -840,7 +840,10 @@
         setPrintCheckTemplates: function() {
 
             var transferTableTemplateObj = document.getElementById('print_check_after_transfer_table_template');
+            var returnCartItemTemplateObj = document.getElementById('print_check_after_return_cart_item_template');
+            
             transferTableTemplateObj.removeAllItems();
+            returnCartItemTemplateObj.removeAllItems();
 
             /* sort receipt templates */
             let templates = this.getTemplates('check');
@@ -865,6 +868,7 @@
             for (let i in sortedTemplates) {
                 let tmplName = sortedTemplates[i].name;
                 transferTableTemplateObj.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                returnCartItemTemplateObj.appendItem(_(sortedTemplates[i].label), tmplName, '');
             }
 
         },
