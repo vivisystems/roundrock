@@ -64,3 +64,6 @@ Bug #286:
 
 Bug #287:
     On payment status screen, origin amount for cash payment in local currency is always shown as 0 (zero)
+
+Bug #288:
+    Parsing of split payment amount fails because of formatting
