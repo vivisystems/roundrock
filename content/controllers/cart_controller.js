@@ -537,7 +537,18 @@
             this._clearAndSubtotal();
         },
 
-        returnCartItem: function() {
+
+        /**
+         * return cart item at cursor index.
+         *
+         * if annotation code exists , auto add memo.
+         *
+         * @param {String} code    Annotation code
+         */
+        returnCartItem: function(code) {
+
+            code = code || '';
+            
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
             var itemTrans;
@@ -590,6 +601,11 @@
                 }
                 else {
                     curTransaction.returnItemAtIndex(index, qty);
+
+                    // auto add memo
+                    if (code) {
+                        return this.addMemo(code);
+                    }
                 }
                 exit = true;
             }
