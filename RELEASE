@@ -67,3 +67,9 @@ Bug #287:
 
 Bug #288:
     Parsing of split payment amount fails because of formatting
+
+Bug #294:
+    When the Shift Change report is invoked at the end of a shift or sale period, the search filters should be collapsed to allow better viewing
+
+Bug #295:
+    When the Sales Summary report is invoked at the end of a shift or sale period, the search filters should be collapsed to allow better viewing
