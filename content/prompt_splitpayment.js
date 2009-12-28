@@ -78,8 +78,11 @@ var options;
         var remain = total ;
 
         for (var i=0; i < vivitexts.length; i++) {
+
             let v = vivitexts[i];
-            var val = getRoundedPrice(parseFloat(v.value));
+            let tValue = (v.value+"").replace(thousands, "").replace(decimals, ".");
+
+            var val = getRoundedPrice(parseFloat(tValue));
             if (val < 0) {
                 val = 0 ;
             }else if (val > remain){
@@ -97,7 +100,8 @@ var options;
 
         for (var j=0; j < vivitexts.length; j++) {
             let v = vivitexts[j];
-            arPayments.push(parseFloat(v.value));
+            let tValue = (v.value+"").replace(thousands, "").replace(decimals, ".");
+            arPayments.push(parseFloat(tValue));
         }
 
         inputObj.input = arPayments ;
