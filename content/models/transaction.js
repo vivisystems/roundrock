@@ -522,7 +522,9 @@
                 price_modifier: priceModifier,
 
                 non_discountable: item.non_discountable,
-                non_surchargeable: item.non_surchargeable
+                non_surchargeable: item.non_surchargeable,
+
+                created: Math.round(new Date().getTime() / 1000 )
             };
 
             return item2;
@@ -763,6 +765,9 @@
                     }
                 }
             }
+
+            if (item.created) itemDisplay.created = item.created;
+            
             return itemDisplay;
         },
 
