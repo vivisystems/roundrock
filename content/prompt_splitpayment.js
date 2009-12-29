@@ -82,32 +82,32 @@ var options;
 
         var arPayments = [];
         var vivitexts = document.getElementsByTagName('textbox');
-        var total = inputObj.total;
+        var total = parseFloat(inputObj.total);
         var remain = total ;
 
         for (var i=0; i < vivitexts.length; i++) {
 
             let v = vivitexts[i];
 
-            var val = getRoundedPrice(v.value);
+            var val = getRoundedPrice(parseFloat(v.value));
             if (val < 0) {
                 val = 0 ;
             }else if (val > remain){
                 val = remain;
             }
             v.value = val;
-            remain -= val;
+            remain -= parseFloat(val);
 
         }
 
         if (remain > 0) {
            // add to last once
-           vivitexts[vivitexts.length-1].value = (vivitexts[vivitexts.length-1].value + remain);
+           vivitexts[vivitexts.length-1].value = parseFloat(parseFloat(vivitexts[vivitexts.length-1].value) + remain);
         }
 
         for (var j=0; j < vivitexts.length; j++) {
             let v = vivitexts[j];
-            arPayments.push(v.value);
+            arPayments.push(parseFloat(v.value));
         }
 
         inputObj.input = arPayments ;
