@@ -342,6 +342,9 @@ msgstr "Report - Payment Details"
 msgid "acl_override_minimumcharge"
 msgstr "Allow Override Minimum Charge"
 
+msgid "acl_rush_item"
+msgstr "Allow Rush Item"
+
 ########################################################################
 #
 # Register Display - Payments
@@ -1840,6 +1843,21 @@ msgstr "Scale"
 msgid "vivipos.fec.registry.function.programmable.scale.name"
 msgstr "Scale"
 
+####################
+# Rush Item
+####################
+
+msgid "vivipos.fec.registry.function.programmable.rushItem.desc"
+msgstr ""
+"This function is used to register rush of the current item in the "
+"shopping cart. No parameter is needed."
+
+msgid "vivipos.fec.registry.function.programmable.rushItem.label"
+msgstr "Rush Item"
+
+msgid "vivipos.fec.registry.function.programmable.rushItem.name"
+msgstr "Rush Item"
+
 ########################################################################
 #
 # List of ACLs
@@ -2900,6 +2918,9 @@ msgstr "Sample Transfer Table 42c expanded"
 
 msgid "vivipos.fec.registry.templates.kitchen-returncartitem-42c.label"
 msgstr "Sample Return Cart Item 42c"
+
+msgid "vivipos.fec.registry.templates.kitchen-rushitem-42c.label"
+msgstr "Sample Rush Item 42c"
 
 ########################################################################
 #

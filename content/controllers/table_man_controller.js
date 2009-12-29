@@ -841,9 +841,11 @@
 
             var transferTableTemplateObj = document.getElementById('print_check_after_transfer_table_template');
             var returnCartItemTemplateObj = document.getElementById('print_check_after_return_cart_item_template');
+            var rushItemTemplateObj = document.getElementById('print_check_rush_item_template');
             
             transferTableTemplateObj.removeAllItems();
             returnCartItemTemplateObj.removeAllItems();
+            rushItemTemplateObj.removeAllItems();
 
             /* sort receipt templates */
             let templates = this.getTemplates('check');
@@ -869,6 +871,7 @@
                 let tmplName = sortedTemplates[i].name;
                 transferTableTemplateObj.appendItem(_(sortedTemplates[i].label), tmplName, '');
                 returnCartItemTemplateObj.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                rushItemTemplateObj.appendItem(_(sortedTemplates[i].label), tmplName, '');
             }
 
         },

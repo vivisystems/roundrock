@@ -540,6 +540,25 @@
                                                             </menulist>
                                                         </vbox>
                                                     </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="print_check_rush_item" value="&tableman.tableoptions.printCheckRushItem;"/>
+                                                            <menulist id="print_check_rush_item" name="PrintCheckRushItem" form="settingsForm">
+                                                                <menupopup>
+                                                                    <menuitem value="0" label="&tableman.tableoptions.printCheckRushItem.none;" />
+                                                                    <menuitem value="1" label="&tableman.tableoptions.printCheckRushItem.auto;" />
+                                                                    <menuitem value="2" label="&tableman.tableoptions.printCheckRushItem.confirm;" />
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                        <vbox>
+                                                            <label control="print_check_rush_item_template" value="&tableman.tableoptions.printCheckRushItem.template;"/>
+                                                            <menulist id="print_check_rush_item_template" name="PrintCheckRushItemTemplate" form="settingsForm">
+                                                                <menupopup>
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                    </row>
                                                 </rows>
                                             </grid>
                                         </vbox>
