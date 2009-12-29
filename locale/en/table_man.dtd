@@ -131,3 +131,6 @@
 <!ENTITY tableman.tableoptions.printCheckRushItem.auto "Print automatically">
 <!ENTITY tableman.tableoptions.printCheckRushItem.confirm "Confirm before print">
 <!ENTITY tableman.tableoptions.printCheckRushItem.template "Print Check Rush Item Template: ">
+
+<!ENTITY tableman.tableoptions.printCheckCurrentBatchItems "Print Check Only Current Batch Items">
+<!ENTITY tableman.tableoptions.printCheckOnlyPositiveCurrentBatchItems "Only Positive Quantity Items In Current Batch">

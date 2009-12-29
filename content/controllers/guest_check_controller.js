@@ -782,6 +782,50 @@
                     }
                     break;
 
+                case 'store':
+
+                    let onlyCurrentBatch = this.tableSettings.PrintCheckCurrentBatchItems || false;
+                    let onlyPositiveCurrentBatch = this.tableSettings.PrintCheckOnlyPositiveCurrentBatchItems || false;
+                    
+                    let batchCount = txn.data.batchCount;
+                    
+                    // we only care about check type
+                    if (devicetype == 'check' && hasLinkedItems && onlyCurrentBatch) {
+
+                        let items = {};
+                        let display_sequences = [];
+
+                        for (let id in order.items) {
+                            let item = order.items[id];
+                            if (item.linked && item.batch == batchCount) {
+                                if (onlyPositiveCurrentBatch) {
+                                    if (item.current_qty >0) items[id] = item;
+                                }else {
+                                    items[id] = item;
+                                }
+                            }
+                        }
+
+                        for (let idx in order.display_sequences) {
+                            let dsp = order.display_sequences[idx];
+                            let item = items[dsp.index];
+                            if (item && dsp.batch == batchCount) {
+                                display_sequences.push(dsp);
+                            }
+                        }
+
+                        if (display_sequences.length >0) {
+                            order.items = items;
+                            order.display_sequences = display_sequences;
+                        }else {
+                            evt.preventDefault();
+                        }
+
+                    }
+                    break;
+                    
+                default:
+                    break;
             }
             
         },

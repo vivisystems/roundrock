@@ -503,6 +503,10 @@
                                                 </columns>
                                                 <rows>
                                                     <row>
+                                                        <checkbox id="print_check_current_batch_items" label="&tableman.tableoptions.printCheckCurrentBatchItems;" form="settingsForm" name="PrintCheckCurrentBatchItems" oncommand="if(!this.checked) document.getElementById('print_check_positive_current_batch_items').checked=false;"/>
+                                                        <checkbox id="print_check_positive_current_batch_items" label="&tableman.tableoptions.printCheckOnlyPositiveCurrentBatchItems;" form="settingsForm" name="PrintCheckOnlyPositiveCurrentBatchItems" oncommand="if(this.checked) document.getElementById('print_check_current_batch_items').checked=true;"/>
+                                                    </row>
+                                                    <row>
                                                         <vbox>
                                                             <label control="print_check_after_transfer_table" value="&tableman.tableoptions.printCheckAfterTransferTable;"/>
                                                             <menulist id="print_check_after_transfer_table" name="PrintCheckAfterTransferTable" form="settingsForm">
