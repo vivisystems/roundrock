@@ -741,6 +741,38 @@
                         eventData.template = newTemplate;
                     }
                     break;
+
+                case 'rushItem':
+                    // only process products in this link_group
+                    if (hasLinkedItems) {
+                        let newTemplate = this.tableSettings.PrintCheckRushItemTemplate || '';
+                        
+                        let rushItem = txn.data.rush_item;
+                        let isPrintable = false;
+
+                        for (let id in order.items) {
+                            let item = order.items[id];
+                            if (item.index == rushItem.index && item.linked) {
+                                isPrintable = true;
+                                break;
+                            }
+                        }
+
+                        let waitMS = ((new Date()).getTime() - rushItem.created * 1000 + (new Date()).getTimezoneOffset()*60000 );
+                        let waiting = (new Date(waitMS)).toLocaleFormat('%H:%M:%S');
+                        rushItem['waiting'] = waiting;
+                        order['rush_item'] = rushItem;
+                        // use new template to print return cart item
+                        eventData.template = newTemplate;
+                        
+                        if (!isPrintable) {
+                            evt.preventDefault();
+                        }
+                    }else {
+                        evt.preventDefault();
+                    }
+                    break;
+
             }
             
         },
@@ -2043,6 +2075,80 @@
             // only update returnCartitemBatch for quick search later
             let txn = this.getCartController()._getTransaction();
             txn.data.returnCartItemBatch = txn.data.batchCount+1;
+            
+        },
+
+
+        /**
+         * rush item
+         */
+        rushItem: function() {
+
+            var cartController = this.getCartController();
+            var index = cartController._cartView.getSelectedIndex();
+            var curTransaction = cartController._getTransaction();
+
+            if( !cartController.ifHavingOpenedOrder() ) {
+                NotifyUtils.warn(_('Not an open order; cannot void'));
+
+                cartController._clearAndSubtotal();
+                return;
+            }
+
+            // check if transaction is closed
+            if (curTransaction.isClosed()) {
+                NotifyUtils.warn(_('This order is being finalized and items may not be modified'));
+
+                cartController._clearAndSubtotal();
+                return;
+            }
+
+            if(index <0) {
+                NotifyUtils.warn(_('Please select an item first'));
+
+                cartController._clearAndSubtotal();
+                return;
+            }
+
+            var itemTrans = null;
+
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+            if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+
+                NotifyUtils.warn(_('Cannot RUSH the selected item [%S]. It is not the item or setitem.', [itemDisplay.name]));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            itemTrans = curTransaction.getItemAt(index);
+            if (itemTrans) {
+
+                // after transfer table dispatch event and print checks
+                let isPrintCheck = parseInt(this.tableSettings.PrintCheckAfterReturnCartItem || 0);
+                let printCheckTemplate = this.tableSettings.PrintCheckReturnCartItemTemplate || '';
+
+                if ( isPrintCheck > 0 && printCheckTemplate ) {
+
+                    let confirmed = true;
+
+                    if ( isPrintCheck == 2 ) {
+                        
+                        confirmed = GREUtils.Dialog.confirm(this.topmostWindow,
+                            _('Return Cart Item'),
+                            _('Are you sure you want to print rush item check for [%S]', [itemTrans.name]));
+
+                        if (confirmed) {
+                            curTransaction.data.rush_item = GREUtils.extend({}, itemTrans);
+                            this.printChecks(curTransaction, 'rushItem', true);
+                        }
+
+                    }
+
+                }
+
+                return;
+            }
             
         },
 

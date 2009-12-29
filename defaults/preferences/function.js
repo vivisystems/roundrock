@@ -437,3 +437,8 @@ pref("vivipos.fec.registry.function.programmable.prepareguestcheck.access", "acl
 pref("vivipos.fec.registry.function.programmable.prepareguestcheck.command", "prepareGuestCheck");
 pref("vivipos.fec.registry.function.programmable.prepareguestcheck.controller", "Print");
 pref("vivipos.fec.registry.function.programmable.prepareguestcheck.data", "");
+
+pref("vivipos.fec.registry.function.programmable.rushItem.access", "acl_rush_item");
+pref("vivipos.fec.registry.function.programmable.rushItem.command", "rushItem");
+pref("vivipos.fec.registry.function.programmable.rushItem.controller", "GuestCheck");
+pref("vivipos.fec.registry.function.programmable.rushItem.data", "");

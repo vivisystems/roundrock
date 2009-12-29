@@ -126,3 +126,9 @@
 <!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.auto "Print and Store automatically">
 <!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.confirm "Confirm before print">
 <!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.template "Print Check after Return Cart Item Template: ">
+
+<!ENTITY tableman.tableoptions.printCheckRushItem "Print Check Rush Item">
+<!ENTITY tableman.tableoptions.printCheckRushItem.none "None">
+<!ENTITY tableman.tableoptions.printCheckRushItem.auto "Print automatically">
+<!ENTITY tableman.tableoptions.printCheckRushItem.confirm "Confirm before print">
+<!ENTITY tableman.tableoptions.printCheckRushItem.template "Print Check Rush Item Template: ">
