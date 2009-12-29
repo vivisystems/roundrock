@@ -8,8 +8,8 @@
 
        components: ['Barcode'],
 
-       screenwidth: 800,
-       screenheight: 600,
+       screenwidth:  GeckoJS.Session.get('screenwidth'),
+       screenheight:  GeckoJS.Session.get('screenheight'),
        catePanelView: null,
        individualcatePanelView:null,
        productPanelView: null,
@@ -75,13 +75,30 @@
             var category = this.catePanelView.getCurrentIndexData(index);
 
                 /* 2.open dialogWindos */
+
+              // set screen size
+            if(this.screenwidth == 1024){
+                var width = 450;
+                var height = 600;
+            }
+            else{
+                 var width = 400;
+                 var height = 470;
+            }
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=350,height=400';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width='+width+',height='+height;
+            var priceLevelObj = { selected:"", priceLevel:[] };
+
+            priceLevelObj = this._getPriceLevelObj(category,'category');
+
             var inputObj = {
-                            input0:null, require0:true, numberOnly0:true,digitOnly0:true,
-                             numpad:{}, type0:"number"
+                            input0:1, require0:true, numberOnly0:true,digitOnly0:true,
+                            numpad:{}, type0:"number", priceLevel:priceLevelObj
                      //   input1:null, require1:false
                             };
+
+             //set defaul peice level
+            
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _(''), features,
                                        _(category.name), _('How many ...?'), _('Count'), '', inputObj);
@@ -92,6 +109,7 @@
                 /* 3.1 query this department products */
                 var productTable = new ProductModel();
                 var products = [];
+                var selectedPriceLevel = inputObj.priceLevel.selected;
                           /* case 1. department */
                     if(!category.Plugroup)
                         products = productTable.find("all", "cate_no="+"'"+category.no+"'");
@@ -105,7 +123,7 @@
                         {
                             products[i].priority = this._priority;
                             products[i].count = inputObj.input0;
-                            products[i].selectedPrice = products[i].price_level1;
+                            products[i].selectedPrice = products[i]['price_level'+selectedPriceLevel];
                             this.tabList.push(products[i]);
                         }
                 /* 3.3 show tabList[] */
@@ -169,12 +187,35 @@
             var product = this.productPanelView.getCurrentIndexData(index);
             var cloneProduct = GeckoJS.BaseObject.clone(product);
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=350,height=400';
+
+            // set screen size
+            if(this.screenwidth == 1024){
+                var width = 450;
+                var height = 600;
+            }
+            else{
+                 var width = 400;
+                 var height = 470;
+            }
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width='+width+',height='+height;
+
+            var priceLevelObj = { selected:"", priceLevel:[] };
+
+            priceLevelObj = this._getPriceLevelObj(product,'individual');
             var inputObj = {
-                          input0:null, require0:true, numberOnly0:true,digitOnly0:true,
-                          numpad:{}, type0:"number"
+                            input0:1, require0:true, numberOnly0:true,digitOnly0:true,
+                            numpad:{}, type0:"number", priceLevel:priceLevelObj
+                       //   input1:null, require1:false
+                            };
+           /*var priceLevelObj = { selected:"", priceLevel:[] };
+
+            priceLevelObj = this._getPriceLevelObj(category,'category');
+
+            var inputObj = {
+                            input0:1, require0:true, numberOnly0:true,digitOnly0:true,
+                            numpad:{}, type0:"number", priceLevel:priceLevelObj
                      //   input1:null, require1:false
-                           };
+                            };*/
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _(''), features,
                                        _(product.name),_('How many....?'), _('Count'), '', inputObj);
@@ -182,9 +223,10 @@
             /* 3.if 'ok' button == true */
             if (inputObj.ok && inputObj.input0 ) {
 
+                var selectedPriceLevel = inputObj.priceLevel.selected;
                 cloneProduct.priority = this._priority;
                 cloneProduct.count = inputObj.input0;
-                cloneProduct.selectedPrice = cloneProduct.price_level1;
+                cloneProduct.selectedPrice = cloneProduct['price_level'+selectedPriceLevel];
                 this.tabList.push(cloneProduct);
                 this._tabListPanel.datasource = this.validateList();
                 this._priority++;
@@ -211,8 +253,8 @@
             var start = document.getElementById('start_date');
             var end = document.getElementById('end_date');
 
-            var startTime = start.value/1000
-            var endTime = end.value/1000
+            var startTime = start.value/1000 - 86400
+            var endTime = end.value/1000 
 
            var inventoryCommitmentModel = new InventoryCommitmentModel();
            this._commitments = inventoryCommitmentModel.getDataSource().fetchAll("SELECT * FROM Inventory_commitments WHERE type='procure' AND created >= '"+startTime+"' AND created <= '"+endTime+"'");
@@ -560,8 +602,18 @@
            if(this._tabListPanel.selectedIndex != -1)
             this.modifyCount();
 
+            // set screen size
+            if(this.screenwidth == 1024){
+                var width = 450;
+                var height = 300;
+            }
+            else{
+                 var width = 300;
+                 var height = 233;
+            }
+           
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=300,height=233';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width='+width+',height='+height;
             var inputObj = {
                              input0:null, require0:true, numberOnly0:false
                         //   input1:null, require1:false
@@ -739,7 +791,7 @@
 
                 this._menulistElement.appendItem( this._fileNameList[i]);
             }
-
+/*
             var today = new Date();
             var yy = today.getYear() + 1900;InventoryCommitmentModel
             var mm = today.getMonth();
@@ -749,7 +801,7 @@
             var end = ( new Date( yy, mm, dd + 1, 0, 0, 0 ) ).getTime();
 
             document.getElementById( 'start_date' ).value = start;
-            document.getElementById( 'end_date' ).value = end;
+            document.getElementById( 'end_date' ).value = end;*/
 
             GeckoJS.FormHelper.reset('setProductForm');
             this._priceMenuList.setAttribute('label',_('Price Level'));
@@ -1123,7 +1175,22 @@
         
         testing: function(){
 
-           
+
+           var levelArray =['price_enable1','price_enable2','price_enable3','price_enable4','price_enable5','price_enable6','price_enable7','price_enable8','price_enable9',];
+
+           var a = {};
+
+           a[levelArray[0]] = "test";
+
+           var b = true;
+
+           var c = true;
+
+           var d = c&&b;
+
+           var x = 0;
+
+           /*
             var list = [{barcode:'BA12^^^34'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
            
             var object = this.checkBarcodeType3OF9(list);
@@ -1143,7 +1210,7 @@
                              break;
                   
                  }
-
+*/
         //    this.alertIllegalBarcodeProduct(object.illegalList);
        //     this.alertIllegalBarcodeProduct(object.legalList);
 
@@ -1151,7 +1218,7 @@
         },
 
         selectTemplate: function(){
-
+            
             var aURL = 'chrome://viviecr/content/select_template.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
@@ -1159,7 +1226,7 @@
                 selectedBarcode: ""
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_template'), aFeatures, inputObj);
             if (inputObj.ok) {
 
                var template = inputObj.selectedTemplate
@@ -1179,6 +1246,61 @@
 
             }
         },
+
+         _getPriceLevelObj: function (category, action){
+
+          var DefaultPriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel');
+
+          var priceLevelObj = { selected: DefaultPriceLevel, priceLevel:[]};
+          var products = [];
+          var levelArray =['level_enable1','level_enable2','level_enable3','level_enable4','level_enable5','level_enable6','level_enable7','level_enable8','level_enable9',];
+          var productTable = new ProductModel();
+          var isPriceLevelEnable = true ;
+          
+          switch( action )
+                 {
+                     case 'category':
+                         
+                              if(!category.Plugroup)
+                                   products = productTable.find("all", "cate_no="+"'"+category.no+"'");
+
+                              else products = productTable.find("all", "link_group LIKE '%"+category.id+"%'");
+
+                              return this._validatePriceLevel(priceLevelObj, products, levelArray, isPriceLevelEnable);
+                              
+
+                      case 'individual':
+
+                               products = [category];
+                               
+                               return this._validatePriceLevel(priceLevelObj, products, levelArray, isPriceLevelEnable);
+
+
+                   }
+         },
+
+         _validatePriceLevel: function (priceLevelObj, products, levelArray, isPriceLevelEnable){
+
+             for( var levelIndex = 0 ; levelIndex < 9; levelIndex++){
+
+                    if(products.length == 1)
+                        isPriceLevelEnable = products[0][levelArray[levelIndex]]
+
+                    for( var i = 0; i< products.length-1 ; i++){
+
+                        isPriceLevelEnable = products[i][levelArray[levelIndex]] && products[i+1][levelArray[levelIndex]]
+                    }
+                 if(isPriceLevelEnable)
+                 priceLevelObj.priceLevel.push(levelIndex+1);
+             }
+                                 //check if DefaultPriceLevel is validated
+             var index = priceLevelObj.priceLevel.indexOf( priceLevelObj.selected );
+
+             if(index == -1)
+             priceLevelObj.selected = 1;
+
+             return priceLevelObj ;
+         },
 
          exit: function() {
 

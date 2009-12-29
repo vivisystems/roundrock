@@ -150,6 +150,22 @@
         else {
             document.getElementById('numpad').setAttribute('hidden', true);
         }
+
+        //enable pricelevel menulist
+        if('priceLevel' in inputObj){
+
+           var obj = document.getElementById('priceList');
+
+           inputObj.priceLevel.priceLevel.forEach( function(level){
+
+               obj.appendItem('Price Level'+level, level);
+           })
+           obj.selectedIndex = inputObj.priceLevel.priceLevel.indexOf(inputObj.priceLevel.selected);
+        }
+        else{
+            document.getElementById('priceLevel').setAttribute('hidden', true);
+        }
+
         document.getElementById('dialog-caption').setAttribute("label", caption0);
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;
@@ -172,6 +188,8 @@
                 inputObj.input1 = GeckoJS.String.trim(document.getElementById('input1').value);
                 inputObj.menu = document.getElementById('menu').value;
                 inputObj.radio = document.getElementById('radiogroup').value;
+                if('priceLevel' in inputObj)
+                inputObj.priceLevel.selected = document.getElementById('priceList').value;
                 inputObj.ok = true;
                 return true;
             },

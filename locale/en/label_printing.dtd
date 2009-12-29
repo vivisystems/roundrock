@@ -26,7 +26,7 @@
 <!ENTITY label_printing.procurement.startdate "Start Data">
 <!ENTITY label_printing.procurement.enddate "End Data">
 
-<!ENTITY lable_printing.button.action.execute "Search">
+<!ENTITY lable_printing.button.action.execute "SEARCH">
 <!ENTITY lable_printing.button.action.save "Save">
 <!ENTITY lable_printing.button.action.deleteList "Delete">
 <!ENTITY lable_printing.button.action.modify "Modify">
