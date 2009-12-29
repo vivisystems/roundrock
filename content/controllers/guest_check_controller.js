@@ -739,6 +739,13 @@
                         order['return_cart_items'] = returnCartItems;
                         // use new template to print return cart item
                         eventData.template = newTemplate;
+
+                        if (returnCartItems.length == 0) {
+                            evt.preventDefault();
+                        }
+
+                    }else {
+                        evt.preventDefault();
                     }
                     break;
             }
