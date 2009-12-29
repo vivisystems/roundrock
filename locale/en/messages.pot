@@ -2898,6 +2898,9 @@ msgstr "Sample Transfer Table 42c "
 msgid "vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.label"
 msgstr "Sample Transfer Table 42c expanded"
 
+msgid "vivipos.fec.registry.templates.kitchen-returncartitem-42c.label"
+msgstr "Sample Return Cart Item 42c"
+
 ########################################################################
 #
 # List of Import / Export

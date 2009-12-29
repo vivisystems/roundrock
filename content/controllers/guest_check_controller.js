@@ -706,6 +706,7 @@
             let autoPrint = data.autoPrint || 'skip';
             let hasLinkedItems = data.hasLinkedItems;
             let txn = data.txn;
+            let order = data.order;
 
             // transferTable
             switch(autoPrint) {
@@ -713,7 +714,30 @@
                     // only process products in this link_group
                     if (hasLinkedItems) {
                         let newTemplate = this.tableSettings.PrintCheckAfterTransferTableTemplate || '';
+                        
                         // use new template to print transfer table
+                        eventData.template = newTemplate;
+                    }
+                    break;
+
+                case 'returnCartItem':
+                    // only process products in this link_group
+                    if (hasLinkedItems) {
+                        let newTemplate = this.tableSettings.PrintCheckReturnCartItemTemplate || '';
+
+                        let batchCount = txn.data.batchCount;
+                        let returnCartItemBatch = txn.data.batchCount;
+                        let returnCartItems = [];
+
+                        for (let id in order.items) {
+                            let item = order.items[id];
+                            if (item.batch == returnCartItemBatch && item.linked) {
+                                returnCartItems.push(item);
+                            }
+                        }
+
+                        order['return_cart_items'] = returnCartItems;
+                        // use new template to print return cart item
                         eventData.template = newTemplate;
                     }
                     break;
@@ -1446,6 +1470,13 @@
          */
         onCartOnSubmitSuccess: function(evt) {
 
+            let txn = evt.data;
+
+            // check if has returncartitem
+            if (txn.data.returnCartItemBatch && (txn.data.returnCartItemBatch == txn.data.batchCount) ) {
+                this.returnCartItem(evt);
+            }
+
             if (this.tableSettings.TableWinAsFirstWin) {
                 // newTable always create new transaction object
                 //this.newTable();
@@ -1969,17 +2000,49 @@
 
         },
 
+        /**
+         * process returnCartItem and printChecks
+         */
+        returnCartItem: function(evt) {
 
+            let txn = evt.data;
+
+            // print checks
+            if (txn.data.returnCartItemBatch && (txn.data.returnCartItemBatch == txn.data.batchCount) ) {
+
+                // after transfer table dispatch event and print checks
+                let isPrintCheck = parseInt(this.tableSettings.PrintCheckAfterReturnCartItem || 0);
+                let printCheckTemplate = this.tableSettings.PrintCheckReturnCartItemTemplate || '';
+
+                if (isPrintCheck >0 && printCheckTemplate) {
+
+                    let confirmed = true;
+
+                    if (isPrintCheck == 2) {
+                        confirmed = GREUtils.Dialog.confirm(this.topmostWindow,
+                            _('Return Cart Item'),
+                            _('Are you sure you want to print return cart item check'));
+
+                        if (confirmed) {
+                            this.printChecks(txn, 'returnCartItem', true);
+                        }
+
+                    }
+
+                }
+
+
+            }
+        },
+
+        /**
+         * Cart returnCartItem listener
+         */
         afterReturnCartItem: function(evt) {
 
-            
-
+            // only update returnCartitemBatch for quick search later
             let txn = this.getCartController()._getTransaction();
-
-            alert('after');
-            
-
-            this.storeCheck();
+            txn.data.returnCartItemBatch = txn.data.batchCount+1;
             
         },
 
