@@ -1828,18 +1828,16 @@
                             _('Transfer Table'),
                             _('Transfer table From (%S) To (%S)', [orgTableName, newTableName]) + '\n' +
                             _('Are you sure you want to print transfer table check'));
+                    }
+                    if (confirmed) {
 
-                        if (confirmed) {
-                            
-                            let newTxnData = this.getTransactionDataByOrderId(orderId);
-                            newTxnData.org_table_no = orgTableNo;
-                            newTxnData.org_table_name = orgTableName;
-                            newTxnData.org_table_region_name = orgRegionName;
-                            newTxnData.transfer_table_time =  new Date().getTime() /1000;
+                        let newTxnData = this.getTransactionDataByOrderId(orderId);
+                        newTxnData.org_table_no = orgTableNo;
+                        newTxnData.org_table_name = orgTableName;
+                        newTxnData.org_table_region_name = orgRegionName;
+                        newTxnData.transfer_table_time =  new Date().getTime() /1000;
 
-                            this.printChecks({data: newTxnData}, 'transferTable', true);
-                        }
-
+                        this.printChecks({data: newTxnData}, 'transferTable', true);
                     }
 
                 }
