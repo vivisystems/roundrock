@@ -2125,8 +2125,8 @@
             if (itemTrans) {
 
                 // after transfer table dispatch event and print checks
-                let isPrintCheck = parseInt(this.tableSettings.PrintCheckAfterReturnCartItem || 0);
-                let printCheckTemplate = this.tableSettings.PrintCheckReturnCartItemTemplate || '';
+                let isPrintCheck = parseInt(this.tableSettings.PrintCheckRushItem || 0);
+                let printCheckTemplate = this.tableSettings.PrintCheckRushItemTemplate || '';
 
                 if ( isPrintCheck > 0 && printCheckTemplate ) {
 
@@ -2135,16 +2135,14 @@
                     if ( isPrintCheck == 2 ) {
                         
                         confirmed = GREUtils.Dialog.confirm(this.topmostWindow,
-                            _('Return Cart Item'),
+                            _('Rush Item'),
                             _('Are you sure you want to print rush item check for [%S]', [itemTrans.name]));
 
-                        if (confirmed) {
-                            curTransaction.data.rush_item = GREUtils.extend({}, itemTrans);
-                            this.printChecks(curTransaction, 'rushItem', true);
-                        }
-
                     }
-
+                    if (confirmed) {
+                        curTransaction.data.rush_item = GREUtils.extend({}, itemTrans);
+                        this.printChecks(curTransaction, 'rushItem', true);
+                    }
                 }
 
                 return;
