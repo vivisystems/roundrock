@@ -16,7 +16,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-29 16:41+0800\n"
+"POT-Creation-Date: 2009-12-29 16:55+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3621,7 +3621,7 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1385
 #: ../..//content/controllers/cart_controller.js:1534
 #: ../..//content/controllers/cart_controller.js:3789
-#: ../..//content/controllers/guest_check_controller.js:2109
+#: ../..//content/controllers/guest_check_controller.js:2104
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
@@ -3635,7 +3635,7 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:3153
 #: ../..//content/controllers/cart_controller.js:3796
 #: ../..//content/controllers/cart_controller.js:4046
-#: ../..//content/controllers/guest_check_controller.js:2116
+#: ../..//content/controllers/guest_check_controller.js:2111
 msgid "Please select an item first"
 msgstr ""
 
@@ -3767,7 +3767,7 @@ msgid "Cannot modify quantity of selected item [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1526
-#: ../..//content/controllers/guest_check_controller.js:2101
+#: ../..//content/controllers/guest_check_controller.js:2096
 msgid "Not an open order; cannot void"
 msgstr ""
 
@@ -5319,24 +5319,27 @@ msgstr ""
 msgid "Are you sure you want to print transfer table check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2064
-#: ../..//content/controllers/guest_check_controller.js:2147
+#: ../..//content/controllers/guest_check_controller.js:2062
 msgid "Return Cart Item"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2065
+#: ../..//content/controllers/guest_check_controller.js:2063
 msgid "Are you sure you want to print return cart item check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2127
+#: ../..//content/controllers/guest_check_controller.js:2122
 msgid "Cannot RUSH the selected item [%S]. It is not the item or setitem."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2148
+#: ../..//content/controllers/guest_check_controller.js:2142
+msgid "Rush Item"
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:2143
 msgid "Are you sure you want to print rush item check for [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2173
+#: ../..//content/controllers/guest_check_controller.js:2166
 msgid "Table Initialization"
 msgstr ""
 
