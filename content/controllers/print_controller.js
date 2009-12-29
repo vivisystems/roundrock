@@ -685,6 +685,7 @@
                             data.routingGroups = routingGroups;
                             data.autoPrint = autoPrint;
                             data.duplicate = duplicate;
+                            data.order = GREUtils.extend({}, txn.data);
                             self.printSlip('check', data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                         }
                     }
