@@ -680,6 +680,8 @@
                         let newTemplate = this.tableSettings.PrintCheckAfterTransferTableTemplate || '';
                         // use new template to print transfer table
                         eventData.template = newTemplate;
+                    }else {
+                        evt.preventDefault();
                     }
                     break;
             }
