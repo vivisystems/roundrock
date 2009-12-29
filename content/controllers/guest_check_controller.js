@@ -30,6 +30,10 @@
                 cart.addEventListener('onCancelSuccess', this.onCartOnCancelSuccess, this);
                 cart.addEventListener('onVoidSaleSuccess', this.onCartOnSubmitSuccess, this);
 
+                // check after return cart item
+                cart.addEventListener('afterReturnCartItem', this.afterReturnCartItem, this);
+
+
             }
 
             var main = this.getMainController();
@@ -1966,9 +1970,16 @@
         },
 
 
-        afterReturnCartItem: function() {
+        afterReturnCartItem: function(evt) {
+
+            
 
             let txn = this.getCartController()._getTransaction();
+
+            alert('after');
+            
+
+            this.storeCheck();
             
         },
 
