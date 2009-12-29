@@ -2063,15 +2063,12 @@
                         confirmed = GREUtils.Dialog.confirm(this.topmostWindow,
                             _('Return Cart Item'),
                             _('Are you sure you want to print return cart item check'));
-
-                        if (confirmed) {
-                            this.printChecks(txn, 'returnCartItem', true);
-                        }
-
+                    }
+                    if (confirmed) {
+                        this.printChecks(txn, 'returnCartItem', true);
                     }
 
                 }
-
 
             }
         },
