@@ -89,25 +89,25 @@ var options;
 
             let v = vivitexts[i];
 
-            var val = getRoundedPrice(viviParseFloat(v.value, thousands, decimals));
+            var val = getRoundedPrice(v.value);
             if (val < 0) {
                 val = 0 ;
             }else if (val > remain){
                 val = remain;
             }
-            v.value = formatPrice(val);
+            v.value = val;
             remain -= val;
 
         }
 
         if (remain > 0) {
            // add to last once
-           vivitexts[vivitexts.length-1].value = formatPrice(viviParseFloat(vivitexts[vivitexts.length-1].value, thousands, decimals) + remain);
+           vivitexts[vivitexts.length-1].value = (vivitexts[vivitexts.length-1].value + remain);
         }
 
         for (var j=0; j < vivitexts.length; j++) {
             let v = vivitexts[j];
-            arPayments.push(viviParseFloat(v.value, thousands, decimals));
+            arPayments.push(v.value);
         }
 
         inputObj.input = arPayments ;
