@@ -169,3 +169,7 @@ pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.path", "chrome://
 pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.type", "check");
 pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.path", "chrome://viviecr/content/devices/templates/kitchen-transfertable-expanded-42c.tpl");
+
+pref("vivipos.fec.registry.templates.kitchen-returncartitem-42c.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.kitchen-returncartitem-42c.type", "check");
+pref("vivipos.fec.registry.templates.kitchen-returncartitem-42c.path", "chrome://viviecr/content/devices/templates/kitchen-returncartitem-42c.tpl");
