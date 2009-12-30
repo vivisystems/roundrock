@@ -11,6 +11,7 @@
         _cartView: null,
         _inDialog: false,
         _returnMode: false,
+        _returnCode: '',
         _returnPersist: false,
         _blockNextAction: false,
         _decStockBackUp: null,
@@ -822,6 +823,11 @@
 
                         });
 
+                    }else if (addedItem.id == plu.id && self._returnMode && self._returnCode) {
+
+                        // force memo from annotation code
+                        return self.addMemo(self._returnCode);
+
                     }
 
                 } ).next( function() {
@@ -1482,6 +1488,12 @@
         },
 
         returnItem: function(cancel) {
+
+            // overloading cancel
+            if (typeof cancel == 'string') {
+                this._returnCode = cancel +'';
+                cancel = undefined;
+            }
 
             if (cancel || this._returnMode) {
                 if (!cancel) {
