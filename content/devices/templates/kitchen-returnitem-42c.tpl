@@ -8,7 +8,10 @@ ${'Check:'|left:10} ${order.check_no|default:''|left:9} ${'Seq:'|left:6} ${order
 ------------------------------------------
 {for item in order.return_cart_items}
 ${item.current_qty|right:4} ${item.name|left:37}
-     MEMO: ${item.memo|left:34}
+{if item.condiments_string}
+      ${item.condiments_string|left:40}
+{/if}
+     ${'Return Memo:'|left:15} ${item.memo|left:34}
 {/for}
 ------------------------------------------
 [&CR]

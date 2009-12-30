@@ -734,6 +734,13 @@
                         for (let id in order.items) {
                             let item = order.items[id];
                             if (item.batch == returnCartItemBatch && item.linked) {
+
+                                // process condiments
+                                if (item.condiments) {
+                                    item.condiments_array = GeckoJS.BaseObject.getKeys(item.condiments);
+                                    item.condiments_string = item.condiments_array.join('; ');
+                                }
+
                                 returnCartItems.push(item);
                             }
                         }
