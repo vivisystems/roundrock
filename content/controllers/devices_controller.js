@@ -657,7 +657,7 @@
                 var templates = {};
                 for (var tmpl in this._templates) {
                     var tpl = this._templates[tmpl];
-                    if (tpl.type && tpl.type.indexOf(type) > -1) {
+                    if (tpl.type && (tpl.type.split(',').indexOf(type) > -1) ) {
                         templates[tmpl] = tpl;
                     }
                 }

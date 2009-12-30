@@ -847,32 +847,19 @@
             returnCartItemTemplateObj.removeAllItems();
             rushItemTemplateObj.removeAllItems();
 
-            /* sort receipt templates */
-            let templates = this.getTemplates('check');
-            let sortedTemplates = [];
-            for (let tmpl in templates) {
-                let newTemplate = GREUtils.extend({}, templates[tmpl]);
-                newTemplate.name = tmpl;
+            let transferTableTemplates = this.getTemplates('transfertable-check');
+            let returnItemTemplates = this.getTemplates('returnitem-check');
+            let rushItemTemplates = this.getTemplates('rushitem-check');
 
-                var label = newTemplate.label;
-                if (label.indexOf('chrome://') == 0) {
-                    var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
-                    label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
-                }
-                else {
-                    label = _(label);
-                }
-                newTemplate.label = label;
-                sortedTemplates.push(newTemplate);
-            }
-            sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
-
-            for (let i in sortedTemplates) {
-                let tmplName = sortedTemplates[i].name;
-                transferTableTemplateObj.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                returnCartItemTemplateObj.appendItem(_(sortedTemplates[i].label), tmplName, '');
-                rushItemTemplateObj.appendItem(_(sortedTemplates[i].label), tmplName, '');
-            }
+            transferTableTemplates.forEach(function(tpl) {
+                transferTableTemplateObj.appendItem(_(tpl.label), tpl.name, '');
+            });
+            returnItemTemplates.forEach(function(tpl) {
+                returnCartItemTemplateObj.appendItem(_(tpl.label), tpl.name, '');
+            });
+            rushItemTemplates.forEach(function(tpl) {
+                rushItemTemplateObj.appendItem(_(tpl.label), tpl.name, '');
+            });
 
         },
 
@@ -1045,22 +1032,44 @@
 
         // return template registry objects
         getTemplates: function (type) {
+
+            let templates = {};
+
             if (this._templates == null) {
                 this._templates = GeckoJS.Configure.read('vivipos.fec.registry.templates');
             }
             if (!type) {
-                return this._templates;
+                templates = this._templates;
             }
             else {
-                var templates = {};
                 for (var tmpl in this._templates) {
                     var tpl = this._templates[tmpl];
-                    if (tpl.type && tpl.type.indexOf(type) > -1) {
+                    if (tpl.type && (tpl.type.split(',').indexOf(type) > -1)) {
                         templates[tmpl] = tpl;
                     }
                 }
-                return templates;
             }
+
+            let sortedTemplates = [];
+            for (let tmpl in templates) {
+                let newTemplate = GREUtils.extend({}, templates[tmpl]);
+                newTemplate.name = tmpl;
+
+                var label = newTemplate.label;
+                if (label.indexOf('chrome://') == 0) {
+                    var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                    label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                }
+                else {
+                    label = _(label);
+                }
+                newTemplate.label = label;
+                sortedTemplates.push(newTemplate);
+            }
+            sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
+
+            return sortedTemplates;
+
         },
 
 
