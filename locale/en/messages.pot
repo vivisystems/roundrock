@@ -1850,7 +1850,7 @@ msgstr "Scale"
 msgid "vivipos.fec.registry.function.programmable.rushItem.desc"
 msgstr ""
 "This function is used to register rush of the current item in the "
-"shopping cart. No parameter is needed."
+"shopping cart. First parameter is annotation code if you want memo(optional)"
 
 msgid "vivipos.fec.registry.function.programmable.rushItem.label"
 msgstr "Rush Item"
