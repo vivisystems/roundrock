@@ -7,7 +7,16 @@ ${'Check:'|left:10} ${order.check_no|default:''|left:9} ${'Seq:'|left:6} ${order
 [&CR]
 ------------------------------------------
 ${order.rush_item.current_qty|right:4} ${order.rush_item.name|left:37}
+{if order.rush_item.condiments_string}
+      ${order.rush_item.condiments_string|left:40}
+{/if}
+{if order.rush_item.memo}
+      ${order.rush_item.memo|left:40}
+{/if}
 ------------------------------------------
+{if order.rush_item.rushitem_memo}
+${'Rushitem Memo:'|left: 15} ${order.rush_item.rushitem_memo|left:30}
+{/if}
 ${'Waiting:'|left:10} ${order.rush_item.waiting|left:37}
 [&CR]
 [&CR]

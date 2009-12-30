@@ -770,7 +770,15 @@
                         let waitMS = ((new Date()).getTime() - rushItem.created * 1000 + (new Date()).getTimezoneOffset()*60000 );
                         let waiting = (new Date(waitMS)).toLocaleFormat('%H:%M:%S');
                         rushItem['waiting'] = waiting;
+
+                        // process condiments
+                        if (rushItem.condiments) {
+                            rushItem.condiments_array = GeckoJS.BaseObject.getKeys(rushItem.condiments);
+                            rushItem.condiments_string = rushItem.condiments_array.join('; ');
+                        }
                         order['rush_item'] = rushItem;
+
+                        this.log(this.dump(rushItem));
                         // use new template to print return cart item
                         eventData.template = newTemplate;
                         
@@ -2130,7 +2138,9 @@
         /**
          * rush item
          */
-        rushItem: function() {
+        rushItem: function(code) {
+
+            code = code || '';
 
             var cartController = this.getCartController();
             var index = cartController._cartView.getSelectedIndex();
@@ -2149,6 +2159,12 @@
 
                 cartController._clearAndSubtotal();
                 return;
+            }
+
+            if (curTransaction.data.recall != '2') {
+                NotifyUtils.warn(_('This operation may only be applied to stored transactions'));
+
+                return ;
             }
 
             if(index <0) {
@@ -2188,8 +2204,50 @@
 
                     }
                     if (confirmed) {
-                        curTransaction.data.rush_item = GREUtils.extend({}, itemTrans);
-                        this.printChecks(curTransaction, 'rushItem', true);
+
+                        // required rushitem memo
+                        if (code) {
+
+                            let annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+                            let annotationText = code ? annotationController.getAnnotationText(code) : false ;
+
+                            if (annotationText) {
+                                
+                                let annotationTypes = [] ;
+                                let texts = annotationText.split('|');
+                                texts.forEach(function(t){
+                                    annotationTypes.push({type: t, text: t});
+                                });
+
+                                let inputObj = {
+                                    input0: code || '',
+                                    require0: false,
+                                    annotations: annotationTypes
+                                };
+
+                                var data = [_('Add Memo'), '', _('Memo'), '', inputObj];
+                                var self = this;
+
+                                return $.popupPanel('promptAddMemoPanel', data).next( function(evt){
+
+                                    var result = evt.data;
+                                    if (result.ok && result.input0) {
+                                        curTransaction.data.rush_item = GREUtils.extend({rushitem_memo: result.input0}, itemTrans);
+                                        self.printChecks(curTransaction, 'rushItem', true);
+                                    }else {
+                                        curTransaction.data.rush_item = GREUtils.extend({rushitem_memo: ''}, itemTrans);
+                                        self.printChecks(curTransaction, 'rushItem', true);
+                                    }
+                                });                               
+
+                            }else {
+                                curTransaction.data.rush_item = GREUtils.extend({rushitem_memo: ''}, itemTrans);
+                                this.printChecks(curTransaction, 'rushItem', true);
+                            }
+                        }else {
+                            curTransaction.data.rush_item = GREUtils.extend({rushitem_memo: ''}, itemTrans);
+                            this.printChecks(curTransaction, 'rushItem', true);
+                        }
                     }
                 }
 
