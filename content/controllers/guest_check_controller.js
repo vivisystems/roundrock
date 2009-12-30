@@ -2107,7 +2107,7 @@
                             _('Are you sure you want to print return cart item check'));
                     }
                     if (confirmed) {
-                        this.printChecks(txn, 'returnCartItem', true);
+                        this.printChecks(txn, 'returnCartItem', false);
                     }
 
                 }
