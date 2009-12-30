@@ -769,7 +769,6 @@
                         }
                         order['rush_item'] = rushItem;
 
-                        this.log(this.dump(rushItem));
                         // use new template to print return cart item
                         eventData.template = newTemplate;
                         
