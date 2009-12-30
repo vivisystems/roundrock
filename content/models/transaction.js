@@ -214,7 +214,7 @@
                     let order_no = -1 ;
                     let check_no = -1 ;
 
-                    if (arKeys.length == 1) {
+                    if (arSeqs.length == 1) {
                         order_no = seq || -1 ;
                     }else {
                         order_no = parseInt(arSeqs[0]) || -1 ;
@@ -314,15 +314,35 @@
             // dump('length = '+self.data.seq.length+' \n');
             }
 
+            let requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo');
+            var seqKey = 'order_no';
+            if(requireCheckNo) seqKey +=',check_no';
+
             if (self.data.seq.length == 0 || self.data.seq == -1) {
                 // maybe from recovery
-                let order_no = SequenceModel.getSequence('order_no', false);
+                let seq = SequenceModel.getSequence(seqKey, false);
+                let arSeqs = String(seq).split(',');
+                let order_no = -1 ;
+                let check_no = -1 ;
+
+                if (arSeqs.length == 1) {
+                    order_no = seq || -1 ;
+                }else {
+                    order_no = parseInt(arSeqs[0]) || -1 ;
+                    check_no = parseInt(arSeqs[1]) || -1 ;
+                }
+
                 let seqData = self.buildOrderSequence(order_no);
                 self.data.seq_original = order_no;
                 self.data.seq_sp = seqData[0];
                 self.data.seq = seqData[1];
                 
                 if(!self.backgroundMode) GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
+
+                // update checkno
+                if (check_no != -1 ) {
+                    self.setCheckNo(check_no);
+                }
             }
 
             if (self.data.seq == '-1') {
