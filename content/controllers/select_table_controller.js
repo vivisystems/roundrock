@@ -1353,7 +1353,7 @@
             });
 
             try{
-                tableUsedPercentage = GeckoJS.NumberHelper.toPercentage(1/totalTable*100);
+                tableUsedPercentage = GeckoJS.NumberHelper.toPercentage(usedTable/totalTable*100);
             }catch(e) {}
             
             $('#usedTablesLbl').val(usedTable);
