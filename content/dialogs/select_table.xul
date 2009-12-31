@@ -100,10 +100,17 @@
         <hbox class="dialogbtn">
             <vbox>
                 <hbox>
-                    <label id="select_table_terminal_no" style="font-size: x-small;" />
-                    <label id="select_table_current_user" style="font-size: x-small;" />
+                    <label id="usedTablesLbl" style="font-size: x-small;" />
+                    <label value=" : "  style="font-size: x-small;" />
+                    <label id="totalTablesLbl" style="font-size: x-small;" />
+                    <label value=" ( "  style="font-size: x-small;" />
+                    <label id="percentageLbl" style="font-size: x-small;" />
+                    <label value=" ) "  style="font-size: x-small;" />
+                    <label id="customersLbl" style="font-size: x-small;" />
                 </hbox>
                 <hbox>
+                    <label id="select_table_terminal_no" style="font-size: x-small;" />
+                    <label id="select_table_current_user" style="font-size: x-small;" />
                     <label id="select_table_sale_period" value="select_table_sale_period" style="font-size: x-small;"/>
                     <label id="select_table_shift_number" value="select_table_shift_number"  style="font-size: x-small;"/>
                 </hbox>
