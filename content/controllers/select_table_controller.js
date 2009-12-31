@@ -381,6 +381,19 @@
                     var selectedRegion = self.getSelectedRegion();
 
                     try {
+                        // size region button label
+                        let priorRegion = document.getElementById('btn_prior_region');
+                        let nextRegion = document.getElementById('btn_next_region');
+                        if (priorRegion) {
+                            priorRegion.resizeLabel();
+                        }
+                        if (nextRegion) {
+                            nextRegion.resizeLabel();
+                        }
+
+                        // size stack
+                        $('#tableDock').css({'min-width': width, 'max-width': width});
+                        
                         // init tables and status view
                         self.getTableButtonsPanelObj().datasource = self.getTablesViewHelper();
                         // update tables by region
@@ -1225,7 +1238,10 @@
             //            main.dispatchEvent('onFirstLoad', null);
             if (tableSettings.TableWinAsFirstWin) {
                 // just popup table selector
-                this.popupTableSelectorPanel();
+                var curTransaction = GeckoJS.Session.get('current_transaction') || {recoveryMode: false};
+                if (!curTransaction.recoveryMode) {
+                    this.popupTableSelectorPanel();
+                }
             }
 
         },

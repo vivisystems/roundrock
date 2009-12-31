@@ -599,11 +599,9 @@
             // 2. if default user is selected, configure default user and enable automatic login
             if (this.selectedDefaultUser) {
                 prefs.write('user_pref("vivipos.fec.settings.DefaultUser", "' + this.selectedDefaultUser + '");\n');
-                prefs.write('user_pref("vivipos.fec.settings.DefaultLogin", true);\n');
             }
             else {
                 prefs.write('user_pref("vivipos.fec.settings.DefaultUser", "");');
-                prefs.write('user_pref("vivipos.fec.settings.DefaultLogin", false);\n');
             }
 
             // 3. configure default tax

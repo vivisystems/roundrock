@@ -61,6 +61,8 @@
                                                 <menuitem selected="true" label="&rptorderstatus.transaction_created;" value="transaction_created"/>
                                                 <menuitem selected="false" label="&rptorderstatus.transaction_submitted;" value="transaction_submitted"/>
                                                 <menuitem selected="false" label="&rptorderstatus.sale_period;" value="sale_period"/>
+                                                <menuitem selected="false" label="&rptorderstatus.void_sale_period;" value="void_sale_period"/>
+                                                <menuitem selected="false" label="&rptorderstatus.void_time;" value="transaction_voided"/>
                                             </menupopup>
                                         </menulist>
                                     </vbox>

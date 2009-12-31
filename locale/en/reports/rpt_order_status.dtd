@@ -36,3 +36,5 @@
 <!ENTITY rptorderstatus.transaction_submitted "Last Modified">
 <!ENTITY rptorderstatus.sale_period "Sale Period">
 <!ENTITY rptorderstatus.shiftno "Shift:">
+<!ENTITY rptorderstatus.void_sale_period "Sale Period Voided">
+<!ENTITY rptorderstatus.void_time "Time Voided">

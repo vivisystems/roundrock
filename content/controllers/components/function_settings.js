@@ -88,10 +88,6 @@
                 'cpTableman': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.config.tableman', acl:'acl_manage_tableman', checkForAcl:'cpTableman'},
 
                 'devReceipt2': {type:'css', method:'hidden', selector: '#devicesXUL #deviceReceipt2Box', checkForCss:'devReceipt2'},
-                'devCheck1': {type:'css', method:'hidden', selector: '#devicesXUL #check1-tab', checkForCss:'devCheck1'},
-                'devCheck2': {type:'css', method:'hidden', selector: '#devicesXUL #check2-tab', checkForCss:'devCheck2'},
-                'devCheck3': {type:'css', method:'hidden', selector: '#devicesXUL #check3-tab', checkForCss:'devCheck3'},
-                'devCheck4': {type:'css', method:'hidden', selector: '#devicesXUL #check4-tab', checkForCss:'devCheck4'},
                 'devReportLabel': {type:'css', method:'hidden', selector: '#devicesXUL #report-tab', checkForCss:'devReport,devLabel'},
                 'devReport': {type:'css', method:'hidden', selector: '#devicesXUL #deviceReportBox', checkForCss:'devReport'},
                 'devLabel': {type:'css', method:'hidden', selector: '#devicesXUL #deviceLabelBox', checkForCss:'devLabel'},
@@ -101,6 +97,7 @@
                 'devScale1': {type:'css', method:'hidden', selector: '#devicesXUL #devicesScale1Box', checkForCss:'devScale1'},
                 'devScale2': {type:'css', method:'hidden', selector: '#devicesXUL #devicesScale2Box', checkForCss:'devScale2'},
                 'devJournal': {type:'css', method:'hidden', selector: '#devicesXUL #journal-tab', checkForCss:'devJournal'},
+                'attrDevicesCheckPrinter': {type:'prefs', method:'write', key:'vivipos.fec.settings.devices.limit.check', preftype:'integer'},
 
                 'tabRegion': {type:'css', method:'hidden', selector: '#tableManXUL #tab_regions', checkForCss:'tabRegion'},
                 'tabMark': {type:'css', method:'hidden', selector: '#tableManXUL #tab_marks,#selectTableXUL #markTableBtn,#selectTableXUL #unmarkTableBtn,#selectTableXUL #addmarksBtn,#selectTableXUL #clearMarksBtn', checkForCss:'tabMark'},
