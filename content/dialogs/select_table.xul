@@ -99,8 +99,15 @@
         </stack>
         <hbox class="dialogbtn">
             <vbox>
-                <spacer flex="1" />
-                <viviclock id="table_status_timer" showdate="true"/>
+                <hbox>
+                    <label id="select_table_terminal_no" style="font-size: x-small;" />
+                    <label id="select_table_current_user" style="font-size: x-small;" />
+                </hbox>
+                <hbox>
+                    <label id="select_table_sale_period" value="select_table_sale_period" style="font-size: x-small;"/>
+                    <label id="select_table_shift_number" value="select_table_shift_number"  style="font-size: x-small;"/>
+                </hbox>
+                <viviclock id="table_status_timer" showdate="true" style="font-size: x-small;"/>
             </vbox>
             <spacer flex="1" />
             <button class="RefrashBtn" id="refresh_table_status" label="&selecttable.refreshtablestatus;" oncommand="$do('refreshTableStatus', null, 'SelectTable');"/>
