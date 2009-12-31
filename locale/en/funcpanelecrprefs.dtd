@@ -5,7 +5,9 @@
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.hspacing.label     "Horizontal spacing">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.vspacing.label     "Vertical spacing">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.apply              "Change size">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.orientation.label       "Change orientation">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.orientation.label       "Scrollbar Position">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.orientation.normal.label       "On the Left">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.orientation.reverse.label       "On the Right">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.resize.label            "Panel resizable?">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.wrap.label              "Wrap-around scrolling">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.restrict.label          "Hide when restricted">
