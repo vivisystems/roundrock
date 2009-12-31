@@ -255,6 +255,8 @@
 
             this.getTablesViewHelper().setRegion(region);
             this.getTablesViewHelper().setTables(tables);
+
+            this.refreshTableSummaries();
             
         },
 
@@ -278,9 +280,11 @@
 
                 if (updatedTablesStatus && updatedTablesStatus.length > 0) {
                     this.getTablesViewHelper().refreshUpdatedTablesStatus(updatedTablesStatus);
+                    this.refreshTableSummaries();
                 }else {
                     this.getTablesViewHelper().refreshTablesStatusPeriod();
                 }
+                
             }finally{
                 this._blockRefreshTableStatus = false;
             }
@@ -1276,7 +1280,39 @@
             // doCancelButton();
             if (!this.isDock())
                 $.hidePanel('selectTablePanel', false);
+        },
+        
+        refreshTableSummaries: function() {
+            
+            let tableStatus = this.Table.TableStatus.getTablesStatus(false) || [];
+            let tables = this.Table.getTables(false);
+
+
+            let totalTable = tables.length;
+            let usedTable = 0;
+            let customers = 0;
+            let tableUsedPercentage = 0;
+
+            tableStatus.forEach(function(o) {
+
+               if (o.TableStatus) {
+                    if (o.TableStatus.order_count > 0) usedTable++;
+                    if (o.TableStatus.sum_customer > 0) customers+=o.TableStatus.sum_customer;
+               }
+
+            });
+
+            try{
+                tableUsedPercentage = GeckoJS.NumberHelper.toPercentage(1/totalTable*100);
+            }catch(e) {}
+            
+            $('#usedTablesLbl').val(usedTable);
+            $('#totalTablesLbl').val(totalTable);
+            $('#percentageLbl').val(tableUsedPercentage);
+            $('#customersLbl').val(customers);
         }
+
+
     };
     
     GeckoJS.Controller.extend(__controller__);
