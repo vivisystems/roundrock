@@ -327,7 +327,7 @@
 			var worldIP = this.worldIP;
 			
 			var req = new XMLHttpRequest();
-			req.open("GET", "http://api.wipmania.com/", true);
+			req.open("GET", "http://vivipos-services.appspot.com/services/remote_addr", true);
 			req.setRequestHeader("Accept", "text/html,text/plain");
 			req.setRequestHeader("Accept-Encoding", null);
 			req.setRequestHeader("Keep-Alive", null);
