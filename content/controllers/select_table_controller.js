@@ -413,9 +413,35 @@
                 showing: function(evt) {
                     // initial timer
                     self.initialRefreshTimer();
+
+                    // update terminal_no
+                    $('#select_table_terminal_no').val(GeckoJS.Session.get('terminal_no'));
+
+                    // update user
+                    let user = GeckoJS.Session.get('User');
+                    let username = user ?  ((user.description.length > 0) ? user.description : user.username)  : '';
+                    $('#select_table_current_user').val(username);
+
+                    // sale_period
+                    $('#select_table_sale_period').val(GeckoJS.Session.get('sale_period_string'));
+                    if (GeckoJS.Configure.read('vivipos.fec.settings.DisableSalePeriod')){
+                        $('#select_table_sale_period').attr('hidden', true);
+                    }else {
+                        $('#select_table_sale_period').attr('hidden', false);
+                    }
+
+                    // shift_number
+                    $('#select_table_shift_number').val(GeckoJS.Session.get('shift_number'));
+                    if (GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange')){
+                        $('#select_table_sale_period').attr('hidden', true);
+                    }else {
+                        $('#select_table_sale_period').attr('hidden', false);
+                    }
+
                 },
 
                 shown: function(evt) {
+
                     // tablespanel shown , refresh
                     self.refreshTableStatus();
                 },
