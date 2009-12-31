@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-12-27 13:15+0800\n"
+"POT-Creation-Date: 2009-12-31 17:15+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4855,7 +4855,7 @@ msgid "Split Check"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:345
-#: ../..//content/controllers/select_table_controller.js:616
+#: ../..//content/controllers/select_table_controller.js:646
 msgid "Table [%S] is not available for selection. Status [%S], Active [%S]"
 msgstr ""
 
@@ -5025,7 +5025,7 @@ msgid "This order has discounts or surcharge, can not be merge"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:1441
-#: ../..//content/controllers/select_table_controller.js:508
+#: ../..//content/controllers/select_table_controller.js:538
 msgid "Merge Check"
 msgstr ""
 
@@ -6671,136 +6671,136 @@ msgid "TAL"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:199
-#: ../..//content/controllers/select_table_controller.js:940
-#: ../..//content/controllers/select_table_controller.js:983
+#: ../..//content/controllers/select_table_controller.js:970
+#: ../..//content/controllers/select_table_controller.js:1013
 #: ../..//content/controllers/table_man_controller.js:775
 msgid "All Regions"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:470
+#: ../..//content/controllers/select_table_controller.js:500
 msgid "Select Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:470
+#: ../..//content/controllers/select_table_controller.js:500
 msgid "Please select a table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:475
-#: ../..//content/controllers/select_table_controller.js:481
+#: ../..//content/controllers/select_table_controller.js:505
+#: ../..//content/controllers/select_table_controller.js:511
 msgid "Merge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:475
+#: ../..//content/controllers/select_table_controller.js:505
 msgid "Please select the master table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:481
+#: ../..//content/controllers/select_table_controller.js:511
 msgid "Please select the table merge to [%S]..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:485
+#: ../..//content/controllers/select_table_controller.js:515
 msgid "Unmerge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:485
+#: ../..//content/controllers/select_table_controller.js:515
 msgid "Please select the table to unmerge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:490
+#: ../..//content/controllers/select_table_controller.js:520
 msgid "Book Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:490
+#: ../..//content/controllers/select_table_controller.js:520
 msgid "Please select a table to book..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:494
+#: ../..//content/controllers/select_table_controller.js:524
 msgid "Add Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:494
+#: ../..//content/controllers/select_table_controller.js:524
 msgid "Please select the table to mark status..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:499
-#: ../..//content/controllers/select_table_controller.js:991
+#: ../..//content/controllers/select_table_controller.js:529
+#: ../..//content/controllers/select_table_controller.js:1021
 msgid "Clear Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:499
+#: ../..//content/controllers/select_table_controller.js:529
 msgid "Please select the table to clear status..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:504
+#: ../..//content/controllers/select_table_controller.js:534
 msgid "Trans Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:504
+#: ../..//content/controllers/select_table_controller.js:534
 msgid "Please select the table to be transfered..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:508
+#: ../..//content/controllers/select_table_controller.js:538
 msgid "Please select the table and check to be merged..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:644
-#: ../..//content/controllers/select_table_controller.js:647
+#: ../..//content/controllers/select_table_controller.js:674
+#: ../..//content/controllers/select_table_controller.js:677
 msgid "Table [%S] is not available!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:698
+#: ../..//content/controllers/select_table_controller.js:728
 #: ../..//content/helpers/nsi_orders_checklist_view.js:58
 #: ../..//content/helpers/nsi_tablestatus_view.js:160
 msgid "C#"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:701
+#: ../..//content/controllers/select_table_controller.js:731
 #: ../..//content/helpers/nsi_orders_checklist_view.js:61
 #: ../..//content/helpers/nsi_tablestatus_view.js:157
 msgid "S#"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:737
-#: ../..//content/controllers/select_table_controller.js:741
-#: ../..//content/controllers/select_table_controller.js:756
+#: ../..//content/controllers/select_table_controller.js:767
+#: ../..//content/controllers/select_table_controller.js:771
+#: ../..//content/controllers/select_table_controller.js:786
 msgid "Table [%S] is not available for merging. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:794
+#: ../..//content/controllers/select_table_controller.js:824
 msgid "Table [%S] is not available for unmerging. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:830
-#: ../..//content/controllers/select_table_controller.js:833
+#: ../..//content/controllers/select_table_controller.js:860
+#: ../..//content/controllers/select_table_controller.js:863
 msgid "Select Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:856
+#: ../..//content/controllers/select_table_controller.js:886
 msgid "Table [%S] is not available for marking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:860
+#: ../..//content/controllers/select_table_controller.js:890
 msgid "Table [%S] is not available fr marking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:866
+#: ../..//content/controllers/select_table_controller.js:896
 msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:909
+#: ../..//content/controllers/select_table_controller.js:939
 msgid "Table [%S] is not available for unmarking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:946
+#: ../..//content/controllers/select_table_controller.js:976
 msgid "You are now marking table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:989
+#: ../..//content/controllers/select_table_controller.js:1019
 msgid "You are now cleaning table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1078
-#: ../..//content/controllers/select_table_controller.js:1082
+#: ../..//content/controllers/select_table_controller.js:1108
+#: ../..//content/controllers/select_table_controller.js:1112
 msgid "Table [%S] is not available for transfer. Status [%S], Active [%S]"
 msgstr ""
 
