@@ -222,7 +222,6 @@
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (promotions_status) promotions_status.promotions_tree.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal')
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
-            if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanelContainer) fnPanelContainer.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (toolbar) {
                 if (showToolbar) {
