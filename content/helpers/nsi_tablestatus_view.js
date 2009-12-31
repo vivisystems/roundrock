@@ -185,7 +185,7 @@
             btn.check_no = tableSettings.DisplayCheckNo ? check_no : '';
             btn.num_subtotal = tableSettings.DisplayTotal ? subtotal : 0;
             // format display precision
-            btn.subtotal = tableSettings.DisplayTotal ? ((btn.num_subtotal>0) ? (_("T#")+GeckoJS.NumberHelper.format(btn.num_subtotal, options)) : '') : '';
+            btn.subtotal = (tableSettings.DisplayTotal && checks > 0)? (_("T#")+GeckoJS.NumberHelper.format(btn.num_subtotal, options)) : '';
             btn.capacity = tableSettings.DisplayCapacity ? capacity : '';
             btn.clerk = tableSettings.DisplayClerk ? clerk : '';
 
