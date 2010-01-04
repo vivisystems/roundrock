@@ -1121,8 +1121,6 @@
                 return ;
             }
 
-       //     var list = [{barcode:'BA12^^^34'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
-
             var object = this.checkBarcodeType3OF9(this.tabList);
             
             this.legalList = object.legalList;
@@ -1135,23 +1133,11 @@
 
 
             if(!object.islegal){
-      //          var alert = this.alertIllegalBarcodeProduct(object.illegalList);
 
-      //          var action = this.checkSave('barcode',_("find unvalidated barcode")+"\n" +alert +"\n"+ _("continue print ?"));
                  this.alertErrorpanel(object.illegalList);
-       /*              switch( action )
-                     {
-                         case 0:
-                                 this.selectTemplate();
-                                 return;
 
-                         case 1:
-                                 return;
-
-                     }
-*/
             }else{ this.selectTemplate(); }
-      //      
+            
         },
 
         alertErrorpanel: function(list){
@@ -1172,50 +1158,7 @@
              document.getElementById('error_panel').hidePopup();
              this.selectTemplate();
         },
-        
-        testing: function(){
-
-
-           var levelArray =['price_enable1','price_enable2','price_enable3','price_enable4','price_enable5','price_enable6','price_enable7','price_enable8','price_enable9',];
-
-           var a = {};
-
-           a[levelArray[0]] = "test";
-
-           var b = true;
-
-           var c = true;
-
-           var d = c&&b;
-
-           var x = 0;
-
-           /*
-            var list = [{barcode:'BA12^^^34'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
-           
-            var object = this.checkBarcodeType3OF9(list);
-
-            var alert = this.alertIllegalBarcodeProduct(object.illegalList);
-
-            var action = this.checkSave('barcode',_("find unvalidated barcode")+"\n" +alert +"\n"+ _("continue print ?"));
-
-                 switch( action )
-                 {
-                     case 0:
-                             window.alert('do print legal');
-                             break;
-
-                     case 1:
-                             
-                             break;
-                  
-                 }
-*/
-        //    this.alertIllegalBarcodeProduct(object.illegalList);
-       //     this.alertIllegalBarcodeProduct(object.legalList);
-
-         //  try{ alert(this.Barcode.getEAN13CheckDigit('123456789123'));}catch(e){alert(e);}
-        },
+               
 
         selectTemplate: function(){
             
