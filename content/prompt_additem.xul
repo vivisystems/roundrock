@@ -48,7 +48,7 @@
                         <row id="row0">
                             <vbox flex="1">
                                 <label id="title0" value="" control="input0"/>
-                                <textbox id="input0" flex="1" value="" oninput="validateInput()" onfocus="select()"/>
+                                <textbox id="input0" flex="1" value="" onchange="validateInput()" oninput="validateInput()" onfocus="select()"/>
                             </vbox>
                         </row>
                         <row id="row1">
@@ -59,6 +59,13 @@
                         </row>
                         <row id="radiorow">
                             <radiogroup id="radiogroup" orient="horizontal" flex="1"/>
+                        </row>
+                        <row id ="priceLevel">
+                            <vbox id ="priceLevel" flex="1" >
+                            <label value="Price Level"/>
+                                    <menulist id="priceList" class="pricelevel"  form="setProductForm" name="selectedPrice" label = "Price Level" onfocus="select()" >
+                                    </menulist>
+                           </vbox>
                         </row>
                     </rows>
                 </grid>

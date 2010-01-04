@@ -113,11 +113,11 @@
                                                 <row>
                                                     <vbox>
                                                         <label value="&label_printing.procurement.startdate;"/>
-                                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                                        <vividatetimepicker id="start_date" value="" type="popup" mode="date"/>
                                                     </vbox>
                                                     <vbox>
                                                         <label value="&label_printing.procurement.enddate;"/>
-                                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                                        <vividatetimepicker id="end_date" value="" type="popup" mode="date"/>
                                                     </vbox>
                                                 </row>
                                             </rows>
@@ -132,7 +132,7 @@
                                               onselect="$do('selectCommitment', null, 'Tab');"/>
                                     </vbox>                                   
                                 </vbox>
-                                <hbox align="right"> <button  class="ExeBtn"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('searchCommitments', null, 'Tab');"/></hbox>
+                                <hbox align="right"> <button  class="button-fixed"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('searchCommitments', null, 'Tab');"/></hbox>
                             </tabpanel>
 
                             <tabpanel orient="vertical">
@@ -215,7 +215,7 @@
                 <hbox flex="1">
                     <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <vivibutton id="print"   disabled="false" class="PrintBtn" oncommand="$do('printlabel', null, 'Tab');" />
-                        <vivibutton hidden="true" id="test"   disabled="false" label='test' oncommand="$do('testing', null, 'Tab');" /> <!--&plus.button.action.modify;-->
+                        <vivibutton  id="test" hidden="true"  disabled="false" label='test' oncommand="$do('testing', null, 'Tab');" /> <!--&plus.button.action.modify;-->
                         <vivibutton hidden="true" id="tpl UI"   disabled="false" label='tpl UI' oncommand="$do('checkBarcodeDialog', null, 'Tab');" /> <!--&plus.button.action.modify;-->
                         <space flex = "1"/>
                         <button id="modify_product" label="&lable_printing.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyCount', null, 'Tab');" />
