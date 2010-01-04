@@ -1,0 +1,100 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Image Manager
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-content-image-list {
+    margin: 4px;
+}
+
+.custom-content-image-list vbox vivibutton {
+    margin: 0 4px;
+}
+
+.custom-content-thumbnail {
+    background: white;
+    border: 3px solid;
+    margin: 3px;
+    min-height: 98px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
+}
+
+.custom-content-thumbnail[selected=true],
+.custom-content-thumbnail[checked] {
+    border: 3px solid;
+    color: #372213;
+    -moz-border-top-colors: #ee9400 #ee9400 #ee9400;
+    -moz-border-right-colors: #ee9400 #ee9400 #ee9400;
+    -moz-border-bottom-colors: #ee9400 #ee9400 #ee9400;
+    -moz-border-left-colors: #ee9400 #ee9400 #ee9400;
+    -moz-appearance: none;
+}
+
+.custom-content-thumbnail[disabled=true] {
+    background: #e1dfdb;
+    border: none;
+    -moz-appearance: none;
+}
+
+.custom-content-thumbnail hbox {
+    -moz-box-orient: vertical;
+}
+
+.custom-content-thumbnail image {
+	height: 64px;
+	width: 64px;
+}
+
+.custom-content-image-info {
+    color: #736357;
+    font-size: 10pt;
+    font-weight: bold;
+    margin: 8px;
+}
+
+.custom-content-image-toolbar {
+    background: #e8d1b1;
+    margin: 0px 2px 6px 6px;
+    padding: 10px 5px;
+    -moz-border-radius: 8px;
+}
+
+.custom-content-image-toolbar button,
+.custom-content-image-toolbar vivibutton {
+    background-color: white ;
+    background-image: none;
+    border: 1px solid;
+    color: #4d4234;
+    font-size: 12pt;
+    margin: 4px 5px;
+    min-height: 45px;
+    padding: 0 8px;
+    -moz-border-top-colors: #918570;
+    -moz-border-left-colors: #918570;
+    -moz-border-right-colors: #918570;
+    -moz-border-bottom-colors: #918570;
+    -moz-appearance: none;
+    -moz-border-radius: 6px;
+}
+
+.custom-content-image-toolbar button:active,
+.custom-content-image-toolbar vivibutton:active {
+    border: 2px solid !important;
+    -moz-border-top-colors: gray black;
+    -moz-border-left-colors: gray black;
+    -moz-border-right-colors: gray #918570;
+    -moz-border-bottom-colors: gray #918570;
+}
+
+.custom-content-image-toolbar button[disabled=true],
+.custom-content-image-toolbar vivibutton[disabled=true] {
+    background-color: #fff6e8 ;
+    border-width: 0px !important
+}
+

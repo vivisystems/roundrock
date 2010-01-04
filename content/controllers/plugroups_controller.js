@@ -444,6 +444,7 @@
                 routingCheckbox.setAttribute('disabled', false);
                 nondiscountableCheckbox.setAttribute('disabled', false);
                 nonsurchargeableCheckbox.setAttribute('disabled', false);
+
                 tab1.removeAttribute('disabled');
                 tab2.removeAttribute('disabled');
             }

@@ -2004,7 +2004,7 @@
 
             var itemTrans = curTransaction.getItemAt(index);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
-            
+
             if (itemTrans != null && itemTrans.type == 'item') {
 
                 if (itemTrans.hasDiscount) {
@@ -3966,7 +3966,7 @@
                         var condGroupCache = {};
                         var condGroupsById = GeckoJS.Session.get('condGroupsById');
                         var filteredCondiments = [];
-                        
+
                         selectedCondiments.forEach(function(cond) {
 
                             if (condGroupCache[cond.condiment_group_id] == null) {
@@ -4001,7 +4001,7 @@
 
                         selectedCondiments = filteredCondiments;
                     }
-                    
+
                     // expand condiments if collapsed
 
                     // get first condiment display item

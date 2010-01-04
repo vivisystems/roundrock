@@ -299,7 +299,7 @@
                 NotifyUtils.warn(_('You are not authorized to access the control panel'));
                 return;
             }
-        		
+
             var aURL = 'chrome://viviecr/content/controlPanel.xul';
             var aName = _('Control Panel');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
@@ -321,7 +321,6 @@
                 catch(err) {
                 }
             }
-
         },
 
         ChangeUserDialog: function () {

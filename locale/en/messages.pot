@@ -1847,16 +1847,17 @@ msgstr "Scale"
 # Rush Item
 ####################
 
+msgid "vivipos.fec.registry.function.programmable.rushItem.name"
+msgstr "Rush Item"
+
 msgid "vivipos.fec.registry.function.programmable.rushItem.desc"
 msgstr ""
 "This function is used to register rush of the current item in the "
-"shopping cart. First parameter is annotation code if you want memo(optional)"
+"shopping cart. First parameter is annotation code if you want memo (optional)"
 
 msgid "vivipos.fec.registry.function.programmable.rushItem.label"
 msgstr "Rush Item"
 
-msgid "vivipos.fec.registry.function.programmable.rushItem.name"
-msgstr "Rush Item"
 
 ########################################################################
 #
@@ -2436,6 +2437,12 @@ msgstr "NO"
 #
 ########################################################################
 
+msgid "vivipos.fec.registry.layouts.ecr.label"
+msgstr "Basic ECR Layout"
+
+msgid "vivipos.fec.registry.layouts.ecr.desc"
+msgstr "Basic ECR Layout that emulates traditional ECRs"
+
 msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
 
@@ -2906,6 +2913,9 @@ msgstr "Internal VFD Template"
 
 msgid "vivipos.fec.registry.templates.vfd-internal-non-en.label"
 msgstr "Internal VFD (non-en)"
+
+msgid "vivipos.fec.registry.templates.vfd-internal-24c.label"
+msgstr "Internal VFD Template 24c"
 
 msgid "vivipos.fec.registry.templates.receipt-japanese-ecr-42c.label"
 msgstr "Sample Japanese ECR"

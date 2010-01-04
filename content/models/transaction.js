@@ -2874,7 +2874,7 @@
 
                         if (taxChargeObj[item.tax_name].combine) {
                             item.tax_details = taxChargeObj[item.tax_name].combine;
-                            
+
                             // round individual tax components
                             var includedCTaxes = [];
                             var addonCTaxes = [];

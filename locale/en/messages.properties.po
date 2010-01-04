@@ -16,7 +16,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-01-04 15:15+0800\n"
+"POT-Creation-Date: 2010-01-04 16:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1777,15 +1777,15 @@ msgstr "Scale"
 # ###################
 # Rush Item
 # ###################
+msgid "vivipos.fec.registry.function.programmable.rushItem.name"
+msgstr "Rush Item"
+
 msgid "vivipos.fec.registry.function.programmable.rushItem.desc"
 msgstr ""
 "This function is used to register rush of the current item in the shopping "
-"cart. First parameter is annotation code if you want memo(optional)"
+"cart. First parameter is annotation code if you want memo (optional)"
 
 msgid "vivipos.fec.registry.function.programmable.rushItem.label"
-msgstr "Rush Item"
-
-msgid "vivipos.fec.registry.function.programmable.rushItem.name"
 msgstr "Rush Item"
 
 # #######################################################################
@@ -2361,6 +2361,12 @@ msgstr "NO"
 # Layouts
 #
 # #######################################################################
+msgid "vivipos.fec.registry.layouts.ecr.label"
+msgstr "Basic ECR Layout"
+
+msgid "vivipos.fec.registry.layouts.ecr.desc"
+msgstr "Basic ECR Layout that emulates traditional ECRs"
+
 msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
 
@@ -2839,6 +2845,9 @@ msgstr "Internal VFD Template"
 msgid "vivipos.fec.registry.templates.vfd-internal-non-en.label"
 msgstr "Internal VFD (non-en)"
 
+msgid "vivipos.fec.registry.templates.vfd-internal-24c.label"
+msgstr "Internal VFD Template 24c"
+
 msgid "vivipos.fec.registry.templates.receipt-japanese-ecr-42c.label"
 msgstr "Sample Japanese ECR"
 
@@ -3018,7 +3027,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/overlay.js:23
-#: ../..//content/controllers/main_controller.js:1418
+#: ../..//content/controllers/main_controller.js:1417
 #: ../..//content/controllers/setup_wizard_controller.js:681
 msgid "VIVIPOS Setup"
 msgstr ""
@@ -3177,8 +3186,8 @@ msgstr ""
 #: ../..//content/prompt_select_user.js:42
 #: ../..//content/controllers/changeuser_controller.js:81
 #: ../..//content/controllers/changeuser_controller.js:93
-#: ../..//content/controllers/main_controller.js:900
-#: ../..//content/controllers/main_controller.js:979
+#: ../..//content/controllers/main_controller.js:899
+#: ../..//content/controllers/main_controller.js:978
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr ""
 
@@ -3210,7 +3219,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/reportPanel.js:74
-#: ../..//content/controllers/main_controller.js:1618
+#: ../..//content/controllers/main_controller.js:1617
 msgid "custom"
 msgstr ""
 
@@ -3676,7 +3685,7 @@ msgid "The item [%S] (%S) is sold out"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:763
-#: ../..//content/controllers/main_controller.js:575
+#: ../..//content/controllers/main_controller.js:574
 msgid "Price must be given to register sale of department [%S]"
 msgstr ""
 
@@ -4188,8 +4197,8 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1961
 #: ../..//content/controllers/ledger_controller.js:314
 #: ../..//content/controllers/list_orders_controller.js:219
-#: ../..//content/controllers/main_controller.js:1204
-#: ../..//content/controllers/main_controller.js:1543
+#: ../..//content/controllers/main_controller.js:1203
+#: ../..//content/controllers/main_controller.js:1542
 #: ../..//content/controllers/print_controller.js:1272
 #: ../..//content/controllers/setup_wizard_controller.js:698
 #: ../..//content/controllers/shift_changes_controller.js:1626
@@ -4278,7 +4287,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3631
-#: ../..//content/controllers/main_controller.js:447
+#: ../..//content/controllers/main_controller.js:446
 msgid "Add Annotation"
 msgstr ""
 
@@ -5747,12 +5756,12 @@ msgid "Please confirm to restart the terminal"
 msgstr ""
 
 #: ../..//content/controllers/irc_controller.js:312
-#: ../..//content/controllers/main_controller.js:1376
+#: ../..//content/controllers/main_controller.js:1375
 msgid "Reboot"
 msgstr ""
 
 #: ../..//content/controllers/irc_controller.js:312
-#: ../..//content/controllers/main_controller.js:1376
+#: ../..//content/controllers/main_controller.js:1375
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
@@ -5850,8 +5859,8 @@ msgstr ""
 #: ../..//content/controllers/journal_controller.js:241
 #: ../..//content/controllers/ledger_controller.js:315
 #: ../..//content/controllers/list_orders_controller.js:220
-#: ../..//content/controllers/main_controller.js:1206
-#: ../..//content/controllers/main_controller.js:1544
+#: ../..//content/controllers/main_controller.js:1205
+#: ../..//content/controllers/main_controller.js:1543
 #: ../..//content/controllers/setup_wizard_controller.js:699
 #: ../..//content/controllers/shift_changes_controller.js:41
 #: ../..//content/controllers/shift_changes_controller.js:1627
@@ -6270,10 +6279,10 @@ msgid "Package Builder"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:293
-#: ../..//content/controllers/main_controller.js:864
-#: ../..//content/controllers/main_controller.js:910
-#: ../..//content/controllers/main_controller.js:990
-#: ../..//content/controllers/main_controller.js:1152
+#: ../..//content/controllers/main_controller.js:863
+#: ../..//content/controllers/main_controller.js:909
+#: ../..//content/controllers/main_controller.js:989
+#: ../..//content/controllers/main_controller.js:1151
 #: ../..//content/controllers/training_mode_controller.js:105
 #: ../..//content/controllers/training_mode_controller.js:115
 #: ../..//content/controllers/training_mode_controller.js:125
@@ -6296,15 +6305,15 @@ msgstr ""
 msgid "Control Panel"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:329
+#: ../..//content/controllers/main_controller.js:328
 msgid "Change User"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:336
+#: ../..//content/controllers/main_controller.js:335
 msgid "Clock In/Out"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:355
+#: ../..//content/controllers/main_controller.js:354
 #: ../..//content/controllers/plus_controller.js:552
 #: ../..//content/controllers/plus_controller.js:1095
 #: ../..//content/controllers/plusearch_controller.js:240
@@ -6315,202 +6324,202 @@ msgstr ""
 msgid "Product Search"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:382
+#: ../..//content/controllers/main_controller.js:381
 #: ../..//content/controllers/print_controller.js:1244
 msgid "Printer Dashboard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:392
+#: ../..//content/controllers/main_controller.js:391
 msgid "No order to add/view annotations"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:472
+#: ../..//content/controllers/main_controller.js:471
 msgid "Annotate Order"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:487
+#: ../..//content/controllers/main_controller.js:486
 msgid "List Orders"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:496
+#: ../..//content/controllers/main_controller.js:495
 msgid "(view)search by table number"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:502
+#: ../..//content/controllers/main_controller.js:501
 msgid "(view)search by check number"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:509
+#: ../..//content/controllers/main_controller.js:508
 msgid "(view)search by order sequence"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:667
+#: ../..//content/controllers/main_controller.js:666
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1001]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:865
-#: ../..//content/controllers/main_controller.js:911
-#: ../..//content/controllers/main_controller.js:991
+#: ../..//content/controllers/main_controller.js:864
+#: ../..//content/controllers/main_controller.js:910
+#: ../..//content/controllers/main_controller.js:990
 msgid "To use this funciton, please leave training mode first"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:870
+#: ../..//content/controllers/main_controller.js:869
 msgid "Switch User"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:871
+#: ../..//content/controllers/main_controller.js:870
 msgid "Please enter password"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:892
-#: ../..//content/controllers/main_controller.js:972
+#: ../..//content/controllers/main_controller.js:891
+#: ../..//content/controllers/main_controller.js:971
 msgid " logged in"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:929
+#: ../..//content/controllers/main_controller.js:928
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1002]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:942
+#: ../..//content/controllers/main_controller.js:941
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1003]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:947
+#: ../..//content/controllers/main_controller.js:946
 msgid "User [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:983
+#: ../..//content/controllers/main_controller.js:982
 msgid "Please enter passcode first."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1019
-#: ../..//content/controllers/main_controller.js:1034
-#: ../..//content/controllers/main_controller.js:1048
-#: ../..//content/controllers/main_controller.js:1064
+#: ../..//content/controllers/main_controller.js:1018
+#: ../..//content/controllers/main_controller.js:1033
+#: ../..//content/controllers/main_controller.js:1047
+#: ../..//content/controllers/main_controller.js:1063
 msgid "Sign Off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1019
+#: ../..//content/controllers/main_controller.js:1018
 msgid "Discard items that have been registered?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1035
+#: ../..//content/controllers/main_controller.js:1034
 msgid "What do you want to do with the registered items?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1036
+#: ../..//content/controllers/main_controller.js:1035
 msgid "Queue"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1036
-#: ../..//content/controllers/main_controller.js:1066
+#: ../..//content/controllers/main_controller.js:1035
+#: ../..//content/controllers/main_controller.js:1065
 msgid "Discard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1048
+#: ../..//content/controllers/main_controller.js:1047
 msgid "You have one or more queued orders. Discard them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1065
+#: ../..//content/controllers/main_controller.js:1064
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1066
+#: ../..//content/controllers/main_controller.js:1065
 msgid "Keep"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1075
+#: ../..//content/controllers/main_controller.js:1074
 msgid "confirm sign-off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1075
+#: ../..//content/controllers/main_controller.js:1074
 msgid "Are you ready to sign off?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1152
+#: ../..//content/controllers/main_controller.js:1151
 msgid "This function is not available in training mode"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1157
-#: ../..//content/controllers/main_controller.js:1160
-#: ../..//content/controllers/main_controller.js:1222
+#: ../..//content/controllers/main_controller.js:1156
+#: ../..//content/controllers/main_controller.js:1159
+#: ../..//content/controllers/main_controller.js:1221
 msgid "Remove All Transaction Records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1158
+#: ../..//content/controllers/main_controller.js:1157
 msgid ""
 "This operation will remove all transaction records. Are you sure you want to "
 "proceed?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1161
+#: ../..//content/controllers/main_controller.js:1160
 msgid ""
 "Data will not be recoverable once removed. It is strongly recommended that "
 "the system be backed up before truncating transaction records. Proceed with "
 "data removal?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1163
+#: ../..//content/controllers/main_controller.js:1162
 msgid "Removing all transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1205
+#: ../..//content/controllers/main_controller.js:1204
 msgid ""
 "An error was encountered while attempting to remove all transaction records "
 "[message #1011]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1223
+#: ../..//content/controllers/main_controller.js:1222
 msgid "Removal completed. Application will now restart"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1242
+#: ../..//content/controllers/main_controller.js:1241
 msgid "Removing expired transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1259
+#: ../..//content/controllers/main_controller.js:1258
 msgid ""
 "An error was encountered while expiring backup sales activity logs (error "
 "code %S) [message #1004]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1268
+#: ../..//content/controllers/main_controller.js:1267
 msgid ""
 "An error was encountered while expiring sales activity logs (error code %S) "
 "[message #1005]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1279
+#: ../..//content/controllers/main_controller.js:1278
 msgid ""
 "An error was encountered while expiring backup employee attendance records "
 "(error code %S) [message #1006]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1288
+#: ../..//content/controllers/main_controller.js:1287
 msgid ""
 "An error was encountered while expiring employee attendance records (error "
 "code %S) [message #1007]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1299
+#: ../..//content/controllers/main_controller.js:1298
 msgid ""
 "An error was encountered while expiring order queues (error code %S) "
 "[message #1008]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1348
+#: ../..//content/controllers/main_controller.js:1347
 msgid ""
 "An error was encountered while retrieving stock adjustment records (error "
 "code %S) [message #1010]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1361
+#: ../..//content/controllers/main_controller.js:1360
 #: ../..//content/controllers/stock_records_controller.js:517
 #: ../..//content/controllers/stock_records_controller.js:575
 #: ../..//content/controllers/stock_records_controller.js:591
@@ -6518,31 +6527,31 @@ msgstr ""
 msgid "Stock Adjustment"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1372
+#: ../..//content/controllers/main_controller.js:1371
 msgid "Adjust Stock"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1384
+#: ../..//content/controllers/main_controller.js:1383
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1384
+#: ../..//content/controllers/main_controller.js:1383
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1564
+#: ../..//content/controllers/main_controller.js:1563
 msgid "Function Customizer"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1626
+#: ../..//content/controllers/main_controller.js:1625
 msgid "Report [%S] does not exist"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1636
+#: ../..//content/controllers/main_controller.js:1635
 msgid "You are not authorized to access the [%S] report"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1708
+#: ../..//content/controllers/main_controller.js:1707
 msgid "Select User"
 msgstr ""
 
