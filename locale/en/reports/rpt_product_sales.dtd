@@ -28,3 +28,11 @@
 <!ENTITY productsales.hide "Hide">
 <!ENTITY productsales.no_sales_product "Products with No Sales:">
 <!ENTITY productsales.breakout_setmenu "Break out Set Menu">
+<!ENTITY productsales.setCategory.title "Select Departments and Product Groups">
+<!ENTITY productsales.setCategory.department.title "Departments">
+<!ENTITY productsales.setCategory.group.title "Product Groups">
+<!ENTITY productsales.setCategory.department.button.selectAll "Select All">
+<!ENTITY productsales.setCategory.department.button.deselectAll "Deselect All">
+<!ENTITY productsales.setCategory.group.button.selectAll "Select All">
+<!ENTITY productsales.setCategory.group.button.deselectAll "Deselect All">
+<!ENTITY productsales.set "Select Departments/Product Groups">

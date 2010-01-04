@@ -73,6 +73,7 @@
                                         <menulist id="department" flex="1">
                                             <menupopup id="department_menupopup"  flex="1">
                                                 <menuitem selected="true" label="[&productsales.all;]" value="all"/>
+                                                <menuitem label="&productsales.set;" value="select" oncommand = "$do('linkToSetDepartmentGroup', null, 'RptProductSales');"/>
                                             </menupopup>
                                         </menulist>
                                     </vbox>
@@ -143,7 +144,7 @@
                 </hbox>
             </hbox>
             
-			<hbox flex="1">
+            <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" id="previewBox" flex="1">
 						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template2.html" flex="1"/>
