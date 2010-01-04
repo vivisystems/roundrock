@@ -2,7 +2,7 @@
 total = 0;
 linkedItems = [];
 for (id in order.items) {
-    if (order.items[id].linked && order.items[id].current_qty > 0) {
+    if (order.items[id].linked) {
         var taglist = '';
         if (order.items[id].tags != null) {
             taglist = order.items[id].tags.join(',');
@@ -13,11 +13,11 @@ for (id in order.items) {
         }
     }
 }
-counter = 1;
+counter = '01';
+total = GeckoJS.String.padLeft(total, 2, '0');
 {/eval}
 {for item in linkedItems}
 {if counter == 1}
-[&INIT]
 [&STX]KI70
 [&STX]c0000
 [&STX]f320
@@ -49,9 +49,9 @@ y -= lineHeight;
 Q${GeckoJS.String.padLeft(item.current_qty, 4, '0')}
 191100200010010${counter}
 +01
-191100200010016/${total}
+191100200010022/${total}
 E
 {eval}
-counter += item.current_qty;
+counter = GeckoJS.String.padLeft(parseInt(counter) + item.current_qty, 2, '0');
 {/eval}
 {/for}
