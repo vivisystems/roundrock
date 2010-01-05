@@ -9,11 +9,19 @@ class OrderPayment extends AppModel {
     function saveOrderPayments($payments) {
 
         $result = true;
+        
         try {
 
             $this->begin();
 
             foreach ($payments as $payment) {
+
+                // check if $payment is empty
+                // if viviecr send empty object to web services, XXXX
+                if (empty($payment)) {
+                    CakeLog::write('warning', 'saveOrderPayments: Empty Order Payment');
+                    continue;
+                }
 
                 $this->id = $payment['id'];
                 $r = $this->save($payment);

@@ -16,6 +16,14 @@ class OrderPromotion extends AppModel {
             $this->begin();
 
             foreach ($promotions  as $promotion) {
+
+                // check if $promotion is empty
+                // if viviecr send empty object to web services, XXXX
+                if (empty($promotion)) {
+                    CakeLog::write('warning', 'saveOrderPromotions: Empty Order Promotion');
+                    continue;
+                }
+
                 $this->id = $promotion['id'];
                 $r = $this->save($promotion);
 

@@ -18,6 +18,13 @@ class OrderItem extends AppModel {
 
             foreach ($items as $item) {
 
+                // check if $item is empty
+                // if viviecr send empty object to web services, XXXX
+                if (empty($item)) {
+                    CakeLog::write('warning', 'saveOrderItems: Empty Order Item');
+                    continue;
+                }
+
                 $this->id = $item['id'];
                 $r = $this->save($item);
 
