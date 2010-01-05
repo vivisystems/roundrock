@@ -16,6 +16,14 @@ class OrderAddition extends AppModel {
             $this->begin();
 
             foreach ($additions as $addition) {
+
+                // check if $addition is empty
+                // if viviecr send empty object to web services, XXXX
+                if (empty($addition)) {
+                    CakeLog::write('warning', 'saveOrderAdditions: Empty Order Addition');
+                    continue;
+                }
+
                 $this->id = $addition['id'];
                 $r = $this->save($addition);
 

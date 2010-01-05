@@ -11,11 +11,19 @@ class OrderItemCondiment extends AppModel {
     function saveOrderItemCondiments($condiments) {
         
         $result = true;
+        
         try {
 
             $this->begin();
 
             foreach ($condiments as $condiment) {
+
+                // check if $condiment is empty
+                // if viviecr send empty object to web services, XXXX
+                if (empty($condiment)) {
+                    CakeLog::write('warning', 'saveOrderItemCondiments: Empty Order ItemCondiment');
+                    continue;
+                }
 
                 $this->id = $condiment['id'];
                 $r = $this->save($condiment);
