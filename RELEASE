@@ -67,3 +67,15 @@ Bug #287:
 
 Bug #288:
     Parsing of split payment amount fails because of formatting
+
+Bug #294:
+    When the Shift Change report is invoked at the end of a shift or sale period, the search filters should be collapsed to allow better viewing
+
+Bug #295:
+    When the Sales Summary report is invoked at the end of a shift or sale period, the search filters should be collapsed to allow better viewing
+
+Bug #303:
+    Use a more stable and high performance public server for resolving external IP address
+
+Bug #304:
+    Orientation configuration of function panel is over-ridden by Layout's "Place Register Screen on the Left" setting

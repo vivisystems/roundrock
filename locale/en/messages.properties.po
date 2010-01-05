@@ -4,9 +4,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: ../..//content/controllers/label_printing_controller.js:86
-#: ../..//content/controllers/label_printing_controller.js:179
-#: ../..//content/controllers/label_printing_controller.js:570
+#: ../..//content/controllers/label_printing_controller.js:103
+#: ../..//content/controllers/label_printing_controller.js:220
+#: ../..//content/controllers/label_printing_controller.js:622
 #, fuzzy
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-01-04 16:54+0800\n"
+"POT-Creation-Date: 2010-01-04 17:18+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3356,7 +3356,7 @@ msgstr ""
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:136
 #: ../..//content/controllers/hotkey_prefs_controller.js:500
 #: ../..//content/controllers/jobs_controller.js:227
-#: ../..//content/controllers/label_printing_controller.js:826
+#: ../..//content/controllers/label_printing_controller.js:878
 #: ../..//content/controllers/ledger_entry_types_controller.js:271
 #: ../..//content/controllers/localekeyboard_controller.js:73
 #: ../..//content/controllers/nonplu_setting_controller.js:217
@@ -3369,6 +3369,7 @@ msgstr ""
 #: ../..//content/controllers/sync_settings_controller.js:191
 #: ../..//content/controllers/taxes_controller.js:88
 #: ../..//content/controllers/users_controller.js:471
+#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:170
 msgid "Exit"
 msgstr ""
 
@@ -3388,7 +3389,7 @@ msgstr ""
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:138
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
 #: ../..//content/controllers/jobs_controller.js:229
-#: ../..//content/controllers/label_printing_controller.js:827
+#: ../..//content/controllers/label_printing_controller.js:879
 #: ../..//content/controllers/ledger_entry_types_controller.js:273
 #: ../..//content/controllers/localekeyboard_controller.js:75
 #: ../..//content/controllers/localization_controller.js:328
@@ -3402,6 +3403,8 @@ msgstr ""
 #: ../..//content/controllers/sync_settings_controller.js:193
 #: ../..//content/controllers/taxes_controller.js:90
 #: ../..//content/controllers/users_controller.js:473
+#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:38
+#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:171
 msgid "Save"
 msgstr ""
 
@@ -3423,7 +3426,7 @@ msgstr ""
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
 #: ../..//content/controllers/jobs_controller.js:229
 #: ../..//content/controllers/jobs_controller.js:245
-#: ../..//content/controllers/label_printing_controller.js:827
+#: ../..//content/controllers/label_printing_controller.js:879
 #: ../..//content/controllers/ledger_entry_types_controller.js:252
 #: ../..//content/controllers/ledger_entry_types_controller.js:273
 #: ../..//content/controllers/localekeyboard_controller.js:75
@@ -3444,6 +3447,7 @@ msgstr ""
 #: ../..//content/controllers/taxes_controller.js:106
 #: ../..//content/controllers/users_controller.js:452
 #: ../..//content/controllers/users_controller.js:473
+#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:171
 msgid "Discard Changes"
 msgstr ""
 
@@ -5635,8 +5639,8 @@ msgstr ""
 #: ../..//content/controllers/import_export_controller.js:617
 #: ../..//content/controllers/import_export_controller.js:759
 #: ../..//content/controllers/import_export_controller.js:1819
-#: ../..//content/controllers/label_printing_controller.js:839
-#: ../..//content/controllers/label_printing_controller.js:851
+#: ../..//content/controllers/label_printing_controller.js:891
+#: ../..//content/controllers/label_printing_controller.js:903
 msgid "Yes"
 msgstr ""
 
@@ -5872,113 +5876,113 @@ msgid ""
 "technical support immediately."
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:87
+#: ../..//content/controllers/label_printing_controller.js:104
 msgid "How many ...?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:87
-#: ../..//content/controllers/label_printing_controller.js:180
+#: ../..//content/controllers/label_printing_controller.js:104
+#: ../..//content/controllers/label_printing_controller.js:221
 msgid "Count"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:180
+#: ../..//content/controllers/label_printing_controller.js:221
 msgid "How many....?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:490
-#: ../..//content/controllers/label_printing_controller.js:706
-#: ../..//content/controllers/label_printing_controller.js:755
+#: ../..//content/controllers/label_printing_controller.js:532
+#: ../..//content/controllers/label_printing_controller.js:758
+#: ../..//content/controllers/label_printing_controller.js:807
 msgid "Price Level"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:557
+#: ../..//content/controllers/label_printing_controller.js:599
 msgid "Save File"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:557
-#: ../..//content/controllers/label_printing_controller.js:1068
+#: ../..//content/controllers/label_printing_controller.js:599
+#: ../..//content/controllers/label_printing_controller.js:1120
 msgid "The List is empty"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:571
+#: ../..//content/controllers/label_printing_controller.js:623
 msgid "Save List"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:571
+#: ../..//content/controllers/label_printing_controller.js:623
 msgid "FileName"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:602
+#: ../..//content/controllers/label_printing_controller.js:654
 msgid "New file"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:602
+#: ../..//content/controllers/label_printing_controller.js:654
 #: ../..//content/reports/controllers/rpt_your_order_controller.js:477
 msgid "has been generated"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:612
+#: ../..//content/controllers/label_printing_controller.js:664
 msgid "The file"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:612
+#: ../..//content/controllers/label_printing_controller.js:664
 msgid "has been replaced"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:625
+#: ../..//content/controllers/label_printing_controller.js:677
 msgid "Save list before loading?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:774
+#: ../..//content/controllers/label_printing_controller.js:826
 msgid "Replaces products"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:775
+#: ../..//content/controllers/label_printing_controller.js:827
 msgid "have been replaced"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:838
+#: ../..//content/controllers/label_printing_controller.js:890
 msgid "Replace"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:839
-#: ../..//content/controllers/label_printing_controller.js:851
+#: ../..//content/controllers/label_printing_controller.js:891
+#: ../..//content/controllers/label_printing_controller.js:903
 msgid "No"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:850
+#: ../..//content/controllers/label_printing_controller.js:902
 msgid "Barcode Warning"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:887
+#: ../..//content/controllers/label_printing_controller.js:939
 #: ../..//content/controllers/select_template_controller.js:28
 msgid "Select Barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1068
-#: ../..//content/controllers/label_printing_controller.js:1080
+#: ../..//content/controllers/label_printing_controller.js:1120
+#: ../..//content/controllers/label_printing_controller.js:1132
 msgid "Print label"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1080
+#: ../..//content/controllers/label_printing_controller.js:1132
 msgid "unvalidated barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1088
-#: ../..//content/controllers/label_printing_controller.js:1133
+#: ../..//content/controllers/label_printing_controller.js:1140
+#: ../..//content/controllers/label_printing_controller.js:1200
 msgid "find unvalidated barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1088
-#: ../..//content/controllers/label_printing_controller.js:1133
+#: ../..//content/controllers/label_printing_controller.js:1140
+#: ../..//content/controllers/label_printing_controller.js:1200
 msgid "continue print ?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1162
-msgid "select_rate"
+#: ../..//content/controllers/label_printing_controller.js:1229
+msgid "select_template"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1187
+#: ../..//content/controllers/label_printing_controller.js:1309
 msgid "Save list before existing?"
 msgstr ""
 
@@ -8965,10 +8969,15 @@ msgstr ""
 msgid "The thumb drive does not have enough free space!"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_product_sales_controller.js:151
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:157
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:218
 #: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:124
 #: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:125
 msgid "Obsolete"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:496
+msgid "select_rate"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_products_controller.js:95
@@ -9012,6 +9021,14 @@ msgstr ""
 
 #: ../..//content/reports/controllers/rpt_sales_summary_controller.js:885
 msgid "(rpt)(based on %S)"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:38
+msgid "save successful"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:170
+msgid "The Setting is modified, save ?"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_your_order_controller.js:419
@@ -9508,10 +9525,15 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:33
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:53
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:32
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:72
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:25
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:36
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:54
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:65
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:18
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:26
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:38
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:46
 #: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary.tpl:30
 #: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary_rcp_58mm.tpl:19
 #: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary_rcp_58mm.tpl:38
@@ -9778,10 +9800,15 @@ msgstr ""
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_80mm.tpl:33
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_80mm.tpl:52
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:33
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:73
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:27
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:38
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:56
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:67
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:19
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:27
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:39
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:47
 msgid "(rpt)Net Sales"
 msgstr ""
 
@@ -9862,8 +9889,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:73
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:49
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:50
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:90
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:31
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:60
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:22
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:42
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return.tpl:66
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return_rcp_58mm.tpl:47
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return_rcp_80mm.tpl:34
@@ -9918,8 +9948,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:78
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:52
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:51
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:91
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:33
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:62
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:24
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:44
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return.tpl:67
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return_rcp_58mm.tpl:49
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return_rcp_80mm.tpl:36
@@ -10398,8 +10431,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:25
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:19
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:28
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:68
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:17
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:46
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:14
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:34
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return.tpl:28
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return_rcp_80mm.tpl:13
@@ -10418,8 +10454,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:27
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:20
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:29
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:69
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:19
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:48
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:15
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:35
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return.tpl:29
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return_rcp_58mm.tpl:18
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return_rcp_80mm.tpl:14
@@ -10702,16 +10741,24 @@ msgid "(rpt)Groupable Payment Count"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:30
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:70
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:21
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:50
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:16
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:36
 msgid "(rpt)Average Net Price"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:31
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:71
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:23
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:34
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:52
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:63
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:17
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:25
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:37
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:45
 msgid "(rpt)Quantities Sold"
 msgstr ""
 

@@ -119,7 +119,7 @@
                     <!-- General Preferences -->
                         <tabpanel id="vivifuncpanelecr_prefs_general_panel" flex="1" orient="horizontal" allowevents="true">
                             <vbox flex="1">
-                            <grid flex="1" class="custom-content-data-form">
+                            <grid flex="0" class="custom-content-data-form">
                                 <columns>
                                     <column flex="0"/>
                                     <column flex="1"/>
@@ -144,7 +144,7 @@
                                  </rows>
                             </grid> 
                             
-                            <grid flex="1" class="data-form-2">
+                            <grid flex="0" class="data-form-2">
                                 <columns>
                                     <column flex="1"/>
                                     <column flex="1"/>
@@ -181,7 +181,7 @@
                                  </rows>
                             </grid>
                             
-                            <hbox flex="1" class="content-formbox">
+                            <hbox flex="0" class="content-formbox">
                                 <vbox pack="center">
                                     <label value="&vivifuncpanelecr.prefs.tabpanel.general.orientation.label;"
                                            control="vivifuncpanelecr_prefs_orientation"/>
@@ -189,8 +189,8 @@
                                 <menulist id="vivifuncpanelecr_prefs_orientation" rows="1" flex="1"
                                           oncommand="$do('setOrientation', this.value, 'vivifuncpanelecr_prefs')">
                                     <menupopup>
-                                        <menuitem label="normal" value="normal"/>
-                                        <menuitem label="reverse" value="reverse"/>
+                                        <menuitem value="normal" label="&vivifuncpanelecr.prefs.tabpanel.general.orientation.normal.label;"/>
+                                        <menuitem value="reverse" label="&vivifuncpanelecr.prefs.tabpanel.general.orientation.reverse.label;"/>
                                     </menupopup>
                                 </menulist>
                             </hbox>

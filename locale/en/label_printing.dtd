@@ -23,8 +23,8 @@
 <!ENTITY label_printing.tab.procurementMode "Procurement">
 <!ENTITY label_printing.tab.searchMode "Search">
 
-<!ENTITY label_printing.procurement.startdate "Start Data">
-<!ENTITY label_printing.procurement.enddate "End Data">
+<!ENTITY label_printing.procurement.startdate "Start Date">
+<!ENTITY label_printing.procurement.enddate "End Date">
 
 <!ENTITY lable_printing.button.action.execute "SEARCH">
 <!ENTITY lable_printing.button.action.save "Save">
