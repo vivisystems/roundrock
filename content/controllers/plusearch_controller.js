@@ -263,7 +263,7 @@
 
         // this function performs a search without populating product form
         searchPlu2: function(barcode) {
-            this.searchPlu(barcode, null, true);
+            this.searchPlu(barcode, null, true, true);
         }
         
     };
