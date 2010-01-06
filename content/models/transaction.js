@@ -214,7 +214,7 @@
                     let order_no = -1 ;
                     let check_no = -1 ;
 
-                    if (arKeys.length == 1) {
+                    if (arSeqs.length == 1) {
                         order_no = seq || -1 ;
                     }else {
                         order_no = parseInt(arSeqs[0]) || -1 ;
@@ -314,15 +314,35 @@
             // dump('length = '+self.data.seq.length+' \n');
             }
 
+            let requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo');
+            var seqKey = 'order_no';
+            if(requireCheckNo) seqKey +=',check_no';
+
             if (self.data.seq.length == 0 || self.data.seq == -1) {
                 // maybe from recovery
-                let order_no = SequenceModel.getSequence('order_no', false);
+                let seq = SequenceModel.getSequence(seqKey, false);
+                let arSeqs = String(seq).split(',');
+                let order_no = -1 ;
+                let check_no = -1 ;
+
+                if (arSeqs.length == 1) {
+                    order_no = seq || -1 ;
+                }else {
+                    order_no = parseInt(arSeqs[0]) || -1 ;
+                    check_no = parseInt(arSeqs[1]) || -1 ;
+                }
+
                 let seqData = self.buildOrderSequence(order_no);
                 self.data.seq_original = order_no;
                 self.data.seq_sp = seqData[0];
                 self.data.seq = seqData[1];
                 
                 if(!self.backgroundMode) GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
+
+                // update checkno
+                if (check_no != -1 ) {
+                    self.setCheckNo(check_no);
+                }
             }
 
             if (self.data.seq == '-1') {
@@ -522,7 +542,9 @@
                 price_modifier: priceModifier,
 
                 non_discountable: item.non_discountable,
-                non_surchargeable: item.non_surchargeable
+                non_surchargeable: item.non_surchargeable,
+
+                created: Math.round(new Date().getTime() / 1000 )
             };
 
             return item2;
@@ -676,40 +698,48 @@
                     level: (level == null) ? 1 : level
                 });
             }else if(type =='payment') {
-                var dispName;
-                var current_price = '';
-                var current_qty = '';
+                let current_price = '';
+                let current_qty = '';
 
+                if (item.is_groupable) {
+                    current_qty = item.current_qty + 'X';
+                }
                 switch (item.name.toUpperCase()) {
 
                     case 'CREDITCARD':
-                        dispName = item.memo1;
+                        dispName = item.memo1 || _('(cart)CREDITCARD');
                         break;
 
                     case 'CHECK':
-                        dispName = item.memo1;
+                        dispName = item.memo1 || _('(cart)CHECK');
                         break;
 
                     case 'COUPON':
-                        dispName = item.memo1;
+                        dispName = item.memo1 || _('(cart)COUPON');
+                        if (item.is_groupable) {
+                            dispName += ' ' + item.origin_amount;
+                        }
                         break;
 
                     case 'GIFTCARD':
-                        dispName = item.memo1;
+                        dispName = item.memo1 || _('(cart)GIFTCARD');
+                        if (item.is_groupable) {
+                            dispName += ' ' + item.origin_amount;
+                        }
                         break;
 
                     case 'CASH':
-                        if (item.memo1 != null && item.origin_amount != null) {
-                            dispName = item.memo1;
-                            current_qty = item.origin_amount + 'X';
-                            current_price = item.memo2;
+                        if (item.is_groupable || (item.memo2 != '' && item.memo2 != null)) {
+                            // groupable local cash
+                            dispName = item.memo1 + this.formatPrice(item.origin_amount);
                         }
-                        else
-                            dispName = _('CASH');
+                        else {
+                            dispName = _('(cart)CASH');
+                        }
                         break;
 
                     default:
-                        dispName = _(item.name.toUpperCase());
+                        dispName = item.memo1;
                         break;
 
                 }
@@ -755,6 +785,9 @@
                     }
                 }
             }
+
+            if (item.created) itemDisplay.created = item.created;
+            
             return itemDisplay;
         },
 
@@ -1408,6 +1441,9 @@
                         else if (displayItem.type == 'trans_surcharge') {
                             this.data.trans_surcharges[displayItem.index].hasMarker = false;
                         }
+                        else if (displayItem.type == 'payment') {
+                            this.data.trans_payments[displayItem.index].hasMarker = false;
+                        }
                         else if (displayItem.type == 'subtotal' ||
                             displayItem.type == 'total' ||
                             displayItem.type == 'tray') {
@@ -1918,6 +1954,12 @@
                 surItem.hasMarker  = true;
             }
 
+            // trans_payments
+            for(var payIndex in this.data.trans_payments ) {
+                var payItem = this.data.trans_payments[payIndex];
+                payItem.hasMarker  = true;
+            }
+            
             var itemDisplay = this.createDisplaySeq(index, markerItem, type);
 
             var lastIndex = this.data.display_sequences.length - 1;
@@ -2189,19 +2231,21 @@
         },
 
 
-        appendPayment: function(type, amount, origin_amount, memo1, memo2, isGroupable){
+        appendPayment: function(type, amount, origin_amount, memo1, memo2, qty, isGroupable){
 
             var prevRowCount = this.data.display_sequences.length;
-
+            
             var paymentId =  GeckoJS.String.uuid();
+            
             var paymentItem = {
                 id: paymentId,
                 name: type,
-                amount: this.getRoundedPrice(amount),
+                amount: this.getRoundedPrice((type == 'giftcard') ? amount : qty * amount),
                 origin_amount: origin_amount,
                 memo1: memo1,
                 memo2: memo2,
-                is_groupable: isGroupable
+                is_groupable: isGroupable,
+                current_qty: qty
             };
 
             var itemDisplay = this.createDisplaySeq(paymentId, paymentItem, 'payment');
@@ -2215,6 +2259,20 @@
 
             this.updateCartView(prevRowCount, currentRowCount, currentRowCount - 1);
 
+            this.calcTotal();
+
+            return paymentItem;
+        },
+
+        modifyPaymentQty: function(paymentDisplay, paymentItem, amount, qty) {
+            if (paymentItem.is_groupable);
+
+            paymentItem.amount += amount;
+            paymentItem.current_qty += qty;
+
+            newPaymentDisplay = this.createDisplaySeq(paymentItem.index, paymentItem, 'payment');
+            GREUtils.extend(paymentDisplay, newPaymentDisplay);
+            
             this.calcTotal();
 
             return paymentItem;
@@ -2268,6 +2326,9 @@
                 case 'mass_discount':
                     item = this.data.items[itemIndex];
                     break;
+
+                case 'payment':
+                    item = this.data.trans_payments[itemIndex];
 
             }
             return item;
@@ -2813,7 +2874,7 @@
 
                         if (taxChargeObj[item.tax_name].combine) {
                             item.tax_details = taxChargeObj[item.tax_name].combine;
-                            
+
                             // round individual tax components
                             var includedCTaxes = [];
                             var addonCTaxes = [];

@@ -314,7 +314,7 @@
             'order_payments.memo1',
             'sum( order_payments.change) as "change"',
             'sum( order_payments.amount) as "amount"',
-            'sum( ifnull(order_payments.origin_amount, 0) ) as "origin_amount"'
+            'sum( ifnull(((order_payments.order_items_count - 1) * order_payments.is_groupable + 1) * order_payments.origin_amount, 0)) as "origin_amount"',
             ];
 
             var conditions = "orders." + this._periodtype + ">='" + start +
@@ -351,7 +351,7 @@
             } );
             */
             var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
-
+            
             var paymentList = {};
             var giftcardExcess;
             var cashChange = 0;
@@ -360,7 +360,7 @@
             var Currencies = GeckoJS.Session.get('Currencies');
             var localCurrencySymbol = '';
             if (Currencies && Currencies.length > 0) {
-                localCurrencySymbol = Currencies[0].currency_symbol;
+                localCurrencySymbol = Currencies[0].currency || _('(rpt)cash');
             }
             records.forEach( function( record ) {
 
@@ -379,6 +379,7 @@
                 if (record.name == 'giftcard') {
                     // check if we need to update giftcard excess record
                     if (record.amount != record.origin_amount) {
+                        let origin_amount = record.origin_amount;
                         var excess = record.origin_amount - record.amount;
                         if (!giftcardExcess) {
                             giftcardExcess = {
@@ -401,19 +402,19 @@
                 summary.payment_total += record.amount;
 
                 if (record.name == 'cash') {
-                    if (record.memo1) {
-                        record.amount = record.origin_amount;
-                    }
-                    else {
+                    if (record.memo1 == '' || record.memo1 == localCurrencySymbol) {
                         record.memo1 = localCurrencySymbol;
                         cashRecord = record;
+                    }
+                    else {
+                        record.amount = record.origin_amount;
                     }
                 }
             });
 
             if (giftcardExcess && paymentList[ 'giftcard' ]) {
                 paymentList[ 'giftcard' ].detail.push(giftcardExcess);
-            /*
+                /*
                 paymentList[ 'giftcard' ].total += giftcardExcess.amount;
                 summary.payment_total += giftcardExcess.amount;
                 */
@@ -466,26 +467,77 @@
             return data;
         },
 
+        _groupablePayments: function() {
+            // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
+
+            var fields = [
+            'order_payments.name',
+            'order_payments.memo1',
+            'order_payments.origin_amount as "amount"',
+            'sum( order_payments.order_items_count) as "count"',
+            ];
+
+            var conditions = "orders." + this._periodtype + ">='" + start +
+            "' AND orders." + this._periodtype + "<='" + end +
+            "' AND order_payments.is_groupable = 1" +
+            " AND orders.status='1'";
+
+            var groupby, orderby;
+
+            if ( this._terminalNo.length > 0 ) {
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
+                groupby = 'order_payments.name, order_payments.memo1, order_payments.origin_amount';
+                orderby = 'order_payments.name, orders.terminal_no, order_payments.memo1, order_payments.origin_amount';
+            } else {
+                groupby = 'order_payments.name, order_payments.memo1, order_payments.origin_amount';
+                orderby = 'order_payments.name, order_payments.memo1, order_payments.origin_amount';
+            }
+
+            if ( this._shiftno.length > 0 )
+                conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
+
+            var orderPayment = new OrderPaymentModel();
+            var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+
+            var Currencies = GeckoJS.Session.get('Currencies');
+            var localCurrencySymbol = '';
+            if (Currencies && Currencies.length > 0) {
+                localCurrencySymbol = Currencies[0].currency || _('(rpt)cash');
+            }
+            records.forEach( function( record ) {
+
+                if (record.name == 'cash') {
+                    if (record.memo1 == '' || record.memo1 == localCurrencySymbol) {
+                        record.memo1 = localCurrencySymbol;
+                    }
+                }
+            });
+
+            return {records: records};
+        },
+
         _salesSummary: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
             let start = parseInt( this._start / 1000, 10 );
             let end = parseInt( this._end / 1000, 10 );
 
             var fields = [
-            'SUM("orders"."total") AS "Order.NetSales"',
-            'SUM( "orders"."item_subtotal" ) AS "Order.GrossSales"',
-            'AVG("orders"."total") AS "Order.AvgNetSales"',
-            'AVG("orders"."item_subtotal") AS "Order.AvgGrossSales"',
-            'SUM( "orders"."discount_subtotal" ) AS "Order.DiscountSubtotal"',
-            'SUM( "orders"."surcharge_subtotal" ) AS "Order.SurchargeSubtotal"',
-            'SUM( "orders"."tax_subtotal" ) AS "Order.TaxSubtotal"',
-            'COUNT("orders"."id") AS "Order.OrderNum"',
-            'SUM("orders"."no_of_customers") AS "Order.Guests"',
-            'SUM("orders"."qty_subtotal") AS "Order.QtySubtotal"',
-            'AVG("orders"."no_of_customers") AS "Order.AvgGuests"',
-            'AVG("orders"."qty_subtotal") AS "Order.AvgQtySubtotal"',
-            'SUM( "orders"."promotion_subtotal" ) AS "Order.PromotionSubtotal"',
-            'SUM( "orders"."revalue_subtotal" ) AS "Order.RevalueSubtotal"'
+                'SUM("orders"."total") AS "Order.NetSales"',
+                'SUM( "orders"."item_subtotal" ) AS "Order.GrossSales"',
+                'AVG("orders"."total") AS "Order.AvgNetSales"',
+                'AVG("orders"."item_subtotal") AS "Order.AvgGrossSales"',
+                'SUM( "orders"."discount_subtotal" ) AS "Order.DiscountSubtotal"',
+                'SUM( "orders"."surcharge_subtotal" ) AS "Order.SurchargeSubtotal"',
+                'SUM( "orders"."tax_subtotal" ) AS "Order.TaxSubtotal"',
+                'COUNT("orders"."id") AS "Order.OrderNum"',
+                'SUM("orders"."no_of_customers") AS "Order.Guests"',
+                'SUM("orders"."qty_subtotal") AS "Order.QtySubtotal"',
+                'AVG("orders"."no_of_customers") AS "Order.AvgGuests"',
+                'AVG("orders"."qty_subtotal") AS "Order.AvgQtySubtotal"',
+                'SUM( "orders"."promotion_subtotal" ) AS "Order.PromotionSubtotal"',
+                'SUM( "orders"."revalue_subtotal" ) AS "Order.RevalueSubtotal"'
             ];
 
             var conditions = "orders." + this._periodtype + ">='" + start +
@@ -838,6 +890,7 @@
             this._reportRecords.body.dept_sales = this._deptSalesBillboard( this._num_dept || 10 );
             this._reportRecords.body.prod_sales = this._prodSalesBillboard( this._num_product || 10 );
             this._reportRecords.body.payment_list = this._paymentList();
+            this._reportRecords.body.groupable_payments = this._groupablePayments();
             this._reportRecords.body.sales_summary = this._salesSummary();
             this._reportRecords.body.destination_summary = this._destinationSummary();
             this._reportRecords.body.tax_summary = this._taxSummary();

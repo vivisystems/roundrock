@@ -24,30 +24,137 @@ var options;
         // set ledger entry types
         var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
         var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+        var localCurrency;
+
+        let currencies = GeckoJS.Session.get('Currencies') || [];
+        if (currencies && currencies[0] && currencies[0].currency && currencies[0].currency.length > 0) {
+            localCurrency = currencies[0].currency;
+        }
         
         window.viewDetailHelper = new GeckoJS.NSITreeViewArray(shiftChangeDetails);
         window.viewDetailHelper.getCellValue= function(row, col) {
             
             var text;
-            if (col.id == 'type') {
-                text = _('(rpt)' + this.data[row].type);
-            }
-            else if (col.id == 'amount' || col.id == 'excess_amount' || col.id == 'change' || col.id == 'origin_amount') {
+            switch(col.id) {
 
-                var amt = this.data[row][col.id];
-                if (col.id != 'amount') {
-                    try {
+                case 'type':
+                    switch(this.data[row].type) {
+                        case 'giftcard':
+                        case 'coupon':
+                        case 'check':
+                        case 'creditcard':
+                        case 'cash':
+                            text = _('(rpt)' + this.data[row].type);
+                            break;
+
+                        default:
+                            text = this.data[row].type;
+                            break;
+                    }
+                    if (this.data[row].is_groupable) {
+                        text = '* ' + text;
+                    }
+                    break;
+
+                case 'name':
+                    switch(this.data[row].type) {
+                        case 'check':
+                        case 'creditcard':
+                            text = this.data[row].name;
+                            break;
+
+                        case 'cash':
+                        case 'coupon':
+                        case 'giftcard':
+                            if (this.data[row].is_groupable) {
+                                let amt = this.data[row].change;
+                                if (this.data[row].type == 'cash' && this.data[row].name != localCurrency && this.data[row].name != '') {
+                                    // foreign cash, don't format
+                                    text = this.data[row].name + ' ' + amt;
+                                }
+                                else {
+                                    text = GeckoJS.NumberHelper.round(amt, precision_prices, rounding_prices) || 0;
+                                    text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                                    text = this.data[row].name + ' ' + text;
+                                }
+                            }
+                            else {
+                                text = this.data[row].name;
+                            }
+                            break;
+                    }
+                    break;
+                    
+                case 'count':
+                    if (this.data[row].is_groupable) {
+                        text = 'X' + (0 - this.data[row].count);
+                    }
+                    else {
+                        text = this.data[row].count;
+                    }
+                    break;
+                    
+                case 'excess_amount':
+                    if (this.data[row].type == 'cash') {
+                        // this field actually stores origin amount of foreign currency, so don't display here
+                        text = '';
+                    }
+                    else {
+                        let amt = this.data[row][col.id];
+                        if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
+                            return '';
+                        }
+                        text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
+                        text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                    }
+                    break;
+
+                case 'origin_amount':
+                    if (this.data[row].type == 'cash' && this.data[row].excess_amount != null) {
+                        // origin amount of foreign currency actually comes from excess_amount
+                        text = this.data[row].excess_amount;
+                    }
+                    else {
+                        let amt = this.data[row][col.id];
+                        if (col.id != 'amount') {
+                            if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
+                                return '';
+                            }
+                        }
+                        text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
+                        text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                    }
+                    break;
+
+                case 'amount':
+                    let amt = this.data[row][col.id];
+                    if (col.id != 'amount') {
                         if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
                             return '';
                         }
                     }
-                    catch (e) {}
-                }
-                // text = this.data[row].amount;
-                text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
-                text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
-            } else {
-                text = this.data[row][col.id];
+                    text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
+                    text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                    break;
+
+                case 'change':
+                    if (this.data[row].is_groupable) {
+                        text = '';
+                    }
+                    else {
+                        let amt = this.data[row][col.id];
+                        if (col.id != 'amount') {
+                            if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
+                                return '';
+                            }
+                        }
+                        text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
+                        text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
+                    }
+                    break;
+
+                default:
+                    text = this.data[row][col.id];
             }
             return text;
         };

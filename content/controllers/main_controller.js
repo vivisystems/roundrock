@@ -6,6 +6,8 @@
 
         uses: ['Product'],
 
+        components: ['Tax'],
+
         screenwidth: 800,
         screenheight: 600,
         depPanelView: null,
@@ -297,7 +299,7 @@
                 NotifyUtils.warn(_('You are not authorized to access the control panel'));
                 return;
             }
-        		
+
             var aURL = 'chrome://viviecr/content/controlPanel.xul';
             var aName = _('Control Panel');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
@@ -319,7 +321,6 @@
                 catch(err) {
                 }
             }
-
         },
 
         ChangeUserDialog: function () {
@@ -399,9 +400,11 @@
 
                 var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
                 var annotationType;
+                var annotationText;
 
                 if (codeList.length == 1 && codeList[0] != null && codeList[0] != '') {
                     annotationType = annotationController.getAnnotationType(codeList[0]);
+                    annotationText = annotationController.getAnnotationText(codeList[0]);
                 }
             }
 
@@ -431,10 +434,12 @@
                 var inputObj = {
                     input0: text,
                     require0: false,
-                    multiline0: 4,
+                    multiline0: 2,
                     readonly0: readonly,
                     sequence: txn.data.seq,
-                    numpad: true
+                    numpad: true,
+                    type: annotationType,
+                    text: annotationText
                 };
                 
                 var data = [
@@ -690,6 +695,8 @@
 
                 var fnPanel = document.getElementById('functionPanel');
                 if (fnPanel) fnPanel.home();
+
+                this.dispatchEvent('signedOn', user);
             }
             else {
                 GeckoJS.Session.clear('user');
@@ -697,8 +704,134 @@
 
         },
 
+        rebuildTaxTable: function () {
+            // extract all items
+            alert('begin');
+            var now = (new Date()).getTime();
+            var orderItemModel = new OrderItemModel();
+            var orderItems = orderItemModel.find('all', {conditions: "parent_index IS NULL", limit: 3000000, recursive: 0});
+            var orderItemTaxModel = new OrderItemTaxModel();
+
+            orderItems.forEach(function(item) {
+                delete item.parent_index;
+            });
+            
+            var txn = new Transaction();
+            txn.data.items = orderItems;
+            txn.calcItemsTax();
+
+            var orderItemTaxes = [];
+
+            // map taxes for individual items
+            for (let index in orderItems) {
+
+                let item = orderItems[index];
+                let iid = item.id;
+                for (let taxno in item.tax_details) {
+
+                    let taxDetails = item.tax_details[taxno];
+                    let tax = item.tax_details[taxno].tax;
+
+                    let orderItemTax = {};
+                    orderItemTax['id'] = iid + taxno;
+                    orderItemTax['order_id'] = item.order_id;
+                    orderItemTax['order_item_id'] = iid;
+                    orderItemTax['promotion_id'] = '';
+                    orderItemTax['tax_no'] = tax.no;
+                    orderItemTax['tax_name'] = tax.name;
+                    orderItemTax['tax_type'] = tax.type;
+                    orderItemTax['tax_rate'] = tax.rate;
+                    orderItemTax['tax_rate_type'] = tax.rate_type;
+                    orderItemTax['tax_threshold'] = tax.threshold;
+                    orderItemTax['tax_subtotal'] = taxDetails.charge;
+                    orderItemTax['included_tax_subtotal'] = taxDetails.included;
+                    orderItemTax['taxable_amount'] = taxDetails.taxable;
+
+                    orderItemTaxes.push(orderItemTax);
+                }
+            }
+
+            let order_tax_details = {};
+            for(var itemIndex in orderItems) {
+                var item = orderItems[itemIndex];
+
+                if (!(item.order_id in order_tax_details)) {
+                    order_tax_details[item.order_id] = {};
+                }
+                let items_tax_details = order_tax_details[item.order_id];
+
+                // don't include set items in calculations
+                if (!item.parent_index) {
+                    // summarize tax details
+                    if (item.tax_details) {
+                        for (var key in item.tax_details) {
+                            let taxDetails = item.tax_details[key];
+
+                            if (!(key in items_tax_details)) {
+                                items_tax_details[key] = {
+                                    tax: taxDetails.tax,
+                                    tax_subtotal: 0,
+                                    included_tax_subtotal: 0,
+                                    item_count: 0,
+                                    taxable_amount: 0
+                                }
+                            }
+
+                            if (item.sale_unit == 'unit') {
+                                items_tax_details[key].item_count += parseInt(item.current_qty);
+                            }
+                            else {
+                                items_tax_details[key].item_count++;
+                            }
+                            items_tax_details[key].tax_subtotal += parseFloat(taxDetails.charge);
+                            items_tax_details[key].included_tax_subtotal += parseFloat(taxDetails.included);
+                            items_tax_details[key].taxable_amount += parseFloat(taxDetails.taxable);
+                        }
+                    }
+                }
+            }
+
+            // map taxes for order
+            for (let oid in order_tax_details) {
+                let items_tax_details = order_tax_details[oid];
+                for (let taxno in items_tax_details) {
+                    let taxDetails = items_tax_details[taxno];
+                    let tax = taxDetails.tax;
+
+                    let orderTax = {};
+                    orderTax['id'] = oid + taxno;
+                    orderTax['order_id'] = oid;
+                    orderTax['order_item_id'] = '';
+                    orderTax['promotion_id'] = '';
+                    orderTax['tax_no'] = tax.no;
+                    orderTax['tax_name'] = tax.name;
+                    orderTax['tax_type'] = tax.type;
+                    orderTax['tax_rate'] = tax.rate;
+                    orderTax['tax_rate_type'] = tax.rate_type;
+                    orderTax['tax_threshold'] = tax.threshold;
+                    orderTax['tax_subtotal'] = taxDetails.tax_subtotal;
+                    orderTax['included_tax_subtotal'] = taxDetails.included_tax_subtotal;
+                    orderTax['item_count'] = taxDetails.item_count;
+                    orderTax['taxable_amount'] = taxDetails.taxable_amount;
+
+                    orderItemTaxes.push(orderTax);
+                }
+            }
+
+            var loaded = (new Date()).getTime();
+            alert('preparing to write tax records: ' + orderItemTaxes.length + ' (' + (loaded - now) + ')');
+            now = (new Date()).getTime();
+            orderItemTaxModel.begin();
+            orderItemTaxModel.execute('delete from order_item_taxes');
+            orderItemTaxModel.saveAll(orderItemTaxes);
+            orderItemTaxModel.commit();
+            
+            var end = (new Date()).getTime();
+            alert('done (' + (end - loaded) + ')');
+        },
+
         updateOptions: function () {
-        // used by input_line_controller to listen for option updates
+            // used by input_line_controller to listen for option updates
         },
 
         initialLogin: function () {
@@ -971,6 +1104,8 @@
                 if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
+            this.dispatchEvent('signedOff', principal);
+            
             Transaction.removeRecoveryFile();
 
             // close all poup panels
@@ -1240,6 +1375,7 @@
             if (GREUtils.Dialog.confirm(this.topmostWindow, _('Reboot'), _('Please confirm to reboot the terminal')) == false) {
                 return;
             }
+            this.dispatchEvent('beforeReboot', null);
             this.rebootMachine();
         },
 
@@ -1247,6 +1383,7 @@
             if (GREUtils.Dialog.confirm(this.topmostWindow, _('Shutdown'), _('Please confirm to shut down the terminal')) == false) {
                 return;
             }
+            this.dispatchEvent('beforeShutdown', null);
             this.shutdownMachine();
         },
 
@@ -1499,6 +1636,82 @@
                 return false;
             }
 
+        },
+
+
+        /**
+         * openUserInRoleDialog
+         *
+         * @param {String} role can use comma for multiple roles
+         * @param {Boolean} ignoreSuperuser
+         * @return {Object} user
+         */
+        openUserInRoleDialog: function (role, ignoreSuperuser){
+
+            role = role || '';
+            ignoreSuperuser = ignoreSuperuser || false;
+
+            var self = this;
+
+            var usersInRole = [];
+            var groupRoles = {};
+            var roles = role.split(",");
+
+            var users = (new UserModel()).find('all', {recursive: 0});
+
+            users.forEach(function(user) {
+
+                if (ignoreSuperuser && user.username == 'superuser') return ;
+
+                let group = user.group;
+                let rolesInGroup = [];
+
+                if (group && groupRoles[group]) {
+                    rolesInGroup = groupRoles[group];
+                }else if (group){
+                    rolesInGroup = self.Acl.getRoleListInGroup(group);
+                    groupRoles[group] = rolesInGroup;
+                }else {
+                    // not thing
+                }
+
+                let isInRole = false;
+
+                roles.forEach(function(r){
+
+                   if(r.length==0) {
+                       isInRole = true;
+                       return;
+                   }
+
+                   if (GeckoJS.Array.inArray(r, rolesInGroup) != -1) {
+                       isInRole = true;
+                       return ;
+                   }
+                });
+
+                if (isInRole) {
+                    usersInRole.push(user);
+                }
+
+            });
+
+            var aURL = 'chrome://viviecr/content/prompt_select_user.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=640,height=500';
+            var inputObj = {
+                users: usersInRole,
+                user: null,
+                numpad:true
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select User'), aFeatures, _('Select User'), inputObj);
+
+            if (inputObj.ok && inputObj.user) {
+                inputObj.user.description =  inputObj.user.description || inputObj.user.displayname;
+                return inputObj.user;
+            }
+
+            return null;
         }
 
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % ControlPanel SYSTEM "chrome://viviecr/locale/controlpanel.dtd">
+  %ControlPanel;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/basiccontrolpanel.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&controlpanel.title;" windowtype="Vivipos:ControlPanel" id="vivipos_controlPanel"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/layouts/ecr/basicControlPanel.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
+    <!-- your code here -->
+    <box class="wag">
+    <vbox>
+        <hbox>
+          <hbox class="menubtn">
+              <hbox>
+                <button id="plusButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_plus.png"
+                        oncommand="loadPlus();"
+                />
+              </hbox>
+              <hbox>
+                <button id="reportsButton" label="" image="chrome://viviecr/skin/icons/basiccontrolpanel/icon_reports.png"
+                        oncommand="loadReports();"
+                />
+              </hbox>
+          </hbox>
+          <vbox class="setting_btn">
+            <button label="" oncommand="advancedControlPanel();" />
+          </vbox>
+        </hbox>
+        <hbox>
+            <vbox class="versionInfo">
+                <hbox>
+                    <extinfolabel extId="viviecr@firich.com.tw" extField="name" />
+                    <extinfolabel extId="viviecr@firich.com.tw" extField="version" />
+                </hbox>
+                <hbox>
+                    <appinfolabel appField="name" />
+                    <appinfolabel appField="version" />
+                </hbox>
+                <hbox>(<appinfolabel appField="issue" />)</hbox>
+            </vbox>
+            <vbox class="exitbtn">
+                <button class="ExitBtn" id="ok" label="" default="true" oncommand="savePreferences();"/>
+            </vbox>
+        </hbox>
+    </vbox>    
+    </box>
+</window>

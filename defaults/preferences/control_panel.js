@@ -99,6 +99,11 @@ pref("vivipos.fec.settings.controlpanels.product.imagemanager.label", "chrome://
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.path", "chrome://viviecr/content/imageManager.xul");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.roles", "acl_manage_images");
 
+pref("vivipos.fec.settings.controlpanels.product.label_printing.icon", "chrome://viviecr/skin/icons/icon_printlabel-control_panel.png");
+pref("vivipos.fec.settings.controlpanels.product.label_printing.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.settings.controlpanels.product.label_printing.path", "chrome://viviecr/content/label_printing.xul");
+pref("vivipos.fec.settings.controlpanels.product.label_printing.roles", "acl_label_printing");
+
 pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.icon", "chrome://viviecr/skin/icons/icon_plus.png");
 pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.path", "chrome://viviecr/content/nonplu_setting.xul");

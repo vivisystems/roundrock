@@ -86,6 +86,16 @@
         var selectedCharSet = GeckoJS.Configure.read('vivipos.fec.registry.import_export.charset') || 'utf-8';
         charsetmenu.value = selectedCharSet;
 
+        var barcodeLearningMenu = document.getElementById('barcode_learning_plugroup');
+        barcodeLearningMenu.appendItem(_('No Barcode Learning'), 'none', '');
+        var pluGroups = GeckoJS.Session.get('plugroupsById');GeckoJS.BaseObject.log(GeckoJS.BaseObject.dump(pluGroups));
+
+        for (var p in pluGroups) {
+            barcodeLearningMenu.appendItem(pluGroups[p]['name'], pluGroups[p]['id'], '');
+        }
+
+        var selectedBarcodeLearningPLUGroup = GeckoJS.Configure.read('vivipos.fec.settings.BarcodeLearningPLUGroup') || 'none';
+        barcodeLearningMenu.value = selectedBarcodeLearningPLUGroup;
     };
     
 

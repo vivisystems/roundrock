@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Sysprefs SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
+  %Sysprefs;
+  <!ENTITY % CompactTable SYSTEM "chrome://viviecr/locale/compacttable_prefs.dtd">
+  %CompactTable;
+  ]>
+
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/buttons.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/custom/compacttable_prefs.css" type="text/css"?>
+
+<overlay id="CompactTablePrefsOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <prefwindow id="prefwin">
+
+        <!--script src='chrome://viviecr/content/layouts/compacttable/compacttable_prefs.js'/-->
+        <script src='chrome://viviecr/content/layouts/compacttable/compacttable_prefs_controller.js' type='text/javascript;version=1.7'/>
+
+        <prefpane id="displaySettingsPane" label="&category.layout.general;">
+            <preferences>
+
+                <preference id="pref_clockinenabled" name="vivipos.fec.settings.ClockInEnabled" type="bool" />
+                <preference id="pref_showvirtualkeyboardicon" name="vivipos.fec.settings.ShowVKIcon" type="bool" />
+                <preference id="pref_showconfigicon" name="vivipos.fec.settings.ShowConfigIcon" type="bool" />
+                <preference id="pref_showplugroupsfirst" name="vivipos.fec.settings.ShowPlugroupsFirst" type="bool"/>
+                
+                <preference id="pref_hidebottombox" name="vivipos.fec.settings.layout.HideBottomBox" type="bool" />
+                <preference id="pref_crop_dept_label" name="vivipos.fec.settings.layout.CropDeptLabel" type="bool"/>
+                <preference id="pref_crop_plu_label" name="vivipos.fec.settings.layout.traditional.CropPLULabel" type="bool"/>
+
+                <preference id="pref_showtoolbar" name="vivipos.fec.settings.layout.ShowToolbar" type="bool" />
+                <preference id="pref_registeratleft" name="vivipos.fec.settings.layout.RegisterAtLeft" type="bool"/>
+                <preference id="pref_productpanelontop" name="vivipos.fec.settings.layout.traditional.ProductPanelOnTop" type="bool"/>
+                <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.layout.HideDeptScrollbar" type="bool"/>
+                <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.layout.traditional.HidePLUScrollbar" type="bool"/>
+                <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.layout.HideFPScrollbar" type="bool"/>
+                <preference id="pref_checktrackingmode" name="vivipos.fec.settings.layout.CheckTrackingMode" type="bool"/>
+                <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.layout.HideSoldOutButtons" type="bool"/>
+
+            </preferences>
+            <grid class="data-form">
+                <columns>
+                    <column flex="1" />
+                    <column flex="1" />
+                </columns>
+                <rows>
+                    <row>
+                        <checkbox id="RegisterAtLeft" label="&layout.registeratleft;" feature="disabled" preference="pref_registeratleft"/>
+                        <checkbox id="ProductPanelOnTop" label="&layout.productpanelontop;" feature="disabled" preference="pref_productpanelontop"/>
+                    </row>
+                    <row>
+                        <checkbox id="hideDeptScrollbar" label="&layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>
+                        <checkbox id="hidePLUScrollbar" label="&layout.hidepluscrollbar;" preference="pref_hidepluscrollbar"/>
+                    </row>
+                    <row>
+                        <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
+                        <checkbox id="hideSoldOutButtons" label="&layout.hidesoldoutbuttons;" preference="pref_hidesoldoutbuttons" />
+                    </row>
+                    <row>
+                        <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
+                        <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
+                    </row>
+                    <row>
+                        <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
+                        <checkbox preference="pref_hidebottombox" id="pref_hidebottomboxCtrl" label="&layout.hidebottombox;" />
+                    </row>
+                    <row>
+                        <checkbox id="showPlugroupsFirst" label="&layout.showplugroupsfirst;" preference="pref_showplugroupsfirst" />
+                    </row>
+                    <row>
+                        <checkbox preference="pref_showtoolbar" id="pref_showtoolbarCtrl" label="&layout.showtoolbar;" />
+                        <checkbox preference="pref_clockinenabled" id="pref_clockinenabledCtrl" label="&layout.showclockinicon;" />
+                    </row>
+                    <row>
+                        <checkbox preference="pref_showvirtualkeyboardicon" id="pref_showvirtualkeyboardiconCtrl" label="&layout.showvirtualkeyboardicon;" />
+                        <checkbox preference="pref_showconfigicon" id="pref_showconfigiconCtrl" label="&layout.showconfigicon;" />
+                    </row>
+                </rows>
+            </grid>
+        </prefpane>
+
+        <prefpane id="logoSettingsPane" label="&category.layout.logo;">
+            <preferences>
+
+                <preference id="pref_logoheight" name="vivipos.fec.settings.layout.compacttable.logoHeight" type="int" />
+                <preference id="pref_logowidth" name="vivipos.fec.settings.layout.compacttable.logoWidth" type="int"/>
+
+            </preferences>
+            <grid class="data-form">
+                <columns>
+                    <column flex="1" />
+                    <column flex="1" />
+                </columns>
+                <rows>
+                    <row>
+                        <vbox>
+                            <label control="logoHeight" value="&layout.logoheight;"/>
+                            <textbox preference="pref_logoheight" id="logoHeight" type="number" size="3" maxlength="3" min="0" max="200"
+                                     onchange="$do('resizeLogo', null, 'CompactTablePrefs');"/>
+                            <label control="logoHeight" value="&layout.logowidth;"/>
+                            <textbox preference="pref_logowidth" id="logoWidth" type="number" size="3" maxlength="3" min="0" max="350"
+                                     onchange="$do('resizeLogo', null, 'CompactTablePrefs');"/>
+                        </vbox>
+                    </row>
+                </rows>
+            </grid>
+
+            <vbox flex="1">
+                <hbox pack="center" align="center"
+                      style="-moz-border-radius: 8px; border: 3px solid #c1ab8e; margin: 4px; max-height: 200px; min-height: 200px; height: 200px;"
+                      >
+                    <image id="logoimage" flex="1" validate="always"/>
+                </hbox>
+                <spacer style="height: 10px;"/>
+                <hbox flex="0" pack="center">
+                    <button id="logoBrowseBtn" class="button-execute" label="&layout.addlogo;" image="chrome://viviecr/skin/images/add.png"
+                            oncommand="$do('selectImage', ['logoimage', 'logo.png'], 'CompactTablePrefs');"/>
+                    <spacer style="height: 4px;" />
+                    <button id="logoRemoveBtn" class="button-execute" label="&layout.removelogo;" image="chrome://viviecr/skin/images/cancel.png"
+                            oncommand="$do('removeImage', ['logoimage', 'logo.png'], 'CompactTablePrefs');"/>
+                </hbox>
+                <spacer style="width: 20px;"/>
+            </vbox>
+            
+        </prefpane>
+
+        <prefpane id="expressKeySettingsPane" label="&category.layout.compacttable.expresskey;">
+            <vbox flex="1">
+                <vivitree id="expresskey_prefs_tree" flex="1" class="standard custom-express-key-list"
+                          headers="&category.layout.compacttable.expresskey.heading.key;,&category.layout.compacttable.expresskey.heading.function;,&category.layout.compacttable.expresskey.heading.label;"
+                          fields="name,linked,label"
+                          seltype="single"
+                          reverse="true"
+                          rows="8"
+                          hidevscroll="true"
+                          onselect="$do('selectExpressKey', this, 'CompactTablePrefs')"/>
+
+                <hbox flex="1">
+                    <vbox class="custom-content-formbox">
+                        <textbox id="expresskey_functionid" value="" readonly="true" hidden="true"
+                                 form="expressKeyForm" name="functionid" default=""/>
+                        <grid orient="vertical" class="custom-data-form">
+                            <columns>
+                                <column/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="&category.layout.compacttable.expresskey.index;"/>
+                                    <textbox id="expresskey_name" size="14" value="" readonly="true" disabled="true"
+                                             form="expressKeyForm" name="name" default=""/>
+                                </row>
+
+                                <row>
+                                    <label value="&category.layout.compacttable.expresskey.linked;"/>
+                                    <textbox id="expresskey_linked" size="14" value="" readonly="true" disabled="true"
+                                             form="expressKeyForm" name="linked" default=""/>
+                                </row>
+
+                                <row>
+                                    <label value="&category.layout.compacttable.expresskey.label;"/>
+                                    <textbox id="expresskey_label" size="14" value="" readonly="true"
+                                             form="expressKeyForm" name="label" default=""/>
+                                </row>
+
+                                <row>
+                                    <label value="&category.layout.compacttable.expresskey.data;"/>
+                                    <textbox id="expresskey_data" size="14" value="" readonly="true"
+                                             form="expressKeyForm" name="data" default=""/>
+                                </row>
+                            </rows>
+                        </grid>
+                        <hbox flex="1">
+                            <button id="expresskey_unlink" icon="cancel" disabled="true" flex="1"
+                                    label="&category.layout.compacttable.unlinkkey.label;"
+                                    class="button-item-a"
+                                    oncommand="$do('unlinkFunction', null, 'CompactTablePrefs');"/>
+                            <spacer width="8px"/>
+                            <button id="expresskey_update" icon="apply" disabled="true" flex="1"
+                                    label="&category.layout.compacttable.update.label;"
+                                    class="button-item-a"
+                                    oncommand="$do('updateExpressKey', null, 'CompactTablePrefs');"/>
+                        </hbox>
+                    </vbox>
+
+                    <vbox flex="1">
+                        <vivitree id="expresskey_function_tree" flex="1"
+                                  class="standard"
+                                  headers="&category.layout.compacttable.function.label;,&category.layout.compacttable.label.label;"
+                                  fields="name,label"
+                                  seltype="single" hidecolumnpicker="true"
+                                  onselect="$do('selectFunctionKey', this, 'CompactTablePrefs');"/>
+                        <hbox>
+                            <textbox id="expresskey_function_desc" class="textbox-description" flex="1"
+                                     wrap="true" readonly="true" multiline="true" rows="3"/>
+                            <spacer width="5px"/>
+                            <button id="expresskey_link" icon="apply"
+                                    label="&category.layout.compacttable.linkkey.label;"
+                                    disabled="true" class="button-item-a"
+                                    oncommand="$do('linkFunction', null, 'CompactTablePrefs');"/>
+                        </hbox>
+                    </vbox>
+                </hbox>
+            </vbox>
+        </prefpane>
+
+    </prefwindow>
+</overlay>

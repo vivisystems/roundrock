@@ -98,8 +98,9 @@
             if (this.Acl.getUserPrincipal()) {
                 var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                     .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
-                mainWindow.$do('setClerk', null, 'Main');
                 window.close();
+                mainWindow.$do('setClerk', null, 'Main');
+                
             }
         },
 

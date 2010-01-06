@@ -30,6 +30,10 @@
                 cart.addEventListener('onCancelSuccess', this.onCartOnCancelSuccess, this);
                 cart.addEventListener('onVoidSaleSuccess', this.onCartOnSubmitSuccess, this);
 
+                // check after return cart item
+                cart.addEventListener('afterReturnCartItem', this.afterReturnCartItem, this);
+
+
             }
 
             var main = this.getMainController();
@@ -37,7 +41,15 @@
                 main.addEventListener('afterTruncateTxnRecords', this.onMainTruncateTxnRecords, this);
             }
 
+            this.addEventListener('beforeStoreCheck', this.beforeStoreCheck, this);
 
+            this.addEventListener('afterNewTable', this.afterNewTable, this);
+
+            var printer = this.getPrintController();
+            if (printer) {
+                printer.addEventListener('beforePrintSlipGetTemplate', this.beforePrintSlipGetTemplate, this);
+            }
+            
             this.tableSettings = this.TableSetting.getTableSettings() || {};
 
             // table window is first win
@@ -112,16 +124,14 @@
         /**
          * print Check (current Transaction)
          */
-        printChecks: function(txn) {
+        printChecks: function(txn, autoPrint, duplicate) {
 
+            duplicate = duplicate || false;
             txn = txn || this.getCartController()._getTransaction();
+            autoPrint = autoPrint || '';
 
-            // var printer = 1;
-            var printer;
-            var autoPrint = false;
-            var duplicate = 1;
             // print check
-            this.getPrintController().printChecks(txn, printer, autoPrint, duplicate);
+            this.getPrintController().printChecks(txn, null, autoPrint, duplicate);
 
         },
 
@@ -316,6 +326,37 @@
 
         },
 
+
+        /**
+         * openMinimumChargeDialog
+         *
+         * @param {Number} amount
+         * @return {Number} new amount
+         */
+        openMinimumChargeDialog: function (amount){
+
+            amount = amount || 0;
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
+            var inputObj = {
+                input0:amount,
+                type0:'number',
+                digitOnly0:true,
+                require0:true,
+                numpad:true,
+                disablecancelbtn:true
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Minimum Charge'), aFeatures, _('Original Minimum Charge (%S)',[amount]), '', _('New Minimum Charge'), '', inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }
+
+            return amount;
+        },
+
+
         /**
          * isTableAvailable
          *
@@ -468,6 +509,8 @@
 
                 cart._clearAndSubtotal();
 
+                this.dispatchEvent('afterNewTable', curTransaction);
+
                 return true;
                 
             }else {
@@ -612,6 +655,218 @@
 
         },
 
+    
+
+        /**
+         * beforeStoreCheck
+         */
+        beforeStoreCheck: function(evt) {
+
+            var curTransaction = evt.data;
+            var isCheckGuestNum = false ;
+            var isCheckTableNo = false ; 
+             
+            if (this.tableSettings.RequireGuestOrTableNumWhenStored && this.tableSettings.RequireGuestNum) {
+                let destsByGuestNum = this.tableSettings.RequireGuestNum.split(",");
+                if (destsByGuestNum.indexOf(curTransaction.data.destination) != -1) isCheckGuestNum = true;
+            }
+            if (this.tableSettings.RequireGuestOrTableNumWhenStored && this.tableSettings.RequireTableNo) {
+                let destsByTableNo = this.tableSettings.RequireTableNo.split(",");
+                if (destsByTableNo.indexOf(curTransaction.data.destination) != -1) isCheckTableNo = true;
+            }
+
+            if (isCheckTableNo && !curTransaction.data.table_no) {
+                let tableResult = this.newTable('', true);
+                if (!tableResult) {
+                    evt.preventDefault();
+                    return false;
+                }
+            }
+
+            let guest = curTransaction.data.no_of_customers || 0;
+            guest = parseInt(guest);
+            if (isCheckGuestNum && guest <= 0) {
+                this.guestNum(-1);
+            }
+
+            return true;
+        },
+
+
+        /**
+         *
+         */
+        beforePrintSlipGetTemplate: function(evt) {
+
+            let eventData = evt.data;
+            let data = eventData.data;
+            let template = eventData.template;
+            let devicetype = eventData.devicetype;
+
+            let autoPrint = data.autoPrint || 'skip';
+            let hasLinkedItems = data.hasLinkedItems;
+            let txn = data.txn;
+            let order = data.order;
+
+            // transferTable
+            switch(autoPrint) {
+                case 'transferTable':
+                    // only process products in this link_group
+                    if (hasLinkedItems) {
+                        let newTemplate = this.tableSettings.PrintCheckAfterTransferTableTemplate || '';
+                        
+                        // use new template to print transfer table
+                        eventData.template = newTemplate;
+                    }else {
+                        evt.preventDefault();
+                    }
+                    break;
+
+                case 'returnCartItem':
+                    // only process products in this link_group
+                    if (hasLinkedItems) {
+                        let newTemplate = this.tableSettings.PrintCheckReturnCartItemTemplate || '';
+
+                        let batchCount = txn.data.batchCount;
+                        let returnCartItemBatch = txn.data.batchCount;
+                        let returnCartItems = [];
+
+                        for (let id in order.items) {
+                            let item = order.items[id];
+                            if (item.batch == returnCartItemBatch && item.linked) {
+
+                                // process condiments
+                                if (item.condiments) {
+                                    item.condiments_array = GeckoJS.BaseObject.getKeys(item.condiments);
+                                    item.condiments_string = item.condiments_array.join('; ');
+                                }
+
+                                returnCartItems.push(item);
+                            }
+                        }
+
+                        order['return_cart_items'] = returnCartItems;
+                        // use new template to print return cart item
+                        eventData.template = newTemplate;
+
+                        if (returnCartItems.length == 0) {
+                            evt.preventDefault();
+                        }
+
+                    }else {
+                        evt.preventDefault();
+                    }
+                    break;
+
+                case 'rushItem':
+                    // only process products in this link_group
+                    if (hasLinkedItems) {
+                        let newTemplate = this.tableSettings.PrintCheckRushItemTemplate || '';
+                        
+                        let rushItem = txn.data.rush_item;
+                        let isPrintable = false;
+
+                        for (let id in order.items) {
+                            let item = order.items[id];
+                            if (item.index == rushItem.index && item.linked) {
+                                isPrintable = true;
+                                break;
+                            }
+                        }
+
+                        let waitMS = ((new Date()).getTime() - rushItem.created * 1000 + (new Date()).getTimezoneOffset()*60000 );
+                        let waiting = (new Date(waitMS)).toLocaleFormat('%H:%M:%S');
+                        rushItem['waiting'] = waiting;
+
+                        // process condiments
+                        if (rushItem.condiments) {
+                            rushItem.condiments_array = GeckoJS.BaseObject.getKeys(rushItem.condiments);
+                            rushItem.condiments_string = rushItem.condiments_array.join('; ');
+                        }
+                        order['rush_item'] = rushItem;
+
+                        // use new template to print return cart item
+                        eventData.template = newTemplate;
+                        
+                        if (!isPrintable) {
+                            evt.preventDefault();
+                        }
+                    }else {
+                        evt.preventDefault();
+                    }
+                    break;
+
+                case 'store':
+
+                    let onlyCurrentBatch = this.tableSettings.PrintCheckCurrentBatchItems || false;
+                    let onlyPositiveCurrentBatch = this.tableSettings.PrintCheckOnlyPositiveCurrentBatchItems || false;
+                    
+                    let batchCount = txn.data.batchCount;
+                    
+                    // we only care about check type
+                    if (devicetype == 'check' && hasLinkedItems && onlyCurrentBatch) {
+
+                        let items = {};
+                        let display_sequences = [];
+
+                        for (let id in order.items) {
+                            let item = order.items[id];
+                            if (item.linked && item.batch == batchCount) {
+                                if (onlyPositiveCurrentBatch) {
+                                    if (item.current_qty >0) items[id] = item;
+                                }else {
+                                    items[id] = item;
+                                }
+                            }
+                        }
+
+                        for (let idx in order.display_sequences) {
+                            let dsp = order.display_sequences[idx];
+                            let item = items[dsp.index];
+                            if (item && dsp.batch == batchCount) {
+                                display_sequences.push(dsp);
+                            }
+                        }
+
+                        if (display_sequences.length >0) {
+                            order.items = items;
+                            order.display_sequences = display_sequences;
+                        }else {
+                            evt.preventDefault();
+                        }
+
+                    }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        },
+        
+
+        /**
+         * afterNewTable
+         */
+        afterNewTable: function(evt) {
+
+            var curTransaction = evt.data;
+            var isCheckGuestNum = false ;
+
+            if (this.tableSettings.RequireGuestNumWhenNewTable && this.tableSettings.RequireGuestNum) {
+                let destsByGuestNum = this.tableSettings.RequireGuestNum.split(",");
+                if (destsByGuestNum.indexOf(curTransaction.data.destination) != -1) isCheckGuestNum = true;
+            }
+
+            let guest = curTransaction.data.no_of_customers || 0;
+            guest = parseInt(guest);
+            if (isCheckGuestNum && guest <= 0) {
+                this.guestNum(-1);
+            }
+
+            return true;
+        },
+
 
         /**
          * store current transaciton and close transaction.
@@ -677,6 +932,9 @@
             }
             */
 
+            var beforeStoreCheck = this.dispatchEvent('beforeStoreCheck', curTransaction);
+            if (!beforeStoreCheck) return false;
+
             // save order
             if  (cart.submit(2)) {
 
@@ -687,8 +945,10 @@
 
                 NotifyUtils.warn(_('This order has been stored!!'));
 
-                cart._getCartlist().refresh();
+                this.dispatchEvent('afterStoreCheck', curTransaction);
 
+                cart._getCartlist().refresh();
+                
                 return true;
 
             }
@@ -1107,26 +1367,32 @@
             
             if (evt.data.status != 1 && typeof evt.data.status != 'undefined') return ;
 
-            // let destination = getXXXX;
-            var isCheckTableNo = true;
-            var isCheckGuestNum = true;
+            var isCheckTableNo = false;
+            var isCheckGuestNum = false;
             var curTransaction = evt.data.txn || evt.data;
 
-            if (isCheckTableNo && this.tableSettings.RequireTableNo && !curTransaction.data.table_no) {
-                
-                let tableResult = this.newTable('', true);
+            if (this.tableSettings.RequireGuestNum) {
+                let destsByGuestNum = this.tableSettings.RequireGuestNum.split(",");
+                if (destsByGuestNum.indexOf(curTransaction.data.destination) != -1) isCheckGuestNum = true;
+            }
+            if (this.tableSettings.RequireTableNo) {
+                let destsByTableNo = this.tableSettings.RequireTableNo.split(",");
+                if (destsByTableNo.indexOf(curTransaction.data.destination) != -1) isCheckTableNo = true;
+            }
 
+            if (isCheckTableNo && !curTransaction.data.table_no) {
+                let tableResult = this.newTable('', true);
                 if (!tableResult) evt.preventDefault();
             }
             
             let guest = curTransaction.data.no_of_customers || 0;
             guest = parseInt(guest);
-            
-            if (isCheckGuestNum && this.tableSettings.RequireGuestNum && guest <= 0) {
+            if (isCheckGuestNum && guest <= 0) {
                 this.guestNum(-1);
             }
                 
             var isCheckTableMinimumCharge = true;
+           
             var table_no = curTransaction.data.table_no || '';
             var guests = curTransaction.data.no_of_customers || 0;
 
@@ -1167,42 +1433,128 @@
                     minimum_charge_per_guest = table.minimum_charge_per_guest || minimum_charge_per_guest;
                 }
 
-                var minimum_charge = Math.max(minimum_charge_per_table, minimum_charge_per_guest * guests);
+                var org_minimum_charge = Math.max(minimum_charge_per_table, minimum_charge_per_guest * guests);
+                var minimum_charge = org_minimum_charge;
+
+                if (typeof curTransaction.data.override_minimumcharge != 'undefined') {
+                       // set to current transaction minimum charge
+                        minimum_charge = curTransaction.data.override_minimumcharge;
+                }
 
                 if (total < minimum_charge) {
 
                     let amount = curTransaction.formatPrice(minimum_charge);
-                    if (GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('Minimum Charge'),
-                        _('The total for this order is less than the minimum charge (%S). ' +
-                          'Click OK if you want to pay the minimum charge to close the order. ' +
-                          'Otherwise, please click Cancel and add more items.', [amount])) == false) {
 
-                        NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
-                    } else {
+                    var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                            .getService(Components.interfaces.nsIPromptService);
+
+                    var check = {data: false};
+                    var flags = null;
+
+                    flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_OK +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                    var action = prompts.confirmEx(this.topmostWindow,
+                                                   _('Minimum Charge'),
+                                                   _('The total for this order is less than the minimum charge (%S). ' +
+                                                     'Click OK if you want to pay the minimum charge to close the order. ' +
+                                                     'Otherwise, please click Cancel and add more items.', [amount]),
+                                                   flags, '', '', _('Override Minimum Charge'), null, check);
+
+
+                    if (action == 2) {
+
+                        let user = null;
+
+                        if (!this.Acl.isUserInRole("acl_override_minimumcharge")) {
+                            user = this.getMainController().openUserInRoleDialog("acl_override_minimumcharge", true);
+                            
+                            if (!user) {
+                                NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
+                                evt.preventDefault();
+                                return ;
+                            }
+
+                        }else {
+                            user = this.Acl.getUserPrincipal();
+                        }
+
+                        let newMinimumCharge = this.openMinimumChargeDialog(minimum_charge);
+
+                        // set to current transaction minimum charge
+                        curTransaction.data.override_minimumcharge = newMinimumCharge;
+                        curTransaction.data.override_minimumcharge_user = user;
+                        
+                        minimum_charge = newMinimumCharge;
+
+                        if ((minimum_charge - total) > 0) {
+                            // add plu to cart
+                            action = 0;
+                        }else {
+
+                            // add annotation
+                            var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
+                            if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
+                            curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S,%S), original minimum charge (%S), new minimum charge (%S), comp amount (%S)', [user.username, user.description, curTransaction.formatPrice(org_minimum_charge), curTransaction.formatPrice(minimum_charge), curTransaction.formatPrice(org_minimum_charge - total)]);
+
+                        }
+
+                    }
+
+
+                    if (action == 0) {
+                        
+                        // add MinimumChargePlu to cart
 
                         var product = GeckoJS.BaseObject.unserialize(this.tableSettings.MinimumChargePlu);
 
                         if (product) {
-                            
+
                             var cart = this.getCartController();
 
                             // remove last payment
                             let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
                             if (lastItem.type == 'payment') cart.voidItem();
 
-                            cart.setPrice(minimum_charge - total);
+                            let newPrice = minimum_charge - total;
+                            
+                            cart.setPrice(newPrice);
                             cart.addItem(product);
 
-                            let amount = curTransaction.formatPrice(minimum_charge - total);
+                            let amount = curTransaction.formatPrice(newPrice);
                             NotifyUtils.warn(_('An additional amount of (%S) has been added to the order to meet the minimum charge', [amount]));
                         } else {
                             NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
                         }
 
+                        evt.preventDefault();
+
+                    }else if (action == 1){
+
+                        NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
+
+                        evt.preventDefault();
+
+                    }else if (action == 2) {
+
+                    }else {
+                        NotifyUtils.warn(_('The total for this order is less than the minimum charge (%S)', [amount]));
+                        evt.preventDefault();
                     }
 
-                    evt.preventDefault();
+                }else {
+
+                    if (typeof curTransaction.data.override_minimumcharge != 'undefined' && (org_minimum_charge > total) ) {
+
+                            // add annotation
+                            let user = curTransaction.data.override_minimumcharge_user;
+                            var annotationType = this.tableSettings.AnnotationForOverrideMinimumCharge || 'override_minimumcharge';
+                            if(!curTransaction.data.annotations) curTransaction.data.annotations = {};
+                            curTransaction.data.annotations[annotationType] = _('override minimum charge. override clerk (%S,%S), original minimum charge (%S), new minimum charge (%S), comp amount (%S)', [user.username, user.description, curTransaction.formatPrice(org_minimum_charge), curTransaction.formatPrice(minimum_charge), curTransaction.formatPrice(org_minimum_charge - total)]);
+
+                    }
+                    
 
                 }
             }
@@ -1216,6 +1568,13 @@
          * @param {Object} evt
          */
         onCartOnSubmitSuccess: function(evt) {
+
+            let txn = evt.data;
+
+            // check if has returncartitem
+            if (txn.data.returnCartItemBatch && (txn.data.returnCartItemBatch == txn.data.batchCount) ) {
+                this.returnCartItem(evt);
+            }
 
             if (this.tableSettings.TableWinAsFirstWin) {
                 // newTable always create new transaction object
@@ -1637,12 +1996,16 @@
             data = data || false ;
             var result = false;
             let fnTrigger = false;
-            
+
+            var orderId = '';
+            var orgTableId = '';
+            var newTableId = '';
+
             if(data && typeof data =='object') {
 
-                var orderId = data.orderId || '';
-                var orgTableId = data.orgTableId || '';
-                var newTableId = data.newTableId || '';
+                orderId = data.orderId || '';
+                orgTableId = data.orgTableId || '';
+                newTableId = data.newTableId || '';
 
                 result = this.Order.transferTable(orderId, orgTableId, newTableId);
 
@@ -1657,17 +2020,22 @@
 
                 var newTableNo = this.openTableNumDialog(true);
 
+                orderId = txn.data.id;
 
                 var orgTable = this.Table.getTableByNo(txn.data.table_no);
                 var newTable = this.Table.getTableByNo(newTableNo);
-                var orderId = txn.data.id;
-
+               
                 // check table available
                 if (orgTable && newTable && (txn.data.table_no != newTableNo)) {
 
                     if (this.isTableAvailable(newTable)) {
+
+                        orgTableId = orgTable.id;
+                        newTableId = newTable.id;
+
                         result = this.Order.transferTable(orderId, orgTable.id, newTable.id);
                         this.recallOrder(orderId, true);
+
                     }
 
                 }else {
@@ -1677,10 +2045,222 @@
                 
             }
 
+            if (result) {
+
+                let orgTable = this.Table.getTableById(orgTableId);
+                let orgTableName = orgTable.table_name;
+                let orgTableNo = orgTable.table_no;
+                let orgRegionName = '';
+                if (orgTable.table_region_id) {
+                    let orgRegion = this.Table.TableRegion.getTableRegionById(orgTable.table_region_id);
+                    orgRegionName = orgRegion.name;
+                }
+
+                let newTable = this.Table.getTableById(newTableId);
+                let newTableName = newTable.table_name;
+                let newRegionName = '';
+                if (newTable.table_region_id) {
+                    let newRegion = this.Table.TableRegion.getTableRegionById(newTable.table_region_id);
+                    newRegionName = newRegion.name;
+                }
+
+                // after transfer table dispatch event and print checks
+                let isPrintCheck = parseInt(this.tableSettings.PrintCheckAfterTransferTable || 0);
+                let printCheckTemplate = this.tableSettings.PrintCheckAfterTransferTableTemplate || '';
+
+                if (isPrintCheck >0 && printCheckTemplate) {
+
+                    let confirmed = true;
+
+                    if (isPrintCheck == 2) {
+                        confirmed = GREUtils.Dialog.confirm(this.topmostWindow,
+                            _('Transfer Table'),
+                            _('Transfer table From (%S) To (%S)', [orgTableName, newTableName]) + '\n' +
+                            _('Are you sure you want to print transfer table check'));
+                    }
+                    if (confirmed) {
+
+                        let newTxnData = this.getTransactionDataByOrderId(orderId);
+                        newTxnData.org_table_no = orgTableNo;
+                        newTxnData.org_table_name = orgTableName;
+                        newTxnData.org_table_region_name = orgRegionName;
+                        newTxnData.transfer_table_time =  new Date().getTime() /1000;
+
+                        this.printChecks({data: newTxnData}, 'transferTable', true);
+                    }
+
+                }
+
+            }
+
             return result;
 
         },
 
+        /**
+         * process returnCartItem and printChecks
+         */
+        returnCartItem: function(evt) {
+
+            let txn = evt.data;
+
+            // print checks
+            if (txn.data.returnCartItemBatch && (txn.data.returnCartItemBatch == txn.data.batchCount) ) {
+
+                // after transfer table dispatch event and print checks
+                let isPrintCheck = parseInt(this.tableSettings.PrintCheckAfterReturnCartItem || 0);
+                let printCheckTemplate = this.tableSettings.PrintCheckReturnCartItemTemplate || '';
+
+                if (isPrintCheck >0 && printCheckTemplate) {
+
+                    let confirmed = true;
+
+                    if (isPrintCheck == 2) {
+                        confirmed = GREUtils.Dialog.confirm(this.topmostWindow,
+                            _('Return Cart Item'),
+                            _('Are you sure you want to print return cart item check'));
+                    }
+                    if (confirmed) {
+                        this.printChecks(txn, 'returnCartItem', false);
+                    }
+
+                }
+
+            }
+        },
+
+        /**
+         * Cart returnCartItem listener
+         */
+        afterReturnCartItem: function(evt) {
+
+            // only update returnCartitemBatch for quick search later
+            let txn = this.getCartController()._getTransaction();
+            txn.data.returnCartItemBatch = txn.data.batchCount+1;
+            
+        },
+
+
+        /**
+         * rush item
+         */
+        rushItem: function(code) {
+
+            code = code || '';
+
+            var cartController = this.getCartController();
+            var index = cartController._cartView.getSelectedIndex();
+            var curTransaction = cartController._getTransaction();
+
+            if( !cartController.ifHavingOpenedOrder() ) {
+                NotifyUtils.warn(_('Not an open order; cannot void'));
+
+                cartController._clearAndSubtotal();
+                return;
+            }
+
+            // check if transaction is closed
+            if (curTransaction.isClosed()) {
+                NotifyUtils.warn(_('This order is being finalized and items may not be modified'));
+
+                cartController._clearAndSubtotal();
+                return;
+            }
+
+            if (curTransaction.data.recall != '2') {
+                NotifyUtils.warn(_('This operation may only be applied to stored transactions'));
+
+                return ;
+            }
+
+            if(index <0) {
+                NotifyUtils.warn(_('Please select an item first'));
+
+                cartController._clearAndSubtotal();
+                return;
+            }
+
+            var itemTrans = null;
+
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+            if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+
+                NotifyUtils.warn(_('Cannot RUSH the selected item [%S]. It is not the item or setitem.', [itemDisplay.name]));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            itemTrans = curTransaction.getItemAt(index);
+            if (itemTrans) {
+
+                // after transfer table dispatch event and print checks
+                let isPrintCheck = parseInt(this.tableSettings.PrintCheckRushItem || 0);
+                let printCheckTemplate = this.tableSettings.PrintCheckRushItemTemplate || '';
+
+                if ( isPrintCheck > 0 && printCheckTemplate ) {
+
+                    let confirmed = true;
+
+                    if ( isPrintCheck == 2 ) {
+                        
+                        confirmed = GREUtils.Dialog.confirm(this.topmostWindow,
+                            _('Rush Item'),
+                            _('Are you sure you want to print rush item check for [%S]', [itemTrans.name]));
+
+                    }
+                    if (confirmed) {
+
+                        // required rushitem memo
+                        if (code) {
+
+                            let annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+                            let annotationText = code ? annotationController.getAnnotationText(code) : false ;
+
+                            if (annotationText) {
+                                
+                                let annotationTypes = [] ;
+                                let texts = annotationText.split('|');
+                                texts.forEach(function(t){
+                                    annotationTypes.push({type: t, text: t});
+                                });
+
+                                let inputObj = {
+                                    input0: code || '',
+                                    require0: false,
+                                    annotations: annotationTypes
+                                };
+
+                                var data = [_('Add Memo'), '', _('Memo'), '', inputObj];
+                                var self = this;
+
+                                return $.popupPanel('promptAddMemoPanel', data).next( function(evt){
+
+                                    var result = evt.data;
+                                    if (result.ok && result.input0) {
+                                        curTransaction.data.rush_item = GREUtils.extend({rushitem_memo: result.input0}, itemTrans);
+                                        self.printChecks(curTransaction, 'rushItem', true);
+                                    }else {
+                                        curTransaction.data.rush_item = GREUtils.extend({rushitem_memo: ''}, itemTrans);
+                                        self.printChecks(curTransaction, 'rushItem', true);
+                                    }
+                                });                               
+
+                            }else {
+                                curTransaction.data.rush_item = GREUtils.extend({rushitem_memo: ''}, itemTrans);
+                                this.printChecks(curTransaction, 'rushItem', true);
+                            }
+                        }else {
+                            curTransaction.data.rush_item = GREUtils.extend({rushitem_memo: ''}, itemTrans);
+                            this.printChecks(curTransaction, 'rushItem', true);
+                        }
+                    }
+                }
+
+                return;
+            }
+            
+        },
 
         /**
          * showAlertDialog

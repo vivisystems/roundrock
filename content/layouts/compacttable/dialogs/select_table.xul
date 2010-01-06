@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % SelectTable SYSTEM "chrome://viviecr/locale/select_table.dtd">
+  %SelectTable;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_win.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_styles.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_status_btn.css" type="text/css"?>
+
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/order_display_template.css" type="text/css"?>
+
+<!-- ?xul-overlay href="chrome://global/content/dialogOverlay.xul" ? -->
+
+<overlay id="selectTableDialogOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script type="application/x-javascript" src='chrome://viviecr/content/helpers/nsi_tablestatus_view.js'/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_table.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/select_table_controller.js" />
+    <script>
+        function setDeck(index)
+        {
+            document.getElementById("bottom_button_deck").setAttribute("selectedIndex",index);
+        }
+    </script>
+
+    <popupset id="dialogs">
+        <vivipanel id="selectTablePanel" noautohide="false" noblock="true">
+
+            <vbox flex="1">
+                <vbox class="selectTableMaindialog" >
+                    <hbox>
+                        <hbox flex="1" class="EmptyArea">
+
+                            <menulist id="table_region" style="display: none;" width="300px" oncommand="$do('setRegion', this.value, 'SelectTable');">
+                                <menupopup id="table_region_menupopup">
+
+                                </menupopup>
+                            </menulist>
+
+                            <arrowscrollbox orient="horizontal" autostrech="never" flex="1" id="regBox" class="content-arrow-scrollbox">
+
+                            </arrowscrollbox>
+                        </hbox>
+                        <hbox align="center" id="availableSeatsBox" class="EmptyArea">
+                            <vivitextbox id="availableSeats" size="2" onchange="$do('setAvailableSeats', this.value, 'SelectTable');" onenter="event.stopPropagation();"
+                                         value="0" numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" type="number"/>
+                        </hbox>
+
+                    </hbox>
+                    <stack flex="1" class="MainPanel">
+                        <label id="queues" hidden="true" value="" />
+                        <hbox >
+                            <viviscrollablebuttonpanel id="tableScrollablepanel" pre="true" cols="6" rows="5"  seltype="single" labelField="table_no"
+                                                       class="TablePanel"
+                                                       buttonClass="tbButton"
+                                                       buttonTagName="table_status_btn"
+                                                       scrollUpClass="tbScrollUp"
+                                                       scrollDownClass="tbScrollDown"
+                                                       buttonPopup2="order_display_panel"
+                                                       oncommand="$do('onTableSelect', event, 'SelectTable');">
+
+                            </viviscrollablebuttonpanel>
+                        </hbox>
+                    </stack>
+                    <hbox class="tableFunction">
+                        <deck id="bottom_button_deck">
+                            <hbox>
+                                <button class="fixedbtnAlt" id="bookingTableBtn" label="&selecttable.compacttable.bookingtable;" group="func" oncommand="$do('openTableBookDialog', null, 'SelectTable');"/>
+                                <button class="fixedbtnAlt" id="selectTableBtn" label="&selecttable.compacttable.selectno;" checked="checked" type="radio" group="func" oncommand="$do('setAction', 'selectTable', 'SelectTable');"/>
+                                <button class="fixedbtnAlt" id="mergeTableBtn" label="&selecttable.compacttable.mergetable;" type="radio" group="func" oncommand="$do('setAction', 'mergeTable', 'SelectTable');"/>
+                                <button class="fixedbtnAlt" id="unmergeTableBtn" label="&selecttable.compacttable.unmergetable;" type="radio" group="func" oncommand="$do('setAction', 'unmergeTable', 'SelectTable');"/>
+                                <button class="fixedbtnAlt" id="markTableBtn" label="&selecttable.compacttable.marktable;" type="radio" group="func" oncommand="$do('setAction', 'markTable', 'SelectTable');"/>
+                                <button class="fixedbtnAlt" id="unmarkTableBtn" label="&selecttable.compacttable.unmarktable;" type="radio" group="func" oncommand="$do('setAction', 'unmarkTable', 'SelectTable');"/>
+                            </hbox>
+                        </deck>
+                    </hbox>
+                </vbox>
+                <vbox id="prompt_box" class="PromptBox" flex="1" hidden="true">
+                    <label id="prompt_1" value="prompt 1" class="PromptLabel1" />
+                    <label id="prompt_2" value="prompt 2" class="PromptLabel2" />
+                    <spacer flex="1" />
+                </vbox>
+            </vbox>
+
+            <panel id="order_display_panel" position="after_start" noautohide="true" class="PromptPnl"
+               onpopupshown="document.getElementById('orders_tab').selectedIndex=0;" >
+                <hbox flex="1" class="PromptPnlBg">
+                    <label id="order_selected_table_id" hidden="true" />
+                    <html:div id="order_display_div" style="width: 750px;" />
+                    <vbox flex="1" class="CheckBtns">
+                        <button class="closecBtn" oncommand="document.getElementById('order_display_panel').hidePopup();"/>
+                        <spacer height="30px" />
+                        <button class="selectcBtn" id="selectCheckBtn" label="&selecttable.compacttable.recallcheck;" group='funcOrderDisp' oncommand="$do('recallOrder', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                        <spacer height="10px" />
+                        <box id="splitCheckBox" >
+                        <button class="splitcBtn" id="splitCheckBtn" label="&selecttable.compacttable.splitcheck;" group='funcOrderDisp' oncommand="$do('splitCheck', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                        </box>
+                        <box id="mergeCheckBox" >
+                        <button class="mergecBtn" id="mergeCheckBtn" label="&selecttable.compacttable.mergecheck;" group='_func2' oncommand="$do('mergeCheck', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                        </box>
+                        <spacer height="10px" />
+                        <box id="transTableBox" >
+                        <button class="changeBtn" id="changeBtn" label="&selecttable.compacttable.transtable;" group='funcOrderDisp' oncommand="$do('transferTable',  document.getElementById('orders_tab').value, 'SelectTable');"/>
+                        </box>
+                        <button class="newTableBtn" id="newTableBtn" label="&selecttable.compacttable.transtable;" group='funcOrderDisp' oncommand="$do('newTable', document.getElementById('order_selected_table_id').value, 'SelectTable');"/>
+                        <spacer height="20px" />
+                        <button class="clerkBtn" id="clerkBtn" label="&selecttable.compacttable.changeclerk;" group='funcOrderDisp' oncommand="$do('changeClerk', document.getElementById('orders_tab').value, 'SelectTable');"/>
+                    </vbox>
+                </hbox>
+            </panel>
+        </vivipanel>
+    </popupset>
+</overlay>

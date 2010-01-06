@@ -31,7 +31,17 @@ ${_( '(rpt)Gross Returns' ) + ':'}
 ${item.gross|viviFormatPrices:true|right:24}
 ${_( '(rpt)Net Returns' ) + ':'}
 ${item.net|viviFormatPrices:true|right:24}
-${item.order_sequence|viviFormatPrices:true|right:24}
+{if item.order_sequence}
+${_( '(rpt)Sequence' ) + ':'}
+${item.order_sequence|right:24}
+{/if}
+{if item.status == 1}
+${_( '(rpt)Return Type' ) + ':'}
+${_('(rpt)return type item')|right:24}
+{elseif item.status == -2}
+${_( '(rpt)Return Type' ) + ':'}
+${_('(rpt)return type order')|right:24}
+{/if}
 {/for}
 ------------------------
 ${_( '(rpt)Records Found' ) + ': '}${category.orderItems.length|format:0}

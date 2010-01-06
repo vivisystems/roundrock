@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/layout.dtd">
+
+<?xml-stylesheet href="chrome://viviecr/skin/fe/overlay-compacttable.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/vfdpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/orderstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/department.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/product.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/condiment.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/cart.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/cartstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/inputline.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/promotions_status.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/terminalstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/functionpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
+
+<?xml-stylesheet href="chrome://viviecr/skin/custom/order_display_template.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/custom/compacttable_layout.css" type="text/css"?>
+
+<?xul-overlay href="chrome://viviecr/content/layouts/compacttable/overlays/vfdPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/overlays/cartStatusPanelOverlay.xul" ?>
+
+<?xul-overlay href="chrome://viviecr/content/layouts/compacttable/dialogs/select_table.xul" ?>
+
+<overlay id="traditionalLayoutOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script src='chrome://viviecr/content/layouts/compacttable/compacttable_layout_controller.js' type='application/x-javascript;version=1.7'/>
+    <script>
+        function setMainDeck(index)
+        {
+            document.getElementById("rightPanelDeck").setAttribute("selectedIndex",index);
+            if(index == '1') {
+                document.getElementById("functionpanel").home();
+            }
+        }
+    </script>
+
+    <box id="main-container">
+
+        <box id="mainPanel" flex="1" class="main-panel-right" orient="horizontal">
+
+            <box id="leftPanel" orient="vertical" class="left-panel">
+                <box id="tableStatusPanelContainer" flex="1" class="table-status-panel boxarea"/>
+                <vbox flex="1" class="boxarea">
+                    <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
+                    <box flex="1" id="vfdPanelContainer"/>
+                    <box flex="1" id="cartlistPanelContainer"/>
+                </vbox>
+            </box>
+
+            <spacer id="panelSpacer" flex="1"/>
+
+            <vbox id="rightPanelWrapper" class="right-panel">
+                <box id="logoPanelContainer" class="boxarea" align="center" orient="vertical" panel="&layout.panel.logo;">
+                    <image id="logoImage" />
+                </box>
+                <box id="customerPanelContainer" panel="" class="customerpnl"/>
+                <box id="cartStatusPanelContainer" panel=""/>
+                <box id="expressKeyPanel" flex="0" class="plusFunction" orient="vertical" panel="&layout.panel.expresskeys;">
+                    <hbox>
+                        <vivibutton id="expressKey1" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 1, 'Layout');" />
+                        <vivibutton id="expressKey2" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 2, 'Layout');" />
+                        <vivibutton id="expressKey3" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 3, 'Layout');" />
+                        <vivibutton id="expressKey4" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 4, 'Layout');" />
+                    </hbox>
+                    <hbox>
+                        <vivibutton id="expressKey5" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 5, 'Layout');" />
+                        <vivibutton id="expressKey6" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 6, 'Layout');" />
+                        <vivibutton id="expressKey7" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 7, 'Layout');" />
+                        <vivibutton id="expressKey8" label="" disabled="true" class="font-small expresskey" oncommand="$do('invokeExpressKey', 8, 'Layout');" />
+                    </hbox>
+                </box>
+                <vbox class="boxarea">
+                    <deck id="rightPanelDeck" flex="1">
+                        <vbox flex="1">
+                            <box id="rightPanel" flex="1" orient="vertical">
+                                <box id="categoryPanelContainer" orient="vertical" class="categoryPanel" panel="&layout.panel.departments;"/>
+                                <box id="productPanelContainer" flex="1" class="productPanel" panel="&layout.panel.products;"/>
+                                <box id="staticCondimentsPanelContainer" panel=""/>
+                            </box>
+
+                        </vbox>
+                        <vbox flex="1">
+                            <box id="rightPanel" flex="1" orient="vertical">
+                                <box id="functionPanelContainer" flex="1" panel="&layout.panel.function;"/>
+                            </box>
+
+                        </vbox>
+                    </deck>
+                    <hbox>
+                        <button class="button-main-deck" label="Function Panel" oncommand="setMainDeck('1');" />
+                        <button class="button-main-deck" label="Menu" oncommand="setMainDeck('0');" />
+                    </hbox>
+                </vbox>
+            </vbox>
+
+        </box>
+
+    </box>
+
+</overlay>

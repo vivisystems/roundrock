@@ -277,6 +277,7 @@
                                     <tab id="tab_options1" label="&tableman.tab.tableoptions.1;"/>
                                     <tab id="tab_options2" label="&tableman.tab.tableoptions.2;"/>
                                     <tab id="tab_options3" label="&tableman.tab.tableoptions.3;"/>
+                                    <tab id="tab_options3" label="&tableman.tab.tableoptions.print;"/>
                                     <tab id="tab_options_dock" label="&tableman.tab.tableoptions.dock;"/>
                                 </tabs>
                                 <tabpanels flex="1">
@@ -284,7 +285,7 @@
                                     <tabpanel>
                                         <vbox flex="1">
                                             <caption label="&tableman.tableoptions.options;"/>
-                                            <grid flex="1" class="data-form">
+                                            <grid flex="0" class="data-form">
                                                 <columns>
                                                     <column flex="1"/>
                                                     <column flex="1"/>
@@ -295,13 +296,76 @@
                                                         <checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/>
                                                     </row>
                                                     <row>
-                                                        <checkbox id="requireTableNo" label="&tableman.tableoptions.requiretableno;" form="settingsForm" name="RequireTableNo"/>
-                                                        <checkbox id="requireGuestNum" label="&tableman.tableoptions.requireguestnum;" form="settingsForm" name="RequireGuestNum"/>
+                                                        <checkbox id="staydownAction" label="&tableman.tableoptions.staydownaction;" form="settingsForm" name="StaydownAction"/>
+                                                        <checkbox id="requireGuestOrTableNumWhenStored" label="&tableman.tableoptions.requireGuestOrTableNumWhenStored;" form="settingsForm" name="RequireGuestOrTableNumWhenStored"/>
                                                     </row>
                                                     <row>
-                                                        <checkbox id="staydownAction" label="&tableman.tableoptions.staydownaction;" form="settingsForm" name="StaydownAction"/>
-                                                        <spacer />
+                                                        <checkbox id="showAvailableSeatTable" label="&tableman.tableoptions.showAvailableSeatTable;" form="settingsForm" name="ShowAvailableSeatTable"/>
+                                                        <checkbox id="requireGuestNumWhenNewTable" label="&tableman.tableoptions.requireGuestNumWhenNewTable;" form="settingsForm" name="RequireGuestNumWhenNewTable"/>
                                                     </row>
+                                                </rows>
+                                            </grid>
+                                            <vbox class="data-formsss" flex="1">
+                                                <vbox flex="1" class="content-buttonpanel">
+                                                        <label value="&tableman.tableoptions.requiretableno;"/>
+                                                    <viviscrollablebuttonpanel id="tableno_destination" seltype="multiple" flex="1" cols="5" rows="2"
+                                               labelField="label"
+                                               form="settingsForm" name="RequireTableNo"
+                                               buttonClass="button-item-a"
+                                               scrollUpClass="scroll-up-button"
+                                               scrollDownClass="scroll-down-button">
+                                                        <spacer flex="1"/>
+                                                    </viviscrollablebuttonpanel>
+                                                </vbox>
+                                                <vbox flex="1" class="content-buttonpanel">
+                                                        <label value="&tableman.tableoptions.requireguestnum;"/>
+                                                    <viviscrollablebuttonpanel id="guestnum_destination" seltype="multiple" flex="1" cols="5" rows="2"
+                                               labelField="label"
+                                               form="settingsForm" name="RequireGuestNum"
+                                               buttonClass="button-item-a"
+                                               scrollUpClass="scroll-up-button"
+                                               scrollDownClass="scroll-down-button">
+                                                        <spacer flex="1"/>
+                                                    </viviscrollablebuttonpanel>
+                                                </vbox>
+                                            </vbox>
+                                            
+                                        </vbox>
+                                    </tabpanel>
+
+                                    <tabpanel>
+                                        <vbox flex="1">
+                                            <caption label="&tableman.tableoptions.options;" />
+                                            <grid class="data-form" flex="1">
+                                                <columns>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <label control="default_region" value="&tableman.tableoptions.defaultregion;"/>
+                                                        <menulist id="default_region" name="DefaultRegion" form="settingsForm">
+                                                            <menupopup id="default_region_menupopup">
+
+                                                            </menupopup>
+                                                        </menulist>
+                                                    </row>
+                                                    <row>
+                                                        <label control="mark_automark" value="&tableman.mark.automarkaftersubmit;"/>
+                                                        <menulist id="automark_after_submit" form="settingsForm" name="AutoMarkAfterSubmit">
+                                                            <menupopup id="automark_after_submit_menupopup">
+                                                            </menupopup>
+                                                        </menulist>
+                                                    </row>
+                                                </rows>
+                                            </grid>
+                                            
+                                            <grid class="data-form" flex="1">
+                                                <columns>
+                                                    <column flex="1" />
+                                                    <column flex="1" />
+                                                </columns>
+                                                <rows>
                                                     <row>
                                                         <vbox>
                                                             <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
@@ -344,107 +408,64 @@
                                         </vbox>
                                     </tabpanel>
 
-                                    <tabpanel>
-                                        <vbox flex="1">
-                                            <caption label="&tableman.tableoptions.options;" />
-                                            <grid class="data-form" flex="1">
+                                    <tabpanel orient="vertical">
+                                        <vbox id="minimumChargeContainer" module="minimumCharge">
+                                            <caption label="&tableman.tableoptions.minimumchargeoptions;"/>
+                                            <grid class="data-form">
                                                 <columns>
-                                                    <column flex="1" />
-                                                    <column flex="1" />
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
                                                 </columns>
                                                 <rows>
                                                     <row>
-                                                        <!--vbox>
-                                                            <label control="print_split_check" value="&tableman.tableoptions.printsplitcheck;"/>
-                                                            <menulist id="print_split_check" name="PrintSplitCheck" form="settingsForm">
-                                                                <menupopup>
-                                                                    <menuitem value="0" label="&tableman.tableoptions.printsplitcheck.none;" />
-                                                                    <menuitem value="1" label="&tableman.tableoptions.printsplitcheck.auto;" />
-                                                                    <menuitem value="2" label="&tableman.tableoptions.printsplitcheck.confirm;" />
-                                                                </menupopup>
-                                                            </menulist>
-                                                        </vbox-->
+                                                        <checkbox id="requestMinimumCharge" label="&tableman.tableoptions.requestminimumcharge;" form="settingsForm" name="RequestMinimumCharge"/>
                                                         <vbox>
-                                                            <label control="default_region" value="&tableman.tableoptions.defaultregion;"/>
-                                                            <menulist id="default_region" name="DefaultRegion" form="settingsForm">
-                                                                <menupopup id="default_region_menupopup">
-
-                                                                </menupopup>
-                                                            </menulist>
+                                                            <label control="globalMinimumChargePerTable" value="&tableman.tableoptions.globalminimumchargepertable;"/>
+                                                            <textbox id="globalMinimumChargePerTable" type="Number" size="10" default="0"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="GlobalMinimumChargePerTable"/>
                                                         </vbox>
                                                     </row>
                                                     <row>
-                                                        <!--vbox>
-                                                            <label control="print_merge_check" value="&tableman.tableoptions.printmergecheck;"/>
-                                                            <menulist id="print_merge_check" name="PrintMergeCheck" form="settingsForm">
-                                                                <menupopup>
-                                                                    <menuitem value="0" label="&tableman.tableoptions.printmergecheck.none;" />
-                                                                    <menuitem value="1" label="&tableman.tableoptions.printmergecheck.auto;" />
-                                                                    <menuitem value="2" label="&tableman.tableoptions.printmergecheck.confirm;" />
-                                                                </menupopup>
-                                                            </menulist>
-                                                        </vbox-->
+                                                        <label/>
                                                         <vbox>
-                                                            <label control="mark_automark" value="&tableman.mark.automarkaftersubmit;"/>
-                                                            <menulist id="automark_after_submit" form="settingsForm" name="AutoMarkAfterSubmit">
-                                                                <menupopup id="automark_after_submit_menupopup">
+                                                            <label control="globalMinimumChargePerGuest" value="&tableman.tableoptions.globalminimumchargeperguest;"/>
+                                                            <textbox id="globalMinimumChargePerGuest" type="Number" size="10" default="0"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="GlobalMinimumChargePerGuest"/>
+                                                        </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label value="&tableman.tableoptions.minimumchargefor;"/>
+                                                            <menulist id="minimumChargeFor" form="settingsForm" name="MinimumChargeFor">
+                                                                <menupopup id="minimumChargeForPopup">
                                                                 </menupopup>
                                                             </menulist>
                                                         </vbox>
+                                                        <vbox>
+                                                            <label value="&tableman.tableoptions.minimumchargeplu;"/>
+                                                            <hbox>
+                                                                <textbox id="minimumChargePlu" readonly="true" hidden="true"
+                                                                     form="settingsForm" name="MinimumChargePlu"/>
+                                                                <textbox id="pluInfo" readonly="true" form="settingsForm" name="PluInfo"/>
+                                                                <button id="plusBtn" class="buttonexecute" image="chrome://viviecr/skin/images/gtk-find.png"
+                                                                    oncommand="$do('searchDialog', null, 'TableMan');"/>
+                                                            </hbox>
+                                                        </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="annotationForOverrideMinimumCharge" value="&tableman.tableoptions.annotation_for_override_minimumcharge;"/>
+                                                                <menulist id="annotationForOverrideMinimumCharge" form="settingsForm" name="AnnotationForOverrideMinimumCharge">
+                                                                    <menupopup id="annotationForOverrideMinimumCharge_menupopup">
+                                                                    </menupopup>
+                                                                </menulist>
+                                                        </vbox>
+                                                        <spacer />
                                                     </row>
                                                 </rows>
                                             </grid>
-                                        </vbox>
-                                    </tabpanel>
-
-                                    <tabpanel orient="vertical">
-                                        <vbox id="minimumChargeContainer" module="minimumCharge">
-                                        <caption label="&tableman.tableoptions.minimumchargeoptions;"/>
-                                        <grid class="data-form">
-                                            <columns>
-                                                <column flex="1"/>
-                                                <column flex="1"/>
-                                            </columns>
-                                            <rows>
-                                                <row>
-                                                    <checkbox id="requestMinimumCharge" label="&tableman.tableoptions.requestminimumcharge;" form="settingsForm" name="RequestMinimumCharge"/>
-                                                    <vbox>
-                                                        <label control="globalMinimumChargePerTable" value="&tableman.tableoptions.globalminimumchargepertable;"/>
-                                                        <textbox id="globalMinimumChargePerTable" type="Number" size="10" default="0"
-                                                                 onfocus="select()"
-                                                                 form="settingsForm" name="GlobalMinimumChargePerTable"/>
-                                                    </vbox>
-                                                </row>
-                                                <row>
-                                                    <label/>
-                                                    <vbox>
-                                                        <label control="globalMinimumChargePerGuest" value="&tableman.tableoptions.globalminimumchargeperguest;"/>
-                                                        <textbox id="globalMinimumChargePerGuest" type="Number" size="10" default="0"
-                                                                 onfocus="select()"
-                                                                 form="settingsForm" name="GlobalMinimumChargePerGuest"/>
-                                                    </vbox>
-                                                </row>
-                                                <row>
-                                                    <vbox>
-                                                        <label value="&tableman.tableoptions.minimumchargefor;"/>
-                                                        <menulist id="minimumChargeFor" form="settingsForm" name="MinimumChargeFor">
-                                                            <menupopup id="minimumChargeForPopup">
-                                                            </menupopup>
-                                                        </menulist>
-                                                    </vbox>
-                                                    <vbox>
-                                                        <label value="&tableman.tableoptions.minimumchargeplu;"/>
-                                                        <hbox>
-                                                            <textbox id="minimumChargePlu" readonly="true" hidden="true"
-                                                                     form="settingsForm" name="MinimumChargePlu"/>
-                                                            <textbox id="pluInfo" readonly="true" form="settingsForm" name="PluInfo"/>
-                                                            <button id="plusBtn" class="buttonexecute" image="chrome://viviecr/skin/images/gtk-find.png"
-                                                                    oncommand="$do('searchDialog', null, 'TableMan');"/>
-                                                        </hbox>
-                                                    </vbox>
-                                                </row>
-                                            </rows>
-                                        </grid>
                                         </vbox>
 
                                         <caption label="&tableman.tableoptions.displayoptions;"/>
@@ -471,6 +492,81 @@
                                             </rows>
                                         </grid>
                                     </tabpanel>
+
+                                    <tabpanel>
+                                        <vbox flex="1">
+                                            <caption label="&tableman.tableoptions.dockoptions.caption;"/>
+                                            <grid flex="1" class="data-form">
+                                                <columns>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <checkbox id="print_check_current_batch_items" label="&tableman.tableoptions.printCheckCurrentBatchItems;" form="settingsForm" name="PrintCheckCurrentBatchItems" oncommand="if(!this.checked) document.getElementById('print_check_positive_current_batch_items').checked=false;"/>
+                                                        <checkbox id="print_check_positive_current_batch_items" label="&tableman.tableoptions.printCheckOnlyPositiveCurrentBatchItems;" form="settingsForm" name="PrintCheckOnlyPositiveCurrentBatchItems" oncommand="if(this.checked) document.getElementById('print_check_current_batch_items').checked=true;"/>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="print_check_after_transfer_table" value="&tableman.tableoptions.printCheckAfterTransferTable;"/>
+                                                            <menulist id="print_check_after_transfer_table" name="PrintCheckAfterTransferTable" form="settingsForm">
+                                                                <menupopup>
+                                                                    <menuitem value="0" label="&tableman.tableoptions.printCheckAfterTransferTable.none;" />
+                                                                    <menuitem value="1" label="&tableman.tableoptions.printCheckAfterTransferTable.auto;" />
+                                                                    <menuitem value="2" label="&tableman.tableoptions.printCheckAfterTransferTable.confirm;" />
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                        <vbox>
+                                                            <label control="print_check_after_transfer_table_template" value="&tableman.tableoptions.printCheckAfterTransferTable.template;"/>
+                                                            <menulist id="print_check_after_transfer_table_template" name="PrintCheckAfterTransferTableTemplate" form="settingsForm">
+                                                                <menupopup>
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="print_check_after_return_cart_item" value="&tableman.tableoptions.printCheckAfterReturnCartItem;"/>
+                                                            <menulist id="print_check_after_return_cart_item" name="PrintCheckAfterReturnCartItem" form="settingsForm">
+                                                                <menupopup>
+                                                                    <menuitem value="0" label="&tableman.tableoptions.printCheckAfterReturnCartItem.none;" />
+                                                                    <menuitem value="1" label="&tableman.tableoptions.printCheckAfterReturnCartItem.auto;" />
+                                                                    <menuitem value="2" label="&tableman.tableoptions.printCheckAfterReturnCartItem.confirm;" />
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                        <vbox>
+                                                            <label control="print_check_after_return_cart_item_template" value="&tableman.tableoptions.printCheckAfterReturnCartItem.template;"/>
+                                                            <menulist id="print_check_after_return_cart_item_template" name="PrintCheckReturnCartItemTemplate" form="settingsForm">
+                                                                <menupopup>
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
+                                                            <label control="print_check_rush_item" value="&tableman.tableoptions.printCheckRushItem;"/>
+                                                            <menulist id="print_check_rush_item" name="PrintCheckRushItem" form="settingsForm">
+                                                                <menupopup>
+                                                                    <menuitem value="1" label="&tableman.tableoptions.printCheckRushItem.auto;" />
+                                                                    <menuitem value="2" label="&tableman.tableoptions.printCheckRushItem.confirm;" />
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                        <vbox>
+                                                            <label control="print_check_rush_item_template" value="&tableman.tableoptions.printCheckRushItem.template;"/>
+                                                            <menulist id="print_check_rush_item_template" name="PrintCheckRushItemTemplate" form="settingsForm">
+                                                                <menupopup>
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                    </row>
+                                                </rows>
+                                            </grid>
+                                        </vbox>
+                                    </tabpanel>
+
                                     <tabpanel>
                                         <vbox flex="1">
                                             <caption label="&tableman.tableoptions.dockoptions.caption;"/>
@@ -486,35 +582,35 @@
                                                     </row>
                                                     <row>
                                                         <vbox>
-                                                        <label value="&tableman.tableoptions.dockoptions.width;"/>
-                                                        <textbox id="tableDockWidth" type="Number" size="4" maxlength="4" min="200" max="2048"
+                                                            <label value="&tableman.tableoptions.dockoptions.width;"/>
+                                                            <textbox id="tableDockWidth" type="Number" size="4" maxlength="4" min="200" max="2048"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableDockWidth"/>
-                                                    </vbox>
+                                                        </vbox>
                                                     </row>
                                                     <row>
                                                         <vbox>
-                                                        <label value="&tableman.tableoptions.dockoptions.height;"/>
-                                                        <textbox id="tableDockHeight" type="Number" size="4" maxlength="4" min="200" max="2048"
+                                                            <label value="&tableman.tableoptions.dockoptions.height;"/>
+                                                            <textbox id="tableDockHeight" type="Number" size="4" maxlength="4" min="200" max="2048"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableDockHeight"/>
-                                                    </vbox>
+                                                        </vbox>
                                                     </row>
                                                     <row>
                                                         <vbox>
-                                                        <label value="&tableman.tableoptions.dockoptions.left;"/>
-                                                        <textbox id="tableDockLeft" type="Number" size="4" maxlength="4" min="-1000" max="2048"
+                                                            <label value="&tableman.tableoptions.dockoptions.left;"/>
+                                                            <textbox id="tableDockLeft" type="Number" size="4" maxlength="4" min="-1000" max="2048"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableDockLeft"/>
-                                                    </vbox>
+                                                        </vbox>
                                                     </row>
                                                     <row>
                                                         <vbox>
-                                                        <label value="&tableman.tableoptions.dockoptions.top;"/>
-                                                        <textbox id="tableDockTop" type="Number" size="4" maxlength="4" min="-1000" max="2048"
+                                                            <label value="&tableman.tableoptions.dockoptions.top;"/>
+                                                            <textbox id="tableDockTop" type="Number" size="4" maxlength="4" min="-1000" max="2048"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="TableDockTop"/>
-                                                    </vbox>
+                                                        </vbox>
                                                     </row>
                                                 </rows>
                                             </grid>

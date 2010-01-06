@@ -140,6 +140,7 @@
                 'serviceSyncSettingsTable': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsTableBox', checkForCss:'serviceSyncSettingsTable'},
                 'serviceSyncSettingsStock': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsStockBox', checkForCss:'serviceSyncSettingsStock'},
                 'serviceSyncSettingsNtp': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsNtpBox', checkForCss:'serviceSyncSettingsNtp'},
+                'serviceSyncSettingsIRC': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsIrcBox, #syncSettingsXUL #irc-tab', checkForCss:'serviceSyncSettingsIRC'},
 
                 'internalDisableJournal': {type:'prefs', method:'write', key:'vivipos.fec.settings.internal.disableJournal', preftype:'boolean'}
             },

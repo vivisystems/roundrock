@@ -33,6 +33,7 @@
                 <th style="text-align: right;">${_( '(rpt)Gross Returns' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Net Returns' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Order Sequence' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Return Type' )}</th>
             </tr>
         </thead>
         <tbody>
@@ -50,6 +51,13 @@
                 <td style="text-align: right;">${item.gross|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.net|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;" class="hyperlink">${item.order_sequence}</td>
+{if item.status == 1}
+                <td style="text-align: right;">${_('(rpt)return type item')}</td>
+{elseif item.status == -2}
+                <td style="text-align: right;">${_('(rpt)return type order')}</td>
+{else}
+                <td/>
+{/if}
             </tr>
 {/for}
         </tbody>
@@ -64,6 +72,7 @@
 {/if}
                 <td colspan="2" style="text-align: right;">${category.summary.gross|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${category.summary.net|default:0|viviFormatPrices:true}</td>
+                <td colspan="2"/>
             </tr>
         </tfoot>
     </table>

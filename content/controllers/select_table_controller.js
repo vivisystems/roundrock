@@ -105,9 +105,9 @@
         },
 
         /**
-         * hidenTableSelectorPanel
+         * hideTableSelectorPanel
          */
-        hidenTableSelectorPanel: function() {
+        hideTableSelectorPanel: function() {
             try {
                 if (!this.isDock()) $.hidePanel('selectTablePanel');
             } catch (e) {}
@@ -197,6 +197,7 @@
             
             // append all regions
             regionObj.appendItem(_('All Regions'),'ALL');
+            regionObj.appendItem(_('Available Tables'),'AVAILABLE');
 
             regions.forEach(function(data){
                 regionObj.appendItem(data.name, data.id);
@@ -244,22 +245,47 @@
          * setTablesByRegion
          */
         setTablesByRegion: function(region) {
-            region = region || 'ALL';    
+
+            region = region || 'ALL';
+            seat = parseInt(document.getElementById('availableSeats').value) || 1;
+
+            var tableSettings = this.getTableSettings();
+            var showAvailableSeatTable = ( tableSettings.ShowAvailableSeatTable || false );
 
             var tables = [];
-            if (region != 'ALL') {
-                tables = this.Table.getTablesByRegionId(region);
-            }else {
-                tables = this.Table.getTables();
+
+            switch(region) {
+                default:
+                    tables = this.Table.getTablesByRegionId(region);
+                    break;
+                case 'ALL':
+                    tables = this.Table.getTables();
+                    break;
+                case 'AVAILABLE':
+                    tables = this.Table.getAvailableTables(showAvailableSeatTable);
+                    break;
+                
+            }
+
+            // filter seats
+            let availableTables = [];
+            for(i=0; i<tables.length; i++) {
+                if (seat <= tables[i].seats) {
+                    availableTables.push(tables[i]);
+                }
             }
 
             this.getTablesViewHelper().setRegion(region);
-            this.getTablesViewHelper().setTables(tables);
-
+            this.getTablesViewHelper().setTables(availableTables);
             this.refreshTableSummaries();
             
         },
 
+        setAvailableSeats: function() {
+
+            this.setTablesByRegion(this.getSelectedRegion());
+            
+        },
 
         /**
          * refreshTableStatus
@@ -273,16 +299,21 @@
             if (this._blockRefreshTableStatus || !isOpen) return;
 
             try{
+                
                 this._blockRefreshTableStatus = true;
                 
                 // update status
                 let updatedTablesStatus = this.Table.TableStatus.getTablesStatus(true);
 
-                if (updatedTablesStatus && updatedTablesStatus.length > 0) {
-                    this.getTablesViewHelper().refreshUpdatedTablesStatus(updatedTablesStatus);
-                    this.refreshTableSummaries();
+                if (this.getSelectedRegion() == 'AVAILABLE') {
+                    this.setTablesByRegion('AVAILABLE');
                 }else {
-                    this.getTablesViewHelper().refreshTablesStatusPeriod();
+                    if (updatedTablesStatus && updatedTablesStatus.length > 0) {
+                        this.getTablesViewHelper().refreshUpdatedTablesStatus(updatedTablesStatus);
+                        this.refreshTableSummaries();
+                    }else {
+                        this.getTablesViewHelper().refreshTablesStatusPeriod();
+                    }
                 }
                 
             }finally{
@@ -493,7 +524,13 @@
          * also setPromptLable and clean unused data.
          */
         setAction: function(action) {
+            let controller = this.getGuestCheckController();
+            if (this.action != action && !controller.dispatchEvent('beforeSetAction', action)) {
+                action = 'selectTable';
+            }
+
             this.action = action;
+
             switch(action) {
                 case 'selectTable':
                     this.setActionButtonChecked(action);
@@ -635,10 +672,11 @@
                 active = 0
             }
 
+            let result = false;
             switch (command) {
                 default:
                 case 'newTable':
-                    this.newTable(table_id);
+                    result = this.newTable(table_id);
                     break;
 
                 case 'denyTable':
@@ -647,10 +685,14 @@
                     break;
 
                 case 'selectTableOrder':
-                    this.executeSelectTableOrder(table_id);
+                    result = this.executeSelectTableOrder(table_id);
                     break;
             }
 
+            // if selectTable action fails, clear selection
+            if (!result) {
+                this.getTableButtonsPanelObj().selectedItems = [];
+            }
             return true;
 
 
@@ -765,10 +807,12 @@
                     || (masterTableId==slaveTableId) ) {
 
                     NotifyUtils.warn(_('Table [%S] is not available for merging. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                    this.getTableButtonsPanelObj().selectedItems = [];
                     return ;
                 }
             }else if (!table.active || (masterTableId==slaveTableId) ) {
                 NotifyUtils.warn(_('Table [%S] is not available for merging. Status [%S], Active [%S]',[ table_no, 0, 0]));
+                this.getTableButtonsPanelObj().selectedItems = [];
                 return ;
             }
 
@@ -784,6 +828,7 @@
                     if (tableStatus && tableStatus.TableStatus.status != 0) {
                         // check available
                         NotifyUtils.warn(_('Table [%S] is not available for merging. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                        this.getTableButtonsPanelObj().selectedItems = [];
                         return;
                     }
                     masterTableId = this._actionData.id;
@@ -822,6 +867,7 @@
 
             if (status == 0) {
                 NotifyUtils.warn(_('Table [%S] is not available for unmerging. Status [%S], Active [%S]',[ table_no, status, (tableStatus?tableStatus.Table.active:1)]));
+                this.getTableButtonsPanelObj().selectedItems = [];
                 return ;
             }
 
@@ -884,10 +930,12 @@
                     || (tableStatus.TableStatus.status == 1) ) {
 
                     NotifyUtils.warn(_('Table [%S] is not available for marking. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                    this.getTableButtonsPanelObj().selectedItems = [];
                     return ;
                 }
             }else if (!table.active) {
                 NotifyUtils.warn(_('Table [%S] is not available fr marking. Status [%S], Active [%S]',[ table_no, 0, 0]));
+                this.getTableButtonsPanelObj().selectedItems = [];
                 return ;
             }
 
@@ -898,6 +946,7 @@
 
             if (!markId) {
                 // XXX error message ?
+                this.getTableButtonsPanelObj().selectedItems = [];
                 return false;
             }
             
@@ -937,6 +986,7 @@
 
             if (status != 3) {
                 NotifyUtils.warn(_('Table [%S] is not available for unmarking. Status [%S], Active [%S]',[ table_no, tableStatus.TableStatus.status, tableStatus.Table.active]));
+                this.getTableButtonsPanelObj().selectedItems = [];
                 return ;
             }
 
@@ -1043,7 +1093,7 @@
 
             // dockMode ?
             if (result && !this.isDock()) {
-                this.hidenTableSelectorPanel();
+                this.hideTableSelectorPanel();
             }
         },
 
@@ -1064,7 +1114,7 @@
 
             // dockMode ?
             if (result && !this.isDock()) {
-                this.hidenTableSelectorPanel();
+                this.hideTableSelectorPanel();
             }
         },
 
@@ -1269,7 +1319,7 @@
             if (tableSettings.TableWinAsFirstWin) {
                 // just popup table selector
                 var curTransaction = GeckoJS.Session.get('current_transaction') || {recoveryMode: false};
-                if (!curTransaction.recoveryMode) {
+                if (this.isDock() || !curTransaction.recoveryMode) {
                     this.popupTableSelectorPanel();
                 }
             }

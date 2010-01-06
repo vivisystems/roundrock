@@ -44,6 +44,12 @@
 {/for}
 "${_( '(rpt)Summary' ) + ':'}","","","${body.payment_list.summary.payment_total|default:0|viviFormatPrices:true}"
 "",""
+"${_( '(rpt)Groupable Payments' )}"
+"","${_( '(rpt)Groupable Payment Type' )}","${_( '(rpt)Groupable Payment Count' )}"
+{for detail in body.groupable_payments.records}
+"","'${detail.memo1|default:''} ${detail.amount|viviFormatPrices:true}","${detail.count}"
+{/for}
+"",""
 "${_( '(rpt)Destination Summary' )}"
 "","${_( '(rpt)Destination' )}","${_( '(rpt)Destination Count' )}","${_( '(rpt)Destination Gross Sales' )}","${_( '(rpt)Destination Average Gross Sales' )}"
 {for detail in body.destination_summary.data}

@@ -1,0 +1,30 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Ledger
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+#entryscrollablepanel tree #created {
+    text-align: center;
+}
+
+#entryscrollablepanel tree #service_clerk_displayname,
+#entryscrollablepanel tree #type,
+#entryscrollablepanel tree #mode {
+    text-align: center;
+}
+
+#entryscrollablepanel tree #amount {
+    text-align: right;
+}
+
+#entryscrollablepanel treechildren::-moz-tree-row {
+    padding-right: 10px;
+}
+
+#typescrollablepanel tree #type,
+#typescrollablepanel tree #drawer_change,
+#typescrollablepanel tree #mode {
+    text-align: center;
+}

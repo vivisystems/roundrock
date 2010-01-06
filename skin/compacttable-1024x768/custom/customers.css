@@ -1,0 +1,191 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Customers
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+#typescrollablepanel tree #type {
+    text-align: center;
+}
+
+#levelscrollablepanel tree #level,
+#levelscrollablepanel tree #pricelevel {
+    text-align: center;
+}
+
+#levelscrollablepanel tree #discount {
+    text-align: center;
+}
+
+.custom-container-customer-list tree #active {
+    max-width: 60px;
+    text-align: center;
+}
+
+.custom-be-content-customer-list tree #customer_id,
+.custom-be-content-customer-list tree #telephone,
+.custom-be-content-customer-list tree #type,
+.custom-be-content-customer-list tree #level {
+    text-align: center;
+}
+
+.custom-be-content-customer-list tree #name {
+    text-align: left;
+}
+
+#activityscrollablepanel tree #status {
+    text-align: center;
+}
+
+#activityscrollablepanel tree #sale_period {
+    text-align: center;
+    min-width: 80px;
+}
+
+#activityscrollablepanel tree #date {
+    text-align: center;
+    min-width: 80px;
+}
+
+#activityscrollablepanel tree #location {
+    text-align: center;
+    min-width: 100px;
+}
+
+#activityscrollablepanel tree #total,
+#activityscrollablepanel tree #payment {
+    text-align: right;
+}
+
+/*-----------------------------------------------------------------------------
+ * Front End Custom Styles for Customers
+ *-----------------------------------------------------------------------------
+ */
+
+.customer-vfdPad {
+    background-color: #1e1b14;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-top: 0px solid #f39a1c;
+    border-bottom: 1px solid #f39a1c;
+}
+
+.customer-field-label {
+    color: #fff;
+    max-width: 65px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 12px;
+    -moz-appearance: none;
+    text-align: right;
+}
+
+.customer-field-value {
+    color: #fff;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 12px;
+    -moz-appearance: none;
+    text-align: left;
+}
+
+/*-----------------------------------------------------------------------------
+ * Number pad for use with vivitextbox
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-container-customer .numpad row,
+.custom-container-customer .numpad column {
+    border: 0px;
+    padding: 0px;
+}
+
+.custom-container-customer .numpad sendkeybutton{
+    background: transparent url(chrome://viviecr/skin/images/m_numbtn.png) center center no-repeat;
+    border: 0px solid;
+    color: #47657d;
+    font-size: 34px;
+    font-weight: bold !important;
+    height: 55px;
+    list-style-type: none;
+    margin: 2px 0px 0px 3px;
+    max-height: 55px;
+    max-width:92px;
+    min-height: 55px;
+    min-width:92px;
+    overflow: hidden;
+    padding: 0px;
+    width: 92px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+}
+
+.custom-container-customer .numpad sendkeybutton:active{
+	background: transparent url(chrome://viviecr/skin/images/m_numbtn_a.png) center center no-repeat;
+}
+
+/*-----------------------------------------------------------------------------
+ * Standard text boxes
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-container-customer textbox {
+    background: white url(chrome://viviecr/skin/images/tboxbg.png) left center repeat-x;
+    border: 3px solid;
+    color: #444;
+    font-size: 18px;
+    min-height: 40px;
+    padding: 4px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a7a7a7 #c5c5c5 #dcdcdc;
+    -moz-border-right-colors: #e7e7e7 #f7f7f7 #fefefe;
+    -moz-border-bottom-colors: #e7e7e7 #f7f7f7 #fefefe;
+    -moz-border-left-colors: #a7a7a7 #c5c5c5 #dcdcdc;
+}
+
+.custom-container-customer textbox[readonly=true] {
+    background: white url(chrome://viviecr/skin/images/tboxbg_readonly.png) left center repeat-x;
+    border: 1px solid #a1a09d !important;
+    -moz-border-top-colors: #a1a09d;
+    -moz-border-left-colors: #a1a09d;
+    -moz-border-right-colors: #a1a09d;
+    -moz-border-bottom-colors: #a1a09d;
+    -moz-user-focus: ignore;
+    -moz-user-input: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Standard number text box
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-container-customer .numberbox-input-box {
+    background: none;
+    border: none;
+    padding-right: 5px;
+    -moz-appearance: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Customer selection list
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-content-customer-list tree #customer_id {
+    text-align: center;
+}
+
+.custom-content-customer-list tree #telephone {
+    text-align: center;
+    max-width: 160px;
+}
+
+.custom-content-customer-list tree #name
+.custom-content-customer-list tree #addr1_addr1 {
+    text-align: right;
+}

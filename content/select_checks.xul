@@ -11,7 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/queued_order.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_styles.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/common/table_status_btn.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/select_checks.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 

@@ -23,6 +23,7 @@
 
         _needRestart: false,
 
+        _templates: null,
 
         initial: function() {
         },
@@ -357,13 +358,13 @@
                 if (success) {
 
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Table Status'),
-                                          _('Table status rebuilt successfully'));
+                        _('Table Status'),
+                        _('Table status rebuilt successfully'));
                 }
                 else {
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Table Status'),
-                                          _('Failed to rebuild table status, please check the network connectivity to the terminal designated as the table status server [message #2101]'));
+                        _('Table Status'),
+                        _('Failed to rebuild table status, please check the network connectivity to the terminal designated as the table status server [message #2101]'));
                 }
             } finally {
                 this._isBusy = false;
@@ -742,9 +743,9 @@
             var defaultDestination = GeckoJS.Configure.read('vivipos.fec.settings.DefaultDestination');
             
             if (destinations != null) destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
-
+            var destinations2 = [];
+            
             var destinationObj = document.getElementById('table_destination');
-
             destinationObj.removeAllItems();
 
             // append default empty
@@ -753,7 +754,19 @@
             destinations.forEach(function(data){
                 var defaultMark = (data.name == defaultDestination) ? '* ' : '';
                 destinationObj.appendItem(defaultMark+data.name, data.name);
+
+                data.label =  defaultMark+data.name ;
+                destinations2.push(data);
+                
             });
+
+            // update require buttons
+            var tablenoDestinationObj = document.getElementById('tableno_destination');
+            var guestnumDestinationObj = document.getElementById('guestnum_destination');
+
+            tablenoDestinationObj.datasource = destinations2;
+            guestnumDestinationObj.datasource = destinations2;
+
 
         },
 
@@ -773,6 +786,7 @@
 
             // append all regions
             defaultRegionObj.appendItem(_('All Regions'),'ALL');
+            defaultRegionObj.appendItem(_('Available Tables'),'AVAILABLE');
 
             regions.forEach(function(data){
                 regionObj.appendItem(data.name, data.id);
@@ -795,6 +809,60 @@
                 minimumChargeForObj.appendItem(this._minimumChargeFor[key], key);
             }
         },
+
+
+        /**
+         * setAnnotationMenuItem
+         */
+        setAnnotationMenuItem: function() {
+
+            var annotationsObj = document.getElementById('annotationForOverrideMinimumCharge');
+
+            annotationsObj.removeAllItems();
+
+            var datas = GeckoJS.Configure.read('vivipos.fec.settings.Annotations');
+            if (datas != null) {
+                var codeDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
+
+                if (codeDatas) {
+                    codeDatas.forEach(function(annotation) {
+                        annotationsObj.appendItem(annotation.code + ' - ' + annotation.type , annotation.type);
+                    });
+
+                    annotationsObj.selectedIndex = 0;
+                }
+
+            }
+
+        },
+
+
+        setPrintCheckTemplates: function() {
+
+            var transferTableTemplateObj = document.getElementById('print_check_after_transfer_table_template');
+            var returnCartItemTemplateObj = document.getElementById('print_check_after_return_cart_item_template');
+            var rushItemTemplateObj = document.getElementById('print_check_rush_item_template');
+            
+            transferTableTemplateObj.removeAllItems();
+            returnCartItemTemplateObj.removeAllItems();
+            rushItemTemplateObj.removeAllItems();
+
+            let transferTableTemplates = this.getTemplates('transfertable-check');
+            let returnItemTemplates = this.getTemplates('returnitem-check');
+            let rushItemTemplates = this.getTemplates('rushitem-check');
+
+            transferTableTemplates.forEach(function(tpl) {
+                transferTableTemplateObj.appendItem(_(tpl.label), tpl.name, '');
+            });
+            returnItemTemplates.forEach(function(tpl) {
+                returnCartItemTemplateObj.appendItem(_(tpl.label), tpl.name, '');
+            });
+            rushItemTemplates.forEach(function(tpl) {
+                rushItemTemplateObj.appendItem(_(tpl.label), tpl.name, '');
+            });
+
+        },
+
 
         searchDialog: function () {
 
@@ -841,6 +909,42 @@
             var settings = this.TableSetting.getTableSettings(true, remote);
             this.Form.reset('settingsForm');
             this.Form.unserializeFromObject('settingsForm', settings);
+
+
+            // update require buttons
+            var tablenoDestinationObj = document.getElementById('tableno_destination');
+            var guestnumDestinationObj = document.getElementById('guestnum_destination');
+
+            let datasourceDestinations = GeckoJS.Array.objectExtract(tablenoDestinationObj.datasource.data, '{n}.name');
+
+            // update destination settings
+            if(settings.RequireTableNo) {
+                
+                let destsByTableNo = settings.RequireTableNo.split(",");
+                let selectedItems = [];
+
+                destsByTableNo.forEach(function(dest) {
+                    let index = GeckoJS.Array.inArray(dest, datasourceDestinations);
+                    if (index != -1) selectedItems.push(index);
+                });
+
+                tablenoDestinationObj.selectedItems = selectedItems ;
+                
+            }
+
+            if (settings.RequireGuestNum) {
+
+                let destsByGuestNum = settings.RequireGuestNum.split(",");
+                let selectedItems = [];
+
+                destsByGuestNum.forEach(function(dest) {
+                    let index = GeckoJS.Array.inArray(dest, datasourceDestinations);
+                    if (index != -1) selectedItems.push(index);
+                });
+
+                guestnumDestinationObj.selectedItems = selectedItems ;
+            }
+
             return settings;
 
         },
@@ -852,6 +956,32 @@
 
             // get form values , only checked
             var settings = this.Form.serializeToObject('settingsForm', true);
+
+            var tablenoDestinationObj = document.getElementById('tableno_destination');
+            var guestnumDestinationObj = document.getElementById('guestnum_destination');
+
+            let datasourceDestinations = GeckoJS.Array.objectExtract(tablenoDestinationObj.datasource.data, '{n}.name');
+
+            if(settings.RequireTableNo) {
+                let destsByTableNo = settings.RequireTableNo.split(",");
+                let selectedItems = [];
+                destsByTableNo.forEach(function(idx) {
+                    selectedItems.push( datasourceDestinations[idx]);
+
+                });
+                settings.RequireTableNo = selectedItems.toString();
+            }
+
+            if (settings.RequireGuestNum) {
+                let destsByGuestNum = settings.RequireGuestNum.split(",");
+                let selectedItems = [];
+                destsByGuestNum.forEach(function(idx) {
+                    selectedItems.push( datasourceDestinations[idx]);
+
+                });
+                settings.RequireGuestNum = selectedItems.toString();
+            }
+            // get require destination
             this.TableSetting.saveTableSettings(settings);
 
             
@@ -900,6 +1030,48 @@
 
         },
 
+        // return template registry objects
+        getTemplates: function (type) {
+
+            let templates = {};
+
+            if (this._templates == null) {
+                this._templates = GeckoJS.Configure.read('vivipos.fec.registry.templates');
+            }
+            if (!type) {
+                templates = this._templates;
+            }
+            else {
+                for (var tmpl in this._templates) {
+                    var tpl = this._templates[tmpl];
+                    if (tpl.type && (tpl.type.split(',').indexOf(type) > -1)) {
+                        templates[tmpl] = tpl;
+                    }
+                }
+            }
+
+            let sortedTemplates = [];
+            for (let tmpl in templates) {
+                let newTemplate = GREUtils.extend({}, templates[tmpl]);
+                newTemplate.name = tmpl;
+
+                var label = newTemplate.label;
+                if (label.indexOf('chrome://') == 0) {
+                    var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                    label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                }
+                else {
+                    label = _(label);
+                }
+                newTemplate.label = label;
+                sortedTemplates.push(newTemplate);
+            }
+            sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
+
+            return sortedTemplates;
+
+        },
+
 
         /**
          * callback function when document onload.
@@ -923,8 +1095,14 @@
             // load minimum charge item
             this.setMinimumChargeForMenuItem();
 
+            // load annotation
+            this.setAnnotationMenuItem();
+
             // update destination menu UI.
             this.setDestinationMenuItem();
+
+            // get template with check type
+            this.setPrintCheckTemplates('check');
 
             // get table settings and update UI
             this.readTableSettings();

@@ -9,11 +9,18 @@
         * @function
         * @param {Object} data
         */
-        saveToBackup: function( data ) {
+        saveToBackup: function( data, updateTimestamp ) {
             var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             if ( isTraining ) return true;
             
-            return this._super( data );
+            // update created and modified
+            if (!updateTimestamp) {
+                if (typeof data.created == 'undefined') {
+                    data.created = Math.round( (new Date()).getTime() / 1000) ;
+                }
+                data['modified'] = Math.round( (new Date()).getTime() / 1000) ;
+            }
+            return this._super( data, updateTimestamp );
         },
         
         restoreFromBackup: function() {
@@ -60,7 +67,7 @@
 
                         // clone data
                         for (let key in d1) {
-                            d2[key] = GREUtils.extend({}, d1[key], d2[key]);
+                            d2[key] = GREUtils.extend({}, d2[key], d1[key]);
                         }
                         
                         // save

@@ -39,6 +39,9 @@
 {elseif type == 'afterCancel'}
 [&ESC @][&ESC QA]${' '|left:20}[&CR]
 [&ESC QB]CANCEL: ${order.seq|right:12}[&CR]
+{elseif type == 'onMessage'}
+[&ESC @][&ESC QA]${item.line1|left:20}[&CR]
+[&ESC QB]${item.line2|left:20}[&CR]
 {else}
 [&ESC @][&ESC QA]${(store.name == null)?'VIVIPOS':store.name|center:20}[&CR]
 [&ESC QB]${'Welcome!'|center:20}[&CR]

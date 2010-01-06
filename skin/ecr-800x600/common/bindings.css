@@ -1,0 +1,94 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+button_colorpicker {
+  -moz-binding: url("chrome://viviecr/content/bindings/button_colorpicker.xbl#button_colorpicker");
+}
+
+button_fontsizepicker {
+  -moz-binding: url("chrome://viviecr/content/bindings/button_fontsizepicker.xbl#button_fontsizepicker");
+}
+
+sync_status {
+  -moz-binding: url("chrome://viviecr/content/bindings/sync_status.xbl#sync_status");
+}
+
+vividatetimepicker {
+  -moz-binding: url("chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker");
+}
+
+vividatetimepicker[showtype="time"] {
+  -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-time');
+}
+
+vividatetimepicker[showtype="date"] {
+  -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-date');
+}
+
+vividatetimepicker[showtype="datetime"] {
+  -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-datetime');
+}
+
+vividatetimepicker[type="popup"] {
+  -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-popup');
+}
+
+vividatetimepicker[type="embed"] {
+  -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-embed');
+}
+
+vividatetimepicker[type="grid"] {
+  -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-grid');
+}
+
+vividatetimepicker-timepad {
+  -moz-binding: url("chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-timepad");
+}
+
+vividatetimepicker-datepad {
+  -moz-binding: url("chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-datepad");
+}
+
+vividatetimepicker-popup {
+  -moz-binding: url("chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-popup");
+}
+
+table_map {
+  -moz-binding: url("chrome://viviecr/content/bindings/table_map.xbl#table_map");
+}
+
+vivifuncpanelecr {
+  -moz-binding: url("chrome://viviecr/content/bindings/vivifuncpanelecr.xbl#vivifuncpanelecr");
+}
+
+vivitextbox {
+    -moz-binding: url('chrome://viviecr/content/bindings/vivitextbox.xbl#vivitextbox');
+}
+
+onscreenvfd {
+  -moz-binding: url("chrome://viviecr/content/bindings/onscreenvfd.xbl#onscreenvfd");
+}
+
+promotions_status {
+  -moz-binding: url("chrome://viviecr/content/bindings/promotions_status.xbl#promotions_status");
+}
+
+vivi_table_status {
+  -moz-binding: url("chrome://viviecr/content/bindings/tables_map.xbl#vivi_table_status");
+}
+
+vivi_tables_map {
+  -moz-binding: url("chrome://viviecr/content/bindings/tables_map.xbl#vivi_tables_map");
+}
+
+diskspace_usage {
+  -moz-binding: url("chrome://viviecr/content/bindings/diskspace_usage.xbl#diskspace_usage");
+}
+
+table_status_std_btn {
+  -moz-binding: url("chrome://viviecr/content/bindings/table_status_std_btn.xbl#table_status_btn");
+}
+
+table_status_btn {
+  -moz-binding: url("chrome://viviecr/content/bindings/table_status_btn.xbl#table_status_btn");
+}
+

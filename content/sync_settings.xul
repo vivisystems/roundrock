@@ -7,10 +7,13 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul" ?>
 
 <window title="&sync_settings.title;"
         hidechrome="true"
@@ -38,10 +41,11 @@
 
             <tabbox flex="1" class="content-tabbox">
 
-                <tabs>
+                <tabs onselect="$do('onSelectTab', event.target.selectedItem, 'SyncSettings')">
                     <tab id="basic-tab" label="&sync_settings.tablabel.basic;"/>
                     <tab id="advanced-tab" label="&sync_settings.tablabel.advanced;"/>
                     <tab id="services-tab" label="&sync_settings.tablabel.services;"/>
+                    <tab id="irc-tab" label="&sync_settings.tablabel.irc;"/>
                 </tabs>
 
                 <tabpanels flex="1">
@@ -98,6 +102,63 @@
                                 <row>
                                     <checkbox label="&sync_settings.label.pull_order;"
                                               form="syncSettingForm" name="pull_order"/>
+                                </row>
+                                <row>
+                                    <spacer style="min-height: 10px;"/>
+                                    <spacer />
+                                </row>
+                            </rows>
+                        </grid>
+
+                        <grid class="data-form-2">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+
+                                <row id="syncSettingsIrcBox" flex="1">
+                                    <vbox>
+                                        <hbox>
+                                            <vbox>
+                                                <label value="&sync_settings.label.irc_hostname;"/>
+                                                <textbox value="localhost"
+                                                         form="syncSettingForm" name="irc_hostname"/>
+                                            </vbox>
+                                            <spacer flex="1" />
+                                            <vbox>
+                                                <label value="&sync_settings.label.irc_workgroup;"/>
+                                                <textbox value=""
+                                                         form="syncSettingForm" name="irc_workgroup"/>
+                                            </vbox>
+                                        </hbox>
+                                        <vbox>
+                                            <hbox>
+                                                <label value="&sync_settings.label.irc_interval;"/>
+                                                <spacer flex="1"/>
+                                                <vivitextbox type="number" min="30" size="4"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     form="syncSettingForm" name="irc_interval"/>
+                                            </hbox>
+                                            <hbox>
+                                                <label value="&sync_settings.label.irc_expire_days;"/>
+                                                <spacer flex="1"/>
+                                                <vivitextbox type="number" min="0" size="4"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     form="syncSettingForm" name="irc_expire_days"/>
+                                            </hbox>
+                                        </vbox>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&sync_settings.label.irc_update_type;"/>
+                                        <vbox flex="1">
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_signon" label="&sync_settings.label.irc_update_when_signon;" />
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_signoff" label="&sync_settings.label.irc_update_when_signoff;" />
+
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_reboot" label="&sync_settings.label.irc_update_when_reboot;" />
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_shutdown" label="&sync_settings.label.irc_update_when_shutdown;" />
+                                        </vbox>
+                                    </vbox>
                                 </row>
                             </rows>
                         </grid>
@@ -225,6 +286,123 @@
                         </grid>
 
                     </tabpanel>
+
+                    <tabpanel id="irc-panel" orient="vertical" flex="1">
+
+                        <hbox flex="1" id="ircBoxContainer">
+                            <vbox flex="1" id="ircListBox" style="min-width: 200px" >
+                                <hbox pack="center" class="content-formbox">
+                                    <label value="&sync_settings.label.irc_packages;"/>
+                                </hbox>
+                                <hbox flex="1" class="content-listbox">
+                                    <vivitree id="ircPackagesTree" flex="1" class="standard"
+                                  headers="&sync_settings.label.irc_packages_header;" fields="file" hidecolumnpicker="true"
+                                  onselect="$do('onSelectIrcPackage',this.selectedIndex, 'SyncSettings');"/>
+                                </hbox>
+                                <hbox flex="0" class="toolbar" toolbarmode="vertical" align="left">
+                                    <vivibutton id="ircCreatePackage" label="&sync_settings.button.irc_create_package;" oncommand="$do('createIrcPackage',null, 'SyncSettings');"/>
+                                    <vivibutton id="ircRemovePackage" label="&sync_settings.button.irc_remove_package;" oncommand="$do('removeIrcPackage',document.getElementById('ircPackagesTree').selectedIndex, 'SyncSettings');" disabled="true" />
+                                    <button id="ircRefreshPackage" image="chrome://viviecr/skin/images/reload.png" oncommand="$do('refreshSelectIrcPackage',document.getElementById('ircPackagesTree').selectedIndex, 'SyncSettings');" disabled="true" />
+                                </hbox>
+                            </vbox>
+                            <vbox flex="3" id="ircEditBox">
+                                <tabbox flex="1" class="content-tabbox">
+                                    <tabs id="irc-edit-tabs">
+                                        <tab id="irc-detail-tab" label="&sync_settings.tablabel.irc_detail;" />
+                                        <tab id="irc-edit-tab" label="&sync_settings.tablabel.irc_edit;" disabled="true" />
+                                    </tabs>
+                                    <tabpanels flex="1">
+                                        <tabpanel id="irc-detail-panel" orient="vertical" flex="1" >
+                                            <grid flex="1">
+                                                <columns>
+                                                    <column flex="1"/>
+                                                    <column flex="2"/>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <label value="&sync_settings.label.irc_created_machine_id;"/>
+                                                        <textbox name="created_machine_id" form="ircDetail" readonly="true" />
+                                                    </row>
+                                                    <row>
+                                                        <label value="&sync_settings.label.irc_filesize;"/>
+                                                        <textbox name="filesize" form="ircDetail" readonly="true" />
+                                                    </row>
+                                                    <row>
+                                                        <label value="&sync_settings.label.irc_description;"/>
+                                                        <textbox name="description" form="ircDetail" multiline="true" rows="2" readonly="true" />
+                                                    </row>
+                                                    <row>
+                                                        <label value="&sync_settings.label.irc_activation;"/>
+                                                        <textbox name="activation" form="ircDetail" readonly="true" />
+                                                    </row>
+                                                    <row>
+                                                        <label value="&sync_settings.label.irc_workgroup;"/>
+                                                        <textbox name="workgroup" form="ircDetail" readonly="true" />
+                                                    </row>
+                                                    <row>
+                                                        <label value="&sync_settings.label.irc_modules;"/>
+                                                        <textbox name="module_labels" form="ircDetail" readonly="true" multiline="true" rows="2"/>
+                                                    </row>
+                                                    <row flex="1">
+                                                        <label value="&sync_settings.label.irc_clients;"/>
+                                    <vivitree id="ircDetailClientsTree" flex="1" class="standard"
+                                  headers="&sync_settings.label.irc_machineid_header;,&sync_settings.label.irc_downloaded_header;,&sync_settings.label.irc_updated_header;" fields="machine_id,downloaded,updated" hidecolumnpicker="true" />
+                                                    </row>
+                                                </rows>
+                                            </grid>
+                                        </tabpanel>
+
+                                        <tabpanel id="irc-edit-panel" orient="vertical" flex="1">
+                                            <grid flex="1">
+                                                <columns>
+                                                    <column flex="1"/>
+                                                    <column flex="2"/>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <label value="&sync_settings.label.irc_description;"/>
+                                                        <textbox name="description" form="ircEdit" multiline="true" rows="2" />
+                                                    </row>
+                                                    <row>
+                                                        <label value="&sync_settings.label.irc_activation;"/>
+                                                        <vividatetimepicker name="activation" type="popup" form="ircEdit" />
+                                                    </row>
+                                                    <row>
+                                                        <label value="&sync_settings.label.irc_workgroup;"/>
+                                                        <hbox>
+                                                            <textbox name="workgroup" form="ircEdit" />
+                                                            <label value="&sync_settings.label.irc_workgroup_desc;"/>
+                                                        </hbox>
+                                                    </row>
+                                                    <row flex="2">
+                                                        <label value="&sync_settings.label.irc_modules;"/>
+                                                        <viviscrollablebuttonpanel id="ircModules" seltype="multiple" flex="1" cols="2" rows="5" labelField="label"
+                                                                                   buttonClass="button-item-a"
+                                                                                   scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
+                                                                                   form="ircEdit" name="modules">
+                                                            <spacer flex="1"/>
+                                                        </viviscrollablebuttonpanel>
+                                                    </row>
+                                                    <row flex="1">
+                                                        <spacer />
+                                                        <spacer />
+                                                    </row>
+                                                    <row>
+                                                        <spacer />
+                                                        <hbox flex="0" class="toolbar" toolbarmode="vertical" align="right">
+                                                            <vivibutton id="ircConfirmCreatePackage" label="&sync_settings.button.irc_confirm_create_package;" oncommand="$do('createIrcPackage', true, 'SyncSettings');"/>
+                                                            <vivibutton id="ircCancelCreatePackage" label="&sync_settings.button.irc_cancel_create_package;" oncommand="$do('cancelCreateIrcPackage', null, 'SyncSettings');"/>
+                                                        </hbox>
+                                                    </row>
+                                                </rows>
+                                            </grid>
+                                        </tabpanel>
+
+                                    </tabpanels>
+                                </tabbox>
+                            </vbox>
+                        </hbox>
+                    </tabpanel>
                 </tabpanels>
             </tabbox>
 
@@ -237,4 +415,8 @@
   
         </vbox>
     </vbox>
+
+    <popupset id="dialogs">
+    </popupset>
+
 </window>
