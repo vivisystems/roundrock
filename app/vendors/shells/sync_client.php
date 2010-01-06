@@ -48,14 +48,14 @@ class SyncClientShell extends SyncBaseShell {
         $syncSettings = $this->readSyncSettings();
 
         if ($this->isSyncing()) {
-            CakeLog::write('info', "sync_client sync: other process issyncing.. ");
+            CakeLog::write('debug', "sync_client sync: other process issyncing.. ");
             return ;
         }
 
         try {
 
             $this->addSyncRequest();
-            CakeLog::write('info', "sync_client sync: addSyncRequest... ");
+            CakeLog::write('debug', "sync_client sync: addSyncRequest... ");
             
         }catch(Exception $e) {
         }
@@ -73,8 +73,6 @@ class SyncClientShell extends SyncBaseShell {
     function waitForRequest($timeout) {
 
         $start = 0;
-
-        CakeLog::write('debug', "waitForRequest $timeout");
 
         while ($start < $timeout ) {
 
@@ -106,7 +104,7 @@ class SyncClientShell extends SyncBaseShell {
         $syncSettings = $this->readSyncSettings();
 
         if ($this->isSyncing()) {
-            CakeLog::write('info', "other process issyncing.. sleep to next interval");
+            CakeLog::write('debug', "other process issyncing.. sleep to next interval");
             return ;
         }
 
@@ -116,11 +114,11 @@ class SyncClientShell extends SyncBaseShell {
             CakeLog::write('debug', "observerNotify starting");
             $this->observerNotify('starting');
 
-            CakeLog::write('info', "requestAction perform_sync");
+            CakeLog::write('debug', "requestAction perform_sync");
 
             $syncResult = $this->requestAction("/sync_clients/perform_sync");
 
-            CakeLog::write('info', "requestAction perform_sync result: " . $syncResult['pull_result'] . "," . $syncResult['push_result']);
+            CakeLog::write('debug', "requestAction perform_sync result: " . $syncResult['pull_result'] . "," . $syncResult['push_result']);
 
             CakeLog::write('debug', "observerNotify finished");
 
@@ -158,13 +156,13 @@ class SyncClientShell extends SyncBaseShell {
          */
         $syncSettings = $this->readSyncSettings();
 
-        $active = $syncSettings['active'];
+        $active = empty($syncSettings['active']) ? false : true;
         $startHour = $syncSettings['start_hour'] + 0 ;
         $endHour = $syncSettings['end_hour'] + 0;
-        $interval = $syncSettings['interval'];
+        $interval = empty($syncSettings['interval']) ? 86400 : $syncSettings['interval'];
         $error_retry = $syncSettings['error_retry'];
         $timeout = $syncSettings['timeout'];
-        $hostname = $syncSettings['hostname'];
+        $hostname = empty($syncSettings['hostname']) ? 'localhost' : $syncSettings['hostname'];
         $process_type = $syncSettings['process_type'];
 
         $shell =& $this;
@@ -206,7 +204,7 @@ class SyncClientShell extends SyncBaseShell {
 
             while ( $runningOkay && ($tries < $error_retry)) {
 
-                System_Daemon::log(System_Daemon::LOG_INFO, "requestAction perform_syncs, retries = " . $tries );
+                System_Daemon::log(System_Daemon::LOG_DEBUG, "requestAction perform_syncs, retries = " . $tries );
 
                 if ($hostname == 'localhost' || $hostname == '127.0.0.1' || empty($active) ) break;
 
