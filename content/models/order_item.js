@@ -152,8 +152,13 @@
 
                 // check non stored data and rebuild from product databases
                 if (!orderItem.link_group) {
-                    let product = productModel.getProductById(orderItem.id);
-                    orderItem['link_group'] = product.link_group;
+                    try {
+                        let product = productModel.getProductById(orderItem.id);
+                        orderItem['link_group'] = product.link_group;
+                    }catch(e){
+                        // product not exists, maybe databases error or calling old order
+                        this.log('WARN', 'product not exists when mappingOrderItemsFieldsToTran: ' + orderItem.id);
+                    }
                 }
                 
                 orderItem.index = itemIndex;
