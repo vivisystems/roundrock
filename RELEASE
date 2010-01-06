@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.0.6
+Release 1.2.0.7
 ---------------
 
 This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
@@ -26,56 +26,5 @@ Bug #159:
 Bugs fixed
 ----------
 
-Bug #270:
-    Computation of end of shift balance erroneously includes payment totals from cancelled orders
-
-Bug #274:
-    Need to be able to view sales summary at the end of a shift
-
-Bug #275:
-    Employee data form flashes to the first user in list at the end of add/modify action
-
-Bug #276:
-    Linked group property of stored items not regenerated when recalled, causing kitchen routing to fail when issuing duplicate kitchen checks
-
-Bug #277:
-    Sales summary report needs to provide option to ignore or break out set menu items
-
-Bug #278:
-    Product sales report needs to provide option to ignore or break out set menu items
-
-Bug #278:
-    Product returns report needs to provide option to ignore or break out set menu items
-
-Bug #280:
-    On the table selection screen, table totals are not shown correctly when amount is greater or equal to 1000
-
-Bug #282:
-    The "Stored order policy when changing shift" dropdown menu in Sign In/Out tab of General Options extends beyond its containing box
-
-Bug #284:
-    Changes made by function customizer sometimes require 2 application restarts to take effect
-
-Bug #285:
-    If period type of "Time Voided" or "Sale Period Voided" is selected, all selections of order status other than "Voided" is meaningless and should therefore not be shown at all
-
-Bug #286:
-    Transaction-level memos should not be indented, otherwise it is difficult to differentiate it from item memos
-
-Bug #287:
-    On payment status screen, origin amount for cash payment in local currency is always shown as 0 (zero)
-
-Bug #288:
-    Parsing of split payment amount fails because of formatting
-
-Bug #294:
-    When the Shift Change report is invoked at the end of a shift or sale period, the search filters should be collapsed to allow better viewing
-
-Bug #295:
-    When the Sales Summary report is invoked at the end of a shift or sale period, the search filters should be collapsed to allow better viewing
-
-Bug #303:
-    Use a more stable and high performance public server for resolving external IP address
-
-Bug #304:
-    Orientation configuration of function panel is over-ridden by Layout's "Place Register Screen on the Left" setting
+Bug #307:
+     Product Search by product number, barcode, or name fails in Product Management screen
