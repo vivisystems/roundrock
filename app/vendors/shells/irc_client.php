@@ -54,14 +54,13 @@ class IrcClientShell extends SyncBaseShell {
         $syncSettings = $this->readSyncSettings();
 
         if ($this->isSyncing()) {
-            CakeLog::write('info', "irc_client sync: other process issyncing.. ");
+            CakeLog::write('debug', "irc_client sync: other process issyncing.. ");
             return ;
         }
 
         try {
-
             $this->addSyncRequest();
-            CakeLog::write('info', "irc_client sync: addSyncRequest... ");
+            CakeLog::write('debug', "irc_client sync: addSyncRequest... ");
             
         }catch(Exception $e) {
         }
@@ -79,8 +78,6 @@ class IrcClientShell extends SyncBaseShell {
     function waitForRequest($timeout) {
 
         $start = 0;
-
-        CakeLog::write('debug', "waitForRequest $timeout");
 
         while ($start < $timeout ) {
 
@@ -112,7 +109,7 @@ class IrcClientShell extends SyncBaseShell {
         $syncSettings = $this->readSyncSettings();
 
         if ($this->isSyncing()) {
-            CakeLog::write('info', "other process issyncing.. sleep to next interval");
+            CakeLog::write('debug', "other process issyncing.. sleep to next interval");
             return ;
         }
 
@@ -120,11 +117,11 @@ class IrcClientShell extends SyncBaseShell {
 
         try {
 
-            CakeLog::write('info', "requestAction downloadPackages");
+            CakeLog::write('debug', "requestAction downloadPackages");
 
             $syncResult = $this->requestAction("/irc/downloadPackages");
 
-            CakeLog::write('info', "requestAction downloadPackages result: " . $syncResult);
+            CakeLog::write('debug', "requestAction downloadPackages result: " . $syncResult);
 
             $successed = $syncResult;
 
@@ -171,11 +168,11 @@ class IrcClientShell extends SyncBaseShell {
         $syncSettings = $this->readSyncSettings();
 
         $active = true; // always check master irc
-        $interval = $syncSettings['irc_interval'];
+        $interval = empty($syncSettings['irc_interval']) ? 86400 : $syncSettings['irc_interval'];
         $error_retry = $syncSettings['error_retry'];
         $timeout = $syncSettings['timeout'];
-        $hostname = $syncSettings['irc_hostname'];
-        $expireDays = $syncSettings['irc_expire_days'];
+        $hostname = empty($syncSettings['irc_hostname']) ? 'localhost' : $syncSettings['irc_hostname'];
+        $expireDays = empty($syncSettings['irc_expire_days']) ? 30 : $syncSettings['irc_expire_days'];
 
         // remove expire irc packages before start process.
         $this->removeExpirePackages($expireDays);
@@ -219,7 +216,7 @@ class IrcClientShell extends SyncBaseShell {
 
             while ( $runningOkay && ($tries < $error_retry)) {
 
-                System_Daemon::log(System_Daemon::LOG_INFO, "requestAction downloadPackages, retries = " . $tries );
+                System_Daemon::log(System_Daemon::LOG_DEBUG, "requestAction downloadPackages, retries = " . $tries );
 
                 if ($hostname == 'localhost' || $hostname == '127.0.0.1' || empty($active) ) break;
 
