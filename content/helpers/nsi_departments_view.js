@@ -11,7 +11,7 @@
             this._noResize = noResize;
 
             var plugroupModel = new PlugroupModel();
-            var plugroups = plugroupModel.find('all', {order: 'display_order, name'});
+            var plugroups = plugroupModel.find('all', {order: 'display_order, name COLLATE NOCASE'});
 
             var domNode = document.getElementById(domId);
             this.contentType = domNode ? (domNode.getAttribute('contentType') || 'all') : 'all';
