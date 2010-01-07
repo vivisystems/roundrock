@@ -273,7 +273,7 @@
 
 
             // hide the no sales department if users want it that way.
-            if ( empty_department == 'hide' || department != 'all' ) {
+            if ( empty_department == 'hide' ) {
                  //=====================================================> hide department
                 for ( var category in categories.department ) {
                     if ( categories.department[ category ].summary.qty == 0 )

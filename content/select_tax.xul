@@ -31,7 +31,7 @@
 
     <vbox flex="1" class="container-dialog">
         <vbox flex="1" class="container-main">
-            <caption label="&selecttax.title;" class="label-page-title"/>
+            <caption id="title" label="&selecttax.title;" class="label-page-title"/>
             <label id="rate" hidden="true" value=""/>
             <hbox flex="1" class="content-buttonpanel">
                 <viviscrollablebuttonpanel id="taxscrollablepanel" flex="1" cols="3" rows="6" labelField="name" seltype="toggle"

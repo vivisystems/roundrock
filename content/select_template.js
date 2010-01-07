@@ -14,7 +14,7 @@
 
                 if(templatePanel.selectedIndex == -1){
 
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Template'), _('please select a template'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Template'), _('Please select a template first'));
                     return;
                 }
                       
@@ -29,22 +29,8 @@
                 inputObj.ok = false;
                 return true;                
             }
-            );
-
-        var path = GREUtils.File.chromeToPath('chrome://viviecr/content/images/labels');
-
-        $do('loadImage', path, 'ImageManager');
-
-    };
-
-    function setTemplate(){
-        
-         var templatePanel = document.getElementById('imagePanel');
-         var templateName = document.getElementById('templateName');
-
-         var name = templatePanel.datasource.data[templatePanel.selectedIndex].leafName.split('.')[0] + '.tpl';
-
-         templateName.setAttribute('label', name);
+            );       
+        $do('loadImage', null, 'SelectTemplate');
     };
 
     window.addEventListener('load', startup, true);

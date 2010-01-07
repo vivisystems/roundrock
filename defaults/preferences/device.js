@@ -28,17 +28,17 @@ pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.type", "che
 pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/guestcheck-sample-condensed-42c.tpl");
 
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "check,label");
+pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "check");
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.path", "chrome://viviecr/content/devices/templates/label-sample-argox-203td.tpl");
 
-pref("vivipos.fec.registry.templates.label-simple-testing-1.label", "label-simple-testing-1");
+pref("vivipos.fec.registry.templates.label-simple-testing-1.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.label-simple-testing-1.type", "label");
-pref("vivipos.fec.registry.templates.label-simple-testing-1.barcodetype", "3OF9,128,UPC-A,EAN-13");
+pref("vivipos.fec.registry.templates.label-simple-testing-1.barcodetype", "3OF9");
 pref("vivipos.fec.registry.templates.label-simple-testing-1.path", "chrome://viviecr/content/devices/templates/label-simple-testing-1.tpl");
 
-pref("vivipos.fec.registry.templates.label-simple-testing-2.label", "label-simple-testing-2");
+pref("vivipos.fec.registry.templates.label-simple-testing-2.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.label-simple-testing-2.type", "label");
-pref("vivipos.fec.registry.templates.label-simple-testing-2.barcodetype", "3OF9,128,UPC-A,EAN-13");
+pref("vivipos.fec.registry.templates.label-simple-testing-2.barcodetype", "3OF9");
 pref("vivipos.fec.registry.templates.label-simple-testing-2.path", "chrome://viviecr/content/devices/templates/label-simple-testing-2.tpl");
 
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "chrome://viviecr/locale/messages.properties");
@@ -48,10 +48,6 @@ pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.path", "chrome
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-32c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-32c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-32c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-32c.tpl");
-
-pref("vivipos.fec.registry.templates.receipt-japanese-ecr-42c.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.registry.templates.receipt-japanese-ecr-42c.type", "receipt");
-pref("vivipos.fec.registry.templates.receipt-japanese-ecr-42c.path", "chrome://viviecr/content/devices/templates/receipt-bixolon-sample-condensed-42c.tpl");
 
 pref("vivipos.fec.registry.templates.queue-ticket-24c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.queue-ticket-24c.type", "check");
@@ -76,10 +72,6 @@ pref("vivipos.fec.registry.templates.vfd-internal.path", "chrome://viviecr/conte
 pref("vivipos.fec.registry.templates.vfd-internal-non-en.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.vfd-internal-non-en.type", "vfd");
 pref("vivipos.fec.registry.templates.vfd-internal-non-en.path", "chrome://viviecr/content/devices/templates/vfd-internal-non-en.tpl");
-
-pref("vivipos.fec.registry.templates.vfd-internal-24c.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.registry.templates.vfd-internal-24c.type", "vfd");
-pref("vivipos.fec.registry.templates.vfd-internal-24c.path", "chrome://viviecr/content/devices/templates/vfd-internal-24c.tpl");
 
 pref("vivipos.fec.registry.ports.com1.label", "COM 1");
 pref("vivipos.fec.registry.ports.com1.type", "serial");
@@ -123,11 +115,6 @@ pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.type", "receipt,check,rep
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.path", "chrome://viviecr/content/devices/commands/epson-tm88iv.cmd");
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,UTF-8=UTF-8");
 
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.label", "Bixolon SRP 350");
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.type", "receipt,check,report,cashdrawer");
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.path", "chrome://viviecr/content/devices/commands/bixolon_srp_350_plus.cmd");
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,UTF-8=UTF-8,Japanese=Shift_JIS");
-
 pref("vivipos.fec.registry.devicemodels.epson-rp-u420.label", "Epson RP-U420");
 pref("vivipos.fec.registry.devicemodels.epson-rp-u420.type", "receipt,check");
 pref("vivipos.fec.registry.devicemodels.epson-rp-u420.path", "chrome://viviecr/content/devices/commands/epson-rp-u420.cmd");
@@ -137,11 +124,6 @@ pref("vivipos.fec.registry.devicemodels.argox-os-203.label", "Argox OS-203");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.type", "receipt,check,label");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.path", "chrome://viviecr/content/devices/commands/argox-os-203.cmd");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.encodings", "English=US-ASCII,Western=ISO-8859-1,Traditional Chinese=Big5,Simplified Chinese=GB18030,Simplified Chinese=GB2312");
-
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.label", "Bixolon SRP 350");
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.type", "receipt,check,report,cashdrawer");
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.path", "chrome://viviecr/content/devices/commands/bixolon_srp_350_plus.cmd");
-pref("vivipos.fec.registry.devicemodels.bixolon-srp-350.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,UTF-8=UTF-8,Japanese=Shift_JIS");
 
 pref("vivipos.fec.registry.devicemodels.vfdfec.label", "Firich VFD");
 pref("vivipos.fec.registry.devicemodels.vfdfec.type", "vfd");
@@ -165,24 +147,3 @@ pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.controller", "Sc
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.iterations", 10);
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.stables", 0);
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.tries", 5);
-
-pref("vivipos.fec.registry.devicemodels.epson-tm-u200.label", "Epson TM-U200 Series");
-pref("vivipos.fec.registry.devicemodels.epson-tm-u200.type", "receipt,check,report,label");
-pref("vivipos.fec.registry.devicemodels.epson-tm-u200.path", "chrome://device-epson-tm-u200/content/devices/commands/epson-tm-u200.cmd");
-pref("vivipos.fec.registry.devicemodels.epson-tm-u200.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
-
-pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.type", "transfertable-check");
-pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.path", "chrome://viviecr/content/devices/templates/kitchen-transfertable-42c.tpl");
-
-pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.type", "transfertable-check");
-pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.path", "chrome://viviecr/content/devices/templates/kitchen-transfertable-expanded-42c.tpl");
-
-pref("vivipos.fec.registry.templates.kitchen-returnitem-42c.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.registry.templates.kitchen-returnitem-42c.type", "returnitem-check");
-pref("vivipos.fec.registry.templates.kitchen-returnitem-42c.path", "chrome://viviecr/content/devices/templates/kitchen-returnitem-42c.tpl");
-
-pref("vivipos.fec.registry.templates.kitchen-rushitem-42c.label", "chrome://viviecr/locale/messages.properties");
-pref("vivipos.fec.registry.templates.kitchen-rushitem-42c.type", "rushitem-check");
-pref("vivipos.fec.registry.templates.kitchen-rushitem-42c.path", "chrome://viviecr/content/devices/templates/kitchen-rushitem-42c.tpl");

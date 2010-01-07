@@ -154,11 +154,13 @@
         //enable pricelevel menulist
         if('priceLevel' in inputObj){
 
+           document.getElementById('input0').setAttribute('min', 1);
+
            var obj = document.getElementById('priceList');
 
            inputObj.priceLevel.priceLevel.forEach( function(level){
 
-               obj.appendItem('Price Level'+level, level);
+               obj.appendItem(_('Price Level %S', [level]));
            })
            obj.selectedIndex = inputObj.priceLevel.priceLevel.indexOf(inputObj.priceLevel.selected);
         }
@@ -189,7 +191,7 @@
                 inputObj.menu = document.getElementById('menu').value;
                 inputObj.radio = document.getElementById('radiogroup').value;
                 if('priceLevel' in inputObj)
-                inputObj.priceLevel.selected = document.getElementById('priceList').value;
+                inputObj.priceLevel.selected = parseInt(document.getElementById('priceList').selectedIndex) + 1;
                 inputObj.ok = true;
                 return true;
             },

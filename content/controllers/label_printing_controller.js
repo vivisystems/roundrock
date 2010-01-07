@@ -21,6 +21,8 @@
        _modifyProductButton: null,
        _deleteProduct:null,
        _template:null,
+       _barcodeType:null,
+       _template:null,
 
        _categoriesByNo: {},
        _categoryIndexByNo: {},
@@ -99,9 +101,8 @@
 
              //set defaul peice level
             
-
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _(''), features,
-                                       _(category.name), _('How many ...?'), _('Count'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features,
+                                       _(category.name), '', _('Number of labels to print'), '', inputObj);
 
             /* 3.if 'ok' button == true */
             if (inputObj.ok && inputObj.input0 ){
@@ -117,6 +118,7 @@
                           /* case 2. group */
                     else products = productTable.find("all", "link_group LIKE '%"+category.id+"%'");
 
+                if(products.length == 0) return ;
                 /* 3.2 a for loop assign count to all product(the department) && push it in tabList[]*/
                 products = this.addListProperty(products);
                     for(var i = 0; i< products.length ; i++)
@@ -217,8 +219,8 @@
                      //   input1:null, require1:false
                             };*/
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _(''), features,
-                                       _(product.name),_('How many....?'), _('Count'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features,
+                                       _(product.name),'', _('Number of labels to print'), '', inputObj);
 
             /* 3.if 'ok' button == true */
             if (inputObj.ok && inputObj.input0 ) {
@@ -532,31 +534,31 @@
             this._priceMenuList.setAttribute('label',_('Price Level'));
 
             if(product.level_enable1 ){
-                 this._priceMenuList.appendItem('Level1   '+product.price_level1, product.price_level1);
+                 this._priceMenuList.appendItem('Level 1 :  '+product.price_level1, product.price_level1);
             }
             if(product.level_enable2 ){
-                 this._priceMenuList.appendItem('Level2   '+product.price_level2, product.price_level2);
+                 this._priceMenuList.appendItem('Level 2 :  '+product.price_level2, product.price_level2);
             }
             if(product.level_enable3 ){
-                 this._priceMenuList.appendItem('Level3   '+product.price_level3, product.price_level3);
+                 this._priceMenuList.appendItem('Level 3 :  '+product.price_level3, product.price_level3);
             }
             if(product.level_enable4 ){
-                 this._priceMenuList.appendItem('Level4   '+product.price_level4, product.price_level4);
+                 this._priceMenuList.appendItem('Level 4 :  '+product.price_level4, product.price_level4);
             }
             if(product.level_enable5 ){
-                 this._priceMenuList.appendItem('Level5   '+product.price_level5, product.price_level5);
+                 this._priceMenuList.appendItem('Level 5 :  '+product.price_level5, product.price_level5);
             }
             if(product.level_enable6 ){
-                 this._priceMenuList.appendItem('Level6   '+product.price_level6, product.price_level6);
+                 this._priceMenuList.appendItem('Level 6 :  '+product.price_level6, product.price_level6);
             }
             if(product.level_enable7 ){
-                 this._priceMenuList.appendItem('Level7   '+product.price_level7, product.price_level7);
+                 this._priceMenuList.appendItem('Level 7 :  '+product.price_level7, product.price_level7);
             }
             if(product.level_enable8 ){
-                 this._priceMenuList.appendItem('Level8   '+product.price_level8, product.price_level8);
+                 this._priceMenuList.appendItem('Level 8 :  '+product.price_level8, product.price_level8);
             }
             if(product.level_enable9 ){
-                 this._priceMenuList.appendItem('Level9   '+product.price_level9, product.price_level9);
+                 this._priceMenuList.appendItem('Level 9 :  '+product.price_level9, product.price_level9);
             }
 
 
@@ -596,7 +598,7 @@
 
             if(this.tabList == ""){
 
-                GREUtils.Dialog.alert(this.topmostWindow, _('Save File'), _('The List is empty'));
+                GREUtils.Dialog.alert(this.topmostWindow, _('Save Product List'), _('The list is empty'));
                 return ;
             }
            if(this._tabListPanel.selectedIndex != -1)
@@ -619,8 +621,8 @@
                         //   input1:null, require1:false
                              };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _(''), features,
-                                        _('Save List'), '', _('FileName'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features,
+                                        _('Save Product List'), '', _('List Name'), '', inputObj);
 
              /* 3.if 'ok' button == true */
             if (inputObj.ok && inputObj.input0 ){
@@ -630,7 +632,7 @@
 
             if( isFileNameExist != -1){
 
-                var action = this.checkSave('replace','This name is exist. Replace the file ?');
+                var action = this.checkSave('replace',_('This list already exists. Do you want to replace this list?'));
 
                 if(action == 1){
                     this.saveList();
@@ -650,19 +652,14 @@
 
                  if(isFileNameExist == -1){
 
-                     GREUtils.Dialog.alert(this.topmostWindow,'',
-                        _( 'New file' ) + ' ' + listName + ' ' + _( 'has been generated' ) + '.'
-                     );
+                    OsdUtils.info(_('New list [%S] has been generated', [listName]));
 
                     this._menulistElement.selectedIndex = this._fileNameList.length;
                     this._selListIndex = this._fileNameList.length -1;
                 }
                 else{
-
-                    GREUtils.Dialog.alert(
-                        this.topmostWindow,'',
-                        _( 'The file' ) + ' ' + listName + ' ' + _( 'has been replaced' ) + '.'
-                    );
+                    
+                    OsdUtils.info(_('The list [%S] has been replaced', [listName]));
                     isFileNameExist = Array.indexOf(this._fileNameList, listName)
                     this._menulistElement.selectedIndex = isFileNameExist + 1 ;
                     this._selListIndex = isFileNameExist;
@@ -674,7 +671,7 @@
         loadList: function(index){
 
             if( (this.tabList != "" && this._isSave == false )|| GeckoJS.FormHelper.isFormModified('setProductForm')){
-                var action = this.checkSave('save',_('Save list before loading?'));
+                var action = this.checkSave('save',_('You have made changes to the current list. Save changes ?'));
 
                 switch( action )
                 {
@@ -822,9 +819,9 @@
              for(var i =0 ; i<this._replaceProducts.length;i++){
                          alert = alert + this._replaceProducts[i].name + "\n";
              }
-
-             GREUtils.Dialog.alert(this.topmostWindow, _('Replaces products'),
-                                      alert + _("have been replaced"));
+        // alert replaced products
+        //     GREUtils.Dialog.alert(this.topmostWindow, _('Replaces products'),
+        //                              alert + _("have been replaced"));
 
              this._replaceProducts = [];
          },
@@ -887,7 +884,7 @@
                   /* action = 0  Yes
                    * action = 1  No  */
                     var action = prompts.confirmEx(this.topmostWindow,
-                                               _('Replace'),messege,
+                                               _('Save List'),messege,
                                                flags, _('Yes'), _('No'), '', null, check);
                     return action;
 
@@ -1117,41 +1114,11 @@
 
           if(this.tabList == ""){
 
-                GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('The List is empty'));
+                GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('The list is empty'));
                 return ;
-            }
+            }                                       
 
-       //     var list = [{barcode:'BA12^^^34'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
-
-            var object = this.checkBarcodeType3OF9(this.tabList);
-            
-            this.legalList = object.legalList;
-
-            if(this.legalList.length == 0){
-
-                GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('unvalidated barcode'));
-                return ;
-            }
-
-
-            if(!object.islegal){
-      //          var alert = this.alertIllegalBarcodeProduct(object.illegalList);
-
-      //          var action = this.checkSave('barcode',_("find unvalidated barcode")+"\n" +alert +"\n"+ _("continue print ?"));
-                 this.alertErrorpanel(object.illegalList);
-       /*              switch( action )
-                     {
-                         case 0:
-                                 this.selectTemplate();
-                                 return;
-
-                         case 1:
-                                 return;
-
-                     }
-*/
-            }else{ this.selectTemplate(); }
-      //      
+            this.selectTemplate();
         },
 
         alertErrorpanel: function(list){
@@ -1170,7 +1137,7 @@
         continuePrinting: function(){
 
              document.getElementById('error_panel').hidePopup();
-             this.selectTemplate();
+             this.printList(this._barcodeType, this._template);
         },
         
         testing: function(){
@@ -1229,11 +1196,23 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_template'), aFeatures, inputObj);
             if (inputObj.ok) {
 
-               var template = inputObj.selectedTemplate
+               this._template = inputObj.selectedTemplate
                var barcode = inputObj.selectedBarcode
-               var barcodeType = this.getBarcodeType(barcode)
-                
-               this.printList(barcodeType, template);
+               
+               this._barcodeType = this.getBarcodeType(barcode)
+               var object = this.checkBarcodeType3OF9(this.tabList);
+
+               this.legalList = object.legalList;
+
+               if(this.legalList.length == 0){
+
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('All the products\' barcod are invalid'));
+                    return ;
+               }
+
+               if(!object.islegal)
+                   this.alertErrorpanel(object.illegalList);
+               else this.continuePrinting();
             }
         },
 
@@ -1306,7 +1285,7 @@
 
              if( (this.tabList != "" && !this._isSave) || GeckoJS.FormHelper.isFormModified('setProductForm')){
 
-                 var action = this.checkSave('save',_('Save list before existing?'));
+                 var action = this.checkSave('save',_('You have made changes to the current list. Save changes before existing?'));
 
                  switch( action )
                  {
