@@ -27,4 +27,8 @@ Bugs fixed
 ----------
 
 Bug #307:
-     Product Search by product number, barcode, or name fails in Product Management screen
+    Product Search by product number, barcode, or name fails in Product Management screen
+
+Bug #309:
+    Display sorting to collate no case for departments, product groups and products in the UI
+     Display sorting to collate no case for departments, product groups and products in the UI
