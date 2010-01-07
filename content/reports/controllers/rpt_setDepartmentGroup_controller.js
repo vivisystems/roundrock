@@ -35,8 +35,7 @@
             GeckoJS.Configure.write('vivipos.fec.settings.rptConfigure.department', GeckoJS.BaseObject.serialize(departmentPanelSelectedItems));
             GeckoJS.Configure.write('vivipos.fec.settings.rptConfigure.group', GeckoJS.BaseObject.serialize(groupPanelSelectedItems));
 
-  //OSD          GREUtils.Dialog.alert(this.topmostWindow, _('Save'),_("Settings saved successful"));
-            this.load();
+            OsdUtils.info(_('Settings saved successful'));
         },
 
         load: function(){

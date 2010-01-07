@@ -65,8 +65,6 @@
             </vbox>
             <hbox id="dialogButtons" class="exitbar">
                 <button id="save" default="true" class="button-save" oncommand="$do('save', null, 'SetDepartmentGroup');"/>
-                <vivibutton id="test" hidden ="true" class="" oncommand="$do('test', null, 'SetDepartmentGroup');"/>
-                <vivibutton id="test" hidden ="true" class="" oncommand="$do('test2', null, 'SetDepartmentGroup');"/>
                 <spacer flex="1"/>
                 <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                 <button id="close" default="false" class="button-exit" oncommand="$do('exit', null, 'SetDepartmentGroup');"/>
