@@ -74,6 +74,7 @@
 <!ENTITY layout.plu.label "Product panel">
 <!ENTITY layout.plu.rows "rows">
 <!ENTITY layout.plu.cols "columns">
+<!ENTITY layout.plu.button.height "button height">
 <!ENTITY layout.condiment.label "Condiment panel">
 <!ENTITY layout.condiment.rows "rows">
 <!ENTITY layout.condiment.cols "columns">
