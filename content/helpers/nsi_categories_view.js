@@ -50,7 +50,7 @@
                 // find all categories and update session.
                 var cateModel = new CategoryModel();
                 categories = cateModel.find('all', {
-                    order: "display_order, name"
+                    order: "display_order, name COLLATE NOCASE"
                 });
                 if (categories && categories.length > 0) GeckoJS.Session.add('categories', categories);
 
