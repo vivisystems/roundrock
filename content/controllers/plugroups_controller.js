@@ -34,7 +34,7 @@
 
         beforeScaffold: function(evt) {
             if (evt.data == 'index') {
-                this.Scaffold.params = {order: 'display_order, name'};
+                this.Scaffold.params = {order: 'display_order, name COLLATE NOCASE'};
             }
         },
 
@@ -86,7 +86,7 @@
             // if new Product group exists, set selectedIndex to last item
 
             if (this._plugroupAdded) {
-                this.requestCommand('list', {order: 'display_order, name'});
+                this.requestCommand('list', {order: 'display_order, name COLLATE NOCASE'});
 
                 var groupID = evt.data.id;
                 var panel = this.getListObj();
@@ -143,7 +143,7 @@
 
                 var index = this.updateSession('modify', evt.data.id);
             
-                this.requestCommand('list', {index: index, order: 'display_order, name'});
+                this.requestCommand('list', {index: index, order: 'display_order, name COLLATE NOCASE'});
 
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
@@ -201,7 +201,7 @@
                 index = view.data.length - 2;
             }
 
-            this.requestCommand('list', {index: index, order: 'display_order, name'});
+            this.requestCommand('list', {index: index, order: 'display_order, name COLLATE NOCASE'});
 
             if (index > -1) {
                 panel.selectedIndex = index;
@@ -275,7 +275,7 @@
             // populate plugroup panel
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.find('all', {
-                order: 'display_order, name'
+                order: 'display_order, name COLLATE NOCASE'
             } );
 
             var plugroupscrollablepanel = document.getElementById('plugroupscrollablepanel');
@@ -287,7 +287,7 @@
 
             var panel = this.getListObj();
 
-            this.requestCommand('list', {index: -1, order: 'display_order, name'});
+            this.requestCommand('list', {index: -1, order: 'display_order, name COLLATE NOCASE'});
 
             panel.selectedItems = [-1];
             panel.selectedIndex = -1;
@@ -315,7 +315,7 @@
                 GeckoJS.FormHelper.reset('plugroupForm');
             }
             else {
-                this.requestCommand('list', {index: index, order: 'display_order, name'});
+                this.requestCommand('list', {index: index, order: 'display_order, name COLLATE NOCASE'});
             }
 
             this.validateForm();
@@ -329,7 +329,7 @@
             var plugroupModel = new PlugroupModel();
 
             var plugroups = plugroupModel.find('all', {
-                order: 'display_order, name'
+                order: 'display_order, name COLLATE NOCASE'
             });
 
             var visiblePlugroups = [];

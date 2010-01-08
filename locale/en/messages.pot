@@ -97,6 +97,9 @@ msgstr "Product Groups"
 msgid "vivipos.fec.settings.controlpanels.product.plus.label"
 msgstr "Products"
 
+msgid "vivipos.fec.settings.controlpanels.product.label_printing.label"
+msgstr "Print Labels"
+
 msgid "vivipos.fec.settings.controlpanels.product.reports.label"
 msgstr "Reports"
 
@@ -2219,6 +2222,9 @@ msgstr "View All Queues"
 msgid "acl_print_document"
 msgstr "Print Document"
 
+msgid "acl_print_labels"
+msgstr "Print Labels"
+
 ########################################################################
 #
 # List of Ports
@@ -2931,6 +2937,12 @@ msgstr "Sample Return Item 42c"
 
 msgid "vivipos.fec.registry.templates.kitchen-rushitem-42c.label"
 msgstr "Sample Rush Item 42c"
+
+msgid "vivipos.fec.registry.templates.label-simple-testing-1.label"
+msgstr "Label Simple Testing 1"
+
+msgid "vivipos.fec.registry.templates.label-simple-testing-2.label"
+msgstr "Label Simple Testing 2"
 
 ########################################################################
 #

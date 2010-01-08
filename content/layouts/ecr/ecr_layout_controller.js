@@ -155,6 +155,9 @@
             var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
             if (pluCols == null) pluCols = 4;
 
+            var productButtonHeight = GeckoJS.Configure.read('vivipos.fec.settings.ProductButtonHeight');
+            if (productButtonHeight == null) productButtonHeight = 50;
+
             var condRows = GeckoJS.Configure.read('vivipos.fec.settings.CondimentRows');
             if (condRows == null) condRows = 7;
 
@@ -232,17 +235,19 @@
                 (initial ||
                  (pluPanel.getAttribute('rows') != pluRows) ||
                  (pluPanel.getAttribute('cols') != pluCols) ||
+                 (pluPanel.getAttribute('buttonHeight') != productButtonHeight) ||
                  (cropPLULabel && (pluPanel.getAttribute('crop') != 'end')) ||
                  (!cropPLULabel && (pluPanel.getAttribute('crop') == 'end')) ||
                  (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar))) {
 
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
+                pluPanel.setAttribute('buttonHeight', productButtonHeight);
 
                 if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
                 else pluPanel.removeAttribute('crop');
 
-                if ((pluRows > 0) && (pluCols > 0)) {
+                if ((pluRows > 0) && (pluCols > 0) && (productButtonHeight > 0)) {
                     pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
                     pluPanel.setAttribute('hidden', false);
                     pluPanel.initGrid();

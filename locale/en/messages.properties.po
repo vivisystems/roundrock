@@ -4,9 +4,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: ../..//content/controllers/label_printing_controller.js:103
-#: ../..//content/controllers/label_printing_controller.js:220
-#: ../..//content/controllers/label_printing_controller.js:622
 #, fuzzy
 msgid ""
 msgstr ""
@@ -16,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-01-04 17:18+0800\n"
+"POT-Creation-Date: 2010-01-08 14:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,6 +109,9 @@ msgstr "Product Groups"
 
 msgid "vivipos.fec.settings.controlpanels.product.plus.label"
 msgstr "Products"
+
+msgid "vivipos.fec.settings.controlpanels.product.label_printing.label"
+msgstr "Print Labels"
 
 msgid "vivipos.fec.settings.controlpanels.product.reports.label"
 msgstr "Reports"
@@ -2147,6 +2147,9 @@ msgstr "View All Queues"
 msgid "acl_print_document"
 msgstr "Print Document"
 
+msgid "acl_print_labels"
+msgstr "Print Labels"
+
 # #######################################################################
 #
 # List of Ports
@@ -2863,6 +2866,12 @@ msgstr "Sample Return Item 42c"
 msgid "vivipos.fec.registry.templates.kitchen-rushitem-42c.label"
 msgstr "Sample Rush Item 42c"
 
+msgid "vivipos.fec.registry.templates.label-simple-testing-1.label"
+msgstr "Label Simple Testing 1"
+
+msgid "vivipos.fec.registry.templates.label-simple-testing-2.label"
+msgstr "Label Simple Testing 2"
+
 # #######################################################################
 #
 # List of Import / Export
@@ -3041,6 +3050,10 @@ msgid ""
 "Welcome to VIVIPOS. If you have prepared product data in comma-separated "
 "vector (CSV) format, you can easily import them into the terminal. Would you "
 "like to go to product import/export screen now?"
+msgstr ""
+
+#: ../..//content/prompt_additem.js:163
+msgid "Price Level %S"
 msgstr ""
 
 #: ../..//content/prompt_clone_plu.js:35
@@ -3236,7 +3249,7 @@ msgid "Template"
 msgstr ""
 
 #: ../..//content/select_template.js:17
-msgid "please select a template"
+msgid "Please select a template first"
 msgstr ""
 
 #: ../..//content/sysprefs.js:60
@@ -3356,7 +3369,7 @@ msgstr ""
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:136
 #: ../..//content/controllers/hotkey_prefs_controller.js:500
 #: ../..//content/controllers/jobs_controller.js:227
-#: ../..//content/controllers/label_printing_controller.js:878
+#: ../..//content/controllers/label_printing_controller.js:875
 #: ../..//content/controllers/ledger_entry_types_controller.js:271
 #: ../..//content/controllers/localekeyboard_controller.js:73
 #: ../..//content/controllers/nonplu_setting_controller.js:217
@@ -3369,7 +3382,7 @@ msgstr ""
 #: ../..//content/controllers/sync_settings_controller.js:191
 #: ../..//content/controllers/taxes_controller.js:88
 #: ../..//content/controllers/users_controller.js:471
-#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:170
+#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:169
 msgid "Exit"
 msgstr ""
 
@@ -3389,7 +3402,7 @@ msgstr ""
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:138
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
 #: ../..//content/controllers/jobs_controller.js:229
-#: ../..//content/controllers/label_printing_controller.js:879
+#: ../..//content/controllers/label_printing_controller.js:876
 #: ../..//content/controllers/ledger_entry_types_controller.js:273
 #: ../..//content/controllers/localekeyboard_controller.js:75
 #: ../..//content/controllers/localization_controller.js:328
@@ -3403,8 +3416,7 @@ msgstr ""
 #: ../..//content/controllers/sync_settings_controller.js:193
 #: ../..//content/controllers/taxes_controller.js:90
 #: ../..//content/controllers/users_controller.js:473
-#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:38
-#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:171
+#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:170
 msgid "Save"
 msgstr ""
 
@@ -3426,7 +3438,7 @@ msgstr ""
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
 #: ../..//content/controllers/jobs_controller.js:229
 #: ../..//content/controllers/jobs_controller.js:245
-#: ../..//content/controllers/label_printing_controller.js:879
+#: ../..//content/controllers/label_printing_controller.js:876
 #: ../..//content/controllers/ledger_entry_types_controller.js:252
 #: ../..//content/controllers/ledger_entry_types_controller.js:273
 #: ../..//content/controllers/localekeyboard_controller.js:75
@@ -3447,7 +3459,7 @@ msgstr ""
 #: ../..//content/controllers/taxes_controller.js:106
 #: ../..//content/controllers/users_controller.js:452
 #: ../..//content/controllers/users_controller.js:473
-#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:171
+#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:170
 msgid "Discard Changes"
 msgstr ""
 
@@ -5108,7 +5120,7 @@ msgid "New Minimum Charge"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:386
-#: ../..//content/controllers/select_table_controller.js:684
+#: ../..//content/controllers/select_table_controller.js:685
 msgid "Table [%S] is not available for selection. Status [%S], Active [%S]"
 msgstr ""
 
@@ -5287,7 +5299,7 @@ msgid "This order has discounts or surcharge, can not be merge"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:1800
-#: ../..//content/controllers/select_table_controller.js:575
+#: ../..//content/controllers/select_table_controller.js:576
 msgid "Merge Check"
 msgstr ""
 
@@ -5639,8 +5651,8 @@ msgstr ""
 #: ../..//content/controllers/import_export_controller.js:617
 #: ../..//content/controllers/import_export_controller.js:759
 #: ../..//content/controllers/import_export_controller.js:1819
-#: ../..//content/controllers/label_printing_controller.js:891
-#: ../..//content/controllers/label_printing_controller.js:903
+#: ../..//content/controllers/label_printing_controller.js:888
+#: ../..//content/controllers/label_printing_controller.js:900
 msgid "Yes"
 msgstr ""
 
@@ -5876,114 +5888,96 @@ msgid ""
 "technical support immediately."
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:104
-msgid "How many ...?"
+#: ../..//content/controllers/label_printing_controller.js:105
+#: ../..//content/controllers/label_printing_controller.js:223
+msgid "Number of labels to print"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:104
-#: ../..//content/controllers/label_printing_controller.js:221
-msgid "Count"
-msgstr ""
-
-#: ../..//content/controllers/label_printing_controller.js:221
-msgid "How many....?"
-msgstr ""
-
-#: ../..//content/controllers/label_printing_controller.js:532
-#: ../..//content/controllers/label_printing_controller.js:758
-#: ../..//content/controllers/label_printing_controller.js:807
+#: ../..//content/controllers/label_printing_controller.js:534
+#: ../..//content/controllers/label_printing_controller.js:755
+#: ../..//content/controllers/label_printing_controller.js:804
 msgid "Price Level"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:599
-msgid "Save File"
+#: ../..//content/controllers/label_printing_controller.js:601
+#: ../..//content/controllers/label_printing_controller.js:625
+msgid "Save Product List"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:599
-#: ../..//content/controllers/label_printing_controller.js:1120
-msgid "The List is empty"
+#: ../..//content/controllers/label_printing_controller.js:601
+#: ../..//content/controllers/label_printing_controller.js:1117
+msgid "The list is empty"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:623
-msgid "Save List"
+#: ../..//content/controllers/label_printing_controller.js:625
+msgid "List Name"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:623
-msgid "FileName"
+#: ../..//content/controllers/label_printing_controller.js:635
+msgid "This list already exists. Do you want to replace this list?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:654
-msgid "New file"
+#: ../..//content/controllers/label_printing_controller.js:655
+msgid "New list [%S] has been generated"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:654
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:477
-msgid "has been generated"
+#: ../..//content/controllers/label_printing_controller.js:662
+msgid "The list [%S] has been replaced"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:664
-msgid "The file"
+#: ../..//content/controllers/label_printing_controller.js:674
+msgid "You have made changes to the current list. Save changes ?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:664
-msgid "has been replaced"
-msgstr ""
-
-#: ../..//content/controllers/label_printing_controller.js:677
-msgid "Save list before loading?"
-msgstr ""
-
-#: ../..//content/controllers/label_printing_controller.js:826
+#: ../..//content/controllers/label_printing_controller.js:823
 msgid "Replaces products"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:827
+#: ../..//content/controllers/label_printing_controller.js:824
 msgid "have been replaced"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:890
-msgid "Replace"
+#: ../..//content/controllers/label_printing_controller.js:887
+msgid "Save List"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:891
-#: ../..//content/controllers/label_printing_controller.js:903
+#: ../..//content/controllers/label_printing_controller.js:888
+#: ../..//content/controllers/label_printing_controller.js:900
 msgid "No"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:902
+#: ../..//content/controllers/label_printing_controller.js:899
 msgid "Barcode Warning"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:939
-#: ../..//content/controllers/select_template_controller.js:28
+#: ../..//content/controllers/label_printing_controller.js:936
 msgid "Select Barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1120
-#: ../..//content/controllers/label_printing_controller.js:1132
+#: ../..//content/controllers/label_printing_controller.js:1117
+#: ../..//content/controllers/label_printing_controller.js:1209
 msgid "Print label"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1132
-msgid "unvalidated barcode"
-msgstr ""
-
-#: ../..//content/controllers/label_printing_controller.js:1140
-#: ../..//content/controllers/label_printing_controller.js:1200
+#: ../..//content/controllers/label_printing_controller.js:1167
 msgid "find unvalidated barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1140
-#: ../..//content/controllers/label_printing_controller.js:1200
+#: ../..//content/controllers/label_printing_controller.js:1167
 msgid "continue print ?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1229
+#: ../..//content/controllers/label_printing_controller.js:1196
 msgid "select_template"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1309
-msgid "Save list before existing?"
+#: ../..//content/controllers/label_printing_controller.js:1209
+msgid "All the products' barcod are invalid"
+msgstr ""
+
+#: ../..//content/controllers/label_printing_controller.js:1288
+msgid ""
+"You have made changes to the current list. Save changes before existing?"
 msgstr ""
 
 #: ../..//content/controllers/layout_manager_controller.js:53
@@ -7113,8 +7107,8 @@ msgid "TAL"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:199
-#: ../..//content/controllers/select_table_controller.js:1020
-#: ../..//content/controllers/select_table_controller.js:1063
+#: ../..//content/controllers/select_table_controller.js:1021
+#: ../..//content/controllers/select_table_controller.js:1064
 #: ../..//content/controllers/table_man_controller.js:788
 msgid "All Regions"
 msgstr ""
@@ -7124,131 +7118,140 @@ msgstr ""
 msgid "Available Tables"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:537
+#: ../..//content/controllers/select_table_controller.js:538
 msgid "Select Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:537
+#: ../..//content/controllers/select_table_controller.js:538
 msgid "Please select a table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:542
-#: ../..//content/controllers/select_table_controller.js:548
+#: ../..//content/controllers/select_table_controller.js:543
+#: ../..//content/controllers/select_table_controller.js:549
 msgid "Merge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:542
+#: ../..//content/controllers/select_table_controller.js:543
 msgid "Please select the master table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:548
+#: ../..//content/controllers/select_table_controller.js:549
 msgid "Please select the table merge to [%S]..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:552
+#: ../..//content/controllers/select_table_controller.js:553
 msgid "Unmerge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:552
+#: ../..//content/controllers/select_table_controller.js:553
 msgid "Please select the table to unmerge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:557
+#: ../..//content/controllers/select_table_controller.js:558
 msgid "Book Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:557
+#: ../..//content/controllers/select_table_controller.js:558
 msgid "Please select a table to book..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:561
+#: ../..//content/controllers/select_table_controller.js:562
 msgid "Add Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:561
+#: ../..//content/controllers/select_table_controller.js:562
 msgid "Please select the table to mark status..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:566
-#: ../..//content/controllers/select_table_controller.js:1071
+#: ../..//content/controllers/select_table_controller.js:567
+#: ../..//content/controllers/select_table_controller.js:1072
 msgid "Clear Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:566
+#: ../..//content/controllers/select_table_controller.js:567
 msgid "Please select the table to clear status..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:571
+#: ../..//content/controllers/select_table_controller.js:572
 msgid "Trans Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:571
+#: ../..//content/controllers/select_table_controller.js:572
 msgid "Please select the table to be transfered..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:575
+#: ../..//content/controllers/select_table_controller.js:576
 msgid "Please select the table and check to be merged..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:716
-#: ../..//content/controllers/select_table_controller.js:719
+#: ../..//content/controllers/select_table_controller.js:717
+#: ../..//content/controllers/select_table_controller.js:720
 msgid "Table [%S] is not available!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:770
+#: ../..//content/controllers/select_table_controller.js:771
 #: ../..//content/helpers/nsi_orders_checklist_view.js:58
 #: ../..//content/helpers/nsi_tablestatus_view.js:161
 msgid "C#"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:773
+#: ../..//content/controllers/select_table_controller.js:774
 #: ../..//content/helpers/nsi_orders_checklist_view.js:61
 #: ../..//content/helpers/nsi_tablestatus_view.js:158
 msgid "S#"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:809
-#: ../..//content/controllers/select_table_controller.js:814
-#: ../..//content/controllers/select_table_controller.js:830
+#: ../..//content/controllers/select_table_controller.js:810
+#: ../..//content/controllers/select_table_controller.js:815
+#: ../..//content/controllers/select_table_controller.js:831
 msgid "Table [%S] is not available for merging. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:869
+#: ../..//content/controllers/select_table_controller.js:870
 msgid "Table [%S] is not available for unmerging. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:906
-#: ../..//content/controllers/select_table_controller.js:909
+#: ../..//content/controllers/select_table_controller.js:907
+#: ../..//content/controllers/select_table_controller.js:910
 msgid "Select Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:932
+#: ../..//content/controllers/select_table_controller.js:933
 msgid "Table [%S] is not available for marking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:937
+#: ../..//content/controllers/select_table_controller.js:938
 msgid "Table [%S] is not available fr marking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:944
+#: ../..//content/controllers/select_table_controller.js:945
 msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:988
+#: ../..//content/controllers/select_table_controller.js:989
 msgid "Table [%S] is not available for unmarking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1026
+#: ../..//content/controllers/select_table_controller.js:1027
 msgid "You are now marking table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1069
+#: ../..//content/controllers/select_table_controller.js:1070
 msgid "You are now cleaning table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1158
-#: ../..//content/controllers/select_table_controller.js:1162
+#: ../..//content/controllers/select_table_controller.js:1174
+#: ../..//content/controllers/select_table_controller.js:1178
 msgid "Table [%S] is not available for transfer. Status [%S], Active [%S]"
+msgstr ""
+
+#: ../..//content/controllers/select_template_controller.js:50
+msgid "(barcode)Code 39"
+msgstr ""
+
+#: ../..//content/controllers/select_template_controller.js:51
+#: ../..//content/controllers/select_template_controller.js:54
+msgid "Select Barcode Type"
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:66
@@ -9024,10 +9027,10 @@ msgid "(rpt)(based on %S)"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:38
-msgid "save successful"
+msgid "Settings saved successful"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:170
+#: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:169
 msgid "The Setting is modified, save ?"
 msgstr ""
 
@@ -9046,6 +9049,10 @@ msgstr ""
 
 #: ../..//content/reports/controllers/rpt_your_order_controller.js:477
 msgid "New report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:477
+msgid "has been generated"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_your_order_controller.js:490
