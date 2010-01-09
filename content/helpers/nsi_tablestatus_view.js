@@ -93,7 +93,7 @@
             var table_label = table.table_name || '';
 
             btn.table_no = table_no;
-            btn.table_label = tableSettings.DisplayTableLabel ? table_label : '';
+            btn.table_title = (tableSettings.DisplayTableLabel && table_label) ? table_label : table_no;
 
             this.renderTableStatus(row, btn);
             
