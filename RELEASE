@@ -30,5 +30,7 @@ Bug #307:
     Product Search by product number, barcode, or name fails in Product Management screen
 
 Bug #309:
-    Display sorting to collate no case for departments, product groups and products in the UI
-     Display sorting to collate no case for departments, product groups and products in the UI
+    Display sorting to collate no case for departments, product groups and products in the UI Display sorting to collate no case for departments, product groups and products in the UI
+
+Bug #310
+    On the table selection panel, table name should be shown in the table title section, not in the body
