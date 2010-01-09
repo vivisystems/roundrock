@@ -227,8 +227,8 @@
                             </vbox>
                             <grid class="data-form">
                                 <columns>
-                                    <column flex="0"/>
                                     <column flex="1"/>
+                                    <column flex="3"/>
                                 </columns>
                                 <rows>
                                     <!-- row one -->
@@ -420,14 +420,20 @@
                                                     <row>
                                                         <checkbox id="requestMinimumCharge" label="&tableman.tableoptions.requestminimumcharge;" form="settingsForm" name="RequestMinimumCharge"/>
                                                         <vbox>
+                                                            <label value="&tableman.tableoptions.minimumchargefor;"/>
+                                                            <menulist id="minimumChargeFor" form="settingsForm" name="MinimumChargeFor">
+                                                                <menupopup id="minimumChargeForPopup">
+                                                                </menupopup>
+                                                            </menulist>
+                                                        </vbox>
+                                                    </row>
+                                                    <row>
+                                                        <vbox>
                                                             <label control="globalMinimumChargePerTable" value="&tableman.tableoptions.globalminimumchargepertable;"/>
                                                             <textbox id="globalMinimumChargePerTable" type="Number" size="10" default="0"
                                                                  onfocus="select()"
                                                                  form="settingsForm" name="GlobalMinimumChargePerTable"/>
                                                         </vbox>
-                                                    </row>
-                                                    <row>
-                                                        <label/>
                                                         <vbox>
                                                             <label control="globalMinimumChargePerGuest" value="&tableman.tableoptions.globalminimumchargeperguest;"/>
                                                             <textbox id="globalMinimumChargePerGuest" type="Number" size="10" default="0"
@@ -437,24 +443,15 @@
                                                     </row>
                                                     <row>
                                                         <vbox>
-                                                            <label value="&tableman.tableoptions.minimumchargefor;"/>
-                                                            <menulist id="minimumChargeFor" form="settingsForm" name="MinimumChargeFor">
-                                                                <menupopup id="minimumChargeForPopup">
-                                                                </menupopup>
-                                                            </menulist>
-                                                        </vbox>
-                                                        <vbox>
                                                             <label value="&tableman.tableoptions.minimumchargeplu;"/>
                                                             <hbox>
                                                                 <textbox id="minimumChargePlu" readonly="true" hidden="true"
                                                                      form="settingsForm" name="MinimumChargePlu"/>
-                                                                <textbox id="pluInfo" readonly="true" form="settingsForm" name="PluInfo"/>
+                                                                <textbox id="pluInfo" flex="1" readonly="true" form="settingsForm" name="PluInfo"/>
                                                                 <button id="plusBtn" class="buttonexecute" image="chrome://viviecr/skin/images/gtk-find.png"
                                                                     oncommand="$do('searchDialog', null, 'TableMan');"/>
                                                             </hbox>
                                                         </vbox>
-                                                    </row>
-                                                    <row>
                                                         <vbox>
                                                             <label control="annotationForOverrideMinimumCharge" value="&tableman.tableoptions.annotation_for_override_minimumcharge;"/>
                                                                 <menulist id="annotationForOverrideMinimumCharge" form="settingsForm" name="AnnotationForOverrideMinimumCharge">
@@ -462,7 +459,6 @@
                                                                     </menupopup>
                                                                 </menulist>
                                                         </vbox>
-                                                        <spacer />
                                                     </row>
                                                 </rows>
                                             </grid>
