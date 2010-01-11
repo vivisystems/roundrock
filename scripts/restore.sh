@@ -46,7 +46,7 @@ do_restore() {
 		echo "50\n# Restore 'profile'"
 
 		if [ -f "$restore_dir/profile.tbz" ]; then
-			tar xjpf $restore_dir/profile.tbz -C /data/profile
+			tar xjpf $restore_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" -C /data/profile
 		fi
 
 		# restore images
