@@ -177,8 +177,8 @@
                     var target_display_order = parseFloat(target.display_order);
                     if (display_order < target_display_order) break;
                     else if (display_order == target_display_order) {
-                        if (name < target.name) break;
-                        else if (name == target.name) {
+                        if (name.toUpperCase() < target.name.toUpperCase()) break;
+                        else if (name.toUpperCase() == target.name.toUpperCase()) {
                             if (no <= target.no) break;
                         }
                     }
