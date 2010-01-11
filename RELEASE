@@ -26,11 +26,14 @@ Bug #159:
 Bugs fixed
 ----------
 
+Bug #306:
+    If two records with the same key are stored in the model backup file using model's saveToBackup() function, fields from the old record will not be updated with fields of the same name from the new record
+
 Bug #307:
     Product Search by product number, barcode, or name fails in Product Management screen
 
 Bug #309:
-    Display sorting to collate no case for departments, product groups and products in the UI Display sorting to collate no case for departments, product groups and products in the UI
+    Display sorting to collate no case for departments, product groups and products so that departments, product groups, and products will be ordered in a case-insensitive manner in department and product panels
 
 Bug #310
     On the table selection panel, table name should be shown in the table title section, not in the body
