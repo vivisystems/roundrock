@@ -35,5 +35,5 @@ Bug #307:
 Bug #309:
     Display sorting to collate no case for departments, product groups and products so that departments, product groups, and products will be ordered in a case-insensitive manner in department and product panels
 
-Bug #310
+Bug #310:
     On the table selection panel, table name should be shown in the table title section, not in the body
