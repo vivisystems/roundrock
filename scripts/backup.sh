@@ -64,7 +64,7 @@ do_backup() {
 	if [ "$backup_with_profile" = "with-profile" ]; then
 	echo "50\n# Backup 'profile'"
 	cd /data/profile
-	tar cjvpf $bak/$bak_dir/profile.tbz . | xargs -l1 basename | sed "s/.*/50\n# \0/g"
+	tar cjvpf $bak/$bak_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" . | xargs -l1 basename | sed "s/.*/50\n# \0/g"
 	fi
 
 	#backup images
