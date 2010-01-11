@@ -361,9 +361,17 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
             if (aArguments.ok) {
                 if (addtocart && aArguments.item) {
-                    this.requestCommand('addItem',aArguments.item,'Cart');
+                    let pid = aArguments.item.id;
+                    if (pid) {
+                        let productsById = GeckoJS.Session.get('productsById');
+                        let prod = productsById[pid];
+                        if (prod) {
+                            this.log(this.dump(prod));
+                            this.requestCommand('addItem',prod,'Cart');
+                        }
+                    }
                 }
-                return aArguments.item;
+                return prod;
             }
             else
                 this.requestCommand('subtotal', null, 'Cart');
@@ -629,6 +637,7 @@
                     prodpanel.invalidate(index);
                 }
                 else if (!product.soldout) {
+                    this.log(this.dump(product));
                     this.requestCommand('addItem',product,'Cart');
 
                     // return to top level if necessary
