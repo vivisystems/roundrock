@@ -37,3 +37,7 @@ Bug #309:
 
 Bug #310:
     On the table selection panel, table name should be shown in the table title section, not in the body
+
+Bug #311:
+    Registering items from Product Search screen does not work for set menus
+
