@@ -135,12 +135,12 @@
         },
 
         changePluPanel: function(index) {
-
             if (this._selCateIndex == index) {
                 return;
             }
 
             this.productPanelView.setCatePanelIndex(index);
+            this._selCateIndex = index;
 
             this.clickPluPanel(-1);
         },
@@ -152,6 +152,10 @@
                 if (data.no && data.no.length > 0) {
                     this.searchPlu(data.no, false, false, true);
                 }
+            }
+            else {
+                let prodpanel = document.getElementById('prodscrollablepanel');
+                prodpanel.selectedItems = [];
             }
         },
 
