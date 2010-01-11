@@ -123,7 +123,7 @@
                     searchMessage += ('    ' + o.filtername + '=' + f + '\n');
                 }
             });
-            this.searchPlu(pattern, searchMessage, nofillform);
+            this.searchPlu(pattern, searchMessage, nofillform, true);
         },
 
         advClear: function() {
