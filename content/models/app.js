@@ -60,7 +60,7 @@
 
                         // clone data
                         for (let key in d1) {
-                            d2[key] = GREUtils.extend({}, d1[key], d2[key]);
+                            d2[key] = GREUtils.extend({}, d2[key], d1[key]);
                         }
                         
                         // save
