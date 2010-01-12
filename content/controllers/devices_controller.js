@@ -846,6 +846,10 @@
                             numDevices = this._maxDrawers;
                             break;
 
+                        case 'scale':
+                            numDevices = this._maxScales;
+                            break;
+
                     }
                     for (let i = 1; i <= numDevices; i++) {
                         if (selectedDevices[type + '-' + i + '-enabled']) return 1;
@@ -884,6 +888,10 @@
 
                         case 'cashdrawer':
                             numDevices = this._maxDrawers;
+                            break;
+
+                        case 'scale':
+                            numDevices = this._maxScales;
                             break;
                     }
                     for (let i = 1; i <= numDevices; i++) {
