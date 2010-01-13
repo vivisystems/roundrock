@@ -144,7 +144,8 @@
             var pLine = '';
             var tries = 0;
             var buf = {};
-            var re = /@1\s+(\d+\.\d+)\s+(\w*)/;
+            var re1 = /@1\s+(\d+\.\d+)\s+(\w*)/;
+            var re2 = /@1\s+(\d+)'\s*(\d+.\d+)\s+(\w*)/;
 
             //this.log('DEBUG', '[readScaleOnce] port: ' + port + ', iterations: ' + iterations);
             while (tries < iterations) {
@@ -167,7 +168,7 @@
                                 //this.log('DEBUG', '[readScaleOnce] net weight line found: [' + line + ']');
 
                                 // parse pLine into header weight unit
-                                let m = re.exec(line);
+                                let m = re1.exec(line);
                                 if (m && m[1] && m[2]) {
                                     let value = parseFloat(m[1]);
                                     if (!isNaN(value)) {
@@ -176,6 +177,20 @@
 
                                         // exit from while loop
                                         break;
+                                    }
+                                }
+                                else {
+                                    m = re2.exec(line);
+                                    if (m && m[1] && m[2] && m[3]) {
+                                        let part1 = parseFloat(m[1]);
+                                        let part2 = parseFloat(m[2]);
+                                        if (!isNaN(part1) && !isNaN(part2)) {
+                                            weight = {value: (part1 + (part2/16)), unit: m[3]};
+                                            //this.log('DEBUG', '[readScaleOnce] valid net weight: ' + this.dump(weight));
+
+                                            // exit from while loop
+                                            break;
+                                        }
                                     }
                                 }
                                 this.log('WARN', '[readScaleOnce] invalid net weight line: [' + line + ']');
