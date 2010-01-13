@@ -152,5 +152,5 @@ pref("vivipos.fec.registry.devicemodels.uwe-dp.label", "UWE DP Series");
 pref("vivipos.fec.registry.devicemodels.uwe-dp.type", "scale");
 pref("vivipos.fec.registry.devicemodels.uwe-dp.controller", "Scale_UWE_DP_Controller");
 pref("vivipos.fec.registry.devicemodels.uwe-dp.iterations", "20");
-pref("vivipos.fec.registry.devicemodels.uwe-dp.stables", "1");
+pref("vivipos.fec.registry.devicemodels.uwe-dp.stables", "2");
 pref("vivipos.fec.registry.devicemodels.uwe-dp.tries", "5");
