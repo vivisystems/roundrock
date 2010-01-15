@@ -16,7 +16,7 @@
     <!-- include startup script -->
     <script type="application/x-javascript" src="chrome://viviecr/content/static_condiments.js" />
 
-    <vbox id="staticCondimentsPanelContainer" style="overflow: none;">
+    <vbox id="staticCondimentsPanelContainer" style="overflow: hidden;">
         <viviscrollablebuttonpanel id="staticCondimentsPanel" flex="1" cols="5" rows="1"  seltype="single" labelField="name"
                                    class="condscrollablepanel"
                                    buttonClass="button-condiment"

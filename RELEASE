@@ -60,7 +60,7 @@ Bug #128:
     Need to simplify control panel UI for ECR markets
 
 Bug #130:
-    Need to provide a 800x600 layout to emulate traditional ECRs
+    Need to provide a 800x600 to emulate traditional ECRs
 
 Bug #149:
     Need to support Bixolon SRP 350plus printer
@@ -90,7 +90,7 @@ Bug #214:
     Need to support EPSON TM U200 series printers
 
 Bug #231:
-    Product Returns report needs to be able to query for refund items as well as voided orders, and present the query results in detailed or summary format
+    The Product Returns report needs to be able to query for refund items as well as voided orders, and present the query results in detailed or summary format
 
 Bug #233:
     Need to warn user to restart VIVIPOS application after making changes in localization editor for the changes to take effect
@@ -98,11 +98,23 @@ Bug #233:
 Bug #235:
     If the same item is registered multiple times in sequence, each registration should be displayed as a separate entry if the quantity purchased has been explicitly set
 
+Bug #246:
+    The Shift Change report needs to show actual amount tendered in foreign currency in addition to the converted amount in local currency
+
 Bug #264:
-    Product Sales report needs to allow filter and group products by any combination of departments and product groups
+    The Product Sales report needs to allow filter and group products by any combination of departments and product groups
+
+Bug #271:
+    After an order has been transfered from one table to another, a table transfer check may need to be printed
+
+Bug #281:
+    Need to support new built-in VFD with Chinese/Japanese capabilities that displays up to 24 characters per line
 
 Bug #290:
     Annotations need to support preset message list
+
+Bug #291:
+    Need a sample 42-column receipt template for the Bixolon SRP 350plus printer
 
 Bug #292:
     When returning items either via Item Refund or Return Item function, the clerk should be able to quickly enter a reason for the return
@@ -119,6 +131,9 @@ Bug #298:
 Bug #300:
     Options are needed to filter out negative quantity items and items from previous batches when issuing customer and kitchen checks
 
+Bug #301:
+    Need to create new template types for use when 1) making a table transfer, 2) returning a cart item, and 3) rushing a cart item
+
 Bug #308:
     The Table Selection grid should always have the table hosting the open check highlighted (applicable to Compact Table layout only)
 
@@ -126,26 +141,17 @@ Bug #308:
 Bugs Fixed
 ----------
 
-Bug #122:
-
-Bug #246:
-
-Bug #266:
-
-Bug #271:
-
 Bug #273:
-
-Bug #281:
+    User is forced to enter table number and number of guests even though the respective options have been turned off
 
 Bug #283:
-
-Bug #291:
-
-Bug #301:
+    The Table Selection grid does not pop up in dock mode when performing order recovery
 
 Bug #302:
+    When Table Management option 'Require check number' is enabled, no attempt is made to request for a check number when storing or closing an order if the check number has not been successfully assigned when the order was first opened
 
 Bug #305:
+    The sample Argox OS-230DT label template mis-prints the current item count when quantity is greater than 9
 
 Bug #316:
+    Disk space usage computation has been broken and produces empty result
