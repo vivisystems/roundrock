@@ -12,7 +12,7 @@ pref("vivipos.fec.registry.layouts.ecr.label", "chrome://viviecr/locale/messages
 pref("vivipos.fec.registry.layouts.ecr.desc", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.ecr.overlay_uri", "chrome://viviecr/content/layouts/ecr/ecr.xul");
 pref("vivipos.fec.registry.layouts.ecr.icon", "chrome://viviecr/content/layouts/ecr/ecr.png");
-pref("vivipos.fec.registry.layouts.ecr.resolutions", "800x600,1024x768");
+pref("vivipos.fec.registry.layouts.ecr.resolutions", "800x600");
 pref("vivipos.fec.registry.layouts.ecr.disabled_features", "");
 pref("vivipos.fec.registry.layouts.ecr.skin", "ecr-${width}x${height}/1.0");
 
