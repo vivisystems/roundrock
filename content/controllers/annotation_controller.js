@@ -443,6 +443,7 @@
 
             textBox.value = seltextObj.datasource.data[seltextObj.selectedIndex].text || '' ;
 
+            this.validateAnnotateForm();
         },
 
         validateAnnotateForm: function() {
