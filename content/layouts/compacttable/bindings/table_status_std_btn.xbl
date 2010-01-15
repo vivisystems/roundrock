@@ -34,7 +34,7 @@
                             <html:span anonid="table_no"></html:span>
                         </html:div>
                         <html:div class="tableName">
-                            <html:span anonid="table_label"></html:span>
+                            <html:span anonid="table_title"></html:span>
                         </html:div>
                         <html:div class="bgItem">
                             <html:span anonid="bg_table_no"></html:span>
@@ -87,8 +87,8 @@
     <field name="_table_no">
         document.getAnonymousElementByAttribute(this, "anonid", "table_no");
     </field>
-    <field name="_table_label">
-        document.getAnonymousElementByAttribute(this, "anonid", "table_label");
+    <field name="_table_title">
+        document.getAnonymousElementByAttribute(this, "anonid", "table_title");
     </field>
     <field name="_checks">
         document.getAnonymousElementByAttribute(this, "anonid", "checks");
@@ -121,10 +121,10 @@
             ]]>
         </setter>
     </property>
-    <property name="table_label" onget="return this._table_label.textContent;">
+    <property name="table_title" onget="return this._table_title.textContent;">
         <setter>
             <![CDATA[
-                this._table_label.textContent = val;
+                this._table_title.textContent = val;
                 return val;
             ]]>
         </setter>

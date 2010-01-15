@@ -58,7 +58,7 @@
 	padding: 0px;
 }
 
-.tableStatusBtn .tableInfo .cneckNo,
+.tableStatusBtn .tableInfo .checkNo,
 .tableStatusBtn .tableInfo .clerk,
 .tableStatusBtn .tableInfo .total,
 .tableStatusBtn .remark {
@@ -244,7 +244,7 @@
 	padding: 0px;
 }
 
-.tableStatusStdBtn .tableInfo .cneckNo,
+.tableStatusStdBtn .tableInfo .checkNo,
 .tableStatusStdBtn .tableInfo .clerk,
 .tableStatusStdBtn .tableInfo .total,
 .tableStatusStdBtn .remark {

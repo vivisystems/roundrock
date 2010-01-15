@@ -32,23 +32,120 @@ Bug #17:
 Bug #66:
     If a match is not found for a scanning barcode, allow the operator to quickly add the product to the product database by filling in just the product name, tax status, price, and department data
 
+Bug #68:
+    A new Table Services layout with Table Selection grid on the main ordering screen is needed
+
 Bug #80:
-    A new parameter has been added to cash, check, coupon, credit card, giftcard, and currency exchange function keys that requires entry of tender amount when registering a payment
+    A new parameter needs to be added to cash, check, coupon, credit card, giftcard, and currency exchange functions to require entry of tender amount when registering a payment
 
 Bug #85:
-    A new general option has been added to control if number of guests and table number are required when storing an order
+    A new option needs to be added to control if number of guests and table number are required when storing an order
+
+Bug #114:
+    Need an API function for developers to send text to the internal VFD
+
+Bug #121:
+    Need to provide a receipt template for the Japanese ECR market
 
 Bug #124:
-    A new general option has been added to turn off automatic closing of an order when total amount tendered equals or exceeds the amount due
+    A new option needs to be added to turn off automatic closing of an order when total amount tendered equals or exceeds the amount due
 
 Bug #125:
-    Need to be able to register the quantity of payments of specific denominations (applicable to cash, coupon, and giftcard)
+    Need to be able to register the number of notes (cash, coupon, or giftcard) of a specific denomination tendered for payment
 
 Bug #126:
     Need to be able to provide statistics on payments of specific denominations
 
+Bug #128:
+    Need to simplify control panel UI for ECR markets
+
+Bug #130:
+    Need to provide a 800x600 layout to emulate traditional ECRs
+
+Bug #149:
+    Need to support Bixolon SRP 350plus printer
+
 Bug #172:
-    
+    The ShiftChanges controller needs to fire an event with the shift change record and a end-of-sale-period flag when a shift is successfully closed
+
+Bug #173:
+    The Main controller needs to fire a signedOff event with the aclUser object representing the clerk that has been signed off, and a signedOn event with the aclUser object representing the clerk that has signed on
+
+Bug #195:
+    Need an Inter-Register Communication (IRC) mechanism to synchronize and distribute non-transactional data and settings among a VIVIPOS cluster
+
+Bug #197:
+    Need to allow clerk to offer refund in any combination of payment forms
+
+Bug #201:
+    Need a virtual region in the Table Selection grid that filters out tables by available seats
+
+Bug #203:
+    Need to allow authorized clerks to override minimum charge requirements on an order
+
 Bug #213:
     Need to be able to print product labels
 
+Bug #214:
+    Need to support EPSON TM U200 series printers
+
+Bug #231:
+    Product Returns report needs to be able to query for refund items as well as voided orders, and present the query results in detailed or summary format
+
+Bug #233:
+    Need to warn user to restart VIVIPOS application after making changes in localization editor for the changes to take effect
+
+Bug #235:
+    If the same item is registered multiple times in sequence, each registration should be displayed as a separate entry if the quantity purchased has been explicitly set
+
+Bug #264:
+    Product Sales report needs to allow filter and group products by any combination of departments and product groups
+
+Bug #290:
+    Annotations need to support preset message list
+
+Bug #292:
+    When returning items either via Item Refund or Return Item function, the clerk should be able to quickly enter a reason for the return
+
+Bug #293:
+    Need to be able to issue an return item check when a cart item has been returned
+
+Bug #297:
+    Item registrations need to be time-stamped to allow tracking of customer wait time
+
+Bug #298:
+    Need a 'Rush Item' function along with a configurable 'Rush Item' template to be able to issue instructions to kitchen to rush an item
+
+Bug #300:
+    Options are needed to filter out negative quantity items and items from previous batches when issuing customer and kitchen checks
+
+Bug #308:
+    The Table Selection grid should always have the table hosting the open check highlighted (applicable to Compact Table layout only)
+
+----------
+Bugs Fixed
+----------
+
+Bug #122:
+
+Bug #246:
+
+Bug #266:
+
+Bug #271:
+
+Bug #273:
+
+Bug #281:
+
+Bug #283:
+
+Bug #291:
+
+Bug #301:
+
+Bug #302:
+
+Bug #305:
+
+Bug #316:
