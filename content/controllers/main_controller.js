@@ -451,11 +451,11 @@
                 };
                 
                 var data = [
-                _('Add Annotation') + ' [' + txn.data.seq + ']',
-                '',
-                annotationType,
-                '',
-                inputObj
+                    _('Add Annotation') + ' [' + txn.data.seq + ']',
+                    '',
+                    annotationType,
+                    '',
+                    inputObj
                 ];
 
                 return $.popupPanel('promptAdditemPanel', data).next( function(evt){

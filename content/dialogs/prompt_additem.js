@@ -11,7 +11,7 @@ var promptAdditem_options;
 
         var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
         var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
-
+        
         $.installPanel($panel[0], {
             
             css: {
