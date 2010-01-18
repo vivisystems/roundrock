@@ -88,7 +88,7 @@
   <!-- scale drivers -->
   <script src='chrome://viviecr/content/devices/controllers/scale/mt_tiger_ii_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/devices/controllers/scale/excell_aw_30_controller.js' type="application/x-javascript;version=1.7"/>
-<script src='chrome://viviecr/content/devices/controllers/scale/uwe_dp_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/devices/controllers/scale/uwe_dp_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- services controller -->
   <script src='chrome://viviecr/content/controllers/idle_controller.js' type="application/x-javascript;version=1.7"/>

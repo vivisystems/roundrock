@@ -3036,13 +3036,29 @@ msgstr "Split Payment"
 
 msgid "vivipos.fec.registry.function.programmable.openreport.desc"
 msgstr ""
-"This function allows operator to open specific report ."
+"This function allows operator to open a specific report ."
 
 msgid "vivipos.fec.registry.function.programmable.openreport.label"
 msgstr "Open Report"
 
 msgid "vivipos.fec.registry.function.programmable.openreport.name"
 msgstr "Open Report"
+
+########################################################################
+#
+# Open Control Panel
+#
+########################################################################
+
+msgid "vivipos.fec.registry.function.programmable.opencontrolpanel.desc"
+msgstr ""
+"This function allows operator to open a specific control panel ."
+
+msgid "vivipos.fec.registry.function.programmable.opencontrolpanel.label"
+msgstr "Open Control Panel"
+
+msgid "vivipos.fec.registry.function.programmable.opencontrolpanel.name"
+msgstr "Open Control Panel"
 
 ########################################################################
 #

@@ -23,6 +23,7 @@
         _suspendKeyboardOperation: false,
         _suspendOperationFilter: null,
         _isTraining: false,
+        _launchingControlPanel: false,
     
         initial: function(firstrun) {
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
@@ -486,6 +487,115 @@
                 var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
                 this.topmostWindow.openDialog(aURL, aName, aFeatures, aArguments);
+            }
+        },
+
+        openControlPanel: function(target) {
+
+            var prefs = GeckoJS.Configure.read('vivipos.fec.settings.controlpanels');
+
+            var found = false;
+
+            for (ctg in prefs) {
+
+                for (key in prefs[ctg]) {
+                    let ctrl = prefs[ctg][key];
+
+                    // if controlpanel has stringbundle create it.
+                    if (ctrl.bundle) GeckoJS.StringBundle.createBundle(ctrl.bundle);
+
+                    // only check accessible entries
+                    this.log('DEBUG', 'check access for control panel');
+                    if (ctrl.roles == '' || GeckoJS.AclComponent.isUserInRole(ctrl.roles)) {
+                        let label = ctrl.label;
+                        if (label.indexOf('chrome://') == 0) {
+                            let keystr = 'vivipos.fec.settings.controlpanels.' + ctg + '.' + key + '.label';
+                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                        }
+
+                        this.log('DEBUG', 'checking [' + label + '] for match against [' + target + ']');
+                        if (label == target) {
+                            var waitPanel;
+                            
+                            found = true;
+
+                            let pref = {
+                                icon: ctrl.icon,
+                                path: ctrl.path,
+                                roles: ctrl.roles,
+                                features: (ctrl.features || null),
+                                type:  (ctrl.type || 'uri'),
+                                method: ctrl.method,
+                                data: ctrl.data,
+                                controller: ctrl.controller,
+                                label: label
+                            }
+                            this.log('DEBUG', 'found match, launching control panel: ' + this.dump(pref));
+
+                            try {
+                                waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
+                                this.launchControlPanel(pref);
+                            }
+                            catch(e) {
+                            }
+                            finally {
+                                waitPanel.hidePopup();
+                            }
+                        }
+                    }
+
+                    if (found) break;
+                }
+
+                if (found) break;
+            }
+        },
+
+        launchControlPanel: function(pref) {
+
+            var width = this.screenwidth;
+            var height = this.screenheight;
+
+            var features = pref['features'] || "chrome,popup=no,titlebar=no,toolbar,centerscreen";
+            features += ",modal,width=" + width + ",height=" + height;
+
+            if (this._launchingControlPanel) {
+            // nothings to do
+            }else {
+                try {
+                    this._launchingControlPanel = true;
+                    
+                    if (pref['type'] == 'uri') {
+                        if (this.topmostWindow) {
+                            this.topmostWindow.openDialog(pref['path'], pref['label'], features);
+                        }
+                        else {
+                            window.openDialog(pref['path'], pref['label'], features);
+                        }
+
+                    }
+                    else if (pref['type'] == 'function') {
+                        var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+                        mainWindow.$do(pref['method'], pref['data'], pref['controller']);
+                    }
+                    else {
+                        VirtualKeyboard.show();
+
+                        var paths = pref['path'].split(' ');
+                        var launchAp = paths[0];
+                        var args = paths.slice(1);
+
+                        var fileAp = new GeckoJS.File(launchAp);
+                        fileAp.run(args, true);
+
+                        VirtualKeyboard.hide();
+                    }
+                }
+                catch (e) {
+                }
+                finally {
+                    this._launchingControlPanel = false;
+                }
             }
         },
 
@@ -1613,7 +1723,7 @@
                     l10nLabel = GeckoJS.StringBundle.getPrefLocalizedString(keyFull+'.label') || key;
                 }
                 else {
-                    l10nLabel = _(label);
+                    l10nLabel = label;
                 }
 
                 if ( (key == reportName) || (l10nLabel == reportName) || (label == reportName) ) {
