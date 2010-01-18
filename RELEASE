@@ -1,0 +1,16 @@
+-------------
+RELEASE 1.2.1
+-------------
+
+This is a patch release for VIVIPOS OS 1.2.0
+
+----------
+Bugs Fixed
+----------
+
+Bug #311:
+    Function customization settings may be circumvented by restoring a backup with profile
+
+Bug #316:
+    Disk usage computation is broken due to changes in file system structure
+
