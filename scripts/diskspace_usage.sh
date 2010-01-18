@@ -16,9 +16,9 @@ fi
 
 TODAY=`date '+%Y%m%d'`
 
-DU_USED=`LC_ALL=c df -P ${CHECK_PARTITION} | grep "/dev" | awk -F " " '{ print $3}'`
+DU_USED=`LC_ALL=c df -P ${CHECK_PARTITION} | grep -v "Filesystem" | awk -F " " '{ print $3}'`
 
-DU_AVAILABLE=`LC_ALL=c df -P ${CHECK_PARTITION} | grep "/dev" | awk -F " " '{ print $4}'`
+DU_AVAILABLE=`LC_ALL=c df -P ${CHECK_PARTITION} | grep -v "Filesystem" | awk -F " " '{ print $4}'`
 
 
 # check status file exists ?
