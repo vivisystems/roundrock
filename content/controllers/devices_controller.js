@@ -920,6 +920,7 @@
                                 paperwidth: selectedDevices[id + '-paperwidth'],
                                 tare: selectedDevices[id + '-tare'],
                                 multiplier: selectedDevices[id + '-multiplier'],
+                                idle: selectedDevices[id + '-idle'],
                                 number: i
                             });
                         }
@@ -951,6 +952,7 @@
                             paperwidth: selectedDevices[id + '-paperwidth'],
                             tare: selectedDevices[id + '-tare'],
                             multiplier: selectedDevices[id + '-multiplier'],
+                            idle: selectedDevices[id + '-idle'],
                             number: number
                         });
                     }
@@ -1617,6 +1619,8 @@
             GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices', GeckoJS.BaseObject.serialize(formObj));
 
             GeckoJS.Observer.notify(null, 'device-refresh', this);
+
+            GeckoJS.Observer.notify(null, 'device-refreshed', this);
 
             OsdUtils.info(_('Device configuration saved'));
             

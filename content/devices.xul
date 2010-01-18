@@ -468,6 +468,13 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
+                                        <row>
+                                            <label value="&devices.deviceidle.label;"/>
+                                            <vivitextbox id="vfd-1-idle" type="number" min="0"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             oninputonfocus="select()"
+                                                             form="deviceForm" name="vfd-1-idle" default="0"/>
+                                        </row>
                                     </rows>
                                 </grid>
                             </vbox> 
@@ -532,6 +539,13 @@
                                                 <menupopup id="vfd-2-encoding-popup">
                                                 </menupopup>
                                             </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.deviceidle.label;"/>
+                                            <vivitextbox id="vfd-2-idle" type="number" min="0"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             oninputonfocus="select()"
+                                                             form="deviceForm" name="vfd-2-idle" default="0"/>
                                         </row>
                                     </rows>
                                 </grid>
