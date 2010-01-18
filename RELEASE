@@ -137,6 +137,9 @@ Bug #301:
 Bug #308:
     The Table Selection grid should always have the table hosting the open check highlighted (applicable to Compact Table layout only)
 
+Bug #317:
+    It should be able to configure each VFD to display a default message if the terminal has been idle for a period of time
+
 ----------
 Bugs Fixed
 ----------
@@ -152,6 +155,3 @@ Bug #302:
 
 Bug #305:
     The sample Argox OS-230DT label template mis-prints the current item count when quantity is greater than 9
-
-Bug #316:
-    Disk space usage computation has been broken and produces empty result
