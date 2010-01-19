@@ -140,6 +140,9 @@ Bug #308:
 Bug #317:
     It should be able to configure each VFD to display a default message if the terminal has been idle for a period of time
 
+Bug #319:
+    Need to be able to launch control panels directly via programmable function keys and hot keys
+
 Bug #320:
     If an order has a negative balance, the decision on whether the user's check cashing limit has been exceeded is made erroneously
 
