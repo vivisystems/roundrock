@@ -6,9 +6,9 @@
  */
 
 .custom-content-device {
-   background: #f0efe8;
-   -moz-border-radius: 8px;
-   padding: 8px;
+    background: #f0efe8;
+    padding: 8px;
+    -moz-border-radius: 8px;
 }
 
 .custom-content-device-details {
@@ -17,4 +17,10 @@
 
 .custom-content-device-details .data-form {
     background-color: white !important;
+}
+
+.custom-content-device-block {
+    max-width: 470px;
+    min-width: 470px;
+    width: 470px;
 }

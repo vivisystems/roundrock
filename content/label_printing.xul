@@ -94,12 +94,11 @@
                                     <vbox class="content-buttonpanel" flex="1">
                                         <viviscrollablebuttonpanel id="individual_prodscrollablepanel" flex="1" dir="reverse" cols="4" rows="4" labelField="name" imageField="no"
                                                         ensureVisible="true"
-                                                              seltype="none"
                                                             oncommand="$do('clickPluPanel',this.selectedIndex, 'Tab');"
                                                          buttonClass="button-plu button-medium-image"
                                                         scrollUpClass="scroll-up-button"
                                                       scrollDownClass="scroll-down-button"
-                                                      seltype="none">
+                                                              seltype="none">
                                             <spacer flex="1"/>
                                         </viviscrollablebuttonpanel>
                                     </vbox>

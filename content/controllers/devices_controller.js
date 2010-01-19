@@ -1113,6 +1113,7 @@
             let sortedReceiptDeviceModels = [];
             let sortedCheckDeviceModels = [];
             let sortedReportDeviceModels = [];
+            let sortedLabelDeviceModels = [];
             let sortedVFDDeviceModels = [];
             let sortedDrawerDeviceModels = [];
             let sortedScaleDeviceModels = [];
@@ -1137,6 +1138,12 @@
                     sortedReportDeviceModels.push(newDevicemodel);
                 }
 
+                if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('label') > -1) {
+                    let newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                    newDevicemodel.name = devicemodel;
+                    sortedLabelDeviceModels.push(newDevicemodel);
+                }
+
                 if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('vfd') > -1) {
                     let newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
                     newDevicemodel.name = devicemodel;
@@ -1158,6 +1165,7 @@
             this._sortedDevicemodels['receipt'] = sortedReceiptDeviceModels = new GeckoJS.ArrayQuery(sortedReceiptDeviceModels).orderBy('label asc');
             this._sortedDevicemodels['check'] = sortedCheckDeviceModels = new GeckoJS.ArrayQuery(sortedCheckDeviceModels).orderBy('label asc');
             this._sortedDevicemodels['report'] = sortedReportDeviceModels = new GeckoJS.ArrayQuery(sortedReportDeviceModels).orderBy('label asc');
+            this._sortedDevicemodels['label'] = sortedLabelDeviceModels = new GeckoJS.ArrayQuery(sortedLabelDeviceModels).orderBy('label asc');
             this._sortedDevicemodels['vfd'] = sortedVFDDeviceModels = new GeckoJS.ArrayQuery(sortedVFDDeviceModels).orderBy('label asc');
             this._sortedDevicemodels['cashdrawer'] = sortedDrawerDeviceModels = new GeckoJS.ArrayQuery(sortedDrawerDeviceModels).orderBy('label asc');
             this._sortedDevicemodels['scale'] = sortedScaleDeviceModels = new GeckoJS.ArrayQuery(sortedScaleDeviceModels).orderBy('label asc');
@@ -1200,7 +1208,7 @@
                     let tmplmenu = document.getElementById('receipt-' + j + '-template');
                     for (let i in sortedTemplates) {
                         let tmplName = sortedTemplates[i].name;
-                        tmplmenu.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                        tmplmenu.appendItem(sortedTemplates[i].label, tmplName, '');
                     }
                     tmplmenu.selectedIndex = 0;
 
@@ -1209,7 +1217,7 @@
                     for (let i in sortedPorts) {
                         if (sortedPorts[i].support.indexOf('receipt') > -1) {
                             let portName = sortedPorts[i].name;
-                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                            portmenu.appendItem(sortedPorts[i].label, portName, '');
                         }
                     }
                     portmenu.selectedIndex = 0;
@@ -1227,7 +1235,7 @@
                     devicemodelmenu.selectedIndex = 0;
                     for (let i in sortedReceiptDeviceModels) {
                         var devicemodelName = sortedReceiptDeviceModels[i].name;
-                        devicemodelmenu.appendItem(_(sortedReceiptDeviceModels[i].label), devicemodelName, '');
+                        devicemodelmenu.appendItem(sortedReceiptDeviceModels[i].label, devicemodelName, '');
 
                         if (devicemodelName == selectedDevices['receipt-' + j + '-devicemodel']) {
                             devicemodelmenu.selectedIndex = i;
@@ -1285,7 +1293,7 @@
                     let tmplmenu = document.getElementById('check-' + j + '-template');
                     for (let i in sortedTemplates) {
                         let tmplName = sortedTemplates[i].name;
-                        tmplmenu.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                        tmplmenu.appendItem(sortedTemplates[i].label, tmplName, '');
                     }
                     tmplmenu.selectedIndex = 0;
 
@@ -1294,7 +1302,7 @@
                     for (let i in sortedPorts) {
                         if (sortedPorts[i].support.indexOf('check') > -1) {
                             let portName = sortedPorts[i].name;
-                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                            portmenu.appendItem(sortedPorts[i].label, portName, '');
                         }
                     }
                     portmenu.selectedIndex = 0;
@@ -1312,7 +1320,7 @@
                     devicemodelmenu.selectedIndex = 0;
                     for (let i in sortedCheckDeviceModels) {
                         let devicemodelName = sortedCheckDeviceModels[i].name;
-                        devicemodelmenu.appendItem(_(sortedCheckDeviceModels[i].label), devicemodelName, '');
+                        devicemodelmenu.appendItem(sortedCheckDeviceModels[i].label, devicemodelName, '');
 
                         if (devicemodelName == selectedDevices['check-' + j + '-devicemodel']) {
                             devicemodelmenu.selectedIndex = i;
@@ -1343,7 +1351,7 @@
                     for (let i in sortedPorts) {
                         if (sortedPorts[i].support.indexOf('report') > -1) {
                             let portName = sortedPorts[i].name;
-                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                            portmenu.appendItem(sortedPorts[i].label, portName, '');
                         }
                     }
                     portmenu.selectedIndex = 0;
@@ -1360,14 +1368,25 @@
                     /* device models */
                     let devicemodelmenu = document.getElementById('report-' + j + '-devicemodel');
                     devicemodelmenu.selectedIndex = 0;
-                    for (let i in sortedReportDeviceModels) {
-                        let devicemodelName = sortedReportDeviceModels[i].name;
-                        devicemodelmenu.appendItem(_(sortedReportDeviceModels[i].label), devicemodelName, '');
 
-                        if (devicemodelName == selectedDevices['report-' + j + '-devicemodel']) {
-                            devicemodelmenu.selectedIndex = i;
+                    if (j == 1)
+                        for (let i in sortedReportDeviceModels) {
+                            let devicemodelName = sortedReportDeviceModels[i].name;
+                            devicemodelmenu.appendItem(sortedReportDeviceModels[i].label, devicemodelName, '');
+
+                            if (devicemodelName == selectedDevices['report-' + j + '-devicemodel']) {
+                                devicemodelmenu.selectedIndex = i;
+                            }
                         }
-                    }
+                    else
+                        for (let i in sortedLabelDeviceModels) {
+                            let devicemodelName = sortedLabelDeviceModels[i].name;
+                            devicemodelmenu.appendItem(sortedLabelDeviceModels[i].label, devicemodelName, '');
+
+                            if (devicemodelName == selectedDevices['report-' + j + '-devicemodel']) {
+                                devicemodelmenu.selectedIndex = i;
+                            }
+                        }
 
                     /* encodings */
                     let encodingmenu = document.getElementById('report-' + j + '-encoding');
@@ -1410,7 +1429,7 @@
                     let tmplmenu = document.getElementById('vfd-' + j + '-template');
                     for (let i in sortedTemplates) {
                         let tmplName = sortedTemplates[i].name;
-                        tmplmenu.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                        tmplmenu.appendItem(sortedTemplates[i].label, tmplName, '');
                     }
                     tmplmenu.selectedIndex = 0;
 
@@ -1419,7 +1438,7 @@
                     for (let i in sortedPorts) {
                         if (sortedPorts[i].support.indexOf('vfd') > -1) {
                             let portName = sortedPorts[i].name;
-                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                            portmenu.appendItem(sortedPorts[i].label, portName, '');
                         }
                     }
                     portmenu.selectedIndex = 0;
@@ -1437,7 +1456,7 @@
                     devicemodelmenu.selectedIndex = 0;
                     for (let i in sortedVFDDeviceModels) {
                         let devicemodelName = sortedVFDDeviceModels[i].name;
-                        devicemodelmenu.appendItem(_(sortedVFDDeviceModels[i].label), devicemodelName, '');
+                        devicemodelmenu.appendItem(sortedVFDDeviceModels[i].label, devicemodelName, '');
 
                         if (devicemodelName == selectedDevices['vfd-' + j + '-devicemodel']) {
                             devicemodelmenu.selectedIndex = i;
@@ -1465,7 +1484,7 @@
                     for (let i in sortedPorts) {
                         if (sortedPorts[i].support.indexOf('cashdrawer') > -1) {
                             let portName = sortedPorts[i].name;
-                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                            portmenu.appendItem(sortedPorts[i].label, portName, '');
                         }
                     }
                     portmenu.selectedIndex = 0;
@@ -1482,7 +1501,7 @@
                     let devicemodelmenu = document.getElementById('cashdrawer-' + j + '-devicemodel');
                     for (let i in sortedDrawerDeviceModels) {
                         let devicemodelName = sortedDrawerDeviceModels[i].name;
-                        devicemodelmenu.appendItem(_(sortedDrawerDeviceModels[i].label), devicemodelName, '');
+                        devicemodelmenu.appendItem(sortedDrawerDeviceModels[i].label, devicemodelName, '');
                     }
                     devicemodelmenu.selectedIndex = 0;
                 }
@@ -1514,7 +1533,7 @@
 
                 for (let i in sortedTemplates) {
                     let tmplName = sortedTemplates[i].name;
-                    tmplmenu.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                    tmplmenu.appendItem(sortedTemplates[i].label, tmplName, '');
                 }
                 tmplmenu.selectedIndex = 0;
             }
@@ -1533,7 +1552,7 @@
                     for (let i in sortedPorts) {
                         if (sortedPorts[i].support.indexOf('scale') > -1) {
                             let portName = sortedPorts[i].name;
-                            portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                            portmenu.appendItem(sortedPorts[i].label, portName, '');
                         }
                     }
                     portmenu.selectedIndex = 0;
@@ -1549,7 +1568,7 @@
                     /* device models */
                     let devicemodelmenu = document.getElementById('scale-' + j + '-devicemodel');
                     for (let i in sortedScaleDeviceModels) {
-                        var devicemodelName = sortedScaleDeviceModels[i].name;
+                        let devicemodelName = sortedScaleDeviceModels[i].name;
                         devicemodelmenu.appendItem(sortedScaleDeviceModels[i].label, devicemodelName, '');
                     }
                     devicemodelmenu.selectedIndex = 0;
