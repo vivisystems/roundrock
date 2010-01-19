@@ -536,8 +536,7 @@
                                 waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
                                 this.launchControlPanel(pref);
                             }
-                            catch(e) {
-                            }
+                            catch(e) {}
                             finally {
                                 waitPanel.hidePopup();
                             }
