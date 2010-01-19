@@ -67,6 +67,11 @@ do_backup() {
 	tar cjvpf $bak/$bak_dir/profile.tbz . | xargs -l1 basename | sed "s/.*/50\n# \0/g"
 	fi
 
+	#backup user prefs.js
+	echo "55\n# Backup 'prefs.js'"
+	cd /data/profile
+	cp /data/profile/prefs.js $bak/$bak_dir/
+
 	#backup images
 	echo "60\n# Backup 'images'"
 	cd /data/images
