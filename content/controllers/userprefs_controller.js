@@ -1,0 +1,134 @@
+(function(){
+
+    /**
+     * This controller handles the recovery of user preference file prefs.js
+     */
+
+    var __controller__ = {
+
+        name: 'UserPrefs',
+
+        _script: 'restore_userprefs.sh',
+        _dataPath: null,
+        _localbackupDir: null,
+        _scriptPath: null,
+
+        initial: function() {
+            this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+            this._localbackupDir = this._dataPath + '/backups/';
+            this._scriptPath = this._dataPath + "/scripts/"
+        },
+
+        // execute external commands
+        _execute: function(cmd, param) {
+            try {
+                var exec = new GeckoJS.File(cmd);
+                exec.run(param, true);
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (%S).', [cmd + ' ' + param]));
+                return false;
+            }
+        },
+        // locate recovery source files from backup directories
+        _locateRecoverySources: function() {
+
+            let sources = [];
+            let dir = this._localbackupDir
+
+            // make sure local backup directory exists
+            sources = new GeckoJS.Dir.readDir(dir, {
+                type: 'd'
+            }).filter(function(d) {
+                let files = GeckoJS.Dir.readDir(d, {
+                    type: 'f', name: /profile\.tbz|prefs\.js/
+                });
+                return (files.length > 0);
+            });
+
+            return sources
+        },
+
+        // perform recovery of user preferences
+        recover: function() {
+
+            let sources = this._locateRecoverySources() || [];
+
+            if (sources && sources.length > 0) {
+
+                let backups = [];
+                sources.forEach(function(f) {
+                    backups.push({path: f.path, name: f.leafName})
+                })
+
+                let width = (GeckoJS.Session.get('screenwidth') || 800) * .9;
+                let height = (GeckoJS.Session.get('screenheight') || 600) * .9;
+
+                let aURL = 'chrome://viviecr/content/select_recovery_source.xul';
+                let aArguments = {backups: backups};
+                let aFeatures = 'chrome,modal,dialog,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
+
+                let win = this.topmostWindow;
+                if (win.document.documentElement.id == 'viviposMainWindow'
+                    && win.document.documentElement.boxObject.screenX < 0) {
+                    win = window;
+                }
+                win.openDialog(aURL,
+                               _('Select Source for Recovery'),
+                               aFeatures,
+                               aArguments);
+
+                if (aArguments.ok) {
+                    if (GREUtils.Dialog.confirm(this.topmostWindow, _('User Preference Recovery'), _('Are you sure you want to restore user preferences from the selected backup [%S]? If you choose to proceed with recovery, application will restart immediately.', [aArguments.name]))) {
+                        this.log('WARN', 'Executing user preference recovery from [' + aArguments.source + ']');
+                    }
+
+                    // check if script exists
+                    var exec = new GeckoJS.File(this._scriptPath + this._script);
+                    if (exec.isExecutable()) {
+
+                        // select recovery target
+                        let source = aArguments.source + '/prefs.js';
+                        let mode = 'prefs';
+                        let dest = GeckoJS.Configure.read('ProfD');
+
+                        if (!GeckoJS.File.exists(source)) {
+                            source = aArguments.source + '/profile.tbz';
+                            mode = 'profile';
+                            if (!GeckoJS.File.exists(source)) {
+                                source = null;
+                            }
+                        }
+                        if (source) {
+                            exec.run([mode, source, dest], true);
+                            $do('restart', null, 'Main');
+                        }
+                        else {
+                            this.log('ERROR', 'User preference backup source no longer exists in backup [' + aArguments.source + ']');
+                            GREUtils.Dialog.alert(this.topmostWindow, _('User Preference Recovery'), _('Recovery source is no longer available; recovery cannot be performed.'));
+                        }
+                    }
+                    else {
+                        this.log('ERROR', 'User preference recovery script [' + exec.path + '] missing');
+                        GREUtils.Dialog.alert(this.topmostWindow, _('User Preference Recovery'), _('Required script is missing; recovery cannot be performed.'));
+                    }
+                }
+            }
+            else {
+                GREUtils.Dialog.alert(this.topmostWindow, _('User Preference Recovery'), _('No user preference backup found'));
+            }
+        }
+
+    };
+
+    GeckoJS.Controller.extend(__controller__);
+
+    window.addEventListener('load', function() {
+        var main = GeckoJS.Controller.getInstanceByName('Main');
+        if (main) main.addEventListener('afterInitial', function() {
+                                                            main.requestCommand('initial', null, 'UserPrefs');
+                                                        });
+        }, false);
+})();
