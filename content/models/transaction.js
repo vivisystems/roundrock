@@ -476,6 +476,30 @@
             if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_tax_total', this.formatTax(this.getRoundedTax(this.data.tax_subtotal)));
         },
 
+        getItemPriceLevel: function(item, sellPrice) {
+
+            let plevel = '-';
+            // if item is a product, check price level
+            if (item.no != null && item.no.length > 0) {
+                let priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
+
+                // check 1 - is sellPrice equal to product's price at current price level
+                if (item['level_enable' + priceLevel] && (sellPrice == item['price_level' + priceLevel])) {
+                    plevel = priceLevel;
+                }
+                else {
+                    // scan all enabled price levels to find a match
+                    for (let i = 1; i < 10; i++) {
+                        if (item['level_enable' + i] && (sellPrice == item['price_level' + i])) {
+                            plevel = i;
+                            break;
+                        }
+                    }
+                }
+            }
+            return plevel;
+        },
+
         createItemDataObj: function(index, item, sellQty, sellPrice, parent_index) {
 
             var roundedPrice = sellPrice || 0;
@@ -487,6 +511,9 @@
             if (categoriesByNo && categoriesByNo[item.cate_no]) {
                 item.cate_name = categoriesByNo[item.cate_no].name;
             }
+
+            var price_level = this.getItemPriceLevel(item, sellPrice);
+            
             // name,current_qty,current_price,current_subtotal
             var item2 = {
                 type: 'item', // item or category
@@ -538,7 +565,8 @@
 
                 stock_maintained: false,
                 destination: GeckoJS.Session.get('vivipos_fec_order_destination'),
-
+                price_level: price_level,
+                
                 price_modifier: priceModifier,
 
                 non_discountable: item.non_discountable,
@@ -575,6 +603,7 @@
                     stock_status: item.stock_status,
                     age_verification: item.age_verification,
                     level: (level == null) ? 0 : level,
+                    price_level: item.price_level,
                     price_modifier: item.price_modifier
 
                 });
@@ -1113,6 +1142,7 @@
                     itemTrans.current_price = itemModified.current_price;
                     itemTrans.current_subtotal = itemModified.current_subtotal;
                     itemTrans.price_modifier = itemModified.price_modifier;
+                    itemTrans.price_level = itemModified.price_level;
                     itemTrans.destination = itemModified.destination;
                     itemTrans.tax_name = itemModified.tax_name;
                     itemModified = itemTrans;
