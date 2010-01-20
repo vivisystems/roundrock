@@ -11,7 +11,7 @@ Previous 1.2.0.x releases may be upgraded to this release by installing the rele
 Dependencies
 ------------
 
-This release requires VIVIPOS WebApp and WebServices Release 1.2.1.0. You should also install Release 1.2.1.0 of the appropriate language pack to ensure full translation.
+This release requires VIVIPOS WebApp and WebServices Release 1.2.1.0. You should also install Release 1.2.1.0 of the appropriate language pack to ensure full translation. Certain enhancements and bug fixes (marked with an '*') require VIVIPOS OS 1.2.1 to function correctly.
 
 
 ----------
@@ -140,6 +140,9 @@ Bug #308:
 Bug #317:
     It should be able to configure each VFD to display a default message if the terminal has been idle for a period of time
 
+Bug #318 (*):
+    Authorized users may restore user preferences from daily backups via a built-in hot key
+
 Bug #319:
     Need to be able to launch control panels directly via programmable function keys and hot keys
 
@@ -161,6 +164,12 @@ Bug #302:
 
 Bug #305:
     The sample Argox OS-230DT label template mis-prints the current item count when quantity is greater than 9
+
+Bug #311 (*):
+    Function customization settings can be overridden by restoring from backups generated on another terminal
+
+Bug #316 (*):
+    Disk usage computation is incorrect
 
 -----------------------------
 Bugs fixed in Release 1.2.0.7
