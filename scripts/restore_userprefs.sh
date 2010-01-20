@@ -14,3 +14,4 @@ elif [ "$MODE" = "profile" ]; then
 	/bin/tar xf $SOURCE -C $DEST ./prefs
     fi
 fi
+
