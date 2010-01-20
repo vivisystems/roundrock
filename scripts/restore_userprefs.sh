@@ -11,6 +11,6 @@ if [ "$MODE" = "prefs" ]; then
     fi
 elif [ "$MODE" = "profile" ]; then
     if [ -f $SOURCE ]; then
-	/bin/tar xf $SOURCE -C $DEST ./prefs
+	/bin/tar xf $SOURCE -C $DEST ./prefs.js
     fi
 fi
