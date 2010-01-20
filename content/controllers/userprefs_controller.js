@@ -51,6 +51,23 @@
             return sources
         },
 
+        flushPrefs: function() {
+            try {
+                var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+                // mPrefService.readUserPrefs(null);
+                mPrefService.savePrefFile(null);
+                this.sleep(200);
+
+                // chmod to 664
+                var prefsjs = GeckoJS.Configure.read('ProfD') + '/prefs.js';
+                var nsiPrefs = GREUtils.File.getFile(prefsjs);
+                nsiPrefs.permissions = 0664;
+
+            }catch(e) {
+                this.log('ERROR', 'Error reload prefs.js');
+            }
+        },
+
         // perform recovery of user preferences
         recover: function() {
 
@@ -86,36 +103,45 @@
                 if (aArguments.ok) {
                     if (GREUtils.Dialog.confirm(this.topmostWindow, _('User Preference Recovery'), _('Are you sure you want to restore user preferences from the selected backup [%S]? If you choose to proceed with recovery, application will restart immediately.', [aArguments.name]))) {
                         this.log('WARN', 'Executing user preference recovery from [' + aArguments.source + ']');
-                    }
 
-                    // check if script exists
-                    var exec = new GeckoJS.File(this._scriptPath + this._script);
-                    if (exec.isExecutable()) {
+                        // check if script exists
+                        var exec = new GeckoJS.File(this._scriptPath + this._script);
+                        if (exec.isExecutable()) {
 
-                        // select recovery target
-                        let source = aArguments.source + '/prefs.js';
-                        let mode = 'prefs';
-                        let dest = GeckoJS.Configure.read('ProfD');
+                            // select recovery target
+                            let source = aArguments.source + '/prefs.js';
+                            let mode = 'prefs';
+                            let dest = GeckoJS.Configure.read('ProfD');
 
-                        if (!GeckoJS.File.exists(source)) {
-                            source = aArguments.source + '/profile.tbz';
-                            mode = 'profile';
                             if (!GeckoJS.File.exists(source)) {
-                                source = null;
+                                source = aArguments.source + '/profile.tbz';
+                                mode = 'profile';
+                                if (!GeckoJS.File.exists(source)) {
+                                    source = null;
+                                }
+                            }
+                            if (source) {
+                                this.flushPrefs();
+
+                                let mainController = GeckoJS.Controller.getInstanceByName('Main');
+                                let waitPanel;
+                                if (mainController) {
+                                    waitPanel = mainController._showWaitPanel('wait_panel', 'wait_caption', _('Restoring User Preferences...'), 200, true);
+                                }
+                                exec.run([mode, source, dest], true);
+                                
+                                if (waitPanel) waitPanel.hidePopup();
+                                GREUtils.restartApplication();
+                            }
+                            else {
+                                this.log('ERROR', 'User preference backup source no longer exists in backup [' + aArguments.source + ']');
+                                GREUtils.Dialog.alert(this.topmostWindow, _('User Preference Recovery'), _('Recovery source is no longer available; recovery cannot be performed.'));
                             }
                         }
-                        if (source) {
-                            exec.run([mode, source, dest], true);
-                            $do('restart', null, 'Main');
-                        }
                         else {
-                            this.log('ERROR', 'User preference backup source no longer exists in backup [' + aArguments.source + ']');
-                            GREUtils.Dialog.alert(this.topmostWindow, _('User Preference Recovery'), _('Recovery source is no longer available; recovery cannot be performed.'));
+                            this.log('ERROR', 'User preference recovery script [' + exec.path + '] missing');
+                            GREUtils.Dialog.alert(this.topmostWindow, _('User Preference Recovery'), _('Required script is missing; recovery cannot be performed.'));
                         }
-                    }
-                    else {
-                        this.log('ERROR', 'User preference recovery script [' + exec.path + '] missing');
-                        GREUtils.Dialog.alert(this.topmostWindow, _('User Preference Recovery'), _('Required script is missing; recovery cannot be performed.'));
                     }
                 }
             }

@@ -30,6 +30,7 @@
 
                 return true;
             },
+            
             function(){
                 inputObj.ok = false;
                 
