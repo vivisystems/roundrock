@@ -185,7 +185,7 @@
                     </grid >
 
                     <vbox flex="1" class="content-listbox">
-                        <vivitree        id="printscrollableTablist" flex="1" hidecolumnpicker="true" class="standard"
+                        <vivitree        id="printscrollableTablist" flex="1" hidecolumnpicker="true" class="standard custom-content-labelPrinting-list"
                                     headers="&lable_printing.tabList.heading.name;, &lable_printing.tabList.heading.price;, &lable_printing.tabList.heading.count;"
                                      fields="name,selectedPrice,count"
                                    onselect="$do('setCount', this.selectedIndex, 'Tab');"/>

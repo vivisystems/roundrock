@@ -582,7 +582,12 @@
         removeTabListProduct: function(){
 
              this.tabList.splice( this._tabListPanel.selectedIndex, 1);
+
+             if(this.tabList.length == this._tabListPanel.selectedIndex)
+                  this._tabListPanel.view.selection.select(this._tabListPanel.selectedIndex-1);
+
              this._tabListPanel.datasource = this.tabList;
+             this._tabListPanel.ensureRowIsVisible(this._tabListPanel.selectedIndex);
              this.validateList();
              this._tabListPanel.refresh();
              this.setCount(this._tabListPanel.selectedIndex);
