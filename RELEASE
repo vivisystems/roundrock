@@ -149,6 +149,9 @@ Bug #319:
 Bug #320:
     If an order has a negative balance, the decision on whether the user's check cashing limit has been exceeded is made erroneously
 
+Bug #322
+    Need to track the price level at which items are registered in order to determine promotion eligibility
+
 ----------
 Bugs Fixed
 ----------
