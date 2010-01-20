@@ -117,7 +117,7 @@
                 }
             }
             else {
-                GREUtils.Dialog.alert(this.topmostWindow, _('User Preference Recovery'), _('No user preference backup found'));
+                GREUtils.Dialog.alert(this.topmostWindow, _('User Preference Recovery'), _('No backup of user preferences found'));
             }
         }
 
