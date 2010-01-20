@@ -54,6 +54,9 @@
         // perform recovery of user preferences
         recover: function() {
 
+            // check for access
+            if (!this.Acl.isUserInRole('acl_manage_backup')) return;
+
             let sources = this._locateRecoverySources() || [];
 
             if (sources && sources.length > 0) {
