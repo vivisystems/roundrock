@@ -29,7 +29,9 @@
             'ctrl-$8a': true, // ctrl+z // undo
             'ctrl-alt-$66': true, // ctrl-alt+b // package builder
             'ctrl-alt-$70': true, // ctrl-alt+f // function manager
+            'ctrl-alt-$76': true, // ctrl-alt+l // function manager
             'ctrl-alt-$80': true, // ctrl-alt+p // screenshot
+            'ctrl-alt-$85': true, // ctrl-alt+u // restore user preferences
             '$48': true,
             '$49': true,
             '$50': true,

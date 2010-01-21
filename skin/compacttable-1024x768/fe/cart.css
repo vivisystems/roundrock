@@ -144,7 +144,9 @@
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(treecellTax) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_qty) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_price) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(price_level) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(destination) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treecellCondiment) {font-size: 11px; font-weight: normal;}
 
 /*
 .cart-list treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
@@ -157,6 +159,7 @@
 .main-overlay .cart-list treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(../images/check.png);}
 
 .main-overlay .cart-list #name,
+.main-overlay .cart-list #price_level,
 .main-overlay .cart-list #destination {
     text-align: left;
 }
@@ -176,6 +179,11 @@
 .main-overlay .cart-list tree #tag {
     max-width: 15px;
     min-width: 15px;
+}
+
+.main-overlay .cart-list tree #row {
+    max-width: 25px;
+    min-width: 25px;
 }
 
 .main-overlay .cart-list tree #destination {
@@ -215,6 +223,11 @@
 .main-overlay .cart-list tree #current_tax {
     max-width: 28px;
     min-width: 28px;
+}
+
+.main-overlay .cart-list tree #price_level {
+    max-width: 24px;
+    min-width: 24px;
 }
 
 .main-overlay .cart-list .tree-scrollable-columns {
