@@ -38,7 +38,8 @@ CREATE  TABLE IF NOT EXISTS "main"."promotion_cart_items" (
 "current_discount" FLOAT,
 "current_surcharge" FLOAT,
 "condiments" VARCHAR,
-"current_condiment" FLOAT
+"current_condiment" FLOAT,
+"destination" VARCHAR
 );
 
 
