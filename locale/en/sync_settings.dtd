@@ -77,6 +77,7 @@
 <!ENTITY sync_settings.label.irc_update_when_signoff "SignOff">
 <!ENTITY sync_settings.label.irc_update_when_shutdown "Shutdown">
 <!ENTITY sync_settings.label.irc_update_when_reboot "Reboot">
+<!ENTITY sync_settings.label.irc_update_when_eachsale "Each Sale">
 
 <!ENTITY sync_settings.button.irc_ok "OK">
 <!ENTITY sync_settings.button.irc_later "LATER">
