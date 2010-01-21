@@ -38,6 +38,7 @@
 <!ENTITY    common.label.trigger_amount_mode_single      "Single">
 <!ENTITY    common.label.trigger_amount_mode_more        "More Than">
 <!ENTITY    common.label.trigger_amount_mode_multiple    "Multiple">
+<!ENTITY    common.label.trigger_applicable_destination  "Applicable Destination">
 
 <!ENTITY    amount_off.title                   "Amount Off Setting">
 <!ENTITY    amount_off.label.type              "Amount Off Type">
@@ -70,6 +71,15 @@
 <!ENTITY    multi_buy.label.type_by_percentage_off             "Percentage Off">
 <!ENTITY    multi_buy.label.quantity       "Quantity">
 <!ENTITY    multi_buy.label.value          "Value">
+
+<!ENTITY    discount_after_n.title                   "Discount After N Setting">
+<!ENTITY    discount_after_n.label.type             "Discount After N Type">
+<!ENTITY    discount_after_n.label.discount_threshold             "Discount Threshold Quantity">
+<!ENTITY    discount_after_n.label.type_by_fixed_value             "Fixed Value">
+<!ENTITY    discount_after_n.label.type_by_amount_off             "Amount Off">
+<!ENTITY    discount_after_n.label.type_by_percentage_off             "Percentage Off">
+<!ENTITY    discount_after_n.label.maximum_qty       "Maximum Quantity">
+<!ENTITY    discount_after_n.label.value             "Set Free Price">
 
 
 <!ENTITY    button.action.down    "Down">

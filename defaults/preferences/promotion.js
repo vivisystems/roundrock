@@ -46,3 +46,7 @@ pref("vivipos.fec.registry.promotion.type.cheapest_one_free.setting_uri", "chrom
 pref("vivipos.fec.registry.promotion.type.multi_buy.classname", "MultiBuy");
 pref("vivipos.fec.registry.promotion.type.multi_buy.class_uri", "chrome://viviecr/content/promotions/types/multi_buy_type.js");
 pref("vivipos.fec.registry.promotion.type.multi_buy.setting_uri", "chrome://viviecr/content/promotions/multi_buy_type_setting.xul");
+
+pref("vivipos.fec.registry.promotion.type.discount_after_n.classname", "DiscountAfterN");
+pref("vivipos.fec.registry.promotion.type.discount_after_n.class_uri", "chrome://viviecr/content/promotions/types/discount_after_n_type.js");
+pref("vivipos.fec.registry.promotion.type.discount_after_n.setting_uri", "chrome://viviecr/content/promotions/discount_after_n_type_setting.xul");
