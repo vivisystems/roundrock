@@ -143,7 +143,7 @@
 
             var alertWin = null;
             try {
-                alertWin = this.showProgressDialog(_('Checking Available Updates'));
+                alertWin = this.showProgressDialog(_('Checking for Available Updates'));
                 var packages = httpService.requestRemoteService('GET', requestUrl);
             }catch(e) {
                 this.log('ERROR', 'Error checkAvailableUpdates', e);
@@ -162,7 +162,7 @@
                 }
 				
             }else if (packages === false) {
-                this._serverError(_('Failed to check IRC Update packages or has apply IRC packages error before [message #2101]'));
+                this._serverError(_('Failed to retrieve IRC update package information. Please ensure that all previous IRC update errors, if any, have been successfully resolved and connection to IRC server is up [message #2101]'));
             }
 
         },
@@ -204,7 +204,7 @@
             var alertWin = null;
             var result = false;
             try {
-                alertWin = this.showProgressDialog(_('Updating Available Updates'));
+                alertWin = this.showProgressDialog(_('Applying Available Updates'));
                 result = httpService.requestRemoteService('GET', requestUrl);
             }catch(e) {
                 this.log('ERROR', 'Error applyAvailableUpdates', e);
@@ -286,7 +286,7 @@
          */
         restart: function() {
 
-            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Restart'), _('Updating success') + '\n\n' + _('Please confirm to restart the terminal')) == false) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Restart after Update'), _('Update successful') + '\n\n' + _('Please confirm to restart the terminal')) == false) {
                 return;
             }
 
@@ -309,7 +309,7 @@
          */
         reboot: function() {
         	
-            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Reboot'), _('Updating success') + '\n\n' + _('Please confirm to reboot the terminal')) == false) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Reboot after Update'), _('Update successful') + '\n\n' + _('Please confirm to reboot the terminal')) == false) {
                 return;
             }
             
@@ -344,7 +344,7 @@
 
             var alertWin = null;
             try {
-                alertWin = this.showProgressDialog(_('Removing Exipre IRC Packages'));
+                alertWin = this.showProgressDialog(_('Removing Exipred IRC Packages'));
                 var result = httpService.requestRemoteService('GET', requestUrl) || false;
             }catch(e) {
                 this.log('ERROR', 'Error removeExpirePackages', e);

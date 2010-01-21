@@ -2585,6 +2585,15 @@
                     return;
 
                 case 'coupon':
+                    if (balance <= 0) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Coupon Payment Error'),
+                            _('Coupon payment not permitted when no balance is due'));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+
                     if (silent && subtype != '') {
                         this._addPayment('coupon', payment, amount, subtype, '', groupable, finalize);
                     }
@@ -2682,7 +2691,18 @@
                         }
                         if (isNaN(limit)) limit = 0;
 
-                        if (balance >= 0) {
+                        // we need to collect total check payment amount
+                        let payments = curTransaction.getPayments();
+                        let totalCheckPayment = 0;
+                        for (key in payments) {
+                            let entry = payments[key];
+                            if (entry.name == 'check') {
+                                totalCheckPayment += entry.amount;
+                            }
+                        }
+                        let balanceBeforeCheckPayment = totalCheckPayment + balance;
+
+                        if (balanceBeforeCheckPayment >= 0) {
                             if (payment - balance > limit) {
                                 GREUtils.Dialog.alert(this.topmostWindow,
                                     _('Check Payment Error'),
@@ -2693,19 +2713,10 @@
                             }
                         }
                         else {
-                            // we need to collect total check payment amount
-                            let payments = curTransaction.getPayments();
-                            let total = payment;
-                            for (key in payments) {
-                                let entry = payments[key];
-                                if (entry.name == 'check') {
-                                    total += entry.amount;
-                                }
-                            }
-                            if (total > limit) {
+                            if (newCheckTotal > limit) {
                                 GREUtils.Dialog.alert(this.topmostWindow,
                                     _('Check Payment Error'),
-                                    _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(total), curTransaction.formatPrice(limit)]));
+                                    _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(newCheckTotal), curTransaction.formatPrice(limit)]));
 
                                 this._clearAndSubtotal();
                                 return;
