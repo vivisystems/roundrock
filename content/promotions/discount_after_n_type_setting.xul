@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/promotions_manager.css" type="text/css"?>
+
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Promotions SYSTEM "chrome://viviecr/locale/promotions_manager.dtd">
+  %Promotions;
+  <!ENTITY % BasicPromotionsSet SYSTEM "chrome://viviecr/locale/basic_promotions_set.dtd">
+  %BasicPromotionsSet;
+  ]>
+
+<page title="&promotions_manager.title;"
+	  hidechrome="true"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/promotion.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/promotions/controllers/discount_after_n_type_setting_controller.js"/>
+  
+    <vbox flex="1" class="container-be custom-content-promotion-type">
+        <groupbox flex="1" orient="vertical">
+            <caption label="&discount_after_n.title;"/>
+
+            <grid class="data-form">
+                <columns>
+                    <column/>
+                    <column flex="1"/>
+                </columns>
+                <rows>
+                    <row>
+                        <label value="&discount_after_n.label.discount_threshold;"/>
+                        <textbox id="maximum_qty" value="0" type="number" decimalplaces="Infinity" min="0"
+                                 form="discountAfterNForm" name="discount_threshold"/>
+                    </row>
+                    <row>
+                        <label value="&discount_after_n.label.type;"/>
+                        <radiogroup orient="vertical" id="type" form="discountAfterNForm" name="type">
+                            <radio label="&discount_after_n.label.type_by_fixed_value;" selected="true" value="by_fixed_value"/>
+                            <radio label="&discount_after_n.label.type_by_amount_off;" value="by_amount_off"/>
+                            <radio label="&discount_after_n.label.type_by_percentage_off;" value="by_percentage_off"/>
+                        </radiogroup>
+                    </row>
+                    <row>
+                        <label value="&discount_after_n.label.maximum_qty;"/>
+                        <textbox id="maximum_qty" value="0" type="number" decimalplaces="Infinity" min="0"
+                                 form="discountAfterNForm" name="maximum_qty"/>
+                    </row>
+                   <row>
+                        <label value="&discount_after_n.label.value;"/>
+                        <textbox id="value" value="0" type="number" decimalplaces="Infinity" min="-Infinity"
+                                 form="discountAfterNForm" name="value"/>
+                    </row>
+                </rows>
+            </grid>
+        </groupbox>
+    </vbox>
+</page>
