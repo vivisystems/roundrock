@@ -175,6 +175,19 @@ Bug #316 (*):
     Disk usage computation is incorrect
 
 -----------------------------
+Bugs fixed in Release 1.2.0.8
+-----------------------------
+
+Bug #323:
+    Items should not be collapsed together if destinations are different
+
+Bug #324:
+    Item destination should be made available as a promotion trigger condition
+
+Bug #325:
+    Need a discount-after-n promotion type
+
+-----------------------------
 Bugs fixed in Release 1.2.0.7
 -----------------------------
 
