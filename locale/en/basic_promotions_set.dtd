@@ -38,6 +38,7 @@
 <!ENTITY    common.label.trigger_amount_mode_single      "Single">
 <!ENTITY    common.label.trigger_amount_mode_more        "More Than">
 <!ENTITY    common.label.trigger_amount_mode_multiple    "Multiple">
+<!ENTITY    common.label.trigger_applicable_destination  "Applicable Destination">
 
 <!ENTITY    amount_off.title                   "Amount Off Setting">
 <!ENTITY    amount_off.label.type              "Amount Off Type">

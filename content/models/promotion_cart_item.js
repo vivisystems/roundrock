@@ -55,9 +55,10 @@
                     + item.current_discount+","
                     + item.current_surcharge+","
                     + "'"+ condiments+"',"
-                    + item.current_condiment+""
+                    + item.current_condiment+","
+                    + "'"+ item.destination+"'"
                     + ")";
-                
+
                 var datasource = this.getDataSource();
                 
                 try {
