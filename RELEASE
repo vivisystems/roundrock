@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.0.7
+Release 1.2.0.8
 ---------------
 
 This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.0.x
@@ -11,7 +11,7 @@ Previous 1.2.0.x releases may be upgraded to this release by installing the rele
 Dependencies
 ------------
 
-This release requires VIVIPOS WebApp and WebServices Release 1.2.0.3 or above. You should also install Release 1.2.0.6 of the appropriate language pack to resolve translation-related bugs.
+This release requires VIVIPOS WebApp and WebServices Release 1.2.0.3 or above. You should also install Release 1.2.0.8 of the appropriate language pack to resolve translation-related bugs.
 
 
 ----------
@@ -26,20 +26,11 @@ Bug #159:
 Bugs fixed
 ----------
 
-Bug #306:
-    If two records with the same key are stored in the model backup file using model's saveToBackup() function, fields from the old record will not be updated with fields of the same name from the new record
+Bug #323:
+    Items should not be collapsed together if destinations are different
 
-Bug #307:
-    Product Search by product number, barcode, or name fails in Product Management screen
+Bug #324:
+    Item destination should be made available as a promotion trigger condition
 
-Bug #309:
-    Display sorting to collate no case for departments, product groups and products so that departments, product groups, and products will be ordered in a case-insensitive manner in department and product panels
-
-Bug #310:
-    On the table selection panel, table name should be shown in the table title section, not in the body
-
-Bug #312:
-    Registering items from Product Search screen does not work for set menus
-
-Bug #313:
-    Added support for UWE DP series of electronic scales
+Bug #325:
+    Need a discount-after-n promotion type
