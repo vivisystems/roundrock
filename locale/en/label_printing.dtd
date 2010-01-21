@@ -36,7 +36,8 @@
 <!ENTITY lable_printing.error.messege "The following products have invalid barcode and will not be printed">
 <!ENTITY lable_printing.error.heading.name "Name">
 <!ENTITY lable_printing.error.heading.barcode "Barcode">
-
+<!ENTITY lable_printing.error.heading.price "Price">
+<!ENTITY lable_printing.error.heading.memo "Memo">
 
 
 

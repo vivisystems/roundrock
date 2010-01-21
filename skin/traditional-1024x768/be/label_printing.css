@@ -217,3 +217,7 @@
 .custom-content-labelPrinting-list #count {
     text-align: center;
 }
+
+.custom-content-error-list #selectedPrice {
+    text-align: center;
+}

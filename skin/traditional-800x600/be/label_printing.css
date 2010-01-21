@@ -69,12 +69,12 @@
 .filebar button{
     background-color: white ;
     background-image: none;
-    border: 2px solid;
+    border: 3px solid;
     color: #4d4234;
-    font-size: 12pt;
+    font-size: 15pt;
     margin: 5px;
-    min-height: 40px;
-    min-width: 75px;
+    min-height: 45px;
+    min-width: 80px;
     padding: 8px;
     -moz-appearance: none;
     -moz-border-top-colors: #918570 white;
@@ -209,14 +209,15 @@
     border-width: 0px !important
 }
 
-
-
-
 .custom-content-labelPrinting-list #selectedPrice {
     text-align: right;
 
 }
 
 .custom-content-labelPrinting-list #count {
+    text-align: center;
+}
+
+.custom-content-error-list #selectedPrice {
     text-align: center;
 }
