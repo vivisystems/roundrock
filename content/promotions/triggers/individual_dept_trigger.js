@@ -16,7 +16,6 @@
         },
 
         execute: function() {
-
             if (this.triggerDepts.length == 0) return false;
 
             var deptItem = this.triggerDepts.splice(0,1)[0];
@@ -36,15 +35,17 @@
             var amount_value = parseInt(settings.amount_value);
             var amount_type = settings.amount_type;
             var amount_mode = settings.amount_mode;
+            var destination = settings.destination;
 
             var condition = " cate_no='"+productCateNo+"' ";
-
+            if (destination) {
+                condition += " AND destination='"+destination+"' ";
+            }
             var sql = "SELECT SUM(current_qty) AS qty, SUM(current_qty*current_price) AS subtotal FROM promotion_cart_items WHERE "+condition+" GROUP BY cate_no ORDER BY ROWID";
 
             // this.log('execute ' + sql) ;
 
             var result = cartItemModel.getDataSource().fetchAll(sql);
-
             if (result.length == 0) return false;
 
             var subtotal_qty = result[0]['qty'];

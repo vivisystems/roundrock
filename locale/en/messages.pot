@@ -2324,7 +2324,7 @@ msgid "trigger.individual_dept.name"
 msgstr "Individual Department"
 
 msgid "trigger.individual_dept.desc"
-msgstr "Promotion trigger - Individual Department"
+msgstr "Promotion trigger - Individual Department, with destination filter"
 
 msgid "trigger.individual_group.label"
 msgstr "Individual Group"

@@ -26,6 +26,13 @@
             this._deptscrollablepanel = document.getElementById('deptscrollablepanel');
             this._deptPanelView =  new NSICategoriesView('deptscrollablepanel');
 
+            // populate destination list
+            var destListObj = document.getElementById('destinationList');
+            var destinations = GeckoJS.Session.get('destinations');
+            destinations.forEach(function(d) {
+               destListObj.appendItem(d.name, d.name, null);
+            });
+
             var settings = GeckoJS.Session.get(sessionKey) || null;
 
             this.setSettings(settings);
@@ -39,7 +46,6 @@
         getSettings: function() {
 
             var formData = this.Form.serializeToObject('individualDeptForm');
-            
             // process formData to settings          
             // set to sessions
             var settings = formData;
