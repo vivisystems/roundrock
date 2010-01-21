@@ -72,6 +72,15 @@
 <!ENTITY    multi_buy.label.quantity       "Quantity">
 <!ENTITY    multi_buy.label.value          "Value">
 
+<!ENTITY    discount_after_n.title                   "Discount After N Setting">
+<!ENTITY    discount_after_n.label.type             "Discount After N Type">
+<!ENTITY    discount_after_n.label.discount_threshold             "Discount Threshold Quantity">
+<!ENTITY    discount_after_n.label.type_by_fixed_value             "Fixed Value">
+<!ENTITY    discount_after_n.label.type_by_amount_off             "Amount Off">
+<!ENTITY    discount_after_n.label.type_by_percentage_off             "Percentage Off">
+<!ENTITY    discount_after_n.label.maximum_qty       "Maximum Quantity">
+<!ENTITY    discount_after_n.label.value             "Set Free Price">
+
 
 <!ENTITY    button.action.down    "Down">
 <!ENTITY    button.action.modify  "Modify">
