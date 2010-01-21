@@ -185,7 +185,7 @@
                     </grid >
 
                     <vbox flex="1" class="content-listbox">
-                        <vivitree        id="printscrollableTablist" flex="1" hidecolumnpicker="true" class="standard"
+                        <vivitree        id="printscrollableTablist" flex="1" hidecolumnpicker="true" class="standard custom-content-labelPrinting-list"
                                     headers="&lable_printing.tabList.heading.name;, &lable_printing.tabList.heading.price;, &lable_printing.tabList.heading.count;"
                                      fields="name,selectedPrice,count"
                                    onselect="$do('setCount', this.selectedIndex, 'Tab');"/>
@@ -236,8 +236,8 @@
                 <vbox flex="1" class="content-listbox">
                     <label value="&lable_printing.error.messege;" class="label-alert"/>
                     <vivitree id="errorscrollablepanel" flex="1"
-                              headers="&lable_printing.error.heading.name;,&lable_printing.error.heading.barcode;"
-                              fields="name,barcode"
+                              headers="&lable_printing.error.heading.name;,&lable_printing.error.heading.barcode;,&lable_printing.error.heading.price;,&lable_printing.error.heading.memo;"
+                              fields="name,barcode,selectedPrice,comm"
                               class="standard custom-content-error-list"
                              />
                 </vbox>

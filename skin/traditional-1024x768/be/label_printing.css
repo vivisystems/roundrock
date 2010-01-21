@@ -208,3 +208,16 @@
     background-color: #fff6e8 ;
     border-width: 0px !important
 }
+
+.custom-content-labelPrinting-list #selectedPrice {
+    text-align: right;
+
+}
+
+.custom-content-labelPrinting-list #count {
+    text-align: center;
+}
+
+.custom-content-error-list #selectedPrice {
+    text-align: center;
+}

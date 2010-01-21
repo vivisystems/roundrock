@@ -582,7 +582,12 @@
         removeTabListProduct: function(){
 
              this.tabList.splice( this._tabListPanel.selectedIndex, 1);
+
+             if(this.tabList.length == this._tabListPanel.selectedIndex)
+                  this._tabListPanel.view.selection.select(this._tabListPanel.selectedIndex-1);
+
              this._tabListPanel.datasource = this.tabList;
+             this._tabListPanel.ensureRowIsVisible(this._tabListPanel.selectedIndex);
              this.validateList();
              this._tabListPanel.refresh();
              this.setCount(this._tabListPanel.selectedIndex);
@@ -1014,16 +1019,49 @@
                      object.legalList.push(list[i]);
                                   
                 else{
+                     list[i].comm = _('Invalid Barcode');
                      object.illegalList.push(list[i]);
                      object.islegal = false;
                 }
             }          
             return object ; 
         },
+        
+        _checkHasBarcode: function(obj){
+            
+             for(var x = 0 ; x< obj.legalList.length ; x++){
+
+                  if(obj.legalList[x].barcode == ""){
+
+                       obj.legalList[x].comm = _('No Barcode');
+                       obj.illegalList.push(obj.legalList[x]);
+                       obj.legalList.splice(x,1);
+                       obj.islegal = false ;
+                  }
+             }
+
+             return obj;
+        }
+        ,_checkPriceZero: function(obj){
+            
+             for(var x = 0 ; x< obj.legalList.length ; x++){
+
+                  if(obj.legalList[x].selectedPrice == 0){
+
+                       obj.legalList[x].comm = _('Zero Price');
+
+                       obj.illegalList.push(obj.legalList[x]);
+                       obj.legalList.splice(x,1);
+                       obj.islegal = false ;
+                  }
+              }
+              return obj;
+        }
+
 
         /* length: 30
          * valid codes: ASCII 0~127 */
-        checkBarcodeType128: function(list){
+        ,checkBarcodeType128: function(list){
 
             var object = { illegalList:[], islegal: true };
 
@@ -1200,7 +1238,14 @@
                var barcode = inputObj.selectedBarcode
                
                this._barcodeType = this.getBarcodeType(barcode)
+
                var object = this.checkBarcodeType3OF9(this.tabList);
+
+               object = this._checkHasBarcode(object);
+
+               object = this._checkPriceZero(object);
+
+               this.log('DEBUG', this.dump(object));
 
                this.legalList = object.legalList;
 

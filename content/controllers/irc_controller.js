@@ -100,6 +100,16 @@
 				
             }
 
+            // add cart listener
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            if (cart) {
+                if (syncSettings.irc_update_when_eachsale) {
+                    cart.addEventListener('onSubmit', function() {
+                        self.checkAvailableUpdates();
+                    });
+                }                
+            }
+
             /*
             // add idle listener
             var idle = GeckoJS.Controller.getInstanceByName('Idle');
