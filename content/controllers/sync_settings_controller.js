@@ -50,6 +50,7 @@
             settings.irc_update_when_signoff = GeckoJS.String.parseBoolean(settings.irc_update_when_signoff);
             settings.irc_update_when_reboot = GeckoJS.String.parseBoolean(settings.irc_update_when_reboot);
             settings.irc_update_when_shutdown = GeckoJS.String.parseBoolean(settings.irc_update_when_shutdown);
+            settings.irc_update_when_eachsale = GeckoJS.String.parseBoolean(settings.irc_update_when_eachsale);
 
             this.Form.unserializeFromObject('syncSettingForm', settings);
 
