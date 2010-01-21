@@ -735,6 +735,7 @@
                     var currentItem = curTransaction.getItemAt(currentIndex);
                     var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
                     var price = GeckoJS.Session.get('cart_set_price_value');
+                    var destination = GeckoJS.Session.get('vivipos_fec_order_destination');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (!qtyFromInput &&
                             ((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
@@ -742,6 +743,7 @@
                             !currentItem.hasDiscount &&
                             !currentItem.hasSurcharge &&
                             !currentItem.hasMarker &&
+                            currentItem.destination == destination &&
                             ((price == null) || (currentItem.current_price == price)) &&
                             (currentItem.current_qty > 0 && !this._returnMode ||
                                 currentItem.current_qty < 0 && this._returnMode) &&
