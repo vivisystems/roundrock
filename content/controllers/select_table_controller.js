@@ -315,7 +315,8 @@
                         this.getTablesViewHelper().refreshTablesStatusPeriod();
                     }
                 }
-                
+
+                this.selectCurrentTable();
             }finally{
                 this._blockRefreshTableStatus = false;
             }
@@ -672,7 +673,7 @@
                 active = 0
             }
 
-            let result = false;
+            var result = false;
             switch (command) {
                 default:
                 case 'newTable':
@@ -691,7 +692,7 @@
 
             // if selectTable action fails, clear selection
             if (!result) {
-                this.getTableButtonsPanelObj().selectedItems = [];
+                this.selectCurrentTable();
             }
             return true;
 
@@ -1097,6 +1098,19 @@
             }
         },
 
+        selectCurrentTable: function() {
+            let table_no = GeckoJS.Session.get('vivipos_fec_table_number');
+            if (table_no != null) {
+                let tables = this.getTablesViewHelper().data || [];
+                for (let i = 0; i < tables.length; i++) {
+                    if (tables[i] && tables[i].table_no == table_no) {
+                        this.getTableButtonsPanelObj().selectedItems = [i];
+                        return;
+                    }
+                }
+            }
+            this.getTableButtonsPanelObj().selectedItems = [];
+        },
 
         /**
          * Call guest_check newTable action -- called by orderdisplay popup panel
@@ -1116,6 +1130,8 @@
             if (result && !this.isDock()) {
                 this.hideTableSelectorPanel();
             }
+
+            return result;
         },
 
 
@@ -1360,6 +1376,8 @@
             $('#totalTablesLbl').val(totalTable);
             $('#percentageLbl').val(tableUsedPercentage);
             $('#customersLbl').val(customers);
+
+            this.selectCurrentTable();
         }
 
 

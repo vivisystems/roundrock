@@ -119,6 +119,7 @@
                                             destination: seqData.destination,
                                             parent_index: seqData.parent_index ||'',
                                             age_verification: seqData.age_verification,
+                                            price_level: seqData.price_level,
                                             price_modifier: seqData.price_modifier};
                 }
             }

@@ -29,13 +29,13 @@
             <html:div class="topItem">
                 <html:div class="tableData">
                     <html:div class="tableNo">
-                        <html:span anonid="table_no"></html:span>
+                        <html:span anonid="table_title"></html:span>
                     </html:div>
                     <html:div class="tableName">
-                            <html:span anonid="table_label"></html:span><html:br />
+                        <html:span anonid="table_label"></html:span><html:br />
                     </html:div>
                     <html:div class="tableInfo">
-                        <html:div class="cneckNo">
+                        <html:div class="checkNo">
                             <html:span anonid="check_no" class="check_no">C#36</html:span>
                         </html:div>
                         <html:div class="remark">
@@ -86,8 +86,8 @@
     <!-- field name="_bg_div">
         document.getAnonymousElementByAttribute(this, "anonid", "bg_div");
     </field -->
-    <field name="_table_no">
-        document.getAnonymousElementByAttribute(this, "anonid", "table_no");
+    <field name="_table_title">
+        document.getAnonymousElementByAttribute(this, "anonid", "table_title");
     </field>
     <field name="_table_label">
         document.getAnonymousElementByAttribute(this, "anonid", "table_label");
@@ -117,11 +117,18 @@
         document.getAnonymousElementByAttribute(this, "anonid", "clerk");
     </field>
 
-    <property name="table_no" onget="return this._table_no.textContent;">
+    <property name="table_no" onget="return this._bg_table_no.textContent;">
         <setter>
             <![CDATA[
-                this._table_no.textContent = val;
                 this._bg_table_no.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+    <property name="table_title" onget="return this._table_title.textContent;">
+        <setter>
+            <![CDATA[
+                this._table_title.textContent = val;
                 return val;
             ]]>
         </setter>

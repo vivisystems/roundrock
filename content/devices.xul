@@ -58,7 +58,7 @@
                     </tabs>
                 </arrowscrollbox>
 
-                <tabpanels id="device-tabpanels">
+                <tabpanels id="device-tabpanels" flex="1">
 
                     <!-- Receipt printer configuration -->
                     <tabpanel id="receipt-panel" flex="1" orient="horizontal">
@@ -67,7 +67,7 @@
                         <vbox flex="1" class="custom-content-device">
                             <checkbox label="&devices.receipt.printer.1.label;" value="false"
                                       form="deviceForm" name="receipt-1-enabled" default="false"/>
-                            <vbox class="custom-content-device-details">
+                            <vbox class="custom-content-device-details custom-content-device-block">
                                 <grid class="data-form">
                                     <columns>
                                         <column flex="0"/>
@@ -133,7 +133,7 @@
                         <vbox id="deviceReceipt2Box" flex="1" class="custom-content-device">
                             <checkbox label="&devices.receipt.printer.2.label;" value="false"
                                       form="deviceForm" name="receipt-2-enabled" default="false"/>
-                            <vbox class="custom-content-device-details">
+                            <vbox class="custom-content-device-details custom-content-device-block">
                                 <grid class="data-form">
                                     <columns>
                                         <column flex="0"/>
@@ -203,7 +203,7 @@
                             <checkbox id="check-%d-enabled" label="&devices.check.printer.label; %d" value="false" cloneTarget="true"
                                       form="deviceForm" name="check-%d-enabled" default="false"/>
                             <hbox class="custom-content-device-details">
-                                <grid class="data-form block-50">
+                                <grid class="data-form custom-content-device-block">
                                     <columns>
                                         <column flex="0"/>
                                         <column flex="1"/>
@@ -288,7 +288,7 @@
                         <vbox id="deviceReportBox" flex="1" class="custom-content-device">
                             <checkbox label="&devices.report.printer.1.label;" value="false"
                                       form="deviceForm" name="report-1-enabled" default="false"/>
-                            <vbox class="custom-content-device-details">
+                            <vbox class="custom-content-device-details custom-content-device-block">
                                 <grid class="data-form">
                                     <columns>
                                         <column flex="0"/>
@@ -354,7 +354,7 @@
                         <vbox id="deviceLabelBox" flex="1" class="custom-content-device">
                             <checkbox label="&devices.report.printer.2.label;" value="false"
                                       form="deviceForm" name="report-2-enabled" default="false"/>
-                            <vbox class="custom-content-device-details">
+                            <vbox class="custom-content-device-details custom-content-device-block">
                                 <grid class="data-form">
                                     <columns>
                                         <column flex="0"/>
@@ -414,7 +414,7 @@
                         <vbox id="devVfd1Box" flex="1" class="custom-content-device">
                            <checkbox label="&devices.vfd.1.label;" value="false"
                                      form="deviceForm" name="vfd-1-enabled" default="false"/>
-                            <vbox class="custom-content-device-details">
+                            <vbox class="custom-content-device-details custom-content-device-block">
                                 <grid class="data-form">
                                     <columns>
                                         <column flex="0"/>
@@ -468,6 +468,13 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
+                                        <row>
+                                            <label value="&devices.deviceidle.label;"/>
+                                            <vivitextbox id="vfd-1-idle" type="number" min="0"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             oninputonfocus="select()"
+                                                             form="deviceForm" name="vfd-1-idle" default="0"/>
+                                        </row>
                                     </rows>
                                 </grid>
                             </vbox> 
@@ -479,7 +486,7 @@
                         <vbox id="devVfd2Box" flex="1" class="custom-content-device">
                            <checkbox label="&devices.vfd.2.label;" value="false"
                                      form="deviceForm" name="vfd-2-enabled" default="false"/>
-                            <vbox class="custom-content-device-details">
+                            <vbox class="custom-content-device-details custom-content-device-block">
                                 <grid class="data-form">
                                     <columns>
                                         <column flex="0"/>
@@ -532,6 +539,13 @@
                                                 <menupopup id="vfd-2-encoding-popup">
                                                 </menupopup>
                                             </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.deviceidle.label;"/>
+                                            <vivitextbox id="vfd-2-idle" type="number" min="0"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             oninputonfocus="select()"
+                                                             form="deviceForm" name="vfd-2-idle" default="0"/>
                                         </row>
                                     </rows>
                                 </grid>
@@ -618,7 +632,7 @@
 
                                 <vbox pack="center" class="custom-content-device-details content-optionbox">
                                     <label value="&devices.cashdrawer.action.label;"/>
-                                    <grid class="data-form block-50">
+                                    <grid class="data-form">
                                         <columns>
                                             <column flex="0"/>
                                             <column flex="1"/>
@@ -763,7 +777,7 @@
 
                                 <vbox pack="center" class="custom-content-device-details content-optionbox">
                                     <label value="&devices.cashdrawer.action.label;"/>
-                                    <grid class="data-form block-50">
+                                    <grid class="data-form">
                                         <columns>
                                             <column flex="0"/>
                                             <column flex="1"/>
@@ -838,7 +852,7 @@
                         <vbox id="devicesScale1Box" flex="1" class="custom-content-device">
                             <checkbox label="&devices.scale1.label;" value="false"
                                       form="deviceForm" name="scale-1-enabled" default="false"/>
-                            <vbox class="custom-content-device-details">
+                            <vbox class="custom-content-device-details custom-content-device-block">
                                 <grid class="data-form">
                                     <columns>
                                         <column flex="0"/>
@@ -897,7 +911,7 @@
                          <vbox id="devicesScale2Box" flex="1" class="custom-content-device">
                             <checkbox label="&devices.scale2.label;" value="false"
                                       form="deviceForm" name="scale-2-enabled" default="false"/>
-                            <vbox class="custom-content-device-details">
+                            <vbox class="custom-content-device-details custom-content-device-block">
                                 <grid class="data-form">
                                     <columns>
                                         <column flex="0"/>

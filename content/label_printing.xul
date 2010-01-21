@@ -72,7 +72,8 @@
                                                         oncommand="$do('selectDepartment',this.selectedIndex, 'Tab');"
                                                       buttonClass="button-department"
                                                     scrollUpClass="scroll-up-button"
-                                                  scrollDownClass="scroll-down-button">
+                                                  scrollDownClass="scroll-down-button"
+                                                  seltype="none">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
                                 </vbox>
@@ -96,7 +97,8 @@
                                                             oncommand="$do('clickPluPanel',this.selectedIndex, 'Tab');"
                                                          buttonClass="button-plu button-medium-image"
                                                         scrollUpClass="scroll-up-button"
-                                                      scrollDownClass="scroll-down-button">
+                                                      scrollDownClass="scroll-down-button"
+                                                              seltype="none">
                                             <spacer flex="1"/>
                                         </viviscrollablebuttonpanel>
                                     </vbox>
@@ -183,7 +185,7 @@
                     </grid >
 
                     <vbox flex="1" class="content-listbox">
-                        <vivitree        id="printscrollableTablist" flex="1" hidecolumnpicker="true" class="standard"
+                        <vivitree        id="printscrollableTablist" flex="1" hidecolumnpicker="true" class="standard custom-content-labelPrinting-list"
                                     headers="&lable_printing.tabList.heading.name;, &lable_printing.tabList.heading.price;, &lable_printing.tabList.heading.count;"
                                      fields="name,selectedPrice,count"
                                    onselect="$do('setCount', this.selectedIndex, 'Tab');"/>
@@ -198,7 +200,6 @@
                                 <vbox  >
                                     <label value="&lable_printing.pricLevel;"/>
                                     <menulist id="priceList" class="pricelevel"  form="setProductForm" name="selectedPrice" label = "&lable_printing.pricLevel;" onfocus="select()" >
-
                                     </menulist>
                                 </vbox>
                                 <vbox>
@@ -215,8 +216,6 @@
                 <hbox flex="1">
                     <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <vivibutton id="print"   disabled="false" class="PrintBtn" oncommand="$do('printlabel', null, 'Tab');" />
-                        <vivibutton  id="test" hidden="true"  disabled="false" label='test' oncommand="$do('testing', null, 'Tab');" /> <!--&plus.button.action.modify;-->
-                        <vivibutton hidden="true" id="tpl UI"   disabled="false" label='tpl UI' oncommand="$do('checkBarcodeDialog', null, 'Tab');" /> <!--&plus.button.action.modify;-->
                         <space flex = "1"/>
                         <button id="modify_product" label="&lable_printing.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyCount', null, 'Tab');" />
                         <button id="delete_product" label="&lable_printing.button.action.deleteProduct;" disabled="true" class="button-delete" oncommand="$do('removeTabListProduct', null, 'Tab');" />     <!--&plus.button.action.delete;-->
@@ -237,8 +236,8 @@
                 <vbox flex="1" class="content-listbox">
                     <label value="&lable_printing.error.messege;" class="label-alert"/>
                     <vivitree id="errorscrollablepanel" flex="1"
-                              headers="&lable_printing.error.heading.name;,&lable_printing.error.heading.barcode;"
-                              fields="name,barcode"
+                              headers="&lable_printing.error.heading.name;,&lable_printing.error.heading.barcode;,&lable_printing.error.heading.price;,&lable_printing.error.heading.memo;"
+                              fields="name,barcode,selectedPrice,comm"
                               class="standard custom-content-error-list"
                              />
                 </vbox>

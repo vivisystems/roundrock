@@ -24,7 +24,7 @@
                     <html:div class="tableData">
                         <html:div class="tableInfo">
                             <html:div class="left">
-                                <html:span anonid="table_label"></html:span>
+                                <html:span anonid="table_title"></html:span>
                             </html:div>
                             <html:div class="right">
                                 <html:span anonid="period">12:00</html:span>
@@ -75,8 +75,8 @@
     <field name="_face_div">
         document.getAnonymousElementByAttribute(this, "anonid", "face_div");
     </field>
-    <field name="_table_label">
-        document.getAnonymousElementByAttribute(this, "anonid", "table_label");
+    <field name="_table_title">
+        document.getAnonymousElementByAttribute(this, "anonid", "table_title");
     </field>
     <field name="_checks">
         document.getAnonymousElementByAttribute(this, "anonid", "checks");
@@ -108,10 +108,10 @@
             ]]>
         </setter>
     </property>
-    <property name="table_label" onget="return this._table_label.textContent;">
+    <property name="table_title" onget="return this._table_title.textContent;">
         <setter>
             <![CDATA[
-                this._table_label.textContent = val;
+                this._table_title.textContent = val;
                 return val;
             ]]>
         </setter>

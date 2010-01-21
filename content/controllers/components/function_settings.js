@@ -10,6 +10,7 @@
                 'cpProductFilters': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.plufilters', acl:'acl_manage_plufilters', checkForAcl:'cpProductFilters'},
                 'cpNonPluSettings': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.nonplu_setting', acl:'acl_manage_nonplu_setting', checkForAcl:'cpNonPluSettings'},
                 'cpImagesManager': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.imagemanager', acl:'acl_manage_images', checkForAcl:'cpImagesManager'},
+                'cpLabelPrinting': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.label_printing', acl:'acl_print_labels', checkForAcl:'cpLabelPrinting'},
                 'cpStockControl': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.stocks', acl:'acl_manage_stock', checkForAcl:'cpStockControl'},
                 'cpTaxes': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.taxes', acl:'acl_manage_taxes', checkForAcl:'cpTaxes'},
 

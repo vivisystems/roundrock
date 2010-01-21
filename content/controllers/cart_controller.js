@@ -2682,13 +2682,34 @@
                         }
                         if (isNaN(limit)) limit = 0;
 
-                        if (payment - balance > limit) {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Check Payment Error'),
-                                _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(payment - balance), curTransaction.formatPrice(limit)]));
+                        if (balance >= 0) {
+                            if (payment - balance > limit) {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Check Payment Error'),
+                                    _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(payment - balance), curTransaction.formatPrice(limit)]));
 
-                            this._clearAndSubtotal();
-                            return;
+                                this._clearAndSubtotal();
+                                return;
+                            }
+                        }
+                        else {
+                            // we need to collect total check payment amount
+                            let payments = curTransaction.getPayments();
+                            let total = payment;
+                            for (key in payments) {
+                                let entry = payments[key];
+                                if (entry.name == 'check') {
+                                    total += entry.amount;
+                                }
+                            }
+                            if (total > limit) {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Check Payment Error'),
+                                    _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(total), curTransaction.formatPrice(limit)]));
+
+                                this._clearAndSubtotal();
+                                return;
+                            }
                         }
                     }
 

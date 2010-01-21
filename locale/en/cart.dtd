@@ -4,6 +4,7 @@
 <!ENTITY    cart.item.no          "Product Number">
 <!ENTITY    cart.item.qty         "Quantity">
 <!ENTITY    cart.item.unitprice   "Unit Price">
+<!ENTITY    cart.item.pricelevel   "Price Level">
 <!ENTITY    cart.item.subtotal    "Subtotal">
 <!ENTITY    cart.item.tax         "Tax">
 <!ENTITY    cart.button.plus      "+">

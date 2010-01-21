@@ -1,7 +1,7 @@
 <!ENTITY label_printing.title  "Label Printing">
 
 <!ENTITY lable_printing.loadList "Load list">
-<!ENTITY lable_printing.search.label "Search">
+<!ENTITY lable_printing.search.label "Product Number, Barcode, or Name">
 <!ENTITY lable_printing.numpad.advsearch "SEARCH">
 <!ENTITY lable_printing.search.heading.no "Number">
 <!ENTITY lable_printing.search.heading.name "Name">
@@ -32,11 +32,12 @@
 <!ENTITY lable_printing.button.action.modify "Modify">
 <!ENTITY lable_printing.button.action.deleteProduct "Delete">
 
-<!ENTITY lable_printing.error.title "error barcode list">
-<!ENTITY lable_printing.error.messege "the error messege, have unvalidated barcode">
+<!ENTITY lable_printing.error.title "Invalid barcode list">
+<!ENTITY lable_printing.error.messege "The following products have invalid barcode and will not be printed">
 <!ENTITY lable_printing.error.heading.name "Name">
 <!ENTITY lable_printing.error.heading.barcode "Barcode">
-
+<!ENTITY lable_printing.error.heading.price "Price">
+<!ENTITY lable_printing.error.heading.memo "Memo">
 
 
 

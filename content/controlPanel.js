@@ -38,9 +38,7 @@
                             var keystr = 'vivipos.fec.settings.controlpanels.' + cn + '.' + key + '.label';
                             label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                         }
-                        else {
-                            label = _(label);
-                        }
+                        
                         var entry = {
                             icon: el.icon,
                             path: el.path,
@@ -70,64 +68,27 @@
         var data = panel.datasource.data;
         var index = panel.selectedIndex;
 
-        var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-        var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-
         if (index > -1 && index < data.length) {
             var pref = data[index];
 
-            var features = pref['features'] || "chrome,popup=no,titlebar=no,toolbar,centerscreen";
-            features += ",modal,width=" + width + ",height=" + height;
-
-            if (isShowing) {
-            // nothings to do
-            }else {
-
-                try {
-
-                    isShowing = true;
-
-                    $.blockUI({
-                        message:$('#loading'),
-                        css: {
-                            'background-color': 'transparent',
-                            left: '0%',
-                            border: '0px'
-                        }
-                    });
-
-                    // @hack sleep to make sure the loading panel is rendered
-                    GeckoJS.BaseObject.sleep(50);
-                    if (pref['type'] == 'uri') {
-
-                        window.openDialog(pref['path'], pref['label'], features);
-
+            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+            var main = mainWindow.GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                $.blockUI({
+                    message:$('#loading'),
+                    css: {
+                        'background-color': 'transparent',
+                        left: '0%',
+                        border: '0px'
                     }
-                    else if (pref['type'] == 'function') {
-                        var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
-                        mainWindow.$do(pref['method'], pref['data'], pref['controller']);
-                    }
-                    else {
+                });
 
-                        VirtualKeyboard.show();
+                // @hack sleep to make sure the loading panel is rendered
+                GeckoJS.BaseObject.sleep(50);
 
-                        var paths = pref['path'].split(' ');
-                        var launchAp = paths[0];
-                        var args = paths.slice(1);
+                main.launchControlPanel(pref);
 
-                        var fileAp = new GeckoJS.File(launchAp);
-                        fileAp.run(args, true);
-
-                        VirtualKeyboard.hide();
-                    }
-                }
-                catch (e) {
-                }
-                finally {
-                    isShowing = false;
-                    $.unblockUI();
-                }
-
+                $.unblockUI();
             }
         }
     };

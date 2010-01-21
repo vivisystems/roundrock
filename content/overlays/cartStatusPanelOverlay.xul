@@ -8,7 +8,7 @@
     <!-- include controllers -->
     <script type="application/x-javascript" src="chrome://viviecr/content/overlays/controllers/cart_status_controller.js" />
 
-    <box id="cartStatusPanelContainer" style="overflow: none;">
+    <box id="cartStatusPanelContainer" style="overflow: hidden;">
         <label id="cartstatus" flex="1" class="cart-status"/>
     </box>
 

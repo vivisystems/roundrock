@@ -56,13 +56,13 @@
                                 <hbox flex="1">
                                     <vbox class="annotation_code">
                                         <label control="annotation_code" value="&annotations.code;"/>
-                                        <textbox id="annotation_code" readonly="true"
+                                        <textbox id="annotation_code" readonly="true" size="4"
                                                  form="annotationCodeForm" name="code" default=""/>
                                     </vbox>
                                     <spacer style="width: 10px;" />
                                     <vbox class="annotation_type">
                                         <label control="annotation_type" value="&annotations.type;"/>
-                                        <textbox id="annotation_type"
+                                        <textbox id="annotation_type" size="10"
                                                  oninput="$do('validateCodeForm', null, 'Annotations');"
                                                  form="annotationCodeForm" name="type" default=""/>
                                     </vbox>

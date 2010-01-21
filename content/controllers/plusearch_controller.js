@@ -123,7 +123,7 @@
                     searchMessage += ('    ' + o.filtername + '=' + f + '\n');
                 }
             });
-            this.searchPlu(pattern, searchMessage, nofillform);
+            this.searchPlu(pattern, searchMessage, nofillform, true);
         },
 
         advClear: function() {
@@ -135,12 +135,12 @@
         },
 
         changePluPanel: function(index) {
-
             if (this._selCateIndex == index) {
                 return;
             }
 
             this.productPanelView.setCatePanelIndex(index);
+            this._selCateIndex = index;
 
             this.clickPluPanel(-1);
         },
@@ -152,6 +152,10 @@
                 if (data.no && data.no.length > 0) {
                     this.searchPlu(data.no, false, false, true);
                 }
+            }
+            else {
+                let prodpanel = document.getElementById('prodscrollablepanel');
+                prodpanel.selectedItems = [];
             }
         },
 
@@ -263,7 +267,7 @@
 
         // this function performs a search without populating product form
         searchPlu2: function(barcode) {
-            this.searchPlu(barcode, null, true);
+            this.searchPlu(barcode, null, true, true);
         }
         
     };

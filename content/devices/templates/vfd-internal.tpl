@@ -42,6 +42,8 @@
 {elseif type == 'onMessage'}
 [&ESC @][&ESC QA]${item.line1|left:20}[&CR]
 [&ESC QB]${item.line2|left:20}[&CR]
+{elseif type == 'onRecovery'}
+[&ESC @][&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {else}
 [&ESC @][&ESC QA]${(store.name == null)?'VIVIPOS':store.name|center:20}[&CR]
 [&ESC QB]${'Welcome!'|center:20}[&CR]

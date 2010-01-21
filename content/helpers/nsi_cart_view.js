@@ -166,6 +166,13 @@
                 if (key == 'row') {
                     sResult = 1 + parseInt(row);
                 }
+                else if (key == 'price_level') {
+                    // display price level only if current price exists
+                    sResult = '';
+                    if (this.data[row]['current_price'] != '' && this.data[row]['price_level'] != '') {
+                        sResult = '[' + this.data[row]['price_level'] + ']';
+                    }
+                }
                 else
                     sResult = this.data[row][key] || "";
             }

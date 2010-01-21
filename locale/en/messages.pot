@@ -97,6 +97,9 @@ msgstr "Product Groups"
 msgid "vivipos.fec.settings.controlpanels.product.plus.label"
 msgstr "Products"
 
+msgid "vivipos.fec.settings.controlpanels.product.label_printing.label"
+msgstr "Print Labels"
+
 msgid "vivipos.fec.settings.controlpanels.product.reports.label"
 msgstr "Reports"
 
@@ -471,7 +474,8 @@ msgstr "Training Mode"
 msgid "vivipos.fec.registry.function.programmable.returncartitem.desc"
 msgstr ""
 "This function is used to register return of the current item in the "
-"shopping cart. First parameter is annotation if you want memo for returned item(optional)"
+"shopping cart. The parameter field may optionally contain an annotation "
+"code to allow user to quickly register the reason for the return."
 
 msgid "vivipos.fec.registry.function.programmable.returncartitem.label"
 msgstr "Return Item"
@@ -1222,7 +1226,8 @@ msgstr "Dispatch"
 msgid "vivipos.fec.registry.function.programmable.return.desc"
 msgstr ""
 "This function registers a return of an item for refund. "
-"First parameter is annotation if you want memo for returned item(optional)"
+"The parameter field may optionally contain an annotation code "
+"to allow user to quickly register the reason for the refund"
 
 msgid "vivipos.fec.registry.function.programmable.return.label"
 msgstr "Item Refund"
@@ -2219,6 +2224,9 @@ msgstr "View All Queues"
 msgid "acl_print_document"
 msgstr "Print Document"
 
+msgid "acl_print_labels"
+msgstr "Print Labels"
+
 ########################################################################
 #
 # List of Ports
@@ -2932,6 +2940,12 @@ msgstr "Sample Return Item 42c"
 msgid "vivipos.fec.registry.templates.kitchen-rushitem-42c.label"
 msgstr "Sample Rush Item 42c"
 
+msgid "vivipos.fec.registry.templates.label-simple-testing-1.label"
+msgstr "Label Simple Testing 1"
+
+msgid "vivipos.fec.registry.templates.label-simple-testing-2.label"
+msgstr "Label Simple Testing 2"
+
 ########################################################################
 #
 # List of Import / Export
@@ -3022,13 +3036,29 @@ msgstr "Split Payment"
 
 msgid "vivipos.fec.registry.function.programmable.openreport.desc"
 msgstr ""
-"This function allows operator to open specific report ."
+"This function allows operator to open a specific report ."
 
 msgid "vivipos.fec.registry.function.programmable.openreport.label"
 msgstr "Open Report"
 
 msgid "vivipos.fec.registry.function.programmable.openreport.name"
 msgstr "Open Report"
+
+########################################################################
+#
+# Open Control Panel
+#
+########################################################################
+
+msgid "vivipos.fec.registry.function.programmable.opencontrolpanel.desc"
+msgstr ""
+"This function allows operator to open a specific control panel ."
+
+msgid "vivipos.fec.registry.function.programmable.opencontrolpanel.label"
+msgstr "Open Control Panel"
+
+msgid "vivipos.fec.registry.function.programmable.opencontrolpanel.name"
+msgstr "Open Control Panel"
 
 ########################################################################
 #

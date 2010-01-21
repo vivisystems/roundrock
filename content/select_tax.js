@@ -22,6 +22,11 @@
         document.getElementById('taxscrollablepanel').selectedIndex = selectedIndex;
         document.getElementById('taxscrollablepanel').selectedItems = [selectedIndex];
 
+        // set title
+        if ('titleName' in inputObj) {
+            document.getElementById('title').setAttribute('label', inputObj.titleName);
+        }
+
         doSetOKCancel(
             function(){
 

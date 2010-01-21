@@ -39,6 +39,11 @@
 {elseif type == 'afterCancel'}
 [&ESC @][&ESC QA]${' '|left:24}[&CR]
 [&ESC QB]CANCEL: ${order.seq|right:16}[&CR]
+{elseif type == 'onMessage'}
+[&ESC @][&ESC QA]${item.line1|left:24}[&CR]
+[&ESC QB]${item.line2|left:24}[&CR]
+{elseif type == 'onRecovery'}
+[&ESC @][&ESC QB]TAL: ${txn.formatPrice(order.total)|right:19}[&CR]
 {else}
 [&ESC @][&ESC QA]${(store.name == null)?'VIVIPOS':store.name|center:24}[&CR]
 [&ESC QB]${'Welcome!'|center:24}[&CR]

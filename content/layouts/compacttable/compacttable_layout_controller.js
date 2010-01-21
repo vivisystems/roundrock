@@ -173,7 +173,7 @@
         invokeExpressKey: function(index) {
             let key = this.getKeySettings()[--index];
 
-            if (key.linked && key.command && key.controller && this.Acl.isUserInRole(key.access)) {
+            if (key.linked && key.command && key.controller && (key.access == '' || this.Acl.isUserInRole(key.access))) {
                 this.requestCommand(key.command, key.data, key.controller);
             }
         },

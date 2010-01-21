@@ -34,49 +34,37 @@
     <vbox flex="1" class="container-dialog">
         <vbox flex="1" class="container-main">
             <vbox flex="7">
-                <hbox>
-                    <label  value="&productsales.setCategory.department.title;" class="label-page-title"/>
-                    <space flex="1"/>
-                    <vivibutton  id="" class="button-add" label="&productsales.setCategory.department.button.selectAll;"
-                                         oncommand="document.getElementById('departmentscrollablepanel').selectAll();"/>
-                    <space width="10px"/>
-                    <vivibutton  id="" class="button-delete" label="&productsales.setCategory.department.button.deselectAll;"
-                                         oncommand="document.getElementById('departmentscrollablepanel').deselectAll();"/>
-                </hbox>
+                    <label  value="&productsales.setCategory.department.title;" class="label-page-title"/>           
                 <hbox flex="1" class="content-buttonpanel">
                     <viviscrollablebuttonpanel id="departmentscrollablepanel" flex="1" cols="4" rows="5" labelField="name" seltype="multiple"
                                            buttonClass="button-item-a"
                                            scrollUpClass="scroll-up-button"
                                            scrollDownClass="scroll-down-button"
-                                           oncommand="">
-                        <spacer flex="1"/>
+                                           oncommand="if ( event.mode == 1 ) this.selectAll(); else if ( event.mode == 0 ) this.deselectAll();">
+                        <spacer flex="1" />
+                        <button id="select_all" oncommand="event.mode = 1" class="button-iconic button-select-all"/>
+                        <button id="deselect_all" oncommand="event.mode = 0" class="button-iconic button-clear-all"/>
+                        <spacer flex="1" />
                     </viviscrollablebuttonpanel>
                 </hbox>
             </vbox>
             <vbox flex="5">
-                <hbox>
-                    <label   value="&productsales.setCategory.group.title;" class="label-page-title"/>
-                    <space flex="1"/>
-                    <vivibutton id="" class="button-add" label="&productsales.setCategory.department.button.selectAll;"
-                                      oncommand="document.getElementById('groupscrollablepanel').selectAll();"/>
-                    <space width="10px"/>
-                    <vivibutton id="" class="button-delete" label="&productsales.setCategory.department.button.deselectAll;"
-                                      oncommand="document.getElementById('groupscrollablepanel').deselectAll();"/>
-                </hbox>
+                    <label   value="&productsales.setCategory.group.title;" class="label-page-title"/>                    
                 <hbox flex="1" class="content-buttonpanel">
                     <viviscrollablebuttonpanel id="groupscrollablepanel" flex="1" cols="4" rows="5" labelField="name" seltype="multiple"
                                            buttonClass="button-item-a"
                                            scrollUpClass="scroll-up-button"
                                            scrollDownClass="scroll-down-button"
-                                           oncommand="">
-                        <spacer flex="1"/>
+                                           oncommand="if ( event.mode == 1 ) this.selectAll(); else if ( event.mode == 0 ) this.deselectAll();">
+                        <spacer flex="1" />
+                        <button id="select_all" oncommand="event.mode = 1" class="button-iconic button-select-all"/>
+                        <button id="deselect_all" oncommand="event.mode = 0" class="button-iconic button-clear-all"/>
+                        <spacer flex="1" />
                     </viviscrollablebuttonpanel>
                 </hbox>
             </vbox>
             <hbox id="dialogButtons" class="exitbar">
                 <button id="save" default="true" class="button-save" oncommand="$do('save', null, 'SetDepartmentGroup');"/>
-                <vivibutton id="test" hidden ="true" class="" oncommand="$do('test', null, 'SetDepartmentGroup');"/>
-                <vivibutton id="test" hidden ="true" class="" oncommand="$do('test2', null, 'SetDepartmentGroup');"/>
                 <spacer flex="1"/>
                 <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                 <button id="close" default="false" class="button-exit" oncommand="$do('exit', null, 'SetDepartmentGroup');"/>

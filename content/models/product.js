@@ -33,7 +33,7 @@
 
             if (products == null) {
 
-                products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,display_order,display_mode,button_color,font_size,sale_unit,append_empty_btns,link_group,cond_group,0 as 'imageCounter' FROM products ORDER BY cate_no, display_order, name, no ");
+                products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,display_order,display_mode,button_color,font_size,sale_unit,append_empty_btns,link_group,cond_group,0 as 'imageCounter' FROM products ORDER BY cate_no, display_order, name COLLATE NOCASE, no ");
                 //products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,display_mode,button_color,font_size,append_empty_btns FROM products ORDER BY cate_no, display_order, name, no ");
 
             }
@@ -177,8 +177,8 @@
                     var target_display_order = parseFloat(target.display_order);
                     if (display_order < target_display_order) break;
                     else if (display_order == target_display_order) {
-                        if (name < target.name) break;
-                        else if (name == target.name) {
+                        if (name.toUpperCase() < target.name.toUpperCase()) break;
+                        else if (name.toUpperCase() == target.name.toUpperCase()) {
                             if (no <= target.no) break;
                         }
                     }
