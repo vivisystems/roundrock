@@ -65,7 +65,7 @@
             var cartItems = [];
 
             // ONLY DISTINCT cart item
-            var sql2 = "SELECT DISTINCT(ROWID) AS ROWID,promotion_cart_items.* FROM promotion_cart_items WHERE " + condition + " ";
+            var sql2 = "SELECT DISTINCT(ROWID) AS ROWID,promotion_cart_items.* FROM promotion_cart_items WHERE " + condition  + " ORDER BY promotion_cart_items.current_price";
             cartItems = cartItemModel.getDataSource().fetchAll(sql2);
 
             switch (amount_mode) {

@@ -32,7 +32,6 @@
         <vbox class="container-main" flex="1">
             <groupbox flex="1">
                 <caption id="dialog-caption" label="" class="label-page-title"/>
-                <label id="text0" value="" />
                 <grid id="main-grid" class="data-form">
                     <columns>
                         <column flex="1"/>
@@ -88,7 +87,10 @@
                 </grid>
                 <vbox class="data-formsss">
                     <vbox flex="1" class="content-buttonpanel">
-                        <label id="department_label" value=""/>
+                        <hbox>
+                            <label id="department_label" value=""/>
+                            <spacer flex="1"/>
+                        </hbox>
                         <viviscrollablebuttonpanel id="department_no" seltype="single" flex="1" cols="5" rows="3"
                            labelField="name"
                            buttonClass="button-item-a"
@@ -111,9 +113,11 @@
             <spacer id="single-line-spacer" flex="1"/>
             <hbox>
                 <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                    <button id="update_name" label="&barcodelearning.button.updatename;" disabled="false" oncommand="updateName();"/>
+                    <spacer flex="1"/>
                     <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
                     <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
-                    <button id="update_name" label="&barcodelearning.button.updatename;" disabled="false" oncommand="updateName();"/>
+                    <spacer flex="1"/>
                 </hbox>
                 <hbox pack="end" class="exitbar">
                     <button id="vkb" class="button-vkb" oncommand="opener.VirtualKeyboard.toggle()"/>

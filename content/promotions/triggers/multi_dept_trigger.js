@@ -80,7 +80,7 @@
             cartItems1 = cartItemModel.getDataSource().fetchAll(sql);
             //this.log('execute ' + sql) ;
 
-            // ONLY DISTINCT cart item for first group
+            // ONLY DISTINCT cart item for second group
             sql = "SELECT DISTINCT(ROWID) AS ROWID,promotion_cart_items.* FROM promotion_cart_items WHERE " + condition2 + " ORDER BY promotion_cart_items.current_price";
             cartItems2 = cartItemModel.getDataSource().fetchAll(sql);
             //this.log('execute ' + sql) ;
