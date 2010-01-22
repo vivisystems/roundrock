@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-01-22 14:30+0800\n"
+"POT-Creation-Date: 2010-01-22 17:03+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3395,7 +3395,7 @@ msgstr ""
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:136
 #: ../..//content/controllers/hotkey_prefs_controller.js:502
 #: ../..//content/controllers/jobs_controller.js:227
-#: ../..//content/controllers/label_printing_controller.js:880
+#: ../..//content/controllers/label_printing_controller.js:906
 #: ../..//content/controllers/ledger_entry_types_controller.js:271
 #: ../..//content/controllers/localekeyboard_controller.js:73
 #: ../..//content/controllers/nonplu_setting_controller.js:217
@@ -3428,7 +3428,7 @@ msgstr ""
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:138
 #: ../..//content/controllers/hotkey_prefs_controller.js:504
 #: ../..//content/controllers/jobs_controller.js:229
-#: ../..//content/controllers/label_printing_controller.js:881
+#: ../..//content/controllers/label_printing_controller.js:907
 #: ../..//content/controllers/ledger_entry_types_controller.js:273
 #: ../..//content/controllers/localekeyboard_controller.js:75
 #: ../..//content/controllers/localization_controller.js:328
@@ -3464,7 +3464,7 @@ msgstr ""
 #: ../..//content/controllers/hotkey_prefs_controller.js:504
 #: ../..//content/controllers/jobs_controller.js:229
 #: ../..//content/controllers/jobs_controller.js:245
-#: ../..//content/controllers/label_printing_controller.js:881
+#: ../..//content/controllers/label_printing_controller.js:907
 #: ../..//content/controllers/ledger_entry_types_controller.js:252
 #: ../..//content/controllers/ledger_entry_types_controller.js:273
 #: ../..//content/controllers/localekeyboard_controller.js:75
@@ -5688,8 +5688,8 @@ msgstr ""
 #: ../..//content/controllers/import_export_controller.js:617
 #: ../..//content/controllers/import_export_controller.js:759
 #: ../..//content/controllers/import_export_controller.js:1819
-#: ../..//content/controllers/label_printing_controller.js:893
-#: ../..//content/controllers/label_printing_controller.js:905
+#: ../..//content/controllers/label_printing_controller.js:919
+#: ../..//content/controllers/label_printing_controller.js:931
 msgid "Yes"
 msgstr ""
 
@@ -5925,106 +5925,106 @@ msgid ""
 "technical support immediately."
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:105
-#: ../..//content/controllers/label_printing_controller.js:223
+#: ../..//content/controllers/label_printing_controller.js:112
+#: ../..//content/controllers/label_printing_controller.js:231
 msgid "Number of labels to print"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:534
-#: ../..//content/controllers/label_printing_controller.js:760
-#: ../..//content/controllers/label_printing_controller.js:809
+#: ../..//content/controllers/label_printing_controller.js:560
+#: ../..//content/controllers/label_printing_controller.js:786
+#: ../..//content/controllers/label_printing_controller.js:835
 msgid "Price Level"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:606
-#: ../..//content/controllers/label_printing_controller.js:630
+#: ../..//content/controllers/label_printing_controller.js:632
+#: ../..//content/controllers/label_printing_controller.js:656
 msgid "Save Product List"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:606
-#: ../..//content/controllers/label_printing_controller.js:1155
+#: ../..//content/controllers/label_printing_controller.js:632
+#: ../..//content/controllers/label_printing_controller.js:1183
 msgid "The list is empty"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:630
+#: ../..//content/controllers/label_printing_controller.js:656
 msgid "List Name"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:640
+#: ../..//content/controllers/label_printing_controller.js:666
 msgid "This list already exists. Do you want to replace this list?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:660
+#: ../..//content/controllers/label_printing_controller.js:686
 msgid "New list [%S] has been generated"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:667
+#: ../..//content/controllers/label_printing_controller.js:693
 msgid "The list [%S] has been replaced"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:679
+#: ../..//content/controllers/label_printing_controller.js:705
 msgid "You have made changes to the current list. Save changes ?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:828
+#: ../..//content/controllers/label_printing_controller.js:854
 msgid "Replaces products"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:829
+#: ../..//content/controllers/label_printing_controller.js:855
 msgid "have been replaced"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:892
+#: ../..//content/controllers/label_printing_controller.js:918
 msgid "Save List"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:893
-#: ../..//content/controllers/label_printing_controller.js:905
+#: ../..//content/controllers/label_printing_controller.js:919
+#: ../..//content/controllers/label_printing_controller.js:931
 msgid "No"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:904
+#: ../..//content/controllers/label_printing_controller.js:930
 msgid "Barcode Warning"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:941
+#: ../..//content/controllers/label_printing_controller.js:967
 msgid "Select Barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1022
+#: ../..//content/controllers/label_printing_controller.js:1048
 msgid "Invalid Barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1036
+#: ../..//content/controllers/label_printing_controller.js:1062
 msgid "No Barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1051
+#: ../..//content/controllers/label_printing_controller.js:1078
 msgid "Zero Price"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1155
-#: ../..//content/controllers/label_printing_controller.js:1254
+#: ../..//content/controllers/label_printing_controller.js:1183
+#: ../..//content/controllers/label_printing_controller.js:1283
 msgid "Print label"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1205
+#: ../..//content/controllers/label_printing_controller.js:1233
 msgid "find unvalidated barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1205
+#: ../..//content/controllers/label_printing_controller.js:1233
 msgid "continue print ?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1234
+#: ../..//content/controllers/label_printing_controller.js:1262
 msgid "select_template"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1254
+#: ../..//content/controllers/label_printing_controller.js:1283
 msgid "All of the selected products have invalid price or barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1333
+#: ../..//content/controllers/label_printing_controller.js:1362
 msgid ""
 "You have made changes to the current list. Save changes before existing?"
 msgstr ""
