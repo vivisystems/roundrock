@@ -32,10 +32,10 @@ H15
 1;1110100440006${item.name|wleft:20}[&CR]
 1;1110100440007${item.name|wleft:20}[&CR]
 190000100300030${'no'|wleft:15}[&CR]
-190000100300085${item.no|wleft:10}[&CR]
+190000100300050${item.no|wleft:10}[&CR]
 190000100060006${'Price'|wleft:15}[&CR]
-190000200060065${myModifiers.decimal(item.selectedPrice)|right:10}[&CR]
-190000200060066${myModifiers.decimal(item.selectedPrice)|right:10}[&CR]
+190000200060065${item.selectedPrice|right:10}[&CR]
+190000200060066${item.selectedPrice|right:10}[&CR]
 1X1100000050006L110001[&CR]
 1X1100000010000b0125009700020002<CR>
 E
