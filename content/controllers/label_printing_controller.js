@@ -18,6 +18,7 @@
        _decimals: GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.',
        _thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',',
        _precision:  GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || ',' ,
+       _positivePrice: GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || ',' ,
 
        _tabListPanel: null,
        _countTextbox: null,
@@ -1270,6 +1271,7 @@
 
                object = this._checkHasBarcode(object);
 
+               if(this._positivePrice == ',')
                object = this._checkPriceZero(object);
 
                this.log('DEBUG', this.dump(object));
