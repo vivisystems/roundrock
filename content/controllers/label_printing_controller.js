@@ -429,7 +429,7 @@
 
                this.removeRepeatedProduct();
              }
-           this.alertReplaceProducts();
+           // this.alertReplaceProducts();
            this._isSave = false ;
 
            this.setCount(this._tabListPanel.selectedIndex);
@@ -613,7 +613,7 @@
 
              this._tabListPanel.datasource = this.tabList;
              this._tabListPanel.ensureRowIsVisible(this._tabListPanel.selectedIndex);
-             this.validateList();
+           //  this.validateList();
              this._tabListPanel.refresh();
              this.setCount(this._tabListPanel.selectedIndex);
 

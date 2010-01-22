@@ -4,6 +4,8 @@
   %Dialog;
   <!ENTITY % Label SYSTEM "chrome://viviecr/locale/label_printing.dtd">
   %Label;
+  <!ENTITY % PLUs SYSTEM "chrome://viviecr/locale/plus.dtd">
+  %PLUs;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
@@ -154,6 +156,21 @@
                                           fields="no,name"
                                         onselect="$do('addBySearch',this.selectedIndex, 'Tab');"/>
                                 </vbox>
+                                <vbox id="advance_search" orient="vertical">
+                                <label value="&plus.search.advancesearch;:" class="label-sub-title"/>
+                                <grid flex="1" class="data-form">
+                                    <columns>
+                                        <column flex="1"/>
+                                        <column flex="1"/>
+                                    </columns>
+                                    <rows id="rows_filter">
+                                    </rows>
+                                </grid>
+                                <hbox pack="center">
+                                    <vivibutton id="advSearchBtn" label="&plus.button.numpad.advsearch;" class="button-fixed" oncommand="$do('setSearchButtonTrue',null, 'Tab');$do('advSearch', true, 'PluSearch');$do('detectOnlyOneMatch',this.selectedIndex, 'Tab');"/>
+                                    <vivibutton id="advClearBtn" label="&plus.button.numpad.advclear;" class="button-fixed" oncommand="$do('advClear', null, 'PluSearch');"/>
+                                </hbox>
+                            </vbox>
                             </tabpanel>
                         </tabpanels>
                     </tabbox>
