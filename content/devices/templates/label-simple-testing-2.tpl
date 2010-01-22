@@ -55,8 +55,8 @@ H15
 190000100300030${'no'|wleft:15}[&CR]
 190000100300050${item.no|wleft:10}[&CR]
 190000100060006${'Price'|wleft:15}[&CR]
-1900002004000${myModifiers.coor(item.selectedPrice)}${item.selectedPrice}[&CR]
-1900002004000${myModifiers.coorPlus(item.selectedPrice)}${item.selectedPrice}[&CR]
+1900002000600${myModifiers.coor(item.selectedPrice)}${item.selectedPrice}[&CR]
+1900002000600${myModifiers.coorPlus(item.selectedPrice)}${item.selectedPrice}[&CR]
 1X1100000050006L110001[&CR]
 1X1100000010000b0125009700020002<CR>
 E
