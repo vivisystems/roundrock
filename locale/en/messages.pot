@@ -2371,6 +2371,15 @@ msgstr "Cheapest One Free"
 msgid "type.cheapest_one_free.desc"
 msgstr "Promotion type - Cheapest One Free"
 
+msgid "type.discount_after_n.desc"
+msgstr "Promotion type - Discount After N: no discount is applied to the first N items from the matched item set"
+
+msgid "type.cheapest_one_free.label"
+msgstr "Discount After N"
+
+msgid "type.cheapest_one_free.name"
+msgstr "Cheapest One Free"
+
 msgid "type.multi_buy.label"
 msgstr "Multi Buy"
 
