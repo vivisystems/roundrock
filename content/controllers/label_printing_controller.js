@@ -1271,7 +1271,7 @@
 
                object = this._checkHasBarcode(object);
 
-               if(this._positivePrice == ',')
+               if(this._positivePrice != ',')
                object = this._checkPriceZero(object);
 
                this.log('DEBUG', this.dump(object));
