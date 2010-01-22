@@ -1278,7 +1278,7 @@
 
                if(this.legalList.length == 0){
 
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('All the products\' barcod are invalid'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('All of the selected products have invalid price or barcode'));
                     return ;
                }
 

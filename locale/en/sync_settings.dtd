@@ -77,7 +77,7 @@
 <!ENTITY sync_settings.label.irc_update_when_signoff "User signs off">
 <!ENTITY sync_settings.label.irc_update_when_shutdown "Shutting down terminal">
 <!ENTITY sync_settings.label.irc_update_when_reboot "Terminal is rebooted">
-<!ENTITY sync_settings.label.irc_update_when_eachsale "Each Sale">
+<!ENTITY sync_settings.label.irc_update_when_eachsale "After each sale">
 
 <!ENTITY sync_settings.button.irc_ok "OK">
 <!ENTITY sync_settings.button.irc_later "LATER">

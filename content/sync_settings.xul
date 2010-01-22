@@ -103,14 +103,10 @@
                                     <checkbox label="&sync_settings.label.pull_order;"
                                               form="syncSettingForm" name="pull_order"/>
                                 </row>
-                                <row>
-                                    <spacer style="min-height: 10px;"/>
-                                    <spacer />
-                                </row>
                             </rows>
                         </grid>
 
-                        <grid class="data-form-2">
+                        <grid class="data-form-2" flex="1">
                             <columns>
                                 <column flex="1"/>
                                 <column flex="1"/>
@@ -149,21 +145,14 @@
                                             </hbox>
                                         </vbox>
                                     </vbox>
-                                    <vbox>
+                                    <vbox flex="1">
                                         <label value="&sync_settings.label.irc_update_type;"/>
                                         <vbox flex="1">
-                                            <hbox>
-                                                <checkbox flex="1" form="syncSettingForm" name="irc_update_when_signon" label="&sync_settings.label.irc_update_when_signon;" />
-                                                <checkbox flex="1" form="syncSettingForm" name="irc_update_when_signoff" label="&sync_settings.label.irc_update_when_signoff;" />
-                                            </hbox>
-
-                                            <hbox>
-                                                <checkbox flex="1" form="syncSettingForm" name="irc_update_when_reboot" label="&sync_settings.label.irc_update_when_reboot;" />
-                                                <checkbox flex="1" form="syncSettingForm" name="irc_update_when_shutdown" label="&sync_settings.label.irc_update_when_shutdown;" />
-                                            </hbox>
-                                            <hbox>
-                                                <checkbox flex="1" form="syncSettingForm" name="irc_update_when_eachsale" label="&sync_settings.label.irc_update_when_eachsale;" />
-                                            </hbox>
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_signon" label="&sync_settings.label.irc_update_when_signon;" />
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_signoff" label="&sync_settings.label.irc_update_when_signoff;" />
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_reboot" label="&sync_settings.label.irc_update_when_reboot;" />
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_shutdown" label="&sync_settings.label.irc_update_when_shutdown;" />
+                                            <checkbox flex="1" form="syncSettingForm" name="irc_update_when_eachsale" label="&sync_settings.label.irc_update_when_eachsale;" />
                                         </vbox>
                                     </vbox>
                                 </row>
@@ -352,8 +341,8 @@
                                                     </row>
                                                     <row flex="1">
                                                         <label value="&sync_settings.label.irc_clients;"/>
-                                    <vivitree id="ircDetailClientsTree" flex="1" class="standard"
-                                  headers="&sync_settings.label.irc_machineid_header;,&sync_settings.label.irc_downloaded_header;,&sync_settings.label.irc_updated_header;" fields="machine_id,downloaded,updated" hidecolumnpicker="true" />
+                                                        <vivitree id="ircDetailClientsTree" flex="1" class="standard"
+                                                                  headers="&sync_settings.label.irc_machineid_header;,&sync_settings.label.irc_downloaded_header;,&sync_settings.label.irc_updated_header;" fields="machine_id,downloaded,updated" hidecolumnpicker="true" />
                                                     </row>
                                                 </rows>
                                             </grid>
