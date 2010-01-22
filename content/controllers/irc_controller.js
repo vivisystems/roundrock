@@ -104,7 +104,13 @@
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if (cart) {
                 if (syncSettings.irc_update_when_eachsale) {
-                    cart.addEventListener('onSubmit', function() {
+                    cart.addEventListener('onSubmitSuccess', function() {
+                        self.checkAvailableUpdates();
+                    });
+                    cart.addEventListener('onCancelSuccess', function() {
+                        self.checkAvailableUpdates();
+                    });
+                    cart.addEventListener('onVoidSaleSuccess', function() {
                         self.checkAvailableUpdates();
                     });
                 }                

@@ -219,5 +219,9 @@
 }
 
 .custom-content-error-list #selectedPrice {
+    text-align: right;
+}
+
+.custom-content-error-list #comm {
     text-align: center;
 }
