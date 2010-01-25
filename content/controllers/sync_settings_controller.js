@@ -338,6 +338,10 @@
                 $('#services-tab').attr({disabled: 'true'});
 
                 this.Form.reset('ircEdit');
+
+                // set activation time to current time
+                document.getElementById('activation').value = new Date().getTime();
+
                 return ;
             }
 
@@ -354,7 +358,7 @@
             }
 
             if (selectedModules.length == 0) {
-                NotifyUtils.warn(_('Please select modules'));
+                NotifyUtils.warn(_('Please select one or more modules to synchronize'));
                 return false;
             }
 
@@ -372,7 +376,7 @@
             var requestUrl = remoteUrl + '/?' + query_string;
 
             var waitPanel = document.getElementById('wait_panel');
-            document.getElementById('wait_caption').setAttribute('label', _('IRC Package Creating'));
+            document.getElementById('wait_caption').setAttribute('label', _('Creating IRC Package'));
             waitPanel.openPopupAtScreen(0, 0);
 
             // chmod before create packages
@@ -385,7 +389,7 @@
             if (success) {
                 OsdUtils.info(_('Package [%S] created successfully', [success]));
             }else {
-                NotifyUtils.warn(_('Package not available to created.'));
+                NotifyUtils.warn(_('Failed to create IRC Package'));
             }
 
             this.initialIrcLists();

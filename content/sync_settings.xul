@@ -10,6 +10,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/sync_settings.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
@@ -286,7 +287,7 @@
                     <tabpanel id="irc-panel" orient="vertical" flex="1">
 
                         <hbox flex="1" id="ircBoxContainer">
-                            <vbox flex="1" id="ircListBox" style="min-width: 200px" >
+                            <vbox flex="1" id="ircListBox">
                                 <hbox pack="center" class="content-formbox">
                                     <label value="&sync_settings.label.irc_packages;"/>
                                 </hbox>
@@ -361,18 +362,18 @@
                                                     </row>
                                                     <row>
                                                         <label value="&sync_settings.label.irc_activation;"/>
-                                                        <vividatetimepicker name="activation" type="popup" form="ircEdit" />
+                                                        <vividatetimepicker id="activation" name="activation" type="popup" form="ircEdit" />
                                                     </row>
                                                     <row>
                                                         <label value="&sync_settings.label.irc_workgroup;"/>
                                                         <hbox>
-                                                            <textbox name="workgroup" form="ircEdit" />
+                                                            <textbox name="workgroup" form="ircEdit" size="10"/>
                                                             <label value="&sync_settings.label.irc_workgroup_desc;"/>
                                                         </hbox>
                                                     </row>
                                                     <row flex="2">
                                                         <label value="&sync_settings.label.irc_modules;"/>
-                                                        <viviscrollablebuttonpanel id="ircModules" seltype="multiple" flex="1" cols="2" rows="5" labelField="label"
+                                                        <viviscrollablebuttonpanel id="ircModules" seltype="multiple" flex="1" cols="3" rows="4" labelField="label"
                                                                                    buttonClass="button-item-a"
                                                                                    scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
                                                                                    form="ircEdit" name="modules">
