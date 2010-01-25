@@ -256,6 +256,26 @@
 
         },
 
+        updatePackageClientList: function(ircPackage) {
+            let clients = [];
+            if (ircPackage) {
+                for (var i in ircPackage.status) {
+                    let status = ircPackage.status[i];
+                    let downloaded = '';
+                    let updated = '';
+                    if (status.downloaded) {
+                        downloaded = (new Date(status.downloaded*1000)).toLocaleDateString();
+                    }
+                    if (status.updated) {
+                        updated = (new Date(status.updated*1000)).toLocaleDateString();
+                    }
+                    clients.push({machine_id: status.machine_id, downloaded: downloaded, updated: updated});
+                }
+            }
+            document.getElementById('ircDetailClientsTree').datasource = clients;
+
+        },
+
         refreshSelectIrcPackage: function() {
 
             var index = document.getElementById('ircPackagesTree').selectedIndex;
@@ -263,16 +283,20 @@
             if (index < 0) return false ;
 
             var ircPackage = this.ircPackages[index] || false;
-            if (!ircPackage) return false;
+            if (ircPackage) {
+                // try refresh package status
+                var httpService = this.getHttpServiceIRC();
+                var remoteUrl = httpService.getRemoteServiceUrl('getPackage');
+                var requestUrl = remoteUrl + "/" + ircPackage['file'];
+                var newPackageStatus = httpService.requestRemoteService('GET', requestUrl) || false ;
 
-            // try refresh package status
-            var httpService = this.getHttpServiceIRC();
-            var remoteUrl = httpService.getRemoteServiceUrl('getPackage');
-            var requestUrl = remoteUrl + "/" + ircPackage['file'];
-            var newPackageStatus = httpService.requestRemoteService('GET', requestUrl) || false ;
-
-            if (newPackageStatus) {
-                this.ircPackages[index] = ircPackage = newPackageStatus;
+                if (newPackageStatus) {
+                    this.ircPackages[index] = ircPackage = newPackageStatus;
+                    this.updatePackageClientList(ircPackage);
+                }
+            }
+            else {
+                this.updatePackageClientList();
             }
             
         },
@@ -287,28 +311,11 @@
             var ircPackage = this.ircPackages[index] || false;
             if (!ircPackage) return false;
 
-
             let data = GREUtils.extend({}, ircPackage);
 
             data.activation = (new Date(ircPackage.activation*1000)).toLocaleString();
             data.filesize = GeckoJS.NumberHelper.toReadableSize(ircPackage.filesize);
             data.module_labels = ircPackage.module_labels.split(",").join("\n");
-
-            let clients = [];
-            for (var i in ircPackage.status) {
-                let status = ircPackage.status[i];
-                let downloaded = '';
-                let updated = '';
-                if (status.downloaded) {
-                    downloaded = (new Date(status.downloaded*1000)).toLocaleDateString();
-                }
-                if (status.updated) {
-                	updated = (new Date(status.updated*1000)).toLocaleDateString();
-                }
-                clients.push({machine_id: status.machine_id, downloaded: downloaded, updated: updated});
-            }
-
-            document.getElementById('ircDetailClientsTree').datasource = clients;
 
             this.Form.reset('ircDetail');
             this.Form.unserializeFromObject('ircDetail', data);           
