@@ -192,6 +192,9 @@ Bug #326:
 Bug #328:
     When creating a new IRC package, the default activation time is always set to the time when the screen is opened and not the current time
 
+Bug #329:
+    Hitting the refresh package button in the IRC screen does not refresh the IRC client status list
+
 Bug #331:
    Unnecessary logs are generated each time an item is added to the shopping cart
 
