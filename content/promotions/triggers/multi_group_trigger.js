@@ -21,6 +21,8 @@
             var secondAmountValue = isNaN(parseInt(settings.second_amount_value)) ? 0 : parseInt(settings.second_amount_value);
             var amount_type = settings.amount_type;
             var amount_mode = settings.amount_mode;
+            var firstDestination = settings.first_destination;
+            var secondDestination = settings.second_destination;
 
             if (!firstGroup || !secondGroup || !firstAmountValue || !secondAmountValue) {
                 //this.log('no group' + firstGroup + ', ' + secondGroup + ',' + firstAmountValue + ',' + secondAmountValue);
@@ -34,6 +36,9 @@
 
             // first group
             condition1 = " link_group like '%"+firstGroup+"%' ";
+            if (firstDestination) {
+                condition1 += " AND destination='"+firstDestination+"' ";
+            }
             sql = "SELECT SUM(current_qty) AS qty, SUM(current_qty*current_price) AS subtotal FROM promotion_cart_items WHERE "+condition1+" ";
             //this.log('execute ' + sql) ;
             
@@ -45,6 +50,9 @@
 
             // second group
             condition2 = " link_group like '%"+secondGroup+"%' ";
+            if (secondDestination) {
+                condition2 += " AND destination='"+secondDestination+"' ";
+            }
             sql = "SELECT SUM(current_qty) AS qty, SUM(current_qty*current_price) AS subtotal FROM promotion_cart_items WHERE "+condition2+" ";
             //this.log('execute ' + sql) ;
 

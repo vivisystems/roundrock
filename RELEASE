@@ -183,6 +183,15 @@ Bug #316 (*):
 Bug #323:
     Items should not be collapsed together if destinations are different
 
+Bug #326:
+    When the last tax status is removed, details of the tax being removed remains on the form and the 'Modify' button is not disabled
+
+Bug #328:
+    When creating a new IRC package, the default activation time is always set to the time when the screen is opened and not the current time
+
+Bug #331:
+   Unnecessary logs are generated each time an item is added to the shopping cart
+
 -----------------------------
 Bugs fixed in Release 1.2.0.7
 -----------------------------

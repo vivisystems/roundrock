@@ -37,6 +37,15 @@
             this._pluGroupScrollablepanel1.datasource = this._pluGroupPanelView1;
             this._pluGroupScrollablepanel2.datasource = this._pluGroupPanelView2;
 
+            // populate destination lists
+            var destinations = GeckoJS.Session.get('destinations');
+            var destListObj1 = document.getElementById('firstDestinationList');
+            var destListObj2 = document.getElementById('secondDestinationList');
+            destinations.forEach(function(d) {
+               destListObj1.appendItem(d.name, d.name, null);
+               destListObj2.appendItem(d.name, d.name, null);
+            });
+
             var settings = GeckoJS.Session.get(sessionKey) || null;
 
             this.setSettings(settings);

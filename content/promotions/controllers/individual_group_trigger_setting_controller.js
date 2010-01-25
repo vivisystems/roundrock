@@ -26,7 +26,6 @@
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
-
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.findByIndex('all', {
                 index: 'routing',
@@ -39,6 +38,13 @@
             this._pluGroupScrollablepanel = document.getElementById('groupscrollablepanel');
             this._pluGroupPanelView =  new NSIPluGroupsView(this._pluGroups);
             this._pluGroupScrollablepanel.datasource = this._pluGroupPanelView;
+
+            // populate destination list
+            var destListObj = document.getElementById('destinationList');
+            var destinations = GeckoJS.Session.get('destinations');
+            destinations.forEach(function(d) {
+               destListObj.appendItem(d.name, d.name, null);
+            });
 
             var settings = GeckoJS.Session.get(sessionKey) || null;
 
