@@ -368,7 +368,6 @@
                         let productsById = GeckoJS.Session.get('productsById');
                         let prod = productsById[pid];
                         if (prod) {
-                            this.log(this.dump(prod));
                             this.requestCommand('addItem',prod,'Cart');
                         }
                     }
@@ -751,7 +750,6 @@
                     prodpanel.invalidate(index);
                 }
                 else if (!product.soldout) {
-                    this.log(this.dump(product));
                     this.requestCommand('addItem',product,'Cart');
 
                     // return to top level if necessary
