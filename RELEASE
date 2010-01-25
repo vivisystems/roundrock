@@ -158,6 +158,9 @@ Bug #324:
 Bug #325:
     Need a discount-after-n promotion type
 
+Bug #330:
+    The basic set of triggers have been updated to support item destination as a filter condition
+
 ----------
 Bugs Fixed
 ----------
