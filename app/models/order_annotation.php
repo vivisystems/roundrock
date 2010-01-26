@@ -10,11 +10,19 @@ class OrderAnnotation extends AppModel {
     function saveOrderAnnotations ($annotations) {
 
         $result = true;
+        
         try {
 
             $this->begin();
 
             foreach ($annotations as $annotation) {
+
+                // check if $annotation is empty
+                // if viviecr send empty object to web services, XXXX
+                if (empty($annotation)) {
+                    CakeLog::write('warning', 'saveOrderAnnotations: Empty Order Annotation');
+                    continue;
+                }
 
                 $this->id = $annotation['id'];
                 $r = $this->save($annotation);

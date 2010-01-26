@@ -11,11 +11,20 @@ class OrderObject extends AppModel {
     function saveOrderObjects($objects) {
 
         $result = true;
+
         try {
 
             $this->begin();
 
             foreach ($objects as $object) {
+
+                // check if object is empty
+                // sometime viviecr will send empty order object to web services, XXXX
+                if (empty($object)) {
+                    CakeLog::write('warning', 'saveOrderObjects: Empty Order Object');
+                    continue;
+                }
+
                 $this->id = $object['id'];
                 $r = $this->save($object);
 

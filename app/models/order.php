@@ -33,6 +33,14 @@ class Order extends AppModel {
             $this->begin();
 
             foreach ($orders as $order) {
+
+                // check if $order is empty
+                // if viviecr send empty object to web services, XXXX
+                if (empty($order)) {
+                    CakeLog::write('warning', 'saveOrders: Empty Order');
+                    continue;
+                }
+
                 $this->id = $order['id'];
                 $r = $this->save($order);
 
@@ -71,6 +79,8 @@ class Order extends AppModel {
             if (is_array($orders)) {
                 $r = $this->saveOrders(array_values($orders));
                 $result['Order'] = $r;
+            }else {
+                CakeLog::write('warning', 'json_decode datas["Order"] return not array' . "\n" . $datas['Order'] ."\n");
             }
 
         }
@@ -82,6 +92,8 @@ class Order extends AppModel {
             if (is_array($orderItems)) {
                 $r = $this->OrderItem->saveOrderItems(array_values($orderItems));
                 $result['OrderItem'] = $r;
+            }else {
+                CakeLog::write('warning', 'json_decode datas["OrderItem"] return not array' . "\n" . $datas['OrderItem'] ."\n");
             }
 
         }
@@ -93,6 +105,8 @@ class Order extends AppModel {
             if (is_array($orderAdditions)) {
                 $r = $this->OrderAddition->saveOrderAdditions(array_values($orderAdditions));
                 $result['OrderAddition'] = $r;
+            }else {
+                CakeLog::write('warning', 'json_decode datas["OrderAddition"] return not array' . "\n" . $datas['OrderAddition'] ."\n");
             }
 
         }
@@ -104,6 +118,8 @@ class Order extends AppModel {
             if (is_array($orderPayments)) {
                 $r = $this->OrderPayment->saveOrderPayments(array_values($orderPayments));
                 $result['OrderPayment'] = $r;
+            }else {
+                CakeLog::write('warning', 'json_decode datas["OrderPayment"] return not array' . "\n" . $datas['OrderPayment'] ."\n");
             }
 
         }
@@ -117,7 +133,10 @@ class Order extends AppModel {
 		$this->OrderAnnotation->removeFromOrder($orders);
                 $r = $this->OrderAnnotation->saveOrderAnnotations(array_values($orderAnnotations));
                 $result['OrderAnnotation'] = $r;
+            }else {
+                CakeLog::write('warning', 'json_decode datas["OrderAnnotation"] return not array' . "\n" . $datas['OrderAnnotation'] ."\n");
             }
+
         }
 
         // save order_item_condiments to database
@@ -127,7 +146,10 @@ class Order extends AppModel {
             if (is_array($orderItemCondiments)) {
                 $r = $this->OrderItemCondiment->saveOrderItemCondiments(array_values($orderItemCondiments));
                 $result['OrderItemCondiment'] = $r;
+            }else {
+                CakeLog::write('warning', 'json_decode datas["OrderItemCondiment"] return not array' . "\n" . $datas['OrderItemCondiment'] ."\n");
             }
+
         }
 
         // save order_promotions to database
@@ -137,17 +159,10 @@ class Order extends AppModel {
             if (is_array($orderPromotions)) {
                 $r = $this->OrderPromotion->saveOrderPromotions(array_values($orderPromotions));
                 $result['OrderPromotion'] = $r;
+            }else {
+                CakeLog::write('warning', 'json_decode datas["OrderPromotion"] return not array' . "\n" . $datas['OrderPromotion'] ."\n");
             }
-        }
 
-        // save order_objects to database
-        if (!empty($datas['OrderObject'])) {
-        // save order_objects
-            $orderObjects = json_decode($datas['OrderObject'], true);
-            if (is_array($orderObjects)) {
-                $r = $this->OrderObject->saveOrderObjects(array_values($orderObjects));
-                $result['OrderObject'] = $r;
-            }
         }
 
         // save order_item_taxes to database
@@ -157,7 +172,23 @@ class Order extends AppModel {
             if (is_array($orderItemTaxes)) {
                 $r = $this->OrderItemTax->saveOrderItemTaxes(array_values($orderItemTaxes));
                 $result['OrderItemTax'] = $r;
+            }else {
+                CakeLog::write('warning', 'json_decode datas["OrderItemTax"] return not array' . "\n" . $datas['OrderItemTax'] ."\n");
             }
+
+        }
+
+        // save order_objects to database
+        if (!empty($datas['OrderObject'])) {
+        // save order_objects
+            $orderObjects = json_decode($datas['OrderObject'], true);
+            if (is_array($orderObjects)) {
+                $r = $this->OrderObject->saveOrderObjects(array_values($orderObjects));
+                $result['OrderObject'] = $r;
+            }else {
+                CakeLog::write('warning', 'json_decode datas["OrderObject"] return not array');
+            }
+
         }
 
         return $result;

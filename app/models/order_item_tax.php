@@ -11,11 +11,20 @@ class OrderItemTax extends AppModel {
     function saveOrderItemTaxes($taxes) {
 
         $result = true;
+        
         try {
 
             $this->begin();
 
             foreach ($taxes as $tax) {
+
+                // check if $tax is empty
+                // if viviecr send empty object to web services, XXXX
+                if (empty($tax)) {
+                    CakeLog::write('warning', 'saveOrderItemTaxes: Empty Order ItemTax');
+                    continue;
+                }
+
                 $this->id = $tax['id'];
                 $r = $this->save($tax);
 
