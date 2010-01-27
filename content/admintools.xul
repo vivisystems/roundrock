@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % AdminTools SYSTEM "chrome://viviecr/locale/admintools.dtd">
+  %AdminTools;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/admintools.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
+
+<window id="admintools"
+        title="&admintools.title;"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include controller -->
+  <script src="chrome://viviecr/content/controllers/admintools_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/admintools.js"/>
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
+    </keyset>
+
+    <vbox flex="1" class="container-be layout-be">
+        <vbox flex="1" class="container-main layout-a">
+            <label value="&admintools.title;" class="label-page-title"/>
+            <grid class="data-form-2" flex="1">
+                <columns>
+                    <column flex="0"/>
+                    <column flex="1"/>
+                </columns>
+                <rows>
+                    <!-- synchronization status -->
+                    <row>
+                        <vbox flex="1">
+                            <spacer flex="1"/>
+                            <hbox pack="center">
+                                <image id="sync_indicator"/>
+                                <label value="&admintools.syncstatus;" class="label-sub-title"/>
+                            </hbox>
+                            <spacer flex="1"/>
+                            <textbox id="sync_server" value="" readonly="true"/>
+                            <spacer flex="1"/>
+                            <hbox>
+                                <button id="refreshSyncStatus" class="button-execute"
+                                        label="&admintools.syncstatus.refresh;"
+                                        oncommand="$do('refreshSyncStatus', null, 'AdminTools');"/>
+                                <spacer flex="1"/>
+                                <button id="syncNow" class="button-execute"
+                                        label="&admintools.syncstatus.sync;"
+                                        oncommand="$do('syncNow', null, 'AdminTools');"/>
+                            </hbox>
+                            <spacer flex="1"/>
+                        </vbox>
+                        <hbox flex="1" class="content-listbox">
+                            <vivitree id="syncstatuslist" flex="1" class="standard custom-sync-tree" rows="4"
+                                      headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.last.index;,&admintools.syncstatus.last.synced;"
+                                      fields="datasource,database,index,synced" hidecolumnpicker="true"
+                                      />
+                        </hbox>
+                    </row>
+
+                    <!-- non-local transactio data -->
+                    <row>
+                        <vbox flex="1">
+                            <spacer flex="1"/>
+                            <hbox pack="center">
+                                <label value="&admintools.remotedata;" class="label-sub-title"/>
+                            </hbox>
+                            <spacer flex="1"/>
+                            <button id="syncNow" class="button-execute"
+                                    label="&admintools.remotedata.remove;"
+                                    oncommand="$do('removeRemoteData', null, 'AdminTools');"/>
+                            <spacer flex="1"/>
+                        </vbox>
+                        <hbox flex="1" class="content-listbox">
+                            <vivitree id="terminallist" flex="1" class="standard custom-terminal-tree" rows="4"
+                                      headers="&admintools.remotedata.terminal;"
+                                      fields="terminal" hidecolumnpicker="true"
+                                      oncommand="$do('selectTerminal', this.selectedIndex, 'AdminTools');"
+                                      />
+                            <spacer style="width: 10px;"/>
+                            <vivitree id="tablelist" flex="1" class="standard custom-table-tree" rows="4"
+                                      headers="&admintools.remotedata.table;"
+                                      fields="table" hidecolumnpicker="true"
+                                      />
+                        </hbox>
+                    </row>
+                </rows>
+            </grid>
+            <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
+                <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
+            </hbox>
+        </vbox>
+    </vbox>
+
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs"/>
+
+</window>
