@@ -134,9 +134,6 @@ Bug #300:
 Bug #301:
     Need to create new template types for use when 1) making a table transfer, 2) returning a cart item, and 3) rushing a cart item
 
-Bug #308:
-    The Table Selection grid should always have the table hosting the open check highlighted (applicable to Compact Table layout only)
-
 Bug #317:
     It should be able to configure each VFD to display a default message if the terminal has been idle for a period of time
 
@@ -168,9 +165,6 @@ Bugs Fixed
 Bug #273:
     User is forced to enter table number and number of guests even though the respective options have been turned off
 
-Bug #283:
-    The Table Selection grid does not pop up in dock mode when performing order recovery
-
 Bug #302:
     When Table Management option 'Require check number' is enabled, no attempt is made to request for a check number when storing or closing an order if the check number has not been successfully assigned when the order was first opened
 
@@ -189,14 +183,8 @@ Bug #323:
 Bug #326:
     When the last tax status is removed, details of the tax being removed remains on the form and the 'Modify' button is not disabled
 
-Bug #328:
-    When creating a new IRC package, the default activation time is always set to the time when the screen is opened and not the current time
-
-Bug #329:
-    Hitting the refresh package button in the IRC screen does not refresh the IRC client status list
-
-Bug #331:
-   Unnecessary logs are generated each time an item is added to the shopping cart
+Bug #333:
+   Expired ledger payment records are not removed from database
 
 -----------------------------
 Bugs fixed in Release 1.2.0.7
