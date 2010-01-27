@@ -21,7 +21,6 @@ var options;
      * Controller Startup
      */
     function startup() {
-        // set ledger entry types
         var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
         var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
         var localCurrency;
@@ -81,6 +80,9 @@ var options;
                             else {
                                 text = this.data[row].name;
                             }
+                            break;
+                        default:
+                            text = this.data[row].name;
                             break;
                     }
                     break;
