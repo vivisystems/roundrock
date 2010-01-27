@@ -1,7 +1,7 @@
 <!ENTITY admintools.title                   "Administration Tools">
 <!ENTITY admintools.tab.syncstatus          "Sync Control">
 <!ENTITY admintools.tab.recovery            "Transaction Data Recovery">
-<!ENTITY admintools.tab.saleperiod          "Sale Period/Shift">
+<!ENTITY admintools.tab.saleperiod          "Sale Period Adjustment">
 
 <!ENTITY admintools.syncstatus.status       "Synchronization Status">
 <!ENTITY admintools.syncstatus.server       "Synchronization Server">
@@ -13,7 +13,8 @@
 <!ENTITY admintools.syncstatus.last.index   "Local Index">
 <!ENTITY admintools.syncstatus.last.synced  "Remote Index">
 
-<!ENTITY admintools.remotedata              "Non-local Transaction Data">
-<!ENTITY admintools.remotedata.remove       "Remove">
-<!ENTITY admintools.remotedata.terminal     "Terminal">
-<!ENTITY admintools.remotedata.table        "Table">
+<!ENTITY admintools.recovery              "Non-local Transaction Data">
+<!ENTITY admintools.recovery.purge        "Purge">
+<!ENTITY admintools.recovery.terminal     "Terminal">
+<!ENTITY admintools.recovery.terminals    "Terminals">
+<!ENTITY admintools.recovery.tables       "Tables">

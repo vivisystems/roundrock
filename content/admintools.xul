@@ -66,7 +66,7 @@
                                 </row>
                                 <row>
                                     <label value="&admintools.syncstatus.server;" class="label-sub-title"/>
-                                    <textbox id="sync_server" value="" readonly="true"/>
+                                    <textbox id="sync_server" value="" readonly="true" disabled="true"/>
                                 </row>
                                 <row flex="1">
                                     <vbox flex="1">
@@ -100,28 +100,30 @@
                                 <column flex="0"/>
                                 <column flex="1"/>
                             </columns>
-                            <rows>
+                            <rows flex="1">
                                 <row>
-                                    <vbox flex="1">
-                                        <spacer flex="1"/>
-                                        <hbox pack="center">
-                                            <label value="&admintools.remotedata;" class="label-sub-title"/>
-                                        </hbox>
-                                        <spacer flex="1"/>
+                                    <label value="&admintools.recovery.terminal;" class="label-sub-title"/>
+                                    <textbox id="terminal_no" value="" readonly="true" disabled="true"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.recovery;" class="label-sub-title"/>
+                                    <label id="syncMode" value="" class="label-sub-title"/>
+                                </row>
+                                <row flex="1">
+                                    <vbox flex="1" pack="center">
                                         <button id="syncNow" class="button-execute"
-                                                label="&admintools.remotedata.remove;"
+                                                label="&admintools.recovery.purge;"
                                                 oncommand="$do('removeRemoteData', null, 'AdminTools');"/>
-                                        <spacer flex="1"/>
                                     </vbox>
                                     <hbox flex="1" class="content-listbox">
-                                        <vivitree id="terminallist" flex="1" class="standard custom-terminal-tree" rows="4"
-                                                  headers="&admintools.remotedata.terminal;"
+                                        <vivitree id="terminallist" flex="1" class="standard custom-terminal-tree"
+                                                  headers="&admintools.recovery.terminals;"
                                                   fields="terminal" hidecolumnpicker="true"
-                                                  oncommand="$do('selectTerminal', this.selectedIndex, 'AdminTools');"
+                                                  onselect="$do('selectRemoteTerminal', this.selectedIndex, 'AdminTools');"
                                                   />
                                         <spacer style="width: 10px;"/>
-                                        <vivitree id="tablelist" flex="1" class="standard custom-table-tree" rows="4"
-                                                  headers="&admintools.remotedata.table;"
+                                        <vivitree id="tablelist" flex="1" class="standard custom-table-tree"
+                                                  headers="&admintools.recovery.tables;"
                                                   fields="table" hidecolumnpicker="true"
                                                   />
                                     </hbox>
