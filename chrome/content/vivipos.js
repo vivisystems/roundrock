@@ -45,11 +45,12 @@
             var mainscreenSettings = GeckoJS.Configure.read('vivipos.fec.mainscreen');
 
             var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                        .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+                             .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main") || window;
+
             var mainscreenObject = mainWindow.document.getElementById('viviposMainWindow');
 
             for (var k in mainscreenSettings) {
-                mainscreenObject.setAttribute(k, mainscreenSettings[k]);
+                if(mainscreenObject) mainscreenObject.setAttribute(k, mainscreenSettings[k]);
             }
 
             this.updateStatusPanel();
@@ -77,14 +78,14 @@
                 }
             }).register();
 
+            // log startup
+            GeckoJS.Log.getLoggerForClass('VIVIPOS').setLevel(GeckoJS.Log.WARN).warn('VIVIPOS STARTUP');
 
             // startup simple http services
             this.startupHttpd();
 
             try {
                 // notify that vivipos STARTUP
-                var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
-
                 var event = mainWindow.document.createEvent("Event");
                 event.initEvent("ViviposStartup", true, true);
                 GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS dispatchEvent [ViviposStartup]');
@@ -96,10 +97,10 @@
             // Try to kill osd from run_vivipos script
             // XXXX has better way?
             GREUtils.File.run( "/bin/sh", [ '-c', '/usr/bin/pkill aosd_cat;' ], true );
-            
 
         },
     
+
         shutdown: function(){
             
             this.closeObserve.unregister();
@@ -115,7 +116,7 @@
 
             try {
                 // notify that vivipos SHUTDOWN
-                var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+                var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main") | window;
                 var event = mainWindow.document.createEvent("Event");
                 event.initEvent("ViviposShutdown", true, true);
                 GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS dispatchEvent [ViviposShutdown]');
@@ -235,11 +236,9 @@
             
             var self = this;
 
-            GeckoJS.Log.getLoggerForClass('VIVIPOS').setLevel(GeckoJS.Log.WARN).warn('VIVIPOS STARTUP');
-
             try {
                 var server = Components.classes["@mozilla.org/server/jshttp;1"]
-                             .getService(Components.interfaces.nsIHttpServer);
+                             .createInstance(Components.interfaces.nsIHttpServer);
 
                 var port  = GeckoJS.Configure.read("vivipos.fec.simplehttpd.port") || 8888;
 
@@ -330,7 +329,7 @@
                         if (command.length > 0 && controller.length > 0) {
 
                            // mainWindow only
-                            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+                            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main") || window;
 
                             body = "dispatch: \n";
                             body += "  controller: " + controller + "\n";

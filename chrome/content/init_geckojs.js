@@ -6,7 +6,7 @@
     var window = this;
  
     var mainWindow = window.mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main") || window;
     
     window._loadScript = function _loadScript(context, src, scope) {
         
