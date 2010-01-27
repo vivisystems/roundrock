@@ -87,6 +87,18 @@
             }
         },
 
+        _showWaitPanel: function(message) {
+            var waitPanel = document.getElementById('wait_panel');
+            waitPanel.openPopupAtScreen(0, 0);
+
+            var caption = document.getElementById( 'wait_caption' );
+            caption.label = message;
+
+            // release CPU for progressbar ...
+            this.sleep(500);
+            return waitPanel;
+        },
+
         refreshSyncStatus: function() {
 
             let settings = this._getSyncSettings();
@@ -147,6 +159,68 @@
                 this.refreshSyncStatus();
                 
                 NotifyUtils.info(_('Synchronization request executed'));
+            }
+        },
+
+        purgeSync: function() {
+            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                        _('Purge Synchronization Data'),
+                                        _('This action will irrecoverably remove change logs on all datasources and re-initialize local sync index. Are you sure you want to proceed?'))) {
+
+                var waitpanel = this._showWaitPanel(_('Purging Synchronization Data...'));
+                var dsList = this._getSyncedDatasources() || [];
+
+                let success = 0;
+                let total = dsList.length;
+                dsList.forEach(function(pair) {
+                    let model = pair.model;
+                    let ds = pair.datasource;
+
+                    // remove change logs
+                    if (ds.begin(true)) {
+
+                        if (ds.execute('delete from syncs')) {
+                            if (ds.execute('delete from sync_remote_machines')) {
+                                if (!ds.commit(true)) {
+                                    ds.rollback(true);
+                                    NotifyUtils.error(_('Unable to commit changes to datasource [%S]', [ds.configName]));
+                                }
+                                else {
+                                    this.refreshSyncStatus();
+                                    success++;
+                                }
+                            }
+                            else {
+                                ds.rollback(true);
+                                NotifyUtils.error(_('Unable to re-initialize local index [sync_remote_machines] for datasource [%S]', [ds.configName]));
+                            }
+                        }
+                        else {
+                            ds.rollback(true);
+                            NotifyUtils.error(_('Unable to purge change logs [syncs] from datasource [%S]', [ds.configName]));
+                        }
+                    }
+                    else {
+                        NotifyUtils.warn(_('Unable to obtain exclusive lock on datasource [%S]', [ds.configName]));
+                    }
+                }, this)
+
+                waitpanel.hidePopup();
+                if (success == total) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Purge Synchronization Data'),
+                                          _('Synchronization data successfully purged from all datasources'));
+                }
+                else if (success == 0) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Purge Synchronization Data'),
+                                          _('Failed to purge synchronization data'));
+                }
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Purge Synchronization Data'),
+                                          _('Failed to purge synchronization data from some of the datasources'));
+                }
             }
         },
 

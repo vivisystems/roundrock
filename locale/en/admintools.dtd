@@ -1,6 +1,12 @@
 <!ENTITY admintools.title                   "Administration Tools">
-<!ENTITY admintools.syncstatus              "Synchronization Status">
+<!ENTITY admintools.tab.syncstatus          "Sync Control">
+<!ENTITY admintools.tab.recovery            "Transaction Data Recovery">
+<!ENTITY admintools.tab.saleperiod          "Sale Period/Shift">
+
+<!ENTITY admintools.syncstatus.status       "Synchronization Status">
+<!ENTITY admintools.syncstatus.server       "Synchronization Server">
 <!ENTITY admintools.syncstatus.sync         "Sync Now">
+<!ENTITY admintools.syncstatus.purge        "Purge">
 <!ENTITY admintools.syncstatus.refresh      "Refresh">
 <!ENTITY admintools.syncstatus.datasource   "Data Source">
 <!ENTITY admintools.syncstatus.database     "Database">

@@ -40,70 +40,98 @@
     <vbox flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-a">
             <label value="&admintools.title;" class="label-page-title"/>
-            <grid class="data-form-2" flex="1">
-                <columns>
-                    <column flex="0"/>
-                    <column flex="1"/>
-                </columns>
-                <rows>
-                    <!-- synchronization status -->
-                    <row>
-                        <vbox flex="1">
-                            <spacer flex="1"/>
-                            <hbox pack="center">
-                                <image id="sync_indicator"/>
-                                <label value="&admintools.syncstatus;" class="label-sub-title"/>
-                            </hbox>
-                            <spacer flex="1"/>
-                            <textbox id="sync_server" value="" readonly="true"/>
-                            <spacer flex="1"/>
-                            <hbox>
-                                <button id="refreshSyncStatus" class="button-execute"
-                                        label="&admintools.syncstatus.refresh;"
-                                        oncommand="$do('refreshSyncStatus', null, 'AdminTools');"/>
-                                <spacer flex="1"/>
-                                <button id="syncNow" class="button-execute"
-                                        label="&admintools.syncstatus.sync;"
-                                        oncommand="$do('syncNow', null, 'AdminTools');"/>
-                            </hbox>
-                            <spacer flex="1"/>
-                        </vbox>
-                        <hbox flex="1" class="content-listbox">
-                            <vivitree id="syncstatuslist" flex="1" class="standard custom-sync-tree" rows="4"
-                                      headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.last.index;,&admintools.syncstatus.last.synced;"
-                                      fields="datasource,database,index,synced" hidecolumnpicker="true"
-                                      />
-                        </hbox>
-                    </row>
+            <tabbox flex="1" class="content-tabbox">
+                <arrowscrollbox orient="horizontal" class="content-arrow-scrollbox">
+                    <tabs id="tabs">
+                        <tab id="tab1" label="&admintools.tab.syncstatus;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab2" label="&admintools.tab.recovery;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab3" label="&admintools.tab.saleperiod;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                    </tabs>
+                </arrowscrollbox>
 
-                    <!-- non-local transactio data -->
-                    <row>
-                        <vbox flex="1">
-                            <spacer flex="1"/>
-                            <hbox pack="center">
-                                <label value="&admintools.remotedata;" class="label-sub-title"/>
-                            </hbox>
-                            <spacer flex="1"/>
-                            <button id="syncNow" class="button-execute"
-                                    label="&admintools.remotedata.remove;"
-                                    oncommand="$do('removeRemoteData', null, 'AdminTools');"/>
-                            <spacer flex="1"/>
-                        </vbox>
-                        <hbox flex="1" class="content-listbox">
-                            <vivitree id="terminallist" flex="1" class="standard custom-terminal-tree" rows="4"
-                                      headers="&admintools.remotedata.terminal;"
-                                      fields="terminal" hidecolumnpicker="true"
-                                      oncommand="$do('selectTerminal', this.selectedIndex, 'AdminTools');"
-                                      />
-                            <spacer style="width: 10px;"/>
-                            <vivitree id="tablelist" flex="1" class="standard custom-table-tree" rows="4"
-                                      headers="&admintools.remotedata.table;"
-                                      fields="table" hidecolumnpicker="true"
-                                      />
-                        </hbox>
-                    </row>
-                </rows>
-            </grid>
+                <tabpanels id="tabpanels" flex="1" >
+                    <!-- synchronization status -->
+                    <tabpanel id="tabpanel_syncstatus" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row>
+                                    <label value="&admintools.syncstatus.status;" class="label-sub-title"/>
+                                    <hbox flex="1">
+                                        <image id="sync_indicator"/>
+                                    </hbox>
+                                </row>
+                                <row>
+                                    <label value="&admintools.syncstatus.server;" class="label-sub-title"/>
+                                    <textbox id="sync_server" value="" readonly="true"/>
+                                </row>
+                                <row flex="1">
+                                    <vbox flex="1">
+                                        <button id="refreshSyncStatus" class="button-execute"
+                                                label="&admintools.syncstatus.refresh;"
+                                                oncommand="$do('refreshSyncStatus', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="syncNow" class="button-execute"
+                                                label="&admintools.syncstatus.sync;"
+                                                oncommand="$do('syncNow', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="purgeSync" class="button-execute"
+                                                label="&admintools.syncstatus.purge;"
+                                                oncommand="$do('purgeSync', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vbox flex="1" class="content-listbox">
+                                        <vivitree id="syncstatuslist" flex="1" class="standard custom-sync-tree"
+                                                  headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.last.index;,&admintools.syncstatus.last.synced;"
+                                                  fields="datasource,database,index,synced" hidecolumnpicker="true"
+                                                  />
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                    <!-- transactio data recovery -->
+                    <tabpanel id="tabpanel_recovery" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox flex="1">
+                                        <spacer flex="1"/>
+                                        <hbox pack="center">
+                                            <label value="&admintools.remotedata;" class="label-sub-title"/>
+                                        </hbox>
+                                        <spacer flex="1"/>
+                                        <button id="syncNow" class="button-execute"
+                                                label="&admintools.remotedata.remove;"
+                                                oncommand="$do('removeRemoteData', null, 'AdminTools');"/>
+                                        <spacer flex="1"/>
+                                    </vbox>
+                                    <hbox flex="1" class="content-listbox">
+                                        <vivitree id="terminallist" flex="1" class="standard custom-terminal-tree" rows="4"
+                                                  headers="&admintools.remotedata.terminal;"
+                                                  fields="terminal" hidecolumnpicker="true"
+                                                  oncommand="$do('selectTerminal', this.selectedIndex, 'AdminTools');"
+                                                  />
+                                        <spacer style="width: 10px;"/>
+                                        <vivitree id="tablelist" flex="1" class="standard custom-table-tree" rows="4"
+                                                  headers="&admintools.remotedata.table;"
+                                                  fields="table" hidecolumnpicker="true"
+                                                  />
+                                    </hbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+                </tabpanels>
+            </tabbox>
+
             <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
                 <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
             </hbox>
