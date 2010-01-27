@@ -14,7 +14,7 @@
  * @public
  * @namespace
  */
-var GeckoJS = GeckoJS || {version: "1.2.2"}; // Check to see if already defined in current scope
+var GeckoJS = GeckoJS || {version: "1.2.3"}; // Check to see if already defined in current scope
 
 /**
  * This is a reference to the global context, which is normally the "window" object.
@@ -7017,6 +7017,11 @@ GeckoJS.Session.add = function(key, val){
  * <br/>
  * Any existing data entry in the Session context associated with the same key is
  * replaced with the new value.
+ * <br/>
+ * Usage:<br/>
+ * Session::set('key', 'value of the Session::key');<br/>
+ * Session::set('One.key1', 'value of the Session::One[key1]');<br/>
+ * Session::set('One', {'key1': 'value of the Session::One[key1]', 'key2':'value of the Session::One[key2]'});
  *
  * @name GeckoJS.Session#set
  * @public
@@ -7025,7 +7030,31 @@ GeckoJS.Session.add = function(key, val){
  * @param {Object} value              This is the data value
  */
 GeckoJS.Session.prototype.set = function(key, value) {
-	this.map.set(key, value);
+
+    var name = this.__configVarNames(key);
+
+    if (name.length >1) {
+        var obj = this.map.get(name[0]) == null ? {} : this.map.get(name[0]);
+
+        var cur = obj;
+
+        for (var i=1; i<name.length ; i++ ) {
+            var part = name[i];
+            if ( i == (name.length-1)) {
+                cur[part] = value;
+            } else if (cur[part]) {
+                cur = cur[part];
+            } else {
+                cur = cur[part] = {};
+            }
+        }
+
+        this.map.set(name[0], obj);
+
+    }else {
+        this.map.set(name[0], value);
+    }
+
 	this.events.dispatch("change", {key:key, value:value});
 };
 
@@ -7041,6 +7070,11 @@ GeckoJS.Session.prototype.set = function(key, value) {
  * <br/>
  * Any existing data entry in the Session context associated with the same key is
  * replaced with the new value.
+ * <br/>
+ * Usage:<br/>
+ * Session::set('key', 'value of the Session::key');<br/>
+ * Session::set('One.key1', 'value of the Session::One[key1]');<br/>
+ * Session::set('One', {'key1': 'value of the Session::One[key1]', 'key2':'value of the Session::One[key2]'});
  *
  * @name GeckoJS.Session.set
  * @public
@@ -7058,6 +7092,10 @@ GeckoJS.Session.set = function(key, value) {
  * Retrieves the data value identified by the given key.<br/>
  * <br/>
  * This method returns null if the key does not exist in the Session context.
+ * <br/>
+ * Usage:<br/>
+ * Session::get('Name'); will return all values for Name<br/>
+ * Session::get('Name.key'); will return only the value of Session::Name[key]
  *
  * @name GeckoJS.Session#get
  * @public
@@ -7066,7 +7104,32 @@ GeckoJS.Session.set = function(key, value) {
  * @return {Object}                   The Session data stored under the given key
  */
 GeckoJS.Session.prototype.get = function(key){
-    return this.map.get(key);
+
+    var name = this.__configVarNames(key);
+
+    if(name.length >1) {
+        var obj = this.map.get(name[0]);
+        if (obj == null) return obj;
+
+        var cur = obj;
+
+        for (var i=1; i<name.length ; i++ ) {
+            var part = name[i];
+
+            if (typeof cur[part] != 'undefined') {
+                cur = cur[part];
+            }else {
+                return null;
+            }
+        }
+        if (cur == null || typeof cur == 'undefined') cur = null;
+
+        return cur;
+
+    }else {
+        return this.map.get(name[0]);
+    }
+
 };
 
 
@@ -7074,6 +7137,10 @@ GeckoJS.Session.prototype.get = function(key){
  * Retrieves the data value identified by the given key.<br/>
  * <br/>
  * This method returns null if the key does not exist in the Session context.
+ * <br/>
+ * Usage:<br/>
+ * Session::get('Name'); will return all values for Name<br/>
+ * Session::get('Name.key'); will return only the value of Session::Name[key]
  *
  * @name GeckoJS.Session.get
  * @public
@@ -7096,7 +7163,28 @@ GeckoJS.Session.get = function(key){
  * @return {Boolean}                  "true" if the key exists, "false" otherwise
  */
 GeckoJS.Session.prototype.has = function(key) {
-    return this.map.containsKey(key);
+
+    var name = this.__configVarNames(key);
+
+    if(name.length >1) {
+        var obj = this.map.get(name[0]);
+        if (obj == null) return false;
+        var cur = obj;
+        for (var i=1; i<name.length ; i++ ) {
+            var part = name[i];
+
+            if (typeof cur[part] != 'undefined') {
+                cur = cur[part];
+            }else {
+                return false;
+            }
+        }
+        return true;
+
+    }else {
+        return this.map.containsKey(name[0]);
+    }
+
 };
 
 
@@ -7160,6 +7248,12 @@ GeckoJS.Session.prototype.unserialize = function(str) {
 
 };
 
+GeckoJS.Session.prototype.__configVarNames = function (name) {
+    if (typeof name == "string") {
+        name = name.split(".");
+    }
+    return name;
+};
 /**
  * Defines the GeckoJS.Dispatcher namespace.
  *
@@ -10563,7 +10657,7 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
             /* endif DEBUG */
             
             // newDataSource.truncate(self);
-            // only truncate success data.
+            // only remove success data.
             removableIds.forEach(function(oldDataId) {
                 this.id = oldDataId;
                 newDataSource.executeDelete(this);

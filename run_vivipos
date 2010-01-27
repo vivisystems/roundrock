@@ -10,7 +10,11 @@ RETVAL=127;
 DIR=`dirname $0`
 DATABASE=/data/databases
 SQLITE3=/usr/bin/sqlite3
-export DISPLAY=:0
+
+# set X11 DISPLAY if zero
+if [ -z "$DISPLAY" ]; then
+  export DISPLAY=:0
+fi
 
 #
 # include l10n messages
@@ -45,13 +49,13 @@ do_integrity_check()
 
     for i in $DATABASE/*.sqlite; do
                 dbname=`basename $i`
-                /usr/bin/aosd_cat -F "Sans 20"  -y -120 -d 600000 "${MSG_RUN_VIVIPOS_INTEGRITY_CHECK} ${dbname}" &
+                /usr/bin/aosd_cat -F "Sans 20"  -x 100 -y -120 -d 600000 "${MSG_RUN_VIVIPOS_INTEGRITY_CHECK} ${dbname}" &
                 echo "`date +"%Y-%m-%d %H:%M:%S"` :   integrity_check [${dbname}]" >> ${DIR}/log/vivipos.log
 
 		result=`$SQLITE3 $i "PRAGMA integrity_check"`
                 pkill aosd_cat
 		if [ "$result" != "ok" ]; then
-                    /usr/bin/aosd_cat -F "Sans 20"  -y -80 -d 600000 "${MSG_RUN_VIVIPOS_REBUILDING} ${dbname}" &
+                    /usr/bin/aosd_cat -F "Sans 20" -x 100 -y -80 -d 600000 "${MSG_RUN_VIVIPOS_REBUILDING} ${dbname}" &
                     echo "`date +"%Y-%m-%d %H:%M:%S"` :   rebuilding [${dbname}]" >> ${DIR}/log/vivipos.log
 
                     $SQLITE3 $i ".dump" | $SQLITE3 $i.tmp
@@ -88,7 +92,7 @@ while [ $RETVAL != 0 ]; do
 
     echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini]" >> ${DIR}/log/vivipos.log
 
-    /usr/bin/aosd_cat -F "Sans 24" -d 800000  "$MSG_RUN_VIVIPOS_STARTING" &
+    /usr/bin/aosd_cat -x 100 -F "Sans 24" -d 800000  "$MSG_RUN_VIVIPOS_STARTING" &
 
 	# set env of system info
 	eval `${DIR}/getSystemLicenseStub -v|awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`

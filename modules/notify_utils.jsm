@@ -29,19 +29,20 @@ var NotifyUtils = {
             run: function() {
                 try {
 
-                    /*
-                    if(NotifyUtils.shellFile.exists()) {
-                        // use shell
-                        var process = Components.classes["@mozilla.org/process/util;1"].createInstance(Components.interfaces.nsIProcess);
-                        process.init(NotifyUtils.shellFile);
-                        var args = ['--urgency=normal', '--expire-time='+total_display_ms, '--icon='+icon, summary , body];
-                        process.run(false, args, args.length );
-                    }else if(NotifyUtils.nofityService) {
-                    */
-                        NotifyUtils.nofityService.notify(summary, body, icon, total_display_ms, urgency);
-                    /*
+                    //NotifyUtils.nofityService.notify(summary, body, icon, total_display_ms, urgency);
+                    switch(icon) {
+                        case 'dialog-information':
+                            icon = "chrome://global/skin/icons/information-48.png";
+                            break;
+                        case 'dialog-warning':
+                            icon = "chrome://global/skin/icons/warning-large.png";
+                            break;
+                        case 'dialog-error':
+                            icon = "chrome://global/skin/icons/error-48.png";
+                            break;
                     }
-                    */
+
+                    NotifyUtils.nofityService.showAlertNotification(icon, summary, body, false, "xxx", null);
 
                 }catch(e) {
                 }
@@ -107,25 +108,17 @@ var NotifyUtils = {
 try {
 
     if(!NotifyUtils.worker) {
-        //        NotifyUtils.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
         NotifyUtils.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).mainThread;
 
     }
 /*
-    if (!NotifyUtils.shellFile) {
-        NotifyUtils.shellFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-        NotifyUtils.shellFile.initWithPath('/usr/bin/notify-send');
-    }
-*/
-    if(!NotifyUtils.nofityService /*&& !NotifyUtils.shellFile.exists()*/) {
+    if(!NotifyUtils.nofityService) {
         NotifyUtils.nofityService = Components.classes["@firich.com.tw/notify;1"].getService(Components.interfaces.mozIFECNotify);
     }
-/*
-    if(!NotifyUtils.convService) {
-        NotifyUtils.convService = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].getService(Components.interfaces.nsIScriptableUnicodeConverter);
-        NotifyUtils.convService.charset = 'UTF-8';
-    }
 */
+    if(!NotifyUtils.nofityService) {
+        NotifyUtils.nofityService = Components.classes["@mozilla.org/alerts-service;1"].getService(Components.interfaces.nsIAlertsService);
+    }
 }catch(e) {
     dump(e);
 }

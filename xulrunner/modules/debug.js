@@ -1,4 +1,4 @@
-//@line 44 "/builds/moz2_slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/content/debug.js"
+//@line 44 "/home/rack/workspace/mozilla-1.9.1/toolkit/content/debug.js"
 
 var EXPORTED_SYMBOLS = ["NS_ASSERT"];
 

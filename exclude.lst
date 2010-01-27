@@ -1,5 +1,6 @@
 exclude.lst
 .git/*
+.gitignore
 DONTRELEASE/*
 make-zip
 layouts/*
@@ -10,3 +11,4 @@ log/*
 updates/*
 updates.xml
 active_updates.xml
+release/*

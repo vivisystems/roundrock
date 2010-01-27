@@ -6,9 +6,8 @@
     var vivipos = window.vivipos = {
 
         initialized: false,
-        version: '0.2',
-
-        suspendSavePreference: false,
+        
+        version: '1.2.1',
 
         _httpdServer: null,
 
@@ -78,168 +77,9 @@
                 }
             }).register();
 
-            GeckoJS.Log.getLoggerForClass('VIVIPOS').setLevel(GeckoJS.Log.WARN).warn('VIVIPOS STARTUP');
 
-            try {
-                var server = Components.classes["@mozilla.org/server/jshttp;1"]
-                             .getService(Components.interfaces.nsIHttpServer);
-
-                var port  = GeckoJS.Configure.read("vivipos.fec.simplehttpd.port") || 8080;
-
-
-                server.registerPathHandler("/", function(metadata, response) {
-
-                    var appInfo = Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
-                    var body = "";
-                    body += "name: " + appInfo.name + "\n";
-                    body += "ID: " + appInfo.ID + "\n";
-                    body += "appBuildID: " + appInfo.appBuildID + "\n";
-
-                    response.setStatusLine(metadata.httpVersion, 200, "OK");
-                    response.setHeader("Content-Type", "text/plain", false);
-                    response.bodyOutputStream.write(body, body.length);
-
-                });
-
-                server.registerPathHandler("/observer", function(metadata, response) {
-
-                    var queryData = GeckoJS.String.parseStr(metadata.queryString);
-                    
-                    var topic = queryData['topic'] || "" ;
-                    var data = queryData['data'] || "" ;
-                    var body = "" ;
-
-                    try {
-                        if (topic.length > 0) {
-                            body = "observer notify: \n";
-                            body += "  topic: " + topic + "\n";
-                            body += "  data: " + data + "\n";
-
-                            // use function wrapper , and response
-                            setTimeout(function() {
-                                GeckoJS.Observer.notify(null, topic, data);
-                            }, 0);
-                            
-                        }
-                    }catch(e) {
-                        dump(e);
-                    }
-                   
-                    response.setStatusLine(metadata.httpVersion, 200, "OK");
-                    response.setHeader("Content-Type", "text/plain", false);
-                    response.bodyOutputStream.write(body, body.length);
-
-                });
-
-
-                server.registerPathHandler("/dispatch", function(metadata, response) {
-
-                    var queryData = GeckoJS.String.parseStr(metadata.queryString);
-
-                    var command = queryData['command'] || "" ;
-                    var data = queryData['data'] || "" ;
-                    var controller = queryData['controller'] || "" ;
-                    var body = "" ;
-
-                    try {
-                        if (command.length > 0 && controller.length > 0) {
-
-                           // mainWindow only
-                            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
-
-                            body = "dispatch: \n";
-                            body += "  controller: " + controller + "\n";
-                            body += "  command: " + command + "\n";
-
-                            // use function wrapper , and response
-                            setTimeout(function() {
-                                GeckoJS.Dispatcher.dispatch(mainWindow, command, data, controller);
-                            }, 10);
-                            
-                        }
-                    }catch(e){
-                        dump(e);
-                    }
-
-                    response.setStatusLine(metadata.httpVersion, 200, "OK");
-                    response.setHeader("Content-Type", "text/plain", false);
-                    response.bodyOutputStream.write(body, body.length);
-
-                });
-
-                server.registerPathHandler("/session", function(metadata, response) {
-
-                    var queryData = GeckoJS.String.parseStr(metadata.queryString);
-
-                    var action = queryData['action'] || "" ;
-                    var key = queryData['key'] || "" ;
-                    var value = queryData['value'] || null ;
-                    var body = "" ;
-
-                    try {
-                        if (action.length > 0 && key.length > 0) {
-
-                            switch(action) {
-                                case "add":
-
-                                    body = "session added: \n";
-                                    body += "  key: " + key + "\n";
-
-                                    // use function wrapper , and response
-                                    setTimeout(function() {
-                                        GeckoJS.Session.add(key, value);
-                                    }, 10);
-
-                                case "set":
-
-                                    body = "session updated: \n";
-                                    body += "  key: " + key + "\n";
-
-                                    // use function wrapper , and response
-                                    setTimeout(function() {
-                                        GeckoJS.Session.set(key, value);
-                                    }, 10);
-
-                                    break;
-
-                                case "remove":
-                                    body = "session removed: \n";
-                                    body += "  key: " + key + "\n";
-
-                                    // use function wrapper , and response
-                                    setTimeout(function() {
-                                        GeckoJS.Session.remove(key);
-                                    }, 10);
-
-                                    break;
-
-                                case "get":
-                                    body = (GeckoJS.Session.get(key) || "") + "";
-                                    break;
-                            }
-                        }
-
-                    }catch(e) {
-                        dump(e);
-                    }
-
-                    response.setStatusLine(metadata.httpVersion, 200, "OK");
-                    response.setHeader("Content-Type", "text/plain", false);
-                    response.bodyOutputStream.write(body, body.length);
-
-                });
-
-                server.start(port);
-
-                GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS SIMPLE HTTPD STARTUP (' + port + ')');
-
-                this._httpdServer = server;
-
-            }catch(e) {
-
-
-            }
-
+            // startup simple http services
+            this.startupHttpd();
 
             try {
                 // notify that vivipos STARTUP
@@ -253,13 +93,9 @@
             }
 
 
-            //
             // Try to kill osd from run_vivipos script
             // XXXX has better way?
-            try {
-                GREUtils.File.run( "/bin/sh", [ '-c', '/usr/bin/pkill aosd_cat;' ], true );
-            }catch(e) {
-            }
+            GREUtils.File.run( "/bin/sh", [ '-c', '/usr/bin/pkill aosd_cat;' ], true );
             
 
         },
@@ -268,29 +104,14 @@
             
             this.closeObserve.unregister();
 
-            // save vivipos Preferences
-	    // if (!this.suspendSavePreference) GeckoJS.Configure.savePreferences('vivipos');
-
             // shutdown console log
             if(consoleErrors) consoleErrors.shutdown();
 
             // log close
             GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS SHUTDOWN');
 
-            try {
-                if (this._httpdServer) {
-                    this._httpdServer.stop( {
-                        onStopped: function() {
-                            // nothing to do
-                        }
-                    });
-
-                    GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS SIMPLE HTTPD SHUTDOWN');
-                }
-
-            }catch(e) {
-                
-            }
+            // shutdown simple http services
+            this.shutdownHttpd();
 
             try {
                 // notify that vivipos SHUTDOWN
@@ -400,8 +221,273 @@
             }
 
             return ;
+        },
+
+
+        /**
+         * Startup simple httpd
+         *
+         * support observe / dispatch / session
+         *
+         * object supported
+         */
+        startupHttpd: function() {
+            
+            var self = this;
+
+            GeckoJS.Log.getLoggerForClass('VIVIPOS').setLevel(GeckoJS.Log.WARN).warn('VIVIPOS STARTUP');
+
+            try {
+                var server = Components.classes["@mozilla.org/server/jshttp;1"]
+                             .getService(Components.interfaces.nsIHttpServer);
+
+                var port  = GeckoJS.Configure.read("vivipos.fec.simplehttpd.port") || 8888;
+
+
+                server.registerPathHandler("/", function(metadata, response) {
+
+                    var appInfo = Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
+                    var body = "";
+                    body += "name: " + appInfo.name + "\n";
+                    body += "ID: " + appInfo.ID + "\n";
+                    body += "appBuildID: " + appInfo.appBuildID + "\n";
+
+                    response.setStatusLine(metadata.httpVersion, 200, "OK");
+                    response.setHeader("Content-Type", "text/plain", false);
+                    response.bodyOutputStream.write(body, body.length);
+
+                });
+
+                server.registerPathHandler("/observer", function(metadata, response) {
+
+                    var queryData = GeckoJS.String.parseStr(metadata.queryString);
+
+                    var topic = queryData['topic'] || "" ;
+                    var data = queryData['data'] || "" ;
+                    var body = "" ;
+                    var dataObj = null;
+
+                    // convert data from UTF-8 to UNICODE
+                    data = GREUtils.Charset.convertToUnicode(data);
+
+                    // parse data if data is json string
+                    if (data.length>0) {
+                        try {
+                            dataObj = JSON.parse(data);
+                        }catch(e) {
+                            dataObj = data;
+                        }
+                        data = dataObj;
+                    }
+
+                    try {
+                        if (topic.length > 0) {
+                            body = "observer notify: \n";
+                            body += "  topic: " + topic + "\n";
+                            body += "  data: " + data + "\n";
+
+                            // use function wrapper , and response
+                            setTimeout(function() {
+                                GeckoJS.Observer.notify(null, topic, data);
+                            }, 0);
+
+                        }
+                    }catch(e) {
+                        dump(e);
+                    }
+
+                    response.setStatusLine(metadata.httpVersion, 200, "OK");
+                    response.setHeader("Content-Type", "text/plain", false);
+                    response.bodyOutputStream.write(body, body.length);
+
+                });
+
+
+                server.registerPathHandler("/dispatch", function(metadata, response) {
+
+                    var queryData = GeckoJS.String.parseStr(metadata.queryString);
+
+                    var command = queryData['command'] || "" ;
+                    var data = queryData['data'] || "" ;
+                    var controller = queryData['controller'] || "" ;
+                    var body = "" ;
+                    var dataObj = null;
+
+                    // convert data from UTF-8 to UNICODE
+                    data = GREUtils.Charset.convertToUnicode(data);
+
+                    // parse data if data is json string
+                    if (data.length>0) {
+                        try {
+                            dataObj = JSON.parse(data);
+                        }catch(e) {
+                            dataObj = data;
+                        }
+                        data = dataObj;
+                    }
+
+                    try {
+                        if (command.length > 0 && controller.length > 0) {
+
+                           // mainWindow only
+                            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+
+                            body = "dispatch: \n";
+                            body += "  controller: " + controller + "\n";
+                            body += "  command: " + command + "\n";
+
+                            // use function wrapper , and response
+                            setTimeout(function() {
+                                GeckoJS.Dispatcher.dispatch(mainWindow, command, data, controller);
+                            }, 10);
+
+                        }
+                    }catch(e){
+                        dump(e);
+                    }
+
+                    response.setStatusLine(metadata.httpVersion, 200, "OK");
+                    response.setHeader("Content-Type", "text/plain", false);
+                    response.bodyOutputStream.write(body, body.length);
+
+                });
+
+                server.registerPathHandler("/session", function(metadata, response) {
+
+                    var queryData = GeckoJS.String.parseStr(metadata.queryString);
+
+                    var action = queryData['action'] || "" ;
+                    var key = queryData['key'] || "" ;
+                    var value = queryData['value'] || null ;
+                    var body = "" ;
+                    var dataObj = null;
+
+                    try {
+                        if (action.length > 0 && key.length > 0) {
+
+                            switch(action) {
+                                case "add":
+
+                                    body = "session added: \n";
+                                    body += "  key: " + key + "\n";
+
+                                    // parse value if value is json string
+                                    if (value) {
+                                        dataObj = null;
+                                        try {
+                                            dataObj = JSON.parse(value);
+                                        }catch(e) {
+                                            dataObj = value;
+                                        }
+                                        value = dataObj;
+                                    }
+
+                                    // use function wrapper , and response
+                                    setTimeout(function() {
+                                        GeckoJS.Session.add(key, value);
+                                    }, 10);
+
+                                case "set":
+
+                                    body = "session updated: \n";
+                                    body += "  key: " + key + "\n";
+
+                                    // convert value from UTF-8 to UNICODE
+                                    value = GREUtils.Charset.convertToUnicode(value);
+
+                                    // parse value if value is json string
+                                    if (value) {
+                                        dataObj = null;
+                                        try {
+                                            dataObj = JSON.parse(value);
+                                        }catch(e) {
+                                            dataObj = value;
+                                        }
+                                        value = dataObj;
+                                    }
+
+                                    // use function wrapper , and response
+                                    setTimeout(function() {
+                                        GeckoJS.Session.set(key, value);
+                                    }, 10);
+
+                                    break;
+
+                                case "remove":
+
+                                    body = "session removed: \n";
+                                    body += "  key: " + key + "\n";
+
+                                    // use function wrapper , and response
+                                    setTimeout(function() {
+                                        GeckoJS.Session.remove(key);
+                                    }, 10);
+
+                                    break;
+
+                                case "get":
+                                    value = (GeckoJS.Session.get(key) || null);
+
+                                    // stringify value if value is object
+                                    if (value != null && (typeof value == 'object')) {
+                                        dataObj = null;
+                                        try {
+                                            dataObj = GREUtils.Charset.convertFromUnicode(JSON.stringify(value));
+                                        }catch(e) {
+                                            dataObj = value;
+                                        }
+                                        value = dataObj;
+                                    }else if (value != null && (typeof value == 'string')) {
+                                        value = GREUtils.Charset.convertFromUnicode(value);
+                                    }
+                                    body = value +'';
+
+                                    break;
+                            }
+                        }
+
+                    }catch(e) {
+                        dump(e);
+                    }
+
+                    response.setStatusLine(metadata.httpVersion, 200, "OK");
+                    response.setHeader("Content-Type", "text/plain", false);
+                    response.bodyOutputStream.write(body, body.length);
+
+                });
+
+                server.start(port);
+
+                GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS SIMPLE HTTPD STARTUP (' + port + ')');
+
+                this._httpdServer = server;
+
+            }catch(e) {
+
+
+            }
+
+        },
+
+
+        shutdownHttpd: function() {
+
+            try {
+                if (this._httpdServer) {
+                    this._httpdServer.stop( {
+                        onStopped: function() {
+                            // nothing to do
+                        }
+                    });
+
+                    GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS SIMPLE HTTPD SHUTDOWN');
+                }
+
+            }catch(e) {
+
+            }
+
         }
-        
 
     };
 
