@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.1.0b3
+Release 1.2.1.0
 ---------------
 
 This is a release for VIVIPOS Web Services 1.2.1.0
@@ -11,24 +11,7 @@ Bugs fixed
 ----------
 
 Bug #195:
-    It is desired in a clustered environment to program a master terminal and have
-    the programming automatically replicated to each terminal in the cluster. This
-    replication, termed Inter-register communication, IRC, would significantly
-    reduce the effort required to install and maintain a terminal cluster.
+    It is desired in a clustered environment to program a master terminal and have the programming automatically replicated to each terminal in the cluster. This replication, termed Inter-register communication, IRC, would significantly reduce the effort required to install and maintain a terminal cluster.
 
-
----------------
-Release 1.2.0.3
----------------
-
-This is a maintenance release for VIVIPOS Web Services 1.2.0.x
-
-Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
-
-----------
-Bugs fixed
-----------
-
-Bug #215:
-    When an order is stored with annotations, the annotations are duplicated each time the order is re-stored or finalized
-
+Bug #306:
+    Whenever a model backup queue contains a record without an id field, Web Services will fail and return false when attempting to update that record. This causes model backup queue to grow unlimited as the record without an id field and all data added after that no longer gets flushed from the queue.
