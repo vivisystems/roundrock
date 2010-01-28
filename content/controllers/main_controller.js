@@ -113,9 +113,7 @@
 
                         // check if successfully logged in
                         if (this.Acl.getUserPrincipal()) {
-                            // prevent onSetClerk event dispatch
-                            this.dispatchedEvents['onSetClerk'] = true;
-                            this.requestCommand('setClerk', null, 'Main');
+                            this.setClerk(true);
                         }
 
                         this.dispatchEvent('onInitial', null);
@@ -329,6 +327,8 @@
             var aName = _('Change User');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=no,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
+
+            this.requestCommand('setClerk', null, 'Main');
         },
 
         ClockInOutDialog: function () {
@@ -764,7 +764,7 @@
             }
         },
 
-        setClerk: function () {
+        setClerk: function (recovery) {
             var user = this.Acl.getUserPrincipal();
             if (user) {
                 // perform user login initialization
@@ -812,7 +812,7 @@
                 var fnPanel = document.getElementById('functionPanel');
                 if (fnPanel) fnPanel.home();
 
-                this.dispatchEvent('signedOn', user);
+                if (!recovery) this.dispatchEvent('signedOn', user);
             }
             else {
                 GeckoJS.Session.clear('user');
@@ -1220,15 +1220,16 @@
                 if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
-            this.dispatchEvent('signedOff', principal);
-            
-            Transaction.removeRecoveryFile();
+            if (this.dispatchEvent('signedOff', principal)) {
 
-            // close all poup panels
-            this.closeAllPopupPanels();
+                Transaction.removeRecoveryFile();
 
-            if (!quickSignoff) {
-                this.ChangeUserDialog();
+                // close all poup panels
+                this.closeAllPopupPanels();
+
+                if (!quickSignoff) {
+                    this.ChangeUserDialog();
+                }
             }
         },
 
