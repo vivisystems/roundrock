@@ -131,6 +131,78 @@
                             </rows>
                         </grid>
                     </tabpanel>
+
+                    <!-- sale period adjustment -->
+                    <tabpanel id="tabpanel_saleperiod" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row>
+                                    <label value="&admintools.saleperiod.saleperiod.current;" class="label-sub-title"/>
+                                    <textbox id="current_sale_period" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="current_shift_number" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.saleperiod.last;" class="label-sub-title"/>
+                                    <textbox id="last_sale_period" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="last_shift_number" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.activity.detail;" class="label-sub-title"/>
+                                    <textbox id="activity_type" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="activity_time" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.activity.saleperiod;" class="label-sub-title"/>
+                                    <textbox id="activity_sale_period" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="activity_shift_number" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <vbox flex="1" pack="center">
+                                        <button id="resetSalePeriod" class="button-execute"
+                                                label="&admintools.saleperiod.reset.saleperiod;"
+                                                oncommand="$do('resetSalePeriod', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&admintools.saleperiod.saleperiod.new;"/>
+                                        <vividatetimepicker id="new_sale_period" value="" type="popup" mode="date"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&admintools.saleperiod.shiftnumber.new;"/>
+                                        <vivitextbox id="new_shift_number" flex="1" size="10" type="number" min="1"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     />
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.ordernumber.largest;" class="label-sub-title"/>
+                                    <textbox id="order_sequence" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.ordernumber.current;" class="label-sub-title"/>
+                                    <textbox id="current_order_sequence" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <vbox flex="1" pack="center">
+                                        <button id="resetOrderNumber" class="button-execute"
+                                                label="&admintools.saleperiod.reset.ordernumber;"
+                                                oncommand="$do('resetOrderNumber', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&admintools.saleperiod.ordernumber.new;"/>
+                                        <vivitextbox id="new_order_sequence" flex="1" size="10" min="0" type="number"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     />
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
                 </tabpanels>
             </tabbox>
 

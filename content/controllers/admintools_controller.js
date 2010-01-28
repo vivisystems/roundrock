@@ -44,12 +44,17 @@
             return this._httpServiceSync;
         },
 
-        _getSyncTerminal: function(hostname) {
+        _getSyncTerminal: function(settings) {
             if (!this._syncTerminal) {
-                var httpService = this._getHttpServiceSync(hostname);
-                var remoteUrl = httpService.getRemoteServiceUrl('auth');
+                if (settings.hostname != 'localhost') {
+                    var httpService = this._getHttpServiceSync(settings.hostname);
+                    var remoteUrl = httpService.getRemoteServiceUrl('auth');
 
-                this._syncTerminal = httpService.requestRemoteService('GET', remoteUrl, null, null, null, true);
+                    this._syncTerminal = httpService.requestRemoteService('GET', remoteUrl, null, null, null, true);
+                }
+                else {
+                    this._syncTerminal = settings.machine_id;
+                }
             }
             return this._syncTerminal;
         },
@@ -146,7 +151,7 @@
         initSyncStatus: function() {
 
             let settings = this._getSyncSettings();
-            let syncTerminal = this._getSyncTerminal(settings.hostname);
+            let syncTerminal = this._getSyncTerminal(settings);
 
             if (syncTerminal == null) {
                 syncTerminal = _('-- no contact --');
@@ -171,8 +176,8 @@
         refreshSyncStatus: function() {
 
             let settings = this._getSyncSettings();
-            let syncTerminal = this._getSyncTerminal(settings.hostname);
-            document.getElementById('sync_server').value = settings.hostname + ' [' + syncTerminal + ']';
+            let syncTerminal = this._getSyncTerminal(settings);
+            document.getElementById('sync_server').value = settings.hostname + ' [' + (syncTerminal || _('--no contact--')) + ']';
 
             // get list of datasources
             var dsList = this._getSyncedDatasources() || [];
@@ -192,9 +197,11 @@
 
                 // extract remote index
                 let remoteIndex = '';
-                let remoteIndexResult = ds.fetchAll('select last_synced as "index" from sync_remote_machines where machine_id = "' + syncTerminal + '"') || [];
-                if (remoteIndexResult.length > 0) {
-                    remoteIndex = remoteIndexResult[0].index;
+                if (syncTerminal) {
+                    let remoteIndexResult = ds.fetchAll('select last_synced as "index" from sync_remote_machines where machine_id = "' + syncTerminal + '"') || [];
+                    if (remoteIndexResult.length > 0) {
+                        remoteIndex = remoteIndexResult[0].index;
+                    }
                 }
                 
                 statusList.push({
@@ -310,16 +317,14 @@
 
             var terminals = {};
             var ds = new OrderModel().getDataSource();
-            var terminalTableList = ['cashdrawer_records',
-                                     'ledger_records',
-                                     'orders',
-                                     'shift_changes',
-                                     'shift_markers',
-                                     'uniform_invoices',
-                                     'uniform_invoice_markers'];
+            var tableList = ['cashdrawer_records',
+                             'ledger_records',
+                             'orders',
+                             'shift_changes',
+                             'shift_markers'];
 
             // check each table for foreign terminals
-            terminalTableList.forEach(function(table) {
+            tableList.forEach(function(table) {
                 let records = ds.fetchAll('select distinct(terminal_no) as "terminal" from ' + table + ' where terminal_no != "' + terminal_no + '" ORDER BY terminal_no') || [];
 
                 records.forEach(function(record) {
@@ -331,15 +336,16 @@
                 })
             }, this);
             
+            // dispatch event to allow extensions to add their own terminal/table list
+            var evtData = {list: terminals, terminal_no: terminal_no};
+            this.dispatchEvent('buildTerminalTableList', evtData);
+            terminals = evtData.list;
+            
             let terminalTableList = [];
             GeckoJS.BaseObject.getKeys(terminals).sort().forEach(function(key) {
                 terminalTableList.push({terminal: key,
                                         tables: terminals[key]});
             })
-
-            // dispatch event to allow extensions to add their own terminal/table list
-            this.dispatchEvent('buildTerminalTableList', terminalTableList);
-
             this.terminalTableList = terminalTableList;
 
             // initialize terminal list
@@ -436,7 +442,7 @@
                     ds.execute('delete from uniform_invoice_markers where terminal_no != "' + terminal_no + '"');
 
                     // dispatch event to allow extensions to do their own cleanup
-                    this.dispatchEvent('remoteRemoteData');
+                    this.dispatchEvent('removeRemoteData', terminal_no);
                     
                     ds.commit(true);
 
@@ -460,6 +466,301 @@
             }
         },
 
+        refreshSalePeriodData: function() {
+
+            var terminal_no = GeckoJS.Session.get('terminal_no');
+            
+            // current sale period/shift number
+            var currentSalePeriod = GeckoJS.Session.get('sale_period');
+            var currentShiftNumber = GeckoJS.Session.get('shift_number');
+
+            document.getElementById('current_sale_period').value = new Date(currentSalePeriod * 1000).toLocaleDateString();;
+            document.getElementById('current_shift_number').value = currentShiftNumber;
+
+            // last shift change
+            var shiftChangeModel = new ShiftChangeModel();
+            var shiftChangeRecord = shiftChangeModel.find('first', {conditions: 'terminal_no = "' + terminal_no + '"',
+                                                                    recursive: 0,
+                                                                    order: 'sale_period desc, shift_number desc'});
+            var lastSalePeriod = '';
+            var lastShiftNumber = '';
+
+            if (shiftChangeRecord) {
+                lastSalePeriod = shiftChangeRecord.sale_period;
+                lastShiftNumber = shiftChangeRecord.shift_number;
+            }
+
+            document.getElementById('last_sale_period').value = (lastSalePeriod == '') ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString();
+            document.getElementById('last_shift_number').value = lastShiftNumber;
+
+            // last ledger entry
+            var ledgerRecordModel = new LedgerRecordModel();
+            var ledgerRecord = ledgerRecordModel.find('first', {conditions: 'terminal_no = "' + terminal_no + '"',
+                                                                recursive: 0,
+                                                                order: 'sale_period desc, shift_number desc, created desc'});
+
+            // last transaction entry
+            var orderModel = new OrderModel();
+            var orderRecord = orderModel.find('first', {conditions: 'terminal_no = "' + terminal_no + '"',
+                                                        recursive: 0,
+                                                        order: 'sale_period desc, shift_number desc, transaction_submitted desc'});
+
+            // last activity sale period/shift number
+            var activitySalePeriod = -1;
+            var activityShiftNumber = -1;
+            var activityTime = -1
+            var activityType;
+
+            if (ledgerRecord) {
+                activitySalePeriod = ledgerRecord.sale_period;
+                activityShiftNumber = ledgerRecord.shift_number;
+                activityTime = ledgerRecord.created;
+                activityType = _('(activity)ledger');
+            }
+
+            if (orderRecord) {
+                if (orderRecord.sale_period >= activitySalePeriod &&
+                    orderRecord.shift_number >= activityShiftNumber) {
+                    activitySalePeriod = orderRecord.sale_period;
+                    activityShiftNumber = orderRecord.shift_number;
+
+                    if (orderRecord.sale_period == activitySalePeriod &&
+                        orderRecord.shift_number == activityShiftNumber) {
+                        if (orderRecord.transaction_submitted >= activityTime) {
+                            activityType = _('(activity)transaction');
+                            activityTime = orderRecord.transaction_submitted;
+                        }
+                    }
+                    else {
+                        activityTime = orderRecord.transaction_submitted;
+                    }
+                }
+            }
+
+            // populate fields
+            if (activityType == null) {
+                document.getElementById('activity_sale_period').value = '';
+                document.getElementById('activity_shift_number').value = '';
+                document.getElementById('activity_type').value = '';
+                document.getElementById('activity_time').value = '';
+            }
+            else {
+                document.getElementById('activity_sale_period').value = new Date(activitySalePeriod * 1000).toLocaleDateString();
+                document.getElementById('activity_shift_number').value = activityShiftNumber;
+                document.getElementById('activity_type').value = activityType;
+                document.getElementById('activity_time').value = new Date(activityTime * 1000).toLocaleString();
+            }
+
+            // set new sale period to last sale period
+            if (lastSalePeriod != '') {
+                document.getElementById('new_sale_period').value = lastSalePeriod * 1000;
+                document.getElementById('new_shift_number').value = lastShiftNumber;
+            }
+            else {
+                document.getElementById('new_sale_period').value = currentSalePeriod * 1000;
+                document.getElementById('new_shift_number').value = currentShiftNumber;
+            }
+
+            // last transaction sequence number for current sale period
+            var fields = '';
+            var orderSequence = '';
+
+            if (GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod')) {
+                fields = 'max(CAST(substr(sequence, 9) as INTEGER)) as "max_seq"';
+            }
+            else {
+                fields = 'max(CAST(sequence as INTEGER)) as "max_seq"';
+            }
+            var sequenceRecord = orderModel.find('first', {fields: [fields],
+                                                           recursive: 0,
+                                                           conditions: 'sale_period=' + currentSalePeriod + ' AND shift_number=' + currentShiftNumber});
+            if (sequenceRecord) {
+                orderSequence = parseInt(sequenceRecord.max_seq);
+            }
+            document.getElementById('order_sequence').value = orderSequence;
+            if (orderSequence != '') {
+                document.getElementById('new_order_sequence').value = orderSequence + 1;
+            }
+        },
+
+        resetSalePeriod: function() {
+            var terminal_no = GeckoJS.Session.get('terminal_no');
+
+            var newSalePeriodDate = new Date(parseInt(document.getElementById('new_sale_period').value)).clearTime();
+            var newSalePeriod = newSalePeriodDate.getTime() / 1000;
+            var newShiftNumber = parseInt(document.getElementById('new_shift_number').value);
+            var newSalePeriodStr = newSalePeriodDate.toLocaleDateString();
+
+            var currentSalePeriod = GeckoJS.Session.get('sale_period');;
+            var currentShiftNumber = GeckoJS.Session.get('shift_number');
+            var currentSalePeriodStr = new Date(currentSalePeriod * 1000).toLocaleDateString();
+
+            // determine last sale period/shift
+            var lastSalePeriodStr = ' -- ';
+            var lastSalePeriod = -1;
+            var lastShiftNumber = ' -- ';
+            var shiftChangeModel = new ShiftChangeModel();
+            var lastShiftRecord = shiftChangeModel.find('first', {conditions: 'terminal_no = "' + terminal_no + '" AND (sale_period < ' + newSalePeriod + ' OR (sale_period = ' + newSalePeriod + ' AND shift_number < ' + newShiftNumber + '))',
+                                                                  recursive: 0,
+                                                                  order: 'sale_period desc, shift_number desc'});
+                                                              
+            if (lastShiftRecord) {
+                lastSalePeriod = lastShiftRecord.sale_period;
+                lastSalePeriodStr = new Date(lastShiftRecord.sale_period * 1000).toLocaleDateString();
+                lastShiftNumber = lastShiftRecord.shift_number;
+            }
+
+            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                        _('Reset Sale Period'),
+                                        _('You are attempting to reset sale period from [%S, %S] to [%S, %S]. This will cause the following to happen:\n\n  - set current sale period to [%S] and shift number to [%S]\n  - remove shift change records for shifts starting at sale period [%S] and shift [%S]\n  - move all activities since sale period [%S] and shift [%S] to new sale period [%S] and shift [%S]\n\nAre you sure you want to proceed?',
+                                          [currentSalePeriodStr, currentShiftNumber, newSalePeriodStr, newShiftNumber, newSalePeriodStr, newShiftNumber, newSalePeriodStr, newShiftNumber, lastSalePeriodStr, lastShiftNumber, newSalePeriodStr, newShiftNumber]))) {
+
+                // put up wait panel
+                let waitPanel = this._showWaitPanel(_('Resetting Sale Period...'));
+
+                // update current sale period
+                let mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                let shiftChangeController = mainWindow.GeckoJS.Controller.getInstanceByName('ShiftChanges');
+                if (shiftChangeController) {
+                    shiftChangeController._setShift(newSalePeriod, newShiftNumber, false, false);
+                }
+
+                var ds = shiftChangeModel.getDataSource();
+                if (ds.begin(true)) {
+
+                    // remove shift change records beyond new sale period and shift
+                    var lastShiftRecords = shiftChangeModel.find('all', {conditions: 'sale_period > ' + newSalePeriod + ' OR (sale_period = ' + newSalePeriod + ' AND shift_number >= ' + newShiftNumber + ')',
+                                                                         recursive: 0,
+                                                                         limit: 3000000}) || [];
+                    lastShiftRecords.forEach(function(record) {
+                        shiftChangeModel.removeShiftChange(record.terminal_no, record.sale_period, record.shift_number);
+                    })
+
+                    // update ledger records
+                    var ledgerRecordModel = new LedgerRecordModel();
+                    var orderPaymentModel = new OrderPaymentModel();
+                    var ledgerRecords;
+                    if (lastShiftRecord) {
+                        ledgerRecords = ledgerRecordModel.find('all', {conditions: 'sale_period > ' + lastSalePeriod + ' OR (sale_period = ' + lastSalePeriod + ' AND shift_number > ' + lastShiftNumber + ')',
+                                                                       recursive: 0,
+                                                                       limit: 3000000});
+                    }
+                    else {
+                        ledgerRecords = ledgerRecordModel.find('all', {recursive: 0, limit: 3000000});
+                    }
+                    ledgerRecords.forEach(function(ledger) {
+                       ledgerRecordModel.id = ledger.id;
+                       ledger.sale_period = newSalePeriod;
+                       ledger.shift_number = newShiftNumber;
+
+                       ledgerRecordModel.save(ledger);
+
+                       // update payment record
+                       let paymentRecords = orderPaymentModel.findByIndex('all', {index: 'order_id', value: ledger.id, limit: 3000000});
+                       paymentRecords.forEach(function(payment) {
+                           orderPaymentModel.id = payment.id;
+                           payment.sale_period = newSalePeriod;
+                           payment.shift_number = newShiftNumber;
+
+                           orderPaymentModel.save(payment);
+                       });
+
+                    });
+                    // update orders
+                    var orderModel = new OrderModel();
+                    var orderRecords;
+                    if (lastShiftRecord) {
+                        orderRecords = orderModel.find('all', {conditions: 'sale_period > ' + lastSalePeriod + ' OR (sale_period = ' + lastSalePeriod + ' AND shift_number > ' + lastShiftNumber + ')',
+                                                               recursive: 0,
+                                                               limit: 3000000});
+                    }
+                    else {
+                        orderRecords = orderModel.find('all', {recursive: 0, limit: 3000000});
+                    }
+                    orderRecords.forEach(function(order) {
+                       orderModel.id = order.id;
+                       order.sale_period = newSalePeriod;
+                       order.shift_number = newShiftNumber;
+
+                       orderModel.save(order);
+
+                       // update payment record
+                       let paymentRecords = orderPaymentModel.findByIndex('all', {index: 'order_id', value: order.id, limit: 3000000});
+                       paymentRecords.forEach(function(payment) {
+                           orderPaymentModel.id = payment.id;
+                           payment.sale_period = newSalePeriod;
+                           payment.shift_number = newShiftNumber;
+
+                           orderPaymentModel.save(payment);
+                       });
+
+                    });
+
+                    // dispatch event to allow extensions to perform their own clean up tasks
+                    this.dispatchEvent('resetSalePeriod', {new_sale_period: newSalePeriod, new_shift_number: newShiftNumber,
+                                                           last_sale_period: lastSalePeriod, last_shift_number: lastShiftNumber});
+
+                    ds.commit(true);
+                    
+                    waitPanel.hidePopup();
+
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Reset Sale Period'),
+                                          _('Current sale period successfully reset'));
+                }
+                else {
+                    ds.rollback(true);
+
+                    waitpanel.hidePopup();
+
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Reset Sale Period'),
+                                          _('Unable to obtain lock on datasource [%S]', [ds.configName]));
+                }
+
+                this.refreshSalePeriodData();
+            }
+        },
+
+        refreshOrderSequence: function() {
+            var sequenceModel = new SequenceModel();
+            var seq = sequenceModel.findByIndex('first', {
+                index: 'key',
+                value: 'order_no'
+            });
+
+            if (seq) {
+                document.getElementById('current_order_sequence').value = seq.value;
+                document.getElementById('new_order_sequence').value = seq.value + 1;
+            }
+            else {
+                document.getElementById('current_order_sequence').value = '';
+                document.getElementById('new_order_sequence').value = '';
+            }
+        },
+
+        resetOrderNumber: function() {
+            var newOrderSequence = document.getElementById('new_order_sequence').value;
+            if (newOrderSequence != null && newOrderSequence != '' && !isNaN(parseInt(newOrderSequence))) {
+                if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                            _('Reset Order Sequence'),
+                                            _('This action will set the local order sequence number to [%S], and could lead to duplicate sequence numbers and must be used with extreme care. Are you sure you want to proceed?', [newOrderSequence]))) {
+                    var sequenceModel = new SequenceModel();
+                    sequenceModel.setLocalSequence('order_no', newOrderSequence);
+
+                    this.refreshOrderSequence();
+                    
+                    NotifyUtils.info(_('Local order sequence number set to [%S]', [newOrderSequence]));
+                }
+            }
+            else {
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Reset Order Sequence'),
+                                      _('New order sequence number [%S] is invalid', [newOrderSequence]));
+            }
+        },
+
         load: function() {
 
             // initialize sync list
@@ -473,6 +774,14 @@
 
             // refresh remote data list
             this.refreshRemoteDataList();
+
+            // refresh order sequence
+            this.refreshOrderSequence();
+
+            // initialize sale period data; must happen after order sequence is refreshed
+            this.refreshSalePeriodData();
+
+            this.dispatchEvent('initial');
         }
 
     };
