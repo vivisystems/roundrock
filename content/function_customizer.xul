@@ -125,6 +125,8 @@
                                                       form="productsForm" name="cpStockControl" default="false" />
                                         <checkbox id="cpTaxes" value="true" label="Disable Taxes Manager"
                                                       form="productsForm" name="cpTaxes" default="false" />
+                                        <checkbox id="cpLabelPrinting" value="true" label="Disable Label Printing"
+                                                      form="productsForm" name="cpLabelPrinting" default="false" />
                                     </tabpanel>
 
                                     <tabpanel flex="1" orient="vertical">
