@@ -62,7 +62,11 @@
                     if (localeKey.length>0) {
                         let msg = _(localeKey);
                         let labelMsg = _('function_customizer.disable.label', [msg]);
-                        document.getElementById(elemId).setAttribute('label', labelMsg);
+                        let elem = document.getElementById(elemId);
+                        if (elem)
+                            elem.setAttribute('label', labelMsg);
+                        else
+                            alert('Element [' + elemId + '] does not exist');
                     }
                    
                 }
