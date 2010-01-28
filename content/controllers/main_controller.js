@@ -113,9 +113,7 @@
 
                         // check if successfully logged in
                         if (this.Acl.getUserPrincipal()) {
-                            // prevent onSetClerk event dispatch
-                            this.dispatchedEvents['onSetClerk'] = true;
-                            this.requestCommand('setClerk', null, 'Main');
+                            this.setClerk(true);
                         }
 
                         this.dispatchEvent('onInitial', null);
@@ -329,6 +327,8 @@
             var aName = _('Change User');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=no,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
+
+            this.requestCommand('setClerk', null, 'Main');
         },
 
         ClockInOutDialog: function () {
@@ -764,7 +764,7 @@
             }
         },
 
-        setClerk: function () {
+        setClerk: function (recovery) {
             var user = this.Acl.getUserPrincipal();
             if (user) {
                 // perform user login initialization
@@ -812,7 +812,7 @@
                 var fnPanel = document.getElementById('functionPanel');
                 if (fnPanel) fnPanel.home();
 
-                this.dispatchEvent('signedOn', user);
+                if (!recovery) this.dispatchEvent('signedOn', user);
             }
             else {
                 GeckoJS.Session.clear('user');
@@ -1220,15 +1220,16 @@
                 if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
-            this.dispatchEvent('signedOff', principal);
-            
-            Transaction.removeRecoveryFile();
+            if (this.dispatchEvent('signedOff', principal)) {
 
-            // close all poup panels
-            this.closeAllPopupPanels();
+                Transaction.removeRecoveryFile();
 
-            if (!quickSignoff) {
-                this.ChangeUserDialog();
+                // close all poup panels
+                this.closeAllPopupPanels();
+
+                if (!quickSignoff) {
+                    this.ChangeUserDialog();
+                }
             }
         },
 
@@ -1592,9 +1593,11 @@
                 actionButton.setAttribute('oncommand', '$do("suspendLoadTest", null, "Main");');
             }
             
-            var loopCount = 0;
+            var ordersOpened = 0;
+            var ordersClosed = 0;
             if (resume && this.loadTestState != null) {
-                i = this.loadTestState;
+                ordersOpened = this.loadTestState.opened;
+                ordersClosed = this.loadTestState.closed;
                 this.loadTestState = null;
                 progressBar.value = loopCount * 100 / count;
                 waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
@@ -1604,11 +1607,11 @@
                 waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
 
-            while (loopCount < count) {
+            while (ordersClosed < count) {
 
                 if (this._suspendLoadTest) {
                     this._suspendLoadTest = false;
-                    this.loadTestState = loopCount;
+                    this.loadTestState = {opened: ordersOpened, closed: ordersClosed}
                     
                     break;
                 }
@@ -1628,13 +1631,14 @@
                     }
                 }
 
+                // found table, let's get a transaction'
                 if (currentTableNo > -1) {
                     let conditions = 'orders.table_no="' + currentTableNo + '" AND orders.status=2';
                     var orders = this.Order.getOrdersSummary(conditions, true);
 
                     let recalled = false;
                     let txn;
-                    if (orders.length > 0 && Math.random() < 0.5) {
+                    if (orders.length > 0 && (ordersOpened == count && Math.random() < 0.5)) {
 
                         // recall order
                         let index = Math.floor(Math.random() * orders.length);
@@ -1646,7 +1650,7 @@
                         }
                     }
 
-                    if (!recalled) {
+                    if (!recalled && ordersOpened < count) {
 
                         // create a new order
                         if (currentTableNo > -1) {
@@ -1666,10 +1670,8 @@
                                 customer: customer
                             });
                         }
-                    }
 
-                    if (!txn) {
-                        txn = cart._getTransaction(true);
+                        if (txn) ordersOpened++;
                     }
 
                     if (txn) {
@@ -1702,22 +1704,31 @@
                             cart.addItem(item);
 
                             // delay
-                            this.sleep(300);
+                            this.sleep(100);
                         }
 
                         if (txn.getItemsCount() < items) {
                             cart.storeCheck();
                         }else {
                             cart.cash(',1,');
+
+                            // update progress bar for order closed
+                            progressBar.value = (++ordersClosed * 100) / count;
+
+                            this.sleep(1000);
                         }
                     }
+                    else {
+                        // did not find an available order on the current table; do a small delay and retry
+                        this.sleep(100);
+                    }
                 }
-                // update progress bar
-                progressBar.value = (loopCount + 1) * 100 / count;
-
+                else {
+                    // did not find an active table; do a small delay and retry
+                    this.sleep(100);
+                }
                 // GC & delay
                 GREUtils.gc();
-                this.sleep(3000);
             }
 
             waitPanel.hidePopup();

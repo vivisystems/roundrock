@@ -292,11 +292,13 @@
             <database>vivipos.sqlite</database>
             <table>jobs</table>
         </action>
+	<!--
         <action>
             <type>db</type>
             <database>vivipos_acl.sqlite</database>
             <table>acl_roles</table>
         </action>
+	-->
         <action>
             <type>db</type>
             <database>vivipos_acl.sqlite</database>
@@ -305,7 +307,7 @@
         <action>
             <type>db</type>
             <database>vivipos_acl.sqlite</database>
-            <table>acl_group</table>
+            <table>acl_groups</table>
         </action>
         <action>
             <type>db</type>

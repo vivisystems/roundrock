@@ -446,13 +446,15 @@
 
             var success = httpService.requestRemoteService('GET', requestUrl) || false ;
 
+            this.initialIrcLists();
+
+            this.updatePackageClientList();
+
             if (success) {
                 OsdUtils.info(_('Package [%S] removed successfully', [file]));
             }else {
                 NotifyUtils.warn(_('Package not available to remove.'));
             }
-
-            this.initialIrcLists();
 
             // enable ui buttons
             this.cancelCreateIrcPackage();

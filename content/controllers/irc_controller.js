@@ -302,7 +302,13 @@
          */
         restart: function() {
 
-            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Restart after Update'), _('Update successful') + '\n\n' + _('Please confirm to restart the terminal')) == false) {
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX < 0) {
+                win = null;
+            }
+
+            if (GREUtils.Dialog.confirm(win, _('Restart after Update'), _('Update successful') + '\n\n' + _('Please confirm to restart the terminal')) == false) {
                 return;
             }
 
@@ -313,10 +319,11 @@
                 GREUtils.restartApplication();
                 window.stop();
                 window.close();
+
+                this.sleep(1000);
             }catch(e) {
                 this.log('ERROR', 'Error restart', e);
             }
-
         },
 
 
@@ -334,8 +341,6 @@
 
             try {
                 goRebootMachine();
-                window.stop();
-                window.close();
             }catch(e) {
                 this.log('ERROR', 'Error reboot', e);
             }
@@ -392,19 +397,14 @@
             var aFeatures = 'chrome,dialog,centerscreen,dependent=yes,resize=no,width='
             + width + ',height=' + height;
 
-            var win = this.topmostWindow;
-            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-            .getService(Components.interfaces.nsIWindowMediator)
-            .getMostRecentWindow("Vivipos:Main");
-
-            win = mainWindow;
-
+            var win = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
             }
 
-            var alertWin = GREUtils.Dialog.openWindow(null, aURL, aName,
+            var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName,
                 aFeatures, aArguments);
 
             return alertWin;
@@ -435,12 +435,6 @@
             + width + ',height=' + height;
 
             var win = this.topmostWindow;
-            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-            .getService(Components.interfaces.nsIWindowMediator)
-            .getMostRecentWindow("Vivipos:Main");
-
-            win = mainWindow;
-
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
