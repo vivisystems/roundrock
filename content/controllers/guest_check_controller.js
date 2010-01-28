@@ -52,16 +52,15 @@
             
             this.tableSettings = this.TableSetting.getTableSettings() || {};
 
+            // load regions and tables in session.
+            let regions = this.Table.TableRegion.getTableRegions();
+            let tables = this.Table.getTables();
+
             // table window is first win
             if (this.tableSettings.TableWinAsFirstWin) {
 
                 var alertWin = this.showAlertDialog();
                 this.sleep(1000);
-
-                // load regions and tables in session.
-                let regions = this.Table.TableRegion.getTableRegions();
-
-                let tables = this.Table.getTables();
 
                 // prefetch tables status with orders
                 this.Table.TableStatus.getTablesStatus(true);
@@ -492,11 +491,6 @@
 
                 if (destination) {
                     this.requestCommand('setDestination', destination, 'Destinations');
-                } else {
-                    var defaultDest = GeckoJS.Session.get('defaultDestination');
-                    if (defaultDest) {
-                        this.requestCommand('setDestination', defaultDest, 'Destinations');
-                    }
                 }
 
                 // update Table No
@@ -1085,7 +1079,8 @@
             cart._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
 
-            // set destination action if table specific or set to default
+            curTransaction.setTableRegionName('');
+
             if (curTransaction.data.table_no && !isNaN(parseInt(curTransaction.data.table_no))) {
                 var table = this.Table.getTableByNo(curTransaction.data.table_no);
                 if (table) {
@@ -1095,16 +1090,12 @@
                         let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
                         curTransaction.setTableRegionName(region.name);
                     }
-                    
-                    if (table.destination) {
-                        this.requestCommand('setDestination', table.destination, 'Destinations');
-                    }
                 }else {
                     curTransaction.setTableNo(''); // reset table_no to empty
-                    var defaultDest = GeckoJS.Session.get('defaultDestination') || false;
-                    if (defaultDest) {
-                        this.requestCommand('setDestination', defaultDest, 'Destinations');
-                    }
+                }
+
+                if (curTransaction.data.status == 0 && curTransaction.data.destination) {
+                    this.requestCommand('setDestination', curTransaction.data.destination, 'Destinations');
                 }
             }
             

@@ -70,25 +70,25 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
 				
-                if (syncSettings.irc_update_when_signon) {
+                if (GeckoJS.String.parseBoolean(syncSettings.irc_update_when_signon)) {
                     main.addEventListener('signedOn', function() {
                         self.checkAvailableUpdates();
                     });
                 }
 
-                if (syncSettings.irc_update_when_signoff) {
+                if (GeckoJS.String.parseBoolean(syncSettings.irc_update_when_signoff)) {
                     main.addEventListener('signedOff', function() {
                         self.checkAvailableUpdates();
                     });
                 }
 
-                if (syncSettings.irc_update_when_reboot) {
+                if (GeckoJS.String.parseBoolean(syncSettings.irc_update_when_reboot)) {
                     main.addEventListener('beforeReboot', function() {
                         self.checkAvailableUpdates(true);
                     });
                 }
 
-                if (syncSettings.irc_update_when_shutdown) {
+                if (GeckoJS.String.parseBoolean(syncSettings.irc_update_when_shutdown)) {
                     main.addEventListener('beforeShutdown', function() {
                         self.checkAvailableUpdates(true);
                     });
@@ -103,7 +103,7 @@
             // add cart listener
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if (cart) {
-                if (syncSettings.irc_update_when_eachsale) {
+                if (GeckoJS.String.parseBoolean(syncSettings.irc_update_when_eachsale)) {
                     cart.addEventListener('onSubmitSuccess', function() {
                         self.checkAvailableUpdates();
                     });
