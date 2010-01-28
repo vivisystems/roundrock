@@ -572,9 +572,9 @@
                 fields = 'max(CAST(sequence as INTEGER)) as "max_seq"';
             }
             var sequenceRecord = orderModel.find('first', {fields: [fields],
-                                                           recursive: 0,
-                                                           conditions: 'sale_period=' + currentSalePeriod + ' AND shift_number=' + currentShiftNumber});
-            if (sequenceRecord) {
+                                                         recursive: 0,
+                                                         conditions: 'terminal_no = "' + terminal_no + '" AND sale_period=' + currentSalePeriod + ' AND shift_number=' + currentShiftNumber});
+            if (sequenceRecord && sequenceRecord.max_seq != null) {
                 orderSequence = parseInt(sequenceRecord.max_seq);
             }
             document.getElementById('order_sequence').value = orderSequence;
@@ -630,7 +630,7 @@
                 if (ds.begin(true)) {
 
                     // remove shift change records beyond new sale period and shift
-                    var lastShiftRecords = shiftChangeModel.find('all', {conditions: 'sale_period > ' + newSalePeriod + ' OR (sale_period = ' + newSalePeriod + ' AND shift_number >= ' + newShiftNumber + ')',
+                    var lastShiftRecords = shiftChangeModel.find('all', {conditions: 'terminal_no = "' + terminal_no + '" AND (sale_period > ' + newSalePeriod + ' OR (sale_period = ' + newSalePeriod + ' AND shift_number >= ' + newShiftNumber + '))',
                                                                          recursive: 0,
                                                                          limit: 3000000}) || [];
                     lastShiftRecords.forEach(function(record) {
@@ -642,7 +642,7 @@
                     var orderPaymentModel = new OrderPaymentModel();
                     var ledgerRecords;
                     if (lastShiftRecord) {
-                        ledgerRecords = ledgerRecordModel.find('all', {conditions: 'sale_period > ' + lastSalePeriod + ' OR (sale_period = ' + lastSalePeriod + ' AND shift_number > ' + lastShiftNumber + ')',
+                        ledgerRecords = ledgerRecordModel.find('all', {conditions: 'terminal_no = "' + terminal_no + '" AND (sale_period > ' + lastSalePeriod + ' OR (sale_period = ' + lastSalePeriod + ' AND shift_number > ' + lastShiftNumber + '))',
                                                                        recursive: 0,
                                                                        limit: 3000000});
                     }
@@ -671,7 +671,7 @@
                     var orderModel = new OrderModel();
                     var orderRecords;
                     if (lastShiftRecord) {
-                        orderRecords = orderModel.find('all', {conditions: 'sale_period > ' + lastSalePeriod + ' OR (sale_period = ' + lastSalePeriod + ' AND shift_number > ' + lastShiftNumber + ')',
+                        orderRecords = orderModel.find('all', {conditions: 'terminal_no = "' + terminal_no + '" AND (sale_period > ' + lastSalePeriod + ' OR (sale_period = ' + lastSalePeriod + ' AND shift_number > ' + lastShiftNumber + '))',
                                                                recursive: 0,
                                                                limit: 3000000});
                     }

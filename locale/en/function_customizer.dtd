@@ -9,7 +9,7 @@
 <!ENTITY    function_customizer.tools.label "Tools">
 <!ENTITY    function_customizer.reports.title "Reports">
 <!ENTITY    function_customizer.functions.title "Functions">
-<!ENTITY    function_customizer.systems.title "Systems">
+<!ENTITY    function_customizer.systems.title "System">
 
 <!ENTITY    function_customizer.tab.controlpanel "Control Panel">
 <!ENTITY    function_customizer.tab.appearance "Appearance">
