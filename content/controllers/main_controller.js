@@ -1699,15 +1699,12 @@
                             if (txn.data.check_no == '') {
                                 txn.setCheckNo(++checkSeq % maxCheckNo);
                             }
-                            else {
-                                alert('check number already set: ' + txn.data.check_no);
-                            }
                         }
                     }
 
                     if (txn) {
                         // get current number of items
-                        let itemCount = txn.getItemsCount();
+                        let itemCount = txn.data.qty_subtotal;
                         let itemsToAdd = items - itemCount;
 
                         let doStore = false;
