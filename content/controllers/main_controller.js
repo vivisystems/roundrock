@@ -1696,7 +1696,12 @@
                             txn.setNumberOfCustomers(parseInt(5 * Math.random() + 1));
 
                             // assign check number if not auto-assigned
-                            if (txn.data.check_no == '') txn.setCheckNo(++checkSeq % maxCheckNo);
+                            if (txn.data.check_no == '') {
+                                txn.setCheckNo(++checkSeq % maxCheckNo);
+                            }
+                            else {
+                                alert('check number already set: ' + txn.data.check_no);
+                            }
                         }
                     }
 
@@ -1704,8 +1709,13 @@
                         // get current number of items
                         let itemCount = txn.getItemsCount();
                         let itemsToAdd = items - itemCount;
-                        if (store && Math.random() < 0.5) {
-                            itemsToAdd = Math.min(itemsToAdd, Math.ceil(items * Math.random()));
+
+                        let doStore = false;
+                        if (itemsToAdd > 0) {
+                            doStore = Math.random() < 0.7;
+                            if (store && doStore) {
+                                itemsToAdd = Math.min(itemsToAdd, Math.ceil(items * Math.random()));
+                            }
                         }
 
                         // add items
@@ -1730,7 +1740,7 @@
                             this.sleep(100);
                         }
 
-                        if (txn.getItemsCount() < items) {
+                        if (doStore) {
                             $do('storeCheck', null, 'Cart');
                         }else {
                             $do('cash', ',1,', 'Cart');
