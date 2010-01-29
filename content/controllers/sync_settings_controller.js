@@ -246,6 +246,7 @@
             document.getElementById('ircPackagesTree').datasource = packages;
 
             $('#ircRemovePackage').attr({disabled: 'true'});
+            $('#ircRefreshPackage').attr({disabled: 'true'});
 
             document.getElementById('ircPackagesTree').selectedIndex = -1;
             document.getElementById('ircPackagesTree').currentIndex = -1;
