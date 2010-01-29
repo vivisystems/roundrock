@@ -380,11 +380,11 @@ container-report.ReportButton[disabled=true] {
 	height: 60px;
 	padding-left: 58px;
 	-moz-appearance: none;
-	background: transparent url(../icons/icon_printlabel.png) center center no-repeat !important;
+	background: transparent url(../icons/icon_printer.png) center center no-repeat !important;
 }
 
 .container-report .PrintReportBtn[disabled=true] {
-	background: transparent url(../icons/icon_printlabel.png) center center no-repeat !important;
+	background: transparent url(../icons/icon_printer.png) center center no-repeat !important;
 }
 
 .container-report .ZoomBtn {
