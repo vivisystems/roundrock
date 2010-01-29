@@ -357,9 +357,9 @@
                         if (!showAvailableSeatTable) {
                             available = false;
                         }else {
-                            let tableSeat = table.seat;
+                            let tableSeats = table.seats;
                             let customers = tableStatus.sum_customer;
-                            if (customers >= tableSeat) available = false;
+                            if (customers >= tableSeats) available = false;
                         }
                     }
 
