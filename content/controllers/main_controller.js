@@ -1553,6 +1553,24 @@
             var items = parseInt(paramList[1]) || 1;
             var store = parseInt(paramList[2]) || 0;
             var resume = parseInt(paramList[3]) || 0;
+
+            // parse user input
+            var buf = this._getKeypadController().getBuffer() || '';
+            this.requestCommand('clearBuffer', null, 'Keypad');
+            var userParams = buf.split('.');
+            if (userParams.length > 0 && !isNaN(parseInt(userParams[0]))) {
+                count = parseInt(userParams[0]) || 1;
+            }
+            if (userParams.length > 1 && !isNaN(parseInt(userParams[1]))) {
+                items = parseInt(userParams[1]) || 1;
+            }
+            if (userParams.length > 2 && !isNaN(parseInt(userParams[2]))) {
+                store = parseInt(userParams[2]) || 0;
+            }
+            if (userParams.length > 0 && !isNaN(parseInt(userParams[3]))) {
+                resume = parseInt(userParams[3]) || 0;
+            }
+
             var customers = GeckoJS.Session.get('customers') || [];
             var products = GeckoJS.Session.get('products') || [];
             var numProds = products.length;
@@ -1599,7 +1617,7 @@
                 ordersOpened = this.loadTestState.opened;
                 ordersClosed = this.loadTestState.closed;
                 this.loadTestState = null;
-                progressBar.value = loopCount * 100 / count;
+                progressBar.value = ordersClosed * 100 / count;
                 waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
             else {
@@ -1638,7 +1656,7 @@
 
                     let recalled = false;
                     let txn;
-                    if (orders.length > 0 && (ordersOpened == count && Math.random() < 0.5)) {
+                    if (orders.length > 0 && Math.random() < 0.5) {
 
                         // recall order
                         let index = Math.floor(Math.random() * orders.length);
@@ -1671,17 +1689,22 @@
                             });
                         }
 
-                        if (txn) ordersOpened++;
+                        if (txn) {
+                            ordersOpened++;
+
+                            // assign number of guests
+                            txn.setNumberOfCustomers(parseInt(5 * Math.random() + 1));
+
+                            // assign check number if not auto-assigned
+                            if (txn.data.check_no == '') txn.setCheckNo(++checkSeq % maxCheckNo);
+                        }
                     }
 
                     if (txn) {
-                        // assign check number if not auto-assigned
-                        if (txn.data.check_no == '') txn.data.check_no = (++checkSeq % maxCheckNo);
-
                         // get current number of items
                         let itemCount = txn.getItemsCount();
                         let itemsToAdd = items - itemCount;
-                        if (store) {
+                        if (store && Math.random() < 0.5) {
                             itemsToAdd = Math.min(itemsToAdd, Math.ceil(items * Math.random()));
                         }
 
@@ -1701,20 +1724,22 @@
                             }
 
                             // add to cart
-                            cart.addItem(item);
+                            $do('addItem', item, 'Cart');
 
                             // delay
                             this.sleep(100);
                         }
 
                         if (txn.getItemsCount() < items) {
-                            cart.storeCheck();
+                            $do('storeCheck', null, 'Cart');
                         }else {
-                            cart.cash(',1,');
+                            $do('cash', ',1,', 'Cart');
 
                             // update progress bar for order closed
-                            progressBar.value = (++ordersClosed * 100) / count;
-
+                            if (txn.isSubmit()) {
+                                progressBar.value = (++ordersClosed * 100) / count;
+                            }
+                            
                             this.sleep(1000);
                         }
                     }
