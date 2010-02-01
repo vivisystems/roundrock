@@ -177,6 +177,8 @@
 
             let settings = this._getSyncSettings();
             let syncTerminal = this._getSyncTerminal(settings);
+            let myTerminal = settings.machine_id;
+
             document.getElementById('sync_server').value = settings.hostname + ' [' + (syncTerminal || _('--no contact--')) + ']';
 
             // get list of datasources
@@ -190,7 +192,7 @@
 
                 // extract local index
                 let localIndex = '';
-                let localIndexResult = ds.fetchAll('select max(id) as "index" from syncs') || [];
+                let localIndexResult = ds.fetchAll('select max(id) as "index" from syncs where machine_id="' + myTerminal + '"') || [];
                 if (localIndexResult.length > 0) {
                     localIndex = localIndexResult[0].index;
                 }
