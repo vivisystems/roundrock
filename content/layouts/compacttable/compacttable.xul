@@ -72,7 +72,6 @@
                 <box id="logoPanelContainer" class="boxarea" align="center" orient="vertical" panel="&layout.panel.logo;">
                     <image id="logoImage" />
                 </box>
-                <box id="customerPanelContainer" panel="" class="customerpnl"/>
                 <box id="cartStatusPanelContainer" panel=""/>
                 <box id="expressKeyPanel" flex="0" class="plusFunction" orient="vertical" panel="&layout.panel.expresskeys;">
                     <hbox>

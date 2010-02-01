@@ -52,7 +52,6 @@
 
             <box id="rightPanel" flex="0" class="right-panel" orient="vertical">
                 <box id="vfdPanelContainer" flex="1" panel="&layout.panel.vfd;"/>
-                <box id="customerPanelContainer" panel=""/>
                 <box id="cartStatusPanelContainer" panel=""/>
 
                 <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
