@@ -338,7 +338,8 @@
                                                 </rows>
                                             </grid>
                                             <vivitree id="ircDetailClientsTree" flex="1" class="standard"
-                                                      headers="&sync_settings.label.irc_machineid_header;,&sync_settings.label.irc_downloaded_header;,&sync_settings.label.irc_updated_header;" fields="machine_id,downloaded,updated" hidecolumnpicker="true" />
+                                                      headers="&sync_settings.label.irc_machineid_header;,&sync_settings.label.irc_downloaded_header;,&sync_settings.label.irc_updated_header;"
+                                                      fields="machine_id,downloaded,updated" hidecolumnpicker="true" />
                                         </tabpanel>
 
                                         <tabpanel id="irc-edit-panel" orient="vertical" flex="1">
