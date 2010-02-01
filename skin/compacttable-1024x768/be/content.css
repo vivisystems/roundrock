@@ -124,21 +124,21 @@
  */
 
 .container-be .data-form {
-	border-right: 2px solid white;
-	background: #f0efe8;
+    border-right: 2px solid white;
+    background: #f0efe8;
     margin: 0px 10px 10px 10px;
 }
 
-.container-be .data-form row {
-	border-bottom: 2px solid white;
+.container-be .data-form > rows > row {
+    border-bottom: 2px solid white;
     min-height: 44px;
     padding: 8px;
     -moz-box-align: center;
 }
 
-.container-be .data-form column {
-	border-right: 2px solid white;
-	padding: 8px;
+.container-be .data-form > columns > column {
+    border-right: 2px solid white;
+    padding: 8px;
 }
 
 .container-be .data-form label {
@@ -151,20 +151,20 @@
 }
 
 .container-be .data-form-2 {
-	border-right: 2px solid white;
-	background: #f0efe8;
+    border-right: 2px solid white;
+    background: #f0efe8;
     margin: 0px 10px 10px 10px;
 }
 
-.container-be .data-form-2 row {
-	border-bottom: 2px solid white;
+.container-be .data-form-2 > rows > row {
+    border-bottom: 2px solid white;
     min-height: 44px;
     padding: 8px;
 }
 
-.container-be .data-form-2 column {
-	border-right: 2px solid white;
-	padding: 8px;
+.container-be .data-form-2 > columns > column {
+    border-right: 2px solid white;
+    padding: 8px;
 }
 
 .container-be .data-form-2 label {

@@ -241,8 +241,15 @@
             var requestUrl = remoteUrl;
             var packages = httpService.requestRemoteService('GET', requestUrl) || [] ;
 
-            this.ircPackages = packages;
+            // sort packages by file name
+            packages = packages.sort(function(p1, p2) {return p1.file > p2.file});
 
+            // update package size to human readable format
+            packages.forEach(function(pkg) {
+                pkg.filesize = GeckoJS.NumberHelper.toReadableSize(pkg.filesize);
+            });
+            
+            this.ircPackages = packages;
             document.getElementById('ircPackagesTree').datasource = packages;
 
             $('#ircRemovePackage').attr({disabled: 'true'});
@@ -273,11 +280,12 @@
                     clients.push({machine_id: status.machine_id, downloaded: downloaded, updated: updated});
                 }
             }
+            clients.sort(function(a,b) {return a.machine_id > b.machine_id});
             document.getElementById('ircDetailClientsTree').datasource = clients;
 
         },
 
-        refreshSelectIrcPackage: function() {
+        refreshSelectIrcPackage: function(noNotify) {
 
             var index = document.getElementById('ircPackagesTree').selectedIndex;
 
@@ -299,6 +307,7 @@
             else {
                 this.updatePackageClientList();
             }
+            if (!noNotify) NotifyUtils.info(_('Package client list refreshed'));
             
         },
         
@@ -307,7 +316,7 @@
             if (index < 0) return false ;
 
             // refresh first
-            this.refreshSelectIrcPackage();
+            this.refreshSelectIrcPackage(true);
             
             var ircPackage = this.ircPackages[index] || false;
             if (!ircPackage) return false;
@@ -315,7 +324,6 @@
             let data = GREUtils.extend({}, ircPackage);
 
             data.activation = (new Date(ircPackage.activation*1000)).toLocaleString();
-            data.filesize = GeckoJS.NumberHelper.toReadableSize(ircPackage.filesize);
             data.module_labels = ircPackage.module_labels.split(",").join("\n");
 
             this.Form.reset('ircDetail');

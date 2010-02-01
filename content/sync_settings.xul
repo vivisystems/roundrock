@@ -60,7 +60,6 @@
                                 <column flex="1"/>
                             </columns>
                             <rows>
-
                                 <row>
                                     <vbox>
                                         <label value="&sync_settings.label.hostname;"/>
@@ -293,13 +292,13 @@
                                 </hbox>
                                 <hbox flex="1" class="content-listbox">
                                     <vivitree id="ircPackagesTree" flex="1" class="standard"
-                                  headers="&sync_settings.label.irc_packages_header;" fields="file" hidecolumnpicker="true"
-                                  onselect="$do('onSelectIrcPackage',this.selectedIndex, 'SyncSettings');"/>
+                                              headers="&sync_settings.label.irc_packages_header;,&sync_settings.label.irc_filesize_header;" fields="file,filesize" hidecolumnpicker="true"
+                                              onselect="$do('onSelectIrcPackage',this.selectedIndex, 'SyncSettings');"/>
                                 </hbox>
                                 <hbox flex="0" class="toolbar" toolbarmode="vertical" align="left">
                                     <vivibutton id="ircCreatePackage" label="&sync_settings.button.irc_create_package;" oncommand="$do('createIrcPackage',null, 'SyncSettings');"/>
                                     <vivibutton id="ircRemovePackage" label="&sync_settings.button.irc_remove_package;" oncommand="$do('removeIrcPackage',document.getElementById('ircPackagesTree').selectedIndex, 'SyncSettings');" disabled="true" />
-                                    <button id="ircRefreshPackage" image="chrome://viviecr/skin/images/reload.png" oncommand="$do('refreshSelectIrcPackage',document.getElementById('ircPackagesTree').selectedIndex, 'SyncSettings');" disabled="true" />
+                                    <button id="ircRefreshPackage" image="chrome://viviecr/skin/images/reload.png" oncommand="$do('refreshSelectIrcPackage', null, 'SyncSettings');" disabled="true" />
                                 </hbox>
                             </vbox>
                             <vbox flex="3" id="ircEditBox">
@@ -310,19 +309,19 @@
                                     </tabs>
                                     <tabpanels flex="1">
                                         <tabpanel id="irc-detail-panel" orient="vertical" flex="1" >
-                                            <grid flex="1">
+                                            <grid flex="0" class="data-form-2">
                                                 <columns>
+                                                    <column flex="0"/>
                                                     <column flex="1"/>
-                                                    <column flex="2"/>
                                                 </columns>
                                                 <rows>
                                                     <row>
                                                         <label value="&sync_settings.label.irc_created_machine_id;"/>
-                                                        <textbox name="created_machine_id" form="ircDetail" readonly="true" />
-                                                    </row>
-                                                    <row>
-                                                        <label value="&sync_settings.label.irc_filesize;"/>
-                                                        <textbox name="filesize" form="ircDetail" readonly="true" />
+                                                        <hbox>
+                                                            <textbox name="created_machine_id" form="ircDetail" readonly="true" flex="1"/>
+                                                            <label value="&sync_settings.label.irc_workgroup;"/>
+                                                            <textbox name="workgroup" form="ircDetail" readonly="true" size="10"/>
+                                                        </hbox>
                                                     </row>
                                                     <row>
                                                         <label value="&sync_settings.label.irc_description;"/>
@@ -333,27 +332,20 @@
                                                         <textbox name="activation" form="ircDetail" readonly="true" />
                                                     </row>
                                                     <row>
-                                                        <label value="&sync_settings.label.irc_workgroup;"/>
-                                                        <textbox name="workgroup" form="ircDetail" readonly="true" />
-                                                    </row>
-                                                    <row>
                                                         <label value="&sync_settings.label.irc_modules;"/>
                                                         <textbox name="module_labels" form="ircDetail" readonly="true" multiline="true" rows="2"/>
                                                     </row>
-                                                    <row flex="1">
-                                                        <label value="&sync_settings.label.irc_clients;"/>
-                                                        <vivitree id="ircDetailClientsTree" flex="1" class="standard"
-                                                                  headers="&sync_settings.label.irc_machineid_header;,&sync_settings.label.irc_downloaded_header;,&sync_settings.label.irc_updated_header;" fields="machine_id,downloaded,updated" hidecolumnpicker="true" />
-                                                    </row>
                                                 </rows>
                                             </grid>
+                                            <vivitree id="ircDetailClientsTree" flex="1" class="standard"
+                                                      headers="&sync_settings.label.irc_machineid_header;,&sync_settings.label.irc_downloaded_header;,&sync_settings.label.irc_updated_header;" fields="machine_id,downloaded,updated" hidecolumnpicker="true" />
                                         </tabpanel>
 
                                         <tabpanel id="irc-edit-panel" orient="vertical" flex="1">
-                                            <grid flex="1">
+                                            <grid flex="1" class="data-form-2">
                                                 <columns>
+                                                    <column flex="0"/>
                                                     <column flex="1"/>
-                                                    <column flex="2"/>
                                                 </columns>
                                                 <rows>
                                                     <row>
@@ -371,18 +363,14 @@
                                                             <label value="&sync_settings.label.irc_workgroup_desc;"/>
                                                         </hbox>
                                                     </row>
-                                                    <row flex="2">
+                                                    <row flex="1">
                                                         <label value="&sync_settings.label.irc_modules;"/>
-                                                        <viviscrollablebuttonpanel id="ircModules" seltype="multiple" flex="1" cols="3" rows="4" labelField="label"
+                                                        <viviscrollablebuttonpanel id="ircModules" seltype="multiple" flex="1" cols="3" rows="3" labelField="label"
                                                                                    buttonClass="button-item-a"
                                                                                    scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
                                                                                    form="ircEdit" name="modules">
                                                             <spacer flex="1"/>
                                                         </viviscrollablebuttonpanel>
-                                                    </row>
-                                                    <row flex="1">
-                                                        <spacer />
-                                                        <spacer />
                                                     </row>
                                                     <row>
                                                         <spacer />
