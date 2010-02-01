@@ -3295,19 +3295,23 @@
 
         cancel: function(forceCancel) {
 
+            var orderModel = new OrderModel();
+
             this._getKeypadController().clearBuffer();
             this._cancelReturn(true);
 
-            // cancel cart but save
             var curTransaction = this._getTransaction();
             if (!this.ifHavingOpenedOrder()) {
 
+                if (curTransaction) orderModel.releaseOrderLock(curTransaction.data.id);
+                
                 this.clear();
 
                 this.dispatchEvent('onCancelSuccess', null);
 
                 // let dispatcher don't auto dispatch onCancel
                 this.dispatchedEvents['onCancel'] = true;
+
                 return;
             }
 
