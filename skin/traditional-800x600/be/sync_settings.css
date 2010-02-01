@@ -10,3 +10,7 @@
     min-width: 295px;
     width: 295px;
 }
+
+#ircListBox #filesize {
+    text-align: center;
+}
