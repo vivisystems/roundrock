@@ -114,6 +114,8 @@
 
             if (!newDataSource) return content;
 
+            this.renameBackupFileWithStatus(status);
+            
             var backupPath = newDataSource.path;
 
             var backupFile = backupPath + "/" + this.table + ".db";
