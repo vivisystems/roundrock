@@ -14,7 +14,7 @@
  * @public
  * @namespace
  */
-var GeckoJS = GeckoJS || {version: "1.2.3"}; // Check to see if already defined in current scope
+var GeckoJS = GeckoJS || {version: "1.2.4"}; // Check to see if already defined in current scope
 
 /**
  * This is a reference to the global context, which is normally the "window" object.
@@ -9285,6 +9285,8 @@ GREUtils.define('GeckoJS.BaseModel', GeckoJS.global);
  * @property {Object} hasAndBelongsToMany List of Models with which this model has an many-to-many relationship
  * @property {Object} behaviors           A list of Behaviors associated with this model
  * @property {Boolean} autoRestoreFromBackup             Auto Restore From Backup if backup datas exists
+ * @property {Boolean} useTable           Custom database table name, or null/false if no table association is desired.
+ *
  */
 GeckoJS.BaseModel = GeckoJS.BaseObject.extend('BaseModel',
 /** @lends GeckoJS.BaseModel.prototype */
@@ -9316,6 +9318,10 @@ GeckoJS.BaseModel = GeckoJS.BaseObject.extend('BaseModel',
 
         // Table name for this Model.
         this.table = this.table || GeckoJS.Inflector.tableize(this.name);
+
+        if (this.useTable !== false) {
+            this.useTable = this.table;
+        }
 
         this._datasource = null;
 
@@ -9358,7 +9364,7 @@ GeckoJS.BaseModel = GeckoJS.BaseObject.extend('BaseModel',
         this._addBehaviors();
 
         //
-        if (recursive >= 0) this._generateAssociation(recursive);
+        if (recursive >= 0 && this.useTable !== false) this._generateAssociation(recursive);
 
         // predefine recursive
         this.recursive = 1;
@@ -9571,7 +9577,7 @@ GeckoJS.BaseModel.prototype.schema = function (recursive) {
     if (this._schema != null) return this._schema ;
 
     // ignore BaseModel or Model
-    if (this.getClassName() == 'BaseModel' || this.getClassName() == 'Model' ) return {};
+    if (this.getClassName() == 'BaseModel' || this.getClassName() == 'Model' || this.useTable === false ) return {};
     
     var schema = {};
     
@@ -11010,7 +11016,7 @@ GeckoJS.BaseModel.prototype.execute = function(statement){
 GeckoJS.BaseModel.prototype.exists = function(reset) {
     reset = reset || false;
 
-    if (this.getId() === false) {
+    if (this.getId() === false || this.useTable === false) {
         return false;
     }
 
