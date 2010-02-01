@@ -14,3 +14,8 @@
 #ircListBox #filesize {
     text-align: center;
 }
+
+#ircDetailClientsTree #downloaded,
+#ircDetailClientsTree #updated {
+    text-align: center;
+}
