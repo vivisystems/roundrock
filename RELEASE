@@ -56,3 +56,6 @@ Bug #347:
 Bug #348:
     Simple Retail layout should not define customerPanelContainer which is extension-dependent
 
+Bug #351:
+    Saving order and orderPayments locally for stored orders cause old data to overwrite new data
+
