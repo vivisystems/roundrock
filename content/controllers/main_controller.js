@@ -1760,11 +1760,14 @@
                         }else {
                             $do('cash', ',1,', 'Cart');
 
+                            this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
                             // update progress bar for order closed
-                            if (txn.isSubmit() || noTable) {
+                            if (txn.data == 1 || noTable) {
                                 progressBar.value = (++ordersClosed * 100) / count;
                             }
-                            
+                            else {
+                                this.log('WARN', 'order not closed [' + txn.data.seq + '] count [' + ordersClosed + ']');
+                            }
                             this.sleep(1000);
                         }
                     }
