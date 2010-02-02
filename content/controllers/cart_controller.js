@@ -3304,7 +3304,7 @@
             if (!this.ifHavingOpenedOrder()) {
 
                 if (curTransaction.data.recall == 2) orderModel.releaseOrderLock(curTransaction.data.id);
-                
+
                 this.clear();
 
                 this.dispatchEvent('onCancelSuccess', null);
