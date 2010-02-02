@@ -36,6 +36,7 @@ Bug #325:
     Need a discount-after-n promotion type
 
 Bug #335:
+    New options have been added to discountByPercentage to allow exclusion of condiments, non-discountable items, and computation of discount amounts before applying payments
 
 Bug #341:
     Condiments should be allowed to have negative prices
