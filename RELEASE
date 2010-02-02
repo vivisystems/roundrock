@@ -35,6 +35,12 @@ Bug #324:
 Bug #325:
     Need a discount-after-n promotion type
 
+Bug #335:
+
+Bug #341:
+
+Bug #342:
+
 Bug #343:
     Updating Order Master record before the record is committing may cause the update to be overwritten
 
