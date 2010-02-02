@@ -877,7 +877,12 @@
                 var order = new OrderModel();
                 if (order && order.hasBackupFile(2)) {
 
+                    var waitPanel = cart._blockUI('blockui_panel', 'common_wait', _('Recall Check'), 0);
+
                     var result = order.restoreOrderFromBackupToRemote();
+
+                    if (waitPanel) cart._unblockUI(waitPanel);
+                    
                     if (!result) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Data Operation Error'),
