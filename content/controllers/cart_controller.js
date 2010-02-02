@@ -3446,12 +3446,6 @@
                     // dispatch event for devices or extensions.
                     this.dispatchEvent('afterSubmit', oldTransaction);
 
-                    // clear register screen if needed
-                    if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                        //this._cartView.empty();
-                        this.cartViewEmpty();
-                    }
-
                 }finally{
 
                     if (submitStatus == -99) {
@@ -3465,12 +3459,12 @@
                     try {
                         // commit order data to local databases or remote.
                         commitStatus = oldTransaction.commit(status);
-
                         if (commitStatus == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
                                 _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server. You can store the check again after network connectivity has been restored [message #105].'));
                             this.dispatchEvent('commitOrderError', commitStatus);
+                            this.dispatchEvent('onGetSubtotal', oldTransaction);
                             this.dispatchEvent('onWarning', _('Network Error'));
                             this._unblockUI(waitPanel);
                             return false;
@@ -3487,6 +3481,12 @@
                         // fatal error at submit. and will cause commit error
                         this.log('ERROR', 'Error on Transaction.commit(' + status + ') (' + commitStatus + ')');
                     }
+                }
+
+                // clear register screen if needed
+                if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                    //this._cartView.empty();
+                    this.cartViewEmpty();
                 }
 
                 this._unblockUI(waitPanel);

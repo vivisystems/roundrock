@@ -275,27 +275,56 @@
             var success = this.getHttpService().requestRemoteService('POST', requestUrl, request_data) || false ;
 
             //if fault , use Waning dialg and drop store .
+            var result = false;
             if (success) {
+                result =    (!('OrderItem' in success) || success['OrderItem'])
+                         && (!('OrderItemTax' in success) || success['OrderItemTax'])
+                         && (!('OrderAddition' in success) || success['OrderAddition'])
+                         && (!('OrderAnnotation' in success) || success['OrderAnnotation'])
+                         && (!('OrderItemCondiment' in success) || success['OrderItemCondiment'])
+                         && (!('OrderPromotion' in success) || success['OrderPromotion'])
+                         && (!('Order' in success) || success['Order'])
+                         && (!('OrderPayment' in success) || success['OrderPayment'])
+                         && (!('OrderObject' in success) || success['OrderObject']);
 
-                this.renameBackupFileWithStatus(false, status);
-                if(success['Order']) this.restoreFromBackup();
-                //this.removeBackupFile();
+                if (result) {
+                    var SyncClass = GeckoJS.Behavior.getBehaviorClass('Sync');
+                    var oldActive;
+                    if (SyncClass.syncSetting) {
+                        oldActive = SyncClass.syncSetting.active;
+                        SyncClass.syncSetting.active = 0;
+                    }
+                    else {
+                        SyncClass.syncSetting = {active: 0};
+                    }
+                    this.renameBackupFileWithStatus(false, status);
+                    result = this.restoreFromBackup();
+                    //this.removeBackupFile();
 
-                if(success['OrderItem']) this.OrderItem.removeBackupFile(status);
-                if(success['OrderItemTax']) this.OrderItemTax.removeBackupFile(status);
-                if(success['OrderAddition']) this.OrderAddition.removeBackupFile(status);
+                    this.OrderPayment.renameBackupFileWithStatus(false, status);
+                    result = result && this.OrderPayment.restoreFromBackup();
+                    //this.OrderPayment.removeBackupFile();
 
-                this.OrderPayment.renameBackupFileWithStatus(false, status);
-                if(success['OrderPayment']) this.OrderPayment.restoreFromBackup();
-                //this.OrderPayment.removeBackupFile();
-                
-                if(success['OrderAnnotation']) this.OrderAnnotation.removeBackupFile(status);
-                if(success['OrderItemCondiment']) this.OrderItemCondiment.removeBackupFile(status);
-                if(success['OrderPromotion']) this.OrderPromotion.removeBackupFile(status);
-                if(success['OrderObject']) this.OrderObject.removeBackupFile(status);
+                    if (oldActive == null) {
+                        delete SyncClass.syncSetting;
+                    }
+                    else {
+                        SyncClass.syncSetting.active = oldActive;
+                    }
+
+                    if (result) {
+                        this.OrderItem.removeBackupFile(status);
+                        this.OrderItemTax.removeBackupFile(status);
+                        this.OrderAddition.removeBackupFile(status);
+
+                        this.OrderAnnotation.removeBackupFile(status);
+                        this.OrderItemCondiment.removeBackupFile(status);
+                        this.OrderPromotion.removeBackupFile(status);
+                        this.OrderObject.removeBackupFile(status);
+                    }
+                }
             }
-            return success;
-
+            return result;
         },
 
 
