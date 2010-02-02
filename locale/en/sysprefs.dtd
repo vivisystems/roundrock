@@ -54,6 +54,7 @@
 <!ENTITY layout.removephoto "Remove Photo">
 <!ENTITY layout.defaultproductphoto "Default Product Photo">
 <!ENTITY layout.productpanelontop "Place product panel on top">
+<!ENTITY layout.showaverageprice "Show average price along with number of items">
 <!ENTITY layout.checktrackingmode "Show check tracking details">
 <!ENTITY layout.hidesoldoutbuttons "Hide sold-out buttons">
 <!ENTITY layout.hidetagcolumn "Hide tag column">
