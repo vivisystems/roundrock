@@ -40,6 +40,7 @@ Bug #335:
 Bug #341:
 
 Bug #342:
+    A display field showing the average item price is needed
 
 Bug #343:
     Updating Order Master record before the record is committing may cause the update to be overwritten
