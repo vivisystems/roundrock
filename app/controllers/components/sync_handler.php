@@ -371,7 +371,7 @@ class SyncHandlerComponent extends Object {
      */
     function getData($machine_id, $direction="pull", $client_settings=array()) {
 
-    // set php time limit to unlimimted
+        // set php time limit to unlimimted
         set_time_limit(0);
 
         $my_machine_id = $this->syncSettings['machine_id'];
@@ -404,15 +404,22 @@ class SyncHandlerComponent extends Object {
 
             $sync = new Sync(false, null, $dbConfig); // id , table, ds
 
-            $results = $sync->find('all', array(
-                'limit'=> $batch_limit,
+
+            $condition = array(
                 'conditions' => array(
-                'from_machine_id !=' => $machine_id,
-                'id >' => $lastSynced
-                ),
+                    'from_machine_id !=' => $machine_id,
+                    'id >' => $lastSynced
+                 ),
                 'order' => 'id asc'
-                )
-            );
+                );
+            // XXXX pull must pull all updated on master 2010/01
+            if ($direction != 'pull') {
+                 $condition['limit'] = $batch_limit;
+
+            }
+            
+            $results = $sync->find('all', $condition);
+            
             $syncs = Set::classicExtract($results, '{n}.Sync');
 
             $syncCount = count($syncs);
