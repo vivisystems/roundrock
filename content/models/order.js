@@ -220,7 +220,9 @@
                 retObj = this.save(data);
             }
             else {
+                var status = (data.status == 2 || data.recall == 2) ? '2' : false;
                 retObj = this.saveToBackup(data);
+                this.renameBackupFileWithStatus(status);
             }
             return retObj;
 
