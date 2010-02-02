@@ -4,11 +4,7 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>webapp@firich.com.tw</em:id>
         <em:name>VIVIPOS WebApp and WebServices</em:name>
-<<<<<<< HEAD:install.rdf
-        <em:version>1.2.1.1.20100202155309</em:version>
-=======
-        <em:version>1.2.1.1.20100202155309</em:version>
->>>>>>> bug#306:install.rdf
+        <em:version>1.2.1.1.20100202162955</em:version>
         <em:description></em:description>
         <em:creator>FIRICH VIVIPOS TEAM</em:creator>
         <em:homepageURL>http://www.firich.com.tw/</em:homepageURL>
