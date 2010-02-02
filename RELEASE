@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.1.0b3
+Release 1.2.1.0
 ---------------
 
 This is a release for VIVIPOS Web Services 1.2.1.0
@@ -11,24 +11,42 @@ Bugs fixed
 ----------
 
 Bug #195:
-    It is desired in a clustered environment to program a master terminal and have
-    the programming automatically replicated to each terminal in the cluster. This
-    replication, termed Inter-register communication, IRC, would significantly
-    reduce the effort required to install and maintain a terminal cluster.
+    It is desired in a clustered environment to program a master terminal and have the programming automatically replicated to each terminal in the cluster. This replication, termed Inter-register communication, IRC, would significantly reduce the effort required to install and maintain a terminal cluster.
 
-
----------------
-Release 1.2.0.4
----------------
-
-This is a maintenance release for VIVIPOS Web Services 1.2.0.x
-
-Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
-
-----------
-Bugs fixed
-----------
+-----------------------------
+Bugs fixed in RELEASE-1.2.0.4
+-----------------------------
 
 Bug #306:
     Empty order master or detail records causes storage of the records to fail
 
+-----------------------------
+Bugs fixed in RELEASE-1.2.0.3
+-----------------------------
+
+Bug #306:
+    Empty order master or detail records causes storage of the records to fail
+
+-----------------------------
+Bugs fixed in RELEASE-1.2.0.2
+-----------------------------
+
+Bug #160:
+    Need to be able to rebuild/reset all table statuses and release locked orders if table status is wrong
+
+
+Bug #167:
+     Newly added bookings are not reflected in Table Selection screen when existing from the bookings screen, and previously booked tables are not precluded from being rebooked for the same time slot
+
+Bug #191:
+    Sign-off prompts user for action on queued orders when queued orders do not exist
+
+-----------------------------
+Bugs fixed in RELEASE-1.2.0.1
+-----------------------------
+
+Bug #86:
+    Table Status Duration minutes - 0 means infinite duration.
+
+Bug #99:
+    Recalled orders display empty check_no and table_no as '0'.
