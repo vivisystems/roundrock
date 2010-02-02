@@ -44,3 +44,6 @@ Bug #342:
 Bug #343:
     Updating Order Master record before the record is committing may cause the update to be overwritten
 
+Bug #345:
+    Cancelling a recall order does not release lock on the order
+
