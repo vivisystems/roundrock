@@ -149,12 +149,6 @@ Bug #320:
 Bug #322
     Need to track the price level at which items are registered in order to determine promotion eligibility
 
-Bug #324:
-    Item destination should be made available as a promotion trigger condition
-
-Bug #325:
-    Need a discount-after-n promotion type
-
 Bug #330:
     The basic set of triggers have been updated to support item destination as a filter condition
 
@@ -177,14 +171,33 @@ Bug #311 (*):
 Bug #316 (*):
     Disk usage computation is incorrect
 
-Bug #323:
-    Items should not be collapsed together if destinations are different
-
 Bug #326:
     When the last tax status is removed, details of the tax being removed remains on the form and the 'Modify' button is not disabled
 
 Bug #333:
    Expired ledger payment records are not removed from database
+
+-----------------------------
+Bugs fixed in Release 1.2.0.8
+-----------------------------
+
+Bug #323:
+    Items should not be collapsed together if destinations are different
+
+Bug #324:
+    Item destination should be made available as a promotion trigger condition
+
+Bug #325:
+    Need a discount-after-n promotion type
+
+Bug #335:
+
+Bug #341:
+
+Bug #342:
+
+Bug #343:
+
 
 -----------------------------
 Bugs fixed in Release 1.2.0.7
