@@ -467,12 +467,12 @@
         updateCartView: function(prevRowCount, currentRowCount, cursorIndex) {
 
             if(this.backgroundMode) return ;
-            
+
+            var showAveragePrice = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowAveragePrice') || false;
             this.view.data = this.data.display_sequences;
             this.view.rowCountChanged(prevRowCount, currentRowCount, cursorIndex);
-
-            //GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
-            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_items', this.data.qty_subtotal);
+            
+            if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_number_of_items', this.data.qty_subtotal  + ((this.data.average_price == null || !showAveragePrice) ? '' : ('  /  ' + this.formatPrice(this.getRoundedPrice(this.data.average_price)))));
             if(!this.backgroundMode) GeckoJS.Session.set('vivipos_fec_tax_total', this.formatTax(this.getRoundedTax(this.data.tax_subtotal)));
         },
 
@@ -3228,6 +3228,7 @@
             this.data.payment_subtotal = this.getRoundedPrice(payment_subtotal);
             this.data.discount_subtotal = this.data.item_discount_subtotal + this.data.trans_discount_subtotal ;
             this.data.surcharge_subtotal = this.data.item_surcharge_subtotal + this.data.trans_surcharge_subtotal;
+            this.data.average_price = (qty_subtotal == 0) ? null : this.getRoundedPrice(this.data.total / qty_subtotal);
 
             this.data.promotion_subtotal = promotion_subtotal ;
             this.data.promotion_tax_subtotal = promotion_tax_subtotal;
