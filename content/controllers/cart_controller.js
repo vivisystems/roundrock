@@ -3303,8 +3303,8 @@
             var curTransaction = this._getTransaction();
             if (!this.ifHavingOpenedOrder()) {
 
-                if (curTransaction) orderModel.releaseOrderLock(curTransaction.data.id);
-                
+                if (curTransaction.data.recall == 2) orderModel.releaseOrderLock(curTransaction.data.id);
+
                 this.clear();
 
                 this.dispatchEvent('onCancelSuccess', null);
@@ -3356,6 +3356,9 @@
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
                                 _('Failed to cancel order because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #103].'));
+                        }
+                        else {
+                            orderModel.releaseOrderLock(curTransaction.data.id);
                         }
                         this.dispatchEvent('onClear', curTransaction);
                     }
