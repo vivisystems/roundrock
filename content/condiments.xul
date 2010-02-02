@@ -133,7 +133,7 @@
                                 </vbox>
                                 <vbox>
                                     <label value="&condiments.condiment.price;" control="condiment_price"/>
-                                    <vivitextbox id="condiment_price" type="number" min="0" decimalplaces="Infinity"
+                                    <vivitextbox id="condiment_price" type="number" min="-Infinity" decimalplaces="Infinity"
                                                      numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                      oninputonfocus="select()"
                                                      form="condimentForm" name="price" default=""/>
