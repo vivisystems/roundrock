@@ -39,7 +39,7 @@
         <vbox flex="1" class="container-main layout-a">
             <label value="&systembackup.backup; / &systembackup.restore;" class="label-page-title"/>
             <hbox flex="1">
-                <vbox flex="1" class="block-30">
+                <vbox flex="1" class="block-33">
                     <hbox pack="center" class="content-formbox">
                         <label value="&systembackup.local;"/>
                     </hbox>
@@ -64,9 +64,10 @@
                     <spacer height="5px"/>
                 </vbox>
 
-                <vbox flex="1" class="block-30">
+                <vbox flex="1" class="block-33">
                     <hbox pack="center" class="content-formbox">
-                        <label value="&systembackup.stick;"/>
+                        <button id="scandevices" label="&systembackup.stick;" flex="1"
+                                oncommand="$do('pickBackupDevices', null, 'SystemBackup');"/>
                     </hbox>
                     <hbox flex="1" class="content-listbox">
                         <vivitree id="stickbackupscrollablepanel" flex="1" class="standard"

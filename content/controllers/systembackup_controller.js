@@ -61,8 +61,11 @@
         _dataPath: null,
         _scriptDir: null,
         _localbackupDir: null,
-        _backupDir: null,
+        _stickbackupDir: null,
         _busy: false,
+        _availableDevices: [],
+        _selectedDevice: null,
+        _mtabPath: '/etc/mtab',
 
         getListObjLocalBackup: function() {
             if(this._listObjLocalBackup == null) {
@@ -88,21 +91,30 @@
             $('#ok').attr('disabled', this._busy);
         },
 
-        checkBackupDevices: function() {
+        scanBackupDevices: function() {
+            var devices = {};
 
-            var osLastMedia = new GeckoJS.File('/tmp/last_media');
-            // var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
+            // check VIVIBACKUP
+            var file = new GeckoJS.File('/dev/disk/by-label/VIVIBACKUP');
+            if (file) {
+                file.normalize();
+                this.log('DEBUG', 'file: ' + file);
+                if (file.exists()) {
+                    this.log('DEBUG', 'file exists [' + file.path + ']');
 
+                    // mount path
+                    let mountPath = this.mountBackupDevice(file.path) || file.path;
+                    devices[mountPath] = {path: file.path,
+                                          mount: mountPath,
+                                          label: 'VIVIBACKUP',
+                                          type: 'label'};
+                }
+            }
+
+            // check last media
             var last_media = "";
-            var deviceNode = "";
-            var deviceReady = false;
-            this._backupDir = null;
-
+            var osLastMedia = new GeckoJS.File('/tmp/last_media');
             var deviceMount = "/media/";
-            // var deviceMount = "/var/tmp/";
-
-            var hasMounted = false;
-
             if (osLastMedia.exists()) {
                 osLastMedia.open("r");
                 last_media = osLastMedia.readLine();
@@ -111,48 +123,115 @@
 
             if (last_media) {
 
-                var tmp = last_media.split('/');
-                deviceNode = tmp[tmp.length-1];
+                var nodes = last_media.split('/');
+                var deviceNode = nodes[nodes.length-1];
                 deviceMount +=  deviceNode + '/';
 
                 var mountDir = new GeckoJS.File(deviceMount);
 
                 if (mountDir.exists() && mountDir.isDir()) {
+                    devices[mountDir.path] = {path: mountDir.path,
+                                              mount: mountDir.path,
+                                              label: mountDir.path,
+                                              type: 'removable'};
+                }
+            }
+            
+            // convert devices into array
+            var list = [];
+            for (let key in devices) {
+                list.push(devices[key]);
+            }
 
-                    // mount dir exists
-                    // autocreate backup_dir and restore dir
-                    var branchId = GeckoJS.Session.get( 'storeContact' ).branch_id;
-                    var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            this.log('DEBUG', 'devices: ' + this.dump(list));
 
-                    if (branchId) branchId = '/' + branchId;
-                    if (terminalNo) terminalNo = '/' + terminalNo;
+            return list;
+        },
 
-                    var backupDir = new GeckoJS.Dir(deviceMount + 'system_backup' + branchId + terminalNo, true);
-                    
-                    if (backupDir.exists()) {
+        checkBackupDevice: function(device) {
 
-                        this._backupDir = backupDir.path;
+            var deviceReady = false;
+            this._stickbackupDir = null;
 
-                        deviceReady = true;
+            if (device) {
 
+                let mountPath;
+                let mountDir;
+
+                // mount device if not already mounted
+                if (device.type == 'label') {
+                    mountPath = this.mountBackupDevice(device.path) + '/';
+                }
+                else {
+                    mountPath =  device.mount + '/';
+                }
+                if (mountPath) {
+                    mountDir = new GeckoJS.File(mountPath);
+
+                    if (mountDir.exists() && mountDir.isDir()) {
+
+                        // mount dir exists
+
+                        let branchId = GeckoJS.Session.get( 'storeContact' ).branch_id;
+                        let terminalNo = GeckoJS.Session.get( 'terminal_no' );
+
+                        // autocreate backup_dir and restore dir
+                        if (branchId) branchId = '/' + branchId;
+                        if (terminalNo) terminalNo = '/' + terminalNo;
+
+                        // check if backup directory exists
+                        let backupDir = new GeckoJS.Dir(mountPath + 'system_backup' + branchId + terminalNo, true);
+                        if (backupDir.exists()) {
+
+                            this._stickbackupDir = backupDir.path;
+                            deviceReady = true;
+
+                        }
                     }
                 }
             }
 
             return deviceReady ;
-
         },
 
-        execute: function(cmd, param) {
+        mountBackupDevice: function(path) {
+
+            // check mtab to see if device is already mounted
+            var mountPath = false;
+            var mtab = new GeckoJS.File(this._mtabPath);
+
+            if (mtab.exists()) {
+                let line;
+                
+                mtab.open("r");
+                while (line = mtab.readLine()) {
+                    if (line.indexOf(path) == 0) {
+                        mountPath = line.split(' ')[1];
+                        break;
+                    }
+                }
+                mtab.close();
+            }
+            if (!mountPath) {
+                mountPath = '/tmp/backup_' + GeckoJS.String.uuid();
+                let mountFile = new GeckoJS.File(mountPath);
+                mountFile.mkdir();
+                this.execute('/bin/mount', [path, mountPath]);
+            }
+
+            return mountPath;
+        },
+
+        execute: function(cmd, params) {
             try {
                 var exec = new GeckoJS.File(cmd);
-                var r = exec.run(param, true);
-                // this.log("ERROR", "Ret:" + r + "  cmd:" + cmd + "  param:" + param);
+                var r = exec.run(params, true);
+                // this.log("ERROR", "Ret:" + r + "  cmd:" + cmd + "  params:" + params);
                 exec.close();
                 return true;
             }
             catch (e) {
-                NotifyUtils.warn(_('Failed to execute command (%S).', [cmd + ' ' + param]));
+                NotifyUtils.warn(_('Failed to execute command (%S).', [cmd + ' ' + params]));
                 return false;
             }
         },
@@ -196,10 +275,10 @@
 
             if (this.execute(this._scriptPath + "backup.sh", args)) {
                 this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
-                NotifyUtils.info(_('<Backup to Local> is done!!'));
+                NotifyUtils.info(_('<Backup to Local Storage> is done'));
             }
 
-            this.load();
+            this.refresh();
             this._busy = false;
             this.setButtonState();
             waitPanel.hidePopup();
@@ -207,12 +286,12 @@
 
         backupToStick: function() {
             if (this._busy) return;
-            if (!this.checkBackupDevices()){
-                NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+            if (!this.checkBackupDevice(this._selectedDevice)){
+                NotifyUtils.info(_('Media not found!! Please attach the external storage device...'));
                 return;
             }
             this._busy = true;
-            var waitPanel = this._showWaitPanel(_('Copying Backup Data to External Storage'));
+            var waitPanel = this._showWaitPanel(_('Copying Backup Data to External Media'));
             this.setButtonState();
 
             var localObj = this.getListObjLocalBackup();
@@ -223,20 +302,20 @@
                 var dir = datas[index].dir;
                 // do copy from local to stick
                 // var param = "-fr " + this._localbackupDir + dir + " " + this._stickbackupDir + dir;
-                var param = ["-fr", this._localbackupDir + dir, this._stickbackupDir];
+                var params = ["-fr", this._localbackupDir + dir, this._stickbackupDir];
 
                 // log user process
                 this.log('FATAL', 'backupToStick file: [' + dir +']');
 
-                if (this.execute("/bin/cp", param)) {
+                if (this.execute("/bin/cp", params)) {
                     this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
-                    NotifyUtils.info(_('<Copy Backup to Stick> is done!!'));
+                    NotifyUtils.info(_('<Backup to External Storage> is done'));
                 }
             } else {
                 NotifyUtils.info(_('Please select a local backup first'));
             }
 
-            this.load();
+            this.refresh();
             this._busy = false;
             this.setButtonState();
             waitPanel.hidePopup();
@@ -292,8 +371,8 @@
 
         restoreFromStick: function() {
             if (this._busy) return;
-            if (!this.checkBackupDevices()){
-                NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+            if (!this.checkBackupDevice(this._selectedDevice)){
+                NotifyUtils.info(_('Media not found!! Please attach the external storage device...'));
                 return;
             }
 
@@ -312,7 +391,7 @@
                 args.push(this._stickbackupDir + dir);
                 if (withSystem) args.push('with-system');
 
-                var confirmMessage = _("Do you want to restore [%S] from external USB storage?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
+                var confirmMessage = _("Do you want to restore [%S] from external media [%S]?", [datas[index].time, this._selectedDevice.label]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
                 if (withSystem) confirmMessage += "\n\n" + _("restore_with_system.confirm_message");
                 
                 if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Restore"), confirmMessage)) {
@@ -330,7 +409,7 @@
                         }else {
                             this._restart();
                         }
-                        NotifyUtils.info(_('<Restore from Stick> is done!!'));
+                        NotifyUtils.info(_('<Restore from External Backup> is done!!'));
                     }
                 }
             } else {
@@ -353,28 +432,92 @@
             }
         },
 
+        // initialize
         load: function() {
-            
-            if (this._dataPath == null) {
-                this.checkBackupDevices();
-                this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-            }
+
+            this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
             this._scriptPath = this._dataPath + "/scripts/"
             this._localbackupDir = this._dataPath + "/backups/";
-            if (this._backupDir)
-                this._stickbackupDir = this._backupDir + "/";
-            else
-                this._stickbackupDir = null;
 
+            this._availableDevices = this.scanBackupDevices();
+            if (this._availableDevices.length == 1) {
+                this.selectDevice(this._availableDevices[0]);
+            }
+            else {
+                this.selectDevice();
+            }
+            this.validateForm();
+        },
+
+        selectDevice: function(device) {
+            var deviceLabelObj = document.getElementById('scandevices');
+            if (device) {
+                if (this.checkBackupDevice(device)) {
+                    deviceLabelObj.label = device.label;
+                }
+                else {
+                    deviceLabelObj.label = _('Media [%S] not ready', [device.label]);
+                }
+            }
+            else {
+                deviceLabelObj.label = _('Please select media');
+            }
+            this._selectedDevice = device;
+
+            this.refresh();
+        },
+
+        pickBackupDevices: function() {
+            // scan list
+            this._availableDevices = this.scanBackupDevices();
+
+            var screenwidth = GeckoJS.Session.get('screenwidth');
+            var screenheight = GeckoJS.Session.get('screenheight');
+
+            var aURL = 'chrome://viviecr/content/select_backup_device.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth*.8 + ',height=' + screenheight*.8;
+            var inputObj = {
+                devices: this._availableDevices
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select External Backup Media'), features, inputObj);
+
+            if (inputObj.ok) {
+                let index = inputObj.device;
+                if (index > -1 && index < this._availableDevices.length) {
+                    this.selectDevice(this._availableDevices[index]);
+                }
+            }
+        },
+
+        refresh: function() {
             var panelViewLocal = new BackupFilesView(this._localbackupDir);
             this.getListObjLocalBackup().datasource = panelViewLocal;
 
             var panelViewStick = new BackupFilesView(this._stickbackupDir);
             this.getListObjStickBackup().datasource = panelViewStick;
+            
+            this.validateForm();
         },
 
-        select: function(index){
-        //
+        select: function(){
+            this.validateForm();
+        },
+
+        validateForm: function() {
+            var backuptostickBtn = document.getElementById('backuptostick');
+            var restorefromlocalBtn = document.getElementById('restorefromlocal');
+            var restorefromstickBtn = document.getElementById('restorefromstick');
+
+            var localListObj = document.getElementById('localbackupscrollablepanel');
+            var externalListObj = document.getElementById('stickbackupscrollablepanel');
+
+            var localSelected = localListObj.selectedItems.length > 0;
+            var externalSelected = externalListObj.selectedItems.length > 0;
+
+            backuptostickBtn.setAttribute('disabled', !localSelected || !this._selectedDevice);
+            restorefromlocalBtn.setAttribute('disabled', !localSelected);
+            restorefromstickBtn.setAttribute('disabled', !externalSelected);
         }
     };
 
