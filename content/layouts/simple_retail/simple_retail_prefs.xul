@@ -27,6 +27,7 @@
                 <preference id="pref_registeratleft" name="vivipos.fec.settings.layout.RegisterAtLeft" type="bool"/>
                 <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.layout.HideFPScrollbar" type="bool"/>
                 <preference id="pref_checktrackingmode" name="vivipos.fec.settings.layout.CheckTrackingMode" type="bool"/>
+                <preference id="pref_showaverageprice" name="vivipos.fec.settings.layout.ShowAveragePrice" type="bool"/>
                 
             </preferences>
             <grid class="data-form">
@@ -50,6 +51,9 @@
                     <row>
                         <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
                         <checkbox preference="pref_hidebottombox" id="pref_hidebottomboxCtrl" label="&layout.hidebottombox;" />
+                    </row>
+                    <row>
+                        <checkbox id="showAveragePrice" label="&layout.showaverageprice;" preference="pref_showaverageprice" />
                     </row>
                     <row>
                         <checkbox preference="pref_showtoolbar" id="pref_showtoolbarCtrl" label="&layout.showtoolbar;" />

@@ -17,7 +17,7 @@
             // add cart events
             var cart = this.getCartController();
             if(cart) {
-            
+
                 // check table no and guests before submit...
                 cart.addEventListener('beforeSubmit', this.onCartBeforeSubmit, this);
 
@@ -69,7 +69,7 @@
                     alertWin.close();
                     delete alertWin;
                 }
-                
+
             }
             GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', (this.tableSettings.RequireCheckNo || false), false );
         },
@@ -877,7 +877,12 @@
                 var order = new OrderModel();
                 if (order && order.hasBackupFile(2)) {
 
+                    var waitPanel = cart._blockUI('blockui_panel', 'common_wait', _('Recall Check'), 0);
+
                     var result = order.restoreOrderFromBackupToRemote();
+
+                    if (waitPanel) cart._unblockUI(waitPanel);
+                    
                     if (!result) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Data Operation Error'),

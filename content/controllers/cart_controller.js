@@ -1653,14 +1653,20 @@
         },
 
         addDiscountByPercentage: function(args) {
-            // args is a list of up to 2 comma separated arguments: amount, label
+            // args is a list of up to 5 comma separated arguments: amount, label
             var discountAmount;
             var discountName;
+            var skipCondiments = false;
+            var respectNonDiscountable = false;
+            var useBalanceBeforePayments = false;
 
             if (args != null && args != '') {
                 var argList = args.split(',');
                 if (argList.length > 0) discountAmount = argList[0];
                 if (argList.length > 1) discountName = argList[1];
+                if (argList.length > 2) skipCondiments = GeckoJS.String.parseBoolean(argList[2]);
+                if (argList.length > 3) respectNonDiscountable = GeckoJS.String.parseBoolean(argList[3]);
+                if (argList.length > 4) useBalanceBeforePayments = GeckoJS.String.parseBoolean(argList[4]);
             }
 
             // check if has buffer
@@ -1677,7 +1683,7 @@
                 discountName = '-' + discountAmount + '%';
             }
 
-            this._addDiscount(discountAmount, '%', discountName);
+            this._addDiscount(discountAmount, '%', discountName, skipCondiments, respectNonDiscountable, useBalanceBeforePayments);
         },
 
         addMassDiscountByPercentage: function(args) {
@@ -1687,7 +1693,7 @@
             if(args !=null && args != '') {
                 var argList = args.split(',');
                 if (argList.length > 0) discountAmount = argList[0];
-                if (argList.length > 0) discountName = argList[1];
+                if (argList.length > 1) discountName = argList[1];
             }
 
             var buf = this._getKeypadController().getBuffer();
@@ -1707,7 +1713,7 @@
         },
 
 
-        _addDiscount: function(discountAmount, discountType, discountName) {
+        _addDiscount: function(discountAmount, discountType, discountName, skipCondiments, respectNonDiscountable, useBalanceBeforePayments) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -1779,19 +1785,19 @@
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
                 if (itemDisplay.hasSurcharge) {
-                    NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Surcharge has been already been registered on subtotal [%S]', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 else if (itemDisplay.hasDiscount) {
-                    NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Discount has been already been registered on subtotal [%S]', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 else if (index < cartLength - 1) {
-                    NotifyUtils.warn(_('Cannot apply discount to [%S]. It is not the last registered item', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Cannot apply discount to subtotal [%S]. It is not the last registered entry', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
                     return;
@@ -1833,7 +1839,7 @@
             };
             this.dispatchEvent('beforeAddDiscount', discountItem);
 
-            var discountedItem = curTransaction.appendDiscount(index, discountItem);
+            var discountedItem = curTransaction.appendDiscount(index, discountItem, skipCondiments, respectNonDiscountable, useBalanceBeforePayments);
 
             this.dispatchEvent('afterAddDiscount', discountedItem);
 
@@ -3524,12 +3530,6 @@
                     // dispatch event for devices or extensions.
                     this.dispatchEvent('afterSubmit', oldTransaction);
 
-                    // clear register screen if needed
-                    if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                        //this._cartView.empty();
-                        this.cartViewEmpty();
-                    }
-
                 }finally{
 
                     if (submitStatus == -99) {
@@ -3543,12 +3543,12 @@
                     try {
                         // commit order data to local databases or remote.
                         commitStatus = oldTransaction.commit(status);
-
                         if (commitStatus == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
                                 _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server. You can store the check again after network connectivity has been restored [message #105].'));
                             this.dispatchEvent('commitOrderError', commitStatus);
+                            this.dispatchEvent('onGetSubtotal', oldTransaction);
                             this.dispatchEvent('onWarning', _('Network Error'));
                             this._unblockUI(waitPanel);
                             return false;
@@ -3565,6 +3565,12 @@
                         // fatal error at submit. and will cause commit error
                         this.log('ERROR', 'Error on Transaction.commit(' + status + ') (' + commitStatus + ')');
                     }
+                }
+
+                // clear register screen if needed
+                if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                    //this._cartView.empty();
+                    this.cartViewEmpty();
                 }
 
                 this._unblockUI(waitPanel);

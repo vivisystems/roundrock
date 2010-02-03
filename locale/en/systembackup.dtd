@@ -3,10 +3,10 @@
 <!ENTITY systembackup.local "Local Backup">
 <!ENTITY systembackup.stick "External Backup">
 <!ENTITY systembackup.time "Time">
-<!ENTITY systembackup.backuptostick "Copy Local to USB >>>">
+<!ENTITY systembackup.backuptostick "Copy Local to External >>>">
 <!ENTITY systembackup.backuptolocal "Backup to Local">
 <!ENTITY systembackup.backupwithprofile "Backup profile and installed apps">
-<!ENTITY systembackup.restorefromstick "Restore from USB">
+<!ENTITY systembackup.restorefromstick "Restore from External">
 <!ENTITY systembackup.restorefromlocal "Restore from Local">
 <!ENTITY systembackup.restorewithsystem "Restore with system settings">
  
