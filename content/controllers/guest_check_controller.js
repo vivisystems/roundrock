@@ -17,7 +17,7 @@
             // add cart events
             var cart = this.getCartController();
             if(cart) {
-            
+
                 // check table no and guests before submit...
                 cart.addEventListener('beforeSubmit', this.onCartBeforeSubmit, this);
 
@@ -69,7 +69,7 @@
                     alertWin.close();
                     delete alertWin;
                 }
-                
+
             }
             GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', (this.tableSettings.RequireCheckNo || false), false );
         },
