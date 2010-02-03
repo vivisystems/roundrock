@@ -37,6 +37,10 @@
                 main.addEventListener('afterTruncateTxnRecords', this.onMainTruncateTxnRecords, this);
             }
 
+            // load regions and tables in session.
+            let regions = this.Table.TableRegion.getTableRegions();
+
+            let tables = this.Table.getTables();
 
             this.tableSettings = this.TableSetting.getTableSettings() || {};
 
@@ -45,11 +49,6 @@
 
                 var alertWin = this.showAlertDialog();
                 this.sleep(1000);
-
-                // load regions and tables in session.
-                let regions = this.Table.TableRegion.getTableRegions();
-
-                let tables = this.Table.getTables();
 
                 // prefetch tables status with orders
                 this.Table.TableStatus.getTablesStatus(true);
@@ -835,16 +834,12 @@
                         let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
                         curTransaction.setTableRegionName(region.name);
                     }
-                    
-                    if (table.destination) {
-                        this.requestCommand('setDestination', table.destination, 'Destinations');
-                    }
                 }else {
                     curTransaction.setTableNo(''); // reset table_no to empty
-                    var defaultDest = GeckoJS.Session.get('defaultDestination') || false;
-                    if (defaultDest) {
-                        this.requestCommand('setDestination', defaultDest, 'Destinations');
-                    }
+                }
+
+                if (curTransaction.data.status == 0 && table.destination) {
+                    this.requestCommand('setDestination', table.destination, 'Destinations');
                 }
             }
             
