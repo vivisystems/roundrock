@@ -59,3 +59,5 @@ Bug #348:
 Bug #351:
     Saving order and orderPayments locally for stored orders cause old data to overwrite new data
 
+Bug #352:
+    Recalling an order with destination and table number set causes new transaction to be created instead
