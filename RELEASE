@@ -61,3 +61,6 @@ Bug #351:
 
 Bug #352:
     Recalling an order with destination and table number set causes new transaction to be created instead
+
+Bug #353:
+    Allow user to select alternative media as source of system recovery data
