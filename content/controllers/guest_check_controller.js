@@ -17,7 +17,7 @@
             // add cart events
             var cart = this.getCartController();
             if(cart) {
-            
+
                 // check table no and guests before submit...
                 cart.addEventListener('beforeSubmit', this.onCartBeforeSubmit, this);
 
@@ -30,6 +30,10 @@
                 cart.addEventListener('onCancelSuccess', this.onCartOnCancelSuccess, this);
                 cart.addEventListener('onVoidSaleSuccess', this.onCartOnSubmitSuccess, this);
 
+                // check after return cart item
+                cart.addEventListener('afterReturnCartItem', this.afterReturnCartItem, this);
+
+
             }
 
             var main = this.getMainController();
@@ -37,12 +41,20 @@
                 main.addEventListener('afterTruncateTxnRecords', this.onMainTruncateTxnRecords, this);
             }
 
-            // load regions and tables in session.
-            let regions = this.Table.TableRegion.getTableRegions();
+            this.addEventListener('beforeStoreCheck', this.beforeStoreCheck, this);
 
-            let tables = this.Table.getTables();
+            this.addEventListener('afterNewTable', this.afterNewTable, this);
+
+            var printer = this.getPrintController();
+            if (printer) {
+                printer.addEventListener('beforePrintSlipGetTemplate', this.beforePrintSlipGetTemplate, this);
+            }
 
             this.tableSettings = this.TableSetting.getTableSettings() || {};
+
+            // load regions and tables in session.
+            let regions = this.Table.TableRegion.getTableRegions();
+            let tables = this.Table.getTables();
 
             // table window is first win
             if (this.tableSettings.TableWinAsFirstWin) {
@@ -57,7 +69,7 @@
                     alertWin.close();
                     delete alertWin;
                 }
-                
+
             }
             GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', (this.tableSettings.RequireCheckNo || false), false );
         },
@@ -838,8 +850,8 @@
                     curTransaction.setTableNo(''); // reset table_no to empty
                 }
 
-                if (curTransaction.data.status == 0 && table.destination) {
-                    this.requestCommand('setDestination', table.destination, 'Destinations');
+                if (curTransaction.data.status == 0 && curTransaction.data.destination) {
+                    this.requestCommand('setDestination', curTransaction.data.destination, 'Destinations');
                 }
             }
             
