@@ -537,6 +537,23 @@
             this._clearAndSubtotal();
         },
 
+        getReturnableCount: function(txn, item) {
+            let count = 0;
+            let returned = 0;
+            let items = txn.getItems();
+
+            for (id in items) {
+                let currentItem = items[id];
+                if (currentItem.id == item.id) {
+                    if ((currentItem.current_qty > 0) || (currentItem.current_qty < 0 && currentItem.returned)) {
+                        count += currentItem.current_qty;
+                    }
+                }
+            }
+
+            return count;
+        },
+
         returnCartItem: function() {
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -589,7 +606,13 @@
                     this.modifyQty('plus', qty);
                 }
                 else {
-                    curTransaction.returnItemAtIndex(index, qty);
+                    let returnableCount = this.getReturnableCount(curTransaction, itemTrans);
+                    if (qty > returnableCount) {
+                        NotifyUtils.warn(_('You may not return more [%S] than you have purchased', [itemDisplay.name]));
+                    }
+                    else {
+                        curTransaction.returnItemAtIndex(index, qty);
+                    }
                 }
                 exit = true;
             }
@@ -708,10 +731,11 @@
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
                             (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
-                        !currentItem.hasDiscount &&
-                        !currentItem.hasSurcharge &&
-                        !currentItem.hasMarker &&
-                        ((price == null) || (currentItem.current_price == price)) &&
+                            (currentItem.current_qty > 0 || !currentItem.returned) &&
+                            !currentItem.hasDiscount &&
+                            !currentItem.hasSurcharge &&
+                            !currentItem.hasMarker &&
+                            ((price == null) || (currentItem.current_price == price)) &&
                             (currentItem.current_qty > 0 && !this._returnMode ||
                                 currentItem.current_qty < 0 && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
@@ -1369,6 +1393,7 @@
             switch(action) {
                 case 'plus':
                     newQty = parseFloat(newQty + delta);
+
                     break;
                 case 'minus':
                     newQty = (newQty - delta > 0) ? (newQty - delta) : newQty;
@@ -1386,6 +1411,17 @@
                 var qtyPrecision = this._getPrecision(qty);
                 var deltaPrecision = this._getPrecision(delta);
                 newQty = newQty.toFixed( qtyPrecision > deltaPrecision ? qtyPrecision : deltaPrecision);
+            }
+
+            // check if changing quantity causes violation of return policy
+            var returnableCount = this.getReturnableCount(curTransaction, itemTrans);
+            if (newQty < qty) {
+                if ((qty > 0 || itemTrans.returned) && qty - newQty > returnableCount) {
+                    NotifyUtils.warn(_('Cannot modify; doing so would have caused the quantity of [%S] registered to be less than the quantity returned', [itemDisplay.name]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
             }
 
             if (newQty != qty) {

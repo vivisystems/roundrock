@@ -2341,7 +2341,7 @@
                             newItem['hasDiscount'] = false;
                             newItem['hasSurcharge'] = false;
                             newItem['hasMarker'] = false;
-
+                            newItem['returned'] = true;
                             newItem['condiments'] = GREUtils.extend({}, origItem['condiments']);
                             newItem['collapsedCondiments'] = GREUtils.extend({}, origItem['collapsedCondiments']);
 
@@ -2353,6 +2353,7 @@
 
                             // replicate display sequence
                             let newDispItem = this.createDisplaySeq(newItemIndex, newItem, itemDisplay.type, itemDisplay.level);
+                            newDispItem['returned'] = true;
                             displayItems.push(newDispItem);
 
                             lastItemDispIndex = newDispIndex = displayItems.length - 1;
