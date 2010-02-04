@@ -538,7 +538,18 @@
             this._clearAndSubtotal();
         },
 
+<<<<<<< HEAD:content/controllers/cart_controller.js
+=======
+        getReturnableCount: function(txn, item) {
+            let count = 0;
+            let items = txn.data.items;
+            let dispItems = txn.data.display_sequences;
+this.log('DEBUG', 'getting returnable count for [' + item.name + '] (' + item.id +')');
+            dispItems.forEach(function(dispItem) {
+                if (dispItem.id == item.id) {
+>>>>>>> bug#340:content/controllers/cart_controller.js
 
+<<<<<<< HEAD:content/controllers/cart_controller.js
         /**
          * return cart item at cursor index.
          *
@@ -550,6 +561,23 @@
 
             code = code || '';
             
+=======
+this.log('DEBUG', 'found item [' + dispItem.name + '] (' + dispItem.id +') status [' + dispItem.returned + ']');
+                    let currentItem = items[dispItem.index];
+
+this.log('DEBUG', 'current count [' + count + '] item qty [' + currentItem.current_qty + ']');
+                    if ((currentItem.current_qty > 0) || (currentItem.current_qty < 0 && dispItem.returned)) {
+                        count += currentItem.current_qty;
+                    }
+                }
+            }, this);
+
+this.log('DEBUG', 'returnable count [' + count + ']');
+            return count;
+        },
+
+        returnCartItem: function() {
+>>>>>>> bug#340:content/controllers/cart_controller.js
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
             var itemTrans;
@@ -602,6 +630,7 @@
                     exit = true;
                 }
                 else {
+<<<<<<< HEAD:content/controllers/cart_controller.js
                     curTransaction.returnItemAtIndex(index, qty);
                     exit = true;
 
@@ -615,6 +644,14 @@
                             self.dispatchEvent('afterReturnCartItem', curTransaction);
                         });
 
+=======
+                    let returnableCount = this.getReturnableCount(curTransaction, itemTrans);
+                    if (qty > returnableCount) {
+                        NotifyUtils.warn(_('You may not return more [%S] than you have registered', [itemDisplay.name]));
+                    }
+                    else {
+                        curTransaction.returnItemAtIndex(index, qty);
+>>>>>>> bug#340:content/controllers/cart_controller.js
                     }
                 }
             }
@@ -745,8 +782,8 @@
                             !currentItem.hasMarker &&
                             currentItem.destination == destination &&
                             ((price == null) || (currentItem.current_price == price)) &&
-                            (currentItem.current_qty > 0 && !this._returnMode ||
-                                currentItem.current_qty < 0 && this._returnMode) &&
+                            ((currentItem.current_qty > 0 && !this._returnMode) ||
+                                currentItem.current_qty < 0 && !currentItemDisplay.returned && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
 
                             // need to clear quantity source so scale multipler is not applied again
@@ -1446,6 +1483,7 @@
             switch(action) {
                 case 'plus':
                     newQty = parseFloat(newQty + delta);
+
                     break;
                 case 'minus':
                     newQty = (newQty - delta > 0) ? (newQty - delta) : newQty;
@@ -1463,6 +1501,17 @@
                 var qtyPrecision = this._getPrecision(qty);
                 var deltaPrecision = this._getPrecision(delta);
                 newQty = newQty.toFixed( qtyPrecision > deltaPrecision ? qtyPrecision : deltaPrecision);
+            }
+
+            // check if changing quantity causes violation of return policy
+            var returnableCount = this.getReturnableCount(curTransaction, itemTrans);
+            if (newQty < qty) {
+                if ((qty > 0 || itemDisplay.returned) && qty - newQty > returnableCount) {
+                    NotifyUtils.warn(_('Cannot modify; doing so would have caused the quantity of [%S] returned to be more than the quantity registered', [itemDisplay.name]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
             }
 
             if (newQty != qty) {
