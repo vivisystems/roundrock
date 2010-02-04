@@ -298,7 +298,7 @@
                                 <hbox flex="0" class="toolbar" toolbarmode="vertical" align="left">
                                     <vivibutton id="ircCreatePackage" label="&sync_settings.button.irc_create_package;" oncommand="$do('createIrcPackage',null, 'SyncSettings');"/>
                                     <vivibutton id="ircRemovePackage" label="&sync_settings.button.irc_remove_package;" oncommand="$do('removeIrcPackage',document.getElementById('ircPackagesTree').selectedIndex, 'SyncSettings');" disabled="true" />
-                                    <button id="ircRefreshPackage" image="chrome://viviecr/skin/images/reload.png" oncommand="$do('refreshSelectIrcPackage', null, 'SyncSettings');" disabled="true" />
+                                    <button id="ircRefreshPackage" image="chrome://viviecr/skin/images/reload.png" oncommand="$do('refreshSelectedIrcPackage', null, 'SyncSettings');" disabled="true" />
                                 </hbox>
                             </vbox>
                             <vbox flex="3" id="ircEditBox">
