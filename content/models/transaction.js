@@ -1091,7 +1091,8 @@
                     Transaction.events.dispatch('afterModifyItem', itemModified, this);
 
                     var itemDisplay2 = this.createDisplaySeq(itemIndex, itemModified, 'item');
-
+                    itemDisplay2.returned = itemDisplay.returned;
+                    
                     // create data object to push in items array
 
                     // update display
@@ -2341,7 +2342,6 @@
                             newItem['hasDiscount'] = false;
                             newItem['hasSurcharge'] = false;
                             newItem['hasMarker'] = false;
-                            newItem['returned'] = true;
                             newItem['condiments'] = GREUtils.extend({}, origItem['condiments']);
                             newItem['collapsedCondiments'] = GREUtils.extend({}, origItem['collapsedCondiments']);
 

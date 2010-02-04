@@ -539,18 +539,23 @@
 
         getReturnableCount: function(txn, item) {
             let count = 0;
-            let returned = 0;
-            let items = txn.getItems();
+            let items = txn.data.items;
+            let dispItems = txn.data.display_sequences;
+this.log('DEBUG', 'getting returnable count for [' + item.name + '] (' + item.id +')');
+            dispItems.forEach(function(dispItem) {
+                if (dispItem.id == item.id) {
 
-            for (id in items) {
-                let currentItem = items[id];
-                if (currentItem.id == item.id) {
-                    if ((currentItem.current_qty > 0) || (currentItem.current_qty < 0 && currentItem.returned)) {
+this.log('DEBUG', 'found item [' + dispItem.name + '] (' + dispItem.id +') status [' + dispItem.returned + ']');
+                    let currentItem = items[dispItem.index];
+
+this.log('DEBUG', 'current count [' + count + '] item qty [' + currentItem.current_qty + ']');
+                    if ((currentItem.current_qty > 0) || (currentItem.current_qty < 0 && dispItem.returned)) {
                         count += currentItem.current_qty;
                     }
                 }
-            }
+            }, this);
 
+this.log('DEBUG', 'returnable count [' + count + ']');
             return count;
         },
 
@@ -608,7 +613,7 @@
                 else {
                     let returnableCount = this.getReturnableCount(curTransaction, itemTrans);
                     if (qty > returnableCount) {
-                        NotifyUtils.warn(_('You may not return more [%S] than you have purchased', [itemDisplay.name]));
+                        NotifyUtils.warn(_('You may not return more [%S] than you have registered', [itemDisplay.name]));
                     }
                     else {
                         curTransaction.returnItemAtIndex(index, qty);
@@ -737,7 +742,7 @@
                             !currentItem.hasMarker &&
                             ((price == null) || (currentItem.current_price == price)) &&
                             (currentItem.current_qty > 0 && !this._returnMode ||
-                                currentItem.current_qty < 0 && this._returnMode) &&
+                                currentItem.current_qty < 0 && !currentItemDisplay.returned && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
 
                             // need to clear quantity source so scale multipler is not applied again
@@ -1416,7 +1421,7 @@
             // check if changing quantity causes violation of return policy
             var returnableCount = this.getReturnableCount(curTransaction, itemTrans);
             if (newQty < qty) {
-                if ((qty > 0 || itemTrans.returned) && qty - newQty > returnableCount) {
+                if ((qty > 0 || itemDisplay.returned) && qty - newQty > returnableCount) {
                     NotifyUtils.warn(_('Cannot modify; doing so would have caused the quantity of [%S] registered to be less than the quantity returned', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
