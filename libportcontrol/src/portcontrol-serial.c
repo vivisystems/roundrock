@@ -383,6 +383,8 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
 	
 	pollSerPort[0].fd = serPort->port;
 	pollSerPort[0].events = POLLOUT;
+
+    int blockSize = (int) (serPort->originalPortSettings.baud/9600)^4;
 	
     while ((totalWriteLength < writeLength) && (timeout > 0))
     {
@@ -442,7 +444,7 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
 			printf("poll available to writing.. \n");
 
 			// write now will not blocking.
-			partialWriteLength = write(serPort->port, &bufferElements[totalWriteLength], ((writeLength - totalWriteLength) < 256)?(writeLength - totalWriteLength):256);
+			partialWriteLength = write(serPort->port, &bufferElements[totalWriteLength], ((writeLength - totalWriteLength) < blockSize)?(writeLength - totalWriteLength):blockSize);
 	
 		    if (partialWriteLength == -1) {
 				// error to write

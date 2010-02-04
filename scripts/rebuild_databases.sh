@@ -4,7 +4,10 @@
 
 DB_DIR=/data/databases
 
-export DISPLAY=:0
+# set X11 DISPLAY if zero
+if [ -z "$DISPLAY" ]; then
+  export DISPLAY=:0
+fi
 
 . /etc/environment
 
@@ -23,7 +26,7 @@ MSG_REBUILD_DATABASES_REBUILDING=${MSG_REBUILD_DATABASES_REBUILDING:-"Rebuilding
 chdir $DB_DIR;
 for db in *.sqlite ; do
 
-    /usr/bin/aosd_cat "$MSG_REBUILD_DATABASES_REBUILDING $db" 
+    /usr/bin/aosd_cat -x 100 "$MSG_REBUILD_DATABASES_REBUILDING $db"
 
     /usr/bin/sqlite3 $DB_DIR/$db ".dump" | /usr/bin/sqlite3 ${DB_DIR}/${db}_new
 

@@ -2,7 +2,10 @@
 
 : ${DIALOG=zenity}
 
-export DISPLAY=:0
+# set X11 DISPLAY if zero
+if [ -z "$DISPLAY" ]; then
+  export DISPLAY=:0
+fi
 
 . /etc/environment
 

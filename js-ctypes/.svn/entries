@@ -1,4 +1,4 @@
-8
+10
 
 dir
 19431
@@ -10,9 +10,9 @@ http://svn.mozilla.org
 2008-05-06T17:33:05.686444Z
 12857
 mfinkle@mozilla.com
+has-props
+has-prop-mods
 
-
-svn:special svn:externals svn:needs-lock
 
 
 

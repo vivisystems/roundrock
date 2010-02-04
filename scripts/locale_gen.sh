@@ -1,6 +1,9 @@
 #!/bin/sh
 
-export DISPLAY=:0
+# set X11 DISPLAY if zero
+if [ -z "$DISPLAY" ]; then
+  export DISPLAY=:0
+fi
 
 . /etc/environment
 
@@ -20,7 +23,7 @@ MSG_LOCALE_GEN_CHANGING=${MSG_LOCALE_GEN_CHANGING:-"Changing OS Locale ..."}
 
 if [ -x /etc/X11/Xsession.d/60locale-gen ]; then
   killall aosd_cat
-  /usr/bin/aosd_cat -d 6000 "$MSG_LOCALE_GEN_CHANGING" &
+  /usr/bin/aosd_cat -x 100 -d 6000 "$MSG_LOCALE_GEN_CHANGING" &
   /etc/X11/Xsession.d/60locale-gen 
   killall aosd_cat
 fi

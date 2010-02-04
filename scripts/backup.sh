@@ -1,7 +1,11 @@
 #!/bin/sh
 
 : ${DIALOG=zenity}
-export DISPLAY=:0
+
+# set X11 DISPLAY if zero
+if [ -z "$DISPLAY" ]; then
+  export DISPLAY=:0
+fi
 
 bak=/data/backups
 
@@ -91,7 +95,7 @@ do_backup() {
 	cp -fr /etc/X11 etc/
 	cp -fr /var/lib/eeti.param var/lib
 	cp -fr /var/lib/vivipos var/lib
-    cp -f /data/profile/sync_settings.ini data/profile/
+        cp -f /data/profile/sync_settings.ini data/profile/
 	tar cjvpf $bak/$bak_dir/system.tbz . | xargs -l1 basename | sed "s/.*/70\n# \0/g"
 
 	echo "80\n# Syncing disk.."
@@ -101,6 +105,44 @@ do_backup() {
 	if [ -x /data/scripts/diskspace_usage.sh ]; then
 		/data/scripts/diskspace_usage.sh
 	fi
+
+        # check if second bacup media exists
+        if [ -h "/dev/disk/by-label/VIVIBACKUP" ]; then
+            echo "90\n# Copy to Second Backup Media.."
+
+            # mkdir mount point
+            if [ ! -d "/tmp/VIVIBACKUP" ]; then
+                mkdir /tmp/VIVIBACKUP
+            fi
+
+            LAST_BACKUP_USAGE=`LC_ALL=c du -b -c $bak/$bak_dir | grep 'total' | awk '{print $1}'`
+
+            mount /dev/disk/by-label/VIVIBACKUP /tmp/VIVIBACKUP
+
+            if [ "$?" -eq "0" ]; then
+
+                # check free space
+                while [ `LC_ALL=c df -B 1 -P /tmp/VIVIBACKUP | grep -v "Filesystem" | awk -F " " '{ print $4}'` -lt "$LAST_BACKUP_USAGE" ]; do
+                    # remove oldest backup dir
+                    oldest_bak=`ls /tmp/VIVIBACKUP/backups | sort | line`
+                    if [ ! -z "$oldest_bak" ]; then
+                        rm -fr /tmp/VIVIBACKUP/backups/$oldest_bak
+                    fi
+                done
+
+                if [ ! -d "/tmp/VIVIBACKUP/backups" ]; then
+                    mkdir /tmp/VIVIBACKUP/backups
+                fi
+
+                cp -fr $bak/$bak_dir /tmp/VIVIBACKUP/backups
+
+                sync;
+
+                umount /tmp/VIVIBACKUP
+
+            fi
+
+        fi
 
 	echo "100\n# Finished."
 
