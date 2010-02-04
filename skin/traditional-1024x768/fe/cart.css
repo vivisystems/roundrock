@@ -136,16 +136,16 @@
     height: 28px;
 }
 
-.main-overlay .cart-list treechildren::-moz-tree-cell-text(batchMarker) {font-size: 18px; font-weight: bolder;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(selected) {font-size: 18px; font-weight: bolder;}
 
 .main-overlay .cart-list treechildren::-moz-tree-row(selected) {background-color: #5b758c; }
 .main-overlay .cart-list treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
 .main-overlay .cart-list treechildren::-moz-tree-row(treeOutofStock) {background-color: red;}
-.main-overlay .cart-list treechildren::-moz-tree-row(treeVerifyAge) {background-color: steelblue;}
+.main-overlay .cart-list treechildren::-moz-tree-row(treeVerifyAge) {background-color: lightblue;}
 .main-overlay .cart-list treechildren::-moz-tree-row(treeReturnItem) {background-color: lightgreen;}
+.main-overlay .cart-list treechildren::-moz-tree-row(treeRefundItem) {background-color: beige;}
 .main-overlay .cart-list treechildren::-moz-tree-row(treeTOTAL) {background-color: #da7f12;}
-.main-overlay .cart-list treechildren::-moz-tree-row(batchMarker) {border-bottom: 3px dotted black !important;}
+.main-overlay .cart-list treechildren::-moz-tree-row(batchMarker) {border-bottom: 3px solid black !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(discountApplied) {color: brown; font-style: italic; font-weight: bolder;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(surchargeApplied) {color: green; font-style: italic; font-weight: bolder;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(treecellTax) {font-size: 14px !important; font-weight: normal !important;}

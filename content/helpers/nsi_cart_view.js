@@ -139,8 +139,10 @@
                 props.AppendElement(aserv.getAtom('treeSUBTOTAL'));
             } else if (data.type == 'total') {
                 props.AppendElement(aserv.getAtom('treeTOTAL'));
-            } else if (parseFloat(data.current_qty.replace('X', '')) < 0) {
+            } else if (data.returned) {
                 props.AppendElement(aserv.getAtom('treeReturnItem'));
+            } else if (parseFloat(data.current_qty.replace('X', '')) < 0) {
+                props.AppendElement(aserv.getAtom('treeRefundItem'));
             } else if (data.stock_status == '0') {
                 props.AppendElement(aserv.getAtom('treeLowStock'));
             } else if (data.stock_status == '-1') {
