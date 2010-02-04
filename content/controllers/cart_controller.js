@@ -736,12 +736,11 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
                             (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
-                            (currentItem.current_qty > 0 || !currentItem.returned) &&
                             !currentItem.hasDiscount &&
                             !currentItem.hasSurcharge &&
                             !currentItem.hasMarker &&
                             ((price == null) || (currentItem.current_price == price)) &&
-                            (currentItem.current_qty > 0 && !this._returnMode ||
+                            ((currentItem.current_qty > 0 && !this._returnMode) ||
                                 currentItem.current_qty < 0 && !currentItemDisplay.returned && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
 
@@ -1422,7 +1421,7 @@ this.log('DEBUG', 'returnable count [' + count + ']');
             var returnableCount = this.getReturnableCount(curTransaction, itemTrans);
             if (newQty < qty) {
                 if ((qty > 0 || itemDisplay.returned) && qty - newQty > returnableCount) {
-                    NotifyUtils.warn(_('Cannot modify; doing so would have caused the quantity of [%S] registered to be less than the quantity returned', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Cannot modify; doing so would have caused the quantity of [%S] returned to be more than the quantity registered', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
                     return;
