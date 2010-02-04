@@ -1154,7 +1154,8 @@
                     Transaction.events.dispatch('afterModifyItem', itemModified, this);
 
                     var itemDisplay2 = this.createDisplaySeq(itemIndex, itemModified, 'item');
-
+                    itemDisplay2.returned = itemDisplay.returned;
+                    
                     // create data object to push in items array
 
                     // update display
@@ -2443,7 +2444,6 @@
                             newItem['hasDiscount'] = false;
                             newItem['hasSurcharge'] = false;
                             newItem['hasMarker'] = false;
-
                             newItem['condiments'] = GREUtils.extend({}, origItem['condiments']);
                             newItem['collapsedCondiments'] = GREUtils.extend({}, origItem['collapsedCondiments']);
 
@@ -2455,6 +2455,7 @@
 
                             // replicate display sequence
                             let newDispItem = this.createDisplaySeq(newItemIndex, newItem, itemDisplay.type, itemDisplay.level);
+                            newDispItem['returned'] = true;
                             displayItems.push(newDispItem);
 
                             lastItemDispIndex = newDispIndex = displayItems.length - 1;
