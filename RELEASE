@@ -6,9 +6,9 @@ This is a release for VIVIPOS Web Services 1.2.1.0
 
 Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
 
-----------
-Bugs fixed
-----------
+------------
+Enhancements
+------------
 
 Bug #195:
     It is desired in a clustered environment to program a master terminal and have the programming automatically replicated to each terminal in the cluster. This replication, termed Inter-register communication, IRC, would significantly reduce the effort required to install and maintain a terminal cluster.
