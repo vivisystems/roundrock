@@ -15,7 +15,7 @@ class Sequence extends AppModel {
         $result = array();
         $arKeys = explode(",", $keys);
 
-        $this->begin();
+        $this->beginExclusive();
 
         foreach ($arKeys as $key) {
 
@@ -69,7 +69,7 @@ class Sequence extends AppModel {
      */
     function setSequence($key = 'default', $value = 0) {
 
-        $this->begin();
+        $this->beginExclusive();
         
         $data = $this->findByKey($key);
 
@@ -99,7 +99,7 @@ class Sequence extends AppModel {
      */
     function setSequenceMaxValue($key = 'default', $value = 0) {
 
-        $this->begin();
+        $this->beginExclusive();
         
         $data = $this->findByKey($key);
 
