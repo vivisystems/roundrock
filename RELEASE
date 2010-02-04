@@ -14,6 +14,13 @@ Bug #195:
     It is desired in a clustered environment to program a master terminal and have the programming automatically replicated to each terminal in the cluster. This replication, termed Inter-register communication, IRC, would significantly reduce the effort required to install and maintain a terminal cluster.
 
 -----------------------------
+Bugs fixed in RELEASE-1.2.0.5
+-----------------------------
+
+Bug #355:
+    The sequence web service may return duplicate sequence numbers due to race conditions that were not handled properly
+
+-----------------------------
 Bugs fixed in RELEASE-1.2.0.4
 -----------------------------
 
@@ -24,8 +31,8 @@ Bug #306:
 Bugs fixed in RELEASE-1.2.0.3
 -----------------------------
 
-Bug #306:
-    Empty order master or detail records causes storage of the records to fail
+Bug #215:
+    When an order is stored with annotations, the annotations are duplicated each time the order is re-stored or finalized
 
 -----------------------------
 Bugs fixed in RELEASE-1.2.0.2
