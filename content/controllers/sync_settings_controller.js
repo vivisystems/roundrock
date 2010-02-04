@@ -285,7 +285,7 @@
 
         },
 
-        refreshSelectIrcPackage: function(noNotify) {
+        refreshSelectedIrcPackage: function(noNotify) {
 
             var index = document.getElementById('ircPackagesTree').selectedIndex;
 
@@ -300,6 +300,9 @@
                 var newPackageStatus = httpService.requestRemoteService('GET', requestUrl) || false ;
 
                 if (newPackageStatus) {
+                    // update package size to human readable format
+                    newPackageStatus.filesize = GeckoJS.NumberHelper.toReadableSize(newPackageStatus.filesize);
+
                     this.ircPackages[index] = ircPackage = newPackageStatus;
                     this.updatePackageClientList(ircPackage);
                 }
@@ -316,7 +319,7 @@
             if (index < 0) return false ;
 
             // refresh first
-            this.refreshSelectIrcPackage(true);
+            this.refreshSelectedIrcPackage(true);
             
             var ircPackage = this.ircPackages[index] || false;
             if (!ircPackage) return false;
