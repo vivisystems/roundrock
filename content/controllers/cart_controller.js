@@ -538,18 +538,23 @@
             this._clearAndSubtotal();
         },
 
-<<<<<<< HEAD:content/controllers/cart_controller.js
-=======
         getReturnableCount: function(txn, item) {
             let count = 0;
             let items = txn.data.items;
             let dispItems = txn.data.display_sequences;
-this.log('DEBUG', 'getting returnable count for [' + item.name + '] (' + item.id +')');
             dispItems.forEach(function(dispItem) {
                 if (dispItem.id == item.id) {
->>>>>>> bug#340:content/controllers/cart_controller.js
+                    let currentItem = items[dispItem.index];
 
-<<<<<<< HEAD:content/controllers/cart_controller.js
+                    if ((currentItem.current_qty > 0) || (currentItem.current_qty < 0 && dispItem.returned)) {
+                        count += currentItem.current_qty;
+                    }
+                }
+            }, this);
+
+            return count;
+        },
+
         /**
          * return cart item at cursor index.
          *
@@ -561,23 +566,6 @@ this.log('DEBUG', 'getting returnable count for [' + item.name + '] (' + item.id
 
             code = code || '';
             
-=======
-this.log('DEBUG', 'found item [' + dispItem.name + '] (' + dispItem.id +') status [' + dispItem.returned + ']');
-                    let currentItem = items[dispItem.index];
-
-this.log('DEBUG', 'current count [' + count + '] item qty [' + currentItem.current_qty + ']');
-                    if ((currentItem.current_qty > 0) || (currentItem.current_qty < 0 && dispItem.returned)) {
-                        count += currentItem.current_qty;
-                    }
-                }
-            }, this);
-
-this.log('DEBUG', 'returnable count [' + count + ']');
-            return count;
-        },
-
-        returnCartItem: function() {
->>>>>>> bug#340:content/controllers/cart_controller.js
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
             var itemTrans;
@@ -630,34 +618,29 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                     exit = true;
                 }
                 else {
-<<<<<<< HEAD:content/controllers/cart_controller.js
-                    curTransaction.returnItemAtIndex(index, qty);
-                    exit = true;
-
-                    // auto add memo
-                    if (code) {
-
-                        var self = this;
-                        // don't dispatch right now
-                        exit = false;
-                        return this.addMemo(code).next(function(){
-                            self.dispatchEvent('afterReturnCartItem', curTransaction);
-                        });
-
-=======
                     let returnableCount = this.getReturnableCount(curTransaction, itemTrans);
                     if (qty > returnableCount) {
                         NotifyUtils.warn(_('You may not return more [%S] than you have registered', [itemDisplay.name]));
                     }
                     else {
                         curTransaction.returnItemAtIndex(index, qty);
->>>>>>> bug#340:content/controllers/cart_controller.js
+
+                        // auto add memo
+                        if (code) {
+
+                            var self = this;
+                            // don't dispatch right now
+                            exit = false;
+                            return this.addMemo(code).next(function(){
+                                self.dispatchEvent('afterReturnCartItem', curTransaction);
+                            });
+                        }
                     }
+                    exit = true;
                 }
             }
 
             if (exit) {
-                this._getKeypadController().clearBuffer();
                 this._clearAndSubtotal();
                 this.dispatchEvent('afterReturnCartItem', curTransaction);
             }
