@@ -1,5 +1,5 @@
 ---------------
-Release 1.2.0.4
+Release 1.2.0.5
 ---------------
 
 This is a maintenance release for VIVIPOS Web Services 1.2.0.x
@@ -10,6 +10,5 @@ Previous 1.2.0.x releases may be upgraded to this release by installing the rele
 Bugs fixed
 ----------
 
-Bug #306:
-    Empty order master or detail records causes storage of the records to fail
-
+Bug #355:
+    The sequence web service may return duplicate sequence numbers due to race conditions that were not handled properly
