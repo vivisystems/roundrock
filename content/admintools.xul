@@ -81,6 +81,10 @@
                                         <button id="purgeSync" class="button-execute"
                                                 label="&admintools.syncstatus.purge;"
                                                 oncommand="$do('purgeSync', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="suspendResumeSync" class="button-execute"
+                                                label=""
+                                                oncommand="$do('suspendResumeSync', null, 'AdminTools');"/>
                                     </vbox>
                                     <vbox flex="1" class="content-listbox">
                                         <vivitree id="syncstatuslist" flex="1" class="standard custom-sync-tree"

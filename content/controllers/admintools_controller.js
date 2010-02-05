@@ -14,6 +14,8 @@
 
         _terminalListObj: null,
         _tableListObj: null,
+        _syncSuspendStatus: null,
+        _syncSuspendStatusFile: '/tmp/sync_suspend_',
 
         terminalTableList: {},
 
@@ -101,6 +103,15 @@
             return this._modelClasses;
         },
 
+        _getSyncSuspendStatus: function(refresh) {
+            let syncSettings = this._getSyncSettings();
+            if (this._syncSuspendStatus == null || refresh) {
+                var statusFile = new GeckoJS.File(this._syncSuspendStatusFile + syncSettings.machine_id);
+                this._syncSuspendStatus = statusFile && statusFile.exists();
+            }
+            return this._syncSuspendStatus;
+        },
+
         _getSyncedDatasources: function() {
             if (this._syncedDatasources == null) {
                 let modelClasses = this._getModelClasses() || [];
@@ -170,6 +181,18 @@
                 document.getElementById('sync_indicator').setAttribute('class', 'custom-sync-disabled');
                 document.getElementById('syncNow').setAttribute('disabled', 'true');
                 document.getElementById('refreshSyncStatus').setAttribute('disabled', 'true');
+            }
+
+            this.refreshSyncSuspendStatus();
+        },
+
+        refreshSyncSuspendStatus: function() {
+            let suspended = this._getSyncSuspendStatus();
+            if (suspended) {
+                document.getElementById('suspendResumeSync').label = _('Resume Sync');
+            }
+            else {
+                document.getElementById('suspendResumeSync').label = _('Suspend Sync');
             }
         },
 
@@ -299,6 +322,39 @@
                                           _('Failed to purge synchronization data from some of the datasources'));
                 }
             }
+        },
+
+        suspendResumeSync: function() {
+            var suspended = this._getSyncSuspendStatus();
+            var syncSettings = this._getSyncSettings();
+            var statusFile = new GeckoJS.File(this._syncSuspendStatusFile + syncSettings.machine_id);
+
+            if (suspended) {
+                // do resume
+                statusFile.remove();
+
+                suspended = this._getSyncSuspendStatus(true);
+                if (suspended) {
+                    NotifyUtils.error(_('Failed to resume synchronization'));
+                }
+                else {
+                    NotifyUtils.info(_('Synchronization to server resumed'));
+                }
+            }
+            else {
+                // do suspend
+                statusFile.create();
+
+                suspended = this._getSyncSuspendStatus(true);
+                if (suspended) {
+                    NotifyUtils.info(_('Synchronization to server suspended'));
+                }
+                else {
+                    NotifyUtils.error(_('Failed to suspend synchronization'));
+                }
+            }
+
+            this.refreshSyncSuspendStatus();
         },
 
         initRemoteDataList: function() {
