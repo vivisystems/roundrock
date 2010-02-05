@@ -13,18 +13,31 @@
     cursor: wait !important;
 }
 
-.container-dialog .container-wait-panel * {
+.container-dialog .container-wait-panel *,
+.container-dialog .container-interruptible-wait-panel * {
     cursor: wait !important;
 }
 
 .container-dialog .container-wait-panel {
     background: white;
-    height: 140px;
+    height: 120px;
     margin-left: 100px;
     margin-top: 240px;
     max-height: 120px;
     max-width: 600px;
     min-height: 120px;
+    min-width: 600px;
+    width: 600px;
+}
+
+.container-dialog .container-interruptible-wait-panel {
+    background: white;
+    height: 170px;
+    margin-left: 100px;
+    margin-top: 215px;
+    max-height: 170px;
+    max-width: 600px;
+    min-height: 170px;
     min-width: 600px;
     width: 600px;
 }

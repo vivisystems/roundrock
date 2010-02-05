@@ -13,7 +13,8 @@
     cursor: wait !important;
 }
 
-.container-dialog .container-wait-panel * {
+.container-dialog .container-wait-panel *,
+.container-dialog .container-interruptible-wait-panel * {
     cursor: wait !important;
 }
 
