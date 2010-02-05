@@ -64,3 +64,7 @@ Bug #352:
 
 Bug #353:
     Allow user to select alternative media as source of system recovery data
+
+Bug #355:
+    Need to obtain exclusive lock on table when updating local sequences
+
