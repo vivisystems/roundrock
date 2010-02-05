@@ -82,9 +82,16 @@ var options;
         var disablecancelbtn = ('disablecancelbtn' in inputObj);
         document.getElementById('cancel').setAttribute('hidden', disablecancelbtn);
 
-        var depts = GeckoJS.Session.get('categories');
+        var depts = GeckoJS.Session.get('categories') || [];
         document.getElementById('department_no').datasource = depts;
-        document.getElementById('department_no').selectedItems = [0];
+        if (depts.length > 0) {
+            document.getElementById('department_no').selectedItems = [0];
+            document.getElementById('update_name').hidden = false;
+        }
+        else {
+            document.getElementById('department_no').selectedItems = [];
+            document.getElementById('update_name').hidden = true;
+        }
 
         doSetOKCancel(
             function(){

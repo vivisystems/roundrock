@@ -10,9 +10,16 @@
 
        screenwidth:  GeckoJS.Session.get('screenwidth'),
        screenheight:  GeckoJS.Session.get('screenheight'),
+
        catePanelView: null,
        individualcatePanelView:null,
        productPanelView: null,
+
+       _decimals: GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.',
+       _thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',',
+       _precision:  GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || ',' ,
+       _positivePrice: GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || ',' ,
+
        _tabListPanel: null,
        _countTextbox: null,
        _priceTextbox: null,
@@ -126,6 +133,7 @@
                             products[i].priority = this._priority;
                             products[i].count = inputObj.input0;
                             products[i].selectedPrice = products[i]['price_level'+selectedPriceLevel];
+                            products[i].selectedPrice = this._formatPrice(products[i].selectedPrice);
                             this.tabList.push(products[i]);
                         }
                 /* 3.3 show tabList[] */
@@ -229,6 +237,7 @@
                 cloneProduct.priority = this._priority;
                 cloneProduct.count = inputObj.input0;
                 cloneProduct.selectedPrice = cloneProduct['price_level'+selectedPriceLevel];
+                cloneProduct.selectedPrice = this._formatPrice(cloneProduct.selectedPrice);
                 this.tabList.push(cloneProduct);
                 this._tabListPanel.datasource = this.validateList();
                 this._priority++;
@@ -324,6 +333,7 @@
                 commitmentProducts[i].priority = this._priority;
                 commitmentProducts[i].count = commitmentProducts[i].value;
                 commitmentProducts[i].selectedPrice = commitmentProducts[i].price_level1;
+                commitmentProducts[i].selectedPrice = this._formatPrice(commitmentProducts[i].selectedPrice);
                 this.tabList.push(commitmentProducts[i]);
             }
             this._tabListPanel.datasource = this.validateList();
@@ -374,6 +384,8 @@
                 cloneProduct.priority = this._priority;
                 cloneProduct.count = 1;
                 cloneProduct.selectedPrice = cloneProduct.price_level1;
+                cloneProduct.selectedPrice = this._formatPrice(cloneProduct.selectedPrice);
+
                 this.tabList.push(cloneProduct);
                 this._tabListPanel.datasource = this.validateList();
                 this._priority++;
@@ -390,6 +402,7 @@
                 product.priority = this._priority;
                 product.count = 1;
                 product.selectedPrice = product.price_level1;
+                product.selectedPrice = this._formatPrice(product.selectedPrice);
                 this.tabList.push(product);
                 this._tabListPanel.datasource = this.validateList();
                 this._priority++;
@@ -417,12 +430,25 @@
 
                this.removeRepeatedProduct();
              }
-           this.alertReplaceProducts();
+           // this.alertReplaceProducts();
            this._isSave = false ;
 
            this.setCount(this._tabListPanel.selectedIndex);
 
+           //set price configureation
+         
            return this.tabList;
+        },
+
+        _formatPrice: function(price){
+
+                var options = {
+                decimals: this._decimals,
+                thousands: this._thousands,
+                places: ((this._precision>0)?this._precision:0)
+            };
+            // format display precision
+               return  GeckoJS.NumberHelper.format(price, options);
         },
 
        detectTabList: function(){
@@ -588,7 +614,7 @@
 
              this._tabListPanel.datasource = this.tabList;
              this._tabListPanel.ensureRowIsVisible(this._tabListPanel.selectedIndex);
-             this.validateList();
+           //  this.validateList();
              this._tabListPanel.refresh();
              this.setCount(this._tabListPanel.selectedIndex);
 
@@ -856,7 +882,7 @@
              
              for(var x = 0 ; x < priceObj.itemCount ; x++){
 
-                if( priceObj.menupopup.childNodes[x].value == price)
+                if( this._formatPrice(priceObj.menupopup.childNodes[x].value) == price)
                     return x ;
              }
          },
@@ -1031,11 +1057,12 @@
             
              for(var x = 0 ; x< obj.legalList.length ; x++){
 
-                  if(obj.legalList[x].barcode == ""){
+                  if(obj.legalList[x].barcode == "" || obj.legalList[x].barcode.search(" ") != -1){
 
                        obj.legalList[x].comm = _('No Barcode');
                        obj.illegalList.push(obj.legalList[x]);
                        obj.legalList.splice(x,1);
+                       x--;
                        obj.islegal = false ;
                   }
              }
@@ -1052,6 +1079,7 @@
 
                        obj.illegalList.push(obj.legalList[x]);
                        obj.legalList.splice(x,1);
+                       x--
                        obj.islegal = false ;
                   }
               }
@@ -1243,6 +1271,7 @@
 
                object = this._checkHasBarcode(object);
 
+               if(this._positivePrice != ',')
                object = this._checkPriceZero(object);
 
                this.log('DEBUG', this.dump(object));
@@ -1251,7 +1280,7 @@
 
                if(this.legalList.length == 0){
 
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('All the products\' barcod are invalid'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Print label'), _('All of the selected products have invalid price or barcode'));
                     return ;
                }
 

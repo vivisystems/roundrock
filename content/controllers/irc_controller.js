@@ -70,25 +70,25 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
 				
-                if (syncSettings.irc_update_when_signon) {
+                if (GeckoJS.String.parseBoolean(syncSettings.irc_update_when_signon)) {
                     main.addEventListener('signedOn', function() {
                         self.checkAvailableUpdates();
                     });
                 }
 
-                if (syncSettings.irc_update_when_signoff) {
+                if (GeckoJS.String.parseBoolean(syncSettings.irc_update_when_signoff)) {
                     main.addEventListener('signedOff', function() {
                         self.checkAvailableUpdates();
                     });
                 }
 
-                if (syncSettings.irc_update_when_reboot) {
+                if (GeckoJS.String.parseBoolean(syncSettings.irc_update_when_reboot)) {
                     main.addEventListener('beforeReboot', function() {
                         self.checkAvailableUpdates(true);
                     });
                 }
 
-                if (syncSettings.irc_update_when_shutdown) {
+                if (GeckoJS.String.parseBoolean(syncSettings.irc_update_when_shutdown)) {
                     main.addEventListener('beforeShutdown', function() {
                         self.checkAvailableUpdates(true);
                     });
@@ -103,8 +103,14 @@
             // add cart listener
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if (cart) {
-                if (syncSettings.irc_update_when_eachsale) {
-                    cart.addEventListener('onSubmit', function() {
+                if (GeckoJS.String.parseBoolean(syncSettings.irc_update_when_eachsale)) {
+                    cart.addEventListener('onSubmitSuccess', function() {
+                        self.checkAvailableUpdates();
+                    });
+                    cart.addEventListener('onCancelSuccess', function() {
+                        self.checkAvailableUpdates();
+                    });
+                    cart.addEventListener('onVoidSaleSuccess', function() {
                         self.checkAvailableUpdates();
                     });
                 }                
@@ -153,7 +159,7 @@
 
             var alertWin = null;
             try {
-                alertWin = this.showProgressDialog(_('Checking Available Updates'));
+                alertWin = this.showProgressDialog(_('Checking for Available Updates'));
                 var packages = httpService.requestRemoteService('GET', requestUrl);
             }catch(e) {
                 this.log('ERROR', 'Error checkAvailableUpdates', e);
@@ -172,7 +178,7 @@
                 }
 				
             }else if (packages === false) {
-                this._serverError(_('Failed to check IRC Update packages or has apply IRC packages error before [message #2101]'));
+                this._serverError(_('Failed to retrieve IRC update package information. Please ensure that all previous IRC update errors, if any, have been successfully resolved and connection to IRC server is up [message #2101]'));
             }
 
         },
@@ -214,7 +220,7 @@
             var alertWin = null;
             var result = false;
             try {
-                alertWin = this.showProgressDialog(_('Updating Available Updates'));
+                alertWin = this.showProgressDialog(_('Applying Available Updates'));
                 result = httpService.requestRemoteService('GET', requestUrl);
             }catch(e) {
                 this.log('ERROR', 'Error applyAvailableUpdates', e);
@@ -296,7 +302,13 @@
          */
         restart: function() {
 
-            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Restart'), _('Updating success') + '\n\n' + _('Please confirm to restart the terminal')) == false) {
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX < 0) {
+                win = null;
+            }
+
+            if (GREUtils.Dialog.confirm(win, _('Restart after Update'), _('Update successful') + '\n\n' + _('Please confirm to restart the terminal')) == false) {
                 return;
             }
 
@@ -307,10 +319,11 @@
                 GREUtils.restartApplication();
                 window.stop();
                 window.close();
+
+                this.sleep(1000);
             }catch(e) {
                 this.log('ERROR', 'Error restart', e);
             }
-
         },
 
 
@@ -319,7 +332,7 @@
          */
         reboot: function() {
         	
-            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Reboot'), _('Updating success') + '\n\n' + _('Please confirm to reboot the terminal')) == false) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Reboot after Update'), _('Update successful') + '\n\n' + _('Please confirm to reboot the terminal')) == false) {
                 return;
             }
             
@@ -328,8 +341,6 @@
 
             try {
                 goRebootMachine();
-                window.stop();
-                window.close();
             }catch(e) {
                 this.log('ERROR', 'Error reboot', e);
             }
@@ -354,7 +365,7 @@
 
             var alertWin = null;
             try {
-                alertWin = this.showProgressDialog(_('Removing Exipre IRC Packages'));
+                alertWin = this.showProgressDialog(_('Removing Exipred IRC Packages'));
                 var result = httpService.requestRemoteService('GET', requestUrl) || false;
             }catch(e) {
                 this.log('ERROR', 'Error removeExpirePackages', e);
@@ -386,19 +397,14 @@
             var aFeatures = 'chrome,dialog,centerscreen,dependent=yes,resize=no,width='
             + width + ',height=' + height;
 
-            var win = this.topmostWindow;
-            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-            .getService(Components.interfaces.nsIWindowMediator)
-            .getMostRecentWindow("Vivipos:Main");
-
-            win = mainWindow;
-
+            var win = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;
             }
 
-            var alertWin = GREUtils.Dialog.openWindow(null, aURL, aName,
+            var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName,
                 aFeatures, aArguments);
 
             return alertWin;
@@ -429,12 +435,6 @@
             + width + ',height=' + height;
 
             var win = this.topmostWindow;
-            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-            .getService(Components.interfaces.nsIWindowMediator)
-            .getMostRecentWindow("Vivipos:Main");
-
-            win = mainWindow;
-
             if (win.document.documentElement.id == 'viviposMainWindow'
                 && win.document.documentElement.boxObject.screenX < 0) {
                 win = null;

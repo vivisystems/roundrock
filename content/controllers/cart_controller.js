@@ -538,6 +538,22 @@
             this._clearAndSubtotal();
         },
 
+        getReturnableCount: function(txn, item) {
+            let count = 0;
+            let items = txn.data.items;
+            let dispItems = txn.data.display_sequences;
+            dispItems.forEach(function(dispItem) {
+                if (dispItem.id == item.id) {
+                    let currentItem = items[dispItem.index];
+
+                    if ((currentItem.current_qty > 0) || (currentItem.current_qty < 0 && dispItem.returned)) {
+                        count += currentItem.current_qty;
+                    }
+                }
+            }, this);
+
+            return count;
+        },
 
         /**
          * return cart item at cursor index.
@@ -602,25 +618,29 @@
                     exit = true;
                 }
                 else {
-                    curTransaction.returnItemAtIndex(index, qty);
-                    exit = true;
-
-                    // auto add memo
-                    if (code) {
-
-                        var self = this;
-                        // don't dispatch right now
-                        exit = false;
-                        return this.addMemo(code).next(function(){
-                            self.dispatchEvent('afterReturnCartItem', curTransaction);
-                        });
-
+                    let returnableCount = this.getReturnableCount(curTransaction, itemTrans);
+                    if (qty > returnableCount) {
+                        NotifyUtils.warn(_('You may not return more [%S] than you have registered', [itemDisplay.name]));
                     }
+                    else {
+                        curTransaction.returnItemAtIndex(index, qty);
+
+                        // auto add memo
+                        if (code) {
+
+                            var self = this;
+                            // don't dispatch right now
+                            exit = false;
+                            return this.addMemo(code).next(function(){
+                                self.dispatchEvent('afterReturnCartItem', curTransaction);
+                            });
+                        }
+                    }
+                    exit = true;
                 }
             }
 
             if (exit) {
-                this._getKeypadController().clearBuffer();
                 this._clearAndSubtotal();
                 this.dispatchEvent('afterReturnCartItem', curTransaction);
             }
@@ -735,6 +755,7 @@
                     var currentItem = curTransaction.getItemAt(currentIndex);
                     var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
                     var price = GeckoJS.Session.get('cart_set_price_value');
+                    var destination = GeckoJS.Session.get('vivipos_fec_order_destination');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (!qtyFromInput &&
                             ((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
@@ -742,9 +763,10 @@
                             !currentItem.hasDiscount &&
                             !currentItem.hasSurcharge &&
                             !currentItem.hasMarker &&
+                            currentItem.destination == destination &&
                             ((price == null) || (currentItem.current_price == price)) &&
-                            (currentItem.current_qty > 0 && !this._returnMode ||
-                                currentItem.current_qty < 0 && this._returnMode) &&
+                            ((currentItem.current_qty > 0 && !this._returnMode) ||
+                                currentItem.current_qty < 0 && !currentItemDisplay.returned && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
 
                             // need to clear quantity source so scale multipler is not applied again
@@ -1444,6 +1466,7 @@
             switch(action) {
                 case 'plus':
                     newQty = parseFloat(newQty + delta);
+
                     break;
                 case 'minus':
                     newQty = (newQty - delta > 0) ? (newQty - delta) : newQty;
@@ -1461,6 +1484,17 @@
                 var qtyPrecision = this._getPrecision(qty);
                 var deltaPrecision = this._getPrecision(delta);
                 newQty = newQty.toFixed( qtyPrecision > deltaPrecision ? qtyPrecision : deltaPrecision);
+            }
+
+            // check if changing quantity causes violation of return policy
+            var returnableCount = this.getReturnableCount(curTransaction, itemTrans);
+            if (newQty < qty) {
+                if ((qty > 0 || itemDisplay.returned) && qty - newQty > returnableCount) {
+                    NotifyUtils.warn(_('Cannot modify; doing so would have caused the quantity of [%S] returned to be more than the quantity registered', [itemDisplay.name]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
             }
 
             if (newQty != qty) {
@@ -1651,14 +1685,20 @@
         },
 
         addDiscountByPercentage: function(args) {
-            // args is a list of up to 2 comma separated arguments: amount, label
+            // args is a list of up to 5 comma separated arguments: amount, label
             var discountAmount;
             var discountName;
+            var skipCondiments = false;
+            var respectNonDiscountable = false;
+            var useBalanceBeforePayments = false;
 
             if (args != null && args != '') {
                 var argList = args.split(',');
                 if (argList.length > 0) discountAmount = argList[0];
                 if (argList.length > 1) discountName = argList[1];
+                if (argList.length > 2) skipCondiments = GeckoJS.String.parseBoolean(argList[2]);
+                if (argList.length > 3) respectNonDiscountable = GeckoJS.String.parseBoolean(argList[3]);
+                if (argList.length > 4) useBalanceBeforePayments = GeckoJS.String.parseBoolean(argList[4]);
             }
 
             // check if has buffer
@@ -1675,7 +1715,7 @@
                 discountName = '-' + discountAmount + '%';
             }
 
-            this._addDiscount(discountAmount, '%', discountName);
+            this._addDiscount(discountAmount, '%', discountName, skipCondiments, respectNonDiscountable, useBalanceBeforePayments);
         },
 
         addMassDiscountByPercentage: function(args) {
@@ -1685,7 +1725,7 @@
             if(args !=null && args != '') {
                 var argList = args.split(',');
                 if (argList.length > 0) discountAmount = argList[0];
-                if (argList.length > 0) discountName = argList[1];
+                if (argList.length > 1) discountName = argList[1];
             }
 
             var buf = this._getKeypadController().getBuffer();
@@ -1705,7 +1745,7 @@
         },
 
 
-        _addDiscount: function(discountAmount, discountType, discountName) {
+        _addDiscount: function(discountAmount, discountType, discountName, skipCondiments, respectNonDiscountable, useBalanceBeforePayments) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -1777,19 +1817,19 @@
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
                 if (itemDisplay.hasSurcharge) {
-                    NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Surcharge has been already been registered on subtotal [%S]', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 else if (itemDisplay.hasDiscount) {
-                    NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Discount has been already been registered on subtotal [%S]', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 else if (index < cartLength - 1) {
-                    NotifyUtils.warn(_('Cannot apply discount to [%S]. It is not the last registered item', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Cannot apply discount to subtotal [%S]. It is not the last registered entry', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
                     return;
@@ -1831,7 +1871,7 @@
             };
             this.dispatchEvent('beforeAddDiscount', discountItem);
 
-            var discountedItem = curTransaction.appendDiscount(index, discountItem);
+            var discountedItem = curTransaction.appendDiscount(index, discountItem, skipCondiments, respectNonDiscountable, useBalanceBeforePayments);
 
             this.dispatchEvent('afterAddDiscount', discountedItem);
 
@@ -2585,6 +2625,15 @@
                     return;
 
                 case 'coupon':
+                    if (balance <= 0) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Coupon Payment Error'),
+                            _('Coupon payment not permitted when no balance is due'));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+
                     if (silent && subtype != '') {
                         this._addPayment('coupon', payment, amount, subtype, '', groupable, finalize);
                     }
@@ -2682,7 +2731,18 @@
                         }
                         if (isNaN(limit)) limit = 0;
 
-                        if (balance >= 0) {
+                        // we need to collect total check payment amount
+                        let payments = curTransaction.getPayments();
+                        let totalCheckPayment = 0;
+                        for (key in payments) {
+                            let entry = payments[key];
+                            if (entry.name == 'check') {
+                                totalCheckPayment += entry.amount;
+                            }
+                        }
+                        let balanceBeforeCheckPayment = totalCheckPayment + balance;
+
+                        if (balanceBeforeCheckPayment >= 0) {
                             if (payment - balance > limit) {
                                 GREUtils.Dialog.alert(this.topmostWindow,
                                     _('Check Payment Error'),
@@ -2693,19 +2753,10 @@
                             }
                         }
                         else {
-                            // we need to collect total check payment amount
-                            let payments = curTransaction.getPayments();
-                            let total = payment;
-                            for (key in payments) {
-                                let entry = payments[key];
-                                if (entry.name == 'check') {
-                                    total += entry.amount;
-                                }
-                            }
-                            if (total > limit) {
+                            if (newCheckTotal > limit) {
                                 GREUtils.Dialog.alert(this.topmostWindow,
                                     _('Check Payment Error'),
-                                    _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(total), curTransaction.formatPrice(limit)]));
+                                    _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(newCheckTotal), curTransaction.formatPrice(limit)]));
 
                                 this._clearAndSubtotal();
                                 return;
@@ -3282,12 +3333,15 @@
 
         cancel: function(forceCancel) {
 
+            var orderModel = new OrderModel();
+
             this._getKeypadController().clearBuffer();
             this._cancelReturn(true);
 
-            // cancel cart but save
             var curTransaction = this._getTransaction();
             if (!this.ifHavingOpenedOrder()) {
+
+                if (curTransaction.data.recall == 2) orderModel.releaseOrderLock(curTransaction.data.id);
 
                 this.clear();
 
@@ -3295,6 +3349,7 @@
 
                 // let dispatcher don't auto dispatch onCancel
                 this.dispatchedEvents['onCancel'] = true;
+
                 return;
             }
 
@@ -3339,6 +3394,9 @@
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
                                 _('Failed to cancel order because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #103].'));
+                        }
+                        else {
+                            orderModel.releaseOrderLock(curTransaction.data.id);
                         }
                         this.dispatchEvent('onClear', curTransaction);
                     }
@@ -3504,12 +3562,6 @@
                     // dispatch event for devices or extensions.
                     this.dispatchEvent('afterSubmit', oldTransaction);
 
-                    // clear register screen if needed
-                    if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                        //this._cartView.empty();
-                        this.cartViewEmpty();
-                    }
-
                 }finally{
 
                     if (submitStatus == -99) {
@@ -3523,12 +3575,12 @@
                     try {
                         // commit order data to local databases or remote.
                         commitStatus = oldTransaction.commit(status);
-
                         if (commitStatus == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
                                 _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server. You can store the check again after network connectivity has been restored [message #105].'));
                             this.dispatchEvent('commitOrderError', commitStatus);
+                            this.dispatchEvent('onGetSubtotal', oldTransaction);
                             this.dispatchEvent('onWarning', _('Network Error'));
                             this._unblockUI(waitPanel);
                             return false;
@@ -3545,6 +3597,12 @@
                         // fatal error at submit. and will cause commit error
                         this.log('ERROR', 'Error on Transaction.commit(' + status + ') (' + commitStatus + ')');
                     }
+                }
+
+                // clear register screen if needed
+                if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                    //this._cartView.empty();
+                    this.cartViewEmpty();
                 }
 
                 this._unblockUI(waitPanel);

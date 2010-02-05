@@ -65,7 +65,7 @@
                 </hbox>
                 <vbox pack="center" class="container-report">
                     <hbox class="ReportTool">
-                        <vivibutton id="report" disabled="true" class="PrintReportBtn" oncommand="$do('exportRcp', null, 'ViewOrder')"/>
+                        <vivibutton id="report" disabled="true" class="PrintBtn" oncommand="$do('exportRcp', null, 'ViewOrder')"/>
                     </hbox>
                 </vbox>
                 <hbox id="dialogButtons" class="exitbar">

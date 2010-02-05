@@ -10,7 +10,7 @@
 
         var taxes = inputObj.taxes;
         var rate = inputObj.rate;
-
+        
         for (var selectedIndex=0; selectedIndex<taxes.length; selectedIndex++) {
             if(taxes[selectedIndex].no ==rate) break;
         }
@@ -20,7 +20,8 @@
 
         document.getElementById('taxscrollablepanel').datasource = window.viewHelper ;
         document.getElementById('taxscrollablepanel').selectedIndex = selectedIndex;
-        document.getElementById('taxscrollablepanel').selectedItems = [selectedIndex];
+        if (selectedIndex > -1)
+            document.getElementById('taxscrollablepanel').selectedItems = [selectedIndex];
 
         // set title
         if ('titleName' in inputObj) {
@@ -29,7 +30,7 @@
 
         doSetOKCancel(
             function(){
-
+                
                 var items = document.getElementById('taxscrollablepanel').selectedItems;
 
                 if (items.length == 0) {

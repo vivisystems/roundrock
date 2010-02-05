@@ -796,8 +796,12 @@ msgstr "Shift Tax"
 msgid "vivipos.fec.registry.function.programmable.discountByPercentage.desc"
 msgstr ""
 "This function registers a percentage-based discount. The parameter field can "
-"be used to program a preset percentage and label (separated by comma.) If no preset percentage is "
-"programmed, the discount percentage is read from the input line."
+"take up to 5 optional, comma-delimited parameters. The first parameter is used "
+"to program a preset percentage; the second parameter provides a label for the "
+"discount; set the third parameter to 1 to exclude condiments from the discount; "
+"set the fourth parameter to 1 to exclude non-discountable items from subtotal "
+"discounts; and set the fifth parameter to 1 to compute discount amount based "
+"on balance before payments are applied."
 
 msgid "vivipos.fec.registry.function.programmable.discountByPercentage.label"
 msgstr "-%"
@@ -2324,7 +2328,7 @@ msgid "trigger.individual_dept.name"
 msgstr "Individual Department"
 
 msgid "trigger.individual_dept.desc"
-msgstr "Promotion trigger - Individual Department"
+msgstr "Promotion trigger - Individual Department, with destination filter"
 
 msgid "trigger.individual_group.label"
 msgstr "Individual Group"
@@ -2370,6 +2374,15 @@ msgstr "Cheapest One Free"
 
 msgid "type.cheapest_one_free.desc"
 msgstr "Promotion type - Cheapest One Free"
+
+msgid "type.discount_after_n.desc"
+msgstr "Promotion type - Discount After N: no discount is applied to the first N items from the matched item set"
+
+msgid "type.discount_after_n.label"
+msgstr "Discount After N"
+
+msgid "type.discount_after_n.name"
+msgstr "Discount After N"
 
 msgid "type.multi_buy.label"
 msgstr "Multi Buy"

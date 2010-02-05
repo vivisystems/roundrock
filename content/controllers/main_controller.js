@@ -4,7 +4,7 @@
 
         name: 'Main',
 
-        uses: ['Product'],
+        uses: ['Product', 'Order', 'TableSetting'],
 
         components: ['Tax'],
 
@@ -113,9 +113,7 @@
 
                         // check if successfully logged in
                         if (this.Acl.getUserPrincipal()) {
-                            // prevent onSetClerk event dispatch
-                            this.dispatchedEvents['onSetClerk'] = true;
-                            this.requestCommand('setClerk', null, 'Main');
+                            this.setClerk(true);
                         }
 
                         this.dispatchEvent('onInitial', null);
@@ -329,6 +327,8 @@
             var aName = _('Change User');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=no,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
+
+            this.requestCommand('setClerk', null, 'Main');
         },
 
         ClockInOutDialog: function () {
@@ -368,7 +368,6 @@
                         let productsById = GeckoJS.Session.get('productsById');
                         let prod = productsById[pid];
                         if (prod) {
-                            this.log(this.dump(prod));
                             this.requestCommand('addItem',prod,'Cart');
                         }
                     }
@@ -751,7 +750,6 @@
                     prodpanel.invalidate(index);
                 }
                 else if (!product.soldout) {
-                    this.log(this.dump(product));
                     this.requestCommand('addItem',product,'Cart');
 
                     // return to top level if necessary
@@ -766,7 +764,7 @@
             }
         },
 
-        setClerk: function () {
+        setClerk: function (recovery) {
             var user = this.Acl.getUserPrincipal();
             if (user) {
                 // perform user login initialization
@@ -814,7 +812,7 @@
                 var fnPanel = document.getElementById('functionPanel');
                 if (fnPanel) fnPanel.home();
 
-                this.dispatchEvent('signedOn', user);
+                if (!recovery) this.dispatchEvent('signedOn', user);
             }
             else {
                 GeckoJS.Session.clear('user');
@@ -1222,15 +1220,16 @@
                 if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
-            this.dispatchEvent('signedOff', principal);
-            
-            Transaction.removeRecoveryFile();
+            if (this.dispatchEvent('signedOff', principal)) {
 
-            // close all poup panels
-            this.closeAllPopupPanels();
+                Transaction.removeRecoveryFile();
 
-            if (!quickSignoff) {
-                this.ChangeUserDialog();
+                // close all poup panels
+                this.closeAllPopupPanels();
+
+                if (!quickSignoff) {
+                    this.ChangeUserDialog();
+                }
             }
         },
 
@@ -1558,12 +1557,31 @@
             var products = GeckoJS.Session.get('products') || [];
             var numProds = products.length;
             var numCustomers = customers.length;
-            
+
+            var guestCheckController = GeckoJS.Controller.getInstanceByName('GuestCheck');
+            var checkSeq = 0;
+            var tables = GeckoJS.Session.get('tables').filter(function(table) {return table.active});
+            var numTables = tables.length;
+            var currentTableIndex = 0;
+            var currentTableNo;
+
+            var tableSettings = this.TableSetting.getTableSettings(true);
+            var maxCheckNo = tableSettings.MaxCheckNo || 100;
+
             var customerController = GeckoJS.Controller.getInstanceByName('Customers');
             
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            var startIndex = 0;
             var waitPanel;
+
+            // check if open order exist
+            if (cart.ifHavingOpenedOrder()) {
+                if (GREUtils.Dialog.confirm(this.topmostWindow, _('Load Test'), _('Open order exists, discard the order and proceed with the load test?'))) {
+                    cart.cancel(true);
+                }
+                else {
+                    return;
+                }
+            }
 
             var progressBar = document.getElementById('interruptible_progress');
             progressBar.mode = 'determined';
@@ -1575,10 +1593,13 @@
                 actionButton.setAttribute('oncommand', '$do("suspendLoadTest", null, "Main");');
             }
             
+            var ordersOpened = 0;
+            var ordersClosed = 0;
             if (resume && this.loadTestState != null) {
-                startIndex = this.loadTestState;
+                ordersOpened = this.loadTestState.opened;
+                ordersClosed = this.loadTestState.closed;
                 this.loadTestState = null;
-                progressBar.value = startIndex * 100 / count;
+                progressBar.value = loopCount * 100 / count;
                 waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
             else {
@@ -1586,71 +1607,131 @@
                 waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
 
-            //this.sleep(100);
-            
-            for (var i = startIndex; i < count; i++) {
+            while (ordersClosed < count) {
 
                 if (this._suspendLoadTest) {
                     this._suspendLoadTest = false;
-                    this.loadTestState = i;
+                    this.loadTestState = {opened: ordersOpened, closed: ordersClosed}
                     
                     break;
                 }
 
-                // select a member
-                if (customerController && numCustomers > 0) {
-                    var cIndex = Math.floor(numCustomers * Math.random());
-                    if (cIndex >= numCustomers) cIndex = numCustomers - 1;
-                    
-                    var customer = customers[cIndex];
-                    var txn = cart._getTransaction(true);
-                    customerController.processSetCustomerResult(txn, {
-                        ok: true,
-                        customer: customer
-                    });
+                // select a table in sequence
+                if (numTables > 0) {
+                    let tries = 0;
+                    while (tries < numTables) {
+                        let table = tables[currentTableIndex++];
+                        currentTableIndex %= numTables;
+                        tries++;
+
+                        if (guestCheckController.isTableAvailable(table)) {
+                            currentTableNo = table.table_no;
+                            break;
+                        }
+                    }
                 }
 
-                for (var j = 0; j < items; j++) {
+                // found table, let's get a transaction'
+                if (currentTableNo > -1) {
+                    let conditions = 'orders.table_no="' + currentTableNo + '" AND orders.status=2';
+                    var orders = this.Order.getOrdersSummary(conditions, true);
 
-                    // select an item with no condiments from product list
-                    var pindex = Math.floor(numProds * Math.random());
-                    if (pindex >= numProds) pindex = numProds - 1;
-                    
-                    var item = this.Product.getProductById(products[pindex].id);
-                    if (item.force_condiment) {
-                        item.force_condiment = false;
+                    let recalled = false;
+                    let txn;
+                    if (orders.length > 0 && (ordersOpened == count && Math.random() < 0.5)) {
+
+                        // recall order
+                        let index = Math.floor(Math.random() * orders.length);
+                        let orderId = orders[index].Order.id;
+
+                        if (guestCheckController.recallOrder(orderId)) {
+                            txn = cart._getTransaction();
+                            recalled = true;
+                        }
                     }
-                    if (item.force_memo) {
-                        item.force_memo = false;
+
+                    if (!recalled && ordersOpened < count) {
+
+                        // create a new order
+                        if (currentTableNo > -1) {
+                            if (guestCheckController.newTable(currentTableNo)) {
+                                txn = cart._getTransaction();
+                            }
+                        }
+
+                        if (customerController && numCustomers > 0) {
+                            let cIndex = Math.floor(numCustomers * Math.random());
+                            if (cIndex >= numCustomers) cIndex = numCustomers - 1;
+
+                            let customer = customers[cIndex];
+                            txn = cart._getTransaction(true);
+                            customerController.processSetCustomerResult(txn, {
+                                ok: true,
+                                customer: customer
+                            });
+                        }
+
+                        if (txn) ordersOpened++;
                     }
 
-                    // add to cart
-                    cart.addItem(item);
+                    if (txn) {
+                        // assign check number if not auto-assigned
+                        if (txn.data.check_no == '') txn.data.check_no = (++checkSeq % maxCheckNo);
 
-                    // delay
+                        // get current number of items
+                        let itemCount = txn.getItemsCount();
+                        let itemsToAdd = items - itemCount;
+                        if (store) {
+                            itemsToAdd = Math.min(itemsToAdd, Math.ceil(items * Math.random()));
+                        }
+
+                        // add items
+                        for (let j = 0; j < itemsToAdd; j++) {
+
+                            // select an item with no condiments from product list
+                            var pindex = Math.floor(numProds * Math.random());
+                            if (pindex >= numProds) pindex = numProds - 1;
+
+                            var item = this.Product.getProductById(products[pindex].id);
+                            if (item.force_condiment) {
+                                item.force_condiment = false;
+                            }
+                            if (item.force_memo) {
+                                item.force_memo = false;
+                            }
+
+                            // add to cart
+                            cart.addItem(item);
+
+                            // delay
+                            this.sleep(100);
+                        }
+
+                        if (txn.getItemsCount() < items) {
+                            cart.storeCheck();
+                        }else {
+                            cart.cash(',1,');
+
+                            // update progress bar for order closed
+                            progressBar.value = (++ordersClosed * 100) / count;
+
+                            this.sleep(1000);
+                        }
+                    }
+                    else {
+                        // did not find an available order on the current table; do a small delay and retry
+                        this.sleep(100);
+                    }
+                }
+                else {
+                    // did not find an active table; do a small delay and retry
                     this.sleep(100);
                 }
-
-                if (store) {
-                    // store 
-                    cart.storeCheck();
-                }else {
-                    // finalize order with cash
-                    cart.cash();
-                }
-
-                // update progress bar
-                progressBar.value = (i + 1) * 100 / count;
-
                 // GC & delay
                 GREUtils.gc();
-                this.sleep(300);
             }
 
             waitPanel.hidePopup();
-            if (actionRow) {
-                actionRow.hidden = true;
-            }
             progressBar.mode = 'undetermined';
         },
 

@@ -134,9 +134,6 @@ Bug #300:
 Bug #301:
     Need to create new template types for use when 1) making a table transfer, 2) returning a cart item, and 3) rushing a cart item
 
-Bug #308:
-    The Table Selection grid should always have the table hosting the open check highlighted (applicable to Compact Table layout only)
-
 Bug #317:
     It should be able to configure each VFD to display a default message if the terminal has been idle for a period of time
 
@@ -152,15 +149,15 @@ Bug #320:
 Bug #322
     Need to track the price level at which items are registered in order to determine promotion eligibility
 
+Bug #330:
+    The basic set of triggers have been updated to support item destination as a filter condition
+
 ----------
 Bugs Fixed
 ----------
 
 Bug #273:
     User is forced to enter table number and number of guests even though the respective options have been turned off
-
-Bug #283:
-    The Table Selection grid does not pop up in dock mode when performing order recovery
 
 Bug #302:
     When Table Management option 'Require check number' is enabled, no attempt is made to request for a check number when storing or closing an order if the check number has not been successfully assigned when the order was first opened
@@ -173,6 +170,49 @@ Bug #311 (*):
 
 Bug #316 (*):
     Disk usage computation is incorrect
+
+Bug #326:
+    When the last tax status is removed, details of the tax being removed remains on the form and the 'Modify' button is not disabled
+
+Bug #333:
+   Expired ledger payment records are not removed from database
+
+-----------------------------
+Bugs fixed in Release 1.2.0.8
+-----------------------------
+
+Bug #323:
+    Items should not be collapsed together if destinations are different
+
+Bug #324:
+    Item destination should be made available as a promotion trigger condition
+
+Bug #325:
+    Need a discount-after-n promotion type
+
+Bug #335:
+
+Bug #340:
+
+Bug #341:
+
+Bug #342:
+
+Bug #343:
+
+Bug #345:
+
+Bug #347:
+
+Bug #348:
+
+Bug #351:
+
+Bug #352:
+
+Bug #353:
+
+Bug #355:
 
 -----------------------------
 Bugs fixed in Release 1.2.0.7

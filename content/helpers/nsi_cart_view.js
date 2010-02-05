@@ -139,8 +139,10 @@
                 props.AppendElement(aserv.getAtom('treeSUBTOTAL'));
             } else if (data.type == 'total') {
                 props.AppendElement(aserv.getAtom('treeTOTAL'));
-            } else if (parseFloat(data.current_qty.replace('X', '')) < 0) {
+            } else if (data.returned) {
                 props.AppendElement(aserv.getAtom('treeReturnItem'));
+            } else if (parseFloat(data.current_qty.replace('X', '')) < 0) {
+                props.AppendElement(aserv.getAtom('treeRefundItem'));
             } else if (data.stock_status == '0') {
                 props.AppendElement(aserv.getAtom('treeLowStock'));
             } else if (data.stock_status == '-1') {
@@ -160,24 +162,24 @@
 
             var sResult;
             var key;
-
             try {
                 key = col.id;
+                var data = this.data[row];
                 if (key == 'row') {
                     sResult = 1 + parseInt(row);
                 }
                 else if (key == 'price_level') {
                     // display price level only if current price exists
                     sResult = '';
-                    if (this.data[row]['current_price'] != '' && this.data[row]['price_level'] != '') {
-                        sResult = '[' + this.data[row]['price_level'] + ']';
+                    if (data.type == 'item' && data.current_price != '' && data.price_level != '') {
+                            sResult = '[' + data.price_level + ']';
                     }
                 }
                 else
-                    sResult = this.data[row][key] || "";
+                    sResult = this.data[row][key] || '';
             }
             catch (e) {
-                sResult =  "";
+                sResult =  '';
             }
             return sResult;
 

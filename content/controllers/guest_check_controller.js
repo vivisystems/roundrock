@@ -17,7 +17,7 @@
             // add cart events
             var cart = this.getCartController();
             if(cart) {
-            
+
                 // check table no and guests before submit...
                 cart.addEventListener('beforeSubmit', this.onCartBeforeSubmit, this);
 
@@ -52,16 +52,15 @@
             
             this.tableSettings = this.TableSetting.getTableSettings() || {};
 
+            // load regions and tables in session.
+            let regions = this.Table.TableRegion.getTableRegions();
+            let tables = this.Table.getTables();
+
             // table window is first win
             if (this.tableSettings.TableWinAsFirstWin) {
 
                 var alertWin = this.showAlertDialog();
                 this.sleep(1000);
-
-                // load regions and tables in session.
-                let regions = this.Table.TableRegion.getTableRegions();
-
-                let tables = this.Table.getTables();
 
                 // prefetch tables status with orders
                 this.Table.TableStatus.getTablesStatus(true);
@@ -70,7 +69,7 @@
                     alertWin.close();
                     delete alertWin;
                 }
-                
+
             }
             GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', (this.tableSettings.RequireCheckNo || false), false );
         },
@@ -492,11 +491,6 @@
 
                 if (destination) {
                     this.requestCommand('setDestination', destination, 'Destinations');
-                } else {
-                    var defaultDest = GeckoJS.Session.get('defaultDestination');
-                    if (defaultDest) {
-                        this.requestCommand('setDestination', defaultDest, 'Destinations');
-                    }
                 }
 
                 // update Table No
@@ -883,7 +877,12 @@
                 var order = new OrderModel();
                 if (order && order.hasBackupFile(2)) {
 
+                    var waitPanel = cart._blockUI('blockui_panel', 'common_wait', _('Recall Check'), 0);
+
                     var result = order.restoreOrderFromBackupToRemote();
+
+                    if (waitPanel) cart._unblockUI(waitPanel);
+                    
                     if (!result) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Data Operation Error'),
@@ -1085,7 +1084,8 @@
             cart._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
 
-            // set destination action if table specific or set to default
+            curTransaction.setTableRegionName('');
+
             if (curTransaction.data.table_no && !isNaN(parseInt(curTransaction.data.table_no))) {
                 var table = this.Table.getTableByNo(curTransaction.data.table_no);
                 if (table) {
@@ -1095,16 +1095,12 @@
                         let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
                         curTransaction.setTableRegionName(region.name);
                     }
-                    
-                    if (table.destination) {
-                        this.requestCommand('setDestination', table.destination, 'Destinations');
-                    }
                 }else {
                     curTransaction.setTableNo(''); // reset table_no to empty
-                    var defaultDest = GeckoJS.Session.get('defaultDestination') || false;
-                    if (defaultDest) {
-                        this.requestCommand('setDestination', defaultDest, 'Destinations');
-                    }
+                }
+
+                if (curTransaction.data.status == 0 && curTransaction.data.destination) {
+                    this.requestCommand('setDestination', curTransaction.data.destination, 'Destinations');
                 }
             }
             

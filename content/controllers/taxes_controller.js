@@ -249,7 +249,7 @@
             try {
                 this.Tax.removeTax(tax.no);
 
-                this._selectedIndex = -1;
+                this._selectedIndex = null;
                 if (selectedIndex >= this._listDatas.length - 1) {
                     selectedIndex--;
                 }
@@ -332,7 +332,10 @@
 
             if (listObj.selectedIndex != index) {
                 listObj.selectedIndex = index;
-                listObj.selectedItems = [index];
+                if (index == -1) 
+                    listObj.selectedItems = [];
+                else
+                    listObj.selectedItems = [index];
             }
             this.select();
 
@@ -342,7 +345,7 @@
 
             var listObj = this.getListObj();
             var selectedIndex = listObj.selectedIndex;
-
+            
             if (selectedIndex == this._selectedIndex) return;
             
             if (!this.confirmChangeTax(selectedIndex)) {

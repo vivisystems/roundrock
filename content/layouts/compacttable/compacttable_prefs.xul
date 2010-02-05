@@ -41,6 +41,7 @@
                 <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.layout.HideDeptScrollbar" type="bool"/>
                 <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.layout.traditional.HidePLUScrollbar" type="bool"/>
                 <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.layout.HideFPScrollbar" type="bool"/>
+                <preference id="pref_showaverageprice" name="vivipos.fec.settings.layout.ShowAveragePrice" type="bool"/>
                 <preference id="pref_checktrackingmode" name="vivipos.fec.settings.layout.CheckTrackingMode" type="bool"/>
                 <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.layout.HideSoldOutButtons" type="bool"/>
 
@@ -73,6 +74,7 @@
                     </row>
                     <row>
                         <checkbox id="showPlugroupsFirst" label="&layout.showplugroupsfirst;" preference="pref_showplugroupsfirst" />
+                        <checkbox id="showAveragePrice" label="&layout.showaverageprice;" preference="pref_showaverageprice" />
                     </row>
                     <row>
                         <checkbox preference="pref_showtoolbar" id="pref_showtoolbarCtrl" label="&layout.showtoolbar;" />

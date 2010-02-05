@@ -344,7 +344,7 @@
             applyModel.truncate();
             
             currentPromotions.forEach(function(promotion){
-
+                
                 var triggerObj = this._activedTriggers[promotion.id];
                 var typeObj = this._activedTypes[promotion.id];
 
