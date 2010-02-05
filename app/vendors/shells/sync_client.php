@@ -96,6 +96,19 @@ class SyncClientShell extends SyncBaseShell {
     }
 
 
+    /***
+     * check when admin request suspend
+     */
+    function isSuspend() {
+
+        $syncSettings = $this->readSyncSettings();
+        
+        $flagFile = "/tmp/sync_suspend_" .$syncSettings['machine_id'];
+
+        return file_exists($flagFile);
+        
+    }
+
     /**
      * sync for shell script
      */
@@ -209,6 +222,9 @@ class SyncClientShell extends SyncBaseShell {
                 System_Daemon::log(System_Daemon::LOG_INFO, "requestAction perform_syncs, retries = " . $tries );
 
                 if ($hostname == 'localhost' || $hostname == '127.0.0.1' || empty($active) ) break;
+
+                // check isSuspend ?
+                if ($this->isSuspend()) break;
 
                 $successed = false;
 
