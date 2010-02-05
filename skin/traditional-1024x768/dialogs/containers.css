@@ -13,7 +13,8 @@
     cursor: wait !important;
 }
 
-.container-dialog .container-wait-panel * {
+.container-dialog .container-wait-panel *,
+.container-dialog .container-interruptible-wait-panel * {
     cursor: wait !important;
 }
 
@@ -31,12 +32,12 @@
 
 .container-dialog .container-interruptible-wait-panel {
     background: white;
-    height: 160px;
+    height: 180px;
     margin-left: 212px;
-    margin-top: 304px;
-    max-height: 160px;
+    margin-top: 294px;
+    max-height: 180px;
     max-width: 600px;
-    min-height: 160px;
+    min-height: 180px;
     min-width: 600px;
     width: 600px;
 }
