@@ -13,6 +13,9 @@ Enhancements
 Bug #195:
     It is desired in a clustered environment to program a master terminal and have the programming automatically replicated to each terminal in the cluster. This replication, termed Inter-register communication, IRC, would significantly reduce the effort required to install and maintain a terminal cluster.
 
+Bug #359:
+    Synchronization may be suspended temporarily to make troubleshooting easier.
+
 -----------------------------
 Bugs fixed in RELEASE-1.2.0.5
 -----------------------------
