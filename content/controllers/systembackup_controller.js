@@ -94,23 +94,27 @@
         scanBackupDevices: function() {
             var devices = {};
 
-            // check VIVIBACKUP
-            var file = new GeckoJS.File('/dev/disk/by-label/VIVIBACKUP');
-            if (file) {
-                file.normalize();
-                this.log('DEBUG', 'file: ' + file);
-                if (file.exists()) {
-                    this.log('DEBUG', 'file exists [' + file.path + ']');
+            // check BACKUP
+            let suffixes = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            suffixes.forEach(function(suffix) {
+                let file = new GeckoJS.File('/dev/disk/by-label/BACKUP' + suffix);
+                this.log('DEBUG', 'file: ' + file + ' [' + file.path + ']');
+                if (file) {
+                    file.normalize();
+                    this.log('DEBUG', 'file: ' + file);
+                    if (file.exists()) {
+                        this.log('DEBUG', 'file exists [' + file.path + ']');
 
-                    // mount path
-                    let mountPath = this.mountBackupDevice(file.path) || file.path;
-                    devices[mountPath] = {path: file.path,
-                                          mount: mountPath,
-                                          label: 'VIVIBACKUP',
-                                          type: 'label'};
+                        // mount path
+                        let mountPath = this.mountBackupDevice(file.path) || file.path;
+                        devices[mountPath] = {path: file.path,
+                                              mount: mountPath,
+                                              label: 'BACKUP' + suffix,
+                                              type: 'label'};
+                    }
                 }
-            }
-
+            }, this);
+            
             // check last media
             var last_media = "";
             var osLastMedia = new GeckoJS.File('/tmp/last_media');
