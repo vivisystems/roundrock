@@ -149,6 +149,8 @@
             var arKeys = keys.split(',');
             var result = [] ;
 
+            this.begin();
+
             arKeys.forEach(function(key) {
 
                 let seq = this.findByIndex('first', {
@@ -176,6 +178,8 @@
 
             }, this);
 
+            this.commit();
+
             return result.join(',');
 
         },
@@ -196,6 +200,8 @@
 
 
         setLocalSequence: function(key, value) {
+
+            this.begin();
             
             let seq = this.findByIndex('first', {
                 index: 'key',
@@ -212,12 +218,16 @@
             this.id = seq.id;
             result = this.save(seq);
 
+            this.commit();
+
             return result;
 
         },
 
         setLocalSequenceMaxValue: function(key, value) {
 
+            this.begin();
+            
             let seq = this.findByIndex('first', {
                 index: 'key',
                 value: key
@@ -232,6 +242,8 @@
             let result = true;
             this.id = seq.id;
             result = this.save(seq);
+
+            this.commit();
 
             return result;
 
@@ -280,16 +292,25 @@
             if (isTraining) return;
 
             key = key || "default";
+
+            this.begin();
+
             var seq = this.findByIndex('first', {
                 index: 'key',
                 value: key
             });
+            var r;
             if (seq) {
-                return this.del(seq.id);
+                r = this.del(seq.id);
             }
+            this.commit();
+            return r;
         },
 
         resetLocalSequence: function(key, value) {
+
+            this.begin();
+
             var seq = this.findByIndex('first', {
                 index: 'key',
                 value: key
@@ -305,6 +326,9 @@
             if (!this.save(seq)) {
                 this.saveToBackup(seq);
             }
+
+            this.commit();
+            
             return seq;
         }
     }
