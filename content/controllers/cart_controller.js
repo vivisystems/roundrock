@@ -3322,17 +3322,25 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                             _('confirm cancel'),
                             _('Are you sure you want to discard changes made to this order?'))) {
 
+                        // blockUI when cancelling...
+                        var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Cancelling Order'), 0);
+
                         var ret = curTransaction.cancel(true);
+
+                        // unblockUI
+                        this._unblockUI(waitPanel);
 
                         if (ret == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
                                 _('Failed to cancel order due to data operation error [message #102].'));
+                            return;
                         }
                         else if (ret == -3) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
                                 _('Failed to cancel order because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #103].'));
+                            return;
                         }
                         else {
                             orderModel.releaseOrderLock(curTransaction.data.id);
@@ -3346,11 +3354,29 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                 else {
                     // normal cancel, commit to databases.
 
-                    curTransaction.cancel();
+                    // blockUI when cancelling...
+                    var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Cancelling Order'), 0);
+                    
+                    var ret = curTransaction.cancel();
 
-                    this.dispatchEvent('afterCancel', curTransaction);
+                    // unblockUI
+                    this._unblockUI(waitPanel);
 
-                    curTransaction.commit();
+                    if (ret == -1) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation Error'),
+                            _('Failed to cancel order due to data operation error [message #102].'));
+                        return;
+                    }
+                    else if (ret == -3) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Data Operation Error'),
+                            _('Failed to cancel order because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence server [message #103].'));
+                        return;
+                    }
+                    else {
+                        this.dispatchEvent('afterCancel', curTransaction);
+                    }
                     
                 }
 
