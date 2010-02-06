@@ -47,7 +47,8 @@
 
 <!ENTITY sync_settings.label.irc_interval "Interval between checks for new IRC package (seconds):">
 <!ENTITY sync_settings.label.irc_expire_days "Packages expires in (days):">
-<!ENTITY sync_settings.label.irc_packages "Packages:">
+<!ENTITY sync_settings.label.irc_timeout "IRC timeout (seconds):">
+<!ENTITY sync_settings.label.irc_packages "Packages">
 <!ENTITY sync_settings.label.irc_packages_header "Package">
 <!ENTITY sync_settings.label.irc_filesize_header "Size">
 <!ENTITY sync_settings.label.irc_machineid_header "Machine ID">
