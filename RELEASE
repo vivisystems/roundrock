@@ -152,6 +152,9 @@ Bug #322
 Bug #330:
     The basic set of triggers have been updated to support item destination as a filter condition
 
+Bug #357:
+    Need a set of administration tools for troubleshooting and managing data recovery in a cluster environment
+
 ----------
 Bugs Fixed
 ----------
