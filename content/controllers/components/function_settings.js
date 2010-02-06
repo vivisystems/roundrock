@@ -120,6 +120,7 @@
             },
 
             systemsForm: {
+                'cpAdminTools': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.admin_tools', acl:'acl_admin_tools', checkForAcl:'cpAdminTools'},
                 'cpDatetime': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.datetime', acl:'acl_manage_date_time', checkForAcl:'cpDatetime'},
                 'cpImportexport': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.importexport', acl:'acl_manage_import_export', checkForAcl:'cpImportexport'},
                 'cpLocalekeyboard': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.localekeyboard', acl:'acl_manage_locale_keyboard', checkForAcl:'cpLocalekeyboard'},

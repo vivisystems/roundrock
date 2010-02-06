@@ -216,3 +216,8 @@ pref("vivipos.fec.settings.controlpanels.system.view_system_log.icon", "chrome:/
 pref("vivipos.fec.settings.controlpanels.system.view_system_log.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.settings.controlpanels.system.view_system_log.path", "chrome://viviecr/content/view_system_log.xul");
 pref("vivipos.fec.settings.controlpanels.system.view_system_log.roles", "acl_view_system_log");
+
+pref("vivipos.fec.settings.controlpanels.system.admin_tools.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
+pref("vivipos.fec.settings.controlpanels.system.admin_tools.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.settings.controlpanels.system.admin_tools.path", "chrome://viviecr/content/admintools.xul");
+pref("vivipos.fec.settings.controlpanels.system.admin_tools.roles", "acl_admin_tools");

@@ -208,6 +208,7 @@
                 var seqKey = 'order_no';
                 if(requireCheckNo) seqKey +=',check_no';
 
+                this.log('DEBUG', 'requesting sequence number for new order [' + this.data.id + ']');
                 SequenceModel.getSequence(seqKey, true, function(seq) {
                     let arKeys = seqKey.split(',');
                     let arSeqs = String(seq).split(',');
@@ -320,6 +321,7 @@
 
             if (self.data.seq.length == 0 || self.data.seq == -1) {
                 // maybe from recovery
+                self.log('DEBUG', 'requesting sequence number for processing order [' + self.data.id + ']');
                 let seq = SequenceModel.getSequence(seqKey, false);
                 let arSeqs = String(seq).split(',');
                 let order_no = -1 ;

@@ -145,8 +145,6 @@
                 end_of_shift_cash: cashEntryData
             };
 
-            var shift = this._getShiftMarker();
-
             var r = this.ShiftMarker.saveMarker(newShiftMarker);
             if (!r) {
                 this._dbError(this.ShiftMarker.lastError, this.ShiftMarker.lastErrorString,
