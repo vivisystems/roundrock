@@ -71,3 +71,5 @@ Bug #353:
 Bug #355:
     Need to obtain exclusive lock on table when updating local sequences
 
+Bug #360:
+    Need to block UI when cancelling orders to prevent users from issuing new commands while we potentially wait for response from remote Order Sequence Service
