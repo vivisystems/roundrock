@@ -3149,7 +3149,7 @@
             this.data.payment_subtotal = this.getRoundedPrice(payment_subtotal);
             this.data.discount_subtotal = this.data.item_discount_subtotal + this.data.trans_discount_subtotal ;
             this.data.surcharge_subtotal = this.data.item_surcharge_subtotal + this.data.trans_surcharge_subtotal;
-            this.data.average_price = (qty_subtotal == 0) ? null : this.getRoundedPrice(this.data.total / qty_subtotal);
+            this.data.average_price = (qty_subtotal == 0) ? null : this.getRoundedPrice((total - this.data.revalue_subtotal) / qty_subtotal);
 
             this.data.promotion_subtotal = promotion_subtotal ;
             this.data.promotion_tax_subtotal = promotion_tax_subtotal;
