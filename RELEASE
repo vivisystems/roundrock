@@ -235,6 +235,9 @@ Bug #360:
 Bug #361:
     Changed debug level for successful store order operation from WARN to INFO
 
+Bug #362:
+    Display of product number, name, and barcode in the Stock Adjustments Report have been changed in the onscreen HTML template from center-justified to left-justified
+
 -----------------------------
 Bugs fixed in Release 1.2.0.7
 -----------------------------
