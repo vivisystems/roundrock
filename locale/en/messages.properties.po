@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-02-06 14:47+0800\n"
+"POT-Creation-Date: 2010-02-07 22:46+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4970,7 +4970,7 @@ msgid "STORED"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:692
-msgid "This order has been stored!!"
+msgid "This order has been stored"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:716
