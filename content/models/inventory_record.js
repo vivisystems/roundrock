@@ -57,6 +57,7 @@
                     data['value'] = inventoryRecord['value'];
                     data['memo'] = inventoryRecord['memo'] || '';
                     data['price'] = inventoryRecord['price'] || null;
+                    data['delta'] = inventoryRecord['delta'];
 
                     var fields = GeckoJS.BaseObject.getKeys(data).join(', ');
                     var values = "'" + GeckoJS.BaseObject.getValues(data).join("', '") + "'";

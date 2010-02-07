@@ -15,7 +15,7 @@
 <!ENTITY stockrecords.label.newquantity "New Quantity">
 <!ENTITY stockrecords.label.memo "Memo">
 <!ENTITY stockrecords.label.price "Purchase Price">
-<!ENTITY stockrecords.label.minstock "Min. Stock">
+<!ENTITY stockrecords.label.minstock "Minimum Stock">
 <!ENTITY stockrecords.label.barcode "Barcode">
 <!ENTITY stockrecords.commit.title "Stock Adjustment">
 <!ENTITY stockrecords.commit.reason.label "Adjustment Type:">
