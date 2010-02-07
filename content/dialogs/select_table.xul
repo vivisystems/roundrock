@@ -106,6 +106,8 @@
                     <label value=" ( "  style="font-size: x-small;" />
                     <label id="percentageLbl" style="font-size: x-small;" />
                     <label value=" ) "  style="font-size: x-small;" />
+                    <label id="checksLbl" style="font-size: x-small;" />
+                    <label value=" / "  style="font-size: x-small;" />
                     <label id="customersLbl" style="font-size: x-small;" />
                 </hbox>
                 <hbox>
