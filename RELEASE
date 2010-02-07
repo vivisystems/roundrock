@@ -232,6 +232,9 @@ Bug #355:
 Bug #360:
     Need to block UI when cancelling orders to prevent users from issuing new commands while we potentially wait for response from remote Order Sequence Service
 
+Bug #361:
+    Changed debug level for successful store order operation from WARN to INFO
+
 -----------------------------
 Bugs fixed in Release 1.2.0.7
 -----------------------------
