@@ -689,7 +689,7 @@
 
                 cart.dispatchEvent('onWarning', _('STORED'));
 
-                NotifyUtils.warn(_('This order has been stored!!'));
+                NotifyUtils.info(_('This order has been stored'));
 
                 cart._getCartlist().refresh();
 
