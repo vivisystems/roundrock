@@ -429,7 +429,7 @@
 
                         // size stack
                         $('#tableDock').css({'min-width': width, 'max-width': width});
-                        
+
                         // init tables and status view
                         self.getTableButtonsPanelObj().datasource = self.getTablesViewHelper();
                         // update tables by region
@@ -447,6 +447,12 @@
                 },
 
                 showing: function(evt) {
+
+                    if (!self._tablesViewHelper) {
+                        // prefetch tables status with orders if sessions not exists
+                        self.Table.TableStatus.getTablesStatus();
+                    }
+
                     // initial timer
                     self.initialRefreshTimer();
 
