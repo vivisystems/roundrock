@@ -18,6 +18,7 @@
 .custom-sync-tree #datasource,
 .custom-sync-tree #database,
 .custom-sync-tree #index,
+.custom-sync-tree #clientid,
 .custom-sync-tree #synced {
     text-align: center;
 }
