@@ -1417,7 +1417,7 @@
                         let conditions = 'orders.table_no="' + currentTableNo + '" AND orders.status=2';
                         var orders = this.Order.getOrdersSummary(conditions, true);
 
-                        if (orders.length > 0 && Math.random() < 0.5) {
+                        if (orders.length > 0 && (ordersOpened >= count || Math.random() < 0.5)) {
 
                             // recall order
                             let index = Math.floor(Math.random() * orders.length);
