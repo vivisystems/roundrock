@@ -30,7 +30,6 @@ Bug #363:
 Bugs fixed in RELEASE-1.2.0.4
 -----------------------------
 
-<<<<<<< HEAD:RELEASE
 Bug #306:
     Empty order master or detail records causes storage of the records to fail
 
@@ -64,6 +63,3 @@ Bug #86:
 
 Bug #99:
     Recalled orders display empty check_no and table_no as '0'.
-=======
-Bug #355:
-    The sequence web service may return duplicate sequence numbers due to race conditions that were not handled properly
