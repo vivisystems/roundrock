@@ -671,7 +671,17 @@ class IrcComponent extends Object {
 
         $tbzUnpackLogFile = $tbzFile . ".unpacklog.json";
 
-        file_put_contents($packagesQueuePath.$tbzUnpackLogFile, json_encode($unpackLogs));
+        // lock statusFile
+        $fp = fope($tbzUnpackLogFile, "w");
+
+        if (flock($fp, LOCK_EX)) {
+            file_put_contents($packagesQueuePath.$tbzUnpackLogFile, json_encode($unpackLogs));
+            flock($fp, LOCK_UN);
+        }else {
+            // error log
+        }
+        
+        fclose($fp);
 
         return true;
 
@@ -714,7 +724,17 @@ class IrcComponent extends Object {
         $status = array();
 
         if (file_exists($statusFile)) {
-            $status = json_decode(file_get_contents($statusFile), true);
+
+            // lock statusFile
+            $fp = fope($statusFile, "r");
+
+            if (flock($fp, LOCK_EX)) {
+                $status = json_decode(file_get_contents($statusFile), true);
+                flock($fp, LOCK_UN); // release the lock
+            }else {
+                // error lock file
+            }
+            fclose($fp);
         }
 
         if(empty($status[$machineId])) {
@@ -723,7 +743,16 @@ class IrcComponent extends Object {
             $status[$machineId][$updateStatus] = time();
         }
 
-        file_put_contents($statusFile, json_encode($status));
+        // lock statusFile
+        $fp = fope($statusFile, "w");
+
+        if (flock($fp, LOCK_EX)) {
+            file_put_contents($statusFile, json_encode($status));
+            flock($fp, LOCK_UN); // release the lock
+        }else {
+            // error lock file
+        }
+        fclose($fp);
 
         return true;
 
@@ -875,8 +904,16 @@ class IrcComponent extends Object {
 
         $tbzDescFile = $tbzFile .".json";
 
-        // write ircPackageDesc
-        file_put_contents($tbzDescFile, json_encode($ircPackageDesc));
+        // lock statusFile
+        $fp = fope($tbzDescFile, "w");
+        if (flock($fp, LOCK_EX)) {
+            // write ircPackageDesc
+            file_put_contents($tbzDescFile, json_encode($ircPackageDesc));
+            flock($fp, LOCK_UN);
+        }else {
+            // error log
+        }
+        fclose($fp);
 
         $this->movePackageToQueue($tbzFile, $tbzDescFile);
 
