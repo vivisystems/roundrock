@@ -1519,7 +1519,7 @@
                             }
                         }else {
                             this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
-                            $do('cash', ',1,', 'Cart');
+                            $do('cash', null, 'Cart');
 
                             // update progress bar for order closed
                             if (txn.data.status == 1 || noTable) {
