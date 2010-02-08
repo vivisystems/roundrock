@@ -4,7 +4,7 @@
 
         name: 'Main',
 
-        uses: ['Product'],
+        uses: ['Product', 'Order', 'TableSetting'],
 
         screenwidth: 800,
         screenheight: 600,
