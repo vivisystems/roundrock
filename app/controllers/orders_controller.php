@@ -40,13 +40,22 @@ class OrdersController extends AppController {
             // update table orders and status
             $this->Table->updateOrdersFromBackupFormat($datas);
 
+            // add exclusive lock to table_order_locks and waiting until getting lock
+            $this->TableOrderLock->beginExclusive();
+
             // store or save , release order lock by machine id
             $this->TableOrderLock->releaseOrderLocksByMachineId($machineId);
+
+            // release exclusive lock and response
+            $this->TableOrderLock->commit();
 
         }catch (Exception $e) {
 
             $saveResult = array();
-            
+
+            // release exclusive lock and rollback
+            $this->TableOrderLock->rollback();
+
         }
 
         $result = array('status' => 'ok', 'code' => 200 ,
@@ -73,22 +82,37 @@ class OrdersController extends AppController {
 
         try {
 
+            // add exclusive lock to table_order_locks and waiting until getting lock
+            $this->TableOrderLock->beginExclusive();
+
             $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
 
             if (!$locked) {
-                $result = $this->Order->readOrderToBackupFormat($orderId);
 
                 // lock order by recalled machineｓ
-                if(!empty($result) || true ) {  // always locked rack/irving 090930
-                    $this->TableOrderLock->setOrderLock($orderId, $machineId);
-                }
+                $this->TableOrderLock->setOrderLock($orderId, $machineId);
+
+                // release exclusive lock and response
+                $this->TableOrderLock->commit();
+
+                $result = $this->Order->readOrderToBackupFormat($orderId);
+
 
             }else {
                 $result = $this->TableOrderLock->getOrderLock($orderId);
+                
+                // release exclusive lock and response
+                $this->TableOrderLock->commit();
+
             }
 
         }catch (Exception $e) {
+            
             $result = null;
+            
+            // release exclusive lock and rollback
+            $this->TableOrderLock->rollback();
+            
         }
 
         $result = array('status' => 'ok', 'code' => 200 ,
@@ -109,12 +133,23 @@ class OrdersController extends AppController {
     function releaseOrderLock($orderId) {
 
         try {
+            
+            // add exclusive lock to table_order_locks and waiting until getting lock
+            $this->TableOrderLock->beginExclusive();
 
             $result = true;
             $this->TableOrderLock->releaseOrderLock($orderId);
 
+            // release exclusive lock and response
+            $this->TableOrderLock->commit();
+
         }catch (Exception $e) {
+
             $result = null;
+            
+            // release exclusive lock and rollback
+            $this->TableOrderLock->rollback();
+
         }
 
         $result = array('status' => 'ok', 'code' => 200 ,
@@ -234,7 +269,13 @@ class OrdersController extends AppController {
 
         try {
 
+            // add exclusive lock to table_order_locks and waiting until getting lock
+            $this->TableOrderLock->beginExclusive();
+
             $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
+
+            // release exclusive lock and response
+            $this->TableOrderLock->commit();
 
             if (!$locked) {
 
@@ -243,16 +284,27 @@ class OrdersController extends AppController {
                 // update table orders and status
                 $this->Table->voidOrder($orderId, $data);
 
+
+                // add exclusive lock to table_order_locks and waiting until getting lock
+                $this->TableOrderLock->beginExclusive();
+
                 // always release lock
                 $this->TableOrderLock->releaseOrderLock($orderId);
 
+                // release exclusive lock and response
+                $this->TableOrderLock->commit();
 
             }else {
                 $result = false ;
             }
 
         }catch (Exception $e) {
+
             $result = false;
+            
+            // release exclusive lock and rollback
+            $this->TableOrderLock->rollback();
+
         }
 
         $result = array('status' => 'ok', 'code' => 200 ,
@@ -277,7 +329,13 @@ class OrdersController extends AppController {
 
         try {
 
+            // add exclusive lock to table_order_locks and waiting until getting lock
+            $this->TableOrderLock->beginExclusive();
+
             $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
+            
+            // release exclusive lock and response
+            $this->TableOrderLock->commit();
 
             if (!$locked) {
 
@@ -287,11 +345,18 @@ class OrdersController extends AppController {
                 $this->Table->transferTable($orderId, $orgTableId, $newTableId);
 
             }else {
-                $result = false ;
-            }
 
+                $result = false ;
+
+            }
+            
         }catch (Exception $e) {
+
             $result = false;
+            
+            // release exclusive lock and rollback
+            $this->TableOrderLock->rollback();
+
         }
 
         $result = array('status' => 'ok', 'code' => 200 ,
@@ -328,8 +393,13 @@ class OrdersController extends AppController {
 
         try {
 
+            // add exclusive lock to table_order_locks and waiting until getting lock
+            $this->TableOrderLock->beginExclusive();
+
             $locked = $this->TableOrderLock->isOrderLock($orderId, $machineId);
-            $locked = false; // debug
+
+            // release exclusive lock and response
+            $this->TableOrderLock->commit();
 
             if (!$locked) {
 
@@ -345,7 +415,12 @@ class OrdersController extends AppController {
             }
 
         }catch (Exception $e) {
+
             $result = false;
+
+            // release exclusive lock and rollback
+            $this->TableOrderLock->rollback();
+
         }
 
         $result = array('status' => 'ok', 'code' => 200 ,
