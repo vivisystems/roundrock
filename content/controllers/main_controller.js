@@ -1629,6 +1629,8 @@
             }
 
             var currentTableNo = -1;
+            var doRecall = true;
+
             while (ordersClosed < count) {
 
                 if (this._suspendLoadTest) {
@@ -1638,6 +1640,9 @@
                     break;
                 }
 
+                // create new order or recall?
+                doRecall = ordersOpened >= count || Math.random() < 0.5;
+
                 // select a table in sequence
                 if (!noTable && numTables > 0) {
                     let tries = 0;
@@ -1646,7 +1651,7 @@
                         currentTableIndex %= numTables;
                         tries++;
 
-                        if (guestCheckController.isTableAvailable(table)) {
+                        if (doRecall || guestCheckController.isTableAvailable(table)) {
                             currentTableNo = table.table_no;
                             break;
                         }
@@ -1662,7 +1667,7 @@
                         let conditions = 'orders.table_no="' + currentTableNo + '" AND orders.status=2';
                         var orders = this.Order.getOrdersSummary(conditions, true);
 
-                        if (orders.length > 0 && Math.random() < 0.5) {
+                        if (orders.length > 0 && doRecall) {
 
                             // recall order
                             let index = Math.floor(Math.random() * orders.length);
