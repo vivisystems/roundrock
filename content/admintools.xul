@@ -30,9 +30,6 @@
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/admintools_controller.js" type="application/x-javascript"/>
 
-  <!-- include startup script -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/admintools.js"/>
-
     <keyset id="keyset_extensions">
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
@@ -46,6 +43,7 @@
                         <tab id="tab1" label="&admintools.tab.syncstatus;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab2" label="&admintools.tab.recovery;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab3" label="&admintools.tab.saleperiod;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab4" label="&admintools.tab.dsbackup;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                     </tabs>
                 </arrowscrollbox>
 
@@ -222,6 +220,42 @@
                                                      numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                      />
                                     </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                    <!-- datasource backup cleanup -->
+                    <tabpanel id="tabpanel_dsbackup" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row flex="1">
+                                    <vbox flex="1">
+                                        <button id="refreshDatasourceBackup" class="button-execute"
+                                                label="&admintools.dsbackup.refresh;"
+                                                oncommand="$do('refreshDSBackupData', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="viewDatasourceBackup" class="button-execute"
+                                                label="&admintools.dsbackup.view;"
+                                                oncommand="$do('viewDSBackupData', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="removeDatasourceBackup" class="button-execute"
+                                                label="&admintools.dsbackup.remove;"
+                                                oncommand="$do('removeDSBackupData', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="purgeDatasourceBackup" class="button-execute"
+                                                label="&admintools.dsbackup.purge;"
+                                                oncommand="$do('purgeDSBackupData', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vivitree id="dsbackuplist" flex="1" class="standard custom-dsbackup-tree"
+                                              headers="&admintools.dsbackup.model;,&admintools.dsbackup.size;"
+                                              fields="model,size" hidecolumnpicker="true"
+                                              onselect="$do('selectDSBackup', null, 'AdminTools');"
+                                              />
                                 </row>
                             </rows>
                         </grid>
