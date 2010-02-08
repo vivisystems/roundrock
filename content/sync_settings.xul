@@ -128,22 +128,35 @@
                                                          form="syncSettingForm" name="irc_workgroup"/>
                                             </vbox>
                                         </hbox>
-                                        <vbox>
-                                            <hbox>
-                                                <label value="&sync_settings.label.irc_interval;"/>
-                                                <spacer flex="1"/>
-                                                <vivitextbox type="number" min="30" size="4"
-                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                                     form="syncSettingForm" name="irc_interval"/>
-                                            </hbox>
-                                            <hbox>
-                                                <label value="&sync_settings.label.irc_expire_days;"/>
-                                                <spacer flex="1"/>
-                                                <vivitextbox type="number" min="0" size="4"
-                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                                     form="syncSettingForm" name="irc_expire_days"/>
-                                            </hbox>
-                                        </vbox>
+                                        <grid>
+                                            <columns>
+                                                <column/>
+                                                <column/>
+                                            </columns>
+                                            <rows>
+                                                <row>
+                                                    <label value="&sync_settings.label.irc_interval;"/>
+                                                    <spacer flex="1"/>
+                                                    <vivitextbox type="number" min="30" size="4"
+                                                         numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                         form="syncSettingForm" name="irc_interval"/>
+                                                </row>
+                                                <row>
+                                                    <label value="&sync_settings.label.irc_timeout;"/>
+                                                    <spacer flex="1"/>
+                                                    <vivitextbox type="number" min="120" size="4"
+                                                         numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                         form="syncSettingForm" name="irc_timeout"/>
+                                                </row>
+                                                <row>
+                                                    <label value="&sync_settings.label.irc_expire_days;"/>
+                                                    <spacer flex="1"/>
+                                                    <vivitextbox type="number" min="0" size="4"
+                                                         numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                         form="syncSettingForm" name="irc_expire_days"/>
+                                                </row>
+                                            </rows>
+                                        </grid>
                                     </vbox>
                                     <vbox flex="1">
                                         <label value="&sync_settings.label.irc_update_type;"/>

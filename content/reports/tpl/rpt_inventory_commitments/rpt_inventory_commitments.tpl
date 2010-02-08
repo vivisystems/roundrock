@@ -30,10 +30,10 @@
                 <th style="text-align: center;">${_( '(rpt)Product Name' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Barcode' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Warehouse' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Quantity' )}</th>
 {if commitment.type == "procure"}
-                <th style="text-align: right;">${_( '(rpt)Purchase Price' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Purchase Subtotal' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Purchase Price' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Purchase Subtotal' )}</th>
 {/if}
                 <th style="text-align: center;">${_( '(rpt)Memo' )}</th>
             </tr>
@@ -41,16 +41,16 @@
         <tbody>
 {for product in commitment.products}
             <tr>
-                <td style="text-align: center;">${product.product_no}</td>
-                <td style="text-align: center;">${product.name}</td>
-                <td style="text-align: center;">${product.barcode}</td>
+                <td style="text-align: left;">${product.product_no}</td>
+                <td style="text-align: left;">${product.name}</td>
+                <td style="text-align: left;">${product.barcode}</td>
                 <td style="text-align: center;">${product.warehouse}</td>
                 <td style="text-align: right;">${product.value|format:0}</td>
 {if commitment.type == "procure"}
                 <td style="text-align: right;">${product.price|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${product.subtotal|default:0|viviFormatPrices:true}</td>
 {/if}
-                <td style="text-align: center;">${product.memo}</td>
+                <td style="text-align: left;">${product.memo}</td>
             </tr>
 {/for}
         </tbody>

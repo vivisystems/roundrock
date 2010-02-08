@@ -1,0 +1,27 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Administration Tools
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-sync-enabled {
+    list-style-image: url(../images/icon_enable.png);
+    -moz-user-focus: ignore;
+}
+
+.custom-sync-disabled {
+    list-style-image: url(../images/icon_disable.png);
+    -moz-user-focus: ignore;
+}
+
+.custom-sync-tree #datasource,
+.custom-sync-tree #database,
+.custom-sync-tree #index,
+.custom-sync-tree #synced {
+    text-align: center;
+}
+
+.custom-textbox-center {
+    text-align: center;
+}

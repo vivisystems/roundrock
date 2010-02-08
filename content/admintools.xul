@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % AdminTools SYSTEM "chrome://viviecr/locale/admintools.dtd">
+  %AdminTools;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/admintools.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
+
+<window id="admintools"
+        title="&admintools.title;"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include controller -->
+  <script src="chrome://viviecr/content/controllers/admintools_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/admintools.js"/>
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
+    </keyset>
+
+    <vbox flex="1" class="container-be layout-be">
+        <vbox flex="1" class="container-main layout-a">
+            <label value="&admintools.title;" class="label-page-title"/>
+            <tabbox flex="1" class="content-tabbox">
+                <arrowscrollbox orient="horizontal" class="content-arrow-scrollbox">
+                    <tabs id="tabs">
+                        <tab id="tab1" label="&admintools.tab.syncstatus;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab2" label="&admintools.tab.recovery;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab3" label="&admintools.tab.saleperiod;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                    </tabs>
+                </arrowscrollbox>
+
+                <tabpanels id="tabpanels" flex="1" >
+                    <!-- synchronization status -->
+                    <tabpanel id="tabpanel_syncstatus" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row>
+                                    <label value="&admintools.syncstatus.status;" class="label-sub-title"/>
+                                    <hbox flex="1">
+                                        <image id="sync_indicator"/>
+                                    </hbox>
+                                </row>
+                                <row>
+                                    <label value="&admintools.syncstatus.server;" class="label-sub-title"/>
+                                    <textbox id="sync_server" value="" readonly="true" disabled="true"/>
+                                </row>
+                                <row flex="1">
+                                    <vbox flex="1">
+                                        <button id="refreshSyncStatus" class="button-execute"
+                                                label="&admintools.syncstatus.refresh;"
+                                                oncommand="$do('refreshSyncStatus', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="syncNow" class="button-execute"
+                                                label="&admintools.syncstatus.sync;"
+                                                oncommand="$do('syncNow', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="purgeSync" class="button-execute"
+                                                label="&admintools.syncstatus.purge;"
+                                                oncommand="$do('purgeSync', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="suspendResumeSync" class="button-execute"
+                                                label=""
+                                                oncommand="$do('suspendResumeSync', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vbox flex="1" class="content-listbox">
+                                        <vivitree id="syncstatuslist" flex="1" class="standard custom-sync-tree"
+                                                  headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.last.index;,&admintools.syncstatus.last.synced;"
+                                                  fields="datasource,database,index,synced" hidecolumnpicker="true"
+                                                  />
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                    <!-- transactio data recovery -->
+                    <tabpanel id="tabpanel_recovery" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row>
+                                    <label value="&admintools.recovery.terminal;" class="label-sub-title"/>
+                                    <textbox id="terminal_no" value="" readonly="true" disabled="true"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.recovery;" class="label-sub-title"/>
+                                    <label id="syncMode" value="" class="label-sub-title"/>
+                                </row>
+                                <row flex="1">
+                                    <vbox flex="1" pack="center">
+                                        <button id="syncNow" class="button-execute"
+                                                label="&admintools.recovery.purge;"
+                                                oncommand="$do('removeRemoteData', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <hbox flex="1" class="content-listbox">
+                                        <vivitree id="terminallist" flex="1" class="standard custom-terminal-tree"
+                                                  headers="&admintools.recovery.terminals;"
+                                                  fields="terminal" hidecolumnpicker="true"
+                                                  onselect="$do('selectRemoteTerminal', this.selectedIndex, 'AdminTools');"
+                                                  />
+                                        <spacer style="width: 10px;"/>
+                                        <vivitree id="tablelist" flex="1" class="standard custom-table-tree"
+                                                  headers="&admintools.recovery.tables;"
+                                                  fields="table" hidecolumnpicker="true"
+                                                  />
+                                    </hbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                    <!-- sale period adjustment -->
+                    <tabpanel id="tabpanel_saleperiod" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row>
+                                    <label value="&admintools.saleperiod.saleperiod.current;" class="label-sub-title"/>
+                                    <textbox id="current_sale_period" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="current_shift_number" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.saleperiod.last;" class="label-sub-title"/>
+                                    <textbox id="last_sale_period" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="last_shift_number" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.activity.detail;" class="label-sub-title"/>
+                                    <textbox id="activity_type" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="activity_time" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.activity.saleperiod;" class="label-sub-title"/>
+                                    <textbox id="activity_sale_period" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="activity_shift_number" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <vbox flex="1" pack="center">
+                                        <button id="resetSalePeriod" class="button-execute"
+                                                label="&admintools.saleperiod.reset.saleperiod;"
+                                                oncommand="$do('resetSalePeriod', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&admintools.saleperiod.saleperiod.new;"/>
+                                        <vividatetimepicker id="new_sale_period" value="" type="popup" mode="date"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&admintools.saleperiod.shiftnumber.new;"/>
+                                        <vivitextbox id="new_shift_number" flex="1" size="10" type="number" min="1"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     />
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.ordernumber.largest;" class="label-sub-title"/>
+                                    <textbox id="order_sequence" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.ordernumber.current;" class="label-sub-title"/>
+                                    <textbox id="current_order_sequence" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <vbox flex="1" pack="center">
+                                        <button id="resetOrderNumber" class="button-execute"
+                                                label="&admintools.saleperiod.reset.ordernumber;"
+                                                oncommand="$do('resetOrderNumber', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&admintools.saleperiod.ordernumber.new;"/>
+                                        <vivitextbox id="new_order_sequence" flex="1" size="10" min="0" type="number"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     />
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                </tabpanels>
+            </tabbox>
+
+            <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
+                <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
+            </hbox>
+        </vbox>
+    </vbox>
+
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs"/>
+
+</window>

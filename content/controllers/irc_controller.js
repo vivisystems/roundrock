@@ -15,6 +15,7 @@
                     var syncSettings = SyncSetting.read();
                     this.httpServiceIRC = new SyncbaseHttpService();
                     this.httpServiceIRC.setSyncSettings(syncSettings);
+                    this.httpServiceIRC.setTimeout(syncSettings.irc_timeout);
                     // this.httpServiceIRC.setHostname(syncSettings.irc_hostname);
                     this.httpServiceIRC.setHostname('localhost');
                     this.httpServiceIRC.setController('irc');

@@ -1363,12 +1363,16 @@
             let totalTable = tables.length;
             let usedTable = 0;
             let customers = 0;
+            let checks = 0;
             let tableUsedPercentage = 0;
 
             tableStatus.forEach(function(o) {
 
                if (o.TableStatus) {
-                    if (o.TableStatus.order_count > 0) usedTable++;
+                    if (o.TableStatus.order_count > 0) {
+                        usedTable++;
+                        checks += o.TableStatus.order_count;
+                    }
                     if (o.TableStatus.sum_customer > 0) customers+=o.TableStatus.sum_customer;
                }
 
@@ -1381,7 +1385,8 @@
             $('#usedTablesLbl').val(usedTable);
             $('#totalTablesLbl').val(totalTable);
             $('#percentageLbl').val(tableUsedPercentage);
-            $('#customersLbl').val(customers);
+            $('#checksLbl').val(checks);
+            $('#customersLbl').val(customers || '-');
 
             this.selectCurrentTable();
         }

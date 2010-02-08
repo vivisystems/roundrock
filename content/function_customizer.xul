@@ -643,6 +643,8 @@
                                 <tabpanels id="systemsTabpanels" flex="1">
 
                                     <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="cpAdminTools" value="true" label="Disable Administration Tools"
+                                                      form="systemsForm" name="cpAdminTools" default="true" />
                                         <checkbox id="cpDatetime" value="true" label="Disable Datetime Manager"
                                                       form="systemsForm" name="cpDatetime" default="false" />
                                         <checkbox id="cpImportexport" value="true" label="Disable Import/Export Manager"

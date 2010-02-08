@@ -221,7 +221,7 @@
            
         },
 
-        requestRemoteService: function(method, url, data, async, callback) {
+        requestRemoteService: function(method, url, data, async, callback, raw) {
 
             var reqUrl = url ;
             method = method || 'GET';
@@ -284,15 +284,24 @@
                     reqStatus.finish = true;
                     if (req.status == 200) {
                         try {
-                            var result = self.parseResponseText(req.responseText);
-                            
-                            // set last status 
-                            self.lastResponseStatus = result.status;
-                            self.lastResponseCode = result.code;
+                            if (raw) {
+                                // set last status
+                                self.lastResponseStatus = 'ok';
+                                self.lastResponseCode = 200;
 
-                            // set response data 
-                            if (result.status == 'ok') {
-                                datas = result.response_data;
+                                datas = req.responseText;
+                            }
+                            else {
+                                var result = self.parseResponseText(req.responseText);
+
+                                // set last status
+                                self.lastResponseStatus = result.status;
+                                self.lastResponseCode = result.code;
+
+                                // set response data
+                                if (result.status == 'ok') {
+                                    datas = result.response_data;
+                                }
                             }
                         }catch(e) {
 
