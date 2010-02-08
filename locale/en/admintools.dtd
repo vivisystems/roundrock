@@ -10,8 +10,12 @@
 <!ENTITY admintools.syncstatus.refresh      "Refresh">
 <!ENTITY admintools.syncstatus.datasource   "Datasource">
 <!ENTITY admintools.syncstatus.database     "Database">
-<!ENTITY admintools.syncstatus.last.index   "Local Index">
-<!ENTITY admintools.syncstatus.last.synced  "Remote Index">
+<!ENTITY admintools.syncstatus.tab.pull     "Pull">
+<!ENTITY admintools.syncstatus.tab.push     "Push">
+<!ENTITY admintools.syncstatus.pull.clientid    "Client ID">
+<!ENTITY admintools.syncstatus.changelog.index  "Changelog Index">
+<!ENTITY admintools.syncstatus.push.remote      "Pushed">
+<!ENTITY admintools.syncstatus.pull.remote  "Pulled">
 
 <!ENTITY admintools.recovery                "Non-local Transaction Data">
 <!ENTITY admintools.recovery.purge          "Purge">

@@ -87,10 +87,30 @@
                                                 oncommand="$do('suspendResumeSync', null, 'AdminTools');"/>
                                     </vbox>
                                     <vbox flex="1" class="content-listbox">
-                                        <vivitree id="syncstatuslist" flex="1" class="standard custom-sync-tree"
-                                                  headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.last.index;,&admintools.syncstatus.last.synced;"
-                                                  fields="datasource,database,index,synced" hidecolumnpicker="true"
-                                                  />
+                                        <tabbox flex="1" class="content-tabbox">
+                                            <tabs id="tabs">
+                                                <tab id="tab1" label="&admintools.syncstatus.tab.push;" orient="vertical" />
+                                                <tab id="tab2" label="&admintools.syncstatus.tab.pull;" orient="vertical" />
+                                            </tabs>
+
+                                            <tabpanels id="tabpanels" flex="1" >
+                                                <!-- push status -->
+                                                <tabpanel id="tabpanel_syncstatus_push" orient="vertical" flex="1">
+                                                    <vivitree id="syncstatuspushlist" flex="1" class="standard custom-sync-tree"
+                                                              headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.changelog.index;,&admintools.syncstatus.push.remote;"
+                                                              fields="datasource,database,index,synced"
+                                                              />
+                                                </tabpanel>
+
+                                                <!-- pull status -->
+                                                <tabpanel id="tabpanel_syncstatus_pull" orient="vertical" flex="1">
+                                                    <vivitree id="syncstatuspulllist" flex="1" class="standard custom-sync-tree"
+                                                              headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.pull.clientid;,&admintools.syncstatus.changelog.index;,&admintools.syncstatus.pull.remote;"
+                                                              fields="datasource,database,clientid,index,synced"
+                                                              />
+                                                </tabpanel>
+                                            </tabpanels>
+                                        </tabbox>
                                     </vbox>
                                 </row>
                             </rows>

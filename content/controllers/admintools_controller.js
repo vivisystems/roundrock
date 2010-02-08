@@ -7,7 +7,8 @@
         _dataPath: null,
         _modelClasses: null,
         _syncedDatasources: null,
-        _syncListObj: null,
+        _syncPushListObj: null,
+        _syncPullListObj: null,
         _syncSettings: null,
         _syncTerminal: null,
         _httpServiceSync: null,
@@ -68,11 +69,18 @@
             return this._dataPath;
         },
         
-        _getSyncListObj: function() {
-            if (this._syncListObj == null) {
-                this._syncListObj = document.getElementById('syncstatuslist');
+        _getSyncPushListObj: function() {
+            if (this._syncPushListObj == null) {
+                this._syncPushListObj = document.getElementById('syncstatuspushlist');
             }
-            return this._syncListObj;
+            return this._syncPushListObj;
+        },
+
+        _getSyncPullListObj: function() {
+            if (this._syncPullListObj == null) {
+                this._syncPullListObj = document.getElementById('syncstatuspulllist');
+            }
+            return this._syncPullListObj;
         },
 
         _getSyncSettings: function() {
@@ -206,7 +214,8 @@
 
             // get list of datasources
             var dsList = this._getSyncedDatasources() || [];
-            var statusList = [];
+            var statusPushList = [];
+            var statusPullList = [];
 
             dsList.forEach(function(pair) {
                 let model = pair.model;
@@ -220,24 +229,45 @@
                     localIndex = localIndexResult[0].index;
                 }
 
-                // extract remote index
-                let remoteIndex = '';
+                // extract push index
+                let pushIndex = '';
                 if (syncTerminal) {
-                    let remoteIndexResult = ds.fetchAll('select last_synced as "index" from sync_remote_machines where machine_id = "' + syncTerminal + '"') || [];
-                    if (remoteIndexResult.length > 0) {
-                        remoteIndex = remoteIndexResult[0].index;
+                    let pushIndexResult = ds.fetchAll('select last_synced as "index" from sync_remote_machines where machine_id = "' + syncTerminal + '"') || [];
+                    if (pushIndexResult.length > 0) {
+                        pushIndex = pushIndexResult[0].index;
                     }
                 }
                 
-                statusList.push({
+                statusPushList.push({
                     datasource: ds.configName,
                     database: config.database,
                     index: localIndex,
-                    synced: remoteIndex
+                    synced: pushIndex
                 })
+
+                // extract pull index
+                let pullIndexResult = ds.fetchAll('select machine_id as "clientid", last_synced as "index" from sync_remote_machines where machine_id != "' + syncTerminal + '" ORDER BY machine_id') || [];
+                pullIndexResult.forEach(function(client) {
+                    statusPullList.push({
+                        datasource: ds.configName,
+                        database: config.database,
+                        index: localIndex,
+                        synced: client.index,
+                        clientid: client.clientid
+                    })
+                }, this);
+
             }, this)
 
-            document.getElementById('syncstatuslist').datasource = statusList;
+            // sort push list by datasource
+            statusPushList = statusPushList.sort(function(a, b) {
+                if (a.datasource > b.datasource) return 1;
+                else if (a.datasource < b.datasource) return -1;
+                else return 0
+            });
+
+            this._getSyncPushListObj().datasource = statusPushList;
+            this._getSyncPullListObj().datasource = statusPullList;
         },
 
         syncNow: function() {
