@@ -316,6 +316,8 @@
 
             if (self.data.seq.length == 0 || self.data.seq == -1) {
                 // maybe from recovery
+                self.log('WARN', 're-requesting sequence number for processing order [' + self.data.id + ']');
+                
                 let order_no = SequenceModel.getSequence('order_no', false);
                 let seqData = self.buildOrderSequence(order_no);
                 self.data.seq_original = order_no;
