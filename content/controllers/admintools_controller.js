@@ -26,6 +26,10 @@
 
         _fileViewer: '/usr/bin/leafpad',
 
+        _ircRootPath: '/data/irc_packages/',
+        _ircPackages: [],
+        _ircLastFailedPackage: null,
+
         terminalTableList: {},
 
         _getTerminalListObj: function() {
@@ -1003,29 +1007,244 @@
         },
 
         refreshIRCStatus: function(noNotify) {
-            let pkgListObj = this._getIRCPackageListObj();
+
+            let rootPath = this._ircRootPath;
+
+            // read IRC host
+            let syncSettings = this._getSyncSettings();
+            document.getElementById('irc_hostname').value = syncSettings.irc_hostname;
+            
+            // read last download timestamp
+            let timestamp = '';
+            let lastDownloadedFile = new GeckoJS.File(rootPath + 'last_downloaded');
+            if (lastDownloadedFile && lastDownloadedFile.exists()) {
+                lastDownloadedFile.open('r');
+                let lines = lastDownloadedFile.readAllLine();
+                if (lines && lines.length > 0 && !isNaN(parseInt(lines[0]))) {
+                    timestamp = new Date(parseInt(lines[0]) * 1000).toLocaleFormat('%Y%m%d%H%M%S');
+                }
+            }
+            document.getElementById('irc_last_downloaded').value = timestamp;
+
+            // read last error package
+            let failedPackage = '';
+            this._ircLastFailedPackage = null;
+
+            let failedPackageFile = new GeckoJS.File(rootPath + 'last_error_package');
+            if (failedPackageFile && failedPackageFile.exists()) {
+                failedPackageFile.open('r');
+                let lines = failedPackageFile.readAllLine();
+                if (lines && lines.length > 0) {
+                    failedPackage = lines[0];
+                }
+            }
+            this._ircLastFailedPackage = failedPackage;
+            document.getElementById('irc_last_failure').value = failedPackage;
+            document.getElementById('viewIRCLastFailure').disabled = (failedPackage == '');
+            document.getElementById('clearIRCFailure').disabled = (failedPackage == '');
+
+            // read all packages
+            let pkglist = [];
+            let packages = {};
+            let pkgFiles = GeckoJS.Dir.readDir(rootPath + 'queues', {type: 'f'}) || [];
+            pkgFiles.forEach(function(file) {
+                let baseName = file.leafName.substr(0, file.leafName.indexOf('.'));
+                if (!(baseName in packages)) {
+                    packages[baseName] = {pkg: baseName,
+                                          created: 0,
+                                          source: '-',
+                                          unpacked: false}
+                }
+
+                if (file.leafName == baseName + '.tbz') {
+                    packages[baseName].size = GeckoJS.NumberHelper.toReadableSize(file.fileSize)
+                }
+                else if (file.leafName == baseName + '.tbz.json') {
+                    let f = new GeckoJS.File(file);
+                    f.open('r');
+                    let lines = f.readAllLine();
+                    if (lines.length > 0 && lines[0].length > 0) {
+                        let desc = GeckoJS.BaseObject.unserialize(lines[0]);
+                        if (desc) {
+                            packages[baseName].created = desc.created;
+                            packages[baseName].source = desc.created_machine_id;
+                        }
+                    }
+                }
+                else if (file.leafName == baseName + '.tbz.unpacklog.json') {
+                    packages[baseName].unpacked = true;
+                    packages[baseName].unpacklog = file.path;
+                }
+            }, this)
+            for (let key in packages) {
+                pkglist.push(packages[key]);
+            }
+            pkglist.sort(function(a, b) {
+                if (a.pkg > b.pkg)
+                    return 1
+                else if (a.pkg < b.pkg)
+                    return -1
+                else return 0;
+            });
+            
+            this._ircPackages = pkglist;
+
+            this._getIRCPackageListObj().datasource = pkglist;
+            this._getIRCPackageListObj().selection.clearSelection();
+
+            document.getElementById('viewIRCUpackResult').disabled = true;
+            document.getElementById('setIRCLastDownload').disabled = true;
+
+            if (!noNotify) NotifyUtils.info(_('IRC status refreshed'));
         },
 
         viewIRCLastFailure: function() {
+            let rootPath = this._ircRootPath;
+            let failedPackage = this._ircLastFailedPackage;
+            let unpacklog = rootPath + 'queues/' + failedPackage + '.unpacklog.json';
+            
+            let file = new GeckoJS.File(unpacklog);
+            if (file.exists() && file.isReadable()) {
+                VirtualKeyboard.show();
 
+                let launchApp = this._fileViewer;
+
+                let fileApp = new GeckoJS.File(this._fileViewer);
+                fileApp.run([unpacklog], true);
+
+                VirtualKeyboard.hide();
+            }
+            else {
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('View Last Failure'),
+                                      _('Unpack log for package [%S] no longer exists', [failedPackage]));
+            }
         },
 
         clearIRCFailure: function() {
+            let rootPath = this._ircRootPath;
+            let failedPackage = this._ircLastFailedPackage;
+            
+            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                        _('Clear Last Failure'),
+                                        _('This action will remove the failure flag for package [%S] and allow it to be re-applied. Are you sure you want to proceed?', [failedPackage]))) {
 
+                let unpacklogPath = rootPath + 'queues/' + failedPackage + '.unpacklog.json';
+                let unpacklogFile = new GeckoJS.File(unpacklogPath);
+                unpacklogFile.remove();
+
+                let lastFailurePath = rootPath + 'last_error_package';
+                let lastFailureFile = new GeckoJS.File(lastFailurePath);
+                lastFailureFile.remove();
+
+                this.refreshIRCStatus();
+                
+                if (unpacklogFile.exists() || lastFailureFile.exists()) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Clear Last Failure'),
+                                          _('Failed to clear the failure flag'));
+                }
+                else {
+                    NotifyUtils.info(_('Last failure cleared'));
+                }
+            }
         },
 
         viewIRCUpackResult: function() {
+            let ircStatusListObj = this._getIRCPackageListObj();
+            let index = ircStatusListObj.selectedIndex;
+            if (index > -1 && index < this._ircPackages.length) {
+                let pkg = this._ircPackages[index];
 
-        },
+                VirtualKeyboard.show();
 
-        setIRCLastDownload: function() {
+                let launchApp = this._fileViewer;
 
+                let fileApp = new GeckoJS.File(this._fileViewer);
+                fileApp.run([pkg.unpacklog], true);
+
+                VirtualKeyboard.hide();
+            }
         },
 
         selectIRCPackage: function() {
+            let unpacked = false;
+            let ircStatusListObj = this._getIRCPackageListObj();
+            let index = ircStatusListObj.selectedIndex;
+            if (index > -1 && index < this._ircPackages.length) {
+                let pkg = this._ircPackages[index];
+                unpacked = pkg.unpacked;
+            }
+            // view button
+            document.getElementById('viewIRCUpackResult').disabled = !unpacked;
 
+            // download button
+            document.getElementById('setIRCLastDownload').disabled = false;
         },
-        
+
+        _resetIRCLastDownload: function(timestamp) {
+            let rootPath = this._ircRootPath;
+            let result = 0;
+            let lastDownloadedFile = new GeckoJS.File(rootPath + 'last_downloaded', true);
+            if (lastDownloadedFile && lastDownloadedFile.exists()) {
+                lastDownloadedFile.open('w');
+                result = lastDownloadedFile.write(timestamp);
+                lastDownloadedFile.close();
+            }
+            return result;
+        },
+
+        resetIRCLastDownload: function() {
+            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                        _('Reset Download Timestamp'),
+                                        _('This action will reset timestamp to [0]. Are you sure you want to proceed?'))) {
+                if (this._resetIRCLastDownload(0)) {
+                    NotifyUtils.info(_('Download timestamp reset to [0]'));
+                }
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Reset Download Timestamp'),
+                                          _('Failed to reset download timestamp'));
+                }
+                this.refreshIRCStatus();
+            }
+        },
+
+        setIRCLastDownload: function() {
+            let rootPath = this._ircRootPath;
+            let ircStatusListObj = this._getIRCPackageListObj();
+            let index = ircStatusListObj.selectedIndex;
+            if (index > -1 && index < this._ircPackages.length) {
+                let pkg = this._ircPackages[index];
+
+                if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                            _('Re-Download Packages'),
+                                            _('This action will remove package [%S] and all later packages and reset timestamp to cause them to be downloaded from the server again. Are you sure you want to proceed?', [pkg.pkg]))) {
+
+                    // remove packages including and after the selected entry
+                    for (; index < this._ircPackages.length; index++) {
+                        this._execute('/bin/rm', ['-f', rootPath + 'queues/' + this._ircPackages[index].pkg + '.tbz']);
+                        this._execute('/bin/rm', ['-f', rootPath + 'queues/' + this._ircPackages[index].pkg + '.tbz.json']);
+                        this._execute('/bin/rm', ['-f', rootPath + 'queues/' + this._ircPackages[index].pkg + '.tbz.unpacklog.json']);
+                    }
+
+                    // set last downloaded to the selected package time minus 1
+                    let newtimestamp = pkg.created - 1;
+                    let rc = this._resetIRCLastDownload(newtimestamp);
+                    if (rc) {
+                        NotifyUtils.info(_('Selected package(s) cleared and download timestamp updated to [%S]', [newtimestamp]));
+                    }
+                    else {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                                              _('Re-Download Packages'),
+                                              _('Failed to update last download timestamp'));
+                    }
+
+                    this.refreshIRCStatus();
+                }
+            }
+        },
+
         load: function() {
             // initialize sync list
             this.initSyncStatus();

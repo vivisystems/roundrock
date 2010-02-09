@@ -32,7 +32,9 @@
 <!ENTITY admintools.dsbackup.model          "Model">
 <!ENTITY admintools.dsbackup.size           "Size">
 
-<!ENTITY admintools.irc.last.download       "Last Download At">
+<!ENTITY admintools.irc.host                "IRC Service Host">
+<!ENTITY admintools.irc.last.download       "Download Timestamp">
+<!ENTITY admintools.irc.reset.last.download "Reset">
 <!ENTITY admintools.irc.last.failure        "Last Failed Package">
 <!ENTITY admintools.irc.clear               "Clear">
 <!ENTITY admintools.irc.refresh             "Refresh">
@@ -42,6 +44,7 @@
 <!ENTITY admintools.irc.package             "Package">
 <!ENTITY admintools.irc.size                "Size">
 <!ENTITY admintools.irc.unpacked            "Unpacked">
+<!ENTITY admintools.irc.source              "Source">
 
 <!ENTITY admintools.saleperiod.saleperiod.current   "Sale Period (Current)">
 <!ENTITY admintools.saleperiod.shiftnumber.current  "Shift Number (Current)">

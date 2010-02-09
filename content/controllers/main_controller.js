@@ -1575,6 +1575,8 @@
                 noTable = parseInt(userParams[4]) || 0;
             }
 
+            this.log('WARN', 'Load test parameters\n   count=[' + count + ']\n   items=[' + items + ']\n   store=[' + store + ']\n   resume=[' + resume + ']\n   noTable=[' + noTable + ']\n\n');
+
             var customers = GeckoJS.Session.get('customers') || [];
             var products = GeckoJS.Session.get('products') || [];
             var numProds = products.length;
@@ -1760,7 +1762,9 @@
                             $do('storeCheck', null, 'Cart');
 
                             if (noTable) {
+                                this.log('WARN', 'storing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
                                 progressBar.value = (++ordersClosed * 100) / count;
+                                this.log('WARN', 'order stored [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
                             }
                         }else {
                             this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');

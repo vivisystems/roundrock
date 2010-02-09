@@ -31,3 +31,9 @@
 .custom-dsbackup-tree #size {
     text-align: center;
 }
+
+.custom-ircpackage-tree #pkg,
+.custom-ircpackage-tree #source,
+.custom-ircpackage-tree #size {
+    text-align: center;
+}

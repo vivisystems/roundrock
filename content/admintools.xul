@@ -271,8 +271,20 @@
                             </columns>
                             <rows flex="1">
                                 <row>
-                                    <label value="&admintools.irc.last.download;" class="label-sub-title"/>
-                                    <textbox id="irc_last_download" value="" readonly="true" disabled="true"/>
+                                    <label value="&admintools.irc.host;" class="label-sub-title"/>
+                                    <textbox id="irc_hostname" value="" readonly="true" disabled="true"/>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&admintools.irc.last.download;" class="label-sub-title"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="resetIRCLastDownload" class="button-execute"
+                                                label="&admintools.irc.reset.last.download;"
+                                                oncommand="$do('resetIRCLastDownload', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vbox pack="center">
+                                        <textbox id="irc_last_downloaded" value="" readonly="true" disabled="true"/>
+                                    </vbox>
                                 </row>
                                 <row>
                                     <vbox>
@@ -309,8 +321,8 @@
                                         <spacer flex="1"/>
                                     </vbox>
                                     <vivitree id="ircpackagelist" flex="1" class="standard custom-ircpackage-tree"
-                                              headers="&admintools.irc.package;,&admintools.irc.size;,&admintools.irc.unpacked;"
-                                              fields="pkg,size,unpacked" hidecolumnpicker="true"
+                                              headers="&admintools.irc.package;,&admintools.irc.source;,&admintools.irc.size;,&admintools.irc.unpacked;"
+                                              fields="pkg,source,size,unpacked" types=",,,checkbox" hidecolumnpicker="true"
                                               onselect="$do('selectIRCPackage', null, 'AdminTools');"
                                               />
                                 </row>
