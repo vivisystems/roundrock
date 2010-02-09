@@ -2274,7 +2274,7 @@
             var win = this.topmostWindow;
             if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
                 win = null;
-
+              
             var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
 
             return alertWin;
