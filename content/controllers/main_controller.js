@@ -1388,7 +1388,7 @@
             var currentTableNo = -1;
             var doRecall = true;
 
-            while (ordersClosed < count) {
+            while (ordersOpened < count || ordersClosed < count) {
 
                 if (this._suspendLoadTest) {
                     this._suspendLoadTest = false;
@@ -1398,7 +1398,7 @@
                 }
 
                 // create new order or recall?
-                doRecall = ordersOpened >= count || Math.random() < 0.5;
+                doRecall = (ordersClosed < count) && (ordersOpened >= count || Math.random() < 0.5);
 
                 // select a table in sequence
                 if (!noTable && numTables > 0) {
@@ -1415,16 +1415,18 @@
                     }
                 }
 
+                this.log('WARN', 'table number [' + currentTableNo + '] doRecall [' + doRecall + '] orders opened [' + ordersOpened + ']');
+                
                 // found table, let's get a transaction'
                 if (currentTableNo > -1 || noTable) {
                     let recalled = false;
                     let txn;
 
-                    if (!noTable) {
+                    if (!noTable && doRecall) {
                         let conditions = 'orders.table_no="' + currentTableNo + '" AND orders.status=2';
                         var orders = this.Order.getOrdersSummary(conditions, true);
 
-                        if (orders.length > 0 && doRecall) {
+                        if (orders.length > 0) {
 
                             // recall order
                             let index = Math.floor(Math.random() * orders.length);
@@ -1460,6 +1462,7 @@
 
                         if (txn) {
                             ordersOpened++;
+                            this.log('WARN', 'new order opened [' + txn.data.seq + '] count [' + ordersOpened + '] status [' + txn.data.status + ']');
 
                             if (!noTable) {
                                 // assign number of guests
