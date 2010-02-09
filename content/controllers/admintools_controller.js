@@ -16,7 +16,8 @@
         _terminalListObj: null,
         _tableListObj: null,
         _dsbackupListObj: null,
-
+        _ircpackageListObj: null,
+        
         _syncSuspendStatus: null,
         _syncSuspendStatusFile: '/tmp/sync_suspend_',
 
@@ -161,6 +162,13 @@
                 this._syncedDatasources = dsList;
             }
             return this._syncedDatasources;
+        },
+
+        _getIRCPackageListObj: function() {
+            if (this._ircstatusListObj == null) {
+                this._ircstatusListObj = document.getElementById('ircpackagelist');
+            }
+            return this._ircstatusListObj;
         },
 
         _execute: function(cmd, param) {
@@ -994,6 +1002,30 @@
             }
         },
 
+        refreshIRCStatus: function(noNotify) {
+            let pkgListObj = this._getIRCPackageListObj();
+        },
+
+        viewIRCLastFailure: function() {
+
+        },
+
+        clearIRCFailure: function() {
+
+        },
+
+        viewIRCUpackResult: function() {
+
+        },
+
+        setIRCLastDownload: function() {
+
+        },
+
+        selectIRCPackage: function() {
+
+        },
+        
         load: function() {
             // initialize sync list
             this.initSyncStatus();
@@ -1016,6 +1048,9 @@
             // refresh datasource backup data
             this.refreshDSBackupData(true);
 
+            // refresh irc status
+            this.refreshIRCStatus(true);
+            
             this.dispatchEvent('initial');
         }
 

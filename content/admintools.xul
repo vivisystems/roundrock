@@ -44,6 +44,7 @@
                         <tab id="tab2" label="&admintools.tab.recovery;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab3" label="&admintools.tab.saleperiod;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab4" label="&admintools.tab.dsbackup;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab5" label="&admintools.tab.irc;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                     </tabs>
                 </arrowscrollbox>
 
@@ -68,6 +69,7 @@
                                 </row>
                                 <row flex="1">
                                     <vbox flex="1">
+                                        <spacer flex="1"/>
                                         <button id="refreshSyncStatus" class="button-execute"
                                                 label="&admintools.syncstatus.refresh;"
                                                 oncommand="$do('refreshSyncStatus', null, 'AdminTools');"/>
@@ -83,33 +85,32 @@
                                         <button id="suspendResumeSync" class="button-execute"
                                                 label=""
                                                 oncommand="$do('suspendResumeSync', null, 'AdminTools');"/>
+                                        <spacer flex="1"/>
                                     </vbox>
-                                    <vbox flex="1" class="content-listbox">
-                                        <tabbox flex="1" class="content-tabbox">
-                                            <tabs id="tabs">
-                                                <tab id="tab1" label="&admintools.syncstatus.tab.push;" orient="vertical" />
-                                                <tab id="tab2" label="&admintools.syncstatus.tab.pull;" orient="vertical" />
-                                            </tabs>
+                                    <tabbox flex="1" class="content-tabbox">
+                                        <tabs id="tabs">
+                                            <tab id="tab1" label="&admintools.syncstatus.tab.push;" orient="vertical" />
+                                            <tab id="tab2" label="&admintools.syncstatus.tab.pull;" orient="vertical" />
+                                        </tabs>
 
-                                            <tabpanels id="tabpanels" flex="1" >
-                                                <!-- push status -->
-                                                <tabpanel id="tabpanel_syncstatus_push" orient="vertical" flex="1">
-                                                    <vivitree id="syncstatuspushlist" flex="1" class="standard custom-sync-tree"
-                                                              headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.changelog.index;,&admintools.syncstatus.push.remote;"
-                                                              fields="datasource,database,index,synced"
-                                                              />
-                                                </tabpanel>
+                                        <tabpanels id="tabpanels" flex="1" >
+                                            <!-- push status -->
+                                            <tabpanel id="tabpanel_syncstatus_push" orient="vertical" flex="1">
+                                                <vivitree id="syncstatuspushlist" flex="1" class="standard custom-sync-tree"
+                                                          headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.changelog.index;,&admintools.syncstatus.push.remote;"
+                                                          fields="datasource,database,index,synced"
+                                                          />
+                                            </tabpanel>
 
-                                                <!-- pull status -->
-                                                <tabpanel id="tabpanel_syncstatus_pull" orient="vertical" flex="1">
-                                                    <vivitree id="syncstatuspulllist" flex="1" class="standard custom-sync-tree"
-                                                              headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.pull.clientid;,&admintools.syncstatus.changelog.index;,&admintools.syncstatus.pull.remote;"
-                                                              fields="datasource,database,clientid,index,synced"
-                                                              />
-                                                </tabpanel>
-                                            </tabpanels>
-                                        </tabbox>
-                                    </vbox>
+                                            <!-- pull status -->
+                                            <tabpanel id="tabpanel_syncstatus_pull" orient="vertical" flex="1">
+                                                <vivitree id="syncstatuspulllist" flex="1" class="standard custom-sync-tree"
+                                                          headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.pull.clientid;,&admintools.syncstatus.changelog.index;,&admintools.syncstatus.pull.remote;"
+                                                          fields="datasource,database,clientid,index,synced"
+                                                          />
+                                            </tabpanel>
+                                        </tabpanels>
+                                    </tabbox>
                                 </row>
                             </rows>
                         </grid>
@@ -255,6 +256,62 @@
                                               headers="&admintools.dsbackup.model;,&admintools.dsbackup.size;"
                                               fields="model,size" hidecolumnpicker="true"
                                               onselect="$do('selectDSBackup', null, 'AdminTools');"
+                                              />
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                    <!-- IRC status -->
+                    <tabpanel id="tabpanel_ircstatus" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row>
+                                    <label value="&admintools.irc.last.download;" class="label-sub-title"/>
+                                    <textbox id="irc_last_download" value="" readonly="true" disabled="true"/>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&admintools.irc.last.failure;" class="label-sub-title"/>
+                                        <spacer style="height: 10px;"/>
+                                        <hbox>
+                                            <button id="viewIRCLastFailure" class="button-execute"
+                                                    label="&admintools.irc.view;"
+                                                    oncommand="$do('viewIRCLastFailure', null, 'AdminTools');"/>
+                                            <spacer style="width: 10px;"/>
+                                            <button id="clearIRCFailure" class="button-execute"
+                                                    label="&admintools.irc.clear;"
+                                                    oncommand="$do('clearIRCFailure', null, 'AdminTools');"/>
+                                        </hbox>
+                                    </vbox>
+                                    <vbox pack="center">
+                                        <textbox id="irc_last_failure" value="" readonly="true" disabled="true"/>
+                                    </vbox>
+                                </row>
+                                <row flex="1">
+                                    <vbox flex="1">
+                                        <spacer flex="1"/>
+                                        <button id="viewIRCUpackResult" class="button-execute"
+                                                label="&admintools.irc.view;"
+                                                oncommand="$do('viewIRCUpackResult', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="setIRCLastDownload" class="button-execute"
+                                                label="&admintools.irc.download;"
+                                                oncommand="$do('setIRCLastDownload', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="refreshIRCStatus" class="button-execute"
+                                                label="&admintools.irc.refresh;"
+                                                oncommand="$do('refreshIRCStatus', null, 'AdminTools');"/>
+                                        <spacer flex="1"/>
+                                    </vbox>
+                                    <vivitree id="ircpackagelist" flex="1" class="standard custom-ircpackage-tree"
+                                              headers="&admintools.irc.package;,&admintools.irc.size;,&admintools.irc.unpacked;"
+                                              fields="pkg,size,unpacked" hidecolumnpicker="true"
+                                              onselect="$do('selectIRCPackage', null, 'AdminTools');"
                                               />
                                 </row>
                             </rows>
