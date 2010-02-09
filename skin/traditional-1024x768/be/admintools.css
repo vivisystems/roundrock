@@ -26,3 +26,8 @@
 .custom-textbox-center {
     text-align: center;
 }
+
+.custom-dsbackup-tree #model,
+.custom-dsbackup-tree #size {
+    text-align: center;
+}

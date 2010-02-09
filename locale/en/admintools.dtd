@@ -2,6 +2,7 @@
 <!ENTITY admintools.tab.syncstatus          "Sync Control">
 <!ENTITY admintools.tab.recovery            "Transaction Data Recovery">
 <!ENTITY admintools.tab.saleperiod          "Sale Period Adjustment">
+<!ENTITY admintools.tab.dsbackup            "Datasource Backup">
 
 <!ENTITY admintools.syncstatus.status       "Synchronization Status">
 <!ENTITY admintools.syncstatus.server       "Synchronization Server">
@@ -22,6 +23,13 @@
 <!ENTITY admintools.recovery.terminal       "Terminal">
 <!ENTITY admintools.recovery.terminals      "Terminals">
 <!ENTITY admintools.recovery.tables         "Tables">
+
+<!ENTITY admintools.dsbackup.refresh        "Refresh">
+<!ENTITY admintools.dsbackup.view           "View">
+<!ENTITY admintools.dsbackup.remove         "Remove">
+<!ENTITY admintools.dsbackup.purge          "Purge">
+<!ENTITY admintools.dsbackup.model          "Model">
+<!ENTITY admintools.dsbackup.size           "Size">
 
 <!ENTITY admintools.saleperiod.saleperiod.current   "Sale Period (Current)">
 <!ENTITY admintools.saleperiod.shiftnumber.current  "Shift Number (Current)">

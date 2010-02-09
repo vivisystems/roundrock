@@ -7,16 +7,23 @@
         _dataPath: null,
         _modelClasses: null,
         _syncedDatasources: null,
-        _syncPushListObj: null,
-        _syncPullListObj: null,
         _syncSettings: null,
         _syncTerminal: null,
         _httpServiceSync: null,
 
+        _syncPushListObj: null,
+        _syncPullListObj: null,
         _terminalListObj: null,
         _tableListObj: null,
+        _dsbackupListObj: null,
+
         _syncSuspendStatus: null,
         _syncSuspendStatusFile: '/tmp/sync_suspend_',
+
+        _dsbackupPath: null,
+        _dsbackupFiles: null,
+
+        _fileViewer: '/usr/bin/leafpad',
 
         terminalTableList: {},
 
@@ -81,6 +88,21 @@
                 this._syncPullListObj = document.getElementById('syncstatuspulllist');
             }
             return this._syncPullListObj;
+        },
+
+        _getDSBackupListObj: function() {
+            if (this._dsbackupListObj == null) {
+                this._dsbackupListObj = document.getElementById('dsbackuplist');
+            }
+            return this._dsbackupListObj;
+        },
+
+        _getDSBackupPath: function() {
+            if (this._dsbackupPath == null) {
+                let ds = GeckoJS.ConnectionManager.getDataSource('backup');
+                this._dsbackupPath = ds.config.path;
+            }
+            return this._dsbackupPath;
         },
 
         _getSyncSettings: function() {
@@ -204,7 +226,7 @@
             }
         },
 
-        refreshSyncStatus: function() {
+        refreshSyncStatus: function(noNotify) {
 
             let settings = this._getSyncSettings();
             let syncTerminal = this._getSyncTerminal(settings);
@@ -268,6 +290,8 @@
 
             this._getSyncPushListObj().datasource = statusPushList;
             this._getSyncPullListObj().datasource = statusPullList;
+
+            if (!noNotify) NotifyUtils.info(_('Synchronization status refreshed'));
         },
 
         syncNow: function() {
@@ -849,8 +873,128 @@
             }
         },
 
-        load: function() {
+        refreshDSBackupData: function(noNotify) {
+            let path = this._getDSBackupPath();
+            let nsIFiles = GeckoJS.Dir.readDir(path, {type: 'f'});
+            files = nsIFiles.sort(function(f1, f2) {
+                if (f1.leafName > f2.leafName) return 1;
+                else if (f1.leafName < f2.leafName) return -1;
+                else return 0;
+            }).map(function(nsIFile) {
+                return {file: nsIFile,
+                        model: nsIFile.leafName,
+                        size: GeckoJS.NumberHelper.toReadableSize(nsIFile.fileSize)}
+            });
 
+            this._dsbackupFiles = files;
+
+            this._getDSBackupListObj().datasource = files;
+            
+            this._getDSBackupListObj().selection.clearSelection();
+
+            // view button
+            document.getElementById('viewDatasourceBackup').disabled = true;
+
+            // remove button
+            document.getElementById('removeDatasourceBackup').disabled = true;
+
+            // purge button
+            document.getElementById('purgeDatasourceBackup').disabled = (files.length == 0);
+
+            if (!noNotify) NotifyUtils.info(_('Datasource backup list refreshed'));
+        },
+
+        selectDSBackup: function() {
+            // view button
+            document.getElementById('viewDatasourceBackup').disabled = false;
+
+            // remove button
+            document.getElementById('removeDatasourceBackup').disabled = false;
+        },
+
+        viewDSBackupData: function() {
+            let dsbackupListObj = this._getDSBackupListObj();
+            let index = dsbackupListObj.selectedIndex;
+            if (index > -1 && index < this._dsbackupFiles.length) {
+                let dsbackup = this._dsbackupFiles[index];
+                
+                VirtualKeyboard.show();
+
+                let launchApp = this._fileViewer;
+
+                let fileApp = new GeckoJS.File(this._fileViewer);
+                fileApp.run([dsbackup.file.path], true);
+
+                VirtualKeyboard.hide();
+            }
+        },
+
+        removeDSBackupData: function() {
+            let dsbackupListObj = this._getDSBackupListObj();
+            let index = dsbackupListObj.selectedIndex;
+            if (index > -1 && index < this._dsbackupFiles.length) {
+                let dsbackup = this._dsbackupFiles[index];
+                if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                            _('Remove Datasource Backup Data'),
+                                            _('This action will irrecoverably remove backup data for model [%S]. This may result in loss of customer data. Are you sure you want to proceed?', [dsbackup.model]))) {
+
+                    let nsIFile = dsbackup.file;
+                    if (nsIFile.exists()) {
+                        GREUtils.File.remove(nsIFile);
+
+                        this.refreshDSBackupData(true);
+
+                        if (!nsIFile.exists()) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                                  _('Remove Datasource Backup Data'),
+                                                  _('Backup data for model [%S] successfully removed', [dsbackup.model]));
+                        }
+                        else {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                                  _('Remove Datasource Backup Data'),
+                                                  _('Failed to remove backup data for model [%S]', [dsbackup.model]));
+                        }
+                    }
+                }
+            }
+        },
+
+        purgeDSBackupData: function() {
+            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                        _('Purge Datasource Backup Data'),
+                                        _('This action will irrecoverably remove all datasource backup data. This may result in loss of customer data. Are you sure you want to proceed?'))) {
+
+                let path = this._getDSBackupPath();
+                let nsIFiles = GeckoJS.Dir.readDir(path, {type: 'f'});
+                let total = nsIFiles.length;
+                let removed = 0;
+                nsIFiles.forEach(function(nsIFile) {
+                    if (nsIFile.exists()) {
+                        GREUtils.File.remove(nsIFile);
+                        if (!nsIFile.exists()) removed++;
+                    }
+                })
+                this.refreshDSBackupData(true);
+                
+                if (removed == total) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Purge Datasource Backup Data'),
+                                          _('Datasource backup data successfully purged'));
+                }
+                else if (removed == 0) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Purge Datasource Backup Data'),
+                                          _('Failed to purge datasource backup data'));
+                }
+                else {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Purge Datasource Backup Data'),
+                                          _('Failed to purge some of the datasource backup data'));
+                }
+            }
+        },
+
+        load: function() {
             // initialize sync list
             this.initSyncStatus();
 
@@ -858,7 +1002,7 @@
             this.initRemoteDataList();
 
             // refresh sync list
-            this.refreshSyncStatus();
+            this.refreshSyncStatus(true);
 
             // refresh remote data list
             this.refreshRemoteDataList();
@@ -866,8 +1010,11 @@
             // refresh order sequence
             this.refreshOrderSequence();
 
-            // initialize sale period data; must happen after order sequence is refreshed
+            // refresh sale period data; must happen after order sequence is refreshed
             this.refreshSalePeriodData();
+
+            // refresh datasource backup data
+            this.refreshDSBackupData(true);
 
             this.dispatchEvent('initial');
         }
