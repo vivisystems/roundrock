@@ -106,43 +106,51 @@ do_backup() {
 		/data/scripts/diskspace_usage.sh
 	fi
 
-        # check if second bacup media exists
-        if [ -h "/dev/disk/by-label/VIVIBACKUP" ]; then
-            echo "90\n# Copy to Second Backup Media.."
+        echo "90\n# Copy to Second Backup Media.."
 
-            # mkdir mount point
-            if [ ! -d "/tmp/VIVIBACKUP" ]; then
-                mkdir /tmp/VIVIBACKUP
-            fi
+        for backidx in 0 1 2 3 4 5 6 7 8 9; do
 
-            LAST_BACKUP_USAGE=`LC_ALL=c du -b -c $bak/$bak_dir | grep 'total' | awk '{print $1}'`
+            BACK_DEV=`echo /dev/disk/by-label/BACKUP${backidx} | sed s/[0]//g`
 
-            mount /dev/disk/by-label/VIVIBACKUP /tmp/VIVIBACKUP
+            # check if second bacup media exists
+            if [ -h "$BACK_DEV" ]; then
 
-            if [ "$?" -eq "0" ]; then
-
-                # check free space
-                while [ `LC_ALL=c df -B 1 -P /tmp/VIVIBACKUP | grep -v "Filesystem" | awk -F " " '{ print $4}'` -lt "$LAST_BACKUP_USAGE" ]; do
-                    # remove oldest backup dir
-                    oldest_bak=`ls /tmp/VIVIBACKUP/backups | sort | line`
-                    if [ ! -z "$oldest_bak" ]; then
-                        rm -fr /tmp/VIVIBACKUP/backups/$oldest_bak
-                    fi
-                done
-
-                if [ ! -d "/tmp/VIVIBACKUP/backups" ]; then
-                    mkdir /tmp/VIVIBACKUP/backups
+                # mkdir mount point
+                if [ ! -d "/tmp/BACKUP" ]; then
+                    mkdir /tmp/BACKUP
                 fi
 
-                cp -fr $bak/$bak_dir /tmp/VIVIBACKUP/backups
+                LAST_BACKUP_USAGE=`LC_ALL=c du -b -c $bak/$bak_dir | grep 'total' | awk '{print $1}'`
 
-                sync;
+                mount $BACK_DEV /tmp/BACKUP
 
-                umount /tmp/VIVIBACKUP
+                if [ "$?" -eq "0" ]; then
+
+                    # check free space
+                    while [ `LC_ALL=c df -B 1 -P /tmp/BACKUP | grep -v "Filesystem" | awk -F " " '{ print $4}'` -lt "$LAST_BACKUP_USAGE" ]; do
+                        # remove oldest backup dir
+                        oldest_bak=`ls /tmp/BACKUP/backups | sort | line`
+                        if [ ! -z "$oldest_bak" ]; then
+                            rm -fr /tmp/BACKUP/backups/$oldest_bak
+                        fi
+                    done
+
+                    if [ ! -d "/tmp/BACKUP/backups" ]; then
+                        mkdir /tmp/BACKUP/backups
+                    fi
+
+                    cp -fr $bak/$bak_dir /tmp/BACKUP/backups
+
+                    sync;
+
+                    umount /tmp/BACKUP
+
+                fi
 
             fi
 
-        fi
+        done
+
 
 	echo "100\n# Finished."
 
