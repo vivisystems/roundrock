@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-02-06 15:01+0800\n"
+"POT-Creation-Date: 2010-02-09 16:38+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3267,7 +3267,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/reportPanel.js:71
-#: ../..//content/controllers/main_controller.js:1870
+#: ../..//content/controllers/main_controller.js:1879
 msgid "custom"
 msgstr ""
 
@@ -3504,7 +3504,7 @@ msgid ""
 "discard the changes?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:145
+#: ../..//content/controllers/admintools_controller.js:187
 #: ../..//content/controllers/image_manager_controller.js:77
 #: ../..//content/controllers/import_export_controller.js:58
 #: ../..//content/controllers/import_export_controller.js:59
@@ -3514,156 +3514,160 @@ msgstr ""
 msgid "Failed to execute command (%S)."
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:168
+#: ../..//content/controllers/admintools_controller.js:210
 msgid "-- no contact --"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:170
+#: ../..//content/controllers/admintools_controller.js:212
 msgid "Contacting Synchronization Server"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:171
+#: ../..//content/controllers/admintools_controller.js:213
 msgid ""
 "Failed to establish contact with the synchronization service. Please check "
 "network connectivity to the server at ["
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:192
+#: ../..//content/controllers/admintools_controller.js:234
 msgid "Resume Sync"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:195
+#: ../..//content/controllers/admintools_controller.js:237
 msgid "Suspend Sync"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:205
+#: ../..//content/controllers/admintools_controller.js:247
 msgid "--no contact--"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:247
+#: ../..//content/controllers/admintools_controller.js:306
+msgid "Synchronization status refreshed"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:313
 msgid "Performing Synchronization..."
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:256
+#: ../..//content/controllers/admintools_controller.js:322
 msgid "Synchronization request executed"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:261
+#: ../..//content/controllers/admintools_controller.js:327
 msgid "Failed to execute synchronization client"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:267
-#: ../..//content/controllers/admintools_controller.js:311
-#: ../..//content/controllers/admintools_controller.js:316
-#: ../..//content/controllers/admintools_controller.js:321
+#: ../..//content/controllers/admintools_controller.js:333
+#: ../..//content/controllers/admintools_controller.js:377
+#: ../..//content/controllers/admintools_controller.js:382
+#: ../..//content/controllers/admintools_controller.js:387
 msgid "Purge Synchronization Data"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:268
+#: ../..//content/controllers/admintools_controller.js:334
 msgid ""
 "This action will irrecoverably remove change logs on all datasources and re-"
 "initialize local sync index. Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:270
+#: ../..//content/controllers/admintools_controller.js:336
 msgid "Purging Synchronization Data..."
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:286
+#: ../..//content/controllers/admintools_controller.js:352
 msgid "Unable to commit changes to datasource [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:295
+#: ../..//content/controllers/admintools_controller.js:361
 msgid ""
 "Unable to re-initialize local index [sync_remote_machines] for datasource [%"
 "S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:300
+#: ../..//content/controllers/admintools_controller.js:366
 msgid "Unable to purge change logs [syncs] from datasource [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:304
+#: ../..//content/controllers/admintools_controller.js:370
 msgid "Unable to obtain exclusive lock on datasource [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:312
+#: ../..//content/controllers/admintools_controller.js:378
 msgid "Synchronization data successfully purged from all datasources"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:317
+#: ../..//content/controllers/admintools_controller.js:383
 msgid "Failed to purge synchronization data"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:322
+#: ../..//content/controllers/admintools_controller.js:388
 msgid "Failed to purge synchronization data from some of the datasources"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:338
+#: ../..//content/controllers/admintools_controller.js:404
 msgid "Failed to resume synchronization"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:341
+#: ../..//content/controllers/admintools_controller.js:407
 msgid "Synchronization to server resumed"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:350
+#: ../..//content/controllers/admintools_controller.js:416
 msgid "Synchronization to server suspended"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:353
+#: ../..//content/controllers/admintools_controller.js:419
 msgid "Failed to suspend synchronization"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:365
+#: ../..//content/controllers/admintools_controller.js:431
 msgid "Bi-directional Synchronization"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:365
+#: ../..//content/controllers/admintools_controller.js:431
 msgid "Uni-directional Synchronization"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:435
-#: ../..//content/controllers/admintools_controller.js:510
-#: ../..//content/controllers/admintools_controller.js:519
+#: ../..//content/controllers/admintools_controller.js:501
+#: ../..//content/controllers/admintools_controller.js:576
+#: ../..//content/controllers/admintools_controller.js:585
 msgid "Purge Non-local Transaction Data"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:436
+#: ../..//content/controllers/admintools_controller.js:502
 msgid ""
 "This action will irrecoverably purge transaction data generated on other "
 "terminals. This is intended only for use on client terminals with uni-"
 "directional synchronization. Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:438
+#: ../..//content/controllers/admintools_controller.js:504
 msgid "Purging Non-Local Transaction Data..."
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:511
+#: ../..//content/controllers/admintools_controller.js:577
 msgid "Non-local Transaction data purged from datasource [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:520
-#: ../..//content/controllers/admintools_controller.js:777
+#: ../..//content/controllers/admintools_controller.js:586
+#: ../..//content/controllers/admintools_controller.js:843
 msgid "Unable to obtain lock on datasource [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:576
+#: ../..//content/controllers/admintools_controller.js:642
 msgid "(activity)ledger"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:588
+#: ../..//content/controllers/admintools_controller.js:654
 msgid "(activity)transaction"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:672
-#: ../..//content/controllers/admintools_controller.js:767
-#: ../..//content/controllers/admintools_controller.js:776
+#: ../..//content/controllers/admintools_controller.js:738
+#: ../..//content/controllers/admintools_controller.js:833
+#: ../..//content/controllers/admintools_controller.js:842
 msgid "Reset Sale Period"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:673
+#: ../..//content/controllers/admintools_controller.js:739
 msgid ""
 "You are attempting to reset sale period from [%S, %S] to [%S, %S]. This will "
 "cause the following to happen:\n"
@@ -3677,32 +3681,150 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:677
+#: ../..//content/controllers/admintools_controller.js:743
 msgid "Resetting Sale Period..."
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:768
+#: ../..//content/controllers/admintools_controller.js:834
 msgid "Current sale period successfully reset"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:805
-#: ../..//content/controllers/admintools_controller.js:817
+#: ../..//content/controllers/admintools_controller.js:871
+#: ../..//content/controllers/admintools_controller.js:883
 msgid "Reset Order Sequence"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:806
+#: ../..//content/controllers/admintools_controller.js:872
 msgid ""
 "This action will set the local order sequence number to [%S], and could lead "
 "to duplicate sequence numbers and must be used with extreme care. Are you "
 "sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:812
+#: ../..//content/controllers/admintools_controller.js:878
 msgid "Local order sequence number set to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:818
+#: ../..//content/controllers/admintools_controller.js:884
 msgid "New order sequence number [%S] is invalid"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:916
+msgid "Datasource backup list refreshed"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:950
+#: ../..//content/controllers/admintools_controller.js:961
+#: ../..//content/controllers/admintools_controller.js:966
+msgid "Remove Datasource Backup Data"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:951
+msgid ""
+"This action will irrecoverably remove backup data for model [%S]. This may "
+"result in loss of customer data. Are you sure you want to proceed?"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:962
+msgid "Backup data for model [%S] successfully removed"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:967
+msgid "Failed to remove backup data for model [%S]"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:976
+#: ../..//content/controllers/admintools_controller.js:993
+#: ../..//content/controllers/admintools_controller.js:998
+#: ../..//content/controllers/admintools_controller.js:1003
+msgid "Purge Datasource Backup Data"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:977
+msgid ""
+"This action will irrecoverably remove all datasource backup data. This may "
+"result in loss of customer data. Are you sure you want to proceed?"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:994
+msgid "Datasource backup data successfully purged"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:999
+msgid "Failed to purge datasource backup data"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1004
+msgid "Failed to purge some of the datasource backup data"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1098
+msgid "IRC status refreshed"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1119
+msgid "View Last Failure"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1120
+msgid "Unpack log for package [%S] no longer exists"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1129
+#: ../..//content/controllers/admintools_controller.js:1144
+msgid "Clear Last Failure"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1130
+msgid ""
+"This action will remove the failure flag for package [%S] and allow it to be "
+"re-applied. Are you sure you want to proceed?"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1145
+msgid "Failed to clear the failure flag"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1148
+msgid "Last failure cleared"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1199
+#: ../..//content/controllers/admintools_controller.js:1206
+msgid "Reset Download Timestamp"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1200
+msgid ""
+"This action will reset timestamp to [0]. Are you sure you want to proceed?"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1202
+msgid "Download timestamp reset to [0]"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1207
+msgid "Failed to reset download timestamp"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1221
+#: ../..//content/controllers/admintools_controller.js:1239
+msgid "Re-Download Packages"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1222
+msgid ""
+"This action will remove package [%S] and all later packages and reset "
+"timestamp to cause them to be downloaded from the server again. Are you sure "
+"you want to proceed?"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1235
+msgid "Selected package(s) cleared and download timestamp updated to [%S]"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1240
+msgid "Failed to update last download timestamp"
 msgstr ""
 
 #: ../..//content/controllers/annotation_controller.js:60
@@ -4484,7 +4606,7 @@ msgstr ""
 #: ../..//content/controllers/ledger_controller.js:321
 #: ../..//content/controllers/list_orders_controller.js:219
 #: ../..//content/controllers/main_controller.js:1320
-#: ../..//content/controllers/main_controller.js:1795
+#: ../..//content/controllers/main_controller.js:1804
 #: ../..//content/controllers/print_controller.js:1272
 #: ../..//content/controllers/setup_wizard_controller.js:698
 #: ../..//content/controllers/shift_changes_controller.js:1624
@@ -5467,7 +5589,7 @@ msgid "STORED"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:945
-msgid "This order has been stored!!"
+msgid "This order has been stored"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:971
@@ -6139,7 +6261,7 @@ msgstr ""
 #: ../..//content/controllers/ledger_controller.js:322
 #: ../..//content/controllers/list_orders_controller.js:220
 #: ../..//content/controllers/main_controller.js:1322
-#: ../..//content/controllers/main_controller.js:1796
+#: ../..//content/controllers/main_controller.js:1805
 #: ../..//content/controllers/setup_wizard_controller.js:699
 #: ../..//content/controllers/shift_changes_controller.js:41
 #: ../..//content/controllers/shift_changes_controller.js:1625
@@ -6822,27 +6944,27 @@ msgstr ""
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1599
+#: ../..//content/controllers/main_controller.js:1601
 msgid "Load Test"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1599
+#: ../..//content/controllers/main_controller.js:1601
 msgid "Open order exists, discard the order and proceed with the load test?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1816
+#: ../..//content/controllers/main_controller.js:1825
 msgid "Function Customizer"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1878
+#: ../..//content/controllers/main_controller.js:1887
 msgid "Report [%S] does not exist"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1888
+#: ../..//content/controllers/main_controller.js:1897
 msgid "You are not authorized to access the [%S] report"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1960
+#: ../..//content/controllers/main_controller.js:1969
 msgid "Select User"
 msgstr ""
 
@@ -9045,48 +9167,48 @@ msgstr ""
 msgid "(sector)"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1449
+#: ../..//content/models/transaction.js:1448
 msgid "Cannot VOID a payment that has been subtotaled"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1608
+#: ../..//content/models/transaction.js:1607
 msgid "Discount amount [%S] may not exceed user item discount limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1617
+#: ../..//content/models/transaction.js:1616
 msgid "Discount amount [%S] may not exceed item amount [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1656
-#: ../..//content/models/transaction.js:1822
+#: ../..//content/models/transaction.js:1655
+#: ../..//content/models/transaction.js:1821
 msgid "Please note that return item(s) are present"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1781
+#: ../..//content/models/transaction.js:1780
 msgid "Surcharge amount [%S] may not exceed user item surcharge limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2068
+#: ../..//content/models/transaction.js:2067
 msgid "Condiment [%S] already added to [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2117
+#: ../..//content/models/transaction.js:2116
 msgid "Condiment may only be added to an item"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2779
+#: ../..//content/models/transaction.js:2778
 msgid "Price HALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2794
+#: ../..//content/models/transaction.js:2793
 msgid "Price adjusted from [%S] to current HALO [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2803
+#: ../..//content/models/transaction.js:2802
 msgid "Price LALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2818
+#: ../..//content/models/transaction.js:2817
 msgid "Price adjusted from [%S] to current LALO [%S]"
 msgstr ""
 
