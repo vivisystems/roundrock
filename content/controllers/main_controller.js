@@ -1679,7 +1679,13 @@
 
                             if (guestCheckController.recallOrder(orderId)) {
                                 txn = cart._getTransaction();
-                                recalled = true;
+                                if (txn && txn.data && txn.data.status == 0) {
+                                    recalled = true;
+                                }
+                                else {
+                                    txn = null;
+                                    this.log('WARN', 'skipping closed order [' + txn.data.seq + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                }
                             }
                         }
                     }
@@ -1725,9 +1731,12 @@
                         // get current number of items
                         let itemCount = txn.data.qty_subtotal;
                         let itemsToAdd = items - itemCount;
-
                         let doStore = false;
-                        if (itemsToAdd > 0) {
+
+                        if (ordersClosed >= count) {
+                            doStore = true;
+                        }
+                        else if (itemsToAdd > 0) {
                             if (noTable) {
                                 doStore = Math.random() < 0.25;
                             }
@@ -1761,6 +1770,8 @@
                             this.sleep(100);
                         }
 
+                        this.sleep(1000);
+                        
                         if (doStore) {
                             $do('storeCheck', null, 'Cart');
 
@@ -1781,7 +1792,6 @@
                             else {
                                 this.log('WARN', 'order not closed [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
                             }
-                            this.sleep(1000);
                         }
                     }
                     else {

@@ -3299,7 +3299,12 @@
 
             var modifiedItem = curTransaction.shiftTax(index, taxIndex);
 
-            this.dispatchEvent('afterShiftTax', modifiedItem);
+            if (modifiedItem) {
+                this.dispatchEvent('afterShiftTax', modifiedItem);
+            }
+            else {
+                NotifyUtils.error(_('Cannot shift tax; no tax configuration found'));
+            }
 
             this._clearAndSubtotal();
 
