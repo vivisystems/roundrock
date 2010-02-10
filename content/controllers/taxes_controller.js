@@ -330,9 +330,10 @@
             this._listDatas = taxes;
             panelView.tree.invalidate();
 
-            if (listObj.selectedIndex != index) {
+            if (index == -1 || listObj.selectedIndex != index) {
                 listObj.selectedIndex = index;
-                listObj.selectedItems = [index];
+                if (index != -1) listObj.selectedItems = [index];
+                else this._selectedIndex = null;
             }
             this.select();
 

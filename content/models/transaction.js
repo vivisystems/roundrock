@@ -1844,44 +1844,49 @@
             var taxes = GeckoJS.Session.get('taxes');
             if(taxes == null) taxes = Transaction.Tax.getTaxList();
 
-            if (taxIndex == null) {
-                var oldTax = itemTrans.tax_name;
-                for (var taxIndex=0; taxIndex<taxes.length; taxIndex++) {
-                    if(taxes[taxIndex].no ==oldTax) break;
+            if (taxes.length > 0) {
+                if (taxIndex == null) {
+                    var oldTax = itemTrans.tax_name;
+                    for (var taxIndex=0; taxIndex<taxes.length; taxIndex++) {
+                        if(taxes[taxIndex].no ==oldTax) break;
+                    }
+                    taxIndex = ( (taxIndex+1) >= taxes.length ) ? 0 : (taxIndex+1);
                 }
-                taxIndex = ( (taxIndex+1) >= taxes.length ) ? 0 : (taxIndex+1);
+                var newTax = taxes[taxIndex];
+
+                itemTrans.tax_name = newTax.no;
+                // create data object to push in items array
+                var itemModified = itemTrans ;
+
+                // update to items array
+                this.data.items[itemIndex]  = itemModified;
+
+                // this.log('DEBUG', 'dispatchEvent afterShiftTax ' + this.dump(itemModified) );
+                Transaction.events.dispatch('afterShiftTax', itemModified, this);
+
+                // create data object to push in items array
+                var itemDisplay = this.createDisplaySeq(itemIndex, itemModified, 'item');
+
+                // update
+                this.data.display_sequences[targetDisplayIndex] = itemDisplay ;
+
+                var currentRowCount = this.data.display_sequences.length;
+
+                /*
+                this.calcPromotions();
+                */
+                // only calc current item tax
+                this.calcItemsTax(itemModified);
+
+                this.calcTotal();
+
+                this.updateCartView(prevRowCount, currentRowCount, index);
+
+                return itemModified;
             }
-            var newTax = taxes[taxIndex];
-
-            itemTrans.tax_name = newTax.no;
-            // create data object to push in items array
-            var itemModified = itemTrans ;
-
-            // update to items array
-            this.data.items[itemIndex]  = itemModified;
-
-            // this.log('DEBUG', 'dispatchEvent afterShiftTax ' + this.dump(itemModified) );
-            Transaction.events.dispatch('afterShiftTax', itemModified, this);
-
-            // create data object to push in items array
-            var itemDisplay = this.createDisplaySeq(itemIndex, itemModified, 'item');
-
-            // update
-            this.data.display_sequences[targetDisplayIndex] = itemDisplay ;
-
-            var currentRowCount = this.data.display_sequences.length;
-
-            /*
-        this.calcPromotions();
-        */
-            // only calc current item tax
-            this.calcItemsTax(itemModified);
-
-            this.calcTotal();
-
-            this.updateCartView(prevRowCount, currentRowCount, index);
-
-            return itemModified;
+            else {
+                return null;
+            }
         },
 
 
