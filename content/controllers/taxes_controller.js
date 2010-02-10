@@ -332,8 +332,13 @@
 
             if (index == -1 || listObj.selectedIndex != index) {
                 listObj.selectedIndex = index;
-                if (index != -1) listObj.selectedItems = [index];
-                else this._selectedIndex = null;
+                if (index != -1) {
+                    listObj.selectedItems = [index];
+                }
+                else {
+                    listObj.selectedItems = [index];
+                    this._selectedIndex = null;
+                }
             }
             this.select();
 
