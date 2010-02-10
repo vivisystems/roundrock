@@ -62,14 +62,14 @@ var NotifyUtils = {
 
     trace: function(summary, body, icon) {
 
-        icon = icon || "";
+        icon = icon || "dialog-information";
         this.notify(summary, body, icon, null, 1);
 
     },
 
     debug: function(summary, body, icon) {
 
-        icon = icon || "";
+        icon = icon || "dialog-information";
         this.notify(summary, body, icon, null, 1);
 
     },
