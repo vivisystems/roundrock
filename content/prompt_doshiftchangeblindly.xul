@@ -20,10 +20,7 @@
         >
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
-    <script type="application/x-javascript">
-        var GeckoJS = opener.GeckoJS;
-        var GREUtils = opener.GREUtils;
-    </script>
+    
     <script type="application/x-javascript" src="chrome://viviecr/content/prompt_doshiftchangeblindly.js"/>
 
     <keyset id="keyset_extensions">
