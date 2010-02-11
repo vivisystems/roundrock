@@ -103,7 +103,7 @@
                     retObj = this.save(this.mappingTranToOrderFields(data));
                 }
                 else {
-                    retObj = this.saveToBackup(this.mappingTranToOrderFields(data));
+                    retObj = this.saveToBackup(this.mappingTranToOrderFields(data), false);
                 }
                 if (!retObj) {
                     throw 'Order';
@@ -125,7 +125,7 @@
                     retObj = this.OrderItemTax.saveAll(this.OrderItemTax.mappingTranToOrderItemTaxesFields(data));
                 }
                 else {
-                    retObj = this.OrderItemTax.saveToBackup(this.OrderItemTax.mappingTranToOrderItemTaxesFields(data));
+                    retObj = this.OrderItemTax.saveToBackup(this.OrderItemTax.mappingTranToOrderItemTaxesFields(data), false);
                 }
                 if (!retObj) {
                     throw 'OrderItemTax';
@@ -136,7 +136,7 @@
                     retObj = this.OrderAddition.saveAll(this.OrderAddition.mappingTranToOrderAdditionsFields(data));
                 }
                 else {
-                    retObj = this.OrderAddition.saveToBackup(this.OrderAddition.mappingTranToOrderAdditionsFields(data));
+                    retObj = this.OrderAddition.saveToBackup(this.OrderAddition.mappingTranToOrderAdditionsFields(data), false);
                 }
                 if (!retObj) {
                     throw 'OrderAddition';
@@ -147,7 +147,7 @@
                     retObj = this.OrderPayment.saveAll(this.OrderPayment.mappingTranToOrderPaymentsFields(data));
                 }
                 else {
-                    retObj = this.OrderPayment.saveToBackup(this.OrderPayment.mappingTranToOrderPaymentsFields(data));
+                    retObj = this.OrderPayment.saveToBackup(this.OrderPayment.mappingTranToOrderPaymentsFields(data), false);
                 }
                 if (!retObj) {
                     throw 'OrderPayment';
@@ -160,7 +160,7 @@
                     if (retObj) retObj = this.OrderAnnotation.saveAll(this.OrderAnnotation.mappingTranToOrderAnnotationsFields(data));
                 }
                 else {
-                    retObj = this.OrderAnnotation.saveToBackup(this.OrderAnnotation.mappingTranToOrderAnnotationsFields(data));
+                    retObj = this.OrderAnnotation.saveToBackup(this.OrderAnnotation.mappingTranToOrderAnnotationsFields(data), false);
                 }
                 if (!retObj) {
                     throw 'OrderAnnotation';
@@ -171,7 +171,7 @@
                     retObj = this.OrderItemCondiment.saveAll(this.OrderItemCondiment.mappingTranToOrderItemCondimentsFields(data));
                 }
                 else {
-                    retObj = this.OrderItemCondiment.saveToBackup(this.OrderItemCondiment.mappingTranToOrderItemCondimentsFields(data));
+                    retObj = this.OrderItemCondiment.saveToBackup(this.OrderItemCondiment.mappingTranToOrderItemCondimentsFields(data), false);
                 }
                 if (!retObj) {
                     throw 'OrderItemCondiment';
@@ -182,7 +182,7 @@
                     retObj = this.OrderPromotion.saveAll(this.OrderPromotion.mappingTranToOrderPromotionsFields(data));
                 }
                 else {
-                    retObj = this.OrderPromotion.saveToBackup(this.OrderPromotion.mappingTranToOrderPromotionsFields(data));
+                    retObj = this.OrderPromotion.saveToBackup(this.OrderPromotion.mappingTranToOrderPromotionsFields(data), false);
                 }
                 if (!retObj) {
                     throw 'OrderPromotion';
@@ -194,7 +194,7 @@
                     retObj = this.OrderObject.save(this.OrderObject.mappingTranToOrderObjectsFields(data));
                 }
                 else {
-                    retObj = this.OrderObject.saveToBackup(this.OrderObject.mappingTranToOrderObjectsFields(data));
+                    retObj = this.OrderObject.saveToBackup(this.OrderObject.mappingTranToOrderObjectsFields(data), false);
                 }
                 if (!retObj) {
                     throw 'OrderObject';
@@ -585,9 +585,7 @@
         },
 
         mappingTranToOrderFields: function(data) {
-
             var orderData = {};
-
             // process mapping
             for (var key in data) {
                 switch(key) {
@@ -603,11 +601,11 @@
                         break;
 
                     case 'created':
-                        orderData['transaction_created'] = data[key];
+                        orderData['transaction_created'] = orderData['created'] = data[key];
                         break;
 
                     case 'modified':
-                        orderData['transaction_submitted'] = data[key];
+                        orderData['transaction_submitted'] = orderData['modified'] = data[key];
                         break;
 
                     case 'items':
@@ -616,6 +614,8 @@
                     case 'trans_discounts':
                     case 'trans_surcharges':
                     case 'trans_payments':
+                    case 'tranasction_created':
+                    case 'transaction_submitted':
                     case 'markers':
                         break;
                     default:
@@ -640,11 +640,11 @@
                         break;
 
                     case 'transaction_created':
-                        data['created'] = orderData.Order['transaction_created'];
+                        data['created'] = data['transaction_created'] = orderData.Order['transaction_created'];
                         break;
 
                     case 'transaction_submitted':
-                        data['modified'] = orderData.Order['transaction_submitted'];
+                        data['modified'] = data['transaction_submitted'] = orderData.Order['transaction_submitted'];
                         break;
 
                     case 'items':
@@ -654,6 +654,8 @@
                     case 'trans_surcharges':
                     case 'trans_payments':
                     case 'markers':
+                    case 'created':
+                    case 'modified':
                         break;
 
                     default:
