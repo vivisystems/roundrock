@@ -672,7 +672,7 @@ class IrcComponent extends Object {
         $tbzUnpackLogFile = $tbzFile . ".unpacklog.json";
 
         // lock statusFile
-        $fp = fope($tbzUnpackLogFile, "w");
+        $fp = fopen($tbzUnpackLogFile, "w");
 
         if (flock($fp, LOCK_EX)) {
             file_put_contents($packagesQueuePath.$tbzUnpackLogFile, json_encode($unpackLogs));
@@ -726,7 +726,7 @@ class IrcComponent extends Object {
         if (file_exists($statusFile)) {
 
             // lock statusFile
-            $fp = fope($statusFile, "r");
+            $fp = fopen($statusFile, "r");
 
             if (flock($fp, LOCK_EX)) {
                 $status = json_decode(file_get_contents($statusFile), true);
@@ -744,7 +744,7 @@ class IrcComponent extends Object {
         }
 
         // lock statusFile
-        $fp = fope($statusFile, "w");
+        $fp = fopen($statusFile, "w");
 
         if (flock($fp, LOCK_EX)) {
             file_put_contents($statusFile, json_encode($status));
@@ -905,7 +905,7 @@ class IrcComponent extends Object {
         $tbzDescFile = $tbzFile .".json";
 
         // lock statusFile
-        $fp = fope($tbzDescFile, "w");
+        $fp = fopen($tbzDescFile, "w");
         if (flock($fp, LOCK_EX)) {
             // write ircPackageDesc
             file_put_contents($tbzDescFile, json_encode($ircPackageDesc));
