@@ -586,7 +586,6 @@
 
         mappingTranToOrderFields: function(data) {
             var orderData = {};
-
             // process mapping
             for (var key in data) {
                 switch(key) {
@@ -615,6 +614,8 @@
                     case 'trans_discounts':
                     case 'trans_surcharges':
                     case 'trans_payments':
+                    case 'tranasction_created':
+                    case 'transaction_submitted':
                     case 'markers':
                         break;
                     default:
