@@ -67,7 +67,7 @@
                             <row>
                                 <label value="&common.label.trigger_applicable_destination;"/>
                                 <menulist id="destinationList"
-                                          form="individualDeptForm" name="destination">
+                                          form="individualPluForm" name="destination">
                                     <menupopup>
                                     </menupopup>
                                 </menulist>
