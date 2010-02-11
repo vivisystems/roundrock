@@ -9,11 +9,11 @@
         * @function
         * @param {Object} data
         */
-        saveToBackup: function( data ) {
+        saveToBackup: function( data, updatetimestamp ) {
             var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             if ( isTraining ) return true;
             
-            return this._super( data );
+            return this._super( data, updatetimestamp );
         },
         
         restoreFromBackup: function() {

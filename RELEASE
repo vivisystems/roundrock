@@ -85,3 +85,6 @@ Bug #364:
 
 Bug #369:
     Shift tax function breaks when no tax configuration exists
+
+Bug #370:
+    Transaction created time is updated each time the transaction is stored
