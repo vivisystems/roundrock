@@ -11,7 +11,7 @@ Previous 1.2.0.x releases may be upgraded to this release by installing the rele
 Dependencies
 ------------
 
-This release requires VIVIPOS WebApp and WebServices Release 1.2.0.4 or above. You should also install Release 1.2.0.8 of the appropriate language pack to resolve translation-related bugs.
+This release requires VIVIPOS WebApp and WebServices Release 1.2.0.5 or above. You should also install Release 1.2.0.8 of the appropriate language pack to resolve translation-related bugs.
 
 
 ----------
