@@ -1683,8 +1683,8 @@
                                     recalled = true;
                                 }
                                 else {
-                                    txn = null;
                                     this.log('WARN', 'skipping closed order [' + txn.data.seq + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                    txn = null;
                                 }
                             }
                         }
@@ -1764,10 +1764,26 @@
                             }
 
                             // add to cart
+                            let beforeQty = txn.data.qty_subtotal;
                             $do('addItem', item, 'Cart');
 
                             // delay
                             this.sleep(100);
+
+                            let attempts = 0;
+                            while (beforeQty >= txn.data.qty_subtotal && attempts++ < 3) {
+                                // wait for addItem to complete
+                                this.sleep(200);
+                            }
+
+                            if (attempts > 0) {
+                                if (beforeQty >= txn.data.qty_subtotal) {
+                                    this.log('WARN', 'timed out waiting for addItem to complete [' + attempts + ']');
+                                }
+                                else {
+                                    this.log('WARN', 'waited for addItem to complete [' + attempts + ']');
+                                }
+                            }
                         }
 
                         this.sleep(1000);
@@ -1781,7 +1797,7 @@
                                 this.log('WARN', 'order stored [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
                             }
                         }else {
-                            this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                            this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] qty [' + txn.data.qty_subtotal + ']');
                             $do('cash', ',1,', 'Cart');
 
                             // update progress bar for order closed
