@@ -1525,6 +1525,8 @@
                                     item.force_memo = false;
                                 }
 
+                                let beforeQty = txn.data.qty_subtotal;
+
                                 // add to cart
                                 $do('addItem', item, 'Cart');
 
@@ -1542,7 +1544,8 @@
                                     progressBar.value = (++ordersClosed * 100) / count;
                                     this.log('WARN', 'order stored [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
                                 }
-                            }else {
+                            }
+                            else if (txn.data.qty_subtotal >= items) {
                                 this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] qty [' + txn.data.qty_subtotal + ']');
                                 $do('cash', null, 'Cart');
 
@@ -1554,6 +1557,9 @@
                                 else {
                                     this.log('WARN', 'order not closed [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
                                 }
+                            }
+                            else {
+                                this.log('WARN', 'order not closed pending additem queue [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] qty [' + txn.data.qty_subtotal + ']');
                             }
                         }
                         else {
