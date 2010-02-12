@@ -1633,198 +1633,210 @@
             var currentTableNo = -1;
             var doRecall = true;
 
-            while (ordersOpened < count || ordersClosed < count) {
+            try {
+                while (ordersOpened < count || ordersClosed < count) {
 
-                if (this._suspendLoadTest) {
-                    this._suspendLoadTest = false;
-                    this.loadTestState = {opened: ordersOpened, closed: ordersClosed}
-                    
-                    break;
-                }
+                    if (this._suspendLoadTest) {
+                        this._suspendLoadTest = false;
+                        this.loadTestState = {opened: ordersOpened, closed: ordersClosed}
 
-                // create new order or recall?
-                doRecall = (ordersClosed < count) && (ordersOpened >= count || Math.random() < 0.5);
-
-                // select a table in sequence
-                if (!noTable && numTables > 0) {
-                    let tries = 0;
-                    while (tries < numTables) {
-                        let table = tables[currentTableIndex++];
-                        currentTableIndex %= numTables;
-                        tries++;
-
-                        if (doRecall || guestCheckController.isTableAvailable(table)) {
-                            currentTableNo = table.table_no;
-                            break;
-                        }
+                        break;
                     }
-                }
 
-                this.log('WARN', 'table number [' + currentTableNo + '] doRecall [' + doRecall + '] orders opened [' + ordersOpened + ']');
-                
-                // found table, let's get a transaction'
-                if (currentTableNo > -1 || noTable) {
-                    let recalled = false;
-                    let txn;
+                    // create new order or recall?
+                    doRecall = (ordersClosed < count) && (ordersOpened >= count || Math.random() < 0.5);
 
-                    if (!noTable && doRecall) {
-                        let conditions = 'orders.table_no="' + currentTableNo + '" AND orders.status=2';
-                        var orders = this.Order.getOrdersSummary(conditions, true);
+                    // select a table in sequence
+                    if (!noTable && numTables > 0) {
+                        let tries = 0;
+                        while (tries < numTables) {
+                            let table = tables[currentTableIndex++];
+                            currentTableIndex %= numTables;
+                            tries++;
 
-                        if (orders.length > 0) {
-
-                            // recall order
-                            let index = Math.floor(Math.random() * orders.length);
-                            let orderId = orders[index].Order.id;
-
-                            if (guestCheckController.recallOrder(orderId)) {
-                                txn = cart._getTransaction();
-                                if (txn && txn.data && txn.data.status == 0) {
-                                    recalled = true;
-                                }
-                                else {
-                                    this.log('WARN', 'skipping closed order [' + txn.data.seq + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
-                                    txn = null;
-                                }
+                            if (doRecall || guestCheckController.isTableAvailable(table)) {
+                                currentTableNo = table.table_no;
+                                break;
                             }
                         }
                     }
 
-                    if (!recalled && ordersOpened < count) {
+                    this.log('WARN', 'table number [' + currentTableNo + '] doRecall [' + doRecall + '] orders opened [' + ordersOpened + ']');
 
-                        // create a new order
-                        if (currentTableNo > -1) {
-                            if (guestCheckController.newTable(currentTableNo)) {
-                                txn = cart._getTransaction();
+                    // found table, let's get a transaction'
+                    if (currentTableNo > -1 || noTable) {
+                        let recalled = false;
+                        let txn;
+
+                        if (!noTable && doRecall) {
+                            let conditions = 'orders.table_no="' + currentTableNo + '" AND orders.status=2';
+                            var orders = this.Order.getOrdersSummary(conditions, true);
+
+                            if (orders.length > 0) {
+
+                                // recall order
+                                let index = Math.floor(Math.random() * orders.length);
+                                let orderId = orders[index].Order.id;
+
+                                if (guestCheckController.recallOrder(orderId)) {
+                                    txn = cart._getTransaction();
+                                    if (txn && txn.data && txn.data.status == 0) {
+                                        recalled = true;
+                                    }
+                                    else {
+                                        this.log('WARN', 'skipping closed order [' + txn.data.seq + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                        txn = null;
+                                    }
+                                }
                             }
                         }
 
-                        if (customerController && numCustomers > 0) {
-                            let cIndex = Math.floor(numCustomers * Math.random());
-                            if (cIndex >= numCustomers) cIndex = numCustomers - 1;
+                        if (!recalled && ordersOpened < count) {
 
-                            let customer = customers[cIndex];
-                            txn = cart._getTransaction(true);
-                            customerController.processSetCustomerResult(txn, {
-                                ok: true,
-                                customer: customer
-                            });
+                            // create a new order
+                            if (currentTableNo > -1) {
+                                if (guestCheckController.newTable(currentTableNo)) {
+                                    txn = cart._getTransaction();
+                                }
+                            }
+
+                            if (customerController && numCustomers > 0) {
+                                let cIndex = Math.floor(numCustomers * Math.random());
+                                if (cIndex >= numCustomers) cIndex = numCustomers - 1;
+
+                                let customer = customers[cIndex];
+                                txn = cart._getTransaction(true);
+                                customerController.processSetCustomerResult(txn, {
+                                    ok: true,
+                                    customer: customer
+                                });
+                            }
+
+                            if (txn) {
+                                ordersOpened++;
+                                this.log('WARN', 'new order opened [' + txn.data.seq + '] count [' + ordersOpened + '] status [' + txn.data.status + ']');
+
+                                if (!noTable) {
+                                    // assign number of guests
+                                    txn.setNumberOfCustomers(parseInt(5 * Math.random() + 1));
+
+                                    // assign check number if not auto-assigned
+                                    if (txn.data.check_no == '') {
+                                        txn.setCheckNo(++checkSeq % maxCheckNo);
+                                    }
+                                }
+                            }
                         }
 
                         if (txn) {
-                            ordersOpened++;
-                            this.log('WARN', 'new order opened [' + txn.data.seq + '] count [' + ordersOpened + '] status [' + txn.data.status + ']');
+                            // get current number of items
+                            let itemCount = txn.data.qty_subtotal;
+                            let itemsToAdd = items - itemCount;
+                            let doStore = false;
 
-                            if (!noTable) {
-                                // assign number of guests
-                                txn.setNumberOfCustomers(parseInt(5 * Math.random() + 1));
-
-                                // assign check number if not auto-assigned
-                                if (txn.data.check_no == '') {
-                                    txn.setCheckNo(++checkSeq % maxCheckNo);
-                                }
+                            if (ordersClosed >= count) {
+                                doStore = true;
                             }
-                        }
-                    }
-
-                    if (txn) {
-                        // get current number of items
-                        let itemCount = txn.data.qty_subtotal;
-                        let itemsToAdd = items - itemCount;
-                        let doStore = false;
-
-                        if (ordersClosed >= count) {
-                            doStore = true;
-                        }
-                        else if (itemsToAdd > 0) {
-                            if (noTable) {
-                                doStore = Math.random() < 0.25;
-                            }
-                            else {
-                                doStore = Math.random() < 0.75;
-                            }
-                            if (store && doStore) {
-                                itemsToAdd = Math.min(itemsToAdd, Math.ceil(items * Math.random()));
-                            }
-                        }
-
-                        // add items
-                        for (let j = 0; j < itemsToAdd; j++) {
-
-                            // select an item with no condiments from product list
-                            var pindex = Math.floor(numProds * Math.random());
-                            if (pindex >= numProds) pindex = numProds - 1;
-
-                            var item = this.Product.getProductById(products[pindex].id);
-                            if (item.force_condiment) {
-                                item.force_condiment = false;
-                            }
-                            if (item.force_memo) {
-                                item.force_memo = false;
-                            }
-
-                            // add to cart
-                            let beforeQty = txn.data.qty_subtotal;
-                            $do('addItem', item, 'Cart');
-
-                            // delay
-                            this.sleep(100);
-
-                            let attempts = 0;
-                            while (beforeQty >= txn.data.qty_subtotal && attempts++ < 3) {
-                                // wait for addItem to complete
-                                this.sleep(200);
-                            }
-
-                            if (attempts > 0) {
-                                if (beforeQty >= txn.data.qty_subtotal) {
-                                    this.log('WARN', 'timed out waiting for addItem to complete [' + attempts + ']');
+                            else if (itemsToAdd > 0) {
+                                if (noTable) {
+                                    doStore = Math.random() < 0.25;
                                 }
                                 else {
-                                    this.log('WARN', 'waited for addItem to complete [' + attempts + ']');
+                                    doStore = Math.random() < 0.75;
+                                }
+                                if (store && doStore) {
+                                    itemsToAdd = Math.min(itemsToAdd, Math.ceil(items * Math.random()));
+                                }
+                            }
+
+                            // add items
+                            for (let j = 0; j < itemsToAdd; j++) {
+
+                                // select an item with no condiments from product list
+                                var pindex = Math.floor(numProds * Math.random());
+                                if (pindex >= numProds) pindex = numProds - 1;
+
+                                var item = this.Product.getProductById(products[pindex].id);
+                                if (item.force_condiment) {
+                                    item.force_condiment = false;
+                                }
+                                if (item.force_memo) {
+                                    item.force_memo = false;
+                                }
+
+                                // add to cart
+                                let beforeQty = txn.data.qty_subtotal;
+                                $do('addItem', item, 'Cart');
+
+                                // delay
+                                this.sleep(100);
+
+                                let attempts = 0;
+                                while (beforeQty >= txn.data.qty_subtotal && attempts++ < 3) {
+                                    // wait for addItem to complete
+                                    this.sleep(200);
+                                }
+
+                                if (attempts > 0) {
+                                    if (beforeQty >= txn.data.qty_subtotal) {
+                                        this.log('WARN', 'timed out waiting for addItem to complete [' + attempts + ']');
+                                    }
+                                    else {
+                                        this.log('WARN', 'waited for addItem to complete [' + attempts + ']');
+                                    }
+                                }
+                            }
+
+                            this.sleep(1000);
+
+                            if (doStore) {
+                                $do('storeCheck', null, 'Cart');
+
+                                if (noTable) {
+                                    this.log('WARN', 'storing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                    progressBar.value = (++ordersClosed * 100) / count;
+                                    this.log('WARN', 'order stored [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                }
+                            }else {
+                                this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] qty [' + txn.data.qty_subtotal + ']');
+                                $do('cash', ',1,', 'Cart');
+
+                                // update progress bar for order closed
+                                if (txn.data.status == 1 || noTable) {
+                                    progressBar.value = (++ordersClosed * 100) / count;
+                                    this.log('WARN', 'order closed [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                }
+                                else {
+                                    this.log('WARN', 'order not closed [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
                                 }
                             }
                         }
-
-                        this.sleep(1000);
-                        
-                        if (doStore) {
-                            $do('storeCheck', null, 'Cart');
-
-                            if (noTable) {
-                                this.log('WARN', 'storing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
-                                progressBar.value = (++ordersClosed * 100) / count;
-                                this.log('WARN', 'order stored [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
-                            }
-                        }else {
-                            this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] qty [' + txn.data.qty_subtotal + ']');
-                            $do('cash', ',1,', 'Cart');
-
-                            // update progress bar for order closed
-                            if (txn.data.status == 1 || noTable) {
-                                progressBar.value = (++ordersClosed * 100) / count;
-                                this.log('WARN', 'order closed [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
-                            }
-                            else {
-                                this.log('WARN', 'order not closed [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
-                            }
+                        else {
+                            // did not find an available order on the current table; do a small delay and retry
+                            this.sleep(100);
                         }
                     }
                     else {
-                        // did not find an available order on the current table; do a small delay and retry
+                        // did not find an active table; do a small delay and retry
                         this.sleep(100);
                     }
+                    // GC & delay
+                    GREUtils.gc();
                 }
-                else {
-                    // did not find an active table; do a small delay and retry
-                    this.sleep(100);
-                }
-                // GC & delay
-                GREUtils.gc();
             }
-
-            waitPanel.hidePopup();
-            progressBar.mode = 'undetermined';
+            catch(e) {
+                this.log('ERROR', 'exception caught [' + e + ']');
+                var exec = new GeckoJS.File('/tmp/vmstat.sh');
+                if (exec.exists()) {
+                    var r = exec.run([], true);
+                    exec.close();
+                    this.log('ERROR', 'vmstat captured to /tmp/vmstat');
+                }
+            }
+            finally {
+                waitPanel.hidePopup();
+                progressBar.mode = 'undetermined';
+            }
         },
 
         _dbError: function(errno, errstr, errmsg) {

@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-02-11 16:05+0800\n"
+"POT-Creation-Date: 2010-02-12 11:03+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3267,7 +3267,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/reportPanel.js:71
-#: ../..//content/controllers/main_controller.js:1892
+#: ../..//content/controllers/main_controller.js:1920
 msgid "custom"
 msgstr ""
 
@@ -4610,7 +4610,7 @@ msgstr ""
 #: ../..//content/controllers/ledger_controller.js:321
 #: ../..//content/controllers/list_orders_controller.js:219
 #: ../..//content/controllers/main_controller.js:1320
-#: ../..//content/controllers/main_controller.js:1817
+#: ../..//content/controllers/main_controller.js:1845
 #: ../..//content/controllers/print_controller.js:1272
 #: ../..//content/controllers/setup_wizard_controller.js:698
 #: ../..//content/controllers/shift_changes_controller.js:1624
@@ -6265,7 +6265,7 @@ msgstr ""
 #: ../..//content/controllers/ledger_controller.js:322
 #: ../..//content/controllers/list_orders_controller.js:220
 #: ../..//content/controllers/main_controller.js:1322
-#: ../..//content/controllers/main_controller.js:1818
+#: ../..//content/controllers/main_controller.js:1846
 #: ../..//content/controllers/setup_wizard_controller.js:699
 #: ../..//content/controllers/shift_changes_controller.js:41
 #: ../..//content/controllers/shift_changes_controller.js:1625
@@ -6956,19 +6956,19 @@ msgstr ""
 msgid "Open order exists, discard the order and proceed with the load test?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1838
+#: ../..//content/controllers/main_controller.js:1866
 msgid "Function Customizer"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1900
+#: ../..//content/controllers/main_controller.js:1928
 msgid "Report [%S] does not exist"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1910
+#: ../..//content/controllers/main_controller.js:1938
 msgid "You are not authorized to access the [%S] report"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1982
+#: ../..//content/controllers/main_controller.js:2010
 msgid "Select User"
 msgstr ""
 
