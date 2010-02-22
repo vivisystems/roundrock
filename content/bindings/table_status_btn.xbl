@@ -32,10 +32,10 @@
                         <html:span anonid="table_title"></html:span>
                     </html:div>
                     <html:div class="tableName">
-                            <html:span anonid="table_label"></html:span><html:br />
+                        <html:span anonid="table_label"></html:span><html:br />
                     </html:div>
                     <html:div class="tableInfo">
-                        <html:div class="cneckNo">
+                        <html:div class="checkNo">
                             <html:span anonid="check_no" class="check_no">C#36</html:span>
                         </html:div>
                         <html:div class="remark">

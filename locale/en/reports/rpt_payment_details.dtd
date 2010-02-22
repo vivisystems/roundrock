@@ -1,0 +1,28 @@
+<!ENTITY rptpaymentdetails.title "Payment Details Report">
+<!ENTITY rptpaymentdetails.startdate "Start Date:">
+<!ENTITY rptpaymentdetails.enddate "End Date:">
+<!ENTITY rptpaymentdetails.execute "Execute">
+<!ENTITY rptpaymentdetails.exportpdf "Export to PDF">
+<!ENTITY rptpaymentdetails.exportcsv "Export to CSV">
+<!ENTITY rptpaymentdetails.exportrcp "Print">
+<!ENTITY rptpaymentdetails.print "Print">
+<!ENTITY rptpaymentdetails.togglezoom "Toggle Zoom">
+<!ENTITY rptpaymentdetails.terminal_no "Terminal:">
+<!ENTITY rptpaymentdetails.sortby "Sort By:">
+<!ENTITY rptpaymentdetails.sortby.terminal_no "Terminal">
+<!ENTITY rptpaymentdetails.sortby.time "Time">
+<!ENTITY rptpaymentdetails.sortby.sequence "Sequence">
+<!ENTITY rptpaymentdetails.sortby.subtype "Subtype">
+<!ENTITY rptpaymentdetails.sortby.facevalue "Face Value">
+<!ENTITY rptpaymentdetails.all "List All">
+<!ENTITY rptpaymentdetails.periodtype "Period Type:">
+<!ENTITY rptpaymentdetails.created "Time of Occurrence">
+<!ENTITY rptpaymentdetails.sale_period "Sale Period">
+<!ENTITY rptpaymentdetails.shiftno "Shift:">
+<!ENTITY rptpaymentdetails.type "Payment Type:">
+<!ENTITY rptpaymentdetails.type.all "[List All]">
+<!ENTITY rptpaymentdetails.type.creditcard "Credit Card">
+<!ENTITY rptpaymentdetails.type.coupon "Coupon">
+<!ENTITY rptpaymentdetails.type.giftcard "Gift Card">
+<!ENTITY rptpaymentdetails.type.ledger "Ledger">
+<!ENTITY rptpaymentdetails.type.groupables "Groupable Payments">

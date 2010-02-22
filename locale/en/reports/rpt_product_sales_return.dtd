@@ -13,9 +13,12 @@
 <!ENTITY productSalesReturn.sortby.product_no "Product Number">
 <!ENTITY productSalesReturn.sortby.product_name "Product Name">
 <!ENTITY productSalesReturn.sortby.avg_price "Average Price">
-<!ENTITY productSalesReturn.sortby.qty "Quantities Sold">
+<!ENTITY productSalesReturn.sortby.qty "Units Sold">
+<!ENTITY productSalesReturn.sortby.weight "Quantities Sold">
 <!ENTITY productSalesReturn.sortby.gross "Gross Sales">
 <!ENTITY productSalesReturn.sortby.net "Net Sales">
+<!ENTITY productSalesReturn.sortby.returntype "Return Type">
+<!ENTITY productSalesReturn.sortby.sequence "Sequence">
 <!ENTITY productSalesReturn.all "List All">
 <!ENTITY productSalesReturn.periodtype "Period Type:">
 <!ENTITY productSalesReturn.transaction_created "Order Opened">
@@ -23,6 +26,13 @@
 <!ENTITY productSalesReturn.saleperiod "Sale Period">
 <!ENTITY productSalesReturn.shiftno "Shift:">
 <!ENTITY productSalesReturn.department "Department:">
+<!ENTITY productSalesReturn.returntype "Return Type">
+<!ENTITY productSalesReturn.returntype.all "All">
+<!ENTITY productSalesReturn.returntype.item "Returned Items">
+<!ENTITY productSalesReturn.returntype.order "Voided Orders">
+<!ENTITY productSalesReturn.displaymode "Display Mode">
+<!ENTITY productSalesReturn.displaymode.detailed "Detailed">
+<!ENTITY productSalesReturn.displaymode.summary "Summary">
 <!ENTITY productSalesReturn.show "Show">
 <!ENTITY productSalesReturn.hide "Hide">
 <!ENTITY productSalesReturn.breakout_setmenu "Break out Set Menu">

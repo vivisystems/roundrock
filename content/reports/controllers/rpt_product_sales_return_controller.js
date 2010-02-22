@@ -25,7 +25,7 @@
         // (8) Limit
         */
 
-        _setData: function( start, end, periodType, shiftNo, sortby, terminalNo, department, breakoutSetmenu, limit ) {
+        _setData: function( start, end, periodType, shiftNo, sortby, terminalNo, department, returntype, displaymode, breakoutSetmenu, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 
@@ -47,28 +47,48 @@
             // please note that "net" result is the sum of current subtotal plus surcharge or discount applied 
 
             var fields = [
-                'order_items.id',
-                'order_items.order_id',
                 'order_items.product_no',
                 'order_items.product_name',
-                'order_items.current_qty as qty',
-                'order_items.weight as weight',
                 'order_items.sale_unit',
-                '(0 - order_items.current_subtotal) as gross',
-                '(0 - order_items.current_subtotal - order_items.current_discount - order_items.current_surcharge) as net',
                 'order_items.cate_no',
                 'order_items.cate_name',
-                'sequence as "order_sequence"'
+                'SUM(abs(order_items.current_qty)) as qty',
+                'SUM(abs(order_items.weight)) as weight',
+                'SUM(abs(order_items.current_subtotal)) as gross',
+                'SUM(abs(order_items.current_subtotal) - order_items.current_discount + order_items.current_surcharge) as net'
             ];
 
+            var groupby = '';
+            if (displaymode == 'detailed') {
+                fields = fields.concat(['order_items.order_id',
+                                        'orders.status as status',
+                                        'sequence as "order_sequence"']);
+                groupby = 'order_items.order_id, order_items.product_no, order_items.product_name, order_items.sale_unit, order_items.cate_no, order_items.cate_name, orders.status';
+            }
+            else {
+                groupby = 'order_items.product_no, order_items.product_name, order_items.sale_unit, order_items.cate_no, order_items.cate_name';
+            }
+            
             // Define the filtering condition
             //
 
             var conditions = "orders." + periodType + ">='" + start +
-                "' AND orders." + periodType + "<='" + end + "'" +
-                " AND orders.status = 1" +
-                " AND (order_items.current_qty < 0 OR order_items.weight < 0)";
+                "' AND orders." + periodType + "<='" + end + "'";
 
+            switch(returntype) {
+                case 'all':
+                    conditions += ' AND ((orders.status = 1 AND (order_items.current_qty < 0 OR order_items.weight < 0)) OR ' +
+                                        '(orders.status = -2 AND (order_items.current_qty > 0 OR order_items.weight > 0)))';
+                    break;
+
+                case 'item':
+                    conditions += ' AND (orders.status = 1 AND (order_items.current_qty < 0 OR order_items.weight < 0))';
+                    break;
+
+                case 'order':
+                    conditions += ' AND (orders.status = -2 AND (order_items.current_qty > 0 OR order_items.weight > 0))';
+                    break;
+            }
             
             if (terminalNo.length > 0)
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
@@ -82,17 +102,17 @@
             var orderby = '';
 
             switch( sortby ) {
-                case 'product_no':
-                case 'product_name':
-                    orderby = sortby;
-                    break;
-
                 case 'avg_price':
                 case 'qty':
                 case 'gross':
                 case 'net':
                     orderby = '"OrderItem.' + sortby + '" desc';
                     break;
+
+                default:
+                    orderby = sortby;
+                    break;
+
             }
             
             if ( department != 'all' ) {
@@ -106,17 +126,17 @@
 
            var categories = {};
 
-           var orderItemRecords = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
+           var orderItemRecords = orderItem.getDataSource().fetchAll('SELECT ' + fields.join(', ') + ' FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+
            orderItemRecords.forEach( function( record ) {
 
-                if (record['weight'] < 0) {
+                if (record['weight'] > 0) {
                     record['units'] = 0;
-                    record['weight'] = 0 - record['weight'];
-                    record[ 'avg_price' ] = record[ 'gross' ] / record[ 'weight' ];
+                    record['avg_price'] = record['gross'] / record['weight'];
                     record['quantity'] = record['weight'] + record['sale_unit'];
                 }
                 else {
-                    record['units'] = 0 - record['qty'];
+                    record['units'] = record['qty'];
                     if (record['qty'] != 0) {
                         record[ 'avg_price' ] = record[ 'gross' ] / record[ 'units' ];
                     }
@@ -133,15 +153,15 @@
                 //
 
                 if ( categories[ record.cate_no ] === undefined ) {
-                  categories[ record.cate_no ] = {};  
-                  categories[ record.cate_no ].no =  record.cate_no;
-                  categories[ record.cate_no ].name =  record.cate_name;
+                    categories[ record.cate_no ] = {};
+                    categories[ record.cate_no ].no =  record.cate_no;
+                    categories[ record.cate_no ].name =  record.cate_name;
                 }
                   
            
                 if ( categories[ record.cate_no ].orderItems === undefined ) {
-                  //Initialize it if undefined
-                  categories[ record.cate_no ].orderItems = [];
+                    //Initialize it if undefined
+                    categories[ record.cate_no ].orderItems = [];
                 }
                 categories[ record.cate_no ].orderItems.push( record );
 
@@ -230,9 +250,11 @@
             
             var sortby = document.getElementById( 'sortby' ).value;
             var department = document.getElementById( 'department' ).value;
+            var returntype = document.getElementById( 'returntype' ).value;
+            var displaymode = document.getElementById( 'displaymode' ).value;
             var breakoutSetmenu = document.getElementById( 'breakout_setmenu' ).checked;
 
-            this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, breakoutSetmenu, limit );
+            this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, returntype, displaymode, breakoutSetmenu, limit );
         },
 
         execute: function() {

@@ -1,0 +1,103 @@
+/*--------------------------------------------------------------------------
+ *
+ * CONDIMENT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.condiment-button-color-default {
+    background:#E5E3BB !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-1 {
+    background:#E5CFAC !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-2 {
+    background:#BEA784 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-3 {
+    background:#A76C4E !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-4 {
+    background:#E5CD7B !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-5 {
+    background:#E2B15A !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-6 {
+    background:#E5B634 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-7 {
+    background:#DA8700 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-8 {
+    background:#B2B38A !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-9 {
+    background:#C9C08A !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-10 {
+    background:#C4B33E !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.condiment-button-color-11{
+    background:#E18C40 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+
+.condiment-button-color-default[disabled=false]:active, .condiment-button-color-1[disabled=false]:active,
+.condiment-button-color-2[disabled=false]:active, .condiment-button-color-3[disabled=false]:active,
+.condiment-button-color-4[disabled=false]:active, .condiment-button-color-5[disabled=false]:active,
+.condiment-button-color-6[disabled=false]:active, .condiment-button-color-7[disabled=false]:active,
+.condiment-button-color-8[disabled=false]:active, .condiment-button-color-9[disabled=false]:active,
+.condiment-button-color-10[disabled=false]:active, .condiment-button-color-11[disabled=false]:active {
+    border: 3px solid red;
+    -moz-border-top-colors: red red red !important;
+    -moz-border-left-colors: red red red !important;
+    -moz-border-bottom-colors: red red red !important;
+    -moz-border-right-colors: red red red !important;
+}
+
+.condiment-button[disabled] {
+    background-color: #e1dfdb;
+}
+
+.condiment-preset description {
+    font-style: italic;
+}
+
+.condiment-preset {
+}

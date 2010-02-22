@@ -18,6 +18,7 @@
 <!ENTITY devices.handshaking.none "None">
 <!ENTITY devices.devicemodel.label "Device Model">
 <!ENTITY devices.deviceencoding.label "Encoding">
+<!ENTITY devices.deviceidle.label "Idle Delay (sec)">
 <!ENTITY devices.receipt.autoprint.label "Auto-print after payment finalization">
 <!ENTITY devices.check.printer.label "Check Printer">
 <!ENTITY devices.check.autoprint.label "Auto-print copies">

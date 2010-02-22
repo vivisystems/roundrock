@@ -12,6 +12,7 @@
     <key id="key_packageBuilder" key="b" oncommand="$do('PackageBuilderDialog', null, 'Main');" modifiers="control,alt"/>
     <key id="key_functionCustomizer" key="f" oncommand="$do('FunctionCustomizerDialog', null, 'Main');" modifiers="control,alt"/>
     <key id="key_signOff" key="l" oncommand="$do('signOff', null, 'Main');" modifiers="control,alt"/>
+    <key id="key_recoveryUserPrefs" key="u" oncommand="$do('recover', null, 'UserPrefs');" modifiers="control,alt"/>
     <!--key id="key_enter" keycode="VK_RETURN" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');"/>
     <key id="key_num0" key="0" oncommand="$do('keypress', {charCode: 48}, 'Keypad');"/>
     <key id="key_num1" key="1" oncommand="$do('keypress', {charCode: 49}, 'Keypad');"/>

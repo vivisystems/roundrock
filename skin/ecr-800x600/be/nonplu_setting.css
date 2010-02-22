@@ -1,0 +1,24 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Non-PLU Settings
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-content-nonplu-list #active,
+.custom-content-nonplu-list #identifier,
+.custom-content-nonplu-list #length_of_field1,
+.custom-content-nonplu-list #use_price_check_digit,
+.custom-content-nonplu-list #length_of_field2,
+.custom-content-nonplu-list #content_of_field2,
+.custom-content-nonplu-list #decimal_point_of_field2
+{
+    text-align: center;
+}
+
+.custom-example-label {
+    max-width: 80px;
+    min-width: 80px;
+    text-align: left;
+    width: 80px;
+}

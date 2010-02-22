@@ -1,0 +1,63 @@
+<!ENTITY admintools.title                   "Administration Tools">
+<!ENTITY admintools.tab.syncstatus          "Sync Control">
+<!ENTITY admintools.tab.recovery            "Transaction Data Recovery">
+<!ENTITY admintools.tab.saleperiod          "Sale Period Adjustment">
+<!ENTITY admintools.tab.dsbackup            "Datasource Backup">
+<!ENTITY admintools.tab.irc                 "IRC">
+
+<!ENTITY admintools.syncstatus.status       "Synchronization Status">
+<!ENTITY admintools.syncstatus.server       "Synchronization Server">
+<!ENTITY admintools.syncstatus.sync         "Sync Now">
+<!ENTITY admintools.syncstatus.purge        "Purge">
+<!ENTITY admintools.syncstatus.refresh      "Refresh">
+<!ENTITY admintools.syncstatus.datasource   "Datasource">
+<!ENTITY admintools.syncstatus.database     "Database">
+<!ENTITY admintools.syncstatus.tab.pull     "Pull">
+<!ENTITY admintools.syncstatus.tab.push     "Push">
+<!ENTITY admintools.syncstatus.pull.clientid    "Client ID">
+<!ENTITY admintools.syncstatus.changelog.index  "Changelog Index">
+<!ENTITY admintools.syncstatus.push.remote      "Pushed">
+<!ENTITY admintools.syncstatus.pull.remote  "Pulled">
+
+<!ENTITY admintools.recovery                "Non-local Transaction Data">
+<!ENTITY admintools.recovery.purge          "Purge">
+<!ENTITY admintools.recovery.terminal       "Terminal">
+<!ENTITY admintools.recovery.terminals      "Terminals">
+<!ENTITY admintools.recovery.tables         "Tables">
+
+<!ENTITY admintools.dsbackup.refresh        "Refresh">
+<!ENTITY admintools.dsbackup.view           "View">
+<!ENTITY admintools.dsbackup.remove         "Remove">
+<!ENTITY admintools.dsbackup.purge          "Purge">
+<!ENTITY admintools.dsbackup.model          "Model">
+<!ENTITY admintools.dsbackup.size           "Size">
+
+<!ENTITY admintools.irc.host                "IRC Service Host">
+<!ENTITY admintools.irc.last.download       "Download Timestamp">
+<!ENTITY admintools.irc.reset.last.download "Reset">
+<!ENTITY admintools.irc.last.failure        "Last Failed Package">
+<!ENTITY admintools.irc.clear               "Clear">
+<!ENTITY admintools.irc.refresh             "Refresh">
+<!ENTITY admintools.irc.view                "View">
+<!ENTITY admintools.irc.remove              "Clear">
+<!ENTITY admintools.irc.download            "Dowload Again">
+<!ENTITY admintools.irc.package             "Package">
+<!ENTITY admintools.irc.size                "Size">
+<!ENTITY admintools.irc.unpacked            "Unpacked">
+<!ENTITY admintools.irc.source              "Source">
+
+<!ENTITY admintools.saleperiod.saleperiod.current   "Sale Period (Current)">
+<!ENTITY admintools.saleperiod.shiftnumber.current  "Shift Number (Current)">
+<!ENTITY admintools.saleperiod.saleperiod.last      "Sale Period (Last Shift Change)">
+<!ENTITY admintools.saleperiod.shiftnumber.last     "Shift Number (Last Shift Change)">
+<!ENTITY admintools.saleperiod.saleperiod.new       "New Sale Period">
+<!ENTITY admintools.saleperiod.shiftnumber.new      "New Shift Number">
+<!ENTITY admintools.saleperiod.activity.detail      "Last Activity">
+<!ENTITY admintools.saleperiod.activity.saleperiod  "Sale Period (Last Activity)">
+<!ENTITY admintools.saleperiod.activity.shiftnumber "Shift Number (Last Activity)">
+<!ENTITY admintools.saleperiod.ordernumber.current   "Current Order Sequence">
+<!ENTITY admintools.saleperiod.ordernumber.largest  "Largest Order Sequence Number">
+<!ENTITY admintools.saleperiod.ordernumber.new      "New Order Number">
+
+<!ENTITY admintools.saleperiod.reset.saleperiod     "Reset Sale Period">
+<!ENTITY admintools.saleperiod.reset.ordernumber    "Reset Order Sequence">

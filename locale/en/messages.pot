@@ -97,6 +97,9 @@ msgstr "Product Groups"
 msgid "vivipos.fec.settings.controlpanels.product.plus.label"
 msgstr "Products"
 
+msgid "vivipos.fec.settings.controlpanels.product.label_printing.label"
+msgstr "Print Labels"
+
 msgid "vivipos.fec.settings.controlpanels.product.reports.label"
 msgstr "Reports"
 
@@ -151,6 +154,9 @@ msgstr "Electronic Journal"
 
 msgid "vivipos.fec.settings.controlpanels.system.view_system_log.label"
 msgstr "View System Log"
+
+msgid "vivipos.fec.settings.controlpanels.system.admin_tools.label"
+msgstr "Administration Tools"
 
 ############
 # SYNC
@@ -255,6 +261,9 @@ msgstr "Purchase History"
 msgid "vivipos.fec.reportpanels.productsalesreturn.label"
 msgstr "Product Returns"
 
+msgid "vivipos.fec.reportpanels.paymentdetails.label"
+msgstr "Payment Details"
+
 ########################################################################
 #
 # List of Reports ACLs
@@ -333,25 +342,34 @@ msgstr "Report - Stock Adjustments"
 msgid "acl_report_purchasehistory"
 msgstr "Report - Purchase History"
 
+msgid "acl_report_paymentdetails"
+msgstr "Report - Payment Details"
+
+msgid "acl_override_minimumcharge"
+msgstr "Allow Override Minimum Charge"
+
+msgid "acl_rush_item"
+msgstr "Allow Rush Item"
+
 ########################################################################
 #
 # Register Display - Payments
 #
 ########################################################################
 
-msgid "CREDITCARD"
+msgid "(cart)CREDITCARD"
 msgstr "CC"
 
-msgid "COUPON"
+msgid "(cart)COUPON"
 msgstr "CPN"
 
-msgid "CASH"
+msgid "(cart)CASH"
 msgstr "$"
 
-msgid "CHECK"
+msgid "(cart)CHECK"
 msgstr "CHK"
 
-msgid "GIFTCARD"
+msgid "(cart)GIFTCARD"
 msgstr "GC"
 
 ########################################################################
@@ -396,9 +414,6 @@ msgstr "Other"
 msgid "(rpt)cash"
 msgstr "Cash"
 
-msgid "(rpt)   - cash"
-msgstr "   - Cash"
-
 msgid "(rpt)giftcard"
 msgstr "Giftcard"
 
@@ -413,6 +428,9 @@ msgstr "Credit Card"
 
 msgid "(rpt)ledger"
 msgstr "Ledger"
+
+msgid "(rpt)foreign cash"
+msgstr "Foreign Cash"
 
 ########################################################################
 #
@@ -459,7 +477,8 @@ msgstr "Training Mode"
 msgid "vivipos.fec.registry.function.programmable.returncartitem.desc"
 msgstr ""
 "This function is used to register return of the current item in the "
-"shopping cart. No parameter is needed."
+"shopping cart. The parameter field may optionally contain an annotation "
+"code to allow user to quickly register the reason for the return."
 
 msgid "vivipos.fec.registry.function.programmable.returncartitem.label"
 msgstr "Return Item"
@@ -879,10 +898,19 @@ msgstr "PLUS"
 
 msgid "vivipos.fec.registry.function.programmable.cash.desc"
 msgstr ""
-"This function registers a cash payment. The parameter field can be used to "
-"program a preset cash payment amount. If no preset is programmed, the "
-"payment amount is read from the input line  If the input line is also blank, "
-"a quick cash payment is registered."
+"This function registers a cash payment. The parameter field may contain up "
+"to 3 optional, comma-separated arguments. The first argument is a preset tender "
+"amount, the second argument is the 'finalize' flag, and the third and last "
+"argument is the 'groupable' flag. "
+"If the preset amount is set to '0', the user is required to enter a tender amount. "
+"If no preset is programmed, the tender amount is read from the input line. "
+"If the input line is also blank, a quick cash payment is registered. "
+"The 'finalize' flag controls whether this function finalizes the order when the "
+"tender amount equals or exceeds the balance due; this flag is effective only when "
+"the global 'Disable auto-finalization on payment' option is active."
+"The 'groupable' flag should be set to '1' if this payment type/amount combination is to be "
+"tracked (non-zero preset amount must be specified)."
+
 
 msgid "vivipos.fec.registry.function.programmable.cash.label"
 msgstr "Cash"
@@ -1113,8 +1141,19 @@ msgstr "Sign Off"
 
 msgid "vivipos.fec.registry.function.programmable.currencyConvert.desc"
 msgstr ""
-"This function registers a currency conversion. The parameter indicates the "
-"currency code to convert from and must be filled."
+"This function registers a currency conversion. The parameter field may contain up "
+"to 4 optional, comma-separated arguments. "
+"The first argument is the currency code representing the foreign current to "
+"convert from, "
+"the second argument is a preset tender amount, "
+"the third argument is the 'finalize' flag, and "
+"the fourth and last argument is the 'groupable' flag. "
+"If no preset is programmed, the tender amount is read from the input line. "
+"The 'finalize' flag controls whether this function finalizes the order when the "
+"tender amount equals or exceeds the balance due; this flag is effective only "
+"when the global 'Disable auto-finalization on payment' option is active. "
+"The 'groupable' flag should be set to '1' if this payment type/amount combination "
+"is to be tracked (non-zero preset amount must be specified)."
 
 msgid "vivipos.fec.registry.function.programmable.currencyConvert.label"
 msgstr "Currency Exchange"
@@ -1193,8 +1232,9 @@ msgstr "Dispatch"
 
 msgid "vivipos.fec.registry.function.programmable.return.desc"
 msgstr ""
-"This function registers a return of an item for refund. No parameter is "
-"needed."
+"This function registers a return of an item for refund. "
+"The parameter field may optionally contain an annotation code "
+"to allow user to quickly register the reason for the refund"
 
 msgid "vivipos.fec.registry.function.programmable.return.label"
 msgstr "Item Refund"
@@ -1208,11 +1248,21 @@ msgstr "Item Refund"
 
 msgid "vivipos.fec.registry.function.programmable.creditcard.desc"
 msgstr ""
-"This function registers a credit card payment. The parameter field should be "
-"set to the credit card type. The payment amount is read from the input line; if "
-"no input is present, the payment will be for the balance due. An optional "
-"second parameter, separated by a comma, when set to 1, will cause the credit "
-"card payment to be registered immediately, bypassing the confirm screen."
+"This function registers a credit card payment. The parameter field may contain "
+"up to 4 optional, comma-separated arguments. "
+"The first argument is the credit card sub-type, "
+"the second argument is a preset tender amount, "
+"the third argument is the 'silent' flag, and "
+"the fourth and last argument is the 'finalize' flag. "
+"Sub-type should be set to the credit card type such as VISA, JCB, etc. "
+"If the preset amount is set to '0', the user is required to enter a tender "
+"amount. If no preset is programmed, the tender amount is read from the input "
+"line. If the input line is also blank, a quick credit card payment is registered. "
+"Normally the user will be prompted to confirm the payment; if the silent flag is "
+"set to '1', the confirmation screen will be skipped. "
+"The 'finalize' flag controls whether this function finalizes the order when the "
+"tender amount equals or exceeds the balance due; this flag is effective only when "
+"the global 'Disable auto-finalization on payment' option is active."
 
 msgid "vivipos.fec.registry.function.programmable.creditcard.label"
 msgstr "Credit Card"
@@ -1226,13 +1276,24 @@ msgstr "Credit Card"
 
 msgid "vivipos.fec.registry.function.programmable.coupon.desc"
 msgstr ""
-"This function registers a coupon payment. The parameter field should be set "
-"to the coupon type. A preset amount may be defined after the coupon type, "
-"separated by a comma. If no preset amount is programmed, the payment amount "
-"is read from the input line; if no input is present, the payment will be for "
-"the balance due. Finally, an optional third parameter, also separated by a "
-"comma, when set to 1, will cause the coupon payment to be registered immediately, "
-"bypassing the confirm screen."
+"This function registers a coupon payment. The parameter field may contain up "
+"to 5 optional, comma-separated arguments. "
+"The first argument is the coupon sub-type, "
+"the second argument is a preset tender amount, "
+"the third argument is the 'silent' flag, "
+"the fourth argument is the 'finalize' flag, and "
+"the fifth and last argument is the 'groupable' flag. "
+"Sub-type is used for differentiate between different possible coupon types. "
+"If the preset amount is set to '0', the user is required to enter a tender "
+"amount. If no preset is programmed, the tender amount is read from the input "
+"line  If the input line is also blank, a quick coupon payment is registered. "
+"Normally the user will be prompted to confirm the payment; if the silent flag "
+"is set to '1', the confirmation screen will be skipped."
+"The 'finalize' flag controls whether this function finalizes the order when the "
+"tender amount equals or exceeds the balance due; this flag is effective only "
+"when the global 'Disable auto-finalization on payment' option is active. "
+"The 'groupable' flag should be set to '1' if this payment type/amount combination "
+"is to be tracked (non-zero preset amount must be specified)."
 
 msgid "vivipos.fec.registry.function.programmable.coupon.label"
 msgstr "Coupon"
@@ -1247,13 +1308,24 @@ msgstr "Coupon"
 msgid "vivipos.fec.registry.function.programmable.giftcard.desc"
 msgstr ""
 "This function registers a giftcard payment. A giftcard payment is similar to "
-"a coupon payment, except that no change is given. The parameter field should "
-"be set to the giftcard type. A preset amount may also be defined after the "
-"giftcard type, separated by a comma. If no preset amount is programmed, the "
-"payment amount is read from the input line; if no input is present, the "
-"payment will be for the balance due. Finally, an optional third parameter,"
-"also separated by a comma, when set to 1, when set to 1, will cause the "
-"giftcard payment to be registered immediately, bypassing the confirm screen."
+"a coupon payment, except that no change is given on a giftcard payment. "
+"The parameter field may contain up to 5 optional, comma-separated arguments. "
+"The first argument is the giftcard sub-type, "
+"the second argument is a preset tender amount, "
+"the third argument is the 'silent' flag, "
+"the fourth argument is the 'finalize' flag, and "
+"the fifth and last argument is the 'groupable' flag. "
+"Sub-type is used for differentiate between different possible giftcard types. "
+"If the preset amount is set to '0', the user is required to enter a tender "
+"amount. If no preset is programmed, the tender amount is read from the input "
+"line. If the input line is also blank, a quick giftcard payment is registered. "
+"Normally the user will be prompted to confirm the payment; if the silent flag "
+"is set to '1', the confirmation screen will be skipped."
+"The 'finalize' flag controls whether this function finalizes the order when the "
+"tender amount equals or exceeds the balance due; this flag is effective only "
+"when the global 'Disable auto-finalization on payment' option is active. "
+"The 'groupable' flag should be set to '1' if this payment type/amount combination "
+"is to be tracked (non-zero preset amount must be specified)."
 
 msgid "vivipos.fec.registry.function.programmable.giftcard.label"
 msgstr "Giftcard"
@@ -1267,9 +1339,18 @@ msgstr "Giftcard"
 
 msgid "vivipos.fec.registry.function.programmable.check.desc"
 msgstr ""
-"This function registers a check payment. The parameter field should be set "
-"to the check type. The payment amount is read from the input line; if no "
-"input is present, the payment will be for the balance due."
+"This function registers a check payment. The parameter field may contain up "
+"to 4 optional, comma-separated arguments. The first argument is the check sub-type; "
+"the second argument is a preset tender amount, the third argument is the silent flag, "
+"and the fourth and last argument is the 'finalize' flag. "
+"Sub-type is used for differentiate between different possible check types. If the preset amount "
+"is set to '0', the user is required to enter a tender amount. If no preset is "
+"programmed, the tender amount is read from the input line  If the input line is also blank, "
+"a quick check payment is registered. Normally the user will be prompted to confirm "
+"the payment; if the silent flag is set to '1', the confirmation screen will be skipped."
+"The 'finalize' flag controls whether this function finalizes the order when the tender amount "
+"equals or exceeds the balance due; this flag is effective only when the global "
+"'Disable auto-finalization on payment' option is active. "
 
 msgid "vivipos.fec.registry.function.programmable.check.label"
 msgstr "Check"
@@ -1774,6 +1855,22 @@ msgstr "Scale"
 msgid "vivipos.fec.registry.function.programmable.scale.name"
 msgstr "Scale"
 
+####################
+# Rush Item
+####################
+
+msgid "vivipos.fec.registry.function.programmable.rushItem.name"
+msgstr "Rush Item"
+
+msgid "vivipos.fec.registry.function.programmable.rushItem.desc"
+msgstr ""
+"This function is used to register rush of the current item in the "
+"shopping cart. First parameter is annotation code if you want memo (optional)"
+
+msgid "vivipos.fec.registry.function.programmable.rushItem.label"
+msgstr "Rush Item"
+
+
 ########################################################################
 #
 # List of ACLs
@@ -2134,6 +2231,12 @@ msgstr "View All Queues"
 msgid "acl_print_document"
 msgstr "Print Document"
 
+msgid "acl_print_labels"
+msgstr "Print Labels"
+
+msgid "acl_admin_tools"
+msgstr "Administration Tools"
+
 ########################################################################
 #
 # List of Ports
@@ -2361,6 +2464,12 @@ msgstr "NO"
 #
 ########################################################################
 
+msgid "vivipos.fec.registry.layouts.ecr.label"
+msgstr "Basic ECR Layout"
+
+msgid "vivipos.fec.registry.layouts.ecr.desc"
+msgstr "Basic ECR Layout that emulates traditional ECRs"
+
 msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
 
@@ -2372,6 +2481,12 @@ msgstr "Simple Retail Layout"
 
 msgid "vivipos.fec.registry.layouts.simple_retail.desc"
 msgstr "Simple Retail Layout (for businesses that rely mostly on barcode scanning. Product images, if provided, will be displayed when the product is registered.)"
+
+msgid "vivipos.fec.registry.layouts.compacttable.label"
+msgstr "Compact Table Layout"
+
+msgid "vivipos.fec.registry.layouts.compacttable.desc"
+msgstr "Compact Table Layout (For table service, with table grid on the main screen)"
 
 ########################################################################
 #
@@ -2826,6 +2941,30 @@ msgstr "Internal VFD Template"
 msgid "vivipos.fec.registry.templates.vfd-internal-non-en.label"
 msgstr "Internal VFD (non-en)"
 
+msgid "vivipos.fec.registry.templates.vfd-internal-24c.label"
+msgstr "Internal VFD Template 24c"
+
+msgid "vivipos.fec.registry.templates.receipt-japanese-ecr-42c.label"
+msgstr "Sample Japanese ECR"
+
+msgid "vivipos.fec.registry.templates.kitchen-transfertable-42c.label"
+msgstr "Sample Transfer Table 42c "
+
+msgid "vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.label"
+msgstr "Sample Transfer Table 42c expanded"
+
+msgid "vivipos.fec.registry.templates.kitchen-returnitem-42c.label"
+msgstr "Sample Return Item 42c"
+
+msgid "vivipos.fec.registry.templates.kitchen-rushitem-42c.label"
+msgstr "Sample Rush Item 42c"
+
+msgid "vivipos.fec.registry.templates.label-simple-testing-1.label"
+msgstr "Label Simple Testing 1"
+
+msgid "vivipos.fec.registry.templates.label-simple-testing-2.label"
+msgstr "Label Simple Testing 2"
+
 ########################################################################
 #
 # List of Import / Export
@@ -2916,13 +3055,29 @@ msgstr "Split Payment"
 
 msgid "vivipos.fec.registry.function.programmable.openreport.desc"
 msgstr ""
-"This function allows operator to open specific report ."
+"This function allows operator to open a specific report ."
 
 msgid "vivipos.fec.registry.function.programmable.openreport.label"
 msgstr "Open Report"
 
 msgid "vivipos.fec.registry.function.programmable.openreport.name"
 msgstr "Open Report"
+
+########################################################################
+#
+# Open Control Panel
+#
+########################################################################
+
+msgid "vivipos.fec.registry.function.programmable.opencontrolpanel.desc"
+msgstr ""
+"This function allows operator to open a specific control panel ."
+
+msgid "vivipos.fec.registry.function.programmable.opencontrolpanel.label"
+msgstr "Open Control Panel"
+
+msgid "vivipos.fec.registry.function.programmable.opencontrolpanel.name"
+msgstr "Open Control Panel"
 
 ########################################################################
 #
@@ -2938,6 +3093,33 @@ msgstr "Order Opened"
 
 msgid "(rpt)transaction_submitted"
 msgstr "Order Closed"
+
+########################################################################
+#
+# IRC Modules
+#
+########################################################################
+
+msgid "vivipos.fec.irc.modules.products.label"
+msgstr "Product Related"
+
+msgid "vivipos.fec.irc.modules.general_settings.label"
+msgstr "General Settings"
+
+msgid "vivipos.fec.irc.modules.promotions.label"
+msgstr "Promotions"
+
+msgid "vivipos.fec.irc.modules.employees.label"
+msgstr "Employees"
+
+msgid "vivipos.fec.irc.modules.function_keys.label"
+msgstr "Function Keys"
+
+msgid "vivipos.fec.irc.modules.reports.label"
+msgstr "Reports"
+
+msgid "vivipos.fec.irc.modules.addons.label"
+msgstr "Addons"
 
 ########################################################################
 #

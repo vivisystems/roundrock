@@ -40,8 +40,8 @@
                 <label value="&annotations.title;"  class="label-page-title"/>
                 <hbox flex="1" class="content-listbox">
                     <vivitree id="annotationscrollablepanel" flex="1" class="standard"
-                                    headers="&annotations.code;,&annotations.type;"
-                                    fields="code,type"
+                                    headers="&annotations.code;,&annotations.type;,&annotations.text;"
+                                    fields="code,type,text"
                                     hidecolumnpicker="true"
                                     onselect="$do('selectCode',this.selectedIndex, 'Annotations');"/>
                 </hbox>
@@ -50,21 +50,30 @@
                     <grid class="data-form">
                         <columns>
                             <column flex="1"/>
-                            <column flex="1"/>
                         </columns>
                         <rows>
                             <row>
-                                <vbox>
-                                    <label control="annotation_code" value="&annotations.code;"/>
-                                    <textbox id="annotation_code" readonly="true"
-                                             form="annotationCodeForm" name="code" default=""/>
-                                </vbox>
-                                <vbox>
-                                    <label control="annotation_type" value="&annotations.type;"/>
-                                    <textbox id="annotation_type"
-                                             oninput="$do('validateCodeForm', null, 'Annotations');"
-                                             form="annotationCodeForm" name="type" default=""/>
-                                </vbox>
+                                <hbox flex="1">
+                                    <vbox class="annotation_code">
+                                        <label control="annotation_code" value="&annotations.code;"/>
+                                        <textbox id="annotation_code" readonly="true" size="4"
+                                                 form="annotationCodeForm" name="code" default=""/>
+                                    </vbox>
+                                    <spacer style="width: 10px;" />
+                                    <vbox class="annotation_type">
+                                        <label control="annotation_type" value="&annotations.type;"/>
+                                        <textbox id="annotation_type" size="10"
+                                                 oninput="$do('validateCodeForm', null, 'Annotations');"
+                                                 form="annotationCodeForm" name="type" default=""/>
+                                    </vbox>
+                                    <spacer style="width: 10px;" />
+                                    <vbox class="annotation_text" flex="1">
+                                        <label control="annotation_text" value="&annotations.text;"/>
+                                        <textbox id="annotation_text"
+                                                 oninput="$do('validateCodeForm', null, 'Annotations');"
+                                                 form="annotationCodeForm" name="text" default=""/>
+                                    </vbox>
+                                </hbox>
                             </row>
                         </rows>
                     </grid>

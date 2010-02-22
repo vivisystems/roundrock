@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Numberpad SYSTEM "chrome://viviecr/locale/numberpad.dtd">
+  %Numberpad;
+  <!ENTITY % Barcodelearning SYSTEM "chrome://viviecr/locale/barcodelearning.dtd">
+  %Barcodelearning;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&dialog.prompt.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+
+  <script type="application/x-javascript" src="chrome://viviecr/content/prompt_addbarcodelearningitem.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/controllers/barcode_learning_controller.js" />
+    <vbox class="container-dialog" flex="1">
+        <vbox class="container-main" flex="1">
+            <groupbox flex="1">
+                <caption id="dialog-caption" label="" class="label-page-title"/>
+                <grid id="main-grid" class="data-form">
+                    <columns>
+                        <column flex="1"/>
+                    </columns>
+                    <rows id="main-rows">
+                        <row id="menurow">
+                            <vbox flex="1">
+                                <label id="menulabel" value="" control="menu"/>
+                                <menulist id="menu">
+                                    <menupopup id="menu_menupopup">
+                                    </menupopup>
+                                </menulist>
+                            </vbox>
+                        </row>
+                        <row id="row0">
+                            <hbox>
+                                <vbox flex="1">
+                                    <label id="plu_label" value="" control="plu_value"/>
+                                    <textbox id="plu_value" flex="1" value="" oninput="validateInput()" onfocus="select()"/>
+                                </vbox>
+                                <vbox flex="1">
+                                    <label id="name_label" value="" control="name_value"/>
+                                    <textbox id="name_value" flex="1" value="" oninput="validateInput()" onfocus="select()"/>
+                                </vbox>
+                            </hbox>
+                        </row>
+                        <row id="row1">
+                            <hbox>
+                                <vbox flex="1">
+                                    <label id="tax_label" value="" control="tax_value"/>
+                                    <label id="tax_rate" value="" hidden="true" default=""/>
+                                    <textbox id="tax_value" flex="1" value="" class="button-item-c"
+                                             oninput="validateInput()" onfocus="select()"
+                                             onclick="$do('getRate','null','BarcodeLearning');"/>
+                                </vbox>
+                                <vbox flex="1">
+                                    <label id="price_label" value="" control="price_value"/>
+                                    <vivitextbox id="price_value" flex="1" value="" oninput="validateInput()" onfocus="select()"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                    />
+                                </vbox>
+                            </hbox>
+                        </row>
+                        <row id="row2">
+                            <hbox>
+                                <vbox flex="0" hidden="true" >
+                                    <label id="barcode_label" value="" control="barcode_value"/>
+                                    <textbox id="barcode_value" flex="1" value="" oninput="validateInput()" onfocus="select()" disabled="true"/>
+                                </vbox>
+                            </hbox>
+                        </row>
+                    </rows>
+                </grid>
+                <vbox class="data-formsss">
+                    <vbox flex="1" class="content-buttonpanel">
+                        <hbox>
+                            <label id="department_label" value=""/>
+                            <spacer flex="1"/>
+                        </hbox>
+                        <viviscrollablebuttonpanel id="department_no" seltype="single" flex="1" cols="5" rows="3"
+                           labelField="name"
+                           buttonClass="button-item-a"
+                           buttonHeight="70"
+                           scrollUpClass="scroll-up-button"
+                           scrollDownClass="scroll-down-button">
+                           <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                    </vbox>
+                </vbox>
+            </groupbox>
+            <hbox id="numpad" pack="center">
+                <numberpad id="multinumberpad" class="numpad"/>
+                <vbox>
+                    <sendkeybutton id="bkeyBtn" label="&numberpad.keylabel.del;" keyCode='0x08' class="button-fixed"/>
+                    <sendkeybutton id="clearBtn" label="&numberpad.keylabel.clear;" class="button-fixed"
+                                   oncommand="clearFocusedElement(this.target); validateInput();"/>
+                </vbox>
+            </hbox>
+            <spacer id="single-line-spacer" flex="1"/>
+            <hbox>
+                <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                    <button id="update_name" label="&barcodelearning.button.updatename;" disabled="false" oncommand="updateName();"/>
+                    <spacer flex="1"/>
+                    <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
+                    <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
+                    <spacer flex="1"/>
+                </hbox>
+                <hbox pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="opener.VirtualKeyboard.toggle()"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
+</window>

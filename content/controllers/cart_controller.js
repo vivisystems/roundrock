@@ -11,6 +11,7 @@
         _cartView: null,
         _inDialog: false,
         _returnMode: false,
+        _returnCode: '',
         _returnPersist: false,
         _blockNextAction: false,
         _decStockBackUp: null,
@@ -226,7 +227,7 @@
             if (positivePriceRequired && curTransaction != null) {
                 sellPrice = curTransaction.checkSellPrice(item)
                 if (sellPrice <= 0) {
-                    NotifyUtils.warn(_('Product [%S] may not be registered with a price of [%S]!', [item.name, curTransaction.formatPrice(sellPrice)]));
+                    NotifyUtils.warn(_('Product [%S] may not be registered with a zero or negative price [%S]!', [item.name, curTransaction.formatPrice(sellPrice)]));
                     evt.preventDefault();
                     return;
                 }
@@ -423,8 +424,8 @@
             this._cartView.setTransaction(transaction);
             GeckoJS.Session.set('current_transaction', transaction);
             GeckoJS.Session.remove('cart_last_sell_item');
-        //GeckoJS.Session.remove('cart_set_price_value');
-        //GeckoJS.Session.remove('cart_set_qty_value');
+            //GeckoJS.Session.remove('cart_set_price_value');
+            //GeckoJS.Session.remove('cart_set_qty_value');
         },
 
         _getCartlist: function() {
@@ -541,25 +542,30 @@
             let count = 0;
             let items = txn.data.items;
             let dispItems = txn.data.display_sequences;
-this.log('DEBUG', 'getting returnable count for [' + item.name + '] (' + item.id +')');
             dispItems.forEach(function(dispItem) {
                 if (dispItem.id == item.id) {
-
-this.log('DEBUG', 'found item [' + dispItem.name + '] (' + dispItem.id +') status [' + dispItem.returned + ']');
                     let currentItem = items[dispItem.index];
 
-this.log('DEBUG', 'current count [' + count + '] item qty [' + currentItem.current_qty + ']');
                     if ((currentItem.current_qty > 0) || (currentItem.current_qty < 0 && dispItem.returned)) {
                         count += currentItem.current_qty;
                     }
                 }
             }, this);
 
-this.log('DEBUG', 'returnable count [' + count + ']');
             return count;
         },
 
-        returnCartItem: function() {
+        /**
+         * return cart item at cursor index.
+         *
+         * if annotation code exists , auto add memo.
+         *
+         * @param {String} code    Annotation code
+         */
+        returnCartItem: function(code) {
+
+            code = code || '';
+            
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
             var itemTrans;
@@ -609,6 +615,7 @@ this.log('DEBUG', 'returnable count [' + count + ']');
 
                 if (itemTrans.current_qty < 0) {
                     this.modifyQty('plus', qty);
+                    exit = true;
                 }
                 else {
                     let returnableCount = this.getReturnableCount(curTransaction, itemTrans);
@@ -617,14 +624,25 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                     }
                     else {
                         curTransaction.returnItemAtIndex(index, qty);
+
+                        // auto add memo
+                        if (code) {
+
+                            var self = this;
+                            // don't dispatch right now
+                            exit = false;
+                            return this.addMemo(code).next(function(){
+                                self.dispatchEvent('afterReturnCartItem', curTransaction);
+                            });
+                        }
                     }
+                    exit = true;
                 }
-                exit = true;
             }
 
             if (exit) {
-                this._getKeypadController().clearBuffer();
                 this._clearAndSubtotal();
+                this.dispatchEvent('afterReturnCartItem', curTransaction);
             }
         },
 
@@ -704,9 +722,13 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                 }
             }
 
+            let qtyFromInput = true;
             var qty = GeckoJS.Session.get('cart_set_qty_value');
             var unit = GeckoJS.Session.get('cart_set_qty_unit');
-            if (qty == null) qty = 1;
+            if (qty == null) {
+                qty = 1;
+                qtyFromInput = false;
+            }
 
             if (unit != null && unit != '') {
 
@@ -735,7 +757,8 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                     var price = GeckoJS.Session.get('cart_set_price_value');
                     var destination = GeckoJS.Session.get('vivipos_fec_order_destination');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
-                        if (((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
+                        if (!qtyFromInput &&
+                            ((('cate_no' in plu) && currentItem.no != '' && currentItem.no == plu.no) ||
                             (!('cate_no' in plu) && currentItem.no == '' && currentItem.cate_no == plu.no)) &&
                             !currentItem.hasDiscount &&
                             !currentItem.hasSurcharge &&
@@ -822,13 +845,18 @@ this.log('DEBUG', 'returnable count [' + count + ']');
 
                         });
 
+                    }else if (addedItem.id == plu.id && self._returnMode && self._returnCode) {
+
+                        // force memo from annotation code
+                        return self.addMemo(self._returnCode);
+
                     }
 
                 } ).next( function() {
 
                     // single item sale?
                     if (doSIS) {
-                        self._addPayment('cash');
+                        self._addPayment('cash', null, null, null, null, false, true);
                         self.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
                     }
                     else {
@@ -1089,11 +1117,34 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                 product: null
             };
 
+            var barcodeLearning = GeckoJS.Configure.read('vivipos.fec.settings.BarcodeLearningPLUGroup') || 'none';
+
             if (!barcodesIndexes || !barcodesIndexes[barcode]) {
                 // barcode notfound
-                event.error = true;
+                var error = false;
 
-                NotifyUtils.warn(_('Product number/barcode [%S] not found', [barcode]));
+                if(barcodeLearning == 'none') {
+                    error = true;
+                } else {
+                    if(!this.dispatchEvent('beforeBarcodeLearning', event)) {
+                        error = true;
+                    } else {
+                        var id = barcodesIndexes[barcode];
+                        var product = this.Product.getProductById(id);
+                        if(product) {
+                            event.product = product;
+                        } else {
+                            event.error = true;
+                        }
+
+                    }
+                }
+
+                if(error) {
+                    event.error = true;
+
+                    NotifyUtils.warn(_('Product number/barcode [%S] not found', [barcode]));
+                }
             }else {
                 var id = barcodesIndexes[barcode];
                 var product = this.Product.getProductById(id);
@@ -1279,7 +1330,7 @@ this.log('DEBUG', 'returnable count [' + count + ']');
             }
 
             if (itemTrans.hasMarker) {
-                NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemTrans.name]));
+                NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemDisplay.name]));
 
                 this._clearAndSubtotal();
                 return;
@@ -1307,8 +1358,16 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                 return;
             }
 
-            // check if zero preset price is allowed if item is type 'item''
+            if (modifyQuantity) {
+                if (newQuantity == 0 || newQuantity < 0 && itemTrans.current_qty > 0) {
+                    NotifyUtils.warn(_('Quantity must be greater than zero'));
 
+                    this._clearAndSubtotal();
+                    return;
+                }
+            }
+
+            // check if zero preset price is allowed if item is type 'item''
             if (itemDisplay.type == 'item') {
                 var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
 
@@ -1384,8 +1443,15 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                 return;
             }
 
-            if (itemTrans.hasDiscount || itemTrans.hasSurcharge || itemTrans.hasMarker) {
+            if (itemTrans.hasDiscount || itemTrans.hasSurcharge) {
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            if (itemTrans.hasMarker) {
+                NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemDisplay.name]));
 
                 this._clearAndSubtotal();
                 return;
@@ -1396,6 +1462,7 @@ this.log('DEBUG', 'returnable count [' + count + ']');
             if (delta == null || isNaN(delta)) {
                 delta = 1;
             }
+
             switch(action) {
                 case 'plus':
                     newQty = parseFloat(newQty + delta);
@@ -1406,7 +1473,7 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                     break;
             }
             if (qty < 0) newQty = 0 - newQty;
-            if (itemTrans.sale_unit == 'unit') {
+            if (itemTrans.sale_unit == 'unit' || itemDisplay.type == 'payment') {
                 newQty = parseInt(newQty);
             }
             else {
@@ -1455,6 +1522,12 @@ this.log('DEBUG', 'returnable count [' + count + ']');
         },
 
         returnItem: function(cancel) {
+
+            // overloading cancel
+            if (typeof cancel == 'string') {
+                this._returnCode = cancel +'';
+                cancel = undefined;
+            }
 
             if (cancel || this._returnMode) {
                 if (!cancel) {
@@ -1971,7 +2044,7 @@ this.log('DEBUG', 'returnable count [' + count + ']');
 
             var itemTrans = curTransaction.getItemAt(index);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
-            
+
             if (itemTrans != null && itemTrans.type == 'item') {
 
                 if (itemTrans.hasDiscount) {
@@ -2189,7 +2262,26 @@ this.log('DEBUG', 'returnable count [' + count + ']');
 
         },
 
-        currencyConvert: function(convertCode) {
+        /*
+         * currencyConvert accepts up to 4 parameters:
+         *
+         * - convertCode
+         * - amount
+         * - finalize
+         * - groupable
+         *
+         * if amount is 0, then the user must manually enter an amount
+         *
+         */
+        currencyConvert: function(args) {
+
+            // args is a list of up to 4 parameters: convertCode, amount, finalize, groupable
+            if (args == null) args = '';
+            var argArray = String(args).split(',');
+            var convertCode = argArray[0];
+            var amount = argArray[1];
+            var finalize = argArray[2] || false;
+            var groupable = argArray[3] || false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer(true);
@@ -2222,22 +2314,61 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                 return;
             }
 
-            if (buf.length>0 && currencies && currencies.length > convertIndex) {
-                var amount = parseFloat(buf);
-                var origin_amount = amount;
+            // determine if payment amount if from argument list or from buffer
+            let payment;
+
+            // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
+            if (amount == null || amount == '' || amount == '0' || isNaN(amount)) {
+
+                // payment not groupable if no preset amount given
+                groupable = false;
+
+                payment = buf;
+            }
+            else {
+                payment = amount;
+            }
+
+            // validate payment amount
+            if (payment != null && payment != '') {
+                if (isNaN(payment)) {
+                    NotifyUtils.warn(_('Invalid payment amount [%S]', [payment]));
+
+                    this._clearAndSubtotal();
+                    return;
+                }
+                else {
+                    if (parseFloat(payment) <= 0) {
+                        NotifyUtils.warn(_('Invalid payment amount [%S]. Payment amount must be positive', [curTransaction.formatPrice(payment)]));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+            else if (this._returnMode) {
+                NotifyUtils.warn(_('Please enter the amount to refund'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            if (payment != null && payment != '' && currencies && currencies.length > convertIndex) {
                 // currency convert array
-                var currency_rate = currencies[convertIndex].currency_exchange;
-                var memo1 = currencies[convertIndex].currency;
-                var memo2 = currency_rate;
-                amount = amount * currency_rate;
-                this._addPayment('cash', amount, origin_amount, memo1, memo2);
+                let currency = currencies[convertIndex].currency;
+                let currency_rate = currencies[convertIndex].currency_exchange;
+                let memo1 = currency;
+                let memo2 = currency_rate;
+                let origin_amount = payment;
+                let amount = parseFloat(payment) * currency_rate;
+                this._addPayment('cash', amount, origin_amount, memo1, memo2, groupable, finalize);
             }
             else {
                 if (buf.length==0) {
                     NotifyUtils.warn(_('Please enter an amount first'));
                 }
                 else if (currencies == null || currencies.length <= convertIndex) {
-                    NotifyUtils.warn(_('Please configure the selected currency entry first [%S]', [convertIndex]));
+                    NotifyUtils.warn(_('Please configure the currency entry first [%S]', [convertIndex]));
                 }
                 this._clearAndSubtotal();
                 return;
@@ -2328,24 +2459,30 @@ this.log('DEBUG', 'returnable count [' + count + ']');
 
         },
 
-        creditCard: function(args) {
+        addNonCashPayment: function(type, args) {
+            // args should be a list of up to 5 comma-separated parameters: subtype, amount, silent, finalize, groupable
+            let subtype = '';
+            let amount;
+            let silent = false;
+            let finalize = false;
+            let groupable = false;
 
-            var argList = [];
             if (args != null && args != '') {
-                argList = args.split(',');
+                let argList = args.split(',');
+                subtype = argList[0];
+                if (subtype == null) subtype = '';
+                if (argList[1] != null && argList[1] != '') amount = argList[1];
+                silent = argList[2] || false;
+                finalize = argList[3] || false;
+                groupable = argList[4] || false;
             }
 
-            var type = argList[0];
-            var silent = argList[1];
-
-            if (type == null) type = '';
-
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer(true);
+            let buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             // check if order is open
-            var curTransaction = this._getTransaction();
+            let curTransaction = this._getTransaction();
 
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
@@ -2354,18 +2491,50 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                 return;
             }
 
-            var payment = buf;
+            let qty = 1;
+            if (groupable) {
+                qty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? parseInt(GeckoJS.Session.get('cart_set_qty_value')) : 1;
+                if (isNaN(qty) || qty < 1) qty = 1;
+            }
+
+            // determine if payment amount if from argument list or from buffer
+            let payment;
+            let balance = curTransaction.getRemainTotal();
+
+            // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
+            if (amount == null || amount == '' || amount == '0') {
+
+                // payment not groupable if no preset amount given
+                groupable = false;
+
+                // if amount is '0', then we force the payment amount to be read from buffer'
+                if (amount == '0' && balance > 0 && (buf == null || buf == '')) {
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Payment Warning'),
+                                          _('Tender entry is compulsory for this payment type, please enter an amount first'));
+                    this._clearAndSubtotal();
+                    return;
+                }
+                payment = buf;
+            }
+            else {
+                payment = amount;
+            }
+
+            let paid = curTransaction.getPaymentSubtotal();
+
+            // validate payment amount
             if (payment != null && payment != '') {
                 if (isNaN(payment)) {
-                    NotifyUtils.warn(_('Invalid credit card payment amount [%S]', [payment]));
+                    NotifyUtils.warn(_('Invalid payment amount [%S]', [payment]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 else {
                     payment = parseFloat(payment);
-                    if (payment < 0) {
-                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
+                    if (payment <= 0) {
+                        NotifyUtils.warn(_('Invalid payment amount [%S]. Payment amount must be positive', [curTransaction.formatPrice(payment)]));
 
                         this._clearAndSubtotal();
                         return;
@@ -2378,15 +2547,20 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                 this._clearAndSubtotal();
                 return;
             }
+            else if (balance < 0) {
+                NotifyUtils.warn(_('Please enter the tender amount'));
 
-            var balance = curTransaction.getRemainTotal();
-            var paid = curTransaction.getPaymentSubtotal();
+                this._clearAndSubtotal();
+                return;
+            }
 
+            // refunding payment; amount being refunded must not exceed amount paid
             if (this._returnMode) {
-                // payment refund
-                if (payment > paid) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
-                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                let total = curTransaction.getTotal();
+                let maxRefund = (total >= 0 ? paid : (paid - total));
+                if (payment > maxRefund) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed [%S]',
+                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(maxRefund)]));
 
                     this._clearAndSubtotal();
                     return;
@@ -2394,403 +2568,246 @@ this.log('DEBUG', 'returnable count [' + count + ']');
 
             }
             else {
-                if (balance <= 0) {
-                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-
-                if (payment == 0 || isNaN(payment)) {
+                // if payment is still undefined, set it to current balance
+                if (payment == null || payment == 0 || isNaN(payment)) {
                     payment = balance;
                 }
-
-                if (payment > balance) {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Credit Card Payment Error'),
-                        _('Credit card payment may not exceed remaining balance'));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
             }
 
-            if (silent && type != '') {
-                this._addPayment('creditcard', payment, payment, type, '');
-            }
-            else {
-                var data = {
-                    type: type,
-                    payment: curTransaction.formatPrice(payment)
-                };
+            let self = this;
+            switch(type) {
+                case 'creditcard':
+                    if (!this._returnMode) {
+                        if (balance <= 0) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Credit Card Payment Error'),
+                                _('Credit card payment not permitted when no balance is due'));
 
-                var self = this;
+                            this._clearAndSubtotal();
+                            return;
+                        }
 
-                return this._getCreditCardDialog(data).next(function(evt) {
+                        if (payment > balance) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Credit Card Payment Error'),
+                                _('Credit card payment may not exceed remaining balance'));
 
-                    var result = evt.data;
+                            this._clearAndSubtotal();
+                            return;
+                        }
+                    }
 
-                    if (result.ok) {
-                        var memo1 = result.input0 || '';
-                        var memo2 = result.input1 || '';
-                        self._addPayment('creditcard', payment, payment, memo1, memo2);
+                    if (silent && subtype != '') {
+                        // credit card payments not groupable
+                        this._addPayment('creditcard', payment, null, subtype, '', false, finalize);
                     }
                     else {
-                        self._clearAndSubtotal();
-                    }
-                });
-            }
-            return;
+                        let data = {
+                            type: subtype,
+                            payment: curTransaction.formatPrice(payment)
+                        };
 
+
+                        return this._getCreditCardDialog(data).next(function(evt) {
+
+                            let result = evt.data;
+
+                            if (result.ok) {
+                                let memo1 = result.input0 || '';
+                                let memo2 = result.input1 || '';
+                                self._addPayment('creditcard', payment, null, memo1, memo2, false, finalize);
+                            }
+                            else {
+                                self._clearAndSubtotal();
+                            }
+                        });
+                    }
+                    return;
+
+                case 'coupon':
+                    if (balance <= 0) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Coupon Payment Error'),
+                            _('Coupon payment not permitted when no balance is due'));
+
+                        this._clearAndSubtotal();
+                        return;
+                    }
+
+                    if (silent && subtype != '') {
+                        this._addPayment('coupon', payment, amount, subtype, '', groupable, finalize);
+                    }
+                    else {
+                        let data = {
+                            type: subtype,
+                            payment: curTransaction.formatPrice(payment)
+                        };
+
+                        return this._getCouponDialog(data).next(function(evt){
+
+                            let result = evt.data;
+
+                            if (result.ok) {
+
+                                let memo1 = result.input0 || '';
+                                let memo2 = result.input1 || '';
+
+                                self._addPayment('coupon', payment, amount, memo1, memo2, groupable, finalize);
+
+                            }
+                            else {
+                                self._clearAndSubtotal();
+                            }
+                        });
+                    }
+                    break;
+
+                case 'giftcard':
+                    let total = payment * qty;
+                    if (!this._returnMode) {
+                        if (balance <= 0) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Giftcard Payment Error'),
+                                _('Giftcard payment not permitted when no balance is due'));
+
+                            this._clearAndSubtotal();
+                            return;
+                        }
+
+                        if (total > balance) {
+                            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                _('confirm giftcard payment'),
+                                _('Change of [%S] will NOT be given for this type of payment. Proceed?',
+                                    [curTransaction.formatPrice(total - balance)])) == false) {
+
+                                this._clearAndSubtotal();
+                                return;
+                            }
+                        }
+                        else {
+                            balance = total;
+                        }
+                    }
+                    else {
+                        balance = total;
+                    }
+
+                    if (silent && subtype != '') {
+                        this._addPayment('giftcard', balance, payment, subtype, '', groupable, finalize);
+                    }
+                    else {
+                        let data = {
+                            type: subtype,
+                            payment: curTransaction.formatPrice(payment)
+                        };
+
+                        return this._getGiftcardDialog(data).next(function(evt){
+
+                            let result = evt.data;
+
+                            if (result.ok) {
+
+                                let memo1 = result.input0 || '';
+                                let memo2 = result.input1 || '';
+
+                                self._addPayment('giftcard', balance, payment, memo1, memo2, groupable, finalize);
+
+                            }
+                            else {
+                                self._clearAndSubtotal();
+                            }
+                        });
+                    }
+                    break;
+
+                case 'check':
+                    if (!this._returnMode && payment > balance) {
+
+                        // check user's check cashing limit
+                        let user = GeckoJS.Session.get('user');
+                        let limit = 0;
+                        if (user) {
+                            limit = user.max_cash_check;
+                        }
+                        if (isNaN(limit)) limit = 0;
+
+                        // we need to collect total check payment amount
+                        let payments = curTransaction.getPayments();
+                        let totalCheckPayment = 0;
+                        for (key in payments) {
+                            let entry = payments[key];
+                            if (entry.name == 'check') {
+                                totalCheckPayment += entry.amount;
+                            }
+                        }
+                        let balanceBeforeCheckPayment = totalCheckPayment + balance;
+
+                        if (balanceBeforeCheckPayment >= 0) {
+                            if (payment - balance > limit) {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Check Payment Error'),
+                                    _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(payment - balance), curTransaction.formatPrice(limit)]));
+
+                                this._clearAndSubtotal();
+                                return;
+                            }
+                        }
+                        else {
+                            if (newCheckTotal > limit) {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Check Payment Error'),
+                                    _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(newCheckTotal), curTransaction.formatPrice(limit)]));
+
+                                this._clearAndSubtotal();
+                                return;
+                            }
+                        }
+                    }
+
+                    if (silent && subtype != '') {
+                        this._addPayment('check', payment, null, subtype, '', false, finalize);
+                    }
+                    else {
+                        let data = {
+                            type: subtype || '',
+                            payment: curTransaction.formatPrice(payment)
+                        };
+
+                        return this._getCheckDialog(data).next(function(evt){
+
+                            let result = evt.data;
+
+                            if (result.ok) {
+
+                                let memo1 = result.input0 || '';
+                                let memo2 = result.input1 || '';
+
+                                self._addPayment('check', payment, null, memo1, memo2, false, finalize);
+
+                            }
+                            else {
+                                self._clearAndSubtotal();
+                            }
+                        });
+                    }
+                    break;
+            }
+        },
+
+        creditCard: function(args) {
+            this.addNonCashPayment('creditcard', args);
         },
 
         coupon: function(args) {
-
-            // args should be a list of up to 2 comma-separated parameters: type, amount
-            var type = '';
-            var amount;
-            var silent = false;
-            if (args != null && args != '') {
-                var argList = args.split(',');
-                type = argList[0];
-                if (type == null) type = ''
-                if (argList[1] != null && argList[1] != '' && !isNaN(argList[1])) amount = parseFloat(argList[1]);
-                silent = argList[2];
-            }
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer(true);
-            this._getKeypadController().clearBuffer();
-
-            // check if order is open
-            var curTransaction = this._getTransaction();
-
-            if( !this.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
-
-                this._clearAndSubtotal();
-                return;
-            }
-
-            var payment = (amount != null) ? amount : buf;
-            if (payment != null && payment != '') {
-                if (isNaN(payment)) {
-                    NotifyUtils.warn(_('Invalid coupon payment amount [%S]', [payment]));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-                else {
-                    payment = parseFloat(payment);
-                    if (payment < 0) {
-                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
-
-                        this._clearAndSubtotal();
-                        return;
-                    }
-                }
-            }
-            else if (this._returnMode) {
-                NotifyUtils.warn(_('Please enter the amount to refund'));
-
-                this._clearAndSubtotal();
-                return;
-            }
-
-            var balance = curTransaction.getRemainTotal();
-            var paid = curTransaction.getPaymentSubtotal();
-
-            if (this._returnMode) {
-                // payment refund
-                if (payment > paid) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
-                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-
-            }
-            else {
-                if (balance <= 0) {
-                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-
-                if (payment == null || payment == 0 || isNaN(payment)) {
-                    payment = balance;
-                }
-            }
-
-            if (silent && type != '') {
-                this._addPayment('coupon', payment, payment, type, '');
-            }
-            else {
-                var data = {
-                    type: type,
-                    payment: curTransaction.formatPrice(payment)
-                };
-
-                var self = this;
-
-                return this._getCouponDialog(data).next(function(evt){
-
-                    var result = evt.data;
-
-                    if(result.ok) {
-
-                        var memo1 = result.input0 || '';
-                        var memo2 = result.input1 || '';
-
-                        self._addPayment('coupon', payment, payment, memo1, memo2);
-
-                    }
-                    else {
-                        self._clearAndSubtotal();
-                    }
-                });
-            }
+            this.addNonCashPayment('coupon', args);
         },
 
         giftcard: function(args) {
-
-            // args should be a list of up to 2 comma-separated parameters: type, amount
-            var type = '';
-            var amount;
-            var silent = false;
-            if (args != null && args != '') {
-                var argList = args.split(',');
-                type = argList[0];
-                if (type == null) type = '';
-                if (argList[1] != null && argList[1] != '' && !isNaN(argList[1])) amount = parseFloat(argList[1]);
-                silent = argList[2];
-            }
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer(true);
-            this._getKeypadController().clearBuffer();
-
-            // check if order is open
-            var curTransaction = this._getTransaction();
-
-            if( !this.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
-
-                this._clearAndSubtotal();
-                return;
-            }
-
-            var payment = (amount != null) ? amount : buf;
-            if (payment != null && payment != '') {
-                if (isNaN(payment)) {
-                    NotifyUtils.warn(_('Invalid gift card payment amount [%S]', [payment]));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-                else {
-                    payment = parseFloat(payment);
-                    if (payment < 0) {
-                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
-
-                        this._clearAndSubtotal();
-                        return;
-                    }
-                }
-            }
-            else if (this._returnMode) {
-                NotifyUtils.warn(_('Please enter the amount to refund'));
-
-                this._clearAndSubtotal();
-                return;
-            }
-
-            var balance = curTransaction.getRemainTotal();
-            var paid = curTransaction.getPaymentSubtotal();
-
-            if (this._returnMode) {
-                // payment refund
-                if (payment > paid) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
-                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-
-            }
-            else {
-                if (balance <= 0) {
-                    this.clear();
-
-                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-
-                if (payment == 0 || isNaN(payment)) {
-                    payment = balance;
-                }
-
-                if (payment > balance) {
-                    if (GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('confirm giftcard payment'),
-                        _('Change of [%S] will NOT be given for this type of payment. Proceed?',
-                            [curTransaction.formatPrice(payment - balance)])) == false) {
-
-                        this._clearAndSubtotal();
-                        return;
-                    }
-                }
-                else {
-                    balance = payment;
-                }
-            }
-            if (silent && type != '') {
-                this._addPayment('giftcard', balance, payment, type, '');
-            }
-            else {
-                var data = {
-                    type: type,
-                    payment: curTransaction.formatPrice(payment)
-                };
-
-                var self = this;
-
-                return this._getGiftcardDialog(data).next(function(evt){
-
-                    var result = evt.data;
-
-                    if(result.ok) {
-
-                        var memo1 = result.input0 || '';
-                        var memo2 = result.input1 || '';
-
-                        self._addPayment('giftcard', balance, payment, memo1, memo2);
-
-                    }
-                    else {
-                        self._clearAndSubtotal();
-                    }
-                });
-            }
+            this.addNonCashPayment('giftcard', args);
         },
 
-        check: function(type) {
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer(true);
-            this._getKeypadController().clearBuffer();
-
-            // check if order is open
-            var curTransaction = this._getTransaction();
-
-            if( !this.ifHavingOpenedOrder() ) {
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
-
-                this._clearAndSubtotal();
-                return;
-            }
-
-            var payment = buf;
-            if (payment != null && payment != '') {
-                if (isNaN(payment)) {
-                    NotifyUtils.warn(_('Invalid check payment amount [%S]', [payment]));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-                else {
-                    payment = parseFloat(payment);
-                    if (payment < 0) {
-                        NotifyUtils.warn(_('Payment amount [%S] must not be negative', [payment]));
-
-                        this._clearAndSubtotal();
-                        return;
-                    }
-                }
-            }
-            else if (this._returnMode) {
-                NotifyUtils.warn(_('Please enter the amount to refund'));
-
-                this._clearAndSubtotal();
-                return;
-            }
-
-            var balance = curTransaction.getRemainTotal();
-            var paid = curTransaction.getPaymentSubtotal();
-
-            if (this._returnMode) {
-                // payment refund
-                if (payment > paid) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
-                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-
-            }
-            else {
-                if (balance <= 0) {
-                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
-
-                    this._clearAndSubtotal();
-                    return;
-                }
-
-                if (payment == null || payment == 0 || isNaN(payment)) {
-                    payment = balance;
-                }
-
-                if (payment > balance) {
-
-                    // check user's check cashing limit
-                    var user = GeckoJS.Session.get('user');
-                    var limit = 0;
-                    if (user) {
-                        limit = user.max_cash_check;
-                    }
-                    if (isNaN(limit)) limit = 0;
-
-                    if (payment - balance > limit) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Check Payment Error'),
-                            _('Cashing check for [%S] will exceed your limit of [%S]', [curTransaction.formatPrice(payment - balance), curTransaction.formatPrice(limit)]));
-
-                        this._clearAndSubtotal();
-                        return;
-                    }
-                }
-            }
-
-            var data = {
-                type: type || '',
-                payment: curTransaction.formatPrice(payment)
-            };
-
-            var self = this;
-
-            return this._getCheckDialog(data).next(function(evt){
-
-                var result = evt.data;
-
-                if(result.ok) {
-
-                    var memo1 = result.input0 || '';
-                    var memo2 = result.input1 || '';
-
-                    self._addPayment('check', payment, payment, memo1, memo2);
-
-                }
-                else {
-                    self._clearAndSubtotal();
-                }
-            });
-
+        check: function(args) {
+            this.addNonCashPayment('check', args);
         },
 
         // data fields:
@@ -2909,7 +2926,7 @@ this.log('DEBUG', 'returnable count [' + count + ']');
             this._clearAndSubtotal();
         },
 
-        _addPayment: function(type, amount, origin_amount, memo1, memo2, isGroupable) {
+        _addPayment: function(type, amount, origin_amount, memo1, memo2, isGroupable, forceFinalize) {
 
             var curTransaction = this._getTransaction();
             var returnMode = this._returnMode;
@@ -2937,11 +2954,14 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                     this._clearAndSubtotal();
                     return;
                 }
-                else if (amount < 0) {
-                    NotifyUtils.warn(_('Payment amount [%S] must not be negative', [amount]));
+                else {
+                    amount = parseFloat(amount);
+                    if (amount <= 0) {
+                        NotifyUtils.warn(_('Invalid payment amount [%S]. Payment amount must be positive', [curTransaction.formatPrice(amount)]));
 
-                    this._clearAndSubtotal();
-                    return;
+                        this._clearAndSubtotal();
+                        return;
+                    }
                 }
             }
             else if (returnMode) {
@@ -2951,29 +2971,34 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                 return;
             }
 
-            var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
+            var qty = 1;
+            if (isGroupable) {
+                qty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? parseInt(GeckoJS.Session.get('cart_set_qty_value')) : 1;
+                if (isNaN(qty) || qty < 1) qty = 1;
+            }
+
+            if (amount == null || amount == '' || amount == 0 || isNaN(amount)) {
+                // if amount no given, set amount to amount paid, and qty to 1
+                qty = 1;
+                if (returnMode) {
+                    amount = curTransaction.getPaymentSubtotal();
+                }
+                else {
+                    amount = curTransaction.getRemainTotal();
+                }
+                if (amount < 0) amount = 0;
+            }
 
             if (returnMode) {
                 // payment refund
-                var err = false;
-                if (paymentsTypes.length == 0) {
-                    NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
-                    err = true;
-                }
+                let total = curTransaction.getTotal();
+                let paid = curTransaction.getPaymentSubtotal();
+                let maxRefund = (total >= 0 ? paid : (paid - total));
 
-                if (!err && (amount == null || amount == 0 || isNaN(amount))) {
-                    // if amount no given, set amount to amount paid
-                    amount = curTransaction.getPaymentSubtotal();
-                }
+                if (amount > maxRefund) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not [%S]',
+                        [curTransaction.formatPrice(amount), curTransaction.formatPrice(maxRefund)]));
 
-                // payment refund
-                if (!err && amount > curTransaction.getPaymentSubtotal()) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
-                        [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
-                    err = true;
-                }
-
-                if (err) {
                     this._clearAndSubtotal();
                     return;
                 }
@@ -2990,50 +3015,74 @@ this.log('DEBUG', 'returnable count [' + count + ']');
             }
             if (!allMarked) {
                 this.addMarker('total');
-            //this._getCartlist().refresh();
             }
 
             type = type || 'cash';
-            amount = amount || false;
-
-            if(!amount) {
-                amount = curTransaction.getRemainTotal();
-                
-                // set amount to 0; actual amount returned is recorded in the payment change field
-                if (amount < 0) amount = 0;
-            }
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
 
             if (returnMode) {
-                origin_amount = 0 - origin_amount;
-                amount = 0 - amount;
+                if (type == 'giftcard') amount = 0 - amount;
+                qty = 0 - qty;
+                if (!isGroupable) origin_amount = 0 - origin_amount;
             }
 
             var paymentItem = {
                 type: type,
                 amount: amount,
                 origin_amount: origin_amount,
+                transaction: curTransaction,
+                memo1: memo1,
+                memo2: memo2,
                 is_groupable: isGroupable,
-                transaction: curTransaction
+                current_qty: qty
             };
             
-            var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
+            var paymentTxnItem;
 
-            if (beforeResult) {
-                var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, isGroupable);
-                paymentedItem.seq = curTransaction.data.seq;
-                paymentedItem.order_id = curTransaction.data.id;
+            if (amount != 0) {
+                var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
+                if (beforeResult) {
+                    // check if paymentItem can be merged with current item
+                    let merged = false;
+                    if (isGroupable) {
+                        let currentIndex = this._cartView.getSelectedIndex();
+                        if (!curTransaction.isLocked(currentIndex)) {
+                            let currentItem = curTransaction.getItemAt(currentIndex);
+                            let currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
+                            if (currentItemDisplay && currentItemDisplay.type == 'payment'
+                                && !currentItem.hasMarker
+                                && currentItem.is_groupable
+                                && currentItem.name == type
+                                && currentItem.memo1 == memo1
+                                && currentItem.origin_amount == origin_amount
+                                && (currentItem.current_qty > 0 && !returnMode ||
+                                    currentItem.current_qty < 0 && returnMode)) {
+                                merged = true;
+                                curTransaction.modifyPaymentQty(currentItemDisplay, currentItem, amount, qty);
+
+                                this._getCartlist().refresh();
+
+                            }
+                        }
+                    }
+
+                    if (!merged) {
+                        paymentTxnItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2, qty, isGroupable);
+                        paymentTxnItem.seq = curTransaction.data.seq;
+                        paymentTxnItem.order_id = curTransaction.data.id;
+                    }
+                }
+
+                this.dispatchEvent('afterAddPayment', paymentTxnItem);
             }
-
-            this.dispatchEvent('afterAddPayment', paymentedItem);
-
-            this._getCartlist().refresh();
-            if (curTransaction.getRemainTotal() <= 0) {
-                if (!this.submit() && !curTransaction.isSubmit()) {
-                    // remove last payment but not item
+            
+            let noAutoFinalize = GeckoJS.Configure.read('vivipos.fec.settings.DisableAutoFinalize') || false;
+            if (curTransaction.getRemainTotal() <= 0 && (forceFinalize || !noAutoFinalize)) {
+                if (!this.submit() && !curTransaction.isSubmit() && paymentTxnItem) {
+                    // remove last payment
                     let lastItem = curTransaction.data.display_sequences[curTransaction.data.display_sequences.length-1];
-                    if (lastItem.type =='payment') this.voidItem();
+                    if (lastItem.index == paymentTxnItem.id) this.voidItem();
                 }
             }else {
                 this._clearAndSubtotal();
@@ -3055,15 +3104,27 @@ this.log('DEBUG', 'returnable count [' + count + ']');
             for (var key in payments) {
                 // clone a copy of payment
                 var payment = GREUtils.extend({}, payments[key]);
-
                 payment.amount = curTransaction.formatPrice(payment.amount);
-                payment.name = _(payment.name.toUpperCase());
-
-                if (payment.origin_amount)
+                if (payment.is_groupable) {
+                    let text = payment.current_qty + 'X';
+                    if (payment.name == 'cash' && payment.memo2 != '') {
+                        payment.origin_amount = text + payment.origin_amount;
+                    }
+                    else {
+                        payment.origin_amount = text + curTransaction.formatPrice(payment.origin_amount);
+                    }
+                }
+                else if (payment.name == 'giftcard') {
                     payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
-                else
+                }
+                else if (payment.name == 'cash' && payment.memo2) {
+                    payment.origin_amount = payment.origin_amount;
+                }
+                else {
                     payment.origin_amount = '';
-                
+                }
+
+                payment.name = _('(rpt)' + payment.name);
                 paymentList.push(payment);
             }
 
@@ -3278,11 +3339,10 @@ this.log('DEBUG', 'returnable count [' + count + ']');
         cancel: function(forceCancel) {
 
             var orderModel = new OrderModel();
-            
+
             this._getKeypadController().clearBuffer();
             this._cancelReturn(true);
 
-            // cancel cart but save
             var curTransaction = this._getTransaction();
             if (!this.ifHavingOpenedOrder()) {
 
@@ -3294,6 +3354,7 @@ this.log('DEBUG', 'returnable count [' + count + ']');
 
                 // let dispatcher don't auto dispatch onCancel
                 this.dispatchedEvents['onCancel'] = true;
+
                 return;
             }
 
@@ -3731,23 +3792,67 @@ this.log('DEBUG', 'returnable count [' + count + ']');
             this.dispatchEvent('afterPreFinalize', curTransaction);
         },
 
-        cash: function(argString) {
-            if (argString == null) argString = '';
-            var argArray = String(argString).split(',');
-            var isGroupable = false;
-            var amount = argArray[0];
 
-            if (argArray.length == 2)
-                isGroupable = argArray[1];
+        /*
+         * cash accepts up to 3 parameters:
+         *a
+         * - amount
+         * - finalize
+         * - groupable
+         *
+         * if amount is 0, then the user must manually enter an amount
+         *
+         */
+
+        cash: function(args) {
+            if (args == null) args = '';
+            var argArray = String(args).split(',');
+            var amount = argArray[0];
+            var finalize = argArray[1] || false;
+            var groupable = argArray[2] || false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
-            if (buf.length>0) {
-                if (!amount) amount = buf;
+            let payment;
+
+            // if amount is not defined, is '0', or amount is not a valid number, set payment to buffer
+            if (amount == null || amount == '' || amount == '0' || isNaN(amount)) {
+
+                // payment not groupable if no preset amount given
+                groupable = false;
+                
+                payment = buf;
             }
-            this._addPayment('cash', amount, null, null, null, isGroupable);
+            else {
+                payment = amount;
+            }
+
+            // if amount is 0, verify that buffer is not empty and contains a valid number
+            if (amount == '0') {
+
+                // skip this validation if amount due is negative
+                let curTransaction = this._getTransaction();
+                if (this.ifHavingOpenedOrder() && curTransaction.getRemainTotal() > 0) {
+                    if (payment == null || payment == '') {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                                              _('Payment Warning'),
+                                              _('Tender entry is compulsory for this payment type, please enter an amount first'));
+                        this._clearAndSubtotal();
+                        return;
+                    }
+                }
+            }
+
+            let currencies = GeckoJS.Session.get('Currencies') || [];
+            if (currencies && currencies[0] && currencies[0].currency && currencies[0].currency.length > 0) {
+                memo1 = currencies[0].currency;
+            }
+            else {
+                memo1 = '';
+            }
+            this._addPayment('cash', payment, payment, memo1, null, groupable, finalize);
         },
 
         insertCondiment: function(params) {
@@ -3971,7 +4076,7 @@ this.log('DEBUG', 'returnable count [' + count + ']');
                         var condGroupCache = {};
                         var condGroupsById = GeckoJS.Session.get('condGroupsById');
                         var filteredCondiments = [];
-                        
+
                         selectedCondiments.forEach(function(cond) {
 
                             if (condGroupCache[cond.condiment_group_id] == null) {
@@ -4006,7 +4111,7 @@ this.log('DEBUG', 'returnable count [' + count + ']');
 
                         selectedCondiments = filteredCondiments;
                     }
-                    
+
                     // expand condiments if collapsed
 
                     // get first condiment display item
@@ -4092,11 +4197,24 @@ this.log('DEBUG', 'returnable count [' + count + ']');
 
             var d = new Deferred();
 
+            // if plu is string, check annotation code == plu ?
+
             var memo;
             if (typeof plu == 'object' || plu == null || plu == '') {
                 return this._getMemoDialog(memoItem ? memoItem.memo : '');
-            }
-            else {
+            }else if (typeof plu == 'string') {
+                var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+                var annotationText = annotationController.getAnnotationText(plu);
+
+                if (annotationText) {
+                    return this._getMemoDialog(plu);
+                }else {
+                    memo = GeckoJS.String.trim(plu);
+                    curTransaction.appendMemo(index, memo);
+                    this._clearAndSubtotal();
+                }
+
+            }else {
                 memo = GeckoJS.String.trim(plu);
                 curTransaction.appendMemo(index, memo);
                 this._clearAndSubtotal();
@@ -4416,7 +4534,17 @@ this.log('DEBUG', 'returnable count [' + count + ']');
             var self = this;
 
             var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+            var annotationText = memo ? annotationController.getAnnotationText(memo) : false ;
             var annotationTypes = annotationController.getAllAnnotationTypes();
+
+            // if memo is annotation code
+            if (annotationText) {
+                    annotationTypes = [] ;
+                    var texts = annotationText.split('|');
+                    texts.forEach(function(t){
+                        annotationTypes.push({type: t, text: t});
+                    });
+            }
 
             var inputObj = {
                 input0: memo || '',

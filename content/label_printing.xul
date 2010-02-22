@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Label SYSTEM "chrome://viviecr/locale/label_printing.dtd">
+  %Label;
+  <!ENTITY % PLUs SYSTEM "chrome://viviecr/locale/plus.dtd">
+  %PLUs;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/stocks.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/label_printing.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/interruptible_waiting_panel.xul"?>
+
+
+
+<window title="&label_printing.title;"
+        hidechrome="true"
+        oncommand = "$do('detectTabList', null,'Tab');"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/models/product.js" type="application/x-javascript"/>
+
+  <!-- include views -->
+
+  <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_products_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_plus_view.js'/>
+  <!--script src='chrome://viviecr/content/helpers/nsi_condiments_view.js'/-->
+  <!--script src='chrome://viviecr/content/helpers/nsi_plugroups_view.js'/-->
+
+  <!-- include components -->
+  <script src="chrome://viviecr/content/controllers/components/barcode.js" type="application/x-javascript"/>
+  <!-- include controllers -->
+  <script src="chrome://viviecr/content/controllers/label_printing_controller.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/plusearch_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/label_printing.js" />
+
+    <vbox id="plusXUL" flex="1" class="container-be layout-be">
+        <vbox flex="1" class="container-main layout-a">
+            <hbox  flex="1">
+                <vbox flex="1" class="container-left block-50">
+                    <label value="&label_printing.title;" class="label-page-title"/>
+                    <tabbox flex="1" class="custom-content-tabbox">
+                        <tabs id="mode_tabs">
+                            <tab id="tab_departmentMode" label="&label_printing.tab.departmentMode;"/>
+                            <tab id="tab_individualMode" label="&label_printing.tab.individualMode;"/>
+                            <tab id="tab_procurementMode" label="&label_printing.tab.procurementMode;"/>
+                            <tab id="tab_searchMode" label="&label_printing.tab.searchMode;"/>
+                        </tabs>
+                        <tabpanels id="tabpanels" flex="1">
+                            <tabpanel  flex="1" orient="vertical">
+                                <vbox class="content-buttonpanel" flex="1">
+                                    <viviscrollablebuttonpanel id="catescrollablepanel" dir="reverse" flex="1" cols="4" rows="5" labelField="name" imageField="no"
+                                                        oncommand="$do('selectDepartment',this.selectedIndex, 'Tab');"
+                                                      buttonClass="button-department"
+                                                    scrollUpClass="scroll-up-button"
+                                                  scrollDownClass="scroll-down-button"
+                                                  seltype="none">
+                                        <spacer flex="1"/>
+                                    </viviscrollablebuttonpanel>
+                                </vbox>
+                            </tabpanel>
+
+                            <tabpanel flex="1" orient="vertical">
+                                <!-- Category panel -->
+                                    <vbox class="content-buttonpanel" flex="1">
+                                        <viviscrollablebuttonpanel id="individual_catescrollablepanel" dir="reverse" flex="1" cols="4" rows="3" labelField="name" imageField="no"
+                                                            oncommand= "$do('viewProduct',this.selectedIndex,'Tab');"
+                                                          buttonClass="button-department"
+                                                        scrollUpClass="scroll-up-button"
+                                                      scrollDownClass="scroll-down-button">
+                                            <spacer flex="1"/>
+                                        </viviscrollablebuttonpanel>
+                                    </vbox>
+                                    <!-- Product panel -->
+                                    <vbox class="content-buttonpanel" flex="1">
+                                        <viviscrollablebuttonpanel id="individual_prodscrollablepanel" flex="1" dir="reverse" cols="4" rows="4" labelField="name" imageField="no"
+                                                        ensureVisible="true"
+                                                            oncommand="$do('clickPluPanel',this.selectedIndex, 'Tab');"
+                                                         buttonClass="button-plu button-medium-image"
+                                                        scrollUpClass="scroll-up-button"
+                                                      scrollDownClass="scroll-down-button"
+                                                              seltype="none">
+                                            <spacer flex="1"/>
+                                        </viviscrollablebuttonpanel>
+                                    </vbox>
+                            </tabpanel>
+
+                            <tabpanel  orient="vertical" >
+                                <hbox>
+                                    <vbox flex="1">
+                                        <grid flex="1" class="data-form-2">
+                                            <columns>
+                                                <column flex="1"/><column flex="1"/>
+                                            </columns>
+                                            <rows >
+                                                <row>
+                                                    <vbox>
+                                                        <label value="&label_printing.procurement.startdate;"/>
+                                                        <vividatetimepicker id="start_date" value="" type="popup" mode="date"/>
+                                                    </vbox>
+                                                    <vbox>
+                                                        <label value="&label_printing.procurement.enddate;"/>
+                                                        <vividatetimepicker id="end_date" value="" type="popup" mode="date"/>
+                                                    </vbox>
+                                                </row>
+                                            </rows>
+                                        </grid>
+                                    </vbox>
+                                </hbox>                         
+                                <vbox  flex="1">
+                                    <vbox flex="1" class="content-listbox">
+                                        <vivitree   id="commitmentscrollableTablist" seltype = "single" flex="1" hidecolumnpicker="true" class="standard"
+                                               headers="&lable_printing.commitmentList.heading.date;,&lable_printing.commitmentList.heading.memo;,&lable_printing.commitmentList.heading.supplier;"
+                                                fields="date,memo,supplier"
+                                              onselect="$do('selectCommitment', null, 'Tab');"/>
+                                    </vbox>                                   
+                                </vbox>
+                                <hbox align="right"> <button  class="button-fixed"   id="execute" label="&lable_printing.button.action.execute;" disabled="false"  oncommand="$do('searchCommitments', null, 'Tab');"/></hbox>
+                            </tabpanel>
+
+                            <tabpanel orient="vertical">
+                                <label value="&lable_printing.search.label;"/>
+                                <hbox align="center">
+                                    <vivitextbox id="plu" flex="1"
+                                        numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                            onenter="$do('searchPlu2', this.value, 'PluSearch'); event.preventDefault();"/>
+
+                                    <vivibutton id="ekeyBtn" class="button-fixed" label="&lable_printing.numpad.advsearch;"
+                                         oncommand="$do('setSearchButtonTrue',null, 'Tab');$do('searchPlu2', document.getElementById('plu').value, 'PluSearch');$do('detectOnlyOneMatch',this.selectedIndex, 'Tab');"/>
+                                </hbox>
+
+                                <vbox flex="1" class="content-listbox">
+                                    <vivitree id="plusearchscrollablepanel" flex="1" hidecolumnpicker="true" class="standard"
+                                         headers="&lable_printing.search.heading.no;,&lable_printing.search.heading.name;"
+                                          fields="no,name"
+                                        onselect="$do('addBySearch',this.selectedIndex, 'Tab');"/>
+                                </vbox>
+                                <vbox id="advance_search" orient="vertical">
+                                <label value="&plus.search.advancesearch;:" class="label-sub-title"/>
+                                <grid flex="1" class="data-form">
+                                    <columns>
+                                        <column flex="1"/>
+                                        <column flex="1"/>
+                                    </columns>
+                                    <rows id="rows_filter">
+                                    </rows>
+                                </grid>
+                                <hbox pack="center">
+                                    <vivibutton id="advSearchBtn" label="&plus.button.numpad.advsearch;" class="button-fixed" oncommand="$do('setSearchButtonTrue',null, 'Tab');$do('advSearch', true, 'PluSearch');$do('detectOnlyOneMatch',this.selectedIndex, 'Tab');"/>
+                                    <vivibutton id="advClearBtn" label="&plus.button.numpad.advclear;" class="button-fixed" oncommand="$do('advClear', null, 'PluSearch');"/>
+                                </hbox>
+                            </vbox>
+                            </tabpanel>
+                        </tabpanels>
+                    </tabbox>
+                </vbox>
+
+                <vbox flex="1" class="container-right">
+                    <grid class="data-form-2">
+                        <columns>
+                            <column flex="0" /><column flex="1" />
+                        </columns>
+                        <rows>
+                            <row>
+                                <hbox  class="filebar">
+                                    <vbox>
+                                        <button id="save_list" label="&lable_printing.button.action.save;" class="" oncommand = "$do('saveList', null, 'Tab');"/>
+                                    </vbox>
+                                    <vbox>
+                                        <button id="delete_list" label="&lable_printing.button.action.deleteList;" disabled="true" class="" oncommand = "$do('deleteList', null, 'Tab');"/>
+                                    </vbox>
+                                </hbox>
+
+                                <vbox flex="0">
+                                    <menulist  id="tabList" form="" name="" label = "&lable_printing.loadList;" oncommand = "$do('loadList', this.selectedIndex, 'Tab');">
+                                        
+                                    </menulist>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid >
+
+                    <vbox flex="1" class="content-listbox">
+                        <vivitree        id="printscrollableTablist" flex="1" hidecolumnpicker="true" class="standard custom-content-labelPrinting-list"
+                                    headers="&lable_printing.tabList.heading.name;, &lable_printing.tabList.heading.price;, &lable_printing.tabList.heading.count;"
+                                     fields="name,selectedPrice,count"
+                                   onselect="$do('setCount', this.selectedIndex, 'Tab');"/>
+                    </vbox>
+
+                    <grid class="data-form-2">
+                        <columns>
+                            <column flex="1" /><column flex="1" />
+                        </columns>
+                        <rows>
+                            <row>
+                                <vbox  >
+                                    <label value="&lable_printing.pricLevel;"/>
+                                    <menulist id="priceList" class="pricelevel"  form="setProductForm" name="selectedPrice" label = "&lable_printing.pricLevel;" onfocus="select()" >
+                                    </menulist>
+                                </vbox>
+                                <vbox>
+                                    <label value="&lable_printing.product.count;"/> <!--&tabs.product.count;-->
+                                    <vivitextbox numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"  id="count_textbox" form= "setProductForm" type="number" decimalplaces = "0"
+                                         default="1" min="1" onfocus="select()" name="count" disabled="true"/>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
+                </vbox>
+            </hbox>
+            <hbox>
+                <hbox flex="1">
+                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                        <vivibutton id="print"   disabled="false" class="PrintBtn" oncommand="$do('printlabel', null, 'Tab');" />
+                        <space flex = "1"/>
+                        <button id="modify_product" label="&lable_printing.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyCount', null, 'Tab');" />
+                        <button id="delete_product" label="&lable_printing.button.action.deleteProduct;" disabled="true" class="button-delete" oncommand="$do('removeTabListProduct', null, 'Tab');" />     <!--&plus.button.action.delete;-->
+                    </hbox>
+                    <hbox  pack="center" class="exitbar">
+                        <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                        <button id="close" default="true" class="button-exit" oncommand="$do( 'exit', null, 'Tab');"/>
+                    </hbox>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
+
+    <vivipanel id="error_panel" position="overlap" class="container-dialog">
+        <hbox flex="1" class="custom-container-error-panel">
+            <vbox flex="1" class="container-main custom-container-error-dialog">
+                <caption label="&lable_printing.error.title;" class="label-page-title"/>
+                <vbox flex="1" class="content-listbox">
+                    <label value="&lable_printing.error.messege;" class="label-alert"/>
+                    <vivitree id="errorscrollablepanel" flex="1"
+                              headers="&lable_printing.error.heading.name;,&lable_printing.error.heading.barcode;,&lable_printing.error.heading.price;,&lable_printing.error.heading.memo;"
+                              fields="name,barcode,selectedPrice,comm"
+                              class="standard custom-content-error-list"
+                             />
+                </vbox>
+               <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                   <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="$do('continuePrinting', null, 'Tab')"/>
+                   <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="document.getElementById('error_panel').hidePopup()"/>
+                                  
+                    <!--button id="close_error" default="true" class="button-exit"
+                            oncommand="document.getElementById('error_panel').hidePopup()"/-->
+                </hbox>
+            </vbox>
+        </hbox>
+    </vivipanel>
+
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs"/>
+</window>

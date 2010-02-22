@@ -70,7 +70,7 @@
                 <tabpanel flex="1" orient="vertical">
                     <vbox flex="1" class="content-buttonpanel">
 
-                        <viviscrollablebuttonpanel id="groupscrollablepanel1" flex="1" cols="3" rows="3" labelField="name" imageField="no"
+                        <viviscrollablebuttonpanel id="groupscrollablepanel1" flex="1" cols="3" rows="2" labelField="name" imageField="no"
                                                    seltype="single"
                                                    ensureVisible="true"
                                                    buttonClass="button-plugroup"
@@ -78,21 +78,35 @@
                                                    scrollDownClass="scroll-down-button">
                             <spacer flex="1"/>
                         </viviscrollablebuttonpanel>
+                    </vbox>
 
-                        <spacer style="height: 10px;" />
-
-                        <hbox>
+                    <grid class="data-form">
+                        <columns>
+                            <column/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
                                 <label value="&common.label.trigger_amount_value;"/>
                                 <textbox id="amount_value" type="number" decimalplaces="Infinity" min="-Infinity" flex="1"
                                          form="multiGroupForm" name="first_amount_value" default="0"/>
-                        </hbox>
-
-                    </vbox>
+                            </row>
+                            <row>
+                                <label value="&common.label.trigger_applicable_destination;"/>
+                                <menulist id="firstDestinationList"
+                                          form="multiGroupForm" name="first_destination">
+                                    <menupopup>
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                        </rows>
+                    </grid>
+                    
                 </tabpanel>
                 <tabpanel flex="1" orient="vertical">
                     <vbox flex="1" class="content-buttonpanel">
 
-                        <viviscrollablebuttonpanel id="groupscrollablepanel2" flex="1" cols="3" rows="3" labelField="name" imageField="no"
+                        <viviscrollablebuttonpanel id="groupscrollablepanel2" flex="1" cols="3" rows="2" labelField="name" imageField="no"
                                                    seltype="single"
                                                    ensureVisible="true"
                                                    buttonClass="button-plugroup"
@@ -100,16 +114,30 @@
                                                    scrollDownClass="scroll-down-button">
                             <spacer flex="1"/>
                         </viviscrollablebuttonpanel>
-                        
-                        <spacer style="height: 10px;" />
+                    </vbox>
 
-                        <hbox>
+                    <grid class="data-form">
+                        <columns>
+                            <column/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
                                 <label value="&common.label.trigger_amount_value;"/>
                                 <textbox id="amount_value" type="number" decimalplaces="Infinity" min="-Infinity" flex="1"
                                          form="multiGroupForm" name="second_amount_value" default="0"/>
-                        </hbox>
-
-                    </vbox>
+                            </row>
+                            <row>
+                                <label value="&common.label.trigger_applicable_destination;"/>
+                                <menulist id="secondDestinationList"
+                                          form="multiGroupForm" name="second_destination">
+                                    <menupopup>
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                        </rows>
+                    </grid>
+                    
                 </tabpanel>
             </tabpanels>
         </tabbox>

@@ -99,6 +99,11 @@ pref("vivipos.fec.settings.controlpanels.product.imagemanager.label", "chrome://
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.path", "chrome://viviecr/content/imageManager.xul");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.roles", "acl_manage_images");
 
+pref("vivipos.fec.settings.controlpanels.product.label_printing.icon", "chrome://viviecr/skin/icons/icon_printlabel.png");
+pref("vivipos.fec.settings.controlpanels.product.label_printing.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.settings.controlpanels.product.label_printing.path", "chrome://viviecr/content/label_printing.xul");
+pref("vivipos.fec.settings.controlpanels.product.label_printing.roles", "acl_print_labels");
+
 pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.icon", "chrome://viviecr/skin/icons/icon_plus.png");
 pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.path", "chrome://viviecr/content/nonplu_setting.xul");
@@ -211,3 +216,8 @@ pref("vivipos.fec.settings.controlpanels.system.view_system_log.icon", "chrome:/
 pref("vivipos.fec.settings.controlpanels.system.view_system_log.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.settings.controlpanels.system.view_system_log.path", "chrome://viviecr/content/view_system_log.xul");
 pref("vivipos.fec.settings.controlpanels.system.view_system_log.roles", "acl_view_system_log");
+
+pref("vivipos.fec.settings.controlpanels.system.admin_tools.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
+pref("vivipos.fec.settings.controlpanels.system.admin_tools.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.settings.controlpanels.system.admin_tools.path", "chrome://viviecr/content/admintools.xul");
+pref("vivipos.fec.settings.controlpanels.system.admin_tools.roles", "acl_admin_tools");

@@ -125,6 +125,8 @@
                                                       form="productsForm" name="cpStockControl" default="false" />
                                         <checkbox id="cpTaxes" value="true" label="Disable Taxes Manager"
                                                       form="productsForm" name="cpTaxes" default="false" />
+                                        <checkbox id="cpLabelPrinting" value="true" label="Disable Label Printing"
+                                                      form="productsForm" name="cpLabelPrinting" default="false" />
                                     </tabpanel>
 
                                     <tabpanel flex="1" orient="vertical">
@@ -641,6 +643,8 @@
                                 <tabpanels id="systemsTabpanels" flex="1">
 
                                     <tabpanel flex="1" orient="vertical">
+                                        <checkbox id="cpAdminTools" value="true" label="Disable Administration Tools"
+                                                      form="systemsForm" name="cpAdminTools" default="true" />
                                         <checkbox id="cpDatetime" value="true" label="Disable Datetime Manager"
                                                       form="systemsForm" name="cpDatetime" default="false" />
                                         <checkbox id="cpImportexport" value="true" label="Disable Import/Export Manager"
@@ -683,6 +687,8 @@
                                                           form="systemsForm" name="serviceSyncSettingsStock" default="false" />
                                         <checkbox id="serviceSyncSettingsNtp" value="true" label="&sync_settings.label.ntp_hostname;"
                                                           form="systemsForm" name="serviceSyncSettingsNtp" default="false" />
+                                        <checkbox id="serviceSyncSettingsIRC" value="true" label="&sync_settings.label.irc_hostname;"
+                                                          form="systemsForm" name="serviceSyncSettingsIRC" default="false" />
                                     </tabpanel>
 
                                     <tabpanel flex="1" orient="vertical">

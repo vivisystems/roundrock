@@ -9,7 +9,11 @@
     text-align: center;
 }
 
-#shiftscrollablepanel tree #type,
+#shiftscrollablepanel tree #type {
+    text-align: left;
+    width: 100px;
+}
+
 #shiftscrollablepanel tree #name {
     text-align: center;
     width: 100px;

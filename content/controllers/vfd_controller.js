@@ -9,6 +9,7 @@
         _device: null,
         _worker: null,
         _useMainThread: false,
+        _timers: {},
 
         // load device configuration and selections
         initial: function () {
@@ -33,7 +34,7 @@
                 cart.addEventListener('afterAddSurcharge', this.displayOnVFD, this);
                 cart.addEventListener('afterAddCondiment', this.displayOnVFD, this);
                 cart.addEventListener('afterCancel', this.displayOnVFD, this);
-
+                cart.addEventListener('onRecovery', this.displayOnVFD, this);
             }
 
             var cartQueue = GeckoJS.Controller.getInstanceByName('Cart');
@@ -42,9 +43,12 @@
                 cartQueue.addEventListener('onPullQueue', this.displayOnVFD, this);
             }
 
+            // add eventListener on VFD
+            this.addEventListener('onMessage', this.displayOnVFD, this);
+
             var self = this;
             this.observer = GeckoJS.Observer.newInstance({
-                topics: [ 'acl-session-change', 'TrainingMode' ],
+                topics: [ 'acl-session-change', 'TrainingMode', 'device-refreshed' ],
                 observe: function(aSubject, aTopic, aData) {
                     switch(aTopic) {
                         case 'acl-session-change':
@@ -54,12 +58,19 @@
                                 self.displayOnVFD();
                             }
                             break;
+
+                        case 'device-refreshed':
+                            self.restartIdleTimer();
+                            break;
                     }
                 }
             }).register();
 
             // initialize display
             this.displayOnVFD();
+
+            // create idle timer
+            this.restartIdleTimer();
         },
 
         getDeviceController: function () {
@@ -172,6 +183,9 @@
 
         // handles VFD events
         displayOnVFD: function(evt) {
+
+            // cancel timer
+            this.cancelIdleTimer();
             
             //alert(GeckoJS.BaseObject.dump(evt.data));
             var device = this.getDeviceController();
@@ -192,7 +206,7 @@
             var itemDisplay;
             var self = this;
             var type = evt ? evt.getType() : 'initial';
-
+            
             switch (type) {
                 
                 case 'afterVoidItem':
@@ -212,6 +226,10 @@
                 case 'initial':
                     break;
 
+                case 'onMessage':
+                    item = {line1: evt.data[0] ||'', line2: evt.data[1] || ''};
+                    break;
+                    
                 default:
                     item = evt.data;
             }
@@ -241,6 +259,8 @@
                     self.sendToVFD(data, template, port, portspeed, handshaking, devicemodel, encoding);
                 });
             }
+
+            this.restartIdleTimer();
         },
 
         // print check using the given parameters
@@ -286,11 +306,8 @@
             }
             //
             // translate embedded hex codes into actual hex values
-            var replacer = function(str, p1, offset, s) {
-                return String.fromCharCode(new Number(p1));
-            }
             result = result.replace(/\[(0x[0-9,A-F][0-9,A-F])\]/g, function(str, p1, offset, s) {return String.fromCharCode(new Number(p1));});
-            //this.log('DEBUG', GREUtils.log.dump(result));
+            this.log('DEBUG', GeckoJS.BaseObject.dump(result));
             
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
@@ -355,7 +372,66 @@
             }
 
         },
-        
+
+        restartIdleTimer: function() {
+            let device = this.getDeviceController();
+            let enabledDevices = device.getEnabledDevices('vfd') || [];
+            let cart = GeckoJS.Controller.getInstanceByName('Cart');
+            let self = this;
+
+            this.log('DEBUG', 'restarting timer');
+            enabledDevices.forEach(function(device) {
+                // extract delay setting in seconds
+                let delay = parseInt(device.idle);
+                if (isNaN(delay)) delay = 0;
+
+                self.log('DEBUG', 'delay setting for VFD [' + device.number + ']: idle delay [' + delay + ']');
+                if (delay > 0) {
+                    if (!self._timers[device.number]) {
+                        self._timers[device.number] = Components.classes["@mozilla.org/timer;1"].createInstance(Components.interfaces.nsITimer);
+                    }
+
+                    if (self._timers[device.number]) {
+
+                        self._timers[device.number].cancel();
+                        self.log('DEBUG', 'restarting timer for VFD [' + device.number + ']');
+
+                        var cb = {
+                            notify: function() {
+                                self.log('DEBUG', 'in notify [' + cart + '], [' + (cart ? !cart.ifHavingOpenedOrder() : 'true') + '] for VFD [' + device.number + ']');
+                                if (!cart || !cart.ifHavingOpenedOrder()) {
+                                    let data = {
+                                        type: 'idle',
+                                        store: GeckoJS.Session.get('storeContact')
+                                    };
+
+                                    _templateModifiers(TrimPath, device.encoding);
+                                    self.sendToVFD(data, device.template, device.port, device.portspeed, device.handshaking, device.devicemodel, device.encoding);
+                                }
+                            }
+                        }
+                        self._timers[device.number].initWithCallback(cb, delay * 1000, 0);
+                        self.log('DEBUG', 'timer restarted for VFD [' + device.number + ']');
+                    }
+                }
+            });
+        },
+
+        cancelIdleTimer: function() {
+            let device = this.getDeviceController();
+            let enabledDevices = device.getEnabledDevices('vfd') || [];
+            let self = this;
+            this.log('DEBUG', 'cancelling timer');
+
+            enabledDevices.forEach(function(device) {
+                if (device._timer) {
+                    self.log('DEBUG', 'cancelling timer for VFD [' + device.number + ']');
+                    self._timers[device.number].cancel();
+                    self.log('DEBUG', 'timer cancelled for VFD [' + device.number + ']');
+                }
+            });
+        },
+
         destroy: function() {
             if (this.observer) this.observer.unregister();
     	}

@@ -1,3 +1,23 @@
+<!ENTITY selecttable.compacttable.title  "Select Table">
+<!ENTITY selecttable.compacttable.splitcheck  "Split Chk">
+<!ENTITY selecttable.compacttable.recallcheck  "Recall Chk">
+<!ENTITY selecttable.compacttable.mergecheck  "Merge Chk">
+<!ENTITY selecttable.compacttable.selectno  "Select Tbl">
+<!ENTITY selecttable.compacttable.refreshtablestatus  "Refresh">
+<!ENTITY selecttable.compacttable.transtable  "Xfer Tbl">
+<!ENTITY selecttable.compacttable.mergetable  "Merge Tbl">
+<!ENTITY selecttable.compacttable.unmergetable  "Unmerge Tbl">
+<!ENTITY selecttable.compacttable.bookingtable  "Book Tbl">
+<!ENTITY selecttable.compacttable.changeclerk  "Chng Clerk">
+<!ENTITY selecttable.compacttable.marktable "Mark Tbl">
+<!ENTITY selecttable.compacttable.unmarktable "Unmark Tbl">
+<!ENTITY selecttable.compacttable.markregion "Mark Region">
+<!ENTITY selecttable.compacttable.unmarkregion "Unmark Region">
+<!ENTITY selecttable.compacttable.more "More">
+<!ENTITY selecttable.compacttable.priorregion  "Prior Region">
+<!ENTITY selecttable.compacttable.nextregion  "Next Region">
+<!ENTITY selecttable.compacttable.availableSeats  "Available Seats">
+
 <!ENTITY selecttable.title  "Select Table">
 <!ENTITY selecttable.splitcheck  "Split Check">
 <!ENTITY selecttable.recallcheck  "Recall Check">
@@ -11,3 +31,4 @@
 <!ENTITY selecttable.changeclerk  "Change Clerk">
 <!ENTITY selecttable.priorregion  "Prior Region">
 <!ENTITY selecttable.nextregion  "Next Region">
+<!ENTITY selecttable.availableSeats  "Available Seats">

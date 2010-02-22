@@ -1,0 +1,49 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Compact Table Layout
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-express-key-list #name,
+.custom-express-key-list #linked,
+.custom-express-key-list #label {
+    text-align: center;
+}
+
+.custom-content-formbox {
+    background: #f2f1eb;
+    height: 280px;
+    min-height: 280px;
+    margin: 2px 4px 2px 2px;
+    max-width: 420px;
+    width: 420px;
+}
+
+.custom-data-form {
+    border: 1px solid white;
+    background: #f0efe8;
+    margin-bottom: 4px;
+}
+
+.custom-data-form row {
+    border: 1px solid white;
+    min-height: 44px;
+    padding: 8px;
+    -moz-box-align: center;
+}
+
+.custom-data-form column {
+    border: 1px solid white;
+    padding: 8px;
+}
+
+.custom-data-form label {
+    font-size: 12pt;
+    color: #372213;
+}
+
+.custom-data-form button label {
+    font-size: inherit;
+}
+

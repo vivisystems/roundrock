@@ -38,6 +38,9 @@
   <!-- include base controller -->
   <script src='chrome://viviecr/content/controller/app_controller.js' type="application/x-javascript;version=1.7"/>
 
+  <!-- irc -->
+  <script src='chrome://viviecr/content/controllers/irc_controller.js' type="application/x-javascript;version=1.8"/>
+
   <!-- front-end UI controllers -->
   <script src='chrome://viviecr/content/controllers/main_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/cart_controller.js' type='application/x-javascript;version=1.8'/>
@@ -62,6 +65,7 @@
   <script src='chrome://viviecr/content/controllers/training_mode_controller.js' typinterruptible_e="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/nonplu_setting_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/stock_records_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/userprefs_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- report controllers for reports to be generated from front-end -->
   <script src='chrome://viviecr/content/reports/controllers/rpt_cash_by_clerk_controller.js' type="application/x-javascript;version=1.7"/>
@@ -69,6 +73,9 @@
 
   <!-- electronic journal controller-->
   <script src='chrome://viviecr/content/controllers/journal_controller.js' type="application/x-javascript;version=1.7"/>
+
+  <!-- barcode learning controller-->
+  <script src='chrome://viviecr/content/controllers/barcode_learning_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- device controllers -->
   <script src='chrome://viviecr/content/controllers/devices_controller.js' type="application/x-javascript;version=1.7"/>
@@ -82,7 +89,7 @@
   <!-- scale drivers -->
   <script src='chrome://viviecr/content/devices/controllers/scale/mt_tiger_ii_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/devices/controllers/scale/excell_aw_30_controller.js' type="application/x-javascript;version=1.7"/>
-<script src='chrome://viviecr/content/devices/controllers/scale/uwe_dp_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/devices/controllers/scale/uwe_dp_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- services controller -->
   <script src='chrome://viviecr/content/controllers/idle_controller.js' type="application/x-javascript;version=1.7"/>

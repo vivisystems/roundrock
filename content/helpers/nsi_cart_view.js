@@ -162,17 +162,24 @@
 
             var sResult;
             var key;
-
             try {
                 key = col.id;
+                var data = this.data[row];
                 if (key == 'row') {
                     sResult = 1 + parseInt(row);
                 }
+                else if (key == 'price_level') {
+                    // display price level only if current price exists
+                    sResult = '';
+                    if (data.type == 'item' && data.current_price != '' && data.price_level != '') {
+                            sResult = '[' + data.price_level + ']';
+                    }
+                }
                 else
-                    sResult = this.data[row][key] || "";
+                    sResult = this.data[row][key] || '';
             }
             catch (e) {
-                sResult =  "";
+                sResult =  '';
             }
             return sResult;
 

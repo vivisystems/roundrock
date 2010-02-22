@@ -249,7 +249,7 @@
             try {
                 this.Tax.removeTax(tax.no);
 
-                this._selectedIndex = -1;
+                this._selectedIndex = null;
                 if (selectedIndex >= this._listDatas.length - 1) {
                     selectedIndex--;
                 }
@@ -348,7 +348,7 @@
 
             var listObj = this.getListObj();
             var selectedIndex = listObj.selectedIndex;
-
+            
             if (selectedIndex == this._selectedIndex) return;
             
             if (!this.confirmChangeTax(selectedIndex)) {

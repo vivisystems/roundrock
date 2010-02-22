@@ -1,0 +1,93 @@
+/*--------------------------------------------------------------------------
+ *
+ * PRODUCT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.product-button-color-default {
+    background:#CEE5BB !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.product-button-color-1 {
+    background:#BBE5BF !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.product-button-color-2 {
+    background:#98D494 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.product-button-color-3 {
+    background:#4EA659 !important;
+    border: none;
+    -moz-appearance: none;
+}
+
+.product-button-color-4 {
+    background:#C1DCE1 !important;
+    border: none;
+     -moz-appearance: none;
+}
+
+.product-button-color-5 {
+    background:#B2D58A !important;
+    border: none;
+     -moz-appearance: none;
+}
+
+.product-button-color-6 {
+    background:#BACE40 !important;
+    border: none;
+     -moz-appearance: none;
+}
+
+.product-button-color-7 {
+    background:#73E5A6 !important;
+    border: none;
+     -moz-appearance: none;
+}
+
+.product-button-color-8 {
+    background:#77BDBB !important;
+    border: none;
+     -moz-appearance: none;
+ }
+
+.product-button-color-9 {
+    background:#699DBB !important;
+    border: none;
+     -moz-appearance: none;
+}
+
+.product-button-color-10 {
+    background:#A1BA99 !important;
+    border: none;
+     -moz-appearance: none;
+}
+
+.product-button-color-11 {
+    background:#899A70 !important;
+    border: none;
+     -moz-appearance: none;
+}
+
+.product-button-color-default[selected]:not([disabled=true]), .product-button-color-1[selected]:not([disabled=true]),
+.product-button-color-2[selected]:not([disabled=true]), .product-button-color-3[selected]:not([disabled=true]),
+.product-button-color-4[selected]:not([disabled=true]), .product-button-color-5[selected]:not([disabled=true]),
+.product-button-color-6[selected]:not([disabled=true]), .product-button-color-7[selected]:not([disabled=true]),
+.product-button-color-8[selected]:not([disabled=true]), .product-button-color-9[selected]:not([disabled=true]),
+.product-button-color-10[selected]:not([disabled=true]), .product-button-color-11[selected]:not([disabled=true]) {
+    /*list-style-image: url(chrome://viviecr/skin/images/con_sel.png);*/
+    border: 3px solid red;
+    -moz-border-top-colors: red red red !important;
+    -moz-border-left-colors: red red red !important;
+    -moz-border-bottom-colors: red red red !important;
+    -moz-border-right-colors: red red red !important;
+    font-size: italic;
+}

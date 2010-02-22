@@ -64,6 +64,14 @@
                                     <radio label="&common.label.trigger_amount_mode_multiple;" value="multiple"/>
                                 </radiogroup>
                             </row>
+                            <row>
+                                <label value="&common.label.trigger_applicable_destination;"/>
+                                <menulist id="destinationList"
+                                          form="individualPluForm" name="destination">
+                                    <menupopup>
+                                    </menupopup>
+                                </menulist>
+                            </row>
                         </rows>
                     </grid>
                 </tabpanel>

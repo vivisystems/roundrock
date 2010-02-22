@@ -33,11 +33,11 @@
 
 .layout-dialog .layout-popup-prompt {
     background: white;
-    height: 560px;
-    margin: 20px 150px;
-    max-height: 560px;
+    height: 580px;
+    margin: 10px 150px;
+    max-height: 580px;
     max-width: 500px;
-    min-height: 560px;
+    min-height: 580px;
     min-width: 500px;
     overflow: hidden;
     width: 500px;
@@ -142,9 +142,9 @@
 
 .layout-dialog .layout-b .block-50 {
     /* 50% */
-    height: 300px;
-    min-height: 300px;
-    max-height: 300px;
+    height: 290px;
+    min-height: 290px;
+    max-height: 290px;
 }
 
 .layout-dialog .layout-b .block-33 {

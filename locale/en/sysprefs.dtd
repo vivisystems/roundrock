@@ -4,6 +4,7 @@
 <!ENTITY category.layout.panels "Panels">
 <!ENTITY category.layout.cart "Cart">
 <!ENTITY category.layout.banner "Banner">
+<!ENTITY category.layout.logo "Logo">
 <!ENTITY category.general "General">
 <!ENTITY category.formats "Numbers &amp; Formats">
 <!ENTITY category.login "Sign In/Out">
@@ -22,9 +23,11 @@
 <!ENTITY general.idletime "System idle time (seconds)">
 <!ENTITY general.ageverificationack "Require clerk acknowledgement for age verification">
 <!ENTITY general.autosetdecimalpoint "Adjust for decimal point automatically">
+<!ENTITY general.disableautofinalize "Disable auto-finalization on payment">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
 <!ENTITY general.ifprintwhiletraining "Print receipt and check while training?">
 <!ENTITY general.quietcancel "Do not beep when cancelling orders">
+<!ENTITY general.barcodelearning "Assign barcode learning product group">
 <!ENTITY general.cartscrollmode "Scroll mode for register screen">
 <!ENTITY general.cartscrollmode.cursor-line "Cursor mode (line-by-line)">
 <!ENTITY general.cartscrollmode.view-page "View mode (page-by-page)">
@@ -72,6 +75,7 @@
 <!ENTITY layout.plu.label "Product panel">
 <!ENTITY layout.plu.rows "rows">
 <!ENTITY layout.plu.cols "columns">
+<!ENTITY layout.plu.button.height "button height">
 <!ENTITY layout.condiment.label "Condiment panel">
 <!ENTITY layout.condiment.rows "rows">
 <!ENTITY layout.condiment.cols "columns">
@@ -84,6 +88,10 @@
 <!ENTITY layout.showclockinicon "Show clock-in icon">
 <!ENTITY layout.showvirtualkeyboardicon "Show virtual keyboard icon">
 <!ENTITY layout.showconfigicon "Show control panel icon">
+<!ENTITY layout.logoheight "Logo Height">
+<!ENTITY layout.logowidth "Logo Width">
+<!ENTITY layout.addlogo "Add Logo">
+<!ENTITY layout.removelogo "Remove Logo">
 <!ENTITY layout.cartstatus.position "Cart Status dock position">
 <!ENTITY layout.cartstatus.position.none.label "none">
 <!ENTITY layout.cartstatus.position.dir_before.label "before">

@@ -6,6 +6,8 @@
 
         uses: ['Product', 'Order', 'TableSetting'],
 
+        components: ['Tax'],
+
         screenwidth: 800,
         screenheight: 600,
         depPanelView: null,
@@ -21,6 +23,7 @@
         _suspendKeyboardOperation: false,
         _suspendOpelrationFilter: null,
         _isTraining: false,
+        _launchingControlPanel: false,
     
         initial: function(firstrun) {
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
@@ -110,9 +113,7 @@
 
                         // check if successfully logged in
                         if (this.Acl.getUserPrincipal()) {
-                            // prevent onSetClerk event dispatch
-                            this.dispatchedEvents['onSetClerk'] = true;
-                            this.requestCommand('setClerk', null, 'Main');
+                            this.setClerk(true);
                         }
 
                         this.dispatchEvent('onInitial', null);
@@ -297,7 +298,7 @@
                 NotifyUtils.warn(_('You are not authorized to access the control panel'));
                 return;
             }
-        		
+
             var aURL = 'chrome://viviecr/content/controlPanel.xul';
             var aName = _('Control Panel');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
@@ -319,7 +320,6 @@
                 catch(err) {
                 }
             }
-
         },
 
         ChangeUserDialog: function () {
@@ -327,6 +327,8 @@
             var aName = _('Change User');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=no,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
+
+            this.requestCommand('setClerk', null, 'Main');
         },
 
         ClockInOutDialog: function () {
@@ -366,7 +368,6 @@
                         let productsById = GeckoJS.Session.get('productsById');
                         let prod = productsById[pid];
                         if (prod) {
-                            this.log(this.dump(prod));
                             this.requestCommand('addItem',prod,'Cart');
                         }
                     }
@@ -407,9 +408,11 @@
 
                 var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
                 var annotationType;
+                var annotationText;
 
                 if (codeList.length == 1 && codeList[0] != null && codeList[0] != '') {
                     annotationType = annotationController.getAnnotationType(codeList[0]);
+                    annotationText = annotationController.getAnnotationText(codeList[0]);
                 }
             }
 
@@ -439,18 +442,20 @@
                 var inputObj = {
                     input0: text,
                     require0: false,
-                    multiline0: 4,
+                    multiline0: 2,
                     readonly0: readonly,
                     sequence: txn.data.seq,
-                    numpad: true
+                    numpad: true,
+                    type: annotationType,
+                    text: annotationText
                 };
                 
                 var data = [
-                _('Add Annotation') + ' [' + txn.data.seq + ']',
-                '',
-                annotationType,
-                '',
-                inputObj
+                    _('Add Annotation') + ' [' + txn.data.seq + ']',
+                    '',
+                    annotationType,
+                    '',
+                    inputObj
                 ];
 
                 return $.popupPanel('promptAdditemPanel', data).next( function(evt){
@@ -481,6 +486,114 @@
                 var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
                 this.topmostWindow.openDialog(aURL, aName, aFeatures, aArguments);
+            }
+        },
+
+        openControlPanel: function(target) {
+
+            var prefs = GeckoJS.Configure.read('vivipos.fec.settings.controlpanels');
+
+            var found = false;
+
+            for (ctg in prefs) {
+
+                for (key in prefs[ctg]) {
+                    let ctrl = prefs[ctg][key];
+
+                    // if controlpanel has stringbundle create it.
+                    if (ctrl.bundle) GeckoJS.StringBundle.createBundle(ctrl.bundle);
+
+                    // only check accessible entries
+                    this.log('DEBUG', 'check access for control panel');
+                    if (ctrl.roles == '' || GeckoJS.AclComponent.isUserInRole(ctrl.roles)) {
+                        let label = ctrl.label;
+                        if (label.indexOf('chrome://') == 0) {
+                            let keystr = 'vivipos.fec.settings.controlpanels.' + ctg + '.' + key + '.label';
+                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                        }
+
+                        this.log('DEBUG', 'checking [' + label + '] for match against [' + target + ']');
+                        if (label == target) {
+                            var waitPanel;
+                            
+                            found = true;
+
+                            let pref = {
+                                icon: ctrl.icon,
+                                path: ctrl.path,
+                                roles: ctrl.roles,
+                                features: (ctrl.features || null),
+                                type:  (ctrl.type || 'uri'),
+                                method: ctrl.method,
+                                data: ctrl.data,
+                                controller: ctrl.controller,
+                                label: label
+                            }
+                            this.log('DEBUG', 'found match, launching control panel: ' + this.dump(pref));
+
+                            try {
+                                waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
+                                this.launchControlPanel(pref);
+                            }
+                            catch(e) {}
+                            finally {
+                                waitPanel.hidePopup();
+                            }
+                        }
+                    }
+
+                    if (found) break;
+                }
+
+                if (found) break;
+            }
+        },
+
+        launchControlPanel: function(pref) {
+
+            var width = this.screenwidth;
+            var height = this.screenheight;
+
+            var features = pref['features'] || "chrome,popup=no,titlebar=no,toolbar,centerscreen";
+            features += ",modal,width=" + width + ",height=" + height;
+
+            if (this._launchingControlPanel) {
+            // nothings to do
+            }else {
+                try {
+                    this._launchingControlPanel = true;
+                    
+                    if (pref['type'] == 'uri') {
+                        if (this.topmostWindow) {
+                            this.topmostWindow.openDialog(pref['path'], pref['label'], features);
+                        }
+                        else {
+                            window.openDialog(pref['path'], pref['label'], features);
+                        }
+
+                    }
+                    else if (pref['type'] == 'function') {
+                        var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+                        mainWindow.$do(pref['method'], pref['data'], pref['controller']);
+                    }
+                    else {
+                        VirtualKeyboard.show();
+
+                        var paths = pref['path'].split(' ');
+                        var launchAp = paths[0];
+                        var args = paths.slice(1);
+
+                        var fileAp = new GeckoJS.File(launchAp);
+                        fileAp.run(args, true);
+
+                        VirtualKeyboard.hide();
+                    }
+                }
+                catch (e) {
+                }
+                finally {
+                    this._launchingControlPanel = false;
+                }
             }
         },
 
@@ -637,7 +750,6 @@
                     prodpanel.invalidate(index);
                 }
                 else if (!product.soldout) {
-                    this.log(this.dump(product));
                     this.requestCommand('addItem',product,'Cart');
 
                     // return to top level if necessary
@@ -652,7 +764,7 @@
             }
         },
 
-        setClerk: function () {
+        setClerk: function (recovery) {
             var user = this.Acl.getUserPrincipal();
             if (user) {
                 // perform user login initialization
@@ -699,6 +811,8 @@
 
                 var fnPanel = document.getElementById('functionPanel');
                 if (fnPanel) fnPanel.home();
+
+                if (!recovery) this.dispatchEvent('signedOn', user);
             }
             else {
                 GeckoJS.Session.clear('user');
@@ -706,8 +820,134 @@
 
         },
 
+        rebuildTaxTable: function () {
+            // extract all items
+            alert('begin');
+            var now = (new Date()).getTime();
+            var orderItemModel = new OrderItemModel();
+            var orderItems = orderItemModel.find('all', {conditions: "parent_index IS NULL", limit: 3000000, recursive: 0});
+            var orderItemTaxModel = new OrderItemTaxModel();
+
+            orderItems.forEach(function(item) {
+                delete item.parent_index;
+            });
+            
+            var txn = new Transaction();
+            txn.data.items = orderItems;
+            txn.calcItemsTax();
+
+            var orderItemTaxes = [];
+
+            // map taxes for individual items
+            for (let index in orderItems) {
+
+                let item = orderItems[index];
+                let iid = item.id;
+                for (let taxno in item.tax_details) {
+
+                    let taxDetails = item.tax_details[taxno];
+                    let tax = item.tax_details[taxno].tax;
+
+                    let orderItemTax = {};
+                    orderItemTax['id'] = iid + taxno;
+                    orderItemTax['order_id'] = item.order_id;
+                    orderItemTax['order_item_id'] = iid;
+                    orderItemTax['promotion_id'] = '';
+                    orderItemTax['tax_no'] = tax.no;
+                    orderItemTax['tax_name'] = tax.name;
+                    orderItemTax['tax_type'] = tax.type;
+                    orderItemTax['tax_rate'] = tax.rate;
+                    orderItemTax['tax_rate_type'] = tax.rate_type;
+                    orderItemTax['tax_threshold'] = tax.threshold;
+                    orderItemTax['tax_subtotal'] = taxDetails.charge;
+                    orderItemTax['included_tax_subtotal'] = taxDetails.included;
+                    orderItemTax['taxable_amount'] = taxDetails.taxable;
+
+                    orderItemTaxes.push(orderItemTax);
+                }
+            }
+
+            let order_tax_details = {};
+            for(var itemIndex in orderItems) {
+                var item = orderItems[itemIndex];
+
+                if (!(item.order_id in order_tax_details)) {
+                    order_tax_details[item.order_id] = {};
+                }
+                let items_tax_details = order_tax_details[item.order_id];
+
+                // don't include set items in calculations
+                if (!item.parent_index) {
+                    // summarize tax details
+                    if (item.tax_details) {
+                        for (var key in item.tax_details) {
+                            let taxDetails = item.tax_details[key];
+
+                            if (!(key in items_tax_details)) {
+                                items_tax_details[key] = {
+                                    tax: taxDetails.tax,
+                                    tax_subtotal: 0,
+                                    included_tax_subtotal: 0,
+                                    item_count: 0,
+                                    taxable_amount: 0
+                                }
+                            }
+
+                            if (item.sale_unit == 'unit') {
+                                items_tax_details[key].item_count += parseInt(item.current_qty);
+                            }
+                            else {
+                                items_tax_details[key].item_count++;
+                            }
+                            items_tax_details[key].tax_subtotal += parseFloat(taxDetails.charge);
+                            items_tax_details[key].included_tax_subtotal += parseFloat(taxDetails.included);
+                            items_tax_details[key].taxable_amount += parseFloat(taxDetails.taxable);
+                        }
+                    }
+                }
+            }
+
+            // map taxes for order
+            for (let oid in order_tax_details) {
+                let items_tax_details = order_tax_details[oid];
+                for (let taxno in items_tax_details) {
+                    let taxDetails = items_tax_details[taxno];
+                    let tax = taxDetails.tax;
+
+                    let orderTax = {};
+                    orderTax['id'] = oid + taxno;
+                    orderTax['order_id'] = oid;
+                    orderTax['order_item_id'] = '';
+                    orderTax['promotion_id'] = '';
+                    orderTax['tax_no'] = tax.no;
+                    orderTax['tax_name'] = tax.name;
+                    orderTax['tax_type'] = tax.type;
+                    orderTax['tax_rate'] = tax.rate;
+                    orderTax['tax_rate_type'] = tax.rate_type;
+                    orderTax['tax_threshold'] = tax.threshold;
+                    orderTax['tax_subtotal'] = taxDetails.tax_subtotal;
+                    orderTax['included_tax_subtotal'] = taxDetails.included_tax_subtotal;
+                    orderTax['item_count'] = taxDetails.item_count;
+                    orderTax['taxable_amount'] = taxDetails.taxable_amount;
+
+                    orderItemTaxes.push(orderTax);
+                }
+            }
+
+            var loaded = (new Date()).getTime();
+            alert('preparing to write tax records: ' + orderItemTaxes.length + ' (' + (loaded - now) + ')');
+            now = (new Date()).getTime();
+            orderItemTaxModel.begin();
+            orderItemTaxModel.execute('delete from order_item_taxes');
+            orderItemTaxModel.saveAll(orderItemTaxes);
+            orderItemTaxModel.commit();
+            
+            var end = (new Date()).getTime();
+            alert('done (' + (end - loaded) + ')');
+        },
+
         updateOptions: function () {
-        // used by input_line_controller to listen for option updates
+            // used by input_line_controller to listen for option updates
         },
 
         initialLogin: function () {
@@ -980,13 +1220,16 @@
                 if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
-            Transaction.removeRecoveryFile();
+            if (this.dispatchEvent('signedOff', principal)) {
 
-            // close all poup panels
-            this.closeAllPopupPanels();
+                Transaction.removeRecoveryFile();
 
-            if (!quickSignoff) {
-                this.ChangeUserDialog();
+                // close all poup panels
+                this.closeAllPopupPanels();
+
+                if (!quickSignoff) {
+                    this.ChangeUserDialog();
+                }
             }
         },
 
@@ -1249,6 +1492,7 @@
             if (GREUtils.Dialog.confirm(this.topmostWindow, _('Reboot'), _('Please confirm to reboot the terminal')) == false) {
                 return;
             }
+            this.dispatchEvent('beforeReboot', null);
             this.rebootMachine();
         },
 
@@ -1256,6 +1500,7 @@
             if (GREUtils.Dialog.confirm(this.topmostWindow, _('Shutdown'), _('Please confirm to shut down the terminal')) == false) {
                 return;
             }
+            this.dispatchEvent('beforeShutdown', null);
             this.shutdownMachine();
         },
 
@@ -1370,7 +1615,7 @@
                 actionButton.setAttribute('label', 'Suspend');
                 actionButton.setAttribute('oncommand', '$do("suspendLoadTest", null, "Main");');
             }
-
+            
             var ordersOpened = 0;
             var ordersClosed = 0;
             if (resume && this.loadTestState != null) {
@@ -1525,13 +1770,27 @@
                                     item.force_memo = false;
                                 }
 
-                                let beforeQty = txn.data.qty_subtotal;
-
                                 // add to cart
+                                let beforeQty = txn.data.qty_subtotal;
                                 $do('addItem', item, 'Cart');
 
                                 // delay
                                 this.sleep(100);
+
+                                let attempts = 0;
+                                while (beforeQty >= txn.data.qty_subtotal && attempts++ < 3) {
+                                    // wait for addItem to complete
+                                    this.sleep(200);
+                                }
+
+                                if (attempts > 0) {
+                                    if (beforeQty >= txn.data.qty_subtotal) {
+                                        this.log('WARN', 'timed out waiting for addItem to complete [' + attempts + ']');
+                                    }
+                                    else {
+                                        this.log('WARN', 'waited for addItem to complete [' + attempts + ']');
+                                    }
+                                }
                             }
 
                             this.sleep(1000);
@@ -1547,7 +1806,7 @@
                             }
                             else if (txn.data.qty_subtotal >= items) {
                                 this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] qty [' + txn.data.qty_subtotal + ']');
-                                $do('cash', null, 'Cart');
+                                $do('cash', ',1,', 'Cart');
 
                                 // update progress bar for order closed
                                 if (txn.data.status == 1 || noTable) {
@@ -1658,7 +1917,7 @@
                     l10nLabel = GeckoJS.StringBundle.getPrefLocalizedString(keyFull+'.label') || key;
                 }
                 else {
-                    l10nLabel = _(label);
+                    l10nLabel = label;
                 }
 
                 if ( (key == reportName) || (l10nLabel == reportName) || (label == reportName) ) {
@@ -1690,6 +1949,82 @@
                 return false;
             }
 
+        },
+
+
+        /**
+         * openUserInRoleDialog
+         *
+         * @param {String} role can use comma for multiple roles
+         * @param {Boolean} ignoreSuperuser
+         * @return {Object} user
+         */
+        openUserInRoleDialog: function (role, ignoreSuperuser){
+
+            role = role || '';
+            ignoreSuperuser = ignoreSuperuser || false;
+
+            var self = this;
+
+            var usersInRole = [];
+            var groupRoles = {};
+            var roles = role.split(",");
+
+            var users = (new UserModel()).find('all', {recursive: 0});
+
+            users.forEach(function(user) {
+
+                if (ignoreSuperuser && user.username == 'superuser') return ;
+
+                let group = user.group;
+                let rolesInGroup = [];
+
+                if (group && groupRoles[group]) {
+                    rolesInGroup = groupRoles[group];
+                }else if (group){
+                    rolesInGroup = self.Acl.getRoleListInGroup(group);
+                    groupRoles[group] = rolesInGroup;
+                }else {
+                    // not thing
+                }
+
+                let isInRole = false;
+
+                roles.forEach(function(r){
+
+                   if(r.length==0) {
+                       isInRole = true;
+                       return;
+                   }
+
+                   if (GeckoJS.Array.inArray(r, rolesInGroup) != -1) {
+                       isInRole = true;
+                       return ;
+                   }
+                });
+
+                if (isInRole) {
+                    usersInRole.push(user);
+                }
+
+            });
+
+            var aURL = 'chrome://viviecr/content/prompt_select_user.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=640,height=500';
+            var inputObj = {
+                users: usersInRole,
+                user: null,
+                numpad:true
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select User'), aFeatures, _('Select User'), inputObj);
+
+            if (inputObj.ok && inputObj.user) {
+                inputObj.user.description =  inputObj.user.description || inputObj.user.displayname;
+                return inputObj.user;
+            }
+
+            return null;
         }
 
 

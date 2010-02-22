@@ -11,10 +11,7 @@
 }
 
 #paymentscrollablepanel tree #name,
-#paymentscrollablepanel tree #memo1 {
-    text-align: center;
-}
-
+#paymentscrollablepanel tree #memo1,
 #paymentscrollablepanel tree #memo2 {
-    text-align: left;
+    text-align: center;
 }

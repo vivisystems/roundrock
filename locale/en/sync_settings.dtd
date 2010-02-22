@@ -3,8 +3,9 @@
 <!ENTITY sync_settings.tablabel.basic "Synchronization Settings">
 <!ENTITY sync_settings.tablabel.advanced "Protocol Settings">
 <!ENTITY sync_settings.tablabel.services "Cluster Services">
+<!ENTITY sync_settings.tablabel.irc "Inter-Register Comms">
 
-<!ENTITY sync_settings.label.active "Enable Synchronization">
+<!ENTITY sync_settings.label.active "Enable synchronization">
 <!ENTITY sync_settings.label.protocol "Protocol:">
 <!ENTITY sync_settings.label.hostname "Synchronization Server Hostname or IP:">
 <!ENTITY sync_settings.label.port "Port:">
@@ -43,4 +44,41 @@
 
 <!ENTITY sync_settings.label.ntp_hostname "Network Time Service">
 <!ENTITY sync_settings.desc.ntp_hostname "This service synchronizes time across a cluster of terminals. Please enter the hostname or IP address of the server, or localhost if the service is not needed.">
- 
+
+<!ENTITY sync_settings.label.irc_interval "Interval between checks for new IRC package (seconds):">
+<!ENTITY sync_settings.label.irc_expire_days "Packages expires in (days):">
+<!ENTITY sync_settings.label.irc_timeout "IRC timeout (seconds):">
+<!ENTITY sync_settings.label.irc_packages "Packages">
+<!ENTITY sync_settings.label.irc_packages_header "Package">
+<!ENTITY sync_settings.label.irc_filesize_header "Size">
+<!ENTITY sync_settings.label.irc_machineid_header "Machine ID">
+<!ENTITY sync_settings.label.irc_downloaded_header "Downloaded">
+<!ENTITY sync_settings.label.irc_updated_header "Updated">
+
+<!ENTITY sync_settings.button.irc_create_package "Create">
+<!ENTITY sync_settings.button.irc_remove_package "Remove">
+
+<!ENTITY sync_settings.button.irc_confirm_create_package "Create Package">
+<!ENTITY sync_settings.button.irc_cancel_create_package "Cancel">
+
+<!ENTITY sync_settings.tablabel.irc_detail "Detail">
+<!ENTITY sync_settings.tablabel.irc_edit "Edit">
+
+<!ENTITY sync_settings.label.irc_created_machine_id "Created On">
+<!ENTITY sync_settings.label.irc_description "Description">
+<!ENTITY sync_settings.label.irc_activation "Activation">
+<!ENTITY sync_settings.label.irc_modules "Modules">
+<!ENTITY sync_settings.label.irc_clients "Clients">
+
+<!ENTITY sync_settings.label.irc_hostname "IRC Service Hostname or IP">
+<!ENTITY sync_settings.label.irc_workgroup "Workgroup">
+<!ENTITY sync_settings.label.irc_workgroup_desc "(leave blank for all terminals)">
+<!ENTITY sync_settings.label.irc_update_type "Update IRC package when:">
+<!ENTITY sync_settings.label.irc_update_when_signon "User signs on">
+<!ENTITY sync_settings.label.irc_update_when_signoff "User signs off">
+<!ENTITY sync_settings.label.irc_update_when_shutdown "Shutting down terminal">
+<!ENTITY sync_settings.label.irc_update_when_reboot "Terminal is rebooted">
+<!ENTITY sync_settings.label.irc_update_when_eachsale "After each sale">
+
+<!ENTITY sync_settings.button.irc_ok "OK">
+<!ENTITY sync_settings.button.irc_later "LATER">

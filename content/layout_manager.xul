@@ -44,6 +44,7 @@
             <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
             <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
             <preference id="pref_depbtnheight" name="vivipos.fec.settings.DepartmentButtonHeight" type="int"/>
+            <preference id="pref_plubtnheight" name="vivipos.fec.settings.ProductButtonHeight" type="int"/>
             <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
             <preference id="pref_plucols" name="vivipos.fec.settings.PluCols" type="int"/>
             <preference id="pref_condrows" name="vivipos.fec.settings.CondimentRows" type="int"/>
@@ -86,6 +87,10 @@
                     <vbox>
                         <label control="plucols" value="&layout.plu.cols;"/>
                         <textbox preference="pref_plucols" id="plucols" type="number" size="2" maxlength="1"/>
+                    </vbox>
+                    <vbox id="pluheightFeature" feature="hidden">
+                        <label control="plubtnheight" value="&layout.plu.button.height;"/>
+                        <textbox preference="pref_plubtnheight" id="plubtnheight" type="number" min="0" max="200" size="3" maxlength="3"/>
                     </vbox>
                 </row>
                 <row id="condimentPanelFeature" feature="hidden">

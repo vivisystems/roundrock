@@ -1,4 +1,4 @@
-var options;
+    var options;
 
 (function(){
     var caption0 = window.arguments[0];
@@ -150,6 +150,24 @@ var options;
         else {
             document.getElementById('numpad').setAttribute('hidden', true);
         }
+
+        //enable pricelevel menulist
+        if('priceLevel' in inputObj){
+
+           document.getElementById('input0').setAttribute('min', 1);
+
+           var obj = document.getElementById('priceList');
+
+           inputObj.priceLevel.priceLevel.forEach( function(level){
+
+               obj.appendItem(_('Price Level %S', [level]));
+           })
+           obj.selectedIndex = inputObj.priceLevel.priceLevel.indexOf(inputObj.priceLevel.selected);
+        }
+        else{
+            document.getElementById('priceLevel').setAttribute('hidden', true);
+        }
+
         document.getElementById('dialog-caption').setAttribute("label", caption0);
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;
@@ -172,6 +190,8 @@ var options;
                 inputObj.input1 = GeckoJS.String.trim(document.getElementById('input1').value);
                 inputObj.menu = document.getElementById('menu').value;
                 inputObj.radio = document.getElementById('radiogroup').value;
+                if('priceLevel' in inputObj)
+                inputObj.priceLevel.selected = parseInt(document.getElementById('priceList').selectedIndex) + 1;
                 inputObj.ok = true;
                 return true;
             },

@@ -4,6 +4,7 @@
      */
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
+    include( 'chrome://viviecr/content/models/plugroup.js' );
 
     var __controller__ = {
 
@@ -17,6 +18,7 @@
             if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
 
             var department = document.getElementById( 'department' ).value;
+            var plugroup = document.getElementById( 'plugroup' ).value;
             var sortby = document.getElementById( 'sortby' ).value;
 
             var fields = [];
@@ -37,6 +39,29 @@
                 var cateRecords = cate.find('all', {
                     fields: ['no','name'],
                     order: 'no',
+                    limit: this._csvLimit
+                    });
+            }
+
+            if (plugroup != "all") {
+                if(conditions) {
+                    conditions += " AND ";
+                } else {
+                    conditions = "";
+                }
+                conditions += "link_group LIKE '%" + this._queryStringPreprocessor( plugroup ) + "%'";
+                var group = new PlugroupModel();
+                var groupRecords = group.find('all', {
+                    fields: ['id','name'],
+                    conditions: "plugroups.id = '" + this._queryStringPreprocessor( plugroup ) + "'",
+                    order: 'name',
+                    limit: this._csvLimit
+                    });
+            } else {
+                var group = new PlugroupModel();
+                var groupRecords = group.find('all', {
+                    fields: ['id','name'],
+                    order: 'name',
                     limit: this._csvLimit
                     });
             }
@@ -108,6 +133,21 @@
                 menuitem.setAttribute('value', record.no);
                 menuitem.setAttribute('label', record.no + "-" + record.name);
                 dpt.appendChild(menuitem);
+            });
+
+            var plugroup = new PlugroupModel();
+            var plugroupRecords = plugroup.find('all', {
+                fields: ['id', 'name'],
+                order: 'name, id'
+                });
+
+            var plugrp = document.getElementById('plugroup_menupopup');
+
+            plugroupRecords.forEach(function(record){
+                var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+                menuitem.setAttribute('value', record.id);
+                menuitem.setAttribute('label', record.name);
+                plugrp.appendChild(menuitem);
             });
         }
     };

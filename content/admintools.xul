@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % AdminTools SYSTEM "chrome://viviecr/locale/admintools.dtd">
+  %AdminTools;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/admintools.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
+
+<window id="admintools"
+        title="&admintools.title;"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include controller -->
+  <script src="chrome://viviecr/content/controllers/admintools_controller.js" type="application/x-javascript"/>
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
+    </keyset>
+
+    <vbox flex="1" class="container-be layout-be">
+        <vbox flex="1" class="container-main layout-a">
+            <label value="&admintools.title;" class="label-page-title"/>
+            <tabbox flex="1" class="content-tabbox">
+                <arrowscrollbox orient="horizontal" class="content-arrow-scrollbox">
+                    <tabs id="tabs">
+                        <tab id="tab1" label="&admintools.tab.syncstatus;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab2" label="&admintools.tab.recovery;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab3" label="&admintools.tab.saleperiod;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab4" label="&admintools.tab.dsbackup;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab5" label="&admintools.tab.irc;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                    </tabs>
+                </arrowscrollbox>
+
+                <tabpanels id="tabpanels" flex="1" >
+                    <!-- synchronization status -->
+                    <tabpanel id="tabpanel_syncstatus" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row>
+                                    <label value="&admintools.syncstatus.status;" class="label-sub-title"/>
+                                    <hbox flex="1">
+                                        <image id="sync_indicator"/>
+                                    </hbox>
+                                </row>
+                                <row>
+                                    <label value="&admintools.syncstatus.server;" class="label-sub-title"/>
+                                    <textbox id="sync_server" value="" readonly="true" disabled="true"/>
+                                </row>
+                                <row flex="1">
+                                    <vbox flex="1">
+                                        <spacer flex="1"/>
+                                        <button id="refreshSyncStatus" class="button-execute"
+                                                label="&admintools.syncstatus.refresh;"
+                                                oncommand="$do('refreshSyncStatus', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="syncNow" class="button-execute"
+                                                label="&admintools.syncstatus.sync;"
+                                                oncommand="$do('syncNow', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="purgeSync" class="button-execute"
+                                                label="&admintools.syncstatus.purge;"
+                                                oncommand="$do('purgeSync', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="suspendResumeSync" class="button-execute"
+                                                label=""
+                                                oncommand="$do('suspendResumeSync', null, 'AdminTools');"/>
+                                        <spacer flex="1"/>
+                                    </vbox>
+                                    <tabbox flex="1" class="content-tabbox">
+                                        <tabs id="tabs">
+                                            <tab id="tab1" label="&admintools.syncstatus.tab.push;" orient="vertical" />
+                                            <tab id="tab2" label="&admintools.syncstatus.tab.pull;" orient="vertical" />
+                                        </tabs>
+
+                                        <tabpanels id="tabpanels" flex="1" >
+                                            <!-- push status -->
+                                            <tabpanel id="tabpanel_syncstatus_push" orient="vertical" flex="1">
+                                                <vivitree id="syncstatuspushlist" flex="1" class="standard custom-sync-tree"
+                                                          headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.changelog.index;,&admintools.syncstatus.push.remote;"
+                                                          fields="datasource,database,index,synced"
+                                                          />
+                                            </tabpanel>
+
+                                            <!-- pull status -->
+                                            <tabpanel id="tabpanel_syncstatus_pull" orient="vertical" flex="1">
+                                                <vivitree id="syncstatuspulllist" flex="1" class="standard custom-sync-tree"
+                                                          headers="&admintools.syncstatus.datasource;,&admintools.syncstatus.database;,&admintools.syncstatus.pull.clientid;,&admintools.syncstatus.changelog.index;,&admintools.syncstatus.pull.remote;"
+                                                          fields="datasource,database,clientid,index,synced"
+                                                          />
+                                            </tabpanel>
+                                        </tabpanels>
+                                    </tabbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                    <!-- transactio data recovery -->
+                    <tabpanel id="tabpanel_recovery" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row>
+                                    <label value="&admintools.recovery.terminal;" class="label-sub-title"/>
+                                    <textbox id="terminal_no" value="" readonly="true" disabled="true"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.recovery;" class="label-sub-title"/>
+                                    <label id="syncMode" value="" class="label-sub-title"/>
+                                </row>
+                                <row flex="1">
+                                    <vbox flex="1" pack="center">
+                                        <button id="syncNow" class="button-execute"
+                                                label="&admintools.recovery.purge;"
+                                                oncommand="$do('removeRemoteData', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <hbox flex="1" class="content-listbox">
+                                        <vivitree id="terminallist" flex="1" class="standard custom-terminal-tree"
+                                                  headers="&admintools.recovery.terminals;"
+                                                  fields="terminal" hidecolumnpicker="true"
+                                                  onselect="$do('selectRemoteTerminal', this.selectedIndex, 'AdminTools');"
+                                                  />
+                                        <spacer style="width: 10px;"/>
+                                        <vivitree id="tablelist" flex="1" class="standard custom-table-tree"
+                                                  headers="&admintools.recovery.tables;"
+                                                  fields="table" hidecolumnpicker="true"
+                                                  />
+                                    </hbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                    <!-- sale period adjustment -->
+                    <tabpanel id="tabpanel_saleperiod" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row>
+                                    <label value="&admintools.saleperiod.saleperiod.current;" class="label-sub-title"/>
+                                    <textbox id="current_sale_period" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="current_shift_number" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.saleperiod.last;" class="label-sub-title"/>
+                                    <textbox id="last_sale_period" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="last_shift_number" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.activity.detail;" class="label-sub-title"/>
+                                    <textbox id="activity_type" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="activity_time" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.activity.saleperiod;" class="label-sub-title"/>
+                                    <textbox id="activity_sale_period" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                    <textbox id="activity_shift_number" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <vbox flex="1" pack="center">
+                                        <button id="resetSalePeriod" class="button-execute"
+                                                label="&admintools.saleperiod.reset.saleperiod;"
+                                                oncommand="$do('resetSalePeriod', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&admintools.saleperiod.saleperiod.new;"/>
+                                        <vividatetimepicker id="new_sale_period" value="" type="popup" mode="date"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&admintools.saleperiod.shiftnumber.new;"/>
+                                        <vivitextbox id="new_shift_number" flex="1" size="10" type="number" min="1"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     />
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.ordernumber.largest;" class="label-sub-title"/>
+                                    <textbox id="order_sequence" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <label value="&admintools.saleperiod.ordernumber.current;" class="label-sub-title"/>
+                                    <textbox id="current_order_sequence" value="" readonly="true" disabled="true" class="custom-textbox-center"/>
+                                </row>
+                                <row>
+                                    <vbox flex="1" pack="center">
+                                        <button id="resetOrderNumber" class="button-execute"
+                                                label="&admintools.saleperiod.reset.ordernumber;"
+                                                oncommand="$do('resetOrderNumber', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&admintools.saleperiod.ordernumber.new;"/>
+                                        <vivitextbox id="new_order_sequence" flex="1" size="10" min="0" type="number"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     />
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                    <!-- datasource backup cleanup -->
+                    <tabpanel id="tabpanel_dsbackup" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row flex="1">
+                                    <vbox flex="1">
+                                        <button id="refreshDatasourceBackup" class="button-execute"
+                                                label="&admintools.dsbackup.refresh;"
+                                                oncommand="$do('refreshDSBackupData', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="viewDatasourceBackup" class="button-execute"
+                                                label="&admintools.dsbackup.view;"
+                                                oncommand="$do('viewDSBackupData', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="removeDatasourceBackup" class="button-execute"
+                                                label="&admintools.dsbackup.remove;"
+                                                oncommand="$do('removeDSBackupData', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="purgeDatasourceBackup" class="button-execute"
+                                                label="&admintools.dsbackup.purge;"
+                                                oncommand="$do('purgeDSBackupData', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vivitree id="dsbackuplist" flex="1" class="standard custom-dsbackup-tree"
+                                              headers="&admintools.dsbackup.model;,&admintools.dsbackup.size;"
+                                              fields="model,size" hidecolumnpicker="true"
+                                              onselect="$do('selectDSBackup', null, 'AdminTools');"
+                                              />
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                    <!-- IRC status -->
+                    <tabpanel id="tabpanel_ircstatus" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row>
+                                    <label value="&admintools.irc.host;" class="label-sub-title"/>
+                                    <textbox id="irc_hostname" value="" readonly="true" disabled="true"/>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&admintools.irc.last.download;" class="label-sub-title"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="resetIRCLastDownload" class="button-execute"
+                                                label="&admintools.irc.reset.last.download;"
+                                                oncommand="$do('resetIRCLastDownload', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <vbox pack="center">
+                                        <textbox id="irc_last_downloaded" value="" readonly="true" disabled="true"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&admintools.irc.last.failure;" class="label-sub-title"/>
+                                        <spacer style="height: 10px;"/>
+                                        <hbox>
+                                            <button id="viewIRCLastFailure" class="button-execute"
+                                                    label="&admintools.irc.view;"
+                                                    oncommand="$do('viewIRCLastFailure', null, 'AdminTools');"/>
+                                            <spacer style="width: 10px;"/>
+                                            <button id="clearIRCFailure" class="button-execute"
+                                                    label="&admintools.irc.clear;"
+                                                    oncommand="$do('clearIRCFailure', null, 'AdminTools');"/>
+                                        </hbox>
+                                    </vbox>
+                                    <vbox pack="center">
+                                        <textbox id="irc_last_failure" value="" readonly="true" disabled="true"/>
+                                    </vbox>
+                                </row>
+                                <row flex="1">
+                                    <vbox flex="1">
+                                        <spacer flex="1"/>
+                                        <button id="viewIRCUpackResult" class="button-execute"
+                                                label="&admintools.irc.view;"
+                                                oncommand="$do('viewIRCUpackResult', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="setIRCLastDownload" class="button-execute"
+                                                label="&admintools.irc.download;"
+                                                oncommand="$do('setIRCLastDownload', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="refreshIRCStatus" class="button-execute"
+                                                label="&admintools.irc.refresh;"
+                                                oncommand="$do('refreshIRCStatus', null, 'AdminTools');"/>
+                                        <spacer flex="1"/>
+                                    </vbox>
+                                    <vivitree id="ircpackagelist" flex="1" class="standard custom-ircpackage-tree"
+                                              headers="&admintools.irc.package;,&admintools.irc.source;,&admintools.irc.size;,&admintools.irc.unpacked;"
+                                              fields="pkg,source,size,unpacked" types=",,,checkbox" hidecolumnpicker="true"
+                                              onselect="$do('selectIRCPackage', null, 'AdminTools');"
+                                              />
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                </tabpanels>
+            </tabbox>
+
+            <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
+                <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
+            </hbox>
+        </vbox>
+    </vbox>
+
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs"/>
+
+</window>

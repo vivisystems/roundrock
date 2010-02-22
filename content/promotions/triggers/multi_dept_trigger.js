@@ -21,6 +21,8 @@
             var secondAmountValue = isNaN(parseInt(settings.second_amount_value)) ? 0 : parseInt(settings.second_amount_value);
             var amount_type = settings.amount_type;
             var amount_mode = settings.amount_mode;
+            var firstDestination = settings.first_destination;
+            var secondDestination = settings.second_destination;
 
             if (!firstCatNo || !secondCatNo || !firstAmountValue || !secondAmountValue) {
                 //this.log('no group' + firstCatNo + ', ' + secondCatNo + ',' + firstAmountValue + ',' + secondAmountValue);
@@ -34,6 +36,9 @@
 
             // first group
             condition1 = " cate_no='"+firstCatNo+"' ";
+            if (firstDestination) {
+                condition1 += " AND destination='"+firstDestination+"' ";
+            }
             sql = "SELECT SUM(current_qty) AS qty, SUM(current_qty*current_price) AS subtotal FROM promotion_cart_items WHERE "+condition1+" GROUP BY cate_no ORDER BY ROWID";
             //this.log('execute ' + sql) ;
             
@@ -45,6 +50,9 @@
 
             // second group
             condition2 = " cate_no='"+secondCatNo+"' ";
+            if (secondDestination) {
+                condition2 += " AND destination='"+secondDestination+"' ";
+            }
             sql = "SELECT SUM(current_qty) AS qty, SUM(current_qty*current_price) AS subtotal FROM promotion_cart_items WHERE "+condition2+" GROUP BY cate_no ORDER BY ROWID";
             //this.log('execute ' + sql) ;
 
@@ -80,7 +88,7 @@
             cartItems1 = cartItemModel.getDataSource().fetchAll(sql);
             //this.log('execute ' + sql) ;
 
-            // ONLY DISTINCT cart item for first group
+            // ONLY DISTINCT cart item for second group
             sql = "SELECT DISTINCT(ROWID) AS ROWID,promotion_cart_items.* FROM promotion_cart_items WHERE " + condition2 + " ORDER BY promotion_cart_items.current_price";
             cartItems2 = cartItemModel.getDataSource().fetchAll(sql);
             //this.log('execute ' + sql) ;

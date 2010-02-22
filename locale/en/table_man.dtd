@@ -8,14 +8,15 @@
 <!ENTITY tableman.tab.tableoptions.1 "Options 1">
 <!ENTITY tableman.tab.tableoptions.2 "Options 2">
 <!ENTITY tableman.tab.tableoptions.3 "Options 3">
+<!ENTITY tableman.tab.tableoptions.print "Print Check">
 <!ENTITY tableman.tab.tableoptions.dock "Dock">
 
 <!ENTITY tableman.table.active "Active">
 <!ENTITY tableman.table.tableno "Table Number">
 <!ENTITY tableman.table.tablename "Label">
 <!ENTITY tableman.table.seats "Seats">
-<!ENTITY tableman.table.minimumchargepertable "Minimum Charge per table">
-<!ENTITY tableman.table.minimumchargeperguest "Minimum Charge per guest">
+<!ENTITY tableman.table.minimumchargepertable "Minimum Charge per Table">
+<!ENTITY tableman.table.minimumchargeperguest "Minimum Charge per Guest">
 <!ENTITY tableman.table.region "Region">
 <!ENTITY tableman.table.destination "Destination">
 
@@ -71,48 +72,65 @@
 <!ENTITY tableman.tableoptions.tablewinasfirstwin "Begin each order with table selection">
 <!ENTITY tableman.tableoptions.virtualtablemap "Use table map for table selection">
 <!ENTITY tableman.tableoptions.requirecheckno "Require check number">
-<!ENTITY tableman.tableoptions.requiretableno "Require table number">
-<!ENTITY tableman.tableoptions.requireguestnum "Require number of customers">
-<!ENTITY tableman.tableoptions.tableperiodlimit "Time limit for the use of table (minutes):">
-<!ENTITY tableman.tableoptions.tablebookingtimeout "Booking time out (minutes):">
-<!ENTITY tableman.tableoptions.tableremindtime "Remind before booking time (minutes):">
-<!ENTITY tableman.tableoptions.maxcheckno "Maximum check number:">
-<!ENTITY tableman.tableoptions.tablerefreshfrequence "Update frequency (seconds):">
+<!ENTITY tableman.tableoptions.requiretableno "Require Table Number for:">
+<!ENTITY tableman.tableoptions.requireguestnum "Require Number of Guests for:">
+<!ENTITY tableman.tableoptions.tableperiodlimit "Time Limit for Use of Table (minutes)">
+<!ENTITY tableman.tableoptions.tablebookingtimeout "Reservation Expiration (minutes)">
+<!ENTITY tableman.tableoptions.tableremindtime "Reservation Reminder (minutes)">
+<!ENTITY tableman.tableoptions.maxcheckno "Maximum Check Number">
+<!ENTITY tableman.tableoptions.tablerefreshfrequence "Update Frequency (seconds)">
 <!ENTITY tableman.tableoptions.quickselecttableno "Direct access main screen when clicking empty table">
 <!ENTITY tableman.tableoptions.staydownaction "Staydown selected action">
+<!ENTITY tableman.tableoptions.showAvailableSeatTable "Treat a table as available if seats are available">
 
 <!ENTITY tableman.tableoptions.minimumchargeoptions "Minimum Charge:">
-<!ENTITY tableman.tableoptions.requestminimumcharge "Force Minimum Charge">
-<!ENTITY tableman.tableoptions.globalminimumchargepertable "Global Minimum Charge per table">
-<!ENTITY tableman.tableoptions.globalminimumchargeperguest "Global Minimum Charge per guest">
-<!ENTITY tableman.tableoptions.minimumchargefor "Apply Minimum Charge on:">
-<!ENTITY tableman.tableoptions.minimumchargeplu "Plu for Minimum Charge">
+<!ENTITY tableman.tableoptions.requestminimumcharge "Activate minimum charge">
+<!ENTITY tableman.tableoptions.globalminimumchargepertable "Global Minimum Charge per Table">
+<!ENTITY tableman.tableoptions.globalminimumchargeperguest "Global Minimum Charge per Guest">
+<!ENTITY tableman.tableoptions.minimumchargefor "Apply Minimum Charge On">
+<!ENTITY tableman.tableoptions.minimumchargeplu "Record Minimum Charge Against">
+<!ENTITY tableman.tableoptions.annotation_for_override_minimumcharge "Annotation for Overriding Minimum Charge">
 
 <!ENTITY tableman.tableoptions.displayoptions "Display Elements:">
 <!ENTITY tableman.tableoptions.displaycheckno "Check Number">
 <!ENTITY tableman.tableoptions.displaytablelabel "Table Label">
 <!ENTITY tableman.tableoptions.displayseqno "Sequence Number">
 <!ENTITY tableman.tableoptions.displaybooking "Booking">
-<!ENTITY tableman.tableoptions.displayperiod "Time in use">
+<!ENTITY tableman.tableoptions.displayperiod "Time in Use">
 <!ENTITY tableman.tableoptions.displaytotal "Check Total">
 <!ENTITY tableman.tableoptions.displaycapacity "Seats">
 <!ENTITY tableman.tableoptions.displayclerk "Service Clerk">
 
 <!ENTITY tableman.tableoptions.defaultregion "Default Region:">
-<!ENTITY tableman.tableoptions.printsplitcheck "Print Splited Check:">
-<!ENTITY tableman.tableoptions.printsplitcheck.none "None">
-<!ENTITY tableman.tableoptions.printsplitcheck.auto "Print automatically">
-<!ENTITY tableman.tableoptions.printsplitcheck.confirm "Confirm before print">
-<!ENTITY tableman.tableoptions.printmergecheck "Print Merged Check:">
-<!ENTITY tableman.tableoptions.printmergecheck.none "None">
-<!ENTITY tableman.tableoptions.printmergecheck.auto "Print automatically">
-<!ENTITY tableman.tableoptions.printmergecheck.confirm "Confirm before print">
+
+<!ENTITY tableman.tableoptions.printCheckAfterTransferTable "Printing Options for Table Transfer">
+<!ENTITY tableman.tableoptions.printCheckAfterTransferTable.none "None">
+<!ENTITY tableman.tableoptions.printCheckAfterTransferTable.auto "Print automatically">
+<!ENTITY tableman.tableoptions.printCheckAfterTransferTable.confirm "Confirm before printing">
+<!ENTITY tableman.tableoptions.printCheckAfterTransferTable.template "Template for Table Transfer">
 
 <!ENTITY tableman.tableoptions.dockoptions.caption "Dock Options:">
-<!ENTITY tableman.tableoptions.dockoptions.isdockmode "Use Table Selector in dock mode.">
+<!ENTITY tableman.tableoptions.dockoptions.isdockmode "Use table selector in dock mode">
 <!ENTITY tableman.tableoptions.dockoptions.width "Table Selector Width (px)">
 <!ENTITY tableman.tableoptions.dockoptions.height "Table Selector Height (px)">
 <!ENTITY tableman.tableoptions.dockoptions.left "Dock Position Left (px)">
 <!ENTITY tableman.tableoptions.dockoptions.top "Dock Position Top (px)">
 
+<!ENTITY tableman.tableoptions.requireGuestOrTableNumWhenStored "Require number of guests and table number when storing order">
+<!ENTITY tableman.tableoptions.requireGuestNumWhenNewTable "Require entry of number of guests when opening new table">
+
 <!ENTITY tableman.initialization.label "Initializing Tables...">
+
+<!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem "Printing options for Returning Cart Item">
+<!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.none "None">
+<!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.auto "Print automatically after storing order">
+<!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.confirm "Confirm before printing">
+<!ENTITY tableman.tableoptions.printCheckAfterReturnCartItem.template "Template for Returning Cart Item">
+
+<!ENTITY tableman.tableoptions.printCheckRushItem "Print Options for Rushing Item">
+<!ENTITY tableman.tableoptions.printCheckRushItem.auto "Print automatically">
+<!ENTITY tableman.tableoptions.printCheckRushItem.confirm "Confirm before printing">
+<!ENTITY tableman.tableoptions.printCheckRushItem.template "Template for Rushing Item">
+
+<!ENTITY tableman.tableoptions.printCheckCurrentBatchItems "Print items in current batch only">
+<!ENTITY tableman.tableoptions.printCheckOnlyPositiveCurrentBatchItems "Print positive quantity items in current batch only">

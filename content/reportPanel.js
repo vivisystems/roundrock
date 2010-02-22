@@ -64,9 +64,6 @@
                 var keystr = 'vivipos.fec.reportpanels.' + key + '.label';
                 label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
             }
-            else {
-                label = _(label);
-            }
             
             // "( Custom )" will be followed by the label to indicate that the report is custom one.
             var re = /([a-z0-9]+-){4}[a-z0-9]+/;// regular expression for recognizing uuid which is the key of a custom report.

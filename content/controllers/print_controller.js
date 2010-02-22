@@ -632,7 +632,7 @@
         // printer = null: print on all auto-print enabled printers
 
         printChecks: function(txn, printer, autoPrint, duplicate) {
-            
+
             var device = this.getDeviceController();
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -685,6 +685,7 @@
                             data.routingGroups = routingGroups;
                             data.autoPrint = autoPrint;
                             data.duplicate = duplicate;
+                            data.order = GREUtils.extend({}, txn.data);
                             self.printSlip('check', data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                         }
                     }
@@ -845,6 +846,45 @@
             this.printSlip('report', null, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
         },
 
+         printLabel: function(list, barcodeType, template){
+              
+            //1.getDeviceController
+            var device = this.getDeviceController();
+
+            //2.dectct Enable
+              // check device settings
+            var printer = 2;
+
+            switch (device.isDeviceEnabled('report', printer)) {
+                case -2:
+                    NotifyUtils.warn(_('The specified report/label printer [%S] is not configured', [printer]));
+                    return;
+
+                case -1:
+                    NotifyUtils.warn(_('Invalid report/label printer [%S]', [printer]));
+                    return;
+
+                case 0:
+                    NotifyUtils.warn(_('The specified report/label printer [%S] is not enabled', [printer]));
+                    return;
+            }
+
+            //3.get set up
+            var enabledDevices = device.getEnabledDevices('report', printer);
+         //   var template = enabledDevices[0].template;
+            var port = enabledDevices[0].port;
+            var portspeed = enabledDevices[0].portspeed;
+            var handshaking = enabledDevices[0].handshaking;
+            var devicemodel = enabledDevices[0].devicemodel;
+            var encoding = enabledDevices[0].encoding;
+
+            var data = { product: list, barcodeType: barcodeType };
+
+            _templateModifiers(TrimPath, encoding);
+            //4.call printSlip
+            this.printSlip('label', data, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
+        },
+
         // print slip using the given parameters
         printSlip: function(deviceType, data, template, port, portspeed, handshaking, devicemodel, encoding, printer, copies) {
         	var isTraining = GeckoJS.Session.get( "isTraining" );
@@ -968,6 +1008,30 @@
 
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
+
+                // make extensions has chance to modify template or update data before parse template
+                let eventData =  {  data: data,
+                                    template: template,
+                                    port: port,
+                                    portspeed: portspeed,
+                                    handshaking: handshaking,
+                                    devicemodel: devicemodel,
+                                    encoding: encoding,
+                                    printer: printer,
+                                    devicetype: deviceType };
+
+                if (!this.dispatchEvent('beforePrintSlipGetTemplate', eventData)) {
+                    return;
+                }
+                // reassign from eventData to local variables. data is passed by reference , don't need to reassigned.
+                template = eventData.template;
+                port = eventData.port;
+                portspeed = eventData.portspeed;
+                handshaking = eventData.handshaking;
+                devicemodel = eventData.devicemodel;
+                encoding = eventData.encoding;
+                printer = eventData.printer;
+                deviceType = eventData.devicetype;
 
                 //this.log('DEBUG', 'type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
                 tpl = this.getTemplateData(template, false);

@@ -10,6 +10,7 @@
                 'cpProductFilters': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.plufilters', acl:'acl_manage_plufilters', checkForAcl:'cpProductFilters'},
                 'cpNonPluSettings': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.nonplu_setting', acl:'acl_manage_nonplu_setting', checkForAcl:'cpNonPluSettings'},
                 'cpImagesManager': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.imagemanager', acl:'acl_manage_images', checkForAcl:'cpImagesManager'},
+                'cpLabelPrinting': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.label_printing', acl:'acl_print_labels', checkForAcl:'cpLabelPrinting'},
                 'cpStockControl': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.stocks', acl:'acl_manage_stock', checkForAcl:'cpStockControl'},
                 'cpTaxes': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.product.taxes', acl:'acl_manage_taxes', checkForAcl:'cpTaxes'},
 
@@ -119,6 +120,7 @@
             },
 
             systemsForm: {
+                'cpAdminTools': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.admin_tools', acl:'acl_admin_tools', checkForAcl:'cpAdminTools'},
                 'cpDatetime': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.datetime', acl:'acl_manage_date_time', checkForAcl:'cpDatetime'},
                 'cpImportexport': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.importexport', acl:'acl_manage_import_export', checkForAcl:'cpImportexport'},
                 'cpLocalekeyboard': {type:'prefs', method:'remove', key:'vivipos.fec.settings.controlpanels.system.localekeyboard', acl:'acl_manage_locale_keyboard', checkForAcl:'cpLocalekeyboard'},
@@ -140,6 +142,7 @@
                 'serviceSyncSettingsTable': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsTableBox', checkForCss:'serviceSyncSettingsTable'},
                 'serviceSyncSettingsStock': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsStockBox', checkForCss:'serviceSyncSettingsStock'},
                 'serviceSyncSettingsNtp': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsNtpBox', checkForCss:'serviceSyncSettingsNtp'},
+                'serviceSyncSettingsIRC': {type:'css', method:'hidden', selector: '#syncSettingsXUL #syncSettingsIrcBox, #syncSettingsXUL #irc-tab', checkForCss:'serviceSyncSettingsIRC'},
 
                 'internalDisableJournal': {type:'prefs', method:'write', key:'vivipos.fec.settings.internal.disableJournal', preftype:'boolean'}
             },

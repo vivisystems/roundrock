@@ -11,7 +11,7 @@
         
         _fileName: "rpt_product_sales",
         
-        _setData: function( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, breakout_setmenu, limit ) {
+        _setData: function( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, breakout_setmenu, limit, selectCategory ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 
@@ -64,11 +64,11 @@
             
             // prepare category stuff.
             var deptCondition = '';
-            if ( department != 'all' ) {
+    /*        if ( department != 'all' ) {
                 conditions += " AND order_items.cate_no = '" + this._queryStringPreprocessor( department ) + "'";
                 deptCondition = "no = '" + this._queryStringPreprocessor( department ) + "'";
             }
-            
+    */
             var categoryModel = new CategoryModel();
             var categoryRecords = categoryModel.find( 'all', {
                 fields: [ 'no', 'name' ],
@@ -77,10 +77,10 @@
                 limit: this._csvLimit
             } );
 	        
-            var categories = {};
+            var categories = { department:{}, group:{} };
 	        
             categoryRecords.forEach( function( categoryRecord ) {
-                categories[ categoryRecord.no ] = {
+                categories.department[ categoryRecord.no ] = {
                     no: categoryRecord.no,
                     name: categoryRecord.name,
                     orderItems: [],
@@ -92,6 +92,9 @@
                     }
                 }
             } );
+            categories.group = this._setGroups();
+            this.log('DEBUG', this.dump(categories,20));
+         //   alert(this.dump(categories));
             /*
             var orderItemRecords = orderItem.find( 'all',{
                 fields: fields,
@@ -112,8 +115,8 @@
                 else
                     record[ 'avg_price' ] = 0.0;
 
-                if (!(record.cate_no in categories)) {
-                    categories[ record.cate_no ] = {
+                if (!(record.cate_no in categories.department)) {
+                    categories.department[ record.cate_no ] = {
                         no: record.cate_no,
                         name: record.cate_name,
                         orderItems: [ record ],
@@ -126,15 +129,18 @@
                     };
                 }
                 else {
-                    categories[ record.cate_no ].orderItems.push( record );
-                    categories[ record.cate_no ].summary.qty += record.qty;
-                    categories[ record.cate_no ].summary.gross += record.gross;
-                    categories[ record.cate_no ].summary.net += record.net;
+                    categories.department[ record.cate_no ].orderItems.push( record );
+                    categories.department[ record.cate_no ].summary.qty += record.qty;
+                    categories.department[ record.cate_no ].summary.gross += record.gross;
+                    categories.department[ record.cate_no ].summary.net += record.net;
                 }
-                categories[ record.cate_no ].prodByNo[ record.product_no ] = 1;
+                categories.department[ record.cate_no ].prodByNo[ record.product_no ] = 1;
             } );
 
-            // insert the zero sales products.
+             this.log('DEBUG', this.dump(categories,20));
+             categories.group =  this._setGroupOrderItem(orderItemRecords, categories.group);
+
+            // insert the zero sales products =====================================> department
             if ( noSalesProduct == 'show' ) {
                 
                 var productModel = new ProductModel();
@@ -145,8 +151,8 @@
                 });
 		        
                 allProducts.forEach( function( p ) {
-                    if (!(p.cate_no in categories)) {
-                        categories[ p.cate_no ] = {
+                    if (!(p.cate_no in categories.department)) {
+                        categories.department[ p.cate_no ] = {
                             no: p.cate_no,
                             name: p.cate_no + ' - ' + _('Obsolete'),
                             orderItems: [ p ],
@@ -157,10 +163,10 @@
                             },
                             prodByNo: {}
                         };
-                        categories[ p.cate_no ].prodByNo[ p.no ] = 1;
+                        categories.department[ p.cate_no ].prodByNo[ p.no ] = 1;
                     }
-                    else if (!(p.no in categories[ p.cate_no ].prodByNo)) {
-                        categories[ p.cate_no ].orderItems.push( {
+                    else if (!(p.no in categories.department[ p.cate_no ].prodByNo)) {
+                        categories.department[ p.cate_no ].orderItems.push( {
                             product_no: p.no,
                             product_name: p.name,
                             avg_price: 0.0,
@@ -172,18 +178,118 @@
                 });
             }
 
-            // hide the no sales department if users want it that way.
-            if ( empty_department == 'hide' ) {
-                for ( var category in categories ) {
-                    if ( categories[ category ].summary.qty == 0 )
-                        delete categories[ category ];
+            // insert the zero sales products =====================================> group
+            if ( noSalesProduct == 'show' ) {
+
+                var productModel = new ProductModel();
+                var allProducts = productModel.find('all', {
+                    fields: [ "cate_no", "no", "name" ],
+                    limit: 3000000,
+                    recursive: 0
+                });
+
+                // we need insert info to allProducts[] about product linkgroup property
+                allProducts = this._setGroupProperty(allProducts);
+
+                // inser insert the zero sales products
+                for( var i = 0 ; i< allProducts.length ; i++){
+
+                    for(var j = 0 ; j < allProducts[i].grouplink.length ; j++){
+
+                         var groupID = allProducts[i].grouplink[j].id
+                         // if the product doesn't have sales recorder...then inser empty info
+                         if (!(allProducts[i].no in categories.group[ groupID ].prodByNo)) {
+                            categories.group[ groupID ].orderItems.push( {
+                            product_no: allProducts[i].no,
+                            product_name: allProducts[i].name,
+                            avg_price: 0.0,
+                            qty: 0,
+                            gross: 0.0,
+                            net: 0.0
+                            } );
+                         }
+                    }
+                }
+
+           /*      allProducts.forEach( function( p ) {
+                   if (!(p.cate_no in categories.department)) {
+                        categories.department[ p.cate_no ] = {
+                            no: p.cate_no,
+                            name: p.cate_no + ' - ' + _('Obsolete'),
+                            orderItems: [ p ],
+                            summary: {
+                                qty: 0,
+                                gross: 0.0,
+                                net: 0.0
+                            },
+                            prodByNo: {}
+                        };
+                        categories.department[ p.cate_no ].prodByNo[ p.no ] = 1;
+                    }
+                    else
+
+                    //
+
+                    if (!(p.no in categories.group[ p.cate_no ].prodByNo)) {
+                        categories.department[ p.cate_no ].orderItems.push( {
+                            product_no: p.no,
+                            product_name: p.name,
+                            avg_price: 0.0,
+                            qty: 0,
+                            gross: 0.0,
+                            net: 0.0
+                        } );
+                    }
+                });*/
+            }
+
+            this.log('DEBUG', this.dump(categories,20));
+            //hide unselected categroy
+            if(  'department' in selectCategory || 'group' in selectCategory ){
+
+                //============='========================================> hide department
+                if('department' in selectCategory){
+
+                   var departmentNo = this._getDepartmentNo(selectCategory.department);
+                                     
+                   for ( var category in categories.department ) {
+                        if ( departmentNo.indexOf(category) == -1 )
+                            delete categories.department[ category ];
+                   }
+
+                }
+                 //=====================================================> hide group
+                if('group' in selectCategory){
+
+                    var groupID = this._getGroupID(selectCategory.group);
+                    
+                    for ( var group in categories.group ) {
+                        if ( groupID.indexOf(group) == -1 )
+                            delete categories.group[ group ];
+                    }
                 }
             }
-		    
-            // for sorting.
+            this.log('DEBUG', this.dump(categories,20));
+
+
+            // hide the no sales department if users want it that way.
+            if ( empty_department == 'hide' ) {
+                 //=====================================================> hide department
+                for ( var category in categories.department ) {
+                    if ( categories.department[ category ].summary.qty == 0 )
+                        delete categories.department[ category ];
+                }
+                 //=====================================================> hide group
+                for ( var group in categories.group ) {
+                    if ( categories.group[ group ].summary.qty == 0 )
+                        delete categories.group[ group ];
+                }
+            }
+
+            // for sorting ================================================> department
             if ( sortby != 'all' ) {
-                for ( var category in categories ) {
-                    categories[ category ].orderItems.sort(
+                for ( var category in categories.department ) {
+                    categories.department[ category ].orderItems.sort(
                         function ( a, b ) {
                             a = a[ sortby ];
                             b = b[ sortby ];
@@ -207,12 +313,139 @@
                 }
             }
 
+            // for sorting ================================================> group
+            if ( sortby != 'all' ) {
+                for ( var category in categories.group ) {
+                    categories.group[ category ].orderItems.sort(
+                        function ( a, b ) {
+                            a = a[ sortby ];
+                            b = b[ sortby ];
+
+                            switch ( sortby ) {
+                                case 'avg_price':
+                                case 'qty':
+                                case 'gross':
+                                case 'net':
+                                    if ( a < b ) return 1;
+                                    if ( a > b ) return -1;
+                                    return 0;
+                                case 'product_no':
+                                case 'product_name':
+                                    if ( a > b ) return 1;
+                                    if ( a < b ) return -1;
+                                    return 0;
+                            }
+                        }
+                        );
+                }
+            }
+
+            //set group
+            //categories.group = GeckoJS.BaseObject.clone(categories.department);
+            this.log('DEBUG', this.dump(categories,20));
+            var departmentKeys = GeckoJS.BaseObject.getKeys(categories.department);
+
+            
+
+            
+
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.productsales.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;
 
             this._reportRecords.body = categories;
+        },
+
+        _setGroupProperty: function( allProducts ){
+
+            for(var i = 0; i< allProducts.length ; i++){
+
+                 var linkGroups = this.returnProductPlu(allProducts[i].no);
+
+                 allProducts[i]['grouplink'] = linkGroups;
+
+                 allProducts[i].Product['grouplink'] = linkGroups;
+            }          
+            return allProducts;
+        },
+
+        _setGroupOrderItem: function( orderItemRecords, group){
+
+            orderItemRecords = this._addGroupLinkpProperty(orderItemRecords);
+
+            orderItemRecords.forEach( function( record ) {
+                delete record.OrderItem;
+                if (record['qty'] > 0)
+                    record[ 'avg_price' ] = record[ 'net' ] / record[ 'qty' ];
+                else
+                    record[ 'avg_price' ] = 0.0;
+        /*
+                if (!(record.cate_no in categories.department)) {
+                    categories.department[ record.cate_no ] = {
+                        no: record.cate_no,
+                        name: record.cate_name,
+                        orderItems: [ record ],
+                        summary: {
+                            qty: record.qty,
+                            gross: record.gross,
+                            net: record.net
+                            },
+                        prodByNo: {}
+                    };
+                }
+                else {*/
+                for(var i = 0; i< record.grouplink.length ; i++){
+
+                    group[ record.grouplink[i].id ].orderItems.push( record );
+                    group[ record.grouplink[i].id ].summary.qty += record.qty;
+                    group[ record.grouplink[i].id ].summary.gross += record.gross;
+                    group[ record.grouplink[i].id ].summary.net += record.net;
+                
+         //       }
+              group[ record.grouplink[i].id ].prodByNo[ record.product_no ] = 1;}
+            } );
+
+            return group ;
+        },
+
+        _setGroups: function(){
+
+            var groupRecords = [];
+            var plugroups = GeckoJS.Session.get('plugroupsById');
+            plugroups = GeckoJS.BaseObject.getValues(plugroups);
+
+            for(var i = 0; i< plugroups.length; i++){
+
+                groupRecords.push({ group:{ name:plugroups[i].Plugroup.name, id:plugroups[i].id}, name:plugroups[i].Plugroup.name,id:plugroups[i].id });
+            }
+
+            var groups ={};
+             groupRecords.forEach( function( categoryRecord ) {
+                groups[ categoryRecord.id ] = {
+                    no: categoryRecord.id,
+                    name: categoryRecord.name,
+                    orderItems: [],
+                    prodByNo: {},
+                    summary: {
+                        qty: 0,
+                        gross: 0.0,
+                        net: 0.0
+                    }
+                }
+            } );
+
+            return groups;
+        },
+
+        _addGroupLinkpProperty: function( orderItemRecords ){
+
+            for(var i =0 ; i< orderItemRecords.length ; i++){
+
+                orderItemRecords[i].grouplink = this.returnProductPlu(orderItemRecords[i].product_no);
+            }
+
+            return orderItemRecords;
         },
 
         _set_reportRecords: function( limit ) {
@@ -229,16 +462,123 @@
             var shiftNo = document.getElementById( 'shiftno' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
-            var department = document.getElementById( 'department' ).value;
+            var department = document.getElementById( 'department' ).value;            
+
             var empty_department = document.getElementById( 'empty_department' ).value;
             var noSalesProduct = document.getElementById( 'no_sales_product' ).value;
             var breakoutSetmenu = document.getElementById( 'breakout_setmenu' ).checked;
-
-            this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, breakoutSetmenu, limit );
+            var selectCategory = {};
+            
+            //set department && group
+            if(department == 'select'){
+                
+                selectCategory.department = GeckoJS.BaseObject.unserialize( GeckoJS.Configure.read('vivipos.fec.settings.rptConfigure.department'));
+                selectCategory.group = GeckoJS.BaseObject.unserialize( GeckoJS.Configure.read('vivipos.fec.settings.rptConfigure.group'));
+            }
+            this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, breakoutSetmenu, limit, selectCategory );
         },
         
         exportCsv: function() {
             this._super( this, true );
+        },
+
+       linkToSetDepartmentGroup: function(){
+
+            var screenwidth = GeckoJS.Session.get('screenwidth');
+            var screenheight = GeckoJS.Session.get('screenheight');
+            var aURL = 'chrome://viviecr/content/reports/rpt_setDepartmentGroup.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var inputObj = {
+                selectedTemplate: "",
+                selectedBarcode: ""
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('select_rate'), aFeatures, inputObj);
+       },
+
+        returnProductPlu: function( productNumber ){
+
+          // get product ID
+           var productId = this.returnProductID( productNumber ) ;
+
+           var groups = [];
+
+           var productLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+           var plugroups = GeckoJS.Session.get('plugroupsById');
+           
+           var groupID = GeckoJS.BaseObject.getKeys(productLinkGroup);
+
+           productLinkGroup = GeckoJS.BaseObject.getValues(productLinkGroup);
+           plugroups = GeckoJS.BaseObject.getValues(plugroups);
+
+           for(var i=0 ; i< productLinkGroup.length ; i++){
+
+                for(var j=0 ; j<productLinkGroup[i].length ; j++){
+
+                    if(productLinkGroup[i][j] == productId )
+                        groups.push( this._getGroupObject( groupID[i] ) );
+                }
+           }
+          this.log('DEBUG', this.dump(groups,20));
+           return groups;
+        },
+
+        _getGroupObject: function(id){
+
+             var plugroups = GeckoJS.Session.get('plugroupsById');
+             plugroups = GeckoJS.BaseObject.getValues(plugroups);
+
+             for(var i=0; i<plugroups.length ; i++){
+
+                 if(plugroups[i].id == id)
+                     return plugroups[i];
+             }
+        },
+
+        returnProductID: function( productNumber ){
+
+            var products = GeckoJS.Session.get('products');
+
+            for(var i = 0 ; i< products.length ; i++){
+
+                 if( products[i].no == productNumber )
+                     return products[i].id;
+             }
+            return false ;
+        },
+
+        _getDepartmentNo: function( departments){
+
+            var departmentNo = [];
+
+            departments.forEach(function(department){
+
+                departmentNo.push(department.no);
+            });
+            return departmentNo ;
+        },
+
+        _getGroupID: function( groups){
+
+             var groupID = [];
+
+             groups.forEach(function(group){
+
+                groupID.push(group.id);
+            });
+            return groupID ;
+        },
+
+        test: function(){
+/*
+           var a = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+           var x = GeckoJS.BaseObject.getValues(a);
+           var g = this.returnProductPlu('002001');
+           var c = this._setGroups();
+           */
+           var departmentPref = GeckoJS.BaseObject.unserialize( GeckoJS.Configure.read('vivipos.fec.settings.rptConfigure.department'));
+           var groupPref = GeckoJS.BaseObject.unserialize( GeckoJS.Configure.read('vivipos.fec.settings.rptConfigure.group'));
+           var gg = 0;
         },
 
         load: function() {
@@ -256,7 +596,7 @@
             document.getElementById( 'end_date' ).value = end;
             
             // setup the department menu.
-            var cate = new CategoryModel();
+    /*        var cate = new CategoryModel();
             var cateRecords = cate.find( 'all', {
                 fields: [ 'no', 'name' ]
             } );
@@ -267,8 +607,8 @@
                 menuitem.setAttribute( 'value', data.no );
                 menuitem.setAttribute( 'label', data.no + "-" + data.name );
                 dpt.appendChild( menuitem );
-            });
-        }
+            });*/
+        }        
     };
 
     RptBaseController.extend( __controller__ );

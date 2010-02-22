@@ -1,0 +1,43 @@
+<!ENTITY label_printing.title  "Label Printing">
+
+<!ENTITY lable_printing.loadList "Load list">
+<!ENTITY lable_printing.search.label "Product Number, Barcode, or Name">
+<!ENTITY lable_printing.numpad.advsearch "SEARCH">
+<!ENTITY lable_printing.search.heading.no "Number">
+<!ENTITY lable_printing.search.heading.name "Name">
+<!ENTITY lable_printing.pricLevel "Price Level">
+
+<!ENTITY lable_printing.commitmentList.heading.date "Date">
+<!ENTITY lable_printing.commitmentList.heading.memo "Memo">
+<!ENTITY lable_printing.commitmentList.heading.supplier "Supplier">
+
+<!ENTITY lable_printing.tabList.heading.name "Name">
+<!ENTITY lable_printing.tabList.heading.price "Price">
+<!ENTITY lable_printing.tabList.heading.count "Count">
+
+<!ENTITY lable_printing.product.price "Price">
+<!ENTITY lable_printing.product.count "Count">
+
+<!ENTITY label_printing.tab.departmentMode "Department">
+<!ENTITY label_printing.tab.individualMode "Individual">
+<!ENTITY label_printing.tab.procurementMode "Procurement">
+<!ENTITY label_printing.tab.searchMode "Search">
+
+<!ENTITY label_printing.procurement.startdate "Start Date">
+<!ENTITY label_printing.procurement.enddate "End Date">
+
+<!ENTITY lable_printing.button.action.execute "SEARCH">
+<!ENTITY lable_printing.button.action.save "Save">
+<!ENTITY lable_printing.button.action.deleteList "Delete">
+<!ENTITY lable_printing.button.action.modify "Modify">
+<!ENTITY lable_printing.button.action.deleteProduct "Delete">
+
+<!ENTITY lable_printing.error.title "Invalid barcode list">
+<!ENTITY lable_printing.error.messege "The following products have invalid barcode and will not be printed">
+<!ENTITY lable_printing.error.heading.name "Name">
+<!ENTITY lable_printing.error.heading.barcode "Barcode">
+<!ENTITY lable_printing.error.heading.price "Price">
+<!ENTITY lable_printing.error.heading.memo "Memo">
+
+
+
