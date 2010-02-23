@@ -2996,7 +2996,7 @@
                 let maxRefund = (total >= 0 ? paid : (paid - total));
 
                 if (amount > maxRefund) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not [%S]',
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed [%S]',
                         [curTransaction.formatPrice(amount), curTransaction.formatPrice(maxRefund)]));
 
                     this._clearAndSubtotal();
