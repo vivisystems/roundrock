@@ -3040,7 +3040,7 @@
             
             var paymentTxnItem;
 
-            if (amount != 0) {
+            if (amount != 0 || curTransaction.getRemainTotal() < 0) {
                 var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
                 if (beforeResult) {
                     // check if paymentItem can be merged with current item
