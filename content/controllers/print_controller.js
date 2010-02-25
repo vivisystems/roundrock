@@ -1172,8 +1172,8 @@
                         }
 
                         var printed = 0;
-                        if ( isTraining && ( deviceType == "receipt" || deviceType == "ledger" ) ) {
-                        	printed = copies;
+                        if ( isTraining && !ifPrintWhileTraining ) {
+                            printed = copies;
                         } else if (self.checkSerialPort(portPath, handshaking, true)) {
                             if (self.openSerialPort(portPath, portspeed, handshaking)) {
                                 for (var i = 0; i < copies; i++) {
