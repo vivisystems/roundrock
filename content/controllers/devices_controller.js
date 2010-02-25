@@ -595,10 +595,11 @@
                 if (status == -1) {
                     status = 0;
                 }
-                else if (handshaking == 'h') {
+                // handshaking == 'h' is provided as a legacy from VIVIPOS OS 1.2.0
+                else if (handshaking == 'h' || handshaking == 'rtscts') {
                     status = status & 0x20 ? 1 : 0;
                 }
-                else if (handshaking = 'h2') {
+                else if (handshaking == 'dtrdsr') {
                     status = status & 0x0100 ? 1 : 0;
                 }
                 else {
