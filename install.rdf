@@ -16,7 +16,7 @@
             <!-- VIVIPOS APP ENGINE -->
             <Description>
                 <em:id>{7aacc14f-1abc-4243-b48e-63b953c0476a}</em:id>
-                <em:minVersion>1.2.0.0</em:minVersion>
+                <em:minVersion>1.2.1.0</em:minVersion>
                 <em:maxVersion>1.2.*</em:maxVersion>
             </Description>
         </em:targetApplication>
