@@ -99,8 +99,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="receipt-1-handshaking" form="deviceForm" name="receipt-1-handshaking">
                                                 <menupopup id="receipt-1-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
@@ -166,8 +166,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="receipt-2-handshaking" form="deviceForm" name="receipt-2-handshaking">
                                                 <menupopup id="receipt-2-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
@@ -236,8 +236,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="check-%d-handshaking" form="deviceForm" name="check-%d-handshaking" cloneTarget="true">
                                                 <menupopup id="check-%d-handshaking-popup" cloneTarget="true">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
@@ -316,8 +316,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="report-1-handshaking" form="deviceForm" name="report-1-handshaking">
                                                 <menupopup id="report-1-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
@@ -383,8 +383,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="report-2-handshaking" form="deviceForm" name="report-2-handshaking">
                                                 <menupopup id="report-2-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
@@ -451,8 +451,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="vfd-1-handshaking" form="deviceForm" name="vfd-1-handshaking">
                                                 <menupopup id="vfd-1-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
@@ -524,8 +524,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="vfd-2-handshaking" form="deviceForm" name="vfd-2-handshaking">
                                                 <menupopup id="vfd-2-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
@@ -621,8 +621,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="cashdrawer-1-handshaking" form="deviceForm" name="cashdrawer-1-handshaking">
                                                 <menupopup id="cashdrawer-1-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem  label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
@@ -767,8 +767,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="cashdrawer-2-handshaking" form="deviceForm" name="cashdrawer-2-handshaking">
                                                 <menupopup id="cashdrawer-2-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem  label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
@@ -886,8 +886,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="scale-1-handshaking" form="deviceForm" name="scale-1-handshaking">
                                                 <menupopup id="scale-1-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
@@ -946,8 +946,8 @@
                                             <label value="&devices.handshaking.label;"/>
                                             <menulist id="scale-2-handshaking" form="deviceForm" name="scale-2-handshaking">
                                                 <menupopup id="scale-2-handshaking-popup">
-                                                    <menuitem label="&devices.handshaking.cts;" value="h"/>
-                                                    <menuitem label="&devices.handshaking.dtr;" value="h2"/>
+                                                    <menuitem label="&devices.handshaking.rtscts;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.dtrdsr;" value="dtrdsr"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
                                                 </menupopup>
