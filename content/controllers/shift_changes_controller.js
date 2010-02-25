@@ -1036,10 +1036,10 @@
                                                            recursive: 0,
                                                            limit: this._limit
                                                           });
-                if (parseInt(orderPayment.lastError) != 0)
-                    throw {errno: orderPayment.lastError,
-                           errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while computing sales revenue (error code %S) [message #1423].', [orderPayment.lastError])};
+                if (parseInt(orderModel.lastError) != 0)
+                    throw {errno: orderModel.lastError,
+                           errstr: orderModel.lastErrorString,
+                           errmsg: _('An error was encountered while computing sales revenue (error code %S) [message #1423].', [orderModel.lastError])};
 
                 var salesRevenue = (salesTotal && salesTotal.amount != null) ? salesTotal.amount : 0;
 
