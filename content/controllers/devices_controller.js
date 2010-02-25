@@ -595,12 +595,14 @@
                 if (status == -1) {
                     status = 0;
                 }
+                else if (handshaking == 'h') {
+                    status = status & 0x20 ? 1 : 0;
+                }
+                else if (handshaking = 'h2') {
+                    status = status & 0x0100 ? 1 : 0;
+                }
                 else {
-                    var CTS = status & 0x20 ? 1 : 0;
-                    var DSR = status & 0x0100 ? 1 : 0;
-
-                    // RTS/CTS or DTR/DSR hardware handshaking.
-                    status = CTS || DSR;
+                    return 0;
                 }
             }
             return status;
