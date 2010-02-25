@@ -13,7 +13,8 @@
 <!ENTITY devices.port.label "Port">
 <!ENTITY devices.portspeed.label "Port Speed">
 <!ENTITY devices.handshaking.label "Handshaking">
-<!ENTITY devices.handshaking.hardware "Hardware">
+<!ENTITY devices.handshaking.cts "Hardware (CTS/RTS)">
+<!ENTITY devices.handshaking.dtr "Hardware (DTR/DSR)">
 <!ENTITY devices.handshaking.xonxoff "XON/XOFF">
 <!ENTITY devices.handshaking.none "None">
 <!ENTITY devices.devicemodel.label "Device Model">
