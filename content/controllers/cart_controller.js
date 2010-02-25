@@ -2996,7 +2996,7 @@
                 let maxRefund = (total >= 0 ? paid : (paid - total));
 
                 if (amount > maxRefund) {
-                    NotifyUtils.warn(_('Refund amount [%S] may not [%S]',
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed [%S]',
                         [curTransaction.formatPrice(amount), curTransaction.formatPrice(maxRefund)]));
 
                     this._clearAndSubtotal();
@@ -3040,7 +3040,7 @@
             
             var paymentTxnItem;
 
-            if (amount != 0) {
+            if (amount != 0 || curTransaction.getRemainTotal() < 0) {
                 var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
                 if (beforeResult) {
                     // check if paymentItem can be merged with current item
