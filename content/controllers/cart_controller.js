@@ -853,9 +853,9 @@
                     }
 
                 } ).next( function() {
-
+                    
                     // single item sale?
-                    if (doSIS) {
+                    if (doSIS && !self._returnMode) {
                         self._addPayment('cash', null, null, null, null, false, true);
                         self.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
                     }
@@ -4195,8 +4195,6 @@
                 if (memoItem && plu != null && plu != '') memoItem.memo = plu;
             }
 
-            var d = new Deferred();
-
             // if plu is string, check annotation code == plu ?
 
             var memo;
@@ -4219,7 +4217,6 @@
                 curTransaction.appendMemo(index, memo);
                 this._clearAndSubtotal();
             }
-            return d;
 
         },
 
