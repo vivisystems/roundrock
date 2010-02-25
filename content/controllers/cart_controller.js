@@ -4591,6 +4591,11 @@
         },
 
         recallLastSale: function(printer) {
+            if (this._lastSaleOrderId == null) {
+                // attempt to locate last sale from db
+
+            }
+            
             if (this._lastSaleOrderId) {
                 $do('recallOrder', this._lastSaleOrderId, 'GuestCheck');
 
