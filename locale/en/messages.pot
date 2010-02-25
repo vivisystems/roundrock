@@ -1870,6 +1870,24 @@ msgstr ""
 msgid "vivipos.fec.registry.function.programmable.rushItem.label"
 msgstr "Rush Item"
 
+####################
+# Recall Last Sale
+####################
+
+msgid "vivipos.fec.registry.function.programmable.recalllastsale.name"
+msgstr "Recall Last Sale"
+
+msgid "vivipos.fec.registry.function.programmable.recalllastsale.desc"
+msgstr ""
+"This function is used to easily retrieve the last sale into the "
+"shopping cart. The parameter field may be set to a receipt printer number to "
+"automatically issue on the given printer a receipt for the sale (or a receipt "
+"copy if a receipt has already been printed). A printer number of 0 specifies "
+"all enabled receipt printers."
+
+msgid "vivipos.fec.registry.function.programmable.recalllastsale.label"
+msgstr "Recall Last Sale"
+
 
 ########################################################################
 #
@@ -2236,6 +2254,9 @@ msgstr "Print Labels"
 
 msgid "acl_admin_tools"
 msgstr "Administration Tools"
+
+msgid "acl_recall_last_sale"
+msgstr "Recall Last Sale"
 
 ########################################################################
 #
