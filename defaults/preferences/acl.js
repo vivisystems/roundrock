@@ -142,3 +142,4 @@ pref("vivipos.fec.acl.roles.acl_override_minimumcharge", "acl_override_minimumch
 pref("vivipos.fec.acl.roles.acl_rush_item", "acl_rush_item");
 pref("vivipos.fec.acl.roles.acl_print_labels", "acl_print_labels");
 pref("vivipos.fec.acl.roles.acl_admin_tools", "acl_admin_tools");
+pref("vivipos.fec.acl.roles.acl_recall_last_sale", "acl_recall_last_sale");

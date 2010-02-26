@@ -477,7 +477,7 @@
         // printer = 2: second printer
         // printer = null: print on all auto-print enabled printers
 
-        printReceipts: function(txn, printer, autoPrint, duplicate) {
+        printReceipts: function(txn, printer, autoPrint, duplicate, fallbackToDuplicate) {
             var deviceController = this.getDeviceController();
             if (deviceController == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -521,12 +521,17 @@
                             data.duplicate = duplicate;
 
                             // check if record already exists on this device if not printing a duplicate
-                            if (data.duplicate == null) {
+                            if (!data.duplicate) {
                                 var receipt = self.isReceiptPrinted(data.order.id, data.order.batchCount, device.number);
                                 if (receipt) {
-                                    // if auto-print, then we don't issue warning
-                                    if (!autoPrint) NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device.number]));
-                                    return;
+                                    if (fallbackToDuplicate) {
+                                        data.duplicate = true;
+                                    }
+                                    else {
+                                        // if auto-print, then we don't issue warning
+                                        if (!autoPrint) NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device.number]));
+                                        return;
+                                    }
                                 }
                             }
                             self.printSlip('receipt', data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);

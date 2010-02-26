@@ -15,6 +15,7 @@
         _returnPersist: false,
         _blockNextAction: false,
         _decStockBackUp: null,
+        _lastSaleOrderId: null,
 
         _pendingAddItemEvents: [],
 
@@ -3344,6 +3345,11 @@
             this._cancelReturn(true);
 
             var curTransaction = this._getTransaction();
+            if (!curTransaction) {
+                this.clear();
+                return;
+            }
+
             if (!this.ifHavingOpenedOrder()) {
 
                 if (curTransaction.data.recall == 2) orderModel.releaseOrderLock(curTransaction.data.id);
@@ -3619,6 +3625,9 @@
 
                         if (status != 2) {
                             if (status != 1) this.clearWarning();
+                            if (status == 1) {
+                                this._lastSaleOrderId = oldTransaction.data.id;
+                            }
                             this.dispatchEvent('onSubmit', oldTransaction);
                         }
                         else {
@@ -4579,6 +4588,41 @@
 
             });
 
+        },
+
+        recallLastSale: function(printer) {
+            if (this._lastSaleOrderId == null) {
+                // attempt to locate last sale from db
+                var orderModel = new OrderModel();
+                var terminalNo = GeckoJS.Session.get('terminal_no');
+
+                var lastOrder = orderModel.find('first', {conditions: 'terminal_no = "' + terminalNo + '" AND status = 1',
+                                                          order: 'transaction_submitted DESC, sequence DESC'});
+
+                if (lastOrder) {
+                    this._lastSaleOrderId = lastOrder.id;
+                }
+            }
+            
+            if (this._lastSaleOrderId) {
+                $do('recallOrder', this._lastSaleOrderId, 'GuestCheck');
+
+                var txn = this._getTransaction();
+                if (txn.data.id == this._lastSaleOrderId) {
+                // print receipt if printer is specified
+                    if (printer != null && printer != '') {
+                        var printController = GeckoJS.Controller.getInstanceByName('Print');
+
+                        if (printController) {
+                            printController.printReceipts(txn, printer, false, false, true);
+                        }
+                    }
+                    this.dispatchEvent('onWarning', _('LAST SALE RECALLED'));
+                }
+            }
+            else {
+                NotifyUtils.warn(_('No sale found'));
+            }
         },
 
         startTraining: function( isTraining ) {

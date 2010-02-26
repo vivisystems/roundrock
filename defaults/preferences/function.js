@@ -447,3 +447,8 @@ pref("vivipos.fec.registry.function.programmable.opencontrolpanel.access", "");
 pref("vivipos.fec.registry.function.programmable.opencontrolpanel.command", "openControlPanel");
 pref("vivipos.fec.registry.function.programmable.opencontrolpanel.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.opencontrolpanel.data", "");
+
+pref("vivipos.fec.registry.function.programmable.recalllastsale.access", "acl_recall_last_sale");
+pref("vivipos.fec.registry.function.programmable.recalllastsale.command", "recallLastSale");
+pref("vivipos.fec.registry.function.programmable.recalllastsale.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.recalllastsale.data", "");
