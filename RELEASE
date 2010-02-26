@@ -11,7 +11,7 @@ Previous 1.2.0.x releases may be upgraded to this release by installing the rele
 Dependencies
 ------------
 
-This release requires VIVIPOS WebApp and WebServices Release 1.2.1.0. You should also install Release 1.2.1.0 of the appropriate language pack to ensure full translation. Certain enhancements and bug fixes (marked with an '*') require VIVIPOS OS 1.2.1 to function correctly.
+This release requires VIVIPOS WebApp and WebServices Release 1.2.1.0. You should also install Release 1.2.1.0 of the appropriate language pack to ensure full translation.
 
 
 ----------
@@ -137,14 +137,11 @@ Bug #301:
 Bug #317:
     It should be able to configure each VFD to display a default message if the terminal has been idle for a period of time
 
-Bug #318 (*):
-    Authorized users may restore user preferences from daily backups via a built-in hot key
+Bug #318:
+    Authorized users may restore user preferences from daily backups via a built-in hot key (ctrl-alt-u)
 
 Bug #319:
     Need to be able to launch control panels directly via programmable function keys and hot keys
-
-Bug #320:
-    If an order has a negative balance, the decision on whether the user's check cashing limit has been exceeded is made erroneously
 
 Bug #322
     Need to track the price level at which items are registered in order to determine promotion eligibility
@@ -154,6 +151,12 @@ Bug #330:
 
 Bug #357:
     Need a set of administration tools for troubleshooting and managing data recovery in a cluster environment
+
+Bug #376:
+    Need to provide separate RTS/CTS and DTR/DSR hardware handshaking options
+
+Bug #378:
+    Need a function to quickly recall the last sale and optionally print the receipt or receipt copy
 
 ----------
 Bugs Fixed
@@ -168,17 +171,23 @@ Bug #302:
 Bug #305:
     The sample Argox OS-230DT label template mis-prints the current item count when quantity is greater than 9
 
-Bug #311 (*):
+Bug #311:
     Function customization settings can be overridden by restoring from backups generated on another terminal
 
-Bug #316 (*):
+Bug #316:
     Disk usage computation is incorrect
+
+Bug #320:
+    If an order has a negative balance, the decision on whether the user's check cashing limit has been exceeded is made erroneously
 
 Bug #326:
     When the last tax status is removed, details of the tax being removed remains on the form and the 'Modify' button is not disabled
 
 Bug #333:
    Expired ledger payment records are not removed from database
+
+Bug #374:
+   Receipt and ledger do not print in training mode even when configured in general options to do so
 
 -----------------------------
 Bugs fixed in Release 1.2.0.8
