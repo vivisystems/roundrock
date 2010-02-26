@@ -191,6 +191,16 @@
             if (!data.display_sequences) {
                 this.rebuildDisplaySequences(data);
             }
+
+            if (data.display_sequences) {
+                for (i = 0; i < data.display_sequences.length; i++) {
+                    let dispItem = data.display_sequences[i];
+                    if (dispItem.type == 'item') {
+                        let transItem = data.items[dispItem.index];
+                        if (transItem) transItem.batch = dispItem.batch;
+                    }
+                }
+            }
             return items;
             
         },
