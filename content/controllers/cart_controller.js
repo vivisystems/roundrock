@@ -4593,7 +4593,15 @@
         recallLastSale: function(printer) {
             if (this._lastSaleOrderId == null) {
                 // attempt to locate last sale from db
+                var orderModel = new OrderModel();
+                var terminalNo = GeckoJS.Session.get('terminal_no');
 
+                var lastOrder = orderModel.find('first', {conditions: 'terminal_no = "' + terminalNo + '" AND status = 1',
+                                                          order: 'transaction_submitted DESC, sequence DESC'});
+
+                if (lastOrder) {
+                    this._lastSaleOrderId = lastOrder.id;
+                }
             }
             
             if (this._lastSaleOrderId) {
