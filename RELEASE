@@ -184,10 +184,13 @@ Bug #326:
     When the last tax status is removed, details of the tax being removed remains on the form and the 'Modify' button is not disabled
 
 Bug #333:
-   Expired ledger payment records are not removed from database
+    Expired ledger payment records are not removed from database
 
 Bug #374:
-   Receipt and ledger do not print in training mode even when configured in general options to do so
+    Receipt and ledger do not print in training mode even when configured in general options to do so
+
+Bug #377:
+    Storing check does not increment order batchCount if no entries were added to the shopping cart; also batch attribute on recalled items are not reconstructed at all. Both issues may cause template to include items in kitchen/guest checks unnecessarily
 
 -----------------------------
 Bugs fixed in Release 1.2.0.8
