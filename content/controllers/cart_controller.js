@@ -4211,12 +4211,13 @@
                 return this._getMemoDialog(memoItem ? memoItem.memo : '');
             }else if (typeof plu == 'string') {
                 var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+                var annotationType = annotationController.getAnnotationType(plu);
                 var annotationText = annotationController.getAnnotationText(plu);
-
+                
                 if (annotationText) {
                     return this._getMemoDialog(plu);
                 }else {
-                    memo = GeckoJS.String.trim(plu);
+                    memo = annotationType ? annotationType : GeckoJS.String.trim(plu);
                     curTransaction.appendMemo(index, memo);
                     this._clearAndSubtotal();
                 }
@@ -4540,16 +4541,21 @@
             var self = this;
 
             var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
-            var annotationText = memo ? annotationController.getAnnotationText(memo) : false ;
+            var annotationType = memo ? annotationController.getAnnotationType(memo) : false ;
+            var annotationText = annotationType ? annotationController.getAnnotationText(memo) : false ;
             var annotationTypes = annotationController.getAllAnnotationTypes();
-
+            
             // if memo is annotation code
             if (annotationText) {
-                    annotationTypes = [] ;
-                    var texts = annotationText.split('|');
-                    texts.forEach(function(t){
-                        annotationTypes.push({type: t, text: t});
-                    });
+                annotationTypes = [] ;
+                var texts = annotationText.split('|');
+                texts.forEach(function(t){
+                    annotationTypes.push({type: t, text: t});
+                });
+                memo = '';
+            }
+            else if (annotationType) {
+                memo = annotationType;
             }
 
             var inputObj = {

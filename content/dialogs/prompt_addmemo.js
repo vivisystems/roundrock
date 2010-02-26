@@ -38,6 +38,13 @@ var promptAddMemo_options;
             },
 
             load: function(evt) {
+                // clear previous entries
+                var input0 = document.getElementById('promptAddMemo-input0');
+                if (input0) {
+                    input0.value = '';
+                }
+
+                var input1 = document.getElementById('promptAddMemo-input1');
 
                 var caption0 = evt.data[0];
                 var text0 = evt.data[1];
@@ -52,17 +59,17 @@ var promptAddMemo_options;
                 document.getElementById('promptAddMemo-title0').value = title0;
 
                 // must use setAttribute; otherwise values would be wiped out by change made to 'multiline'
-                document.getElementById('promptAddMemo-input0').setAttribute('value', inputObj.input0);
-                document.getElementById('promptAddMemo-input0').value = inputObj.input0;
-                document.getElementById('promptAddMemo-input1').datasource = inputObj.annotations;
+                if (input0) input0.setAttribute('value', inputObj.input0);
+                if (input0) input0.value = inputObj.input0;
+                if (input1) input1.datasource = inputObj.annotations;
 
                 document.getElementById('promptAddMemo-cancel').setAttribute('disabled', false);
 
                 promptAddMemo_validateInput();
 
                 window.selectAnnotation = function(index) {
-                    var anno = inputObj.annotations[index].type || '';
-                    document.getElementById('promptAddMemo-input0').value = anno;
+                    var anno = inputObj.annotations[index];
+                    input0.value = anno ? anno.type : '';
 
                     promptAddMemo_validateInput();
                 }
@@ -70,7 +77,19 @@ var promptAddMemo_options;
             },
 
             shown: function(evt) {
-                document.getElementById('promptAddMemo-input0').focus();
+
+                // set focus on primary input
+                var input0 = document.getElementById('promptAddMemo-input0');
+                if (input0) {
+                    input0.focus();
+                }
+
+                var input1 = document.getElementById('promptAddMemo-input1');
+                if (input1) {
+                    input1.selectedIndex = -1;
+                    input1.selection.clearSelection();
+                }
+
             },
 
             hide: function (evt) {
