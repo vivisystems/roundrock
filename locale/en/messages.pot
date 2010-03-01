@@ -1883,7 +1883,7 @@ msgstr "Recall Last Sale"
 
 msgid "vivipos.fec.registry.function.programmable.recalllastsale.desc"
 msgstr ""
-"This function is used to easily retrieve the last sale into the "
+"This function is used to quickly retrieve the last sale into the "
 "shopping cart. The parameter field may be set to a receipt printer number to "
 "automatically issue on the given printer a receipt for the sale (or a receipt "
 "copy if a receipt has already been printed). A printer number of 0 specifies "
