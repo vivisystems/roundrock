@@ -8,6 +8,7 @@
 <!ENTITY category.general "General">
 <!ENTITY category.formats "Numbers &amp; Formats">
 <!ENTITY category.login "Sign In/Out">
+<!ENTITY category.shift "Shift Control">
 <!ENTITY category.training "Training Mode">
 <!ENTITY category.orderdata "Data Options">
 <!ENTITY general.publicattendance "Individual attendance record visible to all">
@@ -31,23 +32,24 @@
 <!ENTITY general.cartscrollmode "Scroll mode for register screen">
 <!ENTITY general.cartscrollmode.cursor-line "Cursor mode (line-by-line)">
 <!ENTITY general.cartscrollmode.view-page "View mode (page-by-page)">
-<!ENTITY login.requirecashdeclaration "Require cash declaration before shift change">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">
 <!ENTITY login.allowquicklogin "Automatically match user by password when signing in">
-<!ENTITY login.disablesaleperiod "Disable sale period">
-<!ENTITY login.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
-<!ENTITY login.disableshiftchange "Disable shift change">
-<!ENTITY login.checksaleperiod "Check sale period on every order">
 <!ENTITY login.signoffwhenidle "Sign off when idle">
-<!ENTITY login.storedorderwhenshiftchange "Stored order policy when changing shift">
-<!ENTITY login.storedorderwhenendperiod "Stored order policy when ending sale period">
-<!ENTITY login.storedorder.none "No action">
-<!ENTITY login.storedorder.alert "Warn if stored orders exist">
-<!ENTITY login.storedorder.force "Force closing of stored orders">
-<!ENTITY login.defaultchangeindrawer "Default drawer change">
-<!ENTITY login.allowchangewhenendperiod "Allow drawer change when ending sale period">
+<!ENTITY shift.requirecashdeclaration "Require cash declaration before shift change">
+<!ENTITY shift.disablesaleperiod "Disable sale period">
+<!ENTITY shift.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
+<!ENTITY shift.disableshiftchange "Disable shift change">
+<!ENTITY shift.checksaleperiod "Check sale period on every order">
+<!ENTITY shift.hideshiftdialog "Hide shift information dialog">
+<!ENTITY shift.storedorderwhenshiftchange "Stored order policy when changing shift">
+<!ENTITY shift.storedorderwhenendperiod "Stored order policy when ending sale period">
+<!ENTITY shift.storedorder.none "No action">
+<!ENTITY shift.storedorder.alert "Warn if stored orders exist">
+<!ENTITY shift.storedorder.force "Force closing of stored orders">
+<!ENTITY shift.defaultchangeindrawer "Default drawer change">
+<!ENTITY shift.allowchangewhenendperiod "Allow drawer change when ending sale period">
 <!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.banneratbottom "Place banner at screen bottom">
 <!ENTITY layout.bannerheight "Banner height">
