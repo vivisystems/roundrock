@@ -323,6 +323,8 @@
             var disableShiftChange = GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange') || false;
             var disableSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.DisableSalePeriod') || false;
             var hideShiftDialog = GeckoJS.Configure.read('vivipos.fec.settings.HideShiftDialog') || false;
+            var hideShiftDialogOnce = GeckoJS.Session.get('hideShiftDialogOnce') || false;
+
             var updateShiftMarker = true;
             var today = new Date().clearTime();
             
@@ -610,12 +612,16 @@
                 GREUtils.Dialog.alert(win, _('Drawer Change Error'), warnOnChangeDiscrepancy);
             }
 
-            if (!disableShiftChange && !disableSalePeriod && !hideShiftDialog) {
+            if (!disableShiftChange && !disableSalePeriod && !hideShiftDialog && !hideShiftDialogOnce) {
                 // display current shift / last shift information
                 this._ShiftDialog((newSalePeriod > 0) ? new Date(newSalePeriod * 1000).toLocaleDateString() : newSalePeriod, newShiftNumber,
                                   (lastSalePeriod == '') ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber);
             }
 
+            if (hideShiftDialogOnce) {
+                GeckoJS.Session.remove('hideShiftDialogOnce');
+            }
+            
             this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
         },
         
