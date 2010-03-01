@@ -55,7 +55,8 @@
                     });
             }
 
-//            this.log(this.dump(itemsByPriceArray));
+            itemsByPriceArray = new GeckoJS.ArrayQuery(itemsByPriceArray).orderBy("price asc");
+            // this.log(this.dump(itemsByPriceArray));
 
             if (itemsByPriceArray.length > 0) {
 
