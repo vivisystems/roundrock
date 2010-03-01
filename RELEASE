@@ -158,6 +158,7 @@ Bug #376:
 Bug #378:
     Need a function to quickly recall the last sale and optionally print the receipt or receipt copy
 
+
 ----------
 Bugs Fixed
 ----------
@@ -194,6 +195,10 @@ Bug #377:
 
 Bug #380:
     If a terminal is upgraded from VIVIECR 1.1.x, stock service hostname will be undefined. This causes terminal to display an error message stating that the stock service is unavailable each time the terminal starts up until the stock service hostname is manually set
+
+Bug #382:
+    Promotion type 'Cheapest One Free' will only see matching products from the first product group or department for 'Multi Product Group' and 'Multi Department' triggers respectively.
+
 
 -----------------------------
 Bugs fixed in Release 1.2.0.8
