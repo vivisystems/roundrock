@@ -30,6 +30,9 @@
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/admintools_controller.js" type="application/x-javascript"/>
 
+  <!-- include startup script -->
+  <script src="chrome://viviecr/content/admintools.js" type="application/x-javascript"/>
+
     <keyset id="keyset_extensions">
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
