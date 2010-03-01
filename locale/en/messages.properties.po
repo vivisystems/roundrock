@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-02-26 15:53+0800\n"
+"POT-Creation-Date: 2010-03-01 14:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1327,7 +1327,11 @@ msgstr "Show Payments"
 msgid "vivipos.fec.registry.function.programmable.addmemo.desc"
 msgstr ""
 "This function adds an open memo to an item in the cart. The memo may also be "
-"preset in the parameter field."
+"preset in the parameter field. The preset message can either be a text "
+"string or an annotation code. If an annotation code is given, the annotation "
+"text will be used to generate a list of preset messages that the user can "
+"choose from. If the annotation text is empty, then the annotation type is "
+"used as the preset message instead."
 
 msgid "vivipos.fec.registry.function.programmable.addmemo.label"
 msgstr "Add Memo"
@@ -3265,13 +3269,13 @@ msgid "Authentication failed! Please select a user"
 msgstr ""
 
 #: ../..//content/refund_payment.js:23 ../..//content/refund_payment.js:29
-#: ../..//content/controllers/cart_controller.js:4286
-#: ../..//content/controllers/cart_controller.js:4347
-#: ../..//content/controllers/cart_controller.js:4357
-#: ../..//content/controllers/cart_controller.js:4368
-#: ../..//content/controllers/cart_controller.js:4375
-#: ../..//content/controllers/cart_controller.js:4388
-#: ../..//content/controllers/cart_controller.js:4517
+#: ../..//content/controllers/cart_controller.js:4287
+#: ../..//content/controllers/cart_controller.js:4348
+#: ../..//content/controllers/cart_controller.js:4358
+#: ../..//content/controllers/cart_controller.js:4369
+#: ../..//content/controllers/cart_controller.js:4376
+#: ../..//content/controllers/cart_controller.js:4389
+#: ../..//content/controllers/cart_controller.js:4518
 msgid "Void Sale"
 msgstr ""
 
@@ -4759,108 +4763,108 @@ msgstr ""
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4273
+#: ../..//content/controllers/cart_controller.js:4274
 msgid "No order to void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4278
+#: ../..//content/controllers/cart_controller.js:4279
 msgid "The order has already been cancelled or voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4287
+#: ../..//content/controllers/cart_controller.js:4288
 msgid "This operation may only be applied to stored and completed transactions"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4294
+#: ../..//content/controllers/cart_controller.js:4295
 msgid "Confirm Void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4295
+#: ../..//content/controllers/cart_controller.js:4296
 msgid ""
 "You have made changes to this order; are you sure you want to void the order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4301
+#: ../..//content/controllers/cart_controller.js:4302
 msgid "Sale Voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4308
+#: ../..//content/controllers/cart_controller.js:4309
 msgid "Sale Not Voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4334
+#: ../..//content/controllers/cart_controller.js:4335
 #, python-format
 msgid ""
 "An error was encountered while retrieving order record (error code %s) "
 "[message #107]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4339
+#: ../..//content/controllers/cart_controller.js:4340
 msgid "Retrieving Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4348
+#: ../..//content/controllers/cart_controller.js:4349
 msgid "Failed to void; the selected order no longer exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4358
+#: ../..//content/controllers/cart_controller.js:4359
 #: ../..//content/controllers/guest_check_controller.js:1013
 #: ../..//content/controllers/guest_check_controller.js:1014
 msgid "This order is already locked by other terminal. [%S,%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4369
+#: ../..//content/controllers/cart_controller.js:4370
 msgid ""
 "Failed to void; the status of the selected order has been changed by another "
 "terminal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4376
+#: ../..//content/controllers/cart_controller.js:4377
 msgid ""
 "Failed to void; the selected order has been modified by another terminal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4389
+#: ../..//content/controllers/cart_controller.js:4390
 msgid "Failed to void; the selected order is not stored or finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4408
+#: ../..//content/controllers/cart_controller.js:4409
 msgid "Payment Refund"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4411
+#: ../..//content/controllers/cart_controller.js:4412
 msgid "Voiding Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4500
+#: ../..//content/controllers/cart_controller.js:4501
 msgid ""
 "An error was encountered while changing order status to voided [message "
 "#109]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4510
+#: ../..//content/controllers/cart_controller.js:4511
 msgid "An error was encountered while updating stock level [message #110]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4518
+#: ../..//content/controllers/cart_controller.js:4519
 msgid "Transaction [%S] successfully voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4562
+#: ../..//content/controllers/cart_controller.js:4568
 #: ../..//content/controllers/guest_check_controller.js:2230
 msgid "Add Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4564
+#: ../..//content/controllers/cart_controller.js:4570
 #: ../..//content/controllers/guest_check_controller.js:2230
 msgid "Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4620
+#: ../..//content/controllers/cart_controller.js:4626
 msgid "LAST SALE RECALLED"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4624
+#: ../..//content/controllers/cart_controller.js:4630
 msgid "No sale found"
 msgstr ""
 
