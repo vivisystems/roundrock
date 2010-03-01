@@ -100,7 +100,7 @@
         },
 
         setHostname: function(hostname) {
-            this.hostname = hostname || '';
+            this.hostname = hostname || 'localhost';
         },
 
         getPort: function() {
