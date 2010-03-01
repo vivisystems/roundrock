@@ -192,6 +192,9 @@ Bug #374:
 Bug #377:
     Storing check does not increment order batchCount if no entries were added to the shopping cart; also batch attribute on recalled items are not reconstructed at all. Both issues may cause template to include items in kitchen/guest checks unnecessarily
 
+Bug #380:
+    If a terminal is upgraded from VIVIECR 1.1.x, stock service hostname will be undefined. This causes terminal to display an error message stating that the stock service is unavailable each time the terminal starts up until the stock service hostname is manually set
+
 -----------------------------
 Bugs fixed in Release 1.2.0.8
 -----------------------------
