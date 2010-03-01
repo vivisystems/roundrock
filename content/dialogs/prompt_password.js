@@ -73,7 +73,6 @@
 
                 let hotkeys = document.getElementById('hotkeySets');
                 if (hotkeys) {
-                    alert('hotkeys: ' + savedHotKeys);
                     hotkeys.keys = savedHotKeys;
                 }
 
