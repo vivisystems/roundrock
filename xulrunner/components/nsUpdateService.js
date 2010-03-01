@@ -88,6 +88,7 @@ var gLocale     = null;
 var gConsole    = null;
 var gCanUpdate  = null;
 var gLogEnabled = { };
+var gEnv        = null;
 
 // shared code for suppressing bad cert dialogs
 //@line 41 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/shared/src/badCertHandler.js"
@@ -1052,6 +1053,8 @@ function UpdateService() {
           getService(Ci.nsIPrefBranch2);
   gConsole = Cc["@mozilla.org/consoleservice;1"].
              getService(Ci.nsIConsoleService);
+  gEnv = Components.classes["@mozilla.org/process/environment;1"].
+         getService(Components.interfaces.nsIEnvironment);
 
   // Not all builds have a known ABI
   try {
@@ -2008,6 +2011,10 @@ Checker.prototype = {
                       getDistributionPrefValue(PREF_APP_DISTRIBUTION));
     url = url.replace(/%DISTRIBUTION_VERSION%/g,
                       getDistributionPrefValue(PREF_APP_DISTRIBUTION_VERSION));
+    url = url.replace(/%DALLAS%/g, gEnv.get("dallas"));
+    url = url.replace(/%MAC_ADDRESS%/g, gEnv.get("mac_address"));
+    url = url.replace(/%VENDOR_NAME%/g, gEnv.get("vendor_name"));
+    url = url.replace(/%SYSTEM_NAME%/g, gEnv.get("system_name"));
     url = url.replace(/\+/g, "%2B");
 
     if (force)

@@ -145,6 +145,8 @@ var gFirstRun             = false;
 var gAllowFlush           = true;
 var gDSNeedsFlush         = false;
 var gManifestNeedsFlush   = false;
+var gEnv                  = null;
+var gConv                 = null;
 
 /**
  * Valid GUIDs fit this pattern.
@@ -1487,8 +1489,11 @@ Installer.prototype = {
       // create directories first
       var entries = zipReader.findEntries("*/");
       while (entries.hasMore()) {
-        var entryName = entries.getNext();
-        var target = installLocation.getItemFile(extensionID, entryName);
+        //var entryName = entries.getNext();
+        //var target = installLocation.getItemFile(extensionID, entryName);
+        // if utf8 filename or chinese filename by racklin
+        var entryName = gConv.ConvertFromUnicode(entries.getNext()); 
+        var target = installLocation.getItemFile(extensionID, gConv.ConvertToUnicode(entryName));
         if (!target.exists()) {
           try {
             target.create(Ci.nsILocalFile.DIRECTORY_TYPE, PERMS_DIRECTORY);
@@ -2326,6 +2331,12 @@ function ExtensionManager() {
   gRDF = Cc["@mozilla.org/rdf/rdf-service;1"].
          getService(Ci.nsIRDFService);
   gInstallManifestRoot = gRDF.GetResource(RDFURI_INSTALL_MANIFEST_ROOT);
+
+  gEnv = Components.classes["@mozilla.org/process/environment;1"].
+         getService(Components.interfaces.nsIEnvironment);
+  gConv = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
+         getService(Components.interfaces.nsIScriptableUnicodeConverter);
+  gConv.charset = "UTF-8";
 
   // Register Global Install Location
   var appGlobalExtensions = getDirNoCreate(KEY_APPDIR, [DIR_EXTENSIONS]);
@@ -6278,6 +6289,10 @@ function escapeAddonURI(aItem, aAppVersion, aURI, aDS)
   aURI = aURI.replace(/%APP_ABI%/g, gXPCOMABI);
   aURI = aURI.replace(/%APP_LOCALE%/g, gLocale);
   aURI = aURI.replace(/%CURRENT_APP_VERSION%/g, gApp.version);
+  aURI = aURI.replace(/%DALLAS%/g, gEnv.get("dallas"));
+  aURI = aURI.replace(/%MAC_ADDRESS%/g, gEnv.get("mac_address"));
+  aURI = aURI.replace(/%VENDOR_NAME%/g, gEnv.get("vendor_name"));
+  aURI = aURI.replace(/%SYSTEM_NAME%/g, gEnv.get("system_name"));
 
   // Replace custom parameters (names of custom parameters must have at
   // least 3 characters to prevent lookups for something like %D0%C8)
