@@ -161,6 +161,9 @@ Bug #378:
 Bug #381:
     Moved Shift-related options into its own 'Shift Control' tab, and added arrow scrollbox around the tabs in General Options to handle the increased number of tabs
 
+Bug #387:
+    Added support for FEC FG-240 customer display (with Chinese fonts)
+
 ----------
 Bugs Fixed
 ----------
