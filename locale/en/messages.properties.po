@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-03-02 17:57+0800\n"
+"POT-Creation-Date: 2010-03-02 20:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4946,13 +4946,13 @@ msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:283
 #: ../..//content/controllers/print_controller.js:906
-#: ../..//content/controllers/vfd_controller.js:273
+#: ../..//content/controllers/vfd_controller.js:281
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:346
 #: ../..//content/controllers/print_controller.js:1200
-#: ../..//content/controllers/vfd_controller.js:351
+#: ../..//content/controllers/vfd_controller.js:359
 msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
 
@@ -9088,7 +9088,7 @@ msgstr ""
 msgid "Error in VFD controller; no worker thread available!"
 msgstr ""
 
-#: ../..//content/controllers/vfd_controller.js:278
+#: ../..//content/controllers/vfd_controller.js:286
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
