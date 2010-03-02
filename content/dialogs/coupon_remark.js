@@ -67,6 +67,8 @@ var couponRemark_options;
             },
 
             shown: function(evt) {
+                // disable hot keys
+                $do('disableHotKeys', null, 'Main');
 
                 var inputObj = evt.data[4];
 
@@ -79,6 +81,8 @@ var couponRemark_options;
 
 
             hide: function (evt) {
+                // restore hot keys
+                $do('restoreHotKeys', null, 'Main');
 
                 // press escape
                 var isOK = typeof evt.data == 'boolean' ? evt.data : false;

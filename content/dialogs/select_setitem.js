@@ -166,7 +166,14 @@
                 opts.validateSetItemForm();
             },
 
+            shown: function(evt) {
+                // disable hot keys
+                $do('disableHotKeys', null, 'Main');
+            },
+
             hide: function (evt) {
+                // disable hot keys
+                $do('restoreHotKeys', null, 'Main');
 
                 var isOK = typeof evt.data == 'boolean' ? evt.data : false;
 

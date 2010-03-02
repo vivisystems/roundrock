@@ -148,10 +148,15 @@ var promptAdditem_options;
             },
 
             shown: function(evt) {
+                // disable hot keys
+                $do('disableHotKeys', null, 'Main');
+
                 document.getElementById('promptAdditem-input0').focus();                
             },
 
             hide: function (evt) {
+                // restore hot keys
+                $do('restoreHotKeys', null, 'Main');
 
                 // press escape
                 var isOK = typeof evt.data == 'boolean' ? evt.data : false;

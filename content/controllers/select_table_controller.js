@@ -483,12 +483,20 @@
                 },
 
                 shown: function(evt) {
+                    if (!self.isDock()) {
+                        $do('disableHotKeys', true, 'Main');
+                        // disable user-defined hotkeys
+                    }
 
                     // tablespanel shown , refresh
                     self.refreshTableStatus();
                 },
 
                 hide: function (evt) {
+                    if (!self.isDock()) {
+                        $do('restoreHotKeys', true, 'Main');
+                        // restore user-defined hotkeys
+                    }
                     // stop timer
                     self.stopRefreshTimer();
                 }

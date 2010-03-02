@@ -26,6 +26,8 @@
             },
 
             load: function(evt) {
+                // disable hot keys
+                $do('disableHotKeys', null, 'Main');
 
                 var title = evt.data[0];
                 var details = evt.data[1];
@@ -44,7 +46,8 @@
             },
 
             hide: function (evt) {
-
+                // restore hot keys
+                $do('restoreHotKeys', null, 'Main');
             }
 
         });
