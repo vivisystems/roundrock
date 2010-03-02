@@ -77,6 +77,8 @@ var promptAddMemo_options;
             },
 
             shown: function(evt) {
+                // disable hot keys
+                $do('disableHotKeys', null, 'Main');
 
                 // set focus on primary input
                 var input0 = document.getElementById('promptAddMemo-input0');
@@ -93,6 +95,8 @@ var promptAddMemo_options;
             },
 
             hide: function (evt) {
+                // restore hot keys
+                $do('restoreHotKeys', null, 'Main');
 
                 // press escape
                 var isOK = typeof evt.data == 'boolean' ? evt.data : false;

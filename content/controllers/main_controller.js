@@ -24,7 +24,9 @@
         _suspendOpelrationFilter: null,
         _isTraining: false,
         _launchingControlPanel: false,
-    
+
+        _savedHotKeys: null,
+
         initial: function(firstrun) {
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
@@ -167,7 +169,36 @@
             }
         },
 
-        isMainWindowOnTop: function(close) {
+        disableHotKeys: function(userDefinedOnly) {
+            if (!userDefinedOnly) {
+                let keys = document.getElementById('keyset_extensions');
+                if (keys) {
+                    keys.setAttribute('disabled', true);
+                }
+            }
+
+            let hotkeys = document.getElementById('hotkeySets');
+            if (hotkeys) {
+                this._savedHotKeys = hotkeys.keys;
+                hotkeys.keys = [];
+            }
+        },
+
+        restoreHotKeys: function(userDefinedOnly) {
+            if (!userDefinedOnly) {
+                let keys = document.getElementById('keyset_extensions');
+                if (keys) {
+                    keys.removeAttribute('disabled');
+                }
+            }
+            
+            let hotkeys = document.getElementById('hotkeySets');
+            if (hotkeys) {
+                hotkeys.keys = this._savedHotKeys;
+            }
+        },
+        
+        isMainWindowOnTop: function() {
             // check if top most window is Vivipos Main window
             var win = this.topmostWindow;
             if (win.document.documentElement.id == 'viviposMainWindow'

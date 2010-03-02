@@ -10,8 +10,6 @@
         var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
         var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
-        var savedHotKeys;
-
         $.installPanel($panel[0], {
             
             css: {
@@ -50,31 +48,15 @@
             },
 
             shown: function(evt) {
-                var keys = document.getElementById('keyset_extensions');
-                if (keys) {
-                    keys.setAttribute('disabled', true);
-                }
-
-                let hotkeys = document.getElementById('hotkeySets');
-                if (hotkeys) {
-                    savedHotKeys = hotkeys.keys;
-                    hotkeys.keys = [];
-                }
+                // disable hot keys
+                $do('disableHotKeys', null, 'Main');
 
                 document.getElementById('promptPassword-input0').focus();
             },
 
             hide: function (evt) {
-
-                var keys = document.getElementById('keyset_extensions');
-                if (keys) {
-                    keys.removeAttribute('disabled');
-                }
-
-                let hotkeys = document.getElementById('hotkeySets');
-                if (hotkeys) {
-                    hotkeys.keys = savedHotKeys;
-                }
+                // restore hot keys
+                $do('restoreHotKeys', null, 'Main');
 
                 // press escape
                 var isOK = typeof evt.data == 'boolean' ? evt.data : false;
