@@ -204,6 +204,9 @@ Bug #382:
 Bug #383:
     Built-in and user-defined hot keys need to be disabled when prompt panels are shown to avoid functions from being invoked via hot keys in inappropriate places
 
+Bug #386:
+    When set as the first screen, the Table Selection window does not show up after queueing an order or when a user signs out and the next user signs out
+
 -----------------------------
 Bugs fixed in Release 1.2.0.8
 -----------------------------
