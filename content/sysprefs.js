@@ -5,6 +5,14 @@
      */
     function startup() {
 
+        // add arrowscrollbox and wraped radiogroup
+        var arrowscrollbox = document.createElement('arrowscrollbox');
+        arrowscrollbox.setAttribute('orient', 'horizontal');
+        arrowscrollbox.setAttribute('class', 'content-arrow-scrollbox');
+
+        var prefwin = document.getElementById('prefwin');
+        $(prefwin._selector).wrap(arrowscrollbox);
+
         // initialize rounding policy selection menus
         var rt = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
         var rp = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
