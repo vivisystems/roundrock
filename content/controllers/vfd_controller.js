@@ -37,10 +37,10 @@
                 cart.addEventListener('onRecovery', this.displayOnVFD, this);
             }
 
-            var cartQueue = GeckoJS.Controller.getInstanceByName('Cart');
+            var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
             if(cartQueue) {
                 cartQueue.addEventListener('onQueue', this.displayOnVFD, this);
-                cartQueue.addEventListener('onPullQueue', this.displayOnVFD, this);
+                cartQueue.addEventListener('afterPullQueue', this.displayOnVFD, this);
             }
 
             // add eventListener on VFD
@@ -224,6 +224,14 @@
                     break;
 
                 case 'initial':
+                    break;
+
+                case 'afterAddCondiment':
+                    var condiments = '';
+                    evt.data.forEach(function(cond) {
+                        condiments += (condiments == '') ? cond.name : (', ' + cond.name);
+                    }, this);
+                    itemDisplay = {name: condiments};
                     break;
 
                 case 'onMessage':
