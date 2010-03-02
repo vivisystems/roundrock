@@ -158,6 +158,8 @@ Bug #376:
 Bug #378:
     Need a function to quickly recall the last sale and optionally print the receipt or receipt copy
 
+Bug #381:
+    Moved Shift-related options into its own 'Shift Control' tab, and added arrow scrollbox around the tabs in General Options to handle the increased number of tabs
 
 ----------
 Bugs Fixed
