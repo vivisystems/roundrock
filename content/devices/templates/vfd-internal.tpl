@@ -28,12 +28,12 @@
 [&ESC @][&ESC QA]${item.surcharge_name|left:9} ${txn.formatPrice(item.current_surcharge)|right:10}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'afterAddCondiment'}
-[&ESC @][&ESC QA]Add: ${'Condiment'|right:15}[&CR]
+[&ESC @][&ESC QA]Cond: ${itemDisplay.name|right:15}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'onQueue'}
 [&ESC @][&ESC QA]QUEUED: ${order.seq|right:12}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
-{elseif type == 'onPullQueue'}
+{elseif type == 'afterPullQueue'}
 [&ESC @][&ESC QA]RECALL: ${order.seq|right:12}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'afterCancel'}
