@@ -42,6 +42,11 @@
                 main.addEventListener('afterSignedOn', this.onMainFirstLoad, this);
             }
 
+            var cartqueue = GeckoJS.Controller.getInstanceByName('CartQueue');
+            if (cartqueue) {
+                cartqueue.addEventListener('onQueue', this.onMainFirstLoad, this);
+            }
+            
             this.addEventListener('beforeStoreCheck', this.beforeStoreCheck, this);
 
             this.addEventListener('afterNewTable', this.afterNewTable, this);
