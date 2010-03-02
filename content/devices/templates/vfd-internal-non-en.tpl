@@ -33,7 +33,7 @@
 {elseif type == 'onQueue'}
 [&ESC @][&ESC QA]QUEUED: ${order.seq|right:12}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
-{elseif type == 'onPullQueue'}
+{elseif type == 'afterPullQueue'}
 [&ESC @][&ESC QA]RECALL: ${order.seq|right:12}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'afterCancel'}
