@@ -843,7 +843,13 @@
                 var fnPanel = document.getElementById('functionPanel');
                 if (fnPanel) fnPanel.home();
 
-                if (!recovery) this.dispatchEvent('signedOn', user);
+                if (!recovery) {
+                    if (this.dispatchEvent('beforeSignedOn', user)) {
+                        this.dispatchEvent('signedOn', user);
+                    }
+
+                    this.dispatchEvent('afterSignedOn', user);
+                }
             }
             else {
                 GeckoJS.Session.clear('user');
