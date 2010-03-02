@@ -8278,7 +8278,7 @@ GREUtils.define('GeckoJS.BaseController', GeckoJS.global);
  * @property {GeckoJS.Event} events       A list of event listeners (read-only)
  * @property {GeckoJS.Session} Session    A session context (read-only)
  * @property {ChromeWindow} activeWindow        activeWindow's window object || ChromeWindow (read-only)
- * @property {ChromeWindow} topmostWindow        topmost window object (read-only)
+ * @property {ChromeWindow} topmostWindow        topmost window object skip alert:alert window (read-only)
  * @property {Object} data                Data from gDispatch
  * @property {String} command             Command from gDispatch
  * @property {String} dispatchedEvents    Log of the dispatchedEvents
@@ -8402,7 +8402,32 @@ GeckoJS.BaseController.prototype.__defineGetter__('activeWindow', function(){
 
 GeckoJS.BaseController.prototype.__defineGetter__('topmostWindow', function(){
 
-    return GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
+    // skip windowtype = alert:alert
+    var win = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
+    var doc = win.document;
+    var winElement = doc.getElementsByTagName('window');
+    var windowtype = '';
+    if (winElement[0]) {
+         windowtype = winElement[0].getAttribute('windowtype');
+         if (windowtype != 'alert:alert') return win;
+    }
+
+    // enumerator all windows
+    var enumerator = GREUtils.XPCOM.getUsefulService("window-mediator").getEnumerator(null);
+    var winTmp = null;
+    while(enumerator.hasMoreElements()) {
+
+        winTmp = enumerator.getNext();
+
+        doc = winTmp.document;
+        winElement = doc.getElementsByTagName('window');
+        if (winElement[0]) {
+            windowtype = winElement[0].getAttribute('windowtype');
+            if (windowtype != 'alert:alert') win = winTmp;
+        }
+    }
+
+    return win || GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
 
 });
 
