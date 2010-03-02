@@ -106,12 +106,12 @@
 
                 this.getKeypadController().clearBuffer();
 
-                this.dispatchEvent('onQueue', curTransaction);
-
                 GeckoJS.Session.remove('current_transaction');
                 GeckoJS.Session.remove('cart_last_sell_item');
                 GeckoJS.Session.remove('cart_set_price_value');
                 GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.dispatchEvent('onQueue', curTransaction);
 
                 Transaction.removeRecoveryFile();
                 
