@@ -3284,6 +3284,11 @@ this.log('DEBUG', 'returnable count [' + count + ']');
 
             // cancel cart but save
             var curTransaction = this._getTransaction();
+            if (!curTransaction) {
+                this.clear();
+                return;
+            }
+
             if (!this.ifHavingOpenedOrder()) {
 
                 if (curTransaction.data.recall == 2) orderModel.releaseOrderLock(curTransaction.data.id);
