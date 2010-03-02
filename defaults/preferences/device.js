@@ -73,6 +73,10 @@ pref("vivipos.fec.registry.templates.vfd-internal-non-en.label", "chrome://vivie
 pref("vivipos.fec.registry.templates.vfd-internal-non-en.type", "vfd");
 pref("vivipos.fec.registry.templates.vfd-internal-non-en.path", "chrome://viviecr/content/devices/templates/vfd-internal-non-en.tpl");
 
+pref("vivipos.fec.registry.templates.vfd-FG240-internal.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.vfd-FG240-internal.type", "vfd");
+pref("vivipos.fec.registry.templates.vfd-FG240-internal.path", "chrome://viviecr/content/devices/templates/vfd-FG240-internal.tpl");
+
 pref("vivipos.fec.registry.ports.com1.label", "COM 1");
 pref("vivipos.fec.registry.ports.com1.type", "serial");
 pref("vivipos.fec.registry.ports.com1.path", "/dev/ttyS0");
@@ -129,6 +133,11 @@ pref("vivipos.fec.registry.devicemodels.vfdfec.label", "Firich VFD");
 pref("vivipos.fec.registry.devicemodels.vfdfec.type", "vfd");
 pref("vivipos.fec.registry.devicemodels.vfdfec.path", "chrome://viviecr/content/devices/commands/vfdfec.cmd");
 pref("vivipos.fec.registry.devicemodels.vfdfec.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
+
+pref("vivipos.fec.registry.devicemodels.FG-240.label", "FEC FG-240");
+pref("vivipos.fec.registry.devicemodels.FG-240.type", "vfd");
+pref("vivipos.fec.registry.devicemodels.FG-240.path", "chrome://viviecr/content/devices/commands/vfdFG240fec.cmd");
+pref("vivipos.fec.registry.devicemodels.FG-240.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
 
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.label", "Excell AW-30");
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.type", "scale");
