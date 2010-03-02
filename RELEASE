@@ -199,6 +199,8 @@ Bug #380:
 Bug #382:
     Promotion type 'Cheapest One Free' will only see matching products from the first product group or department for 'Multi Product Group' and 'Multi Department' triggers respectively.
 
+Bug #383:
+    Built-in and user-defined hot keys need to be disabled when prompt panels are shown to avoid functions from being invoked via hot keys in inappropriate places
 
 -----------------------------
 Bugs fixed in Release 1.2.0.8
