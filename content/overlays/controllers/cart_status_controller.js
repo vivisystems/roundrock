@@ -18,7 +18,7 @@
 
         initial: function() {
 
-            // register listener for cart event 'onSubmitSuccess'
+            // register listener for cart
             let cart = this.getCartController();
             if (cart) {
                 cart.addEventListener('newTransaction', this.updateCartStatus, this);
@@ -28,8 +28,15 @@
                 cart.addEventListener('onVoidSaleSuccess', this.updateCartStatus, this);
             }
 
+            // register listener for cart_queue
+            let queue = GeckoJS.Controller.getInstanceByName('CartQueue');
+            alert(queue);
+            if (queue) {
+                queue.addEventListener('onQueue', this.updateCartStatus, this);
+            }
+
             // add listener for resetLayout event
-            var layout = GeckoJS.Controller.getInstanceByName('Layout');
+            let layout = GeckoJS.Controller.getInstanceByName('Layout');
             if (layout) {
                 layout.addEventListener('onResetLayout', this.positionPanel, this);
             }
@@ -105,6 +112,7 @@
             let status = 'no-txn';
             let status_str = _('(cartstatus)no-txn');
             let txn = this.getTransaction();
+
             if (txn) {
                 if (txn.isCancel()) {
                     status = 'no-txn';
