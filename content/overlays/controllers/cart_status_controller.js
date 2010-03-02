@@ -30,7 +30,6 @@
 
             // register listener for cart_queue
             let queue = GeckoJS.Controller.getInstanceByName('CartQueue');
-            alert(queue);
             if (queue) {
                 queue.addEventListener('onQueue', this.updateCartStatus, this);
             }
