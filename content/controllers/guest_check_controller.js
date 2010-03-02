@@ -39,6 +39,7 @@
             var main = this.getMainController();
             if (main) {
                 main.addEventListener('afterTruncateTxnRecords', this.onMainTruncateTxnRecords, this);
+                main.addEventListener('afterSignedOn', this.onMainFirstLoad, this);
             }
 
             this.addEventListener('beforeStoreCheck', this.beforeStoreCheck, this);
