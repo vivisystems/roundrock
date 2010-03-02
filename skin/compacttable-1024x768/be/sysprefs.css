@@ -42,11 +42,16 @@
     background: transparent url(../images/VkbBtn.png) center center no-repeat !important;
 }
 
-radiogroup {
+.content-arrow-scrollbox {
     border: none;
     border-bottom: 1px solid #c1ab8e;
     -moz-appearance: none;
     -moz-box-orient: vertical;
+}
+
+.paneSelector {
+    margin-top: 0px !important;
+    -moz-appearance: none !important;
 }
 
 radio {

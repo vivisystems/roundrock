@@ -11,7 +11,8 @@
         arrowscrollbox.setAttribute('class', 'content-arrow-scrollbox');
 
         var prefwin = document.getElementById('prefwin');
-        $(prefwin._selector).wrap(arrowscrollbox);
+        var radiogroup = prefwin._selector;
+        $(radiogroup).wrap(arrowscrollbox);
 
         // initialize rounding policy selection menus
         var rt = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
