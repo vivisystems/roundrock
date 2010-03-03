@@ -50,7 +50,7 @@
 {elseif type == 'onRecovery'}
 [&ESC @][&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'onVoidSaleSuccess'}
-[&ESC @][&ESC QA]${'ORDER VOIDED'|leftr:20}[&CR]
+[&ESC @][&ESC QA]${'ORDER VOIDED'|left:20}[&CR]
 [&ESC QB]SEQ: ${order.seq|right:15}[&CR]
 {else}
 [&ESC @][&ESC QA]${(store.name == null)?'VIVIPOS':store.name|center:20}[&CR]

@@ -346,7 +346,7 @@
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
             // @debug
             //this.log('VFD:\n' + encodedResult);
-            alert('VFD:\n' + encodedResult);
+            //alert('VFD:\n' + encodedResult);
             
             // send to output device using worker thread
             var self = this;
