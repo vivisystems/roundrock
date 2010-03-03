@@ -192,6 +192,9 @@ Bug #326:
 Bug #333:
     Expired ledger payment records are not removed from database
 
+Bug #353:
+    Path used in restoring from remote media is incorrect
+
 Bug #374:
     Receipt and ledger do not print in training mode even when configured in general options to do so
 
@@ -209,6 +212,16 @@ Bug #383:
 
 Bug #386:
     When set as the first screen, the Table Selection window does not show up after queueing an order or when a user signs out and the next user signs out
+
+Bug #390:
+    Shift Change fails after confirming to proceed
+
+Bug #391:
+    VFD display is incorrect for pushing and pulling orders to and from the queue
+
+Bug #393:
+    When multiple encodings are in use in device configuration, the first encountered encoding is always used to determine the printed length of the template.
+
 
 -----------------------------
 Bugs fixed in Release 1.2.0.8
