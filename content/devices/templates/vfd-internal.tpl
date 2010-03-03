@@ -48,7 +48,8 @@
 [&ESC @][&ESC QA]${item.line1|left:20}[&CR]
 [&ESC QB]${item.line2|left:20}[&CR]
 {elseif type == 'onRecovery'}
-[&ESC @][&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
+[&ESC @][&ESC QA]SEQ: ${order.seq|right:15}[&CR]
+[&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'onVoidSaleSuccess'}
 [&ESC @][&ESC QA]${'ORDER VOIDED'|left:20}[&CR]
 [&ESC QB]SEQ: ${order.seq|right:15}[&CR]
