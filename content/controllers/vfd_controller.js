@@ -219,7 +219,6 @@
                 case 'afterModifyItem':
                     item = evt.data[0];
                     itemDisplay = evt.data[1];
-                    alert('void:\n' + this.dump(itemDisplay));
                     break;
 
                 case 'afterCancel':
