@@ -33,7 +33,7 @@ Bug #390:
     Shift Change fails after confirming to proceed
 
 Bug #391:
-    VFD display is incorrect for pushing and pulling orders to and from the queue
+    VFD display need to reflect pushing to/pulling from queue, storing/recalling check, and voiding sale
 
 Bug #393:
     When multiple encodings are in use in device configuration, the first encountered encoding is always used to determine the printed length of the template.
