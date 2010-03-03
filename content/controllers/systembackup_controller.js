@@ -187,7 +187,7 @@
                         let backupDir = new GeckoJS.Dir(mountPath + 'system_backup' + branchId + terminalNo, true);
                         if (backupDir.exists()) {
 
-                            this._stickbackupDir = backupDir.path;
+                            this._stickbackupDir = backupDir.path + '/';
                             deviceReady = true;
 
                         }
