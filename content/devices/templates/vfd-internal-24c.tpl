@@ -42,7 +42,8 @@
 [&ESC @][&ESC QA]RECALL: ${order.seq|right:16}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:19}[&CR]
 {elseif type == 'afterCancel'}
-[&ESC @][&ESC QB]CANCEL: ${order.seq|right:16}[&CR]
+[&ESC @][&ESC QA]${' '|left:24}[&CR]
+[&ESC QB]CANCEL: ${order.seq|right:16}[&CR]
 {elseif type == 'onMessage'}
 [&ESC @][&ESC QA]${item.line1|left:24}[&CR]
 [&ESC QB]${item.line2|left:24}[&CR]

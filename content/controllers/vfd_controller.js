@@ -288,7 +288,7 @@
             this.restartIdleTimer();
         },
 
-        // print check using the given parameters
+        // generate VFD template using the given parameters
         sendToVFD: function(data, template, port, speed, handshaking, devicemodel, encoding) {
 
             var portPath = this.getPortPath(port);
@@ -300,7 +300,7 @@
             }
             var tpl = this.getTemplateData(template, true);
             if (tpl == null || tpl == '') {
-                NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));
+                NotifyUtils.error(_('Specified VFD template [%S] is empty or does not exist!', [template]));
                 return false;
             }
 
@@ -318,7 +318,14 @@
             alert('Device commands: \n\n' +
                   '   commands: ' + this.dump(commands));
 */
-            var result = tpl.process(data);
+            var result = '';
+            try {
+                result = tpl.process(data);
+            }
+            catch(e) {
+                NotifyUtils.error(_('Failed to generate VFD output from template [%S]!', [template]));
+                return false;
+            }
 
             // map each command code into corresponding
             if (commands) {
