@@ -163,3 +163,20 @@ pref("vivipos.fec.registry.devicemodels.uwe-dp.controller", "Scale_UWE_DP_Contro
 pref("vivipos.fec.registry.devicemodels.uwe-dp.iterations", "20");
 pref("vivipos.fec.registry.devicemodels.uwe-dp.stables", "2");
 pref("vivipos.fec.registry.devicemodels.uwe-dp.tries", "5");
+
+pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.type", "transfertable-check");
+pref("vivipos.fec.registry.templates.kitchen-transfertable-42c.path", "chrome://viviecr/content/devices/templates/kitchen-transfertable-42c.tpl");
+
+pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.type", "transfertable-check");
+pref("vivipos.fec.registry.templates.kitchen-transfertable-expanded-42c.path", "chrome://viviecr/content/devices/templates/kitchen-transfertable-expanded-42c.tpl");
+
+pref("vivipos.fec.registry.templates.kitchen-returnitem-42c.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.kitchen-returnitem-42c.type", "returnitem-check");
+pref("vivipos.fec.registry.templates.kitchen-returnitem-42c.path", "chrome://viviecr/content/devices/templates/kitchen-returnitem-42c.tpl");
+
+pref("vivipos.fec.registry.templates.kitchen-rushitem-42c.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.templates.kitchen-rushitem-42c.type", "rushitem-check");
+pref("vivipos.fec.registry.templates.kitchen-rushitem-42c.path", "chrome://viviecr/content/devices/templates/kitchen-rushitem-42c.tpl");
+
