@@ -1,5 +1,5 @@
 {if type == 'afterAddItem'}
-[&US][&ESC QE]${' ' + item.current_qty + 'X '|left:8}${item.name|right:21}[&CR]
+[&US][&ESC QE] ${item.current_qty + 'X '|left:8}${item.name|right:21}[&CR]
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterVoidItem'}
 {if item == null}
@@ -10,9 +10,9 @@
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterModifyItem'}
 {if itemDisplay.type == 'condiment'}
-[&US][&ESC QE]${' ' + itemDisplay.name|left:22} ${itemDisplay.current_price|default:0|right:5}[&CR]
+[&US][&ESC QE] ${itemDisplay.name|left:23} ${itemDisplay.current_price|default:0|right:5}[&CR]
 {else}
-[&US][&ESC QE]${' ' + item.current_qty + 'X '|left:8}${item.name|right:21}[&CR]
+[&US][&ESC QE] ${item.current_qty + 'X '|left:8}${item.name|right:21}[&CR]
 {/if}
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterAddPayment'}
@@ -27,10 +27,10 @@
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {/if}
 {elseif type == 'afterAddDiscount'}
-[&US][&ESC QE]${' ' + item.discount_name|left:17} ${txn.formatPrice(item.current_discount)|right:10}[&CR]
+[&US][&ESC QE] ${item.discount_name|left:17} ${txn.formatPrice(item.current_discount)|right:10}[&CR]
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterAddSurcharge'}
-[&US][&ESC QE]${' ' + item.surcharge_name|left:17} ${txn.formatPrice(item.current_surcharge)|right:10}[&CR]
+[&US][&ESC QE] ${item.surcharge_name|left:17} ${txn.formatPrice(item.current_surcharge)|right:10}[&CR]
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterAddCondiment'}
 [&US][&ESC QE] ${itemDisplay.name|left:22} ${itemDisplay.current_price|default:0|right:5}[&CR]
