@@ -33,7 +33,7 @@
 [&US][&ESC QE]${' ' + item.surcharge_name|left:17} ${txn.formatPrice(item.current_surcharge)|right:10}[&CR]
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterAddCondiment'}
-[&US][&ESC QE] ${itemDisplay.name|right:22} ${itemDisplay.current_price|default:0|right:5}[&CR]
+[&US][&ESC QE] ${itemDisplay.name|left:22} ${itemDisplay.current_price|default:0|right:5}[&CR]
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'onQueue'}
 [&US][&ESC QE] QUEUED: ${order.seq|right:20}[&CR]
