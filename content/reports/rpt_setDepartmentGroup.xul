@@ -17,13 +17,8 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.js" />
-    <script type="application/x-javascript">
-        window['GeckoJS'] = opener.GeckoJS;
-        window['GREutils'] = opener.GREUtils;
-    </script>
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/select_tax.js" />
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_setDepartmentGroup.js"/>
 
     <keyset id="keyset_extensions">

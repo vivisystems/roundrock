@@ -11,7 +11,7 @@
         var jobsData = inputObj.jobsData;
         var jobid = inputObj.jobid;
         var panel = document.getElementById('jobscrollablepanel');
-        window.viewHelper = new opener.GeckoJS.NSITreeViewArray(jobsData);
+        window.viewHelper = new GeckoJS.NSITreeViewArray(jobsData);
 
         for (var index = 0; index < jobsData.length; index ++) {
             if (jobsData[index].id == jobid) break;

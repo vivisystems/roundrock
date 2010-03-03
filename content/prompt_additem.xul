@@ -86,7 +86,7 @@
                     <button id="useraction-btn" oncommand="UserAction();"/>
                 </hbox>
                 <hbox pack="end" class="exitbar">
-                    <button id="vkb" class="button-vkb" oncommand="opener.VirtualKeyboard.toggle()"/>
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle()"/>
                 </hbox>
             </hbox>
         </vbox>

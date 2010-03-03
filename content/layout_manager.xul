@@ -29,13 +29,11 @@
 
   <!-- include startup scripts -->
   <script type="application/x-javascript">
-      
-    window['GREutils'] = opener.GREUtils;
-    window['_'] = opener._;
     
     window.addEventListener('dialogextra1', function(){
         $do('close', null, 'LayoutManager');
     }, false);
+
   </script>
 
     <prefpane id="panelSettingsPane" label="&category.layout.panels;">

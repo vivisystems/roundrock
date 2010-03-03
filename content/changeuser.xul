@@ -63,7 +63,7 @@
                 <vivibutton id="vkbBtn" label="" class="vkb" oncommand="VirtualKeyboard.toggle();" />
             </isoptionenabled>
             <isoptionenabled option="vivipos.fec.settings.ClockInEnabled" action="display">
-                <vivibutton id="clockBtn" label="" class="clockinout" oncommand="opener.$do('ClockInOutDialog', null, 'Main'); document.getElementById('user_password').focus()" />
+                <vivibutton id="clockBtn" label="" class="clockinout" oncommand="mainWindow.$do('ClockInOutDialog', null, 'Main'); document.getElementById('user_password').focus()" />
             </isoptionenabled>
         </hbox>
     </vbox>
