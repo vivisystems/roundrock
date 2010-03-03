@@ -10,7 +10,7 @@
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterModifyItem'}
 {if itemDisplay.type == 'condiment'}
-[&US][&ESC QE]${itemDisplay.name|left:24} ${itemDisplay.current_price|default:0|right:5}[&CR]
+[&US][&ESC QE]${' ' + itemDisplay.name|left:22} ${itemDisplay.current_price|default:0|right:5}[&CR]
 {else}
 [&US][&ESC QE]${' ' + item.current_qty + 'X '|left:8}${item.name|right:21}[&CR]
 {/if}
@@ -33,7 +33,7 @@
 [&US][&ESC QE]${' ' + item.surcharge_name|left:17} ${txn.formatPrice(item.current_surcharge)|right:10}[&CR]
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterAddCondiment'}
-[&US][&ESC QE] ${itemDisplay.name|right:23} ${itemDisplay.current_price|default:0|right:5}[&CR]
+[&US][&ESC QE] ${itemDisplay.name|right:22} ${itemDisplay.current_price|default:0|right:5}[&CR]
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'onQueue'}
 [&US][&ESC QE] QUEUED: ${order.seq|right:20}[&CR]
@@ -50,7 +50,7 @@
 [&US][&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'onVoidSaleSuccess'}
 [&US][&ESC QE] ${'ORDER VOIDED'|left:28}[&CR]
-[&ESC QF] SEQ: ${order.seq|right23:}[&CR]
+[&ESC QF] SEQ: ${order.seq|right:23}[&CR]
 {else}
 [&US][&ESC QE]${(store.name == null)?'VIVIPOS':store.name|center:30}[&CR]
 [&ESC QF]${'Welcome!'|center:30}[&CR]
