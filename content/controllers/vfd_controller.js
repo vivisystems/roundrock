@@ -33,13 +33,18 @@
                 cart.addEventListener('afterAddSurcharge', this.displayOnVFD, this);
                 cart.addEventListener('afterAddCondiment', this.displayOnVFD, this);
                 cart.addEventListener('afterCancel', this.displayOnVFD, this);
-
+                cart.addEventListener('onVoidSaleSuccess', this.displayOnVFD, this);
             }
 
             var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
             if(cartQueue) {
                 cartQueue.addEventListener('onQueue', this.displayOnVFD, this);
                 cartQueue.addEventListener('afterPullQueue', this.displayOnVFD, this);
+            }
+
+            var guestCheck = GeckoJS.Controller.getInstanceByName('GuestCheck');
+            if(guestCheck) {
+                guestCheck.addEventListener('afterRecallOrder', this.displayOnVFD, this);
             }
 
             var self = this;
@@ -205,7 +210,15 @@
                     txn = evt.data;
                     break;
 
+                case 'afterRecallOrder':
+                    txn = evt.data;
+                    break;
+
                 case 'onQueue':
+                    txn = evt.data;
+                    break;
+
+                case 'onVoidSaleSuccess':
                     txn = evt.data;
                     break;
 
@@ -270,6 +283,7 @@
             commands = this.getDeviceCommandCodes(devicemodel, true);
 
 /*
+            // @debug
             alert('Displaying to VFD: \n\n' +
                   '   template [' + template + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
@@ -302,6 +316,7 @@
             
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
+            // @debug
             //this.log('VFD:\n' + encodedResult);
             //alert('VFD:\n' + encodedResult);
             
