@@ -1,5 +1,5 @@
 {if type == 'afterAddItem'}
-[&US][&ESC QE] ${item.current_qty + 'X '|left:8}${item.name|right:21}[&CR]
+[&US][&ESC QE] ${item.current_qty + ' '|left:5}X ${item.name|right:21}[&CR]
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterVoidItem'}
 {if item == null}
