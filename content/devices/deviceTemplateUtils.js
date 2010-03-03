@@ -1,6 +1,11 @@
 (function() {               // Using a closure to keep global namespace clean.
-    var _templateModifiers = window._templateModifiers = function($T, _encoding) {
 
+    var _encoding = 'US-ASCII';
+
+    var _templateModifiers = window._templateModifiers = function($T, encoding) {
+
+        _encoding = encoding;
+        
         // return the length of the string in the given encoding
         function strLen(str) {
             var len;
