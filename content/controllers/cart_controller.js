@@ -1387,8 +1387,9 @@
                 itemDisplay: itemDisplay
             })) {
                 var modifiedItem = curTransaction.modifyItemAt(index);
+                var modifiedItemDisplay = curTransaction.getDisplaySeqAt(index);
 
-                this.dispatchEvent('afterModifyItem', [modifiedItem, itemDisplay]);
+                this.dispatchEvent('afterModifyItem', [modifiedItem, modifiedItemDisplay]);
             }
             this._clearAndSubtotal();
 

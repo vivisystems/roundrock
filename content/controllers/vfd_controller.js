@@ -35,12 +35,18 @@
                 cart.addEventListener('afterAddCondiment', this.displayOnVFD, this);
                 cart.addEventListener('afterCancel', this.displayOnVFD, this);
                 cart.addEventListener('onRecovery', this.displayOnVFD, this);
+                cart.addEventListener('onVoidSaleSuccess', this.displayOnVFD, this);
             }
 
             var cartQueue = GeckoJS.Controller.getInstanceByName('CartQueue');
             if(cartQueue) {
                 cartQueue.addEventListener('onQueue', this.displayOnVFD, this);
                 cartQueue.addEventListener('afterPullQueue', this.displayOnVFD, this);
+            }
+
+            var guestCheck = GeckoJS.Controller.getInstanceByName('GuestCheck');
+            if(guestCheck) {
+                guestCheck.addEventListener('afterRecallOrder', this.displayOnVFD, this);
             }
 
             // add eventListener on VFD
@@ -213,13 +219,22 @@
                 case 'afterModifyItem':
                     item = evt.data[0];
                     itemDisplay = evt.data[1];
+                    alert('void:\n' + this.dump(itemDisplay));
                     break;
 
                 case 'afterCancel':
                     txn = evt.data;
                     break;
 
+                case 'afterRecallOrder':
+                    txn = evt.data;
+                    break;
+
                 case 'onQueue':
+                    txn = evt.data;
+                    break;
+
+                case 'onVoidSaleSuccess':
                     txn = evt.data;
                     break;
 
@@ -228,10 +243,12 @@
 
                 case 'afterAddCondiment':
                     var condiments = '';
+                    var current_price = 0;
                     evt.data.forEach(function(cond) {
                         condiments += (condiments == '') ? cond.name : (', ' + cond.name);
+                        current_price += cond.price;
                     }, this);
-                    itemDisplay = {name: condiments};
+                    itemDisplay = {name: condiments, current_price: current_price};
                     break;
 
                 case 'onMessage':
@@ -290,6 +307,7 @@
             commands = this.getDeviceCommandCodes(devicemodel, true);
 
 /*
+            // @debug
             alert('Displaying to VFD: \n\n' +
                   '   template [' + template + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
@@ -319,8 +337,9 @@
             
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
+            // @debug
             //this.log('VFD:\n' + encodedResult);
-            //alert('VFD:\n' + encodedResult);
+            alert('VFD:\n' + encodedResult);
             
             // send to output device using worker thread
             var self = this;
