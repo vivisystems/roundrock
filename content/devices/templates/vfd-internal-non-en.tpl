@@ -39,7 +39,7 @@
 [&ESC @][&ESC QA]Surcharge ${txn.formatPrice(item.current_surcharge)|right:10}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'afterAddCondiment'}
-[&ESC @][&ESC QA]COND: ${itemDisplay.current_price|default:0|right:15}[&CR]
+[&ESC @][&ESC QA]COND: ${itemDisplay.current_price|default:0|right:14}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'onQueue'}
 [&ESC @][&ESC QA]QUEUED: ${order.seq|right:12}[&CR]
