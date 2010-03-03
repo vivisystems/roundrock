@@ -16,7 +16,7 @@
         }
         if(selectedIndex == taxes.length) selectedIndex = -1;
 
-        window.viewHelper = new opener.GeckoJS.NSITreeViewArray(taxes);
+        window.viewHelper = new GeckoJS.NSITreeViewArray(taxes);
 
         document.getElementById('taxscrollablepanel').datasource = window.viewHelper ;
         document.getElementById('taxscrollablepanel').selectedIndex = selectedIndex;

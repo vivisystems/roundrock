@@ -14,7 +14,7 @@
         
         var index = -1;
         var panel = document.getElementById('markscrollablepanel');
-        window.viewHelper = new opener.GeckoJS.NSITreeViewArray(marksData);
+        window.viewHelper = new GeckoJS.NSITreeViewArray(marksData);
 
         panel.datasource = window.viewHelper;
         panel.selectedIndex = index;

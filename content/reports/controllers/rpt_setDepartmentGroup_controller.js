@@ -46,11 +46,11 @@
             var plugroupModel = new PlugroupModel();
             var plugroups = plugroupModel.find('all', {order: 'display_order, name'});
 
-            window.viewHelper = new opener.GeckoJS.NSITreeViewArray(allCate);
+            window.viewHelper = new GeckoJS.NSITreeViewArray(allCate);
 
             document.getElementById('departmentscrollablepanel').datasource = window.viewHelper ;
 
-            window.viewHelper = new opener.GeckoJS.NSITreeViewArray(plugroups);
+            window.viewHelper = new GeckoJS.NSITreeViewArray(plugroups);
 
             document.getElementById('groupscrollablepanel').datasource = window.viewHelper ;
 

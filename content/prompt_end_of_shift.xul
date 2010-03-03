@@ -22,10 +22,9 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
     </keyset>
 
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/prompt_additem.js" />
     <script type="application/x-javascript">
-        var GeckoJS = opener.GeckoJS;
-        var GREUtils = opener.GREUtils;
 
         var message = window.arguments[0];
         function startup() {
@@ -48,24 +47,24 @@
                         <vbox flex="1">
                             <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.this.shift;" flex="1"
                                         roles="acl_report_cashbyclerk" action="hide"
-                                        oncommand="opener.$do('reviewShiftReport', null, 'ShiftChanges');"/>
+                                        oncommand="mainWindow.$do('reviewShiftReport', null, 'ShiftChanges');"/>
                         </vbox>
                         <vbox flex="1">
                             <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.daily.sales;" flex="1"
                                         roles="acl_report_dailysalessummary" action="hide"
-                                        oncommand="opener.$do('reviewDailySales', true, 'ShiftChanges');"/>
+                                        oncommand="mainWindow.$do('reviewDailySales', true, 'ShiftChanges');"/>
                         </vbox>
                     </row>
                     <row flex="1">
                         <vbox flex="1">
                             <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;" flex="1"
                                         roles="acl_report_cashbyclerk" action="hide"
-                                        oncommand="opener.$do('printShiftReport', null, 'ShiftChanges');"/>
+                                        oncommand="mainWindow.$do('printShiftReport', null, 'ShiftChanges');"/>
                         </vbox>
                         <vbox flex="1">
                             <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales;" flex="1"
                                         roles="acl_report_dailysalessummary" action="hide"
-                                        oncommand="opener.$do('printDailySales', true, 'ShiftChanges');"/>
+                                        oncommand="mainWindow.$do('printDailySales', true, 'ShiftChanges');"/>
                         </vbox>
                     </row>
                 </rows>

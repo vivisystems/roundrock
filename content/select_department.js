@@ -12,7 +12,7 @@
         var index = inputObj.index;
         var panel = document.getElementById('departmentscrollablepanel');
 
-        window.viewHelper = new opener.GeckoJS.NSITreeViewArray(depsData);
+        window.viewHelper = new GeckoJS.NSITreeViewArray(depsData);
 
         window.viewHelper.renderButton= function(row, btn) {
 

@@ -57,7 +57,7 @@
             }
             
             var data = new GeckoJS.ArrayQuery(ctrls2).orderBy("label asc");
-            window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
+            window.viewHelper = new GeckoJS.NSITreeViewArray(data);
         
             document.getElementById(cn + 'Panel').datasource = window.viewHelper ;
         });

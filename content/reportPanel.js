@@ -80,7 +80,7 @@
             data.push(entry);
         });
         data = new GeckoJS.ArrayQuery(data).orderBy("label asc");
-        window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
+        window.viewHelper = new GeckoJS.NSITreeViewArray(data);
 
         var reportPanel = document.getElementById('reportPanel');
         if ( reportPanel )

@@ -23,10 +23,9 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
     </keyset>
 
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/prompt_stockadjustment.js" />
     <script type="application/x-javascript">
-        var GeckoJS = opener.GeckoJS;
-        var GREUtils = opener.GREUtils;
 
         function clearFocusedElement() {
             var focused = document.commandDispatcher.focusedElement;
@@ -112,7 +111,7 @@
                     <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
                 </hbox>
                 <hbox pack="end" class="exitbar">
-                    <button id="vkb" class="button-vkb" oncommand="opener.VirtualKeyboard.toggle()"/>
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle()"/>
                 </hbox>
             </hbox>
         </vbox>

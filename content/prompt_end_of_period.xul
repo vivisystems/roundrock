@@ -18,9 +18,8 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript">
-        var GeckoJS = opener.GeckoJS;
-        var GREUtils = opener.GREUtils;
 
         var options = window.arguments[0];
         function startup() {
@@ -48,18 +47,18 @@
                             <vbox flex="1">
                                 <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.this.shift;" flex="1"
                                             roles="acl_report_cashbyclerk" action="hide"
-                                            oncommand="opener.$do('reviewShiftReport', null, 'ShiftChanges');"/>
+                                            oncommand="mainWindow.$do('reviewShiftReport', null, 'ShiftChanges');"/>
                             </vbox>
                         </isoptionenabled>
                     	<vbox flex="1">
                             <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.all.shifts;" flex="1"
                                         roles="acl_report_cashbyclerk" action="hide"
-                                        oncommand="opener.$do('reviewShiftReport', true, 'ShiftChanges');"/>
+                                        oncommand="mainWindow.$do('reviewShiftReport', true, 'ShiftChanges');"/>
                         </vbox>
                         <vbox flex="1">
                             <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.daily.sales;" flex="1"
                                         roles="acl_report_dailysalessummary" action="hide"
-                                        oncommand="opener.$do('reviewDailySales', null, 'ShiftChanges');"/>
+                                        oncommand="mainWindow.$do('reviewDailySales', null, 'ShiftChanges');"/>
                         </vbox>
                     </row>
                     <row flex="1">
@@ -67,25 +66,25 @@
                             <vbox flex="1">
                                 <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;" flex="1"
                                             roles="acl_report_cashbyclerk" action="hide"
-                                            oncommand="opener.$do('printShiftReport', null, 'ShiftChanges');"/>
+                                            oncommand="mainWindow.$do('printShiftReport', null, 'ShiftChanges');"/>
                             </vbox>
                         </isoptionenabled>
                     	<vbox>
                             <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.all.shifts;" flex="1"
                                         roles="acl_report_cashbyclerk" action="hide"
-                                        oncommand="opener.$do('printShiftReport', true, 'ShiftChanges');"/>
+                                        oncommand="mainWindow.$do('printShiftReport', true, 'ShiftChanges');"/>
                         </vbox>
                         <vbox>
                             <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales;" flex="1"
                                         roles="acl_report_dailysalessummary" action="hide"
-                                        oncommand="opener.$do('printDailySales', null, 'ShiftChanges');"/>
+                                        oncommand="mainWindow.$do('printDailySales', null, 'ShiftChanges');"/>
                         </vbox>
                     </row>
                 </rows>
             </grid>
             <hbox pack="center" class="toolbar" toolbarmode="horizontal">
                 <button id="login" label="&shiftchange.button.login;" disabled="false" oncommand="doOKButton();"/>
-            	<button id="poweroff" label="&shiftchange.button.poweroff;" disabled="false" oncommand="opener.$do('shutdownMachine', null, 'Main');"/>
+            	<button id="poweroff" label="&shiftchange.button.poweroff;" disabled="false" oncommand="mainWindow.$do('shutdownMachine', null, 'Main');"/>
             </hbox>
         </vbox>
     </vbox>
