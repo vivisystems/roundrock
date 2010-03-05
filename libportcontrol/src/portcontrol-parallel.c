@@ -15,6 +15,7 @@
 static long parMatchPortName        (char const * portName);
 static long parOpenPort             (char const * portName, char const * portSettings);
 static long parWritePort            (char const * portName, char const * writeBuffer, long length);
+static long parAvailablePort        (char const * portName);
 static long parReadPort             (char const * portName, char * readBuffer, long length);
 static int  parStatusPort			(char const * portName);
 static long parHdwrResetDevice      (char const * portName);
@@ -32,6 +33,7 @@ PortControlImpl getParPortControlImpl()
     impl.matchPortName          = parMatchPortName;
     impl.openPort               = parOpenPort;
     impl.writePort              = parWritePort;
+    impl.availablePort               = parAvailablePort;
     impl.readPort               = parReadPort;
     impl.statusPort				  = parStatusPort;
 	impl.hdwrResetDevice			  = parHdwrResetDevice;
@@ -189,6 +191,33 @@ static long parWritePort (char const * portName, char const * writeBuffer, long 
     }
 
     return writeLength;
+}
+
+static long parAvailablePort (char const * portName)
+{
+    ParPort * parPort = parFindPort(portName);
+    if (parPort == NULL)
+    {
+        return PORTCONTROL_ERROR_NOT_OPEN;
+    }
+
+    int mode = IEEE1284_MODE_COMPAT;
+    ioctl(parPort->port, PPNEGOT, &mode);
+    mode = IEEE1284_MODE_NIBBLE;
+    if (ioctl(parPort->port, PPNEGOT, &mode))
+    {
+        return PORTCONTROL_ERROR_IO_FAIL;
+    }
+
+    long availableReadLength = 0;
+
+    if (ioctl(parPort->port, FIONREAD, &availableReadLength) != 0)
+    {
+        return PORTCONTROL_ERROR_IO_FAIL;
+    }
+
+    return availableReadLength;
+
 }
 
 static long parReadPort (char const * portName, char * readBuffer, long length)

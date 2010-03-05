@@ -3,7 +3,7 @@
 
 #include "portcontrol-structures.h"
 
-#define MAX_NUM_FILES 20
+#define MAX_NUM_FILES 100
 
 typedef struct
 {

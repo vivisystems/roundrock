@@ -23,7 +23,7 @@
     { 0x9d, 0x79, 0x04, 0x91, 0x2b, 0x73, 0x25, 0xe2 }}
 
 class NS_NO_VTABLE NS_SCRIPTABLE nsIParallelPortControlUnix : public nsISupports {
- public: 
+ public:
 
   NS_DECLARE_STATIC_IID_ACCESSOR(NS_IPARALLELPORTCONTROLUNIX_IID)
 
@@ -35,6 +35,9 @@ class NS_NO_VTABLE NS_SCRIPTABLE nsIParallelPortControlUnix : public nsISupports
 
   /* PRInt64 writePort (in AString portName, in ACString writeBuffer, in PRInt64 length); */
   NS_SCRIPTABLE NS_IMETHOD WritePort(const nsAString & portName, const nsACString & writeBuffer, PRInt64 length, PRInt64 *_retval) = 0;
+
+  /* PRInt64 availablePort (in AString portName); */
+  NS_SCRIPTABLE NS_IMETHOD AvailablePort(const nsAString & portName, PRInt64 *_retval) = 0;
 
   /* PRInt64 readPort (in AString portName, out ACString readBuffer, in PRInt64 length); */
   NS_SCRIPTABLE NS_IMETHOD ReadPort(const nsAString & portName, nsACString & readBuffer, PRInt64 length, PRInt64 *_retval) = 0;
@@ -54,27 +57,30 @@ class NS_NO_VTABLE NS_SCRIPTABLE nsIParallelPortControlUnix : public nsISupports
   NS_SCRIPTABLE NS_IMETHOD OpenPort(const nsAString & portName, const nsAString & portSettings, PRInt64 *_retval); \
   NS_SCRIPTABLE NS_IMETHOD ClosePort(const nsAString & portName, PRInt64 *_retval); \
   NS_SCRIPTABLE NS_IMETHOD WritePort(const nsAString & portName, const nsACString & writeBuffer, PRInt64 length, PRInt64 *_retval); \
+  NS_SCRIPTABLE NS_IMETHOD AvailablePort(const nsAString & portName, PRInt64 *_retval); \
   NS_SCRIPTABLE NS_IMETHOD ReadPort(const nsAString & portName, nsACString & readBuffer, PRInt64 length, PRInt64 *_retval); \
   NS_SCRIPTABLE NS_IMETHOD StatusPort(const nsAString & portName, PRInt32 *_retval); \
-  NS_SCRIPTABLE NS_IMETHOD HdwrResetDevice(const nsAString & portName, PRInt64 *_retval); 
+  NS_SCRIPTABLE NS_IMETHOD HdwrResetDevice(const nsAString & portName, PRInt64 *_retval);
 
 /* Use this macro to declare functions that forward the behavior of this interface to another object. */
 #define NS_FORWARD_NSIPARALLELPORTCONTROLUNIX(_to) \
   NS_SCRIPTABLE NS_IMETHOD OpenPort(const nsAString & portName, const nsAString & portSettings, PRInt64 *_retval) { return _to OpenPort(portName, portSettings, _retval); } \
   NS_SCRIPTABLE NS_IMETHOD ClosePort(const nsAString & portName, PRInt64 *_retval) { return _to ClosePort(portName, _retval); } \
   NS_SCRIPTABLE NS_IMETHOD WritePort(const nsAString & portName, const nsACString & writeBuffer, PRInt64 length, PRInt64 *_retval) { return _to WritePort(portName, writeBuffer, length, _retval); } \
+  NS_SCRIPTABLE NS_IMETHOD AvailablePort(const nsAString & portName, PRInt64 *_retval) { return _to AvailablePort(portName, _retval); } \
   NS_SCRIPTABLE NS_IMETHOD ReadPort(const nsAString & portName, nsACString & readBuffer, PRInt64 length, PRInt64 *_retval) { return _to ReadPort(portName, readBuffer, length, _retval); } \
   NS_SCRIPTABLE NS_IMETHOD StatusPort(const nsAString & portName, PRInt32 *_retval) { return _to StatusPort(portName, _retval); } \
-  NS_SCRIPTABLE NS_IMETHOD HdwrResetDevice(const nsAString & portName, PRInt64 *_retval) { return _to HdwrResetDevice(portName, _retval); } 
+  NS_SCRIPTABLE NS_IMETHOD HdwrResetDevice(const nsAString & portName, PRInt64 *_retval) { return _to HdwrResetDevice(portName, _retval); }
 
 /* Use this macro to declare functions that forward the behavior of this interface to another object in a safe way. */
 #define NS_FORWARD_SAFE_NSIPARALLELPORTCONTROLUNIX(_to) \
   NS_SCRIPTABLE NS_IMETHOD OpenPort(const nsAString & portName, const nsAString & portSettings, PRInt64 *_retval) { return !_to ? NS_ERROR_NULL_POINTER : _to->OpenPort(portName, portSettings, _retval); } \
   NS_SCRIPTABLE NS_IMETHOD ClosePort(const nsAString & portName, PRInt64 *_retval) { return !_to ? NS_ERROR_NULL_POINTER : _to->ClosePort(portName, _retval); } \
   NS_SCRIPTABLE NS_IMETHOD WritePort(const nsAString & portName, const nsACString & writeBuffer, PRInt64 length, PRInt64 *_retval) { return !_to ? NS_ERROR_NULL_POINTER : _to->WritePort(portName, writeBuffer, length, _retval); } \
+  NS_SCRIPTABLE NS_IMETHOD AvailablePort(const nsAString & portName, PRInt64 *_retval) { return !_to ? NS_ERROR_NULL_POINTER : _to->AvailablePort(portName, _retval); } \
   NS_SCRIPTABLE NS_IMETHOD ReadPort(const nsAString & portName, nsACString & readBuffer, PRInt64 length, PRInt64 *_retval) { return !_to ? NS_ERROR_NULL_POINTER : _to->ReadPort(portName, readBuffer, length, _retval); } \
   NS_SCRIPTABLE NS_IMETHOD StatusPort(const nsAString & portName, PRInt32 *_retval) { return !_to ? NS_ERROR_NULL_POINTER : _to->StatusPort(portName, _retval); } \
-  NS_SCRIPTABLE NS_IMETHOD HdwrResetDevice(const nsAString & portName, PRInt64 *_retval) { return !_to ? NS_ERROR_NULL_POINTER : _to->HdwrResetDevice(portName, _retval); } 
+  NS_SCRIPTABLE NS_IMETHOD HdwrResetDevice(const nsAString & portName, PRInt64 *_retval) { return !_to ? NS_ERROR_NULL_POINTER : _to->HdwrResetDevice(portName, _retval); }
 
 #if 0
 /* Use the code below as a template for the implementation class for this interface. */
@@ -122,6 +128,12 @@ NS_IMETHODIMP nsParallelPortControlUnix::ClosePort(const nsAString & portName, P
 
 /* PRInt64 writePort (in AString portName, in ACString writeBuffer, in PRInt64 length); */
 NS_IMETHODIMP nsParallelPortControlUnix::WritePort(const nsAString & portName, const nsACString & writeBuffer, PRInt64 length, PRInt64 *_retval)
+{
+    return NS_ERROR_NOT_IMPLEMENTED;
+}
+
+/* PRInt64 availablePort (in AString portName); */
+NS_IMETHODIMP nsParallelPortControlUnix::AvailablePort(const nsAString & portName, PRInt64 *_retval)
 {
     return NS_ERROR_NOT_IMPLEMENTED;
 }
