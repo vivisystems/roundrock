@@ -31,3 +31,6 @@ Bug #398:
 
 Bug #399:
     Need to highlight function buttons linked to obsolete functions
+
+Bug #400:
+    Need better error handling and reporting on order submit/commit exceptions
