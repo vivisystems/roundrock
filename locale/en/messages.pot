@@ -931,7 +931,7 @@ msgid "vivipos.fec.registry.function.programmable.keypress.label"
 msgstr "Key"
 
 msgid "vivipos.fec.registry.function.programmable.keypress.name"
-msgstr "Keypress"
+msgstr "Key Press"
 
 ###############
 # Clear Input
