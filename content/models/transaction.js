@@ -387,7 +387,14 @@
                     this.data.no_of_customers = '1';
                 }
 
-                return order.saveOrder(this.data) ? 1 : -1;
+                if (order.saveOrder(this.data)) {
+                    return 1;
+                }
+                else {
+                    this.data.status = orgStatus;
+                    this.unlockItems();
+                    return -1;
+                }
 
             }
         },
@@ -2591,6 +2598,49 @@
             // set order lock index
             this.data.batchItemCount = batchItemCount;
             this.data.batchPaymentCount = batchPaymentCount;
+        },
+
+        unlockItems: function(index) {
+            // unlock items in current batch
+            var displayItems = this.data.display_sequences;
+            var transItems = this.data.items;
+            var paymentItems = this.data.trans_payments;
+            var batch = this.data.batchCount--;
+
+            if (index == null) index = displayItems.length - 1;
+
+            if (index > -1)
+                delete displayItems[index].batchMarker;
+
+            // lock all display items up-to and including the item at position given by index
+            for (var i = 0; i <= index; i++) {
+                var dispItem = displayItems[i];
+                if (('batch' in dispItem && dispItem['batch'] == batch)) {
+                    delete dispItem['batch'];
+
+                    // lock corresponding transaction item
+                    if (dispItem.index != null) {
+                        switch(dispItem.type) {
+                            case 'item':
+                            case 'setitem':
+                                if (transItems[dispItem.index] != null) {
+                                    delete transItems[dispItem.index].batch;
+                                }
+                                break;
+
+                            case 'payment':
+                                if (paymentItems[dispItem.index] != null) {
+                                    delete paymentItems[dispItem.index].batch;
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+
+            // set order lock index
+            delete this.data.batchItemCount;
+            delete this.data.batchPaymentCount;
         },
 
         isLocked: function(index) {

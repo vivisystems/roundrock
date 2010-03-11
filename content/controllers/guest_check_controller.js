@@ -26,6 +26,7 @@
 
                 // popup table select panel
                 cart.addEventListener('PrepareFinalization', this.onCartBeforeSubmit, this);
+                cart.addEventListener('afterSubmit', this.onCartOnAfterSubmit, this);
                 cart.addEventListener('onSubmitSuccess', this.onCartOnSubmitSuccess, this);
                 cart.addEventListener('onCancelSuccess', this.onCartOnCancelSuccess, this);
                 cart.addEventListener('onVoidSaleSuccess', this.onCartOnSubmitSuccess, this);
@@ -898,7 +899,7 @@
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Data Operation'),
                             _('Previously uncommitted stored order(s) have now been committed to the table service server.'));
-                        this.onCartOnSubmitSuccess(null);
+                        this.onCartOnSubmitSuccess();
                         cart.dispatchEvent('onWarning', _('ORDER COMMITTED'));
                         return true;
                     }
@@ -1563,13 +1564,12 @@
 
         },
 
-
         /**
-         * onCartOnSubmitSuccess
+         * onCartOnAfterSubmit
          *
          * @param {Object} evt
          */
-        onCartOnSubmitSuccess: function(evt) {
+        onCartOnAfterSubmit: function(evt) {
 
             let txn = evt.data;
 
@@ -1577,6 +1577,16 @@
             if (txn.data.returnCartItemBatch && (txn.data.returnCartItemBatch == txn.data.batchCount) ) {
                 this.returnCartItem(evt);
             }
+
+        },
+
+
+        /**
+         * onCartOnSubmitSuccess
+         *
+         * @param {Object} evt
+         */
+        onCartOnSubmitSuccess: function(evt) {
 
             if (this.tableSettings.TableWinAsFirstWin) {
                 // newTable always create new transaction object
