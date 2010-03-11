@@ -87,6 +87,8 @@
                                     <label value="&hotkey.prefs.linked.label;"/>
                                     <textbox id="hotkey_linked" value="" readonly="true"
                                              form="hotkeyForm" name="linked" default=""/>
+                                    <textbox id="hotkey_linked_id" value="" readonly="true" hidden="true"
+                                             form="hotkeyForm" name="linked_id" default=""/>
                                 </row>
 
                                 <!-- function label -->
@@ -95,15 +97,23 @@
                                     <textbox id="hotkey_data" value="" readonly="true"
                                              form="hotkeyForm" name="data" default=""/>
                                 </row>
+
+                                <!-- function version -->
+                                <row>
+                                    <label value="&hotkey.prefs.version.label;"/>
+                                    <textbox id="hotkey_version" value="" readonly="true"
+                                             form="hotkeyForm" name="version" defaut="" size="6"/>
+                                </row>
+
                             </rows>
                         </grid>
 
                         <vbox flex="1" class="content-listbox">
                             <vivitree id="hotkey_function_tree" flex="1"
                                       class="standard"
-                                      headers="&hotkey.tree.function.label;,&hotkey.tree.label.label;"
-                                      fields="name,label"
-                                      seltype="single" hidecolumnpicker="true"
+                                      headers="&hotkey.tree.function.label;,&hotkey.tree.version.label;,&hotkey.tree.label.label;"
+                                      fields="name,version,label"
+                                      seltype="single"
                                       onselect="$do('selectFunction', this, 'HotkeyPrefs')"/>
                             <spacer height="5px"/>
                             <hbox>

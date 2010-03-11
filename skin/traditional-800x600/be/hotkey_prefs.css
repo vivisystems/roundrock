@@ -8,3 +8,7 @@
 #hotkey_prefs_tree #keydisplay {
     text-align: center;
 }
+
+#hotkey_function_tree #version {
+    text-align: center;
+}

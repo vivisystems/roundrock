@@ -10,9 +10,11 @@
 <!ENTITY    hotkey.prefs.name.label      "Hotkey Name">
 <!ENTITY    hotkey.prefs.hotkey.label    "Hotkey">
 <!ENTITY    hotkey.prefs.linked.label    "Linked to function">
+<!ENTITY    hotkey.prefs.version.label   "Version">
 <!ENTITY    hotkey.prefs.data.label      "Parameter">
 <!ENTITY    hotkey.prefs.link.label      "Link">
-<!ENTITY    hotkey.tree.function.label      "Function">
+<!ENTITY    hotkey.tree.function.label   "Function">
+<!ENTITY    hotkey.tree.version.label    "Version">
 <!ENTITY    hotkey.tree.label.label      "Label">
 <!ENTITY    hotkey.button.action.add     "Add">
 <!ENTITY    hotkey.button.action.modify  "Modify">

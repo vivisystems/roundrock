@@ -72,6 +72,8 @@
             <field name="_selectedNode1"/>
             <field name="_selectedNode2"/>
             <field name="_topStack"></field>
+            <field name="_functionRegistry"></field>
+            <field name="_functionRegistryByName"></field>
 
             <!-- Properties -->
 
@@ -702,10 +704,66 @@
                 </body>
             </method>
 
+            <!-- compare two version strings for equality -->
+            <method name="_compareVersion">
+                <parameter name="ver1"/>
+                <parameter name="ver2"/>
+                <body>
+                <![CDATA[                    
+                    // assumed equal when either version number is not defined
+                    if (ver1 == null || ver1 == '' || ver2 == null || ver2 == '') {
+                        return true;
+                    }
+
+                    var comp1 = ver1.split('.');
+                    var comp2 = ver2.split('.');
+
+                    if (comp1.length != comp2.length) return false;
+                    for (var i = 0; i < comp1.length; i++) {
+                        if (comp1[i] != comp2[i]) return false;
+                    }
+                    return true;
+                ]]>
+                </body>
+            </method>
+
             <!-- initialize from preferences -->
             <method name="_loadPreferences">
                 <body>
                 <![CDATA[
+
+                    var functionRegistry = {};
+                    var functionRegistryByName = {};
+
+                    // load internal functions
+                    var functionArray = this.getInternalFunctionList();
+                    if (functionArray) {
+                        functionArray.forEach(function(f) {
+                            functionRegistry[f.id] = f;
+                            functionRegistryByName[f.name] = f;
+                        }, this);
+                    }
+
+                    // load function registry
+                    var registry = this.getAttribute('registry');
+                    if (registry) {
+                        GeckoJS.Configure.loadPreferences((registry));
+                        functionRegistry = GeckoJS.Configure.read((registry));
+
+                        for (var key in functionRegistry) {
+                            let f = functionRegistry[key];
+
+                            f.name = f.name ||  _(registry + '.' + key + '.name');
+                            f.label = f.label || _(registry + '.' + key + '.label');
+                            f.desc = f.desc || _(registry + '.' + key + '.desc');
+
+                            functionRegistryByName[f.name] = f;
+                        }
+                    }
+                    this._functionRegistry = functionRegistry;
+                    this._functionRegistryByName = functionRegistryByName;
+
+                    //GREUtils.log('[LoadPreferences]: function registry loaded from [' + registry + ']:\n\n' + GeckoJS.BaseObject.dump(this._functionRegistry));
 
                     // load settings from preferences and apply them through datasource
                     var prefs = {};
@@ -776,6 +834,7 @@
                         try {
                             var map = new GeckoJS.Map();
                             var pages = GeckoJS.BaseObject.getKeys(prefs.pageKeymapMap);
+                            var self = this;
 
                             pages.forEach(function(page) {
 
@@ -790,6 +849,20 @@
                                     if (rawEntry) {
                                         var entry = GeckoJS.BaseObject.unserialize(prefs.pageKeymapMap[page][btnid]);
                                         keymap.set(btnid, entry);
+
+                                        // function is obsolete if:
+                                        if (entry && (entry.id && !(entry.id in self._functionRegistry &&
+                                                                   self._compareVersion(entry.version, self._functionRegistry[entry.id].version))) ||
+                                                     !(entry.name in self._functionRegistryByName)) {
+                                            entry.obsolete = true;
+
+                                            //GREUtils.log('[LoadPreferences]: restored obsolete mapping <' + GeckoJS.BaseObject.dump(entry) + '> for btnid <' + btnid + '>');
+                                        }
+                                        else {
+                                            entry.obsolete = false;
+
+                                            //GREUtils.log('[LoadPreferences]: restored active mapping <' + GeckoJS.BaseObject.dump(entry) + '> for btnid <' + btnid + '>');
+                                        }
                                     }
                                 });
                                 //GREUtils.log('[LoadPreferences]: restored mapping <' + GeckoJS.BaseObject.dump(keymap) + '> for page <' + page + '>');
@@ -1581,7 +1654,8 @@
                     var lkeymap = this.getPageKeymap(page);
                     var btnstylemap = this.getPageButtonstyles(page);
                     var btnfontsizemap = this.getPageButtonfontsizes(page);
-                    
+                    var configureclass = this.getAttribute('matrix_button_configure_class');
+                    var obsoleteclass = this.getAttribute('matrix_button_obsolete_class');
                     var defaultButtonColor = this.getAttribute('default_button_color') || '';
                     var defaultButtonFontsize = this.getAttribute('default_button_fontsize') || '';
 <!--
@@ -1632,7 +1706,7 @@
                             btn.setAttribute('action', 'none');
                             btn.style.visibility = 'inherit';
 
-                            btnstyles.push(this.getAttribute('matrix_button_configure_class'));
+                            btnstyles.push(configureclass);
 
                             if (entry && (entry.label != null) && (entry.label != '')) {
                                 btn.setAttribute('label', entry.label);
@@ -1648,6 +1722,11 @@
                                 btn.removeAttribute('label');
                                 btn.setLabel('');
                                 //GREUtils.log('[KEYMAP]: label not set');
+                            }
+
+                            if (entry && entry.obsolete) {
+                                btnstyles.push(obsoleteclass);
+                                //GREUtils.log('[KEYMAP]: obsolete programming found on button with label <' + btn.getAttribute('label') + '> obsolete class <' + obsoleteclass + '>');
                             }
 
                             //GREUtils.log('[KEYMAP]: set button to configure mode with label <' + btn.getAttribute('label') + '> disabled <' + disabledFlag + '>');
@@ -1911,7 +1990,10 @@
                 <![CDATA[
                     return [
                         // next panel
-                        {access: 'acl_scroll_function_panel',
+                        {
+                         id: 'function_panel_internal_next',
+                         version: '1.2.1.0',
+                         access: 'acl_scroll_function_panel',
                          command: 'internal',
                          controller: 'next',
                          data: '',
@@ -1921,7 +2003,10 @@
                         },
 
                         // prev panel
-                        {access: 'acl_scroll_function_panel',
+                        {
+                         id: 'function_panel_internal_prev',
+                         version: '1.2.1.0',
+                         access: 'acl_scroll_function_panel',
                          command: 'internal',
                          controller: 'prev',
                          data: '',
@@ -1931,7 +2016,10 @@
                         },
 
                         // home panel
-                        {access: 'acl_scroll_function_panel',
+                        {
+                         id: 'function_panel_internal_home',
+                         version: '1.2.1.0',
+                         access: 'acl_scroll_function_panel',
                          command: 'internal',
                          controller: 'home',
                          data: '',
@@ -1941,7 +2029,10 @@
                         },
 
                         // page
-                        {access: 'acl_scroll_function_panel',
+                        {
+                         id: 'function_panel_internal_page',
+                         version: '1.2.1.0',
+                         access: 'acl_scroll_function_panel',
                          command: 'internal',
                          controller: 'page',
                          data: '',

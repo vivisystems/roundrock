@@ -47,6 +47,7 @@
                         restrictMode="normal"
                         disabled="false"
                         prefix="vivipos.fec.settings.functionpanel"
+                        registry="vivipos.fec.registry.function.programmable"
                         panel_spacer_class="vivifuncpanelecr_spacer"
                         control_panel_class="vivifuncpanelecr_control_panel"
                         control_scroll_left_class="vivifuncpanelecr_control_scroll_left"
@@ -58,7 +59,9 @@
                         button_panel_class="vivifuncpanelecr_button_panel"
                         matrix_button_nomap_class="vivifuncpanelecr_matrix_button_nomap"
                         matrix_button_configure_class="vivifuncpanelecr_matrix_button_configure"
-                        matrix_button_mapped_class="vivifuncpanelecr_matrix_button_mapped"/>
+                        matrix_button_mapped_class="vivifuncpanelecr_matrix_button_mapped"
+                        matrix_button_obsolete_class="vivifuncpanelecr_matrix_button_obsolete"
+                        />
                 </vbox>
                 <!-- hide this page number -->
                 <textbox id="vivifuncpanelecr_prefs_layout_page_number" hidden="true" readonly="true" size="3" value="1"/>
@@ -333,6 +336,7 @@
                                             <label value="&vivifuncpanelecr.prefs.tabpanel.keymap.linked.label;"/>
                                         </vbox>
                                         <textbox id="vivifuncpanelecr_prefs_keymap_linked" readonly="true" value=""/>
+                                        <textbox id="vivifuncpanelecr_prefs_keymap_linked_version" readonly="true" value="" size="6"/>
                                         <button id="vivifuncpanelecr_prefs_keymap_linked_unlink" flex="1"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.keymap.linked.unlink.label;"
                                                 disabled="true" class="button-item-a"
@@ -371,9 +375,9 @@
                                 </rows>
                             </grid>
                             <vivitree id="vivifuncpanelecr_prefs_keymap_function_tree"
-                                      class="standard" hidecolumnpicker="true"
-                                      headers="&vivifuncpanelecr.prefs.function;,&vivifuncpanelecr.prefs.label;"
-                                      fields="name,label"
+                                      class="standard"
+                                      headers="&vivifuncpanelecr.prefs.function;,&vivifuncpanelecr.prefs.version;,&vivifuncpanelecr.prefs.label;"
+                                      fields="name,version,label"
                                       seltype="single"
                                       flex="1"
                                       hidevscroll="true"
@@ -456,9 +460,9 @@
                                 </rows>
                             </grid>
                             <vivitree id="vivifuncpanelecr_prefs_gkeymap_function_tree"
-                                      class="standard" hidecolumnpicker="true"
-                                      headers="&vivifuncpanelecr.prefs.function;,&vivifuncpanelecr.prefs.label;"
-                                      fields="name,label"
+                                      class="standard"
+                                      headers="&vivifuncpanelecr.prefs.function;,&vivifuncpanelecr.prefs.version;,&vivifuncpanelecr.prefs.label;"
+                                      fields="name,version,label"
                                       seltype="single"
                                       flex="1"
                                       hidevscroll="true"

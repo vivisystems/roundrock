@@ -102,6 +102,14 @@
     -moz-border-right-colors: black red;
 }
 
+.vivifuncpanelecr_matrix_button_obsolete hbox {
+    background-image: url('chrome://viviecr/skin/images/cancel.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -moz-appearance: none;
+}
+
+
 /*-----------------------------------------------------------------------------
  * Function Panel control panel
  *-----------------------------------------------------------------------------

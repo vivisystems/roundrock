@@ -107,6 +107,7 @@
             document.getElementById('vivifuncpanelecr_prefs_keymap_selection').value = '[' + btnid + ']';
             document.getElementById('vivifuncpanelecr_prefs_keymap_linked').value = entry.name;
             document.getElementById('vivifuncpanelecr_prefs_keymap_linked_unlink').disabled = false;
+            document.getElementById('vivifuncpanelecr_prefs_keymap_linked_version').value = entry.version || '';
             document.getElementById('vivifuncpanelecr_prefs_keymap_function_label').value = entry.label;
             document.getElementById('vivifuncpanelecr_prefs_keymap_function_label').disabled = false;
             document.getElementById('vivifuncpanelecr_prefs_keymap_function_label_apply').disabled = false;
@@ -426,6 +427,7 @@
             var entry = [{row: this.extent.row1,
                           column: this.extent.column1,
                           id: f.id,
+                          version: f.version,
                           name: f.name,
                           label: f.label,
                           access: f.access,
@@ -894,6 +896,7 @@
             for (var i = 0; i < keys.length; i++) {
                 let newKey = {
                     id: keys[i],
+                    version: fns[keys[i]].version,
                     access: fns[keys[i]].access,
                     command: fns[keys[i]].command,
                     controller: fns[keys[i]].controller,
