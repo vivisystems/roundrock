@@ -45,6 +45,7 @@
             restrictMode="normal"
             disabled="false"
             prefix="vivipos.fec.settings.functionpanel"
+            registry="vivipos.fec.registry.function.programmable"
             panel_spacer_class="vivifuncpanelecr_spacer"
             control_panel_class="vivifuncpanelecr_control_panel"
             control_scroll_left_class="vivifuncpanelecr_control_scroll_left"
@@ -57,6 +58,7 @@
             matrix_button_nomap_class="vivifuncpanelecr_matrix_button_nomap"
             matrix_button_configure_class="vivifuncpanelecr_matrix_button_configure"
             matrix_button_mapped_class="vivifuncpanelecr_matrix_button_mapped"
+            matrix_button_obsolete_class="vivifuncpanelecr_matrix_button_obsolete"
             />
         <!-- End FuncBtns -->
 

@@ -67,15 +67,14 @@
 
 .custom-content-data-form row {
     background: #f0efe8;
-	border-bottom: 2px solid white;
-	font-size: 10pt;
+    border-bottom: 2px solid white;
+    font-size: 10pt;
     min-height: 44px;
-	padding: 4px;
-    -moz-box-align: center;
+    padding: 4px;
 }
 
 .custom-content-data-form column {
-	padding: 4px;
+    padding: 4px;
 }
 
 .custom-content-data-form .data-form label {
@@ -85,4 +84,9 @@
 
 .custom-content-data-form .data-form button label {
     font-size: inherit;
+}
+
+#vivifuncpanelecr_prefs_keymap_function_tree #version,
+#vivifuncpanelecr_prefs_gkeymap_function_tree #version {
+    text-align: center;
 }

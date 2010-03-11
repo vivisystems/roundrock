@@ -58,10 +58,17 @@
             var functionArray = [];
 
             for (var i = 0; i < keys.length; i++) {
-                var newKey = GeckoJS.BaseObject.extend(fns[keys[i]], {});
-                newKey.name = _(prefix + '.' + keys[i] + '.name');
-                newKey.label = _(prefix + '.' + keys[i] + '.label');
-                newKey.desc = _(prefix + '.' + keys[i] + '.desc');
+                let newKey = {
+                    id: keys[i],
+                    version: fns[keys[i]].version,
+                    access: fns[keys[i]].access,
+                    command: fns[keys[i]].command,
+                    controller: fns[keys[i]].controller,
+                    data: fns[keys[i]].data,
+                    name: fns[keys[i]].name ||  _(prefix + '.' + keys[i] + '.name'),
+                    label: fns[keys[i]].label || _(prefix + '.' + keys[i] + '.label'),
+                    desc: fns[keys[i]].desc || _(prefix + '.' + keys[i] + '.desc')
+                };
                 functionArray.push(newKey);
             }
             functionArray.sort(function(a, b) {
@@ -161,6 +168,8 @@
                 var inputData = {
                     name: name,
                     linked: fn.name,
+                    linked_id: fn.id,
+                    version: fn.version,
                     access: fn.access,
                     command: fn.command,
                     controller: fn.controller,
@@ -209,7 +218,6 @@
             inputData.access = entry.access;
             inputData.command = entry.command;
             inputData.controller = entry.controller;
-
 
             var hotkey =  document.getElementById('hotkey_hotkey');
             var hotkeyData = {
@@ -385,21 +393,30 @@
             this.editableFields(true);
 
             // select linked function
+            var found = false;
             var fnList = this.functionArray;
+            var fnTree = document.getElementById('hotkey_function_tree');
             for (var i = 0; i < fnList.length; i++) {
-                if (entry.name == fnList[i].name) {
-                    var fnTree = document.getElementById('hotkey_function_tree');
+                if ((entry.linked_id && fnList[i].id && entry.linked_id == fnList[i].id) || (entry.linked == fnList[i].name)) {
                     fnTree.currentIndex = i ;
                     fnTree.selection.select(i);
                     fnTree.treeBoxObject.ensureRowIsVisible(i);
+
+                    entry.linked = fnList[i].name;
+                    found = true;
                     break;
                 }
+            }
+            if (!found) {
+                fnTree.selection.select(-1);
             }
 
             var valObj = {
                 id: entry.keycombo,
                 name: entry.name,
                 linked: entry.linked,
+                linked_id: entry.linked_id || '',
+                version: entry.version || '',
                 data: entry.data
             };
             GeckoJS.FormHelper.unserializeFromObject('hotkeyForm', valObj);
@@ -458,7 +475,7 @@
                 && GeckoJS.FormHelper.isFormModified('hotkeyForm')) {
                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
                     _('Discard Changes'),
-                    _('You have made changes to the current destination. Are you sure you want to discard the changes?'))) {
+                    _('You have made changes to the current hotkey. Are you sure you want to discard the changes?'))) {
                     return false;
                 }
             }
@@ -551,6 +568,8 @@
             var f = this.functionArray[this.selectedFunctionIndex];
 
             var entry = {
+                linked_id: f.id,
+                version: f.version,
                 name: f.name,
                 label: f.label,
                 desc: f.desc,
@@ -566,7 +585,9 @@
 
             // update screen fields accordingly
             document.getElementById('hotkey_linked').value = f.name;
+            document.getElementById('hotkey_linked_id').value = f.id;
             document.getElementById('hotkey_name').value = f.name;
+            document.getElementById('hotkey_version').value = f.version;
             document.getElementById('hotkey_data').value = f.data;
 
         }

@@ -10,6 +10,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/hotkey_prefs.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -50,9 +51,10 @@
                     <row>
                         <label value="&hotkey.prefs.linked.label;"/>
                         <textbox id="hotkey_linked" value="" readonly="true"/>
+                        <textbox id="hotkey_linked_id" value="" readonly="true" hidden="true"/>
                     </row>
 
-                    <!-- function label -->
+                    <!-- function data -->
                     <row>
                         <label value="&hotkey.prefs.data.label;"/>
                         <textbox id="hotkey_data" value="" default=""/>
@@ -63,10 +65,10 @@
             <vbox flex="1" class="content-listbox">
                 <vivitree id="hotkey_function_tree" flex="1"
                           class="standard"
-                          headers="&hotkey.tree.function.label;,&hotkey.tree.label.label;"
-                          fields="name,label"
+                          headers="&hotkey.tree.function.label;,&hotkey.tree.version.label;,&hotkey.tree.label.label;"
+                          fields="name,version,label"
                           seltype="single"
-                          hidevscroll="true" hidecolumnpicker="true"
+                          hidevscroll="true"
                           onselect="selectFunction(this);"/>
                 <spacer height="5px"/>
                 <textbox id="hotkey_function_desc" class="textbox-description"
