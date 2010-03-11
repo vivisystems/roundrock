@@ -29,4 +29,5 @@ Bugs fixed
 Bug #398:
     Programmable function name, label, and description may now be directly defined in Programmable Function Registry
 
-
+Bug #399:
+    Need to highlight function buttons linked to obsolete functions
