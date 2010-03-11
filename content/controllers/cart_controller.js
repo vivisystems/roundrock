@@ -3575,51 +3575,68 @@
                      *   -1: save to backup failed
                      *   -3: can't get sequence .
                      */
-                    if (submitStatus == -1 || submitStatus == -3 ) {
+                    if (submitStatus != 1) {
+                        if (submitStatus == -1 || submitStatus == -3 ) {
 
-                        if (submitStatus == -3) {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Data Operation Error'),
-                                _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence master.'));
-                        }
-                        else {
-                            NotifyUtils.error('Failed to submit order due to data operation error.')
+                            if (submitStatus == -3) {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Data Operation Error'),
+                                    _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence master [message #112].'));
+                            }
+                            else {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Data Operation Error'),
+                                    _('Failed to save order. Please contact technical support for assistance immediately [message #111].'));
+                            }
                         }
                         // unblockUI
                         this._unblockUI(waitPanel);
-
-                        return false;
                     }
+                    else {
+                        // assign data status
+                        oldTransaction.data.status = status;
 
-                    // assign data status
-                    oldTransaction.data.status = status;
+                        this._getKeypadController().clearBuffer();
+                        //this._cancelReturn(true);
 
-                    this._getKeypadController().clearBuffer();
-                    //this._cancelReturn(true);
-
-                    // dispatch event for devices or extensions.
-                    this.dispatchEvent('afterSubmit', oldTransaction);
-
+                        // dispatch event for devices or extensions.
+                        this.dispatchEvent('afterSubmit', oldTransaction);
+                    }
                 }finally{
 
                     if (submitStatus == -99) {
                         // fatal error at submit. and will cause commit error
                         this.log('ERROR', 'Error on Transaction.submit(' + status + ') (' + submitStatus + ')');
-                    }
 
+                        return false;
+                    }
+                    if (submitStatus == -1 || submitStatus == -3 ) {
+                        return false;
+                    }
+                    
                     // finally commit the submit , and write transaction to databases(or to remote databases).
                     var commitStatus = -99 ;
                     
                     try {
                         // commit order data to local databases or remote.
                         commitStatus = oldTransaction.commit(status);
+                            // determine if local or remote
                         if (commitStatus == -1) {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Data Operation Error'),
-                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server. You can store the check again after network connectivity has been restored [message #105].'));
+
+                            let orderModel = new OrderModel();
+                            if ((status == 2 || oldTransaction.data.recall == 2) && !orderModel.isLocalhost()) {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Data Operation Error'),
+                                    _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server. You can store the check again after network connectivity has been restored [message #105].'));
+                            }
+                            else {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Data Operation Error'),
+                                    _('This order could not be committed. Please contact technical support for assistance immediately [message #113].'));
+                            }
                             this.dispatchEvent('commitOrderError', commitStatus);
                             this.dispatchEvent('onGetSubtotal', oldTransaction);
-                            this.dispatchEvent('onWarning', _('Network Error'));
+                            this.dispatchEvent('onWarning', _('DATA ERROR'));
                             this._unblockUI(waitPanel);
                             return false;
                         }
@@ -4300,14 +4317,14 @@
             if (this._voidSaleById(curTransaction.data.id)) {
                 Transaction.removeRecoveryFile();
                 curTransaction.data.status = -2;
-                this.dispatchEvent('onWarning', _('Sale Voided'));
+                this.dispatchEvent('onWarning', _('SALE VOIDED'));
                 // remove current transaction from session
                 //GeckoJS.Session.remove('current_transaction');
                 // dispatch onVoidSaleSuccess event
                 this.dispatchEvent('onVoidSaleSuccess', curTransaction);
             }
             else {
-                this.dispatchEvent('onWarning', _('Sale Not Voided'));
+                this.dispatchEvent('onWarning', _('SALE NOT VOIDED'));
             }
         },
 
