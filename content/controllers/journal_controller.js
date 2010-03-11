@@ -235,7 +235,7 @@
                     && win.document.documentElement.boxObject.screenX < 0)
                     win = null;
 
-                GREUtils.Dialog.(win,
+                GREUtils.Dialog.openWindow(win,
                 _('Journal Error'),
                 _('An error was encountered while saving journal entry (error code %S) [message #702].', [journalModel.lastError])
                 + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
