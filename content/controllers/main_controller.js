@@ -1316,68 +1316,77 @@
                     var waitPanel = this._showWaitPanel('wait_panel', 'wait_caption', _('Removing all transaction records'), 500);
 
                     // dispatch beforeTruncateTxnRecords event
-                    this.dispatchEvent('beforeTruncateTxnRecords', null);
+                    if (this.dispatchEvent('beforeTruncateTxnRecords', null)) {
 
-                    try {
-                        // remove txn recovery file
-                        Transaction.removeRecoveryFile();
+                        try {
+                            // remove txn recovery file
+                            Transaction.removeRecoveryFile();
 
-                        // remove cart queue recovery file
-                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                            // remove backup file
+                            var ds = GeckoJS.ConnectionManager.getDataSource('backup');
+                            if (ds && ds.config && ds.config.path) {
+                                let nsIFiles = GeckoJS.Dir.readDir(ds.config.path, {type: 'f'});
+                                nsIFiles.forEach(function(nsIFile) {
+                                    if (nsIFile.exists()) {
+                                        GREUtils.File.remove(nsIFile);
+                                    }
+                                }, this);
+                            }
 
-                        // truncate order_queues
-                        (new OrderQueueModel()).execute('delete from order_queues');
+                            // truncate order_queues
+                            (new OrderQueueModel()).execute('delete from order_queues');
 
-                        // truncate order related tables
-                        var orderModel = new OrderModel();
-                        var r = orderModel.execute('delete from orders');
-                        
-                        r = (new OrderReceiptModel()).execute('delete from order_receipts') && r;
-                        r = (new OrderPromotionModel()).execute('delete from order_promotions') && r;
-                        r = (new OrderPaymentModel()).execute('delete from order_payments') && r;
-                        r = (new OrderObjectModel()).execute('delete from order_objects') && r;
-                        r = (new OrderItemModel()).execute('delete from order_items') && r;
-                        r = (new OrderItemTaxModel()).execute('delete from order_item_taxes') && r;
-                        r = (new OrderItemCondimentModel()).execute('delete from order_item_condiments') && r;
-                        r = (new OrderAnnotationModel()).execute('delete from order_annotations') && r;
-                        r = (new OrderAdditionModel()).execute('delete from order_additions') && r;
+                            // truncate order related tables
+                            var orderModel = new OrderModel();
+                            var r = orderModel.execute('delete from orders');
 
-                        // truncate clockin/out timestamps
-                        r = (new ClockStampModel()).execute('delete from clock_stamps') && r;
+                            r = (new OrderReceiptModel()).execute('delete from order_receipts') && r;
+                            r = (new OrderPromotionModel()).execute('delete from order_promotions') && r;
+                            r = (new OrderPaymentModel()).execute('delete from order_payments') && r;
+                            r = (new OrderObjectModel()).execute('delete from order_objects') && r;
+                            r = (new OrderItemModel()).execute('delete from order_items') && r;
+                            r = (new OrderItemTaxModel()).execute('delete from order_item_taxes') && r;
+                            r = (new OrderItemCondimentModel()).execute('delete from order_item_condiments') && r;
+                            r = (new OrderAnnotationModel()).execute('delete from order_annotations') && r;
+                            r = (new OrderAdditionModel()).execute('delete from order_additions') && r;
 
-                        // truncate sync tables
-                        r = orderModel.execute('delete from syncs') && r;
-                        r = orderModel.execute('delete from sync_remote_machines') && r;
+                            // truncate clockin/out timestamps
+                            r = (new ClockStampModel()).execute('delete from clock_stamps') && r;
 
-                        // reset sequence
-                        SequenceModel.resetSequence('order_no');
+                            // truncate sync tables
+                            r = orderModel.execute('delete from syncs') && r;
+                            r = orderModel.execute('delete from sync_remote_machines') && r;
 
-                        if (!r) {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Data Operation Error'),
-                                _('An error was encountered while attempting to remove all transaction records [message #1011].') + '\n\n' +
-                                _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                            // reset sequence
+                            SequenceModel.resetSequence('order_no');
+
+                            if (!r) {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Data Operation Error'),
+                                    _('An error was encountered while attempting to remove all transaction records [message #1011].') + '\n\n' +
+                                    _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                            }
+                            else {
+                                // dispatch afterTruncateTxnRecords event
+                                this.dispatchEvent('afterTruncateTxnRecords', null);
+                            }
+
+                            // pack order db
+                            orderModel.execute('VACUUM');
+
+                        } catch (e) {}
+                        finally {
+                            waitPanel.hidePopup();
                         }
-                        else {
-                            // dispatch afterTruncateTxnRecords event
-                            this.dispatchEvent('afterTruncateTxnRecords', null);
+
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Remove All Transaction Records'),
+                            _('Removal completed. Application will now restart'));
+
+                        try {
+                            GREUtils.restartApplication();
+                        } catch(err) {
                         }
-
-                        // pack order db
-                        orderModel.execute('VACUUM');
-                        
-                    } catch (e) {}
-                    finally {
-                        waitPanel.hidePopup();
-                    }
-
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Remove All Transaction Records'),
-                        _('Removal completed. Application will now restart'));
-
-                    try {
-                        GREUtils.restartApplication();
-                    } catch(err) {
                     }
 
                 }
