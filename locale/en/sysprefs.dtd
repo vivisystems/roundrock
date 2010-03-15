@@ -153,6 +153,7 @@
 <!ENTITY orderdata.orderweeklypack "Pack order data on">
 <!ENTITY orderdata.inventory.adjustment.retaindays "Number of days to retain inventory adjustment records">
 <!ENTITY orderdata.rebuilddatabase "Rebuild Database">
+<!ENTITY orderdata.autobackuponclosing "Backup automatically on closing sale period">
 <!ENTITY training.vacuumtrainingdb "Pack Training database">
 <!ENTITY training.takecurrentdbtobedefaultdb "Take current database to be default training database">
 <!ENTITY training.takedefaultdbtobetrainingdb "Reset training database to default training database">
