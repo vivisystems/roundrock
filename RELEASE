@@ -38,3 +38,6 @@ Bug #400:
 Bug #401:
     Backup data files are not removed when truncating transaction records
 
+Bug #402:
+    New data option allows databases to be backed up automatically on sale period closings
+
