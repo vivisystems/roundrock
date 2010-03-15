@@ -1017,14 +1017,13 @@
 
             var item = null;
             var prod = this.Product.getProductById(itemTrans.id);
-            if(prod) {
+            if (prod) {
                 item = GREUtils.extend({}, prod);
-
-                // need to use registered tax status
-                item.rate = itemTrans.tax_name;
             }else {
                 item = GREUtils.extend({},itemTrans);
             }
+            // need to use registered tax status
+            item.rate = itemTrans.tax_name;
 
             var sellQty = itemTrans.current_qty;
             var oldSellQty = itemTrans.current_qty;
@@ -1052,7 +1051,7 @@
 
                     sellPrice = (GeckoJS.Session.get('cart_set_price_value') != null)
                                 ? GeckoJS.Session.get('cart_set_price_value')
-                                : (GeckoJS.Session.get('cart_set_qty_value') != null) ? sellPrice : null;
+                                : sellPrice;
 
                     sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
                 }
@@ -1134,13 +1133,7 @@
                     }
                     Transaction.events.dispatch('afterModifySetItems', setItemEventData, this);
                 }
-                else {
-                    // if product tax is not defined, use Session defaultTax if available
-                    if (prod && !prod.rate) {
-                        let defaultTaxNo = GeckoJS.Session.get('defaultTaxNo');
-                        if (defaultTaxNo) item.rate = defaultTaxNo;
-                    }
-                    
+                else {                    
                     // create data object to push in items array
                     itemModified = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
                     itemTrans.current_qty = itemModified.current_qty;

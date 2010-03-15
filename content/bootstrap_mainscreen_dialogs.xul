@@ -11,7 +11,7 @@
 <?xul-overlay href="chrome://viviecr/content/dialogs/payment_details.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/creditcard_remark.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/coupon_remark.xul" ?>
-<!-- ?xul-overlay href="chrome://viviecr/content/dialogs/select_table.xul" ? -->
+<?xul-overlay href="chrome://viviecr/content/dialogs/select_department.xul" ?>
 
 <overlay id="bootstrapDialogsOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"

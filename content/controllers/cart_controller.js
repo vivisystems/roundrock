@@ -1182,7 +1182,6 @@
 
                 if (dept) {
                     if (dept.cansale) {
-                        dept.cate_no = deptno;
                         return this.addItem(dept);
                     }
                     else {
@@ -1195,7 +1194,26 @@
                 }
             }
             else {
-                NotifyUtils.warn(_('Department number not provided'));
+                var self = this;
+                var dialog_data = {
+                    type: 'saleable-department'
+                };
+
+                self._inDialog = true;
+
+                return $.popupPanel('selectDepartmentPanel', dialog_data).next(function(evt){
+
+                    self._inDialog = false;
+                    let deptId = evt.data.selected;
+                    if (deptId) {
+                        let deptsById = GeckoJS.Session.get('categoriesById');
+                        let dept = deptsById[deptId];
+                        if (dept) {
+                            return self.addItem(dept);
+                        }
+                    }
+                });
+
             }
             this._getKeypadController().clearBuffer();
 
@@ -1381,7 +1399,6 @@
                     }
                 }
             }
-
             if (this.dispatchEvent('beforeModifyItem', {
                 item: itemTrans,
                 itemDisplay: itemDisplay
