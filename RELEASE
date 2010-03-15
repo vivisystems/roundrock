@@ -41,3 +41,6 @@ Bug #401:
 Bug #402:
     New data option allows databases to be backed up automatically on sale period closings
 
+Bug #403:
+    Register by department number will now prompt user to select a department if no preset department has been programmed
+
