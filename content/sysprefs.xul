@@ -346,6 +346,7 @@
         <preferences>
             <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>
             <preference id="pref_orderweeklypack" name="vivipos.fec.settings.OrderWeeklyPack" type="int"/>
+            <preference id="pref_autobackuponclosing" name="vivipos.fec.settings.AutoBackupOnClosing" type="bool"/>
             <preference id="pref_inventory_adjustment_retaindays" name="vivipos.fec.settings.InventoryAdjustmentRetainDays" type="int"/>
         </preferences>
         <grid class="data-form data-form-options">
@@ -372,6 +373,10 @@
                 <row>
                     <label value="&orderdata.inventory.adjustment.retaindays;"/>
                     <textbox preference="pref_inventory_adjustment_retaindays" id="inventoryAdjustmentRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>
+                </row>
+                <row>
+                    <label value="&orderdata.autobackuponclosing;"/>
+                    <checkbox preference="pref_autobackuponclosing" id="autobackuponclosing"/>
                 </row>
             </rows>
         </grid>
@@ -400,7 +405,7 @@
             </columns>
             <rows>
                 <row>
-                	<checkbox preference="pref_ifprintwhiletraining" id="ifprintwhiletraining" label="&general.ifprintwhiletraining;"/>
+                    <checkbox preference="pref_ifprintwhiletraining" id="ifprintwhiletraining" label="&general.ifprintwhiletraining;"/>
                 </row>
                 <row>
                     <label value="&training.vacuumtrainingdb;"/>
