@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % DialogOverlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %DialogOverlay;
+  <!ENTITY % SelectDepartment SYSTEM "chrome://viviecr/locale/select_department.dtd">
+  %SelectDepartment;
+]>
+
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<overlay id="selectDepartmentDialogOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_department.js" />
+
+    <popupset id="dialogs">
+
+        <vivipanel id="selectDepartmentPanel" noautohide="false" class="container-dialog layout-dialog">
+
+            <hbox flex="1" class="layout-fullscreen">
+
+                <vbox flex="1" class="container-main">
+
+                    <label value="&departments.title;" class="label-page-title"/>
+
+                    <hbox flex="1" class="content-buttonpanel">
+                        <viviscrollablebuttonpanel id="departmentscrollablepanel" flex="1" cols="6" rows="6"  seltype="none" labelField="name"
+                                                   buttonClass="button-condiment"
+                                                   oncommand="$.hidePanel('selectDepartmentPanel', true);"
+                                                   scrollUpClass="scroll-up-button"
+                                                   scrollDownClass="scroll-down-button">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                    </hbox>
+
+                    <hbox>
+                        <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                            <button disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectDepartmentPanel', false)"/>
+                        </hbox>
+                    </hbox>
+
+                </vbox>
+
+            </hbox>
+
+        </vivipanel>
+
+    </popupset>
+
+</overlay>

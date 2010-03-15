@@ -55,7 +55,7 @@
                 if (categories && categories.length > 0) GeckoJS.Session.add('categories', categories);
 
             }
-            var byId ={}, byNo = {}, indexCate = [], indexCateAll = [];
+            var byId ={}, byNo = {}, indexCate = [], indexCateAll = [], saleable = [];
 
             if (categories) categories.forEach(function(category) {
 
@@ -67,13 +67,30 @@
                     byNo[category.no] = category;
                 }
 
+                if (category.cansale) {
+                    saleable.push(category.id);
+                }
+
                 if(GeckoJS.String.parseBoolean(category.visible)) indexCate.push(category.id);
                 indexCateAll.push(category.id);
                 
             });
 
+            // sort saleable departments by display_order, department name
+            saleable.sort(function(a, b) {
+                if (a.display_order == b.display_order) {
+                    if (a.name < b.name) return -1;
+                    else if (a.name == b.name) return 0;
+                    else return 1;
+                }
+                else {
+                    return a.display_order - b.display_order;
+                }
+            });
+
             GeckoJS.Session.add('categoriesById', byId);
             GeckoJS.Session.add('categoriesByNo', byNo);
+            GeckoJS.Session.add('categoriesSaleable', saleable);
             GeckoJS.Session.add('categoriesIndexes', indexCate);
             GeckoJS.Session.add('categoriesIndexesAll', indexCateAll);
 

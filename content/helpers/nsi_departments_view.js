@@ -86,6 +86,10 @@
                         departmentsIndexes = GeckoJS.Session.get('categoriesIndexes');
                         break;
 
+                    case 'saleable-department':
+                        departmentsIndexes = GeckoJS.Session.get('categoriesSaleable');
+                        break;
+
                     default:
                         if (this.plugroupsFirst)
                             departmentsIndexes = GeckoJS.Session.get('visiblePlugroups').concat(GeckoJS.Session.get('categoriesIndexes'));
@@ -103,6 +107,10 @@
 
                     case 'department':
                         departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll');
+                        break;
+
+                    case 'saleable-department':
+                        departmentsIndexes = GeckoJS.Session.get('categoriesSaleable');
                         break;
 
                     default:
