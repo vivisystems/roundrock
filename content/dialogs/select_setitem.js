@@ -250,6 +250,7 @@
                 $presetPanel[0].refresh();
                 
                 $selectionPanel[0].datasource.data = selections;
+                $selectionPanel[0].scrollToRow(0);
                 $selectionPanel[0].refresh();
 
                 // validate form
