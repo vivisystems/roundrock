@@ -4150,7 +4150,7 @@
                         curTransaction.collapseCondiments(condDisplayIndex);
 
                         this._getCartlist().scrollToRow(0);
-                        this._getCartlist().treeBoxObject.ensureRowIsVisible(condDisplayIndex);
+                        this._getCartlist().ensureRowIsVisible(condDisplayIndex);
                     }
                     this.dispatchEvent('afterAddCondiment', selectedCondiments);
                 }

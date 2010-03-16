@@ -132,6 +132,7 @@
             });
 
             var classStr = '';
+            var styleStr = '';
 
             if (buttonColor && btn) {
                 classStr = buttonColor;
@@ -154,6 +155,14 @@
                 btn.disabled = true;
             }
 
+            // sold out?
+            var soldout = this.getCellValue(row,{
+                id: 'soldout'
+            });
+            if (soldout) {
+                btn.label = _('Sold Out -') + ' ' + btn.label;
+            }
+
             // display text and/or icon?
             var display_mode = this.getCellValue(row,{
                 id: 'display_mode'
@@ -165,30 +174,35 @@
             }
             else {
                 var imageExists = (this.getImageSrc(row,{id: 'no'}) != null);
+                GREUtils.log('button size: ' + btn.clientWidth + 'x' + btn.clientHeight);
 
                 if (imageExists) {
                     if (display_mode == 1) {
-                        classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label button-large-image';
-                        //$(btn).addClass('nolabelbtn largeimagebtn');
+                        // dynamically set image size to that of the button
+                        classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label';
+                        styleStr = 'width:' + btn.clientWidth + 'px; height:' + btn.clientHeight + 'px;';
+                    }
+                    else {
+                        var btnlabel = btn.vivibuttonLabel;
+                        styleStr = 'width:' + (btn.clientWidth * 0.95) + 'px; height:' + Math.max(btn.clientHeight * 0.9 - btnlabel.clientHeight, 0) + 'px;';
+                        GREUtils.log('button label [' + btn.label + '] height [' + btnlabel.clientHeight + ']');
                     }
                 }
                 else {
                     classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
-                    //$(btn).addClass('noimagebtn');
                 }
             }
 
             if (classStr.length > 0) {
-                // $(btn).addClass(classStr);
                 btn.className += " " + classStr;
             }
 
-            // sold out?
-            var soldout = this.getCellValue(row,{
-                id: 'soldout'
-            });
-            if (soldout) {
-                btn.label = _('Sold Out -') + ' ' + btn.label;
+            // set image size explicitly
+            if (styleStr.length > 0) {
+                btn.vivibuttonImage.setAttribute('style', styleStr);
+            }
+            else {
+                btn.vivibuttonImage.removeAttribute('style');
             }
         }
 
