@@ -44,3 +44,6 @@ Bug #402:
 Bug #403:
     Register by department number will now prompt user to select a department if no preset department has been programmed
 
+Bug #405:
+     Product Selection panel in the Set Menu screen should always reset to first page
+
