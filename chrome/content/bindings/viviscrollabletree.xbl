@@ -92,12 +92,21 @@
 
     <method name="updateScrollBtn">
         <body><![CDATA[
+            var scrollMode = this.getAttribute('scrollMode') || 'cursor';
+            
             var currentIndex = this.currentIndex;
             var lastRowIndex = this.rowCount - 1;
             var firstVisible = this.treeBoxObject.getFirstVisibleRow();
             var lastVisible = this.treeBoxObject.getLastVisibleRow();
-            this._scrollButtonUp.setAttribute('disabled', (firstVisible == 0) && (currentIndex == -1 || currentIndex == 0));
-            this._scrollButtonDown.setAttribute('disabled', (lastVisible >= lastRowIndex) && (currentIndex == -1 || currentIndex == lastRowIndex));
+
+            if (scrollMode == 'view') {
+                this._scrollButtonUp.setAttribute('disabled', (firstVisible == 0));
+                this._scrollButtonDown.setAttribute('disabled', (lastVisible >= lastRowIndex));
+            }
+            else if (scrollMode == 'cursor') {
+                this._scrollButtonUp.setAttribute('disabled', (firstVisible == 0) && (currentIndex == -1 || currentIndex == 0));
+                this._scrollButtonDown.setAttribute('disabled', (lastVisible >= lastRowIndex) && (currentIndex == -1 || currentIndex == lastRowIndex));
+            }
         ]]>
         </body>
     </method>
