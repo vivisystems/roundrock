@@ -47,3 +47,5 @@ Bug #403:
 Bug #405:
      Product Selection panel in the Set Menu screen should always reset to first page
 
+Bug #407:
+    Tweak product/department panel CSS in all layouts
