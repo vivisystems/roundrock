@@ -241,3 +241,26 @@
 .main-overlay .cart-list .tree-scrollable-columns {
     max-height: 0px;
 }
+
+/*-----------------------------------------------------------------------------
+ * cart button
+ *-----------------------------------------------------------------------------
+ */
+
+.button-cart {
+    border: none;
+    height: 48px;
+    margin: 0px;
+    max-width: 40px;
+    min-width: 40px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+}
+
+.button-cart label {
+    display: none;
+}
+
+.button-cart description {
+    display: none;
+}
