@@ -2993,6 +2993,9 @@ msgstr "Label Simple Testing 1"
 msgid "vivipos.fec.registry.templates.label-simple-testing-2.label"
 msgstr "Label Simple Testing 2"
 
+msgid "vivipos.fec.registry.templates.osd-subtotal-v1.label"
+msgstr "OSD Subtotal v1"
+
 ########################################################################
 #
 # List of Import / Export

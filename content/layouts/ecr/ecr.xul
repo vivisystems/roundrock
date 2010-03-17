@@ -46,9 +46,11 @@
             <box id="leftPanel" flex="0" orient="vertical" class="left-panel">
                 <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
                 <box id="cartStatusPanelContainer" panel=""/>
-                <box id="categoryPanelContainer" flex="0" panel="&layout.panel.departments;"/>
-                <box id="productPanelContainer" flex="0" panel="&layout.panel.products;" />
-                 <box id="staticCondimentsPanelContainer" panel=""/>
+                <box id="productPanel" flex="0" orient="vertical" panel="&layout.panel.productpanel;">
+                    <box id="categoryPanelContainer" flex="0" panel="&layout.panel.departments;"/>
+                    <box id="productPanelContainer" flex="0" panel="&layout.panel.products;" />
+                </box>
+                <box id="staticCondimentsPanelContainer" panel=""/>
             </box>
 
             <box id="rightPanel" flex="0" class="right-panel" orient="vertical">

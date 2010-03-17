@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         id="osdPanelOverlay">
+
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/osd_panel_controller.js"/>
+
+    <popupset id="dialogs">
+        <panel id="osdPanel" noautohide="true" class="osdPanel">
+            <html:iframe type="content" id="osdPanelFrame" src="chrome://viviecr/content/dialogs/osd_panel.html" flex="1"
+                         onclick="$do('hide', null, 'OsdPanel');"/>
+        </panel>
+    </popupset>
+</overlay>

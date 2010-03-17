@@ -303,7 +303,7 @@
             
             var hbox = document.getElementById('mainPanel');
             var bottombox = document.getElementById('vivipos-bottombox');
-            var productPanel = document.getElementById('leftPanel');
+            var productPanel = document.getElementById('productPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
             var fnPanel = document.getElementById('functionpanel');

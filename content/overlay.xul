@@ -48,6 +48,7 @@
   <script src='chrome://viviecr/content/controllers/guest_check_controller.js' type='application/x-javascript;version=1.8'/>
   <script src='chrome://viviecr/content/controllers/keypad_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/controllers/layout_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/osd_subtotal_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- function controllers -->
   <script src='chrome://viviecr/content/controllers/pricelevelschedule_controller.js' type='application/x-javascript;version=1.7'/>

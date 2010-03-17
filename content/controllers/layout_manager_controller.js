@@ -117,7 +117,7 @@
             // populate relation element list
             var elemObj = document.getElementById('cartstatus_relation_element');
             var elements = mainWindow.$('box[panel]');
-            for (var j = 0; j < elements.length; j++) {
+            for (let j = 0; j < elements.length; j++) {
                 elemObj.appendItem(elements[j].getAttribute('panel'), elements[j].getAttribute('id'));
             };
 
@@ -127,6 +127,51 @@
             if (selectedDirection == 'none') {
                 document.getElementById('cartstatus_relation_element').setAttribute('disabled', true);
             }
+
+            // populate OSD panel overlay target
+            var selectedTarget = GeckoJS.Configure.read('vivipos.fec.settings.osdPanel.OverlayTarget') || 'none';
+            var targetObj = document.getElementById('osdpanel_overlay_target');
+            var $targets = mainWindow.$('#mainPanel').children('box');
+            
+            for (let j = 0; j < elements.length; j++) {
+                targetObj.appendItem(elements[j].getAttribute('panel'), elements[j].getAttribute('id'));
+            };
+
+            $targets.each(function(index, elem) {
+                targetObj.appendItem(elem.getAttribute('panel') || elem.getAttribute('id'), elem.getAttribute('id'));
+            });
+
+            $('#osdpanel_overlay_target').val(selectedTarget);
+
+            this.setOsdPanelTarget(selectedTarget);
+        },
+
+        setOsdPanelTarget: function(selectedTarget) {
+            let x = 0, y = 0, w = 0, h = 0;
+
+            GeckoJS.Configure.write('vivipos.fec.settings.osdPanel.OverlayTarget', selectedTarget);
+            if (selectedTarget != 'custom' && selectedTarget != 'none') {
+                let mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                //let targetObj = mainWindow.$('#' + selectedTarget);
+                let targetObj = mainWindow.document.getElementById(selectedTarget);
+                if (targetObj) {
+                    x = targetObj.boxObject.screenX;
+                    y = targetObj.boxObject.screenY;
+                    w = targetObj.clientWidth;
+                    h = targetObj.clientHeight;
+                }
+            }
+
+            let overlayX = document.getElementById('osdpanel_overlay_x');
+            let overlayY = document.getElementById('osdpanel_overlay_y');
+            let overlayW = document.getElementById('osdpanel_overlay_w');
+            let overlayH = document.getElementById('osdpanel_overlay_h');
+
+            if (overlayX) overlayX.disabled = (selectedTarget != 'custom');
+            if (overlayY) overlayY.disabled = (selectedTarget != 'custom');
+            if (overlayW) overlayW.disabled = (selectedTarget != 'custom');
+            if (overlayH) overlayH.disabled = (selectedTarget != 'custom');
         },
 
         setCartStatusPosition: function(selectedDirection) {
@@ -290,13 +335,14 @@
 
             // otherwise just update options and layout
             var mainWindow = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow('Vivipos:Main');
-
-            this.dispatchEvent('onUpdateOptions', null);
+            var main = mainWindow.GeckoJS.Controller.getInstanceByName('Main');
             
             // change button height
             var layoutController = mainWindow.GeckoJS.Controller.getInstanceByName('Layout');
             if (layoutController) layoutController.requestCommand('resetLayout', null, 'Layout');
 
+            main.dispatchEvent('updateLayoutOptions', null);
+            
             window.close();
         }
 
