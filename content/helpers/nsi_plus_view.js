@@ -184,8 +184,10 @@
                     }
                     else {
                         var btnlabel = btn.vivibuttonLabel;
-                        styleStr = 'width:' + (btn.clientWidth * 0.95) + 'px; height:' + Math.max(btn.clientHeight * 0.9 - btnlabel.clientHeight, 0) + 'px;';
-                        GREUtils.log('button label [' + btn.label + '] height [' + btnlabel.clientHeight + ']');
+                        var newWidth = Math.floor(btn.clientWidth * 0.95);
+                        var newHeight = Math.floor(btn.clientHeight * 0.9 - btnlabel.clientHeight, 0);
+                        styleStr = 'width:' + newWidth + 'px; height:' + newHeight + 'px;';
+                        GREUtils.log('button label [' + btn.label + '] width [' + btnlabel.clientWidth + '] height [' + btnlabel.clientHeight + ']');
                     }
                 }
                 else {
