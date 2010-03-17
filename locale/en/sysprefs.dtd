@@ -5,6 +5,7 @@
 <!ENTITY category.layout.cart "Cart">
 <!ENTITY category.layout.banner "Banner">
 <!ENTITY category.layout.logo "Logo">
+<!ENTITY category.layout.osd "OSD">
 <!ENTITY category.general "General">
 <!ENTITY category.formats "Numbers &amp; Formats">
 <!ENTITY category.login "Sign In/Out">
@@ -98,8 +99,8 @@
 <!ENTITY layout.cartstatus.position.none.label "none">
 <!ENTITY layout.cartstatus.position.dir_before.label "before">
 <!ENTITY layout.cartstatus.position.dir_after.label "after">
-<!ENTITY layout.osdpanel.overlay "OSD Panel">
-<!ENTITY layout.osdpanel.overlay.target.label "overlay target">
+<!ENTITY layout.osdpanel.geometry "Panel geometry">
+<!ENTITY layout.osdpanel.overlay.target.label "overlay">
 <!ENTITY layout.osdpanel.overlay.none.label "None">
 <!ENTITY layout.osdpanel.overlay.custom.label "Custom">
 <!ENTITY layout.osdpanel.overlay.position.x.label "left">
