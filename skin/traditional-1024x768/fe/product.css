@@ -6,17 +6,17 @@
  */
 
 .main-overlay .prodscrollablepanel {
-	background: #59626e;
-	margin: 0px 2px 0px 0px;
-	padding: 0px 0 0 2px;
-	-moz-appearance: none;
-	-moz-background-clip: border;
+    background: #59626e;
+    margin: 0px;
+    padding: 0px 2px 0px 2px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
 }
 
 .main-overlay .prodscrollablepanel vivibuttonpanel {
-	margin-top: 2px;
-	margin-right: 4px;
-	margin-bottom: 0px;
+    margin-top: 2px;
+    margin-right: 4px;
+    margin-bottom: 0px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -122,8 +122,4 @@
 
 .main-overlay .product-scroll-down-button description {
     display: none;
-}
-
-.main-overlay .prodscrollablepanel .scrollablepanel-scrollbar {
-	margin: 2px 0 2px 2px;
 }
