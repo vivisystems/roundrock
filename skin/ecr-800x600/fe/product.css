@@ -124,10 +124,6 @@
     display: none;
 }
 
-.main-overlay .prodscrollablepanel .scrollablepanel-scrollbar {
-    margin: 2px;
-}
-
 .main-overlay .prodscrollablepanel image {
     height: 32px;
     width: 32px;
