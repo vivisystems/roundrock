@@ -17,8 +17,8 @@
                                 onselect="this.updateScrollBtn()"
                                 scrollUpClass="cart-scroll-up-button" scrollDownClass="cart-scroll-down-button" >
                 <vbox id="cartsidebar">
-                    <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="button-systool button-medium-image button-plus" roles="acl_modify_quantity" action="display"/>
-                    <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="button-systool button-medium-image button-minus" roles="acl_modify_quantity" action="display"/>
+                    <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="button-cart button-medium-image button-plus" roles="acl_modify_quantity" action="display"/>
+                    <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="button-cart button-medium-image button-minus" roles="acl_modify_quantity" action="display"/>
                 </vbox>
             </viviscrollabletree>
 
