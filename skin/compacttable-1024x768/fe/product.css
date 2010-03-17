@@ -6,17 +6,15 @@
  */
 
 .main-overlay .prodscrollablepanel {
-	background: none;
-	margin: 0px 2px 0px 0px;
-	padding: 2px 0;
-	-moz-appearance: none;
-	-moz-background-clip: border;
+    background: none;
+    margin: 0px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
     
 }
 .main-overlay .prodscrollablepanel vivibuttonpanel {
-	margin-top: 2px;
-	margin-right: 4px;
-	margin-bottom: 0px;
+    margin-top: 2px;
+    margin-right: 2px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -105,14 +103,7 @@
     display: none;
 }
 
-
-.main-overlay .prodscrollablepanel .scrollablepanel-scrollbar {
-	margin: 2px 0 2px 2px;
-}
-
 .main-overlay .prodscrollablepanel image {
-	height: 32px;
-	width: 32px;
+    height: 32px;
+    width: 32px;
 }
-
-
