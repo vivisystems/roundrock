@@ -3384,7 +3384,7 @@ GeckoJS.NumberHelper.round = function (value, precision, policy, table) {
     
     var p = Math.round(precision);
     var result = value.toFixed(12) * Math.pow(10, p);
-    if (p > 0) result = result.toFixed(12);
+    if (p > 0) result = result.toFixed(Math.max(0, 12 - p));
     
     switch(policy) {
         
