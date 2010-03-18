@@ -45,7 +45,11 @@ Bug #403:
     Register by department number will now prompt user to select a department if no preset department has been programmed
 
 Bug #405:
-     Product Selection panel in the Set Menu screen should always reset to first page
+    Product Selection panel in the Set Menu screen should always reset to first page
+
+Bug #406:
+    Added an OSD panel component for display of large amount of textual/graphical information on the main screen
 
 Bug #407:
     Tweak product/department panel CSS in all layouts
+
