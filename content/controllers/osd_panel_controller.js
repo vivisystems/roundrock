@@ -17,6 +17,8 @@
         _panelHeight: 0,
 
         _registry: {},
+        _osdPanelAccessKeyPrefix: 'vivipos.fec.settings.osdPanel.access.',
+        _osdPanelOverlayTargetKey: 'vivipos.fec.settings.osdPanel.OverlayTarget',
 
         initial: function() {
 
@@ -26,13 +28,11 @@
 
             // load registration
             var prefs = GeckoJS.Configure.read('vivipos.fec.registry.osdpanel');
-            alert(this.dump(prefs));
             var registry = {};
             for (var pref in prefs) {
-                registry[prefs[pref].controller] = true;
+                registry[prefs[pref].controller] = pref;
             }
             this._registry = registry;
-            alert(this.dump(this._registry));
         },
 
         getPanelObj: function() {
@@ -95,17 +95,20 @@
 
         show: function(doc, geometry, controller) {
             if (!controller || !controller.name) {
-                alert('no access for unknown controller');
                 return;
             }
 
             // validate controller
-            if (!GeckoJS.Configure.read('vivipos.fec.settings.osdPanel.access.' + controller.name)) {
-                alert('no access for [' + controller.name + ']');
+            let access = false;
+            let key = this._registry[controller.name];
+            if (key) {
+                access = GeckoJS.Configure.read(this._osdPanelAccessKeyPrefix + key);
+            }
+            if (!access) {
                 return;
             }
 
-            let target = GeckoJS.Configure.read('vivipos.fec.settings.osdPanel.OverlayTarget') || 'none';
+            let target = GeckoJS.Configure.read(this._osdPanelOverlayTargetKey) || 'none';
             let geometry = this.getGeometry();
             if (target != 'none' && geometry && geometry.w > 0 && geometry.h > 0) {
                 let panel = this.getPanelObj();
