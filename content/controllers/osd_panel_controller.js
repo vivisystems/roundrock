@@ -15,13 +15,24 @@
         _panelTop: -1,
         _panelWidth: 0,
         _panelHeight: 0,
-        
+
+        _registry: {},
+
         initial: function() {
 
             // register listener for layout option updates
             var main = GeckoJS.Controller.getInstanceByName('Main');
             main.addEventListener('updateLayoutOptions', this.updateGeometry, this);
 
+            // load registration
+            var prefs = GeckoJS.Configure.read('vivipos.fec.registry.osdpanel');
+            alert(this.dump(prefs));
+            var registry = {};
+            for (var pref in prefs) {
+                registry[prefs[pref].controller] = true;
+            }
+            this._registry = registry;
+            alert(this.dump(this._registry));
         },
 
         getPanelObj: function() {
@@ -36,6 +47,10 @@
                 this._panelFrameObj = document.getElementById(this._panelFrameObjId);
             }
             return this._panelFrameObj;
+        },
+
+        updateOptions: function(evt) {
+            this.updateGeometry(evt);
         },
 
         updateGeometry: function(evt) {
@@ -78,7 +93,18 @@
             return (panel.state == 'open' || panel.state == 'showing');
         },
 
-        show: function(doc, geometry) {
+        show: function(doc, geometry, controller) {
+            if (!controller || !controller.name) {
+                alert('no access for unknown controller');
+                return;
+            }
+
+            // validate controller
+            if (!GeckoJS.Configure.read('vivipos.fec.settings.osdPanel.access.' + controller.name)) {
+                alert('no access for [' + controller.name + ']');
+                return;
+            }
+
             let target = GeckoJS.Configure.read('vivipos.fec.settings.osdPanel.OverlayTarget') || 'none';
             let geometry = this.getGeometry();
             if (target != 'none' && geometry && geometry.w > 0 && geometry.h > 0) {

@@ -162,7 +162,7 @@
     </prefpane>
 
     <prefpane id="osdSettingsPane" label="&category.layout.osd;">
-        <preferences>
+        <preferences id="osd_preferences">
 
             <preference id="pref_osdpanel_overlay" name="vivipos.fec.settings.osdPanel.OverlayTarget" type="unichar"/>
             <preference id="pref_osdpanel_overlay_x" name="vivipos.fec.settings.osdPanel.OverlayX" type="int"/>
@@ -177,9 +177,8 @@
                 <column/>
                 <column flex="1"/>
                 <column/>
-                <column/>
             </columns>
-            <rows>
+            <rows id="osd_prefs_rows">
                 <row>
                     <label value="&layout.osdpanel.geometry;"/>
                     <vbox>
@@ -191,26 +190,30 @@
                             </menupopup>
                         </menulist>
                     </vbox>
-                    <vbox>
-                        <label control="osdpanel_overlay_x" value="&layout.osdpanel.overlay.position.x.label;"/>
-                        <textbox preference="pref_osdpanel_overlay_x" id="osdpanel_overlay_x" type="number" size="3" maxlength="4" min="0"/>
-                    </vbox>
-                    <vbox>
-                        <label control="osdpanel_overlay_y" value="&layout.osdpanel.overlay.position.y.label;"/>
-                        <textbox preference="pref_osdpanel_overlay_y" id="osdpanel_overlay_y" type="number" size="3" maxlength="4" min="0"/>
-                    </vbox>
+                    <hbox>
+                        <vbox>
+                            <label control="osdpanel_overlay_x" value="&layout.osdpanel.overlay.position.x.label;"/>
+                            <textbox preference="pref_osdpanel_overlay_x" id="osdpanel_overlay_x" type="number" size="3" maxlength="4" min="0"/>
+                        </vbox>
+                        <vbox>
+                            <label control="osdpanel_overlay_y" value="&layout.osdpanel.overlay.position.y.label;"/>
+                            <textbox preference="pref_osdpanel_overlay_y" id="osdpanel_overlay_y" type="number" size="3" maxlength="4" min="0"/>
+                        </vbox>
+                    </hbox>
                 </row>
                 <row>
                     <spacer/>
                     <spacer/>
-                    <vbox>
-                        <label control="osdpanel_overlay_w" value="&layout.osdpanel.overlay.size.w.label;"/>
-                        <textbox preference="pref_osdpanel_overlay_w" id="osdpanel_overlay_w" type="number" size="3" maxlength="4" min="0"/>
-                    </vbox>
-                    <vbox>
-                        <label control="osdpanel_overlay_h" value="&layout.osdpanel.overlay.size.h.label;"/>
-                        <textbox preference="pref_osdpanel_overlay_h" id="osdpanel_overlay_h" type="number" size="3" maxlength="4" min="0"/>
-                    </vbox>
+                    <hbox>
+                        <vbox>
+                            <label control="osdpanel_overlay_w" value="&layout.osdpanel.overlay.size.w.label;"/>
+                            <textbox preference="pref_osdpanel_overlay_w" id="osdpanel_overlay_w" type="number" size="3" maxlength="4" min="0"/>
+                        </vbox>
+                        <vbox>
+                            <label control="osdpanel_overlay_h" value="&layout.osdpanel.overlay.size.h.label;"/>
+                            <textbox preference="pref_osdpanel_overlay_h" id="osdpanel_overlay_h" type="number" size="3" maxlength="4" min="0"/>
+                        </vbox>
+                    </hbox>
                 </row>
             </rows>
         </grid>

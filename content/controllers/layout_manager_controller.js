@@ -142,8 +142,60 @@
             });
 
             $('#osdpanel_overlay_target').val(selectedTarget);
-
             this.setOsdPanelTarget(selectedTarget);
+
+            // populate OSD panel access
+            var prefsRowsObj = document.getElementById('osd_prefs_rows');
+
+            var osdUsers = GeckoJS.Configure.read('vivipos.fec.registry.osdpanel');
+            var count = 0;
+            for (let key in osdUsers) {
+                let setting = osdUsers[key];
+
+                // retrieve preference
+                let prefKey = 'vivipos.fec.settings.osdPanel.access.' + key;
+                let prefix = 'osdpanel_access_';
+                let prefValue = GeckoJS.Configure.read(prefKey) || false;
+
+                // create UI tags
+                let rowObj = document.createElement('row');
+
+                // first column: label or spacer
+                let col1;
+                if (count++ == 0) {
+                    col1 = document.createElement('label');
+                    col1.setAttribute('value', _('Panel access'));
+                }
+                else {
+                    col1 = document.createElement('spacer');
+                }
+
+                // second column: checkbox with label
+                var labelStr = '' ;
+                if (setting.label.indexOf('chrome://') != -1) {
+                    var keystr = 'vivipos.fec.registry.osdpanel.' + key +'.label';
+                    labelStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                }else {
+                    labelStr = setting.label;
+                }
+                let col2 = document.createElement('checkbox');
+                col2.setAttribute('id', prefix + '_active_' + key);
+                col2.setAttribute('label', labelStr);
+                col2.checked = prefValue;
+
+                // third column: templates
+                let col3 = document.createElement('menulist');
+                col3.setAttribute('flex', '1');
+                col3.setAttribute('id', '_template_' + key);
+                let menupop = document.createElement('menupopup');
+                col3.appendChild(menupop);
+
+                rowObj.appendChild(col1);
+                rowObj.appendChild(col2);
+                rowObj.appendChild(col3);
+
+                prefsRowsObj.appendChild(rowObj);
+            }
         },
 
         setOsdPanelTarget: function(selectedTarget) {
@@ -217,8 +269,7 @@
                 var keystr = 'vivipos.fec.registry.layouts.' + value +'.label';
                 labelStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
             }else {
-                // use i18n
-                labelStr = _(data.label);
+                labelStr = data.label;
             }
             var label = document.createElement('label');
             label.setAttribute('value', labelStr);
@@ -231,7 +282,7 @@
                 descStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
             }else {
                 // use i18n
-                descStr = _(data.desc);
+                descStr = data.desc;
             }
             var desc = document.createElement('textbox');
             desc.setAttribute('value', descStr);
