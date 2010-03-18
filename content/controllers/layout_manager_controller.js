@@ -8,6 +8,8 @@
         _selectedLayout: '',
         _fields: [],
         _rbObj: null,
+        _osdPanelAccessKeyPrefix: 'vivipos.fec.settings.osdPanel.access.',
+        _osdPanelTemplateKeyPrefix: 'vivipos.fec.settings.osdPanel.template.',
 
         getRichlistbox: function() {
             this._rbObj = this._rbObj || document.getElementById('rbSelectLayout');
@@ -15,6 +17,10 @@
         },
 
         initial: function() {
+
+            /*******************************************************************
+             * set preference window size
+             *******************************************************************/
 
             var width = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             var height = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
@@ -27,8 +33,10 @@
                 prefwin.dlgbuttons='accept,help';
             }
 
-            var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
-            var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
+            /*******************************************************************
+             * setup observer to allow each layout to initialize its own layout
+             * preferences
+             *******************************************************************/
 
             var observer = {
                 observe : function (subject, topic, data) {
@@ -40,6 +48,13 @@
                     }
                 }
             };
+
+            /*******************************************************************
+             * load layout-specific preference tabs
+             *******************************************************************/
+
+            var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
+            var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
 
             var prefsOverlayUri = 'chrome://viviecr/content/layouts/traditional/traditional_prefs.xul'
             if (layouts[selectedLayout]) {
@@ -53,11 +68,17 @@
                 GREUtils.Dialog.alert(this.topmostWindow, _('Layout Preference Error'),
                                       _('Failed to load preference panel(s) for selected layout'));
             }
-            //displayPane.src = prefsOverlayUri;
 
-            // always start on first pane to avoid XUL bug where displayPane is not rendered
+            /*******************************************************************
+             * always start on first pane to avoid XUL bug where displayPane is not rendered
+             *******************************************************************/
+
             var firstPane = document.getElementById('panelSettingsPane');
             if (firstPane && prefwin) prefwin.showPane(firstPane);
+
+            /*******************************************************************
+             * build list of eligible layouts based on resolution
+             *******************************************************************/
 
             var rbObj = this.getRichlistbox();
 
@@ -80,7 +101,10 @@
             rbObj.selectedIndex = selectedIndex;
             rbObj.ensureIndexIsVisible(selectedIndex);
 
-            // build list of cart display fields
+            /*******************************************************************
+             * build list of cart display fields
+             *******************************************************************/
+
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                 .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
             var cart = mainWindow.document.getElementById('cartList');
@@ -110,14 +134,17 @@
                 fieldListObj.value = selectedItems;
             }
 
-            // populate cart status dock target panels
+            /*******************************************************************
+             * populate cart status dock target panels
+             *******************************************************************/
+
             var selectedElement = GeckoJS.Configure.read('vivipos.fec.settings.layout.cartstatus.selectedElement') || '';
             var selectedDirection = GeckoJS.Configure.read('vivipos.fec.settings.layout.cartstatus.selectedDirection') || 'none';
 
             // populate relation element list
             var elemObj = document.getElementById('cartstatus_relation_element');
             var elements = mainWindow.$('box[panel]');
-            for (var j = 0; j < elements.length; j++) {
+            for (let j = 0; j < elements.length; j++) {
                 elemObj.appendItem(elements[j].getAttribute('panel'), elements[j].getAttribute('id'));
             };
 
@@ -127,6 +154,134 @@
             if (selectedDirection == 'none') {
                 document.getElementById('cartstatus_relation_element').setAttribute('disabled', true);
             }
+
+            /*******************************************************************
+             * populate OSD panel overlay target
+             *******************************************************************/
+
+            var selectedTarget = GeckoJS.Configure.read('vivipos.fec.settings.osdPanel.OverlayTarget') || 'none';
+            var targetObj = document.getElementById('osdpanel_overlay_target');
+            var $targets = mainWindow.$('#mainPanel').children('box');
+            
+            for (let j = 0; j < elements.length; j++) {
+                targetObj.appendItem(elements[j].getAttribute('panel'), elements[j].getAttribute('id'));
+            };
+
+            $targets.each(function(index, elem) {
+                targetObj.appendItem(elem.getAttribute('panel') || elem.getAttribute('id'), elem.getAttribute('id'));
+            });
+
+            $('#osdpanel_overlay_target').val(selectedTarget);
+            this.setOsdPanelTarget(selectedTarget);
+
+            /*******************************************************************
+             * populate OSD panel access
+             *******************************************************************/
+
+            var prefsRowsObj = document.getElementById('osd_prefs_rows');
+            var devices = mainWindow.GeckoJS.Controller.getInstanceByName('Devices');
+            var osdUsers = GeckoJS.Configure.read('vivipos.fec.registry.osdpanel');
+            var count = 0;
+            for (let key in osdUsers) {
+                let setting = osdUsers[key];
+
+                // retrieve preference
+                let tagPrefix = 'osdpanel_access_';
+                let accessKey = this._osdPanelAccessKeyPrefix + key;
+                let accessValue = GeckoJS.Configure.read(accessKey) || false;
+                let templateKey = this._osdPanelTemplateKeyPrefix + key;
+                let templateValue = GeckoJS.Configure.read(templateKey) || '';
+
+                // create UI tags
+                let rowObj = document.createElement('row');
+
+                // first column: label or spacer
+                let col1;
+                if (count++ == 0) {
+                    col1 = document.createElement('label');
+                    col1.setAttribute('value', _('Panel access'));
+                }
+                else {
+                    col1 = document.createElement('spacer');
+                }
+
+                // second column: checkbox with label
+                let labelStr = '' ;
+                if (setting.label.indexOf('chrome://') != -1) {
+                    let keystr = 'vivipos.fec.registry.osdpanel.' + key +'.label';
+                    labelStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                }else {
+                    labelStr = setting.label;
+                }
+                let col2 = document.createElement('checkbox');
+                col2.setAttribute('id', tagPrefix + '_active_' + key);
+                col2.setAttribute('label', labelStr);
+                col2.setAttribute('osdpanel', accessKey);
+                col2.setAttribute('checked', accessValue);
+                col2.addEventListener('onclick', function(evt) {
+                    evt.stopPropagation();
+                }, this);
+
+                // third column: templates
+                let templates = devices.getTemplates(setting['template-type']) || {};
+                let col3 = document.createElement('menulist');
+                col3.setAttribute('flex', '1');
+                col3.setAttribute('id', tagPrefix + '_template_' + key);
+                col3.setAttribute('osdpanel', templateKey);
+                
+                let menupopup = document.createElement('menupopup');
+
+                for (let tpl in templates) {
+                    let labelStr = '' ;
+                    let template = templates[tpl];
+                    if (template.label.indexOf('chrome://') != -1) {
+                        let keystr = 'vivipos.fec.registry.templates.' + tpl +'.label';
+                        labelStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                    }else {
+                        labelStr = template.label;
+                    }
+                    let menuitem = document.createElement('menuitem');
+                    menuitem.setAttribute('label', labelStr);
+                    menuitem.setAttribute('value', tpl);
+                    menupopup.appendChild(menuitem);
+                }
+                col3.appendChild(menupopup);
+                col3.value = templateValue;
+
+                rowObj.appendChild(col1);
+                rowObj.appendChild(col2);
+                rowObj.appendChild(col3);
+
+                prefsRowsObj.appendChild(rowObj);
+            }
+        },
+
+        setOsdPanelTarget: function(selectedTarget) {
+            let x = 0, y = 0, w = 0, h = 0;
+
+            GeckoJS.Configure.write('vivipos.fec.settings.osdPanel.OverlayTarget', selectedTarget);
+            if (selectedTarget != 'custom' && selectedTarget != 'none') {
+                let mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                //let targetObj = mainWindow.$('#' + selectedTarget);
+                let targetObj = mainWindow.document.getElementById(selectedTarget);
+                if (targetObj) {
+                    x = targetObj.boxObject.screenX;
+                    y = targetObj.boxObject.screenY;
+                    w = targetObj.clientWidth;
+                    h = targetObj.clientHeight;
+                }
+            }
+
+            let overlayX = document.getElementById('osdpanel_overlay_x');
+            let overlayY = document.getElementById('osdpanel_overlay_y');
+            let overlayW = document.getElementById('osdpanel_overlay_w');
+            let overlayH = document.getElementById('osdpanel_overlay_h');
+
+            if (overlayX) overlayX.disabled = (selectedTarget != 'custom');
+            if (overlayY) overlayY.disabled = (selectedTarget != 'custom');
+            if (overlayW) overlayW.disabled = (selectedTarget != 'custom');
+            if (overlayH) overlayH.disabled = (selectedTarget != 'custom');
         },
 
         setCartStatusPosition: function(selectedDirection) {
@@ -172,8 +327,7 @@
                 var keystr = 'vivipos.fec.registry.layouts.' + value +'.label';
                 labelStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
             }else {
-                // use i18n
-                labelStr = _(data.label);
+                labelStr = data.label;
             }
             var label = document.createElement('label');
             label.setAttribute('value', labelStr);
@@ -186,7 +340,7 @@
                 descStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
             }else {
                 // use i18n
-                descStr = _(data.desc);
+                descStr = data.desc;
             }
             var desc = document.createElement('textbox');
             desc.setAttribute('value', descStr);
@@ -248,6 +402,7 @@
             }
 
             var changedLayout = this._selectedLayout != newSelectedLayout;
+
             // changed layout, prompt restart vivipos
             if(changedLayout) {
                 // prompt
@@ -288,15 +443,46 @@
             }, this);
             GeckoJS.Configure.write('vivipos.fec.settings.layout.CartDisplayFields', displayFields);
 
-            // otherwise just update options and layout
-            var mainWindow = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow('Vivipos:Main');
+            // update osdpanel access
+            var osdAccessObjs = $('checkbox[osdpanel]');
+            if (osdAccessObjs && osdAccessObjs.length > 0) {
+                for (let i = 0; i < osdAccessObjs.length; i++) {
+                    let check = osdAccessObjs[i];
+                    let key = check.getAttribute('osdpanel');
+                    if (key) {
+                        let checked = check.checked;
+                        GeckoJS.Configure.write(key, checked);
+                    }
+                };
+            }
 
-            this.dispatchEvent('onUpdateOptions', null);
+            // update osdpanel template
+            var osdTemplateObjs = $('menulist[osdpanel]');
+            if (osdTemplateObjs && osdTemplateObjs.length > 0) {
+                for (let i = 0; i < osdTemplateObjs.length; i++) {
+                    let menu = osdTemplateObjs[i];
+                    let key = menu.getAttribute('osdpanel');
+                    if (key) {
+                        let index = menu.selectedIndex;
+                        if (index > -1) {
+                            let item = menu.getItemAtIndex(index);
+                            if (item && item.value) {
+                                GeckoJS.Configure.write(key, item.value);
+                            }
+                        }
+                    }
+                };
+            }
+
+            var mainWindow = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow('Vivipos:Main');
+            var main = mainWindow.GeckoJS.Controller.getInstanceByName('Main');
             
             // change button height
             var layoutController = mainWindow.GeckoJS.Controller.getInstanceByName('Layout');
             if (layoutController) layoutController.requestCommand('resetLayout', null, 'Layout');
 
+            main.dispatchEvent('updateLayoutOptions', null);
+            
             window.close();
         }
 

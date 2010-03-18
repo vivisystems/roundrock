@@ -183,4 +183,3 @@ pref("vivipos.fec.registry.templates.kitchen-returnitem-42c.path", "chrome://viv
 pref("vivipos.fec.registry.templates.kitchen-rushitem-42c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.kitchen-rushitem-42c.type", "rushitem-check");
 pref("vivipos.fec.registry.templates.kitchen-rushitem-42c.path", "chrome://viviecr/content/devices/templates/kitchen-rushitem-42c.tpl");
-

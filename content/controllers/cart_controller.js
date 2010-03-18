@@ -2226,12 +2226,13 @@
 
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
+            this.dispatchEvent('beforeAddMarker', type);
+
             if (itemDisplay.type == type) {
                 this._clearAndSubtotal();
+                this.dispatchEvent('afterAddMarker', type);
                 return;
             }
-
-            this.dispatchEvent('beforeAddMarker', type);
 
             var markerItem = curTransaction.appendMarker(index, type);
 

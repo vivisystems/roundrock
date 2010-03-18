@@ -165,7 +165,7 @@
                 'rptProductsales': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.productsales', acl:'acl_report_productsales', checkForAcl:'rptProductsales'},
                 'rptPromotionsummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.promotionsummary', acl:'acl_report_promotionsummary', checkForAcl:'rptPromotionsummary'},
                 'rptSalessummary': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.salessummary', acl:'acl_report_salessummary', checkForAcl:'rptSalessummary'},
-                'rptProductSalesReturn': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.productSalesReturn', acl:'acl_report_productSalesReturn', checkForAcl:'rptProductSalesReturn'},
+                'rptProductSalesReturn': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.productsalesreturn', acl:'acl_report_productsalesreturn', checkForAcl:'rptProductSalesReturn'},
                 'rptStocks': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.stocks', acl:'acl_report_stocks', checkForAcl:'rptStocks'},
                 'rptInventorycommitments': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.inventorycommitments', acl:'acl_report_inventorycommitments', checkForAcl:'rptInventorycommitments'},
                 'rptPurchasehistory': {type:'prefs', method:'remove', key:'vivipos.fec.reportpanels.purchasehistory', acl:'acl_report_purchasehistory', checkForAcl:'rptPurchasehistory'},
