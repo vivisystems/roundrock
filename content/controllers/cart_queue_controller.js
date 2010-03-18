@@ -178,6 +178,11 @@
                     var curTransaction = new Transaction(true);
                     curTransaction.data = data ;
 
+                    // recall alway recalc promotions
+                    Transaction.events.dispatch('onUnserialize', curTransaction, curTransaction);
+                    curTransaction.calcPromotions();
+                    curTransaction.calcTotal();
+
                     cart._setTransactionToView(curTransaction);
                     curTransaction.updateCartView(-1, -1);
 
