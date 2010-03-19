@@ -1335,6 +1335,10 @@
                 let parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Sale Period Close'), features, parms);
 
+                // dispatch event to trigger end of period activity right before restart/shutdown
+                this.dispatchEvent('periodClosed', null);
+
+
                 // power off or restart
                 if (parms.poweroff) {
                     // power off
@@ -1361,6 +1365,8 @@
                 features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=300';
                 let message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Close'), features, message);
+
+                this.dispatchEvent('shiftClosed', null);
 
                 this.requestCommand('signOff', true, 'Main');
                 this.requestCommand('ChangeUserDialog', null, 'Main');
