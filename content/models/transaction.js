@@ -3182,10 +3182,21 @@
                 var sumItem = GREUtils.extend({}, (this.data.items_summary[item_id] || {
                     id: item_id,
                     name: item.name,
+                    no: item.no,
+                    barcode: item.barcode,
+                    cate_no: item.cate_no,
+                    cate_name: item.cate_name,
+                    sale_unit: item.sale_unit,
+                    last_tax_name: item.tax_name,
+                    last_tax_rate: item.tax_rate,
+                    last_tax_type: item.tax_type,
+                    avg_price: 0,
                     qty_subtotal: 0,
                     subtotal: 0,
                     discount_subtotal: 0,
-                    surcharge_subtotal: 0
+                    surcharge_subtotal: 0,
+                    tax_subtotal: 0,
+                    included_tax_subtotal: 0
                 }));
 
                 // include set items in quantity summation
@@ -3195,7 +3206,16 @@
                     sumItem.subtotal += parseFloat(item.current_subtotal);
                     sumItem.discount_subtotal += parseFloat(item.current_discount);
                     sumItem.surcharge_subtotal += parseFloat(item.current_surcharge);
+                    sumItem.tax_subtotal += parseFloat(item.current_tax);
+                    sumItem.included_tax_subtotal += parseFloat(item.included_tax);
                 }
+                // calc avg_price
+                sumItem.avg_price = this.getRoundedPrice(sumItem.subtotal / sumItem.qty_subtotal);
+                // update last tax
+                sumItem.last_tax_name = item.tax_name;
+                sumItem.last_tax_rate = item.tax_rate;
+                sumItem.last_tax_type = item.tax_type;
+
                 this.data.items_summary[item_id] = sumItem;
             }
 
