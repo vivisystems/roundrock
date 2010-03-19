@@ -26,7 +26,7 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/visible_promotions_status_summary_overlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartStatusPanelOverlay.xul" ?>
@@ -54,7 +54,7 @@
             <box id="rightPanel" flex="0" class="right-panel" orient="vertical">
                 <box id="vfdPanelContainer" flex="1" panel="&layout.panel.vfd;"/>
                 <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
-                <box id="promotionsStatusPanelContainer" flex="0"/>
+                <box id="visiblePromotionsStatusPanelContainer" flex="0" panel="&layout.panel.promotions;"/>
                 <box id="functionPanelContainer" flex="0" panel="&layout.panel.function;"/>
             </box>
         </box>
