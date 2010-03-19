@@ -59,3 +59,5 @@ Bug #411:
 Bug #412:
     Order reduction must not exceed total amount excluding non-discountable items, and surcharges must respect non-surchargeable property
 
+Bug #417:
+    Modifying quantity of groupable payments lead to incorrect payment amount
