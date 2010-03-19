@@ -2333,17 +2333,16 @@
         },
 
         modifyPaymentQty: function(paymentDisplay, paymentItem, amount, qty) {
-            if (paymentItem.is_groupable);
+            if (paymentItem.is_groupable) {
+                paymentItem.amount += qty * amount;
+                paymentItem.current_qty += qty;
 
-            paymentItem.amount += amount;
-            paymentItem.current_qty += qty;
+                newPaymentDisplay = this.createDisplaySeq(paymentItem.index, paymentItem, 'payment');
+                GREUtils.extend(paymentDisplay, newPaymentDisplay);
 
-            newPaymentDisplay = this.createDisplaySeq(paymentItem.index, paymentItem, 'payment');
-            GREUtils.extend(paymentDisplay, newPaymentDisplay);
-            
-            this.calcTotal();
-
-            return paymentItem;
+                this.calcTotal();
+            }
+                return paymentItem;
         },
 
         getItemAt: function(index, nofollow){
