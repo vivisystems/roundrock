@@ -115,6 +115,39 @@
                 data.summary.OrderNum += record.OrderNum;
                 data.summary.HourGrossSales += record.HourGrossSales;
             } );
+
+            /*insert zero sale*/
+           var start_date = this._start ;
+
+           var end_date =  this._end;
+
+           while(start_date < end_date){
+
+               var  showedHour = [];
+
+               for(var index = 0; index < data.records.length ; index++ ){
+
+                   showedHour.push( data.records[index].Hour );
+               }
+
+               var d = new Date(start_date);
+               var hour = d.getHours();
+
+              if( showedHour.indexOf(GeckoJS.String.padLeft(hour.toString(), 2, '0')) < 0){
+                    data.records.push({
+                    Hour: GeckoJS.String.padLeft(hour.toString(), 2, '0'),
+                    Guests: 0,
+                    OrderNum: 0,
+                    HourGrossSales: 0
+                    });
+               }
+
+               start_date = start_date + 3600000;
+          }
+
+          data.records.sort(function(a,b){
+                   return a.Hour - b.Hour ;
+          });
 			
             return data;
         },

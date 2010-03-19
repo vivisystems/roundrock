@@ -45,11 +45,21 @@
                                 <row>
                                     <vbox>
                                         <label value="&rpthourlysales.startdate;"/>
-                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                        <vividatetimepicker id="start_date" value="" type="popup" mode="date"/>
                                     </vbox>
                                     <vbox>
                                         <label value="&rpthourlysales.enddate;"/>
-                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                        <vividatetimepicker id="end_date" value="" type="popup" mode="date"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&rpthourlysales.starthour;"/>
+                                        <vividatetimepicker id="start_hour" value="" type="popup" mode="time"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&rpthourlysales.endhour;"/>
+                                        <vividatetimepicker id="end_hour" value="" type="popup" mode="time"/>
                                     </vbox>
                                 </row>
                                 <row>

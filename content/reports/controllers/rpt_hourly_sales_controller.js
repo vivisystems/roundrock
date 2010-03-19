@@ -22,13 +22,16 @@
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
+            var start_hour = document.getElementById( 'start_hour' ).datetimeValue.toString( 'HH' );
+            var end_hour = document.getElementById( 'end_hour' ).datetimeValue.toString( 'HH' );
+
             var terminalNo = document.getElementById( 'terminal_no' ).value;
             var periodType = document.getElementById( 'period_type' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt( start / 1000, 10 );
-            end = parseInt( end / 1000, 10 );
+            end = parseInt( end / 1000, 10 ) + 86400;
 
             var timeField = periodType;
             if (periodType == 'sale_period') {
@@ -49,7 +52,9 @@
 
             var conditions = "orders." + periodType + ">='" + start +
                             "' AND orders." + periodType + "<='" + end +
-                            "' AND orders.status='1'";
+                            "' AND orders.status='1'" +
+                            ' AND "Order.Hour" ' + ">= '" + start_hour + "'" +
+                            ' AND "Order.Hour" ' + "<= '" + end_hour + "'"  ;
 
             var groupby;
             if (terminalNo.length > 0) {
@@ -58,16 +63,42 @@
             } else {
                 groupby = '"Order.Date", "Order.Hour"';
             }
-
             
             var orderby = '"Order.Date", "Order.Hour"';
 
             var order = new OrderModel();
+
+            this.log(this.dump(conditions));
+
+            this.log(this.dump({fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1, limit: limit}));
+
             var records = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1, limit: limit} );
 
             //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-            
+
+            var starDate = document.getElementById( 'start_date' ).value;
+            var endDate = document.getElementById( 'end_date' ).value + 86400000;
+
+            /*insert zero sale data*/
+           for(var x= starDate ; x < endDate ; x = x + 86400000){
+                 for(var y = start_hour; y <= end_hour ; y++){
+
+                      if(!this._checkdata(records, x, GeckoJS.String.padLeft(y, 2, '0'))){
+
+                           var date = new Date(x).toString('yyyy-MM-dd');
+                           records.push({ Date: date,
+                                          Hour: GeckoJS.String.padLeft(y, 2, '0'),
+                                          OrderNum: 0,
+                                          Guests: 0,
+                                          OrderNum: 0,
+                                          HourTotal: 0,
+                                          HourGross: 0
+                                        });
+                      }
+                 }
+            }
+
             if ( sortby != 'all' ) {
             	records.sort(
             		function ( a, b ) {
@@ -77,7 +108,7 @@
             			switch ( sortby ) {
             				case 'terminal_no':
             				case 'Hour':
-                            case 'Date':
+                            
             					if ( a > b ) return 1;
 				    			if ( a < b ) return -1;
 				    			return 0;
@@ -93,6 +124,10 @@
             	);
             }
 
+            if(sortby == 'Date'){
+
+                records = new GeckoJS.ArrayQuery(records).orderBy("Date, Hour");
+            }
             var HourTotal = 0;
             var HourGross = 0;
             var OrderNum = 0;
@@ -121,6 +156,17 @@
             //HourTotal = GeckoJS.NumberHelper.round(HourTotal, precision_prices, rounding_prices) || 0;
             //HourTotal = HourTotal.toFixed(precision_prices);
 
+           /* hours filter */
+     /*       for(var i = 0 ; i < records.length ; i++){
+
+                 if(records[i].Hour <= 11){
+                      records.splice(i, 1);
+                      i--
+                 }
+            }*/
+
+            
+
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.hourlysales.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
@@ -142,6 +188,20 @@
             this._super(this);
         },
 
+
+        _checkdata: function( list, date, hour){
+
+            date = new Date(date).toString('yyyy-MM-dd');
+
+            for(var i = 0 ; i< list.length ; i++){
+                  if(list[i].Date == date){
+                        if( list[i].Hour == hour)
+                             return true ;
+                  }
+            }
+            return false;
+        },
+
         load: function() {
             this._super();
             
@@ -153,8 +213,13 @@
             var start = (new Date(yy,mm,dd,0,0,0)).getTime();
             var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
 
+            var endHour = (new Date(yy,mm,dd + 1,23,59,59)).getTime();
+
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
+
+            document.getElementById('start_hour').value = start;
+            document.getElementById('end_hour').value = endHour;
         }
     };
 
