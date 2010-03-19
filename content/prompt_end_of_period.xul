@@ -29,6 +29,12 @@
             }
         }
 
+        function poweroff() {
+            options.poweroff = true;
+
+            doOKButton();
+        }
+
         window.addEventListener('load', startup, false);
 
     </script>
@@ -84,7 +90,7 @@
             </grid>
             <hbox pack="center" class="toolbar" toolbarmode="horizontal">
                 <button id="login" label="&shiftchange.button.login;" disabled="false" oncommand="doOKButton();"/>
-            	<button id="poweroff" label="&shiftchange.button.poweroff;" disabled="false" oncommand="mainWindow.$do('shutdownMachine', null, 'Main');"/>
+            	<button id="poweroff" label="&shiftchange.button.poweroff;" disabled="false" oncommand="poweroff();"/>
             </hbox>
         </vbox>
     </vbox>

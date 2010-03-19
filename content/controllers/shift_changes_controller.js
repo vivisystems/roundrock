@@ -1337,8 +1337,7 @@
 
                 // dispatch event to trigger end of period activity right before restart/shutdown
                 this.dispatchEvent('periodClosed', null);
-
-
+                
                 // power off or restart
                 if (parms.poweroff) {
                     // power off
