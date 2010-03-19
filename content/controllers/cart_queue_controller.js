@@ -64,6 +64,24 @@
 
         },
 
+        getQueues: function() {
+
+            var queues = [];
+            var username = '';
+
+            var canViewAllQueues = this.Acl.isUserInRole('acl_view_all_queues');
+
+            if (!canViewAllQueues) {
+                var user = this.Acl.getUserPrincipal();
+                if (user) username = user.username;
+            }
+
+            queues = this.OrderQueue.getQueueSummaries(username);
+
+            return queues;
+
+        },
+
         pushQueue: function(nowarning) {
 
             var cart = this.getCartController();
@@ -127,17 +145,7 @@
 
         _getQueueIdDialog: function() {
 
-            var queues = [];
-            var username = '';
-
-            var canViewAllQueues = this.Acl.isUserInRole('acl_view_all_queues');
-
-            if (!canViewAllQueues) {
-                var user = this.Acl.getUserPrincipal();
-                if (user) username = user.username;
-            }
-
-            queues = this.OrderQueue.getQueueSummaries(username);
+            var queues = this.getQueues();
 
             if (!queues) {
                 GREUtils.Dialog.alert(this.topmostWindow,
@@ -154,50 +162,72 @@
 
         },
 
-        pullQueue: function(data) {
+        _pullQueueToCart: function(id) {
 
-            var self = this;
+            id = id || false;
+            
             var cart = this.getCartController();
 
-            return this._getQueueIdDialog().next(function(evt){
+            // popQueue
+            var data = this._removeQueueById(id);
 
-                var result = evt.data;
+            if (data) {
 
-                if (!result.ok) return;
+                // if has transaction push queue
+                this.pushQueue(true);
 
-                var id = result.id;
+                var curTransaction = new Transaction(true);
+                curTransaction.data = data ;
 
-                // popQueue
-                var data = self._removeQueueById(id);
+                // recall alway recalc promotions
+                Transaction.events.dispatch('onUnserialize', curTransaction, curTransaction);
+                curTransaction.calcPromotions();
+                curTransaction.calcTotal();
 
-                if (data) {
-                    
-                    // if has transaction push queue
-                    self.pushQueue(true);
+                cart._setTransactionToView(curTransaction);
+                curTransaction.updateCartView(-1, -1);
 
-                    var curTransaction = new Transaction(true);
-                    curTransaction.data = data ;
+                cart._clearAndSubtotal();
 
-                    // recall alway recalc promotions
-                    Transaction.events.dispatch('onUnserialize', curTransaction, curTransaction);
-                    curTransaction.calcPromotions();
-                    curTransaction.calcTotal();
+                this.dispatchEvent('afterPullQueue', curTransaction);
 
-                    cart._setTransactionToView(curTransaction);
-                    curTransaction.updateCartView(-1, -1);
+            }else {
+                
+                GREUtils.Dialog.alert(this.topmostWindow,
+                    _('Pull Queue Error'),
+                    _('This order could not be pulled. Please check the network connectivity to the terminal designated as the table master.'));
+                return false;
+                
+            }
 
-                    cart._clearAndSubtotal();
 
-                    self.dispatchEvent('afterPullQueue', curTransaction);
-                }else {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Pull Queue Error'),
-                        _('This order could not be pulled. Please check the network connectivity to the terminal designated as the table master.'));
-                    return false;
-                }
+        },
 
-            });
+        pullQueue: function(id) {
 
+            id = id || false;
+            var self = this;
+
+            if (id) {
+
+                return self._pullQueueToCart(id);
+                
+            }else {
+
+                return this._getQueueIdDialog().next(function(evt){
+
+                    var result = evt.data;
+
+                    if (!result.ok) return;
+
+                    id = result.id;
+
+                    return self._pullQueueToCart(id);
+
+                });
+
+            }
+            
         }
 
     };
