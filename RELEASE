@@ -61,3 +61,6 @@ Bug #412:
 
 Bug #417:
     Modifying quantity of groupable payments lead to incorrect payment amount
+
+Bug #418:
+    Promotion status should be made always visible to avoid screen shifting about
