@@ -1675,6 +1675,12 @@
                 if (basis < 0) basis = 0;
 
                 if (discountItem.discount_type == '$') {
+                    basis = this.getRoundedPrice(basis);
+                    if (discount.amount > basis) {
+                        NotifyUtils.warn(_('Discount amount [%S] may not exceed discountable sale [%S]',
+                                           [this.formatPrice(discount.amount), this.formatPrice(basis)]));
+                        return;
+                    }
                     discountItem.current_discount = discount.amount;
                 }
                 else {
@@ -1682,7 +1688,6 @@
                     discountItem.current_discount = basis * discountItem.discount_rate;
                 }
 
-                basis = this.getRoundedPrice(basis);
                 discountItem.current_discount = this.getRoundedPrice(discountItem.current_discount);
 
                 discountItem.current_discount = 0 - discountItem.current_discount;
@@ -1745,7 +1750,7 @@
             return resultItems;
         },
 
-        appendSurcharge: function(index, surcharge){
+        appendSurcharge: function(index, surcharge, skipCondiments, respectNonDiscountable, useBalanceBeforePayments){
 
             var item = this.getItemAt(index);
             var itemDisplay = this.getDisplaySeqAt(index); // last seq
@@ -1820,13 +1825,31 @@
                     }
                 }
 
-                var remainder;
                 if (surchargeItem.surcharge_type == '$') {
                     surchargeItem.current_surcharge = this.getRoundedPrice(surcharge.amount);
                 }else {
-                    remainder = this.getRemainTotal() - this.data.revalue_subtotal;
+                    let basis = this.data.item_subtotal + this.data.tax_subtotal + this.data.item_surcharge_subtotal
+                                + this.data.item_discount_subtotal + this.data.trans_surcharge_subtotal + this.data.trans_discount_subtotal
+                                + this.data.promotion_subtotal;
+
+                    // loop through each item
+                    for (let iid in this.data.items) {
+                        let item = this.data.items[iid];
+                        if (respectNonDiscountable && this.Product.isNonSurchargeable(item.id, false)) {
+                            basis = basis - item.current_subtotal - item.current_tax;
+                        }
+                        else if (skipCondiments) {
+                            basis -= item.current_condiment;
+                        }
+                    }
+
+                    if (!useBalanceBeforePayments) {
+                        basis -= this.data.payment_subtotal;
+                    }
+                    if (basis < 0) basis = 0;
+
                     surchargeItem.surcharge_name += '*';
-                    surchargeItem.current_surcharge = this.getRoundedPrice(remainder * surchargeItem.surcharge_rate);
+                    surchargeItem.current_surcharge = this.getRoundedPrice(basis * surchargeItem.surcharge_rate);
                 }
 
                 var surchargeIndex = GeckoJS.String.uuid();
@@ -2310,17 +2333,16 @@
         },
 
         modifyPaymentQty: function(paymentDisplay, paymentItem, amount, qty) {
-            if (paymentItem.is_groupable);
+            if (paymentItem.is_groupable) {
+                paymentItem.amount += qty * amount;
+                paymentItem.current_qty += qty;
 
-            paymentItem.amount += amount;
-            paymentItem.current_qty += qty;
+                newPaymentDisplay = this.createDisplaySeq(paymentItem.index, paymentItem, 'payment');
+                GREUtils.extend(paymentDisplay, newPaymentDisplay);
 
-            newPaymentDisplay = this.createDisplaySeq(paymentItem.index, paymentItem, 'payment');
-            GREUtils.extend(paymentDisplay, newPaymentDisplay);
-            
-            this.calcTotal();
-
-            return paymentItem;
+                this.calcTotal();
+            }
+                return paymentItem;
         },
 
         getItemAt: function(index, nofollow){

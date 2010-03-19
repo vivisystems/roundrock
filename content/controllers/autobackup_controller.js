@@ -36,9 +36,7 @@
         },
 
         autobackupToLocal: function(evt) {
-            // check if event is sale period close
-            if (!evt || !evt.data || !evt.data.closing) return;
-
+            
             var autoBackup = GeckoJS.Configure.read('vivipos.fec.settings.AutoBackupOnClosing');
             if (!autoBackup) return;
             
@@ -66,7 +64,7 @@
             // register listener for sale period close event
             var shiftChangeController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
             if (shiftChangeController) {
-                shiftChangeController.addEventListener('shiftChanged', this.autobackupToLocal, this);
+                shiftChangeController.addEventListener('periodClosed', this.autobackupToLocal, this);
             }
         }
     };

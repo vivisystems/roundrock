@@ -1680,14 +1680,25 @@
         },
 
         addDiscountByNumber: function(args) {
-            // args is a list of up to 2 comma separated arguments: amount, label
+            // args is a list of up to 5 comma separated arguments:
+            // - amount
+            // - label
+            // - skipCondiment
+            // - respect non discountable property
+            // - back out payments when computing discount basis
             var discountAmount;
-            var discountName = '-'
+            var discountName = '-';
+            var skipCondiments = false;
+            var respectNonDiscountable = false;
+            var useBalanceBeforePayments = false;
 
             if (args != null && args != '') {
                 var argList = args.split(',');
                 if (argList.length > 0) discountAmount = argList[0];
                 if (argList.length > 1) discountName = argList[1];
+                if (argList.length > 2) skipCondiments = GeckoJS.String.parseBoolean(argList[2]);
+                if (argList.length > 3) respectNonDiscountable = GeckoJS.String.parseBoolean(argList[3]);
+                if (argList.length > 4) useBalanceBeforePayments = GeckoJS.String.parseBoolean(argList[4]);
             }
 
             // check if has buffer
@@ -1700,11 +1711,16 @@
                 discountAmount = buf;
             }
 
-            this._addDiscount(discountAmount, '$', discountName, false);
+            this._addDiscount(discountAmount, '$', discountName, skipCondiments, respectNonDiscountable, useBalanceBeforePayments);
         },
 
         addDiscountByPercentage: function(args) {
-            // args is a list of up to 5 comma separated arguments: amount, label
+            // args is a list of up to 5 comma separated arguments:
+            // - amount
+            // - label
+            // - skipCondiment
+            // - respect non discountable property
+            // - back out payments when computing discount basis
             var discountAmount;
             var discountName;
             var skipCondiments = false;
@@ -1784,7 +1800,7 @@
                 return;
             }
 
-            if(index <0) {
+            if(index < 0) {
                 NotifyUtils.warn(_('Please select an item'));
 
                 this._clearAndSubtotal();
@@ -1965,18 +1981,29 @@
                 surchargeAmount = buf;
             }
 
-            this._addSurcharge(surchargeAmount, '$', surchargeName, false);
+            this._addSurcharge(surchargeAmount, '$', surchargeName);
         },
 
         addSurchargeByPercentage: function(args) {
-            // args is a list of up to 2 comma separated arguments: amount, label
+            // args is a list of up to 5 comma separated arguments:
+            // - amount
+            // - label
+            // - skipCondiment
+            // - respect non surchargeable property
+            // - back out payments when computing discount basis
             var surchargeAmount;
             var surchargeName;
+            var skipCondiments = false;
+            var respectNonDiscountable = false;
+            var useBalanceBeforePayments = false;
 
             if (args != null && args != '') {
                 var argList = args.split(',');
                 if (argList.length > 0) surchargeAmount = argList[0];
                 if (argList.length > 1) surchargeName = argList[1];
+                if (argList.length > 2) skipCondiments = GeckoJS.String.parseBoolean(argList[2]);
+                if (argList.length > 3) respectNonDiscountable = GeckoJS.String.parseBoolean(argList[3]);
+                if (argList.length > 4) useBalanceBeforePayments = GeckoJS.String.parseBoolean(argList[4]);
             }
 
             // check if has buffer
@@ -1993,7 +2020,7 @@
                 surchargeName = '+' + surchargeAmount + '%';
             }
 
-            this._addSurcharge(surchargeAmount, '%', surchargeName);
+            this._addSurcharge(surchargeAmount, '%', surchargeName, skipCondiments, respectNonDiscountable, useBalanceBeforePayments);
         },
 
 
@@ -2025,7 +2052,7 @@
         },
 
 
-        _addSurcharge: function(surchargeAmount, surchargeType, name) {
+        _addSurcharge: function(surchargeAmount, surchargeType, name, skipCondiments, respectNonDiscountable, useBalanceBeforePayments) {
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
@@ -2147,7 +2174,7 @@
             };
             this.dispatchEvent('beforeAddSurcharge', surchargeItem);
 
-            var surchargedItem = curTransaction.appendSurcharge(index, surchargeItem);
+            var surchargedItem = curTransaction.appendSurcharge(index, surchargeItem, skipCondiments, respectNonDiscountable, useBalanceBeforePayments);
 
             this.dispatchEvent('afterAddSurcharge', surchargedItem);
 

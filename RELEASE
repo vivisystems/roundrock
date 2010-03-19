@@ -55,3 +55,9 @@ Bug #407:
 
 Bug #411:
     After 'Subtotal', display item summary and tax breakdown
+
+Bug #412:
+    Order reduction must not exceed total amount excluding non-discountable items, and surcharges must respect non-surchargeable property
+
+Bug #417:
+    Modifying quantity of groupable payments lead to incorrect payment amount
