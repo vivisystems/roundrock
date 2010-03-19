@@ -1677,7 +1677,7 @@
                 if (discountItem.discount_type == '$') {
                     basis = this.getRoundedPrice(basis);
                     if (discount.amount > basis) {
-                        NotifyUtils.warn(_('Discount amount [%S] exceeds discountable sale [%S]',
+                        NotifyUtils.warn(_('Discount amount [%S] may not exceed discountable sale [%S]',
                                            [this.formatPrice(discount.amount), this.formatPrice(basis)]));
                         return;
                     }
