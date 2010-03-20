@@ -67,3 +67,7 @@ Bug #417:
 
 Bug #418:
     Promotion status should be made always visible to avoid screen shifting about
+
+Bug #420:
+    Improve handling of adding to collapsed condiments to avoid shifting cart content
+
