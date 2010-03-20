@@ -1956,7 +1956,6 @@
 
             var item = this.getItemAt(index);
             var itemDisplay = this.getDisplaySeqAt(index);
-            var itemIndex = itemDisplay.index;
 
             var prevRowCount = this.data.display_sequences.length;
 
@@ -2017,8 +2016,8 @@
             return markerItem;
         },
 
-        appendCondiment: function(index, condiments, replace, replaceInPlace){
-
+        appendCondiment: function(index, condiments, replace, collapsed, skipSetOpen, leaveCursor) {
+            
             var item = this.getItemAt(index, true);                           // item to add condiment to
             var targetItem = this.getItemAt(index);
             var itemDisplay = this.getDisplaySeqAt(index);              // display item at cursor position
@@ -2030,27 +2029,40 @@
 
             if (item.type == 'item') {
 
+                let removedCount = 0;
+                let addedCount = 0;
+                let prevRowCount = this.getDisplaySeqCount();
+
                 if (condiments.length >0) {
 
                     if (replace && item.condiments != null && item.condiments != {}) {
 
                         // void all condiment items up to next item whose index is different from itemIndex
-                        for (var i = displayIndex + 1; i < this.getDisplaySeqCount();) {
-                            var displayItem = this.getDisplaySeqAt(i);
+                        for (let i = displayIndex + 1; i < this.getDisplaySeqCount();) {
+                            let displayItem = this.getDisplaySeqAt(i);
                             if (displayItem.index != itemIndex)
                                 break;
                             if (displayItem.type == 'condiment') {
-                                this.voidItemAt(i);
+                                this.removeDisplaySeq(i, 1);
+                                removedCount++;
                             }
                             else {
                                 i++;
-                                displayIndex++;
                             }
                         }
-                        prevRowCount = this.getDisplaySeqCount();
-
-                        if (replace && replaceInPlace) displayIndex = index - 1;
+                        delete item.condiments;
                     }
+                    else {
+                        // move cursor to last item modifier
+                        for (; displayIndex < this.getDisplaySeqCount() - 1; displayIndex++) {
+                            // peek ahead at next entry to see if it belongs to the current item
+                            let displayItem = this.getDisplaySeqAt(displayIndex + 1);
+                            if (displayItem.index != itemIndex)
+                                break;
+                        }
+                    }
+
+                    let first = true;
                     condiments.forEach(function(condiment){
                         // this extra check is a workaround for the bug in XULRunner where an item may appear to be selected
                         // but is actually not
@@ -2069,18 +2081,30 @@
                                 NotifyUtils.warn(_('Condiment [%S] already added to [%S]', [condiment.name, item.name]));
                             }
                             else {
-                                //var newCondiment = GeckoJS.BaseObject.extend({}, condiment);
                                 item.condiments[condiment.name] = condimentItem;
 
-                                // update condiment display
-                                var level = targetDisplayItem.type == 'setitem' ? 2 : null;
-                                var condimentDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment', level);
-                                this.data.display_sequences.splice(++displayIndex,0,condimentDisplay);
+                                // update condiment display if not collapsed
+                                if (!collapsed) {
+                                    var level = targetDisplayItem.type == 'setitem' ? 2 : null;
+                                    var condimentDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment', level);
+
+                                    // set first condiment item as open
+                                    if (first && !skipSetOpen) {
+                                        first = false;
+                                        condimentDisplay.open = true;
+                                    }
+                                    this.data.display_sequences.splice(++displayIndex,0,condimentDisplay);
+
+                                    addedCount++;
+                                }
                             }
                         }
                     }, this);
 
-                    if (replaceInPlace) displayIndex = index;
+                    if (collapsed) {
+                        // add collapsed item, this will take care of updating cart
+                        this.collapseCondiments(index, true);
+                    }
                 }
 
                 // if item is a set item, compute condiment subtotals
@@ -2113,14 +2137,16 @@
 
                 this.calcItemsTax(targetItem);
                 this.calcTotal();
+
+                // update row count if not collapsed
+                if (!collapsed) {
+                    let currentRowCount = prevRowCount - removedCount + addedCount;
+                    this.updateCartView(prevRowCount, currentRowCount, leaveCursor ? index : displayIndex);
+                }
             }
             else {
                 NotifyUtils.warn(_("Condiment may only be added to an item"));
             }
-
-            var currentRowCount = this.data.display_sequences.length;
-
-            this.updateCartView(prevRowCount, currentRowCount, displayIndex);
 
             return item;
         },
@@ -2144,7 +2170,7 @@
 
                 // restore collapsedCondiments
                 item.condiments = item.collapsedCondiments;
-                this.appendCondiment(index, condimentArray, true, true);
+                this.appendCondiment(index, condimentArray, true, false, false, true);
 
                 // update open state of first condiment item
                 var firstCondiment = this.getDisplaySeqAt(index);
@@ -2168,11 +2194,32 @@
             }
         },
 
-        collapseCondiments: function(index) {
+        constructCollapsedCondiments: function(item) {
+            var condiments = item.condiments;
+
+            // construct new condiment display
+            var condimentNames = '';
+            var condimentSubtotal = 0;
+            var condimentList = GeckoJS.BaseObject.getKeys(condiments);
+
+            condimentList.forEach(function(c) {
+                condimentNames += (condimentNames == '') ? c : (',' + c);
+                condimentSubtotal += parseFloat(condiments[c].price) || 0;
+            });
+
+            var condimentItem = {
+                id: item.id,
+                name: condimentNames,
+                price: condimentSubtotal
+            };
+            return condimentItem;
+        },
+
+        collapseCondiments: function(index, update) {
             var item = this.getItemAt(index, true);
             var itemDisplay = this.getDisplaySeqAt(index);
 
-            if (item && item.condiments && itemDisplay && itemDisplay.open) {
+            if (item && item.condiments && (itemDisplay && itemDisplay.open || update)) {
                 // get batch & batchMarker from last condiment item
                 let lastCondimentDispItem, batch, batchMarker;
                 for (let i = index; i < this.getDisplaySeqCount(); i++) {
@@ -2188,24 +2235,12 @@
                     batchMarker = lastCondimentDispItem.batchMarker;
                 }
 
+                // make a copy of existing condiments and saving it for later use
                 var condiments = GREUtils.extend({}, item.condiments);
 
                 // construct new condiment display
-                var condimentNames = '';
-                var condimentSubtotal = 0;
-                var condimentList = GeckoJS.BaseObject.getKeys(condiments);
-
-                condimentList.forEach(function(c) {
-                    condimentNames += (condimentNames == '') ? c : (',' + c);
-                    condimentSubtotal += parseFloat(condiments[c].price) || 0;
-                });
-
-                var condimentItem = {
-                    id: item.id,
-                    name: condimentNames,
-                    price: condimentSubtotal
-                };
-                this.appendCondiment(index, [condimentItem], true, true);
+                var condimentItem = this.constructCollapsedCondiments(item);
+                this.appendCondiment(index, [condimentItem], true, false, true);
 
                 // save collapsed condiment
                 item.collapsedCondiments = item.condiments;
