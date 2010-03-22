@@ -78,4 +78,7 @@ Bug #423:
     When selected, text of refund item entries in the cart are not visible
 
 Bug #426:
-     Basic ECR layout needs two-level access for basic and advanced control panels
+    Basic ECR layout needs two-level access for basic and advanced control panels
+
+Bug #428:
+    Product image should scale automatically to fill up PLU button

@@ -205,6 +205,7 @@
             });
 
             var classStr = '';
+            var styleStr = '';
 
             if (buttonColor && btn) {
                 classStr = buttonColor;
@@ -224,22 +225,37 @@
                 classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
             }
             else {
-                var imageExists = (this.getImageSrc(row,{id: 'no'}) != null);
+                var imageSrc = this.getImageSrc(row,{id: 'no'});
+                var imageExists = (imageSrc != null);
 
                 if (imageExists) {
                     if (display_mode == 1) {
-                        classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label button-large-image';
-                        //$(btn).addClass('nolabelbtn largeimagebtn');
+                        // dynamically set image size to that of the button
+                        classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label';
                     }
+                    // remove image source
+                    btn.vivibuttonImage.removeAttribute('src');
+                    btn.vivibuttonImage.setAttribute('flex', '1');
+
+                    // set fully scaled product image using border image
+                    styleStr = 'width:' + btn.clientWidth + 'px; min-width:' + btn.clientWidth + 'px;' +
+                               '-moz-border-image: url(' + imageSrc + ') 0;';
                 }
                 else {
                     classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
-                    //$(btn).addClass('noimagebtn');
                 }
             }
+
             if (classStr.length > 0) {
-                //$(btn).addClass(classStr);
-                btn.className += ' ' +  classStr;
+                btn.className += " " + classStr;
+            }
+
+            // set image size explicitly
+            if (styleStr.length > 0) {
+                btn.vivibuttonImage.setAttribute('style', styleStr);
+            }
+            else {
+                btn.vivibuttonImage.removeAttribute('style');
             }
         }
 
