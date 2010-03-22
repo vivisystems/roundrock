@@ -53,6 +53,9 @@ Bug #406:
 Bug #407:
     Tweak product/department panel CSS in all layouts
 
+Bug #408:
+     Promotion reset when order queued then recalled
+
 Bug #411:
     After 'Subtotal', display item summary and tax breakdown
 
