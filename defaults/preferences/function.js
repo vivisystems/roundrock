@@ -12,6 +12,9 @@ pref("vivipos.fec.registry.function.programmable.addmemo.access", "acl_register_
 pref("vivipos.fec.registry.function.programmable.addmemo.command", "addMemo");
 pref("vivipos.fec.registry.function.programmable.addmemo.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.addmemo.data", "");
+pref("vivipos.fec.registry.function.programmable.addmemo.name", "Add Memo Name");
+pref("vivipos.fec.registry.function.programmable.addmemo.label", "Add Memo Label");
+pref("vivipos.fec.registry.function.programmable.addmemo.desc", "Add Memo Desc");
 
 pref("vivipos.fec.registry.function.programmable.annotate.access", "acl_annotate,acl_view_annotations");
 pref("vivipos.fec.registry.function.programmable.annotate.command", "AnnotateDialog");

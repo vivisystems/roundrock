@@ -3,10 +3,14 @@
     var __controller__ = {
 
         name: 'CompactTablePrefs',
-        prefix: 'vivipos.fec.settings.layout.compacttable.keys',
+
+        _keyprefix: 'vivipos.fec.settings.layout.compacttable.keys',
+        _fnprefix: 'vivipos.fec.registry.function.programmable',
+
         keySettings: null,
         numKeys: 8,
         functionArray: null,
+        functionRegistry: null,
         keyListObj: null,
         functionListObj: null,
 
@@ -53,17 +57,34 @@
         getKeySettings: function() {
             if (!this.keySettings) {
                 let keys = [];
-                let keyPrefs = GeckoJS.Configure.read(this.prefix) || [];
+                let fns = this.functionRegistry;
+                let keyPrefs = GeckoJS.Configure.read(this._keyprefix) || [];
                 for (let i = 0; i < this.numKeys; i++) {
-                    keys[i] = {
-                        name: _('Express Key') + ' [' + parseInt(i + 1) + ']',
-                        functionid: (keyPrefs[i] && keyPrefs[i].functionid) ? keyPrefs[i].functionid : '',
-                        linked: (keyPrefs[i] && keyPrefs[i].linked) ? keyPrefs[i].linked : '',
-                        command: (keyPrefs[i] && keyPrefs[i].command) ? keyPrefs[i].command : '',
-                        label: (keyPrefs[i] && keyPrefs[i].label) ? keyPrefs[i].label : '',
-                        access: (keyPrefs[i] && keyPrefs[i].access) ? keyPrefs[i].access : '',
-                        controller: (keyPrefs[i] && keyPrefs[i].controller) ? keyPrefs[i].controller : '',
-                        data: (keyPrefs[i] && keyPrefs[i].data) ? keyPrefs[i].data : ''
+                    let functionid = (keyPrefs[i] && keyPrefs[i].functionid) ? keyPrefs[i].functionid : '';
+                    if (functionid) {
+                        // load linked, command, access, controller from function registry
+                        keys[i] = {
+                            name: _('Express Key') + ' [' + parseInt(i + 1) + ']',
+                            functionid: functionid,
+                            linked: fns[functionid].name || '',
+                            command: fns[functionid].command || '',
+                            label: (keyPrefs[i] && keyPrefs[i].label) ? keyPrefs[i].label : '',
+                            access: fns[functionid].access || '',
+                            controller: fns[functionid].controller || '',
+                            data: (keyPrefs[i] && keyPrefs[i].data) ? keyPrefs[i].data : ''
+                        }
+                    }
+                    else {
+                        keys[i] = {
+                            name: _('Express Key') + ' [' + parseInt(i + 1) + ']',
+                            functionid: '',
+                            linked: '',
+                            command: '',
+                            label: '',
+                            access: '',
+                            controller: '',
+                            data: ''
+                        }
                     }
                 }
                 this.keySettings = keys;
@@ -74,13 +95,9 @@
         saveKeySettings: function() {
             let keySettings = this.getKeySettings();
             for (let i = 0; i < keySettings.length; i++) {
-                let prefix = this.prefix + '.' + parseInt(i);
+                let prefix = this._keyprefix + '.' + parseInt(i);
                 GeckoJS.Configure.write(prefix + '.functionid', keySettings[i].functionid);
-                GeckoJS.Configure.write(prefix + '.linked', keySettings[i].linked);
-                GeckoJS.Configure.write(prefix + '.command', keySettings[i].command);
                 GeckoJS.Configure.write(prefix + '.label', keySettings[i].label);
-                GeckoJS.Configure.write(prefix + '.access', keySettings[i].access);
-                GeckoJS.Configure.write(prefix + '.controller', keySettings[i].controller);
                 GeckoJS.Configure.write(prefix + '.data', keySettings[i].data);
             }
 
@@ -94,13 +111,13 @@
         },
 
         populateFunctionKeys: function() {
-            var prefix = 'vivipos.fec.registry.function.programmable';
 
-            GeckoJS.Configure.loadPreferences(prefix);
-            var fns = GeckoJS.Configure.read(prefix);
+            GeckoJS.Configure.loadPreferences(this._fnprefix);
+            var fns = GeckoJS.Configure.read(this._fnprefix);
 
             var keys = GeckoJS.BaseObject.getKeys(fns);
             var functionArray = [];
+            var functionRegistry = {};
 
             for (var i = 0; i < keys.length; i++) {
                 var newKey = {};
@@ -109,10 +126,11 @@
                 newKey.controller = fns[keys[i]].controller;
                 newKey.command = fns[keys[i]].command;
                 newKey.data = fns[keys[i]].data;
-                newKey.name = _(prefix + '.' + keys[i] + '.name');
-                newKey.label = _(prefix + '.' + keys[i] + '.label');
-                newKey.desc = _(prefix + '.' + keys[i] + '.desc');
+                newKey.name = fns[keys[i]].name ||  _(this._fnprefix + '.' + keys[i] + '.name'),
+                newKey.label = fns[keys[i]].label || _(this._fnprefix + '.' + keys[i] + '.label'),
+                newKey.desc = fns[keys[i]].desc || _(this._fnprefix + '.' + keys[i] + '.desc')
                 functionArray.push(newKey);
+                functionRegistry[keys[i]] = newKey;
             }
             functionArray.sort(function(a, b) {
                 if (a.name < b.name) return -1;
@@ -120,6 +138,7 @@
                 else return 0;
             });
             this.functionArray = functionArray;
+            this.functionRegistry = functionRegistry;
 
             // apply function list information to keymap panel
             this.functionListObj.datasource = functionArray;

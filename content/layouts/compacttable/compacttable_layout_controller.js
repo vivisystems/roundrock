@@ -13,7 +13,9 @@
         components: ['OrderStatus'],
         tableSettings: null,
         keySettings: null,
-        prefix: 'vivipos.fec.settings.layout.compacttable.keys',
+
+        _keyprefix: 'vivipos.fec.settings.layout.compacttable.keys',
+        _fnprefix: 'vivipos.fec.registry.function.programmable',
 
         initial: function() {
             
@@ -130,17 +132,18 @@
         getKeySettings: function() {
             if (!this.keySettings) {
                 let keys = [];
-                let keyPrefs = GeckoJS.Configure.read(this.prefix) || [];
+                let fns = GeckoJS.Configure.read(this._fnprefix) || [];
+                let keyPrefs = GeckoJS.Configure.read(this._keyprefix) || [];
                 let indices = GeckoJS.BaseObject.getKeys(keyPrefs);
                 for (let index = 0; index < indices.length; index++) {
                     let i = indices[index];
+                    let functionid = (keyPrefs[i] && keyPrefs[i].functionid) ? keyPrefs[i].functionid : '';
                     keys[i] = {
-                        functionid: (keyPrefs[i] && keyPrefs[i].functionid) ? keyPrefs[i].functionid : '',
-                        linked: (keyPrefs[i] && keyPrefs[i].linked) ? keyPrefs[i].linked : '',
-                        command: (keyPrefs[i] && keyPrefs[i].command) ? keyPrefs[i].command : '',
+                        functionid: functionid,
+                        command: (fns[functionid] && fns[functionid].command) ? fns[functionid].command : '',
                         label: (keyPrefs[i] && keyPrefs[i].label) ? keyPrefs[i].label : '',
-                        access: (keyPrefs[i] && keyPrefs[i].access) ? keyPrefs[i].access : '',
-                        controller: (keyPrefs[i] && keyPrefs[i].controller) ? keyPrefs[i].controller : '',
+                        access: (fns[functionid] && fns[functionid].access) ? fns[functionid].access : '',
+                        controller: (fns[functionid] && fns[functionid].controller) ? fns[functionid].controller : '',
                         data: (keyPrefs[i] && keyPrefs[i].data) ? keyPrefs[i].data : ''
                     }
                 }
@@ -159,7 +162,7 @@
             for (let i = 0; i < keys.length; i++) {
                 let key = keys[i];
                 let keyObj = document.getElementById('expressKey' + parseInt(i+1));
-                if (key.linked && (!key.access || this.Acl.isUserInRole(key.access))) {
+                if (key.functionid && (!key.access || this.Acl.isUserInRole(key.access))) {
                     keyObj.label = key.label;
                     keyObj.removeAttribute('disabled');
                 }
@@ -288,91 +291,6 @@
             var fnPanel = document.getElementById('functionpanel');
             if (fnPanel) fnPanel.home();
             this.updateExpressKeys();
-        },
-
-        functionButton: function (buttonNumber) {
-            switch (buttonNumber) {
-                //Set In
-                case 1:
-                    {
-                        var cart = GeckoJS.Controller.getInstanceByName('Destinations');
-                        var canSet = cart.Acl.isUserInRole('acl_set_destination');
-                        if(canSet) {
-                            cart.setDestination('Dine-in');
-                        }
-                    }
-                    break;
-                //Set Out
-                case 2:
-                    {
-                        var cart = GeckoJS.Controller.getInstanceByName('Destinations');
-                        var canSet = cart.Acl.isUserInRole('acl_set_destination');
-                        if(canSet) {
-                            cart.setDestination('Take-out');
-                        }
-                    }
-                    break;
-                //Set Dev
-                case 3:
-                    {
-                        var cart = GeckoJS.Controller.getInstanceByName('Destinations');
-                        var canSet = cart.Acl.isUserInRole('acl_set_destination');
-                        if(canSet) {
-                            cart.setDestination('Delivery');
-                        }
-                    }
-                    break;
-                //Modify
-                case 4:
-                    {
-                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                        var canVoidItem = cart.Acl.isUserInRole('acl_void_cart_item');
-                        if(canVoidItem) {
-                            cart.voidItem();
-                        }
-                    }
-                    break;
-                //Store Check
-                case 5:
-                    {
-                        var guestCheck = GeckoJS.Controller.getInstanceByName('GuestCheck');
-                        var canStore = guestCheck.Acl.isUserInRole('acl_store_check');
-                        if(canStore) {
-                            guestCheck.storeCheck();
-                        }
-                    }
-                    break;
-                //Cash
-                case 6:
-                    {
-                        var takeout = GeckoJS.Controller.getInstanceByName('TakeoutStatusController');
-                        var canTakeout = takeout.Acl.isUserInRole('acl_manage_takeout_status');
-                        if(canTakeout) {
-                            takeout.takeoutStatusDisplay();
-                        }
-                    }
-                    break;
-                //Void
-                case 7:
-                    {
-                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                        var canPreFinalize = cart.Acl.isUserInRole('acl_pre_finalize');
-                        if(canPreFinalize) {
-                            cart.preFinalize();
-                        }
-                    }
-                    break;
-                //Cancel
-                case 8:
-                    {
-                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                        var canCancel = cart.Acl.isUserInRole('acl_cancel_order');
-                        if(canCancel) {
-                            cart.cancel();
-                        }
-                    }
-                    break;
-            }
         },
 
         toggleFunctionPanel: function (state) {
