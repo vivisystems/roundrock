@@ -84,6 +84,10 @@
             if (data.batchMarker) {
                 prop.AppendElement(aserv.getAtom('batchMarker'));
             }
+
+            // set cell properties to allow CSS to be applied
+            this.getRowProperties(row, prop);
+
             switch(col.id) {
                 case 'tag':
                     if (data.type == 'item' || data.type == 'setitem') {
