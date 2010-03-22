@@ -18,8 +18,9 @@
                         return;
                     }
 
-                    // check for access privilege
-                    if (!main.Acl.isUserInRole('acl_open_control_panel')) {
+                    // check for admin group membership
+                    var userPrincipal = main.Acl.getUserPrincipal();
+                    if (!userPrincipal || (userPrincipal.username != 'superuser' && userPrincipal.AclGroup.name != 'admin')) {
                         NotifyUtils.warn(_('You are not authorized to access the control panel'));
                         return;
                     }
@@ -49,10 +50,22 @@
                         return;
                     }
 
+                    // check for access privilege
+                    if (!main.Acl.isUserInRole('acl_open_control_panel')) {
+                        NotifyUtils.warn(_('You are not authorized to access the control panel'));
+                        return;
+                    }
+
+                    // check if advanced button should be shown
+                    var showAdvanced = false;
+                    var userPrincipal = main.Acl.getUserPrincipal();
+                    if (userPrincipal && (userPrincipal.username == 'superuser' || userPrincipal.AclGroup.name == 'admin')) {
+                        showAdvanced = true;
+                    }
                     var aURL = 'chrome://viviecr/content/layouts/ecr/basicControlPanel.xul';
                     var aName = _('Control Panel');
                     var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + main.screenwidth + ',height=' + main.screenheight;
-                    GREUtils.Dialog.openWindow(main.topmostWindow, aURL, aName, aFeatures);
+                    GREUtils.Dialog.openWindow(main.topmostWindow, aURL, aName, aFeatures, showAdvanced);
 
                     if (main.doReboot) {
                         main.rebootMachine();

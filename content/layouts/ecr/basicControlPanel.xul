@@ -40,7 +40,7 @@
                 />
               </hbox>
           </hbox>
-          <vbox class="setting_btn">
+          <vbox id="advancedSettings" class="setting_btn">
             <button label="" oncommand="advancedControlPanel();" />
           </vbox>
         </hbox>
@@ -57,7 +57,7 @@
                 <hbox>(<appinfolabel appField="issue" />)</hbox>
             </vbox>
             <vbox class="exitbtn">
-                <button class="ExitBtn" id="ok" label="" default="true" oncommand="savePreferences();"/>
+                <button class="ExitBtn" id="ok" label="" default="true" oncommand="doOKButton();"/>
             </vbox>
         </hbox>
     </vbox>    
