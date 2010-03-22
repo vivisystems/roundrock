@@ -59,5 +59,17 @@ Bug #411:
 Bug #412:
     Order reduction must not exceed total amount excluding non-discountable items, and surcharges must respect non-surchargeable property
 
+Bug #416:
+    Order attribute 'items_summary' needs more columns
+
 Bug #417:
     Modifying quantity of groupable payments lead to incorrect payment amount
+
+Bug #418:
+    Promotion status should be made always visible to avoid screen shifting about
+
+Bug #421:
+    Improve handling of adding to collapsed condiments to avoid shifting cart content
+
+Bug #423:
+    When selected, text of refund item entries in the cart are not visible

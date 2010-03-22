@@ -4196,24 +4196,13 @@
                     }
                     else if (condDisplayItem) {
                         collapseCondiments = true;
-                        curTransaction.expandCondiments(condDisplayIndex);
                     }
                     else {
                         collapseCondiments = GeckoJS.Configure.read('vivipos.fec.settings.collapse.condiments');
                     }
 
-                    curTransaction.appendCondiment(index, selectedCondiments, replace);
+                    curTransaction.appendCondiment(index, selectedCondiments, replace, collapseCondiments);
 
-                    condDisplayIndex = curTransaction.getFirstCondimentIndex(item);
-                    condDisplayItem = curTransaction.getDisplaySeqAt(condDisplayIndex);
-                    condDisplayItem.open = true;
-
-                    if (collapseCondiments) {
-                        curTransaction.collapseCondiments(condDisplayIndex);
-
-                        this._getCartlist().scrollToRow(0);
-                        this._getCartlist().treeBoxObject.ensureRowIsVisible(condDisplayIndex);
-                    }
                     this.dispatchEvent('afterAddCondiment', selectedCondiments);
                 }
             }

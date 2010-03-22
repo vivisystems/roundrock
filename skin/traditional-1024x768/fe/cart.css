@@ -138,6 +138,12 @@
 
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(selected) {font-size: 18px; font-weight: bolder;}
 
+/* the following CSS styles are used to override system default font colors */
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treeReturnItem selected) {color: black;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treeRefundItem selected) {color: black;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treeVerifyAge selected) {color: black;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treeTOTAL selected) {color: black;}
+
 .main-overlay .cart-list treechildren::-moz-tree-row(selected) {background-color: #5b758c; }
 .main-overlay .cart-list treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
 .main-overlay .cart-list treechildren::-moz-tree-row(treeOutofStock) {background-color: red;}
