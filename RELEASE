@@ -68,6 +68,8 @@ Bug #417:
 Bug #418:
     Promotion status should be made always visible to avoid screen shifting about
 
-Bug #420:
+Bug #421:
     Improve handling of adding to collapsed condiments to avoid shifting cart content
 
+Bug #423:
+    When selected, text of refund item entries in the cart are not visible
