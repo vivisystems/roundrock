@@ -11,10 +11,13 @@
 <!ENTITY category.layout.compacttable.expresskey.linked "Linked to Function:">
 <!ENTITY category.layout.compacttable.expresskey.label "Function Label:">
 <!ENTITY category.layout.compacttable.expresskey.data "Parameter:">
+<!ENTITY category.layout.compacttable.expresskey.heading.obsolete "Version Changed">
 <!ENTITY category.layout.compacttable.expresskey.heading.key "Key">
 <!ENTITY category.layout.compacttable.expresskey.heading.function "Function">
+<!ENTITY category.layout.compacttable.expresskey.heading.version "Version">
 <!ENTITY category.layout.compacttable.expresskey.heading.label "Label">
 <!ENTITY category.layout.compacttable.function.label "Function">
+<!ENTITY category.layout.compacttable.version.label "Version">
 <!ENTITY category.layout.compacttable.label.label "Label">
 <!ENTITY category.layout.compacttable.linkkey.label "Link">
 <!ENTITY category.layout.compacttable.unlinkkey.label "Unlink">

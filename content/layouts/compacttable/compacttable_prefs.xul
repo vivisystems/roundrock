@@ -136,8 +136,9 @@
         <prefpane id="expressKeySettingsPane" label="&category.layout.compacttable.expresskey;">
             <vbox flex="1">
                 <vivitree id="expresskey_prefs_tree" flex="1" class="standard custom-express-key-list"
-                          headers="&category.layout.compacttable.expresskey.heading.key;,&category.layout.compacttable.expresskey.heading.function;,&category.layout.compacttable.expresskey.heading.label;"
-                          fields="name,linked,label"
+                          headers="&category.layout.compacttable.expresskey.heading.obsolete;,&category.layout.compacttable.expresskey.heading.key;,&category.layout.compacttable.expresskey.heading.function;,&category.layout.compacttable.expresskey.heading.version;,&category.layout.compacttable.expresskey.heading.label;"
+                          fields="obsolete,name,linked,version,label"
+                          types="checkbox,,,,"
                           seltype="single"
                           reverse="true"
                           rows="8"
@@ -156,25 +157,29 @@
                             <rows>
                                 <row>
                                     <label value="&category.layout.compacttable.expresskey.index;"/>
-                                    <textbox id="expresskey_name" size="14" value="" readonly="true" disabled="true"
+                                    <textbox id="expresskey_name" size="12" value="" readonly="true" disabled="true"
                                              form="expressKeyForm" name="name" default=""/>
                                 </row>
 
                                 <row>
                                     <label value="&category.layout.compacttable.expresskey.linked;"/>
-                                    <textbox id="expresskey_linked" size="14" value="" readonly="true" disabled="true"
-                                             form="expressKeyForm" name="linked" default=""/>
+                                    <hbox>
+                                        <textbox id="expresskey_linked" size="12" value="" readonly="true" disabled="true"
+                                                 form="expressKeyForm" name="linked" default=""/>
+                                        <textbox id="expresskey_linked_version" readonly="true" value="" size="6"
+                                                 form="expressKeyForm" name="version" default=""/>
+                                    </hbox>
                                 </row>
 
                                 <row>
                                     <label value="&category.layout.compacttable.expresskey.label;"/>
-                                    <textbox id="expresskey_label" size="14" value="" readonly="true"
+                                    <textbox id="expresskey_label" size="12" value="" readonly="true"
                                              form="expressKeyForm" name="label" default=""/>
                                 </row>
 
                                 <row>
                                     <label value="&category.layout.compacttable.expresskey.data;"/>
-                                    <textbox id="expresskey_data" size="14" value="" readonly="true"
+                                    <textbox id="expresskey_data" size="12" value="" readonly="true"
                                              form="expressKeyForm" name="data" default=""/>
                                 </row>
                             </rows>
@@ -194,10 +199,10 @@
 
                     <vbox flex="1">
                         <vivitree id="expresskey_function_tree" flex="1"
-                                  class="standard"
-                                  headers="&category.layout.compacttable.function.label;,&category.layout.compacttable.label.label;"
-                                  fields="name,label"
-                                  seltype="single" hidecolumnpicker="true"
+                                  class="standard custom-function-key-list"
+                                  headers="&category.layout.compacttable.function.label;,&category.layout.compacttable.version.label;,&category.layout.compacttable.label.label;"
+                                  fields="name,version,label"
+                                  seltype="single"
                                   onselect="$do('selectFunctionKey', this, 'CompactTablePrefs');"/>
                         <hbox>
                             <textbox id="expresskey_function_desc" class="textbox-description" flex="1"
