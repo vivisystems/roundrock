@@ -173,22 +173,21 @@
                 classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
             }
             else {
-                var imageExists = (this.getImageSrc(row,{id: 'no'}) != null);
-                GREUtils.log('button size: ' + btn.clientWidth + 'x' + btn.clientHeight);
+                var imageSrc = this.getImageSrc(row,{id: 'no'});
+                var imageExists = (imageSrc != null);
 
                 if (imageExists) {
                     if (display_mode == 1) {
                         // dynamically set image size to that of the button
                         classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label';
-                        styleStr = 'width:' + btn.clientWidth + 'px; height:' + btn.clientHeight + 'px;';
                     }
-                    else {
-                        var btnlabel = btn.vivibuttonLabel;
-                        var newWidth = Math.floor(btn.clientWidth * 0.95);
-                        var newHeight = Math.floor(btn.clientHeight * 0.9 - btnlabel.clientHeight, 0);
-                        styleStr = 'width:' + newWidth + 'px; height:' + newHeight + 'px;';
-                        GREUtils.log('button label [' + btn.label + '] width [' + btnlabel.clientWidth + '] height [' + btnlabel.clientHeight + ']');
-                    }
+                    // remove image source
+                    btn.vivibuttonImage.removeAttribute('src');
+                    btn.vivibuttonImage.setAttribute('flex', '1');
+
+                    // set fully scaled product image using border image
+                    styleStr = 'width:' + btn.clientWidth + 'px; min-width:' + btn.clientWidth + 'px;' +
+                               '-moz-border-image: url(' + imageSrc + ') 0;';
                 }
                 else {
                     classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
