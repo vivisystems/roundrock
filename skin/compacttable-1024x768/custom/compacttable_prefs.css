@@ -6,8 +6,11 @@
  */
 
 .custom-express-key-list #name,
-.custom-express-key-list #linked,
-.custom-express-key-list #label {
+.custom-express-key-list #version {
+    text-align: center;
+}
+
+.custom-function-key-list #version {
     text-align: center;
 }
 

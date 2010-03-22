@@ -66,6 +66,7 @@
                         keys[i] = {
                             name: _('Express Key') + ' [' + parseInt(i + 1) + ']',
                             functionid: functionid,
+                            version: (keyPrefs[i] && keyPrefs[i].version) ? keyPrefs[i].version : '',
                             linked: fns[functionid].name || '',
                             command: fns[functionid].command || '',
                             label: (keyPrefs[i] && keyPrefs[i].label) ? keyPrefs[i].label : '',
@@ -73,11 +74,17 @@
                             controller: fns[functionid].controller || '',
                             data: (keyPrefs[i] && keyPrefs[i].data) ? keyPrefs[i].data : ''
                         }
+
+                        // check function version
+                        if (fns[functionid].version && fns[functionid].version != keys[i].version) {
+                            keys[i].obsolete = true;
+                        }
                     }
                     else {
                         keys[i] = {
                             name: _('Express Key') + ' [' + parseInt(i + 1) + ']',
                             functionid: '',
+                            version: '',
                             linked: '',
                             command: '',
                             label: '',
@@ -97,6 +104,7 @@
             for (let i = 0; i < keySettings.length; i++) {
                 let prefix = this._keyprefix + '.' + parseInt(i);
                 GeckoJS.Configure.write(prefix + '.functionid', keySettings[i].functionid);
+                GeckoJS.Configure.write(prefix + '.version', keySettings[i].version);
                 GeckoJS.Configure.write(prefix + '.label', keySettings[i].label);
                 GeckoJS.Configure.write(prefix + '.data', keySettings[i].data);
             }
@@ -125,6 +133,7 @@
                 newKey.access = fns[keys[i]].access;
                 newKey.controller = fns[keys[i]].controller;
                 newKey.command = fns[keys[i]].command;
+                newKey.version = fns[keys[i]].version;
                 newKey.data = fns[keys[i]].data;
                 newKey.name = fns[keys[i]].name ||  _(this._fnprefix + '.' + keys[i] + '.name'),
                 newKey.label = fns[keys[i]].label || _(this._fnprefix + '.' + keys[i] + '.label'),
@@ -188,7 +197,7 @@
             }
             else {
 
-                if (entry.linked) {
+                if (entry.functionid) {
                     // select linked function
                     var fnList = this.functionArray;
                     for (var i = 0; i < fnList.length; i++) {
@@ -219,6 +228,8 @@
 
             if (key && functionKey) {
                 key.functionid = functionKey.functionid;
+                key.version = functionKey.version;
+                key.obsolete = false;
                 key.linked = functionKey.name;
                 key.command = functionKey.command;
                 key.label = functionKey.label;
@@ -243,6 +254,8 @@
 
             if (key) {
                 key.functionid = '';
+                key.version = '';
+                key.obsolete = false;
                 key.linked = '';
                 key.command = '';
                 key.label = '';
