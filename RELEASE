@@ -85,3 +85,6 @@ Bug #426:
 
 Bug #428:
     Product image should scale automatically to fill up PLU button
+
+Bug #429:
+    Need to warn user when report will take a long time to render because of its size
