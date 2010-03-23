@@ -78,7 +78,7 @@ Bug #423:
     When selected, text of refund item entries in the cart are not visible
 
 Bug #424:
-    Recalling Order via Table Management generates error when product or condiment name contains "&"
+    Special characters must be escaped when displaying order details in table selection screen
 
 Bug #426:
     Basic ECR layout needs two-level access for basic and advanced control panels
