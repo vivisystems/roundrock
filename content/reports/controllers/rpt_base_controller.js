@@ -11,6 +11,7 @@
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
         _csvLimit: 3000000,
         _stdLimit: 3000,
+        _innerHtmlLimit: 2097152,
         _scrollRange: null,
         _scrollRangePreference: "vivipos.fec.settings.scrollRange",
         
@@ -159,6 +160,9 @@
         },
         
         _exploit_reportRecords: function() {
+
+            this._innerHtmlLimit = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.reports.innerHtmlLimit" ) || this._innerHtmlLimit );
+
             try {
                 var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
                 var file = GREUtils.File.getFile( path );
@@ -167,7 +171,23 @@
 
                 var bw = document.getElementById( this._preview_frame_id );
                 var doc = bw.contentWindow.document.getElementById( this._abody_id );
-                doc.innerHTML = result;
+
+                var confirmed = true;
+
+                if (result.length >= this._innerHtmlLimit) {
+
+                    confirmed = GREUtils.Dialog.confirm( this.topmostWindow, '', 
+                            _("The file size of the report you are going to generate is greater then %S. It takes a few minutes to complete the report. The screen will be hanging there and no operations allowed. Are you sure? Click OK to proceed. Click Cancel and return to previous page to narrow down your search.",
+                            [GeckoJS.NumberHelper.toReadableSize(this._innerHtmlLimit)])
+                        );
+
+                }
+
+                if (confirmed) {
+                    doc.innerHTML = result;
+                }else {
+                    doc.innerHTML = "";
+                }
 
                 // adjust the size of paper if the content will protrude the border of the paper.
                 var bwDocument = bw.contentWindow.document;
@@ -178,6 +198,8 @@
                     if ( table.id == this._body_table && bodydiv.scrollWidth < table.scrollWidth + 40 )
                         bodydiv.style.width = table.scrollWidth + 40;
                 }
+                return confirmed;
+                
             } catch( e ) {}
 
         },
@@ -200,6 +222,10 @@
         },
 
         execute: function() {
+
+            this._stdLimit = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.reports.stdLimit" ) || this._stdLimit );
+            var reportResult = false;
+            
             try {
                 // Doing so to prevent the timeout dialog from prompting during the execution.
                 
@@ -209,14 +235,15 @@
                 this._setTemplateDataHead();
                 this._set_reportRecords();
                 this._setTemplateDataFoot();
-                this._exploit_reportRecords();
+                reportResult = this._exploit_reportRecords();
             } catch ( e ) {
                 this.log( 'ERROR', GeckoJS.BaseObject.dump( e ) );
             } finally {
-                
-                var splitter = document.getElementById( 'splitter_zoom' );
-                splitter.setAttribute( 'state', 'collapsed' );
 
+                if (reportResult) {
+                    var splitter = document.getElementById( 'splitter_zoom' );
+                    splitter.setAttribute( 'state', 'collapsed' );
+                }
                 this._enableButton( true );
 		        
                 if ( waitPanel != undefined )
@@ -286,7 +313,9 @@
                 return;
             
             var cb = null;
-        		
+
+            this._csvLimit = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.reports.csvLimit" ) || this._csvLimit );
+            
             try {
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );

@@ -1,5 +1,8 @@
 pref("vivipos.fec.settings.maxExportPdfHeight", 30000);
 pref("vivipos.fec.settings.scrollRange", 200);
+pref("vivipos.fec.settings.reports.csvLimit", 3000000);
+pref("vivipos.fec.settings.reports.stdLimit", 3000);
+pref("vivipos.fec.settings.reports.innerHtmlLimit", 2097152);
 
 /* register reports to report panel */
 
