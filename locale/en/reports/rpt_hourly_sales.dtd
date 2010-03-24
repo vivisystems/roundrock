@@ -1,6 +1,8 @@
 <!ENTITY rpthourlysales.title "Hourly Sales">
 <!ENTITY rpthourlysales.startdate "Start Date:">
 <!ENTITY rpthourlysales.enddate "End Date:">
+<!ENTITY rpthourlysales.starthour "Start Hour:">
+<!ENTITY rpthourlysales.endhour "End Hour:">
 <!ENTITY rpthourlysales.execute "Execute">
 <!ENTITY rpthourlysales.exportpdf "Export to PDF">
 <!ENTITY rpthourlysales.exportcsv "Export to CSV">
