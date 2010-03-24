@@ -88,3 +88,6 @@ Bug #428:
 
 Bug #429:
     Need to warn user when report will take a long time to render because of its size
+
+Bug #434:
+    Return mode should be reset when order is recalled or pulled from queue 
