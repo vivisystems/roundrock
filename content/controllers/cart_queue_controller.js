@@ -114,7 +114,7 @@
                 if (!success) {
                     GREUtils.Dialog.alert(this.topmostWindow,
                         _('Push Queue Error'),
-                        _('This order could not be queued. Please check the network connectivity to the terminal designated as the table master.'));
+                        _('This order could not be queued. Please check the network connectivity to the terminal designated as the table master [message #2201]'));
                     return false;
                 }
 
@@ -150,7 +150,7 @@
             if (!queues) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Pull Queue Error'),
-                    _('Can not get queues list. Please check the network connectivity to the terminal designated as the table master.'));
+                    _('Can not get queues list. Please check the network connectivity to the terminal designated as the table master [message #2202]'));
                 return false;
             }
             
@@ -187,6 +187,7 @@
                 cart._setTransactionToView(curTransaction);
                 curTransaction.updateCartView(-1, -1);
 
+                cart.returnItem(true);
                 cart._clearAndSubtotal();
 
                 this.dispatchEvent('afterPullQueue', curTransaction);
@@ -195,7 +196,7 @@
                 
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Pull Queue Error'),
-                    _('This order could not be pulled. Please check the network connectivity to the terminal designated as the table master.'));
+                    _('This order could not be pulled. Please check the network connectivity to the terminal designated as the table master [message #2203]'));
                 return false;
                 
             }

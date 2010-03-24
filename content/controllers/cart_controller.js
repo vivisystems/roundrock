@@ -372,6 +372,9 @@
 
             this._setTransactionToView(curTransaction);
 
+            // clear return mode
+            this.returnItem(true);
+            
             // clear warning
             this.clearWarning();
             

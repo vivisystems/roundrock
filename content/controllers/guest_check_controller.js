@@ -1089,6 +1089,8 @@
             var cart = this.getCartController()
 
             cart._setTransactionToView(curTransaction);
+            cart.returnItem(true);
+            
             curTransaction.updateCartView(-1, -1);
 
             curTransaction.setTableRegionName('');
