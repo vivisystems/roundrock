@@ -273,15 +273,15 @@
                 }
             }
 
-            let overlayX = document.getElementById('osdpanel_overlay_x');
-            let overlayY = document.getElementById('osdpanel_overlay_y');
-            let overlayW = document.getElementById('osdpanel_overlay_w');
-            let overlayH = document.getElementById('osdpanel_overlay_h');
+            let overlayX = document.getElementById('osdpanel_overlay_custom_x');
+            let overlayY = document.getElementById('osdpanel_overlay_custom_y');
+            let overlayW = document.getElementById('osdpanel_overlay_custom_w');
+            let overlayH = document.getElementById('osdpanel_overlay_custom_h');
 
-            if (overlayX) overlayX.disabled = (selectedTarget != 'custom');
-            if (overlayY) overlayY.disabled = (selectedTarget != 'custom');
-            if (overlayW) overlayW.disabled = (selectedTarget != 'custom');
-            if (overlayH) overlayH.disabled = (selectedTarget != 'custom');
+            if (overlayX) overlayX.hidden = (selectedTarget != 'custom');
+            if (overlayY) overlayY.hidden = (selectedTarget != 'custom');
+            if (overlayW) overlayW.hidden = (selectedTarget != 'custom');
+            if (overlayH) overlayH.hidden = (selectedTarget != 'custom');
         },
 
         setCartStatusPosition: function(selectedDirection) {

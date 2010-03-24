@@ -191,11 +191,11 @@
                         </menulist>
                     </vbox>
                     <hbox>
-                        <vbox>
+                        <vbox id="osdpanel_overlay_custom_x">
                             <label control="osdpanel_overlay_x" value="&layout.osdpanel.overlay.position.x.label;"/>
                             <textbox preference="pref_osdpanel_overlay_x" id="osdpanel_overlay_x" type="number" size="3" maxlength="4" min="0"/>
                         </vbox>
-                        <vbox>
+                        <vbox id="osdpanel_overlay_custom_y">
                             <label control="osdpanel_overlay_y" value="&layout.osdpanel.overlay.position.y.label;"/>
                             <textbox preference="pref_osdpanel_overlay_y" id="osdpanel_overlay_y" type="number" size="3" maxlength="4" min="0"/>
                         </vbox>
@@ -205,11 +205,11 @@
                     <spacer/>
                     <spacer/>
                     <hbox>
-                        <vbox>
+                        <vbox id="osdpanel_overlay_custom_w">
                             <label control="osdpanel_overlay_w" value="&layout.osdpanel.overlay.size.w.label;"/>
                             <textbox preference="pref_osdpanel_overlay_w" id="osdpanel_overlay_w" type="number" size="3" maxlength="4" min="0"/>
                         </vbox>
-                        <vbox>
+                        <vbox id="osdpanel_overlay_custom_h">
                             <label control="osdpanel_overlay_h" value="&layout.osdpanel.overlay.size.h.label;"/>
                             <textbox preference="pref_osdpanel_overlay_h" id="osdpanel_overlay_h" type="number" size="3" maxlength="4" min="0"/>
                         </vbox>
