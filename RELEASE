@@ -14,3 +14,9 @@ Bug #311:
 Bug #316:
     Disk usage computation is broken due to changes in file system structure
 
+Bug #321:
+    Daily backups should include user preferences
+
+Bug #332:
+    Utilize CF card as backup source if present
+
