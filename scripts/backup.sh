@@ -13,6 +13,16 @@ bak_dir=`date +%Y%m%d`
 
 backup_with_profile=$1
 
+# include /data/profile/sync_settings.ini
+if [ -f /data/profile/sync_settings.ini ]; then
+    . /data/profile/sync_settings.ini
+fi
+
+if [ -f /data/databases/vivipos.sqlite ]; then
+    branch_id=`/usr/bin/sqlite3 /data/databases/vivipos.sqlite "SELECT branch_id FROM store_contacts WHERE terminal_no='${machine_id}'"`
+fi
+
+
 notify_start() {
 
 	echo "notify vivipos start"	
@@ -126,20 +136,43 @@ do_backup() {
 
                 if [ "$?" -eq "0" ]; then
 
+                    # check system_backups exists?
+                    CF_BACKUP_DIR=/tmp/BACKUP/system_backup
+                    if [ ! -d "${CF_BACKUP_DIR}" ]; then
+                        mkdir ${CF_BACKUP_DIR}
+                    fi
+
+                    # if has branch id check dir exists ?
+                    if [ ! -z "${branch_id}" ]; then
+                        CF_BACKUP_DIR=${CF_BACKUP_DIR}/${branch_id}
+                    fi
+                    if [ ! -d "${CF_BACKUP_DIR}" ]; then
+                        mkdir ${CF_BACKUP_DIR}
+                    fi
+
+                    # if has machine id check dir exists ?
+                    if [ ! -z "${machine_id}" ]; then
+                        CF_BACKUP_DIR=${CF_BACKUP_DIR}/${machine_id}
+                    fi
+                    if [ ! -d "${CF_BACKUP_DIR}" ]; then
+                        mkdir ${CF_BACKUP_DIR}
+                    fi
+
+
+echo "CF BAckup = $CF_BACKUP_DIR  $LAST_BACKUP_USAGE"
+
                     # check free space
                     while [ `LC_ALL=c df -B 1 -P /tmp/BACKUP | grep -v "Filesystem" | awk -F " " '{ print $4}'` -lt "$LAST_BACKUP_USAGE" ]; do
                         # remove oldest backup dir
-                        oldest_bak=`ls /tmp/BACKUP/backups | sort | line`
+                        oldest_bak=`ls ${CF_BACKUP_DIR} | sort | line`
                         if [ ! -z "$oldest_bak" ]; then
-                            rm -fr /tmp/BACKUP/backups/$oldest_bak
+                            rm -fr ${CF_BACKUP_DIR}/${oldest_bak}
+                        else 
+                            break
                         fi
                     done
 
-                    if [ ! -d "/tmp/BACKUP/backups" ]; then
-                        mkdir /tmp/BACKUP/backups
-                    fi
-
-                    cp -fr $bak/$bak_dir /tmp/BACKUP/backups
+                    cp -fr ${bak}/${bak_dir} ${CF_BACKUP_DIR}
 
                     sync;
 
