@@ -91,3 +91,6 @@ Bug #429:
 
 Bug #434:
     Return mode should be reset when order is recalled or pulled from queue 
+
+Bug #438:
+    Label of checkbox option in the right column may be mis-aligned
