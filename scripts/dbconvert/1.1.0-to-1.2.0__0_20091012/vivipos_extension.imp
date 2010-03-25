@@ -2,9 +2,10 @@ delete from customers;
 .import customers.csv customers
 
 delete from customer_types;
-.import customer_types.csv customers
+.import customer_types.csv customer_types
 
 delete from customer_levels;
-.import customer_levels.csv customers
+.import customer_levels.csv customer_levels
 
-
+UPDATE customers SET active='0' WHERE active = 'N';
+UPDATE customers SET active='1' WHERE active = 'Y';

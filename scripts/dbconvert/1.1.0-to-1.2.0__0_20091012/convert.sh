@@ -3,6 +3,7 @@
 BASE_DIR=`dirname $0`
 SCRIPTS_DIR=$BASE_DIR
 
+CUR_PWD=`pwd`
 UPGRADE_DIR=${1:-"/tmp/notexists"}
 TARGET_DIR=/data/databases
 SQLBIN=/usr/bin/sqlite3
@@ -38,7 +39,7 @@ fi
 
 
 # chdir to $UPGRADE_DIR
-#pushd $UPGRADE_DIR
+cd $UPGRADE_DIR
 
 # export / import vivipos.sqlite
 if [ -f ${SCRIPTS_DIR}/${VIVIPOS_EXPORT_SCRIPT} ]; then
@@ -107,13 +108,11 @@ fi
 
 
 log_daemon_msg "Cleaning up export/import temp files "
-#rm -f *.sql
-#rm -f ${UPGRADE_DIR}/*.imp
-#rm -f *.csv
+rm -f *.csv
 log_end_msg 0
 
 # return to original dir
-#popd
+cd $CUR_PWD
 
 /bin/echo -e "${RED}!!!!!!!!!! Data Convert Completed !!!!!!!!!!${NORMAL}"
 
