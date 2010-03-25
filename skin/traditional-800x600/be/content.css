@@ -120,7 +120,6 @@
  */
 
 .container-be .data-form {
-    border-right: 2px solid white;
     background: #f0efe8;
     margin: 4px;
 }
@@ -147,7 +146,6 @@
 }
 
 .container-be .data-form-2 {
-    border-right: 2px solid white;
     background: #f0efe8;
     margin: 4px;
 }
@@ -453,7 +451,7 @@
  */
 
 .container-be .content-tabbox {
-    margin: 4px;
+    margin: 2px;
 }
 
 .container-be .content-tabbox-no-tabs-right .tabs-right {
