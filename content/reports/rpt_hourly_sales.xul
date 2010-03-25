@@ -55,11 +55,65 @@
                                 <row>
                                     <vbox>
                                         <label value="&rpthourlysales.starthour;"/>
-                                        <vividatetimepicker id="start_hour" value="" type="popup" mode="time"/>
+                                        <menulist id="start_hour">
+                                            <menupopup id="start_hour_menupopup">
+                                                <menuitem selected="true"  label="0" value="0"/>
+                                                <menuitem selected="false" label="1" value="1"/>
+                                                <menuitem selected="false" label="2" value="2"/>
+                                                <menuitem selected="false" label="3" value="3"/>
+                                                <menuitem selected="false" label="4" value="5"/>
+                                                <menuitem selected="false" label="5" value="5"/>
+                                                <menuitem selected="false" label="6" value="6"/>
+                                                <menuitem selected="false" label="7" value="7"/>
+                                                <menuitem selected="false" label="8" value="8"/>
+                                                <menuitem selected="false" label="9" value="9"/>
+                                                <menuitem selected="false" label="10" value="10"/>
+                                                <menuitem selected="false" label="11" value="11"/>
+                                                <menuitem selected="false" label="12" value="12"/>
+                                                <menuitem selected="false" label="13" value="13"/>
+                                                <menuitem selected="false" label="14" value="14"/>
+                                                <menuitem selected="false" label="15" value="15"/>
+                                                <menuitem selected="false" label="16" value="16"/>
+                                                <menuitem selected="false" label="17" value="17"/>
+                                                <menuitem selected="false" label="18" value="18"/>
+                                                <menuitem selected="false" label="19" value="19"/>
+                                                <menuitem selected="false" label="20" value="20"/>
+                                                <menuitem selected="false" label="21" value="21"/>
+                                                <menuitem selected="false" label="22" value="22"/>
+                                                <menuitem selected="false" label="23" value="23"/>
+                                            </menupopup>
+                                        </menulist>
                                     </vbox>
                                     <vbox>
                                         <label value="&rpthourlysales.endhour;"/>
-                                        <vividatetimepicker id="end_hour" value="" type="popup" mode="time"/>
+                                        <menulist id="end_hour">
+                                            <menupopup id="end_hour_menupopup">
+                                                <menuitem selected="false"  label="0" value="0"/>
+                                                <menuitem selected="false" label="1" value="1"/>
+                                                <menuitem selected="false" label="2" value="2"/>
+                                                <menuitem selected="false" label="3" value="3"/>
+                                                <menuitem selected="false" label="4" value="5"/>
+                                                <menuitem selected="false" label="5" value="5"/>
+                                                <menuitem selected="false" label="6" value="6"/>
+                                                <menuitem selected="false" label="7" value="7"/>
+                                                <menuitem selected="false" label="8" value="8"/>
+                                                <menuitem selected="false" label="9" value="9"/>
+                                                <menuitem selected="false" label="10" value="10"/>
+                                                <menuitem selected="false" label="11" value="11"/>
+                                                <menuitem selected="false" label="12" value="12"/>
+                                                <menuitem selected="false" label="13" value="13"/>
+                                                <menuitem selected="false" label="14" value="14"/>
+                                                <menuitem selected="false" label="15" value="15"/>
+                                                <menuitem selected="false" label="16" value="16"/>
+                                                <menuitem selected="false" label="17" value="17"/>
+                                                <menuitem selected="false" label="18" value="18"/>
+                                                <menuitem selected="false" label="19" value="19"/>
+                                                <menuitem selected="false" label="20" value="20"/>
+                                                <menuitem selected="false" label="21" value="21"/>
+                                                <menuitem selected="false" label="22" value="22"/>
+                                                <menuitem selected="true" label="23" value="23"/>
+                                            </menupopup>
+                                        </menulist>
                                     </vbox>
                                 </row>
                                 <row>

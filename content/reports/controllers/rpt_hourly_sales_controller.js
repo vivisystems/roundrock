@@ -22,8 +22,8 @@
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
-            var start_hour = document.getElementById( 'start_hour' ).datetimeValue.toString( 'HH' );
-            var end_hour = document.getElementById( 'end_hour' ).datetimeValue.toString( 'HH' );
+            var start_hour = document.getElementById( 'start_hour' ).value;
+            var end_hour = document.getElementById( 'end_hour' ).value;
 
             var terminalNo = document.getElementById( 'terminal_no' ).value;
             var periodType = document.getElementById( 'period_type' ).value;
@@ -217,9 +217,6 @@
 
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
-
-            document.getElementById('start_hour').value = start;
-            document.getElementById('end_hour').value = endHour;
         }
     };
 
