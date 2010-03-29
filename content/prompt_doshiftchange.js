@@ -212,6 +212,17 @@ var options;
 
 })();
 
+function openCashDrawer() {
+    var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+        .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+    if (mainWindow) {
+        var drawerController = mainWindow.GeckoJS.Controller.getInstanceByName( 'CashDrawer' );
+        if (drawerController) {
+            drawerController.openDrawerForShiftChange();
+        }
+    }
+}
+
 function confirmEndSalePeriod() {
     var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
     var amount = parseFloat(document.getElementById('drawer_amount').value);
