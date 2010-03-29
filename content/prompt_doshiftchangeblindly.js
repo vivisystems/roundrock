@@ -106,6 +106,17 @@ function confirmEndSalePeriod() {
     }
 }
 
+function openCashDrawer() {
+    var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+        .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+    if (mainWindow) {
+        var drawerController = mainWindow.GeckoJS.Controller.getInstanceByName( 'CashDrawer' );
+        if (drawerController) {
+            drawerController.openDrawerForShiftChange();
+        }
+    }
+}
+
 function confirmEndShift() {
     var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
     var reportedcash = parseFloat(document.getElementById('reportedcash').value);

@@ -100,7 +100,7 @@
                 <caption label="&prompt.shiftchange.drawer.change;"/>
                 <spacer flex="1"/>
                 <vivibutton id="opendrawer" label="&prompt.shiftchange.open.drawer;" default="false" class="button-fixed"
-                            oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
+                            oncommand="openCashDrawer();"/>
                 <spacer width="10px"/>
             </hbox>
             <hbox>
