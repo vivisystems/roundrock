@@ -358,7 +358,7 @@
                                                 _('scale_precision'),
                                                 _('display_mode'),
                                                 _('non_discountable'),
-                                                _('non_surchargeable')
+                                                _('non_surchargeable') 
                                             ];
                                             break;
                                     }
