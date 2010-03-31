@@ -97,7 +97,7 @@
 
         var barcodeLearningMenu = document.getElementById('barcode_learning_plugroup');
         barcodeLearningMenu.appendItem(_('No Barcode Learning'), 'none', '');
-        var pluGroups = GeckoJS.Session.get('plugroupsById');GeckoJS.BaseObject.log(GeckoJS.BaseObject.dump(pluGroups));
+        var pluGroups = GeckoJS.Session.get('plugroupsById');
 
         for (var p in pluGroups) {
             barcodeLearningMenu.appendItem(pluGroups[p]['name'], pluGroups[p]['id'], '');

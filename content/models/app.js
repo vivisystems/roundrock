@@ -83,10 +83,15 @@
                     return false;
                 }else {
 
-                    var result = GeckoJS.File.copy( backupFile, newBackupFile);
+                    if (GeckoJS.File.exists(backupFile)) {
+                        var result = GeckoJS.File.copy( backupFile, newBackupFile);
 
-                    if (result) {
-                        GeckoJS.File.remove(backupFile);
+                        if (result) {
+                            GeckoJS.File.remove(backupFile);
+                            return true;
+                        }
+                    }
+                    else {
                         return true;
                     }
                 }
