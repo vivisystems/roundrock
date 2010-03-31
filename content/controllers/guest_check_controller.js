@@ -891,9 +891,17 @@
                     if (waitPanel) cart._unblockUI(waitPanel);
                     
                     if (!result) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Data Operation Error'),
-                            _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #502].'));
+                        let orderModel = new OrderModel();
+                        if (orderModel.isLocalhost()) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('This order could not be committed. Please contact technical support for assistance immediately [message #505].'));
+                        }
+                        else {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #502].'));
+                        }
                         return false;
                     }else {
                         GREUtils.Dialog.alert(this.topmostWindow,
@@ -1835,10 +1843,18 @@
                     commitStatus = transaction.commit(2);
 
                     if (commitStatus == -1) {
-                        GREUtils.Dialog.alert(this.topmostWindow,
-                            _('Data Operation Error'),
-                            _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #503].'));
-                        this.dispatchEvent('commitOrderError', commitStatus);
+                        let orderModel = new OrderModel();
+                        if (orderModel.isLocalhost()) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('This order could not be committed. Please contact technical support for assistance immediately [message #505].'));
+                        }
+                        else {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Data Operation Error'),
+                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #503].'));
+                            this.dispatchEvent('commitOrderError', commitStatus);
+                        }
                         return false;
                     }
                     result = (result & true);
@@ -1969,10 +1985,18 @@
                         commitStatus = transaction.commit(2);
 
                         if (commitStatus == -1) {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Data Operation Error'),
-                                _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #504].'));
-                            this.dispatchEvent('commitOrderError', commitStatus);
+                            let orderModel = new OrderModel();
+                            if (orderModel.isLocalhost()) {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Data Operation Error'),
+                                    _('This order could not be committed. Please contact technical support for assistance immediately [message #506].'));
+                            }
+                            else {
+                                GREUtils.Dialog.alert(this.topmostWindow,
+                                    _('Data Operation Error'),
+                                    _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #504].'));
+                                this.dispatchEvent('commitOrderError', commitStatus);
+                            }
                             return false;
                         }
 

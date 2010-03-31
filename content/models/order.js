@@ -108,7 +108,9 @@
                 if (!retObj) {
                     throw 'Order';
                 }
-                this.renameBackupFileWithStatus(status);
+                if (status && !this.renameBackupFileWithStatus(status)) {
+                    throw 'Order [status=' + status + ']';
+                }
 
                 if (isTraining) {
                     retObj = this.OrderItem.saveAll(this.OrderItem.mappingTranToOrderItemsFields(data));
@@ -119,7 +121,9 @@
                 if (!retObj) {
                     throw 'OrderItem';
                 }
-                this.OrderItem.renameBackupFileWithStatus(status);
+                if (status && !this.OrderItem.renameBackupFileWithStatus(status)) {
+                    throw 'OrderItem [status=' + status + ']';
+                }
 
                 if (isTraining) {
                     retObj = this.OrderItemTax.saveAll(this.OrderItemTax.mappingTranToOrderItemTaxesFields(data));
@@ -130,7 +134,9 @@
                 if (!retObj) {
                     throw 'OrderItemTax';
                 }
-                this.OrderItemTax.renameBackupFileWithStatus(status);
+                if (status && !this.OrderItemTax.renameBackupFileWithStatus(status)) {
+                    throw 'OrderItemTax [status=' + status + ']';
+                }
 
                 if (isTraining) {
                     retObj = this.OrderAddition.saveAll(this.OrderAddition.mappingTranToOrderAdditionsFields(data));
@@ -141,7 +147,9 @@
                 if (!retObj) {
                     throw 'OrderAddition';
                 }
-                this.OrderAddition.renameBackupFileWithStatus(status);
+                if (status && !this.OrderAddition.renameBackupFileWithStatus(status)) {
+                    throw 'OrderAddition [status=' + status + ']';
+                }
 
                 if (isTraining) {
                     retObj = this.OrderPayment.saveAll(this.OrderPayment.mappingTranToOrderPaymentsFields(data));
@@ -152,7 +160,9 @@
                 if (!retObj) {
                     throw 'OrderPayment';
                 }
-                this.OrderPayment.renameBackupFileWithStatus(status);
+                if (status && !this.OrderPayment.renameBackupFileWithStatus(status)) {
+                    throw 'OrderPayment [status=' + status + ']';
+                }
 
                 if (isTraining) {
                     // need to remove existing annotations
@@ -165,7 +175,9 @@
                 if (!retObj) {
                     throw 'OrderAnnotation';
                 }
-                this.OrderAnnotation.renameBackupFileWithStatus(status);
+                if (status && !this.OrderAnnotation.renameBackupFileWithStatus(status)) {
+                    throw 'OrderAnnotation [status=' + status + ']';
+                }
                     
                 if (isTraining) {
                     retObj = this.OrderItemCondiment.saveAll(this.OrderItemCondiment.mappingTranToOrderItemCondimentsFields(data));
@@ -176,7 +188,9 @@
                 if (!retObj) {
                     throw 'OrderItemCondiment';
                 }
-                this.OrderItemCondiment.renameBackupFileWithStatus(status);
+                if (status && !this.OrderItemCondiment.renameBackupFileWithStatus(status)) {
+                    throw 'OrderItemCondiment [status=' + status + ']';
+                }
 
                 if (isTraining) {
                     retObj = this.OrderPromotion.saveAll(this.OrderPromotion.mappingTranToOrderPromotionsFields(data));
@@ -187,7 +201,9 @@
                 if (!retObj) {
                     throw 'OrderPromotion';
                 }
-                this.OrderPromotion.renameBackupFileWithStatus(status);
+                if (status && !this.OrderPromotion.renameBackupFileWithStatus(status)) {
+                    throw 'OrderPromotion [status=' + status + ']';
+                }
 
                 if (isTraining) {
                     this.OrderObject.create();
@@ -199,7 +215,9 @@
                 if (!retObj) {
                     throw 'OrderObject';
                 }
-                this.OrderObject.renameBackupFileWithStatus(status);
+                if (status && !this.OrderObject.renameBackupFileWithStatus(status)) {
+                    throw 'OrderObject [status=' + status + ']';
+                }
 
                 return true;
 
@@ -299,11 +317,17 @@
                     else {
                         SyncClass.syncSetting = {active: 0};
                     }
-                    this.renameBackupFileWithStatus(false, status);
+                    if (!this.renameBackupFileWithStatus(false, status)) {
+                        this.log('ERROR', 'backup order record with status [' + status + '] could not be rename to backup order record');
+                        return false;
+                    }
                     result = this.restoreFromBackup();
                     //this.removeBackupFile();
 
-                    this.OrderPayment.renameBackupFileWithStatus(false, status);
+                    if (!this.OrderPayment.renameBackupFileWithStatus(false, status)) {
+                        this.log('ERROR', 'backup order payment record with status [' + status + '] could not be rename to backup order payment record');
+                        return false;
+                    }
                     result = result && this.OrderPayment.restoreFromBackup();
                     //this.OrderPayment.removeBackupFile();
 
