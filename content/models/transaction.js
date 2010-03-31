@@ -2041,49 +2041,50 @@
 
         appendCondiment: function(index, condiments, replace, collapsed, skipSetOpen, leaveCursor) {
             
-            var item = this.getItemAt(index, true);                           // item to add condiment to
+            var item = this.getItemAt(index, true);                             // item to add condiment to
             var targetItem = this.getItemAt(index);
-            var itemDisplay = this.getDisplaySeqAt(index);              // display item at cursor position
-            var itemIndex = itemDisplay.index;                          // itemIndex of item to add condiment to
-            var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item to add condiment to
+            var itemDisplay = this.getDisplaySeqAt(index);                      // display item at cursor position
+            var itemIndex = itemDisplay.index;                                  // itemIndex of item to add condiment to
+            var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);       // display item of the item to add condiment to
+            var targetDisplayIndex = this.getDisplayIndexByIndex(itemIndex);    // display index of the item to add condiment to
 
             var prevRowCount = this.getDisplaySeqCount();
             var displayIndex = replace ? this.getDisplayIndexByIndex(itemIndex) : index;
-
+            
             if (item.type == 'item') {
 
                 let removedCount = 0;
                 let addedCount = 0;
                 let prevRowCount = this.getDisplaySeqCount();
 
+                if (replace && item.condiments != null && item.condiments != {}) {
+
+                    // void all condiment items up to next item whose index is different from itemIndex
+                    for (let i = displayIndex + 1; i < this.getDisplaySeqCount();) {
+                        let displayItem = this.getDisplaySeqAt(i);
+                        if (displayItem.index != itemIndex)
+                            break;
+                        if (displayItem.type == 'condiment') {
+                            this.removeDisplaySeq(i, 1);
+                            removedCount++;
+                        }
+                        else {
+                            i++;
+                        }
+                    }
+                    delete item.condiments;
+                }
+                else {
+                    // move cursor to last item modifier
+                    for (; displayIndex < this.getDisplaySeqCount() - 1; displayIndex++) {
+                        // peek ahead at next entry to see if it belongs to the current item
+                        let displayItem = this.getDisplaySeqAt(displayIndex + 1);
+                        if (displayItem.index != itemIndex)
+                            break;
+                    }
+                }
+
                 if (condiments.length >0) {
-
-                    if (replace && item.condiments != null && item.condiments != {}) {
-
-                        // void all condiment items up to next item whose index is different from itemIndex
-                        for (let i = displayIndex + 1; i < this.getDisplaySeqCount();) {
-                            let displayItem = this.getDisplaySeqAt(i);
-                            if (displayItem.index != itemIndex)
-                                break;
-                            if (displayItem.type == 'condiment') {
-                                this.removeDisplaySeq(i, 1);
-                                removedCount++;
-                            }
-                            else {
-                                i++;
-                            }
-                        }
-                        delete item.condiments;
-                    }
-                    else {
-                        // move cursor to last item modifier
-                        for (; displayIndex < this.getDisplaySeqCount() - 1; displayIndex++) {
-                            // peek ahead at next entry to see if it belongs to the current item
-                            let displayItem = this.getDisplaySeqAt(displayIndex + 1);
-                            if (displayItem.index != itemIndex)
-                                break;
-                        }
-                    }
 
                     let first = true;
                     condiments.forEach(function(condiment){
@@ -2123,11 +2124,12 @@
                             }
                         }
                     }, this);
+                }
 
-                    if (collapsed) {
-                        // add collapsed item, this will take care of updating cart
-                        this.collapseCondiments(index, true);
-                    }
+                if (collapsed) {
+                    this.updateCartView(prevRowCount, prevRowCount - removedCount, leaveCursor ? index : displayIndex);
+
+                    this.collapseCondiments(targetDisplayIndex, true);
                 }
 
                 // if item is a set item, compute condiment subtotals
