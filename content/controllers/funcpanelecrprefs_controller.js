@@ -122,6 +122,7 @@
             document.getElementById('vivifuncpanelecr_prefs_gkeymap_selection').value = '[' + btnid + ']';
             document.getElementById('vivifuncpanelecr_prefs_gkeymap_linked').value = entry.name;
             document.getElementById('vivifuncpanelecr_prefs_gkeymap_linked_unlink').disabled = false;
+            document.getElementById('vivifuncpanelecr_prefs_gkeymap_linked_version').value = entry.version || '';
             document.getElementById('vivifuncpanelecr_prefs_gkeymap_function_label').value = entry.label;
             document.getElementById('vivifuncpanelecr_prefs_gkeymap_function_label').disabled = false;
             document.getElementById('vivifuncpanelecr_prefs_gkeymap_function_label_apply').disabled = false;
