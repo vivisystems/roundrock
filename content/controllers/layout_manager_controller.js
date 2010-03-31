@@ -477,12 +477,16 @@
             var mainWindow = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow('Vivipos:Main');
             var main = mainWindow.GeckoJS.Controller.getInstanceByName('Main');
             
-            // change button height
+            // dispatch 'onUpdateOptions' events for listeners in the current scope
+            this.dispatchEvent('onUpdateOptions', null);
+
+            // dispatch 'onUpdateOptions' events for listeners in the main scope
+            main.dispatchEvent('onUpdateOptions', null);
+
+            // reset layout
             var layoutController = mainWindow.GeckoJS.Controller.getInstanceByName('Layout');
             if (layoutController) layoutController.requestCommand('resetLayout', null, 'Layout');
 
-            main.dispatchEvent('updateLayoutOptions', null);
-            
             window.close();
         }
 
