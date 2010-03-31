@@ -19,3 +19,6 @@ pref("vivipos.fec.irc.modules.reports.label", "chrome://viviecr/locale/messages.
 
 pref("vivipos.fec.irc.modules.addons.name", "addons");
 pref("vivipos.fec.irc.modules.addons.label", "chrome://viviecr/locale/messages.properties");
+
+pref("vivipos.fec.irc.modules.images.name", "images");
+pref("vivipos.fec.irc.modules.images.label", "chrome://viviecr/locale/messages.properties");

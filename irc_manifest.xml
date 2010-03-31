@@ -341,5 +341,12 @@
         </action>
     </module>
     
+    <module name="images"> 
+        <action>
+            <type>file</type>
+            <file>/data/images/*</file>
+        </action>
+    </module>
+
 </irc>
 
