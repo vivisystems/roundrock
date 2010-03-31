@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-03-29 18:18+0800\n"
+"POT-Creation-Date: 2010-03-31 16:18+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3974,7 +3974,7 @@ msgid "Tax"
 msgstr ""
 
 #: ../..//content/controllers/barcode_learning_controller.js:50
-#: ../..//content/controllers/import_export_controller.js:1859
+#: ../..//content/controllers/import_export_controller.js:1858
 msgid "Department"
 msgstr ""
 
@@ -6091,7 +6091,7 @@ msgid "Export Error"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:128
-#: ../..//content/controllers/import_export_controller.js:658
+#: ../..//content/controllers/import_export_controller.js:657
 msgid "Import/Export already in progress"
 msgstr ""
 
@@ -6107,91 +6107,560 @@ msgstr ""
 msgid "Exporting %S"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:617
-#: ../..//content/controllers/import_export_controller.js:759
-#: ../..//content/controllers/import_export_controller.js:1819
+#: ../..//content/controllers/import_export_controller.js:250
+msgid "(importexport_condiments)name"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:251
+msgid "(importexport_condiments)condiment_group_id"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:252
+msgid "(importexport_condiments)price"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:253
+msgid "(importexport_condiments)id"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:254
+msgid "(importexport_condiments)button_color"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:255
+msgid "(importexport_condiments)font_size"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:256
+msgid "(importexport_condiments)preset"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:262
+msgid "(importexport_condimentgroups)name"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:263
+msgid "(importexport_condimentgroups)id"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:264
+msgid "(importexport_condimentgroups)seltype"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:265
+msgid "(importexport_condimentgroups)newline"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:271
+msgid "(importexport_plugroups)name"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:272
+msgid "(importexport_plugroups)id"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:273
+msgid "(importexport_plugroups)description"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:274
+msgid "(importexport_plugroups)visible"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:275
+msgid "(importexport_plugroups)link_department"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:276
+msgid "(importexport_plugroups)link_group"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:277
+msgid "(importexport_plugroups)display_order"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:278
+msgid "(importexport_plugroups)button_color"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:279
+msgid "(importexport_plugroups)font_size"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:280
+msgid "(importexport_plugroups)routing"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:281
+msgid "(importexport_plugroups)non_discountable"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:282
+msgid "(importexport_plugroups)non_surchargeable"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:288
+msgid "(importexport_products)no"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:289
+msgid "(importexport_products)name"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:290
+msgid "(importexport_products)cate_no"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:291
+msgid "(importexport_products)id"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:292
+msgid "(importexport_products)cond_group"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:293
+msgid "(importexport_products)link_group"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:294
+msgid "(importexport_products)barcode"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:295
+msgid "(importexport_products)buy_price"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:296
+msgid "(importexport_products)stock"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:297
+msgid "(importexport_products)min_stock"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:298
+msgid "(importexport_products)rate"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:299
+msgid "(importexport_products)memo"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:300
+msgid "(importexport_products)min_sale_qty"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:301
+msgid "(importexport_products)sale_unit"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:302
+msgid "(importexport_products)tare"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:303
+msgid "(importexport_products)scale"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:304
+msgid "(importexport_products)setmenu"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:305
+msgid "(importexport_products)level_enable1"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:306
+msgid "(importexport_products)price_level1"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:307
+msgid "(importexport_products)halo1"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:308
+msgid "(importexport_products)lalo1"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:309
+msgid "(importexport_products)level_enable2"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:310
+msgid "(importexport_products)price_level2"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:311
+msgid "(importexport_products)halo2"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:312
+msgid "(importexport_products)lalo2"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:313
+msgid "(importexport_products)level_enable3"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:314
+msgid "(importexport_products)price_level3"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:315
+msgid "(importexport_products)halo3"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:316
+msgid "(importexport_products)lalo3"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:317
+msgid "(importexport_products)level_enable4"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:318
+msgid "(importexport_products)price_level4"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:319
+msgid "(importexport_products)halo4"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:320
+msgid "(importexport_products)lalo4"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:321
+msgid "(importexport_products)level_enable5"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:322
+msgid "(importexport_products)price_level5"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:323
+msgid "(importexport_products)halo5"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:324
+msgid "(importexport_products)lalo5"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:325
+msgid "(importexport_products)level_enable6"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:326
+msgid "(importexport_products)price_level6"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:327
+msgid "(importexport_products)halo6"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:328
+msgid "(importexport_products)lalo6"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:329
+msgid "(importexport_products)level_enable7"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:330
+msgid "(importexport_products)price_level7"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:331
+msgid "(importexport_products)halo7"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:332
+msgid "(importexport_products)lalo7"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:333
+msgid "(importexport_products)level_enable8"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:334
+msgid "(importexport_products)price_level8"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:335
+msgid "(importexport_products)halo8"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:336
+msgid "(importexport_products)lalo8"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:337
+msgid "(importexport_products)level_enable9"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:338
+msgid "(importexport_products)price_level9"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:339
+msgid "(importexport_products)halo9"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:340
+msgid "(importexport_products)lalo9"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:341
+msgid "(importexport_products)auto_maintain_stock"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:342
+msgid "(importexport_products)return_stock"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:343
+msgid "(importexport_products)force_condiment"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:344
+msgid "(importexport_products)force_memo"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:345
+msgid "(importexport_products)single"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:346
+msgid "(importexport_products)visible"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:347
+msgid "(importexport_products)button_color"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:348
+msgid "(importexport_products)age_verification"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:349
+#: ../..//content/controllers/import_export_controller.js:358
+msgid "(importexport_products)display_mode"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:350
+msgid "(importexport_products)alt_name1"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:351
+msgid "(importexport_products)alt_name2"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:352
+msgid "(importexport_products)manual_adjustment_only"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:353
+msgid "(importexport_products)append_empty_btns"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:354
+msgid "(importexport_products)display_order"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:355
+msgid "(importexport_products)max_stock"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:356
+msgid "(importexport_products)scale_multiplier"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:357
+msgid "(importexport_products)scale_precision"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:359
+msgid "(importexport_products)non_discountable"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:360
+msgid "(importexport_products)non_surchargeable"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:366
+msgid "(importexport_categories)no"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:367
+msgid "(importexport_categories)name"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:368
+msgid "(importexport_categories)id"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:369
+msgid "(importexport_categories)visible"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:370
+msgid "(importexport_categories)sale_unit"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:371
+msgid "(importexport_categories)scale"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:372
+msgid "(importexport_categories)rate"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:373
+msgid "(importexport_categories)button_color"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:374
+msgid "(importexport_categories)font_size"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:375
+msgid "(importexport_categories)cansale"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:376
+msgid "(importexport_categories)display_order"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:377
+msgid "(importexport_categories)non_discountable"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:378
+msgid "(importexport_categories)non_surchargeable"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:384
+msgid "(importexport_setitems)pluset_no"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:385
+msgid "(importexport_setitems)label"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:386
+msgid "(importexport_setitems)sequence"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:387
+msgid "(importexport_setitems)id"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:388
+msgid "(importexport_setitems)preset_no"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:389
+msgid "(importexport_setitems)quantity"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:390
+msgid "(importexport_setitems)baseprice"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:391
+msgid "(importexport_setitems)linkgroup_id"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:392
+msgid "(importexport_setitems)reduction"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:616
+#: ../..//content/controllers/import_export_controller.js:758
+#: ../..//content/controllers/import_export_controller.js:1818
 #: ../..//content/controllers/label_printing_controller.js:919
 #: ../..//content/controllers/label_printing_controller.js:931
 msgid "Yes"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:617
-#: ../..//content/controllers/import_export_controller.js:759
-#: ../..//content/controllers/import_export_controller.js:1819
+#: ../..//content/controllers/import_export_controller.js:616
+#: ../..//content/controllers/import_export_controller.js:758
+#: ../..//content/controllers/import_export_controller.js:1818
 msgid " (%S)"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:620
-#: ../..//content/controllers/import_export_controller.js:622
+#: ../..//content/controllers/import_export_controller.js:619
+#: ../..//content/controllers/import_export_controller.js:621
 msgid "Export of [%S] to file [%S] finished!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:628
-#: ../..//content/controllers/import_export_controller.js:630
+#: ../..//content/controllers/import_export_controller.js:627
+#: ../..//content/controllers/import_export_controller.js:629
 msgid "Failed to export [%S] to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:658
-#: ../..//content/controllers/import_export_controller.js:663
+#: ../..//content/controllers/import_export_controller.js:657
+#: ../..//content/controllers/import_export_controller.js:662
 msgid "Import Error"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:663
+#: ../..//content/controllers/import_export_controller.js:662
 msgid "Import device and/or folder not found [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:669
+#: ../..//content/controllers/import_export_controller.js:668
 msgid "Please select a data category to import"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:674
+#: ../..//content/controllers/import_export_controller.js:673
 msgid "Importing %S"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:771
+#: ../..//content/controllers/import_export_controller.js:770
 msgid "[message #601]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1055
+#: ../..//content/controllers/import_export_controller.js:1054
 msgid "Product Group item %S @ row %S requires a valid display order value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1191
+#: ../..//content/controllers/import_export_controller.js:1190
 msgid "Product item %S @ row %S requires a valid display mode value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1238
+#: ../..//content/controllers/import_export_controller.js:1237
 msgid "Product item %S @ row %S requires a valid display order value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1301
+#: ../..//content/controllers/import_export_controller.js:1300
 msgid "Department item %S @ row %S requires a valid display order value"
 msgstr ""
 
+#: ../..//content/controllers/import_export_controller.js:1821
 #: ../..//content/controllers/import_export_controller.js:1822
-#: ../..//content/controllers/import_export_controller.js:1823
 msgid "Import of [%S] from file [%S] finished!"
 msgstr ""
 
+#: ../..//content/controllers/import_export_controller.js:1833
 #: ../..//content/controllers/import_export_controller.js:1834
-#: ../..//content/controllers/import_export_controller.js:1835
 msgid "Failed to import [%S] from file [%S]!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1867
+#: ../..//content/controllers/import_export_controller.js:1866
 msgid "Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1875
+#: ../..//content/controllers/import_export_controller.js:1874
 msgid "Condiment"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1883
+#: ../..//content/controllers/import_export_controller.js:1882
 #: ../..//content/controllers/plus_controller.js:584
 msgid "Product Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1891
+#: ../..//content/controllers/import_export_controller.js:1890
 msgid "Product"
 msgstr ""
 
