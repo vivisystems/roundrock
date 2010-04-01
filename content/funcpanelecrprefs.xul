@@ -420,6 +420,7 @@
                                             <label value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.label;"/>
                                         </vbox>
                                         <textbox readonly="true" id="vivifuncpanelecr_prefs_gkeymap_linked" value=""/>
+                                        <textbox id="vivifuncpanelecr_prefs_gkeymap_linked_version" readonly="true" value="" size="6"/>
                                         <vbox>
                                         <button id="vivifuncpanelecr_prefs_gkeymap_linked_unlink" flex="1"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.unlink.label;"

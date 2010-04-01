@@ -24,7 +24,7 @@
 
             // register listener for layout option updates
             var main = GeckoJS.Controller.getInstanceByName('Main');
-            main.addEventListener('updateLayoutOptions', this.updateGeometry, this);
+            main.addEventListener('onUpdateOptions', this.updateGeometry, this);
 
             // load registration
             var prefs = GeckoJS.Configure.read('vivipos.fec.registry.osdpanel');

@@ -4124,12 +4124,7 @@
                 self._inDialog = false;
                 
                 var selectedCondiments = evt.data.condiments;
-                if (selectedCondiments.length > 0) {
-                    self._appendCondiments(selectedCondiments.concat(additionalItems), true);
-                }
-                else {
-                    self._clearAndSubtotal();
-                }
+                self._appendCondiments(selectedCondiments.concat(additionalItems), true);
             });
 
         },
@@ -4186,8 +4181,6 @@
 
                         selectedCondiments = filteredCondiments;
                     }
-
-                    // expand condiments if collapsed
 
                     // get first condiment display item
                     var condDisplayIndex = curTransaction.getFirstCondimentIndex(item);
