@@ -404,7 +404,11 @@
                 if (this.ShiftMarker.isSalePeriodHandler()) {
                     // need to reset sequence?
                     this.log('DEBUG', 'checking if sequence needs to be reset');
-                    let resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
+                    // check if new reset seqno key not exists, using SequenceTracksSalePeriod key , compatible 1.2.0.11 before.
+                    let resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod') || false;
+                    if (GeckoJS.Configure.check('vivipos.fec.settings.ResetSeqNoWhenEndPeriod')) {
+                        resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.ResetSeqNoWhenEndPeriod') || false;
+                    }
                     if (resetSequence) {
                         if (SequenceModel.resetSequence('order_no', 0) == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
@@ -418,6 +422,24 @@
                             return;
                         }
                     }
+
+                    // need to reset checkno?
+                    this.log('DEBUG', 'checking if checkno needs to be reset');
+                    let resetCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.ResetCheckNoWhenEndPeriod') || false;
+                    if (resetCheckNo) {
+                        if (SequenceModel.resetSequence('check_no', 0) == -1) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Shift Change Error'),
+                                _('Failed to start sale period because order check number could not be reset. Please make sure that the terminal designated as the sequence number master is working normally [message #1439]'));
+
+                            this._updateSession({sale_period: -1,
+                                                 shift_number: '',
+                                                 end_of_period: false,
+                                                 end_of_shift: false});
+                            return;
+                        }
+                    }
+
 
                     // need to advance sale period?
                     this.log('DEBUG', 'checking if sale period needs to be advanced');

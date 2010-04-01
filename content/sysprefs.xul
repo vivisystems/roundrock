@@ -281,6 +281,9 @@
             <preference id="pref_checksaleperiod" name="vivipos.fec.settings.CheckSalePeriod" type="bool"/>
             <preference id="pref_maxsaleperiodleaddays" name="vivipos.fec.settings.MaxSalePeriodLeadDays" type="int"/>
             <preference id="pref_hideshiftdialog" name="vivipos.fec.settings.HideShiftDialog" type="bool"/>
+            <preference id="pref_allowchangewhenendperiod" name="vivipos.fec.settings.AllowChangeWhenEndPeriod" type="bool"/>
+            <preference id="pref_resetseqnowhenendperiod" name="vivipos.fec.settings.ResetSeqNoWhenEndPeriod" type="bool"/>
+            <preference id="pref_resetchecknowhenendperiod" name="vivipos.fec.settings.ResetCheckNoWhenEndPeriod" type="bool"/>
         </preferences>
 
         <grid class="data-form-2 data-form-options1">
@@ -338,6 +341,11 @@
                         <textbox preference="pref_maxsaleperiodleaddays" id="maxsaleperiodleaddays" type="number" min="1"/>
                     </vbox>
                 </row>
+                <row>
+                    <checkbox id="resetseqnowhenendperiod" label="&shift.resetseqnowhenendperiod;" preference="pref_resetseqnowhenendperiod"/>
+                    <checkbox id="resetchecknowhenendperiod" label="&shift.resetchecknowhenendperiod;" preference="pref_resetchecknowhenendperiod"/>
+                </row>
+
             </rows>
         </grid>
 

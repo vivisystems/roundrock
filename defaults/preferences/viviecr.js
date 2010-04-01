@@ -13,3 +13,6 @@ pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
 pref("vivipos.fec.settings.image.disklimit", 52428800);
 
 pref("vivipos.fec.general.layouts.selectedLayout", "traditional");
+
+pref("vivipos.fec.settings.ResetSeqNoWhenEndPeriod", true);
+pref("vivipos.fec.settings.ResetCheckNoWhenEndPeriod", false);
