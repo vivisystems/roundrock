@@ -41,7 +41,7 @@
             var sql = "INSERT OR REPLACE INTO promotion_cart_items VALUES("
                     + "'"+ item.index+"',"
                     + "'"+ item.id+"',"
-                    + "'"+ item.name+"',"
+                    + "'"+ this.escapeString(item.name) +"',"
                     + "'"+ item.no+"',"
                     + "'"+ item.barcode+"',"
                     + "'"+ item.cate_no+"',"
@@ -54,9 +54,9 @@
                     + item.current_tax+","
                     + item.current_discount+","
                     + item.current_surcharge+","
-                    + "'"+ condiments+"',"
+                    + "'"+ this.escapeString(condiments) +"',"
                     + item.current_condiment+","
-                    + "'"+ item.destination+"'"
+                    + "'"+ this.escapeString(item.destination) +"'"
                     + ")";
 
                 var datasource = this.getDataSource();

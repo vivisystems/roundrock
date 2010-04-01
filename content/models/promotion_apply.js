@@ -14,21 +14,21 @@
             var sql = "INSERT INTO promotion_applies VALUES("
             + "NULL,"
             + "'"+ promotion.id +"',"
-            + "'"+ promotion.name +"',"
-            + "'"+ promotion.code +"',"
-            + "'"+ promotion.alt_name1 +"',"
-            + "'"+ promotion.alt_name2 +"',"
+            + "'"+ this.escapeString(promotion.name) +"',"
+            + "'"+ this.escapeString(promotion.code) +"',"
+            + "'"+ this.escapeString(promotion.alt_name1) +"',"
+            + "'"+ this.escapeString(promotion.alt_name2) +"',"
             + "'"+ promotion.trigger +"',"
-            + "'"+ trigger.getPrefs().name +"',"
-            + "'"+ trigger.getPrefs().label +"',"
+            + "'"+ this.escapeString(trigger.getPrefs().name) +"',"
+            + "'"+ this.escapeString(trigger.getPrefs().label) +"',"
             + "'"+ promotion.type +"',"
-            + "'"+ type.getPrefs().name +"',"
-            + "'"+ type.getPrefs().label +"',"
+            + "'"+ this.escapeString(type.getPrefs().name) +"',"
+            + "'"+ this.escapeString(type.getPrefs().label) +"',"
             + trigger.getMatchedAmount() +","
             + trigger.getMatchedItemsQty() +","
             + trigger.getMatchedItemsSubtotal() +","
             + type.getDiscountSubtotal() +","
-            + "'" + (type.getTaxNo()||'') +"'," // tax_name
+            + "'" + this.escapeString(type.getTaxNo()||'') +"'," // tax_name
             + type.getDiscountTaxSubtotal() +","// current_tax
             + type.getDiscountTaxIncludedSubtotal() +"," // included_tax
             + "'"+GeckoJS.BaseObject.serialize(type.getDiscountTaxDetails())+"'" // tax details
