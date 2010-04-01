@@ -51,6 +51,8 @@
 <!ENTITY shift.storedorder.force "Force closing of stored orders">
 <!ENTITY shift.defaultchangeindrawer "Default drawer change">
 <!ENTITY shift.allowchangewhenendperiod "Allow drawer change when ending sale period">
+<!ENTITY shift.resetseqnowhenendperiod "Reset Sequence no when ending sale period">
+<!ENTITY shift.resetchecknowhenendperiod "Reset Check no when ending sale period">
 <!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.banneratbottom "Place banner at screen bottom">
 <!ENTITY layout.bannerheight "Banner height">
