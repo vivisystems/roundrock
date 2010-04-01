@@ -59,7 +59,7 @@
                     data['price'] = inventoryRecord['price'] || null;
 
                     var fields = GeckoJS.BaseObject.getKeys(data).join(', ');
-                    var values = "'" + GeckoJS.BaseObject.getValues(data).join("', '") + "'";
+                    var values = "'" + this.escapeString(GeckoJS.BaseObject.getValues(data)).join("', '") + "'";
 
                     sql += "INSERT INTO inventory_records ("+fields+") VALUES ("+values+") ; \n" ;
                 });

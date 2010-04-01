@@ -160,6 +160,31 @@
 
             return GeckoJS.File.remove(backupFile);
 
+        },
+
+        /**
+         * escape string for sqlite
+         *
+         * support string or array
+         * 
+         */
+        escapeString: function(data) {
+            
+            if (!data) return data;
+
+            var re = new RegExp("[']+", "g");
+
+            // is array
+            if (typeof data == 'object' && data.constructor.name == 'Array') {
+
+                return data.map(function(s) {
+                    s.replace(re, "''");
+                });
+
+            }else {
+                return data.replace(re, "''");
+            }
+            
         }
 
 

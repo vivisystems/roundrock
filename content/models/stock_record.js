@@ -175,7 +175,7 @@
                         lastModified = d.modified;
                     }
                     var cols = GeckoJS.BaseObject.getKeys(d).join(', ');
-                    var vals = GeckoJS.BaseObject.getValues(d).join("', '");
+                    var vals = this.escapeString(GeckoJS.BaseObject.getValues(d)).join("', '");
                     sql += "INSERT OR REPLACE INTO stock_records ("+cols+") values ('" + vals + "');\n";
                     
                 }catch(e) {
@@ -362,7 +362,7 @@
                 sql += "INSERT INTO stock_records (id,barcode,warehouse,quantity,created,modified) VALUES (" +
                 "'" + (product.no||'') + "', " +
                 "'" + (product.barcode||'') + "', " +
-                "'" + (product.warehouse||'')+ "', " +
+                "'" + this.escapeString(product.warehouse||'')+ "', " +
                 (product.quantity || 0) + ", " +
                 created + ", " +
                 modified + "); \n" ;
@@ -427,7 +427,7 @@
                 var sql = "" ;
 
                 stockRecords.forEach(function( stockRecord ) {
-                    sql += "UPDATE stock_records SET warehouse='" + (stockRecord.warehouse||'') + "', " +
+                    sql += "UPDATE stock_records SET warehouse='" + this.escapeString(stockRecord.warehouse||'') + "', " +
                     "quantity=" + (absolute ? stockRecord.quantity : "quantity + " + stockRecord.delta) + ", " +
                     "created=" + created + ", " +
                     "modified="  + modified + " " +
