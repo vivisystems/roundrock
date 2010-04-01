@@ -55,9 +55,9 @@
 
     <box id="main-container">
 
-        <box id="mainPanel" flex="1" class="main-panel-right" orient="horizontal">
+        <box id="mainPanel" flex="1" class="main-panel-right" orient="horizontal" overlaypanel="&layout.panel.main;">
 
-            <box id="leftPanel" orient="vertical" class="left-panel">
+            <box id="leftPanel" orient="vertical" class="left-panel" overlaypanel="&layout.panel.left;">
                 <box id="tableStatusPanelContainer" flex="1" class="table-status-panel boxarea"/>
                 <vbox flex="1" class="boxarea">
                     <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
@@ -68,7 +68,7 @@
 
             <spacer id="panelSpacer" flex="1"/>
 
-            <vbox id="rightPanelWrapper" class="right-panel">
+            <box id="rightPanelWrapper" class="right-panel" orient="vertical" overlaypanel="&layout.panel.right;">
                 <box id="logoPanelContainer" class="boxarea" align="center" orient="vertical" panel="&layout.panel.logo;">
                     <image id="logoImage" />
                 </box>
@@ -90,7 +90,7 @@
                 <vbox class="boxarea">
                     <deck id="rightPanelDeck" flex="1">
                         <vbox flex="1">
-                            <box id="rightPanel" flex="1" orient="vertical">
+                            <box id="rightPanel" flex="1" orient="vertical" panel="&layout.panel.productpanel;">
                                 <box id="categoryPanelContainer" orient="vertical" class="categoryPanel" panel="&layout.panel.departments;"/>
                                 <box id="productPanelContainer" flex="1" class="productPanel" panel="&layout.panel.products;"/>
                                 <box id="staticCondimentsPanelContainer" panel=""/>
@@ -109,7 +109,7 @@
                         <button class="button-main-deck" label="Menu" oncommand="setMainDeck('0');" />
                     </hbox>
                 </vbox>
-            </vbox>
+            </box>
 
         </box>
 

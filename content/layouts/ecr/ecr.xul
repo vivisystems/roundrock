@@ -42,18 +42,18 @@
 
     <box id="main-container">
 
-        <box id="mainPanel" flex="1" class="main-panel" orient="horizontal">
-            <box id="leftPanel" flex="0" orient="vertical" class="left-panel">
+        <box id="mainPanel" flex="1" class="main-panel" orient="horizontal" overlaypanel="&layout.panel.main;">
+            <box id="leftPanel" flex="0" orient="vertical" class="left-panel" overlaypanel="&layout.panel.left;">
                 <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
-                <box id="cartStatusPanelContainer" panel=""/>
+                <box id="cartStatusPanelContainer" panel="&layout.panel.cartstatus;"/>
                 <box id="productPanel" flex="0" orient="vertical" panel="&layout.panel.productpanel;">
                     <box id="categoryPanelContainer" flex="0" panel="&layout.panel.departments;"/>
                     <box id="productPanelContainer" flex="0" panel="&layout.panel.products;" />
                 </box>
-                <box id="staticCondimentsPanelContainer" panel=""/>
+                <box id="staticCondimentsPanelContainer" panel="&layout.panel.condiments;"/>
             </box>
 
-            <box id="rightPanel" flex="0" class="right-panel" orient="vertical">
+            <box id="rightPanel" flex="0" class="right-panel" orient="vertical" overlaypanel="&layout.panel.right;">
                 <box id="vfdPanelContainer" flex="1" panel="&layout.panel.vfd;"/>
                 <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
                 <box id="promotionsStatusPanelContainer" flex="0"/>
