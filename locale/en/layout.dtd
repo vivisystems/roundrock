@@ -1,11 +1,16 @@
 <!ENTITY layout.panel.product.image "Product Image">
+<!ENTITY layout.panel.main "Full Screen">
+<!ENTITY layout.panel.left "Left Panel">
+<!ENTITY layout.panel.right "Right Panel">
 <!ENTITY layout.panel.departments "Department Panel">
 <!ENTITY layout.panel.products "Product Panel">
 <!ENTITY layout.panel.productpanel "Products &amp; Departments">
+<!ENTITY layout.panel.condiments "Static Condiments">
 <!ENTITY layout.panel.function "Function Panel">
 <!ENTITY layout.panel.vfd "VFD">
 <!ENTITY layout.panel.customer "Customer">
 <!ENTITY layout.panel.cart "Cart">
+<!ENTITY layout.panel.cartstatus "Cart Status">
 <!ENTITY layout.panel.inputline "Input Line">
 <!ENTITY layout.panel.promotions "Promotion Display">
 <!ENTITY layout.panel.logo "Logo">
