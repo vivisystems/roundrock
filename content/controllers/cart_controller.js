@@ -4590,6 +4590,12 @@
          */
         addItemFormVoidOrder: function(evt){
 
+             if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                    _('confirm additem form void sale'),
+                    _('Would you like to add items to cart from the voided order ?'))) {
+                    return;
+                }
+
              let keypadController = GeckoJS.Controller.getInstanceByName('Keypad');
              let main = GeckoJS.Controller.getInstanceByName('Main');
 
