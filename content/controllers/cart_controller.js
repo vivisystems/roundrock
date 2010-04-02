@@ -55,6 +55,7 @@
             this.addEventListener('beforeAddItem', this.beforeAddItem);
             this.addEventListener('beforeVoidItem', this.clearWarning);
             this.addEventListener('beforeModifyItem', this.beforeModifyItem);
+            this.addEventListener('onVoidSaleSuccess', this.addItemFormVoidOrder);
 
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
@@ -4579,6 +4580,37 @@
             this._unblockUI(waitPanel);
 
             return false;
+        },
+        
+        /*
+         * @author: Slash.tu             2010/04/02
+         * @event: this.dispatchEvent('onVoidSaleSuccess', curTransaction);
+         *
+         * Pop a dialog, users decide if additem from transaction(void sale)
+         */
+        addItemFormVoidOrder: function(evt){
+
+             let keypadController = GeckoJS.Controller.getInstanceByName('Keypad');
+             let main = GeckoJS.Controller.getInstanceByName('Main');
+
+             let products = GeckoJS.Session.get('productsById');
+             let categories = GeckoJS.Session.get('categoriesById');
+
+             let items = GeckoJS.BaseObject.getValues(evt.data.data.items);
+
+             items.forEach( function(item){
+
+
+                  keypadController.sendCharcode(item.current_qty+ "");
+                  keypadController.sendCharcode('*');
+                  keypadController.sendCharcode(item.current_price + "");
+
+                  // check item unit            
+
+                  let id = item.id;
+                  let product = products[id] || categories[id];
+                  main.requestCommand('addItem',product,'Cart');
+             });
         },
 
         _getMemoDialog: function (memo) {
