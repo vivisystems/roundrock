@@ -39,6 +39,9 @@
   <script src='chrome://viviecr/content/controller/app_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- irc -->
+  <script src='chrome://viviecr/content/controllers/locale_helper_controller.js' type="application/x-javascript;version=1.8"/>
+
+  <!-- irc -->
   <script src='chrome://viviecr/content/controllers/irc_controller.js' type="application/x-javascript;version=1.8"/>
 
   <!-- front-end UI controllers -->

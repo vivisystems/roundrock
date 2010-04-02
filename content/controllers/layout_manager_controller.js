@@ -161,14 +161,14 @@
 
             var selectedTarget = GeckoJS.Configure.read('vivipos.fec.settings.osdPanel.OverlayTarget') || 'none';
             var targetObj = document.getElementById('osdpanel_overlay_target');
-            var $targets = mainWindow.$('#mainPanel').children('box');
+            var $targets = mainWindow.$('box[overlaypanel]');
             
             for (let j = 0; j < elements.length; j++) {
                 targetObj.appendItem(elements[j].getAttribute('panel'), elements[j].getAttribute('id'));
             };
 
             $targets.each(function(index, elem) {
-                targetObj.appendItem(elem.getAttribute('panel') || elem.getAttribute('id'), elem.getAttribute('id'));
+                targetObj.appendItem(elem.getAttribute('overlaypanel') || elem.getAttribute('id'), elem.getAttribute('id'));
             });
 
             $('#osdpanel_overlay_target').val(selectedTarget);

@@ -45,22 +45,22 @@
 
     <box id="main-container">
 
-        <box id="mainPanel" flex="1" class="main-panel" orient="vertical" dir="normal">
+        <box id="mainPanel" flex="1" class="main-panel" orient="vertical" dir="normal" overlaypanel="&layout.panel.main;">
 
-            <box id="bannerPanelContainer" flex="0" orient="horizontal"/>
+            <box id="bannerPanelContainer" flex="0" orient="horizontal" panel="&layout.panel.logo;"/>
             <box id="mainBody" flex="1" orient="horizontal">
-                <box id="leftPanel" flex="0" class="left-panel" orient="vertical">
+                <box id="leftPanel" flex="0" class="left-panel" orient="vertical" overlaypanel="&layout.panel.left;">
                     <box id="productImagePanelContainer" flex="1" panel="&layout.panel.product.image;"/>
                     <box id="categoryPanelContainer" flex="0" orient="vertical" panel="&layout.panel.departments;"/>
-                    <box id="staticCondimentsPanelContainer" panel=""/>
+                    <box id="staticCondimentsPanelContainer" panel="&layout.panel.condiments;"/>
                     <box id="functionPanelOuterContainer" flex="0" orient="vertical" panel="&layout.panel.function;">
                         <box id="functionPanelContainer" flex="0"/>
                     </box>
                 </box>
 
-                <box id="rightPanel" flex="0" orient="vertical" class="right-panel">
+                <box id="rightPanel" flex="0" orient="vertical" class="right-panel" overlaypanel="&layout.panel.right;">
                     <box id="vfdPanelContainer" flex="0" panel="&layout.panel.vfd;"/>
-                    <box id="cartStatusPanelContainer" panel=""/>
+                    <box id="cartStatusPanelContainer" panel="&layout.panel.cartstatus;"/>
                     <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
                     <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
                     <box id="visiblePromotionsStatusPanelContainer" flex="0" panel="&layout.panel.promotions;"/>

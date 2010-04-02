@@ -120,8 +120,10 @@
                     geometry = this.getGeometry();
                 }
 
-                panel.openPopupAtScreen(geometry.x, geometry.y);
                 panel.sizeTo(geometry.w, geometry.h);
+                panel.setAttribute('style', 'min-height:' + geometry.h + 'px; max-height:' + geometry.h + 'px;' +
+                                            'min-width:' + geometry.w + 'px; max-width:' + geometry.w + 'px;');
+                panel.openPopupAtScreen(geometry.x, geometry.y);
             }
         },
 

@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-03-31 16:17+0800\n"
+"POT-Creation-Date: 2010-04-02 16:38+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -813,9 +813,13 @@ msgstr "Mass Discount"
 # #####################
 msgid "vivipos.fec.registry.function.programmable.discountByAmount.desc"
 msgstr ""
-"This function registers a reduction. The parameter field can be used to "
-"program a preset reduction amount and label (separated by comma.) If no "
-"preset amount is programmed, the discount amount is read from the input line."
+"This function registers a reduction. The parameter field can take up to 5 "
+"optional, comma-delimited parameters. The first parameter is used to program "
+"a preset discount amount; the second parameter provides a label for the "
+"discount; set the third parameter to 1 to exclude condiments from subtotal "
+"discount; set the fourth parameter to 1 to exclude non-discountable items "
+"from subtotal discount; and set the fifth parameter to 1 to exclude payments "
+"from subtotal discount."
 
 msgid "vivipos.fec.registry.function.programmable.discountByAmount.label"
 msgstr "-"
@@ -3113,7 +3117,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/overlay.js:23
-#: ../..//content/controllers/main_controller.js:1580
+#: ../..//content/controllers/main_controller.js:1581
 #: ../..//content/controllers/setup_wizard_controller.js:681
 msgid "VIVIPOS Setup"
 msgstr ""
@@ -3182,8 +3186,8 @@ msgstr ""
 #: ../..//content/prompt_doshiftchangeblindly.js:137
 #: ../..//content/prompt_doshiftchangeblindly.js:142
 #: ../..//content/controllers/shift_changes_controller.js:39
-#: ../..//content/controllers/shift_changes_controller.js:631
-#: ../..//content/controllers/shift_changes_controller.js:1188
+#: ../..//content/controllers/shift_changes_controller.js:653
+#: ../..//content/controllers/shift_changes_controller.js:1210
 msgid "Shift Change"
 msgstr ""
 
@@ -3287,13 +3291,13 @@ msgid "Authentication failed! Please select a user"
 msgstr ""
 
 #: ../..//content/refund_payment.js:23 ../..//content/refund_payment.js:29
-#: ../..//content/controllers/cart_controller.js:4342
-#: ../..//content/controllers/cart_controller.js:4403
-#: ../..//content/controllers/cart_controller.js:4413
+#: ../..//content/controllers/cart_controller.js:4335
+#: ../..//content/controllers/cart_controller.js:4396
+#: ../..//content/controllers/cart_controller.js:4406
+#: ../..//content/controllers/cart_controller.js:4417
 #: ../..//content/controllers/cart_controller.js:4424
-#: ../..//content/controllers/cart_controller.js:4431
-#: ../..//content/controllers/cart_controller.js:4444
-#: ../..//content/controllers/cart_controller.js:4573
+#: ../..//content/controllers/cart_controller.js:4437
+#: ../..//content/controllers/cart_controller.js:4566
 msgid "Void Sale"
 msgstr ""
 
@@ -3309,7 +3313,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/reportPanel.js:71
-#: ../..//content/controllers/main_controller.js:1976
+#: ../..//content/controllers/main_controller.js:1977
 msgid "custom"
 msgstr ""
 
@@ -3443,7 +3447,7 @@ msgstr ""
 #: ../..//content/controllers/departments_controller.js:164
 #: ../..//content/controllers/destination_controller.js:424
 #: ../..//content/controllers/devices_controller.js:1662
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:148
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:149
 #: ../..//content/controllers/hotkey_prefs_controller.js:519
 #: ../..//content/controllers/jobs_controller.js:227
 #: ../..//content/controllers/label_printing_controller.js:906
@@ -3476,7 +3480,7 @@ msgstr ""
 #: ../..//content/controllers/departments_controller.js:166
 #: ../..//content/controllers/destination_controller.js:426
 #: ../..//content/controllers/devices_controller.js:1664
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:150
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:151
 #: ../..//content/controllers/hotkey_prefs_controller.js:521
 #: ../..//content/controllers/jobs_controller.js:229
 #: ../..//content/controllers/label_printing_controller.js:907
@@ -3510,7 +3514,7 @@ msgstr ""
 #: ../..//content/controllers/destination_controller.js:405
 #: ../..//content/controllers/destination_controller.js:426
 #: ../..//content/controllers/devices_controller.js:1664
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:150
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:151
 #: ../..//content/controllers/hotkey_prefs_controller.js:477
 #: ../..//content/controllers/hotkey_prefs_controller.js:521
 #: ../..//content/controllers/jobs_controller.js:229
@@ -4052,7 +4056,7 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1435
 #: ../..//content/controllers/cart_controller.js:1602
 #: ../..//content/controllers/cart_controller.js:3986
-#: ../..//content/controllers/guest_check_controller.js:2178
+#: ../..//content/controllers/guest_check_controller.js:2202
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
@@ -4065,15 +4069,15 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:2292
 #: ../..//content/controllers/cart_controller.js:3287
 #: ../..//content/controllers/cart_controller.js:3993
-#: ../..//content/controllers/cart_controller.js:4232
-#: ../..//content/controllers/guest_check_controller.js:2191
+#: ../..//content/controllers/cart_controller.js:4225
+#: ../..//content/controllers/guest_check_controller.js:2215
 msgid "Please select an item first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:508
 #: ../..//content/controllers/cart_controller.js:1271
 #: ../..//content/controllers/cart_controller.js:4001
-#: ../..//content/controllers/cart_controller.js:4240
+#: ../..//content/controllers/cart_controller.js:4233
 msgid "Stored items may not be modified"
 msgstr ""
 
@@ -4204,7 +4208,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1594
-#: ../..//content/controllers/guest_check_controller.js:2170
+#: ../..//content/controllers/guest_check_controller.js:2194
 msgid "Not an open order; cannot void"
 msgstr ""
 
@@ -4646,16 +4650,19 @@ msgstr ""
 #: ../..//content/controllers/cashdrawer_controller.js:354
 #: ../..//content/controllers/changeuser_controller.js:117
 #: ../..//content/controllers/clockinout_controller.js:301
-#: ../..//content/controllers/guest_check_controller.js:895
-#: ../..//content/controllers/guest_check_controller.js:1841
-#: ../..//content/controllers/guest_check_controller.js:1975
+#: ../..//content/controllers/guest_check_controller.js:897
+#: ../..//content/controllers/guest_check_controller.js:902
+#: ../..//content/controllers/guest_check_controller.js:1851
+#: ../..//content/controllers/guest_check_controller.js:1856
+#: ../..//content/controllers/guest_check_controller.js:1993
+#: ../..//content/controllers/guest_check_controller.js:1998
 #: ../..//content/controllers/ledger_controller.js:321
 #: ../..//content/controllers/list_orders_controller.js:219
-#: ../..//content/controllers/main_controller.js:1365
-#: ../..//content/controllers/main_controller.js:1901
+#: ../..//content/controllers/main_controller.js:1366
+#: ../..//content/controllers/main_controller.js:1902
 #: ../..//content/controllers/print_controller.js:1277
 #: ../..//content/controllers/setup_wizard_controller.js:698
-#: ../..//content/controllers/shift_changes_controller.js:1636
+#: ../..//content/controllers/shift_changes_controller.js:1658
 #: ../..//content/controllers/stock_records_controller.js:747
 #: ../..//content/controllers/view_order_controller.js:206
 #: ../..//content/controllers/components/cart_utils.js:54
@@ -4692,7 +4699,7 @@ msgid "Total discount [%S] may not exceed user order discount limit [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3595
-#: ../..//content/controllers/shift_changes_controller.js:636
+#: ../..//content/controllers/shift_changes_controller.js:658
 msgid "Saving Order"
 msgstr ""
 
@@ -4786,118 +4793,118 @@ msgstr ""
 msgid "No Condiment group associated with item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4179
+#: ../..//content/controllers/cart_controller.js:4174
 msgid ""
 "Condiment [%S] not added because another condiment from same group [%S] "
 "already exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4225
+#: ../..//content/controllers/cart_controller.js:4218
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4329
+#: ../..//content/controllers/cart_controller.js:4322
 msgid "No order to void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4334
+#: ../..//content/controllers/cart_controller.js:4327
 msgid "The order has already been cancelled or voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4343
+#: ../..//content/controllers/cart_controller.js:4336
 msgid "This operation may only be applied to stored and completed transactions"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4350
+#: ../..//content/controllers/cart_controller.js:4343
 msgid "Confirm Void"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4351
+#: ../..//content/controllers/cart_controller.js:4344
 msgid ""
 "You have made changes to this order; are you sure you want to void the order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4357
+#: ../..//content/controllers/cart_controller.js:4350
 msgid "SALE VOIDED"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4364
+#: ../..//content/controllers/cart_controller.js:4357
 msgid "SALE NOT VOIDED"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4390
+#: ../..//content/controllers/cart_controller.js:4383
 #, python-format
 msgid ""
 "An error was encountered while retrieving order record (error code %s) "
 "[message #107]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4395
+#: ../..//content/controllers/cart_controller.js:4388
 msgid "Retrieving Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4404
+#: ../..//content/controllers/cart_controller.js:4397
 msgid "Failed to void; the selected order no longer exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4414
-#: ../..//content/controllers/guest_check_controller.js:1020
-#: ../..//content/controllers/guest_check_controller.js:1021
+#: ../..//content/controllers/cart_controller.js:4407
+#: ../..//content/controllers/guest_check_controller.js:1028
+#: ../..//content/controllers/guest_check_controller.js:1029
 msgid "This order is already locked by other terminal. [%S,%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4425
+#: ../..//content/controllers/cart_controller.js:4418
 msgid ""
 "Failed to void; the status of the selected order has been changed by another "
 "terminal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4432
+#: ../..//content/controllers/cart_controller.js:4425
 msgid ""
 "Failed to void; the selected order has been modified by another terminal"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4445
+#: ../..//content/controllers/cart_controller.js:4438
 msgid "Failed to void; the selected order is not stored or finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4464
+#: ../..//content/controllers/cart_controller.js:4457
 msgid "Payment Refund"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4467
+#: ../..//content/controllers/cart_controller.js:4460
 msgid "Voiding Order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4556
+#: ../..//content/controllers/cart_controller.js:4549
 msgid ""
 "An error was encountered while changing order status to voided [message "
 "#109]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4566
+#: ../..//content/controllers/cart_controller.js:4559
 msgid "An error was encountered while updating stock level [message #110]."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4574
+#: ../..//content/controllers/cart_controller.js:4567
 msgid "Transaction [%S] successfully voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4623
-#: ../..//content/controllers/guest_check_controller.js:2248
+#: ../..//content/controllers/cart_controller.js:4616
+#: ../..//content/controllers/guest_check_controller.js:2272
 msgid "Add Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4625
-#: ../..//content/controllers/guest_check_controller.js:2248
+#: ../..//content/controllers/cart_controller.js:4618
+#: ../..//content/controllers/guest_check_controller.js:2272
 msgid "Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4681
+#: ../..//content/controllers/cart_controller.js:4674
 msgid "LAST SALE RECALLED"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4685
+#: ../..//content/controllers/cart_controller.js:4678
 msgid "No sale found"
 msgstr ""
 
@@ -5509,19 +5516,19 @@ msgstr ""
 msgid "Locale package [%S] successfully exported"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:149
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:150
 msgid ""
 "You have made changes to function panel configuration. Save changes before "
 "exiting?"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:220
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:221
 msgid "Function panel configuration saved"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:904
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:905
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:906
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:907
 #: ../..//content/controllers/hotkey_prefs_controller.js:68
 #: ../..//content/controllers/hotkey_prefs_controller.js:69
 #: ../..//content/controllers/hotkey_prefs_controller.js:70
@@ -5562,12 +5569,12 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:314
-#: ../..//content/controllers/guest_check_controller.js:1950
+#: ../..//content/controllers/guest_check_controller.js:1966
 msgid "Split Check"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:356
-#: ../..//content/controllers/guest_check_controller.js:1464
+#: ../..//content/controllers/guest_check_controller.js:1472
 msgid "Minimum Charge"
 msgstr ""
 
@@ -5595,7 +5602,7 @@ msgid "Please use transfer table to update table number"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:518
-#: ../..//content/controllers/guest_check_controller.js:2056
+#: ../..//content/controllers/guest_check_controller.js:2080
 msgid ""
 "[%S] is an invalid table number. Table number must be defined through table "
 "manager; Please input another table number."
@@ -5606,233 +5613,246 @@ msgid "Split Payment"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:887
-#: ../..//content/controllers/guest_check_controller.js:1140
-#: ../..//content/controllers/guest_check_controller.js:1210
-#: ../..//content/controllers/guest_check_controller.js:1283
+#: ../..//content/controllers/guest_check_controller.js:1148
+#: ../..//content/controllers/guest_check_controller.js:1218
+#: ../..//content/controllers/guest_check_controller.js:1291
 msgid "Recall Check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:896
+#: ../..//content/controllers/guest_check_controller.js:898
+#: ../..//content/controllers/guest_check_controller.js:1852
+msgid ""
+"This order could not be committed. Please contact technical support for "
+"assistance immediately [message #505]."
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:903
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #502]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:900
+#: ../..//content/controllers/guest_check_controller.js:908
 msgid "Data Operation"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:901
+#: ../..//content/controllers/guest_check_controller.js:909
 msgid ""
 "Previously uncommitted stored order(s) have now been committed to the table "
 "service server."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:903
+#: ../..//content/controllers/guest_check_controller.js:911
 msgid "ORDER COMMITTED"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:907
+#: ../..//content/controllers/guest_check_controller.js:915
 msgid "Not an open order; unable to store"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:918
+#: ../..//content/controllers/guest_check_controller.js:926
 msgid "This order has been submitted"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:923
+#: ../..//content/controllers/guest_check_controller.js:931
 msgid "This order is closed pending payment and may only be finalized"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:928
+#: ../..//content/controllers/guest_check_controller.js:936
 msgid "This order is empty"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:936
+#: ../..//content/controllers/guest_check_controller.js:944
 msgid "No change to store"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:950
+#: ../..//content/controllers/guest_check_controller.js:958
 msgid "STORED"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:952
+#: ../..//content/controllers/guest_check_controller.js:960
 msgid "This order has been stored"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:978
+#: ../..//content/controllers/guest_check_controller.js:986
 #: ../..//content/controllers/list_orders_controller.js:210
 msgid "Recall Order"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:979
+#: ../..//content/controllers/guest_check_controller.js:987
 msgid "Please close the current order before recalling an existing order"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1013
+#: ../..//content/controllers/guest_check_controller.js:1021
 msgid "The requested order is not available"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1029
+#: ../..//content/controllers/guest_check_controller.js:1037
 msgid "This order cannot be recalled [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1119
+#: ../..//content/controllers/guest_check_controller.js:1127
 msgid "RECALL# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1167
+#: ../..//content/controllers/guest_check_controller.js:1175
 msgid "Failed to find orders matching check number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1170
-#: ../..//content/controllers/guest_check_controller.js:1240
-#: ../..//content/controllers/guest_check_controller.js:1313
+#: ../..//content/controllers/guest_check_controller.js:1178
+#: ../..//content/controllers/guest_check_controller.js:1248
+#: ../..//content/controllers/guest_check_controller.js:1321
 msgid "No stored orders found"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1223
+#: ../..//content/controllers/guest_check_controller.js:1231
 msgid "Enter Order Sequence Number"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1237
+#: ../..//content/controllers/guest_check_controller.js:1245
 msgid "Failed to find orders matching order sequence [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1310
+#: ../..//content/controllers/guest_check_controller.js:1318
 msgid "Failed to find orders matching table number [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1465
+#: ../..//content/controllers/guest_check_controller.js:1473
 msgid "The total for this order is less than the minimum charge (%S). "
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1468
+#: ../..//content/controllers/guest_check_controller.js:1476
 msgid "Override Minimum Charge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1479
-#: ../..//content/controllers/guest_check_controller.js:1533
-#: ../..//content/controllers/guest_check_controller.js:1540
-#: ../..//content/controllers/guest_check_controller.js:1547
+#: ../..//content/controllers/guest_check_controller.js:1487
+#: ../..//content/controllers/guest_check_controller.js:1541
+#: ../..//content/controllers/guest_check_controller.js:1548
+#: ../..//content/controllers/guest_check_controller.js:1555
 msgid "The total for this order is less than the minimum charge (%S)"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1504
-#: ../..//content/controllers/guest_check_controller.js:1559
+#: ../..//content/controllers/guest_check_controller.js:1512
+#: ../..//content/controllers/guest_check_controller.js:1567
 msgid ""
 "override minimum charge. override clerk (%S,%S), original minimum charge (%"
 "S), new minimum charge (%S), comp amount (%S)"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1531
+#: ../..//content/controllers/guest_check_controller.js:1539
 msgid ""
 "An additional amount of (%S) has been added to the order to meet the minimum "
 "charge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1684
+#: ../..//content/controllers/guest_check_controller.js:1692
 msgid ""
 "An error was encountered while attempting to remove all table status records "
 "(error code %S) [message #501]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1689
+#: ../..//content/controllers/guest_check_controller.js:1697
 msgid ""
 "An error was encountered while attempting to remove all table status records "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1756
+#: ../..//content/controllers/guest_check_controller.js:1764
 msgid "The same order can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1768
+#: ../..//content/controllers/guest_check_controller.js:1776
 msgid "This order not stored order, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1772
+#: ../..//content/controllers/guest_check_controller.js:1780
 msgid "This order has been payment, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1777
+#: ../..//content/controllers/guest_check_controller.js:1785
 msgid "This order has discounts or surcharge, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1814
+#: ../..//content/controllers/guest_check_controller.js:1822
 #: ../..//content/controllers/select_table_controller.js:590
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1842
+#: ../..//content/controllers/guest_check_controller.js:1857
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #503]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1855
+#: ../..//content/controllers/guest_check_controller.js:1871
 msgid "Check# %S has been successfully merged to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1897
+#: ../..//content/controllers/guest_check_controller.js:1913
 msgid "This order not stored order, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1901
+#: ../..//content/controllers/guest_check_controller.js:1917
 msgid "This order has been payment, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1905
+#: ../..//content/controllers/guest_check_controller.js:1921
 msgid "This order has discounts or surcharge, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1976
+#: ../..//content/controllers/guest_check_controller.js:1994
+msgid ""
+"This order could not be committed. Please contact technical support for "
+"assistance immediately [message #506]."
+msgstr ""
+
+#: ../..//content/controllers/guest_check_controller.js:1999
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #504]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1990
+#: ../..//content/controllers/guest_check_controller.js:2014
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2091
+#: ../..//content/controllers/guest_check_controller.js:2115
 msgid "Transfer Table"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2092
+#: ../..//content/controllers/guest_check_controller.js:2116
 msgid "Transfer table From (%S) To (%S)"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2093
+#: ../..//content/controllers/guest_check_controller.js:2117
 msgid "Are you sure you want to print transfer table check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2134
+#: ../..//content/controllers/guest_check_controller.js:2158
 msgid "Return Cart Item"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2135
+#: ../..//content/controllers/guest_check_controller.js:2159
 msgid "Are you sure you want to print return cart item check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2185
+#: ../..//content/controllers/guest_check_controller.js:2209
 msgid "This operation may only be applied to stored transactions"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2202
+#: ../..//content/controllers/guest_check_controller.js:2226
 msgid "Cannot RUSH the selected item [%S]. It is not the item or setitem."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2222
+#: ../..//content/controllers/guest_check_controller.js:2246
 msgid "Rush Item"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2223
+#: ../..//content/controllers/guest_check_controller.js:2247
 msgid "Are you sure you want to print rush item check for [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2288
+#: ../..//content/controllers/guest_check_controller.js:2312
 msgid "Table Initialization"
 msgstr ""
 
@@ -6236,7 +6256,7 @@ msgid "Reboot after Update"
 msgstr ""
 
 #: ../..//content/controllers/irc_controller.js:336
-#: ../..//content/controllers/main_controller.js:1538
+#: ../..//content/controllers/main_controller.js:1539
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
@@ -6334,11 +6354,11 @@ msgstr ""
 #: ../..//content/controllers/journal_controller.js:241
 #: ../..//content/controllers/ledger_controller.js:322
 #: ../..//content/controllers/list_orders_controller.js:220
-#: ../..//content/controllers/main_controller.js:1367
-#: ../..//content/controllers/main_controller.js:1902
+#: ../..//content/controllers/main_controller.js:1368
+#: ../..//content/controllers/main_controller.js:1903
 #: ../..//content/controllers/setup_wizard_controller.js:699
 #: ../..//content/controllers/shift_changes_controller.js:41
-#: ../..//content/controllers/shift_changes_controller.js:1637
+#: ../..//content/controllers/shift_changes_controller.js:1659
 #: ../..//content/controllers/stock_records_controller.js:748
 #: ../..//content/controllers/view_order_controller.js:207
 #: ../..//content/controllers/components/cart_utils.js:55
@@ -6685,6 +6705,30 @@ msgstr ""
 msgid "Failed to recall the selected order"
 msgstr ""
 
+#: ../..//content/controllers/locale_helper_controller.js:35
+msgid "VIVIECR untranslations found"
+msgstr ""
+
+#: ../..//content/controllers/locale_helper_controller.js:36
+msgid "untranslations:"
+msgstr ""
+
+#: ../..//content/controllers/locale_helper_controller.js:37
+msgid ""
+"Please install new version language pack or press 'OK' to auto fill "
+"untranslations."
+msgstr ""
+
+#: ../..//content/controllers/locale_helper_controller.js:270
+#: ../..//content/controllers/localization_controller.js:621
+msgid "Failed to write DTD to file [%S]"
+msgstr ""
+
+#: ../..//content/controllers/locale_helper_controller.js:285
+#: ../..//content/controllers/localization_controller.js:636
+msgid "Failed to write Properties to file [%S]"
+msgstr ""
+
 #: ../..//content/controllers/localekeyboard_controller.js:58
 #: ../..//content/controllers/sync_settings_controller.js:119
 msgid "No changes to save"
@@ -6727,14 +6771,6 @@ msgid ""
 "The text you entered contains one or more special characters (%, &, \") that "
 "should be used with extreme care. Mis-use may lead to non-functional "
 "screens. Are you sure you still want to modify this translation?"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:621
-msgid "Failed to write DTD to file [%S]"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:636
-msgid "Failed to write Properties to file [%S]"
 msgstr ""
 
 #: ../..//content/controllers/localization_controller.js:678
@@ -6927,7 +6963,7 @@ msgstr ""
 
 #: ../..//content/controllers/main_controller.js:1310
 #: ../..//content/controllers/main_controller.js:1313
-#: ../..//content/controllers/main_controller.js:1383
+#: ../..//content/controllers/main_controller.js:1384
 msgid "Remove All Transaction Records"
 msgstr ""
 
@@ -6948,57 +6984,57 @@ msgstr ""
 msgid "Removing all transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1366
+#: ../..//content/controllers/main_controller.js:1367
 msgid ""
 "An error was encountered while attempting to remove all transaction records "
 "[message #1011]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1384
+#: ../..//content/controllers/main_controller.js:1385
 msgid "Removal completed. Application will now restart"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1404
+#: ../..//content/controllers/main_controller.js:1405
 msgid "Removing expired transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1421
+#: ../..//content/controllers/main_controller.js:1422
 msgid ""
 "An error was encountered while expiring backup sales activity logs (error "
 "code %S) [message #1004]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1430
+#: ../..//content/controllers/main_controller.js:1431
 msgid ""
 "An error was encountered while expiring sales activity logs (error code %S) "
 "[message #1005]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1441
+#: ../..//content/controllers/main_controller.js:1442
 msgid ""
 "An error was encountered while expiring backup employee attendance records "
 "(error code %S) [message #1006]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1450
+#: ../..//content/controllers/main_controller.js:1451
 msgid ""
 "An error was encountered while expiring employee attendance records (error "
 "code %S) [message #1007]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1461
+#: ../..//content/controllers/main_controller.js:1462
 msgid ""
 "An error was encountered while expiring order queues (error code %S) "
 "[message #1008]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1510
+#: ../..//content/controllers/main_controller.js:1511
 msgid ""
 "An error was encountered while retrieving stock adjustment records (error "
 "code %S) [message #1010]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1523
+#: ../..//content/controllers/main_controller.js:1524
 #: ../..//content/controllers/stock_records_controller.js:517
 #: ../..//content/controllers/stock_records_controller.js:575
 #: ../..//content/controllers/stock_records_controller.js:591
@@ -7006,43 +7042,43 @@ msgstr ""
 msgid "Stock Adjustment"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1534
+#: ../..//content/controllers/main_controller.js:1535
 msgid "Adjust Stock"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1538
+#: ../..//content/controllers/main_controller.js:1539
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1546
+#: ../..//content/controllers/main_controller.js:1547
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1546
+#: ../..//content/controllers/main_controller.js:1547
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1647
+#: ../..//content/controllers/main_controller.js:1648
 msgid "Load Test"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1647
+#: ../..//content/controllers/main_controller.js:1648
 msgid "Open order exists, discard the order and proceed with the load test?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1922
+#: ../..//content/controllers/main_controller.js:1923
 msgid "Function Customizer"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1984
+#: ../..//content/controllers/main_controller.js:1985
 msgid "Report [%S] does not exist"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1994
+#: ../..//content/controllers/main_controller.js:1995
 msgid "You are not authorized to access the [%S] report"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:2066
+#: ../..//content/controllers/main_controller.js:2067
 msgid "Select User"
 msgstr ""
 
@@ -7900,8 +7936,9 @@ msgstr ""
 #: ../..//content/controllers/shift_changes_controller.js:340
 #: ../..//content/controllers/shift_changes_controller.js:354
 #: ../..//content/controllers/shift_changes_controller.js:366
-#: ../..//content/controllers/shift_changes_controller.js:411
-#: ../..//content/controllers/shift_changes_controller.js:435
+#: ../..//content/controllers/shift_changes_controller.js:415
+#: ../..//content/controllers/shift_changes_controller.js:432
+#: ../..//content/controllers/shift_changes_controller.js:457
 msgid "Shift Change Error"
 msgstr ""
 
@@ -7927,243 +7964,250 @@ msgid ""
 "properly initialized the sale period [message #1432]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:412
+#: ../..//content/controllers/shift_changes_controller.js:416
 msgid ""
 "Failed to start sale period because order sequence number could not be "
 "reset. Please make sure that the terminal designated as the sequence number "
 "master is working normally [message #1433]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:436
+#: ../..//content/controllers/shift_changes_controller.js:433
+msgid ""
+"Failed to start sale period because order check number could not be reset. "
+"Please make sure that the terminal designated as the sequence number master "
+"is working normally [message #1439]"
+msgstr ""
+
+#: ../..//content/controllers/shift_changes_controller.js:458
 msgid ""
 "Failed to start sale period because cluster sale period could not be "
 "updated. Please check the network connectivity to the terminal designated as "
 "the sale period master [message #1434]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:481
-#: ../..//content/controllers/shift_changes_controller.js:489
+#: ../..//content/controllers/shift_changes_controller.js:503
+#: ../..//content/controllers/shift_changes_controller.js:511
 msgid "Shift Change Warning"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:482
+#: ../..//content/controllers/shift_changes_controller.js:504
 msgid ""
 "This terminal's sale period [%S] appears to be ahead of the cluster sale "
 "period [%S]. Transactions will be recorded in the cluster sale period [%S] "
 "and shift [%S] instead."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:490
+#: ../..//content/controllers/shift_changes_controller.js:512
 msgid ""
 "This terminal's sale period [%S] appears to be out of sync with the cluster "
 "sale period [%S]. Please close the sale period on this terminal immediately "
 "to avoid recording transactions in the wrong sale period."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:554
+#: ../..//content/controllers/shift_changes_controller.js:576
 msgid "Drawer change on record [%S], user reported change [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:567
+#: ../..//content/controllers/shift_changes_controller.js:589
 msgid "(Ledger Type)Drawer Change Discrepancy"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:576
+#: ../..//content/controllers/shift_changes_controller.js:598
 msgid "IMPORTANT!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:577
+#: ../..//content/controllers/shift_changes_controller.js:599
 msgid "Cash reported [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:578
+#: ../..//content/controllers/shift_changes_controller.js:600
 msgid "Cash recorded from last shift [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:579
+#: ../..//content/controllers/shift_changes_controller.js:601
 msgid "Please report the discrepancy to your supervisor immediately!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:612
+#: ../..//content/controllers/shift_changes_controller.js:634
 msgid "Drawer Change Error"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:632
+#: ../..//content/controllers/shift_changes_controller.js:654
 msgid "Shift change is disabled in training mode"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:682
+#: ../..//content/controllers/shift_changes_controller.js:704
 msgid ""
 "An error was encountered while retrieving credit card, check, and coupon "
 "payment records (error code %S) [message #1410]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:711
+#: ../..//content/controllers/shift_changes_controller.js:733
 msgid ""
 "An error was encountered while retrieving giftcard payment records (error "
 "code %S) [message #1411]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:738
+#: ../..//content/controllers/shift_changes_controller.js:760
 msgid ""
 "An error was encountered while retrieving cash payment records (error code %"
 "S) [message #1413]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:765
+#: ../..//content/controllers/shift_changes_controller.js:787
 msgid ""
 "An error was encountered while retrieving value-fixed cash payment records "
 "(error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:793
+#: ../..//content/controllers/shift_changes_controller.js:815
 msgid ""
 "An error was encountered while retrieving foreign cash payment records "
 "(error code %S) [message #1415]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:821
+#: ../..//content/controllers/shift_changes_controller.js:843
 msgid ""
 "An error was encountered while retrieving groupable coupon payment records "
 "(error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:849
+#: ../..//content/controllers/shift_changes_controller.js:871
 msgid ""
 "An error was encountered while retrieving groupable cash payment records "
 "(error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:877
+#: ../..//content/controllers/shift_changes_controller.js:899
 msgid ""
 "An error was encountered while retrieving groupable foreign cash payment "
 "records (error code %S) [message #1414]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:904
+#: ../..//content/controllers/shift_changes_controller.js:926
 msgid ""
 "An error was encountered while retrieving ledger payment records (error code "
 "%S) [message #1416]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:932
+#: ../..//content/controllers/shift_changes_controller.js:954
 msgid ""
 "An error was encountered while retrieving orders by destinations (error code "
 "%S) [message #1417]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:954
+#: ../..//content/controllers/shift_changes_controller.js:976
 msgid ""
 "An error was encountered while computing cash and ledger sums (error code %"
 "S) [message #1418]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:973
+#: ../..//content/controllers/shift_changes_controller.js:995
 msgid ""
 "An error was encountered while computing amount of cash change given out "
 "(error code %S) [message #1419]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:994
+#: ../..//content/controllers/shift_changes_controller.js:1016
 msgid ""
 "An error was encountered while computing total payments received (error code "
 "%S) [message #1420]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1012
+#: ../..//content/controllers/shift_changes_controller.js:1034
 msgid ""
 "An error was encountered while computing depoits received (error code %S) "
 "[message #1421]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1031
+#: ../..//content/controllers/shift_changes_controller.js:1053
 msgid ""
 "An error was encountered while computing refunds given out (error code %S) "
 "[message #1422]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1049
+#: ../..//content/controllers/shift_changes_controller.js:1071
 msgid ""
 "An error was encountered while computing sales revenue (error code %S) "
 "[message #1423]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1067
+#: ../..//content/controllers/shift_changes_controller.js:1089
 msgid ""
 "An error was encountered while computing total sales payments received "
 "(error code %S) [message #1427]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1087
+#: ../..//content/controllers/shift_changes_controller.js:1109
 msgid ""
 "An error was encountered while computing ledger cash received (error code %"
 "S) [message #1424]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1106
+#: ../..//content/controllers/shift_changes_controller.js:1128
 msgid ""
 "An error was encountered while computing ledger cash paid (error code %S) "
 "[message #1425]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1125
+#: ../..//content/controllers/shift_changes_controller.js:1147
 msgid ""
 "An error was encountered while computing excess giftcard payments (error "
 "code %S) [message #1426]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1147
+#: ../..//content/controllers/shift_changes_controller.js:1169
 msgid ""
 "An error was encountered while retrieving order records (error code %S) "
 "[message #1428]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1217
+#: ../..//content/controllers/shift_changes_controller.js:1239
 msgid "Invalid cash drawer change amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1221
+#: ../..//content/controllers/shift_changes_controller.js:1243
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1298
+#: ../..//content/controllers/shift_changes_controller.js:1320
 msgid ""
 "An error was encountered while saving shift change record; shift may not "
 "have been closed properly [message #1427].."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1335
+#: ../..//content/controllers/shift_changes_controller.js:1357
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1336
+#: ../..//content/controllers/shift_changes_controller.js:1358
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1365
+#: ../..//content/controllers/shift_changes_controller.js:1387
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1366
+#: ../..//content/controllers/shift_changes_controller.js:1388
 msgid "Shift Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1376
+#: ../..//content/controllers/shift_changes_controller.js:1398
 msgid "Are you sure you want to print shift report?"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1391
+#: ../..//content/controllers/shift_changes_controller.js:1413
 msgid "Are you sure you want to print daily sales report?"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1531
-#: ../..//content/controllers/shift_changes_controller.js:1537
-#: ../..//content/controllers/shift_changes_controller.js:1574
-#: ../..//content/controllers/shift_changes_controller.js:1599
+#: ../..//content/controllers/shift_changes_controller.js:1553
+#: ../..//content/controllers/shift_changes_controller.js:1559
+#: ../..//content/controllers/shift_changes_controller.js:1596
+#: ../..//content/controllers/shift_changes_controller.js:1621
 msgid "Shift Error"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1532
+#: ../..//content/controllers/shift_changes_controller.js:1554
 msgid ""
 "Failed to verify current sale period. Please check the network connectivity "
 "to the terminal designated as the sale period master. You are strongly "
@@ -8171,38 +8215,38 @@ msgid ""
 "this terminal [message #1435]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1538
+#: ../..//content/controllers/shift_changes_controller.js:1560
 msgid ""
 "Failed to verify current sale period because cluster sale period has not yet "
 "been set. Please verify that the terminal designated as the sale period "
 "master has properly initialized the sale period [message #1436]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1558
+#: ../..//content/controllers/shift_changes_controller.js:1580
 msgid ""
 "Sale period has been changed from [%S] to [%S]. Order sequence number "
 "updated to [%S]."
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1575
+#: ../..//content/controllers/shift_changes_controller.js:1597
 msgid ""
 "Failed to verify current sale period due to errors when retrieving shift "
 "information. You are strongly advised to resolve this issue before executing "
 "any further transactions on this terminal [#1437]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1582
+#: ../..//content/controllers/shift_changes_controller.js:1604
 msgid "Shift Warning"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1583
+#: ../..//content/controllers/shift_changes_controller.js:1605
 msgid ""
 "This terminal's sale period [%S (%S)] appears to be out of sync with the "
 "cluster sale period [%S (%S)]. Please close the sale period on this terminal "
 "immediately to avoid recording transactions in the wrong sale period [#1438]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:1600
+#: ../..//content/controllers/shift_changes_controller.js:1622
 msgid ""
 "A valid sale period has not been set for this terminal. Please resolve this "
 "issue before executing any further transactions on this terminal."
@@ -9274,27 +9318,27 @@ msgstr ""
 msgid "Surcharge amount [%S] may not exceed user item surcharge limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2104
+#: ../..//content/models/transaction.js:2105
 msgid "Condiment [%S] already added to [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2171
+#: ../..//content/models/transaction.js:2173
 msgid "Condiment may only be added to an item"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2880
+#: ../..//content/models/transaction.js:2882
 msgid "Price HALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2895
+#: ../..//content/models/transaction.js:2897
 msgid "Price adjusted from [%S] to current HALO [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2904
+#: ../..//content/models/transaction.js:2906
 msgid "Price LALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2919
+#: ../..//content/models/transaction.js:2921
 msgid "Price adjusted from [%S] to current LALO [%S]"
 msgstr ""
 
