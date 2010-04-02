@@ -73,7 +73,7 @@
             //this.log('execute ' + sql2) ;
             cartItems = cartItemModel.getDataSource().fetchAll(sql2);
 
-            this.log(this.dump(cartItems));
+            //this.log(this.dump(cartItems));
             switch (amount_mode) {
                 case "single":
                     amount = 1;
