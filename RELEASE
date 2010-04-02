@@ -94,3 +94,9 @@ Bug #434:
 
 Bug #438:
     Label of checkbox option in the right column may be mis-aligned
+
+Ticket#25:
+    Customizedd SQL statements require escaped quotation marks ('')
+
+Ticket#26:
+    Auto fill untranslations.
