@@ -4606,15 +4606,19 @@
 
              items.forEach( function(item){
 
-
                   keypadController.sendCharcode(item.current_qty+ "");
                   keypadController.sendCharcode('*');
                   keypadController.sendCharcode(item.current_price + "");
-
-                  // check item unit            
-
+                    
                   let id = item.id;
                   let product = products[id] || categories[id];
+
+                  if(!product){
+                      GREUtils.Dialog.alert(this.topmostWindow,
+                        _('Product Error'),
+                        _('Product number [%S] does not exist', [item.product_no]));
+                  }
+
                   main.requestCommand('addItem',product,'Cart');
              });
         },
