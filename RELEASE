@@ -100,3 +100,7 @@ Ticket#25:
 
 Ticket#26:
     Auto fill untranslations.
+
+Ticket#27:
+    Fixed saveToBackup not check data type bug.
+
