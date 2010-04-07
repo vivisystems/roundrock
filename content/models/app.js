@@ -12,14 +12,26 @@
         saveToBackup: function( data, updateTimestamp ) {
             var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             if ( isTraining ) return true;
-            
+            if (!data) return true;
+
             // update created and modified
             if (!updateTimestamp) {
-                if (typeof data.created == 'undefined') {
-                    data.created = Math.round( (new Date()).getTime() / 1000) ;
+
+                var updateTS = function(d) {
+                    if (typeof d.created == 'undefined') {
+                        d.created = Math.round( (new Date()).getTime() / 1000) ;
+                    }
+                    d['modified'] = Math.round( (new Date()).getTime() / 1000) ;
+                };
+
+
+                if(typeof data == 'object' && data.constructor.name == 'Array') {
+                    data.map(updateTS);
+                }else if(typeof data == 'object') {
+                    updateTS(data);
                 }
-                data['modified'] = Math.round( (new Date()).getTime() / 1000) ;
             }
+
             return this._super( data, updateTimestamp );
         },
         
