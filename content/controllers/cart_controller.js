@@ -405,12 +405,9 @@
             if (curTransaction == null){
                 if(autoCreate) return this._newTransaction();
                 return null;
-            }else if (autoCreate && curTransaction.isCancel()) {
+            }else if (autoCreate && (curTransaction.isCancel() || curTransaction.isVoided() || curTransaction.isSubmit())) {
                 return this._newTransaction();
             }    
-
-            // has submit
-            if (curTransaction.isSubmit() && autoCreate ) return this._newTransaction();
 
             return curTransaction;
         },
