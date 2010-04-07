@@ -4604,11 +4604,9 @@
 
              let items = GeckoJS.BaseObject.getValues(evt.data.data.items);
 
-             items.forEach( function(item){
+             let self = this ;
 
-                  keypadController.sendCharcode(item.current_qty+ "");
-                  keypadController.sendCharcode('*');
-                  keypadController.sendCharcode(item.current_price + "");
+             items.forEach( function(item){
                     
                   let id = item.id;
                   let product = products[id] || categories[id];
@@ -4619,8 +4617,37 @@
                         _('Product number [%S] does not exist', [item.product_no]));
                   }
 
+                  keypadController.sendCharcode(item.current_qty+ "");
+                  keypadController.sendCharcode('*');
+                  keypadController.sendCharcode(item.current_price + "");
+
                   main.requestCommand('addItem',product,'Cart');
+
+                  /* item has condiments*/
+                  if(item.condiments){
+                      
+                       let condiments = GeckoJS.BaseObject.getValues(item.condiments);
+
+                       condiments.forEach( function(con){
+                            let condiment = self._getCondimentByName(con.name);
+                            self.addCondiment(null, [condiment], true);
+                            //main.requestCommand('addCondiment',condiment,'Cart');
+                       });
+                  }
              });
+        },
+        /* input condiment name, return object */
+        _getCondimentByName: function(name){
+
+             let condiments = GeckoJS.Session.get('condGroups');
+
+             for(var i = 0 ; i< condiments.length ; i++){
+                   for(var j = 0 ; j< condiments[i].Condiment.length ; j++){
+                        if(condiments[i].Condiment[j].name == name)
+                            return condiments[i].Condiment[j];
+                   }
+             }
+             return false ;
         },
 
         _getMemoDialog: function (memo) {
