@@ -249,7 +249,7 @@
             <preference id="pref_signoffwhenidle" name="vivipos.fec.settings.SignOffWhenIdle" type="bool"/>
         </preferences>
 
-        <grid class="data-form-2 data-form-options1">
+        <grid class="data-form-2 data-form-options">
             <columns>
                 <column class="column-fixed-2"/>
                 <column flex="1"/>
@@ -283,7 +283,7 @@
             <preference id="pref_hideshiftdialog" name="vivipos.fec.settings.HideShiftDialog" type="bool"/>
         </preferences>
 
-        <grid class="data-form-2 data-form-options1">
+        <grid class="data-form-2 data-form-options">
             <columns>
                 <column class="column-fixed-2"/>
                 <column flex="1"/>
@@ -350,7 +350,7 @@
             <preference id="pref_inventory_adjustment_retaindays" name="vivipos.fec.settings.InventoryAdjustmentRetainDays" type="int"/>
         </preferences>
 
-        <grid class="data-form-2 data-form-options">
+        <grid class="data-form data-form-options">
             <columns>
                 <column flex="1"/>
                 <column flex="1"/>
@@ -395,7 +395,7 @@
             <preference id="pref_ifprintwhiletraining" name="vivipos.fec.settings.ifprintwhiletraining" type="bool"/>
         </preferences>
         
-        <grid class="data-form-2 data-form-options">
+        <grid class="data-form data-form-options">
             <columns>
                 <column flex="1"/>
                 <column flex="1"/>
