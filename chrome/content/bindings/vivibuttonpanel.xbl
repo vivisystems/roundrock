@@ -521,6 +521,12 @@
     <method name="render">
         <body><![CDATA[
 
+            // GREUtils.log('vivibutton panel render ' + this.parentNode.parentNode.id);
+
+            var evt = document.createEvent('Event');
+            evt.initEvent("render", true, false);
+            this.canceled = this.dispatchEvent(evt);
+
             this.__buttons = this.buttons;
             this.__buttonCount = this.buttonCount;
             this.__datasource = this.getDatasource();
