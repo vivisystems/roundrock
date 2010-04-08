@@ -21,7 +21,7 @@
             this.bindingPanel(domId);
 
             // register listener for refresh event
-            this.tree.addEventListener('refresh', this.refreshCallback, true);
+            this.tree.addEventListener('render', this.refreshCallback, true);
 
             // register eventListener
             this.registerEventListener();
