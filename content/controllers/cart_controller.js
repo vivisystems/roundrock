@@ -4596,58 +4596,76 @@
                     return;
                 }
 
-             let keypadController = GeckoJS.Controller.getInstanceByName('Keypad');
-             let main = GeckoJS.Controller.getInstanceByName('Main');
+             let transaction = evt.data.data;
 
-             let products = GeckoJS.Session.get('productsById');
-             let categories = GeckoJS.Session.get('categoriesById');
+             this.dispatchEvent('onUnlockRecallOrderByNewId', curTransaction);
+             
+             let curTransaction = this._createNewTransaction(transaction);            
 
-             let items = GeckoJS.BaseObject.getValues(evt.data.data.items);
+             curTransaction.calcPromotions();
+             curTransaction.calcTotal();
 
-             let self = this ;
+             this.dispatchEvent('onGetSubtotal', curTransaction);
 
-             items.forEach( function(item){
-                    
-                  let id = item.id;
-                  let product = products[id] || categories[id];
+             this.dispatchEvent('afterUnlockRecallOrderByNewId', curTransaction);
 
-                  if(!product){
-                      GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Product Error'),
-                        _('Product number [%S] does not exist', [item.product_no]));
-                  }
+             this._setTransactionToView(curTransaction);
+          //   this.returnItem(true);
+             this._clearAndSubtotal();
 
-                  keypadController.sendCharcode(item.current_qty+ "");
-                  keypadController.sendCharcode('*');
-                  keypadController.sendCharcode(item.current_price + "");
-
-                  main.requestCommand('addItem',product,'Cart');
-
-                  /* item has condiments*/
-                  if(item.condiments){
-                      
-                       let condiments = GeckoJS.BaseObject.getValues(item.condiments);
-
-                       condiments.forEach( function(con){
-                            let condiment = self._getCondimentByName(con.name);
-                            self.addCondiment(null, [condiment], true);
-                            //main.requestCommand('addCondiment',condiment,'Cart');
-                       });
-                  }
-             });
+             curTransaction.updateCartView(-1, -1);          
         },
-        /* input condiment name, return object */
-        _getCondimentByName: function(name){
 
-             let condiments = GeckoJS.Session.get('condGroups');
+        /*Create a new transaction that data is assigned by data of input old transaction*/
+        _createNewTransaction: function( oldTrans ){
 
-             for(var i = 0 ; i< condiments.length ; i++){
-                   for(var j = 0 ; j< condiments[i].Condiment.length ; j++){
-                        if(condiments[i].Condiment[j].name == name)
-                            return condiments[i].Condiment[j];
-                   }
+            let curTransaction = new Transaction(false);
+
+             let id = curTransaction.data.id
+
+             curTransaction.data  = oldTrans;
+
+             curTransaction.data.id = id;
+             
+             /*delete all display sequences batch property*/
+             curTransaction.data.display_sequences.forEach(function(item){
+
+                 delete item.batch;
+             });
+
+             /*delete all items hasMark property*/
+             for( id in curTransaction.data.items){
+                 curTransaction.data.items[id].hasMarker = false;
              }
-             return false ;
+
+             /* change transaction status*/
+             curTransaction.data.status = 0;
+
+             /*keeps item and condiment in the order, others are removed*/
+             for(var i = 0 ; i< curTransaction.data.display_sequences.length ; i++){
+
+                  var stuff = curTransaction.data.display_sequences[i];
+
+                  if(stuff.type != 'item' && stuff.type != 'condiment'){
+                      curTransaction.data.display_sequences.splice(i, 1);
+                      i--;
+                  }
+             }
+
+             let subtotal = curTransaction.data.payment_subtotal ;
+
+             curTransaction.data.remain = 0;
+             curTransaction.data.total = 0;
+             curTransaction.data.payment_subtotal = 0;
+             curTransaction.data.average_price = 0;
+             curTransaction.data.item_subtotal = 0;
+
+             curTransaction.data.batchCount = 0;
+             delete curTransaction.data.batchItemCount;
+             delete curTransaction.data.batchPaymentCount;
+             curTransaction.data.trans_payments = {};
+
+             return curTransaction;
         },
 
         _getMemoDialog: function (memo) {
