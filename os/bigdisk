@@ -1,0 +1,265 @@
+#!/bin/sh -x
+
+LABEL_PATH=/dev/disk/by-label
+VOLUME=VIVIPOS_DATA
+LICENSE=/etc/vivipos.lic
+MTAB=/etc/mtab
+MARKER=.bigdisk
+STAGING=/mnt/vivipos_data
+TARGET=/data
+PROVISIONED=0
+MOUNT=""
+DIRS="backups databases images irc_packages journal training"
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+export PATH
+
+. /lib/lsb/init-functions
+
+##
+## check if data volume exists
+##
+
+handle_failure() {
+    if [ ! -z "${MOUNT}" -a -d "${MOUNT}" ]
+    then
+	sync
+	umount -l ${MOUNT}
+	if [ -d ${STAGING} ]
+	then
+	    rmdir ${STAGING}
+	fi
+    fi
+
+    log_failure_msg "VIVIPOS data volume not loaded"
+    log_end_msg 1
+
+    exit
+}
+
+log_begin_msg "Loading VIVIPOS data volume"
+
+##
+## check if license file exists
+##
+
+if [ ! -r ${LICENSE} ]
+then
+    log_warning_msg "... license file is non-existent"
+    handle_failure
+fi
+
+##
+## check if data volume is present
+##
+
+DEVICE=`findfs LABEL=${VOLUME}`
+
+if [ ! -z "${DEVICE}" ]
+then
+
+    ##
+    ## check if USB device
+    ##
+
+    BUS=`udevinfo -q env -n ${DEVICE} | grep ID_BUS | awk -F "=" '{ print $2 }'`
+    if [ ${BUS} = "usb" ]
+    then
+	log_warning_msg "... data volume is connected via USB"
+	handle_failure
+    fi
+
+    ##
+    ## check if data volume is already mounted
+    ##
+
+    MOUNT=`grep -m 1 "${DEVICE}" ${MTAB} | awk -F " " '{ print $2 }'`
+    if [ -z "${MOUNT}" ]
+    then
+
+	##
+	## need to mount, so let's ensure staging mount point exists
+	##
+
+	if [ ! -d ${STAGING} ]
+	then
+
+	    ##
+	    ## create staging mount point
+	    ##
+
+	    mkdir -p ${STAGING}
+	    if [ -d ${STAGING} ]
+	    then
+	        log_warning_msg "... created mount point at [${STAGING}]"
+	    else
+	        log_warning_msg "... failed to creat mount point at [${STAGING}]"
+		handle_failure
+	    fi
+	fi
+
+	##
+	## mount data volume and record mount point
+	##
+
+	mount ${LABEL_PATH}/${VOLUME} ${STAGING}
+	MOUNT=`cat ${MTAB} | awk -F " " '{ print $2 }' | grep "${STAGING}"`
+
+    else
+
+	##
+	## volume already mounted
+	##
+
+	log_warning_msg "... data volume [${VOLUME}] already mounted on [${MOUNT}]"
+    fi
+
+    ##
+    ## proceed only if volume is successfully mounted at staging mount point
+    ##
+
+    if [ "${MOUNT}" != "${STAGING}" ]
+    then
+	MOUNT=""
+
+	log_warning_msg "... data volume [${VOLUME}] not mounted at staging location [${STAGING}]"
+	handle_failure
+    fi
+
+    ##
+    ## has this volume been provisioned?
+    ##
+
+    if [ -r ${STAGING}/${MARKER} ]
+    then
+	PROVISIONED=1
+	/usr/bin/cmp -s ${STAGING}/${MARKER} ${LICENSE}
+	if [ $? -eq 0 ]
+	then
+	    log_warning_msg "... data volume [${VOLUME}] has been provisioned"
+	else
+	    log_warning_msg "... data volume [${VOLUME}] has been provisioned for another terminal"
+	    handle_failure
+	fi
+    else
+	PROVISIONED=0
+    fi
+
+    ##
+    ## provision data volume if necessary
+    ##
+
+    if [ ${PROVISIONED} -eq 0 ]
+    then
+
+	##
+	## check if /data directory already exists on data volume
+	##
+
+	if [ -d ${STAGING}/data ]
+	then
+	    log_warning_msg "... provisioning terminated due to presence of existing data on data volume [${VOLUME}]"
+	    handle_failure
+	else
+	    mkdir -p ${STAGING}/data
+	    if [ ! -d ${STAGING}/data ]
+	    then
+		log_warning_msg "... failed to create data directory on data volume [${VOLUME}]"
+		handle_failure
+	    fi
+	fi
+	
+	##
+	## copy from existing data
+	##
+
+	tar -chf - -C ${TARGET} ${DIRS} | tar -xf - -C ${STAGING}/data
+	if [ $? -ne 0 ]
+	then
+	    log_warning_msg "... failed to copy from [${TARGET}] to data volume [${VOLUME}]"
+	    handle_failure
+	fi
+
+	##
+	## create provisioning marker
+	##
+
+	cp ${LICENSE} ${STAGING}/${MARKER}
+	/usr/bin/cmp -s ${STAGING}/${MARKER} ${LICENSE}
+	if [ -r ${STAGING}/${MARKER} -a $? -eq 0 ]
+	then
+	    log_warning_msg "... data volume [${VOLUME}] successfully provisioned"
+	else
+	    ##
+	    ## clean up data
+	    ##
+	    rm -rf ${STAGING}/data
+
+	    log_warning_msg "... failed to create provisioning marker"
+
+	    handle_failure
+	fi
+    fi
+
+    ##
+    ## mount subdirectories from staging to target mount point
+    ##
+
+    for dir in ${DIRS}
+    do
+	log_warning_msg "... mounting [${STAGING}/data/${dir}] on [${TARGET}/${dir}]"
+	mount --bind ${STAGING}/data/${dir} ${TARGET}/${dir}
+    done
+
+    ##
+    ## verify that all subdirectories are mounted correctly
+    ##
+    MOUNTED_ALL=1
+    for dir in ${DIRS}
+    do
+    	FOUND=`awk -F " " '{ print $2 }' ${MTAB} | grep "${TARGET}/${dir}"`
+	if [ -z "${FOUND}" ]
+	then
+	    log_warning_msg "... failed to mount [${STAGING}/data/${dir}] on [${TARGET}/${dir}]"
+	    MOUNTED_ALL=0
+	fi
+    done
+
+    if [ ${MOUNTED_ALL} -eq 0 ]
+    then
+	##
+	## one or more subdirectories failed to mount
+	##
+
+	sync
+
+	for dir in ${DIRS}
+	do
+	    umount -f ${TARGET}/${dir}
+	    log_warning_msg "... umounting [${STAGING}/data/${dir}] on [${TARGET}/${dir}]"
+	done
+
+	log_warning_msg "... one or more subdirectories failed to mount"
+
+	handle_failure
+
+    fi
+
+    ##
+    ## mount big disk Marker
+    ##
+    touch ${TARGET}/${MARKER}
+    mount --bind ${STAGING}/${MARKER} ${TARGET}/${MARKER}
+
+    log_success_msg "... data volume [${VOLUME}] successfully mounted on [${TARGET}]"
+
+else
+    ##
+    ## data volume is not available
+    ##
+    log_success_msg "... data volume [${VOLUME}] is not available"
+fi
+
+sync
+
+log_end_msg 0

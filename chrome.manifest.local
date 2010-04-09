@@ -1,0 +1,4 @@
+content roundrock /home/user/workspace/roundrock/chrome/content/ xpcnativewrappers=yes
+skin roundrock traditional-800x600/1.0 /home/user/workspace/roundrock/chrome/skin/traditional-800x600/
+skin roundrock traditional-1024x768/1.0 /home/user/workspace/roundrock/chrome/skin/traditional-1024x768/
+locale roundrock en /home/user/workspace/roundrock/chrome/locale/en/
