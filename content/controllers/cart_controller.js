@@ -4596,7 +4596,7 @@
                     return;
                 }
 
-             let transaction = evt.data.data;
+             let transaction = evt.data;
 
              this.dispatchEvent('onUnlockRecallOrderByNewId', curTransaction);
              
@@ -4610,7 +4610,7 @@
              this.dispatchEvent('afterUnlockRecallOrderByNewId', curTransaction);
 
              this._setTransactionToView(curTransaction);
-          //   this.returnItem(true);
+             //   this.returnItem(true);
              this._clearAndSubtotal();
 
              curTransaction.updateCartView(-1, -1);          
@@ -4622,10 +4622,18 @@
             let curTransaction = new Transaction(false);
 
              let id = curTransaction.data.id
+             let check_no = curTransaction.data.check_no;
+             let seq = curTransaction.data.seq;
+             let seq_original = curTransaction.data.seq_original;
 
-             curTransaction.data  = oldTrans;
+             curTransaction.data  = oldTrans.data;
 
              curTransaction.data.id = id;
+             curTransaction.data.check_no = check_no;
+             curTransaction.data.seq = seq;
+             curTransaction.data.seq_original = seq_original;
+
+             curTransaction.data.close = false ;
              
              /*delete all display sequences batch property*/
              curTransaction.data.display_sequences.forEach(function(item){
@@ -4636,6 +4644,7 @@
              /*delete all items hasMark property*/
              for( id in curTransaction.data.items){
                  curTransaction.data.items[id].hasMarker = false;
+                 curTransaction.data.items[id].created = Math.round(new Date().getTime() / 1000 );
              }
 
              /* change transaction status*/
@@ -4646,6 +4655,8 @@
 
                   var stuff = curTransaction.data.display_sequences[i];
 
+                  stuff.created = Math.round(new Date().getTime() / 1000 );
+
                   if(stuff.type != 'item' && stuff.type != 'condiment'){
                       curTransaction.data.display_sequences.splice(i, 1);
                       i--;
@@ -4654,17 +4665,46 @@
 
              let subtotal = curTransaction.data.payment_subtotal ;
 
+             /*initialize transaction */
              curTransaction.data.remain = 0;
              curTransaction.data.total = 0;
              curTransaction.data.payment_subtotal = 0;
              curTransaction.data.average_price = 0;
              curTransaction.data.item_subtotal = 0;
-
              curTransaction.data.batchCount = 0;
+             
              delete curTransaction.data.batchItemCount;
              delete curTransaction.data.batchPaymentCount;
              curTransaction.data.trans_payments = {};
 
+             /* reset time*/
+             curTransaction.data.created = Math.round(new Date().getTime() / 1000 );
+             curTransaction.data.modified = Math.round(new Date().getTime() / 1000 );
+             curTransaction.data.transaction_created =  Math.round(new Date().getTime() / 1000 );
+             delete curTransaction.data.transaction_submitted;
+
+             /*reset clerk*/
+             var user = this.Acl.getUserPrincipal();
+             curTransaction.data.proceeds_clerk = user.username;
+             curTransaction.data.proceeds_clerk_displayname = user.description;
+
+             var salePeriod = GeckoJS.Session.get('sale_period');
+             var shiftNumber = GeckoJS.Session.get('shift_number');
+
+             curTransaction.data.sale_period = salePeriod;
+             curTransaction.data.shift_number = shiftNumber;
+
+             // set branch and terminal info
+            var terminalNo = GeckoJS.Session.get('terminal_no') || '';
+            curTransaction.data.terminal_no = terminalNo;
+
+            var store = GeckoJS.Session.get('storeContact');
+
+            if (store) {
+                curTransaction.data.branch = store.branch;
+                curTransaction.data.branch_id = store.branch_id;
+            }
+              
              return curTransaction;
         },
 
