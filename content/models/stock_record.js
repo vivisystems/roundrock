@@ -366,7 +366,7 @@
                 (product.quantity || 0) + ", " +
                 created + ", " +
                 modified + "); \n" ;
-            });
+            }, this);
 
             if (sql.length > 0) {
                 var sqlWithTransaction = 'BEGIN EXCLUSIVE; \n' + sql + 'COMMIT; ';
@@ -432,7 +432,7 @@
                     "created=" + created + ", " +
                     "modified="  + modified + " " +
                     "WHERE id='" + stockRecord.id + "'; \n" ;
-                });
+                }, this);
 
                 if (sql.length > 0) {
                     var sqlWithTransaction = 'BEGIN EXCLUSIVE; \n' + sql + 'COMMIT; ';
