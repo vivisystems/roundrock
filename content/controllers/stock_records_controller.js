@@ -70,7 +70,7 @@
             this.sleep(100);
 
             sql = "SELECT products.no, products.name, products.barcode, products.sale_unit, products.min_stock, products.auto_maintain_stock, stock_records.warehouse, stock_records.quantity FROM products INNER  JOIN stock_records ON (products.no=stock_records.id) ORDER BY products.no";
-            var stockRecords = this.StockRecord.getDataSource().fetchAll(sql) || [];
+            var stockRecords = this.StockRecord.getDataSource().fetchAll(sql);
             
             // make progressbar move
             this.sleep(100);
