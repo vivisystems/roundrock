@@ -4,12 +4,14 @@
 #include <unistd.h>
 #include <memory.h>
 #include <termios.h>
+#include <unistd.h>
 #include <linux/serial.h>
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/time.h>
 #include <poll.h>
 #include <errno.h>
+#include <math.h>
 
 #include "portcontrol-error.h"
 #include "portcontrol-serial.h"
@@ -18,6 +20,7 @@ static long serMatchPortName        (char const * portName);
 static long serOpenPort             (char const * portName, char const * portSettings);
 static long serWritePort            (char const * portName, char const * writeBuffer, long length);
 static long serReadPortPrv          (char const * portName, char * readBuffer, long length, long minLength, long timeMillis);
+static long serAvailablePort        (char const * portName);
 static long serReadPort			(char const * portName, char * readBuffer, long length);
 static int  serStatusPort		(char const * portName);
 static long serHdwrResetDevice      (char const * portName);
@@ -38,6 +41,7 @@ PortControlImpl getSerPortControlImpl()
     impl.matchPortName          = serMatchPortName;
     impl.openPort               = serOpenPort;
     impl.writePort              = serWritePort;
+    impl.availablePort               = serAvailablePort;
     impl.readPort               = serReadPort;
     impl.statusPort				= serStatusPort;
     impl.hdwrResetDevice		= serHdwrResetDevice;
@@ -110,12 +114,25 @@ static long serConfigurePort(SerPort * serPort, unsigned char saveSettings, SerP
         speed_t baudRate = B9600;
         switch (settings->baud)
         {
-        case 115200: baudRate = B115200;	break;
-        case 38400:	baudRate = B38400;	break;
-        case 19200:	baudRate = B19200;	break;
-        case 9600:	baudRate = B9600;	break;
-        case 4800:	baudRate = B4800;	break;
-        case 2400:	baudRate = B2400;	break;
+            case 230400: baudRate = B230400;	break;
+            case 460800: baudRate = B460800;	break;
+            case 500000: baudRate = B500000;	break;
+            case 576000: baudRate = B576000;	break;
+            case 921600: baudRate = B921600;	break;
+            case 1000000: baudRate = B1000000;	break;
+            case 1152000: baudRate = B1152000;	break;
+            case 1500000: baudRate = B1500000;	break;
+            case 2000000: baudRate = B2000000;	break;
+            case 2500000: baudRate = B2500000;	break;
+            case 3000000: baudRate = B3000000;	break;
+            case 3500000: baudRate = B3500000;	break;
+            case 4000000: baudRate = B4000000;	break;
+            case 115200: baudRate = B115200;	break;
+            case 38400:	baudRate = B38400;	break;
+            case 19200:	baudRate = B19200;	break;
+            case 9600:	baudRate = B9600;	break;
+            case 4800:	baudRate = B4800;	break;
+            case 2400:	baudRate = B2400;	break;
         }
 
         if ((cfsetispeed(&options, baudRate) == -1) || (cfsetospeed(&options, baudRate) == -1))
@@ -181,33 +198,26 @@ static long serConfigurePort(SerPort * serPort, unsigned char saveSettings, SerP
         {
 		    options.c_iflag &= ~(IXON|IXOFF);        
 		    options.c_cflag &= ~CRTSCTS;
-
-            // options.c_cflag &= ~CRTSCTS;
-            // options.c_iflag &= ~(IXON | IXOFF | IXANY);
-
         }
         else if (settings->flowControl == 'h')
         {
-            // DSR signal checked manually during transmission
-//            options.c_cflag &= ~CRTSCTS;
-//            options.c_iflag &= ~(IXON | IXOFF | IXANY);
-
 		    options.c_iflag &= ~ (IXON|IXOFF);
 		    options.c_cflag |= CRTSCTS;
 		    options.c_cc[VSTART] = _POSIX_VDISABLE;
 		    options.c_cc[VSTOP] = _POSIX_VDISABLE;
-
-		    // options.c_cflag |= CRTSCTS;
-        }else if (settings->flowControl == 'x') {
-
-
+        }
+        else if (settings->flowControl == 'd')
+        {
+		    options.c_iflag &= ~ (IXON|IXOFF);
+		    options.c_cflag &= ~CRTSCTS;
+		    options.c_cc[VSTART] = _POSIX_VDISABLE;
+		    options.c_cc[VSTOP] = _POSIX_VDISABLE;
+        }
+        else if (settings->flowControl == 'x') {
 		    options.c_iflag |= (IXON|IXOFF);
 		    options.c_cflag &= ~CRTSCTS;
 		    options.c_cc[VSTART] = 0x11 ; // CTRL_Q ; // 0x11 (021) ^q
 		    options.c_cc[VSTOP]  = 0x13 ; //CTRL_S ; // 0x13 (023) ^s
-
-            // options.c_cflag &= ~CRTSCTS;
-            // options.c_iflag |= (IXON | IXOFF);
         }
     }
 
@@ -281,7 +291,20 @@ static long serOpenPort (char const * portName, char const * portSettings)
     }
 
     settings.baud = atol(baudToken);
-    if ((settings.baud != 115200) &&
+    if ((settings.baud != 230400) &&
+        (settings.baud != 460800) &&
+        (settings.baud != 500000) &&
+        (settings.baud != 576000) &&
+        (settings.baud != 921600) &&
+        (settings.baud != 1000000) &&
+        (settings.baud != 1152000) &&
+        (settings.baud != 1500000) &&
+        (settings.baud != 2000000) &&
+        (settings.baud != 2500000) &&
+        (settings.baud != 3000000) &&
+        (settings.baud != 3500000) &&
+        (settings.baud != 4000000) &&
+        (settings.baud != 115200) &&
         (settings.baud != 38400) &&
         (settings.baud != 19200) &&
         (settings.baud !=  9600) &&
@@ -326,11 +349,15 @@ static long serOpenPort (char const * portName, char const * portSettings)
     {
         settings.flowControl = 'n';
     }
-    else if (strncmp(flowControlToken, "hdwr", strlen("hdwr")) == 0 || strncmp(flowControlToken, "h", strlen("h")) == 0)
+    else if (strncmp(flowControlToken, "hard", strlen("hard")) == 0 || strncmp(flowControlToken, "rtscts", strlen("rtscts")) == 0 || strncmp(flowControlToken, "h", strlen("h")) == 0)
     {
         settings.flowControl = 'h';
     }
-    else if (strncmp(flowControlToken, "xonxoff", strlen("xonxoff")) == 0 || strncmp(flowControlToken, "x", strlen("x")) == 0)
+    else if (strncmp(flowControlToken, "dtrdsr", strlen("dtrdsr")) == 0 || strncmp(flowControlToken, "h2", strlen("h2")) == 0)
+    {
+        settings.flowControl = 'd';
+    }
+    else if (strncmp(flowControlToken, "soft", strlen("soft")) == 0 || strncmp(flowControlToken, "x", strlen("x")) == 0)
     {
         settings.flowControl = 'x';
     }
@@ -384,23 +411,24 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
 	pollSerPort[0].fd = serPort->port;
 	pollSerPort[0].events = POLLOUT;
 
-    int blockSize = (int) (serPort->originalPortSettings.baud/9600)^4;
+    int blockSize = (int) ceil(serPort->originalPortSettings.baud/2400*4);
+    blockSize = blockSize > 2048 ? 2048 : blockSize; // limit size to 2K
+    int writeSize = 0;
+    printf("baud = %d, total = %d, blockSize = %d , flow = %c \n", serPort->originalPortSettings.baud, length, blockSize, serPort->originalPortSettings.flowControl);
 	
     while ((totalWriteLength < writeLength) && (timeout > 0))
     {
 
 		// check hardware state for DSR OR CTS
-        if (serPort->originalPortSettings.flowControl == 'h')
+        if (serPort->originalPortSettings.flowControl == 'h' || serPort->originalPortSettings.flowControl == 'd')
         {
             while (timeout > 0)
             {
                 int portStatus = 0;
                 if (ioctl(serPort->port, TIOCMGET, &portStatus) == 0)
                 {
-                    if ( /*(portStatus & TIOCM_DSR) != 0  ||*/ (portStatus & TIOCM_CTS) != 0 )
-                    {
-                        break;
-                    }
+                    if (serPort->originalPortSettings.flowControl == 'h' && (portStatus & TIOCM_CTS) != 0 ) break;
+                    if (serPort->originalPortSettings.flowControl == 'd' && (portStatus & TIOCM_DSR) != 0 ) break;
                 }
                 else
                 {
@@ -440,11 +468,13 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
 			break;
 
 		}else if ( (pollSerPort[0].revents & POLLOUT) != 0) {
+
+            writeSize = ((writeLength - totalWriteLength) < blockSize)?(writeLength - totalWriteLength):blockSize;
 		
-			printf("poll available to writing.. \n");
+			printf("poll available to writing.. blockSize: %d , writeSize: %d \n", blockSize, writeSize);
 
 			// write now will not blocking.
-			partialWriteLength = write(serPort->port, &bufferElements[totalWriteLength], ((writeLength - totalWriteLength) < blockSize)?(writeLength - totalWriteLength):blockSize);
+			partialWriteLength = write(serPort->port, &bufferElements[totalWriteLength], writeSize);
 	
 		    if (partialWriteLength == -1) {
 				// error to write
@@ -454,11 +484,13 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
 
 		    totalWriteLength += partialWriteLength;
 
-			int portStatus = 0;
-            if (ioctl(serPort->port, TIOCMGET, &portStatus) == 0)
-			{
-                    if ( /*(portStatus & TIOCM_DSR) != 0  ||*/ (portStatus & TIOCM_CTS) != 0 )
-                    {
+			printf("total %d, partial %d \n", totalWriteLength, partialWriteLength);
+
+//			int portStatus = 0;
+//            if (ioctl(serPort->port, TIOCMGET, &portStatus) == 0)
+//			{
+//                    if ( /*(portStatus & TIOCM_DSR) != 0  ||*/ (portStatus & TIOCM_CTS) != 0 )
+//                    {
 						printf("before tcdrain .. \n");
 						if (tcdrain(serPort->port) != 0) {
 							// error to drain buffer
@@ -466,13 +498,13 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
 							return PORTCONTROL_ERROR_IO_FAIL;
 						}
 						printf("after tcdrain success.. \n");
-                    }
-            }
-            else
-            {
-  				    printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
-                    return PORTCONTROL_ERROR_IO_FAIL;
-            }
+//                    }
+//            }
+//            else
+//            {
+//  				    printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
+//                    return PORTCONTROL_ERROR_IO_FAIL;
+//            }
 
 		    if (partialWriteLength > 0)
 		    {
@@ -557,6 +589,25 @@ static long serReadPortPrv (char const * portName, char * readBuffer, long lengt
     }
 
     return length;
+}
+
+static long serAvailablePort (char const * portName)
+{
+    SerPort * serPort = serFindPort(portName);
+    if (serPort == NULL)
+    {
+        return PORTCONTROL_ERROR_NOT_OPEN;
+    }
+
+    long availableReadLength = 0;
+
+    if (ioctl(serPort->port, FIONREAD, &availableReadLength) != 0)
+    {
+        return PORTCONTROL_ERROR_IO_FAIL;
+    }
+
+    return availableReadLength;
+    
 }
 
 static long serReadPort (char const * portName, char * readBuffer, long length)
