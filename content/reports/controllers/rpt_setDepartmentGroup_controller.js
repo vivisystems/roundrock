@@ -36,6 +36,7 @@
             GeckoJS.Configure.write('vivipos.fec.settings.rptConfigure.group', GeckoJS.BaseObject.serialize(groupPanelSelectedItems));
 
             OsdUtils.info(_('Settings saved successful'));
+            this.load();
         },
 
         load: function(){
