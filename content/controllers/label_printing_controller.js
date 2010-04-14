@@ -560,31 +560,31 @@
             this._priceMenuList.setAttribute('label',_('Price Level'));
 
             if(product.level_enable1 ){
-                 this._priceMenuList.appendItem('Level 1 :  '+product.price_level1, product.price_level1);
+                 this._priceMenuList.appendItem(_('Level 1')+' :  '+product.price_level1, product.price_level1);
             }
             if(product.level_enable2 ){
-                 this._priceMenuList.appendItem('Level 2 :  '+product.price_level2, product.price_level2);
+                 this._priceMenuList.appendItem(_('Level 2')+' :  '+product.price_level2, product.price_level2);
             }
             if(product.level_enable3 ){
-                 this._priceMenuList.appendItem('Level 3 :  '+product.price_level3, product.price_level3);
+                 this._priceMenuList.appendItem(_('Level 3')+' :  '+product.price_level3, product.price_level3);
             }
             if(product.level_enable4 ){
-                 this._priceMenuList.appendItem('Level 4 :  '+product.price_level4, product.price_level4);
+                 this._priceMenuList.appendItem(_('Level 4')+' :  '+product.price_level4, product.price_level4);
             }
             if(product.level_enable5 ){
-                 this._priceMenuList.appendItem('Level 5 :  '+product.price_level5, product.price_level5);
+                 this._priceMenuList.appendItem(_('Level 5')+' :  '+product.price_level5, product.price_level5);
             }
             if(product.level_enable6 ){
-                 this._priceMenuList.appendItem('Level 6 :  '+product.price_level6, product.price_level6);
+                 this._priceMenuList.appendItem(_('Level 6')+' :  '+product.price_level6, product.price_level6);
             }
             if(product.level_enable7 ){
-                 this._priceMenuList.appendItem('Level 7 :  '+product.price_level7, product.price_level7);
+                 this._priceMenuList.appendItem(_('Level 7')+' :  '+product.price_level7, product.price_level7);
             }
             if(product.level_enable8 ){
-                 this._priceMenuList.appendItem('Level 8 :  '+product.price_level8, product.price_level8);
+                 this._priceMenuList.appendItem(_('Level 8')+' :  '+product.price_level8, product.price_level8);
             }
             if(product.level_enable9 ){
-                 this._priceMenuList.appendItem('Level 9 :  '+product.price_level9, product.price_level9);
+                 this._priceMenuList.appendItem(_('Level 9')+' :  '+product.price_level9, product.price_level9);
             }
 
 
@@ -810,7 +810,7 @@
             /* load savedList*/
             this._menulistElement = document.getElementById('tabList');
             this._fileNameList = GeckoJS.BaseObject.unserialize( GeckoJS.Configure.read('vivipos.fec.settings.tabs.fileName'));
-            this._menulistElement.appendItem('Initial List');
+            this._menulistElement.appendItem(_('New List'));
 
             if(!this._fileNameList)
                this._fileNameList = [];
