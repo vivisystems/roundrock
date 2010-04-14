@@ -29,6 +29,19 @@
         var message = window.arguments[0];
         function startup() {
             document.getElementById('message').value = message;
+
+            var columns = document.getElementById('columns');
+            if (columns) {
+                var col_width = Math.round(columns.boxObject.width / 2);
+                var col1 = document.getElementById('col1');
+                if (col1) {
+                    col1.setAttribute('style', 'width:' + col_width + 'px;');
+                }
+                var col2 = document.getElementById('col2');
+                if (col2) {
+                    col2.setAttribute('style', 'width:' + col_width + 'px;');
+                }
+            }
         }
 
         window.addEventListener('load', startup, false);
@@ -38,9 +51,9 @@
         <vbox flex="1" class="container-main">
             <label id="message" value="" class="label-page-title"/>
     		<grid flex="1" class="container-report">
-                <columns>
-                    <column flex="1"/>
-                    <column flex="1"/>
+                <columns id="columns">
+                    <column id="col1" flex="1"/>
+                    <column id="col2"/>
                 </columns>
                 <rows>
                     <row flex="1">
