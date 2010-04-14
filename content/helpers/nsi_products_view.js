@@ -20,6 +20,9 @@
             // binding dom
             this.bindingPanel(domId);
 
+            // register listener for refresh event
+            this.tree.addEventListener('render', this.refreshCallback, true);
+
             // register eventListener
             this.registerEventListener();
 
@@ -43,6 +46,16 @@
                 }
             });
             
+        },
+
+        refreshCallback: function(evt) {
+            var node = evt.originalTarget;
+            if (node) {
+                var buttons = node.buttons || [];
+                buttons.forEach(function(btn) {
+                    btn.vivibuttonImage.removeAttribute('style');
+                })
+            }
         },
 
         updateProducts: function(force_reload) {

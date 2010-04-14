@@ -195,11 +195,21 @@
             if (typeof data == 'object' && data.constructor.name == 'Array') {
 
                 return data.map(function(s) {
-                    s.replace(re, "''");
+                    if (typeof s == 'string') {
+                        return s.replace(re, "''");
+                    }
+                    else {
+                        return s;
+                    }
                 });
 
             }else {
-                return data.replace(re, "''");
+                if (typeof data == 'string') {
+                    return data.replace(re, "''");
+                }
+                else {
+                    return data;
+                }
             }
             
         }
