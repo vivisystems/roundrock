@@ -55,6 +55,7 @@
             this.addEventListener('beforeAddItem', this.beforeAddItem);
             this.addEventListener('beforeVoidItem', this.clearWarning);
             this.addEventListener('beforeModifyItem', this.beforeModifyItem);
+            this.addEventListener('onVoidSaleSuccess', this.addItemFormVoidOrder);
 
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
@@ -4576,6 +4577,132 @@
             this._unblockUI(waitPanel);
 
             return false;
+        },
+        
+        /*
+         * @author: Slash.tu             2010/04/02
+         * @event: this.dispatchEvent('onVoidSaleSuccess', curTransaction);
+         *
+         * Pop a dialog, users decide if additem from transaction(void sale)
+         */
+        addItemFormVoidOrder: function(evt){
+
+             if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                    _('confirm additem form void sale'),
+                    _('Would you like to add items to cart from the voided order ?'))) {
+                    return;
+                }
+
+             let transaction = evt.data;
+
+             this.dispatchEvent('onUnlockRecallOrderByNewId', curTransaction);
+             
+             let curTransaction = this._createNewTransaction(transaction);            
+
+             curTransaction.calcPromotions();
+             curTransaction.calcTotal();
+
+             this.dispatchEvent('onGetSubtotal', curTransaction);
+
+             this.dispatchEvent('afterUnlockRecallOrderByNewId', curTransaction);
+
+             this._setTransactionToView(curTransaction);
+             //   this.returnItem(true);
+             this._clearAndSubtotal();
+
+             curTransaction.updateCartView(-1, -1);          
+        },
+
+        /*Create a new transaction that data is assigned by data of input old transaction*/
+        _createNewTransaction: function( oldTrans ){
+
+            let curTransaction = new Transaction(false);
+
+             let id = curTransaction.data.id
+             let check_no = curTransaction.data.check_no;
+             let seq = curTransaction.data.seq;
+             let seq_original = curTransaction.data.seq_original;
+
+             curTransaction.data  = oldTrans.data;
+
+             curTransaction.data.id = id;
+             curTransaction.data.check_no = check_no;
+             curTransaction.data.seq = seq;
+             curTransaction.data.seq_original = seq_original;
+
+             curTransaction.data.close = false ;
+             
+             /*delete all display sequences batch property*/
+             curTransaction.data.display_sequences.forEach(function(item){
+
+                 delete item.batch;
+             });
+
+             /*delete all items hasMark property*/
+             for( id in curTransaction.data.items){
+                 curTransaction.data.items[id].hasMarker = false;
+                 curTransaction.data.items[id].created = Math.round(new Date().getTime() / 1000 );
+             }
+
+             /* change transaction status*/
+             curTransaction.data.status = 0;
+
+             /*keeps item and condiment in the order, others are removed*/
+             for(var i = 0 ; i< curTransaction.data.display_sequences.length ; i++){
+
+                  var stuff = curTransaction.data.display_sequences[i];
+
+                  stuff.created = Math.round(new Date().getTime() / 1000 );
+
+                  if(stuff.type != 'item' && stuff.type != 'condiment'){
+                      curTransaction.data.display_sequences.splice(i, 1);
+                      i--;
+                  }
+             }
+
+             let subtotal = curTransaction.data.payment_subtotal ;
+
+             /*initialize transaction */
+             curTransaction.data.remain = 0;
+             curTransaction.data.total = 0;
+             curTransaction.data.payment_subtotal = 0;
+             curTransaction.data.average_price = 0;
+             curTransaction.data.item_subtotal = 0;
+             curTransaction.data.batchCount = 0;
+             
+             delete curTransaction.data.batchItemCount;
+             delete curTransaction.data.batchPaymentCount;
+             curTransaction.data.trans_payments = {};
+
+             /* reset time*/
+             curTransaction.data.created = Math.round(new Date().getTime() / 1000 );
+             curTransaction.data.modified = Math.round(new Date().getTime() / 1000 );
+             curTransaction.data.transaction_created =  Math.round(new Date().getTime() / 1000 );
+             delete curTransaction.data.transaction_submitted;
+
+             /*reset clerk*/
+             var user = this.Acl.getUserPrincipal();
+             curTransaction.data.proceeds_clerk = user.username;
+             curTransaction.data.proceeds_clerk_displayname = user.description;
+
+             var salePeriod = GeckoJS.Session.get('sale_period');
+             var shiftNumber = GeckoJS.Session.get('shift_number');
+
+             curTransaction.data.sale_period = salePeriod;
+             curTransaction.data.shift_number = shiftNumber;
+
+             // set branch and terminal info
+            var terminalNo = GeckoJS.Session.get('terminal_no') || '';
+            curTransaction.data.terminal_no = terminalNo;
+
+            var store = GeckoJS.Session.get('storeContact');
+
+            if (store) {
+                curTransaction.data.branch = store.branch;
+                curTransaction.data.branch_id = store.branch_id;
+            }
+              
+             return curTransaction;
         },
 
         _getMemoDialog: function (memo) {
