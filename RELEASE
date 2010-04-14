@@ -104,3 +104,5 @@ Ticket#26:
 Ticket#27:
     Fixed saveToBackup not check data type bug.
 
+Ticket#30:
+    Fixed Stock control fails to initialize stock records table 
