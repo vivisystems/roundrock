@@ -99,10 +99,7 @@ Ticket#25:
     Customizedd SQL statements require escaped quotation marks ('')
 
 Ticket#26:
-    Auto fill untranslations.
-
-Ticket#27:
-    Fixed saveToBackup not check data type bug.
+    Automatically fill in missing localized strings for the current locale
 
 Ticket#30:
-    Fixed Stock control fails to initialize stock records table 
+    Stock control fails to initialize stock records table

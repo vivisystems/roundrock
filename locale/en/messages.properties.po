@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-04-07 16:33+0800\n"
+"POT-Creation-Date: 2010-04-14 22:19+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3168,8 +3168,8 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:36
 #: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:52
 #: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:41
-#: ../..//content/tpl/order_template.tpl:228
 #: ../..//content/tpl/order_template.tpl:229
+#: ../..//content/tpl/order_template.tpl:230
 msgid "(rpt)"
 msgstr ""
 
@@ -11844,12 +11844,12 @@ msgid "(rpt)Access Group"
 msgstr ""
 
 #: ../..//content/tpl/journal_template.tpl:4
-#: ../..//content/tpl/order_template.tpl:274
+#: ../..//content/tpl/order_template.tpl:275
 msgid "Order sequence [%S] does not exist"
 msgstr ""
 
 #: ../..//content/tpl/journal_template.tpl:6
-#: ../..//content/tpl/order_template.tpl:276
+#: ../..//content/tpl/order_template.tpl:277
 msgid "Unable to display order; no order sequence given"
 msgstr ""
 
@@ -11952,7 +11952,7 @@ msgid "(view)Tax"
 msgstr ""
 
 #: ../..//content/tpl/order_display_template.tpl:115
-#: ../..//content/tpl/order_template.tpl:146
+#: ../..//content/tpl/order_template.tpl:147
 #: ../..//content/tpl/order_template_58mm.tpl:84
 #: ../..//content/tpl/order_template_80mm.tpl:74
 msgid "(view)Item Subtotal"
@@ -11967,7 +11967,7 @@ msgid "(view)Surcharge"
 msgstr ""
 
 #: ../..//content/tpl/order_display_template.tpl:134
-#: ../..//content/tpl/order_template.tpl:183
+#: ../..//content/tpl/order_template.tpl:184
 #: ../..//content/tpl/order_template_58mm.tpl:100
 #: ../..//content/tpl/order_template_80mm.tpl:90
 msgid "(view)Add-on Taxes"
@@ -11978,7 +11978,7 @@ msgid "(view)Promotion"
 msgstr ""
 
 #: ../..//content/tpl/order_display_template.tpl:147
-#: ../..//content/tpl/order_template.tpl:212
+#: ../..//content/tpl/order_template.tpl:213
 #: ../..//content/tpl/order_template_58mm.tpl:111
 #: ../..//content/tpl/order_template_80mm.tpl:101
 msgid "(view)Revalue"
@@ -12019,31 +12019,31 @@ msgstr ""
 msgid "(view)no_of_customers"
 msgstr ""
 
-#: ../..//content/tpl/order_template.tpl:155
+#: ../..//content/tpl/order_template.tpl:156
 #: ../..//content/tpl/order_template_58mm.tpl:87
 #: ../..//content/tpl/order_template_80mm.tpl:77
 msgid "(view)Item Adjustments"
 msgstr ""
 
-#: ../..//content/tpl/order_template.tpl:202
+#: ../..//content/tpl/order_template.tpl:203
 #: ../..//content/tpl/order_template_58mm.tpl:107
 #: ../..//content/tpl/order_template_80mm.tpl:97
 msgid "(view)Promotions"
 msgstr ""
 
-#: ../..//content/tpl/order_template.tpl:218
+#: ../..//content/tpl/order_template.tpl:219
 #: ../..//content/tpl/order_template_58mm.tpl:114
 #: ../..//content/tpl/order_template_80mm.tpl:104
 msgid "(view)Total"
 msgstr ""
 
-#: ../..//content/tpl/order_template.tpl:245
+#: ../..//content/tpl/order_template.tpl:246
 #: ../..//content/tpl/order_template_58mm.tpl:129
 #: ../..//content/tpl/order_template_80mm.tpl:114
 msgid "(view)Payment Subtotal"
 msgstr ""
 
-#: ../..//content/tpl/order_template.tpl:254
+#: ../..//content/tpl/order_template.tpl:255
 #: ../..//content/tpl/order_template_58mm.tpl:132
 #: ../..//content/tpl/order_template_80mm.tpl:117
 msgid "(view)Change"
