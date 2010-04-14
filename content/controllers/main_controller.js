@@ -1935,6 +1935,14 @@
 
             reportName = reportName || '';
             if(reportName.length == 0) return false;
+
+            // open report support query string
+            var queryString = '';
+            var tmps = reportName.split(',');
+            if (tmps.length >1) {
+                reportName = tmps[0];
+                queryString = tmps[1];
+            }
             
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
@@ -1988,6 +1996,7 @@
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
 
             if (this.Acl.isUserInRole(roles)) {
+                if (queryString.length >0) path += '?' + queryString;
                 window.openDialog(path, "Report_" + label, features, pref);
                 return true;
             }else{
