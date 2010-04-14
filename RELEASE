@@ -103,3 +103,7 @@ Ticket#26:
 
 Ticket#30:
     Stock control fails to initialize stock records table
+
+Ticket#37:
+    Buttons have different widths in end-of-shift/period-close dialogs
+
