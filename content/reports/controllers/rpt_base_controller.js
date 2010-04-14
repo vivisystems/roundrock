@@ -655,6 +655,60 @@
             
             // they are the same in default.
             this._exportedFileName = this._fileName;
+
+            var queryString = window.location.search;
+
+            var queryObj = {};
+            if (window.location.search.length >1) {
+               queryObj = this.updateQueryStringFields(window.location.search);
+
+               if (queryObj['auto_execute']) {
+
+                   // using some delay for controller loaded.
+                   window.setTimeout(function() {
+                       if ($('#execute').length>0) {
+                            $('#execute').click();
+                       }else if ($('.ExeBtn').length>0) {
+                           $('.ExeBtn').click();
+                       }
+                   }, 1000);
+               }
+            }
+
+        },
+
+        /**
+         * parse query string by openReport
+         *
+         * support ${terminal_no} ${branch_id} ${sale_period} ${shift_no}
+         * ${}
+         * 
+         */
+        updateQueryStringFields: function(str) {
+
+            var salePeriod = GeckoJS.Session.get('sale_period');
+            var shiftNumber = GeckoJS.Session.get('shift_number');
+            var terminalNo = GeckoJS.Session.get('terminal_no') || '';
+            var branchId = '';
+            var store = GeckoJS.Session.get('storeContact');
+            if (store) {
+                branchId = store.branch_id;
+            }
+
+            var queryObj = {};
+            queryObj = GeckoJS.String.parseStr(str.substr(1));
+
+            for (var queryFieldId in queryObj) {
+                var queryFieldValue = queryObj[queryFieldId];
+
+                queryFieldValue = queryFieldValue.replace('${sale_period}', salePeriod).replace('${shift_no}', shiftNumber)
+                                  .replace('${terminal_no}', terminalNo).replace('${branch_id}', branchId);
+
+                $('#'+queryFieldId).val(queryFieldValue);
+            }
+
+            return queryObj;
+            
         }
     };
     
