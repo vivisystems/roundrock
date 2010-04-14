@@ -104,3 +104,30 @@ Ticket#26:
 Ticket#27:
     Fixed saveToBackup not check data type bug.
 
+Ticket#2: 
+    Check number counter reset to 1 at day end
+
+Ticket#8:
+    Add Image Manager to IRC function
+
+Ticket#14:
+    Export CSV support l10n Header.
+
+Ticket#15:
+    Label Printing lost some l10n messages (bugfix).
+
+Ticket#16:
+    Product Sales Report 產品銷售報表 防呆
+
+Ticket#23:
+    執行交易作廢後，自動將此作廢單的品項重新帶入購物車
+
+Ticket#30:
+    Stock control fails to initialize stock records table (bugfix)
+
+Ticket#31:
+    open control panel function support parameter to open specific xul.
+
+Ticket#32:
+    open report function support parameters and auto execute report.
+ 
