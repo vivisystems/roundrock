@@ -107,3 +107,8 @@ Ticket#30:
 Ticket#37:
     Buttons have different widths in end-of-shift/period-close dialogs
 
+Ticket#38:
+    Cancelling an order leaves the order data in transient backup files
+
+Ticket#9:
+    View Orders displays transaction created time as transaction submitted time
