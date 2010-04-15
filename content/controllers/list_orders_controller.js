@@ -65,7 +65,7 @@
                          'terminal_no',
                          'branch',
                          'branch_id',
-                         'STRFTIME("%Y-%m-%d %H:%M",DATETIME("orders"."transaction_created", "unixepoch", "localtime")) as "Order.transaction_submitted"',
+                         'STRFTIME("%Y-%m-%d %H:%M",DATETIME("orders"."transaction_submitted", "unixepoch", "localtime")) as "Order.transaction_submitted"',
                          'status',
                          'precision_prices',
                          'total',
