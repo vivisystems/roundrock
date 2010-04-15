@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title=""
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  
+    <script type="application/x-javascript" src="chrome://roundrock/content/alert_restore_last_good_db.js"/>
+    
+    <vbox flex="1" class="container-dialog container-wait-dialog">
+        <vbox flex="1" class="container-main">
+            <label id="dialog-title" class="label-page-title"/>
+            <label id="dialog-footnote" class="label-sub-title"/>
+        </vbox>
+    </vbox>
+    
+</window>

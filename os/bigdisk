@@ -10,7 +10,9 @@ CREATED_STAGING=0
 TARGET=/data
 PROVISIONED=0
 MOUNT=""
+BIGDISK_SETTINGS=/data/profile/bigdisk_settings
 DIRS="backups databases images irc_packages journal training"
+DBS="vivipos vivipos_acl vivipos_extension vivipos_inventory vivipos_journal vivipos_order vivipos_table"
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 export PATH
@@ -87,8 +89,7 @@ then
     BUS=`udevinfo -q env -n "${DEVICE}" | grep ID_BUS | awk -F "=" '{ print $2 }'`
     if [ ${BUS} = "usb1" ]
     then
-	log_success_msg "... data volume [${VOLUME}] is not loaded when connected via USB"
-	log_end_msg 0
+	log_success_msg "... data volume [${VOLUME}] is not loaded when connected via USB"; log_end_msg 0
 	exit
     fi
 
@@ -135,7 +136,7 @@ then
 	## volume already mounted
 	##
 
-	log_success_msg "... data volume [${VOLUME}] already mounted on [${MOUNT}]"
+	log_warning_msg "... data volume [${VOLUME}] already mounted on [${MOUNT}]";
     fi
 
     ##
@@ -156,7 +157,7 @@ then
     if [ -r "${STAGING}/${MARKER}" ]
     then
 	PROVISIONED=1
-	/usr/bin/cmp -s -i37:0 "${STAGING}/${MARKER}" ${LICENSE}
+	/usr/bin/cmp -s -i 37:0 -n 128 "${STAGING}/${MARKER}" ${LICENSE}
 	if [ $? -eq 0 ]
 	then
 	    log_success_msg "... data volume [${VOLUME}] has been provisioned"
@@ -210,9 +211,11 @@ then
 
         echo `uuid` > "${STAGING}/${MARKER}"
 	cat "${LICENSE}" >> "${STAGING}/${MARKER}"
-	/usr/bin/cmp -s -i37:0 "${STAGING}/${MARKER}" "${LICENSE}"
+	/usr/bin/cmp -s -i37:0 -n 128 "${STAGING}/${MARKER}" "${LICENSE}"
 	if [ $? -eq 0 ]
 	then
+            echo >> "${STAGING}/${MARKER}"
+            df -h "${DEVICE}" | grep "${DEVICE}" >> "${STAGING}/${MARKER}"
 	    log_success_msg "... data volume [${VOLUME}] successfully provisioned"
 	else
 	    ##
@@ -225,6 +228,38 @@ then
 
 	    handle_failure
 	fi
+    else
+        ##
+        ## big disk is already provisioned, but if bigdisk setting is present
+        ## but does not match marker uuid, then CF card data may be more recent
+        ## than provisioned data, so we need to merge from CF card back to big
+        ## disk
+        ##
+        if [ -r "${BIGDISK_SETTINGS}" ]
+        then
+            read profile_uuid < "${BIGDISK_SETTINGS}"
+            read disk_uuid < "${STAGING}/${MARKER}"
+            if [ "${profile_uuid}" != "${disk_uuid}" ]
+            then
+                ##
+                ## data on internal storage may have been updated;
+                ## need to overwrite databases
+
+                rm -rf "${STAGING}/data/databases"
+                tar -chf - -C "${TARGET}" databases | tar -xf - -C "${STAGING}/data/"
+
+                if [ $? -ne 0 ]
+                then
+                    rm -rf "${STAGING}/data/databases"
+                    log_warning_msg "... failed to re-provision data volume [${VOLUME}]"
+                    handle_failure
+                else
+                    log_success_msg "... data volume [${VOLUME}] successfully re-provisioned"
+                fi
+            else
+                log_success_msg "... data volume [${VOLUME}] successfully validated"
+            fi
+        fi
     fi
 
     ##
@@ -282,13 +317,13 @@ then
     fi
     mount --bind "${STAGING}/${MARKER}" "${TARGET}/${MARKER}"
 
-    log_success_msg "... data volume [${VOLUME}] successfully mounted on [${TARGET}]"
+    log_success_msg "Data volume [${VOLUME}] successfully mounted on [${TARGET}]"
 
 else
     ##
     ## data volume is not available
     ##
-    log_success_msg "... data volume [${VOLUME}] is not available"
+    log_success_msg "Data volume [${VOLUME}] is not available"
 fi
 
 sync

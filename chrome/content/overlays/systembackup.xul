@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://roundrock/locale/systembackup.dtd" >
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="overlay">
+
+    <script type="application/x-javascript;version=1.7">
+        function mergeDatabases() {
+            alert('mergeDatabases');
+            return;
+            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+            mainWindow.$do('mergeDatabases', null, 'BigDisk');
+        };
+
+        window.addEventListener('load', function() {
+            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+            mainWindow.$do('updateSystemBackupOptions', window.document, 'BigDisk');
+        }, false);
+
+    </script>
+
+    <vbox id="toolbar">
+        <vbox id="merge_action" flex="1">
+            <spacer flex="1"/>
+            <vivibutton id="mergefromstick" label="&systembackup.merge.from.stick;" oncommand="mergeDatabases();" disabled="true"/>
+        </vbox>
+    </vbox>
+
+</overlay>

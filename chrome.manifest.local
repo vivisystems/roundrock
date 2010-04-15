@@ -3,4 +3,7 @@ skin roundrock traditional-800x600/1.0 /home/user/workspace/roundrock/chrome/ski
 skin roundrock traditional-1024x768/1.0 /home/user/workspace/roundrock/chrome/skin/traditional-1024x768/
 locale roundrock en /home/user/workspace/roundrock/chrome/locale/en/
 
-overlay chrome://viviecr/content/overlays/keysetExtensions.xul chrome://roundrock/content/overlays/overlay.xul
+overlay chrome://vivipos/content/mainUIOverlay.xul chrome://roundrock/content/overlays/overlay.xul
+overlay chrome://viviecr/content/sysprefs.xul chrome://roundrock/content/overlays/sysprefs.xul
+overlay chrome://viviecr/content/systembackup.xul chrome://roundrock/content/overlays/systembackup.xul
+overlay chrome://viviecr/content/sync_settings.xul chrome://roundrock/content/overlays/sync_settings.xul

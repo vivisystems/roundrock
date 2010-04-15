@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="overlay">
+
+    <script type="application/x-javascript;version=1.7">
+        window.addEventListener('load', function() {
+            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+            mainWindow.$do('updateSyncSettingOptions', window.document, 'BigDisk');
+        }, false);
+    </script>
+    
+</overlay>
