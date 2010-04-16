@@ -397,6 +397,9 @@
                 }
 
             }
+            else {
+                return 1;
+            }
         },
 
         /**
@@ -419,8 +422,10 @@
 
             // set status = -1
             var r = this.process(-1, discard);
-            //this.emptyView();
 
+            if (r == 1 && !discard) {
+                r = this.commit(-1);
+            }
             return r;
         },
 

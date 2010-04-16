@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-04-14 17:16+0800\n"
+"POT-Creation-Date: 2010-04-16 12:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9810,52 +9810,52 @@ msgstr ""
 msgid "(sector)"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1445
+#: ../..//content/models/transaction.js:1450
 msgid "Cannot VOID a payment that has been subtotaled"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1604
+#: ../..//content/models/transaction.js:1609
 msgid "Discount amount [%S] may not exceed user item discount limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1613
+#: ../..//content/models/transaction.js:1618
 msgid "Discount amount [%S] may not exceed item amount [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1652
-#: ../..//content/models/transaction.js:1823
+#: ../..//content/models/transaction.js:1657
+#: ../..//content/models/transaction.js:1828
 msgid "Please note that return item(s) are present"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1680
+#: ../..//content/models/transaction.js:1685
 msgid "Discount amount [%S] may not exceed discountable sale [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1782
+#: ../..//content/models/transaction.js:1787
 msgid "Surcharge amount [%S] may not exceed user item surcharge limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2105
+#: ../..//content/models/transaction.js:2110
 msgid "Condiment [%S] already added to [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2173
+#: ../..//content/models/transaction.js:2178
 msgid "Condiment may only be added to an item"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2882
+#: ../..//content/models/transaction.js:2887
 msgid "Price HALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2897
+#: ../..//content/models/transaction.js:2902
 msgid "Price adjusted from [%S] to current HALO [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2906
+#: ../..//content/models/transaction.js:2911
 msgid "Price LALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2921
+#: ../..//content/models/transaction.js:2926
 msgid "Price adjusted from [%S] to current LALO [%S]"
 msgstr ""
 
