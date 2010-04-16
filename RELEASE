@@ -137,5 +137,5 @@ Ticket#37:
 Ticket#38:
     Cancelling an order leaves the order data in transient backup files
 
-Ticket#9:
+Ticket#39:
     View Orders displays transaction created time as transaction submitted time
