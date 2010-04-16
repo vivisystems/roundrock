@@ -1,0 +1,58 @@
+#! /bin/sh
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+. /lib/lsb/init-functions
+
+do_start() {
+
+    #
+    # check all extensions run-parts if init.d exists
+    #
+    INITDIR=/data/profile/extensions/*/rc.d
+    INITFILES=$(run-parts --list $INITDIR)
+    if [ -n "$INITFILES" ]; then
+        set +e
+        for INITFILE in $INITFILES; do
+            $INITFILE start
+        done
+        set -e
+    fi
+
+}
+
+do_stop() {
+
+    #
+    # check all extensions run-parts if init.d exists
+    #
+    INITDIR=/data/profile/extensions/*/rc.d
+    INITFILES=$(run-parts --list $INITDIR)
+    if [ -n "$INITFILES" ]; then
+        set +e
+        for INITFILE in $INITFILES; do
+            $INITFILE stop
+        done
+        set -e
+    fi
+
+}
+
+case "$1" in
+    start)
+	do_start
+        ;;
+    restart|reload|force-reload)
+        do_start
+        sleep 3
+        do_stop
+        exit 3
+        ;;
+    stop)
+        do_stop
+        ;;
+    *)
+        echo "Usage: $0 start|stop|restart" >&2
+        exit 3
+        ;;
+esac

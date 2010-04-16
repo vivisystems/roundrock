@@ -1,0 +1,11 @@
+#!/bin/sh
+
+
+if [ -x /usr/bin/fluxbox ]; then
+    STARTUP="/usr/bin/matchbox-window-manager -use_titlebar no"
+    #STARTUP="/usr/bin/fluxbox"
+elif [ -x /usr/bin/matchbox-window-manager ]; then
+    STARTUP="/usr/bin/matchbox-window-manager -use_titlebar no"
+else 
+    STARTUP="xterm"
+fi

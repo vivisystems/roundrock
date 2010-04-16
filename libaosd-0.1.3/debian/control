@@ -1,0 +1,40 @@
+Source: libaosd
+Priority: optional
+Maintainer: William Pitcock <nenolod@sacredspiral.co.uk>
+Build-Depends: debhelper (>= 5), autotools-dev, libx11-dev, libice-dev, libpango1.0-dev, libcairo2-dev, libxcomposite-dev, libxrender-dev, dpatch
+Standards-Version: 3.7.2
+Section: libs
+Homepage: http://www.atheme.org/projects/libaosd.shtml
+
+Package: aosd-cat
+Section: x11
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: an on screen display tool which uses libaosd
+ aosd_cat is an advanced on screen display tool based on
+ libaosd. It can be used for OSD-style notifications in
+ shell scripts.
+
+Package: libaosd-dev
+Section: libdevel
+Architecture: any
+Depends: libaosd1 (= ${binary:Version})
+Description: atheme.org's on screen display library - dev
+ libaosd is an advanced on screen display library. It supports
+ many modern features like anti-aliased text and composited
+ rendering via XComposite, as well as support for rendering
+ Cairo and Pango layouts.
+ .
+ This package contains the development headers. 
+
+Package: libaosd1
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: atheme.org's on screen display library
+ libaosd is an advanced on screen display library. It supports
+ many modern features like anti-aliased text and composited
+ rendering via XComposite, as well as support for rendering
+ Cairo and Pango layouts.
+ .
+ This package contains the library.

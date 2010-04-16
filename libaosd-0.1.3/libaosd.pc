@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libaosd
+Description: An Atheme fork of ghosd with X composite transparency
+Version: 0.1.3
+Requires: cairo pango pangocairo xcomposite
+Libs: -L${libdir} -laosd
+Cflags: -I${includedir}/aosd

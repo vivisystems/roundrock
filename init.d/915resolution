@@ -1,0 +1,104 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          915resolution
+# Required-Start:    $syslog
+# Required-Stop:     $syslog
+# Should-Start:      $local_fs
+# Should-Stop:       $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Set the resolution for special chipset
+# Description:       The right resolution mode will be set and given
+#                    to the X server
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+PROG=/usr/sbin/915resolution
+NAME=915resolution
+DESC=915resolution
+VBETOOL=/usr/sbin/vbetool
+
+test -x $PROG || exit 0
+
+# Include 915resolution defaults if available
+if [ -f /etc/default/915resolution ] ; then
+	. /etc/default/915resolution
+fi
+
+wrong_chipset()
+{
+	echo "Wrong chipset detected. 915resolution only works with Intel 800/900 series graphic chipsets."
+	exit 0
+}
+
+$PROG -l >/dev/null 2>&1 || wrong_chipset
+
+if [ "$MODE" = auto -a \! -x "$VBETOOL" ] || [ "$MODE" != auto -a \( -z "$MODE" -o -z "$XRESO" -o -z "$YRESO" \) ] ; then
+   echo "*** Your 915resolution hasn't been configured! ***"
+   echo "Please read /usr/share/doc/915resolution/README.Debian and define"
+   echo "MODE, XRESO, and YRESO."
+   exit 0
+fi
+
+auto_select_modes()
+{
+    if [ ! -x "$VBETOOL" ] || ! panelsize=`$VBETOOL vbefp panelsize` ; then
+	echo "*** Your 915resolution was not automatically configured! ***"
+	echo "Please read /usr/share/doc/915resolution/README.Debian then define"
+        echo "MODE, XRESO, and YRESO manually in /etc/default/915resolution ."
+	echo "For now a default will be set, which might be inappropiate."
+	XRESO=1024
+	YRESO=768
+    fi
+
+    # If the native panel-size is already in the BIOS mode list, we
+    # don't have to do anything, yippee!
+    bios_list=`$PROG -l`
+    if echo "$bios_list" | grep -q "^Mode .* $panelsize" ; then
+	#echo 'Correct panel-size is already listed, skipping'
+	return
+    fi
+
+    # For want of a better approach to selecting modelines for stealing;...
+    # this expression grabs us the highest *numbered* mode in each
+    # bit-depth that the BIOS already lists.
+    #
+    # An argument for using the highest mode-number, rather than the
+    # highest resolution is that if we've already reprogrammed the
+    # mode to be a lower resolution it will no longer be the highest.
+    # If this has changed over a suspend cycle, that consequences
+    # might not be so good.  -Paul Sladen
+    target_modes=`echo "$bios_list" | awk '/^Mode [^T]/{sub(",","",$4); print $5,$4,$2}' | tac | sort -n -u | cut -d' ' -f3`
+
+    for m in $target_modes ; do
+	# The 'tr' converts '1024x768' -> '1024' '768'
+	# and the bitdepth is missed off because we have one of each depth
+	$PROG $m $(echo $panelsize | tr x ' ')
+    done
+}
+
+set -e
+
+case "$1" in
+  start|restart|force-reload)
+	echo -n "Starting $DESC: "
+	if [ "$MODE" = "auto" ] ; then
+	    auto_select_modes
+	else
+	    $PROG $MODE $XRESO $YRESO $BIT
+	fi	
+	echo "$NAME."
+	;;
+  stop)
+	#echo -n "Stopping $DESC: "
+	#echo "$NAME."
+	;;
+  *)
+	N=/etc/init.d/$NAME
+	# echo "Usage: $N start" >&2
+	echo "Usage: $N start" >&2
+	exit 1
+	;;
+esac
+
+exit 0

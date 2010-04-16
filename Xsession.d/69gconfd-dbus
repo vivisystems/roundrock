@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# running gconfd-2
+/usr/lib/libgconf2-4/gconfd-2 &

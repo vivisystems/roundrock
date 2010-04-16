@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+#
+# check all extensions run-parts if Xsession.d exists
+#
+SESSIONDIR=/data/profile/extensions/*/Xsession.d
+SESSIONFILES=$(run-parts --list $SESSIONDIR)
+if [ -n "$SESSIONFILES" ]; then
+    set +e
+    for SESSIONFILE in $SESSIONFILES; do
+        $SESSIONFILE
+    done
+    set -e
+fi
