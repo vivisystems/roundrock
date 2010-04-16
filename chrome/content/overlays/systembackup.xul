@@ -5,10 +5,9 @@
 
     <script type="application/x-javascript;version=1.7">
         function mergeDatabases() {
-            alert('mergeDatabases');
-            return;
-            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
-            mainWindow.$do('mergeDatabases', null, 'BigDisk');
+            var backup_controller = GeckoJS.Controller.getInstanceByName('SystemBackup');
+            var main_window = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+            main_window.$do('mergeFromStick', backup_controller, 'BigDisk');
         };
 
         window.addEventListener('load', function() {

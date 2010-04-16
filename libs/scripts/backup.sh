@@ -104,6 +104,11 @@ do_backup() {
 	cd /data/images
 	tar cjvpf $bak/$bak_dir/images.tbz . | sed -e "s/.*/\"\0\"/g" | xargs -L1 basename | sed "s/.*/60\n# \0/g"
 
+        #backup journal entries
+	echo "65\n# Backup 'electronic journal'"
+	cd /data/journal
+	tar cjvpf $bak/$bak_dir/journal.tbz . | sed -e "s/.*/\"\0\"/g" | xargs -L1 basename | sed "s/.*/60\n# \0/g"
+
 	#backup system
 	echo "70\n# Backup 'system settings'"
 	cd /data/system

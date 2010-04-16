@@ -19,6 +19,7 @@
         _script_path: '',
         _last_good_db_script: 'last_good_db.sh',
         _last_good_db_path: 'last_good_db',
+        _merge_db_script: 'merge_db.sh',
         _restore_last_good_db_script: 'restore_last_good_db.sh',
         _bigdisk_setting: 'bigdisk_settings',
         _bigdisk_session_flag: 'vivicenter.BigDisk',
@@ -177,7 +178,7 @@
         updateSystemBackupOptions: function(doc) {
             var mergeButtonObj = doc.getElementById('mergefromstick');
             if (mergeButtonObj) {
-                if (GeckoJS.Session.get(this._bigdisk_session_flag)) {
+                if (!GeckoJS.Session.get(this._bigdisk_session_flag)) {
                     // disable merge button
                     mergeButtonObj.setAttribute('disabled', true);
 
@@ -185,7 +186,7 @@
                     var system_backup = doc.defaultView.GeckoJS.Controller.getInstanceByName('SystemBackup');
                     var builtInValidateForm = system_backup.validateForm;
                     system_backup.validateForm = function() {
-                        builtInValidateForm.call();
+                        builtInValidateForm.call(system_backup);
                         var externalListObj = doc.getElementById('stickbackupscrollablepanel');
 
                         mergeButtonObj.setAttribute('disabled', !(externalListObj.selectedItems.length > 0));
@@ -209,7 +210,66 @@
                 }
             }
         },
-        
+
+        mergeFromStick: function(backup_controller) {
+            var env = backup_controller;
+            if (env._busy) return;
+            if (!env.checkBackupDevice(env._selectedDevice)){
+                NotifyUtils.info(_('Media not found!! Please attach the external storage device...'));
+                return;
+            }
+
+            var stickObj = env.getListObjStickBackup();
+            var index = stickObj.selectedIndex;
+            var datas = stickObj.datasource._data;
+            var args = [];
+
+            if (index >= 0) {
+                var dir = datas[index].dir;
+                args.push(env._stickbackupDir + dir);
+
+                var confirmMessage = _("Are you sure you want to import historical transaction data from backup [%S] located on external media [%S]?", [datas[index].time, env._selectedDevice.label]) + "\n\n"
+                                       + _("If you import now, the system will restart automatically after you return to the Main Screen.");
+
+                if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Import"), confirmMessage)) {
+
+                    env._busy = true;
+                    var waitPanel = env._showWaitPanel(_('Importing Historical Data from External Backup'));
+                    env.setButtonState();
+
+                    $('#mergefromstick').attr('disabled', true);
+
+                    this.sleep(100);
+
+                    this.log('FATAL', '[IMPORT-BEGIN] invoking script to import data from external backup: [' + env._stickbackupDir + dir + ']');
+
+                    GeckoJS.ConnectionManager.closeAll();
+
+                    // execute the merge script
+                    this._execute(this._script_path + '/' + this._merge_db_script,
+                                  [env._stickbackupDir + dir, this._data_path]);
+
+                    this.log('FATAL', '[IMPORT-END] invoked script to import data from external backup: [' + env._stickbackupDir + dir + ']');
+
+                    this.dispatchEvent('importHistoricalData', {source: env._stickbackupDir + dir,
+                                                                target: this._data_path + '/databases'});
+                                                            
+                    NotifyUtils.info(_('<Import from External Backup> is done!!'));
+
+                    GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+                    
+                    waitPanel.hidePopup();
+                }
+            } else {
+                NotifyUtils.info(_('Please select an external backup to import'));
+            }
+
+            env._busy = false;
+            env.validateForm();
+            
+            $('#mergefromstick').attr('disabled', false);
+        },
+
         _readBigDiskID: function() {
             var uuid = 'none';
             var settingFile = new GeckoJS.File(this._data_path + '/profile/' + this._bigdisk_setting);
@@ -279,7 +339,7 @@
                          + '\n\n'
                          + _('The following service/configuration is now active automatically') + ':\n'
                          + ' - ' + _('electronic journal') + '\n'
-                         + ' - ' + _('retaining last 7 backups instead of 2') + '\n\n'
+                         + ' - ' + _('retaining the last 7 local backups instead of the last 2') + '\n\n'
                          + _('The following services may now be enabled') + ':\n'
                          + ' - ' + _('pulling orders from synchronization server') + '\n'
                          + ' - ' + _('backing up terminal profile') + '\n\n'
@@ -388,21 +448,18 @@
             var size = evt.data ? evt.data.size : '-';
             var free = evt.data ? evt.data.free : '-';
 
-            if (GREUtils.Dialog.confirm(win,
-                                        _('Secondary Storage Activated'),
-                                        _('New secondary storage of size [%S] with [%S] free is now online and ready for use', [size, free])
-                                        + '\n\n'
-                                        + _('The following service and configuration are now active automatically') + ':\n'
-                                        + ' - ' + _('electronic journal') + '\n'
-                                        + ' - ' + _('retaining last 7 backups instead of 2') + '\n\n'
-                                        + _('The following service may now be enabled') + ':\n'
-                                        + ' - ' + _('pulling orders from synchronization server') + '\n\n'
-                                        + _('In addition, please adjust the following settings') + ':\n'
-                                        + ' - ' + _('number of days to retain transaction data' + '\n'
-                                        + ' - ' + _('number of days to retain inventory commitment records') + '\n\n'
-                                        + _('You may use the "Merge" option in "System Backup/Restore" to import historical data into the current database')))) {
-
-            };
+            this._notify(_('New Secondary Storage Activated'),
+                         _('New secondary storage of size [%S] with [%S] free is now online and ready for use', [size, free])
+                         + '\n\n'
+                         + _('The following service and configuration are now active automatically') + ':\n'
+                         + ' - ' + _('electronic journal') + '\n'
+                         + ' - ' + _('retaining the last 7 local backups instead of the last 2') + '\n\n'
+                         + _('The following service may now be enabled') + ':\n'
+                         + ' - ' + _('pulling orders from synchronization server') + '\n\n'
+                         + _('In addition, please adjust the following settings') + ':\n'
+                         + ' - ' + _('number of days to retain transaction data') + '\n'
+                         + ' - ' + _('number of days to retain inventory commitment records') + '\n\n'
+                         + _('You may use the "Import" option in "System Backup/Restore" to import historical transaction data into the current database'));
         },
         
         _validateSmallDiskConfiguration: function() {
@@ -423,7 +480,7 @@
                 notifications.push(_('disabling electronic journal'))
             }
 
-            notifications.push(_('retaining last 2 backups instead of 7'));
+            notifications.push(_('retaining the last 2 local backups instead of the last 7'));
 
             var settings = (new SyncSetting()).read();
             if (GeckoJS.String.parseBoolean(settings.pull_order)) {
@@ -540,7 +597,7 @@
                 
                 this._execute(this._script_path + '/' + this._restore_last_good_db_script,
                               [this._data_path + '/profile/' + this._last_good_db_path + '/' + file_name,
-                               this._data_path + '/databases']);
+                               this._data_path]);
 
                 // dispatch event to allow other add-ons to migrate data from last good db
                 var result = this.dispatchEvent('restoreLastGoodDB',
