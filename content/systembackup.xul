@@ -50,7 +50,7 @@
                     </hbox>
                 </vbox>
 
-                <vbox flex="1" class="toolbar" toolbarmode="vertical">
+                <vbox flex="1" id="toolbar" class="toolbar" toolbarmode="vertical">
                     <spacer flex="1"/>
                     <vivibutton id="backuptolocal" label="&systembackup.backuptolocal;" oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
                     <vivibutton id="backuptostick" label="&systembackup.backuptostick;" oncommand="$do('backupToStick',null, 'SystemBackup');"/>

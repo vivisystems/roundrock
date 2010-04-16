@@ -335,22 +335,7 @@
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
 
-            if (this.doReboot) {
-                this.rebootMachine();
-            }
-
-            if (this.doRestart) {
-                this.restart();
-            }
-
-            if (this.restartClock) {
-                try {
-                    $('#clock')[0].stopClock();
-                    $('#clock')[0].startClock();
-                }
-                catch(err) {
-                }
-            }
+            this.postControlPanelProcessing();
         },
 
         ChangeUserDialog: function () {
@@ -581,13 +566,15 @@
 
             if (this.Acl.isUserInRole(roles) || roles =='') {
                 try {
-                      waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
-                      window.openDialog(path, "ControlPanel_" + label, features, pref);
+                    waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
+                    window.openDialog(path, "ControlPanel_" + label, features, pref);
+
+                    this.postControlPanelProcessing();
                 }
                 catch(e) {}
                 finally {
-                         waitPanel.hidePopup();
-                         return true;
+                    waitPanel.hidePopup();
+                    return true;
                 }
             }else{
                 NotifyUtils.warn(_('You are not authorized to access the [%S] control panel function',[l18nLabel]));
@@ -639,6 +626,26 @@
                 }
                 finally {
                     this._launchingControlPanel = false;
+                }
+            }
+        },
+
+        postControlPanelProcessing: function() {
+
+            if (this.doReboot) {
+                this.rebootMachine();
+            }
+
+            if (this.doRestart) {
+                this.restart();
+            }
+
+            if (this.restartClock) {
+                try {
+                    $('#clock')[0].stopClock();
+                    $('#clock')[0].startClock();
+                }
+                catch(err) {
                 }
             }
         },
