@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-04-01 18:46+0800\n"
+"POT-Creation-Date: 2010-04-16 12:40+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3018,7 +3018,12 @@ msgstr "Split Payment"
 #
 # #######################################################################
 msgid "vivipos.fec.registry.function.programmable.openreport.desc"
-msgstr "This function allows operator to open a specific report ."
+msgstr ""
+"This function allows operator to open a specific report .The parameter may "
+"be set to a query string to default conditions for report.Format: "
+"FIELD_ID=FIELD_VALUE&FIELD_ID2=FIELD_VALUE2 Support ${terminal_no} "
+"${shift_no} ${branch_id} ${sale_period} will be replace to current terminal "
+"settingsIf auto_execute=1, report will auto execute when opened."
 
 msgid "vivipos.fec.registry.function.programmable.openreport.label"
 msgstr "Open Report"
@@ -3313,7 +3318,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/reportPanel.js:71
-#: ../..//content/controllers/main_controller.js:1976
+#: ../..//content/controllers/main_controller.js:1984
 msgid "custom"
 msgstr ""
 
@@ -6705,6 +6710,30 @@ msgstr ""
 msgid "Failed to recall the selected order"
 msgstr ""
 
+#: ../..//content/controllers/locale_helper_controller.js:35
+msgid "VIVIECR untranslations found"
+msgstr ""
+
+#: ../..//content/controllers/locale_helper_controller.js:36
+msgid "untranslations:"
+msgstr ""
+
+#: ../..//content/controllers/locale_helper_controller.js:37
+msgid ""
+"Please install new version language pack or press 'OK' to auto fill "
+"untranslations."
+msgstr ""
+
+#: ../..//content/controllers/locale_helper_controller.js:270
+#: ../..//content/controllers/localization_controller.js:621
+msgid "Failed to write DTD to file [%S]"
+msgstr ""
+
+#: ../..//content/controllers/locale_helper_controller.js:285
+#: ../..//content/controllers/localization_controller.js:636
+msgid "Failed to write Properties to file [%S]"
+msgstr ""
+
 #: ../..//content/controllers/localekeyboard_controller.js:58
 #: ../..//content/controllers/sync_settings_controller.js:119
 msgid "No changes to save"
@@ -6747,14 +6776,6 @@ msgid ""
 "The text you entered contains one or more special characters (%, &, \") that "
 "should be used with extreme care. Mis-use may lead to non-functional "
 "screens. Are you sure you still want to modify this translation?"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:621
-msgid "Failed to write DTD to file [%S]"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:636
-msgid "Failed to write Properties to file [%S]"
 msgstr ""
 
 #: ../..//content/controllers/localization_controller.js:678
@@ -7054,15 +7075,15 @@ msgstr ""
 msgid "Function Customizer"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1984
+#: ../..//content/controllers/main_controller.js:1992
 msgid "Report [%S] does not exist"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1994
+#: ../..//content/controllers/main_controller.js:2003
 msgid "You are not authorized to access the [%S] report"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:2066
+#: ../..//content/controllers/main_controller.js:2075
 msgid "Select User"
 msgstr ""
 
