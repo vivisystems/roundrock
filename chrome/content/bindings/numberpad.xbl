@@ -40,7 +40,12 @@
   <xbl:implementation>
 	
 	<xbl:constructor>
-		
+
+            // using locale decimal *trick*
+            var detectDecimal = (new Number(1.1)).toLocaleString().replace("1","","g");
+            document.getAnonymousElementByAttribute(this, 'anonid', '.').setAttribute('charCode', detectDecimal);
+            document.getAnonymousElementByAttribute(this, 'anonid', '.').setAttribute('label', detectDecimal);
+
 	</xbl:constructor>
 	
 	<xbl:method name="setTarget">
