@@ -365,7 +365,7 @@
                     }
                 }
             } else {
-                NotifyUtils.info(_('Please select an external backup to restore from'));
+                NotifyUtils.info(_('Please select a local backup to restore from'));
             }
 
             this._busy = false;
@@ -417,7 +417,7 @@
                     }
                 }
             } else {
-                NotifyUtils.info(_('Please select a local backup to restore from'));
+                NotifyUtils.info(_('Please select an external backup to restore from'));
             }
 
             this._busy = false;
