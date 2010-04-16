@@ -1107,7 +1107,8 @@ msgstr "VOID"
 
 msgid "vivipos.fec.registry.function.programmable.voidSale.desc"
 msgstr "This function voids the stored or completed transaction in the cart. "
-" No parameter is needed."
+"The first parameter if specified, will be used to auto refund payments."
+"The second parameter if specified, will be used to 'auto' or specified refund payment type."
 
 msgid "vivipos.fec.registry.function.programmable.voidSale.label"
 msgstr "Void Sale"

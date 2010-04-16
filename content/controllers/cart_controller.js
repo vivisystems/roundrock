@@ -4308,7 +4308,12 @@
         /**
          * void current transaction
          */
-        voidSale: function() {
+        voidSale: function(autoRefund) {
+
+            autoRefund = autoRefund || '';
+            var autoTmp = autoRefund.split(',');
+            var autoRefundPayment = GeckoJS.String.parseBoolean(autoTmp[0] || false);
+            var autoRefundPaymentType = autoTmp[1] || 'auto';
 
             var curTransaction = this._getTransaction();
 
@@ -4342,7 +4347,7 @@
                     _('You have made changes to this order; are you sure you want to void the order?'))) {
                 return;
             }
-            if (this._voidSaleById(curTransaction.data.id)) {
+            if (this._voidSaleById(curTransaction.data.id, autoRefundPayment, autoRefundPaymentType)) {
                 Transaction.removeRecoveryFile();
                 curTransaction.data.status = -2;
                 this.dispatchEvent('onWarning', _('SALE VOIDED'));
@@ -4366,8 +4371,11 @@
          * needs to be recalled into the cart
          *
          */
-        _voidSaleById: function(id) {
+        _voidSaleById: function(id, autoRefundPayment, autoRefundPaymentType) {
 
+            autoRefundPayment = GeckoJS.String.parseBoolean(autoRefundPayment || false);
+            autoRefundPaymentType = autoRefundPaymentType || 'auto';
+            
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 
             if (!id) return false;
@@ -4449,7 +4457,9 @@
                 paidTotal: orderData.Order.payment_subtotal - orderData.Order.change,
                 sequence: orderData.Order.sequence,
                 roundingPrices: orderData.Order.rounding_prices,
-                precisionPrices: orderData.Order.precision_prices
+                precisionPrices: orderData.Order.precision_prices,
+                autoRefundPayment: autoRefundPayment,
+                autoRefundPaymentType: autoRefundPaymentType
             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Payment Refund'), features, inputObj);
