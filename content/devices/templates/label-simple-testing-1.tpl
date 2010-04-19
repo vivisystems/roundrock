@@ -10,11 +10,6 @@ for(var x = 0 ; x< product.length ; x++){
 
  myModifiers = {
 
-   decimal: function(price){
-
-        return price +".00";
-   },
-
    coor: function(s){
 
       var limit = 85;

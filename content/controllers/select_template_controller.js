@@ -46,13 +46,44 @@
 
             var aURL = 'chrome://viviecr/content/select_tax.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            let barcodes = this.getBarcodeObj();
             var inputObj = {
-                taxes: [{ name:_('(barcode)Code 39')}],
+                taxes: barcodes,
                 titleName:_('Select Barcode Type')
             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Barcode Type'), aFeatures, inputObj);
-            if (inputObj.ok) {}
+            if (inputObj.ok) {
+                this.query('#barcode').val(inputObj.name);
+            }
+       },
+       
+       loadBarcodePref: function(){
+
+           
+           let barcodes = GeckoJS.Configure.read('vivipos.fec.registry.devicemodels.argox-os-203.barcodetype');
+
+           barcodes = barcodes.split(',');
+
+           /* filter space character*/
+           for(var i=0; i<barcodes.length; i++){
+
+                barcodes[i] = jQuery.trim(barcodes[i]);
+           }
+
+           return barcodes;
+       },
+
+       getBarcodeObj: function(){
+
+           let barcodes = this.loadBarcodePref();
+           let barcodeObjList = [];
+
+           for(var i=0; i<barcodes.length; i++){
+
+                barcodeObjList.push({ name:barcodes[i]});
+           }
+           return barcodeObjList;
        },
 
        loadImage: function(dir) {
