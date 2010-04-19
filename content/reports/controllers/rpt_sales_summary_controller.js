@@ -187,7 +187,7 @@
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             if ( !this._breakout_setmenu )
-                conditions += " AND order_items.parent_index IS NULL";
+                conditions += " AND (order_items.parent_index IS NULL OR order_items.parent_index = '')";
             
             var groupby = 'order_items.cate_no';
             var orderby = '"gross" DESC, "qty" DESC';
@@ -279,7 +279,7 @@
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             if ( !this._breakout_setmenu )
-                conditions += " AND order_items.parent_index IS NULL";
+                conditions += " AND (order_items.parent_index IS NULL OR order_items.parent_index = '')";
             
             var groupby = 'order_items.product_no';
             var orderby = '"gross" DESC, "qty" DESC';
