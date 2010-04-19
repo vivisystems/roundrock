@@ -58,3 +58,5 @@ delete from sync_remote_machines;
 delete from syncs;
 .import orders_syncs.csv syncs
 
+
+UPDATE order_items SET parent_index=NULL where parent_index='';
