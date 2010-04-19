@@ -862,7 +862,7 @@
             alert('begin');
             var now = (new Date()).getTime();
             var orderItemModel = new OrderItemModel();
-            var orderItems = orderItemModel.find('all', {conditions: "parent_index IS NULL", limit: 3000000, recursive: 0});
+            var orderItems = orderItemModel.find('all', {conditions: "(parent_index IS NULL OR parent_index = '')", limit: 3000000, recursive: 0});
             var orderItemTaxModel = new OrderItemTaxModel();
 
             orderItems.forEach(function(item) {
