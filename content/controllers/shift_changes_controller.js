@@ -743,7 +743,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL' +
+                             ' AND order_payments.name = "cash" AND (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\')' +
                              ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.name';
                 orderby = 'order_payments.memo1, order_payments.name';
@@ -771,7 +771,7 @@
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                              ' AND orders.status != -1' +
-                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"';
+                             ' AND order_payments.name = "cash" AND (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\') AND order_payments.is_groupable = "1"';
                 groupby = 'order_payments.amount, order_payments.name';
                 orderby = 'order_payments.amount, order_payments.name';
                 var valueFixedCashPayment = orderPayment.find('all', {fields: fields,
@@ -799,7 +799,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)' +
+                             ' AND order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\')' +
                              ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.name';
                 var foreignCashDetails = orderPayment.find('all', {fields: fields,
@@ -856,7 +856,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"' +
+                             ' AND order_payments.name = "cash" AND (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\') AND order_payments.is_groupable = "1"' +
                              ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.name, order_payments.origin_amount, order_payments.is_groupable';
                 var groupableCashPayment = orderPayment.find('all', {fields: fields,
@@ -884,7 +884,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND NOT(order_payments.memo2 IS NULL) AND order_payments.is_groupable = "1"' +
+                             ' AND order_payments.name = "cash" AND NOT(order_payments.memo2 IS NULL OR order_payments.memo2 = \'\') AND order_payments.is_groupable = "1"' +
                              ' AND orders.status != -1';
                 groupby = 'order_payments.name, order_payments.memo1, order_payments.origin_amount, order_payments.is_groupable';
                 var groupableForeignCashPayment = orderPayment.find('all', {fields: fields,
@@ -963,8 +963,8 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND ((order_payments.name = "cash" AND order_payments.memo2 IS NULL) OR (order_payments.name = "ledger"))' +
-                             ' AND (orders.status != -1 OR orders.status IS NULL)';
+                             ' AND ((order_payments.name = "cash" AND (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\')) OR (order_payments.name = "ledger"))' +
+                             ' AND (orders.status != -1 OR (orders.status IS NULL OR orders.status = \'\'))';
                 var cashDetails = orderPayment.find('first', {fields: fields,
                                                               conditions: conditions,
                                                               recursive: 1,
@@ -982,7 +982,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))' +
+                             ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\')) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))' +
                              ' AND orders.status != -1';
                 var changeDetails = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
@@ -1353,7 +1353,7 @@
 
                 // offer options to power off or restart and to print shift and day reports
                 aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=300';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',height=300';
                 let parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Sale Period Close'), features, parms);
 
@@ -1383,7 +1383,7 @@
 
                 // shift change notification and print option
                 aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=300';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',height=300';
                 let message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Close'), features, message);
 

@@ -223,6 +223,9 @@
             }
 
             var status = 0;
+
+            if (!this.dispatchEvent('beforeOpenDrawer', drawer)) return ;
+
             switch (drawer.type) {
                 
                 case 'gpio':
@@ -271,6 +274,10 @@
                 this._dbError(model.lastError, model.lastErrorString,
                               _('An error was encountered while saving cashdrawer access record (error code %S) [message #205].', [model.lastError]));
             }
+
+            this.dispatchEvent('afterOpenDrawer', accessRecord);
+            this.dispatchEvent('onOpenDrawer', accessRecord);
+            
         },
 
         // send open drawer commands to printer using the given parameters

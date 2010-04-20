@@ -23,9 +23,28 @@
 
         var options = window.arguments[0];
         function startup() {
+            var no_cols = 3;
             document.getElementById('message').value = options.message;
             if (GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange')) {
                 document.getElementById('column1').hidden = true;
+                no_cols = 2;
+            }
+
+            var columns = document.getElementById('columns');
+            if (columns) {
+                var col_width = Math.round(columns.boxObject.width / no_cols);
+                var col1 = document.getElementById('column1');
+                if (col1) {
+                    col1.setAttribute('style', 'width:' + col_width + 'px;');
+                }
+                var col2 = document.getElementById('column2');
+                if (col2) {
+                    col2.setAttribute('style', 'width:' + col_width + 'px;');
+                }
+                var col3 = document.getElementById('column3');
+                if (col3) {
+                    col3.setAttribute('style', 'width:' + col_width + 'px;');
+                }
             }
         }
 
@@ -42,10 +61,10 @@
         <vbox flex="1" class="container-main">
             <label id="message" value="" class="label-page-title"/>
     		<grid flex="1" class="container-report">
-                <columns>
-                    <column id="column1" flex="1"/>
-                    <column flex="1"/>
-                    <column flex="1"/>
+                <columns id="columns">
+                    <column flex="1" id="column1"/>
+                    <column id="column2"/>
+                    <column id="column3"/>
                 </columns>
                 <rows>
                     <row flex="1">

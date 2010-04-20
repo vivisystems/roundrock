@@ -89,6 +89,10 @@
             document.getElementById('refund_amount').textbox.value = this.formatPrice(this.roundPrice(this._paidTotal));
             document.getElementById('refund_amount').textbox.select();
 
+            if (data.autoRefundPayment) {
+                this.updateAutoRefundPayments(data.autoRefundPaymentType);
+            }
+
         },
 
         save: function(data) {
@@ -175,6 +179,7 @@
                     memo1: inputObj.memo1,
                     memo2: inputObj.memo2
                 };
+                
                 this._refundPayments.push(newRefundPayment);
                 refundList.treeBoxObject.rowCountChanged(this._refundPayments.length - 1, 1);
                 refundList.treeBoxObject.ensureRowIsVisible(this._refundPayments.length - 1);
@@ -213,6 +218,42 @@
 
         selectRefundPayment: function(index) {
             document.getElementById('btnMinus').setAttribute('disabled', index == -1);
+        },
+
+        updateAutoRefundPayments: function(autoRefundPaymentType) {
+            
+            autoRefundPaymentType = autoRefundPaymentType || 'auto';
+
+            var refundList = document.getElementById('refundscrollablepanel');
+
+            this._originalPayments.forEach(function(p) {
+
+                if (p.amount <= 0) return ;
+
+                let newRefundPayment = {
+                    seq: p.seq,
+                    name: (autoRefundPaymentType == 'auto' ? p.name : autoRefundPaymentType),
+                    amount: p.amount,
+                    display_amount: p.display_amount,
+                    memo1: p.memo1,
+                    memo2: p.memo2
+                };
+
+                this._refundPayments.push(newRefundPayment);
+                this._refundTotal = this._refundTotal - - p.amount;
+
+
+            }, this);
+
+
+            if (this._refundPayments.length >0) {
+
+                refundList.datasource = this._refundPayments;
+                refundList.selection.select(this._refundPayments.length - 1);
+
+                document.getElementById('refundTotal').value = this.formatPrice(this._refundTotal);
+            }
+            
         }
     };
 
