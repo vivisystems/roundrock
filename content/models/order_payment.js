@@ -88,8 +88,32 @@
             
             data['trans_payments'] = payments;
 
+            this.rebuildDisplaySequences(data);
+
             return payments;
+        },
+
+
+        // XXX not yet!
+        rebuildDisplaySequences: function(data) {
+
+            if(!data.rebuildedDisplaySequences) return ;
+
+            try {
+
+                var transaction = new Transaction(true, true);
+
+                for (var itemIndex in data.trans_payments) {
+                    let dsp_seq = transaction.createDisplaySeq(itemIndex, data.trans_payments[itemIndex], 'payment');
+                    data.display_sequences.push(dsp_seq);
+                }
+
+            }catch(e){
+                this.log('WARN', 'rebuildDisplaySequences failure.', e);
+            }
+            
         }
+
 
     };
     
