@@ -34,7 +34,7 @@
                                            buttonClass="button-item-a"
                                            scrollUpClass="scroll-up-button"
                                            scrollDownClass="scroll-down-button"
-                                           oncommand="$do('select',this.selectedIndex, 'SelectTax');">
+                                           >
                     <spacer flex="1"/>
                 </viviscrollablebuttonpanel>
             </hbox>
