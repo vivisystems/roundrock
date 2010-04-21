@@ -244,6 +244,8 @@
                                 var columns = [];
                                 var headers = [];
 
+                                let bufheader;
+
                                 var buf = "";
                                 switch(model) {
                                     case "condiments": {
@@ -530,7 +532,12 @@
                                     }
                                 }
 
-                                buf = headers.join('","');
+                                bufheader = headers.join('","');
+                                bufheader = '"'+bufheader+'"';
+                                
+                                saveFile.write(bufheader+"\n");
+
+                                buf = columns.join('","');
                                 buf = '"'+buf+'"';
 
                                 saveFile.write(buf+"\n");
@@ -942,6 +949,7 @@
                             file.open("r");
                             
                             var lines = file.readAllLine();
+                            lines.splice(0,1);
                             file.close();
                             if (lines.length <= 0) return;
                         }
