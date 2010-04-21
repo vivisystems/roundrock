@@ -199,6 +199,7 @@
                     }
                 }
             }
+            
             data.items_tax_details = items_tax_details;
             data.promotions_tax_details = promotions_tax_details;
 
