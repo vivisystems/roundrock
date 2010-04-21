@@ -111,8 +111,12 @@
 
                 // name,current_qty,current_price,current_subtotal
                 let orderItem =  (data.items ? data.items[itemIndex] : false ) || {
+                    id: (productModel.getProductByNo(item.product_no) ? productModel.getProductByNo(item.product_no).id : ''), 
                     type: 'item', // item or category
-                    index: itemIndex
+                    index: itemIndex,
+                    no: item.product_no,
+                    name: item.product_name,
+                    parent_index: item.parent_index
                 };
 
                 for (var key in item) {
@@ -149,7 +153,7 @@
                             break;
                     }
                 }
-
+               
                 // check non stored data and rebuild from product databases
                 if (!orderItem.link_group) {
                     try {
@@ -208,6 +212,22 @@
         // XXX not yet!
         rebuildDisplaySequences: function(data) {
 
+            data.display_sequences = [] ;
+
+            try {
+
+                var transaction = new Transaction(true, true);
+
+                for (var itemIndex in data.items) {
+                    let dsp_seq = transaction.createDisplaySeq(itemIndex, data.items[itemIndex]);
+                    data.display_sequences.push(dsp_seq);
+                }
+
+                data.rebuildedDisplaySequences = true;
+
+            }catch(e) {
+                this.log('WARN', 'rebuildDisplaySequences failure.', e);
+            }
         }
 
     };
