@@ -1713,7 +1713,7 @@
                     }
 
                     // create new order or recall?
-                    doRecall = (ordersClosed < count) && (ordersOpened >= count || Math.random() < 0.5);
+                    doRecall = !noTable && (ordersClosed < count) && (ordersOpened >= count || Math.random() < 0.5);
 
                     // select a table in sequence
                     if (!noTable && numTables > 0) {
@@ -1773,6 +1773,9 @@
                                 if (guestCheckController.newTable(currentTableNo)) {
                                     txn = cart._getTransaction();
                                 }
+                            }
+                            else if (noTable) {
+                                txn = cart._getTransaction(true);
                             }
 
                             if (customerController && numCustomers > 0) {
@@ -1864,11 +1867,11 @@
 
                             this.sleep(1000);
 
-                            if (doStore) {
+                            if (store && doStore) {
                                 $do('storeCheck', null, 'Cart');
 
                                 if (noTable) {
-                                    this.log('WARN', 'storing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                    this.log('WARN', 'storing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] store [' + store + ']');
                                     progressBar.value = (++ordersClosed * 100) / count;
                                     this.log('WARN', 'order stored [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
                                 }
