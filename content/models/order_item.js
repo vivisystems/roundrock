@@ -153,15 +153,11 @@
                             break;
                     }
                 }
-
-                this.log('orderItem: ' + this.dump(orderItem));
-                
+               
                 // check non stored data and rebuild from product databases
                 if (!orderItem.link_group) {
                     try {
-                        this.log('item id: ' + orderItem.id);
                         let product = productModel.getProductById(orderItem.id);
-                        this.log(this.dump(product));
                         orderItem['link_group'] = product.link_group;
                     }catch(e){
                         // product not exists, maybe databases error or calling old order
