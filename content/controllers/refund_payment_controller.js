@@ -157,6 +157,7 @@
         },
 
         addRefundPayment: function() {
+           
             var inputObj = GeckoJS.FormHelper.serializeToObject('refundForm');
             var amount = parseFloat(inputObj.amount);
             var refundList = document.getElementById('refundscrollablepanel');
@@ -165,6 +166,9 @@
                 NotifyUtils.warn(_('Refund payment amount must be a valid, positive number'));
             }
             else {
+
+                this.checkPaymentType(inputObj);
+
                 amount = this.roundPrice(amount);
 
                 var newRefundPayment = {
@@ -211,6 +215,16 @@
             }
         },
 
+        checkPaymentType: function(inputObj) {
+
+            var currencies = GeckoJS.Session.get('Currencies');
+
+            if (inputObj.type == 'cash' && inputObj.memo1.length <= 0 && currencies ) {
+                inputObj.memo1 = currencies[0].currency;
+            }
+
+        },
+        
         selectRefundPayment: function(index) {
             document.getElementById('btnMinus').setAttribute('disabled', index == -1);
         }
