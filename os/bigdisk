@@ -10,6 +10,8 @@ CREATED_STAGING=0
 TARGET=/data
 PROVISIONED=0
 MOUNT=""
+FSCK=/sbin/fsck
+FSCK_FLAGS="-T -C -t ext3 -M -p"
 BIGDISK_SETTINGS=/data/profile/bigdisk_settings
 DIRS="backups databases images irc_packages journal training"
 DBS="vivipos vivipos_acl vivipos_extension vivipos_inventory vivipos_journal vivipos_order vivipos_table"
@@ -100,6 +102,18 @@ then
     MOUNT=`grep -m 1 "${DEVICE}" ${MTAB} | awk -F " " '{ print $2 }'`
     if [ -z "${MOUNT}" ]
     then
+
+        ##
+        ## not mounted, so let's do fsck
+        ##
+        ${FSCK} ${FSCK_FLAGS} LABEL="${VOLUME}"
+        if [ $? -ne 0 ];
+        then
+            log_warning_msg "... data volume [${VOLUME}] is corrupt and needs to be manually repaired"
+            handle_failure
+        else
+            log_success_msg "... data volumne [${VOLUME}] passed file system check"
+        fi
 
 	##
 	## need to mount, so let's ensure staging mount point exists

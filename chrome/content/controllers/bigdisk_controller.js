@@ -24,6 +24,9 @@
         _bigdisk_setting: 'bigdisk_settings',
         _bigdisk_session_flag: 'vivicenter.BigDisk',
 
+        _syncSettings: null,
+        _syncSuspendStatusFile: '/tmp/sync_suspend_',
+        
         _limit_retain_txn: 30,
         _limit_retain_inventory: 30,
 
@@ -35,7 +38,7 @@
             this.addEventListener('newBigDisk', this._newBigDisk, this);
             this.addEventListener('resumeBigDisk', this._newBigDisk, this);
 
-            // listen for 'periodClosed' event to back up last good db'
+            // listen for 'periodClosed' event to back up last good db
             var shiftChange = GeckoJS.Controller.getInstanceByName('ShiftChanges');
             if (shiftChange) {
                 shiftChange.addEventListener('periodClosed', this._periodClosed, this);
@@ -45,6 +48,12 @@
             var journal = GeckoJS.Controller.getInstanceByName('Journal');
             if (journal) {
                 journal.addEventListener('onInitial', this._afterJournalInitialization, this);
+            }
+
+            // listen for '' event to remove last good db
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('afterTruncateTxnRecords', this._afterTruncateTxnRecords, this);
             }
 
             // set up various paths
@@ -178,9 +187,9 @@
         updateSystemBackupOptions: function(doc) {
             var mergeButtonObj = doc.getElementById('mergefromstick');
             if (mergeButtonObj) {
-                if (!GeckoJS.Session.get(this._bigdisk_session_flag)) {
+                if (GeckoJS.Session.get(this._bigdisk_session_flag)) {
                     // disable merge button
-                    mergeButtonObj.setAttribute('disabled', true);
+                    //mergeButtonObj.setAttribute('disabled', true);
 
                     // replace systembackup controller's validate form with my own
                     var system_backup = doc.defaultView.GeckoJS.Controller.getInstanceByName('SystemBackup');
@@ -233,32 +242,37 @@
 
                 if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Import"), confirmMessage)) {
 
-                    env._busy = true;
-                    var waitPanel = env._showWaitPanel(_('Importing Historical Data from External Backup'));
-                    env.setButtonState();
+                    confirmMessage = _("You are strongly advised to backup the existing data before proceeding with the import. Do you want to continue with the import?");
 
-                    $('#mergefromstick').attr('disabled', true);
+                    if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Import"), confirmMessage)) {
 
-                    this.sleep(100);
+                        env._busy = true;
+                        var waitPanel = env._showWaitPanel(_('Importing Historical Data from External Backup'));
+                        env.setButtonState();
 
-                    this.log('FATAL', '[IMPORT-BEGIN] invoking script to import data from external backup: [' + env._stickbackupDir + dir + ']');
+                        $('#mergefromstick').attr('disabled', true);
 
-                    GeckoJS.ConnectionManager.closeAll();
+                        this.sleep(100);
 
-                    // execute the merge script
-                    this._execute(this._script_path + '/' + this._merge_db_script,
-                                  [env._stickbackupDir + dir, this._data_path]);
+                        this.log('FATAL', '[IMPORT-BEGIN] invoking script to import data from external backup: [' + env._stickbackupDir + dir + ']');
 
-                    this.log('FATAL', '[IMPORT-END] invoked script to import data from external backup: [' + env._stickbackupDir + dir + ']');
+                        GeckoJS.ConnectionManager.closeAll();
 
-                    this.dispatchEvent('importHistoricalData', {source: env._stickbackupDir + dir,
-                                                                target: this._data_path + '/databases'});
-                                                            
-                    NotifyUtils.info(_('<Import from External Backup> is done!!'));
+                        // execute the merge script
+                        this._execute(this._script_path + '/' + this._merge_db_script,
+                                      [env._stickbackupDir + dir, this._data_path]);
 
-                    GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
-                    
-                    waitPanel.hidePopup();
+                        this.log('FATAL', '[IMPORT-END] invoked script to import data from external backup: [' + env._stickbackupDir + dir + ']');
+
+                        this.dispatchEvent('importHistoricalData', {source: env._stickbackupDir + dir,
+                                                                    target: this._data_path + '/databases'});
+
+                        NotifyUtils.info(_('<Import from External Backup> is done!!'));
+
+                        GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+
+                        waitPanel.hidePopup();
+                    }
                 }
             } else {
                 NotifyUtils.info(_('Please select an external backup to import'));
@@ -366,7 +380,8 @@
 
             if (GREUtils.Dialog.confirm(win,
                                         _('Small Disk Configuration'),
-                                        _('We have detected terminal configurations that require secondary storage, but no secondary storage has been installed. Do you still want to use this terminal?') + '\n\n'
+                                        _('We have detected terminal configurations that require secondary storage, but no secondary storage has been installed.') + '\n\n'
+                                         + _('Do you still want to use this terminal?') + '\n\n'
                                          + _('If you choose to use the terminal, the following service/configuration changes will be made automatically') + ':'
                                          + notifications + '\n\n'
                                          + _('If you choose NOT to use the terminal, please press the "Cancel" button; the terminal will automatically shut down'))) {
@@ -410,8 +425,8 @@
 
             if (GREUtils.Dialog.confirm(win,
                                         _('Secondary Storage Disabled'),
-                                        _('The secondary storage has been taken off-line. You may still use this terminal, but historical transaction data must be restored from external backup before they may be accessed.') + '\n'
-                                         + _('Do you want to continue to use this terminal?') + '\n\n'
+                                        _('The secondary storage has been taken off-line. You may still use this terminal, but historical transaction data must be restored from external backup before they may be accessed.') + '\n\n'
+                                         + _('Do you want to use this terminal?') + '\n\n'
                                          + _('If you choose to use the terminal, the following service/configuration changes will be made automatically') + ':\n'
                                          + notifications + '\n\n'
                                          + _('If you choose NOT to use the terminal, please press the "Cancel" button; the terminal will automatically shut down'))) {
@@ -537,22 +552,38 @@
             // generate last good db if in BigDisk mode
             if (GeckoJS.Session.get(this._bigdisk_session_flag)) {
 
+                var terminal = GeckoJS.Session.get('terminal_no');
                 var file = new Date().toString('yyyyMMddHHmmss');
                 var main = GeckoJS.Controller.getInstanceByName('Main');
                 var waitPanel = main._showWaitPanel('wait_panel', 'wait_caption', _('Generating Last Good Database...'), 500, true);
 
+                // suspend sync client first
+                this._suspendSync();
+
                 this._execute(this._script_path + '/' + this._last_good_db_script,
-                              [this._data_path + '/profile/' + this._last_good_db_path, file]);
-                              
-                this.log('WARN', 'last good database generated');
+                              [terminal, this._data_path + '/profile/' + this._last_good_db_path, file]);
 
                 // dispatch event to allow other add-on's to migrate data into last good db
                 this.dispatchEvent('generateLastGoodDB', {backup_path: this._data_path + '/profile/' + this._last_good_db_path,
                                                           backup_file: file});
-                
+
+                // resume sync client
+                this._resumeSync();
+
+                this.log('WARN', 'last good database generated');
+
                 if (waitPanel) {
                     waitPanel.hidePopup();
                 }
+            }
+        },
+
+        _afterTruncateTxnRecords: function(evt) {
+            // generate last good db if in BigDisk mode
+            var dir = new GeckoJS.Dir(this._data_path + '/profile/' + this._last_good_db_path);
+            if (dir.exists()) {
+                dir.remove(true);
+                this.log('WARN', 'last good database [' + dir.path + '] removed on afterTruncateTxnRecords event');
             }
         },
 
@@ -594,23 +625,30 @@
                                                       '(' + backup_date.toLocaleString() + ')');
 
                 this.sleep(500);
-                
+
+                // suspend sync client first
+                this._suspendSync();
+
                 this._execute(this._script_path + '/' + this._restore_last_good_db_script,
                               [this._data_path + '/profile/' + this._last_good_db_path + '/' + file_name,
                                this._data_path]);
 
                 // dispatch event to allow other add-ons to migrate data from last good db
-                var result = this.dispatchEvent('restoreLastGoodDB',
-                                                {backup_path: this._data_path + '/profile/' + this._last_good_db_path,
-                                                 backup_file: file_name,
-                                                 db_path: this._data_path + '/databases'
-                                                })
+                result = this.dispatchEvent('restoreLastGoodDB',
+                                            {backup_path: this._data_path + '/profile/' + this._last_good_db_path,
+                                             backup_file: file_name,
+                                             db_path: this._data_path + '/databases'
+                                            })
+
+                // resume sync client
+                this._resumeSync();
+
                 if (alert_win) {
                     alert_win.close();
                     delete alert_win;
                 }
 
-                this.log('WARN', 'restored last good database from [' + file_name + '], result [' + result + ']');
+                this.log('ERROR', 'restored last good database from [' + file_name + '], result [' + result + ']');
             }
 
             return result;
@@ -655,6 +693,32 @@
             var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
             
             return alertWin;
+        },
+
+        _getSyncSettings: function() {
+            if (this._syncSettings == null) {
+                let settings = (new SyncSetting()).read();
+
+                if (settings == null) {
+                    settings = {};
+                }
+                this._syncSettings = settings;
+            }
+            return this._syncSettings;
+        },
+
+        _suspendSync: function() {
+            var syncSettings = this._getSyncSettings();
+            var statusFile = new GeckoJS.File(this._syncSuspendStatusFile + syncSettings.machine_id);
+
+            statusFile.create();
+        },
+
+        _resumeSync: function() {
+            var syncSettings = this._getSyncSettings();
+            var statusFile = new GeckoJS.File(this._syncSuspendStatusFile + syncSettings.machine_id);
+
+            statusFile.remove();
         },
 
         destroy: function() {

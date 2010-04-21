@@ -1,0 +1,190 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-02-03 18:43+0800\n"
+"PO-Revision-Date: 2009-02-05 09:32+0800\n"
+"Last-Translator: VIVIPOS <translator@vivipos.com.tw>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
+
+#: ../../content/controllers/bigdisk_controller.js:218
+msgid "Media not found!! Please attach the external storage device..."
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:231
+msgid ""
+"Are you sure you want to import historical transaction data from backup [%S] "
+"located on external media [%S]?"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:232
+msgid ""
+"If you import now, the system will restart automatically after you return to "
+"the Main Screen."
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:234
+msgid "Confirm Import"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:237
+msgid "Importing Historical Data from External Backup"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:257
+msgid "<Import from External Backup> is done!!"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:264
+msgid "Please select an external backup to import"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:337
+msgid "Secondary Storage Activated"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:338
+msgid ""
+"Secondary storage of size [%S] with [%S] free is now online and ready for use"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:340
+msgid "The following service/configuration is now active automatically"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:341
+#: ../../content/controllers/bigdisk_controller.js:455
+msgid "electronic journal"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:342
+#: ../../content/controllers/bigdisk_controller.js:456
+msgid "retaining the last 7 local backups instead of the last 2"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:343
+msgid "The following services may now be enabled"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:344
+#: ../../content/controllers/bigdisk_controller.js:458
+#: ../../content/controllers/bigdisk_controller.js:487
+msgid "pulling orders from synchronization server"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:345
+msgid "backing up terminal profile"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:346
+#: ../../content/controllers/bigdisk_controller.js:459
+msgid "In addition, please adjust the following settings"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:348
+#: ../../content/controllers/bigdisk_controller.js:461
+msgid "number of days to retain inventory commitment records"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:347
+#: ../../content/controllers/bigdisk_controller.js:460
+msgid "number of days to retain transaction data"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:368
+msgid "Small Disk Configuration"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:369
+msgid ""
+"We have detected terminal configurations that require secondary storage, but "
+"no secondary storage has been installed. Do you still want to use this "
+"terminal?"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:370
+#: ../../content/controllers/bigdisk_controller.js:415
+msgid ""
+"If you choose to use the terminal, the following service/configuration "
+"changes will be made automatically"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:372
+#: ../../content/controllers/bigdisk_controller.js:417
+msgid ""
+"If you choose NOT to use the terminal, please press the \"Cancel\" button; "
+"the terminal will automatically shut down"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:412
+msgid "Secondary Storage Disabled"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:413
+msgid ""
+"The secondary storage has been taken off-line. You may still use this "
+"terminal, but historical transaction data must be restored from external "
+"backup before they may be accessed."
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:414
+msgid "Do you want to continue to use this terminal?"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:451
+msgid "New Secondary Storage Activated"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:452
+msgid ""
+"New secondary storage of size [%S] with [%S] free is now online and ready "
+"for use"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:454
+msgid "The following service and configuration are now active automatically"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:457
+msgid "The following service may now be enabled"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:462
+msgid ""
+"You may use the \"Import\" option in \"System Backup/Restore\" to import "
+"historical transaction data into the current database"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:480
+msgid "disabling electronic journal"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:483
+msgid "retaining the last 2 local backups instead of the last 7"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:503
+msgid "number of days to retain order data set to [%S] ([%S])"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:509
+msgid ""
+"number of days to retain inventory adjustment records set to [%S] ([%S])"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:543
+msgid "Generating Last Good Database..."
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:599
+msgid "Last Good Database"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:600
+msgid "Restoring Last Good Database..."
+msgstr ""

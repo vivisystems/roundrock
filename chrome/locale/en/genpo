@@ -1,6 +1,5 @@
 #!/bin/sh
 APP_DIR=`dirname $0`/../..;
-SDK_DIR="$APP_DIR/../../vivipos_sdk";
 
 xgettext -o messages.po --omit-header --msgid-bugs-address=roundrock@vivicenter.com -Lpython -k_ $APP_DIR/content/controllers/*.js
 
