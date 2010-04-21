@@ -91,8 +91,36 @@
             data['trans_discounts'] = discounts;
             data['trans_surcharges'] = surcharges;
 
+            this.rebuildDisplaySequences(data);
+
             return true;
 
+        },
+
+
+        rebuildDisplaySequences: function(data) {
+
+            if(!data.rebuildedDisplaySequences) return ;
+
+            try {
+
+                var transaction = new Transaction(true, true);
+
+                for (var itemIndex in data.trans_discounts) {
+                    let dsp_seq = transaction.createDisplaySeq(itemIndex, data.trans_discounts[itemIndex], 'trans_discount');
+                    data.display_sequences.push(dsp_seq);
+                }
+
+                for (var itemIndex in data.trans_surcharges) {
+                    let dsp_seq = transaction.createDisplaySeq(itemIndex, data.trans_surcharges[itemIndex], 'trans_surcharge');
+                    data.display_sequences.push(dsp_seq);
+                }
+
+            }catch(e) {
+                this.log('WARN', 'rebuildDisplaySequences failure.', e);
+            }
+
+            
         }
 
     };
