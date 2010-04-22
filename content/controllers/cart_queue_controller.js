@@ -215,7 +215,10 @@
                 
             }else {
 
-                return this._getQueueIdDialog().next(function(evt){
+                var dialogPopuped = this._getQueueIdDialog();
+                if (dialogPopuped === false) return false;
+                
+                return dialogPopuped.next(function(evt){
 
                     var result = evt.data;
 
