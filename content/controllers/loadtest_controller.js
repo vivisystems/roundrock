@@ -353,11 +353,11 @@
                 progressBar.mode = 'undetermined';
 
                 if (this._loadTestStoreCount > 0) {
-                    this.log('FATAL', 'Statistics: storeCheck [' + this._loadTestStoreCount + '] average [' + this._loadTestStoreTotalTime / this._loadTestStoreCount + ']');
+                    this.log('FATAL', 'Statistics: storeCheck count: [' + this._loadTestStoreCount + '], average duration: [' + this._loadTestStoreTotalTime / this._loadTestStoreCount + ']');
                 }
 
                 if (this._loadTestFinalizeCount > 0) {
-                    this.log('FATAL', 'Statistics: cash [' + this._loadTestFinalizeCount + '] average [' + this._loadTestFinalizeTotalTime / this._loadTestFinalizeCount + ']');
+                    this.log('FATAL', 'Statistics: cash count: [' + this._loadTestFinalizeCount + '], average duration: [' + this._loadTestFinalizeTotalTime / this._loadTestFinalizeCount + ']');
                 }
             }
         }
