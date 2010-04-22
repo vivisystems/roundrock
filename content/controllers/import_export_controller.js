@@ -18,6 +18,7 @@
         _importFolder: 'database_import',
         _exportFolder: 'database_export',
         _needRestart: false,
+        _localeCheck: false,
 
         select: function(index) {
             var button = document.getElementById('importBtn');
@@ -532,10 +533,14 @@
                                     }
                                 }
 
+                               this._localeCheck = document.getElementById('locale').checked;
+                               
+                               if(this._localeCheck){
                                 bufheader = headers.join('","');
                                 bufheader = '"'+bufheader+'"';
                                 
                                 saveFile.write(bufheader+"\n");
+                               }
 
                                 buf = columns.join('","');
                                 buf = '"'+buf+'"';
@@ -949,7 +954,11 @@
                             file.open("r");
                             
                             var lines = file.readAllLine();
-                            lines.splice(0,1);
+
+                            this._localeCheck = document.getElementById('locale').checked;
+                            if(this._localeCheck)
+                                lines.splice(0,1);
+                            
                             file.close();
                             if (lines.length <= 0) return;
                         }
