@@ -242,11 +242,14 @@
                                 saveFile.open("w");
 
                                 var columns = [];
+                                var headers = [];
+
+                                let bufheader;
 
                                 var buf = "";
                                 switch(model) {
                                     case "condiments": {
-                                            columns = [
+                                            headers = [
                                                 _('(importexport_condiments)name'),
                                                 _('(importexport_condiments)condiment_group_id'),
                                                 _('(importexport_condiments)price'),
@@ -255,19 +258,34 @@
                                                 _('(importexport_condiments)font_size'),
                                                 _('(importexport_condiments)preset')
                                             ];
+                                            columns = [
+                                                'name',
+                                                'condiment_group_id',
+                                                'price',
+                                                'id',
+                                                'button_color',
+                                                'font_size',
+                                                'preset'
+                                            ];
                                             break;
                                     }
                                     case "condimentgroups": {
-                                            columns = [
+                                            headers = [
                                                 _('(importexport_condimentgroups)name'),
                                                 _('(importexport_condimentgroups)id'),
                                                 _('(importexport_condimentgroups)seltype'),
                                                 _('(importexport_condimentgroups)newline')
                                             ];
+                                            columns = [
+                                                'name',
+                                                'id',
+                                                'seltype',
+                                                'newline'
+                                            ];
                                             break;
                                     }
                                     case "plugroups": {
-                                            columns = [
+                                            headers = [
                                                 _('(importexport_plugroups)name'),
                                                 _('(importexport_plugroups)id'),
                                                 _('(importexport_plugroups)description'),
@@ -281,10 +299,24 @@
                                                 _('(importexport_plugroups)non_discountable'),
                                                 _('(importexport_plugroups)non_surchargeable')
                                             ];
+                                            columns = [
+                                                'name',
+                                                'id',
+                                                'description',
+                                                'visible',
+                                                'link_department',
+                                                'link_group',
+                                                'display_order',
+                                                'button_color',
+                                                'font_size',
+                                                'routing',
+                                                'non_discountable',
+                                                'non_surchargeable'
+                                            ];
                                             break;
                                     }
                                     case "products": {
-                                            columns = [
+                                            headers = [
                                                 _('(importexport_products)no'),
                                                 _('(importexport_products)name'),
                                                 _('(importexport_products)cate_no'),
@@ -359,10 +391,86 @@
                                                 _('(importexport_products)non_discountable'),
                                                 _('(importexport_products)non_surchargeable')
                                             ];
+                                            columns = [
+                                                'no',
+                                                'name',
+                                                'cate_no',
+                                                'id',
+                                                'cond_group',
+                                                'link_group',
+                                                'barcode',
+                                                'buy_price',
+                                                'stock',
+                                                'min_stock',
+                                                'rate',
+                                                'memo',
+                                                'min_sale_qty',
+                                                'sale_unit',
+                                                'tare',
+                                                'scale',
+                                                'setmenu',
+                                                'level_enable1',
+                                                'price_level1',
+                                                'halo1',
+                                                'lalo1',
+                                                'level_enable2',
+                                                'price_level2',
+                                                'halo2',
+                                                'lalo2',
+                                                'level_enable3',
+                                                'price_level3',
+                                                'halo3',
+                                                'lalo3',
+                                                'level_enable4',
+                                                'price_level4',
+                                                'halo4',
+                                                'lalo4',
+                                                'level_enable5',
+                                                'price_level5',
+                                                'halo5',
+                                                'lalo5',
+                                                'level_enable6',
+                                                'price_level6',
+                                                'halo6',
+                                                'lalo6',
+                                                'level_enable7',
+                                                'price_level7',
+                                                'halo7',
+                                                'lalo7',
+                                                'level_enable8',
+                                                'price_level8',
+                                                'halo8',
+                                                'lalo8',
+                                                'level_enable9',
+                                                'price_level9',
+                                                'halo9',
+                                                'lalo9',
+                                                'auto_maintain_stock',
+                                                'return_stock',
+                                                'force_condiment',
+                                                'force_memo',
+                                                'single',
+                                                'visible',
+                                                'button_color',
+                                                'font_size',
+                                                'age_verification',
+                                                'display_mode',
+                                                'alt_name1',
+                                                'alt_name2',
+                                                'manual_adjustment_only',
+                                                'append_empty_btns',
+                                                'display_order',
+                                                'max_stock',
+                                                'scale_multiplier',
+                                                'scale_precision',
+                                                'display_mode',
+                                                'non_discountable',
+                                                'non_surchargeable'
+                                            ];
                                             break;
                                     }
                                     case "categories": {
-                                            columns = [
+                                            headers = [
                                                 _('(importexport_categories)no'),
                                                 _('(importexport_categories)name'),
                                                 _('(importexport_categories)id'),
@@ -377,10 +485,25 @@
                                                 _('(importexport_categories)non_discountable'),
                                                 _('(importexport_categories)non_surchargeable')
                                             ];
+                                            columns = [
+                                                'no',
+                                                'name',
+                                                'id',
+                                                'visible',
+                                                'sale_unit',
+                                                'scale',
+                                                'rate',
+                                                'button_color',
+                                                'font_size',
+                                                'cansale',
+                                                'display_order',
+                                                'non_discountable',
+                                                'non_surchargeable'
+                                            ];
                                             break;
                                     }
                                     case "setitems": {
-                                            columns = [
+                                            headers = [
                                                 _("(importexport_setitems)pluset_no"),
                                                 _("(importexport_setitems)label"),
                                                 _("(importexport_setitems)sequence"),
@@ -391,12 +514,28 @@
                                                 _("(importexport_setitems)linkgroup_id"),
                                                 _("(importexport_setitems)reduction")
                                             ];
+                                            columns = [
+                                                "pluset_no",
+                                                "label",
+                                                "sequence",
+                                                "id",
+                                                "preset_no",
+                                                "quantity",
+                                                "baseprice",
+                                                "linkgroup_id",
+                                                "reduction"
+                                            ];
                                             break;
                                     }
                                     default: {
                                             columns = GeckoJS.BaseObject.getKeys(row[tableTmp.name]);
                                     }
                                 }
+
+                                bufheader = headers.join('","');
+                                bufheader = '"'+bufheader+'"';
+                                
+                                saveFile.write(bufheader+"\n");
 
                                 buf = columns.join('","');
                                 buf = '"'+buf+'"';
@@ -810,6 +949,7 @@
                             file.open("r");
                             
                             var lines = file.readAllLine();
+                            lines.splice(0,1);
                             file.close();
                             if (lines.length <= 0) return;
                         }
