@@ -24,17 +24,6 @@
   <stringbundleset>
           <stringbundle id="bundleCharsetTitles"      src="chrome://global/locale/charsetTitles.properties" />
   </stringbundleset>
-
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
-
-  <!-- include models -->
-  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
-    
-  <!-- include controllers -->
-  <script src="chrome://viviecr/content/controllers/training_mode_controller.js" type="application/x-javascript"/>
-
-  <!-- include startup scripts -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js"/>
    
     <prefpane id="generalSettingsPane" label="&category.general;">
         <preferences>
@@ -493,5 +482,16 @@
 -->
     <!-- overlay the waiting panel. -->
     <popupset id="dialogs"/>
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include controllers -->
+  <script src="chrome://viviecr/content/controllers/training_mode_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup scripts -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js"/>
 
 </prefwindow>
