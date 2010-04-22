@@ -102,6 +102,9 @@
   <!-- promotions controller -->
   <script src='chrome://viviecr/content/controllers/promotions_controller.js' type="application/x-javascript;version=1.7"/>
 
+  <!-- loadtest controller -->
+  <script src='chrome://viviecr/content/controllers/loadtest_controller.js' type="application/x-javascript;version=1.7"/>
+
   <script src="chrome://viviecr/content/overlay.js" type="application/x-javascript;version=1.7"/>
 
     <box id="main-container" class="main-overlay">
