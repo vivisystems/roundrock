@@ -491,10 +491,10 @@ do_upgrade() {
 	files=`ls $media/UPDATE/update_* | grep -v 'gz' | grep -v 'zip' `
 	for	script in $files ; do
 		script2=`basename $script`
-		radioGroup="$radioGroup $script2 $script "
+		radioGroup="$radioGroup $script2 '' "
 	done;
 
-	eval "'${DIALOG}' '--title' 'Upgrade Image File' '--clear' '--menu' 'Please Select Image File' '20' '61' '5' $radioGroup" 2> $tempfile
+	eval "'${DIALOG}' '--title' 'Upgrade Image File' '--clear' '--menu' 'Please Select Image File' '20' '70' '18' $radioGroup" 2> $tempfile
 
 	retval=$?
 
