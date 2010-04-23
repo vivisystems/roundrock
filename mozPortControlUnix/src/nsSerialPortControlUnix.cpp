@@ -40,6 +40,13 @@ NS_IMETHODIMP nsSerialPortControlUnix::WritePort(const nsAString & portName, con
     return NS_OK;
 }
 
+/* PRInt64 availablePort (in AString portName); */
+NS_IMETHODIMP nsSerialPortControlUnix::AvailablePort(const nsAString & portName, PRInt64 *_retval)
+{
+    *_retval = impl.availablePort(NS_ConvertUTF16toUTF8(portName).get());
+    return NS_OK;
+}
+
 /* PRInt64 readPort (in AString portName, out ACString readBuffer, in PRInt64 length); */
 NS_IMETHODIMP nsSerialPortControlUnix::ReadPort(const nsAString & portName, nsACString & readBuffer, PRInt64 length, PRInt64 *_retval)
 {

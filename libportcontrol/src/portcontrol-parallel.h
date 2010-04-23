@@ -3,7 +3,7 @@
 
 #include "portcontrol-structures.h"
 
-#define MAX_PARALLEL_PORTS 10
+#define MAX_PARALLEL_PORTS 20
 
 typedef struct
 {

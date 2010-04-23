@@ -70,6 +70,19 @@ long closePort (char const * portName);
 long writePort (char const * portName, char const * writeBuffer, long length);
 
 /*
+    availablePort
+    --------
+    This function return the number of bytes available in buffer.
+
+    Parameters: portName - string of the form "usb:TSP700", or ...
+    Returns:    number of bytes available >= 0
+                    or
+    Errors:     STARIO_ERROR_NOT_OPEN - device not opened or no longer present
+                STARIO_ERROR_IO_FAIL - communications problem
+*/
+long availablePort (char const * portName);
+
+/*
     readPort
     --------
     This function the requested (or fewer) number of bytes

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+
+killall -6 notification-daemon
+
+# notificatin daemon
+DISPLAY=:0 LC_ALL=C /usr/lib/notification-daemon/notification-daemon &

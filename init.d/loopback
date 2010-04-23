@@ -1,0 +1,42 @@
+#!/bin/sh -e
+#
+# loopback - brings up the loopback (127.0.0.1) network device so that
+#            DHCP and other such things will work
+#
+
+# Check the package is still installed
+[ -x /sbin/ifup ] || exit 0
+
+# Get LSB functions
+. /lib/lsb/init-functions
+. /etc/default/rcS
+
+case "$1" in
+    start)
+	[ -d /var/run/network ] || mkdir /var/run/network
+
+	log_begin_msg "Starting basic networking..."
+	if ifup --allow auto lo; then
+	    log_end_msg 0
+	else
+	    log_end_msg $?
+	fi
+	;;
+    stop)
+	log_begin_msg "Stopping basic networking..."
+	if ifdown lo; then
+	    log_end_msg 0
+	else
+	    log_end_msg $?
+	fi
+	;;
+    restart|force-reload)
+	exit 0
+	;;
+    *)
+	echo "Usage: /etc/init.d/loopback {start|stop|restart|force-reload}"
+	exit 1
+	;;
+esac
+
+exit 0

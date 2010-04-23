@@ -1,0 +1,339 @@
+#! /bin/sh
+#
+# rc
+#
+# Starts/stops services on runlevel changes.
+#
+# Optimization: A start script is not run when the service was already
+# configured to run in the previous runlevel.  A stop script is not run
+# when the the service was already configured not to run in the previous
+# runlevel.
+#
+# Authors:
+# 	Miquel van Smoorenburg <miquels@cistron.nl>
+# 	Bruce Perens <Bruce@Pixar.com>
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+export PATH
+
+# Un-comment the following for debugging.
+# debug=echo
+
+# Specify method used to enable concurrent init.d scripts.
+# Valid options are 'none' and 'shell'.
+CONCURRENCY=none
+
+# Make sure the name survive changing the argument list
+scriptname="$0"
+
+umask 022
+
+#
+# Stub to do progress bar ticks (currently just for usplash) on startup
+#
+startup_progress() {
+    $@
+    step=$(($step + $step_change))
+    progress=$(($step * $progress_size / $num_steps + $first_step))
+    if type usplash_write >/dev/null 2>&1; then
+        usplash_write "PROGRESS $progress" || true
+    fi
+}
+
+#
+# Start script or program.
+#
+case "$CONCURRENCY" in
+  none)
+	startup() {
+		action=$1
+		shift
+		scripts="$@"
+		sh=sh
+		# Debian Policy §9.3.1 requires .sh scripts in runlevel S to be sourced
+		# However, some important packages currently contain .sh scripts
+		# that do "exit" at some point, thus killing this process.  Bad!
+		#[ S = "$runlevel" ] && sh=.
+		for script in $scripts ; do
+			case "$script" in
+			  *.sh)
+				if [ "." = "$sh" ] ; then
+					set "$action"
+					RC_SAVE_PATH="$PATH"
+					startup_progress $debug . "$script"
+					PATH="$RC_SAVE_PATH"
+				else
+					startup_progress $debug $sh "$script" $action
+				fi
+				;;
+			  *)
+				startup_progress $debug "$script" $action
+				;;
+			esac
+		done
+	}
+	;;
+  shell)
+	startup() {
+		action=$1
+		shift
+		scripts="$@"
+		sh=sh
+		# Debian Policy §9.3.1 requires .sh scripts in runlevel S to be sourced
+		# However, some important packages currently contain .sh scripts
+		# that do "exit" at some point, thus killing this process.  Bad!
+		#[ S = "$runlevel" ] && sh=.
+		backgrounded=0
+		for script in $scripts ; do
+			case "$script" in
+			  *.sh)
+				if [ "." = "$sh" ] ; then
+					set "$action"
+					RC_SAVE_PATH="$PATH"
+					startup_progress $debug . "$script"
+					PATH="$RC_SAVE_PATH"
+				else
+					startup_progress $debug $sh "$script" $action
+				fi
+				;;
+			  *)
+				startup_progress $debug "$script" $action &
+				backgrounded=1
+				;;
+			esac
+		done
+		[ 1 = "$backgrounded" ] && wait
+	}
+	;;
+  startpar)
+	startup() {
+		action=$1
+		shift
+		scripts="$@"
+		sh=sh
+		# Debian Policy §9.3.1 requires .sh scripts in runlevel S to be sourced
+		# However, some important packages currently contain .sh scripts
+		# that do "exit" at some point, thus killing this process.  Bad!
+		#[ S = "$runlevel" ] && sh=.
+		# Make sure .sh scripts are sourced in runlevel S
+		if [ "." = "$sh" ] ; then
+			newscripts=
+			for script in $scripts ; do
+				case "$script" in
+				  *.sh)
+					set "$action"
+					RC_SAVE_PATH="$PATH"
+					startup_progress $debug . "$script"
+					PATH="$RC_SAVE_PATH"
+					;;
+				  *)
+					newscripts="$newscripts $script"
+					;;
+				esac
+			done
+			scripts="$newscripts"
+		fi
+
+		# startpar is not working as it should yet [pere 2005-09-10]
+		[ -n "$scripts" ] && startup_progress $debug startpar -a $action $scripts
+		startup_progress $debug startpar -a $action $scripts
+	}
+	;;
+esac
+
+on_exit() {
+    echo "error: '$scriptname' exited outside the expected code flow."
+}
+trap on_exit EXIT # Enable emergency handler
+
+# Ignore CTRL-C only in this shell, so we can interrupt subprocesses.
+trap ":" INT QUIT TSTP
+
+# Should we also output to the console?
+# /proc won't be mounted if we don't have an initramfs, but then we're
+# dealing with custom systems so it's their own fault that they'll get
+# output from rcS ;)
+if grep -w -q quiet /proc/cmdline 2>/dev/null; then
+    QUIET=yes
+else
+    QUIET=no
+fi
+export QUIET
+
+# Set onlcr to avoid staircase effect.
+if [ "$QUIET" != yes ]; then
+    stty onlcr </dev/console >/dev/console 2>&1
+fi
+
+# Now find out what the current and what the previous runlevel are.
+runlevel=$RUNLEVEL
+
+# Get first argument. Set new runlevel to this argument.
+[ "$1" != "" ] && runlevel=$1
+if [ "$runlevel" = "" ]
+then
+	echo "Usage: $scriptname <runlevel>" >&2
+	exit 1
+fi
+previous=$PREVLEVEL
+[ "$previous" = "" ] && previous=N
+
+export runlevel previous
+
+if [ S = "$runlevel" ]
+then
+	#
+	# See if system needs to be setup. This is ONLY meant to
+	# be used for the initial setup after a fresh installation!
+	#
+	if [ -x /sbin/unconfigured.sh ]
+	then
+		/sbin/unconfigured.sh
+	fi
+fi
+
+. /etc/default/rcS
+export VERBOSE
+
+# Is there an rc directory for this new runlevel?
+if [ -d /etc/rc$runlevel.d ]
+then
+	# Split the progress bar into thirds
+	progress_size=$((100 / 3))
+
+	case "$runlevel" in
+		0|6)
+			ACTION=stop
+			# Count down from 0 to -100 and use the entire bar
+			first_step=0
+			progress_size=100
+			step_change=-1
+			;;
+	        S)
+		        ACTION=start
+			# Use 2/3 of the space
+			first_step=0
+			progress_size=$(($progress_size * 2))
+			step_change=1
+			;;
+		*)
+			ACTION=start
+			# Begin where rcS left off and use the final 1/3 of
+			# the space (by leaving progress_size unchanged)
+			first_step=$(($progress_size * 2))
+			step_change=1
+			;;
+	esac
+
+	# Count the number of scripts we need to run (for usplash progress bar)
+	num_steps=0
+	for s in /etc/rc$runlevel.d/[SK]*; do
+            case "${s##/etc/rc$runlevel.d/S??}" in
+                gdm|xdm|kdm|ltsp-client-core|reboot|halt)
+                    break
+                    ;;
+            esac
+            num_steps=$(($num_steps + 1))
+        done
+
+        step=0
+
+	# First, run the KILL scripts.
+	if [ "$previous" != N ]
+	then
+		# Run all scripts with the same level in parallel
+		CURLEVEL=""
+		for s in /etc/rc$runlevel.d/K*
+		do
+			level=$(echo $s | sed 's/.*\/K\([0-9][0-9]\).*/\1/')
+			if [ "$level" = "$CURLEVEL" ]
+			then
+				continue
+			fi
+			CURLEVEL=$level
+			SCRIPTS=""
+			for i in /etc/rc$runlevel.d/K$level*
+			do
+				# Check if the script is there.
+				[ ! -f $i ] && continue
+
+				#
+				# Find stop script in previous runlevel but
+				# no start script there.
+				#
+				suffix=${i#/etc/rc$runlevel.d/K[0-9][0-9]}
+				previous_stop=/etc/rc$previous.d/K[0-9][0-9]$suffix
+				previous_start=/etc/rc$previous.d/S[0-9][0-9]$suffix
+				#
+				# If there is a stop script in the previous level
+				# and _no_ start script there, we don't
+				# have to re-stop the service.
+				#
+				[ -f $previous_stop ] && [ ! -f $previous_start ] && continue
+
+				# Stop the service.
+				SCRIPTS="$SCRIPTS $i"
+			done
+			startup stop $SCRIPTS
+		done
+	fi
+
+	# Now run the START scripts for this runlevel.
+	# Run all scripts with the same level in parallel
+	CURLEVEL=""
+	for s in /etc/rc$runlevel.d/S*
+	do
+		level=$(echo $s | sed 's/.*\/S\([0-9][0-9]\).*/\1/')
+		if [ "$level" = "$CURLEVEL" ]
+		then
+			continue
+		fi
+		CURLEVEL=$level
+		SCRIPTS=""
+		for i in /etc/rc$runlevel.d/S$level*
+		do
+			[ ! -f $i ] && continue
+
+			if [ "$previous" != N ]
+			then
+				#
+				# Find start script in previous runlevel and
+				# stop script in this runlevel.
+				#
+				suffix=${i#/etc/rc$runlevel.d/S[0-9][0-9]}
+				stop=/etc/rc$runlevel.d/K[0-9][0-9]$suffix
+				previous_start=/etc/rc$previous.d/S[0-9][0-9]$suffix
+				#
+				# If there is a start script in the previous level
+				# and _no_ stop script in this level, we don't
+				# have to re-start the service.
+				#
+				[ -f $previous_start ] && [ ! -f $stop ] && continue
+			fi
+			SCRIPTS="$SCRIPTS $i"
+		done
+		startup $ACTION $SCRIPTS
+	done
+fi
+
+if [ S = "$runlevel" ]
+then
+	#
+	# For compatibility, run the files in /etc/rc.boot too.
+	#
+	[ -d /etc/rc.boot ] && run-parts /etc/rc.boot
+
+	#
+	# Finish setup if needed. The comment above about
+	# /sbin/unconfigured.sh applies here as well!
+	#
+	if [ -x /sbin/setup.sh ]
+	then
+		/sbin/setup.sh
+	fi
+fi
+
+trap - EXIT # Disable emergency handler
+
+exit 0
+

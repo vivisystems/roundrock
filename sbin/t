@@ -1,0 +1,29 @@
+#!/bin/sh
+
+
+	tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/viviposconf$$
+
+	radioGroup=""
+	files=`ls /media/UPDATE/UPDATE/update_* | grep -v 'gz'`
+	for	script in $files ; do
+		script2=`basename $script`
+		radioGroup="$radioGroup $script2 $script "
+	done;
+
+	eval "'${DIALOG}' '--title' 'UPDATE IMAGE' '--clear' '--menu' 'Please UPDATE IMAGE OF VIVIPOS' '20' '61' '5' $radioGroup" 2> $tempfile
+
+	retval=$?
+
+	case $retval in
+	  0)
+		choice=`cat $tempfile`
+		;;
+	  1)
+		choice="";;
+	  255)
+		choice="";;
+	esac
+
+	rm -f $tempfile;
+
+

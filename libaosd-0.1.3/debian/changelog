@@ -1,0 +1,18 @@
+libaosd (0.1.3-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- William Pitcock <nenolod@sacredspiral.co.uk>  Fri, 30 Nov 2007 07:42:21 -0600
+
+libaosd (0.1.2-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- William Pitcock <nenolod@sacredspiral.co.uk>  Thu, 22 Nov 2007 02:08:23 -0600
+
+libaosd (0.1.1-1) unstable; urgency=low
+
+  * Initial release (Closes: #451895)
+
+ -- William Pitcock <nenolod@sacredspiral.co.uk>  Mon, 19 Nov 2007 04:31:14 -0600
+

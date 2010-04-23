@@ -15,6 +15,7 @@ typedef struct
     long (* openPort)               (char const * portName, char const * portSettings);
 
     long (* writePort)              (char const * portName, char const * writeBuffer, long length);
+    long (* availablePort)          (char const * portName);
     long (* readPort)               (char const * portName, char * readBuffer, long length);
 
     int (* statusPort)              (char const * portName);

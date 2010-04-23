@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <memory.h>
 #include <string.h>
+#include <sys/ioctl.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 
@@ -13,6 +14,7 @@
 static long fileMatchPortName        (char const * fileName);
 static long fileOpenPort             (char const * fileName, char const * fileSettings);
 static long fileWritePort            (char const * fileName, char const * writeBuffer, long length);
+static long fileAvailablePort        (char const * fileName);
 static long fileReadPort             (char const * fileName, char * readBuffer, long length);
 static long fileClosePort            (char const * fileName);
 static int  fileStatusPort			 (char const * fileName);
@@ -30,6 +32,7 @@ PortControlImpl getFileControlImpl()
     impl.matchPortName          = fileMatchPortName;
     impl.openPort               = fileOpenPort;
     impl.writePort              = fileWritePort;
+    impl.availablePort          = fileAvailablePort;
     impl.readPort               = fileReadPort;
     impl.statusPort				  = fileStatusPort;
     impl.hdwrResetDevice		  = fileHdwrResetDevice;
@@ -152,6 +155,26 @@ static long fileWritePort (char const * fileName, char const * writeBuffer, long
     }
 
     return totalWriteLength;
+}
+
+static long fileAvailablePort (char const * fileName)
+{
+
+    FilePort * filePort = fileFindPort(fileName);
+    if (filePort == NULL)
+    {
+        return PORTCONTROL_ERROR_NOT_OPEN;
+    }
+
+    long availableReadLength = 0;
+
+    if (ioctl(filePort->handle, FIONREAD, &availableReadLength) != 0)
+    {
+        return PORTCONTROL_ERROR_IO_FAIL;
+    }
+
+    return availableReadLength;
+
 }
 
 

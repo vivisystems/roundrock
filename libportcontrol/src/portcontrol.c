@@ -70,6 +70,23 @@ long writePort (char const * portName, char const * writeBuffer, long length)
     return impls[supportingImplIdx].writePort(portName, writeBuffer, length);
 }
 
+long availablePort (char const * portName)
+{
+    long supportingImplIdx = getSupportingImplIdx(portName);
+
+    if (supportingImplIdx == PORTCONTROL_ERROR_NOT_AVAILABLE)
+    {
+        return PORTCONTROL_ERROR_NOT_AVAILABLE;
+    }
+
+    if (impls[supportingImplIdx].availablePort == 0)
+    {
+        return PORTCONTROL_ERROR_NOT_AVAILABLE;
+    }
+
+    return impls[supportingImplIdx].availablePort(portName);
+}
+
 long readPort (char const * portName, char * readBuffer, long length)
 {
     long supportingImplIdx = getSupportingImplIdx(portName);

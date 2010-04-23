@@ -1,0 +1,100 @@
+#! /bin/sh -e
+
+# Check for daemon presence
+test -x /usr/sbin/acpid || exit 0
+
+# Check for ACPI support on kernel side
+[ -d /proc/acpi ] || exit 0
+
+# Include acpid defaults if available
+OPTIONS=""
+if [ -f /etc/default/acpid ] ; then
+	. /etc/default/acpid
+fi
+
+# Get lsb functions
+. /lib/lsb/init-functions
+. /etc/default/rcS
+
+if [ "x$VERBOSE" = "xno" ]; then
+        MODPROBE_OPTIONS="$MODPROBE_OPTIONS -Q"
+        export MODPROBE_OPTIONS
+fi
+
+# As the name says. If the kernel supports modules, it'll try to load
+# the ones listed in "MODULES".
+load_modules() {
+        PRINTK=`cat /proc/sys/kernel/printk`
+        [ "$VERBOSE" = no ] && echo "0 0 0 0" > /proc/sys/kernel/printk
+        
+        LIST=`/sbin/lsmod|awk '!/Module/ {print $1}'`
+
+	# Get list of available modules
+        LOC="/lib/modules/`uname -r`/kernel/drivers/acpi"
+        LOC2="/lib/modules/`uname -r`/kernel/ubuntu/acpi"
+        if [ -d $LOC ]; then
+	  MODAVAIL=`( find $LOC -type f -name "*.o" -printf "basename %f .o\n"; \
+		find $LOC -type f -name "*.ko" -printf "basename %f .ko\n" ) | /bin/sh`
+	else
+	  MODAVAIL=""
+	fi
+
+        if [ -d $LOC2 ]; then
+	  MODAVAIL="$MODAVAIL `( find $LOC2 -type f -name "*.o" -printf "basename %f .o\n"; \
+		find $LOC2 -type f -name "*.ko" -printf "basename %f .ko\n" ) | /bin/sh`"
+	fi
+
+        if [ "$MODULES" = "all" ]; then
+		MODULES="$MODAVAIL"
+        fi
+
+	if [ -n "$MODULES" ]; then
+		log_begin_msg "Loading ACPI modules..."
+		STATUS=0
+	        for mod in $MODULES; do
+			echo $MODAVAIL | grep -q -w "$mod" || continue
+		        if echo $LIST | grep -q -w "$mod"; then
+				[ "$VERBOSE" != no ] && log_success_msg "Module already loaded: $mod"
+			else
+				if modprobe -b $mod 2>/dev/null; then
+					[ "$VERBOSE" != no ] && log_success_msg "Loaded module: $mod"
+				else
+					if [ "$VERBOSE" != no ]; then
+						log_warning_msg "Unable to load module: $mod"
+					fi
+				fi
+			fi		
+	        done
+		log_end_msg $STATUS
+	fi
+        echo "$PRINTK" > /proc/sys/kernel/printk
+}
+
+case "$1" in
+  start)
+    [ -f /proc/modules ] && load_modules
+    log_begin_msg "Starting ACPI services..."
+    start-stop-daemon --start --quiet --oknodo --exec /usr/sbin/acpid -- -c /etc/acpi/events $OPTIONS
+    log_end_msg $?
+    ;;
+  stop)
+    log_begin_msg "Stopping ACPI services..."
+    start-stop-daemon --stop --quiet --oknodo --retry 2 --exec /usr/sbin/acpid
+    log_end_msg $?
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  reload|force-reload) 
+    log_begin_msg "Reloading ACPI services..."
+    start-stop-daemon --stop --signal 1 --exec /usr/sbin/acpid
+    log_end_msg $?
+    ;;
+  *)
+    log_success_msg "Usage: /etc/init.d/acpid {start|stop|restart|reload|force-reload}"
+    exit 1
+esac
+
+exit 0

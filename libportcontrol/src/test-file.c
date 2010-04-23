@@ -18,6 +18,8 @@ int main() {
 	if (rv != 0) return rv;
 
 	printf("openPort %d \n", rv);
+	long length = availablePort(file);
+    printf("available = %d \n", length);
 	writePort(file, "TEST", 4);
 	closePort(file);
 	portControlDestroy();
