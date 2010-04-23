@@ -1032,32 +1032,6 @@
                   }
               }
               return obj;
-        }
-
-
-        /* length: 30
-         * valid codes: ASCII 0~127 */
-        ,checkBarcodeType128: function(list){
-
-            var object = { illegalList:[], islegal: true };
-
-            for(var i =0 ; i< list.length ; i++){
-
-          //      if  list[i].barcode.
-                for(var j = 0 ; j< list[i].barcode.length ; j++ ){
-
-                     if( !(
-                             (list[i].barcode[j].charCodeAt(0) >= 0 && list[i].barcode[j].charCodeAt(0) <= 127 ) // code 128
-                          )
-                       ) // // find illegal char do
-                               {
-                                   object.illegalList.push( list[i] );
-                                   object.islegal = false ;
-                                   break;
-                               }
-                }
-            }
-            return object ;
         },
 
         printlabel: function(){
@@ -1257,6 +1231,12 @@
                                      return this.Barcode.isNumeric(barcode);
                                      break;
 
+                         /* length: variable
+                          * valid codes:  ASCII 0~127  */
+                         case 'CODE128':
+                                     return this.Barcode.isValidCODE128(barcode);
+                                     break;
+
                  }
        },
 
@@ -1287,7 +1267,9 @@
                                      if(checksum == barcode[12])
                                          return true;
                                      break;
-
+                                     
+                       case 'CODE128': return true ;
+                                       break;
                  }
           return false;
       },

@@ -40,6 +40,18 @@
             return true;
         },
 
+        /* length: variable
+         * valid codes:  ASCII 0~127  */
+        isValidCODE128: function (param) {
+
+            for(var j = 0 ; j< param.length ; j++ ){
+
+                     if( !(param[j].charCodeAt(0) >= 0 && param[j].charCodeAt(0) <= 127 ) )// code 128
+                            return false;
+            }
+            return true;
+        },
+
 
         /**
          * _getEANCheckDigit
