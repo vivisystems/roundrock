@@ -44,6 +44,7 @@ if [ "$RETVAL" = "0" ]; then
 		mkdir /tmp/$TS
 		
 		cp /data/vivipos_sdk/log/vivipos.log /tmp/$TS		
+		cp /data/vivipos_webapp/app/tmp/logs/* /tmp/$TS		
 		cp /var/log/syslog /tmp/$TS
 		cp /var/log/sync_client.log /tmp/$TS
 		cp /var/log/messages /tmp/$TS
