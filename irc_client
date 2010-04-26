@@ -51,6 +51,7 @@ do_check_permission()
     chown -R root:root /data/databases
     chmod -R g+rw /data/databases
 
+    return "0"
 }
 
 
@@ -59,6 +60,8 @@ do_check_permission()
 #
 do_start()
 {
+
+    RETVAL="0"
 
     if [ -f $PIDFILE ]; then
         ps -p `cat $PIDFILE` > /dev/null
@@ -73,6 +76,7 @@ do_start()
         ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app irc_client start
         RETVAL="$?"
     fi
+
     return "$RETVAL"
 
 }
@@ -95,7 +99,8 @@ do_stop()
         # remove pidfile
         rm -f $PIDFILE
     fi
-    return "$RETVAL"
+
+    return "0"
 
 }
 
@@ -145,3 +150,5 @@ case "$1" in
 	exit 3
 	;;
 esac
+
+exit 0
