@@ -735,15 +735,6 @@
                     var functionRegistry = {};
                     var functionRegistryByName = {};
 
-                    // load internal functions
-                    var functionArray = this.getInternalFunctionList();
-                    if (functionArray) {
-                        functionArray.forEach(function(f) {
-                            functionRegistry[f.id] = f;
-                            functionRegistryByName[f.name] = f;
-                        }, this);
-                    }
-
                     // load function registry
                     var registry = this.getAttribute('registry');
                     if (registry) {
@@ -760,6 +751,16 @@
                             functionRegistryByName[f.name] = f;
                         }
                     }
+                    
+                    // load internal functions
+                    var functionArray = this.getInternalFunctionList();
+                    if (functionArray) {
+                        functionArray.forEach(function(f) {
+                            functionRegistry[f.id] = f;
+                            functionRegistryByName[f.name] = f;
+                        }, this);
+                    }
+
                     this._functionRegistry = functionRegistry;
                     this._functionRegistryByName = functionRegistryByName;
 
