@@ -1,0 +1,7 @@
+.mode list products
+.output inventory_records.csv
+select id,"{COMMIT_ID}",no,barcode,"",stock,price_level1,"","{TIMESTAMP}","{TIMESTAMP}" from products;
+
+.mode list products
+.output stock_records.csv
+select no,barcode,"",stock,"{TIMESTAMP}","{TIMESTAMP}" from products;

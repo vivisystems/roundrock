@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# check sync client php or cake session services exists 
+if [ -x "/etc/init.d/sync_client" ]; then
+  /etc/init.d/sync_client start
+fi
+
