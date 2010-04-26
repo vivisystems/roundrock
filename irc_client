@@ -1,61 +1,147 @@
 #!/bin/sh
 #
+#!/bin/sh
+# Author: Rack Lin <racklin@gmail.com>
+#
+DESC="irc client"
+NAME=irc_client
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/data/vivipos_webapp/irc_client
+SCRIPTDIR=`dirname $SCRIPTNAME`
+CMD=${1:-help}
+
 
 #
-# execute php irc client
+# check directory permissions
 #
-cmd=${1:-help}
-pid=$$
-dir=`dirname $0`
+do_check_permission()
+{
 
-cd $dir ;
+    # check irc_packages dir exists
+    if [ ! -d "/data/irc_packages" ]; then
+        mkdir /data/irc_packages;
+        chmod g+rwx /data/irc_packages;
+    fi
+    if [ ! -d "/data/irc_packages/tmp" ]; then
+        mkdir /data/irc_packages/tmp;
+        chmod g+rwx /data/irc_packages/tmp;
+    fi
+    if [ ! -d "/data/irc_packages/queues" ]; then
+        mkdir /data/irc_packages/queues;
+        chmod g+rwx /data/irc_packages/queues;
+    fi
+    if [ ! -d "/data/backups/irc_backup" ]; then
+        mkdir /data/backups/irc_backup;
+        chmod g+rwx /data/backups/irc_backup;
+    fi
 
-# check irc_packages dir exists
-if [ ! -d "/data/irc_packages" ]; then
-    mkdir /data/irc_packages;
-    chmod g+rwx /data/irc_packages;
-fi
-if [ ! -d "/data/irc_packages/tmp" ]; then
-    mkdir /data/irc_packages/tmp;
-    chmod g+rwx /data/irc_packages/tmp;
-fi
-if [ ! -d "/data/irc_packages/queues" ]; then
-    mkdir /data/irc_packages/queues;
-    chmod g+rwx /data/irc_packages/queues;
-fi
-if [ ! -d "/data/backups/irc_backup" ]; then
-    mkdir /data/backups/irc_backup;
-    chmod g+rwx /data/backups/irc_backup;
-fi
-
-
-if [ "$cmd" = "sync" ]; then
-    echo `date +%s` > /tmp/irc_client.request
-else
-
-    # chown and mode of /data/profile 
+    # chown and mode of /data/profile
     chown -R root:root /data/profile
     chmod -R g+rw /data/profile
 
-    # chown and mode of /data/scripts 
+    # chown and mode of /data/scripts
     chown -R root:root /data/scripts
     chmod -R g+rw /data/scripts
 
-    # chown and mode of /data/images 
+    # chown and mode of /data/images
     chown -R root:root /data/images
     chmod -R g+rw /data/images
 
-    # chown and mode of /data/databases 
+    # chown and mode of /data/databases
     chown -R root:root /data/databases
     chmod -R g+rw /data/databases
 
-    # kill exists running services
-    run_pid=`ps auxww|grep "php -q" | grep "irc_client" | grep -v grep | awk '{print $2}'`
+}
 
-    if [ -n "$run_pid" ]; then
-        kill -9 $run_pid;
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+
+    if [ -f $PIDFILE ]; then
+        ps -p `cat $PIDFILE` > /dev/null
+        if [ "$?" != "0" ]; then
+            do_check_permission
+            ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app irc_client start
+            RETVAL="$?"
+        fi
+    else
+        # no running
+        do_check_permission
+        ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app irc_client start
+        RETVAL="$?"
     fi
- 
-    ${dir}/cake/console/cake -app ${dir}/app irc_client ${cmd}
-    
-fi
+    return "$RETVAL"
+
+}
+
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+
+    if [ -f $PIDFILE ]; then
+        ps -p `cat $PIDFILE` > /dev/null
+        if [ "$?" = "0" ]; then
+            # kill it
+            kill -15 `cat $PIDFILE` > /dev/null
+            sleep 2;
+            kill -9 `cat $PIDFILE` > /dev/null
+        fi
+
+        # remove pidfile
+        rm -f $PIDFILE
+    fi
+    return "$RETVAL"
+
+}
+
+#
+# Function that sends a SIGHUP to the daemon/service
+#
+do_reload() {
+
+    if [ -f $PIDFILE ]; then
+        ps -p `cat $PIDFILE` > /dev/null
+        if [ "$?" = "0" ]; then
+            # kill it
+            kill -1 `cat $PIDFILE` > /dev/null
+            return "0"
+        fi
+
+        return "1"
+    fi
+    return "1"
+
+}
+
+
+#
+# switch command
+#
+case "$1" in
+  start)
+	do_start
+	;;
+  stop)
+	do_stop
+	;;
+  reload)
+	do_reload
+        ;;
+  restart)
+	do_stop
+        sleep 1
+        do_start
+	;;
+  sync)
+        echo `date +%s` > /tmp/irc_client.request
+        ;;
+  *)
+	echo "Usage: $SCRIPTNAME {start|stop|restart|reload|sync}" >&2
+	exit 3
+	;;
+esac

@@ -1,52 +1,136 @@
 #!/bin/sh
+# Author: Rack Lin <racklin@gmail.com>
 #
+DESC="sync client"
+NAME=sync_client
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/data/vivipos_webapp/sync_client
+SCRIPTDIR=`dirname $SCRIPTNAME`
+CMD=${1:-help}
+
 
 #
-# execute php sync client
+# call cake.d sessions
 #
-cmd=${1:-help}
-pid=$$
-dir=`dirname $0`
+do_sessions()
+{
 
-cd $dir ;
 
-if [ "$cmd" = "sync" ]; then
-    echo `date +%s` > /tmp/sync_client.request
-else
-
-    # kill exists running services
-    run_pid=`ps auxww|grep "php -q" | grep "sync_client" | grep -v grep | awk '{print $2}'`
-
-    if [ -n "$run_pid" ]; then
-        kill -9 $run_pid;
+    # call irc client
+    # because we don't want to update /etc/init.d and OS NOW!!!
+    #
+    if [ -x "${SCRIPTDIR}/irc_client" ]; then
+        ${SCRIPTDIR}/irc_client ${CMD}
     fi
 
-    ${dir}/cake/console/cake -app ${dir}/app sync_client ${cmd}
-fi
-
-#
-# if cmd is start also bring irc client up
-# because we don't want to update /etc/init.d and OS NOW!!!
-#
-if [ "$cmd" = "start" ]; then
-    if [ -x "${dir}/irc_client" ]; then
-        ${dir}/irc_client start
-    fi
-fi
-
-
-#
-# check all extensions run-parts if cake.d exists 
-#
-if [ "$cmd" = "start" ]; then
+    #
+    # check all extensions run-parts if cake.d exists
+    #
     CAKESHELLDIR=/data/profile/extensions/*/cake.d
     CAKESHELLFILES=$(run-parts --list $CAKESHELLDIR)
     if [ -n "$CAKESHELLFILES" ]; then
         set +e
         for CAKESHELLFILE in $CAKESHELLFILES; do
-            $CAKESHELLFILE start
+            $CAKESHELLFILE ${CMD}
         done
         set -e
     fi
-fi
+
+}
+
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+
+    if [ -f $PIDFILE ]; then
+        ps -p `cat $PIDFILE` > /dev/null
+        if [ "$?" != "0" ]; then
+            ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app sync_client start
+            RETVAL="$?"
+        fi
+    else
+        # no running
+        ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app sync_client start
+        RETVAL="$?"
+    fi
+
+    return "$RETVAL"
+
+}
+
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+
+    if [ -f $PIDFILE ]; then
+        ps -p `cat $PIDFILE` > /dev/null
+        if [ "$?" = "0" ]; then
+            # kill it
+            kill -15 `cat $PIDFILE` > /dev/null
+            sleep 2;
+            kill -9 `cat $PIDFILE` > /dev/null
+        fi
+
+        # remove pidfile
+        rm -f $PIDFILE
+    fi
+    return "$RETVAL"
+
+}
+
+#
+# Function that sends a SIGHUP to the daemon/service
+#
+do_reload() {
+
+    if [ -f $PIDFILE ]; then
+        ps -p `cat $PIDFILE` > /dev/null
+        if [ "$?" = "0" ]; then
+            # kill it
+            kill -1 `cat $PIDFILE` > /dev/null
+            return "0"
+        fi
+
+        return "1"
+    fi
+    return "1"
+
+}
+
+
+#
+# switch command
+#
+case "$1" in
+  start)
+	do_start
+        do_sessions
+	;;
+  stop)
+	do_stop
+        do_sessions
+	;;
+  reload)
+	do_reload
+        do_sessions
+        ;;
+  restart)
+	do_stop
+        sleep 1
+        do_start
+        do_sessions
+	;;
+  sync)
+        echo `date +%s` > /tmp/sync_client.request
+        ;;
+  *)
+	echo "Usage: $SCRIPTNAME {start|stop|restart|reload|sync}" >&2
+	exit 3
+	;;
+esac
 
