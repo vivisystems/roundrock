@@ -1,0 +1,8 @@
+delete from inventory_commitments;
+.import inventory_commitments.csv inventory_commitments
+
+delete from inventory_records;
+.import inventory_records.csv inventory_records
+
+delete from stock_records;
+.import stock_records.csv stock_records

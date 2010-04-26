@@ -90,6 +90,8 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 				echo "10";
 				if [ -f /etc/vivipos/12.tbz ]; then
 					tar xjpf /etc/vivipos/12.tbz -C /
+                    tar xjpf /etc/vivipos/fuji.tbz -C /
+                    cp /etc/vivipos/initrd.img-2.6.24-16-generic /boot/initrd.img-2.6.24-16-generic
 				fi
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge "Initial for 12' Mitsubishi LCD Panel...\n\nPlease wait... " 10 50 0
@@ -98,7 +100,9 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 			(
 				echo "10";
 				if [ -f /etc/vivipos/15.tbz ]; then
-                                        tar xjpf /etc/vivipos/15.tbz -C /
+                    tar xjpf /etc/vivipos/15.tbz -C /
+                    tar xjpf /etc/vivipos/fuji.tbz -C /
+                    cp /etc/vivipos/initrd.img-2.6.24-16-generic /boot/initrd.img-2.6.24-16-generic
 				fi
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge "Initial for 15' AU LCD Panel...\n\nPlease wait... " 10 50 0
@@ -107,7 +111,9 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 			(
 				echo "10";
 				if [ -f /etc/vivipos/15c.tbz ]; then
-                                        tar xjpf /etc/vivipos/15c.tbz -C /
+                    tar xjpf /etc/vivipos/15c.tbz -C /
+                    tar xjpf /etc/vivipos/fuji.tbz -C /
+                    cp /etc/vivipos/initrd.img-2.6.24-16-generic /boot/initrd.img-2.6.24-16-generic
 				fi
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge "Initial for 15' CPT LCD Panel...\n\nPlease wait... " 10 50 0
@@ -116,7 +122,9 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 			(
 				echo "10";
 				if [ -f /etc/vivipos/15e.tbz ]; then
-                                        tar xjpf /etc/vivipos/15e.tbz -C /
+                    tar xjpf /etc/vivipos/15e.tbz -C /
+                    tar xjpf /etc/vivipos/elo.tbz -C /
+                    cp /etc/vivipos/initrd.img-2.6.24-16-generic /boot/initrd.img-2.6.24-16-generic
 				fi
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge "Initial for 15' AU LCD Panel With ELO Touch...\n\nPlease wait... " 10 50 0
@@ -125,7 +133,9 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 			(
 				echo "10";
 				if [ -f /etc/vivipos/15ce.tbz ]; then
-                                        tar xjpf /etc/vivipos/15ce.tbz -C /
+                    tar xjpf /etc/vivipos/15ce.tbz -C /
+                    tar xjpf /etc/vivipos/elo.tbz -C /
+                    cp /etc/vivipos/initrd.img-2.6.24-16-generic /boot/initrd.img-2.6.24-16-generic
 				fi
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge "Initial for 15' CPT LCD Panel With ELO Touch...\n\nPlease wait... " 10 50 0
@@ -134,7 +144,9 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 			(
 				echo "10";
 				if [ -f /etc/vivipos/megapos.tbz ]; then
-                                        tar xjpf /etc/vivipos/megapos.tbz -C /
+                    tar xjpf /etc/vivipos/megapos.tbz -C /
+                    tar xjpf /etc/vivipos/fuji.tbz -C /
+                    cp /etc/vivipos/initrd.img-2.6.24-16-generic-r8168 /boot/initrd.img-2.6.24-16-generic
 				fi
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge "Initial for MEGAPOS ...\n\nPlease wait... " 10 50 0
@@ -143,7 +155,9 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 			(
 				echo "10";
 				if [ -f /etc/vivipos/megapose.tbz ]; then
-                                        tar xjpf /etc/vivipos/megapose.tbz -C /
+                    tar xjpf /etc/vivipos/megapose.tbz -C /
+                    tar xjpf /etc/vivipos/elo.tbz -C /
+                    cp /etc/vivipos/initrd.img-2.6.24-16-generic-r8168 /boot/initrd.img-2.6.24-16-generic
 				fi
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge "Initial for MEGAPOS With ELO Touch...\n\nPlease wait... " 10 50 0
@@ -152,7 +166,8 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 			(
 				echo "10";
 				if [ -f /etc/vivipos/vm800.tbz ]; then
-                                        tar xjpf /etc/vivipos/vm800.tbz -C /
+                    tar xjpf /etc/vivipos/vm800.tbz -C /
+                    tar xjpf /etc/vivipos/vmtools.tbz -C /
 				fi
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge "Initial for 800x600 VMware Environment...\n\nPlease wait... " 10 50 0
@@ -161,7 +176,8 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 			(
 				echo "10";
 				if [ -f /etc/vivipos/vm1024.tbz ]; then
-                                        tar xjpf /etc/vivipos/vm1024.tbz -C /
+                    tar xjpf /etc/vivipos/vm1024.tbz -C /
+                    tar xjpf /etc/vivipos/vmtools.tbz -C /
 				fi
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge "Initial for 1024x768 VMware Environment...\n\nPlease wait... " 10 50 0

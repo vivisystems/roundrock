@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# This script updates time from vivipos master.
+#
+
+if [ -f /data/profile/sync_settings.ini ]; then
+	. /data/profile/sync_settings.ini
+	if [ ! -z  $ntp_hostname ]; then
+			# update cmos time
+	fi
+fi

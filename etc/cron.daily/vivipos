@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# check daily backup 
+bak=/data/backups
+bak_scripts=/data/scripts/backup.sh
+
+if ([ -d $bak ] && [ -f $bak_scripts ]); then
+  exec $bak_scripts;
+fi
