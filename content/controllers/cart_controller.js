@@ -3431,6 +3431,9 @@
 
             this.dispatchEvent('beforeCancel', curTransaction);
 
+            var waitPanel;
+            var ret;
+
             try {
                 // if the order has been stored, then it cannot be cancelled; it must be voided instead
                 if (curTransaction.data.recall == 2) {
@@ -3442,13 +3445,18 @@
                             _('Are you sure you want to discard changes made to this order?'))) {
 
                         // blockUI when cancelling...
-                        var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Cancelling Order'), 0);
+                        waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Cancelling Order'), 0);
 
-                        var ret = curTransaction.cancel(true);
+                        ret = curTransaction.cancel(true);
 
                         // unblockUI
                         this._unblockUI(waitPanel);
 
+                        if (ret != 1) {
+                            // error on cancel
+                            this.log('ERROR', 'Failed to cancel and discard order [' + curTransaction.data.id + '] sequence [' + curTransaction.data.seq + '] forceCancel [' + forceCancel + ']');
+                        }
+                        
                         if (ret == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
@@ -3474,12 +3482,17 @@
                     // normal cancel, commit to databases.
 
                     // blockUI when cancelling...
-                    var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Cancelling Order'), 0);
+                    waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Cancelling Order'), 0);
                     
-                    var ret = curTransaction.cancel();
+                    ret = curTransaction.cancel();
 
                     // unblockUI
                     this._unblockUI(waitPanel);
+
+                    if (ret != 1) {
+                        // error on cancel
+                        this.log('ERROR', 'Failed to cancel order [' + curTransaction.data.id + '] sequence [' + curTransaction.data.seq + '] forceCancel [' + forceCancel + ']');
+                    }
 
                     if (ret == -1) {
                         GREUtils.Dialog.alert(this.topmostWindow,
@@ -3500,7 +3513,13 @@
                 }
 
             }catch(e) {
-                this.log('WARN', 'Error Cancel order ');
+                this.log('ERROR', 'Exception on cancel order [' + curTransaction.data.id + '] sequence [' + curTransaction.data.seq + '] forceCancel [' + forceCancel + '] exception [' + e + ']');
+
+                if (waitPanel) {
+                    // unblockUI
+                    this._unblockUI(waitPanel);
+                }
+                return;
             }
             
             this.cartViewEmpty();
@@ -3635,8 +3654,6 @@
                                     _('Failed to save order. Please contact technical support for assistance immediately [message #111].'));
                             }
                         }
-                        // unblockUI
-                        this._unblockUI(waitPanel);
                     }
                     else {
                         // assign data status
@@ -3648,15 +3665,18 @@
                         // dispatch event for devices or extensions.
                         this.dispatchEvent('afterSubmit', oldTransaction);
                     }
+                }catch(e) {
+                    // error on submit
+                    this.log('ERROR', 'Exception on submit order [' + oldTransaction.data.id + '] sequence [' + oldTransaction.data.seq + '] status [' + status + '] exception [' + e + ']');
+
                 }finally{
 
-                    if (submitStatus == -99) {
-                        // fatal error at submit. and will cause commit error
-                        this.log('ERROR', 'Error on Transaction.submit(' + status + ') (' + submitStatus + ')');
+                    if (submitStatus == -99 || submitStatus == -3 || submitStatus == -1) {
+                        // error on submit
+                        this.log('ERROR', 'Failed to submit order [' + oldTransaction.data.id + '] sequence [' + oldTransaction.data.seq + '] status [' + status + '] return code [' + submitStatus + ']');
 
-                        return false;
-                    }
-                    if (submitStatus == -1 || submitStatus == -3 ) {
+                        // unblockUI
+                        this._unblockUI(waitPanel);
                         return false;
                     }
                     
@@ -3668,6 +3688,8 @@
                         commitStatus = oldTransaction.commit(status);
                             // determine if local or remote
                         if (commitStatus == -1) {
+
+                            this.log('ERROR', 'Failed to commit order [' + oldTransaction.data.id + '] sequence [' + oldTransaction.data.seq + '] status [' + status + '] return code [' + commitStatus + ']');
 
                             let orderModel = new OrderModel();
                             if ((status == 2 || oldTransaction.data.recall == 2) && !orderModel.isLocalhost()) {
@@ -3698,8 +3720,9 @@
                             this.dispatchEvent('onGetSubtotal', oldTransaction);
                         }
                     }catch(e) {
-                        // fatal error at submit. and will cause commit error
-                        this.log('ERROR', 'Error on Transaction.commit(' + status + ') (' + commitStatus + ')');
+                        // error on commit
+                        this.log('ERROR', 'Exception on commit order [' + oldTransaction.data.id + '] sequence [' + oldTransaction.data.seq + '] status [' + status + '] exception [' + e + ']');
+                        return false;
                     }
                 }
 
