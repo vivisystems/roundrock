@@ -240,24 +240,52 @@
 
             var refundList = document.getElementById('refundscrollablepanel');
 
-            this._originalPayments.forEach(function(p) {
+            if (autoRefundPaymentType == 'auto') {
 
-                if (p.amount <= 0) return ;
+                this._originalPayments.forEach(function(p) {
+
+                    if (p.amount <= 0) return ;
+
+                    let newRefundPayment = {
+                        seq: p.seq,
+                        name: (autoRefundPaymentType == 'auto' ? p.name : autoRefundPaymentType),
+                        amount: p.amount,
+                        display_amount: p.display_amount,
+                        memo1: p.memo1,
+                        memo2: p.memo2
+                    };
+
+                    this._refundPayments.push(newRefundPayment);
+                    this._refundTotal = this._refundTotal - - p.amount;
+
+
+                }, this);
+
+
+            }else {
+
+                this._refundTotal = this._paidTotal;
+                var seq = 1;
+
+                var memo1 = "";
+                var memo2 = null;
+
+                if (autoRefundPaymentType == 'cash') {
+                    memo1 = this._localCurrency;
+                }
 
                 let newRefundPayment = {
-                    seq: p.seq,
-                    name: (autoRefundPaymentType == 'auto' ? p.name : autoRefundPaymentType),
-                    amount: p.amount,
-                    display_amount: p.display_amount,
-                    memo1: p.memo1,
-                    memo2: p.memo2
+                    seq: seq++,
+                    name: autoRefundPaymentType,
+                    amount: this._refundTotal,
+                    display_amount: this.formatPrice(this._refundTotal),
+                    memo1: memo1,
+                    memo2: memo2
                 };
 
                 this._refundPayments.push(newRefundPayment);
-                this._refundTotal = this._refundTotal - - p.amount;
 
-
-            }, this);
+            }
 
 
             if (this._refundPayments.length >0) {
