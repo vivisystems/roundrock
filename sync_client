@@ -36,6 +36,7 @@ do_sessions()
         set -e
     fi
 
+    return "0"
 }
 
 
@@ -44,6 +45,7 @@ do_sessions()
 #
 do_start()
 {
+    RETVAL="0"
 
     if [ -f $PIDFILE ]; then
         ps -p `cat $PIDFILE` > /dev/null
@@ -79,7 +81,7 @@ do_stop()
         # remove pidfile
         rm -f $PIDFILE
     fi
-    return "$RETVAL"
+    return "0"
 
 }
 
@@ -134,3 +136,4 @@ case "$1" in
 	;;
 esac
 
+exit 0
