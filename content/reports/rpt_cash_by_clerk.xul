@@ -32,42 +32,42 @@
     
     <vbox flex="1" class="container-report">
         <vbox flex="1" class="container-main">
-		    <vbox>
-		        <label value="&rptcashbyclerk.title;" class="label-page-title"/>
-		        <hbox>
-		            <hbox flex="1">
-		            <grid flex="1" class="data-form">
-		                <columns>
-		                    <column  flex="1"/>
-                            <column flex="1"/>
-		                </columns>
-		                <rows>
-		                    <row>
-		                        <vbox>
-		                            <label value="&rptcashbyclerk.startdate;"/>
-		                            <vividatetimepicker id="start_date" value="" mode="date" type="popup"/>
-		                        </vbox>
-		                        <vbox>
-		                            <label value="&rptcashbyclerk.enddate;"/>
-		                            <vividatetimepicker id="end_date" value="" mode="date" type="popup"/>
-		                        </vbox>
-		                    </row>
-		                    <row>
-		                        <vbox>
-				                    <label value="&rptcashbyclerk.terminal_no;"/>
-				                    <textbox id="terminal_no" value=""/>
-				                </vbox>
-		                        <vbox>
-		                            <label value="&rptcashbyclerk.shiftno;"/>
-				                    <textbox id="shift_no" value=""/>
-		                        </vbox>
-		                    </row>
-		                </rows>
-		            </grid>
-		            </hbox>
-		            <button id="execute" label="&rptcashbyclerk.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptCashByClerk');"/>
-		        </hbox>
-            </vbox>
+            <vbox>
+                <label value="&rptcashbyclerk.title;" class="label-page-title"/>
+                <hbox>
+                    <hbox flex="1">
+                    <grid flex="1" class="data-form">
+                        <columns>
+                            <column  flex="1"/>
+                    <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <vbox>
+                                    <label value="&rptcashbyclerk.startdate;"/>
+                                    <vividatetimepicker id="start_date" value="" mode="date" type="popup"/>
+                                </vbox>
+                                <vbox>
+                                    <label value="&rptcashbyclerk.enddate;"/>
+                                    <vividatetimepicker id="end_date" value="" mode="date" type="popup"/>
+                                </vbox>
+                            </row>
+                            <row>
+                                <vbox>
+                                            <label value="&rptcashbyclerk.terminal_no;"/>
+                                            <textbox id="terminal_no" value=""/>
+                                        </vbox>
+                                <vbox>
+                                    <label value="&rptcashbyclerk.shiftno;"/>
+                                            <textbox id="shift_no" value=""/>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
+                    </hbox>
+                    <button id="execute" label="&rptcashbyclerk.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptCashByClerk');"/>
+                </hbox>
+        </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->
             </splitter>
