@@ -10,8 +10,14 @@
         _loadTestState: null,
         _loadTestStoreTotalTime: 0,
         _loadTestStoreCount: 0,
+        _loadTestStoreDataSet: [],
+        _loadTestStoreMax: -1,
+        _loadTestStoreMin: -1,
         _loadTestFinalizeTotalTime: 0,
         _loadTestFinalizeCount: 0,
+        _loadTestFinalizeDataSet: [],
+        _loadTestFinalizeMax: -1,
+        _loadTestFinalizeMin: -1,
         
         _getKeypadController: function() {
             return GeckoJS.Controller.getInstanceByName('Keypad');
@@ -113,8 +119,15 @@
                 progressBar.value = 0;
                 this._loadTestStoreTotalTime = 0;
                 this._loadTestStoreCount = 0;
+                this._loadTestStoreDataSet = [];
+                this._loadTestStoreMax = -1;
+                this._loadTestStoreMin = -1;
+
                 this._loadTestFinalizeTotalTime = 0;
                 this._loadTestFinalizeCount = 0;
+                this._loadTestFinalizeDataSet = [];
+                this._loadTestFinalizeMax = -1;
+                this._loadTestFinalizeMin = -1;
                 waitPanel = main._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             }
 
@@ -283,8 +296,13 @@
                                 $do('storeCheck', null, 'Cart');
 
                                 // instrument storeCheck
-                                this._loadTestStoreTotalTime += (new Date().getTime()) - start;
+                                let elapsed = (new Date().getTime()) - start;
+                                this._loadTestStoreDataSet.push(elapsed);
+                                this._loadTestStoreTotalTime += elapsed;
                                 this._loadTestStoreCount++;
+
+                                if (elapsed > this._loadTestStoreMax || this._loadTestStoreMax == -1) this._loadTestStoreMax = elapsed;
+                                if (elapsed < this._loadTestStoreMin || this._loadTestStoreMin == -1) this._loadTestStoreMin = elapsed;
 
                                 if (noTable) {
                                     this.log('WARN', 'storing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] store [' + store + ']');
@@ -301,8 +319,13 @@
                                 $do('cash', ',1,', 'Cart');
 
                                 // instrument cash
-                                this._loadTestFinalizeTotalTime += (new Date().getTime()) - start;
+                                let elapsed = (new Date().getTime()) - start;
+                                this._loadTestFinalizeDataSet.push(elapsed);
+                                this._loadTestFinalizeTotalTime += elapsed;
                                 this._loadTestFinalizeCount++;
+
+                                if (elapsed > this._loadTestFinalizeMax || this._loadTestFinalizeMax == -1) this._loadTestFinalizeMax = elapsed;
+                                if (elapsed < this._loadTestFinalizeMin || this._loadTestFinalizeMin == -1) this._loadTestFinalizeMin = elapsed;
 
                                 // update progress bar for order closed
                                 if (txn.data.status == 1 || noTable) {
@@ -320,8 +343,13 @@
                                 $do('storeCheck', null, 'Cart');
 
                                 // instrument storeCheck
-                                this._loadTestStoreTotalTime += (new Date().getTime()) - start;
+                                let elapsed = (new Date().getTime()) - start;
+                                this._loadTestStoreDataSet.push(elapsed);
+                                this._loadTestStoreTotalTime += elapsed;
                                 this._loadTestStoreCount++;
+
+                                if (elapsed > this._loadTestStoreMax || this._loadTestStoreMax == -1) this._loadTestStoreMax = elapsed;
+                                if (elapsed < this._loadTestStoreMin || this._loadTestStoreMin == -1) this._loadTestStoreMin = elapsed;
 
                                 this.log('WARN', 'order not closed pending additem queue [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] qty [' + txn.data.qty_subtotal + ']');
                             }
@@ -353,11 +381,35 @@
                 progressBar.mode = 'undetermined';
 
                 if (this._loadTestStoreCount > 0) {
-                    this.log('FATAL', 'Statistics: storeCheck count: [' + this._loadTestStoreCount + '], average duration: [' + this._loadTestStoreTotalTime / this._loadTestStoreCount + ']');
+
+                    // compute standard deviations
+                    let std = 0;
+                    let avg = this._loadTestStoreTotalTime / this._loadTestStoreCount;
+                    if (this._loadTestStoreCount > 1) {
+                        let sum = 0;
+                        this._loadTestStoreDataSet.forEach(function(val) {
+                            sum += Math.pow((val - avg), 2);
+                        })
+                        std = Math.sqrt(sum / (this._loadTestStoreCount - 1));
+                    }
+                    this.log('FATAL', 'Statistics: storeCheck count: [' + this._loadTestStoreCount + '], average duration: [' + avg + ']');
+                    this.log('FATAL', 'Statistics: storeCheck min duration: [' + this._loadTestStoreMin + '], max duration: [' + this._loadTestStoreMax + '] std [' + std + ']');
                 }
 
                 if (this._loadTestFinalizeCount > 0) {
+
+                    // compute standard deviations
+                    let std = 0;
+                    let avg = this._loadTestFinalizeTotalTime / this._loadTestFinalizeCount;
+                    if (this._loadTestFinalizeCount > 1) {
+                        let sum = 0;
+                        this._loadTestFinalizeDataSet.forEach(function(val) {
+                            sum += Math.pow((val - avg), 2);
+                        })
+                        std = Math.sqrt(sum / (this._loadTestFinalizeCount - 1));
+                    }
                     this.log('FATAL', 'Statistics: cash count: [' + this._loadTestFinalizeCount + '], average duration: [' + this._loadTestFinalizeTotalTime / this._loadTestFinalizeCount + ']');
+                    this.log('FATAL', 'Statistics: cash min duration: [' + this._loadTestFinalizeMin + '], max duration: [' + this._loadTestFinalizeMax + '] std [' + std + ']');
                 }
             }
         }
