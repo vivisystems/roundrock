@@ -52,6 +52,29 @@
             return true;
         },
 
+         /* length: variable
+         /* valid codes 0~9, A~Z, $ % * + - . / and space  */
+         isValid3OF9: function( param ){
+
+            for(var j = 0 ; j< param.length ; j++ ){
+
+                    if( !(
+                             (param[j].charCodeAt(0) >= 48 && param[j].charCodeAt(0) <= 57 )|| // 0~9
+                             (param[j].charCodeAt(0) >= 65 && param[j].charCodeAt(0) <= 90 )|| // A~Z
+                              param[j].charCodeAt(0) == 36                              || // $
+                              param[j].charCodeAt(0) == 37                              || // %
+                              param[j].charCodeAt(0) == 42                              || // *
+                              param[j].charCodeAt(0) == 43                              || // +
+                              param[j].charCodeAt(0) == 45                              || // -
+                              param[j].charCodeAt(0) == 46                              || // .
+                              param[j].charCodeAt(0) == 47                              || // /
+                              param[j].charCodeAt(0) == 32                                 // space
+                          )
+                      ) // find illegal char do
+                               { return false;}
+            }
+            return true;
+        },
 
         /**
          * _getEANCheckDigit

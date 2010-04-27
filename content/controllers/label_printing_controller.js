@@ -957,37 +957,13 @@
              }
         },
 
-        isvalidCode39: function( barcode ){
-
-            for(var j = 0 ; j< barcode.length ; j++ ){
-
-                    if( !(
-                             (barcode[j].charCodeAt(0) >= 48 && barcode[j].charCodeAt(0) <= 57 )|| // 0~9
-                             (barcode[j].charCodeAt(0) >= 65 && barcode[j].charCodeAt(0) <= 90 )|| // A~Z
-                              barcode[j].charCodeAt(0) == 36                              || // $
-                              barcode[j].charCodeAt(0) == 37                              || // %
-                              barcode[j].charCodeAt(0) == 42                              || // *
-                              barcode[j].charCodeAt(0) == 43                              || // +
-                              barcode[j].charCodeAt(0) == 45                              || // -
-                              barcode[j].charCodeAt(0) == 46                              || // .
-                              barcode[j].charCodeAt(0) == 47                              || // /
-                              barcode[j].charCodeAt(0) == 32                                 // space
-                          )
-                      ) // find illegal char do
-                               { return false;}
-            }
-            return true;
-        },
-
-        /* length: variable
-        /* valid codes 0~9, A~Z, $ % * + - . / and space  */
         checkBarcodeType3OF9: function(list){
           
             var object = { legalList:[], illegalList:[], islegal: true };
 
             for(var i =0 ; i< list.length ; i++){
 
-                if(this.isvalidCode39(list[i].barcode))
+                if(this.Barcode.isValid3OF9(list[i].barcode))
                      object.legalList.push(list[i]);
                                   
                 else{
@@ -1172,7 +1148,7 @@
 
          test: function(){
 
-             alert(this.Barcode.getUPCCheckDigit('02281234567'));
+             alert(this.Barcode.getUPCCheckDigit('0654321'));
          },
 
          exit: function() {
@@ -1237,6 +1213,11 @@
                                      return this.Barcode.isValidCODE128(barcode);
                                      break;
 
+                         /* length: variable
+                         * valid codes: 0~9  */
+                         case 'I25':
+                                     return this.Barcode.isNumeric(barcode);
+                                     break;
                  }
        },
 
@@ -1267,7 +1248,7 @@
                                      if(checksum == barcode[12])
                                          return true;
                                      break;
-                                     
+                       case 'I25':
                        case 'CODE128': return true ;
                                        break;
                  }
