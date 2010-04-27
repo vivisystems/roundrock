@@ -4613,7 +4613,7 @@
              //   this.returnItem(true);
              this._clearAndSubtotal();
 
-             this.dispatchEvent('onWarning', '');
+             this.dispatchEvent('onWarning', 'OPEN ORDER');
 
              curTransaction.updateCartView(-1, -1);          
         },
