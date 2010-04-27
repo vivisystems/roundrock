@@ -4613,6 +4613,8 @@
              //   this.returnItem(true);
              this._clearAndSubtotal();
 
+             this.dispatchEvent('onWarning', '');
+
              curTransaction.updateCartView(-1, -1);          
         },
 
