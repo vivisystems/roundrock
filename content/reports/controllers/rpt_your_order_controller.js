@@ -506,17 +506,6 @@
         load: function() {
             this._super();
             
-            var today = new Date();
-            var yy = today.getYear() + 1900;
-            var mm = today.getMonth();
-            var dd = today.getDate();
-
-            var start = ( new Date( yy, mm, dd, 0, 0, 0 ) ).getTime();
-            var end = ( new Date( yy, mm, dd + 1, 0, 0, 0 ) ).getTime();
-
-            document.getElementById( 'start_date' ).value = start;
-            document.getElementById( 'end_date' ).value = end;
-            
             // initialize the destination selector.
             var destination_records = GeckoJS.Configure.read( "vivipos.fec.settings.Destinations" );
             destination_records = GeckoJS.BaseObject.unserialize( GeckoJS.String.urlDecode( destination_records ) );

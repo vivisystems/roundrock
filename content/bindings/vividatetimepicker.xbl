@@ -1706,8 +1706,7 @@
         </getter>
         <setter>
           <![CDATA[
-          
-            var dt = new Date(val);
+            var dt = new Date(parseInt(val));
             // this.datepad.dateValue.setTime(val);
             this.datepad.dateValue = dt;
 
@@ -1917,7 +1916,7 @@
         <setter>
           <![CDATA[
 
-            var dt = new Date(val);
+            var dt = new Date(parseInt(val));
             // this.datepad.dateValue.setTime(val);
             //@irv don't set datepad's dateValue
             //this.datepad.dateValue = dt;

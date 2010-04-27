@@ -287,17 +287,6 @@
         load: function() {
             this._super();
             
-            var today = new Date();
-            var yy = today.getYear() + 1900;
-            var mm = today.getMonth();
-            var dd = today.getDate();
-
-            var start = ( new Date( yy, mm, dd, 0, 0, 0 ) ).getTime();
-            var end = ( new Date( yy, mm, dd + 1, 0, 0, 0 ) ).getTime();
-
-            document.getElementById( 'start_date' ).value = start;
-            document.getElementById( 'end_date' ).value = end;
-            
             // setup the department menu.
             var cate = new CategoryModel();
             var cateRecords = cate.find( 'all', {
