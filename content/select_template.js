@@ -17,8 +17,13 @@
                     GREUtils.Dialog.alert(this.topmostWindow, _('Template'), _('Please select a template first'));
                     return;
                 }
-                      
 
+                if(barcode.value ==''){
+
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Barcode'), _('Please select a barcode type'));
+                    return;
+                }
+                      
                 inputObj.selectedTemplate = templatePanel.datasource.data[templatePanel.selectedIndex].leafName.split('.')[0];
                 inputObj.selectedBarcode = barcode.value;
 

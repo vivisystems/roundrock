@@ -33,12 +33,10 @@ pref("vivipos.fec.registry.templates.label-sample-argox-203td.path", "chrome://v
 
 pref("vivipos.fec.registry.templates.label-simple-testing-1.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.label-simple-testing-1.type", "label");
-pref("vivipos.fec.registry.templates.label-simple-testing-1.barcodetype", "3OF9");
 pref("vivipos.fec.registry.templates.label-simple-testing-1.path", "chrome://viviecr/content/devices/templates/label-simple-testing-1.tpl");
 
 pref("vivipos.fec.registry.templates.label-simple-testing-2.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.label-simple-testing-2.type", "label");
-pref("vivipos.fec.registry.templates.label-simple-testing-2.barcodetype", "3OF9");
 pref("vivipos.fec.registry.templates.label-simple-testing-2.path", "chrome://viviecr/content/devices/templates/label-simple-testing-2.tpl");
 
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "chrome://viviecr/locale/messages.properties");
@@ -131,6 +129,7 @@ pref("vivipos.fec.registry.devicemodels.epson-rp-u420.encodings", "English=US-AS
 pref("vivipos.fec.registry.devicemodels.argox-os-203.label", "Argox OS-203");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.type", "receipt,check,label");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.path", "chrome://viviecr/content/devices/commands/argox-os-203.cmd");
+pref("vivipos.fec.registry.devicemodels.argox-os-203.barcodetype", "3OF9,UPC-A,UPC-E,I25,CODE128,EAN-13,EAN-8,HBIC,CODA BAR,I25 CHECKSUM,PLESSEY,I25 CHECKSUM BEARER,UPC2,UPC5,POSTENT,CODE 93,UCC/EAN 128,UCC/EAN 128K,TELEPEN,FIM,MAXICODE,PDF-417");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.encodings", "English=US-ASCII,Western=ISO-8859-1,Traditional Chinese=Big5,Simplified Chinese=GB18030,Simplified Chinese=GB2312");
 
 pref("vivipos.fec.registry.devicemodels.vfdfec.label", "Firich VFD");

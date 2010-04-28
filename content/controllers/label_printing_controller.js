@@ -792,6 +792,7 @@
                     .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
 
             var label = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+            barcodeType = '[&'+ barcodeType + ']';
 
             label.printLabel(this.legalList, barcodeType, template);
         },
@@ -935,7 +936,7 @@
 
          getBarcodeTypeList: function(){
 
-             var typeString = GeckoJS.Configure.read('vivipos.fec.registry.templates.label-simple-testing-2.barcodetype');
+             var typeString = GeckoJS.Configure.read('vivipos.fec.registry.devicemodels.argox-os-203.barcodetype');
              var i = 0;
 
              while(typeString != ""){
@@ -956,92 +957,13 @@
              }
         },
 
-        checkBarcodeDialog: function(){
-
-            var aURL = 'chrome://viviecr/content/select_tax.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var inputObj = {
-                taxes: this._barcodeTypeList
-            };
-
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Barcode'), aFeatures, inputObj);
-            if (inputObj.ok) {
-
-            var object ={};
-                switch(inputObj.name)
-                {
-                       case  '3OF9':
-                                         object = this.checkBarcodeType3OF9(this.tabList);
-                                         //if  find illegal barcode
-                                         if(object.islegal == false){
-                                         //alert illegal barcode product
-                                         this.alertIllegalBarcodeProduct(object.illegalList);
-                                         return;
-                                         }else{ /*do print*/this.printList('A');  return;}
-
-                       case  '128': 
-                                         object = this.checkBarcodeType128(this.tabList);
-                                         // find illegal barcode
-                                         if(object.islegal == false){
-                                         //alert illegal barcode product
-                                         this.alertIllegalBarcodeProduct(object.illegalList);
-                                         return;
-                                         }else{ /*do print*/this.printList('E'); return;}
-
-                       case  'UPC-A':    
-                                         object = this.checkBarcodeTypeUPCA(this.tabList);
-                                         // find illegal barcode
-                                         if(object.islegal == false){
-                                         //alert illegal barcode product
-                                         this.alertIllegalBarcodeProduct(object.illegalList);
-                                         return;
-                                         }else{ /*do print*/this.printList('B'); return;}
-
-                       case  'EAN-13':   
-                                         object = this.checkBarcodeTypeEAN13(this.tabList);
-                                         // find illegal barcode
-                                         if(object.islegal == false){
-                                         //alert illegal barcode product
-                                         this.alertIllegalBarcodeProduct(object.illegalList);
-                                         return;
-                                         }else{ /*do print*/this.printList('F'); return;}
-                }
-               
-            }
-
-        },
-
-        isvalidCode39: function( barcode ){
-
-            for(var j = 0 ; j< barcode.length ; j++ ){
-
-                    if( !(
-                             (barcode[j].charCodeAt(0) >= 48 && barcode[j].charCodeAt(0) <= 57 )|| // 0~9
-                             (barcode[j].charCodeAt(0) >= 65 && barcode[j].charCodeAt(0) <= 90 )|| // A~Z
-                              barcode[j].charCodeAt(0) == 36                              || // $
-                              barcode[j].charCodeAt(0) == 37                              || // %
-                              barcode[j].charCodeAt(0) == 42                              || // *
-                              barcode[j].charCodeAt(0) == 43                              || // +
-                              barcode[j].charCodeAt(0) == 45                              || // -
-                              barcode[j].charCodeAt(0) == 46                              || // .
-                              barcode[j].charCodeAt(0) == 47                              || // /
-                              barcode[j].charCodeAt(0) == 32                                 // space
-                          )
-                      ) // find illegal char do
-                               { return false;}
-            }
-            return true;
-        },
-
-        /* length: variable
-        /* valid codes 0~9, A~Z, $ % * + - . / and space  */
         checkBarcodeType3OF9: function(list){
           
             var object = { legalList:[], illegalList:[], islegal: true };
 
             for(var i =0 ; i< list.length ; i++){
 
-                if(this.isvalidCode39(list[i].barcode))
+                if(this.Barcode.isValid3OF9(list[i].barcode))
                      object.legalList.push(list[i]);
                                   
                 else{
@@ -1054,17 +976,19 @@
         },
         
         _checkHasBarcode: function(obj){
-            
-             for(var x = 0 ; x< obj.legalList.length ; x++){
 
-                  if(obj.legalList[x].barcode == "" || obj.legalList[x].barcode.search(" ") != -1){
+             for(var x = 0 ; x< obj.list.length ; x++){
 
-                       obj.legalList[x].comm = _('No Barcode');
-                       obj.illegalList.push(obj.legalList[x]);
-                       obj.legalList.splice(x,1);
-                       x--;
+                  if(obj.list[x].barcode == "" || obj.list[x].barcode.search(" ") != -1){
+
+                       obj.list[x].comm = _('No Barcode');
+                       obj.illegalList.push(obj.list[x]);
+                       
                        obj.islegal = false ;
                   }
+                  else
+                      obj.legalList.push(obj.list[x]);
+                      
              }
 
              return obj;
@@ -1084,96 +1008,6 @@
                   }
               }
               return obj;
-        }
-
-
-        /* length: 30
-         * valid codes: ASCII 0~127 */
-        ,checkBarcodeType128: function(list){
-
-            var object = { illegalList:[], islegal: true };
-
-            for(var i =0 ; i< list.length ; i++){
-
-          //      if  list[i].barcode.
-                for(var j = 0 ; j< list[i].barcode.length ; j++ ){
-
-                     if( !(
-                             (list[i].barcode[j].charCodeAt(0) >= 0 && list[i].barcode[j].charCodeAt(0) <= 127 ) // code 128
-                          )
-                       ) // // find illegal char do
-                               {
-                                   object.illegalList.push( list[i] );
-                                   object.islegal = false ;
-                                   break;
-                               }
-                }
-            }
-            return object ;
-        },
-
-        /* length: 11 + 1 
-         * valid codes: 0~9  */
-        checkBarcodeTypeUPCA: function(list){
-
-            var object = { illegalList:[], islegal: true };
-
-            for(var i =0 ; i< list.length ; i++){
-
-          //      if  list[i].barcode.
-                for(var j = 0 ; j< list[i].barcode.length ; j++ ){
-
-                    if(list[i].barcode.length != 11)
-                        {
-                                   object.illegalList.push( list[i] );
-                                   object.islegal = false ;
-                                   break;
-                        }
-
-                    if( !(
-                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j].charCodeAt(0) <= 57 ) // 0~9
-                          )
-                      ) // find illegal char do
-                               {
-                                   object.illegalList.push( list[i] );
-                                   object.islegal = false ;
-                                   break;
-                               }
-                }
-            }
-            return object ;
-        },
-
-        /* length: 12 + 1
-         * valid codes: 0~9  */
-        checkBarcodeTypeEAN13: function(list){
-
-             var object = { illegalList:[], islegal: true };
-
-            for(var i =0 ; i< list.length ; i++){
-
-          //      if  list[i].barcode.
-                for(var j = 0 ; j< list[i].barcode.length ; j++ ){
-
-              /*      if(list[i].barcode.length != 12)
-                        {
-                                   object.illegalList.push( list[i] );
-                                   object.islegal = false ;
-                                   break;
-                        }*/
-
-                    if( !(
-                             (list[i].barcode[j].charCodeAt(0) >= 48 && list[i].barcode[j].charCodeAt(0) <= 57 ) // 0~9
-                          )
-                      ) // find illegal char do
-                               {
-                                   object.illegalList.push( list[i] );
-                                   object.islegal = false ;
-                                   break;
-                               }
-                }
-            }
-            return object ;
         },
 
         printlabel: function(){
@@ -1205,50 +1039,6 @@
              document.getElementById('error_panel').hidePopup();
              this.printList(this._barcodeType, this._template);
         },
-        
-        testing: function(){
-
-
-           var levelArray =['price_enable1','price_enable2','price_enable3','price_enable4','price_enable5','price_enable6','price_enable7','price_enable8','price_enable9',];
-
-           var a = {};
-
-           a[levelArray[0]] = "test";
-
-           var b = true;
-
-           var c = true;
-
-           var d = c&&b;
-
-           var x = 0;
-
-           /*
-            var list = [{barcode:'BA12^^^34'},{barcode:'1A345674898@'},{barcode:'123456784912'}];
-           
-            var object = this.checkBarcodeType3OF9(list);
-
-            var alert = this.alertIllegalBarcodeProduct(object.illegalList);
-
-            var action = this.checkSave('barcode',_("find unvalidated barcode")+"\n" +alert +"\n"+ _("continue print ?"));
-
-                 switch( action )
-                 {
-                     case 0:
-                             window.alert('do print legal');
-                             break;
-
-                     case 1:
-                             
-                             break;
-                  
-                 }
-*/
-        //    this.alertIllegalBarcodeProduct(object.illegalList);
-       //     this.alertIllegalBarcodeProduct(object.legalList);
-
-         //  try{ alert(this.Barcode.getEAN13CheckDigit('123456789123'));}catch(e){alert(e);}
-        },
 
         selectTemplate: function(){
             
@@ -1263,16 +1053,21 @@
             if (inputObj.ok) {
 
                this._template = inputObj.selectedTemplate
-               var barcode = inputObj.selectedBarcode
-               
-               this._barcodeType = this.getBarcodeType(barcode)
+               this._barcodeType = inputObj.selectedBarcode
 
-               var object = this.checkBarcodeType3OF9(this.tabList);
+               var object = {};
+
+               object = this._initCheckBarcode(this.tabList);
 
                object = this._checkHasBarcode(object);
 
+               if(this._barcodeType == '3OF9')
+                   object = this.checkBarcodeType3OF9(this.tabList);
+               else
+                   object = this.isvalidBarcode(object, this._barcodeType);
+
                if(this._positivePrice != ',')
-               object = this._checkPriceZero(object);
+                   object = this._checkPriceZero(object);
 
                this.log('DEBUG', this.dump(object));
 
@@ -1290,14 +1085,10 @@
             }
         },
 
-        getBarcodeType: function(barcode){
+        _initCheckBarcode: function(list){
 
-            switch(barcode)
-            {
-                case 'Code 39':
-                                 return 'A';
-
-            }
+            var object = { list: list, legalList:[], illegalList:[], islegal: true };
+            return object ;
         },
 
          _getPriceLevelObj: function (category, action){
@@ -1355,6 +1146,11 @@
              return priceLevelObj ;
          },
 
+         test: function(){
+
+             alert(this.Barcode.getUPCCheckDigit('0654321'));
+         },
+
          exit: function() {
 
              if( (this.tabList != "" && !this._isSave) || GeckoJS.FormHelper.isFormModified('setProductForm')){
@@ -1373,7 +1169,132 @@
                  }
              }
           window.close();
-        }
+        },
+        
+/**************************************************** Barcode Checking *************  >_<  ***********  Q_Q  **********  ^_^  ************  +____=  */
+      
+      /* Checkout Main Function */
+       isvalidBarcode: function(object, barcodeType){
+
+            /* Filter isvalidCodes*/
+            object = this.isvalidChar(object, barcodeType);
+
+            /* Filter checksum rule*/
+            object = this.isvalidChecksum(object, barcodeType);
+
+            return object;
+        },
+        
+/****************  Check isValidCodes by selected barcode type****************>_<  ***********  Q_Q  **********  ^_^  ************  +____= **/
+
+        checkBarcodeValidCodesBySelected: function(barcode, barcodeType){
+
+               switch( barcodeType )
+                 {
+                        /* length: 11 + 1
+                         * valid codes: 0~9  */
+                        case 'UPC-A':
+                                     if(barcode.length != 11 && barcode.length != 12)
+                                         return false;
+                                     return this.Barcode.isNumeric(barcode);
+                                     break;
+
+                         /* length: 12 + 1
+                          * valid codes: 0~9  */
+                         case 'EAN-13':
+                                     if(barcode.length != 12 && barcode.length != 13)
+                                         return false;
+                                     return this.Barcode.isNumeric(barcode);
+                                     break;
+
+                         /* length: variable
+                          * valid codes:  ASCII 0~127  */
+                         case 'CODE128':
+                                     return this.Barcode.isValidCODE128(barcode);
+                                     break;
+
+                         /* length: variable
+                         * valid codes: 0~9  */
+                         case 'I25':
+                                     return this.Barcode.isNumeric(barcode);
+                                     break;
+                 }
+       },
+
+/****************************  Checksum by selected barcode type****************>_<  ***********  Q_Q  **********  ^_^  ************  +____= **/
+
+      checkBarcodeValidChecksumBySelected: function(barcode, barcodeType){
+
+          var checksum = '';
+
+          switch( barcodeType )
+                 {
+                        case 'UPC-A':
+                                     if(barcode.length == 11)
+                                         return true;
+                                     
+                                     checksum = this.Barcode.getUPCCheckDigit(barcode.substr(0,11));
+                                     
+                                     if(checksum == barcode[11])
+                                         return true;                                    
+                                     break;
+
+                        case 'EAN-13':
+                                     if(barcode.length == 12)
+                                         return true;
+
+                                     checksum = this.Barcode.getEAN13CheckDigit(barcode.substr(0,12));
+
+                                     if(checksum == barcode[12])
+                                         return true;
+                                     break;
+                       case 'I25':
+                       case 'CODE128': return true ;
+                                       break;
+                 }
+          return false;
+      },
+/*******************************************************************************>_<  ***********  Q_Q  **********  ^_^  ************  +____= **/
+       isvalidChar: function( oldObject, barcodeType){
+
+             var object ={list: oldObject.legalList, legalList: [], illegalList: oldObject.illegalList};
+
+             for(var i = 0 ; i< object.list.length; i++){
+
+                 if(this.checkBarcodeValidCodesBySelected(object.list[i].barcode, barcodeType))
+                     object.legalList.push(object.list[i]);
+
+                 else{
+                     object.list[i].comm = _('Invalid Barcode');
+                     object.illegalList.push(object.list[i]);
+                     object.islegal = false;
+                 }
+             }
+             return object;
+       },
+
+       isvalidChecksum: function(oldObject, barcodeType){
+
+            var object = { list: oldObject.legalList, legalList: [], illegalList: oldObject.illegalList};
+               var barcode = '';
+               var checksum = 0 ;
+
+               for( var i= 0; i< object.list.length; i++){
+
+                   barcode = object.list[i].barcode;
+
+                   if( this.checkBarcodeValidChecksumBySelected(barcode, barcodeType))
+                       object.legalList.push(object.list[i]);
+
+                   else{
+                           object.list[i].comm = _('CHECKSUM ERROR');
+                           object.illegalList.push(object.list[i]);
+                           object.islegal = false;
+                       
+                   }
+               }
+               return object;
+       }
     };
 
    GeckoJS.Controller.extend(__controller__);

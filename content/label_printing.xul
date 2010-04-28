@@ -234,6 +234,7 @@
                     <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <vivibutton id="print"   disabled="false" class="PrintBtn" oncommand="$do('printlabel', null, 'Tab');" />
                         <space flex = "1"/>
+                        <button id="modify_product" label="test" disabled="" class="button-modify" oncommand="$do('test', null, 'Tab');" />
                         <button id="modify_product" label="&lable_printing.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyCount', null, 'Tab');" />
                         <button id="delete_product" label="&lable_printing.button.action.deleteProduct;" disabled="true" class="button-delete" oncommand="$do('removeTabListProduct', null, 'Tab');" />     <!--&plus.button.action.delete;-->
                     </hbox>
