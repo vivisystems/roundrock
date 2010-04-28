@@ -659,22 +659,66 @@
             var queryString = window.location.search;
 
             var queryObj = {};
-            if (window.location.search.length >1) {
-               queryObj = this.updateQueryStringFields(window.location.search);
+            if (queryString.length >1) {
+               queryObj = this.updateQueryStringFields(queryString);
 
-               if (queryObj['auto_execute']) {
-
-                   // using some delay for controller loaded.
-                   window.setTimeout(function() {
-                       if ($('#execute').length>0) {
-                            $('#execute').click();
-                       }else if ($('.ExeBtn').length>0) {
-                           $('.ExeBtn').click();
-                       }
-                   }, 1000);
-               }
             }
 
+            this.updateStartEndDateFields(queryObj);
+
+            if (queryObj['auto_execute']) {
+
+               // using some delay for controller loaded.
+               window.setTimeout(function() {
+                   if ($('#execute').length>0) {
+                        $('#execute').click();
+                   }else if ($('.ExeBtn').length>0) {
+                       $('.ExeBtn').click();
+                   }
+               }, 1000);
+            }
+
+            return queryObj;
+        },
+
+        updateStartEndDateFields: function(queryObj) {
+            // set default start and end date
+            var startDateObj = document.getElementById('start_date');
+            var endDateObj = document.getElementById('end_date');
+
+            if (!startDateObj || !endDateObj) return;
+
+            var today = new Date();
+            var yy = today.getYear() + 1900;
+            var mm = today.getMonth();
+            var dd = today.getDate();
+
+            var start, end;
+
+            if ('start_date' in queryObj) {
+                if ('end_date' in queryObj) {
+                    // case 1: start_date set, end_date set -> noop
+                }
+                else {
+                    // case 2: start_date set, end_date not set
+                    end = (new Date(startDateObj.value)).add({days: 1}).getTime();
+                    endDateObj.value = end;
+                }
+            }
+            else {
+                if ('end_date' in queryObj) {
+                    // case 3: start_date not set, end_date set
+                    startDateObj.value = endDateObj.value;
+                }
+                else {
+                    // case 4: start_date not set, end_date not set
+                    start = ( new Date( yy,mm,dd,0,0,0 ) ).getTime();
+                    startDateObj.value = start;
+                    end = ( new Date( yy,mm,dd + 1,0,0,0 ) ).getTime();
+                    endDateObj.value = end;
+                }
+            }
+            
         },
 
         /**
@@ -686,7 +730,7 @@
          */
         updateQueryStringFields: function(str) {
 
-            var salePeriod = GeckoJS.Session.get('sale_period');
+            var salePeriod = parseInt(GeckoJS.Session.get('sale_period')) * 1000 ;
             var shiftNumber = GeckoJS.Session.get('shift_number');
             var terminalNo = GeckoJS.Session.get('terminal_no') || '';
             var branchId = '';
