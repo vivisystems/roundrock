@@ -1,0 +1,65 @@
+#! /bin/sh
+# Author: Rack Lin <racklin@gmail.com>
+#
+
+# Do NOT "set -e"
+
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="rdate client"
+NAME=rdate
+RDATE_BIN=/usr/bin/rdate
+
+# Exit if the package is not installed
+[ -x "$RDATE_BIN" ] || exit 0
+
+# Load the VERBOSE setting and other rcS variables
+. /lib/init/vars.sh
+
+# Define LSB log_* functions.
+# Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
+. /lib/lsb/init-functions
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+
+        if [ -f "/etc/ntp.conf" ]; then
+            NTPSERVER=`grep -A1 "# VIVIPOS MASTER SERVER START" /etc/ntp.conf |grep "server" | cut -d " " -f 2`
+            if [ ! -z "$NTPSERVER" ]; then
+                if [ "$NTPSERVER" != "localhost" ]; then
+                    $RDATE_BIN -s -n $NTPSERVER
+                    if [ "$?" = "0" ]; then
+                        # hwclock -w
+                        return "0"
+                    else
+                        return "1"
+                    fi
+                fi
+            fi
+            return "1"
+        fi
+
+        # file not exists
+        return "2"
+
+}
+
+case "$1" in
+  start)
+	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+	do_start
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
+	;;
+  *)
+	echo "Usage: $NAME {start}" >&2
+	exit 3
+	;;
+esac
+
+exit 0
