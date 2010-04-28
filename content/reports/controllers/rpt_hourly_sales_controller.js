@@ -68,9 +68,9 @@
 
             var order = new OrderModel();
 
-            this.log(this.dump(conditions));
+            this.log('DEBUG', this.dump(conditions));
 
-            this.log(this.dump({fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1, limit: limit}));
+            this.log('DEBUG', this.dump({fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1, limit: limit}));
 
             var records = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1, limit: limit} );
 
@@ -93,7 +93,8 @@
                                           Guests: 0,
                                           OrderNum: 0,
                                           HourTotal: 0,
-                                          HourGross: 0
+                                          HourGross: 0,
+                                          ItemsCount: 0
                                         });
                       }
                  }
