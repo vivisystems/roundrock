@@ -30,7 +30,7 @@ do_start()
             NTPSERVER=`grep -A1 "# VIVIPOS MASTER SERVER START" /etc/ntp.conf |grep "server" | cut -d " " -f 2`
             if [ ! -z "$NTPSERVER" ]; then
                 if [ "$NTPSERVER" != "localhost" ]; then
-                    $RDATE_BIN -s -n $NTPSERVER
+                    $RDATE_BIN -s $NTPSERVER
                     if [ "$?" = "0" ]; then
                         # hwclock -w
                         return "0"
