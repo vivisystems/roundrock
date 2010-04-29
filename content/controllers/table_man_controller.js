@@ -742,7 +742,11 @@
             var destinations = GeckoJS.Configure.read('vivipos.fec.settings.Destinations') || [];
             var defaultDestination = GeckoJS.Configure.read('vivipos.fec.settings.DefaultDestination');
             
-            if (destinations != null) destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
+            if (destinations != null && destinations.length > 0) {
+                destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
+            }else {
+                destinations = [];
+            }
             var destinations2 = [];
             
             var destinationObj = document.getElementById('table_destination');
