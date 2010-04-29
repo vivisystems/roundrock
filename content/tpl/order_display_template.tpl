@@ -100,7 +100,7 @@
     indent = item.level > 0 ? '&#160;&#160;&#160;&#160;' : '' ;
 {/eval}
     <html:tr>
-        <html:td style="width: 400px; text-align: left;">${indent + item.name|escape}</html:td>
+        <html:td style="width: 400px; text-align: left;">${indent}${item.name|escape}</html:td>
         <html:td/>
         <html:td style="width: 70px; text-align: right">${item.current_qty}</html:td>
         <html:td style="width: 100px; text-align: right;">${item.current_price}</html:td>
