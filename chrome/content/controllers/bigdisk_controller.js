@@ -50,7 +50,7 @@
                 journal.addEventListener('onInitial', this._afterJournalInitialization, this);
             }
 
-            // listen for '' event to remove last good db
+            // listen for 'afterTruncateTxnRecords' event to remove last good db
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
                 main.addEventListener('afterTruncateTxnRecords', this._afterTruncateTxnRecords, this);

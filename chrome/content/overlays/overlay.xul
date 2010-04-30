@@ -3,5 +3,6 @@
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="overlay">
 
     <script src="chrome://roundrock/content/controllers/bigdisk_controller.js" type="application/x-javascript;version=1.7"/>
+    <script src="chrome://roundrock/content/controllers/transaction_data_controller.js" type="application/x-javascript;version=1.7"/>
     
 </overlay>
