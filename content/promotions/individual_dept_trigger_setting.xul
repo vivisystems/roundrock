@@ -83,7 +83,7 @@
                         <viviscrollablebuttonpanel id="deptscrollablepanel" flex="1" cols="3" rows="4" labelField="name"
                                                    seltype="multiple"
                                                    ensureVisible="true"
-                                                   buttonClass="button-department"
+                                                   buttonClass="button-department settings"
                                                    scrollUpClass="scroll-up-button"
                                                    scrollDownClass="scroll-down-button">
                             <spacer flex="1"/>
