@@ -54,7 +54,7 @@ do_integrity_check()
 
 		result=`$SQLITE3 $i "PRAGMA integrity_check"`
                 pkill aosd_cat
-		if [ "$result" != "ok" ]; then
+		if [ "$?" = "0" ] && [ ! -z "$result" ] && [ "$result" != "ok" ]; then
                     /usr/bin/aosd_cat -F "Sans 20" -x 100 -y -80 -d 600000 "${MSG_RUN_VIVIPOS_REBUILDING} ${dbname}" &
                     echo "`date +"%Y-%m-%d %H:%M:%S"` :   rebuilding [${dbname}]" >> ${DIR}/log/vivipos.log
 
