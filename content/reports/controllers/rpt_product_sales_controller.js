@@ -93,7 +93,7 @@
                 }
             } );
             categories.group = this._setGroups();
-            this.log('DEBUG', this.dump(categories,20));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(categories,20));
          //   alert(this.dump(categories));
             /*
             var orderItemRecords = orderItem.find( 'all',{
@@ -137,7 +137,7 @@
                 categories.department[ record.cate_no ].prodByNo[ record.product_no ] = 1;
             } );
 
-             this.log('DEBUG', this.dump(categories,20));
+             if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(categories,20));
              categories.group =  this._setGroupOrderItem(orderItemRecords, categories.group);
 
             // insert the zero sales products =====================================> department
@@ -243,7 +243,7 @@
                 });*/
             }
 
-            this.log('DEBUG', this.dump(categories,20));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(categories,20));
             //hide unselected categroy
             if(  'department' in selectCategory || 'group' in selectCategory ){
 
@@ -269,7 +269,7 @@
                     }
                 }
             }
-            this.log('DEBUG', this.dump(categories,20));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(categories,20));
 
 
             // hide the no sales department if users want it that way.
@@ -342,7 +342,7 @@
 
             //set group
             //categories.group = GeckoJS.BaseObject.clone(categories.department);
-            this.log('DEBUG', this.dump(categories,20));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(categories,20));
             var departmentKeys = GeckoJS.BaseObject.getKeys(categories.department);
 
             
@@ -519,7 +519,7 @@
                         groups.push( this._getGroupObject( groupID[i] ) );
                 }
            }
-          this.log('DEBUG', this.dump(groups,20));
+          if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(groups,20));
            return groups;
         },
 

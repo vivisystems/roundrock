@@ -121,7 +121,7 @@
             // only store valid shift marker into session
             if (salePeriod != -1 && salePeriod != '') {
                 GeckoJS.Session.set('current_shift', currentShift);
-                this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
+                if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
             }
             GeckoJS.Session.set('shift_number', shiftNumber);
             GeckoJS.Session.set('sale_period', salePeriod);
@@ -404,11 +404,7 @@
                 if (this.ShiftMarker.isSalePeriodHandler()) {
                     // need to reset sequence?
                     this.log('DEBUG', 'checking if sequence needs to be reset');
-                    // check if new reset seqno key not exists, using SequenceTracksSalePeriod key , compatible 1.2.0.11 before.
-                    let resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod') || false;
-                    if (GeckoJS.Configure.check('vivipos.fec.settings.ResetSeqNoWhenEndPeriod')) {
-                        resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.ResetSeqNoWhenEndPeriod') || false;
-                    }
+                    let resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
                     if (resetSequence) {
                         if (SequenceModel.resetSequence('order_no', 0) == -1) {
                             GREUtils.Dialog.alert(this.topmostWindow,
@@ -422,24 +418,6 @@
                             return;
                         }
                     }
-
-                    // need to reset checkno?
-                    this.log('DEBUG', 'checking if checkno needs to be reset');
-                    let resetCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.ResetCheckNoWhenEndPeriod') || false;
-                    if (resetCheckNo) {
-                        if (SequenceModel.resetSequence('check_no', 0) == -1) {
-                            GREUtils.Dialog.alert(this.topmostWindow,
-                                _('Shift Change Error'),
-                                _('Failed to start sale period because order check number could not be reset. Please make sure that the terminal designated as the sequence number master is working normally [message #1439]'));
-
-                            this._updateSession({sale_period: -1,
-                                                 shift_number: '',
-                                                 end_of_period: false,
-                                                 end_of_shift: false});
-                            return;
-                        }
-                    }
-
 
                     // need to advance sale period?
                     this.log('DEBUG', 'checking if sale period needs to be advanced');
@@ -743,7 +721,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\')' +
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL' +
                              ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.name';
                 orderby = 'order_payments.memo1, order_payments.name';
@@ -771,7 +749,7 @@
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                              ' AND orders.status != -1' +
-                             ' AND order_payments.name = "cash" AND (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\') AND order_payments.is_groupable = "1"';
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"';
                 groupby = 'order_payments.amount, order_payments.name';
                 orderby = 'order_payments.amount, order_payments.name';
                 var valueFixedCashPayment = orderPayment.find('all', {fields: fields,
@@ -799,7 +777,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\')' +
+                             ' AND order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)' +
                              ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.name';
                 var foreignCashDetails = orderPayment.find('all', {fields: fields,
@@ -856,7 +834,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\') AND order_payments.is_groupable = "1"' +
+                             ' AND order_payments.name = "cash" AND order_payments.memo2 IS NULL AND order_payments.is_groupable = "1"' +
                              ' AND orders.status != -1';
                 groupby = 'order_payments.memo1, order_payments.name, order_payments.origin_amount, order_payments.is_groupable';
                 var groupableCashPayment = orderPayment.find('all', {fields: fields,
@@ -884,7 +862,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND order_payments.name = "cash" AND NOT(order_payments.memo2 IS NULL OR order_payments.memo2 = \'\') AND order_payments.is_groupable = "1"' +
+                             ' AND order_payments.name = "cash" AND NOT(order_payments.memo2 IS NULL) AND order_payments.is_groupable = "1"' +
                              ' AND orders.status != -1';
                 groupby = 'order_payments.name, order_payments.memo1, order_payments.origin_amount, order_payments.is_groupable';
                 var groupableForeignCashPayment = orderPayment.find('all', {fields: fields,
@@ -963,8 +941,8 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND ((order_payments.name = "cash" AND (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\')) OR (order_payments.name = "ledger"))' +
-                             ' AND (orders.status != -1 OR (orders.status IS NULL OR orders.status = \'\'))';
+                             ' AND ((order_payments.name = "cash" AND order_payments.memo2 IS NULL) OR (order_payments.name = "ledger"))' +
+                             ' AND (orders.status != -1 OR orders.status IS NULL)';
                 var cashDetails = orderPayment.find('first', {fields: fields,
                                                               conditions: conditions,
                                                               recursive: 1,
@@ -982,7 +960,7 @@
                 conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                              ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                             ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL OR order_payments.memo2 = \'\')) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))' +
+                             ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo2 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))' +
                              ' AND orders.status != -1';
                 var changeDetails = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
@@ -1422,26 +1400,48 @@
         },
         
         reviewShiftReport: function( all ) {
-            var shiftNo = '';
-            if ( !all ) shiftNo = this._getShiftNumber().toString();
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get('terminal_no');
 
-            var searchStr = 'start_date=${sale_period}&end_date=${sale_period}&shift_no=' + shiftNo
-                            + '&terminal_no=${terminal_no}&auto_execute=1';
+            var shiftNumber = '';
+            if ( !all )
+                    shiftNumber = this._getShiftNumber().toString();
+
+            var parameters = {
+                start: salePeriod,
+                end: salePeriod,
+                shiftNo: shiftNumber,
+                terminalNo: terminalNo,
+                setparms: true
+            };
+		
+            //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );
 		    
-            var aURL = 'chrome://viviecr/content/reports/rpt_cash_by_clerk.xul?' + searchStr;
+            var aURL = 'chrome://viviecr/content/reports/rpt_cash_by_clerk.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
 
         reviewDailySales: function( shift ) {
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var periodType = 'sale_period';
             var shiftNo = shift ? this._getShiftNumber().toString() : '';
             
-            var searchStr = 'start_date=${sale_period}&end_date=${sale_period}&shift_no=' + shiftNo
-                            + '&period_type=sale_period&terminal_no=${terminal_no}&auto_execute=1';
+            var parameters = {
+                start: salePeriod,
+                end: salePeriod,
+                periodtype: periodType,
+                shiftno: shiftNo,
+                terminalNo: terminalNo,
+                setparms: true
+            };
+
+            //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
             
-            var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul?' + searchStr;
+            var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
 
         select: function(index){

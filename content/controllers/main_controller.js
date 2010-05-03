@@ -17,6 +17,7 @@
         doReboot: false,
         restartClock: false,
 
+        _suspendLoadTest: false,
         _groupPath: [],
         _suspendOperation: false,
         _suspendKeyboardOperation: false,
@@ -334,7 +335,22 @@
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
 
-            this.postControlPanelProcessing();
+            if (this.doReboot) {
+                this.rebootMachine();
+            }
+
+            if (this.doRestart) {
+                this.restart();
+            }
+
+            if (this.restartClock) {
+                try {
+                    $('#clock')[0].stopClock();
+                    $('#clock')[0].startClock();
+                }
+                catch(err) {
+                }
+            }
         },
 
         ChangeUserDialog: function () {
@@ -506,78 +522,61 @@
 
         openControlPanel: function(target) {
 
-            target = target || '';
-            if(target.length == 0) return false;
+            var prefs = GeckoJS.Configure.read('vivipos.fec.settings.controlpanels');
 
-            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            var found = false;
 
+            for (ctg in prefs) {
 
-            let controlpanelsObjs = GeckoJS.Configure.read('vivipos.fec.settings.controlpanels') || {};
-            let fns = {};
+                for (key in prefs[ctg]) {
+                    let ctrl = prefs[ctg][key];
 
-            for( key in  controlpanelsObjs){
-                 for(keyFn in controlpanelsObjs[key]){
-                     controlpanelsObjs[key][keyFn].father = key ;
-                 }
-               fns = jQuery.extend(fns, controlpanelsObjs[key]);
-            }
+                    // if controlpanel has stringbundle create it.
+                    if (ctrl.bundle) GeckoJS.StringBundle.createBundle(ctrl.bundle);
 
-            let isExists = false;
-            let pref=null;
-            let path=null;
-            let label=null;
-            let roles=null;
-            let keyFull='';
-            let l18nLabel = '';
-            let waitPanel;
+                    // only check accessible entries
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'check access for control panel');
+                    if (ctrl.roles == '' || GeckoJS.AclComponent.isUserInRole(ctrl.roles)) {
+                        let label = ctrl.label;
+                        if (label.indexOf('chrome://') == 0) {
+                            let keystr = 'vivipos.fec.settings.controlpanels.' + ctg + '.' + key + '.label';
+                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                        }
 
-            for (let key in fns) {
+                        if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'checking [' + label + '] for match against [' + target + ']');
+                        if (label == target) {
+                            var waitPanel;
+                            
+                            found = true;
 
-                pref = fns[key];
-                path = pref.path;
-                label = pref.label;
-                roles = pref.roles;
-                keyFull = 'vivipos.fec.settings.controlpanels'+'.'+ pref.father + '.' + key;
+                            let pref = {
+                                icon: ctrl.icon,
+                                path: ctrl.path,
+                                roles: ctrl.roles,
+                                features: (ctrl.features || null),
+                                type:  (ctrl.type || 'uri'),
+                                method: ctrl.method,
+                                data: ctrl.data,
+                                controller: ctrl.controller,
+                                label: label
+                            }
+                            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'found match, launching control panel: ' + this.dump(pref));
 
-                // get l18n label
-                if (label.indexOf('chrome://') == 0) {
-                    l18nLabel = GeckoJS.StringBundle.getPrefLocalizedString(keyFull+'.label') || key;
+                            try {
+                                waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
+                                this.launchControlPanel(pref);
+                            }
+                            catch(e) {}
+                            finally {
+                                waitPanel.hidePopup();
+                            }
+                        }
+                    }
+
+                    if (found) break;
                 }
-                else {
-                    l18nLabel = label;
-                }
 
-                if ( (key == target) || (l18nLabel == target) || (label == target) ) {
-                    isExists = true;
-
-                    break;
-                }
-            }
-
-            if (!isExists) {
-                // function does not exist
-                NotifyUtils.warn(_('Control panel function [%S] does not exist',[target]));
-                return false;
-            }
-
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
-
-            if (this.Acl.isUserInRole(roles) || roles =='') {
-                try {
-                    waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
-                    window.openDialog(path, "ControlPanel_" + label, features, pref);
-
-                    this.postControlPanelProcessing();
-                }
-                catch(e) {}
-                finally {
-                    waitPanel.hidePopup();
-                    return true;
-                }
-            }else{
-                NotifyUtils.warn(_('You are not authorized to access the [%S] control panel function',[l18nLabel]));
-                return false;
+                if (found) break;
             }
         },
 
@@ -625,26 +624,6 @@
                 }
                 finally {
                     this._launchingControlPanel = false;
-                }
-            }
-        },
-
-        postControlPanelProcessing: function() {
-
-            if (this.doReboot) {
-                this.rebootMachine();
-            }
-
-            if (this.doRestart) {
-                this.restart();
-            }
-
-            if (this.restartClock) {
-                try {
-                    $('#clock')[0].stopClock();
-                    $('#clock')[0].startClock();
-                }
-                catch(err) {
                 }
             }
         },
@@ -883,7 +862,7 @@
             alert('begin');
             var now = (new Date()).getTime();
             var orderItemModel = new OrderItemModel();
-            var orderItems = orderItemModel.find('all', {conditions: "(parent_index IS NULL OR parent_index = '')", limit: 3000000, recursive: 0});
+            var orderItems = orderItemModel.find('all', {conditions: "parent_index IS NULL", limit: 3000000, recursive: 0});
             var orderItemTaxModel = new OrderItemTaxModel();
 
             orderItems.forEach(function(item) {
@@ -1380,7 +1359,6 @@
 
                             // reset sequence
                             SequenceModel.resetSequence('order_no');
-                            SequenceModel.resetSequence('check_no');
 
                             if (!r) {
                                 GREUtils.Dialog.alert(this.topmostWindow,
@@ -1610,6 +1588,313 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
         },
         
+        suspendLoadTest: function() {
+            this._suspendLoadTest = true;
+        },
+
+        loadTest: function(params) {
+            var paramList = [];
+            if (params) paramList = params.split('|');
+            var count = parseInt(paramList[0]) || 1;
+            var items = parseInt(paramList[1]) || 1;
+            var store = parseInt(paramList[2]) || 0;
+            var resume = parseInt(paramList[3]) || 0;
+            var noTable = parseInt(paramList[4]) || 0;
+
+            // parse user input
+            var buf = this._getKeypadController().getBuffer() || '';
+            this.requestCommand('clearBuffer', null, 'Keypad');
+            var userParams = buf.split('.');
+            if (userParams.length > 0 && !isNaN(parseInt(userParams[0]))) {
+                count = parseInt(userParams[0]) || 1;
+            }
+            if (userParams.length > 1 && !isNaN(parseInt(userParams[1]))) {
+                items = parseInt(userParams[1]) || 1;
+            }
+            if (userParams.length > 2 && !isNaN(parseInt(userParams[2]))) {
+                store = parseInt(userParams[2]) || 0;
+            }
+            if (userParams.length > 3 && !isNaN(parseInt(userParams[3]))) {
+                resume = parseInt(userParams[3]) || 0;
+            }
+            if (userParams.length > 4 && !isNaN(parseInt(userParams[4]))) {
+                noTable = parseInt(userParams[4]) || 0;
+            }
+
+            this.log('WARN', 'Load test parameters\n   count=[' + count + ']\n   items=[' + items + ']\n   store=[' + store + ']\n   resume=[' + resume + ']\n   noTable=[' + noTable + ']\n\n');
+
+            var customers = GeckoJS.Session.get('customers') || [];
+            var products = GeckoJS.Session.get('products') || [];
+            var numProds = products.length;
+            var numCustomers = customers.length;
+
+            var guestCheckController = GeckoJS.Controller.getInstanceByName('GuestCheck');
+            var checkSeq = 0;
+            var tables = GeckoJS.Session.get('tables') || [];
+            var numTables = tables.length;
+            var currentTableIndex = parseInt(numTables * Math.random());    // randomize starting table
+
+            var tableSettings = this.TableSetting.getTableSettings(true);
+            var maxCheckNo = tableSettings.MaxCheckNo || 100;
+
+            var customerController = GeckoJS.Controller.getInstanceByName('Customers');
+
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var waitPanel;
+
+            // check if open order exist
+            if (cart.ifHavingOpenedOrder()) {
+                if (GREUtils.Dialog.confirm(this.topmostWindow, _('Load Test'), _('Open order exists, discard the order and proceed with the load test?'))) {
+                    cart.cancel(true);
+                }
+                else {
+                    return;
+                }
+            }
+
+            var progressBar = document.getElementById('interruptible_progress');
+            progressBar.mode = 'determined';
+
+            var actionButton = document.getElementById('interruptible_action');
+
+            if (actionButton) {
+                actionButton.setAttribute('label', 'Suspend');
+                actionButton.setAttribute('oncommand', '$do("suspendLoadTest", null, "Main");');
+            }
+            
+            var ordersOpened = 0;
+            var ordersClosed = 0;
+            if (resume && this.loadTestState != null) {
+                ordersOpened = this.loadTestState.opened;
+                ordersClosed = this.loadTestState.closed;
+                this.loadTestState = null;
+                progressBar.value = ordersClosed * 100 / count;
+                waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+            }
+            else {
+                progressBar.value = 0;
+                waitPanel = this._showWaitPanel('interruptible_wait_panel', 'interruptible_wait_caption', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+            }
+
+            var currentTableNo = -1;
+            var doRecall = true;
+
+            try {
+                while (ordersOpened < count || ordersClosed < count) {
+
+                    if (this._suspendLoadTest) {
+                        this._suspendLoadTest = false;
+                        this.loadTestState = {opened: ordersOpened, closed: ordersClosed}
+
+                        break;
+                    }
+
+                    // create new order or recall?
+                    doRecall = (ordersClosed < count) && (ordersOpened >= count || Math.random() < 0.5);
+
+                    // select a table in sequence
+                    if (!noTable && numTables > 0) {
+                        let tries = 0;
+                        while (tries < numTables) {
+                            let table = tables[currentTableIndex++];
+                            currentTableIndex %= numTables;
+                            tries++;
+
+                            if (doRecall || guestCheckController.isTableAvailable(table)) {
+                                currentTableNo = table.table_no;
+                                break;
+                            }
+                        }
+                    }
+
+                    this.log('WARN', 'table number [' + currentTableNo + '] doRecall [' + doRecall + '] orders opened [' + ordersOpened + ']');
+
+                    // found table, let's get a transaction'
+                    if (currentTableNo > -1 || noTable) {
+                        let recalled = false;
+                        let txn;
+
+                        if (!noTable && doRecall) {
+                            let conditions = 'orders.table_no="' + currentTableNo + '" AND orders.status=2';
+                            var orders = this.Order.getOrdersSummary(conditions, true);
+
+                            if (orders.length > 0) {
+
+                                // recall order
+                                let index = Math.floor(Math.random() * orders.length);
+                                let orderId = orders[index].Order.id;
+
+                                if (guestCheckController.recallOrder(orderId)) {
+                                    txn = cart._getTransaction();
+                                    if (txn && txn.data) {
+                                        if (txn.data.status == 0) {
+                                            recalled = true;
+                                            this.log('WARN', 'order recalled [' + txn.data.seq + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                        }
+                                        else {
+                                            this.log('WARN', 'skipping closed order [' + txn.data.seq + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                            txn = null;
+                                        }
+                                    }
+                                    else {
+                                        this.log('WARN', 'empty order recalled for orderId ['+ orderId + ']');
+                                    }
+                                }
+                            }
+                        }
+
+                        if (!recalled && ordersOpened < count) {
+
+                            // create a new order
+                            if (currentTableNo > -1) {
+                                if (guestCheckController.newTable(currentTableNo)) {
+                                    txn = cart._getTransaction();
+                                }
+                            }
+
+                            if (customerController && numCustomers > 0) {
+                                let cIndex = Math.floor(numCustomers * Math.random());
+                                if (cIndex >= numCustomers) cIndex = numCustomers - 1;
+
+                                let customer = customers[cIndex];
+                                txn = cart._getTransaction(true);
+                                customerController.processSetCustomerResult(txn, {
+                                    ok: true,
+                                    customer: customer
+                                });
+                            }
+
+                            if (txn) {
+                                ordersOpened++;
+                                this.log('WARN', 'new order opened [' + txn.data.seq + '] count [' + ordersOpened + '] status [' + txn.data.status + ']');
+
+                                if (!noTable) {
+                                    // assign number of guests
+                                    txn.setNumberOfCustomers(parseInt(5 * Math.random() + 1));
+
+                                    // assign check number if not auto-assigned
+                                    if (txn.data.check_no == '') {
+                                        txn.setCheckNo(++checkSeq % maxCheckNo);
+                                    }
+                                }
+                            }
+                        }
+
+                        if (txn) {
+                            // get current number of items
+                            let itemCount = txn.data.qty_subtotal;
+                            let itemsToAdd = items - itemCount;
+                            let doStore = false;
+
+                            if (ordersClosed >= count) {
+                                doStore = true;
+                            }
+                            else if (itemsToAdd > 0) {
+                                if (noTable) {
+                                    doStore = Math.random() < 0.25;
+                                }
+                                else {
+                                    doStore = Math.random() < 0.75;
+                                }
+                                if (store && doStore) {
+                                    itemsToAdd = Math.min(itemsToAdd, Math.ceil(items * Math.random()));
+                                }
+                            }
+
+                            // add items
+                            for (let j = 0; j < itemsToAdd; j++) {
+
+                                // select an item with no condiments from product list
+                                var pindex = Math.floor(numProds * Math.random());
+                                if (pindex >= numProds) pindex = numProds - 1;
+
+                                var item = this.Product.getProductById(products[pindex].id);
+                                if (item.force_condiment) {
+                                    item.force_condiment = false;
+                                }
+                                if (item.force_memo) {
+                                    item.force_memo = false;
+                                }
+
+                                // add to cart
+                                let beforeQty = txn.data.qty_subtotal;
+                                $do('addItem', item, 'Cart');
+
+                                // delay
+                                this.sleep(100);
+
+                                let attempts = 0;
+                                while (beforeQty >= txn.data.qty_subtotal && attempts++ < 3) {
+                                    // wait for addItem to complete
+                                    this.sleep(200);
+                                }
+
+                                if (attempts > 0) {
+                                    if (beforeQty >= txn.data.qty_subtotal) {
+                                        this.log('WARN', 'timed out waiting for addItem to complete [' + attempts + ']');
+                                    }
+                                    else {
+                                        this.log('WARN', 'waited for addItem to complete [' + attempts + ']');
+                                    }
+                                }
+                            }
+
+                            this.sleep(1000);
+
+                            if (doStore) {
+                                $do('storeCheck', null, 'Cart');
+
+                                if (noTable) {
+                                    this.log('WARN', 'storing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                    progressBar.value = (++ordersClosed * 100) / count;
+                                    this.log('WARN', 'order stored [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                }
+                            }
+                            else if (txn.data.qty_subtotal >= items) {
+                                this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] qty [' + txn.data.qty_subtotal + ']');
+                                $do('cash', ',1,', 'Cart');
+
+                                // update progress bar for order closed
+                                if (txn.data.status == 1 || noTable) {
+                                    progressBar.value = (++ordersClosed * 100) / count;
+                                    this.log('WARN', 'order closed [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                }
+                                else {
+                                    this.log('WARN', 'order not closed [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                }
+                            }
+                            else {
+                                this.log('WARN', 'order not closed pending additem queue [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] qty [' + txn.data.qty_subtotal + ']');
+                            }
+                        }
+                        else {
+                            // did not find an available order on the current table; do a small delay and retry
+                            this.sleep(100);
+                        }
+                    }
+                    else {
+                        // did not find an active table; do a small delay and retry
+                        this.sleep(100);
+                    }
+                    // GC & delay
+                    GREUtils.gc();
+                }
+            }
+            catch(e) {
+                this.log('ERROR', 'exception caught [' + e + ']');
+                var exec = new GeckoJS.File('/tmp/vmstat.sh');
+                if (exec.exists()) {
+                    var r = exec.run([], true);
+                    exec.close();
+                    this.log('ERROR', 'vmstat captured to /tmp/vmstat');
+                }
+            }
+            finally {
+                waitPanel.hidePopup();
+                progressBar.mode = 'undetermined';
+            }
+        },
+
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database exception: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
@@ -1650,14 +1935,6 @@
 
             reportName = reportName || '';
             if(reportName.length == 0) return false;
-
-            // open report support query string
-            var queryString = '';
-            var tmps = reportName.split(',');
-            if (tmps.length >1) {
-                reportName = tmps[0];
-                queryString = tmps[1];
-            }
             
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
@@ -1711,7 +1988,6 @@
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
 
             if (this.Acl.isUserInRole(roles)) {
-                if (queryString.length >0) path += '?' + queryString;
                 window.openDialog(path, "Report_" + label, features, pref);
                 return true;
             }else{

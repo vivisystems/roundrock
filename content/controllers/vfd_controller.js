@@ -339,7 +339,7 @@
             //
             // translate embedded hex codes into actual hex values
             result = result.replace(/\[(0x[0-9,A-F][0-9,A-F])\]/g, function(str, p1, offset, s) {return String.fromCharCode(new Number(p1));});
-            this.log('DEBUG', GeckoJS.BaseObject.dump(result));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', GeckoJS.BaseObject.dump(result));
             
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
@@ -412,13 +412,13 @@
             let cart = GeckoJS.Controller.getInstanceByName('Cart');
             let self = this;
 
-            this.log('DEBUG', 'restarting timer');
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'restarting timer');
             enabledDevices.forEach(function(device) {
                 // extract delay setting in seconds
                 let delay = parseInt(device.idle);
                 if (isNaN(delay)) delay = 0;
 
-                self.log('DEBUG', 'delay setting for VFD [' + device.number + ']: idle delay [' + delay + ']');
+                if (GeckoJS.Log.defaultClassLevel.value <= 1) self.log('DEBUG', 'delay setting for VFD [' + device.number + ']: idle delay [' + delay + ']');
                 if (delay > 0) {
                     if (!self._timers[device.number]) {
                         self._timers[device.number] = Components.classes["@mozilla.org/timer;1"].createInstance(Components.interfaces.nsITimer);
@@ -427,11 +427,11 @@
                     if (self._timers[device.number]) {
 
                         self._timers[device.number].cancel();
-                        self.log('DEBUG', 'restarting timer for VFD [' + device.number + ']');
+                        if (GeckoJS.Log.defaultClassLevel.value <= 1) self.log('DEBUG', 'restarting timer for VFD [' + device.number + ']');
 
                         var cb = {
                             notify: function() {
-                                self.log('DEBUG', 'in notify [' + cart + '], [' + (cart ? !cart.ifHavingOpenedOrder() : 'true') + '] for VFD [' + device.number + ']');
+                                if (GeckoJS.Log.defaultClassLevel.value <= 1) self.log('DEBUG', 'in notify [' + cart + '], [' + (cart ? !cart.ifHavingOpenedOrder() : 'true') + '] for VFD [' + device.number + ']');
                                 if (!cart || !cart.ifHavingOpenedOrder()) {
                                     let data = {
                                         type: 'idle',
@@ -444,7 +444,7 @@
                             }
                         }
                         self._timers[device.number].initWithCallback(cb, delay * 1000, 0);
-                        self.log('DEBUG', 'timer restarted for VFD [' + device.number + ']');
+                        if (GeckoJS.Log.defaultClassLevel.value <= 1) self.log('DEBUG', 'timer restarted for VFD [' + device.number + ']');
                     }
                 }
             });
@@ -454,13 +454,13 @@
             let device = this.getDeviceController();
             let enabledDevices = device.getEnabledDevices('vfd') || [];
             let self = this;
-            this.log('DEBUG', 'cancelling timer');
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'cancelling timer');
 
             enabledDevices.forEach(function(device) {
                 if (device._timer) {
-                    self.log('DEBUG', 'cancelling timer for VFD [' + device.number + ']');
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) self.log('DEBUG', 'cancelling timer for VFD [' + device.number + ']');
                     self._timers[device.number].cancel();
-                    self.log('DEBUG', 'timer cancelled for VFD [' + device.number + ']');
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) self.log('DEBUG', 'timer cancelled for VFD [' + device.number + ']');
                 }
             });
         },

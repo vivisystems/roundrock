@@ -1088,7 +1088,7 @@
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
-            this.log('DEBUG', GeckoJS.BaseObject.dump(result));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', GeckoJS.BaseObject.dump(result));
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values

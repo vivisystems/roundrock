@@ -1565,7 +1565,7 @@
         },
 
         _computeIncludedFixedTaxes: function(item) {
-            this.log('DEBUG', 'computing included fixed taxes: ' + this.dump(item));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'computing included fixed taxes: ' + this.dump(item));
             var taxes = 0;
             for (var taxno in item.tax_details) {
                 let taxDetails = item.tax_details[taxno];
@@ -3381,7 +3381,7 @@
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
-            this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
         },
 
 

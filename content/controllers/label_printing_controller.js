@@ -1069,7 +1069,7 @@
                if(this._positivePrice != ',')
                    object = this._checkPriceZero(object);
 
-               this.log('DEBUG', this.dump(object));
+               if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(object));
 
                this.legalList = object.legalList;
 
