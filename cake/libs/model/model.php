@@ -1697,7 +1697,10 @@ class Model extends Overloadable {
 				$this->__exists = null;
 				return true;
 			}
-		}
+		}else if ($this->__exists !== null && $this->__exists === false) {
+                    $this->id = false;
+                    $this->__exists = null;
+                }
 		return false;
 	}
 /**
