@@ -257,6 +257,6 @@
     background-position: 0 -32px !important;
 }
 
-.department.settings[disabled=false][selected] {
+.button-department.settings[disabled=false][selected] {
     list-style-image: url(chrome://viviecr/skin/images/con_sel.png);
 }

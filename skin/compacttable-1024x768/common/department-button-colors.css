@@ -95,6 +95,6 @@
     -moz-border-right-colors: red red red !important;
 }
 
-.department.settings[disabled=false][selected] {
+.button-department.settings[disabled=false][selected] {
     list-style-image: url(chrome://viviecr/skin/images/con_sel.png);
 }
