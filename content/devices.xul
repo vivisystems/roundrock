@@ -269,7 +269,7 @@
                                 <vbox flex="1" class="content-buttonpanel">
                                     <viviscrollablebuttonpanel id="check-%d-group_listscrollablepanel" seltype="toggle" cloneTarget="true"
                                                                flex="1" cols="3" rows="4" labelField="name" imageField="no"
-                                                               buttonClass="button-plugroup"
+                                                               buttonClass="button-plugroup settings"
                                                                scrollUpClass="scroll-up-button"
                                                                scrollDownClass="scroll-down-button"                   
                                                                form="deviceForm" name="check-%d-link-group" default="">
