@@ -50,6 +50,7 @@ do_start()
     if [ -f $PIDFILE ]; then
         ps -p `cat $PIDFILE` > /dev/null
         if [ "$?" != "0" ]; then
+            echo "`date +"%Y-%m-%d %H:%M:%S"` :   restart sync_client" >> ${SCRIPTDIR}/app/tmp/logs/debug.log
             ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app sync_client start
             RETVAL="$?"
         fi
