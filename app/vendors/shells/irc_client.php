@@ -54,13 +54,13 @@ class IrcClientShell extends SyncBaseShell {
         $syncSettings = $this->readSyncSettings();
 
         if ($this->isSyncing()) {
-            CakeLog::write('debug', "irc_client sync: other process issyncing.. ");
+            //CakeLog::write('debug', "irc_client sync: other process issyncing.. ");
             return ;
         }
 
         try {
             $this->addSyncRequest();
-            CakeLog::write('debug', "irc_client sync: addSyncRequest... ");
+            //CakeLog::write('debug', "irc_client sync: addSyncRequest... ");
             
         }catch(Exception $e) {
         }
@@ -84,7 +84,7 @@ class IrcClientShell extends SyncBaseShell {
             // if sync Request , break while
             if ( $this->isSyncRequest() ){
 
-                CakeLog::write('debug', "waitForRequest: isSyncRequest break waiting");
+                //CakeLog::write('debug', "waitForRequest: isSyncRequest break waiting");
                 
                 $this->removeSyncRequest();
                 break;
@@ -109,7 +109,7 @@ class IrcClientShell extends SyncBaseShell {
         $syncSettings = $this->readSyncSettings();
 
         if ($this->isSyncing()) {
-            CakeLog::write('debug', "other process issyncing.. sleep to next interval");
+            //CakeLog::write('debug', "other process issyncing.. sleep to next interval");
             return ;
         }
 
@@ -117,11 +117,11 @@ class IrcClientShell extends SyncBaseShell {
 
         try {
 
-            CakeLog::write('debug', "requestAction downloadPackages");
+            //CakeLog::write('debug', "requestAction downloadPackages");
 
             $syncResult = $this->requestAction("/irc/downloadPackages");
 
-            CakeLog::write('debug', "requestAction downloadPackages result: " . $syncResult);
+            //CakeLog::write('debug', "requestAction downloadPackages result: " . $syncResult);
 
             $successed = $syncResult;
 
@@ -130,7 +130,7 @@ class IrcClientShell extends SyncBaseShell {
         }
 
         if($successed) {
-            CakeLog::write('info', "requestAction downloadPackages success");
+            //CakeLog::write('info', "requestAction downloadPackages success");
             $this->syncStatus('success');
         }else {
             $this->syncStatus('finished');

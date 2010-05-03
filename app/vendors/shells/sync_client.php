@@ -48,14 +48,14 @@ class SyncClientShell extends SyncBaseShell {
         $syncSettings = $this->readSyncSettings();
 
         if ($this->isSyncing()) {
-            CakeLog::write('debug', "sync_client sync: other process issyncing.. ");
+            //CakeLog::write('debug', "sync_client sync: other process issyncing.. ");
             return ;
         }
 
         try {
 
             $this->addSyncRequest();
-            CakeLog::write('debug', "sync_client sync: addSyncRequest... ");
+            //CakeLog::write('debug', "sync_client sync: addSyncRequest... ");
             
         }catch(Exception $e) {
         }
@@ -79,7 +79,7 @@ class SyncClientShell extends SyncBaseShell {
             // if sync Request , break while
             if ( $this->isSyncRequest() ){
 
-                CakeLog::write('debug', "waitForRequest: isSyncRequest break waiting");
+                //CakeLog::write('debug', "waitForRequest: isSyncRequest break waiting");
                 
                 $this->removeSyncRequest();
                 break;
@@ -158,7 +158,7 @@ class SyncClientShell extends SyncBaseShell {
         $syncSettings = $this->readSyncSettings();
 
         if ($this->isSyncing()) {
-            CakeLog::write('debug', "other process issyncing.. sleep to next interval");
+            //CakeLog::write('debug', "other process issyncing.. sleep to next interval");
             return ;
         }
 
@@ -166,16 +166,16 @@ class SyncClientShell extends SyncBaseShell {
 
         try {
 
-            CakeLog::write('debug', "observerNotify starting");
+            //CakeLog::write('debug', "observerNotify starting");
             $this->observerNotify('starting');
 
-            CakeLog::write('debug', "requestAction perform_sync");
+            //CakeLog::write('debug', "requestAction perform_sync");
 
             $syncResult = $this->requestAction("/sync_clients/perform_sync_all");
 
-            CakeLog::write('debug', "requestAction perform_sync result: " . $syncResult['pull_result'] . "," . $syncResult['push_result']);
+            //CakeLog::write('debug', "requestAction perform_sync result: " . $syncResult['pull_result'] . "," . $syncResult['push_result']);
 
-            CakeLog::write('debug', "observerNotify finished");
+            //CakeLog::write('debug', "observerNotify finished");
 
             $this->observerNotify('finished', json_encode($syncResult));
 
@@ -186,7 +186,7 @@ class SyncClientShell extends SyncBaseShell {
         }
 
         if($successed) {
-            CakeLog::write('info', "requestAction perform_sync success");
+            //CakeLog::write('info', "requestAction perform_sync success");
             $this->syncStatus('success');
         }else {
             $this->syncStatus('finished');
@@ -207,23 +207,23 @@ class SyncClientShell extends SyncBaseShell {
         $syncSettings = $this->readSyncSettings();
 
         if ($this->isSyncing()) {
-            CakeLog::write('debug', "other process issyncing.. sleep to next interval");
+            //CakeLog::write('debug', "other process issyncing.. sleep to next interval");
             return ;
         }
 
         $successed = false;
 
         try {
-            CakeLog::write('debug', "observerNotify starting");
+            //CakeLog::write('debug', "observerNotify starting");
             $this->observerNotify('starting');
 
-            CakeLog::write('debug', "requestAction perform_sync");
+            //CakeLog::write('debug', "requestAction perform_sync");
 
             $syncResult = $this->requestAction("/sync_clients/perform_sync");
 
-            CakeLog::write('debug', "requestAction perform_sync result: " . $syncResult['pull_result'] . "," . $syncResult['push_result']);
+            //CakeLog::write('debug', "requestAction perform_sync result: " . $syncResult['pull_result'] . "," . $syncResult['push_result']);
 
-            CakeLog::write('debug', "observerNotify finished");
+            //CakeLog::write('debug', "observerNotify finished");
 
             $this->observerNotify('finished', json_encode($syncResult));
 
@@ -234,7 +234,7 @@ class SyncClientShell extends SyncBaseShell {
         }
 
         if($successed) {
-            CakeLog::write('info', "requestAction perform_sync success");
+            //CakeLog::write('info', "requestAction perform_sync success");
             $this->syncStatus('success');
         }else {
             $this->syncStatus('finished');

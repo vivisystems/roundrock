@@ -144,7 +144,7 @@ class SyncHandlerComponent extends Object {
         }
 
         // write debug
-        CakeLog::write('debug', 'getLastSynced machine_id: ' . $machine_id . ' , dbConfig: ' . $dbConfig . ' , lastSynced: ' . $lastSynced);
+        // CakeLog::write('debug', 'getLastSynced machine_id: ' . $machine_id . ' , dbConfig: ' . $dbConfig . ' , lastSynced: ' . $lastSynced);
 
 
         return $lastSynced;
@@ -164,7 +164,7 @@ class SyncHandlerComponent extends Object {
         if(!is_numeric($last_synced)) $last_synced = 0;
 
         // write debug
-        CakeLog::write('debug', 'setLastSynced machine_id: ' . $machine_id . ' , dbConfig: ' . $dbConfig . ' , lastSynced: ' . $last_synced);
+        //CakeLog::write('debug', 'setLastSynced machine_id: ' . $machine_id . ' , dbConfig: ' . $dbConfig . ' , lastSynced: ' . $last_synced);
 
         $syncRemoteMachine = new SyncRemoteMachine(false, null, $dbConfig); // id , table, ds
         $data = $syncRemoteMachine->find('first', array('conditions' => array('machine_id' => $machine_id)));
@@ -499,7 +499,7 @@ class SyncHandlerComponent extends Object {
             $datasource =& ConnectionManager::getDataSource($dbConfig);
 
             // write debug
-            CakeLog::write('debug', 'saveData to ' . $dbConfig . "\n" . "  Data Count: ". $data['count']);
+            //CakeLog::write('debug', 'saveData to ' . $dbConfig . "\n" . "  Data Count: ". $data['count']);
 
             try {
 
@@ -557,7 +557,7 @@ class SyncHandlerComponent extends Object {
     //$my_machine_id = $this->syncSettings['machine_id'];
 
     // write debug
-        CakeLog::write('debug', 'saveServerData from ' . $server_machine_id );
+        //CakeLog::write('debug', 'saveServerData from ' . $server_machine_id );
 
         $result = $this->saveData($server_machine_id, $datas);
 
@@ -576,7 +576,7 @@ class SyncHandlerComponent extends Object {
     function getClientData($server_machine_id) {
 
     // write debug
-        CakeLog::write('debug', 'getClientData for ' . $server_machine_id );
+        //CakeLog::write('debug', 'getClientData for ' . $server_machine_id );
 
         $datas = $this->getData($server_machine_id, "push", array(), 'all');
 
@@ -612,7 +612,7 @@ class SyncHandlerComponent extends Object {
     function getClientDataCount($server_machine_id) {
 
     // write debug
-        CakeLog::write('debug', 'getClientData for ' . $server_machine_id );
+        //CakeLog::write('debug', 'getClientData for ' . $server_machine_id );
 
         $datas = $this->getData($server_machine_id, "push", array(), 'count');
 
