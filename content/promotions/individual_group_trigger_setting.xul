@@ -85,7 +85,7 @@
                         <viviscrollablebuttonpanel id="groupscrollablepanel" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                    seltype="multiple"
                                                    ensureVisible="true"
-                                                   buttonClass="button-plugroup"
+                                                   buttonClass="button-plugroup settings"
                                                    scrollUpClass="scroll-up-button"
                                                    scrollDownClass="scroll-down-button">
                             <spacer flex="1"/>

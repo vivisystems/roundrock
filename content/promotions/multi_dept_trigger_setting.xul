@@ -73,7 +73,7 @@
                         <viviscrollablebuttonpanel id="deptscrollablepanel1" flex="1" cols="3" rows="2" labelField="name" imageField="no"
                                                    seltype="single"
                                                    ensureVisible="true"
-                                                   buttonClass="button-department"
+                                                   buttonClass="button-department settings"
                                                    scrollUpClass="scroll-up-button"
                                                    scrollDownClass="scroll-down-button">
                             <spacer flex="1"/>
@@ -110,7 +110,7 @@
                         <viviscrollablebuttonpanel id="deptscrollablepanel2" flex="1" cols="3" rows="2" labelField="name" imageField="no"
                                                    seltype="single"
                                                    ensureVisible="true"
-                                                   buttonClass="button-department"
+                                                   buttonClass="button-department settings"
                                                    scrollUpClass="scroll-up-button"
                                                    scrollDownClass="scroll-down-button">
                             <spacer flex="1"/>

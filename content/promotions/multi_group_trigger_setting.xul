@@ -73,7 +73,7 @@
                         <viviscrollablebuttonpanel id="groupscrollablepanel1" flex="1" cols="3" rows="2" labelField="name" imageField="no"
                                                    seltype="single"
                                                    ensureVisible="true"
-                                                   buttonClass="button-plugroup"
+                                                   buttonClass="button-plugroup settings"
                                                    scrollUpClass="scroll-up-button"
                                                    scrollDownClass="scroll-down-button">
                             <spacer flex="1"/>
@@ -109,7 +109,7 @@
                         <viviscrollablebuttonpanel id="groupscrollablepanel2" flex="1" cols="3" rows="2" labelField="name" imageField="no"
                                                    seltype="single"
                                                    ensureVisible="true"
-                                                   buttonClass="button-plugroup"
+                                                   buttonClass="button-plugroup settings"
                                                    scrollUpClass="scroll-up-button"
                                                    scrollDownClass="scroll-down-button">
                             <spacer flex="1"/>
