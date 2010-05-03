@@ -97,6 +97,11 @@ class OrdersController extends AppController {
 
                 $result = $this->Order->readOrderToBackupFormat($orderId);
 
+                // onfly repair table status
+                if ($result['Order']['status'] != 2) {
+                    // update table orders and status
+                    $this->Table->updateOrders(array($result['Order']));
+                }
 
             }else {
                 $result = $this->TableOrderLock->getOrderLock($orderId);

@@ -60,6 +60,26 @@ class Table extends AppModel {
 
     }
 
+    /**
+     * updateOrders
+     *
+     * @param <type> $datas
+     * @return <type>
+     */
+    function updateOrders($orders) {
+
+        if (!is_array($orders)) return false ;
+
+        // save table order
+        $this->TableOrder->updateOrders($orders, $this->getTableNoToIds());
+
+        // update table status 's order count
+        $this->TableStatus->updateStatusByOrders($orders, $this->getTableNoToIds());
+
+        // maintaince expire mark
+
+    }
+
 
     /**
      * updateOrdersFromBackupFormat
