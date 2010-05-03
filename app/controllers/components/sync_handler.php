@@ -369,7 +369,7 @@ class SyncHandlerComponent extends Object {
      *
      * @param string $client_machine_id
      */
-    function getData($machine_id, $direction="pull", $client_settings=array()) {
+    function getData($machine_id, $direction="pull", $client_settings=array(), $type='all') {
 
         // set php time limit to unlimimted
         set_time_limit(0);
@@ -418,25 +418,35 @@ class SyncHandlerComponent extends Object {
 
             }
             
-            $results = $sync->find('all', $condition);
-            
-            $syncs = Set::classicExtract($results, '{n}.Sync');
+            $results = $sync->find($type, $condition);
 
-            $syncCount = count($syncs);
+            if ($type == 'count') {
 
-            if ($syncCount > 0) {
-
-                $newLastSynced = $syncs[$syncCount-1]['id'];
-
-                // process Sync SQL
-                $sql = $this->processSyncSQL($my_machine_id, $dbConfig, $syncs);
+                $syncCount = $results;
+                $newLastSynced = -1;
+                $sql = '';
 
             }else {
+                
+                $syncs = Set::classicExtract($results, '{n}.Sync');
 
-                $newLastSynced = 0;
-                $sql = "";
+                $syncCount = count($syncs);
 
+                if ($syncCount > 0) {
+
+                    $newLastSynced = $syncs[$syncCount-1]['id'];
+
+                    // process Sync SQL
+                    $sql = $this->processSyncSQL($my_machine_id, $dbConfig, $syncs);
+
+                }else {
+
+                    $newLastSynced = 0;
+                    $sql = "";
+
+                }
             }
+            
 
             $data['count'] = $syncCount;
             $data['last_synced'] = $newLastSynced;
@@ -528,7 +538,7 @@ class SyncHandlerComponent extends Object {
      */
     function getServerData($client_machine_id, $client_settings) {
 
-        $datas = $this->getData($client_machine_id, "pull", $client_settings);
+        $datas = $this->getData($client_machine_id, "pull", $client_settings, 'all');
 
         return $datas;
 
@@ -568,7 +578,7 @@ class SyncHandlerComponent extends Object {
     // write debug
         CakeLog::write('debug', 'getClientData for ' . $server_machine_id );
 
-        $datas = $this->getData($server_machine_id, "push");
+        $datas = $this->getData($server_machine_id, "push", array(), 'all');
 
         return $datas;
 
@@ -591,6 +601,24 @@ class SyncHandlerComponent extends Object {
         return $result;
 
     }
+
+    /**
+     * get client datas count to server
+     *
+     * <client call pull>
+     *
+     * @param string $server_machine_id
+     */
+    function getClientDataCount($server_machine_id) {
+
+    // write debug
+        CakeLog::write('debug', 'getClientData for ' . $server_machine_id );
+
+        $datas = $this->getData($server_machine_id, "push", array(), 'count');
+
+        return $datas;
+    }
+
 
     /**
      * get Request Client Machine Id

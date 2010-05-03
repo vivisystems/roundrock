@@ -94,6 +94,46 @@ class SyncClientShell extends SyncBaseShell {
     }
 
 
+    /**
+      * addSyncSuspend
+      *
+      * @return <type>
+      */
+    function addSyncSuspend() {
+
+        $syncSettings = $this->readSyncSettings();
+
+        $flagFile = "/tmp/sync_suspend_" .$syncSettings['machine_id'];
+
+        if(file_exists($flagFile)) return true;
+
+        file_put_contents($flagFile, time() );
+
+        return true;
+
+    }
+
+
+    /**
+      * removeSyncSuspend
+      *
+      * @return <type>
+      */
+    function removeSyncSuspend() {
+
+        $syncSettings = $this->readSyncSettings();
+
+        $flagFile = "/tmp/sync_suspend_" .$syncSettings['machine_id'];
+
+        if(file_exists($flagFile)) {
+            unlink($flagFile);
+        }
+
+        return true;
+
+    }
+
+
     /***
      * check when admin request suspend
      */
@@ -106,6 +146,56 @@ class SyncClientShell extends SyncBaseShell {
         return file_exists($flagFile);
         
     }
+
+
+    /**
+     * sync for shell script
+     */
+    function startSyncingAll() {
+
+        set_time_limit(0);
+
+        $syncSettings = $this->readSyncSettings();
+
+        if ($this->isSyncing()) {
+            CakeLog::write('debug', "other process issyncing.. sleep to next interval");
+            return ;
+        }
+
+        $successed = false;
+
+        try {
+
+            CakeLog::write('debug', "observerNotify starting");
+            $this->observerNotify('starting');
+
+            CakeLog::write('debug', "requestAction perform_sync");
+
+            $syncResult = $this->requestAction("/sync_clients/perform_sync_all");
+
+            CakeLog::write('debug', "requestAction perform_sync result: " . $syncResult['pull_result'] . "," . $syncResult['push_result']);
+
+            CakeLog::write('debug', "observerNotify finished");
+
+            $this->observerNotify('finished', json_encode($syncResult));
+
+            $successed = $syncResult['pull_result'] && $syncResult['push_result'];
+
+        }catch(Exception $e) {
+            $successed = false;
+        }
+
+        if($successed) {
+            CakeLog::write('info', "requestAction perform_sync success");
+            $this->syncStatus('success');
+        }else {
+            $this->syncStatus('finished');
+        }
+
+        $this->out('syncing finished');
+
+    }
+
 
     /**
      * sync for shell script

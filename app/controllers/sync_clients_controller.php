@@ -1,4 +1,5 @@
 <?php
+App::import('Core', array('HttpSocket','CakeLog'));
 
 class SyncClientsController extends AppController {
 
@@ -204,6 +205,56 @@ class SyncClientsController extends AppController {
 
         return array('pull_result' => ($pull_result !== false), 'push_result' => ($push_result !== false) );
         
+    }
+
+    
+    function perform_sync_all() {
+
+        // set php time limit to unlimimted
+        set_time_limit(0);
+
+        $pull_result = $this->client_pull();
+
+        $auth_url = $this->authURL ;
+        $push_url = $this->pushURL;
+
+        $my_machine_id = $this->syncSettings['machine_id'] ;
+
+        // auth from server
+        $http =& $this->getHttpSocket();
+        $server_machine_id = $http->get($auth_url);
+
+        // maybe timeout or localhost
+        if (empty($server_machine_id)) {
+            return false;
+        }
+
+        if ($server_machine_id == $my_machine_id) {
+            return true;
+        }
+
+        $preSum = 0 ;
+        do {
+
+            $datas = $this->SyncHandler->getClientDataCount($server_machine_id);
+
+            $sum = array_sum(Set::classicExtract($datas, '{s}.count'));
+
+            if ($sum <= 0) break;
+            
+            if ($preSum == $sum ) {
+                // maybe push error , break and log
+                CakeLog::write('warn', "sync_client sync_all: presum == sum, maybe push error.");
+            }
+
+            $push_result = $this->client_push();
+
+            if ($push_result === false) break;
+
+        }while ( $sum > 0);
+
+        return array('pull_result' => ($pull_result !== false), 'push_result' => ($push_result !== false) );
+
     }
 
 }

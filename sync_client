@@ -104,6 +104,46 @@ do_reload() {
 
 }
 
+#
+# Function that sync all and block until finish
+#
+do_sync_all()
+{
+
+    RETVAL="0"
+
+    if [ -f /tmp/sync_client.request ]; then
+        rm -f /tmp/sync_client.request;
+    fi
+
+    # suspend
+    ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app sync_client addSyncSuspend
+
+    if [ -f $PIDFILE ]; then
+        ps -p `cat $PIDFILE` > /dev/null
+
+        if [ "$?" = "0" ]; then
+            # process and request exists wait
+            ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app sync_client startSyncingAll
+            RETVAL="$?"
+        else
+            # process not exists
+            ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app sync_client startSyncingAll
+            RETVAL="$?"
+        fi
+    else
+            # process not exists
+            ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app sync_client startSyncingAll
+            RETVAL="$?"
+    fi
+
+    # suspend
+    ${SCRIPTDIR}/cake/console/cake -app ${SCRIPTDIR}/app sync_client removeSyncSuspend
+
+    return "$RETVAL"
+
+}
+
 
 #
 # switch command
@@ -130,8 +170,11 @@ case "$1" in
   sync)
         echo `date +%s` > /tmp/sync_client.request
         ;;
+  sync_all)
+        do_sync_all
+        ;;
   *)
-	echo "Usage: $SCRIPTNAME {start|stop|restart|reload|sync}" >&2
+	echo "Usage: $SCRIPTNAME {start|stop|restart|reload|sync|sync_all}" >&2
 	exit 3
 	;;
 esac
