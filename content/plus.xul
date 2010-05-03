@@ -673,7 +673,7 @@
                         <tabpanel flex="1" >
                             <vbox flex="1" class="content-buttonpanel">
                                 <viviscrollablebuttonpanel id="group_listscrollablepanel" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no"
-                                                           buttonClass="button-plugroup"
+                                                           buttonClass="button-plugroup settings"
                                                            scrollUpClass="scroll-up-button"
                                                            scrollDownClass="scroll-down-button"
                                                            form="productForm" name="link_group" default="">
