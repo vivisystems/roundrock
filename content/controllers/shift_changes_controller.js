@@ -121,7 +121,7 @@
             // only store valid shift marker into session
             if (salePeriod != -1 && salePeriod != '') {
                 GeckoJS.Session.set('current_shift', currentShift);
-                this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
+                if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'updating session: ' + this.dump(currentShift));
             }
             GeckoJS.Session.set('shift_number', shiftNumber);
             GeckoJS.Session.set('sale_period', salePeriod);
@@ -377,20 +377,20 @@
             // 1. last sale period does not exist, or
             // 2. end of period flag is set, or
 
-            this.log('DEBUG', 'lastSalePeriod, endOfPeriod, clusterSalePeriod: ' + lastSalePeriod + ', ' + endOfPeriod + ', ' + clusterSalePeriod);
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'lastSalePeriod, endOfPeriod, clusterSalePeriod: ' + lastSalePeriod + ', ' + endOfPeriod + ', ' + clusterSalePeriod);
             if (lastSalePeriod == '' || endOfPeriod) {
 
-                this.log('DEBUG', 'determining new sale period');
+                if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'determining new sale period');
                 // determine new sale period locally
                 //
                 // if last sale period is not set, or if last sale period + 1 is smaller than today's date
                 // set new sale period to current date
                 if (lastSalePeriod == '') {
-                    this.log('DEBUG', 'setting sale period to today due to non-existent last sale period');
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'setting sale period to today due to non-existent last sale period');
                     newSalePeriod = today.getTime() / 1000;
                 }
                 else {
-                    this.log('DEBUG', "checking today's date against last sale period + 1");
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', "checking today's date against last sale period + 1");
                     let lastSalePeriodPlusOne = new Date(lastSalePeriod * 1000).add({days: 1}).clearTime();
                     if (today > lastSalePeriodPlusOne) {
                         newSalePeriod = today.getTime() / 1000;
@@ -403,7 +403,7 @@
                 
                 if (this.ShiftMarker.isSalePeriodHandler()) {
                     // need to reset sequence?
-                    this.log('DEBUG', 'checking if sequence needs to be reset');
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'checking if sequence needs to be reset');
                     let resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
                     if (resetSequence) {
                         if (SequenceModel.resetSequence('order_no', 0) == -1) {
@@ -420,15 +420,15 @@
                     }
 
                     // need to advance sale period?
-                    this.log('DEBUG', 'checking if sale period needs to be advanced');
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'checking if sale period needs to be advanced');
                     let newSalePeriodDate = new Date(newSalePeriod * 1000);
-                    this.log('DEBUG', 'advancing sale period to ' + newSalePeriod + ':' + newSalePeriodDate);
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'advancing sale period to ' + newSalePeriod + ':' + newSalePeriodDate);
 
                     // update cluster sale period
                     var r = this.ShiftMarker.advanceClusterSalePeriod(newSalePeriod);
                     if (!r) {
                         SequenceModel.resetLocalSequence('sale_period', newSalePeriod);
-                        this.log('DEBUG', 'advanced local sale period to ' + newSalePeriod + ':' + newSalePeriodDate);
+                        if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'advanced local sale period to ' + newSalePeriod + ':' + newSalePeriodDate);
                     }
                     else if (r == -1) {
                         GREUtils.Dialog.alert(this.topmostWindow,
@@ -451,7 +451,7 @@
             else {
                 newSalePeriod = lastSalePeriod;
             }
-            this.log('DEBUG', 'newSalePeriod: ' + newSalePeriod);
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'newSalePeriod: ' + newSalePeriod);
 
             // determine if we are out of sync with cluster sale period
             //
@@ -501,15 +501,15 @@
             // 1. end of shift is true, or
             // 2. new sale period is not the same as last sale period
 
-            this.log('DEBUG', 'endOfShift, newSalePeriod, lastSalePeriod: ' + endOfShift + ', ' + newSalePeriod + ', ' + lastSalePeriod);
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'endOfShift, newSalePeriod, lastSalePeriod: ' + endOfShift + ', ' + newSalePeriod + ', ' + lastSalePeriod);
             if (newShiftNumber == null) {
-                this.log('DEBUG', 'determining new shift: ' + lastShiftNumber);
+                if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'determining new shift: ' + lastShiftNumber);
                 
                 // on terminals where shift change has been disabled, don't advance shift number
                 if (disableShiftChange) {
                     newShiftNumber = (lastShiftNumber == '') ? 1 : lastShiftNumber;
                     if (lastSalePeriod == newSalePeriod) updateShiftMarker = false;
-                    this.log('DEBUG', 'shift change disabled, sale period changed: ' + updateShiftMarker);
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'shift change disabled, sale period changed: ' + updateShiftMarker);
                 }
                 else if (endOfShift) {
                     if (endOfPeriod || isNaN(parseInt(lastShiftNumber))) {
@@ -518,7 +518,7 @@
                     else {
                         newShiftNumber = parseInt(lastShiftNumber) + 1;
                     }
-                    this.log('DEBUG', 'last shift closed, last Shift ' + lastShiftNumber + ', new Shift: ' + newShiftNumber);
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'last shift closed, last Shift ' + lastShiftNumber + ', new Shift: ' + newShiftNumber);
                 }
                 else {
                     if (lastShiftNumber == '') {
@@ -530,10 +530,10 @@
                     }
                 }
             }
-            this.log('DEBUG', 'newShiftNumber: ' + newShiftNumber);
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'newShiftNumber: ' + newShiftNumber);
 
             if (updateShiftMarker) {
-                this.log('DEBUG', 'updating shift marker: ' + newSalePeriod + ', ' + newShiftNumber);
+                if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'updating shift marker: ' + newSalePeriod + ', ' + newShiftNumber);
 
                 // since either shift or sale period has changed, let's check
                 // if there is pending ledger IN entry to be recorded
@@ -588,7 +588,7 @@
                     if (deltaEntry && !ledgerController.saveLedgerEntry(deltaEntry)) return;
                 }
 
-                this.log('DEBUG', 'drawer change verified');
+                if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'drawer change verified');
 
                 this._setShift(newSalePeriod, newShiftNumber, false, false);
             }
@@ -1463,7 +1463,7 @@
                 var self = this;
                 var r = this.ShiftMarker.getClusterSalePeriod(true, function(sp) {
                     txn.data.cluster_sp = sp;
-                    self.log('DEBUG', 'cluster sale period retrieved: ' + sp + ', ' + new Date(sp * 1000));
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) self.log('DEBUG', 'cluster sale period retrieved: ' + sp + ', ' + new Date(sp * 1000));
                 });
 
                 if (!r) {
@@ -1475,7 +1475,7 @@
 
         verifyClusterSalePeriod: function(evt) {
 
-            this.log('DEBUG', 'triggered on event ' + evt.type);
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'triggered on event ' + evt.type);
 
             // check if sale period is in sync with cluster sale period
             var checkSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.CheckSalePeriod') || false;
@@ -1523,7 +1523,7 @@
                     var clusterSalePeriod = txn.data.cluster_sp;
                     var currentSalePeriod = GeckoJS.Session.get('sale_period');
 
-                    this.log('DEBUG', 'cluster SP: ' + clusterSalePeriod + ', local SP: ' + currentSalePeriod);
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'cluster SP: ' + clusterSalePeriod + ', local SP: ' + currentSalePeriod);
                     if (clusterSalePeriod) {
                         if (clusterSalePeriod == -1) {
                             evt.preventDefault();
@@ -1585,7 +1585,7 @@
                             }
                         }
                         else {
-                            this.log('DEBUG', 'sale period verified for event: ' + evt.type);
+                            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'sale period verified for event: ' + evt.type);
                         }
                     }
                 }

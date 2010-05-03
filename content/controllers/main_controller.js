@@ -535,7 +535,7 @@
                     if (ctrl.bundle) GeckoJS.StringBundle.createBundle(ctrl.bundle);
 
                     // only check accessible entries
-                    this.log('DEBUG', 'check access for control panel');
+                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'check access for control panel');
                     if (ctrl.roles == '' || GeckoJS.AclComponent.isUserInRole(ctrl.roles)) {
                         let label = ctrl.label;
                         if (label.indexOf('chrome://') == 0) {
@@ -543,7 +543,7 @@
                             label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                         }
 
-                        this.log('DEBUG', 'checking [' + label + '] for match against [' + target + ']');
+                        if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'checking [' + label + '] for match against [' + target + ']');
                         if (label == target) {
                             var waitPanel;
                             
@@ -560,7 +560,7 @@
                                 controller: ctrl.controller,
                                 label: label
                             }
-                            this.log('DEBUG', 'found match, launching control panel: ' + this.dump(pref));
+                            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'found match, launching control panel: ' + this.dump(pref));
 
                             try {
                                 waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);

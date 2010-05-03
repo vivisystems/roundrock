@@ -573,7 +573,7 @@
                 }) || null;
             }
 
-            this.log('DEBUG', 'Order Count: ' + (count == null ? '' : this.dump(count)));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'Order Count: ' + (count == null ? '' : this.dump(count)));
             return count;
 
         },

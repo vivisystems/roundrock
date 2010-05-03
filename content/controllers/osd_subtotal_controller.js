@@ -51,7 +51,7 @@
                             }
                         }
                         try {
-                            this.log('DEBUG', this.dump(data.order.items_tax_details));
+                            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(data.order.items_tax_details));
                             output = template.process(data);
                         }
                         catch(e) {

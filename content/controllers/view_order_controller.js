@@ -140,8 +140,8 @@
 
             let data = orderModel.mappingOrderDataToTranData(orderData);
 
-            this.log('DEBUG', this.dump(orderData));
-            this.log('DEBUG', this.dump(data));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(orderData));
+            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(data));
 
             var txn = new Transaction(true);
             txn.data  = data;
