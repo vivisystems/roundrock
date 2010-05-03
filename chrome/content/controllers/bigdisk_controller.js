@@ -31,7 +31,7 @@
         _limit_retain_inventory: 30,
 
         initial: function(evt) {
-            
+alert('bigdisk initial');
             // set up event listeners
             this.addEventListener('activateBigDisk', this._activateBigDisk, this);
             this.addEventListener('suspendBigDisk', this._suspendBigDisk, this);
@@ -186,26 +186,33 @@
         
         updateSystemBackupOptions: function(doc) {
             var mergeButtonObj = doc.getElementById('mergefromstick');
-            if (mergeButtonObj) {
-                if (GeckoJS.Session.get(this._bigdisk_session_flag)) {
-                    // disable merge button
-                    //mergeButtonObj.setAttribute('disabled', true);
+            if (GeckoJS.Session.get(this._bigdisk_session_flag)) {
+                // disable merge button
+                //mergeButtonObj.setAttribute('disabled', true);
 
-                    // replace systembackup controller's validate form with my own
-                    var system_backup = doc.defaultView.GeckoJS.Controller.getInstanceByName('SystemBackup');
-                    var builtInValidateForm = system_backup.validateForm;
-                    system_backup.validateForm = function() {
-                        builtInValidateForm.call(system_backup);
-                        var externalListObj = doc.getElementById('stickbackupscrollablepanel');
+                // replace systembackup controller's validate form with my own
+                var system_backup = doc.defaultView.GeckoJS.Controller.getInstanceByName('SystemBackup');
+                var builtInValidateForm = system_backup.validateForm;
+                
+                system_backup.validateForm = function() {
+                    builtInValidateForm.call(system_backup);
+                    var externalListObj = doc.getElementById('stickbackupscrollablepanel');
 
-                        mergeButtonObj.setAttribute('disabled', !(externalListObj.selectedItems.length > 0));
-                    }
+                    if (mergeButtonObj) mergeButtonObj.setAttribute('disabled', !(externalListObj.selectedItems.length > 0));
                 }
-                else {
-                    // hide merge button
-                    var mergeActionRow = doc.getElementById('merge_action');
-                    mergeActionRow.setAttribute('hidden', true);
-                }
+            }
+            else {
+                // hide backup to local button
+                var backupToLocalButtonObj = doc.getElementById('backuptolocal');
+                if (backupToLocalButtonObj) backupToLocalButtonObj.setAttribute('hidden', true);
+
+                // hide restore from local button
+                var removeFromLocalButtonObj = doc.getElementById('restorefromlocal');
+                if (removeFromLocalButtonObj) removeFromLocalButtonObj.setAttribute('hidden', true);
+
+                // hide merge button
+                var mergeActionRow = doc.getElementById('merge_action');
+                if (mergeActionRow) mergeActionRow.setAttribute('hidden', true);
             }
         },
 

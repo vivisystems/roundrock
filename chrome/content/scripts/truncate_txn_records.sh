@@ -35,9 +35,9 @@ start_clients() {
 }
 
 stop_clients() {
-    sudo /etc/init.d/lighttpd stop
     sudo /data/vivipos_webapp/sync_client stop
     sudo /data/vivipos_webapp/irc_client stop
+    sudo /etc/init.d/lighttpd stop
 }
 
 if [ -w ${target} ]; then
@@ -61,4 +61,4 @@ EOF
     start_clients
 fi
 
-rm "${marker}"
+rm -f "${marker}"
