@@ -1359,6 +1359,7 @@
 
                             // reset sequence
                             SequenceModel.resetSequence('order_no');
+                            SequenceModel.resetSequence('check_no');
 
                             if (!r) {
                                 GREUtils.Dialog.alert(this.topmostWindow,
