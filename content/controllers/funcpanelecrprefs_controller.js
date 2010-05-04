@@ -887,7 +887,7 @@
             // with properties: name, label, description, command, data, access, controller
 
             GeckoJS.Configure.loadPreferences(prefix);
-            var fns = GeckoJS.Configure.read(prefix);
+            var fns = GREUtils.extend({}, GeckoJS.Configure.read(prefix));
 
             var keys = GeckoJS.BaseObject.getKeys(fns);
 

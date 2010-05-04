@@ -739,7 +739,7 @@
                     var registry = this.getAttribute('registry');
                     if (registry) {
                         GeckoJS.Configure.loadPreferences((registry));
-                        functionRegistry = GeckoJS.Configure.read((registry));
+                        functionRegistry = GREUtils.extend({}, GeckoJS.Configure.read((registry)));
 
                         for (var key in functionRegistry) {
                             let f = functionRegistry[key];
