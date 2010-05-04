@@ -172,7 +172,9 @@
             GeckoJS.File.run('/etc/init.d/sync_client', ['restart'], true);
             // restart ntp
             GeckoJS.File.run('/etc/init.d/ntp', ['restart'], true);
-		
+            // start rdate
+            GeckoJS.File.run('/etc/init.d/rdate', ['start'], true);
+
             OsdUtils.info(_('Network service settings saved'));
         },
 
