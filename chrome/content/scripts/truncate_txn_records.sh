@@ -1,4 +1,15 @@
-#!/bin/sh
+#!/bin/sh -x
+
+: ${DIALOG=zenity}
+
+# set X11 DISPLAY if zero
+if [ -z "$DISPLAY" ]; then
+  export DISPLAY=:0
+fi
+
+# load L10n messages
+script_path=`dirname "${0}"`
+. "${script_path}"/l10n_messages
 
 all_tables="cashdrawer_records \
             clock_stamps \
@@ -25,40 +36,62 @@ all_tables="cashdrawer_records \
 
 pid=$$
 target=${1:-/data/databases/vivipos_order.sqlite}
-marker=${2:-/tmp/.roundrock.truncate}
 sqlite3=/usr/bin/sqlite3
+db_recover=/usr/local/BerkeleyDB.5.0/bin/db_recover
 
-start_clients() {
+start_services() {
     sudo /etc/init.d/lighttpd start >/dev/null 2>&1
     sudo /data/vivipos_webapp/sync_client start >/dev/null 2>&1
     sudo /data/vivipos_webapp/irc_client start >/dev/null 2>&1
 }
 
-stop_clients() {
-    sudo /data/vivipos_webapp/sync_client stop
-    sudo /data/vivipos_webapp/irc_client stop
-    sudo /etc/init.d/lighttpd stop
+stop_services() {
+    sudo /data/vivipos_webapp/sync_client stop >/dev/null 2>&1
+    sudo /data/vivipos_webapp/irc_client stop >/dev/null 2>&1
+    sudo /etc/init.d/lighttpd stop >/dev/null 2>&1
+}
+
+do_truncate() {
+    # stop services
+    echo "0\n# ${MSG_SCRIPT_TRUNCATE_STOP_SERVICE}"
+    stop_services
+
+    # dump schema
+    echo "10\n# ${MSG_SCRIPT_TRUNCATE_IN_PROGRESS}"
+    $sqlite3 "${target}" ".schema" >/tmp/schema.${pid}
+
+    # copy DB_CONFIG
+    echo "20\n# ${MSG_SCRIPT_TRUNCATE_IN_PROGRESS}"
+    if [ -r "${target}-journal/DB_CONFIG" ]; then
+        cp "${target}-journal/DB_CONFIG" "/tmp/DB_CONFIG.${pid}"
+    fi
+
+    # remove old DB
+    echo "30\n# ${MSG_SCRIPT_TRUNCATE_IN_PROGRESS}"
+    rm -rf "${target}" "${target}-journal"
+
+    # create new database
+    echo "40\n# ${MSG_SCRIPT_TRUNCATE_IN_PROGRESS}"
+    $sqlite3 "${target}" ".read /tmp/schema.${pid}"
+
+    # recover DB
+    echo "50\n# ${MSG_SCRIPT_TRUNCATE_IN_PROGRESS}"
+    if [ -r "/tmp/DB_CONFIG.${pid}" ]; then
+        mv "/tmp/DB_CONFIG.${pid}" "${target}-journal/DB_CONFIG"
+        $db_recover -h "${target}-journal"
+    fi
+
+    # restart services
+    echo "90\n# ${MSG_SCRIPT_TRUNCATE_START_SERVICE}"
+    start_services
 }
 
 if [ -w ${target} ]; then
 
-    # stop clients
-    stop_clients
+    do_truncate | $DIALOG --progress \
+          --title="${MSG_SCRIPT_TRUNCATE_TITLE}" \
+          --text="${MSG_SCRIPT_TRUNCATE_START}" \
+          --cancel-label="CX" \
+          --percentage=0 --auto-close --width=480 --height=240
 
-    for table in ${all_tables}; do
-        echo "Truncating table ${table}..."
-        time -p $sqlite3 "${target}" >/tmp/truncate_${pid}_${table}.drop 2>&1 <<EOF
-.output /tmp/truncate_${pid}_${table}.schema
-.schema ${table}
-.output stdout
-drop table ${table};
-.read /tmp/truncate_${pid}_${table}.schema
-EOF
-        time -p sync >/tmp/truncate_${pid}_${table}.sync 2>&1
-    done
-
-    # restart clients
-    start_clients
 fi
-
-rm -f "${marker}"

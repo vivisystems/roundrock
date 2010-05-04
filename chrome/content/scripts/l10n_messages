@@ -9,6 +9,8 @@ CUR_LANG=`echo $LANG|sed "s/\.UTF-8//"|sed "s/_/-/"`
 # vivipos extension dir
 EXT_DIR=/data/profile/extensions
 
+# cache file
+CACHE_FILE=roundrock.scripts.properties
 #
 # detect match langpack installed
 #
@@ -22,11 +24,11 @@ if [ ! -d "$LANGPACK_DIR" ]; then
 fi
 
 #
-# check scripts.properties in /tmp
+# check ${CACHE_FILE} in /tmp
 #
-if [ -f "/tmp/scripts.properties" ]; then
+if [ -f "/tmp/${CACHE_FILE}" ]; then
 	# include it.
-	. "/tmp/scripts.properties"
+	. "/tmp/${CACHE_FILE}"
 else 
 
 	#
@@ -35,17 +37,17 @@ else
 	if [ -r "$LANGPACK_DIR/chrome/locale/${CUR_LANG}/scripts.properties" ]; then
 
 		# add "" quote to properties.
-		cat "$LANGPACK_DIR/chrome/locale/${CUR_LANG}/scripts.properties" | awk -F"=" '{ print $1 "=\"" $2 "\"";  }' > /tmp/scripts.properties
+		cat "$LANGPACK_DIR/chrome/locale/${CUR_LANG}/scripts.properties" | awk -F"=" '{ print $1 "=\"" $2 "\"";  }' > /tmp/${CACHE_FILE}
 
 	elif [ -r "$ROUNDROCK_DIR/chrome/locale/en/scripts.properties" ]; then
 
 		# add "" quote to properties.
-		cat "$ROUNDROCK_DIR/chrome/locale/en/scripts.properties" | awk -F"=" '{ print $1 "=\"" $2 "\"";  }' > /tmp/scripts.properties
+		cat "$ROUNDROCK_DIR/chrome/locale/en/scripts.properties" | awk -F"=" '{ print $1 "=\"" $2 "\"";  }' > /tmp/${CACHE_FILE}
         fi
-        if [ -r "/tmp/scripts.properties" ]; then
+        if [ -r "/tmp/${CACHE_FILE}" ]; then
                 # include it.
                 # . "$LANGPACK_DIR/chrome/locale/${CUR_LANG}/vivipos/scripts.properties"
-                . "/tmp/scripts.properties"
+                . "/tmp/${CACHE_FILE}"
                 # echo "$LANGPACK_DIR/chrome/locale/${CUR_LANG}/vivipos/scripts.properties"
         fi
 

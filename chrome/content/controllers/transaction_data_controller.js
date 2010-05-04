@@ -12,7 +12,7 @@
         _script_path: '',
         _data_path: '',
         _truncate_script: 'truncate_txn_records.sh',
-        _expire_batch_size: 200,
+        _expire_batch_size: 750,
         _expire_total_size: 100000,
 
         initial: function(evt) {
@@ -115,30 +115,17 @@
         
         beforeTruncateTxnRecords: function(evt) {
 
-            var marker_file = '/tmp/truncate.' + GeckoJS.String.uuid();
             var ds = new OrderModel().getDataSource();
             var database_file = ds.path + '/' + ds.database;
-            var background = false;
 
             // close all data connections
             GeckoJS.ConnectionManager.closeAll();
 
-            // create marker file
-            this._execute('/usr/bin/touch', [marker_file]);
-            if (GeckoJS.File.exists(marker_file)) {
-                background = true;
-            }
-
-            this.log('WARN', 'before truncate [' + background + '] [' + this._script_path + '/' + this._truncate_script + '] [' + database_file + ']');
+            this.log('WARN', 'before truncate [' + this._script_path + '/' + this._truncate_script + '] [' + database_file + ']');
 
             // we will use script to truncate transaction records for better performance
             this._execute(this._script_path + '/' + this._truncate_script,
-                          [database_file, marker_file], background);
-
-            // check every 500 ms for marker file
-            while (GeckoJS.File.exists(marker_file)) {
-                this.sleep(1000);
-            }
+                          [database_file]);
 
             this.log('WARN', 'after truncate');
         },

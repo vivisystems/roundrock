@@ -31,6 +31,18 @@ cleanup() {
     sync
 }
 
+start_clients() {
+    sudo /etc/init.d/lighttpd start >/dev/null 2>&1
+    sudo /data/vivipos_webapp/sync_client start >/dev/null 2>&1
+    sudo /data/vivipos_webapp/irc_client start >/dev/null 2>&1
+}
+
+stop_clients() {
+    sudo /data/vivipos_webapp/sync_client stop
+    sudo /data/vivipos_webapp/irc_client stop
+    sudo /etc/init.d/lighttpd stop
+}
+
 do_last_good_db() {
 
     ##
@@ -230,9 +242,15 @@ EOF
     fi
 }
 
+# stop clients
+stop_clients
+
 # running backup
 do_last_good_db | $DIALOG --progress \
           --title="${MSG_SCRIPT_LGDB_CREATE}" \
           --percentage=0 --auto-close --width=480 --height=240
+
+# start clients
+start_clients
 
 exit 0

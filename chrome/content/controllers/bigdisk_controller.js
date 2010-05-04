@@ -20,6 +20,7 @@
         _last_good_db_script: 'last_good_db.sh',
         _last_good_db_path: 'last_good_db',
         _merge_db_script: 'merge_db.sh',
+        _backup_system_script: 'backup.sh',
         _restore_last_good_db_script: 'restore_last_good_db.sh',
         _bigdisk_setting: 'bigdisk_settings',
         _bigdisk_session_flag: 'vivicenter.BigDisk',
@@ -31,24 +32,12 @@
         _limit_retain_inventory: 30,
 
         initial: function(evt) {
-alert('bigdisk initial');
+
             // set up event listeners
             this.addEventListener('activateBigDisk', this._activateBigDisk, this);
             this.addEventListener('suspendBigDisk', this._suspendBigDisk, this);
             this.addEventListener('newBigDisk', this._newBigDisk, this);
             this.addEventListener('resumeBigDisk', this._newBigDisk, this);
-
-            // listen for 'periodClosed' event to back up last good db
-            var shiftChange = GeckoJS.Controller.getInstanceByName('ShiftChanges');
-            if (shiftChange) {
-                shiftChange.addEventListener('periodClosed', this._periodClosed, this);
-            }
-
-            // intercept electronic journal events
-            var journal = GeckoJS.Controller.getInstanceByName('Journal');
-            if (journal) {
-                journal.addEventListener('onInitial', this._afterJournalInitialization, this);
-            }
 
             // listen for 'afterTruncateTxnRecords' event to remove last good db
             var main = GeckoJS.Controller.getInstanceByName('Main');
@@ -63,7 +52,6 @@ alert('bigdisk initial');
 
             var bigdisk = '';
             var current_bigdisk = this._readBigDiskID();
-            var shutdown = false;
 
             // check if big disk is enabled
             bigdisk = this._checkProvisionedBigDisk(this._marker_path, this._license_path);
@@ -157,6 +145,26 @@ alert('bigdisk initial');
 
                         evt.preventDefault();
                     }
+                }
+            }
+            if (GeckoJS.Session.get(this._bigdisk_session_flag)) {
+                // listen for 'periodClosed' event to back up last good db if bigdisk
+                var shiftChange = GeckoJS.Controller.getInstanceByName('ShiftChanges');
+                if (shiftChange) {
+                    shiftChange.addEventListener('periodClosed', this._periodClosed, this);
+                }
+            }
+            else {
+                // intercept electronic journal events if not bigdisk
+                var journal = GeckoJS.Controller.getInstanceByName('Journal');
+                if (journal) {
+                    journal.addEventListener('onInitial', this._afterJournalInitialization, this);
+                }
+
+                // intercept autobackup event if not bigdisk
+                var autobackup = GeckoJS.Controller.getInstanceByName('AutoBackup');
+                if (autobackup) {
+                    autobackup.addEventListener('beforeAutoBackupToLocal', this._beforeAutoBackupToLocal, this);
                 }
             }
 
@@ -564,18 +572,12 @@ alert('bigdisk initial');
                 var main = GeckoJS.Controller.getInstanceByName('Main');
                 var waitPanel = main._showWaitPanel('wait_panel', 'wait_caption', _('Generating Last Good Database...'), 500, true);
 
-                // suspend sync client first
-                this._suspendSync();
-
                 this._execute(this._script_path + '/' + this._last_good_db_script,
                               [terminal, this._data_path + '/profile/' + this._last_good_db_path, file]);
 
                 // dispatch event to allow other add-on's to migrate data into last good db
                 this.dispatchEvent('generateLastGoodDB', {backup_path: this._data_path + '/profile/' + this._last_good_db_path,
                                                           backup_file: file});
-
-                // resume sync client
-                this._resumeSync();
 
                 this.log('WARN', 'last good database generated');
 
@@ -591,6 +593,19 @@ alert('bigdisk initial');
             if (dir.exists()) {
                 dir.remove(true);
                 this.log('WARN', 'last good database [' + dir.path + '] removed on afterTruncateTxnRecords event');
+            }
+        },
+
+        _beforeAutoBackupToLocal: function(evt) {
+            evt.data.script = this._script_path + '/' + this._backup_system_script;
+            if (evt.data.args.length == 0) {
+                evt.data.args = ['', 'secondary'];
+            }
+            else if (evt.data.args.length == 1) {
+                evt.data.args.push('secondary');
+            }
+            else {
+                evt.data.args[1] = 'secondary';
             }
         },
 
@@ -633,9 +648,6 @@ alert('bigdisk initial');
 
                 this.sleep(500);
 
-                // suspend sync client first
-                this._suspendSync();
-
                 this._execute(this._script_path + '/' + this._restore_last_good_db_script,
                               [this._data_path + '/profile/' + this._last_good_db_path + '/' + file_name,
                                this._data_path]);
@@ -646,9 +658,6 @@ alert('bigdisk initial');
                                              backup_file: file_name,
                                              db_path: this._data_path + '/databases'
                                             })
-
-                // resume sync client
-                this._resumeSync();
 
                 if (alert_win) {
                     alert_win.close();
@@ -700,32 +709,6 @@ alert('bigdisk initial');
             var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
             
             return alertWin;
-        },
-
-        _getSyncSettings: function() {
-            if (this._syncSettings == null) {
-                let settings = (new SyncSetting()).read();
-
-                if (settings == null) {
-                    settings = {};
-                }
-                this._syncSettings = settings;
-            }
-            return this._syncSettings;
-        },
-
-        _suspendSync: function() {
-            var syncSettings = this._getSyncSettings();
-            var statusFile = new GeckoJS.File(this._syncSuspendStatusFile + syncSettings.machine_id);
-
-            statusFile.create();
-        },
-
-        _resumeSync: function() {
-            var syncSettings = this._getSyncSettings();
-            var statusFile = new GeckoJS.File(this._syncSuspendStatusFile + syncSettings.machine_id);
-
-            statusFile.remove();
         },
 
         destroy: function() {
