@@ -1106,8 +1106,24 @@
             
             var result = this.requestGuestCheckCommand('recallOrder', order_id);
 
+            
+
+            if (result) {
+
+                var curTransaction = GeckoJS.Session.get('current_transaction') || false;
+                var curStatus = curTransaction.data.status;
+                var curTableNo = curTransaction.data.table_no;
+
+                if ((curStatus != 2 && curStatus != 0) && curTableNo) {
+                    // notify user this order has been fixed
+                    NotifyUtils.warn(_('A minor error was detected with this order and has been fixed. The order was previously completed and will no longer appear in the table manager'));
+                }
+
+            }
+
             // dockMode ?
             if (result && !this.isDock()) {
+
                 this.hideTableSelectorPanel();
             }
         },
