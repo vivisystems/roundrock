@@ -959,8 +959,8 @@
                             var lines = file.readAllLine();
 
                          /* locale alternative header at first line */
-                            var index = GeckoJS.String.parseCSV(lines[0])[0][0].indexOf('#');
-                            if(index == 0)
+                            var alt_index = GeckoJS.String.parseCSV(lines[0])[0][0].indexOf('#');
+                            if(alt_index == 0)
                                lines.splice(0,1);
 
                             file.close();
