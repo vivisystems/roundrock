@@ -3162,6 +3162,9 @@ msgstr "Function Keys"
 msgid "vivipos.fec.irc.modules.reports.label"
 msgstr "Reports"
 
+msgid "vivipos.fec.irc.modules.addons.label"
+msgstr "Addons"
+
 msgid "vivipos.fec.irc.modules.images.label"
 msgstr "Images"
 
