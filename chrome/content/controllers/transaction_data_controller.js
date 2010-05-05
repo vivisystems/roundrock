@@ -14,6 +14,7 @@
         _truncate_script: 'truncate_txn_records.sh',
         _expire_batch_size: 750,
         _expire_total_size: 100000,
+        _sync_suspend_status_file: '/tmp/sync_client.off',
 
         _bdb_recover: '/usr/local/BerkeleyDB.5.0/bin/db_recover',
         _sqlite3: '/usr/bin/sqlite3',
@@ -155,57 +156,128 @@
 
             this.log('WARN', 'before truncate');
 
-            // step 1: suspend services
-            this._stopServices();
-            this.sleep(200);
+            try {
+                // step 1: suspend services
+                if (!this._stopServices()) {
+                    throw _('step 1');
+                }
+                this.log('WARN', 'after step 1');
+                this.sleep(200);
 
-            // step 2: dump schema
-            var uuid = GeckoJS.String.uuid();
-            var schema_file = '/tmp/schema.' + uuid;
-            this._execute('/bin/sh', ['-c', this._sqlite3 + ' ' + database_file + ' .schema > ' + schema_file]);
+                // step 2: dump schema
+                var uuid = GeckoJS.String.uuid();
+                var schema_file = '/tmp/schema.' + uuid;
+                if (!this._execute('/bin/sh', ['-c', this._sqlite3 + ' ' + database_file + ' .schema > ' + schema_file])) {
+                    throw _('step 2');
+                }
+                this.log('WARN', 'after step 2');
+                this.sleep(200);
 
-            // step 3: copy DB_CONFIG
-            var db_config = database_file + '-journal/DB_CONFIG';
-            var db_config_copy = '/tmp/DB_CONFIG.' + uuid;
-            if (GeckoJS.File.exists(db_config)) {
-                GeckoJS.File.copy(db_config, db_config_copy);
+                // step 3: copy DB_CONFIG
+                var db_config = database_file + '-journal/DB_CONFIG';
+                var db_config_copy = '/tmp/DB_CONFIG.' + uuid;
+                if (GeckoJS.File.exists(db_config)) {
+                    GeckoJS.File.copy(db_config, db_config_copy);
+                }
+                this.log('WARN', 'after step 3');
+                this.sleep(200);
+
+                // step 4: remove existing DB
+                if (!this._execute('/bin/sh', ['-c', '/bin/rm -rf ' + database_file + '*'])) {
+                    throw _('step 4');
+                }
+                this.log('WARN', 'after step 4');
+                this.sleep(200);
+
+                // step 5: create new DB
+                if (!this._execute('/bin/sh', ['-c', this._sqlite3 + ' ' + database_file + ' ".read ' + schema_file + '"'])) {
+                    throw _('step 5');
+                }
+                GeckoJS.File.remove(schema_file);
+                this.log('WARN', 'after step 5');
+                this.sleep(200);
+
+                // step 6: restore db environment
+                if (!this._execute('/bin/mv', [db_config_copy, database_file + '-journal/DB_CONFIG'])) {
+                    throw _('step 6');
+                }
+                this.log('WARN', 'after step 6');
+                this.sleep(200);
+
+                // step 7: recreate db environment
+                if (!this._execute(this._bdb_recover, ['-h', database_file + '-journal'])) {
+                    throw _('step 7');
+                }
+                this.log('WARN', 'after step 7');
+                this.sleep(200);
+
+                // step 8: change permission
+                if (!this._execute('/bin/sh', ['-c', '/bin/chmod 0664 ' + database_file]) ||
+                    !this._execute('/bin/sh', ['-c', '/bin/chmod 0775 ' + database_file + '-journal']) ||
+                    !this._execute('/bin/sh', ['-c', '/bin/chmod 0664 ' + database_file + '-journal/*'])) {
+                    throw _('step 8');
+                }
+                this.log('WARN', 'after step 8');
+                this.sleep(200);
+
+                // step 9: sync disks
+                if (!this._execute('/bin/sync')) {
+                    throw _('step 9');
+                }
+                this.log('WARN', 'after step 9');
+                this.sleep(200);
+
+                // step 10: resume services
+                if (!this._startServices()) {
+                    throw _('step 10');
+                }
+                this.log('WARN', 'after truncate');
             }
+            catch(e) {
+                this.log('ERROR', 'Failed to truncate transaction records [' + e + ']');
 
-            // step 4: remove existing DB
-            this._execute('/bin/sh', ['-c', '/bin/rm -rf ' + database_file + '*']);
-            
-            // step 5: create new DB
-            this._execute('/bin/sh', ['-c', this._sqlite3 + ' ' + database_file + ' ".read ' + schema_file + '"']);
-
-            // step 6: restore db environment
-            this._execute('/bin/mv', [db_config_copy, database_file + '-journal/DB_CONFIG']);
-
-            // step 7: recreate db environment
-            this._execute(this._bdb_recover, ['-h', database_file + '-journal']);
-
-            // step 8: change permission
-            this._execute('/bin/sh', ['-c', '/bin/chmod 0664 ' + database_file]);
-            this._execute('/bin/sh', ['-c', '/bin/chmod 0775 ' + database_file + '-journal']);
-            this._execute('/bin/sh', ['-c', '/bin/chmod 0664 ' + database_file + '-journal/*']);
-
-            // step 9: sync disks
-            this._execute('/bin/sync');
-
-            // step 10: resume services
-            this._startServices();
-            this.log('WARN', 'after truncate');
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Transaction Record Truncate Error'),
+                                      _('Failed truncate transaction records [%S]. Please restart the terminal and try again [message #RR-001]', [e]));
+                evt.preventDefault();
+            }
         },
 
         _startServices: function() {
-            this._execute('/usr/bin/sudo', ['/etc/init.d/lighttpd', 'start', '>/dev/null', '2>&1']);
-            this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/sync_client', 'start']);
-            // this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/irc_client', 'start', '>/dev/null', '2>&1']);
+            this._execute('/usr/bin/sudo', ['/etc/init.d/lighttpd', 'start']);
+
+            // Note that sync_client/irc_client are restarted automatically by cron job
+            // this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/sync_client', 'start']);
+            // this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/irc_client']);
+
+            var marker_file_path = this._sync_suspend_status_file;
+
+            if (GeckoJS.File.exists(marker_file_path)) {
+                GeckoJS.File.remove(marker_file_path);
+            }
+
+            return !GeckoJS.File.exists(marker_file_path);
         },
 
         _stopServices: function() {
-            this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/sync_client', 'stop']);
-            this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/irc_client', 'stop', '>/dev/null', '2>&1']);
-            this._execute('/usr/bin/sudo', ['/etc/init.d/lighttpd', 'stop', '>/dev/null', '2>&1']);
+            // create sync syspend file
+            var marker_file_path = this._sync_suspend_status_file;
+
+            if (!GeckoJS.File.exists(marker_file_path)) {
+                let marker_file = new GeckoJS.File(marker_file_path);
+                if (marker_file) marker_file.create();
+            }
+
+            if (!GeckoJS.File.exists(marker_file_path)) {
+                return false;
+            }
+            else {
+                this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/sync_client', 'stop']);
+                this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/irc_client', 'stop']);
+                this._execute('/usr/bin/sudo', ['/etc/init.d/lighttpd', 'stop']);
+                
+                return true;
+            }
         },
 
         _execute: function(cmd, params, nonblocking) {
