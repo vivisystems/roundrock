@@ -158,6 +158,8 @@
 
            var obj = document.getElementById('priceList');
 
+           document.getElementById('priceLevelTitle').value = _('Price Level');
+
            inputObj.priceLevel.priceLevel.forEach( function(level){
 
                obj.appendItem(_('Price Level %S', [level]));

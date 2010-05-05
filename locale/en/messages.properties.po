@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-05-04 16:17+0800\n"
+"POT-Creation-Date: 2010-05-05 16:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3140,7 +3140,14 @@ msgid ""
 "like to go to product import/export screen now?"
 msgstr ""
 
-#: ../..//content/prompt_additem.js:163
+#: ../..//content/prompt_additem.js:161
+#: ../..//content/controllers/label_printing_controller.js:560
+#: ../..//content/controllers/label_printing_controller.js:786
+#: ../..//content/controllers/label_printing_controller.js:836
+msgid "Price Level"
+msgstr ""
+
+#: ../..//content/prompt_additem.js:165
 msgid "Price Level %S"
 msgstr ""
 
@@ -3990,7 +3997,7 @@ msgid "Tax"
 msgstr ""
 
 #: ../..//content/controllers/barcode_learning_controller.js:50
-#: ../..//content/controllers/import_export_controller.js:2007
+#: ../..//content/controllers/import_export_controller.js:2026
 msgid "Department"
 msgstr ""
 
@@ -6131,7 +6138,7 @@ msgid "Export Error"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:129
-#: ../..//content/controllers/import_export_controller.js:801
+#: ../..//content/controllers/import_export_controller.js:803
 msgid "Import/Export already in progress"
 msgstr ""
 
@@ -6616,91 +6623,95 @@ msgstr ""
 msgid "(importexport_setitems)reduction"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:760
-#: ../..//content/controllers/import_export_controller.js:902
-#: ../..//content/controllers/import_export_controller.js:1967
+#: ../..//content/controllers/import_export_controller.js:762
+#: ../..//content/controllers/import_export_controller.js:904
+#: ../..//content/controllers/import_export_controller.js:1986
 #: ../..//content/controllers/label_printing_controller.js:920
 #: ../..//content/controllers/label_printing_controller.js:932
 msgid "Yes"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:760
-#: ../..//content/controllers/import_export_controller.js:902
-#: ../..//content/controllers/import_export_controller.js:1967
+#: ../..//content/controllers/import_export_controller.js:762
+#: ../..//content/controllers/import_export_controller.js:904
+#: ../..//content/controllers/import_export_controller.js:1986
 msgid " (%S)"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:763
 #: ../..//content/controllers/import_export_controller.js:765
+#: ../..//content/controllers/import_export_controller.js:767
 msgid "Export of [%S] to file [%S] finished!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:771
 #: ../..//content/controllers/import_export_controller.js:773
+#: ../..//content/controllers/import_export_controller.js:775
 msgid "Failed to export [%S] to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:801
-#: ../..//content/controllers/import_export_controller.js:806
+#: ../..//content/controllers/import_export_controller.js:803
+#: ../..//content/controllers/import_export_controller.js:808
 msgid "Import Error"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:806
+#: ../..//content/controllers/import_export_controller.js:808
 msgid "Import device and/or folder not found [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:812
+#: ../..//content/controllers/import_export_controller.js:814
 msgid "Please select a data category to import"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:817
+#: ../..//content/controllers/import_export_controller.js:819
 msgid "Importing %S"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:914
+#: ../..//content/controllers/import_export_controller.js:916
 msgid "[message #601]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1203
+#: ../..//content/controllers/import_export_controller.js:1207
 msgid "Product Group item %S @ row %S requires a valid display order value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1339
+#: ../..//content/controllers/import_export_controller.js:1343
 msgid "Product item %S @ row %S requires a valid display mode value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1386
+#: ../..//content/controllers/import_export_controller.js:1390
 msgid "Product item %S @ row %S requires a valid display order value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1449
+#: ../..//content/controllers/import_export_controller.js:1402
+msgid "Product item %S @ row %S requires a valid stock unit"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:1465
 msgid "Department item %S @ row %S requires a valid display order value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1970
-#: ../..//content/controllers/import_export_controller.js:1971
+#: ../..//content/controllers/import_export_controller.js:1989
+#: ../..//content/controllers/import_export_controller.js:1990
 msgid "Import of [%S] from file [%S] finished!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1982
-#: ../..//content/controllers/import_export_controller.js:1983
+#: ../..//content/controllers/import_export_controller.js:2001
+#: ../..//content/controllers/import_export_controller.js:2002
 msgid "Failed to import [%S] from file [%S]!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:2015
+#: ../..//content/controllers/import_export_controller.js:2034
 msgid "Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:2023
+#: ../..//content/controllers/import_export_controller.js:2042
 msgid "Condiment"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:2031
+#: ../..//content/controllers/import_export_controller.js:2050
 #: ../..//content/controllers/plus_controller.js:584
 msgid "Product Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:2039
+#: ../..//content/controllers/import_export_controller.js:2058
 msgid "Product"
 msgstr ""
 
@@ -6859,12 +6870,6 @@ msgstr ""
 #: ../..//content/controllers/label_printing_controller.js:112
 #: ../..//content/controllers/label_printing_controller.js:231
 msgid "Number of labels to print"
-msgstr ""
-
-#: ../..//content/controllers/label_printing_controller.js:560
-#: ../..//content/controllers/label_printing_controller.js:786
-#: ../..//content/controllers/label_printing_controller.js:836
-msgid "Price Level"
 msgstr ""
 
 #: ../..//content/controllers/label_printing_controller.js:563

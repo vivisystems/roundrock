@@ -62,7 +62,7 @@
                         </row>
                         <row id ="priceLevel">
                             <vbox id ="priceLevel" flex="1" >
-                            <label value="Price Level"/>
+                            <label id ="priceLevelTitle"/>
                                     <menulist id="priceList" class="pricelevel"  form="setProductForm" name="selectedPrice" label = "Price Level" onfocus="select()" >
                                     </menulist>
                            </vbox>
