@@ -45,10 +45,6 @@
         <vbox flex="1" class="container-main">
             <label value="&importexport.caption;" class="label-page-title"/>
             <vbox flex="1" class="content-listbox">
-                <hbox class="data-form">
-                    <checkbox id="locale" checked="true" label="&importexport.localeCheckbox;"
-                         form="" name="" default="false"/>
-                </hbox>
                 <vivitree id="datasourcescrollablepanel" flex="1" class="standard custom-content-import-export-list"
                           headers="&importexport.tablename;,&importexport.import;,&importexport.export;"
                           fields="name,imported,exported"

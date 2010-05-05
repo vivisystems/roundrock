@@ -8,7 +8,7 @@
 
         uses: ["Product"],
         components: ['Tax'],
-	
+
         _listObj: null,
         _importDir: null,
         _exportDir: null,
@@ -89,7 +89,7 @@
                 deviceMount +=  deviceNode;
 
                 var mountDir = new GeckoJS.File(deviceMount);
-               
+
                 if (mountDir.exists() && mountDir.isDir()) {
 
                     // mount dir exists
@@ -145,7 +145,7 @@
             var waitPanel = this.showWaitingPanel(_('Exporting %S', [this._datas[index].name]));
             var progmeter = document.getElementById('progress');
             progmeter.value = 0;
-            
+
             this._busy = true;
 
             this.sleep(200);
@@ -251,13 +251,13 @@
                                 switch(model) {
                                     case "condiments": {
                                             headers = [
-                                                _('(importexport_condiments)name'),
-                                                _('(importexport_condiments)condiment_group_id'),
-                                                _('(importexport_condiments)price'),
-                                                _('(importexport_condiments)id'),
-                                                _('(importexport_condiments)button_color'),
-                                                _('(importexport_condiments)font_size'),
-                                                _('(importexport_condiments)preset')
+                                                '#'+_('(importexport_condiments)name'),
+                                                '#'+_('(importexport_condiments)condiment_group_id'),
+                                                '#'+_('(importexport_condiments)price'),
+                                                '#'+_('(importexport_condiments)id'),
+                                                '#'+_('(importexport_condiments)button_color'),
+                                                '#'+_('(importexport_condiments)font_size'),
+                                                '#'+_('(importexport_condiments)preset')
                                             ];
                                             columns = [
                                                 'name',
@@ -272,10 +272,10 @@
                                     }
                                     case "condimentgroups": {
                                             headers = [
-                                                _('(importexport_condimentgroups)name'),
-                                                _('(importexport_condimentgroups)id'),
-                                                _('(importexport_condimentgroups)seltype'),
-                                                _('(importexport_condimentgroups)newline')
+                                                '#'+_('(importexport_condimentgroups)name'),
+                                                '#'+_('(importexport_condimentgroups)id'),
+                                                '#'+_('(importexport_condimentgroups)seltype'),
+                                                '#'+_('(importexport_condimentgroups)newline')
                                             ];
                                             columns = [
                                                 'name',
@@ -287,18 +287,18 @@
                                     }
                                     case "plugroups": {
                                             headers = [
-                                                _('(importexport_plugroups)name'),
-                                                _('(importexport_plugroups)id'),
-                                                _('(importexport_plugroups)description'),
-                                                _('(importexport_plugroups)visible'),
-                                                _('(importexport_plugroups)link_department'),
-                                                _('(importexport_plugroups)link_group'),
-                                                _('(importexport_plugroups)display_order'),
-                                                _('(importexport_plugroups)button_color'),
-                                                _('(importexport_plugroups)font_size'),
-                                                _('(importexport_plugroups)routing'),
-                                                _('(importexport_plugroups)non_discountable'),
-                                                _('(importexport_plugroups)non_surchargeable')
+                                                '#'+_('(importexport_plugroups)name'),
+                                                '#'+_('(importexport_plugroups)id'),
+                                                '#'+_('(importexport_plugroups)description'),
+                                                '#'+_('(importexport_plugroups)visible'),
+                                                '#'+_('(importexport_plugroups)link_department'),
+                                                '#'+_('(importexport_plugroups)link_group'),
+                                                '#'+_('(importexport_plugroups)display_order'),
+                                                '#'+_('(importexport_plugroups)button_color'),
+                                                '#'+_('(importexport_plugroups)font_size'),
+                                                '#'+_('(importexport_plugroups)routing'),
+                                                '#'+_('(importexport_plugroups)non_discountable'),
+                                                '#'+_('(importexport_plugroups)non_surchargeable')
                                             ];
                                             columns = [
                                                 'name',
@@ -318,79 +318,79 @@
                                     }
                                     case "products": {
                                             headers = [
-                                                _('(importexport_products)no'),
-                                                _('(importexport_products)name'),
-                                                _('(importexport_products)cate_no'),
-                                                _('(importexport_products)id'),
-                                                _('(importexport_products)cond_group'),
-                                                _('(importexport_products)link_group'),
-                                                _('(importexport_products)barcode'),
-                                                _('(importexport_products)buy_price'),
-                                                _('(importexport_products)stock'),
-                                                _('(importexport_products)min_stock'),
-                                                _('(importexport_products)rate'),
-                                                _('(importexport_products)memo'),
-                                                _('(importexport_products)min_sale_qty'),
-                                                _('(importexport_products)sale_unit'),
-                                                _('(importexport_products)tare'),
-                                                _('(importexport_products)scale'),
-                                                _('(importexport_products)setmenu'),
-                                                _('(importexport_products)level_enable1'),
-                                                _('(importexport_products)price_level1'),
-                                                _('(importexport_products)halo1'),
-                                                _('(importexport_products)lalo1'),
-                                                _('(importexport_products)level_enable2'),
-                                                _('(importexport_products)price_level2'),
-                                                _('(importexport_products)halo2'),
-                                                _('(importexport_products)lalo2'),
-                                                _('(importexport_products)level_enable3'),
-                                                _('(importexport_products)price_level3'),
-                                                _('(importexport_products)halo3'),
-                                                _('(importexport_products)lalo3'),
-                                                _('(importexport_products)level_enable4'),
-                                                _('(importexport_products)price_level4'),
-                                                _('(importexport_products)halo4'),
-                                                _('(importexport_products)lalo4'),
-                                                _('(importexport_products)level_enable5'),
-                                                _('(importexport_products)price_level5'),
-                                                _('(importexport_products)halo5'),
-                                                _('(importexport_products)lalo5'),
-                                                _('(importexport_products)level_enable6'),
-                                                _('(importexport_products)price_level6'),
-                                                _('(importexport_products)halo6'),
-                                                _('(importexport_products)lalo6'),
-                                                _('(importexport_products)level_enable7'),
-                                                _('(importexport_products)price_level7'),
-                                                _('(importexport_products)halo7'),
-                                                _('(importexport_products)lalo7'),
-                                                _('(importexport_products)level_enable8'),
-                                                _('(importexport_products)price_level8'),
-                                                _('(importexport_products)halo8'),
-                                                _('(importexport_products)lalo8'),
-                                                _('(importexport_products)level_enable9'),
-                                                _('(importexport_products)price_level9'),
-                                                _('(importexport_products)halo9'),
-                                                _('(importexport_products)lalo9'),
-                                                _('(importexport_products)auto_maintain_stock'),
-                                                _('(importexport_products)return_stock'),
-                                                _('(importexport_products)force_condiment'),
-                                                _('(importexport_products)force_memo'),
-                                                _('(importexport_products)single'),
-                                                _('(importexport_products)visible'),
-                                                _('(importexport_products)button_color'),
-                                                _('(importexport_products)age_verification'),
-                                                _('(importexport_products)display_mode'),
-                                                _('(importexport_products)alt_name1'),
-                                                _('(importexport_products)alt_name2'),
-                                                _('(importexport_products)manual_adjustment_only'),
-                                                _('(importexport_products)append_empty_btns'),
-                                                _('(importexport_products)display_order'),
-                                                _('(importexport_products)max_stock'),
-                                                _('(importexport_products)scale_multiplier'),
-                                                _('(importexport_products)scale_precision'),
-                                                _('(importexport_products)display_mode'),
-                                                _('(importexport_products)non_discountable'),
-                                                _('(importexport_products)non_surchargeable')
+                                                '#'+_('(importexport_products)no'),
+                                                '#'+_('(importexport_products)name'),
+                                                '#'+_('(importexport_products)cate_no'),
+                                                '#'+_('(importexport_products)id'),
+                                                '#'+_('(importexport_products)cond_group'),
+                                                '#'+_('(importexport_products)link_group'),
+                                                '#'+_('(importexport_products)barcode'),
+                                                '#'+_('(importexport_products)buy_price'),
+                                                '#'+_('(importexport_products)stock'),
+                                                '#'+_('(importexport_products)min_stock'),
+                                                '#'+_('(importexport_products)rate'),
+                                                '#'+_('(importexport_products)memo'),
+                                                '#'+_('(importexport_products)min_sale_qty'),
+                                                '#'+_('(importexport_products)sale_unit'),
+                                                '#'+_('(importexport_products)tare'),
+                                                '#'+_('(importexport_products)scale'),
+                                                '#'+_('(importexport_products)setmenu'),
+                                                '#'+_('(importexport_products)level_enable1'),
+                                                '#'+_('(importexport_products)price_level1'),
+                                                '#'+_('(importexport_products)halo1'),
+                                                '#'+_('(importexport_products)lalo1'),
+                                                '#'+_('(importexport_products)level_enable2'),
+                                                '#'+_('(importexport_products)price_level2'),
+                                                '#'+_('(importexport_products)halo2'),
+                                                '#'+_('(importexport_products)lalo2'),
+                                                '#'+_('(importexport_products)level_enable3'),
+                                                '#'+_('(importexport_products)price_level3'),
+                                                '#'+_('(importexport_products)halo3'),
+                                                '#'+_('(importexport_products)lalo3'),
+                                                '#'+_('(importexport_products)level_enable4'),
+                                                '#'+_('(importexport_products)price_level4'),
+                                                '#'+_('(importexport_products)halo4'),
+                                                '#'+_('(importexport_products)lalo4'),
+                                                '#'+_('(importexport_products)level_enable5'),
+                                                '#'+_('(importexport_products)price_level5'),
+                                                '#'+_('(importexport_products)halo5'),
+                                                '#'+_('(importexport_products)lalo5'),
+                                                '#'+_('(importexport_products)level_enable6'),
+                                                '#'+_('(importexport_products)price_level6'),
+                                                '#'+_('(importexport_products)halo6'),
+                                                '#'+_('(importexport_products)lalo6'),
+                                                '#'+_('(importexport_products)level_enable7'),
+                                                '#'+_('(importexport_products)price_level7'),
+                                                '#'+_('(importexport_products)halo7'),
+                                                '#'+_('(importexport_products)lalo7'),
+                                                '#'+_('(importexport_products)level_enable8'),
+                                                '#'+_('(importexport_products)price_level8'),
+                                                '#'+_('(importexport_products)halo8'),
+                                                '#'+_('(importexport_products)lalo8'),
+                                                '#'+_('(importexport_products)level_enable9'),
+                                                '#'+_('(importexport_products)price_level9'),
+                                                '#'+_('(importexport_products)halo9'),
+                                                '#'+_('(importexport_products)lalo9'),
+                                                '#'+_('(importexport_products)auto_maintain_stock'),
+                                                '#'+_('(importexport_products)return_stock'),
+                                                '#'+_('(importexport_products)force_condiment'),
+                                                '#'+_('(importexport_products)force_memo'),
+                                                '#'+_('(importexport_products)single'),
+                                                '#'+_('(importexport_products)visible'),
+                                                '#'+_('(importexport_products)button_color'),
+                                                '#'+_('(importexport_products)age_verification'),
+                                                '#'+_('(importexport_products)display_mode'),
+                                                '#'+_('(importexport_products)alt_name1'),
+                                                '#'+_('(importexport_products)alt_name2'),
+                                                '#'+_('(importexport_products)manual_adjustment_only'),
+                                                '#'+_('(importexport_products)append_empty_btns'),
+                                                '#'+_('(importexport_products)display_order'),
+                                                '#'+_('(importexport_products)max_stock'),
+                                                '#'+_('(importexport_products)scale_multiplier'),
+                                                '#'+_('(importexport_products)scale_precision'),
+                                                '#'+_('(importexport_products)display_mode'),
+                                                '#'+_('(importexport_products)non_discountable'),
+                                                '#'+_('(importexport_products)non_surchargeable')
                                             ];
                                             columns = [
                                                 'no',
@@ -472,19 +472,19 @@
                                     }
                                     case "categories": {
                                             headers = [
-                                                _('(importexport_categories)no'),
-                                                _('(importexport_categories)name'),
-                                                _('(importexport_categories)id'),
-                                                _('(importexport_categories)visible'),
-                                                _('(importexport_categories)sale_unit'),
-                                                _('(importexport_categories)scale'),
-                                                _('(importexport_categories)rate'),
-                                                _('(importexport_categories)button_color'),
-                                                _('(importexport_categories)font_size'),
-                                                _('(importexport_categories)cansale'),
-                                                _('(importexport_categories)display_order'),
-                                                _('(importexport_categories)non_discountable'),
-                                                _('(importexport_categories)non_surchargeable')
+                                                '#'+_('(importexport_categories)no'),
+                                                '#'+_('(importexport_categories)name'),
+                                                '#'+_('(importexport_categories)id'),
+                                                '#'+_('(importexport_categories)visible'),
+                                                '#'+_('(importexport_categories)sale_unit'),
+                                                '#'+_('(importexport_categories)scale'),
+                                                '#'+_('(importexport_categories)rate'),
+                                                '#'+_('(importexport_categories)button_color'),
+                                                '#'+_('(importexport_categories)font_size'),
+                                                '#'+_('(importexport_categories)cansale'),
+                                                '#'+_('(importexport_categories)display_order'),
+                                                '#'+_('(importexport_categories)non_discountable'),
+                                                '#'+_('(importexport_categories)non_surchargeable')
                                             ];
                                             columns = [
                                                 'no',
@@ -505,15 +505,15 @@
                                     }
                                     case "setitems": {
                                             headers = [
-                                                _("(importexport_setitems)pluset_no"),
-                                                _("(importexport_setitems)label"),
-                                                _("(importexport_setitems)sequence"),
-                                                _("(importexport_setitems)id"),
-                                                _("(importexport_setitems)preset_no"),
-                                                _("(importexport_setitems)quantity"),
-                                                _("(importexport_setitems)baseprice"),
-                                                _("(importexport_setitems)linkgroup_id"),
-                                                _("(importexport_setitems)reduction")
+                                                '#'+_("(importexport_setitems)pluset_no"),
+                                                '#'+_("(importexport_setitems)label"),
+                                                '#'+_("(importexport_setitems)sequence"),
+                                                '#'+_("(importexport_setitems)id"),
+                                                '#'+_("(importexport_setitems)preset_no"),
+                                                '#'+_("(importexport_setitems)quantity"),
+                                                '#'+_("(importexport_setitems)baseprice"),
+                                                '#'+_("(importexport_setitems)linkgroup_id"),
+                                                '#'+_("(importexport_setitems)reduction")
                                             ];
                                             columns = [
                                                 "pluset_no",
@@ -533,14 +533,10 @@
                                     }
                                 }
 
-                               this._localeCheck = document.getElementById('locale').checked;
-                               
-                               if(this._localeCheck){
                                 bufheader = headers.join('","');
                                 bufheader = '"'+bufheader+'"';
-                                
+
                                 saveFile.write(bufheader+"\n");
-                               }
 
                                 buf = columns.join('","');
                                 buf = '"'+buf+'"';
@@ -550,7 +546,7 @@
                                 result.forEach(function(row) {
                                     updateProgress();
                                     var data =[];
-                                    
+
                                     columns.forEach(function(col){
                                         var val = new String(row[tableTmp.name][col]);
                                         switch(model) {
@@ -663,6 +659,12 @@
                                                                 }
                                                                 break;
                                                         }
+
+                                                        case "link_product": {
+                                                               var val = btoa(encodeURIComponent(row[tableTmp.name][col]));
+                                                                break;
+                                                        }
+
                                                         default: {
 
                                                         }
@@ -715,7 +717,7 @@
                                             default: {
                                             }
                                         }
-                                        
+
                                         val = val.replace('"', '""');
                                         data.push(val);
                                     });
@@ -759,7 +761,7 @@
 
                 this._datas[index].exported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
                 this.getListObj().refresh();
-                
+
                 NotifyUtils.info(_('Export of [%S] to file [%S] finished!',
                                    [this._datas[index].name, fileName]));
                 GeckoJS.BaseObject.log('FATAL', _('Export of [%S] to file [%S] finished!',
@@ -767,16 +769,16 @@
             }
             catch (e) {
                 tableTmp.rollback();
-                
+
                 GeckoJS.BaseModel.log('FATAL', _('Failed to export [%S] to file [%S]',
                                     [this._datas[index].name, fileName]));
                 NotifyUtils.error(_('Failed to export [%S] to file [%S]',
                                     [this._datas[index].name, fileName]));
             }
             finally {
-                
+
                 this._busy = false;
-                
+
                 progmeter.value = 100;
                 this.sleep(200);
                 // sync to media...
@@ -817,7 +819,7 @@
             var waitPanel = this.showWaitingPanel(_('Importing %S', [this._datas[index].name]));
             var progmeter = document.getElementById('progress');
             progmeter.value = 0;
-            
+
             this.sleep(50);
             var importType = this._datas[index].type;
 
@@ -921,6 +923,7 @@
 
             var name = this._datas[index].name;
             var fileName = this._importDir + "/" + this._datas[index].filename;
+
             if(importType == "license") {
                 waitPanel.hidePopup();
                 GREUtils.Dialog.alert(this.topmostWindow, _('License Import Error'), _('License validated - import not required'));
@@ -934,7 +937,7 @@
                 return;
             }
             this._busy = true;
-            
+
 
             var tableTpl = {};
 
@@ -952,13 +955,14 @@
 
                             file.setInputCharset(this.selectedCharSet);
                             file.open("r");
-                            
+
                             var lines = file.readAllLine();
 
-                            this._localeCheck = document.getElementById('locale').checked;
-                            if(this._localeCheck)
-                                lines.splice(0,1);
-                            
+                         /* locale alternative header at first line */
+                            var index = GeckoJS.String.parseCSV(lines[0])[0][0].indexOf('#');
+                            if(index == 0)
+                               lines.splice(0,1);
+
                             file.close();
                             if (lines.length <= 0) return;
                         }
@@ -1022,7 +1026,7 @@
                     }
                     case "model": {
                             var errorMsgs = [];
-                            
+
                             //pre-declare variables for efficient relational constraint checks
                             switch(model) {
                                 case "condiments": {
@@ -1392,6 +1396,18 @@
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid tare value", [prodNm, i + 2]));
                                             }
                                             if(!self.isValidSaleUnitField(rowdata['sale_unit'], true)) {
+                                                errorMsgs.push(_("Product item %S @ row %S requires a valid sale unit", [prodNm, i + 2]));
+                                            }
+                                       /*     if(!self.isValidSaleUnitField(rowdata['stock_unit'], true)) {
+                                                errorMsgs.push(_("Product item %S @ row %S requires a valid stock unit", [prodNm, i + 2]));
+                                            }*/
+                                            if(!self.isValidNumberField(rowdata['stock_conversion'], true)) {
+                                                errorMsgs.push(_("Product item %S @ row %S requires a valid sale unit", [prodNm, i + 2]));
+                                            }
+                                            if(!self.isValidBooleanField(rowdata['stock_source'], true)) {
+                                                errorMsgs.push(_("Product item %S @ row %S requires a valid sale unit", [prodNm, i + 2]));
+                                            }
+                                            if(!self.isValidBooleanField(rowdata['force_variation'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid sale unit", [prodNm, i + 2]));
                                             }
                                             break;
@@ -1825,6 +1841,9 @@
                                             if(!rowdata['display_order'] || rowdata['display_order'].length < 1 || rowdata['display_order'] == 'null') {
                                                 rowdata['display_order'] = "99999";
                                             }
+                                            if(rowdata['link_product']) {
+                                                rowdata['link_product'] = decodeURIComponent(atob(rowdata['link_product']));
+                                            }
                                             break;
                                     }
                                     case "condiments": {
@@ -1984,7 +2003,7 @@
                 this.log(e);
             }
             finally {
-                
+
                 this._busy = false;
 
                 progmeter.value = 100;
@@ -2122,13 +2141,13 @@
                     exported: ''
                 }
             ];
-            
+
             var panelView = new GeckoJS.NSITreeViewArray(this._datas);
             this.getListObj().datasource = panelView;
 
             this.selectedCharSet = GeckoJS.Configure.read('vivipos.fec.registry.import_export.charset') || 'utf-8';
             this.selectedCharSetLabel = this.selectedCharSet;
-            
+
             var bundleCharsetTitles = document.getElementById('bundleCharsetTitles');
 
             try {
@@ -2323,4 +2342,3 @@
     GeckoJS.Controller.extend(__controller__);
 
 })();
-
