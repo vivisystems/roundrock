@@ -1,3 +1,4 @@
 <!ENTITY select_template.title  "Select a template">
 <!ENTITY select_template.templateName.label  "Template:">
 <!ENTITY select_template.barcode  "Barcode Type">
+<!ENTITY select_template.button.selectBarcode  "Select Type">
