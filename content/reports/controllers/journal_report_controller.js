@@ -175,6 +175,9 @@
                     delete record.Journal;
                     var previewFileName = self._journalPath + record.preview_file;
                     var previewFile = new GeckoJS.File(previewFileName);
+
+                    if (!previewFile.exists()) return ;
+
                     previewFile.open("rb");
                     var previewContent = GREUtils.Gzip.inflate(previewFile.read());
                     previewFile.close();
@@ -205,11 +208,13 @@
                     cur++;
                 }, this);
 
-                if ( waitPanel != undefined )
-                    self._dismissWaitingPanel();
             } catch ( e ) {
                 this.log(e);
             }
+
+            if ( waitPanel != undefined )
+                self._dismissWaitingPanel();
+
         },
 
         multiPrint: function() {
