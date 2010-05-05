@@ -173,7 +173,7 @@
             // restart ntp
             GeckoJS.File.run('/etc/init.d/ntp', ['restart'], true);
             // start rdate
-            GeckoJS.File.run('/etc/init.d/rdate', ['start'], true);
+            GeckoJS.File.run('/etc/init.d/rdate', ['start'], false);
 
             OsdUtils.info(_('Network service settings saved'));
         },
