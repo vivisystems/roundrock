@@ -1389,7 +1389,7 @@
                         } catch(err) {
                         }
                     }
-
+                    if (waitPanel) waitPanel.hidePopup();
                 }
             }
         },
