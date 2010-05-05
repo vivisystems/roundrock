@@ -7,7 +7,6 @@
 <!ENTITY importexport.importfilename "Import File">
 <!ENTITY importexport.exportfilename "Export File">
 <!ENTITY importexport.charsetselector "Charset Selector">
-<!ENTITY importexport.localeCheckbox "Alternative title">
 
 <!ENTITY vivipos.fec.common.ok "Ok">
 <!ENTITY vivipos.fec.common.cancel "Cancel">
