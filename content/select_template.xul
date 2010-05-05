@@ -63,11 +63,11 @@
                     </vbox>
                 </vbox>
 
-                <vbox id="managerPanel" class="toolbar block-20" toolbarmode="vertical">
+                <vbox id="managerPanel" class="toolbar block-20" toolbarmode="vertical">                 
+                        <button id="selectedBarcode" align="center" label="&select_template.button.selectBarcode;" class="button-modify" oncommand="$do('selectBarcode',null, 'SelectTemplate');"/>
                     <label value="&select_template.barcode;"/>
                     <textbox id="barcode" readonly="true" class="button-item-c"
-                             onclick="$do('selectBarcode',null, 'SelectTemplate');"  form="" name="" value="3OF9"/>
-
+                             onclick=""  form="" name="" value="3OF9"/>                 
                 </vbox>
             </hbox>
             <hbox>
