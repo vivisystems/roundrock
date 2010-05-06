@@ -50,7 +50,7 @@
             // close all datasource connections
             GeckoJS.ConnectionManager.closeAll();
             
-            let evt_data = {script: script, args: args};
+            let evt_data = {script: script, args: args, skip: false};
             if (this.dispatchEvent('beforeAutoBackupToLocal', evt_data)) {
                 script = evt_data.script;
                 args = evt_data.args;
@@ -58,7 +58,7 @@
                 this.log('DEBUG', 'autobackup script [' + script + ']');
                 this.log('DEBUG', 'autobackup args [' + this.dump(args) + ']');
                 
-                if (this.execute(script, args)) {
+                if (evt_data.skip || this.execute(script, args)) {
                     this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
                 }
             }

@@ -281,7 +281,7 @@
             GeckoJS.ConnectionManager.closeAll();
 
             var script = this._scriptPath + "backup.sh";
-            let evt_data = {script: script, args: args};
+            let evt_data = {script: script, args: args, skip: false};
             if (this.dispatchEvent('beforeBackupToLocal', evt_data)) {
                 script = evt_data.script;
                 args = evt_data.args;
@@ -289,7 +289,7 @@
                 this.log('DEBUG', 'backup script [' + script + ']');
                 this.log('DEBUG', 'backup args [' + this.dump(args) + ']');
 
-                if (this.execute(script, args)) {
+                if (evt_data.skip || this.execute(script, args)) {
                     this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
                     NotifyUtils.info(_('<Backup to Local Storage> is done'));
                 }
@@ -371,7 +371,7 @@
                     GeckoJS.ConnectionManager.closeAll();
 
                     var script = this._scriptPath + "restore.sh";
-                    let evt_data = {script: script, args: args};
+                    let evt_data = {script: script, args: args, skip: false};
                     if (this.dispatchEvent('beforeRestoreFromLocal', evt_data)) {
                         script = evt_data.script;
                         args = evt_data.args;
@@ -379,7 +379,7 @@
                         this.log('DEBUG', 'restore script [' + script + ']');
                         this.log('DEBUG', 'restore args [' + this.dump(args) + ']');
 
-                        if (this.execute(script, args )) {
+                        if (evt_data.skip || this.execute(script, args )) {
                             if(withSystem) {
                                 this._reboot();
                             }else {
@@ -436,7 +436,7 @@
                     GeckoJS.ConnectionManager.closeAll();
 
                     var script = this._scriptPath + "restore.sh";
-                    let evt_data = {script: script, args: args};
+                    let evt_data = {script: script, args: args, skip: false};
                     if (this.dispatchEvent('beforeRestoreFromRemote', evt_data)) {
                         script = evt_data.script;
                         args = evt_data.args;
@@ -444,7 +444,7 @@
                         this.log('DEBUG', 'restore script [' + script + ']');
                         this.log('DEBUG', 'restore args [' + this.dump(args) + ']');
 
-                        if (this.execute(this._scriptPath + "restore.sh", args)){
+                        if (evt_data.skip || this.execute(this._scriptPath + "restore.sh", args)){
                             if(withSystem) {
                                 this._reboot();
                             }else {
