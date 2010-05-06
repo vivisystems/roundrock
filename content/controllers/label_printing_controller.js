@@ -1194,7 +1194,15 @@
                         /* length: 11 + 1
                          * valid codes: 0~9  */
                         case 'UPC-A':
-                                     if(barcode.length != 11 && barcode.length != 12)
+                                     if(barcode.length != 12)
+                                         return false;
+                                     return this.Barcode.isNumeric(barcode);
+                                     break;
+
+                        /* length: 6 + 1
+                         * valid codes: 0~9  */
+                        case 'UPC-E':
+                                     if(barcode.length != 7)
                                          return false;
                                      return this.Barcode.isNumeric(barcode);
                                      break;
@@ -1202,7 +1210,7 @@
                          /* length: 12 + 1
                           * valid codes: 0~9  */
                          case 'EAN-13':
-                                     if(barcode.length != 12 && barcode.length != 13)
+                                     if(barcode.length != 13)
                                          return false;
                                      return this.Barcode.isNumeric(barcode);
                                      break;
@@ -1229,20 +1237,21 @@
 
           switch( barcodeType )
                  {
-                        case 'UPC-A':
-                                     if(barcode.length == 11)
-                                         return true;
-                                     
+                        case 'UPC-A':                                  
                                      checksum = this.Barcode.getUPCCheckDigit(barcode.substr(0,11));
                                      
                                      if(checksum == barcode[11])
                                          return true;                                    
                                      break;
 
-                        case 'EAN-13':
-                                     if(barcode.length == 12)
-                                         return true;
+                        case 'UPC-E':
+                                     checksum = this.Barcode.getUPCCheckDigit(barcode.substr(0,6));
 
+                                     if(checksum == barcode[6])
+                                         return true;
+                                     break;
+
+                        case 'EAN-13':
                                      checksum = this.Barcode.getEAN13CheckDigit(barcode.substr(0,12));
 
                                      if(checksum == barcode[12])

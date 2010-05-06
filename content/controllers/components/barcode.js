@@ -140,7 +140,7 @@
         },
 
         getUPCCheckDigit: function(number) {
-            if ( !this.isNumeric(number) || number.length!=11) {
+            if ( !this.isNumeric(number) || (number.length!=11 && number.length!=6)) {
                 return "";
             }
             return this._getEANCheckDigit(number);
