@@ -48,7 +48,7 @@ for(var x = 0 ; x< product.length ; x++){
 A2
 D11
 H15
-1${barcodeType}2102500600005${item.barcode}[&CR]
+1${barcodeType}2102500600010${item.barcode}[&CR]
 1X1100000590006L110001
 1;1110100440006${item.name|wleft:20}[&CR]
 1;1110100440007${item.name|wleft:20}[&CR]

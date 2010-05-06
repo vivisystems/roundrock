@@ -967,7 +967,7 @@
                      object.legalList.push(object.list[i]);
                                   
                 else{
-                     list[i].comm = _('Invalid Barcode');
+                     object.list[i].comm = _('Invalid Barcode');
                      object.illegalList.push(object.list[i]);
                      object.islegal = false;
                 }
@@ -1248,7 +1248,11 @@
                                      if(checksum == barcode[12])
                                          return true;
                                      break;
-                       case 'I25':
+
+                       case 'I25':   if(barcode.length % 2 ==0)
+                                          return true;
+                                      break;
+                                      
                        case 'CODE128': return true ;
                                        break;
                  }
@@ -1287,7 +1291,7 @@
                        object.legalList.push(object.list[i]);
 
                    else{
-                           object.list[i].comm = _('CHECKSUM ERROR');
+                           object.list[i].comm = _('Invalid Barcode');
                            object.illegalList.push(object.list[i]);
                            object.islegal = false;
                        
