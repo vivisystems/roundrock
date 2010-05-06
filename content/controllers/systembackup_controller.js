@@ -277,11 +277,23 @@
 
             this.flushPrefs(); // flush it.
 
-            if (this.execute(this._scriptPath + "backup.sh", args)) {
-                this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
-                NotifyUtils.info(_('<Backup to Local Storage> is done'));
-            }
+            // close all database connections
+            GeckoJS.ConnectionManager.closeAll();
 
+            var script = this._scriptPath + "backup.sh";
+            let evt_data = {script: script, args: args};
+            if (this.dispatchEvent('beforeBackupToLocal', evt_data)) {
+                script = evt_data.script;
+                args = evt_data.args;
+
+                this.log('DEBUG', 'backup script [' + script + ']');
+                this.log('DEBUG', 'backup args [' + this.dump(args) + ']');
+
+                if (this.execute(script, args)) {
+                    this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
+                    NotifyUtils.info(_('<Backup to Local Storage> is done'));
+                }
+            }
             this.refresh();
             this._busy = false;
             this.setButtonState();
@@ -355,13 +367,26 @@
 
                     this.flushPrefs(); // flush it.
                     
-                    if (this.execute(this._scriptPath + "restore.sh", args )) {
-                        if(withSystem) {
-                            this._reboot();
-                        }else {
-                            this._restart();
+                    // close all database connections
+                    GeckoJS.ConnectionManager.closeAll();
+
+                    var script = this._scriptPath + "restore.sh";
+                    let evt_data = {script: script, args: args};
+                    if (this.dispatchEvent('beforeRestoreFromLocal', evt_data)) {
+                        script = evt_data.script;
+                        args = evt_data.args;
+
+                        this.log('DEBUG', 'restore script [' + script + ']');
+                        this.log('DEBUG', 'restore args [' + this.dump(args) + ']');
+
+                        if (this.execute(script, args )) {
+                            if(withSystem) {
+                                this._reboot();
+                            }else {
+                                this._restart();
+                            }
+                            NotifyUtils.info(_('<Restore from Local backup> is done!!'));
                         }
-                        NotifyUtils.info(_('<Restore from Local backup> is done!!'));
                     }
                 }
             } else {
@@ -407,13 +432,26 @@
 
                     this.flushPrefs(); // flush it.
 
-                    if (this.execute(this._scriptPath + "restore.sh", args)){
-                        if(withSystem) {
-                            this._reboot();
-                        }else {
-                            this._restart();
+                    // close all database connections
+                    GeckoJS.ConnectionManager.closeAll();
+
+                    var script = this._scriptPath + "restore.sh";
+                    let evt_data = {script: script, args: args};
+                    if (this.dispatchEvent('beforeRestoreFromRemote', evt_data)) {
+                        script = evt_data.script;
+                        args = evt_data.args;
+
+                        this.log('DEBUG', 'restore script [' + script + ']');
+                        this.log('DEBUG', 'restore args [' + this.dump(args) + ']');
+
+                        if (this.execute(this._scriptPath + "restore.sh", args)){
+                            if(withSystem) {
+                                this._reboot();
+                            }else {
+                                this._restart();
+                            }
+                            NotifyUtils.info(_('<Restore from External Backup> is done!!'));
                         }
-                        NotifyUtils.info(_('<Restore from External Backup> is done!!'));
                     }
                 }
             } else {

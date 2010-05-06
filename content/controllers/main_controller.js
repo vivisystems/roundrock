@@ -1408,63 +1408,64 @@
                     var retainDate = Date.today().addDays(retainDays * -1).getTime() / 1000;
 
                     // dispatch beforeClearOrderData event
-                    this.dispatchEvent('beforeClearOrderData', retainDate);
+                    if (this.dispatchEvent('beforeClearOrderData', retainDate)) {
 
-                    var order = new OrderModel();
-                    var conditions = "orders.transaction_submitted<='" + retainDate +
-                    "' AND orders.status<='1'";
+                        var order = new OrderModel();
+                        var conditions = "orders.transaction_submitted<='" + retainDate +
+                        "' AND orders.status<='1'";
 
-                    var r = order.restoreFromBackup();
-                    if (!r) {
-                        throw {
-                            errno: order.lastError,
-                            errstr: order.lastErrorString,
-                            errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S) [message #1004].', [order.lastError])
-                        };
-                    }
+                        var r = order.restoreFromBackup();
+                        if (!r) {
+                            throw {
+                                errno: order.lastError,
+                                errstr: order.lastErrorString,
+                                errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S) [message #1004].', [order.lastError])
+                            };
+                        }
 
-                    r = order.removeOrders(conditions);
-                    if (!r) {
-                        throw {
-                            errno: order.lastError,
-                            errstr: order.lastErrorString,
-                            errmsg: _('An error was encountered while expiring sales activity logs (error code %S) [message #1005].', [order.lastError])
-                        };
-                    }
+                        r = order.removeOrders(conditions);
+                        if (!r) {
+                            throw {
+                                errno: order.lastError,
+                                errstr: order.lastErrorString,
+                                errmsg: _('An error was encountered while expiring sales activity logs (error code %S) [message #1005].', [order.lastError])
+                            };
+                        }
 
-                    // remove clock stamps
-                    var clockstamp = new ClockStampModel();
-                    r = clockstamp.restoreFromBackup();
-                    if (!r) {
-                        throw {
-                            errno: clockstamp.lastError,
-                            errstr: clockstamp.lastErrorString,
-                            errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S) [message #1006].', [clockstamp.lastError])
-                        };
-                    }
+                        // remove clock stamps
+                        var clockstamp = new ClockStampModel();
+                        r = clockstamp.restoreFromBackup();
+                        if (!r) {
+                            throw {
+                                errno: clockstamp.lastError,
+                                errstr: clockstamp.lastErrorString,
+                                errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S) [message #1006].', [clockstamp.lastError])
+                            };
+                        }
 
-                    r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
-                    if (!r) {
-                        throw {
-                            errno: clockstamp.lastError,
-                            errstr: clockstamp.lastErrorString,
-                            errmsg: _('An error was encountered while expiring employee attendance records (error code %S) [message #1007].', [clockstamp.lastError])
-                        };
-                    }
+                        r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
+                        if (!r) {
+                            throw {
+                                errno: clockstamp.lastError,
+                                errstr: clockstamp.lastErrorString,
+                                errmsg: _('An error was encountered while expiring employee attendance records (error code %S) [message #1007].', [clockstamp.lastError])
+                            };
+                        }
 
-                    // remove order queues
-                    var orderQueue = new OrderQueueModel();
-                    r = orderQueue.removeQueues(retainDate);
-                    if (!r) {
-                        throw {
-                            errno: orderQueue.lastError,
-                            errstr: orderQueue.lastErrorString,
-                            errmsg: _('An error was encountered while expiring order queues (error code %S) [message #1008].', [orderQueue.lastError])
-                        };
-                    }
+                        // remove order queues
+                        var orderQueue = new OrderQueueModel();
+                        r = orderQueue.removeQueues(retainDate);
+                        if (!r) {
+                            throw {
+                                errno: orderQueue.lastError,
+                                errstr: orderQueue.lastErrorString,
+                                errmsg: _('An error was encountered while expiring order queues (error code %S) [message #1008].', [orderQueue.lastError])
+                            };
+                        }
                     
-                    // dispatch afterClearOrderData event
-                    this.dispatchEvent('afterClearOrderData', retainDate);
+                        // dispatch afterClearOrderData event
+                        this.dispatchEvent('afterClearOrderData', retainDate);
+                    }
 
                     // if pack order data...
                     var today = (new Date()).getDay();

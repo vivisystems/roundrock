@@ -693,8 +693,18 @@
             return true;
         },
 
-        removeOrders: function(conditions) {
+        removeOrders: function(conditions, id_list) {
             // use execute sql statement to prevent sync...
+
+            var order_conditions = conditions;
+            if (id_list && id_list.length > 0 && typeof id_list == 'object') {
+                let id_strings = id_list.join(',');
+                conditions = 'order_id in (' + id_strings + ')';
+                order_conditions = 'id in (' + id_strings + ')';
+            }
+            else {
+                conditions = 'order_id in (SELECT id FROM orders WHERE ' + conditions + ')';
+            }
 
             // use transaction to improve performance
             if (!this.begin()) {
@@ -707,7 +717,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order item taxes
-                    if (!this.OrderItemTax.execute("DELETE FROM " + this.OrderItemTax.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderItemTax.execute("DELETE FROM " + this.OrderItemTax.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderItemTax.lastError,
                             errstr: this.OrderItemTax.lastErrorString,
@@ -719,7 +729,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order items
-                    if (!this.OrderItem.execute("DELETE FROM " + this.OrderItem.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderItem.execute("DELETE FROM " + this.OrderItem.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderItem.lastError,
                             errstr: this.OrderItem.lastErrorString,
@@ -731,7 +741,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order item condiments
-                    if (!this.OrderItemCondiment.execute("DELETE FROM " + this.OrderItemCondiment.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderItemCondiment.execute("DELETE FROM " + this.OrderItemCondiment.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderItemCondiment.lastError,
                             errstr: this.OrderItemCondiment.lastErrorString,
@@ -743,7 +753,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order additions
-                    if (!this.OrderAddition.execute("DELETE FROM " + this.OrderAddition.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderAddition.execute("DELETE FROM " + this.OrderAddition.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderAddition.lastError,
                             errstr: this.OrderAddition.lastErrorString,
@@ -755,7 +765,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order annotations
-                    if (!this.OrderAnnotation.execute("DELETE FROM " + this.OrderAnnotation.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderAnnotation.execute("DELETE FROM " + this.OrderAnnotation.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderAnnotation.lastError,
                             errstr: this.OrderAnnotation.lastErrorString,
@@ -767,7 +777,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order objects
-                    if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderObject.lastError,
                             errstr: this.OrderObject.lastErrorString,
@@ -779,7 +789,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order payments
-                    if (!this.OrderPayment.execute("DELETE FROM " + this.OrderPayment.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderPayment.execute("DELETE FROM " + this.OrderPayment.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderPayment.lastError,
                             errstr: this.OrderPayment.lastErrorString,
@@ -791,7 +801,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order receipts
-                    if (!this.OrderReceipt.execute("DELETE FROM " + this.OrderReceipt.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderReceipt.execute("DELETE FROM " + this.OrderReceipt.table + " WHERE "+ conditions)) {
                         throw {
                             errno: this.OrderReceipt.lastError,
                             errstr: this.OrderReceipt.lastErrorString,
@@ -803,7 +813,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order promotions
-                    if (!this.OrderPromotion.execute("DELETE FROM " + this.OrderPromotion.table + " WHERE order_id IN (SELECT id FROM orders WHERE "+ conditions +")")) {
+                    if (!this.OrderPromotion.execute("DELETE FROM " + this.OrderPromotion.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderPromotion.lastError,
                             errstr: this.OrderPromotion.lastErrorString,
@@ -815,7 +825,7 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order delete lastest
-                    if (!this.execute("DELETE FROM " + this.table + " WHERE " + conditions)) {
+                    if (!this.execute("DELETE FROM " + this.table + " WHERE " + order_conditions)) {
                         throw {
                             errno: this.lastError,
                             errstr: this.lastErrorString,
