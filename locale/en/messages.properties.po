@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-05-05 18:28+0800\n"
+"POT-Creation-Date: 2010-05-06 18:20+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6967,7 +6967,8 @@ msgid "Barcode Warning"
 msgstr ""
 
 #: ../..//content/controllers/label_printing_controller.js:970
-#: ../..//content/controllers/label_printing_controller.js:1268
+#: ../..//content/controllers/label_printing_controller.js:1272
+#: ../..//content/controllers/label_printing_controller.js:1294
 msgid "Invalid Barcode"
 msgstr ""
 
@@ -6995,10 +6996,6 @@ msgstr ""
 #: ../..//content/controllers/label_printing_controller.js:1158
 msgid ""
 "You have made changes to the current list. Save changes before existing?"
-msgstr ""
-
-#: ../..//content/controllers/label_printing_controller.js:1290
-msgid "CHECKSUM ERROR"
 msgstr ""
 
 #: ../..//content/controllers/layout_manager_controller.js:68

@@ -51,7 +51,7 @@ H15
 1900002004000${myModifiers.coor(item.selectedPrice)}${item.selectedPrice}[&CR]
 1900002004000${myModifiers.coorPlus(item.selectedPrice)}${item.selectedPrice}[&CR]
 1X1100000390006L110001[&CR]
-1${barcodeType}2102500030005${item.barcode}[&CR]
+1${barcodeType}2102500030010${item.barcode}[&CR]
 
 
 
