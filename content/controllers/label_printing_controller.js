@@ -957,18 +957,18 @@
              }
         },
 
-        checkBarcodeType3OF9: function(list){
-          
-            var object = { legalList:[], illegalList:[], islegal: true };
+        checkBarcodeType3OF9: function(oldObject){
 
-            for(var i =0 ; i< list.length ; i++){
+            var object ={list: oldObject.legalList, legalList: [], illegalList: oldObject.illegalList};
 
-                if(this.Barcode.isValid3OF9(list[i].barcode))
-                     object.legalList.push(list[i]);
+            for(var i =0 ; i< object.list.length ; i++){
+
+                if(this.Barcode.isValid3OF9(object.list[i].barcode))
+                     object.legalList.push(object.list[i]);
                                   
                 else{
                      list[i].comm = _('Invalid Barcode');
-                     object.illegalList.push(list[i]);
+                     object.illegalList.push(object.list[i]);
                      object.islegal = false;
                 }
             }          
@@ -1062,7 +1062,7 @@
                object = this._checkHasBarcode(object);
 
                if(this._barcodeType == '3OF9')
-                   object = this.checkBarcodeType3OF9(this.tabList);
+                   object = this.checkBarcodeType3OF9(object);
                else
                    object = this.isvalidBarcode(object, this._barcodeType);
 
