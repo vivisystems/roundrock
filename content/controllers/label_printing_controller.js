@@ -959,7 +959,7 @@
 
         checkBarcodeType3OF9: function(oldObject){
 
-            var object ={list: oldObject.legalList, legalList: [], illegalList: oldObject.illegalList};
+            var object ={list: oldObject.legalList, legalList: [], illegalList: oldObject.illegalList, islegal: oldObject.islegal};
 
             for(var i =0 ; i< object.list.length ; i++){
 
@@ -1257,7 +1257,7 @@
 /*******************************************************************************>_<  ***********  Q_Q  **********  ^_^  ************  +____= **/
        isvalidChar: function( oldObject, barcodeType){
 
-             var object ={list: oldObject.legalList, legalList: [], illegalList: oldObject.illegalList};
+             var object ={list: oldObject.legalList, legalList: [], illegalList: oldObject.illegalList, islegal: oldObject.islegal};
 
              for(var i = 0 ; i< object.list.length; i++){
 
@@ -1275,7 +1275,7 @@
 
        isvalidChecksum: function(oldObject, barcodeType){
 
-            var object = { list: oldObject.legalList, legalList: [], illegalList: oldObject.illegalList};
+            var object = { list: oldObject.legalList, legalList: [], illegalList: oldObject.illegalList, islegal: oldObject.islegal};
                var barcode = '';
                var checksum = 0 ;
 
