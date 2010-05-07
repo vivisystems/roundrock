@@ -139,8 +139,55 @@
 
         },
 
+         /**
+         * convert_UPCE_to_UPCA
+         *
+         * @public
+         * @param {String} number
+         * @return {String}
+         */
+        convert_UPCE_to_UPCA: function(param) {
+
+              let d1 = param[0];
+              let d2 = param[1];
+              let d3 = param[2];
+              let d4 = param[3];
+              let d5 = param[4];
+              let d6 = param[5];
+
+              let mfrnum = '';
+              let itemnum = '';
+
+              if( d6 == '0' || d6 == '1' || d6 == '2'){
+     
+                   mfrnum = d1 + d2 + d6 + '00' ;
+                   itemnum = '00'+ d3 + d4 + d5 ;
+              }
+
+              if(d6 == '3'){
+
+                  mfrnum = d1 + d2 + d3 + '00' ;
+                  itemnum = '000'+ d4 + d5 ;
+              }
+
+              if(d6 == '4'){
+
+                  mfrnum = d1 + d2 + d3 + d4 + '0' ;
+                  itemnum = '0000' + d5 ;
+              }
+
+              if(d6 == '5' || d6 == '6' || d6 == '7'|| d6 == '8' || d6 == '9'){
+
+                  mfrnum = d1 + d2 + d3 + d4 + d5 ;
+                  itemnum = '0000' + d6 ;
+              }
+
+              let newmsg = '0' + mfrnum + itemnum ;
+              return newmsg;
+        },
+
         getUPCCheckDigit: function(number) {
-            if ( !this.isNumeric(number) || (number.length!=11 && number.length!=6)) {
+            if ( !this.isNumeric(number) || number.length!=11 ) {
                 return "";
             }
             return this._getEANCheckDigit(number);
