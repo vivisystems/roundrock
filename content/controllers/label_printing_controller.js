@@ -1199,10 +1199,12 @@
                                      return this.Barcode.isNumeric(barcode);
                                      break;
 
-                        /* length: 6 + 1
-                         * valid codes: 0~9  */
+                        /* length: 7 + 1
+                         * valid codes: 0~9
+                         * 1st digit: 0
+                         * */
                         case 'UPC-E':
-                                     if(barcode.length != 7)
+                                     if(barcode.length != 8)
                                          return false;
                                      return this.Barcode.isNumeric(barcode);
                                      break;
@@ -1245,9 +1247,10 @@
                                      break;
 
                         case 'UPC-E':
-                                     checksum = this.Barcode.getUPCCheckDigit(barcode.substr(0,6));
+                                     let upc_A = this.Barcode.convert_UPCE_to_UPCA(barcode.substr(1,6))
+                                     checksum = this.Barcode.getUPCCheckDigit(upc_A);
 
-                                     if(checksum == barcode[6])
+                                     if(checksum == barcode[7])
                                          return true;
                                      break;
 
