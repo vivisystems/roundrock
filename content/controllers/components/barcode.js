@@ -143,10 +143,13 @@
          * convert_UPCE_to_UPCA
          *
          * @public
-         * @param {String} number
+         * @param  {String} number
          * @return {String}
          */
         convert_UPCE_to_UPCA: function(param) {
+
+              if(param.length != 6)
+                  return '';
 
               let d1 = param[0];
               let d2 = param[1];
