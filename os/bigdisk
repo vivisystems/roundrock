@@ -88,7 +88,7 @@ then
     ## check if USB device
     ##
 
-    BUS=`udevinfo -q env -n "${DEVICE}" | grep ID_BUS | awk -F "=" '{ print $2 }'`
+    BUS=`udevadm info -q env -n "${DEVICE}" | grep ID_BUS | awk -F "=" '{ print $2 }'`
     if [ ${BUS} = "usb1" ]
     then
 	log_success_msg "... data volume [${VOLUME}] is not loaded when connected via USB"; log_end_msg 0

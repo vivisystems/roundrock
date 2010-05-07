@@ -11,8 +11,7 @@
         _script_url: 'chrome://roundrock/content/scripts/',
         _script_path: '',
         _data_path: '',
-        _truncate_script: 'truncate_txn_records.sh',
-        _expire_batch_size: 750,
+        _expire_batch_size: 500,
         _expire_total_size: 100000,
         _sync_suspend_status_file: '/tmp/sync_client.off',
 
@@ -50,6 +49,12 @@
             if (retainDate > 0) {
                 var main = GeckoJS.Controller.getInstanceByName('Main');
 
+                var uiModel;
+                if (typeof UniformInvoiceModel != 'undefined') {
+                    uiModel = new UniformInvoiceModel();
+                }
+
+                this.log('DEBUG', 'expiration date [' + retainDate + ' (' + new Date(retainDate * 1000) + ')]');
                 try {
                     // get list of order ids
                     var order = new OrderModel();
@@ -60,7 +65,7 @@
                         limit: this._expire_total_size
                     });
 
-                    this.log('WARN', 'number of orders to remove [' + order_records.length + ']');
+                    this.log('DEBUG', 'number of orders to remove [' + order_records.length + ']');
 
                     while (order_records.length > 0) {
                         // remove orders in batches
@@ -81,33 +86,8 @@
                             };
                         }
 
-                        this.log('WARN', 'remaining orders [' + order_records.length + ']');
-                    }
-
-                    delete order_records;
-
-                    // get list of uniform invoices (if model is defined)
-                    if (typeof UniformInvoiceModel != 'undefined') {
-                        var uiModel = new UniformInvoiceModel();
-                        var ui_records = uiModel.find('all', {
-                            fields: 'id',
-                            conditions: conditions,
-                            limit: this._expire_total_size
-                        });
-
-                        this.log('WARN', 'number of uniform invoices to remove [' + ui_records.length + ']');
-
-                        while (ui_records.length > 0) {
-                            // remove uniform invoices in batches
-                            let ui_list = ui_records.splice(0, this._expire_batch_size);
-                            let id_list = []
-                            if (ui_list.length > 0) {
-                                id_list = ui_list.map(function(o) {
-                                    return "'" + o.id + "'";
-                                });
-                            }
-
-                            let r = uiModel.execute('delete from uniform_invoices where id in (' + id_list.join(',') + ')');
+                        if (uiModel) {
+                            r = uiModel.execute('delete from uniform_invoices where order_id in (' + id_list.join(',') + ')');
                             if (!r) {
                                 throw {
                                     errno: order.lastError,
@@ -115,12 +95,11 @@
                                     errmsg: _('An error was encountered while expiring uniform invoice logs (error code %S) [message #9006]', [uiModel.lastError])
                                 };
                             }
-
-                            this.log('WARN', 'remaining uniform invoices [' + ui_records.length + ']');
                         }
-
-                        delete ui_records;
+                        this.log('WARN', 'remaining orders [' + order_records.length + ']');
                     }
+
+                    delete order_records;
                 }
                 catch(e) {
                     if (main) main._dbError(e.errno, e.errstr, e.errmsg);
@@ -128,24 +107,6 @@
             }
         },
         
-        beforeTruncateTxnRecords1: function(evt) {
-
-            var ds = new OrderModel().getDataSource();
-            var database_file = ds.path + '/' + ds.database;
-
-            // close all data connections
-            GeckoJS.ConnectionManager.closeAll();
-
-            this.log('WARN', 'before truncate [' + this._script_path + '/' + this._truncate_script + '] [' + database_file + ']');
-
-            // we will use script to truncate transaction records for better performance
-            this._execute(this._script_path + '/' + this._truncate_script,
-                          [database_file]);
-
-            this.log('WARN', 'after truncate');
-        },
-
-
         beforeTruncateTxnRecords: function(evt) {
 
             var ds = new OrderModel().getDataSource();
