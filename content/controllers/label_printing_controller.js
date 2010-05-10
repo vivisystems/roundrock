@@ -967,7 +967,7 @@
                      object.legalList.push(object.list[i]);
                                   
                 else{
-                     list[i].comm = _('Invalid Barcode');
+                     object.list[i].comm = _('Invalid Barcode');
                      object.illegalList.push(object.list[i]);
                      object.islegal = false;
                 }
@@ -1194,7 +1194,17 @@
                         /* length: 11 + 1
                          * valid codes: 0~9  */
                         case 'UPC-A':
-                                     if(barcode.length != 11 && barcode.length != 12)
+                                     if(barcode.length != 12)
+                                         return false;
+                                     return this.Barcode.isNumeric(barcode);
+                                     break;
+
+                        /* length: 7 + 1
+                         * valid codes: 0~9
+                         * 1st digit: 0
+                         * */
+                        case 'UPC-E':
+                                     if(barcode.length != 8)
                                          return false;
                                      return this.Barcode.isNumeric(barcode);
                                      break;
@@ -1202,7 +1212,7 @@
                          /* length: 12 + 1
                           * valid codes: 0~9  */
                          case 'EAN-13':
-                                     if(barcode.length != 12 && barcode.length != 13)
+                                     if(barcode.length != 13)
                                          return false;
                                      return this.Barcode.isNumeric(barcode);
                                      break;
@@ -1229,26 +1239,32 @@
 
           switch( barcodeType )
                  {
-                        case 'UPC-A':
-                                     if(barcode.length == 11)
-                                         return true;
-                                     
+                        case 'UPC-A':                                  
                                      checksum = this.Barcode.getUPCCheckDigit(barcode.substr(0,11));
                                      
                                      if(checksum == barcode[11])
                                          return true;                                    
                                      break;
 
-                        case 'EAN-13':
-                                     if(barcode.length == 12)
-                                         return true;
+                        case 'UPC-E':
+                                     let upc_A = this.Barcode.convert_UPCE_to_UPCA(barcode.substr(1,6))
+                                     checksum = this.Barcode.getUPCCheckDigit(upc_A);
 
+                                     if(checksum == barcode[7])
+                                         return true;
+                                     break;
+
+                        case 'EAN-13':
                                      checksum = this.Barcode.getEAN13CheckDigit(barcode.substr(0,12));
 
                                      if(checksum == barcode[12])
                                          return true;
                                      break;
-                       case 'I25':
+
+                       case 'I25':   if(barcode.length % 2 ==0)
+                                          return true;
+                                      break;
+                                      
                        case 'CODE128': return true ;
                                        break;
                  }
@@ -1287,7 +1303,7 @@
                        object.legalList.push(object.list[i]);
 
                    else{
-                           object.list[i].comm = _('CHECKSUM ERROR');
+                           object.list[i].comm = _('Invalid Barcode');
                            object.illegalList.push(object.list[i]);
                            object.islegal = false;
                        

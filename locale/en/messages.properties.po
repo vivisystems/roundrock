@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-05-05 18:28+0800\n"
+"POT-Creation-Date: 2010-05-10 10:39+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3127,7 +3127,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/overlay.js:23
-#: ../..//content/controllers/main_controller.js:1581
+#: ../..//content/controllers/main_controller.js:1582
 #: ../..//content/controllers/setup_wizard_controller.js:681
 msgid "VIVIPOS Setup"
 msgstr ""
@@ -3330,7 +3330,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/reportPanel.js:71
-#: ../..//content/controllers/main_controller.js:1977
+#: ../..//content/controllers/main_controller.js:1986
 msgid "custom"
 msgstr ""
 
@@ -4681,7 +4681,7 @@ msgstr ""
 #: ../..//content/controllers/ledger_controller.js:321
 #: ../..//content/controllers/list_orders_controller.js:219
 #: ../..//content/controllers/main_controller.js:1366
-#: ../..//content/controllers/main_controller.js:1902
+#: ../..//content/controllers/main_controller.js:1903
 #: ../..//content/controllers/print_controller.js:1277
 #: ../..//content/controllers/setup_wizard_controller.js:698
 #: ../..//content/controllers/shift_changes_controller.js:1659
@@ -6759,7 +6759,7 @@ msgid "Reboot after Update"
 msgstr ""
 
 #: ../..//content/controllers/irc_controller.js:336
-#: ../..//content/controllers/main_controller.js:1539
+#: ../..//content/controllers/main_controller.js:1540
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
@@ -6858,7 +6858,7 @@ msgstr ""
 #: ../..//content/controllers/ledger_controller.js:322
 #: ../..//content/controllers/list_orders_controller.js:220
 #: ../..//content/controllers/main_controller.js:1368
-#: ../..//content/controllers/main_controller.js:1903
+#: ../..//content/controllers/main_controller.js:1904
 #: ../..//content/controllers/setup_wizard_controller.js:699
 #: ../..//content/controllers/shift_changes_controller.js:41
 #: ../..//content/controllers/shift_changes_controller.js:1660
@@ -6967,7 +6967,8 @@ msgid "Barcode Warning"
 msgstr ""
 
 #: ../..//content/controllers/label_printing_controller.js:970
-#: ../..//content/controllers/label_printing_controller.js:1268
+#: ../..//content/controllers/label_printing_controller.js:1284
+#: ../..//content/controllers/label_printing_controller.js:1306
 msgid "Invalid Barcode"
 msgstr ""
 
@@ -6995,10 +6996,6 @@ msgstr ""
 #: ../..//content/controllers/label_printing_controller.js:1158
 msgid ""
 "You have made changes to the current list. Save changes before existing?"
-msgstr ""
-
-#: ../..//content/controllers/label_printing_controller.js:1290
-msgid "CHECKSUM ERROR"
 msgstr ""
 
 #: ../..//content/controllers/layout_manager_controller.js:68
@@ -7236,12 +7233,12 @@ msgid "Failed to recall the selected order"
 msgstr ""
 
 #: ../..//content/controllers/loadtest_controller.js:91
-#: ../..//content/controllers/main_controller.js:1648
+#: ../..//content/controllers/main_controller.js:1649
 msgid "Load Test"
 msgstr ""
 
 #: ../..//content/controllers/loadtest_controller.js:91
-#: ../..//content/controllers/main_controller.js:1648
+#: ../..//content/controllers/main_controller.js:1649
 msgid "Open order exists, discard the order and proceed with the load test?"
 msgstr ""
 
@@ -7568,13 +7565,13 @@ msgid ""
 "[message #1008]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1511
+#: ../..//content/controllers/main_controller.js:1512
 msgid ""
 "An error was encountered while retrieving stock adjustment records (error "
 "code %S) [message #1010]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1524
+#: ../..//content/controllers/main_controller.js:1525
 #: ../..//content/controllers/stock_records_controller.js:517
 #: ../..//content/controllers/stock_records_controller.js:575
 #: ../..//content/controllers/stock_records_controller.js:591
@@ -7582,35 +7579,35 @@ msgstr ""
 msgid "Stock Adjustment"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1535
+#: ../..//content/controllers/main_controller.js:1536
 msgid "Adjust Stock"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1539
+#: ../..//content/controllers/main_controller.js:1540
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1547
+#: ../..//content/controllers/main_controller.js:1548
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1547
+#: ../..//content/controllers/main_controller.js:1548
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1923
+#: ../..//content/controllers/main_controller.js:1924
 msgid "Function Customizer"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1985
+#: ../..//content/controllers/main_controller.js:1994
 msgid "Report [%S] does not exist"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1995
+#: ../..//content/controllers/main_controller.js:2005
 msgid "You are not authorized to access the [%S] report"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:2067
+#: ../..//content/controllers/main_controller.js:2077
 msgid "Select User"
 msgstr ""
 
@@ -9131,80 +9128,80 @@ msgstr ""
 msgid "Backing Up Data to Local Storage"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:282
+#: ../..//content/controllers/systembackup_controller.js:294
 msgid "<Backup to Local Storage> is done"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:294
-#: ../..//content/controllers/systembackup_controller.js:379
+#: ../..//content/controllers/systembackup_controller.js:306
+#: ../..//content/controllers/systembackup_controller.js:404
 msgid "Media not found!! Please attach the external storage device..."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:298
+#: ../..//content/controllers/systembackup_controller.js:310
 msgid "Copying Backup Data to External Media"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:316
+#: ../..//content/controllers/systembackup_controller.js:328
 msgid "<Backup to External Storage> is done"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:319
+#: ../..//content/controllers/systembackup_controller.js:331
 msgid "Please select a local backup first"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:331
+#: ../..//content/controllers/systembackup_controller.js:343
 msgid "Restoring Data from Local Backup"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:345
+#: ../..//content/controllers/systembackup_controller.js:357
 msgid "Do you want to restore [%S] from local backup?"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:347
-#: ../..//content/controllers/systembackup_controller.js:398
+#: ../..//content/controllers/systembackup_controller.js:359
+#: ../..//content/controllers/systembackup_controller.js:423
 msgid ""
 "If you execute restore now, the system will restart automatically after you "
 "return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:349
-#: ../..//content/controllers/systembackup_controller.js:401
+#: ../..//content/controllers/systembackup_controller.js:361
+#: ../..//content/controllers/systembackup_controller.js:426
 msgid "Confirm Restore"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:364
+#: ../..//content/controllers/systembackup_controller.js:388
 msgid "<Restore from Local backup> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:368
+#: ../..//content/controllers/systembackup_controller.js:393
 msgid "Please select a local backup to restore from"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:384
+#: ../..//content/controllers/systembackup_controller.js:409
 msgid "Restoring Data from External Backup"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:398
+#: ../..//content/controllers/systembackup_controller.js:423
 msgid "Do you want to restore [%S] from external media [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:416
+#: ../..//content/controllers/systembackup_controller.js:453
 msgid "<Restore from External Backup> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:420
+#: ../..//content/controllers/systembackup_controller.js:458
 msgid "Please select an external backup to restore from"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:469
+#: ../..//content/controllers/systembackup_controller.js:507
 msgid "Media [%S] not ready"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:473
+#: ../..//content/controllers/systembackup_controller.js:511
 msgid "Please select media"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:493
+#: ../..//content/controllers/systembackup_controller.js:531
 msgid "Select External Backup Media"
 msgstr ""
 
@@ -10070,11 +10067,11 @@ msgstr ""
 msgid "Media not found!! Please attach a USB thumb drive..."
 msgstr ""
 
-#: ../..//content/reports/controllers/journal_report_controller.js:193
+#: ../..//content/reports/controllers/journal_report_controller.js:196
 msgid "Journal Export"
 msgstr ""
 
-#: ../..//content/reports/controllers/journal_report_controller.js:194
+#: ../..//content/reports/controllers/journal_report_controller.js:197
 msgid ""
 "An error was encountered while saving the journal export. Please ensure that "
 "space is available on the external USB thumb drive [message #2001]."
