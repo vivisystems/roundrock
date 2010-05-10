@@ -41,13 +41,26 @@
             if (!autoBackup) return;
             
             var waitPanel = this._showWaitPanel(_('Automatically Backing Up Data to Local Storage'));
+            var script = this._scriptPath + "backup.sh";
             var args = [];
 
             // log user process
             this.log('FATAL', 'START Automatic Backup');
 
-            if (this.execute(this._scriptPath + "backup.sh", args)) {
-                this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
+            // close all datasource connections
+            GeckoJS.ConnectionManager.closeAll();
+            
+            let evt_data = {script: script, args: args, skip: false};
+            if (this.dispatchEvent('beforeAutoBackupToLocal', evt_data)) {
+                script = evt_data.script;
+                args = evt_data.args;
+
+                this.log('DEBUG', 'autobackup script [' + script + ']');
+                this.log('DEBUG', 'autobackup args [' + this.dump(args) + ']');
+                
+                if (evt_data.skip || this.execute(script, args)) {
+                    this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
+                }
             }
 
             this.log('FATAL', 'END Automatic Backup');
