@@ -15,15 +15,18 @@
         _data_path: '',
         _marker_path:'',
         _license_path: '/etc/vivipos.lic',
-        _script_url: 'chrome://roundrock/content/scripts/',
-        _script_path: '',
         _last_good_db_script: 'last_good_db.sh',
         _last_good_db_path: 'last_good_db',
         _merge_db_script: 'merge_db.sh',
-        _backup_system_script: 'backup.sh',
         _restore_last_good_db_script: 'restore_last_good_db.sh',
         _bigdisk_setting: 'bigdisk_settings',
         _bigdisk_session_flag: 'vivicenter.BigDisk',
+
+        _script_url: 'chrome://roundrock/content/scripts/',
+        _script_path: '',
+        
+        _backup_system_script: 'backup.sh',
+        _restore_system_script: 'restore.sh',
 
         _syncSettings: null,
         _syncSuspendStatusFile: '/tmp/sync_suspend_',
@@ -214,13 +217,16 @@
                 var backupToLocalButtonObj = doc.getElementById('backuptolocal');
                 if (backupToLocalButtonObj) backupToLocalButtonObj.setAttribute('hidden', true);
 
-                // hide restore from local button
-                var removeFromLocalButtonObj = doc.getElementById('restorefromlocal');
-                if (removeFromLocalButtonObj) removeFromLocalButtonObj.setAttribute('hidden', true);
-
                 // hide merge button
                 var mergeActionRow = doc.getElementById('merge_action');
                 if (mergeActionRow) mergeActionRow.setAttribute('hidden', true);
+            }
+
+            // add listener for 'beforeRestoreFromLocal' and 'beforeRestoreFromRemote' to redirect restore script
+            var backupController = doc.defaultView.GeckoJS.Controller.getInstanceByName('SystemBackup');
+            if (backupController) {
+                backupController.addEventListener('beforeRestoreFromLocal', this._handleRestore, this);
+                backupController.addEventListener('beforeRestoreFromRemote', this._handleRestore, this);
             }
         },
 
@@ -606,6 +612,53 @@
             }
             else {
                 evt.data.args[1] = 'secondary';
+            }
+        },
+
+        _handleRestore: function(evt) {
+
+            // handle restore iff databases.tbz does not exist
+            var dir = evt.data.args[0];
+            if (!GeckoJS.File.exists(dir + '/databases.tbz')) {
+                var target_dir = this._data_path + '/databases';
+                var error_file = '/tmp/restore.status.' + GeckoJS.String.uuid();
+
+                var script = this._script_path + '/' + this._restore_system_script;
+                var args = [];
+                args.push(evt.data.args[0]);
+                if (evt.data.args.length < 2) {
+                    args.push('');
+                }
+                else {
+                    args.push(evt.data.args[1]);
+                }
+                args.push(error_file);
+                args.push(target_dir);
+
+                this.log('FATAL', 'Restoring from [' + args[0] + '] into [' + target_dir + ']');
+                
+                this._execute(script, args);
+
+                if (GeckoJS.File.exists(error_file)) {
+                    let msg;
+                    let f = new GeckoJS.File(error_file);
+                    if (f) {
+                        f.open('r');
+                        msg = f.readAllLine() || _('System restore failed');
+                        f.close();
+                    }
+                    this.log('FATAL', 'System restore failed [' + msg + ']');
+
+                    this._notify(_('System Restore Error'), msg);
+
+                    evt.preventDefault();
+                }
+                else {
+                    // remove cart recovery file
+                    Transaction.removeRecoveryFile();
+                }
+
+                evt.data.skip = true;
             }
         },
 

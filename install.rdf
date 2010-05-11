@@ -4,12 +4,12 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>roundrock@vivicenter.com.tw</em:id>
         <em:name>Round Rock</em:name>
-        <em:version>1.0.20100506171107</em:version>
+        <em:version>1.0.20100507180824</em:version>
         <em:description></em:description>
         <em:creator>VIVICENTER</em:creator>
         <em:homepageURL>http://www.vivicenter.com.tw/</em:homepageURL>
         <em:type>2</em:type> <!-- type=extension --> 
-        <em:extensionHash>sha1:170be1a9adde400747267856fb8b17f54bc0746c</em:extensionHash>
+        <em:extensionHash>sha1:4972fdc718a5cbe31c61c6fa7e07cccbdfb613f8</em:extensionHash>
         <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6prvsPdRm+3c4etUSLoJVT5GyYUogo5c5L3dyWgu3yu6weYS9q5aQBlbSFVyfCyIfexacXanGFqVRuBvpVq5Px6LpjisHvXukknGnY6nr5S1zelV9CXgv+17mTMVPpxCUEe2oVB3AFX+l+XWx4fUdW3sTX+uSHo/Pno+8PD79FQIDAQAB</em:updateKey>
 
         <em:targetApplication>

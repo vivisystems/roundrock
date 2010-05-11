@@ -199,14 +199,12 @@
 
                 GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Transaction Record Truncate Error'),
-                                      _('Failed truncate transaction records [%S]. Please restart the terminal and try again [message #RR-001]', [e]));
+                                      _('Failed to truncate transaction records [%S]. Please restart the terminal and try again [message #RR-001]', [e]));
                 evt.preventDefault();
             }
         },
 
         _startServices: function() {
-            this._execute('/usr/bin/sudo', ['/etc/init.d/lighttpd', 'start']);
-
             // Note that sync_client/irc_client are restarted automatically by cron job
             // this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/sync_client', 'start']);
             // this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/irc_client']);
@@ -216,6 +214,8 @@
             if (GeckoJS.File.exists(marker_file_path)) {
                 GeckoJS.File.remove(marker_file_path);
             }
+
+            this._execute('/usr/bin/sudo', ['/etc/init.d/lighttpd', 'start']);
 
             return !GeckoJS.File.exists(marker_file_path);
         },
