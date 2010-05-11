@@ -1,4 +1,27 @@
 ---------------
+Release 1.2.1.1
+---------------
+
+This is a release for VIVIPOS Web Services 1.2.1.1
+
+Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
+
+------------
+Enhancements
+------------
+Ticket #1:
+    Rewritten sync_client / irc_client startup scripts , support auto restart if process is die.
+
+Ticket #4:
+    Sync client shell script support sync_all parameter to sync to server and wait for finished.
+
+Ticket #2, #3:
+    Auto repair table order status if difference of order's status when recallOrder.    
+Ticket #5:
+    Removed debug messsges.
+
+
+---------------
 Release 1.2.1.0
 ---------------
 
