@@ -1507,8 +1507,11 @@ Installer.prototype = {
 
       entries = zipReader.findEntries(null);
       while (entries.hasMore()) {
-        var entryName = entries.getNext();
-        target = installLocation.getItemFile(extensionID, entryName);
+        //var entryName = entries.getNext();
+        //target = installLocation.getItemFile(extensionID, entryName);
+        // if utf8 filename or chinese filename by racklin
+        var entryName = gConv.ConvertFromUnicode(entries.getNext()); 
+        var target = installLocation.getItemFile(extensionID, gConv.ConvertToUnicode(entryName));
         if (target.exists())
           continue;
 
