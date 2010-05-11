@@ -4377,6 +4377,7 @@
                 // remove current transaction from session
                 //GeckoJS.Session.remove('current_transaction');
                 // dispatch onVoidSaleSuccess event
+                curTransaction.alertVoidSales = autoTmp[2] || '0';
                 this.dispatchEvent('onVoidSaleSuccess', curTransaction);
             }
             else {
@@ -4620,13 +4621,31 @@
          */
         addItemFormVoidOrder: function(evt){
 
-             if (!GREUtils.Dialog.confirm(this.topmostWindow,
-                    _('confirm additem form void sale'),
-                    _('Would you like to add items to cart from the voided order ?'))) {
-                    return;
-                }
+             let alertVoidSales = evt.data.alertVoidSales;
 
-             let transaction = evt.data;
+
+             if( alertVoidSales != '0' && alertVoidSales != '1' && alertVoidSales != '2'){
+
+                 GREUtils.Dialog.alert(this.topmostWindow,
+                            'Void Sale',
+                            'Void Sales Function - the 3rd parameter is invalid');
+                 return;
+             }
+                 
+
+             if( alertVoidSales == '2')
+                  return;
+
+             if( alertVoidSales == '0'){
+
+                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                        _('confirm additem form void sale'),
+                        _('Would you like to add items to cart from the voided order ?'))) {
+                        return;
+                    }
+             }
+
+             let transaction = evt.data;            
 
              this.dispatchEvent('onUnlockRecallOrderByNewId', curTransaction);
              
