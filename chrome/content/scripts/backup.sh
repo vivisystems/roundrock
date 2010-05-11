@@ -109,7 +109,7 @@ do_backup() {
        rm -rf $bak/$bak_dir/*
     fi
 
-    # remove all backdup dir
+    # remove old backup dirs
     echo "5\n# ${MSG_SCRIPT_BACKUP_STEP_02}"
 
     all_bak_dirs=`ls $bak | sort -r`
@@ -118,7 +118,7 @@ do_backup() {
         alpha_dir=`echo $tmp_dir|sed s/[0-9]//g`
         if [ -z $alpha_dir ]; then
             idx=$((idx+1))
-            if  `test $idx -gt 7` ; then
+            if  `test $idx -gt 3` ; then
                 rm -fr "$bak/$tmp_dir"
             fi
         fi
@@ -130,10 +130,6 @@ do_backup() {
     if [ -x /data/vivipos_webapp/sync_tools ]; then
         /data/vivipos_webapp/sync_tools truncate >/dev/null 2>&1
     fi
-
-    # stop services
-    #echo "15\n# ${MSG_SCRIPT_BACKUP_STEP_04}"
-    #stop_services
 
     # backup database
     start_index=20
