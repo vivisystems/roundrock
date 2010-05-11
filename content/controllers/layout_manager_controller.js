@@ -65,7 +65,7 @@
             }
             catch(e) {
                 this.log('ERROR', 'error loading layout preference uril [' + prefsOverlayUri + ']: ' + this.dump(e));
-                GREUtils.Dialog.alert(this.topmostWindow, _('Layout Preference Error'),
+                GREUtils.Dialog.alert(window, _('Layout Preference Error'),
                                       _('Failed to load preference panel(s) for selected layout'));
             }
 
@@ -420,7 +420,7 @@
 
             }
             else {
-                GREUtils.Dialog.alert(this.topmostWindow, _('Layout Manager'), _('Layout settings saved'));
+                GREUtils.Dialog.alert(window, _('Layout Manager'), _('Layout settings saved'));
             }
 
             // update cart status panel
