@@ -393,7 +393,7 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
     SerPort * serPort = serFindPort(portName);
     if (serPort == NULL)
     {
-		printf("PORTCONTROL_ERROR_NOT_OPEN.. \n");
+		// printf("PORTCONTROL_ERROR_NOT_OPEN.. \n");
         return PORTCONTROL_ERROR_NOT_OPEN;
     }
 
@@ -414,7 +414,7 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
     int blockSize = (int) ceil(serPort->originalPortSettings.baud/2400*4);
     blockSize = blockSize > 2048 ? 2048 : blockSize; // limit size to 2K
     int writeSize = 0;
-    printf("baud = %d, total = %d, blockSize = %d , flow = %c \n", serPort->originalPortSettings.baud, length, blockSize, serPort->originalPortSettings.flowControl);
+    // printf("baud = %d, total = %d, blockSize = %d , flow = %c \n", serPort->originalPortSettings.baud, length, blockSize, serPort->originalPortSettings.flowControl);
 	
     while ((totalWriteLength < writeLength) && (timeout > 0))
     {
@@ -432,7 +432,7 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
                 }
                 else
                 {
-					printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
+					// printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
                     return PORTCONTROL_ERROR_IO_FAIL;
                 }
 
@@ -460,44 +460,44 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
 		}
 
 		// use poll waiting output available
-		printf("poll serport for waiting 5 secs \n");
+		//printf("poll serport for waiting 5 secs \n");
 		pollRet = poll(pollSerPort, 1, 5 * 1000);
 		if( pollRet == 0 || pollRet == -1) {
 			// error or timeout
-			printf(" poll timeout %d \n", pollRet);
+			//printf(" poll timeout %d \n", pollRet);
 			break;
 
 		}else if ( (pollSerPort[0].revents & POLLOUT) != 0) {
 
             writeSize = ((writeLength - totalWriteLength) < blockSize)?(writeLength - totalWriteLength):blockSize;
 		
-			printf("poll available to writing.. blockSize: %d , writeSize: %d \n", blockSize, writeSize);
+			//printf("poll available to writing.. blockSize: %d , writeSize: %d \n", blockSize, writeSize);
 
 			// write now will not blocking.
 			partialWriteLength = write(serPort->port, &bufferElements[totalWriteLength], writeSize);
 	
 		    if (partialWriteLength == -1) {
 				// error to write
-				printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
+				//printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
 		        return PORTCONTROL_ERROR_IO_FAIL;
 		    }
 
 		    totalWriteLength += partialWriteLength;
 
-			printf("total %d, partial %d \n", totalWriteLength, partialWriteLength);
+			//printf("total %d, partial %d \n", totalWriteLength, partialWriteLength);
 
 //			int portStatus = 0;
 //            if (ioctl(serPort->port, TIOCMGET, &portStatus) == 0)
 //			{
 //                    if ( /*(portStatus & TIOCM_DSR) != 0  ||*/ (portStatus & TIOCM_CTS) != 0 )
 //                    {
-						printf("before tcdrain .. \n");
+						//printf("before tcdrain .. \n");
 						if (tcdrain(serPort->port) != 0) {
 							// error to drain buffer
-							printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
+							//printf("PORTCONTROL_ERROR_IO_FAIL.. \n");
 							return PORTCONTROL_ERROR_IO_FAIL;
 						}
-						printf("after tcdrain success.. \n");
+						//printf("after tcdrain success.. \n");
 //                    }
 //            }
 //            else
@@ -513,7 +513,7 @@ static long serWritePort (char const * portName, char const * writeBuffer, long 
 
 		}else {
 			// can't write 
-			printf(" poll can't POLLOUT %d \n", pollRet);
+			//printf(" poll can't POLLOUT %d \n", pollRet);
 			break; 
 		}
 
