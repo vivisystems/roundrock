@@ -335,22 +335,7 @@
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
 
-            if (this.doReboot) {
-                this.rebootMachine();
-            }
-
-            if (this.doRestart) {
-                this.restart();
-            }
-
-            if (this.restartClock) {
-                try {
-                    $('#clock')[0].stopClock();
-                    $('#clock')[0].startClock();
-                }
-                catch(err) {
-                }
-            }
+            this.postControlPanelProcessing();
         },
 
         ChangeUserDialog: function () {
@@ -522,61 +507,78 @@
 
         openControlPanel: function(target) {
 
-            var prefs = GeckoJS.Configure.read('vivipos.fec.settings.controlpanels');
+            target = target || '';
+            if(target.length == 0) return false;
 
-            var found = false;
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
 
-            for (ctg in prefs) {
 
-                for (key in prefs[ctg]) {
-                    let ctrl = prefs[ctg][key];
+            let controlpanelsObjs = GeckoJS.Configure.read('vivipos.fec.settings.controlpanels') || {};
+            let fns = {};
 
-                    // if controlpanel has stringbundle create it.
-                    if (ctrl.bundle) GeckoJS.StringBundle.createBundle(ctrl.bundle);
+            for( key in  controlpanelsObjs){
+                 for(keyFn in controlpanelsObjs[key]){
+                     controlpanelsObjs[key][keyFn].father = key ;
+                 }
+               fns = jQuery.extend(fns, controlpanelsObjs[key]);
+            }
 
-                    // only check accessible entries
-                    if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'check access for control panel');
-                    if (ctrl.roles == '' || GeckoJS.AclComponent.isUserInRole(ctrl.roles)) {
-                        let label = ctrl.label;
-                        if (label.indexOf('chrome://') == 0) {
-                            let keystr = 'vivipos.fec.settings.controlpanels.' + ctg + '.' + key + '.label';
-                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
-                        }
+            let isExists = false;
+            let pref=null;
+            let path=null;
+            let label=null;
+            let roles=null;
+            let keyFull='';
+            let l18nLabel = '';
+            let waitPanel;
 
-                        if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'checking [' + label + '] for match against [' + target + ']');
-                        if (label == target) {
-                            var waitPanel;
-                            
-                            found = true;
+            for (let key in fns) {
 
-                            let pref = {
-                                icon: ctrl.icon,
-                                path: ctrl.path,
-                                roles: ctrl.roles,
-                                features: (ctrl.features || null),
-                                type:  (ctrl.type || 'uri'),
-                                method: ctrl.method,
-                                data: ctrl.data,
-                                controller: ctrl.controller,
-                                label: label
-                            }
-                            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', 'found match, launching control panel: ' + this.dump(pref));
+                pref = fns[key];
+                path = pref.path;
+                label = pref.label;
+                roles = pref.roles;
+                keyFull = 'vivipos.fec.settings.controlpanels'+'.'+ pref.father + '.' + key;
 
-                            try {
-                                waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
-                                this.launchControlPanel(pref);
-                            }
-                            catch(e) {}
-                            finally {
-                                waitPanel.hidePopup();
-                            }
-                        }
-                    }
-
-                    if (found) break;
+                // get l18n label
+                if (label.indexOf('chrome://') == 0) {
+                    l18nLabel = GeckoJS.StringBundle.getPrefLocalizedString(keyFull+'.label') || key;
+                }
+                else {
+                    l18nLabel = label;
                 }
 
-                if (found) break;
+                if ( (key == target) || (l18nLabel == target) || (label == target) ) {
+                    isExists = true;
+
+                    break;
+                }
+            }
+
+            if (!isExists) {
+                // function does not exist
+                NotifyUtils.warn(_('Control panel function [%S] does not exist',[target]));
+                return false;
+            }
+
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
+
+            if (this.Acl.isUserInRole(roles) || roles =='') {
+                try {
+                    waitPanel = this._showWaitPanel('blockui_panel', '', '', 0);
+                    window.openDialog(path, "ControlPanel_" + label, features, pref);
+
+                    this.postControlPanelProcessing();
+                }
+                catch(e) {}
+                finally {
+                    waitPanel.hidePopup();
+                    return true;
+                }
+            }else{
+                NotifyUtils.warn(_('You are not authorized to access the [%S] control panel function',[l18nLabel]));
+                return false;
             }
         },
 
@@ -624,6 +626,25 @@
                 }
                 finally {
                     this._launchingControlPanel = false;
+                }
+            }
+        },
+
+        postControlPanelProcessing: function() {
+            if (this.doReboot) {
+                this.rebootMachine();
+            }
+
+            if (this.doRestart) {
+                this.restart();
+            }
+
+            if (this.restartClock) {
+                try {
+                    $('#clock')[0].stopClock();
+                    $('#clock')[0].startClock();
+                }
+                catch(err) {
                 }
             }
         },
