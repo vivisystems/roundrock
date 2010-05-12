@@ -85,6 +85,8 @@ do_backup() {
 	echo "55\n# Backup 'prefs.js'"
 	cd /data/profile
 	cp /data/profile/prefs.js $bak/$bak_dir/
+    [ -f /data/profile/user.js ] && cp /data/profile/user.js $bak/$bak_dir/
+
 
 	#backup images
 	echo "60\n# Backup 'images'"
