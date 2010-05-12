@@ -172,6 +172,8 @@ do_backup() {
     echo "75\n# ${MSG_SCRIPT_BACKUP_STEP_08}"
     cd /data/profile
     cp /data/profile/prefs.js $bak/$bak_dir/
+    [ -f /data/profile/user.js ] && cp /data/profile/user.js $bak/$bak_dir/
+
 
     #backup images
     echo "80\n# ${MSG_SCRIPT_BACKUP_STEP_09}"
