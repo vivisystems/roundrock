@@ -4338,6 +4338,8 @@
             var autoRefundPayment = GeckoJS.String.parseBoolean(autoTmp[0] || false);
             var autoRefundPaymentType = autoTmp[1] || 'auto';
 
+            autoRefundPaymentType = autoRefundPaymentType.toLowerCase();
+
             var curTransaction = this._getTransaction();
 
             this._getKeypadController().clearBuffer();
