@@ -81,6 +81,12 @@
             // log startup
             GeckoJS.Log.getLoggerForClass('VIVIPOS').setLevel(GeckoJS.Log.WARN).warn('VIVIPOS STARTUP');
 
+            // check PrefFile
+            this.checkPrefFile();
+
+            // register Configure listenter
+            this.registerConfigureListener();
+
             // startup simple http services
             this.startupHttpd();
 
@@ -472,6 +478,7 @@
         shutdownHttpd: function() {
 
             try {
+                
                 if (this._httpdServer) {
                     this._httpdServer.stop( {
                         onStopped: function() {
@@ -486,7 +493,53 @@
 
             }
 
+        },
+
+
+        checkPrefFile: function() {
+
+            var profD = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsIFile);
+            var userJs = profD.clone(); userJs.append('user.js');
+            var prefsJs = profD.clone(); prefsJs.append('prefs.js');
+            var invalidprefsJs = profD.clone(); invalidprefsJs.append('Invalidprefs.js');
+            var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+
+            if (invalidprefsJs.exists()) {
+                GeckoJS.Log.getLoggerForClass('VIVIPOS').error('Invalidprefs.js exists, maybe prefs.js corrupt');
+
+                if (userJs.exists()) {
+
+                    mPrefService.savePrefFile(null);
+                    mPrefService.savePrefFile(userJs);
+                    GeckoJS.Log.getLoggerForClass('VIVIPOS').error('Using user.js to repairing corrupt prefs.js');
+
+                    invalidprefsJs.moveTo(profD, 'Invalidprefs.js.bak');
+                    GeckoJS.Log.getLoggerForClass('VIVIPOS').error('Rename Invalidprefs.js to Invalidprefs.js.bak');
+                }
+
+            }
+
+        },
+
+
+
+        registerConfigureListener: function() {
+
+            this._registerListener = function(evt) {
+
+                var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+                var profD = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsIFile);
+                var userJs = profD.clone(); userJs.append('user.js');
+
+                mPrefService.savePrefFile(userJs);
+
+            };
+
+            GeckoJS.Configure.addEventListener('savePrefFile', this._registerListener);
+            
         }
+
+
 
     };
 

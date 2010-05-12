@@ -14,7 +14,7 @@
  * @public
  * @namespace
  */
-var GeckoJS = GeckoJS || {version: "1.2.4"}; // Check to see if already defined in current scope
+var GeckoJS = GeckoJS || {version: "1.2.5"}; // Check to see if already defined in current scope
 
 /**
  * This is a reference to the global context, which is normally the "window" object.
@@ -6123,6 +6123,44 @@ GeckoJS.Configure.prototype.getMap = function() {
 
 // We need shadow some method for event support.
 
+/**
+ * Adds a listener for a given event to this Configure instance.
+ *
+ * @name GeckoJS.Configure.addEventListener
+ * @public
+ * @static
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to add
+ * @param {Object} thisObj          This is the execution scope to lock the listener to
+ */
+GeckoJS.Configure.addEventListener = function(aEvent, aListener, thisObj) {
+
+    this.getInstance().addEventListener(aEvent, aListener, thisObj);
+
+};
+
+
+/**
+ * Adds a listener for a given event to Configure.
+ *
+ * @name GeckoJS.Configure#addEventListener
+ * @public
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to add
+ * @param {Object} thisObj          This is the execution scope to lock the listener to
+ */
+GeckoJS.Configure.prototype.addEventListener = function(aEvent, aListener, thisObj) {
+    try {
+        thisObj = thisObj || GeckoJS.global;
+        this.events.addListener(aEvent, aListener, thisObj);
+    }catch(e) {
+        this.log("ERROR", 'GeckoJS.Configure.addEventListener ' + aEvent , e);
+    }
+
+};
+
 
 /**
  * Clears all entries from the configuration repository.<br/>
@@ -6209,13 +6247,16 @@ GeckoJS.Configure.prototype.remove = function(key, savePref){
         var prefServices =  GREUtils.Pref.getPrefService();
         prefServices.deleteBranch(key);
 
+
         var mPrefService = this.mPrefService ;
+        var self = this;
 
         // Save preference file after one 1/2 second to delay in case another preference changes at same time as first
         this.mTimer.cancel();
         this.mTimer.initWithCallback({
             notify:function (aTimer) {
                 mPrefService.savePrefFile(null);
+                self.events.dispatch("savePrefFile", mPrefService);
             }
         }, 500, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
 
@@ -6296,12 +6337,14 @@ GeckoJS.Configure.prototype.write = function(key, value, savePref) {
         this.savePreferences(key);
         
         var mPrefService = this.mPrefService ;
+        var self = this;
 
         // Save preference file after one 1/2 second to delay in case another preference changes at same time as first
         this.mTimer.cancel();
         this.mTimer.initWithCallback({
             notify:function (aTimer) {
                 mPrefService.savePrefFile(null);
+                self.events.dispatch("savePrefFile", mPrefService);
             }
             }, 500, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
 
@@ -10398,6 +10441,8 @@ GeckoJS.BaseModel.prototype.save = function(data, updateTimestamp){
 
                 if(updateTimestamp || (typeof this.data['created'] == 'undefined') ) {
                     this.data['created'] = Math.round( (new Date()).getTime() / 1000) ;
+                }
+                if(updateTimestamp || (typeof this.data['modified'] == 'undefined') ) {
                     this.data['modified'] = this.data['updated'] = this.data['created'];
                 }
 
@@ -10409,8 +10454,7 @@ GeckoJS.BaseModel.prototype.save = function(data, updateTimestamp){
 
                 // update exists record
                 if(updateTimestamp || (typeof this.data['modified'] == 'undefined') ) {
-                    this.data['modified'] = Math.round( (new Date()).getTime() / 1000);
-                    this.data['updated'] = this.data['modified'];
+                    this.data['modified'] = this.data['updated'] = Math.round( (new Date()).getTime() / 1000);
                 }
 
                 success = ds.executeUpdate(this, this.data);
