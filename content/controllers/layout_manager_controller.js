@@ -487,6 +487,9 @@
             var layoutController = mainWindow.GeckoJS.Controller.getInstanceByName('Layout');
             if (layoutController) layoutController.requestCommand('resetLayout', null, 'Layout');
 
+            // write dummy key to flush prefs.js and user.js
+            GeckoJS.Configure.write('vivipos.fec.settings.layout.lastmodified', (new Date().getTime()/1000));
+
             window.close();
         }
 

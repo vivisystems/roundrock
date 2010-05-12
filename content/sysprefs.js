@@ -167,6 +167,10 @@ function closePreferences() {
 
     GREUtils.Dialog.alert(window, _('General Options'), _('General options saved'));
 
+    // write dummy key to flush prefs.js and user.js
+    GeckoJS.Configure.write('vivipos.fec.settings.sysprefs.lastmodified', (new Date().getTime()/1000));
+
+
     window.close();
 }
 
