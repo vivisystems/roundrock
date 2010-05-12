@@ -1152,6 +1152,11 @@
                 skipRecall = skipRecall || false;
 
                 checkNo = checkNo || '';
+
+                var checkTmp = checkNo.split(',');
+                var checkNo = checkTmp[0] || '';
+                var queryCompletedOrder = checkTmp[1] || '';
+
                 if (checkNo.length == 0) {
                     checkNo = this.getKeypadController().getBuffer() || '';
                     this.getKeypadController().clearBuffer();
@@ -1163,10 +1168,15 @@
 
                 var conditions = "" ;
                 if (checkNo.length == 0 || checkNo == "-1") {
-                    conditions = "orders.status=2";
+                    // conditions = "orders.status=2";
                 }else {
-                    conditions = "orders.check_no='"+checkNo+"' AND orders.status=2";
+                    conditions = "orders.check_no='"+checkNo+"' AND ";
                 }
+
+                if(queryCompletedOrder == '1'){
+                    conditions = conditions + "  (orders.status=2 OR orders.status=1)";
+                }else
+                    conditions = conditions +  "orders.status=2";
 
                 var orders = this.Order.getOrdersSummary(conditions, true);
 
@@ -1212,6 +1222,7 @@
          */
         recallBySequence: function(seq, skipRecall) {
 
+            //let limit = GeckoJS.Configure.read('vivipos.fec.settings.recallOrder.limit') || '300';
             let cart = this.getCartController();
             let waitPanel;
             if (cart) {
@@ -1222,9 +1233,15 @@
                 skipRecall = skipRecall || false;
 
                 seq = seq || '';
+
+                var seqTmp = seq.split(',');
+                var seq = seqTmp[0] || '';
+                var queryCompletedOrder = seqTmp[1] || '';
+
                 if (seq.length == 0) {
                     seq = this.getKeypadController().getBuffer() || '';
                     this.getKeypadController().clearBuffer();
+                    
                 }
 
                 if (seq.length == 0) {
@@ -1233,10 +1250,17 @@
 
                 var conditions = "" ;
                 if (seq.length == 0 || seq == "-1") {
-                    conditions = "orders.status=2";
+                   // conditions = "orders.status=2";
                 }else {
-                    conditions = "orders.sequence='"+seq+"' AND orders.status=2";
+                    conditions = "orders.sequence='"+seq+"' AND ";
                 }
+
+                if(queryCompletedOrder == '1'){
+                    conditions = conditions + "  (orders.status=2 OR orders.status=1)";
+                }else
+                    conditions = conditions +  "orders.status=2";
+
+                //conditions = conditions + " AND LIMIT " + limit ;
 
                 var orders = this.Order.getOrdersSummary(conditions, true);
 
@@ -1295,6 +1319,11 @@
                 if (!this.beforeRecall(orderId)) return false;
 
                 tableNo = tableNo || '';
+
+                var tableTmp = tableNo.split(',');
+                var tableNo = tableTmp[0] || '';
+                var queryCompletedOrder = tableTmp[1] || '';
+
                 if (tableNo.length == 0) {
                     tableNo = this.getKeypadController().getBuffer() || '';
                     this.getKeypadController().clearBuffer();
@@ -1306,10 +1335,15 @@
 
                 var conditions = "" ;
                 if (tableNo.length == 0 ) {
-                    conditions = "orders.status=2";
+                 //   conditions = "orders.status=2";
                 }else {
-                    conditions = "orders.table_no='"+tableNo+"' AND orders.status=2";
+                    conditions = "orders.table_no='"+tableNo+"' AND ";
                 }
+
+                if(queryCompletedOrder == '1'){
+                    conditions = conditions + "  (orders.status=2 OR orders.status=1)";
+                }else
+                    conditions = conditions +  "orders.status=2";
 
                 var orders = this.Order.getOrdersSummary(conditions, true);
 
