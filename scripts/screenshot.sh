@@ -51,6 +51,11 @@ if [ "$RETVAL" = "0" ]; then
 		cp /var/log/dmesg /tmp/$TS
 		cp /data/vivipos_sdk/application.ini /tmp/$TS
 		cp /data/profile/extensions.rdf /tmp/$TS
+        cp /data/profile/prefs.js /tmp/$TS
+        [ -f /data/profile/user.js ] && cp /data/profile/user.js /tmp/$TS
+        [ -f /data/profile/Invalidprefs.js ] && cp /data/profile/Invalidprefs.js /tmp/$TS
+        [ -f /data/profile/Invalidprefs.js.bak ] && cp /data/profile/Invalidprefs.js.bak /tmp/$TS
+
 		cp $FILE /tmp/$TS
 	
 		# include sync_settings.ini
