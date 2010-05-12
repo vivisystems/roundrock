@@ -596,7 +596,7 @@
                return ;
             if(this._tabListPanel.selectedIndex == -1) return ;
             this.tabList[this._tabListPanel.selectedIndex].count = this._countTextbox.value;
-            this.tabList[this._tabListPanel.selectedIndex].selectedPrice = this._priceMenuList.value;
+            this.tabList[this._tabListPanel.selectedIndex].selectedPrice = this._formatPrice(this._priceMenuList.value);
 
             GeckoJS.FormHelper.unserializeFromObject('setProductForm', this.tabList[this._tabListPanel.selectedIndex]);            
             
