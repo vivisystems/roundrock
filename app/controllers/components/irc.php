@@ -163,6 +163,13 @@ class IrcComponent extends Object {
             $this->prefsJs = "" ;
 
         }
+
+        if (file_exists($this->profilePath."/user.js")) {
+
+            file_put_contents($this->profilePath."/user.js", $newPrefsJs, FILE_APPEND);
+
+        }
+
     }
 
 
