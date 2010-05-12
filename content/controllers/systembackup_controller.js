@@ -466,14 +466,21 @@
         flushPrefs: function() {
             try {
                 var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
-                // mPrefService.readUserPrefs(null);
+
                 mPrefService.savePrefFile(null);
+
+                var profD = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsIFile);
+                var userJs = profD.clone(); userJs.append('user.js');
+                mPrefService.savePrefFile(userJs);
+
                 this.sleep(200);
 
                 // chmod to 664
                 var prefsjs = GeckoJS.Configure.read('ProfD') + '/prefs.js';
                 var nsiPrefs = GREUtils.File.getFile(prefsjs);
                 nsiPrefs.permissions = 0664;
+
+                userJs.permissions = 0664;
 
             }catch(e) {
                 this.log('ERROR', 'Error reload prefs.js');
