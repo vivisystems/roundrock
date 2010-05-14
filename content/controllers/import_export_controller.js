@@ -2291,7 +2291,7 @@
                 if (defaultRateId != null) {
                     var queryString = "SELECT no FROM taxes WHERE id ='" + defaultRateId + "';";
                     var result = GeckoJS.ConnectionManager.getDataSource().fetchAll(queryString);
-                    if(result[0]) {
+                    if(result.length > 0) {
                         this.defaultTaxRate = result[0].no;
                         return result[0].no;
                     } else {
@@ -2300,15 +2300,8 @@
                     }
 
                 }  else {
-                    var taxes = GeckoJS.Session.get('taxes');
-                    if (taxes == null) taxes = this.Tax.getTaxList();
-                    if (taxes != null) {
-                        this.defaultTaxRate = taxes[0].no;
-                        return taxes[0].no;
-                    } else {
-                        this.defaultTaxRate = "";
-                        return "";
-                    }
+                    this.defaultTaxRate = "";
+                    return "";
                 }
             } else {
                 return this.defaultTaxRate;
