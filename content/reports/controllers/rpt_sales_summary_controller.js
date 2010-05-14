@@ -383,7 +383,7 @@
                 limit: this._csvLimit
             } );
             */
-            var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+            var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
             
             var paymentList = {};
             var giftcardExcess;
@@ -404,10 +404,10 @@
                         total: 0.0,
                         detail: []
                     }
-                    paymentList[ record.name ] = payment;
+                    if (record.name) paymentList[ record.name ] = payment;
                 }
 
-                payment = paymentList[ record.name ];
+                if (record.name) record.namepayment = paymentList[ record.name ];
 
                 if (record.name == 'giftcard') {
                     // check if we need to update giftcard excess record
@@ -532,7 +532,7 @@
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var orderPayment = new OrderPaymentModel();
-            var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+            var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
 
             var Currencies = GeckoJS.Session.get('Currencies');
             var localCurrencySymbol = '';

@@ -90,7 +90,7 @@
             
             var orderPayment = new OrderPaymentModel();
 
-            var counts = orderPayment.getDataSource().fetchAll('SELECT count(id) as rowCount from (SELECT distinct (orders.id) ' + '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby +')');
+            var counts = orderPayment.getDataSource().fetchAll('SELECT count(id) as rowCount from (SELECT distinct (orders.id) ' + '  FROM orders LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby +')');
             var rowCount = counts[0].rowCount;
 
             var datas = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders OUTER LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' +
@@ -162,9 +162,9 @@
                     footDatas.included_tax_subtotal += o.included_tax_subtotal;
                 }
 				
-                repDatas[ oid ][o.payment_name] += o.payment_subtotal;
+                if (o.payment_name) repDatas[ oid ][o.payment_name] += o.payment_subtotal;
                 repDatas[ oid ][ 'payment' ] += o.payment_subtotal;
-                footDatas[ o.payment_name ] += o.payment_subtotal;
+                if (o.payment_name) footDatas[ o.payment_name ] += o.payment_subtotal;
                 footDatas[ 'payment' ] += o.payment_subtotal;
 
                 old_oid = oid;
