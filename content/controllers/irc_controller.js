@@ -241,6 +241,8 @@
 
                 this.sleep(200);
 
+                this.createFlushPrefsFlag();
+
                 // chmod
                 this.changeDirModes();
             }
