@@ -45,9 +45,15 @@
                 return ;
             }*/
 
+
+            // check and flush prefs if previos irc has updated prefs.js
+            if(this.isFlushPrefsFlagExists()) {
+                this.flushPrefs();
+                this.removeFlushPrefsFlag();
+            }
+
             // check update
             this.checkAvailableUpdates();
-
 
         },
 
@@ -233,7 +239,7 @@
                 var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
                 mPrefService.readUserPrefs(null);
 
-                this.flushPrefs();
+                this.sleep(200);
 
                 // chmod
                 this.changeDirModes();
@@ -286,7 +292,7 @@
 
                
             }catch(e) {
-                this.log('ERROR', 'Error reload prefs.js');
+                this.log('ERROR', 'Error reload prefs.js', e);
             }
         },
 
@@ -306,7 +312,7 @@
                 GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/databases' ], true);
                 GeckoJS.File.run('/bin/chmod', ['-R', 'g+rw', '/data/images' ], true);
             }catch(e) {
-                this.log('ERROR', 'Error changeDirModes');
+                this.log('ERROR', 'Error changeDirModes', e);
             }
 
         },
@@ -459,7 +465,52 @@
             return aArguments.result;
 
         },
-		
+
+        createFlushPrefsFlag: function() {
+
+            var profD = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsIFile);
+            var flag = profD.clone(); flag.append('.flush_prefsjs');
+
+            if (flag.exists()) return true;
+
+            try {
+                flag.create(flag.NORMAL_FILE_TYPE, 0644);
+            }catch(e) {
+                this.log('ERROR', 'Can not create .flush_prefsjs file', e);
+                return false;
+            }
+
+            return true;
+
+        },
+
+        removeFlushPrefsFlag: function() {
+
+            var profD = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsIFile);
+            var flag = profD.clone(); flag.append('.flush_prefsjs');
+
+            if (!flag.exists()) return true;
+
+            try {
+                flag.remove();
+            }catch(e) {
+                this.log('ERROR', 'Can not remove .flush_prefsjs file', e);
+                return false;
+            }
+
+            return true;
+
+        },
+
+        isFlushPrefsFlagExists: function() {
+
+            var profD = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsIFile);
+            var flag = profD.clone(); flag.append('.flush_prefsjs');
+
+            return flag.exists();
+
+        },
+
 		
         /**
          * _serverError
