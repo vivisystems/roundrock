@@ -494,7 +494,7 @@
             if (!flag.exists()) return true;
 
             try {
-                flag.remove();
+                flag.remove(false);
             }catch(e) {
                 this.log('ERROR', 'Can not remove .flush_prefsjs file', e);
                 return false;
