@@ -1,0 +1,16 @@
+#!/bin/sh
+
+SWAPFILE=/data/swapfile
+
+if [ -f $SWAPFILE ]; then
+
+   # find loop device node
+   DEVNODE=`losetup -f`
+ 
+   if [ "$?" = "0" ]; then
+	losetup $DEVNODE $SWAPFILE
+	swapon $DEVNODE
+   fi
+
+fi
+
