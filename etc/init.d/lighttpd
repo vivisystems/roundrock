@@ -40,7 +40,8 @@ case "$1" in
 	# if webapp not installed, exit
        	test -f /data/vivipos_webapp/index.php || exit 0
 	
-	find /data/vivipos_webapp/app/tmp -type f -exec rm -f {} \;
+	find /data/vivipos_webapp/app/tmp/cache -type f -exec rm -f {} \;
+	find /data/vivipos_webapp/app/tmp/sessions -type f -exec rm -f {} \;
 
 	log_daemon_msg "Starting $DESC" $NAME
 	if ! $ENV $SSD --start --quiet\
