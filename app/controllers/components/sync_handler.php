@@ -11,12 +11,12 @@ App::import('Core', array('HttpSocket','CakeLog'));
  */
 class SyncHandlerComponent extends Object {
 
-/**
- * Determines whether or not callbacks will be fired on this component
- *
- * @var boolean
- * @access public
- */
+    /**
+     * Determines whether or not callbacks will be fired on this component
+     *
+     * @var boolean
+     * @access public
+     */
     var $enabled = true;
     /**
      * Holds the copy of SyncSettings
@@ -26,6 +26,7 @@ class SyncHandlerComponent extends Object {
      */
     var $syncSettings = array();
 
+    var $statusFile = "/tmp/sync_server.status" ;
 
     var $uses = array('Sync', 'SyncRemoteMachine');
 
@@ -64,17 +65,17 @@ class SyncHandlerComponent extends Object {
             }
 
             $controller->Security->loginOptions = array(
-                'type'=>'basic',
-                'realm'=>'VIVIPOS_API Realm'
-                // 'prompt'=> false
+                    'type'=>'basic',
+                    'realm'=>'VIVIPOS_API Realm'
+                    // 'prompt'=> false
             );
             $controller->Security->loginUsers = array(
-                'vivipos'=> $password
+                    'vivipos'=> $password
             );
         }
 
     }
-    
+
     /**
      * The startup method
      *
@@ -128,15 +129,15 @@ class SyncHandlerComponent extends Object {
             $lastSynced = $data['SyncRemoteMachine']['last_synced'];
         }else {
             if ($direction == 'pull') {
-            // change cursor to last insert id
+                // change cursor to last insert id
                 $sync = new Sync(false, null, $dbConfig); // id , table, ds
                 $lastSync = $sync->find('first', array('order' => array('Sync.id DESC')) );
                 $lastSynced = ($lastSync) ? $lastSync['Sync']['id'] : 0;
 
                 // insert machine setting
                 $this->setLastSynced($machine_id, $dbConfig, $lastSynced);
-            //$syncRemoteMachine->create();
-            //$syncRemoteMachine->save(array('machine_id'=>$machine_id, 'last_synced'=>$lastSynced));
+                //$syncRemoteMachine->create();
+                //$syncRemoteMachine->save(array('machine_id'=>$machine_id, 'last_synced'=>$lastSynced));
 
             }else {
                 $lastSynced = 0;
@@ -171,17 +172,25 @@ class SyncHandlerComponent extends Object {
 
         if($data) {
 
+            $this->syncStatus('saving');
+
             $newData = array('last_synced'=> $last_synced);
 
             $syncRemoteMachine->id = $data['SyncRemoteMachine']['id'];
             $syncRemoteMachine->save($newData);
 
+            $this->syncStatus('finished');
+
         }else {
+
+            $this->syncStatus('saving');
 
             $newData = array('last_synced' => $last_synced, 'machine_id'=>$machine_id);
 
             $syncRemoteMachine->create();
             $syncRemoteMachine->save($newData);
+
+            $this->syncStatus('finished');
 
         }
 
@@ -245,10 +254,10 @@ class SyncHandlerComponent extends Object {
             }
 
             $newSync_sql = $this->renderStatement('create', array(
-                'table' => "syncs",
-                'fields'=>join(', ',$newSync_fields),
-                'values'=>join(', ',$newSync_valuesInsert)
-                )
+                    'table' => "syncs",
+                    'fields'=>join(', ',$newSync_fields),
+                    'values'=>join(', ',$newSync_valuesInsert)
+                    )
             );
 
             //echo $newSync_sql . "\n";
@@ -264,9 +273,9 @@ class SyncHandlerComponent extends Object {
                 case 'delete':
 
                     $sql = $this->renderStatement('delete', array(
-                        'table' => $table,
-                        'conditions' => $defaultCondition
-                        )
+                            'table' => $table,
+                            'conditions' => $defaultCondition
+                            )
                     );
 
                     // echo 'delete: ' . $sql . "\n";
@@ -276,9 +285,9 @@ class SyncHandlerComponent extends Object {
                 case 'truncate':
 
                     $sql = $this->renderStatement('delete', array(
-                        'table' => $table,
-                        'conditions' => ''
-                        )
+                            'table' => $table,
+                            'conditions' => ''
+                            )
                     );
 
                     // echo 'truncate: ' . $sql . "\n";
@@ -304,10 +313,10 @@ class SyncHandlerComponent extends Object {
                     }
 
                     $sql = $this->renderStatement('create', array(
-                        'table' => $table,
-                        'fields'=>join(', ',$fields),
-                        'values'=>join(', ',$valuesInsert)
-                        )
+                            'table' => $table,
+                            'fields'=>join(', ',$fields),
+                            'values'=>join(', ',$valuesInsert)
+                            )
                     );
 
                     // echo 'create: ' . $sql . "\n";
@@ -333,10 +342,10 @@ class SyncHandlerComponent extends Object {
                     }
 
                     $sql = $this->renderStatement('update', array(
-                        'table' => $table,
-                        'fields' => join(', ', $valuesUpdate),
-                        'conditions'=> $defaultCondition
-                        )
+                            'table' => $table,
+                            'fields' => join(', ', $valuesUpdate),
+                            'conditions'=> $defaultCondition
+                            )
                     );
 
                     // echo 'update: ' . $sql . "\n";
@@ -384,7 +393,7 @@ class SyncHandlerComponent extends Object {
 
         foreach($datasources as $dbConfig ) {
 
-        // ini data structure
+            // ini data structure
             $data = array('datasource' => $dbConfig, 'count' => 0, 'last_synced' => 0, 'sql' => '');
 
             // force order only support push
@@ -406,18 +415,18 @@ class SyncHandlerComponent extends Object {
 
 
             $condition = array(
-                'conditions' => array(
-                    'from_machine_id !=' => $machine_id,
-                    'id >' => $lastSynced
-                 ),
-                'order' => 'id asc'
-                );
+                    'conditions' => array(
+                            'from_machine_id !=' => $machine_id,
+                            'id >' => $lastSynced
+                    ),
+                    'order' => 'id asc'
+            );
             // XXXX pull must pull all updated on master 2010/01
             if ($direction != 'pull') {
-                 $condition['limit'] = $batch_limit;
+                $condition['limit'] = $batch_limit;
 
             }
-            
+
             $results = $sync->find($type, $condition);
 
             if ($type == 'count') {
@@ -427,7 +436,7 @@ class SyncHandlerComponent extends Object {
                 $sql = '';
 
             }else {
-                
+
                 $syncs = Set::classicExtract($results, '{n}.Sync');
 
                 $syncCount = count($syncs);
@@ -446,7 +455,7 @@ class SyncHandlerComponent extends Object {
 
                 }
             }
-            
+
 
             $data['count'] = $syncCount;
             $data['last_synced'] = $newLastSynced;
@@ -478,12 +487,14 @@ class SyncHandlerComponent extends Object {
      */
     function saveData($machine_id, &$datas) {
 
-    // set php time limit to unlimimted
+        // set php time limit to unlimimted
         set_time_limit(0);
 
         $my_machine_id = $this->syncSettings['machine_id'];
 
         $result = array();
+
+        $this->syncStatus('saving');
 
         foreach($datas as $data ) {
 
@@ -498,10 +509,14 @@ class SyncHandlerComponent extends Object {
             // PDO Connection object
             $datasource =& ConnectionManager::getDataSource($dbConfig);
 
+            if (!is_object($datasource)) continue;
+
             // write debug
             //CakeLog::write('debug', 'saveData to ' . $dbConfig . "\n" . "  Data Count: ". $data['count']);
 
             try {
+
+                if (!is_object($datasource->connection)) continue;
 
                 $datasource->connection->beginTransaction();
                 $datasource->connection->exec($data['sql']);
@@ -513,8 +528,8 @@ class SyncHandlerComponent extends Object {
             }  catch(Exception $e) {
 
                 CakeLog::write('warning', 'Exception saveData to ' . $dbConfig . "\n" .
-                    '  Exception: ' . $e->getMessage() . "\n" .
-                    '  SQL: ' . $data['sql'] . "\n\n");
+                        '  Exception: ' . $e->getMessage() . "\n" .
+                        '  SQL: ' . $data['sql'] . "\n\n");
 
                 // always rollback
                 $datasource->connection->rollback();
@@ -523,6 +538,8 @@ class SyncHandlerComponent extends Object {
             }
 
         }
+
+        $this->syncStatus('finished');
 
         return $result;
     }
@@ -554,9 +571,9 @@ class SyncHandlerComponent extends Object {
      */
     function saveServerData($server_machine_id, &$datas) {
 
-    //$my_machine_id = $this->syncSettings['machine_id'];
+        //$my_machine_id = $this->syncSettings['machine_id'];
 
-    // write debug
+        // write debug
         //CakeLog::write('debug', 'saveServerData from ' . $server_machine_id );
 
         $result = $this->saveData($server_machine_id, $datas);
@@ -575,7 +592,7 @@ class SyncHandlerComponent extends Object {
      */
     function getClientData($server_machine_id) {
 
-    // write debug
+        // write debug
         //CakeLog::write('debug', 'getClientData for ' . $server_machine_id );
 
         $datas = $this->getData($server_machine_id, "push", array(), 'all');
@@ -611,7 +628,7 @@ class SyncHandlerComponent extends Object {
      */
     function getClientDataCount($server_machine_id) {
 
-    // write debug
+        // write debug
         //CakeLog::write('debug', 'getClientData for ' . $server_machine_id );
 
         $datas = $this->getData($server_machine_id, "push", array(), 'count');
@@ -763,41 +780,85 @@ class SyncHandlerComponent extends Object {
         $retain_time = time() - 86400 * $retain_days;
 
         $rowCount = 0 ;
+
+        $this->syncStatus('saving');
+
         foreach($datasources as $dbConfig ) {
 
-        // PDO Connection object
-            $datasource =& ConnectionManager::getDataSource($dbConfig);
+            try {
 
-            // set model Sync 's useDbConfig
-            $sync = new Sync(false, null, $dbConfig); // id , table, ds
-            $syncRemoteMachine = new SyncRemoteMachine(false, null, $dbConfig); // id , table, ds
+                // PDO Connection object
+                $datasource =& ConnectionManager::getDataSource($dbConfig);
 
-            // get maxId
-            $maxSync = $sync->find('first', array('fields'=>array('id'), 'order'=>array('Sync.id DESC')));
-            if($maxSync) {
-                $maxId = $maxSync['Sync']['id'];
-            }
-            $maxDelSync = $sync->find('first', array('fields'=>array('id'), 'order'=>array('Sync.id DESC'), 'conditions'=>array('Sync.created <'.$retain_time)));
-            if ($maxDelSync) {
-                $maxDelId = $maxDelSync['Sync']['id'];
+                if (!is_object($datasource)) continue;
 
-                // delete old syncs
-                $result = $datasource->execute("DELETE FROM syncs WHERE created < ". $retain_time);
-                $rowCount += $result->rowCount();
+                // set model Sync 's useDbConfig
+                $sync = new Sync(false, null, $dbConfig); // id , table, ds
+                $syncRemoteMachine = new SyncRemoteMachine(false, null, $dbConfig); // id , table, ds
 
-                // update syncRemoteMachines
-                $datasource->execute("UPDATE sync_remote_machines SET last_synced=0 WHERE ( last_synced <= ". $maxDelId . " or last_synced > " . $maxId . ")");
+                // get maxId
+                $maxSync = $sync->find('first', array('fields'=>array('id'), 'order'=>array('Sync.id DESC')));
+                if($maxSync) {
+                    $maxId = $maxSync['Sync']['id'];
+                }
+                $maxDelSync = $sync->find('first', array('fields'=>array('id'), 'order'=>array('Sync.id DESC'), 'conditions'=>array('Sync.created <'.$retain_time)));
+                if ($maxDelSync) {
+                    $maxDelId = $maxDelSync['Sync']['id'];
 
-                // vacuum database
-                $datasource->execute("VACUUM");
+                    try {
+
+                        $datasource->connection->beginTransaction();
+
+                        // delete old syncs
+                        $result = $datasource->execute("DELETE FROM syncs WHERE created < ". $retain_time);
+
+                        if (is_object($result)) $rowCount += $result->rowCount();
+
+                        // update syncRemoteMachines
+                        $datasource->execute("UPDATE sync_remote_machines SET last_synced=0 WHERE ( last_synced <= ". $maxDelId . " or last_synced > " . $maxId . ")");
+
+                        $datasource->connection->commit();
+
+                    }catch (Exception $e) {
+                        
+                        CakeLog::write('warning', 'Exception saveData to ' . $dbConfig . "\n" .
+                                '  Exception: ' . $e->getMessage() . "\n" .
+                                '  SQL: ' . $data['sql'] . "\n\n");
+
+                        // always rollback
+                        $datasource->connection->rollback();
+
+                    }
+                    
+                    // vacuum database
+                    $datasource->execute("VACUUM");
+
+                }
+            }catch(Exception $e) {
+
+                CakeLog::write('warning', 'Exception truncateSync ' . $dbConfig . "\n" .
+                        '  Exception: ' . $e->getMessage() . "\n");
 
             }
 
         }
 
+        $this->syncStatus('finished');
+
         return $rowCount;
 
     }
+
+    /**
+     *
+     * @param <type> $status
+     */
+    function syncStatus($status) {
+
+        file_put_contents($this->statusFile, $status);
+
+    }
+
 }
 
 ?>

@@ -8,6 +8,24 @@ SCRIPTNAME=/data/vivipos_webapp/sync_client
 SCRIPTDIR=`dirname $SCRIPTNAME`
 CMD=${1:-help}
 
+#
+# do sqlite journal check
+#
+do_journal_check()
+{
+
+    for i in $DATABASE/*.sqlite; do
+
+        journal="$i-journal"
+
+        if [ ! -f "$journal" ]; then
+            touch $journal
+            chmod 775 $journal
+        fi
+    done
+
+}
+
 
 #
 # call cake.d sessions
@@ -150,7 +168,8 @@ do_sync_all()
 # switch command
 #
 case "$1" in
-  start)
+  start
+        do_journal_check
 	do_start
         do_sessions
 	;;

@@ -5,7 +5,7 @@
 $DATA_PATH = '/data';
 $DATABASE_PATH = '/data/databases';
 $SYNCHRONOUS = 'NORMAL';
-$JOURNAL_MODE = 'MEMORY';
+$JOURNAL_MODE = 'TRUNCATE';
 $LOCKING_MODE = 'NORMAL';
 
 App::import('Core', array('Configure', 'ClassRegistry', 'Overloadable', 'Validation', 'Behavior', 'ConnectionManager', 'Set', 'String','Folder'));

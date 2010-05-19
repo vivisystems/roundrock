@@ -192,5 +192,61 @@ class SyncBaseShell extends Shell {
         
     }
 
+
+    /**
+      * addSyncSuspend
+      *
+      * @return <type>
+      */
+    function addSyncSuspend() {
+
+        $syncSettings = $this->readSyncSettings();
+
+        $flagFile = "/tmp/sync_suspend_" .$syncSettings['machine_id'];
+
+        if(file_exists($flagFile)) return true;
+
+        file_put_contents($flagFile, time() );
+
+        return true;
+
+    }
+
+
+    /**
+      * removeSyncSuspend
+      *
+      * @return <type>
+      */
+    function removeSyncSuspend() {
+
+        $syncSettings = $this->readSyncSettings();
+
+        $flagFile = "/tmp/sync_suspend_" .$syncSettings['machine_id'];
+
+        if(file_exists($flagFile)) {
+            unlink($flagFile);
+        }
+
+        return true;
+
+    }
+
+
+    /***
+     * check when admin request suspend
+     */
+    function isSuspend() {
+
+        $syncSettings = $this->readSyncSettings();
+
+        $flagFile = "/tmp/sync_suspend_" .$syncSettings['machine_id'];
+
+        return file_exists($flagFile);
+
+    }
+
+
+
 }
 ?>

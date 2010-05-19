@@ -10,6 +10,21 @@ class SyncsController extends AppController {
 
 
     /**
+     * beforeFilter
+     *
+     * discard truncate for basic auth
+     *
+     * @see app/AppController#beforeFilter()
+     */
+    function beforeFilter() {
+
+        if ($this->params['action'] == 'truncate') return;
+        
+        parent::beforeFilter();
+    }
+
+
+    /**
      * get all new datas and generate sql to client
      *
      * Server side
@@ -137,6 +152,8 @@ class SyncsController extends AppController {
         set_time_limit(0);
 
         if ($days < 1) $days = 1;
+
+        echo "truncate   $days \n\n\n";
         
         return $this->SyncHandler->truncateSync($days);
 

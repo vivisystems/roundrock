@@ -95,60 +95,6 @@ class SyncClientShell extends SyncBaseShell {
 
 
     /**
-      * addSyncSuspend
-      *
-      * @return <type>
-      */
-    function addSyncSuspend() {
-
-        $syncSettings = $this->readSyncSettings();
-
-        $flagFile = "/tmp/sync_suspend_" .$syncSettings['machine_id'];
-
-        if(file_exists($flagFile)) return true;
-
-        file_put_contents($flagFile, time() );
-
-        return true;
-
-    }
-
-
-    /**
-      * removeSyncSuspend
-      *
-      * @return <type>
-      */
-    function removeSyncSuspend() {
-
-        $syncSettings = $this->readSyncSettings();
-
-        $flagFile = "/tmp/sync_suspend_" .$syncSettings['machine_id'];
-
-        if(file_exists($flagFile)) {
-            unlink($flagFile);
-        }
-
-        return true;
-
-    }
-
-
-    /***
-     * check when admin request suspend
-     */
-    function isSuspend() {
-
-        $syncSettings = $this->readSyncSettings();
-        
-        $flagFile = "/tmp/sync_suspend_" .$syncSettings['machine_id'];
-
-        return file_exists($flagFile);
-        
-    }
-
-
-    /**
      * sync for shell script
      */
     function startSyncingAll() {
@@ -166,6 +112,8 @@ class SyncClientShell extends SyncBaseShell {
 
         try {
 
+            $this->syncStatus('starting');
+            
             //CakeLog::write('debug', "observerNotify starting");
             $this->observerNotify('starting');
 
@@ -214,6 +162,8 @@ class SyncClientShell extends SyncBaseShell {
         $successed = false;
 
         try {
+            $this->syncStatus('starting');
+            
             //CakeLog::write('debug', "observerNotify starting");
             $this->observerNotify('starting');
 

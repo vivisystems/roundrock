@@ -43,11 +43,13 @@ class SyncToolsShell extends SyncBaseShell {
             return;
         }
 
-        // $this->observerNotify('starting');
+        $this->syncStatus('starting');
+        $this->observerNotify('starting');
 
         $truncateResult = $this->requestAction("/syncs/truncate/${retain_days}");
 
-        // $this->observerNotify('finished', json_encode($truncateResult) );
+        $this->syncStatus('finished');
+        $this->observerNotify('finished', json_encode($truncateResult) );
 
         $this->out("truncate syncs ok (total remove " . $truncateResult . ")", true);
     }
