@@ -1483,7 +1483,10 @@
                                 errmsg: _('An error was encountered while expiring order queues (error code %S) [message #1008].', [orderQueue.lastError])
                             };
                         }
-                    
+
+                        // truncate sync changelogs
+                        GeckoJS.File.run('/data/vivipos_webapp/sync_tools', ['truncate' ], true);
+
                         // dispatch afterClearOrderData event
                         this.dispatchEvent('afterClearOrderData', retainDate);
                     }
