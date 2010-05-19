@@ -18,7 +18,7 @@ class SyncToolsShell extends SyncBaseShell {
 
         $this->out("sync_tools usage: ", true);
         $this->hr(false);
-        $this->out("command:  truncate", true);
+        $this->out("command:  truncate , vacuum", true);
         $this->hr(false);
 
     }
@@ -53,6 +53,31 @@ class SyncToolsShell extends SyncBaseShell {
 
         $this->out("truncate syncs ok (total remove " . $truncateResult . ")", true);
     }
+
+    function vacuum() {
+
+        $syncSettings = $this->readSyncSettings();
+        $active = $syncSettings['active'];
+
+        $this->out("vacuum all databases with syncs table", true);
+        $this->hr(false);
+
+        if ($this->isSyncing()) {
+            $this->out("other process issyncing..", true);
+            return;
+        }
+
+        $this->syncStatus('starting');
+        $this->observerNotify('starting');
+
+        $vacuumResult = $this->requestAction("/syncs/vacuum/");
+
+        $this->syncStatus('finished');
+        $this->observerNotify('finished', json_encode($vacuumResult) );
+
+        $this->out("vacuum all databases with syncs table ok (" . $vacuumResult . ")", true);
+    }
+
 
 }
 ?>

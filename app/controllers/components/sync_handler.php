@@ -831,7 +831,7 @@ class SyncHandlerComponent extends Object {
                     }
                     
                     // vacuum database
-                    $datasource->execute("VACUUM");
+                    // $datasource->execute("VACUUM");
 
                 }
             }catch(Exception $e) {
@@ -849,6 +849,59 @@ class SyncHandlerComponent extends Object {
 
     }
 
+
+    /**
+     * Vacuum
+     *
+     * @return <type>
+     */
+    function vacuumSync() {
+
+        $datasources = $this->getSourceList();
+
+        $this->syncStatus('saving');
+
+        $dbs = 0;
+        foreach($datasources as $dbConfig ) {
+
+            try {
+
+                // PDO Connection object
+                $datasource =& ConnectionManager::getDataSource($dbConfig);
+
+                if (!is_object($datasource)) continue;
+
+                    try {
+
+                        // vacuum database
+                        $datasource->execute("VACUUM");
+
+                        $dbs++;
+
+                    }catch (Exception $e) {
+
+                        CakeLog::write('warning', 'Exception VACUUM to ' . $dbConfig . "\n" .
+                                '  Exception: ' . $e->getMessage() . "\n");
+
+                    }
+
+
+            }catch(Exception $e) {
+
+                CakeLog::write('warning', 'Exception vacuumSync ' . $dbConfig . "\n" .
+                        '  Exception: ' . $e->getMessage() . "\n");
+
+            }
+
+        }
+
+        $this->syncStatus('finished');
+
+        return $dbs;
+
+    }
+
+    
     /**
      *
      * @param <type> $status

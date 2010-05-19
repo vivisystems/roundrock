@@ -18,7 +18,7 @@ class SyncsController extends AppController {
      */
     function beforeFilter() {
 
-        if ($this->params['action'] == 'truncate') return;
+        if ($this->params['action'] == 'truncate' || $this->params['action'] == 'vacuum') return;
         
         parent::beforeFilter();
     }
@@ -153,9 +153,17 @@ class SyncsController extends AppController {
 
         if ($days < 1) $days = 1;
 
-        echo "truncate   $days \n\n\n";
-        
         return $this->SyncHandler->truncateSync($days);
+
+        exit;
+    }
+
+    function vacuum() {
+
+        // set php time limit to unlimimted
+        set_time_limit(0);
+
+        return $this->SyncHandler->vacuumSync();
 
         exit;
     }
