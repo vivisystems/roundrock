@@ -40,6 +40,23 @@ do_vacuum()
     chmod -R 775 $DATABASE ;
 }
 
+#
+# do sqlite journal check
+#
+do_journal_check()
+{
+
+    for i in $DATABASE/*.sqlite; do
+
+        journal="$i-journal"
+
+        if [ ! -f "$journal" ]; then
+            touch $journal
+            chmod 775 $journal
+        fi
+    done
+
+}
 
 #
 # do sqlite integrity check
@@ -87,7 +104,7 @@ while [ $RETVAL != 0 ]; do
 
 	# do_integrity_check
 	do_integrity_check
-
+        do_journal_check
 	do_disk_usage_check
 
     echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini]" >> ${DIR}/log/vivipos.log
