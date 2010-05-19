@@ -6,6 +6,7 @@ NAME=sync_client
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/data/vivipos_webapp/sync_client
 SCRIPTDIR=`dirname $SCRIPTNAME`
+DATABASE=/data/databases
 CMD=${1:-help}
 
 #
