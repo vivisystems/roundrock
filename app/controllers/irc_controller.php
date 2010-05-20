@@ -605,6 +605,10 @@ class IrcController extends AppController {
                     // save description file and let master know
                     $saveDescFile = $saveTbzFile .".json";
 
+                    if (!empty($package['unpacked'])) {
+                        $package['unpacked'] = false;
+                    }
+
                     // write ircPackageDesc
                     file_put_contents($saveDescFile, json_encode($package));
 
