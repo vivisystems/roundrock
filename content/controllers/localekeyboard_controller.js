@@ -44,8 +44,11 @@
                     // change keyboard mapping
                     kbmap.changeOSKbmap();
 
-                    GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+                    // write dummy key to flush prefs.js and user.js
+                    GeckoJS.Configure.write('vivipos.fec.settings.localekeyboard.lastmodified', (new Date().getTime()/1000));
 
+                    GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+                   
                     window.close();
 
                     return true;
