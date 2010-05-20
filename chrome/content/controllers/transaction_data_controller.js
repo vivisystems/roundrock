@@ -31,6 +31,41 @@
             this._data_path = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
             this._script_path =  GREUtils.File.chromeToPath(this._script_url);
 
+            // replace default rebootMachine/shutdownMachine
+            if (goRebootMachine && typeof goRebootMachine == 'function') {
+                let builtinGoRebootMachine = goRebootMachine;
+                goRebootMachine = function() {
+                    GeckoJS.ConnectionManager.closeAll();
+
+                    this.log('DEBUG', 'Closing database connections on reboot');
+
+                    builtinGoRebootMachine.call();
+                }
+            }
+            
+            if (goShutdownMachine && typeof goShutdownMachine == 'function') {
+                let builtinGoShutdownMachine = goShutdownMachine;
+                goShutdownMachine = function() {
+                    GeckoJS.ConnectionManager.closeAll();
+
+                    this.log('DEBUG', 'Closing database connections on shutdown');
+
+                    builtinGoShutdownMachine.call();
+                }
+            }
+
+            // replace default GREUtils.restartApplication
+            if (GREUtils.restartApplication && typeof GREUtils.restartApplication == 'function') {
+                let builtinRestartApplication = GREUtils.restartApplication;
+                GREUtils.restartApplication = function() {
+                    GeckoJS.ConnectionManager.closeAll();
+
+                    this.log('DEBUG', 'Closing database connections on restart');
+
+                    builtinRestartApplication.apply();
+                }
+            }
+
             // observer application restart/shutdown events to close db connections
             this.observer = GeckoJS.Observer.newInstance({
                 topics: ['quit-application-requested' ],

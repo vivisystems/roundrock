@@ -88,6 +88,11 @@ do_restore() {
                 shift
             done
 
+            # perform catastrophic recovery
+            prog=$((prog+2))
+            echo "${prog}\n# ${MSG_SCRIPT_RESTORE_STEP_02} [${base}]"
+            sudo ${dbrecover} -c -h "${restore_dir}/${db}-journal";
+
             # run sqlite3 to generate index files
             prog=$((prog+2))
             echo "${prog}\n# ${MSG_SCRIPT_RESTORE_STEP_02} [${base}]"
@@ -137,25 +142,25 @@ do_restore() {
         fi
 
         prog=$((prog+2))
-        echo "${prog}\n# ${MSG_SCRIPT_RESTORE_STEP_05} [${base}]"
+        echo "${prog}\n# ${MSG_SCRIPT_RESTORE_STEP_05}"
         start_services
 
         # restore profile
-        echo "75\n# ${MSG_SCRIPT_RESTORE_STEP_05}"
+        echo "75\n# ${MSG_SCRIPT_RESTORE_STEP_06}"
 
         if [ -f "$restore_dir/profile.tbz" ]; then
             tar xjpf $restore_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" -C /data/profile
         fi
 
         # restore images
-        echo "80\n# ${MSG_SCRIPT_RESTORE_STEP_06}"
+        echo "80\n# ${MSG_SCRIPT_RESTORE_STEP_07}"
 
         if [ -f "$restore_dir/images.tbz" ]; then
             tar xjpf $restore_dir/images.tbz -C /data/images
         fi
 
         # restore system
-        echo "85\n# ${MSG_SCRIPT_RESTORE_STEP_07}"
+        echo "85\n# ${MSG_SCRIPT_RESTORE_STEP_08}"
 
         if [ -f "$restore_dir/system.tbz" ] && [ "$restore_with_system" = "with-system" ]; then
             tar xjpf $restore_dir/system.tbz -C /data/system
@@ -165,7 +170,7 @@ do_restore() {
         # notify vivipos client we are now restore
         #curl -m 3 -s -G "http://localhost:8888/observer?topic=crontab&data=restore_finished" -o /dev/null
 
-        echo "90\n# ${MSG_SCRIPT_RESTORE_STEP_08}"
+        echo "90\n# ${MSG_SCRIPT_RESTORE_STEP_09}"
         sync;
 
 	fi
