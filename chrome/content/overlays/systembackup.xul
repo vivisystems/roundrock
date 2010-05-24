@@ -13,6 +13,7 @@
         window.addEventListener('load', function() {
             var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
             mainWindow.$do('updateSystemBackupOptions', window.document, 'BigDisk');
+            mainWindow.$do('updateSystemBackupOptions', window.document, 'BDBData');
         }, false);
 
     </script>

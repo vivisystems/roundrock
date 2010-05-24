@@ -6,6 +6,7 @@
         window.addEventListener('load', function() {
             var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
             mainWindow.$do('updateSysprefOptions', window.document, 'BigDisk');
+            mainWindow.$do('updateSysprefOptions', window.document, 'BDBData');
         }, false);
     </script>
     

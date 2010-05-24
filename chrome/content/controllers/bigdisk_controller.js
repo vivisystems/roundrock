@@ -25,9 +25,6 @@
         _script_url: 'chrome://roundrock/content/scripts/',
         _script_path: '',
         
-        _backup_system_script: 'backup.sh',
-        _restore_system_script: 'restore.sh',
-
         _syncSettings: null,
         _syncSuspendStatusFile: '/tmp/sync_suspend_',
         
@@ -35,7 +32,7 @@
         _limit_retain_inventory: 30,
 
         initial: function(evt) {
-
+            
             // set up event listeners
             this.addEventListener('activateBigDisk', this._activateBigDisk, this);
             this.addEventListener('suspendBigDisk', this._suspendBigDisk, this);
@@ -169,12 +166,22 @@
                 if (autobackup) {
                     autobackup.addEventListener('beforeAutoBackupToLocal', this._beforeAutoBackupToLocal, this);
                 }
+
+                // intercept IRC operations if not bigdisk
+                var irc = GeckoJS.Controller.getInstanceByName('Irc');
+                if (irc) {
+                    irc.addEventListener('beforeFilter', this._disableIRC, this);
+                }
             }
 
             if (!evt.cancel) {
                 this.dispatchEvent('BigDiskMode', {active: GeckoJS.Session.get(this._bigdisk_session_flag) || false,
                                                    details: bigdisk});
             }
+        },
+
+        _disableIRC: function(evt) {
+            evt.preventDefault();
         },
 
         updateSysprefOptions: function(doc) {
@@ -220,13 +227,6 @@
                 // hide merge button
                 var mergeActionRow = doc.getElementById('merge_action');
                 if (mergeActionRow) mergeActionRow.setAttribute('hidden', true);
-            }
-
-            // add listener for 'beforeRestoreFromLocal' and 'beforeRestoreFromRemote' to redirect restore script
-            var backupController = doc.defaultView.GeckoJS.Controller.getInstanceByName('SystemBackup');
-            if (backupController) {
-                backupController.addEventListener('beforeRestoreFromLocal', this._handleRestore, this);
-                backupController.addEventListener('beforeRestoreFromRemote', this._handleRestore, this);
             }
         },
 
@@ -603,7 +603,6 @@
         },
 
         _beforeAutoBackupToLocal: function(evt) {
-            evt.data.script = this._script_path + '/' + this._backup_system_script;
             if (evt.data.args.length == 0) {
                 evt.data.args = ['', 'secondary'];
             }
@@ -612,53 +611,6 @@
             }
             else {
                 evt.data.args[1] = 'secondary';
-            }
-        },
-
-        _handleRestore: function(evt) {
-
-            // handle restore iff databases.tbz does not exist
-            var dir = evt.data.args[0];
-            if (!GeckoJS.File.exists(dir + '/databases.tbz')) {
-                var target_dir = this._data_path + '/databases';
-                var error_file = '/tmp/restore.status.' + GeckoJS.String.uuid();
-
-                var script = this._script_path + '/' + this._restore_system_script;
-                var args = [];
-                args.push(evt.data.args[0]);
-                if (evt.data.args.length < 2) {
-                    args.push('');
-                }
-                else {
-                    args.push(evt.data.args[1]);
-                }
-                args.push(error_file);
-                args.push(target_dir);
-
-                this.log('FATAL', 'Restoring from [' + args[0] + '] into [' + target_dir + ']');
-                
-                this._execute(script, args);
-
-                if (GeckoJS.File.exists(error_file)) {
-                    let msg;
-                    let f = new GeckoJS.File(error_file);
-                    if (f) {
-                        f.open('r');
-                        msg = f.readAllLine() || _('System restore failed');
-                        f.close();
-                    }
-                    this.log('FATAL', 'System restore failed [' + msg + ']');
-
-                    this._notify(_('System Restore Error'), msg);
-
-                    evt.preventDefault();
-                }
-                else {
-                    // remove cart recovery file
-                    Transaction.removeRecoveryFile();
-                }
-
-                evt.data.skip = true;
             }
         },
 
