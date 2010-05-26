@@ -1,0 +1,62 @@
+#!/bin/sh
+
+#
+# Perform integrity check on Berkeley DB databases
+#
+
+DB_DIR=/data/databases
+SQLITE3=/usr/bin/sqlite3
+DB_RECOVER=/usr/local/BerkeleyDB.5.0/bin/db_recover
+STATUS_MARKER=${1-"/tmp/ROUNDROCK_INTEGRITY_STATUS"}
+
+log_warning_msg() {
+   echo "$@"
+}
+
+log_success_msg() {
+   echo "$@"
+}
+
+log_failure_msg() {
+   echo "$@"
+}
+
+log_begin_msg() {
+   echo "$@"
+}
+
+log_end_msg() {
+   echo "$@"
+}
+
+. /lib/lsb/init-functions
+
+log_begin_msg "Checking integrity of ROUNDROCK databases"
+
+ERROR_STATUS=0
+
+/bin/rm -f "${STATUS_MARKER}"
+
+for i in "${DB_DIR}"/*.sqlite; do
+
+    dbname=`basename $i`
+
+    log_warning_msg "... checking integrity of database [${dbname}]"
+
+    result=`${SQLITE3} $i "PRAGMA integrity_check"`
+
+    if [ "$?" = "0" ] && [ ! -z "$result" ] && [ "$result" != "ok" ]; then
+        log_warning_msg "... database [${dbname}] not ok: ${result}"
+
+        log_warning_msg "... attempting recovery of database [${dbname}]"
+        result=`${DB_RECOVER} -h "${DB_DIR}/${dbname}-journal"`
+
+        if [ "$?" != "0" ]; then
+            ERROR_STATUS=1
+        fi
+    fi
+done
+
+if [ "${ERROR_STATUS}" = "0" ]; then
+    touch "${STATUS_MARKER}"
+fi

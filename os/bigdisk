@@ -1,17 +1,17 @@
 #!/bin/sh
 
 LABEL_PATH=/dev/disk/by-label
-VOLUME=VIVIPOS_DATA
+VOLUME=ROUNDROCK_DATA
 LICENSE=/etc/vivipos.lic
 MTAB=/etc/mtab
 MARKER=.bigdisk
-STAGING=/mnt/vivipos_data
+STAGING=/mnt/roundrock_data
 CREATED_STAGING=0
 TARGET=/data
 PROVISIONED=0
 MOUNT=""
 FSCK=/sbin/fsck
-FSCK_FLAGS="-T -C -t ext3 -M -p"
+FSCK_FLAGS="-T -C -t ext4 -M -p"
 BIGDISK_SETTINGS=/data/profile/bigdisk_settings
 DIRS="backups databases images irc_packages journal training"
 DBS="vivipos vivipos_acl vivipos_extension vivipos_inventory vivipos_journal vivipos_order vivipos_table"
@@ -57,13 +57,17 @@ handle_failure() {
 	rmdir "${STAGING}"
     fi
 
-    log_failure_msg "VIVIPOS data volume not loaded"
+    log_failure_msg "ROUNDROCK data volume not loaded"
     log_end_msg 1
+
+    ## emit event to signal bigdisk provisioning has completed
+
+    initctl emit roundrock-bigdisk-provisioned
 
     exit
 }
 
-log_begin_msg "Loading VIVIPOS data volume"
+log_begin_msg "Loading ROUNDROCK data volume"
 
 ##
 ## check if license file exists
@@ -79,7 +83,7 @@ fi
 ## check if data volume is present
 ##
 
-DEVICE=`findfs LABEL="${VOLUME}"`
+DEVICE=`findfs LABEL="${VOLUME}" 2>/dev/null`
 
 if [ ! -z "${DEVICE}" ]
 then
@@ -89,7 +93,7 @@ then
     ##
 
     BUS=`udevadm info -q env -n "${DEVICE}" | grep ID_BUS | awk -F "=" '{ print $2 }'`
-    if [ ${BUS} = "usb1" ]
+    if [ ${BUS} = "usb" ]
     then
 	log_success_msg "... data volume [${VOLUME}] is not loaded when connected via USB"; log_end_msg 0
 	exit
@@ -343,3 +347,7 @@ fi
 sync
 
 log_end_msg 0
+
+## emit event to signal bigdisk provisioning has completed
+
+initctl emit roundrock-bigdisk-provisioned

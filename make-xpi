@@ -26,4 +26,4 @@ else
 fi
 
 
-zip -r ${filename} chrome.manifest install.rdf chrome/ defaults/
+zip -r ${filename} chrome.manifest install.rdf chrome/ defaults/ os/
