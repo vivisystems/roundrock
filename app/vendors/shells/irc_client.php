@@ -14,9 +14,16 @@ System_Daemon::setOption("authorName", "Rack Lin");
 System_Daemon::setOption("authorEmail", "racklin@gmail.com");
 System_Daemon::setOption("sysMaxExecutionTime", "0");
 System_Daemon::setOption("sysMaxInputTime", "0");
-System_Daemon::setOption("logVerbosity", System_Daemon::LOG_INFO);
 
 class IrcClientShell extends SyncBaseShell {
+
+    /**
+     *
+     * @var int gracefulExit
+     * 
+     * this static variable is used to signal graceful exit
+     */
+    public static $gracefulExit;
 
 /**
  * Startup method for the shell
@@ -79,7 +86,7 @@ class IrcClientShell extends SyncBaseShell {
 
         $start = 0;
 
-        while ($start < $timeout ) {
+        while ($start < $timeout && self::$gracefulExit != 1) {
 
             // if sync Request , break while
             if ( $this->isSyncRequest() ){
@@ -89,6 +96,9 @@ class IrcClientShell extends SyncBaseShell {
                 $this->removeSyncRequest();
                 break;
             }
+
+            // apparently signals do not get processed without the following line
+            System_Daemon::log(System_Daemon::LOG_DEBUG, "waitingForRequest [" . self::$gracefulExit . "]");
 
             sleep(1);
             $start++;
@@ -154,10 +164,22 @@ class IrcClientShell extends SyncBaseShell {
 
 
     /**
+     * handle SIGINT/SIGTERM
+     *
+     * sets static member $gracefulExit to 1 to signal graceful exit has been requested
+     */
+    function signalHandler($signo) {
+        System_Daemon::log(System_Daemon::LOG_INFO, System_Daemon::getOption("appName")." received [" . $signo . "], setting graceful exit flag");
+
+        self::$gracefulExit = 1;
+    }
+
+    
+    /**
      * start as daemon
      *
      */
-    function start() {
+    function start($daemon=false) {
 
     // set php time limit to unlimimted
         set_time_limit(0);
@@ -179,13 +201,28 @@ class IrcClientShell extends SyncBaseShell {
 
         $shell =& $this;
 
-        // use shell script, so we don't need db connection
-        if ($process_type == 'shell') {
+        if ($daemon) {
+            // always close database connections whether we run shell or fork child process
             $this->closeAll();
+
+            // set signal handler: must occur before start()
+            System_Daemon::setSigHandler(SIGINT, array("IrcClientShell", "signalHandler"));
+            System_Daemon::setSigHandler(SIGTERM, array("IrcClientShell", "signalHandler"));
+
+            System_Daemon::start();
+
+            // re-open database connections in child process
+            $this->connectAll();
         }
+        else {
+            // initialize Daemon options by invoking log()
+            System_Daemon::log(System_Daemon::LOG_INFO, "Starting in non-daemon mode");
+	    System_Daemon::setOption("logVerbosity", System_Daemon::LOG_INFO);
 
-        System_Daemon::start();
-
+            pcntl_signal(SIGINT, array("IrcClientShell", "signalHandler"));
+            pcntl_signal(SIGTERM, array("IrcClientShell", "signalHandler"));
+        }
+        
         // What mode are we in?
         $mode = "'".(System_Daemon::isInBackground() ? "" : "non-" )."daemon' mode";
 
@@ -199,7 +236,7 @@ class IrcClientShell extends SyncBaseShell {
         // While checks on 2 things in this case:
         // - That the Daemon Class hasn't reported it's dying
         // - That your own code has been running Okay
-        while (!System_Daemon::isDying()/* && $runningOkay*/) {
+        while (!System_Daemon::isDying()/* && $runningOkay*/ && self::$gracefulExit != 1) {
 
 
         // remove syncStatus
@@ -214,7 +251,7 @@ class IrcClientShell extends SyncBaseShell {
             // if error retries
             $tries = 0 ;
 
-            while ( $runningOkay && ($tries < $error_retry)) {
+            while ( $runningOkay && ($tries < $error_retry) && self::$gracefulExit != 1) {
 
                 System_Daemon::log(System_Daemon::LOG_DEBUG, "requestAction downloadPackages, retries = " . $tries );
 
@@ -241,8 +278,16 @@ class IrcClientShell extends SyncBaseShell {
 
                 $tries++;
 
+		// apparently signals do not get processed without the following line
+		System_Daemon::log(System_Daemon::LOG_DEBUG, "checking for retry [" . self::$gracefulExit . "]");
+
                 // if error sleeping for a little bit and retry
-                sleep($timeout);
+                if ( $runningOkay && ($tries < $error_retry) && self::$gracefulExit != 1) {
+                    sleep($timeout);
+                }
+
+		// apparently signals do not get processed without the following line
+		System_Daemon::log(System_Daemon::LOG_DEBUG, "waking up from retry [" . self::$gracefulExit . "]");
 
             }
 
@@ -254,10 +299,14 @@ class IrcClientShell extends SyncBaseShell {
 
         }
 
-        // Log something using the Daemon class's logging facility
-        System_Daemon::log(System_Daemon::LOG_INFO, System_Daemon::getOption("appName")." stopping " . $hostname);
+        $this->closeAll();
 
-        System_Daemon::stop();
+        // Log something using the Daemon class's logging facility
+        System_Daemon::log(System_Daemon::LOG_INFO, System_Daemon::getOption("appName")." stopping " . $hostname . " (" . self::$gracefulExit . ")");
+
+        if ($daemon) {
+            System_Daemon::stop();
+        }
 
     }
 

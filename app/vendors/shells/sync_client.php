@@ -5,6 +5,7 @@ require_once "System/Daemon.php";
 
 // No PEAR, run standalone
 System_Daemon::setOption("usePEAR", false);
+System_Daemon::setOption("usePEARLogInstance", false);
 
 // set Daemon Option
 System_Daemon::setOption("appName", "sync_client");
@@ -14,9 +15,16 @@ System_Daemon::setOption("authorName", "Rack Lin");
 System_Daemon::setOption("authorEmail", "racklin@gmail.com");
 System_Daemon::setOption("sysMaxExecutionTime", "0");
 System_Daemon::setOption("sysMaxInputTime", "0");
-System_Daemon::setOption("logVerbosity", System_Daemon::LOG_INFO);
 
 class SyncClientShell extends SyncBaseShell {
+
+    /**
+     *
+     * @var int gracefulExit
+     *
+     * this static variable is used to signal graceful exit
+     */
+    public static $gracefulExit;
 
 /**
  * Startup method for the shell
@@ -74,7 +82,9 @@ class SyncClientShell extends SyncBaseShell {
 
         $start = 0;
 
-        while ($start < $timeout ) {
+        System_Daemon::log(System_Daemon::LOG_DEBUG, "in waitForRequest [" . self::$gracefulExit . "]");
+
+        while ($start < $timeout && self::$gracefulExit != 1) {
 
             // if sync Request , break while
             if ( $this->isSyncRequest() ){
@@ -85,9 +95,14 @@ class SyncClientShell extends SyncBaseShell {
                 break;
             }
 
+            // apparently signals do not get processed without the following line
+            System_Daemon::log(System_Daemon::LOG_DEBUG, "waitingForRequest [" . self::$gracefulExit . "]");
+
             sleep(1);
             $start++;
         }
+
+        System_Daemon::log(System_Daemon::LOG_DEBUG, "out waitForRequest [" . self::$gracefulExit . "]");
 
         return true;
         
@@ -196,10 +211,22 @@ class SyncClientShell extends SyncBaseShell {
 
 
     /**
+     * handle SIGINT/SIGTERM
+     *
+     * sets static member $gracefulExit to 1 to signal graceful exit has been requested
+     */
+    function signalHandler($signo) {
+        System_Daemon::log(System_Daemon::LOG_INFO, System_Daemon::getOption("appName")." received signal [" . $signo . "], setting graceful exit flag");
+
+        self::$gracefulExit = 1;
+    }
+
+    
+    /**
      * start as daemon
      *
      */
-    function start() {
+    function start($daemon=false) {
 
     // set php time limit to unlimimted
         set_time_limit(0);
@@ -220,13 +247,30 @@ class SyncClientShell extends SyncBaseShell {
 
         $shell =& $this;
 
-        // use shell script, so we don't need db connection
-        if ($process_type == 'shell') {
+        self::$gracefulExit = 0;
+
+        if ($daemon) {
+            // always close database connections whether we run shell or fork child process
             $this->closeAll();
+
+            // set SIGINT handler: must occur before start()
+            System_Daemon::setSigHandler(SIGINT, array("SyncClientShell", "signalHandler"));
+            System_Daemon::setSigHandler(SIGTERM, array("SyncClientShell", "signalHandler"));
+
+            System_Daemon::start();
+
+            // re-open database connections in child process
+            $this->connectAll();
         }
+        else {
+            // initialize Daemon options by invoking log()
+	    System_Daemon::log(System_Daemon::LOG_INFO, "Starting in non-daemon mode");
+	    System_Daemon::setOption("logVerbosity", System_Daemon::LOG_INFO);
 
-        System_Daemon::start();
-
+            pcntl_signal(SIGINT, array("SyncClientShell", "signalHandler"));
+            pcntl_signal(SIGTERM, array("SyncClientShell", "signalHandler"));
+        }
+        
         // What mode are we in?
         $mode = "'".(System_Daemon::isInBackground() ? "" : "non-" )."daemon' mode";
 
@@ -240,7 +284,7 @@ class SyncClientShell extends SyncBaseShell {
         // While checks on 2 things in this case:
         // - That the Daemon Class hasn't reported it's dying
         // - That your own code has been running Okay
-        while (!System_Daemon::isDying()/* && $runningOkay*/) {
+        while (!System_Daemon::isDying() /*&& $runningOkay*/ && self::$gracefulExit != 1) {
 
 
         // remove syncStatus
@@ -255,9 +299,9 @@ class SyncClientShell extends SyncBaseShell {
             // if error retries
             $tries = 0 ;
 
-            while ( $runningOkay && ($tries < $error_retry)) {
+            while ( $runningOkay && ($tries < $error_retry) && self::$gracefulExit != 1) {
 
-                System_Daemon::log(System_Daemon::LOG_DEBUG, "requestAction perform_syncs, retries = " . $tries );
+                System_Daemon::log(System_Daemon::LOG_DEBUG, "requestAction perform_syncs, retries = " . $tries . ", graceful exit = " . self::$gracefulExit );
 
                 if ($hostname == 'localhost' || $hostname == '127.0.0.1' || empty($active) ) break;
 
@@ -275,8 +319,10 @@ class SyncClientShell extends SyncBaseShell {
                         $successed = $this->isSyncingSuccess();
                     }
                 }else {
+                    System_Daemon::log(System_Daemon::LOG_INFO, "starting sync");
                     $this->startSyncing();
                     $successed = $this->isSyncingSuccess();
+                    System_Daemon::log(System_Daemon::LOG_INFO, "sync finished: " . $successed);
                 }
 
                 if ($successed) break;
@@ -285,8 +331,15 @@ class SyncClientShell extends SyncBaseShell {
 
                 $tries++;
 
+		// apparently signals do not get processed without the following line
+		System_Daemon::log(System_Daemon::LOG_DEBUG, "checking for retry [" . self::$gracefulExit . "]");
+
                 // if error sleeping for a little bit and retry
-                sleep($timeout);
+                if ( $runningOkay && ($tries < $error_retry) && self::$gracefulExit != 1) {
+                    sleep($timeout);
+                }
+		// apparently signals do not get processed without the following line
+		System_Daemon::log(System_Daemon::LOG_DEBUG, "waking up from retry delay [" . self::$gracefulExit . "]");
 
             }
 
@@ -313,13 +366,16 @@ class SyncClientShell extends SyncBaseShell {
                 //sleep( ($nextStartTime - $now) );
                 
             }
-
         }
 
-        // Log something using the Daemon class's logging facility
-        System_Daemon::log(System_Daemon::LOG_INFO, System_Daemon::getOption("appName")." stopping ".$syncSettings['hostname']);
+        $this->closeAll();
 
-        System_Daemon::stop();
+        // Log something using the Daemon class's logging facility
+        System_Daemon::log(System_Daemon::LOG_INFO, System_Daemon::getOption("appName")." stopping ".$syncSettings['hostname']." (".self::$gracefulExit.")");
+
+        if ($daemon) {
+            System_Daemon::stop();
+        }
 
     }
 
