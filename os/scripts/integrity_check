@@ -59,4 +59,9 @@ done
 
 if [ "${ERROR_STATUS}" = "0" ]; then
     touch "${STATUS_MARKER}"
+    initctl emit --no-wait roundrock-integrity-ok
+else
+    initctl emit --no-wait roundrock-integrity-not-ok
 fi
+
+initctl emit --no-wait roundrock-integrity-checked

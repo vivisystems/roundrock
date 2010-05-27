@@ -62,7 +62,7 @@ handle_failure() {
 
     ## emit event to signal bigdisk provisioning has completed
 
-    initctl emit roundrock-bigdisk-provisioned
+    initctl emit --no-wait roundrock-bigdisk-provisioned
 
     exit
 }
@@ -350,4 +350,4 @@ log_end_msg 0
 
 ## emit event to signal bigdisk provisioning has completed
 
-initctl emit roundrock-bigdisk-provisioned
+initctl emit --no-wait roundrock-bigdisk-provisioned

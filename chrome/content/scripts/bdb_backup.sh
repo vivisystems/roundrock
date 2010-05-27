@@ -82,21 +82,18 @@ check_device() {
 # start services that access the databases
 #
 start_services() {
-    rm /tmp/sync_client.off
-
-    sudo /etc/init.d/lighttpd start >/dev/null 2>&1
+    sudo start --no-wait lighttpd >/dev/null 2>&1
+    sudo start --no-wait sync-client >/dev/null 2>&1
+    sudo start --no-wait irc-client >/dev/null 2>&1
 }
 
 #
 # stop services that access the databases
 #
 stop_services() {
-    # suspend sync client
-    touch /tmp/sync_client.off
-
-    sudo /data/vivipos_webapp/sync_client stop >/dev/null 2>&1
-    sudo /data/vivipos_webapp/irc_client stop >/dev/null 2>&1
-    sudo /etc/init.d/lighttpd stop >/dev/null 2>&1
+    sudo stop sync-client >/dev/null 2>&1
+    sudo stop irc-client >/dev/null 2>&1
+    sudo stop lighttpd >/dev/null 2>&1
 }
 
 do_backup() {

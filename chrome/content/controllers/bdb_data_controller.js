@@ -13,7 +13,6 @@
         _data_path: '',
         _expire_batch_size: 500,
         _expire_total_size: 100000,
-        _sync_suspend_status_file: '/tmp/sync_client.off',
 
         _backup_system_script: 'bdb_backup.sh',
         _restore_system_script: 'bdb_restore.sh',
@@ -333,40 +332,19 @@
         },
 
         _startServices: function() {
-            // Note that sync_client/irc_client are restarted automatically by cron job
-            // this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/sync_client', 'start']);
-            // this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/irc_client']);
+            this._execute('/usr/bin/sudo', ['/sbin/start', '--no-wait', 'lighttpd']);
+            this._execute('/usr/bin/sudo', ['/sbin/start', '--no-wait', 'sync-client']);
+            this._execute('/usr/bin/sudo', ['/sbin/start', '--no-wait', 'irc-client']);
 
-            var marker_file_path = this._sync_suspend_status_file;
-
-            if (GeckoJS.File.exists(marker_file_path)) {
-                GeckoJS.File.remove(marker_file_path);
-            }
-
-            this._execute('/usr/bin/sudo', ['/etc/init.d/lighttpd', 'start']);
-
-            return !GeckoJS.File.exists(marker_file_path);
+            return true;
         },
 
         _stopServices: function() {
-            // create sync syspend file
-            var marker_file_path = this._sync_suspend_status_file;
+            this._execute('/usr/bin/sudo', ['/sbin/stop', 'irc-client']);
+            this._execute('/usr/bin/sudo', ['/sbin/stop', 'sync-client']);
+            this._execute('/usr/bin/sudo', ['/sbin/stop', 'lighttpd']);
 
-            if (!GeckoJS.File.exists(marker_file_path)) {
-                let marker_file = new GeckoJS.File(marker_file_path);
-                if (marker_file) marker_file.create();
-            }
-
-            if (!GeckoJS.File.exists(marker_file_path)) {
-                return false;
-            }
-            else {
-                this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/sync_client', 'stop']);
-                this._execute('/usr/bin/sudo', ['/data/vivipos_webapp/irc_client', 'stop']);
-                this._execute('/usr/bin/sudo', ['/etc/init.d/lighttpd', 'stop']);
-                
-                return true;
-            }
+            return true;
         },
 
         _execute: function(cmd, params, nonblocking) {
