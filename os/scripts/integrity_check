@@ -7,7 +7,7 @@
 DB_DIR=/data/databases
 SQLITE3=/usr/bin/sqlite3
 DB_RECOVER=/usr/local/BerkeleyDB.5.0/bin/db_recover
-STATUS_MARKER=${1-"/tmp/ROUNDROCK_INTEGRITY_STATUS"}
+STATUS_MARKER=${1-"/tmp/ROUNDROCK_INTEGRITY_CHECKED"}
 
 log_warning_msg() {
    echo "$@"
