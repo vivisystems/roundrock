@@ -10,15 +10,25 @@
             main_window.$do('mergeFromStick', backup_controller, 'BigDisk');
         };
 
+        function backupToRemote() {
+            var backup_controller = GeckoJS.Controller.getInstanceByName('SystemBackup');
+            var main_window = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+            main_window.$do('backupToRemote', [backup_controller, document], 'BDBData');
+        };
+
         window.addEventListener('load', function() {
             var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
             mainWindow.$do('updateSystemBackupOptions', window.document, 'BigDisk');
             mainWindow.$do('updateSystemBackupOptions', window.document, 'BDBData');
+
+            $do('validateForm', null, 'SystemBackup');
         }, false);
 
     </script>
 
     <vbox id="toolbar">
+        <vivibutton id="backuptoexternal" label="&systembackup.backup.to.external;" insertafter="backuptostick" disabled="true"
+                    oncommand="backupToRemote();"/>
         <vbox id="merge_action" flex="1">
             <spacer flex="1"/>
             <vivibutton id="mergefromstick" label="&systembackup.merge.from.stick;" oncommand="mergeDatabases();" disabled="true"/>

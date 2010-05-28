@@ -105,6 +105,74 @@
                 backupController.addEventListener('beforeRestoreFromLocal', this._handleRestore, this);
                 backupController.addEventListener('beforeRestoreFromRemote', this._handleRestore, this);
             }
+
+            // replace systembackup controller's validate form with my own
+            var backupToExternalButtonObj = doc.getElementById('backuptoexternal');
+            var system_backup = doc.defaultView.GeckoJS.Controller.getInstanceByName('SystemBackup');
+            var builtInValidateForm = system_backup.validateForm;
+
+            system_backup.validateForm = function() {
+                builtInValidateForm.call(system_backup);
+
+                if (backupToExternalButtonObj) backupToExternalButtonObj.setAttribute('disabled', !system_backup._selectedDevice);
+            }
+        },
+
+        // @backupToRemote:
+        //
+        // parms should be an array with two elements:
+        //
+        // parms[0]: reference to the built-in system backup controller
+        // parms[1]: reference to the system backup document
+        //
+        backupToRemote: function(parms) {
+
+            var env = parms[0];
+            var doc = parms[1];
+
+            if (env._busy) return;
+            env._busy = true;
+
+            var waitPanel = env._showWaitPanel(_('Backing Up Data to Local Storage'));
+            var withProfile = doc.getElementById('backupWithProfile').checked ;
+
+            env.setButtonState();
+
+            var args;
+            if (withProfile) {
+                args = ['with-profile', 'secondary'];
+            }
+            else {
+                args = ['', 'secondary'];
+            }
+
+            // log user process
+            this.log('FATAL', 'backupToRemote withProfile: [' + withProfile +']');
+
+            env.flushPrefs(); // flush it.
+
+            // close all database connections
+            GeckoJS.ConnectionManager.closeAll();
+
+            var script = this._script_path + '/' + this._backup_system_script;
+            let evt_data = {script: script, args: args, skip: false};
+            if (this.dispatchEvent('beforeBackupToRemote', evt_data)) {
+                script = evt_data.script;
+                args = evt_data.args;
+
+                this.log('DEBUG', 'backup script [' + script + ']');
+                this.log('DEBUG', 'backup args [' + this.dump(args) + ']');
+
+                if (evt_data.skip || this._execute(script, args)) {
+                    this._execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
+                    NotifyUtils.info(_('<Backup to Local Storage> is done'));
+                }
+            }
+            env.refresh();
+            env._busy = false;
+            env.validateForm();
+
+            waitPanel.hidePopup();
         },
 
         _beforeClearOrderData: function(evt) {

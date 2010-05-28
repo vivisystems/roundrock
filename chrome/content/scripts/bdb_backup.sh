@@ -128,6 +128,10 @@ do_backup() {
         /data/vivipos_webapp/sync_tools truncate >/dev/null 2>&1
     fi
 
+    # stop services
+    echo "15\n# ${MSG_SCRIPT_BACKUP_STEP_04}"
+    stop_services
+
     # backup database
     start_index=20
     echo "${start_index}\n# ${MSG_SCRIPT_BACKUP_STEP_05}"
@@ -155,8 +159,8 @@ do_backup() {
     done
 
     # start services
-    #echo "60\n# ${MSG_SCRIPT_BACKUP_STEP_06}"
-    #start_services
+    echo "60\n# ${MSG_SCRIPT_BACKUP_STEP_06}"
+    start_services
 
     # backup profile
     if [ "$backup_with_profile" = "with-profile" ]; then

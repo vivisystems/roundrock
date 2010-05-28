@@ -40,7 +40,6 @@ notify_finish() {
 # start services that access the databases
 #
 start_services() {
-start_services() {
     sudo start --no-wait lighttpd >/dev/null 2>&1
     sudo start --no-wait sync-client >/dev/null 2>&1
     sudo start --no-wait irc-client >/dev/null 2>&1

@@ -204,22 +204,8 @@
         
         updateSystemBackupOptions: function(doc) {
             var mergeButtonObj = doc.getElementById('mergefromstick');
-            if (GeckoJS.Session.get(this._bigdisk_session_flag)) {
-                // disable merge button
-                //mergeButtonObj.setAttribute('disabled', true);
 
-                // replace systembackup controller's validate form with my own
-                var system_backup = doc.defaultView.GeckoJS.Controller.getInstanceByName('SystemBackup');
-                var builtInValidateForm = system_backup.validateForm;
-                
-                system_backup.validateForm = function() {
-                    builtInValidateForm.call(system_backup);
-                    var externalListObj = doc.getElementById('stickbackupscrollablepanel');
-
-                    if (mergeButtonObj) mergeButtonObj.setAttribute('disabled', !(externalListObj.selectedItems.length > 0));
-                }
-            }
-            else {
+            if (!GeckoJS.Session.get(this._bigdisk_session_flag)) {
                 // hide backup to local button
                 var backupToLocalButtonObj = doc.getElementById('backuptolocal');
                 if (backupToLocalButtonObj) backupToLocalButtonObj.setAttribute('hidden', true);
@@ -227,6 +213,17 @@
                 // hide merge button
                 var mergeActionRow = doc.getElementById('merge_action');
                 if (mergeActionRow) mergeActionRow.setAttribute('hidden', true);
+            }
+
+            // replace systembackup controller's validate form with my own
+            var system_backup = doc.defaultView.GeckoJS.Controller.getInstanceByName('SystemBackup');
+            var builtInValidateForm = system_backup.validateForm;
+
+            system_backup.validateForm = function() {
+                builtInValidateForm.call(system_backup);
+                var externalListObj = doc.getElementById('stickbackupscrollablepanel');
+
+                if (mergeButtonObj) mergeButtonObj.setAttribute('disabled', !(externalListObj.selectedItems.length > 0));
             }
         },
 
@@ -241,8 +238,7 @@
             }
         },
 
-        mergeFromStick: function(backup_controller) {
-            var env = backup_controller;
+        mergeFromStick: function(env) {
             if (env._busy) return;
             if (!env.checkBackupDevice(env._selectedDevice)){
                 NotifyUtils.info(_('Media not found!! Please attach the external storage device...'));
