@@ -138,26 +138,22 @@ do_restore() {
             sudo /bin/rm -rf "${target_dir}/backup"
         fi
 
-        prog=$((prog+2))
-        echo "${prog}\n# ${MSG_SCRIPT_RESTORE_STEP_05}"
-        start_services
-
         # restore profile
-        echo "75\n# ${MSG_SCRIPT_RESTORE_STEP_06}"
+        echo "70\n# ${MSG_SCRIPT_RESTORE_STEP_05}"
 
         if [ -f "$restore_dir/profile.tbz" ]; then
             tar xjpf $restore_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" -C /data/profile
         fi
 
         # restore images
-        echo "80\n# ${MSG_SCRIPT_RESTORE_STEP_07}"
+        echo "75\n# ${MSG_SCRIPT_RESTORE_STEP_06}"
 
         if [ -f "$restore_dir/images.tbz" ]; then
             tar xjpf $restore_dir/images.tbz -C /data/images
         fi
 
         # restore system
-        echo "85\n# ${MSG_SCRIPT_RESTORE_STEP_08}"
+        echo "80\n# ${MSG_SCRIPT_RESTORE_STEP_07}"
 
         if [ -f "$restore_dir/system.tbz" ] && [ "$restore_with_system" = "with-system" ]; then
             tar xjpf $restore_dir/system.tbz -C /data/system
@@ -167,12 +163,16 @@ do_restore() {
         # notify vivipos client we are now restore
         #curl -m 3 -s -G "http://localhost:8888/observer?topic=crontab&data=restore_finished" -o /dev/null
 
-        echo "90\n# ${MSG_SCRIPT_RESTORE_STEP_09}"
+        echo "85\n# ${MSG_SCRIPT_RESTORE_STEP_08}"
         sync;
 
-	fi
+        # resume web services
+        echo "90\n# ${MSG_SCRIPT_RESTORE_STEP_09}"
+        start_services
 
-	echo "100\n# ${MSG_SCRIPT_RESTORE_FINISHED}"
+    fi
+
+    echo "100\n# ${MSG_SCRIPT_RESTORE_FINISHED}"
 
 }
 
