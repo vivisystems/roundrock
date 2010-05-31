@@ -1,0 +1,5 @@
+<!ENTITY integrity.alert.title "Data Integrity">
+<!ENTITY integrity.notice.label "Checking Data Integrity...">
+<!ENTITY integrity.message.label "Detailed Result">
+<!ENTITY integrity.rebootButton.label "Reboot">
+<!ENTITY integrity.shutdownButton.label "Shutdown">

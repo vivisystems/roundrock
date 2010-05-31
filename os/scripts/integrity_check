@@ -7,7 +7,7 @@
 DB_DIR=/data/databases
 SQLITE3=/usr/bin/sqlite3
 DB_RECOVER=/usr/local/BerkeleyDB.5.0/bin/db_recover
-STATUS_MARKER=${1-"/tmp/ROUNDROCK_INTEGRITY_CHECKED"}
+STATUS_MARKER=${1-"/tmp/ROUNDROCK_INTEGRITY_STATUS"}
 
 log_warning_msg() {
    echo "$@"
@@ -58,10 +58,12 @@ for i in "${DB_DIR}"/*.sqlite; do
 done
 
 if [ "${ERROR_STATUS}" = "0" ]; then
-    touch "${STATUS_MARKER}"
+    echo 0 > "${STATUS_MARKER}"
     initctl emit --no-wait roundrock-integrity-ok
 else
+    echo 1 > "${STATUS_MARKER}"
     initctl emit --no-wait roundrock-integrity-not-ok
 fi
 
+log_end_msg "${ERROR_STATUS}"
 initctl emit --no-wait roundrock-integrity-checked

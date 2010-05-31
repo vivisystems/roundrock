@@ -719,12 +719,5 @@
 
     GeckoJS.Controller.extend(__controller__);
 
-    // set up event listener to intercept invocation of Main.initial()
-    function startup(evt) {
-        GeckoJS.Dispatcher.removeEventListener('onDispatch', startup);
-        $do('initial', evt, 'BigDisk');
-    }
-    GeckoJS.Dispatcher.addEventListener('onDispatch', startup);
-
 })();
 

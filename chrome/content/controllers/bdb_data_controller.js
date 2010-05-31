@@ -20,6 +20,82 @@
         _bdb_recover: '/usr/local/BerkeleyDB.5.0/bin/db_recover',
         _sqlite3: '/usr/bin/sqlite3',
 
+        _integrity_check_output: '/tmp/ROUNDROCK_INTEGRITY_STATUS',
+
+        // @integrityCheck
+        //
+        // This function is invoked before any controller is initialized. Its
+        // function is to verify that integrity check has completed, and perform
+        // any necessary post-processing according to the result of the integrity
+        // check:
+        //
+        // 1. wait for integrity to complete
+        // 2a. if integrity check succeeds, simply exits
+        // 2b. if integrity check fails, attempt db recover, put up "call for service" notice
+        //
+        integrityCheck: function(evt) {
+            var statusFile = '/tmp/integrity-status.' + GeckoJS.String.uuid();
+            var status = '';
+            var alertDialog;
+
+            var failedToRunMsg = _('Data integrity check failed to run.');
+            var checkFailedMsg = _('Data integrity check failed.');
+            var actionMsg = _('Please contact your dealer for service.')
+
+            // loop until status returns 'stop/waiting' or failed
+            while (status != 'stop/waiting' && status != 'failed-check' && status != 'failed-to-run') {
+                if (status) {
+                    // put up wait panel
+                    if (!alertDialog) alertDialog = this._showAlertDialog();
+                    this.sleep(1000);
+                }
+                this._execute('/bin/sh', ['-c', "status integrity-check | awk -F' ' '{ print $2 }' > " + statusFile]);
+
+                // read integrity check status from status file
+                if (GeckoJS.File.exists(statusFile)) {
+                    let f = new GeckoJS.File(statusFile);
+                    f.open('r');
+
+                    // if status file is empty or unreadable, then integrity check failed to run
+                    status = f.readAllLine() || 'failed-to-run';
+                    f.close();
+                }
+                else {
+                    status = 'failed-to-run';
+                }
+            }
+
+            // if integrity check completed, check result
+            if (status == 'stop/waiting') {
+                if (GeckoJS.File.exists(this._integrity_check_output)) {
+                    let f = new GeckoJS.File(this._integrity_check_output);
+                    f.open('r');
+
+                    status = f.readAllLine() || 'failed-check';
+
+                    if (status != '0') {
+                        status = 'failed-check'
+                    }
+                }
+                else {
+                    status = 'failed-to-run';
+                }
+            }
+
+            status = 'failed-check';
+            switch(status) {
+                case 'failed-to-run':
+                case 'failed-check':
+                    evt.preventDefault();
+                    alertDialog = this._showAlertDialog(((status == 'failed-to-run') ? failedToRunMsg : checkFailedMsg) + ' ' + actionMsg);
+                    break;
+
+                default:
+                    if (alertDialog) alertDialog.hidePopup();
+                    break;
+            }
+        },
+
         initial: function(evt) {
             
             // set up various paths
@@ -435,6 +511,34 @@
                 win = null;
             }
             GREUtils.Dialog.alert(win, title, message);
+        },
+
+        _reboot: function() {
+
+        },
+
+        _shutdown: function() {
+
+        },
+        
+        _showAlertDialog: function(msg) {
+
+            var width = 700;
+            var height = 150;
+
+            var aURL = 'chrome://roundrock/content/alert_integrity_check.xul';
+            var aName = _('Data Integrity');
+            var aArguments = {detail: msg, controller: this};
+            var aFeatures = 'chrome,dialog,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height + ((msg) ? ',modal' : '');
+
+            var win = this.topmostWindow;
+            if (win.document.documentElement.id == 'viviposMainWindow'
+                && win.document.documentElement.boxObject.screenX < 0) {
+                win = null;
+            }
+            var alertWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
+
+            return alertWin;
         },
 
         destroy: function() {

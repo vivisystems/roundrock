@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % IntegrityCheck SYSTEM "chrome://roundrock/locale/integrity_check.dtd">
+  %IntegrityCheck;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&integrity.alert.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript;version=1.7" src="chrome://roundrock/content/alert_integrity_check.js" />
+
+    <vbox flex="1" class="container-dialog container-wait-dialog">
+        <vbox flex="1" class="container-main">
+            <label id="dialog_caption" value="&integrity.notice.label;" class="label-page-title"/>
+            <label id="dialog_message" value="&integrity.message.label;" class="label-sub-title" hidden="true"/>
+            <spacer flex="1"/>
+            <hbox id="action_buttons" hidden="true" pack="end">
+                <button id="action_reboot" label="&integrity.rebootButton.label;" class="button-execute"
+                        oncommand="rebootMachine();"/>
+                <button id="action_shutdown" label="&integrity.shutdownButton.label;" class="button-execute"
+                        oncommand="shutdownMachine();"/>
+            </hbox>
+        </vbox>
+    </vbox>
+    
+</window>
