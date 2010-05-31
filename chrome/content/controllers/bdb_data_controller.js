@@ -82,7 +82,6 @@
                 }
             }
 
-            status = 'failed-check';
             switch(status) {
                 case 'failed-to-run':
                 case 'failed-check':
