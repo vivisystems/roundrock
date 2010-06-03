@@ -1440,7 +1440,7 @@
 		
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );
 		    
-            var aURL = 'chrome://viviecr/content/reports/rpt_cash_by_clerk.xul';
+            var aURL = 'chrome://viviecr/content/reports/rpt_cash_by_clerk.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&shift_no='+shiftNumber;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
@@ -1462,7 +1462,7 @@
 
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
             
-            var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul';
+            var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&period_type='+periodType+'&shift_no='+shiftNo;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
