@@ -64,7 +64,7 @@
             datas.forEach(function(o){
                 if (!clockStamps[o.username]) {
                     clockStamps[o.username] = {};
-                    clockStamps[o.username].username = o.displayname;
+                    clockStamps[o.username].username = o.username +' : '+ o.displayname;
                     clockStamps[o.username].total_spans = 0;
                     clockStamps[o.username].clockStamps = [];
                 }

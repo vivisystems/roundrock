@@ -488,10 +488,12 @@
             // check if condiment group has been assigned to products
             var linked = false;
             var products = GeckoJS.Session.get('products');
-            for (var i = 0; i < products.length; i++) {
-                if (products[i].cond_group && products[i].cond_group.indexOf(condGroup.id) != -1) {
-                    linked = true;
-                    break;
+            if(products){
+                for (var i = 0; i < products.length; i++) {
+                    if (products[i].cond_group && products[i].cond_group.indexOf(condGroup.id) != -1) {
+                        linked = true;
+                        break;
+                    }
                 }
             }
             if (linked) {
