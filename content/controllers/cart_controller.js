@@ -742,7 +742,13 @@
                     item.scale_multipler = 1;
                     item.scale_precision = 2;
                 }
+
+                let orgQty = parseFloat(qty).toFixed(item.scale_precision);
                 qty = this.setQty(this.CartUtils.convertWeight(qty, unit, item.sale_unit, item.scale_multiplier, item.scale_precision));
+                if (qty != orgQty) {
+                    GeckoJS.Session.remove('cart_set_qty_display');
+                    qty_display = null;
+                }
             }
 
             // if item's unit of sale is individually, we convert qty to integer
