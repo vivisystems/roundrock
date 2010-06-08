@@ -4571,7 +4571,7 @@
                             order.void_clerk = user.username;
                             order.void_clerk_displayname = user.description;
                         }
-                        order.transaction_voided = (new Date()).getTime() / 1000;
+                        order.transaction_voided = Math.round((new Date()).getTime() / 1000);
                         order.void_sale_period = salePeriod;
                         order.void_shift_number = shiftNumber;
 
