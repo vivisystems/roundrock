@@ -1354,7 +1354,7 @@
 
                 // offer options to power off or restart and to print shift and day reports
                 aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',height=300';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',height=600';
                 let parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Sale Period Close'), features, parms);
 
@@ -1384,7 +1384,7 @@
 
                 // shift change notification and print option
                 aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',height=300';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',' + this.screenheight * 0.8;
                 let message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Close'), features, message);
 
