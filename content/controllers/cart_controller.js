@@ -63,6 +63,7 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
             GeckoJS.Session.remove('cart_set_qty_unit');
+            GeckoJS.Session.remove('cart_set_qty_display');
 
             // catch changes to price level and store it in txn.data
             var events = GeckoJS.Session.getInstance().events;
@@ -727,6 +728,7 @@
             let qtyFromInput = true;
             var qty = GeckoJS.Session.get('cart_set_qty_value');
             var unit = GeckoJS.Session.get('cart_set_qty_unit');
+            var qty_display = GeckoJS.Session.get('cart_set_qty_display') || null;
             if (qty == null) {
                 qty = 1;
                 qtyFromInput = false;
@@ -773,6 +775,7 @@
 
                             // need to clear quantity source so scale multipler is not applied again
                             GeckoJS.Session.remove('cart_set_qty_unit');
+                            GeckoJS.Session.remove('cart_set_qty_display');
                             this.modifyQty('plus', qty);
 
                             return;
@@ -1537,6 +1540,7 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
             GeckoJS.Session.remove('cart_set_qty_unit');
+            GeckoJS.Session.remove('cart_set_qty_display');
 
             this.subtotal();
         },
@@ -3184,6 +3188,7 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
             GeckoJS.Session.remove('cart_set_qty_unit');
+            GeckoJS.Session.remove('cart_set_qty_display');
 
             return $.popupPanel('paymentDetailsPanel', dialog_data);
 
@@ -3224,7 +3229,9 @@
                     }
                     else {
                         this.setQty(qty, false, weight.unit, true);
-                        NotifyUtils.info(_('Weight read from scale') + ' :' + qty + ' ' + weight.unit);
+                        if (weight.display) GeckoJS.Session.set('cart_set_qty_display', weight.display);
+                        
+                        NotifyUtils.info(_('Weight read from scale') + ' :' + (weight.display?weight.display:qty) + ' ' + weight.unit);
                         GREUtils.Sound.play('chrome://viviecr/content/sounds/beep1.wav');
                         return true;
                     }
@@ -3364,6 +3371,7 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
             GeckoJS.Session.remove('cart_set_qty_unit');
+            GeckoJS.Session.remove('cart_set_qty_display');
 
             var curTransaction = this._getTransaction();
 
@@ -3554,6 +3562,7 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
             GeckoJS.Session.remove('cart_set_qty_unit');
+            GeckoJS.Session.remove('cart_set_qty_display');
 
             var oldTransaction = this._getTransaction();
 

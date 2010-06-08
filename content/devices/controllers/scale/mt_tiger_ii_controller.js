@@ -116,14 +116,14 @@
                 else {
                     if (weight.value == lastWeight) {
                         if (++stableCount >= stables) {
-                            return {value: weight.value, unit: weight.unit};
+                            return {value: weight.value, unit: weight.unit, original: weight.original, display: null}; // not support preformated display
                         }
                     }
                     else {
                         // weight has changed
                         lastWeight = weight.value;
                         if (++tryCount == tries) {
-                            return {value: null, unit: null};
+                            return {value: null, unit: null, original: null, display: null};
                         }
                         else {
                             stableCount = 0;
@@ -176,7 +176,7 @@
                     weight = null;
                 }
                 else {
-                    weight = {value: value, unit: unit};
+                    weight = {value: value, unit: unit, original: weightStr, display: null}; // not support preformated display 
                 }
                 //this.log('DEBUG', 'scale value: ' + value + ', unit: ' + unit);
             }

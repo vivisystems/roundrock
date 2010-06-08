@@ -110,11 +110,11 @@
             //this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
             while (weight != null) {
                 if (weight.value) {
-                    return {value: weight.value, unit: weight.unit};
+                    return {value: weight.value, unit: weight.unit, original: weight.original, display: null}; // not support preformated display 
                 }
                 else {
                     if (++tryCount == tries) {
-                        return {value: null, unit: null};
+                        return {value: null, unit: null, original: null, display: null};
                     }
                 }
                 weight = this.readScaleOnce(port, iterations);
@@ -165,7 +165,7 @@
                     weight = null;
                 }
                 else {
-                    weight = {value: value, unit: unit};
+                    weight = {value: value, unit: unit, original: weightStr, display: null}; // not support preformated display 
                 }
                 //this.log('DEBUG', 'scale value: ' + value + ', unit: ' + unit);
                 return weight;

@@ -820,7 +820,13 @@
                         itemDisplay.current_qty += 'X';
                     }
                     else {
-                        itemDisplay.current_qty += item.sale_unit;
+
+                        if (item.current_qty_display) {
+                            itemDisplay.current_qty = item.current_qty_display + item.sale_unit;
+                        }else {
+                            itemDisplay.current_qty += item.sale_unit;
+                        }
+                        
                     }
                 }
             }
@@ -875,7 +881,7 @@
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var prevRowCount = this.data.display_sequences.length;
 
-            var sellQty = null, sellPrice = null;
+            var sellQty = null, sellPrice = null, sellQtyDisplay = null;
 
             var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
             if (lastSellItem != null) {
@@ -892,9 +898,12 @@
 
             sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
 
+            sellQtyDisplay  = (GeckoJS.Session.get('cart_set_qty_display') != null) ? GeckoJS.Session.get('cart_set_qty_display') : sellQtyDisplay;
+
             var obj = {
                 sellPrice: sellPrice,
                 sellQty: sellQty,
+                sellQtyDisplay: sellQtyDisplay,
                 item: item
             };
 
@@ -905,6 +914,8 @@
 
             // create data object to push in items array
             var itemAdded = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
+
+            if(sellQtyDisplay) itemAdded.current_qty_display = sellQtyDisplay;
 
             // push to items array
             this.data.items[itemIndex] = itemAdded;
@@ -1036,6 +1047,7 @@
             var condimentPrice = 0;
             var setItems = [];
             var setItemEventData;
+            var sellQtyDisplay = null;
 
             if (newSetItems) {
                 setItems = this.getSetItemsByIndex(itemTrans.index);
@@ -1059,6 +1071,8 @@
                                 : sellPrice;
 
                     sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
+
+                    sellQtyDisplay  = (GeckoJS.Session.get('cart_set_qty_display') != null) ? GeckoJS.Session.get('cart_set_qty_display') : sellQtyDisplay;
                 }
                 else if (itemDisplay.type == 'condiment') {
                     condimentPrice = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : itemDisplay.current_price;
@@ -1150,17 +1164,15 @@
                     itemTrans.tax_name = itemModified.tax_name;
                     itemModified = itemTrans;
 
+                    if (sellQtyDisplay) itemModified.current_qty_display = sellQtyDisplay;
+
                     // update to items array
                     this.data.items[itemIndex]  = itemModified;
-
-                    //this.log('DEBUG', 'dispatchEvent afterModifyItem ' + this.dump(itemModified) );
-                    Transaction.events.dispatch('afterModifyItem', itemModified, this);
 
                     var itemDisplay2 = this.createDisplaySeq(itemIndex, itemModified, 'item');
                     itemDisplay2.returned = itemDisplay.returned;
                     
                     // create data object to push in items array
-
                     // update display
                     this.data.display_sequences[index] = itemDisplay2 ;
 
@@ -1198,6 +1210,10 @@
                             self.data.display_sequences[setItemDisplayIndex] = setItemDisplay;
                         });
                     }
+
+                    //this.log('DEBUG', 'dispatchEvent afterModifyItem ' + this.dump(itemModified) );
+                    Transaction.events.dispatch('afterModifyItem', itemModified, this);
+
                 }
             }
             else if (itemDisplay.type == 'condiment') {

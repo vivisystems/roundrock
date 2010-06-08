@@ -116,14 +116,14 @@
                 else {
                     if (weight.value == lastWeight) {
                         if (++stableCount >= stables) {
-                            return {value: weight.value, unit: weight.unit};
+                            return {value: weight.value, unit: weight.unit, original: weight.original, display: weight.display};
                         }
                     }
                     else {
                         // weight has changed
                         lastWeight = weight.value;
                         if (++tryCount == tries) {
-                            return {value: null, unit: null};
+                            return {value: null, unit: null, original: null, display: null};
                         }
                         else {
                             stableCount = 0;
@@ -172,7 +172,7 @@
                                 if (m && m[1] && m[2]) {
                                     let value = parseFloat(m[1]);
                                     if (!isNaN(value)) {
-                                        weight = {value: value, unit: m[2]};
+                                        weight = {value: value, unit: m[2], original: line, display: (value+'')};
                                         //this.log('DEBUG', '[readScaleOnce] valid net weight: ' + this.dump(weight));
 
                                         // exit from while loop
@@ -185,7 +185,7 @@
                                         let part1 = parseFloat(m[1]);
                                         let part2 = parseFloat(m[2]);
                                         if (!isNaN(part1) && !isNaN(part2)) {
-                                            weight = {value: (part1 + (part2/16)), unit: m[3]};
+                                            weight = {value: (part1 + (part2/16)), unit: m[3], original: line, display: (part1+'. '+part2)};
                                             //this.log('DEBUG', '[readScaleOnce] valid net weight: ' + this.dump(weight));
 
                                             // exit from while loop
