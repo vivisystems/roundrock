@@ -5,6 +5,7 @@
 <!ENTITY shiftchange.alert.last.sale.period "Last Sale Period">
 <!ENTITY shiftchange.alert.last.shift.number "Last Shift Number">
 <!ENTITY shiftchange.button.print.this.shift "Print Shift Report">
+<!ENTITY shiftchange.button.review.customer.report "Customer Period Report">
 <!ENTITY shiftchange.button.review.this.shift "Review Shift Report">
 <!ENTITY shiftchange.button.print.all.shifts "Print All Shifts">
 <!ENTITY shiftchange.button.review.all.shifts "Review All Shifts">

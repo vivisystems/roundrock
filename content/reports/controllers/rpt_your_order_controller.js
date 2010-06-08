@@ -468,6 +468,7 @@
                 GeckoJS.Configure.write( fileNamePref, fileName );
                 
                 // for setting.
+                this.log(this.dump( this._setting_form));
                 GeckoJS.Configure.write( settingPref, GeckoJS.FormHelper.serialize( this._setting_form ) );
                 
                 if ( isCreatingReport ) {

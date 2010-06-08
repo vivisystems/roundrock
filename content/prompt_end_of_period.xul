@@ -105,15 +105,17 @@
                                         oncommand="mainWindow.$do('printDailySales', null, 'ShiftChanges');"/>
                         </vbox>
                     </row>
+
                     <row flex="1">
                         <label value=""/>
                     </row>
+                    <!--  ****************************************   ROW 2 **********************************************  -->
                     <row flex="1">
                         <isoptionenabled option="vivipos.fec.settings.DisableShiftChange" action="hide" flex="1">
                             <vbox flex="1">
-                                <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.this.shift;" flex="1"
+                                <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.customer.report;" flex="1"
                                             roles="acl_report_cashbyclerk" action="hide"
-                                            oncommand="mainWindow.$do('reviewShiftReport', null, 'ShiftChanges');"/>
+                                            oncommand="mainWindow.$do('reviewCustomerReport', null, 'ShiftChanges');"/>
                             </vbox>
                         </isoptionenabled>
                     	<vbox flex="1">
@@ -132,7 +134,7 @@
                             <vbox flex="1">
                                 <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;" flex="1"
                                             roles="acl_report_cashbyclerk" action="hide"
-                                            oncommand="mainWindow.$do('printShiftReport', null, 'ShiftChanges');"/>
+                                            oncommand="mainWindow.$do('printCustomerReport', null, 'ShiftChanges');"/>
                             </vbox>
                         </isoptionenabled>
                     	<vbox>

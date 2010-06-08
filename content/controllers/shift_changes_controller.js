@@ -1421,6 +1421,50 @@
 
             reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', shiftNumber );
         },
+
+        printCustomerReport: function(shift){
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+                return;
+
+            var reportController = GeckoJS.Controller.getInstanceByName( 'RptYourOrder' );
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var shiftNumber = shift ? this._getShiftNumber().toString() : '';
+            
+             /* check if exist customer report*/
+            var reports = GeckoJS.Configure.read('vivipos.fec.reportpanels');
+            var keys = GeckoJS.BaseObject.getKeys(reports) || [];
+            var prefKey;
+
+            keys.forEach(function(key) {
+                var el = reports[key];
+                var label = el.label;
+                if (label.indexOf('chrome://') == 0) {
+                    var keystr = 'vivipos.fec.reportpanels.' + key + '.label';
+                    label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                }
+
+                // "( Custom )" will be followed by the label to indicate that the report is custom one.
+                var re = /([a-z0-9]+-){4}[a-z0-9]+/;// regular expression for recognizing uuid which is the key of a custom report.
+                
+                /*set parameter*/
+                if ( re.test( key ) ){
+
+                     if(label == _('Period Report'))
+                         prefKey = key;
+                 }
+            });
+
+            var pref = 'vivipos.fec.report.' + prefKey + '.settings'
+
+            var settings = GeckoJS.Configure.read( pref );
+
+            settings = settings.split("&");
+
+            settings = this._getCustomerReportSetting(settings);
+
+            reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, shiftNumber );
+        },
         
         reviewShiftReport: function( all ) {
             var salePeriod = this._getSalePeriod() * 1000;
@@ -1465,6 +1509,48 @@
             var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&period_type='+periodType+'&shift_no='+shiftNo;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
+        },
+
+        reviewCustomerReport: function(shift){
+
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var periodType = 'sale_period';
+            var shiftNo = shift ? this._getShiftNumber().toString() : '';
+            
+            /* check if exist customer report*/
+            var reports = GeckoJS.Configure.read('vivipos.fec.reportpanels');
+            var keys = GeckoJS.BaseObject.getKeys(reports) || [];
+            var pref = {};
+
+            keys.forEach(function(key) {
+                var el = reports[key];
+                var label = el.label;
+                if (label.indexOf('chrome://') == 0) {
+                    var keystr = 'vivipos.fec.reportpanels.' + key + '.label';
+                    label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                }
+
+                // "( Custom )" will be followed by the label to indicate that the report is custom one.
+                var re = /([a-z0-9]+-){4}[a-z0-9]+/;// regular expression for recognizing uuid which is the key of a custom report.
+                
+                /*set parameter*/
+                if ( re.test( key ) ){
+
+                     if(label == _('Period Report'))
+                     pref = {
+                     icon: el.icon,
+                     path: el.path,
+                     roles: el.roles,
+                     label: label,
+                     key: key || ""
+                     }
+                 }
+            });
+            /*open dialog*/
+            var aURL = 'chrome://viviecr/content/reports/rpt_your_order.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&shift_no='+shiftNo;;
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, pref);//processedTpl, parameters);
         },
 
         select: function(index){
@@ -1658,6 +1744,25 @@
             GREUtils.Dialog.alert(win,
                                   _('Data Operation Error'),
                                   errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+        },
+
+        _getCustomerReportSetting: function (setting){
+
+            var obj = {};
+            var index = 0;
+            var key;
+            var value;
+            var length = setting.length;
+
+            for(var i=0 ; i< length ; i++){
+
+                index = setting[i].indexOf("=");
+                key = setting[i].substring(0,index);
+                value = setting[i].substring(index +1 ,setting[i].length);
+                obj[key] = value;
+            }
+
+            return obj;
         }
     };
 
