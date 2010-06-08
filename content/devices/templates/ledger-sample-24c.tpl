@@ -14,7 +14,7 @@ ${0 - ledger.amount|right:24}
 ${ledger.amount|right:24}
 {/if}
 {if ledger.description}
-{$ledger.description|left:24}
+${ledger.description|left:24}
 {/if}
 ------------------------[&CR]
 [&CR]
