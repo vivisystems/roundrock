@@ -54,6 +54,6 @@
 [&ESC @][&ESC QA]${'ORDER VOIDED'|left:24}[&CR]
 [&ESC QB]SEQ: ${order.seq|right:19}[&CR]
 {else}
-[&ESC @][&ESC QA]${(store.name == null)?'VIVIPOS':store.name|center:24}[&CR]
+[&ESC @][&ESC QA]${(store.name == null)?'VIVIPOS':store.branch_id|center:24}[&CR]
 [&ESC QB]${'Welcome!'|center:24}[&CR]
 {/if}
