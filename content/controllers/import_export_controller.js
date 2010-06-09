@@ -758,6 +758,10 @@
                             sourceLicenseFile.open("r");
                             sourceLicenseFile.copy(this._exportDir);
                             sourceLicenseFile.close();
+
+                            fileName = this._exportDir + '/vivipos.lic';
+                            //this._datas[index].name = '/etc/vivipos.lic';
+
                             break;
                     }
                 }
@@ -768,7 +772,6 @@
 
                 this._datas[index].exported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
                 this.getListObj().refresh();
-
                 NotifyUtils.info(_('Export of [%S] to file [%S] finished!',
                                    [this._datas[index].name, fileName]));
                 GeckoJS.BaseObject.log('FATAL', _('Export of [%S] to file [%S] finished!',
