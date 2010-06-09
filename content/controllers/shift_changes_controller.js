@@ -1463,7 +1463,7 @@
 
             settings = this._getCustomerReportSetting(settings);
 
-            reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, shiftNumber );
+            reportController.printCustomerReport( salePeriod, salePeriod, terminalNo, shiftNumber, settings );
         },
         
         reviewShiftReport: function( all ) {

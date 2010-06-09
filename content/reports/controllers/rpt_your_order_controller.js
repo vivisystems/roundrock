@@ -259,6 +259,10 @@
             this._reportRecords.body = GeckoJS.BaseObject.getValues( this._datas );
             this._reportRecords.foot.foot_datas = footDatas;
         },
+
+        printCustomerReport: function(salePeriod, salePeriod, terminalNo, shiftNumber, settings ){
+
+        },
         
         setPaperSize: function( doNotSetReportWidthTextBoxZero ) {
             // set paper size.
