@@ -556,6 +556,8 @@
 
     }, false);
 
-
+    window.addEventListener('close', function() {
+        GeckoJS.ConnectionManager.closeAll();
+    }, false);
 })();
 
