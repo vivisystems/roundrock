@@ -20,7 +20,7 @@
         _merge_db_script: 'merge_db.sh',
         _restore_last_good_db_script: 'restore_last_good_db.sh',
         _bigdisk_setting: 'bigdisk_settings',
-        _bigdisk_session_flag: 'vivicenter.BigDisk',
+        _bigdisk_session_flag: 'vivisystems.BigDisk',
 
         _script_url: 'chrome://roundrock/content/scripts/',
         _script_path: '',

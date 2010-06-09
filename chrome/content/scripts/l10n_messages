@@ -14,12 +14,12 @@ CACHE_FILE=roundrock.scripts.properties
 #
 # detect match langpack installed
 #
-ROUNDROCK_DIR="${EXT_DIR}/roundrock@vivicenter.com.tw"
-LANGPACK_DIR="${EXT_DIR}/langpack-roundrock-${CUR_LANG}@vivicenter.com.tw"
+ROUNDROCK_DIR="${EXT_DIR}/roundrock@vivisystems.com.tw"
+LANGPACK_DIR="${EXT_DIR}/langpack-roundrock-${CUR_LANG}@vivisystems.com.tw"
 if [ ! -d "$LANGPACK_DIR" ]; then
 
 	CUR_LANG="en_US"
-	LANGPACK_DIR="${EXT_DIR}/langpack-${CUR_LANG}@vivicenter.com.tw"
+	LANGPACK_DIR="${EXT_DIR}/langpack-${CUR_LANG}@vivisystems.com.tw"
 
 fi
 

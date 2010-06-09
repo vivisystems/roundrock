@@ -60,10 +60,6 @@ handle_failure() {
     log_failure_msg "ROUNDROCK data volume not loaded"
     log_end_msg 1
 
-    ## emit event to signal bigdisk provisioning has completed
-
-    initctl emit --no-wait roundrock-bigdisk-provisioned
-
     exit
 }
 
@@ -347,7 +343,3 @@ fi
 sync
 
 log_end_msg 0
-
-## emit event to signal bigdisk provisioning has completed
-
-initctl emit --no-wait roundrock-bigdisk-provisioned
