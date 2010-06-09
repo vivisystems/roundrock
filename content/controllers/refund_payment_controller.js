@@ -252,7 +252,7 @@
                         amount: p.amount,
                         display_amount: p.display_amount,
                         memo1: p.memo1,
-                        memo2: p.memo2
+                        memo2: (p.memo2 || ( (p.name=='cash') ? null: p.memo2 ) )
                     };
 
                     this._refundPayments.push(newRefundPayment);
