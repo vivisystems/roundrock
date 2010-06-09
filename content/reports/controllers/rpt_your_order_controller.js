@@ -261,7 +261,7 @@
         },
         
         setPaperSize: function( doNotSetReportWidthTextBoxZero ) {
-            // set paper size.
+            // set pper size.
             var paperSize = document.getElementById( 'papersize' );
             if ( paperSize )
                 paperSize = paperSize.value;
