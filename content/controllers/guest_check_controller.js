@@ -1036,6 +1036,7 @@
             if (data.display_sequences == undefined) {
                 NotifyUtils.error(_('This order cannot be recalled [%S]', [orderId]));
                 // release for other machine use.
+
                 this.Order.releaseOrderLock(orderId);
                 return false;
             }
@@ -1805,25 +1806,37 @@
             let canMerge = true;
             let message = "";
 
-            if ((sourceData.status != 2 && sourceData.recall != 2) || (targetData.status != 2 && targetData.recall != 2) ) {
-                canMerge = false;
-                message = _('This order not stored order, can not be merge');
-            }
-            if((parseFloat(sourceData['payment_subtotal']) > 0) || (parseFloat(targetData['payment_subtotal']) > 0) ) {
-                canMerge = false;
-                message = _('This order has been payment, can not be merge');
-            }
-            if((parseFloat(sourceData['trans_discount_subtotal']) > 0 || parseFloat(sourceData['trans_surcharge_subtotal']) > 0) ||
-                (parseFloat(targetData['trans_discount_subtotal']) > 0 || parseFloat(targetData['trans_surcharge_subtotal']) > 0) ) {
-                canMerge = false;
-                message = _('This order has discounts or surcharge, can not be merge');
-            }
+            if (!sourceData || !targetData) {
 
-            if (!canMerge) {
-                this.Order.releaseOrderLock(sourceOrderId);
-                this.Order.releaseOrderLock(targetOrderId);
-                NotifyUtils.error(message);
+                if (sourceData) this.Order.releaseOrderLock(sourceOrderId);
+                if (targetData) this.Order.releaseOrderLock(targetOrderId);
                 return false;
+
+            }else {
+
+                if ((sourceData.status != 2 && sourceData.recall != 2) || (targetData.status != 2 && targetData.recall != 2) ) {
+                    canMerge = false;
+                    message = _('This order not stored order, can not be merge');
+                }
+
+                if((parseFloat(sourceData['payment_subtotal']) > 0) || (parseFloat(targetData['payment_subtotal']) > 0) ) {
+                    canMerge = false;
+                    message = _('This order has been payment, can not be merge');
+                }
+                
+                if((parseFloat(sourceData['trans_discount_subtotal']) > 0 || parseFloat(sourceData['trans_surcharge_subtotal']) > 0) ||
+                    (parseFloat(targetData['trans_discount_subtotal']) > 0 || parseFloat(targetData['trans_surcharge_subtotal']) > 0) ) {
+                    canMerge = false;
+                    message = _('This order has discounts or surcharge, can not be merge');
+                }
+
+                if (!canMerge) {
+                    this.Order.releaseOrderLock(sourceOrderId);
+                    this.Order.releaseOrderLock(targetOrderId);
+                    NotifyUtils.error(message);
+                    return false;
+                }
+
             }
 
             // set seq
@@ -1836,6 +1849,9 @@
             let targetTransaction = new Transaction(true, true);
             targetTransaction.data = targetData;
 
+
+            let maxBatchCount = Math.max(sourceData.batchCount, targetData.batchCount);
+            
             // move all items
             transaction.moveCloneAllItems(targetTransaction);
 
@@ -1847,6 +1863,7 @@
                 transaction.setBackgroundMode(false);
                 transaction.data.recall = 2;
                 transaction.data.status = 2;
+                transaction.data.batchCount = maxBatchCount;
                 transaction.submit(2);
 
                 let inherited_order_id = targetData.inherited_order_id || '' ;
@@ -1969,6 +1986,8 @@
             let result = this.openSplitCheckDialog(transaction);
             let result2 = false;
 
+            let batchCount = data.batchCount;
+
             if (result) {
 
                 try {
@@ -1998,6 +2017,7 @@
                         sTrans.data.check_no = sTranCheckNo;
                         sTrans.data.inherited_order_id = orderId;
                         sTrans.data.inherited_desc = _('Split Check');
+                        sTrans.data.batchCount = batchCount;
 
                         Transaction.events.dispatch('onUnserialize', sTrans, sTrans);
                         sTrans.calcPromotions();
