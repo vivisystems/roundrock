@@ -383,7 +383,7 @@
                 limit: this._csvLimit
             } );
             */
-            var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+            var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
             
             var paymentList = {};
             var giftcardExcess;
@@ -405,6 +405,8 @@
                         detail: []
                     }
                     if (record.name) paymentList[ record.name ] = payment;
+                }else {
+                    payment = paymentList[ record.name ];
                 }
 
                 if (record.name) record.namepayment = paymentList[ record.name ];
