@@ -266,7 +266,7 @@
             this._set_reportData( start, end, start_str, end_str, terminal_no, shiftNo, periodType, sortby, status, destination, limit);
         },
 
-        printCustomerReport: function(salePeriod, salePeriod, terminalNo, shiftNumber, settings ){
+        printCustomerReport: function(salePeriod, salePeriod, terminalNo, shiftNumber, settings, key ){
 
             var periodType = settings.period_type;
             var sortby = settings.sortby;
@@ -276,7 +276,7 @@
             var start_str = new Date(salePeriod).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = new Date(salePeriod).toString( 'yyyy/MM/dd HH:mm' );
 
-            this.load();
+            this.load(key);
             this._set_reportData( salePeriod, salePeriod, start_str, end_str, terminalNo, shiftNumber, periodType, sortby, status, destination, this._stdLimit );
             this._setTemplateDataHead();
 
@@ -539,9 +539,9 @@
             }
         },
         
-        load: function() {
+        load: function(pref) {
             this._super();
-            
+
             // initialize the destination selector.
             var destination_records = GeckoJS.Configure.read( "vivipos.fec.settings.Destinations" );
             destination_records = GeckoJS.BaseObject.unserialize( GeckoJS.String.urlDecode( destination_records ) );
@@ -562,14 +562,19 @@
                 textbox.disabled = true;
 
             // Get preferences from report.js for this report.
-            this._reportPanelPreference = GREUtils.extend( {}, window.arguments[ 0 ] );
+            if(pref)
+                this._reportPanelPreference = GREUtils.extend( {}, pref );
+            else
+                this._reportPanelPreference = GREUtils.extend( {}, window.arguments[ 0 ] );
             
             // remove the ( custom ) marker added in reportPanel.js.
             if(this._reportPanelPreference.label)
                 this._reportPanelPreference.label = this._reportPanelPreference.label.replace( /^\(\ .*?\ \)/, '' );
             
             if ( this._reportPanelPreference.key == this._preference_key ) { // if it is the root report, say, original your order report.
-                document.getElementById( this._removeReportButtonId ).hidden = true;
+                var reportButton = document.getElementById( this._removeReportButtonId );
+                if(reportButton)
+                    reportButton.hidden = true;
                 // Use proper report title.
                 this._report_title = _( this._report_title_message );
             } else {

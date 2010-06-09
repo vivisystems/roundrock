@@ -76,8 +76,10 @@
   <script src='chrome://viviecr/content/reports/controllers/rpt_cash_by_clerk_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/reports/controllers/rpt_sales_summary_controller.js' type="application/x-javascript;version=1.7"/>
   <script src='chrome://viviecr/content/reports/controllers/rpt_your_order_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/reports/controllers/rpt_daily_sales_summary_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/reports/controllers/rpt_product_sales_return_controller.js' type="application/x-javascript;version=1.7"/>
 
-  <!-- electronic journal controller-->
+ <!-- electronic journal controller-->
   <script src='chrome://viviecr/content/controllers/journal_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- barcode learning controller-->
