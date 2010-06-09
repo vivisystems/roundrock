@@ -932,6 +932,10 @@
             this._reportRecords.body.discount_summary = this._discountSurchargeSummary( 'discount' );
             this._reportRecords.body.surcharge_summary = this._discountSurchargeSummary( 'surcharge' );
             this._reportRecords.body.promotion_summary = this._promotionSummary();
+            this._reportRecords.settings = {};
+            this._reportRecords.settings.skip_printing_top_department_sales = GeckoJS.Configure.read('vivipos.fec.settings.report.sales_summary.skip_printing_top_department_sales') || false;
+            this._reportRecords.settings.skip_printing_top_product_sales = GeckoJS.Configure.read('vivipos.fec.settings.report.sales_summary.skip_printing_top_product_sales') || false;
+            this._reportRecords.settings.skip_printing_hourly_sales = GeckoJS.Configure.read('vivipos.fec.settings.report.sales_summary.skip_printing_hourly_sales') || false;
 
         },
 		
@@ -973,6 +977,12 @@
 
         load: function() {
             this._super();
+
+            // update skip_printing_xxxx
+            $('#skip_printing_top_department_sales').attr('checked', GeckoJS.Configure.read('vivipos.fec.settings.report.sales_summary.skip_printing_top_department_sales') || false);
+            $('#skip_printing_top_product_sales').attr('checked', GeckoJS.Configure.read('vivipos.fec.settings.report.sales_summary.skip_printing_top_product_sales') || false);
+            $('#skip_printing_hourly_sales').attr('checked', GeckoJS.Configure.read('vivipos.fec.settings.report.sales_summary.skip_printing_hourly_sales') || false);
+            
         }
     };
 

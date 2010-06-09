@@ -16,3 +16,6 @@
 <!ENTITY rptsalessummary.numdept "Number of departments:">
 <!ENTITY rptsalessummary.numproduct "Number of products:">
 <!ENTITY rptsalessummary.breakout.setmenu "Break out Set Menu">
+<!ENTITY rptsalessummary.skip_printing_top_department_sales "Skip Printing 'Top Department Sales'">
+<!ENTITY rptsalessummary.skip_printing_top_product_sales "Skip Printing 'Top Product Sales'">
+<!ENTITY rptsalessummary.skip_printing_hourly_sales "Skip Printing 'Hourly Sales'">

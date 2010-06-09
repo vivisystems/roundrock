@@ -67,8 +67,8 @@ ${'  ' + _( '(rpt)Included Tax Amount' ) + ':'|left:26}${detail.included_tax|def
 ${_( '(rpt)Summary' ) + ':'|left:42}
 ${'  ' + _( '(rpt)Add-On Tax Amount' ) + ':'|left:26}${body.tax_summary.summary.addon_tax_total|default:0|viviFormatTaxes:true|right:16}
 ${'  ' + _( '(rpt)Included Tax Amount' ) + ':'|left:26}${body.tax_summary.summary.included_tax_total|default:0|viviFormatTaxes:true|right:16}
-
 ------------------------------------------
+{if !settings.skip_printing_top_department_sales}
 ${_( '(rpt)Top Department Sales' )}
 {for detail in body.dept_sales.records}
 ${'  ' + _( '(rpt)Department' ) + ':'|left:26}${detail.cate_no + '-' + detail.cate_name|right:16}
@@ -80,6 +80,8 @@ ${_( '(rpt)Summary' ) + ':'}
 ${'  ' + _( '(rpt)Quantity' ) + ':'|left:26}${body.dept_sales.summary.qty|default:0|right:16}
 ${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:26}${body.dept_sales.summary.gross|default:0|viviFormatPrices:true|right:16}
 ------------------------------------------
+{/if}
+{if !settings.skip_printing_top_product_sales}
 ${_( '(rpt)Top Product Sales' )}
 {for detail in body.prod_sales.records}
 ${'  ' + _( '(rpt)Product' ) + ': '|left:26}${detail.product_name|right:16}
@@ -91,6 +93,8 @@ ${_( '(rpt)Summary' ) + ':'}
 ${'  ' + _( '(rpt)Quantity' ) + ':'|left:26}${body.prod_sales.summary.qty|default:0|right:16}
 ${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:26}${body.prod_sales.summary.gross|default:0|viviFormatPrices:true|right:16}
 ------------------------------------------
+{/if}
+{if !settings.skip_printing_hourly_sales}
 ${_( '(rpt)Hourly Sales' )}
 {for detail in body.hourly_sales.records}
 ${'  ' + _( '(rpt)Hour' ) + ':'|left:26}${detail.Hour|right:16}
@@ -104,6 +108,7 @@ ${'  ' + _( '(rpt)Number of Guests' ) + ':'|left:26}${body.hourly_sales.summary.
 ${'  ' + _( '(rpt)Number of Orders' ) + ':'|left:26}${body.hourly_sales.summary.OrderNum|default:0|right:16}
 ${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:26}${body.hourly_sales.summary.HourGrossSales|default:0|viviFormatPrices:true|right:16}
 ------------------------------------------
+{/if}
 ${_( '(rpt)Discount Summary' )}
 {for detail in body.discount_summary.data}
 ${'  ' + _( '(rpt)Discount Name' ) + ':'|left:26}${detail.discount_name|right:16}

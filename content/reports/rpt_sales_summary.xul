@@ -83,7 +83,15 @@
                                         <label value="&rptsalessummary.terminal_no;"/>
                                         <textbox id="terminal_no" value=""/>
                                     </vbox>
-                                    <checkbox id="breakout_setmenu" checked="false" label="&rptsalessummary.breakout.setmenu;"/>
+                                    <vbox>
+                                        <checkbox id="breakout_setmenu" checked="false" label="&rptsalessummary.breakout.setmenu;"/>
+                                        <checkbox id="skip_printing_top_department_sales" label="&rptsalessummary.skip_printing_top_department_sales;"
+                                                  oncommand="GeckoJS.Configure.write('vivipos.fec.settings.report.sales_summary.skip_printing_top_department_sales', this.checked);" />
+                                        <checkbox id="skip_printing_top_product_sales" label="&rptsalessummary.skip_printing_top_product_sales;"
+                                                  oncommand="GeckoJS.Configure.write('vivipos.fec.settings.report.sales_summary.skip_printing_top_product_sales', this.checked);" />
+                                        <checkbox id="skip_printing_hourly_sales" label="&rptsalessummary.skip_printing_hourly_sales;"
+                                                  oncommand="GeckoJS.Configure.write('vivipos.fec.settings.report.sales_summary.skip_printing_hourly_sales', this.checked);" />
+                                    </vbox>
                                 </row>
                             </rows>
                         </grid>
