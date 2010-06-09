@@ -12,6 +12,8 @@
 
         tableSettings: null,
 
+        _waitStoreFlag: false,
+
         initial: function() {
 
             // add cart events
@@ -875,11 +877,16 @@
          */
         storeCheck: function() {
 
+            if (this._waitStoreFlag) return false;
+
             var cart = this.getCartController();
             var curTransaction = cart._getTransaction();
 
+            this._waitStoreFlag = true;
+
             if (! cart.ifHavingOpenedOrder() ) {
 
+                //alert('ifHavingOpenedOrder');
                 // check backupFile if need to resent to table service server.
                 var order = new OrderModel();
                 if (order && order.hasBackupFile(2)) {
@@ -902,18 +909,21 @@
                                 _('Data Operation Error'),
                                 _('This order could not be committed. Please check the network connectivity to the terminal designated as the table service server [message #502].'));
                         }
+                        this._waitStoreFlag = false;
                         return false;
                     }else {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Data Operation'),
-                            _('Previously uncommitted stored order(s) have now been committed to the table service server.'));
+                            _('Previously uncommitted stored order(s) have now been committed to the table service server.') + this._waitStoreFlag);
                         this.onCartOnSubmitSuccess();
                         cart.dispatchEvent('onWarning', _('ORDER COMMITTED'));
+                        this._waitStoreFlag = false;
                         return true;
                     }
                 } else {    
                     NotifyUtils.warn(_('Not an open order; unable to store'));
                     cart._clearAndSubtotal();
+                    this._waitStoreFlag = false;
                     return false;
                 }
             }
@@ -924,16 +934,19 @@
 
             if (curTransaction.data.status == 1) {
                 NotifyUtils.warn(_('This order has been submitted'));
+                this._waitStoreFlag = false;
                 return false;
             }
 
             if (curTransaction.data.closed) {
                 NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                this._waitStoreFlag = false;
                 return false;
             }
 
             if (curTransaction.data.items_count == 0) {
                 NotifyUtils.warn(_('This order is empty'));
+                this._waitStoreFlag = false;
                 return false;
             }
 
@@ -947,7 +960,10 @@
             */
 
             var beforeStoreCheck = this.dispatchEvent('beforeStoreCheck', curTransaction);
-            if (!beforeStoreCheck) return false;
+            if (!beforeStoreCheck) {
+                this._waitStoreFlag = false;
+                return false;
+            }
 
             // save order
             if  (cart.submit(2)) {
@@ -962,11 +978,13 @@
                 this.dispatchEvent('afterStoreCheck', curTransaction);
 
                 cart._getCartlist().refresh();
-                
+
+                this._waitStoreFlag = false;
                 return true;
 
             }
 
+            this._waitStoreFlag = false;
             return false;
         },
 
