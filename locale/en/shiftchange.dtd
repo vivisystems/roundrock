@@ -5,11 +5,17 @@
 <!ENTITY shiftchange.alert.last.sale.period "Last Sale Period">
 <!ENTITY shiftchange.alert.last.shift.number "Last Shift Number">
 <!ENTITY shiftchange.button.print.this.shift "Print Shift Report">
+<!ENTITY shiftchange.button.review.customer.report "Review Customer Report">
+<!ENTITY shiftchange.button.print.customer.report "Print Customer Report">
 <!ENTITY shiftchange.button.review.this.shift "Review Shift Report">
 <!ENTITY shiftchange.button.print.all.shifts "Print All Shifts">
 <!ENTITY shiftchange.button.review.all.shifts "Review All Shifts">
 <!ENTITY shiftchange.button.print.daily.sales "Print Daily Sales">
 <!ENTITY shiftchange.button.review.daily.sales "Review Daily Sales">
+<!ENTITY shiftchange.button.review.daily.sales.summary "Review Daily Sales Summary">
+<!ENTITY shiftchange.button.print.daily.sales.summary "Print Daily Sales Summary">
+<!ENTITY shiftchange.button.review.product.returns "Review Product Returns">
+<!ENTITY shiftchange.button.print.product.returns "Print Product Returns">
 <!ENTITY shiftchange.button.login "Return to Login Screen">
 <!ENTITY shiftchange.button.poweroff "Power Off">
 <!ENTITY shiftchange.wait "Waiting...">

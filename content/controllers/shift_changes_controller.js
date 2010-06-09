@@ -1354,7 +1354,7 @@
 
                 // offer options to power off or restart and to print shift and day reports
                 aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',height=300';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',height=' + this.screenheight * 0.8;
                 let parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Sale Period Close'), features, parms);
 
@@ -1384,7 +1384,7 @@
 
                 // shift change notification and print option
                 aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',height=300';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',' + this.screenheight * 0.8;
                 let message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Close'), features, message);
 
@@ -1413,13 +1413,86 @@
         printDailySales: function(shift) {
             if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
                 return;
-        	
+
             var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
             var shiftNumber = shift ? this._getShiftNumber().toString() : '';
 
             reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', shiftNumber );
+        },
+
+        printDailySalesSummary: function(shift) {
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+                return;
+
+            var reportController = GeckoJS.Controller.getInstanceByName( 'RptDailySalesSummary' );
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var shiftNumber = shift ? this._getShiftNumber().toString() : '';
+
+            reportController.printDailySalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', shiftNumber );
+        },
+
+        printProductReturns: function(shift) {
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+                return;
+
+            var reportController = GeckoJS.Controller.getInstanceByName( 'RptProductSalesReturn' );
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var shiftNumber = shift ? this._getShiftNumber().toString() : '';
+
+            reportController.printProductReturns( salePeriod, salePeriod, terminalNo, 'sale_period', shiftNumber );
+        },
+
+        printCustomerReport: function(shift){
+            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+                return;
+
+            var reportController = GeckoJS.Controller.getInstanceByName( 'RptYourOrder' );
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var shiftNumber = shift ? this._getShiftNumber().toString() : '';
+            
+             /* check if exist customer report*/
+            var reports = GeckoJS.Configure.read('vivipos.fec.reportpanels');
+            var keys = GeckoJS.BaseObject.getKeys(reports) || [];
+            var prefKey;
+            var customerPref = {};
+
+            keys.forEach(function(key) {
+                
+                var el = reports[key];
+                var label = el.label;
+                
+                if (label.indexOf('chrome://') == 0) {
+                    var keystr = 'vivipos.fec.reportpanels.' + key + '.label';
+                    label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                }
+
+                // "( Custom )" will be followed by the label to indicate that the report is custom one.
+                var re = /([a-z0-9]+-){4}[a-z0-9]+/;// regular expression for recognizing uuid which is the key of a custom report.
+                
+                /*set parameter*/
+                if ( re.test( key ) ){
+
+                     if(label == _('Custom Shift Report')){
+                         prefKey = key;
+                         customerPref = el;
+                     }
+                 }
+            });
+
+            var pref = 'vivipos.fec.report.' + prefKey + '.settings'
+
+            var settings = GeckoJS.Configure.read( pref );
+
+            settings = settings.split("&");
+
+            settings = this._getCustomerReportSetting(settings);
+
+            reportController.printCustomerReport( salePeriod, salePeriod, terminalNo, shiftNumber, settings, customerPref);
         },
         
         reviewShiftReport: function( all ) {
@@ -1440,7 +1513,7 @@
 		
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );
 		    
-            var aURL = 'chrome://viviecr/content/reports/rpt_cash_by_clerk.xul';
+            var aURL = 'chrome://viviecr/content/reports/rpt_cash_by_clerk.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&shift_no='+shiftNumber;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
@@ -1462,9 +1535,107 @@
 
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
             
-            var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul';
+            var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&period_type='+periodType+'&shift_no='+shiftNo;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
+        },
+
+         reviewDailySalesSummary: function( shift ) {
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var periodType = 'sale_period';
+            var shiftNo = shift ? this._getShiftNumber().toString() : '';
+
+            var parameters = {
+                start: salePeriod,
+                end: salePeriod,
+                periodtype: periodType,
+                shiftno: shiftNo,
+                terminalNo: terminalNo,
+                setparms: true
+            };
+
+            //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
+
+            var aURL = 'chrome://viviecr/content/reports/rpt_daily_sales_summary.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&period_type='+periodType;
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
+        },
+
+        reviewProductReturns: function( shift ) {
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var periodType = 'sale_period';
+            var shiftNo = shift ? this._getShiftNumber().toString() : '';
+
+            var parameters = {
+                start: salePeriod,
+                end: salePeriod,
+                periodtype: periodType,
+                shiftno: shiftNo,
+                terminalNo: terminalNo,
+                setparms: true
+            };
+
+            //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
+
+            var aURL = 'chrome://viviecr/content/reports/rpt_product_sales_return.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&periodtype='+periodType;
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
+        },
+
+
+        reviewCustomerReport: function(shift){
+
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var periodType = 'sale_period';
+            var shiftNo = shift ? this._getShiftNumber().toString() : '';
+            
+            /* check if exist customer report*/
+            var reports = GeckoJS.Configure.read('vivipos.fec.reportpanels');
+            var keys = GeckoJS.BaseObject.getKeys(reports) || [];
+            var pref = {};
+            var reportExist = false;
+
+            keys.forEach(function(key) {
+                var el = reports[key];
+                var label = el.label;
+                if (label.indexOf('chrome://') == 0) {
+                    var keystr = 'vivipos.fec.reportpanels.' + key + '.label';
+                    label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                }
+
+                // "( Custom )" will be followed by the label to indicate that the report is custom one.
+                var re = /([a-z0-9]+-){4}[a-z0-9]+/;// regular expression for recognizing uuid which is the key of a custom report.
+                
+                /*set parameter*/
+                if ( re.test( key ) ){
+
+                     if(label == _('Custom Shift Report')){
+                           pref = {
+                                    icon: el.icon,
+                                    path: el.path,
+                                    roles: el.roles,
+                                    label: label,
+                                    key: key || ""
+                            }
+                            reportExist = true;
+                     }
+                 }
+            });
+
+            if(!reportExist){
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                _('Report Error'),
+                                _('Report is undefined'));
+                return;
+            }
+            
+            /*open dialog*/
+            var aURL = 'chrome://viviecr/content/reports/rpt_your_order.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&shift_no='+shiftNo;;
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, pref);//processedTpl, parameters);
         },
 
         select: function(index){
@@ -1658,6 +1829,25 @@
             GREUtils.Dialog.alert(win,
                                   _('Data Operation Error'),
                                   errmsg + '\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+        },
+
+        _getCustomerReportSetting: function (setting){
+
+            var obj = {};
+            var index = 0;
+            var key;
+            var value;
+            var length = setting.length;
+
+            for(var i=0 ; i< length ; i++){
+
+                index = setting[i].indexOf("=");
+                key = setting[i].substring(0,index);
+                value = setting[i].substring(index +1 ,setting[i].length);
+                obj[key] = value;
+            }
+
+            return obj;
         }
     };
 

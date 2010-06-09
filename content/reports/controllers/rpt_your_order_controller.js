@@ -36,25 +36,7 @@
         _selectedFieldIndecies: null,
         _pickedFields: null,
 
-        _set_reportRecords: function( limit ) {
-            limit = parseInt( limit );
-            if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
-
-            var start = document.getElementById( 'start_date' ).value;
-            var end = document.getElementById( 'end_date' ).value;
-
-            var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
-            var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
-
-            var terminal_no = document.getElementById( 'terminal_no' ).value;
-            var shiftNo = document.getElementById( 'shift_no' ).value;
-            var periodType = document.getElementById( 'period_type' ).value;
-            
-            var sortby = document.getElementById( 'sortby' ).value;
-            
-            var status = document.getElementById( 'status' ).value;
-            
-            var destination = document.getElementById( 'destination' ).value;
+        _set_reportData: function( start, end, start_str, end_str, terminal_no, shiftNo, periodType, sortby, status, destination, limit ) {
 
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
@@ -259,10 +241,63 @@
             this._reportRecords.body = GeckoJS.BaseObject.getValues( this._datas );
             this._reportRecords.foot.foot_datas = footDatas;
         },
+
+        _set_reportRecords: function( limit ) {
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 )
+                limit = this._stdLimit;
+
+            var start = document.getElementById( 'start_date' ).value;
+            var end = document.getElementById( 'end_date' ).value;
+
+            var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+            var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+
+            var terminal_no = document.getElementById( 'terminal_no' ).value;
+            var shiftNo = document.getElementById( 'shift_no' ).value;
+            var periodType = document.getElementById( 'period_type' ).value;
+
+            var sortby = document.getElementById( 'sortby' ).value;
+
+            var status = document.getElementById( 'status' ).value;
+
+            var destination = document.getElementById( 'destination' ).value;
+
+            this._set_reportData( start, end, start_str, end_str, terminal_no, shiftNo, periodType, sortby, status, destination, limit);
+        },
+
+        printCustomerReport: function(salePeriod, salePeriod, terminalNo, shiftNumber, settings, key ){
+
+            var periodType = settings.period_type;
+            var sortby = settings.sortby;
+            var status = settings.status;
+            var destination = settings.destination;
+
+            var start_str = new Date(salePeriod).toString( 'yyyy/MM/dd HH:mm' );
+            var end_str = new Date(salePeriod).toString( 'yyyy/MM/dd HH:mm' );
+
+            this.load(key);
+            this._set_reportData( salePeriod, salePeriod, start_str, end_str, terminalNo, shiftNumber, periodType, sortby, status, destination, this._stdLimit );
+            this._setTemplateDataHead();
+
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                            .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
+            var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+
+            var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
+
+            var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
+            var file = GREUtils.File.getFile( path );
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
+
+            rcp.printReport( 'report', tpl, this._reportRecords );
+        },
         
         setPaperSize: function( doNotSetReportWidthTextBoxZero ) {
             // set pper size.
             var paperSize = document.getElementById( 'papersize' );
+            if(!paperSize) return
+            
             if ( paperSize )
                 paperSize = paperSize.value;
             var iFrame = document.getElementById( 'preview_frame' );
@@ -468,6 +503,7 @@
                 GeckoJS.Configure.write( fileNamePref, fileName );
                 
                 // for setting.
+                this.log(this.dump( this._setting_form));
                 GeckoJS.Configure.write( settingPref, GeckoJS.FormHelper.serialize( this._setting_form ) );
                 
                 if ( isCreatingReport ) {
@@ -503,33 +539,42 @@
             }
         },
         
-        load: function() {
+        load: function(pref) {
             this._super();
-            
+
             // initialize the destination selector.
             var destination_records = GeckoJS.Configure.read( "vivipos.fec.settings.Destinations" );
             destination_records = GeckoJS.BaseObject.unserialize( GeckoJS.String.urlDecode( destination_records ) );
             
             var menupopup = document.getElementById( "destination_menupopup" );
-            
+
+            if(menupopup){
             destination_records.forEach( function( record ) {
                 var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
                 menuitem.setAttribute( 'value', record.name );
                 menuitem.setAttribute( 'label', record.name );
                 menupopup.appendChild( menuitem );
             } );
-            
+            }
             // disable the textbox for width since we have nothing to adjust this time.
-            document.getElementById( this._reportWidthTextBoxId ).disabled = true;
-            
+            var textbox = document.getElementById( this._reportWidthTextBoxId )
+            if(textbox)
+                textbox.disabled = true;
+
             // Get preferences from report.js for this report.
-            this._reportPanelPreference = GREUtils.extend( {}, window.arguments[ 0 ] );
+            if(pref)
+                this._reportPanelPreference = GREUtils.extend( {}, pref );
+            else
+                this._reportPanelPreference = GREUtils.extend( {}, window.arguments[ 0 ] );
             
             // remove the ( custom ) marker added in reportPanel.js.
-            this._reportPanelPreference.label = this._reportPanelPreference.label.replace( /^\(\ .*?\ \)/, '' );
+            if(this._reportPanelPreference.label)
+                this._reportPanelPreference.label = this._reportPanelPreference.label.replace( /^\(\ .*?\ \)/, '' );
             
             if ( this._reportPanelPreference.key == this._preference_key ) { // if it is the root report, say, original your order report.
-                document.getElementById( this._removeReportButtonId ).hidden = true;
+                var reportButton = document.getElementById( this._removeReportButtonId );
+                if(reportButton)
+                    reportButton.hidden = true;
                 // Use proper report title.
                 this._report_title = _( this._report_title_message );
             } else {

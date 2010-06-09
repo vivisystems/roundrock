@@ -11,22 +11,7 @@
         
         _fileName: 'rpt_daily_sales_summary',
 
-        _set_reportRecords: function( limit ) {
-            limit = parseInt( limit );
-            if ( isNaN( limit ) || limit <= 0 ) limit = this._csvLimit ; // this._stdLimit;
-
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
-
-            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
-            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
-
-            var terminalNo = document.getElementById('terminal_no').value;
-            
-            var periodType = document.getElementById( 'period_type' ).value;
-            var shiftNo = document.getElementById( 'shift_no' ).value;
-            
-            var sortby = document.getElementById( 'sortby' ).value;
+        _set_reportData: function( start, end, start_str, end_str, shiftNo, periodType, terminalNo, sortby, limit) {
 
             start = parseInt(start / 1000, 10);
             end = parseInt(end / 1000, 10);
@@ -225,6 +210,47 @@
             this._reportRecords.body = GeckoJS.BaseObject.getValues( orderedData );
             
             this._reportRecords.foot.foot_datas = footDatas;
+        },
+
+        _set_reportRecords: function( limit ) {
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 ) limit = this._csvLimit ; // this._stdLimit;
+
+            var start = document.getElementById('start_date').value;
+            var end = document.getElementById('end_date').value;
+
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+
+            var terminalNo = document.getElementById('terminal_no').value;
+
+            var periodType = document.getElementById( 'period_type' ).value;
+            var shiftNo = document.getElementById( 'shift_no' ).value;
+
+            var sortby = document.getElementById( 'sortby' ).value;
+
+            this._set_reportData( start, end, start_str, end_str, shiftNo, periodType, terminalNo, sortby, limit);
+        },
+
+        printDailySalesSummary: function( start, end, terminalNo, periodType, shiftNo ) {
+
+            var start_str = new Date(start).toString( 'yyyy/MM/dd HH:mm' );
+            var end_str = new Date(end).toString( 'yyyy/MM/dd HH:mm' );
+
+            this._set_reportData( start, end, start_str, end_str, "", periodType, terminalNo, 'date', this._csvLimit );
+            this._setTemplateDataHead();
+
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                            .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
+            var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+
+            var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
+
+            var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
+            var file = GREUtils.File.getFile( path );
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
+
+            rcp.printReport( 'report', tpl, this._reportRecords );
         },
         
         exportPdf: function() {

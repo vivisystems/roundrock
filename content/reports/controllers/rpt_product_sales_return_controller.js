@@ -257,6 +257,24 @@
             this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, returntype, displaymode, breakoutSetmenu, limit );
         },
 
+        printProductReturns: function( start, end, terminalNo, periodType, shiftNo ) {
+
+            this._setData( start, end, periodType, shiftNo, 'product_no', terminalNo, 'all', 'all', 'detailed', false, this._stdLimit );
+            this._setTemplateDataHead();
+
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                            .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
+            var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+
+            var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
+
+            var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
+            var file = GREUtils.File.getFile( path );
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
+
+            rcp.printReport( 'report', tpl, this._reportRecords );
+        },
+
         execute: function() {
             this._super();
 
