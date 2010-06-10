@@ -4,12 +4,12 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>roundrock@vivisystems.com.tw</em:id>
         <em:name>Round Rock</em:name>
-        <em:version>1.0b2.20100609113312</em:version>
+        <em:version>1.0b2.20100609154832</em:version>
         <em:description></em:description>
         <em:creator>VIVISYSTEMS</em:creator>
         <em:homepageURL>http://www.vivisystems.com.tw/</em:homepageURL>
         <em:type>2</em:type> <!-- type=extension --> 
-        <em:extensionHash>sha1:4f72375a6c488f7137f92686eb9bb823ab7a6440</em:extensionHash>
+        <em:extensionHash>sha1:70bb62f12ddfa1ad9850ead4c1ce4bc5e98d26a7</em:extensionHash>
         <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6prvsPdRm+3c4etUSLoJVT5GyYUogo5c5L3dyWgu3yu6weYS9q5aQBlbSFVyfCyIfexacXanGFqVRuBvpVq5Px6LpjisHvXukknGnY6nr5S1zelV9CXgv+17mTMVPpxCUEe2oVB3AFX+l+XWx4fUdW3sTX+uSHo/Pno+8PD79FQIDAQAB</em:updateKey>
 
         <em:targetApplication>

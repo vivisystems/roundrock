@@ -119,7 +119,7 @@
             // replace default rebootMachine/shutdownMachine
             if (goRebootMachine && typeof goRebootMachine == 'function') {
                 let builtinGoRebootMachine = goRebootMachine;
-                goRebootMachine = function() {
+                window.goRebootMachine = function() {
                     GeckoJS.ConnectionManager.closeAll();
 
                     self.log('DEBUG', 'Closing database connections on reboot');
@@ -130,7 +130,7 @@
             
             if (goShutdownMachine && typeof goShutdownMachine == 'function') {
                 let builtinGoShutdownMachine = goShutdownMachine;
-                goShutdownMachine = function() {
+                window.goShutdownMachine = function() {
                     GeckoJS.ConnectionManager.closeAll();
 
                     self.log('DEBUG', 'Closing database connections on shutdown');
@@ -549,11 +549,7 @@
 
     // set up event listener to intercept invocation of Main.initial()
     window.addEventListener('load', function() {
-        var main = GeckoJS.Controller.getInstanceByName('Main');
-        if(main) main.addEventListener('afterInitial', function() {
-                                            main.requestCommand('initial', null, 'BDBData');
-                                      });
-
+        $do('initial', null, 'BDBData');
     }, false);
 
     window.addEventListener('close', function() {
