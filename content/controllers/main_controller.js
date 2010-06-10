@@ -610,7 +610,11 @@
                         mainWindow.$do(pref['method'], pref['data'], pref['controller']);
                     }
                     else {
-                        VirtualKeyboard.show();
+                        let features_str = pref['features'] || '';
+                        let features = features_str.split(',') || [];
+                        let enableVKB = (features.indexOf('disableVKB') == -1);
+                        
+                        if (enableVKB) VirtualKeyboard.show();
 
                         var paths = pref['path'].split(' ');
                         var launchAp = paths[0];
@@ -619,7 +623,7 @@
                         var fileAp = new GeckoJS.File(launchAp);
                         fileAp.run(args, true);
 
-                        VirtualKeyboard.hide();
+                        if (enableVKB) VirtualKeyboard.hide();
                     }
                 }
                 catch (e) {

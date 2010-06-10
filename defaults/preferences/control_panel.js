@@ -200,6 +200,7 @@ pref("vivipos.fec.settings.controlpanels.system.touch_calibration.label", "chrom
 pref("vivipos.fec.settings.controlpanels.system.touch_calibration.path", "/usr/bin/TKCal /dev/ttyS2 Linz9");
 pref("vivipos.fec.settings.controlpanels.system.touch_calibration.roles", "acl_touch_settings");
 pref("vivipos.fec.settings.controlpanels.system.touch_calibration.type", "application");
+pref("vivipos.fec.settings.controlpanels.system.touch_calibration.features", "disableVKB");
 
 pref("vivipos.fec.settings.controlpanels.system.xterm.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
 pref("vivipos.fec.settings.controlpanels.system.xterm.label", "chrome://viviecr/locale/messages.properties");
