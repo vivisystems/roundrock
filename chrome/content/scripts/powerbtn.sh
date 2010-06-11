@@ -55,7 +55,12 @@ hide() {
 # restore all open windows that were unmapped
 #
 show() {
-    # show window in stacking order
+    # get new window stack
+    NEW_WINDOW_STACK=`xprop -root | grep "${WINDOW_STACK_PREFIX}"`
+    NEW_WINDOW_STACK=`echo ${NEW_WINDOW_STACK#"${WINDOW_STACK_PREFIX}"} | sed "s/,//g"`
+    echo "NEW WINDOW [${NEW_WINDOW_STACK}] ACTIVE WINDOW [${ACTIVE_WINDOW}]" > /tmp/stack.log
+
+    # restore original window stack
     if [ -n "${WINDOW_STACK}" ]; then
 	for wid in ${WINDOW_STACK}; do
 	    if [ -n "${wid}" ]; then
@@ -64,23 +69,23 @@ show() {
 	done
     fi
 
-    if [ -n "${ACTIVE_WINDOW}" -a "${ACTIVE_WINDOW}" != "0x0" ]; then
+    # place new windows on top
+    if [ -n "${NEW_WINDOW_STACK}" ]; then
+	for wid in ${NEW_WINDOW_STACK}; do
+	    if [ -n "${wid}" ]; then
+		xwit -pop -focus -id ${wid}
+	    fi
+	done
+    elif [ -n "${ACTIVE_WINDOW}" -a "${ACTIVE_WINDOW}" != "0x0" ]; then
 	xwit -focus -id ${ACTIVE_WINDOW}
     fi
-}
-
-#
-# restore all open windows that were unmapped and then terminate script
-#
-show_and_exit() {
-    show
-    exit 0
 }
 
 #
 # determine if we are on main screen
 #
 on_mainscreen() {
+echo "`date` checking if on mainscreen" > /tmp/powerbtn.log
     if [ -n "${ACTIVE_WINDOW}" -a "${ACTIVE_WINDOW}" != "0x0" ]; then
         CLASS=`xprop -id "${ACTIVE_WINDOW}" | grep "${WINDOW_CLASS_PREFIX}"`
         CLASS=${CLASS#"${WINDOW_CLASS_PREFIX}"}
@@ -88,6 +93,7 @@ on_mainscreen() {
         ROLE=`xprop -id "${ACTIVE_WINDOW}" | grep "${WINDOW_ROLE_PREFIX}"`
         ROLE=${ROLE#"${WINDOW_ROLE_PREFIX}"}
 
+echo "`date` [${CLASS}] [${ROLE}]" >> /tmp/powerbtn.log
         if [ "${CLASS}" = '"Vivipos", "VIVIPOS"' -a "${ROLE}" = '"Main"' ]; then
             return 0
         else
@@ -102,17 +108,15 @@ on_mainscreen() {
 # warn user that we are not on main screen and exit
 #
 warn_not_on_mainscreen() {
+
+    hide
+
     ${DIALOG} --warning \
               --text="${MSC_SCRIPT_POWERBTN_WARNING}"
-    return 1
-}
 
-# put up confirmation dialog
-confirm_shutdown() {
-    ${DIALOG} --question --text="${MSG_SCRIPT_POWERBTN_CONFIRM}" \
-                         --ok-label="${MSG_SCRIPT_POWERBTN_CONFIRM_OK}" \
-                         --cancel-label="${MSG_SCRIPT_POWERBTN_CONFIRM_CANCEL}" \
-              || show_and_exit
+    show
+
+    exit
 }
 
 # restore windows so that they can accept keyboard input
@@ -120,32 +124,21 @@ do_shutdown() {
     echo "`date +"%Y-%m-%d %H:%M:%S"` :   Power button pressed " >> /data/vivipos_sdk/log/vivipos.log
 
     ## invoke shutdown from main_controller
-    curl -m 5 -s -G "http://localhost:8888/dispatch?command=shutdownMachine&controller=Main&data=PowerButtonPressed" -o /dev/null
+    curl -m 5 -s -G "http://localhost:8888/dispatch?command=shutdown&controller=Main&data=PowerButtonPressed" -o /dev/null
 
-    ## 5-10 seconds not shutdown , use plain shutdown
-    /sbin/shutdown -h now "Power button pressed"
-
-    exit 0
 }
 
 # is X running
 if [ -z "$(pgrep ${APPLICATION})" ]; then
     /sbin/shutdown -h now "Power button pressed"
 else
-    #
+
     get_active_window
 
-    hide
-
     # make sure we are on mainscreen
-    on_mainscreen || warn_not_on_mainscreen || show_and_exit
+    on_mainscreen || warn_not_on_mainscreen
 
-    confirm_shutdown || show_and_exit
-
-    # power off confirmed, invoke shutdown on main controller
-    do_shutdown || $DIALOG --progress \
-                           --title="${MSG_SCRIPT_POWERBTN_POWERDOWN}" \
-                           --text="${MSG_SCRIPT_POWERBTN_POWERING_DOWN}" \
-                           --percentage=0 --auto-close --width=480 --height=240
+    # invoke Main.shutdown() method
+    do_shutdown 
 fi
 
