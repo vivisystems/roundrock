@@ -296,8 +296,9 @@
          */
         refreshTableStatus: function() {
 
+            let isOpen = false;
             try {
-                let isOpen = this.getTableSelectorPanelObj().state == 'open' ;
+                isOpen = this.getTableSelectorPanelObj().state == 'open' ;
             }catch(e) {
                 this.log('ERROR', 'refreshTableStatus getTableSelectorPanelObj error', e);
             }
