@@ -296,18 +296,13 @@
          */
         refreshTableStatus: function() {
 
-            let isOpen = false;
-            try {
-                isOpen = this.getTableSelectorPanelObj().state == 'open' ;
-            }catch(e) {
-                this.log('ERROR', 'refreshTableStatus getTableSelectorPanelObj error', e);
-            }
-            
-            
-            if (this._blockRefreshTableStatus || !isOpen) return;
 
             try{
-                
+
+                let isOpen = this.getTableSelectorPanelObj().state == 'open' ;
+
+                if (this._blockRefreshTableStatus || !isOpen) return;
+
                 this._blockRefreshTableStatus = true;
                 
                 // update status
@@ -760,7 +755,7 @@
                 return;
             }
 
-            // unserialize orderObject 
+            // unserialize orderObject
             for(var id in tableStatus.OrdersById) {
 
                 tableStatus.OrdersById[id].Order.status_str = this.OrderStatus.statusToString(tableStatus.OrdersById[id].Order.status);
