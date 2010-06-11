@@ -21,7 +21,7 @@
         <html:div anonid="table_status" class="greentable">
             <html:div class="thumbtack"></html:div>
             <html:div class="time">
-                <html:span anonid="period">12:00</html:span>
+                <html:span anonid="period"></html:span>
             </html:div>
             <html:div class="checkNum">
                 <html:span anonid="checks"></html:span>
@@ -36,25 +36,25 @@
                     </html:div>
                     <html:div class="tableInfo">
                         <html:div class="cneckNo">
-                            <html:span anonid="check_no" class="check_no">C#36</html:span>
+                            <html:span anonid="check_no" class="check_no"></html:span>
                         </html:div>
                         <html:div class="remark">
-                            <html:span anonid="seq_no" class="seq_no">S#200903212324</html:span>
+                            <html:span anonid="seq_no" class="seq_no"></html:span>
                         </html:div>
                         <html:div class="remark">
-                            <html:span anonid="booking" class="booking">B#17:30</html:span>
+                            <html:span anonid="booking" class="booking"></html:span>
                         </html:div>
                         <html:div class="remark">
-                            <html:span anonid="clerk" class="clerk">clerk</html:span>
+                            <html:span anonid="clerk" class="clerk"></html:span>
                         </html:div>
                         <html:div class="total">
-                            <html:span anonid="subtotal" class="subtotal">T#785</html:span>
+                            <html:span anonid="subtotal" class="subtotal"></html:span>
                         </html:div>
                     </html:div>
                 </html:div>
             </html:div>
             <html:div class="bgItem">
-                <html:span anonid="bg_table_no">12</html:span>
+                <html:span anonid="bg_table_no"></html:span>
             </html:div>
             <html:div class="bottomItem">
                 <html:div class="people">

@@ -35,6 +35,8 @@
 
         _blockRefreshTableStatus: false,
 
+        _initedPanel: false,
+
         /**
          * Get GuestCheckController
          *
@@ -417,13 +419,14 @@
 
                 init: function(evt) {
 
-                    // this callback will triggered when popup panel first popup.
-                    self.setRegionMenuItem();
-
-                    // get selectedRegion
-                    var selectedRegion = self.getSelectedRegion();
-
                     try {
+
+                        // this callback will triggered when popup panel first popup.
+                        self.setRegionMenuItem();
+
+                        // get selectedRegion
+                        var selectedRegion = self.getSelectedRegion();
+
                         // size region button label
                         let priorRegion = document.getElementById('btn_prior_region');
                         let nextRegion = document.getElementById('btn_next_region');
@@ -443,6 +446,8 @@
                         self.setTablesByRegion(selectedRegion);
 
                         self.setAction('selectTable');
+
+                        self._initedPanel = true;
                     
                     }catch(e) {
                         self.log('ERROR', 'ERROR init panel', e);
@@ -455,41 +460,53 @@
 
                 showing: function(evt) {
 
-                    if (!self._tablesViewHelper) {
-                        // prefetch tables status with orders if sessions not exists
-                        self.Table.TableStatus.getTablesStatus();
-                    }
+                    try {
 
-                    // initial timer
-                    self.initialRefreshTimer();
+                        if (!self._tablesViewHelper) {
+                            // prefetch tables status with orders if sessions not exists
+                            self.Table.TableStatus.getTablesStatus();
+                        }
 
-                    // update terminal_no
-                    $('#select_table_terminal_no').val(GeckoJS.Session.get('terminal_no'));
+                        // initial timer
+                        self.initialRefreshTimer();
 
-                    // update user
-                    let user = GeckoJS.Session.get('User');
-                    let username = user ?  ((user.description.length > 0) ? user.description : user.username)  : '';
-                    $('#select_table_current_user').val(username);
+                        // update terminal_no
+                        $('#select_table_terminal_no').val(GeckoJS.Session.get('terminal_no'));
 
-                    // sale_period
-                    $('#select_table_sale_period').val(GeckoJS.Session.get('sale_period_string'));
-                    if (GeckoJS.Configure.read('vivipos.fec.settings.DisableSalePeriod')){
-                        $('#select_table_sale_period').attr('hidden', true);
-                    }else {
-                        $('#select_table_sale_period').attr('hidden', false);
-                    }
+                        // update user
+                        let user = GeckoJS.Session.get('User');
+                        let username = user ?  ((user.description.length > 0) ? user.description : user.username)  : '';
+                        $('#select_table_current_user').val(username);
 
-                    // shift_number
-                    $('#select_table_shift_number').val(GeckoJS.Session.get('shift_number'));
-                    if (GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange')){
-                        $('#select_table_sale_period').attr('hidden', true);
-                    }else {
-                        $('#select_table_sale_period').attr('hidden', false);
+                        // sale_period
+                        $('#select_table_sale_period').val(GeckoJS.Session.get('sale_period_string'));
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.DisableSalePeriod')){
+                            $('#select_table_sale_period').attr('hidden', true);
+                        }else {
+                            $('#select_table_sale_period').attr('hidden', false);
+                        }
+
+                        // shift_number
+                        $('#select_table_shift_number').val(GeckoJS.Session.get('shift_number'));
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.DisableShiftChange')){
+                            $('#select_table_sale_period').attr('hidden', true);
+                        }else {
+                            $('#select_table_sale_period').attr('hidden', false);
+                        }
+
+                    }catch(e) {
+                        self.log('ERROR', 'ERROR showing panel', e);
                     }
 
                 },
 
                 shown: function(evt) {
+
+                    if (!self._initedPanel) {
+                        self.log('WARN', 'not init panel before shown');
+                        this.init();
+                    }
+
                     if (!self.isDock()) {
                         $do('disableHotKeys', true, 'Main');
                         // disable user-defined hotkeys

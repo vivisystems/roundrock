@@ -738,38 +738,44 @@
          */
         setDestinationMenuItem: function() {
 
-            // read destinations from configure
-            var destinations = GeckoJS.Configure.read('vivipos.fec.settings.Destinations') || [];
-            var defaultDestination = GeckoJS.Configure.read('vivipos.fec.settings.DefaultDestination');
-            
-            if (destinations != null && destinations.length > 0) {
-                destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
-            }else {
-                destinations = [];
+            try {
+
+                // read destinations from configure
+                var destinations = GeckoJS.Configure.read('vivipos.fec.settings.Destinations') || [];
+                var defaultDestination = GeckoJS.Configure.read('vivipos.fec.settings.DefaultDestination');
+
+                if (destinations != null && destinations.length > 0) {
+                    destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
+                }else {
+                    destinations = [];
+                }
+                var destinations2 = [];
+
+                var destinationObj = document.getElementById('table_destination');
+                destinationObj.removeAllItems();
+
+                // append default empty
+                if(destinations.length > 0) destinationObj.appendItem('','');
+
+                destinations.forEach(function(data){
+                    var defaultMark = (data.name == defaultDestination) ? '* ' : '';
+                    destinationObj.appendItem(defaultMark+data.name, data.name);
+
+                    data.label =  defaultMark+data.name ;
+                    destinations2.push(data);
+
+                });
+
+                // update require buttons
+                var tablenoDestinationObj = document.getElementById('tableno_destination');
+                var guestnumDestinationObj = document.getElementById('guestnum_destination');
+
+                tablenoDestinationObj.datasource = destinations2;
+                guestnumDestinationObj.datasource = destinations2;
+
+            }catch(e) {
+                this.log('ERROR', 'setDestinationMenuItem error', e);
             }
-            var destinations2 = [];
-            
-            var destinationObj = document.getElementById('table_destination');
-            destinationObj.removeAllItems();
-
-            // append default empty
-            if(destinations.length > 0) destinationObj.appendItem('','');
-
-            destinations.forEach(function(data){
-                var defaultMark = (data.name == defaultDestination) ? '* ' : '';
-                destinationObj.appendItem(defaultMark+data.name, data.name);
-
-                data.label =  defaultMark+data.name ;
-                destinations2.push(data);
-                
-            });
-
-            // update require buttons
-            var tablenoDestinationObj = document.getElementById('tableno_destination');
-            var guestnumDestinationObj = document.getElementById('guestnum_destination');
-
-            tablenoDestinationObj.datasource = destinations2;
-            guestnumDestinationObj.datasource = destinations2;
 
 
         },
@@ -780,22 +786,28 @@
          */
         setRegionMenuItem: function() {
 
-            var regions = this.TableRegion.getTableRegions() || [];
+            try {
 
-            var regionObj = document.getElementById('table_region');
-            var defaultRegionObj = document.getElementById('default_region');
+                var regions = this.TableRegion.getTableRegions() || [];
 
-            regionObj.removeAllItems();
-            defaultRegionObj.removeAllItems();
+                var regionObj = document.getElementById('table_region');
+                var defaultRegionObj = document.getElementById('default_region');
 
-            // append all regions
-            defaultRegionObj.appendItem(_('All Regions'),'ALL');
-            defaultRegionObj.appendItem(_('Available Tables'),'AVAILABLE');
+                regionObj.removeAllItems();
+                defaultRegionObj.removeAllItems();
 
-            regions.forEach(function(data){
-                regionObj.appendItem(data.name, data.id);
-                defaultRegionObj.appendItem(data.name, data.id);
-            });
+                // append all regions
+                defaultRegionObj.appendItem(_('All Regions'),'ALL');
+                defaultRegionObj.appendItem(_('Available Tables'),'AVAILABLE');
+
+                regions.forEach(function(data){
+                    regionObj.appendItem(data.name, data.id);
+                    defaultRegionObj.appendItem(data.name, data.id);
+                });
+
+            }catch(e) {
+                this.log('ERROR', 'setRegionMenuItem error', e);
+            }
 
 
         },
