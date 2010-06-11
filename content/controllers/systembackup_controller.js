@@ -275,14 +275,15 @@
             // log user process
             this.log('FATAL', 'backupToLocal withProfile: [' + withProfile +']');
 
-            this.flushPrefs(); // flush it.
-
-            // close all database connections
-            GeckoJS.ConnectionManager.closeAll();
-
             var script = this._scriptPath + "backup.sh";
             let evt_data = {script: script, args: args, skip: false};
             if (this.dispatchEvent('beforeBackupToLocal', evt_data)) {
+
+                this.flushPrefs(); // flush it.
+
+                // close all database connections
+                GeckoJS.ConnectionManager.closeAll();
+
                 script = evt_data.script;
                 args = evt_data.args;
 
@@ -296,6 +297,7 @@
             }
             this.refresh();
             this._busy = false;
+            this._restart();
             this.setButtonState();
             waitPanel.hidePopup();
         },
@@ -365,14 +367,15 @@
 
                     this.sleep(100);
 
-                    this.flushPrefs(); // flush it.
-                    
-                    // close all database connections
-                    GeckoJS.ConnectionManager.closeAll();
-
                     var script = this._scriptPath + "restore.sh";
                     let evt_data = {script: script, args: args, skip: false};
                     if (this.dispatchEvent('beforeRestoreFromLocal', evt_data)) {
+
+                        this.flushPrefs(); // flush it.
+
+                        // close all database connections
+                        GeckoJS.ConnectionManager.closeAll();
+
                         script = evt_data.script;
                         args = evt_data.args;
 
@@ -430,14 +433,15 @@
 
                     this.sleep(100);
 
-                    this.flushPrefs(); // flush it.
-
-                    // close all database connections
-                    GeckoJS.ConnectionManager.closeAll();
-
                     var script = this._scriptPath + "restore.sh";
                     let evt_data = {script: script, args: args, skip: false};
                     if (this.dispatchEvent('beforeRestoreFromRemote', evt_data)) {
+
+                        this.flushPrefs(); // flush it.
+
+                        // close all database connections
+                        GeckoJS.ConnectionManager.closeAll();
+
                         script = evt_data.script;
                         args = evt_data.args;
 
