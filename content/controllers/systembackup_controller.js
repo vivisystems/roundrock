@@ -294,10 +294,11 @@
                     this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
                     NotifyUtils.info(_('<Backup to Local Storage> is done'));
                 }
+
+                this._restart();
             }
             this.refresh();
             this._busy = false;
-            this._restart();
             this.setButtonState();
             waitPanel.hidePopup();
         },
@@ -389,6 +390,8 @@
                                 this._restart();
                             }
                             NotifyUtils.info(_('<Restore from Local backup> is done!!'));
+                        } else {
+                            this._restart();
                         }
                     }
                 }
@@ -455,6 +458,8 @@
                                 this._restart();
                             }
                             NotifyUtils.info(_('<Restore from External Backup> is done!!'));
+                        }else {
+                            this._restart();
                         }
                     }
                 }
