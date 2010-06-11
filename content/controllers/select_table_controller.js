@@ -293,8 +293,13 @@
          * if no table status receive, only repaint period time.
          */
         refreshTableStatus: function() {
+
+            try {
+                let isOpen = this.getTableSelectorPanelObj().state == 'open' ;
+            }catch(e) {
+                this.log('ERROR', 'refreshTableStatus getTableSelectorPanelObj error', e);
+            }
             
-            let isOpen = this.getTableSelectorPanelObj().state == 'open' ;
             
             if (this._blockRefreshTableStatus || !isOpen) return;
 
@@ -317,6 +322,8 @@
                 }
 
                 this.selectCurrentTable();
+            }catch(e) {
+                this.log('ERROR', 'refreshTableStatus error', e);
             }finally{
                 this._blockRefreshTableStatus = false;
             }
@@ -339,7 +346,7 @@
                 try {
                     self.refreshTableStatus();
                 }catch(e) {
-                    self.log('ERROR', 'on refreshTableStatus');
+                    self.log('ERROR', 'on refreshTableStatus', e);
                 }finally {
                     self._timerId = setTimeout( arguments.callee, timeoutMS );
                 }
@@ -438,7 +445,7 @@
                         self.setAction('selectTable');
                     
                     }catch(e) {
-                        self.log('ERROR', 'ERROR init panel');
+                        self.log('ERROR', 'ERROR init panel', e);
                     }
 
                 },
@@ -798,7 +805,7 @@
             }catch(e){
                 // XXX notify fatal error message.
                 // alert(e);
-                this.log('ERROR', 'executeSelectTableOrder and InnerHtml\n' + result + this.dump(tableStatus));
+                this.log('ERROR', 'executeSelectTableOrder and InnerHtml\n' + result + this.dump(tableStatus), e);
                 return false;
             }
             return true;
