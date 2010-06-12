@@ -2,14 +2,14 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
-        <em:id>viviecr@firich.com.tw</em:id>
-        <em:name>VIVIECR</em:name>
-        <em:version>1.2.1.3RC4.20100611130714</em:version>
-        <em:description></em:description>
-        <em:creator>FIRICH VIVIPOS TEAM</em:creator>
-        <em:homepageURL>http://www.firich.com.tw/</em:homepageURL>
+        <em:id>roundrock@vivisystems.com.tw</em:id>
+        <em:name>VIVIECR (Roundrock)</em:name>
+        <em:version>1.2.1.3RR-RC4.20100612171222</em:version>
+        <em:description>VIVIECR Roundrock Edition</em:description>
+        <em:creator>FIRICH VIVIPOS TEAM + VIVISYSTEMS ROUNDROCK TEAM</em:creator>
+        <em:homepageURL>http://www.vivisystems.com.tw/</em:homepageURL>
         <em:type>2</em:type> <!-- type=extension --> 
-        <em:extensionHash>sha1:c7c561574cc077da768d73338410bcfb4a7d60bf</em:extensionHash>
+        <em:extensionHash>sha1:dbf367c05e3a6622f51c13cbd591eeab88b477fb</em:extensionHash>
         <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6prvsPdRm+3c4etUSLoJVT5GyYUogo5c5L3dyWgu3yu6weYS9q5aQBlbSFVyfCyIfexacXanGFqVRuBvpVq5Px6LpjisHvXukknGnY6nr5S1zelV9CXgv+17mTMVPpxCUEe2oVB3AFX+l+XWx4fUdW3sTX+uSHo/Pno+8PD79FQIDAQAB</em:updateKey>
 
         <em:targetApplication>
