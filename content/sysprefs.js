@@ -130,6 +130,9 @@ function rebuildDatabases() {
 
     GREUtils.File.run('/data/scripts/rebuild_databases.sh', [], true);
 
+    // restart vivipos
+    GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+
     // unpopup progressbar
     this.dismissWaitingPanel();
 }
