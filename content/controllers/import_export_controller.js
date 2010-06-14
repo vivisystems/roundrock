@@ -749,7 +749,7 @@
                     case "license": {
 
                             if(GREUtils.File.exists(this._exportDir + '/vivipos.lic')){
-                                 if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Lincense exists in "%S" folder. Overwrite it ?',[this._exportDir]) ) )
+                                 if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'License exists in "%S" folder. Overwrite it ?',[this._exportDir]) ) )
                                         return;
                             }                         
                             GREUtils.File.remove(this._exportDir + '/vivipos.lic');

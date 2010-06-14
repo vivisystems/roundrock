@@ -1,3 +1,94 @@
+-------------------------------
+Release Note for VIVIECR ver.1.2.1.3
+Release Date: 2010-June-14
+-------------------------------
+
+This is a maintenance release with enhanced functions for VIVIPOS Application (VIVIECR) 1.2.1.x series.
+Previous 1.2.1.x releases may be upgraded to this release by installing the XPI file through Add-ons Manager.
+
+-------------------------------
+Dependencies
+-------------------------------
+
+This release requires the following applications:
+    - VIVIPOS OS Release 1.2.2 or above
+    - VIVIPOS App Engine Release 1.2.1.4 or above
+    - VIVIPOS WebApp and WebServices Release 1.2.1.1 or above
+
+You should also install appropriate language pack (langpack-en-US_1.2.1.3.xpi) to avoid translation-related issues.
+
+-------------------------------
+Enhanced Functions
+-------------------------------
+
+Ticket#82:
+Enhance "20c (non-en) VFD Sample template": If users select "20c (non-en) VFD Sample template" in VFD tab of Devices setting, and input store name in Chinese in Store Contact setting, the message shows on VFD hardware will be ?????. This is because pre-installed VFD hardware does not support Chinese charset. This release has amended the template to show "Welcome!" message only on VFD hardware in case that users select "20c (non-en) VFD Sample template".
+
+Ticket#86:
+Enhance the display method of User in "Attendance Record" of Reports function: Both "User Name" and "Display Name" will be shown in "Attendance Record" for better identification of users.
+
+Ticket#91:
+In Scales function, enhance the display method of "Taiwanese Kilogram".
+(Note: This enhancement applies to Taiwan market only)
+
+Ticket#96:
+Add the following 3 printing options in "Sales Summary" of Reports function:
+    - Skip Printing 'Hourly Sales'
+    - Skip Printing 'Top Product Sales'
+    - Skip Printing 'Top Department Sales'
+
+-------------------------------
+Bugs Fixed
+-------------------------------
+
+Ticket#45:
+In the circumstance that users did not set up "Local Currency" in Currency Exchange function, when users process Void Sales function for cash refund and the input field of "Note 1" is left blank, it will cause the information of payment amount and cashdrawer amount in the screen of "Shift Change" not correct.
+This issue has been fixed in 1.2.1.3 release.
+
+Ticket#83:
+When users double click the function key of "Store Order", an error message pop-up.
+This issue has been fixed in 1.2.1.3 release.
+
+Ticket#84:
+In the circumstance that users did not set up any product in Products function, when users add a new "Condiment Group" in Condiments function, this newly added Condiment Group will always be displayed in Condiments function and can not be deleted.
+This issue has been fixed in 1.2.1.3 release.
+
+Ticket#87:
+After users finish the "End Sales Period" operation, if users click any report in the pop-up screen of reports selection, system fails to feed in the parameters of current Sales Period into the report, which causes the report contains no information inside.
+This issue has been fixed in 1.2.1.3 release.
+
+Ticket#89:   *** IMPORTANT FIX ***
+In Table function, when users conduct "Merge Stored Checks" operation, if the to-be-merged-check is in the process of other function by another machine in the network, the "Merge Stored Checks" operation should be stopped by a system warning message. However, after users click OK on the system warning message and re-process the "Merge Stored Checks" on same checks, system does not pop-up warning message. This might cause the to-be-merged-check being processed by 2 machines at the same time and cause order error.
+This issue has been fixed in 1.2.1.3 release by showing pop-up system warning meessage all the time if the to-be-merged-check is still in the process of other function by another machine in the network.
+
+Ticket#90:   *** IMPORTANT FIX ***
+When users conduct "Split Stored Check" operation, system automatically reset the batchCount information of the split order. If users add new items on the split order afterward, all items on the split order will be printed again including previous printed items, which might cause problems in certain circumstance such as restaurant with kitchen printing system.
+This issue has been fixed in 1.2.1.3 release by printing only newly added items of split order.
+
+Ticket#92:
+In Data Import / Export function, when users intend to export License file (vivipos.lic) to external storage, if a file named vivipos.lic already exists in external storage, system fails to overwrite the existing vivipos.lic.
+This issue has been fixed in 1.2.1.3 release by overwriting the existing vivipos.lic via system warning message.
+
+Ticket#93:
+Fixed the code errors in the following Ledger Receipt Sample templates:
+    - 42c Ledger Receipt Sample
+    - 32c Ledger Receipt Sample
+    - 24c Ledger Receipt Sample
+
+Ticket#94:
+Fixed the display method of the field of "transaction voided time" in the order table of database by truncating all the numeric after decimal point.
+
+Ticket#99:   *** IMPORTANT FIX ***
+After users execute the "Backup to local" operation in System Backup / Restore function and return to main screen, system fails to activate "Promotion Rules".
+This issue has been fixed in 1.2.1.3 release by automatically restarting VIVIECR application after "Backup to local" operation and prior to returning main screen.
+
+Ticket#100:
+In the circumstance that system detects "Error initiating table panel", table map will not be displayed normally.
+This issue has been fixed in 1.2.1.3 release by restarting the table map automatically after system detects such error, and system will log this error in System Log.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
 ---------------
 Release 1.2.1.2
 ---------------
