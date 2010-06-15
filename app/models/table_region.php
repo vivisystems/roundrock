@@ -5,7 +5,7 @@
  */
 class TableRegion extends AppModel {
     var $name = 'TableRegion';
-    var $useDbConfig = 'table';
+    //var $useDbConfig = 'table';
 
     var $hasMany = array('Table');
 

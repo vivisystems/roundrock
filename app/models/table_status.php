@@ -9,7 +9,7 @@ App::import('Model', 'TableOrder');
  */
 class TableStatus extends AppModel {
     var $name = 'TableStatus';
-    var $useDbConfig = 'table';
+    //var $useDbConfig = 'table';
 
     var $belongsTo = array('Table');
     var $hasMany = array('TableOrder'=>array('foreignKey'=>'table_id', 'order'=>'transaction_created'));

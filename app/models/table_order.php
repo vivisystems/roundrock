@@ -4,7 +4,7 @@
  */
 class TableOrder extends AppModel {
     var $name = 'TableOrder';
-    var $useDbConfig = 'table';
+    //var $useDbConfig = 'table';
 
 
     /**

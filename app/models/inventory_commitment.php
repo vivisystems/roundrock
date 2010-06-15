@@ -4,7 +4,7 @@ App::import('Core', array('CakeLog'));
 class InventoryCommitment extends AppModel {
 
     var $name = 'InventoryCommitment';
-    var $useDbConfig = 'inventory';
+    //var $useDbConfig = 'inventory';
 
 
     function getLastModified() {

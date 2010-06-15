@@ -5,7 +5,7 @@
  */
 class Table extends AppModel {
     var $name = 'Table';
-    var $useDbConfig = 'table';
+    //var $useDbConfig = 'table';
 
     var $belongsTo = array('TableRegion');
     var $hasOne = array('TableStatus');

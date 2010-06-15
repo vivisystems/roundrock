@@ -4,7 +4,7 @@ App::import('Core', array('CakeLog'));
 class StockRecord extends AppModel {
 
     var $name = 'StockRecord';
-    var $useDbConfig = 'inventory';
+    //var $useDbConfig = 'inventory';
 
     function getLastModifiedRecords($lastModified = 0) {
 

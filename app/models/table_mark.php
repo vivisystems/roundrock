@@ -3,7 +3,7 @@ App::import('Model', 'TableSetting');
 
 class TableMark extends AppModel {
     var $name = 'TableMark';
-    var $useDbConfig = 'table';
+    //var $useDbConfig = 'table';
 
 
 	/**

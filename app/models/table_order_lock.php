@@ -2,7 +2,7 @@
 
 class TableOrderLock extends AppModel {
     var $name = 'TableOrderLock';
-    var $useDbConfig = 'table';
+    //var $useDbConfig = 'table';
 	
 
     /**
