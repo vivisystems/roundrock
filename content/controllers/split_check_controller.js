@@ -226,6 +226,10 @@
 
         },
 
+        autoSplitBySeats: function() {
+            // XXX not yet
+
+        },
 
         confirm: function() {
 

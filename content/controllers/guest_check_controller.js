@@ -228,6 +228,35 @@
 
         },
 
+        /**
+         * openSeatNoDialog
+         *
+         * @param {Number} no  default number of seat
+         * @return {Number} number of customers
+         */
+        openSeatNoDialog: function (no){
+
+            no = no || '1';
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
+            var inputObj = {
+                input0:no,
+                type0:'number',
+                digitOnly0:true,
+                require0:true,
+                numpad:true,
+                disablecancelbtn:true
+            };
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Seat No'), aFeatures, _('Enter Seat No'), '', _('Number'), '', inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }
+
+            return no;
+        },
+
 
         /**
          * popupTableSelectorPanel
@@ -2392,18 +2421,19 @@
             }
 
             if (no.length == 0) {
-                no = this.openGuestNumDialog(1);
+                no = this.openSeatNoDialog(1);
             }
 
             no = no || '1';
 
             GeckoJS.Session.set('vivipos_fec_current_table_seat', no);
 
+            var curTransaction = cart._getTransaction(true); // autocreate
+
             cart._cancelReturn();
             
         },
         
-
 
         /**
          * showAlertDialog
