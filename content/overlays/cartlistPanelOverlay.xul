@@ -11,8 +11,8 @@
 
             <viviscrollabletree id="cartList" hidevscroll="true" flex="1" dir="normal" fixed="true" class="cart-list"
                                 disableKeyNavigation="true" primary="name" scrollMode="cursor" hidecolumnpicker="true"
-                                headerlist="&cart.item.row;,&cart.item.tag;,&cart.item.destination;,&cart.item.label;,&cart.item.no;,&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.pricelevel;,&cart.item.subtotal;,&cart.item.tax;"
-                                fieldlist="row,tag,destination,label,no,name,current_qty,current_price,price_level,current_subtotal,current_tax"
+                                headerlist="&cart.item.row;,&cart.item.tag;,&cart.item.destination;,&cart.item.seat_no;,&cart.item.label;,&cart.item.no;,&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.pricelevel;,&cart.item.subtotal;,&cart.item.tax;"
+                                fieldlist="row,tag,destination,seat_no,label,no,name,current_qty,current_price,price_level,current_subtotal,current_tax"
                                 defaults="row,destination,name,current_qty,current_price,current_subtotal,current_tax"
                                 onselect="this.updateScrollBtn()"
                                 scrollUpClass="cart-scroll-up-button" scrollDownClass="cart-scroll-down-button" >

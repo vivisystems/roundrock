@@ -168,7 +168,8 @@
 
 .main-overlay .cart-list #name,
 .main-overlay .cart-list #price_level,
-.main-overlay .cart-list #destination {
+.main-overlay .cart-list #destination,
+.main-overlay .cart-list #seat_no {
     text-align: left;
 }
 
@@ -201,6 +202,11 @@
 }
 
 .main-overlay .cart-list tree #destination {
+    max-width: 30px;
+    min-width: 30px;
+}
+
+.main-overlay .cart-list tree #seat_no {
     max-width: 30px;
     min-width: 30px;
 }

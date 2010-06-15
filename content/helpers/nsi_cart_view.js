@@ -24,6 +24,7 @@
             GeckoJS.Session.set('vivipos_fec_tax_total', '');
             GeckoJS.Session.set('vivipos_fec_check_number', '');
             GeckoJS.Session.set('vivipos_fec_table_number', '');
+            GeckoJS.Session.set('vivipos_fec_current_table_seat', '');
             GeckoJS.Session.set('vivipos_fec_number_of_customers', '');
             GeckoJS.Session.set('vivipos_fec_order_destination', '');
 
@@ -103,6 +104,10 @@
 
                 case 'label':
                     prop.AppendElement(aserv.getAtom('treecellLabel'));
+                    break;
+
+                case 'seat_no':
+                    prop.AppendElement(aserv.getAtom('treecellSeatNo'));
                     break;
 
                 case 'name':

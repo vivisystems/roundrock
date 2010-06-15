@@ -2379,6 +2379,32 @@
             
         },
 
+
+        setSeatNo: function(no) {
+
+            no = no || '';
+            var cart = this.getCartController();
+
+            if (no.length == 0) {
+                no = this.getKeypadController().getBuffer() || '';
+                this.getKeypadController().clearBuffer();
+
+            }
+
+            if (no.length == 0) {
+                no = this.openGuestNumDialog(1);
+            }
+
+            no = no || '1';
+
+            GeckoJS.Session.set('vivipos_fec_current_table_seat', no);
+
+            cart._cancelReturn();
+            
+        },
+        
+
+
         /**
          * showAlertDialog
          */

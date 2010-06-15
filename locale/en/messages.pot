@@ -1491,6 +1491,20 @@ msgid "vivipos.fec.registry.function.programmable.setdestination.name"
 msgstr "Set Destination"
 
 # ###########
+# Set Seat No
+# ###########
+msgid "vivipos.fec.registry.function.programmable.setSeatNo.desc"
+msgstr ""
+"This function assigns to the current cart item the seat no given by the parameter. "
+"The parameter field may be empty and entered on the input line."
+
+msgid "vivipos.fec.registry.function.programmable.setSeatNo.label"
+msgstr "Set SeatNo"
+
+msgid "vivipos.fec.registry.function.programmable.setSeatNo.name"
+msgstr "Set SeatNo"
+
+# ###########
 # Label Item
 # ###########
 msgid "vivipos.fec.registry.function.programmable.labelitem.desc"
