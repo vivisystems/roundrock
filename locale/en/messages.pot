@@ -1490,6 +1490,21 @@ msgstr "Set Destination"
 msgid "vivipos.fec.registry.function.programmable.setdestination.name"
 msgstr "Set Destination"
 
+# ###########
+# Label Item
+# ###########
+msgid "vivipos.fec.registry.function.programmable.labelitem.desc"
+msgstr ""
+"This function assigns to the current cart item given by the parameter. "
+"The parameter field may be empty to remove the existing label. A label "
+"may be entered on the input line to override the default label."
+
+msgid "vivipos.fec.registry.function.programmable.labelitem.label"
+msgstr "Label Item"
+
+msgid "vivipos.fec.registry.function.programmable.labelitem.name"
+msgstr "Label Item"
+
 ############
 # Tag Item
 ############
@@ -2150,6 +2165,9 @@ msgstr "Void Completed Transactions"
 
 msgid "acl_tag_item"
 msgstr "Tag Item"
+
+msgid "acl_label_item"
+msgstr "Label Item"
 
 msgid "acl_manage_network_setting"
 msgstr "Manage Network"
