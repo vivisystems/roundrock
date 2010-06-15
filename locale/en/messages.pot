@@ -1495,7 +1495,7 @@ msgstr "Set Destination"
 # ###########
 msgid "vivipos.fec.registry.function.programmable.labelitem.desc"
 msgstr ""
-"This function assigns to the current cart item given by the parameter. "
+"This function assigns to the current cart item the label given by the parameter. "
 "The parameter field may be empty to remove the existing label. A label "
 "may be entered on the input line to override the default label."
 
