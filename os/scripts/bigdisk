@@ -14,7 +14,8 @@ FSCK=/sbin/fsck
 FSCK_FLAGS="-T -C -t ext4 -M -p"
 BIGDISK_SETTINGS=/data/profile/bigdisk_settings
 DIRS="backups databases images irc_packages journal training"
-DBS="vivipos vivipos_acl vivipos_extension vivipos_inventory vivipos_journal vivipos_order vivipos_table"
+#DBS="vivipos vivipos_acl vivipos_extension vivipos_inventory vivipos_journal vivipos_order vivipos_table"
+DBS="vivipos vivipos_order"
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 export PATH

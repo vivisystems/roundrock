@@ -179,17 +179,23 @@
                 backupController.addEventListener('beforeBackupToLocal', this._beforeBackupToLocal, this);
                 backupController.addEventListener('beforeRestoreFromLocal', this._handleRestore, this);
                 backupController.addEventListener('beforeRestoreFromRemote', this._handleRestore, this);
-            }
 
-            // replace systembackup controller's validate form with my own
-            var backupToExternalButtonObj = doc.getElementById('backuptoexternal');
-            var system_backup = doc.defaultView.GeckoJS.Controller.getInstanceByName('SystemBackup');
-            var builtInValidateForm = system_backup.validateForm;
+                // replace systembackup controller's validate form with my own
+                var backupToExternalButtonObj = doc.getElementById('backuptoexternal');
+                var builtInValidateForm = backupController.validateForm;
 
-            system_backup.validateForm = function() {
-                builtInValidateForm.call(system_backup);
+                backupController.validateForm = function() {
+                    builtInValidateForm.call(backupController);
 
-                if (backupToExternalButtonObj) backupToExternalButtonObj.setAttribute('disabled', !system_backup._selectedDevice);
+                    if (backupToExternalButtonObj) backupToExternalButtonObj.setAttribute('disabled', !backupController._selectedDevice);
+                }
+
+                // replace systembackup controller's setButtonState with my own
+                backupController.setButtonState= function() {
+                    $(doc).find('vivibutton').attr('disabled', backupController._busy);
+
+                    backupController.validateForm();
+                }
             }
         },
 
@@ -226,8 +232,8 @@
 
             env.flushPrefs(); // flush it.
 
-            // close all database connections
-            GeckoJS.ConnectionManager.closeAll();
+            // close all non-in-memory database connections
+            this._closeDBConnections();
 
             var script = this._script_path + '/' + this._backup_system_script;
             let evt_data = {script: script, args: args, skip: false};
@@ -248,6 +254,10 @@
             env.validateForm();
 
             waitPanel.hidePopup();
+        },
+
+        _closeNonMemoryDSConnections: function() {
+            var dsList = GeckoJS.ConnectionManager.sourceList();
         },
 
         _beforeClearOrderData: function(evt) {
@@ -319,7 +329,7 @@
             var database_file = ds.path + '/' + ds.database;
 
             // close all data connections
-            GeckoJS.ConnectionManager.closeAll();
+            this._closeDBConnections();
 
             this.log('WARN', 'before truncate');
 
@@ -474,6 +484,21 @@
             }
         },
 
+        /*
+         * close all connections to databases that are not in-memory
+         */
+        _closeDBConnections: function() {
+            var dsList = GeckoJS.ConnectionManager.sourceList() || [];
+            dsList.forEach(function(dsName) {
+                if (dsName.toLowerCase() != 'memory') {
+                    let ds = GeckoJS.ConnectionManager.getDataSource(dsName);
+                    if (ds) {
+                        ds.close();
+                    }
+                }
+            }, this);
+        },
+
         _startServices: function() {
             this._execute('/usr/bin/sudo', ['/sbin/start', '--no-wait', 'lighttpd']);
             this._execute('/usr/bin/sudo', ['/sbin/start', '--no-wait', 'sync-client']);
@@ -512,14 +537,6 @@
             GREUtils.Dialog.alert(win, title, message);
         },
 
-        _reboot: function() {
-
-        },
-
-        _shutdown: function() {
-
-        },
-        
         _showAlertDialog: function(msg) {
 
             var width = 700;

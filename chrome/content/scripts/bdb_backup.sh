@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 : ${DIALOG=zenity}
 
@@ -26,7 +26,8 @@ if [ -f /data/databases/vivipos.sqlite ]; then
 fi
 
 BACKUP_DEV=/dev/disk/by-label/BACKUP
-ALL_DBS="vivipos vivipos_acl vivipos_extension vivipos_inventory vivipos_journal vivipos_order vivipos_table"
+#ALL_DBS="vivipos vivipos_acl vivipos_extension vivipos_inventory vivipos_journal vivipos_order vivipos_table"
+ALL_DBS="vivipos vivipos_order"
 bak_dir=`date +%Y%m%d`
 
 MYID=`id -un`

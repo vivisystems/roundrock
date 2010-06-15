@@ -119,7 +119,6 @@ warn_not_on_mainscreen() {
     exit
 }
 
-# restore windows so that they can accept keyboard input
 do_shutdown() {
     echo "`date +"%Y-%m-%d %H:%M:%S"` :   Power button pressed " >> /data/vivipos_sdk/log/vivipos.log
 

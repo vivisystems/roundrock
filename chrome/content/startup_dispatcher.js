@@ -2,6 +2,16 @@
 // and dispatch events to execute roundrock startup tasks
 
 function roundrock_startup(evt) {
+    // issues the vivipos-started upstart event
+    try {
+        var exec = new GeckoJS.File('/usr/bin/sudo');
+        var r = exec.run(['/sbin/initctl', 'emit', '--no-wait', 'vivipos-started']);
+        exec.close();
+    }
+    catch (e) {
+        GREUtils.log('FATAL', 'Failed to issue vivipos-started');
+    }
+
     GeckoJS.Dispatcher.removeEventListener('onDispatch', roundrock_startup);
     $do('integrityCheck', evt, 'BDBData');
 

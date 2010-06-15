@@ -273,7 +273,7 @@
 
                         this.log('FATAL', '[IMPORT-BEGIN] invoking script to import data from external backup: [' + env._stickbackupDir + dir + ']');
 
-                        GeckoJS.ConnectionManager.closeAll();
+                        this._closeDBConnections();
 
                         // execute the merge script
                         this._execute(this._script_path + '/' + this._merge_db_script,
@@ -641,7 +641,7 @@
                 backup_date.setSeconds(file_name.substr(12, 2));
 
                 // close data source
-                GeckoJS.ConnectionManager.closeAll();
+                this._closeDBConnections();
 
                 var alert_win = this._showAlertDialog(_('Last Good Database'),
                                                       _('Restoring Last Good Database...'),
@@ -669,6 +669,21 @@
             }
 
             return result;
+        },
+
+        /*
+         * close all connections to databases that are not in-memory
+         */
+        _closeDBConnections: function() {
+            var dsList = GeckoJS.ConnectionManager.sourceList() || [];
+            dsList.forEach(function(dsName) {
+                if (dsName.toLowerCase() != 'memory') {
+                    let ds = GeckoJS.ConnectionManager.getDataSource(dsName);
+                    if (ds) {
+                        ds.close();
+                    }
+                }
+            }, this);
         },
 
         _execute: function(cmd, params) {
