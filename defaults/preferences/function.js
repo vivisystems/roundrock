@@ -160,6 +160,12 @@ pref("vivipos.fec.registry.function.programmable.keypress.controller", "Keypad")
 pref("vivipos.fec.registry.function.programmable.keypress.data", "");
 pref("vivipos.fec.registry.function.programmable.keypress.version", "1.2.1.0");
 
+pref("vivipos.fec.registry.function.programmable.labelitem.access", "acl_label_item");
+pref("vivipos.fec.registry.function.programmable.labelitem.command", "labelItem");
+pref("vivipos.fec.registry.function.programmable.labelitem.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.labelitem.data", "");
+pref("vivipos.fec.registry.function.programmable.labelitem.version", "1.2.1.4");
+
 pref("vivipos.fec.registry.function.programmable.ledgerentry.access", "acl_add_ledger_entry");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.command", "ledgerEntry");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.controller", "Cart");
@@ -387,6 +393,12 @@ pref("vivipos.fec.registry.function.programmable.setdestination.command", "setDe
 pref("vivipos.fec.registry.function.programmable.setdestination.controller", "Destinations");
 pref("vivipos.fec.registry.function.programmable.setdestination.data", "");
 pref("vivipos.fec.registry.function.programmable.setdestination.version", "1.2.1.0");
+
+pref("vivipos.fec.registry.function.programmable.setSeatNo.access", "acl_set_seat_no");
+pref("vivipos.fec.registry.function.programmable.setSeatNo.command", "setSeatNo");
+pref("vivipos.fec.registry.function.programmable.setSeatNo.controller", "GuestCheck");
+pref("vivipos.fec.registry.function.programmable.setSeatNo.data", "");
+pref("vivipos.fec.registry.function.programmable.setSeatNo.version", "1.2.1.4");
 
 pref("vivipos.fec.registry.function.programmable.shiftchange.access", "acl_end_sale_period,acl_change_shift");
 pref("vivipos.fec.registry.function.programmable.shiftchange.command", "shiftChange");

@@ -1384,7 +1384,7 @@
 
                 // shift change notification and print option
                 aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',' + this.screenheight * 0.8;
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * 0.8 + ',height=' + this.screenheight * 0.8;
                 let message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Close'), features, message);
 
@@ -1557,7 +1557,7 @@
 
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
 
-            var aURL = 'chrome://viviecr/content/reports/rpt_daily_sales_summary.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&period_type='+periodType;
+            var aURL = 'chrome://viviecr/content/reports/rpt_daily_sales_summary.xul?terminal_no=${terminal_no}&shift_no=${shift_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&period_type='+periodType;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
@@ -1579,7 +1579,7 @@
 
             //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
 
-            var aURL = 'chrome://viviecr/content/reports/rpt_product_sales_return.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&periodtype='+periodType;
+            var aURL = 'chrome://viviecr/content/reports/rpt_product_sales_return.xul?terminal_no=${terminal_no}&shiftno=${shift_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&periodtype='+periodType;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },

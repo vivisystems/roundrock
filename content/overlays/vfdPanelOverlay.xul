@@ -26,12 +26,12 @@
                            />
         <vivisessionstatus id="vivipos_fec_check_tracking_status" flex="1"
                            class="orderstatus"
-                           columns="4"
+                           columns="5"
                            noseparator="true"
                            hidden="true"
-                           ratios="10,10,7,6"
-                           labels="&viviorderstatus.destination.label;,&viviorderstatus.numbercustomer.label;,&viviorderstatus.checknumber.label;,&viviorderstatus.tablenumber.label;"
-                           keys="vivipos_fec_order_destination,vivipos_fec_number_of_customers,vivipos_fec_check_number,vivipos_fec_table_number"
+                           ratios="10,10,7,6,6"
+                           labels="&viviorderstatus.destination.label;,&viviorderstatus.numbercustomer.label;,&viviorderstatus.checknumber.label;,&viviorderstatus.tablenumber.label;,&viviorderstatus.seatnumber.label;"
+                           keys="vivipos_fec_order_destination,vivipos_fec_number_of_customers,vivipos_fec_check_number,vivipos_fec_table_number,vivipos_fec_current_table_seat"
                            labelClass="orderstatus-field-label"
                            valueClass="orderstatus-field-value"
                            />

@@ -582,7 +582,9 @@
                 non_discountable: item.non_discountable,
                 non_surchargeable: item.non_surchargeable,
 
-                created: Math.round(new Date().getTime() / 1000 )
+                created: Math.round(new Date().getTime() / 1000 ),
+
+                seat_no: (GeckoJS.Session.get('vivipos_fec_current_table_seat') || '')
             };
 
             return item2;
@@ -614,8 +616,9 @@
                     age_verification: item.age_verification,
                     level: (level == null) ? 0 : level,
                     price_level: item.price_level,
-                    price_modifier: item.price_modifier
-
+                    price_modifier: item.price_modifier,
+                    label: '',
+                    seat_no: item.seat_no
                 });
             }else if (type == 'setitem') {
                 itemDisplay = GREUtils.extend(itemDisplay, {
@@ -1018,6 +1021,25 @@
         },
 
 
+        labelItemAt: function(index, label){
+
+            var prevRowCount = this.data.display_sequences.length;
+
+            var itemTrans = this.getItemAt(index); // item in transaction
+            var itemDisplay = this.getDisplaySeqAt(index); // item in transaction
+
+            if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+                return null; // TODO - shouldn't be here since cart has intercepted illegal operations
+            }
+
+            itemDisplay.label = label;
+
+            this.updateCartView(prevRowCount, prevRowCount, index);
+
+            return itemTrans;
+        },
+
+
         modifyItemAt: function(index, newSetItems){
 
             var prevRowCount = this.data.display_sequences.length;
@@ -1152,7 +1174,8 @@
                     }
                     Transaction.events.dispatch('afterModifySetItems', setItemEventData, this);
                 }
-                else {                    
+                else {
+
                     // create data object to push in items array
                     itemModified = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
                     itemTrans.current_qty = itemModified.current_qty;
@@ -1161,6 +1184,7 @@
                     itemTrans.price_modifier = itemModified.price_modifier;
                     itemTrans.price_level = itemModified.price_level;
                     itemTrans.destination = itemModified.destination;
+                    itemTrans.seat_no = itemModified.seat_no;
                     itemTrans.tax_name = itemModified.tax_name;
                     itemModified = itemTrans;
 
@@ -1170,6 +1194,8 @@
                     this.data.items[itemIndex]  = itemModified;
 
                     var itemDisplay2 = this.createDisplaySeq(itemIndex, itemModified, 'item');
+                    itemDisplay2.tags = itemDisplay.tags;
+                    itemDisplay2.label = itemDisplay.label;
                     itemDisplay2.returned = itemDisplay.returned;
                     
                     // create data object to push in items array

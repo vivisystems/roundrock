@@ -24,6 +24,7 @@
             GeckoJS.Session.set('vivipos_fec_tax_total', '');
             GeckoJS.Session.set('vivipos_fec_check_number', '');
             GeckoJS.Session.set('vivipos_fec_table_number', '');
+            GeckoJS.Session.set('vivipos_fec_current_table_seat', '');
             GeckoJS.Session.set('vivipos_fec_number_of_customers', '');
             GeckoJS.Session.set('vivipos_fec_order_destination', '');
 
@@ -40,6 +41,7 @@
             GeckoJS.Session.set('vivipos_fec_order_sequence', transaction.data.seq);
             GeckoJS.Session.set('vivipos_fec_check_number', transaction.data.check_no);
             GeckoJS.Session.set('vivipos_fec_table_number', transaction.data.table_no);
+            GeckoJS.Session.set('vivipos_fec_current_table_seat', (transaction.data.table_no? 1 : ''));
             GeckoJS.Session.set('vivipos_fec_number_of_customers', transaction.data.no_of_customers || '');
             GeckoJS.Session.set('vivipos_fec_order_destination', transaction.data.destination);
             GeckoJS.Session.set('vivipos_fec_number_of_items', transaction.data.qty_subtotal || '');
@@ -98,6 +100,14 @@
                             prop.AppendElement(aserv.getAtom('treecellUntagged'));
                         }
                     }
+                    break;
+
+                case 'label':
+                    prop.AppendElement(aserv.getAtom('treecellLabel'));
+                    break;
+
+                case 'seat_no':
+                    prop.AppendElement(aserv.getAtom('treecellSeatNo'));
                     break;
 
                 case 'name':

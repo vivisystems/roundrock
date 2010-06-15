@@ -144,6 +144,7 @@
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(discountApplied) {color: brown; font-style: italic; font-weight: bolder;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(surchargeApplied) {color: green; font-style: italic; font-weight: bolder;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(treecellTax) {font-size: 12px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(label) {font-size: 12px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_qty) {font-size: 12px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_price) {font-size: 12px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(price_level) {font-size: 12px !important; font-weight: normal !important;}
@@ -162,10 +163,12 @@
 
 .main-overlay .cart-list #name,
 .main-overlay .cart-list #price_level,
-.main-overlay .cart-list #destination {
+.main-overlay .cart-list #destination,
+.main-overlay .cart-list #seat_no {
     text-align: left;
 }
 
+.main-overlay .cart-list #label,
 .main-overlay .cart-list #current_qty,
 .main-overlay .cart-list #current_price,
 .main-overlay .cart-list #current_subtotal,
@@ -183,12 +186,22 @@
     min-width: 15px;
 }
 
+.main-overlay .cart-list tree #label {
+    max-width: 28px;
+    min-width: 28px;
+}
+
 .main-overlay .cart-list tree #row {
     max-width: 20px;
     min-width: 20px;
 }
 
 .main-overlay .cart-list tree #destination {
+    max-width: 24px;
+    min-width: 24px;
+}
+
+.main-overlay .cart-list tree #seat_no {
     max-width: 24px;
     min-width: 24px;
 }

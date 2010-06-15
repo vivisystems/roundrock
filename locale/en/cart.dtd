@@ -1,4 +1,5 @@
 <!ENTITY    cart.item.tag         "Tag">
+<!ENTITY    cart.item.label       "Label">
 <!ENTITY    cart.item.destination "Item Destination">
 <!ENTITY    cart.item.name        "Product Name">
 <!ENTITY    cart.item.no          "Product Number">
@@ -11,3 +12,4 @@
 <!ENTITY    cart.button.minus     "-">
 <!ENTITY    cart.button.payments  "Payments">
 <!ENTITY    cart.item.row         "Row Number">
+<!ENTITY    cart.item.seat_no       "Seat">
