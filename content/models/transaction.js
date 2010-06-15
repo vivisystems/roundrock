@@ -1018,6 +1018,25 @@
         },
 
 
+        labelItemAt: function(index, label){
+
+            var prevRowCount = this.data.display_sequences.length;
+
+            var itemTrans = this.getItemAt(index); // item in transaction
+            var itemDisplay = this.getDisplaySeqAt(index); // item in transaction
+
+            if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+                return null; // TODO - shouldn't be here since cart has intercepted illegal operations
+            }
+
+            itemDisplay.label = label;
+
+            this.updateCartView(prevRowCount, prevRowCount, index);
+
+            return itemTrans;
+        },
+
+
         modifyItemAt: function(index, newSetItems){
 
             var prevRowCount = this.data.display_sequences.length;
@@ -1161,6 +1180,7 @@
                     itemTrans.price_modifier = itemModified.price_modifier;
                     itemTrans.price_level = itemModified.price_level;
                     itemTrans.destination = itemModified.destination;
+                    itemTrans.destination = itemModified.destination;
                     itemTrans.tax_name = itemModified.tax_name;
                     itemModified = itemTrans;
 
@@ -1170,6 +1190,8 @@
                     this.data.items[itemIndex]  = itemModified;
 
                     var itemDisplay2 = this.createDisplaySeq(itemIndex, itemModified, 'item');
+                    itemDisplay2.tags = itemDisplay.tags;
+                    itemDispaly2.label = itemDisplay.label;
                     itemDisplay2.returned = itemDisplay.returned;
                     
                     // create data object to push in items array

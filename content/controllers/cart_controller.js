@@ -541,6 +541,70 @@
             this._clearAndSubtotal();
         },
 
+        labelItem: function(label) {
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this._cancelReturn();
+
+            if( !this.ifHavingOpenedOrder() ) {
+                NotifyUtils.warn(_('Not an open order; cannot label the selected item'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            // check if transaction is closed
+            if (curTransaction.isClosed()) {
+                NotifyUtils.warn(_('This order is being finalized and items may not be modified'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            if(index <0) {
+                NotifyUtils.warn(_('Please select an item first'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Stored items may not be re-labeled'));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            if (buf != null && buf.length > 0) {
+                label = buf;
+            }
+
+            var itemTrans = curTransaction.getItemAt(index, true);
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+
+            if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+                NotifyUtils.warn(_('Cannot label the selected item [%S]', [itemDisplay.name]));
+
+                this._clearAndSubtotal();
+                return;
+            }
+
+            if (this.dispatchEvent('beforeLabelItem', {
+                item: itemTrans,
+                itemDisplay: itemDisplay
+            })) {
+                var labelledItem = curTransaction.labelItemAt(index, label);
+
+                this.dispatchEvent('afterLabelItem', [labelledItem, itemDisplay]);
+            }
+            this._clearAndSubtotal();
+        },
+
         getReturnableCount: function(txn, item) {
             let count = 0;
             let items = txn.data.items;

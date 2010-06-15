@@ -160,6 +160,12 @@ pref("vivipos.fec.registry.function.programmable.keypress.controller", "Keypad")
 pref("vivipos.fec.registry.function.programmable.keypress.data", "");
 pref("vivipos.fec.registry.function.programmable.keypress.version", "1.2.1.0");
 
+pref("vivipos.fec.registry.function.programmable.labelitem.access", "acl_label_item");
+pref("vivipos.fec.registry.function.programmable.labelitem.command", "labelItem");
+pref("vivipos.fec.registry.function.programmable.labelitem.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.labelitem.data", "");
+pref("vivipos.fec.registry.function.programmable.labelitem.version", "1.2.1.3");
+
 pref("vivipos.fec.registry.function.programmable.ledgerentry.access", "acl_add_ledger_entry");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.command", "ledgerEntry");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.controller", "Cart");

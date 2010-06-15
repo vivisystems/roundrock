@@ -100,6 +100,10 @@
                     }
                     break;
 
+                case 'label':
+                    prop.AppendElement(aserv.getAtom('treecellLabel'));
+                    break;
+
                 case 'name':
                     if (data.type == 'condiment') {
                         prop.AppendElement(aserv.getAtom('treecellCondiment'));

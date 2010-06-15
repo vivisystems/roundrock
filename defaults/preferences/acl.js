@@ -11,6 +11,7 @@ pref("vivipos.fec.acl.roles.acl_issue_check", "acl_issue_check");
 pref("vivipos.fec.acl.roles.acl_issue_check_copy", "acl_issue_check_copy");
 pref("vivipos.fec.acl.roles.acl_issue_post_receipt", "acl_issue_post_receipt");
 pref("vivipos.fec.acl.roles.acl_issue_post_receipt_copy", "acl_issue_post_receipt_copy");
+pref("vivipos.fec.acl.roles.acl_label_item", "acl_label_item");
 pref("vivipos.fec.acl.roles.acl_layout_manager", "acl_layout_manager");
 pref("vivipos.fec.acl.roles.acl_localization_editor", "acl_localization_editor");
 pref("vivipos.fec.acl.roles.acl_manage_acl_groups", "acl_manage_acl_groups");
