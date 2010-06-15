@@ -512,6 +512,10 @@
 
                 cart._clearAndSubtotal();
 
+                // update table seats
+                GeckoJS.Session.set('vivipos_fec_number_of_table_seats', (table.seats||1) );
+                GeckoJS.Session.set('vivipos_fec_current_table_seat', 1);
+
                 this.dispatchEvent('afterNewTable', curTransaction);
 
                 return true;
@@ -1131,6 +1135,9 @@
                         let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
                         curTransaction.setTableRegionName(region.name);
                     }
+                    // update table seats
+                    GeckoJS.Session.set('vivipos_fec_number_of_table_seats', (table.seats||1) );
+                    GeckoJS.Session.set('vivipos_fec_current_table_seat', 1);
                 }else {
                     curTransaction.setTableNo(''); // reset table_no to empty
                 }

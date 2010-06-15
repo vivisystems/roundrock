@@ -6,3 +6,4 @@
 <!ENTITY    viviorderstatus.numbercustomer.label   "CST">
 <!ENTITY    viviorderstatus.checknumber.label      "CHK">
 <!ENTITY    viviorderstatus.tablenumber.label      "TBL">
+<!ENTITY    viviorderstatus.seatnumber.label       "SEAT">
