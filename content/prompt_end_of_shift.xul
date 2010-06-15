@@ -52,8 +52,9 @@
             <label id="message" value="" class="label-page-title"/>
     		<grid flex="1" class="container-report">
                 <columns id="columns">
-                    <column id="col1" flex="1"/>
-                    <column id="col2"/>
+                    <column flex="1" id="column1"/>
+                    <column flex="1" id="column2"/>
+                    <column flex="1" id="column3"/>
                 </columns>
                 <rows>
                     <row flex="1">
@@ -67,6 +68,8 @@
                                         roles="acl_report_dailysalessummary" action="hide"
                                         oncommand="mainWindow.$do('reviewDailySales', true, 'ShiftChanges');"/>
                         </vbox>
+                        <vbox flex="1">
+                        </vbox>
                     </row>
                     <row flex="1">
                         <vbox flex="1">
@@ -78,6 +81,46 @@
                             <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales;" flex="1"
                                         roles="acl_report_dailysalessummary" action="hide"
                                         oncommand="mainWindow.$do('printDailySales', true, 'ShiftChanges');"/>
+                        </vbox>
+                        <vbox flex="1">
+                        </vbox>
+                    </row>
+                    <row >
+                        <space style="height:20px;"  />
+                    </row>
+                    <!--  ****************************************   ROW 2 **********************************************  -->
+                    <row flex="1">
+                    	<vbox flex="1">
+                            <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.daily.sales.summary;" flex="1"
+                                        roles="acl_report_cashbyclerk" action="hide"
+                                        oncommand="mainWindow.$do('reviewDailySalesSummary', true, 'ShiftChanges');"/>
+                        </vbox>
+                        <vbox flex="1">
+                            <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.product.returns;" flex="1"
+                                        roles="acl_report_dailysalessummary" action="hide"
+                                        oncommand="mainWindow.$do('reviewProductReturns', true, 'ShiftChanges');"/>
+                        </vbox>
+                        <vbox flex="1">
+                                <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.customer.report;" flex="1"
+                                            roles="acl_report_cashbyclerk" action="hide"
+                                            oncommand="mainWindow.$do('reviewCustomerReport', true, 'ShiftChanges');"/>
+                        </vbox>
+                    </row>
+                    <row flex="1">
+                    	<vbox>
+                            <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales.summary;" flex="1"
+                                        roles="acl_report_cashbyclerk" action="hide"
+                                        oncommand="mainWindow.$do('printDailySalesSummary', true, 'ShiftChanges');"/>
+                        </vbox>
+                        <vbox>
+                            <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.product.returns;" flex="1"
+                                        roles="acl_report_dailysalessummary" action="hide"
+                                        oncommand="mainWindow.$do('printProductReturns', true, 'ShiftChanges');"/>
+                        </vbox>
+                        <vbox flex="1">
+                                <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.customer.report;" flex="1"
+                                            roles="acl_report_cashbyclerk" action="hide"
+                                            oncommand="mainWindow.$do('printCustomerReport', true, 'ShiftChanges');"/>
                         </vbox>
                     </row>
                 </rows>
