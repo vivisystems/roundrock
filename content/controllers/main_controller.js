@@ -134,6 +134,16 @@
                 idleController.addEventListener('onIdle', this.idleHandler, this);
             }
 
+            // issues the vivipos-started upstart event
+            try {
+                var exec = new GeckoJS.File('/usr/bin/sudo');
+                var r = exec.run(['/sbin/initctl', 'emit', '--no-wait', 'vivipos-started']);
+                exec.close();
+            }
+            catch (e) {
+                GREUtils.log('FATAL', 'Failed to issue vivipos-started');
+            }
+
             if (!recovered) {
                 this.requestCommand('initialLogin', null, 'Main');
             }
