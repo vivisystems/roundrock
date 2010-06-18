@@ -90,7 +90,7 @@
                     break;
 
                 default:
-                    if (alertDialog) alertDialog.hidePopup();
+                    if (alertDialog) alertDialog.close();
                     break;
             }
         },
