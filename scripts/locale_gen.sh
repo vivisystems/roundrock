@@ -23,7 +23,8 @@ MSG_LOCALE_GEN_CHANGING=${MSG_LOCALE_GEN_CHANGING:-"Changing OS Locale ..."}
 
 if [ -x /etc/X11/Xsession.d/60locale-gen ]; then
   killall aosd_cat
-  /usr/bin/aosd_cat -x 100 -d 6000 "$MSG_LOCALE_GEN_CHANGING" &
-  /etc/X11/Xsession.d/60locale-gen 
+  echo "$MSG_LOCALE_GEN_CHANGING" | /usr/bin/aosd_cat -x 100 -u 100000 "$MSG_LOCALE_GEN_CHANGING" &
+# /etc/X11/Xsession.d/60locale-gen 
+  start locale-gen
   killall aosd_cat
 fi

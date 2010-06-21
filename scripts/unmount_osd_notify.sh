@@ -21,9 +21,11 @@ MSG_UNMOUNT_OSD_NOTIFY_UNSUPPORT=${MSG_UNMOUNT_OSD_NOTIFY_UNSUPPORT:-"Device Rem
 
 
 if [ -d /media/${media_basename} ]; then
-  /usr/bin/aosd_cat -x 100 -d 1000 "$MSG_UNMOUNT_OSD_NOTIFY_MOUNTED /media/${media_basename}" &
+  echo "$MSG_UNMOUNT_OSD_NOTIFY_MOUNTED /media/${media_basename}" | \
+  /usr/bin/aosd_cat -x 100 -u 1000 &
   rm -f /tmp/last_media
 else
-  /usr/bin/aosd-cat -x 100 -d 1000 "$MSG_UNMOUNT_OSD_NOTIFY_UNSUPPORT $1" &
+  echo "$MSG_UNMOUNT_OSD_NOTIFY_UNSUPPORT $1" | \
+  /usr/bin/aosd-cat -x 100 -u 1000 &
 fi
 

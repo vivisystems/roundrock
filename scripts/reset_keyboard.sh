@@ -18,8 +18,10 @@ MSG_RESET_KEYBOARD_RESTARTING=${MSG_RESET_KEYBOARD_RESTARTING:-"Restarting Virtu
 
 if [ -f /etc/kbmap ] && [ -x /etc/X11/Xsession.d/90matchbox_keyboard ]; then
     killall aosd_cat
-    /usr/bin/aosd_cat -x 100 -d 6000 "$MSG_RESET_KEYBOARD_RESTARTING" &
-    /etc/X11/Xsession.d/90matchbox_keyboard 
+    echo "$MSG_RESET_KEYBOARD_RESTARTING" | \
+    /usr/bin/aosd_cat -x 100 -u 6000 &
+#    /etc/X11/Xsession.d/90matchbox_keyboard 
+    restart matchbox-keyboard
     killall aosd_cat
 fi
 
