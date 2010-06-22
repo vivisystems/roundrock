@@ -26,7 +26,7 @@ MSG_REBUILD_DATABASES_REBUILDING=${MSG_REBUILD_DATABASES_REBUILDING:-"Rebuilding
 chdir $DB_DIR;
 for db in *.sqlite ; do
 
-    echo "$MSG_REBUILD_DATABASES_REBUILDING $db" | /usr/bin/aosd_cat -x 100
+    echo "$MSG_REBUILD_DATABASES_REBUILDING $db" | /usr/bin/aosd_cat -n "Droid Serif 24" -x 100
 
     /usr/bin/sqlite3 $DB_DIR/$db ".dump" | /usr/bin/sqlite3 ${DB_DIR}/${db}_new
 

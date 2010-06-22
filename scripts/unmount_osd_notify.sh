@@ -22,10 +22,10 @@ MSG_UNMOUNT_OSD_NOTIFY_UNSUPPORT=${MSG_UNMOUNT_OSD_NOTIFY_UNSUPPORT:-"Device Rem
 
 if [ -d /media/${media_basename} ]; then
   echo "$MSG_UNMOUNT_OSD_NOTIFY_MOUNTED /media/${media_basename}" | \
-  /usr/bin/aosd_cat -x 100 -u 1000 &
+  /usr/bin/aosd_cat -n "Droid Serif 24" -x 100 -u 1000 &
   rm -f /tmp/last_media
 else
   echo "$MSG_UNMOUNT_OSD_NOTIFY_UNSUPPORT $1" | \
-  /usr/bin/aosd-cat -x 100 -u 1000 &
+  /usr/bin/aosd_cat -n "Droid Serif 24" -x 100 -u 1000 &
 fi
 

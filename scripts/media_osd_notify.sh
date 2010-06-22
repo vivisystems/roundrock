@@ -22,9 +22,9 @@ MSG_MEDIA_OSD_NOTIFY_UNSUPPORT=${MSG_MEDIA_OSD_NOTIFY_UNSUPPORT:-"Unsupport Devi
 
 if [ -d /media/${media_basename} ]; then
   echo "$MSG_MEDIA_OSD_NOTIFY_MOUNTED /media/${media_basename}" | \
-  /usr/bin/aosd_cat -x 100 -u 3000 &
+  /usr/bin/aosd_cat -n "Droid Serif 24" -x 100 -u 3000 &
   echo "/media/${media_basename}" > /tmp/last_media
 else
   echo "$MSG_MEDIA_OSD_NOTIFY_UNSUPPORT $1" | \
-  /usr/bin/aosd-cat -x 100 -u 3000 &
+  /usr/bin/aosd_cat -n "Droid Serif 24" -x 100 -u 3000 &
 fi
