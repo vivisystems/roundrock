@@ -235,6 +235,11 @@
                     pullOrderObj[0].setAttribute('checked', false);
                     pullOrderObj[0].setAttribute('disabled', true);
                 }
+
+                var syncSettingsIrcBoxObj = $(doc).find('#syncSettingsIrcBox');
+                if (syncSettingsIrcBoxObj.length) {
+                    syncSettingsIrcBoxObj[0].hidden = true;
+                }
             }
         },
 
