@@ -1,0 +1,10 @@
+#!/bin/sh
+. /etc/environment
+
+LOCALE=`echo $LANG | sed -n 's/\.UTF-8//p'` 
+LOCALE_DIR="${LOCALE}.utf8"
+
+if [ ! -d /usr/lib/locale/${LOCALE_DIR} ]; then
+  rm -fr /usr/lib/locale/*
+  /usr/sbin/locale-gen $LANG
+fi

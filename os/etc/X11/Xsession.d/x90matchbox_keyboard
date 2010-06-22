@@ -1,0 +1,35 @@
+#!/bin/sh
+# This starts matchbox-keyboard in daemon mode when the user's session
+# starts.
+
+# keyboard mapping 
+KBMAP="us"
+
+if [ -f /etc/kbmap ]; then
+  KBMAP=`cat /etc/kbmap`
+fi
+
+if [ ! -z "$KBMAP" ]; then
+  export KBMAP;
+  setxkbmap $KBMAP;
+fi
+
+if [ -x /data/vivipos_sdk/matchbox-keyboard ]; then
+    MBLAYOUT="$KBMAP";
+
+    if [ -f /data/virtual_keyboard/install.rdf ]; then
+        if [ ! -f /data/virtual_keyboard/keyboards/keyboard-$MBLAYOUT.xml ]; then
+            MBLAYOUT="us";
+        fi
+        cp /data/virtual_keyboard/keyboards/keyboard-$MBLAYOUT.xml /home/root/.matchbox/keyboard.xml ;
+    else
+        if [ ! -f /usr/share/matchbox-keyboard/keyboard-$MBLAYOUT.xml ]; then
+            MBLAYOUT="us";
+        fi
+        cp /usr/share/matchbox-keyboard/keyboard-$MBLAYOUT.xml /home/root/.matchbox/keyboard.xml ;
+    fi
+
+    killall matchbox-keyboard 2>&1 > /dev/null
+    /data/vivipos_sdk/matchbox-keyboard -w 800 -h 600 -hf 40 -d &
+fi
+

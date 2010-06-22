@@ -1,0 +1,15 @@
+#!/bin/sh -x
+
+PLYMOUTH_DIR=/lib/plymouth/themes
+PLYMOUTH_THEME=wallpaper
+PLYMOUTH_BACKGROUND_IMAGE=wallpaper.png
+
+IMAGE_PATH=${PLYMOUTH_DIR}/${PLYMOUTH_THEME}/${PLYMOUTH_BACKGROUND_IMAGE}
+
+XLI=/usr/bin/xli
+
+# make sure the image and xli both exist
+if [ -r "${IMAGE_PATH}" -a -x "${XLI}" ]; then
+    #${XLI} -onroot -center -border black ${IMAGE_PATH}
+    ${XLI} -onroot -center -border black /lib/plymouth/ubuntu-logo.png
+fi

@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+
+# ensure profile is in /data/profile
+if [ ! -d /home/root/.vivipos ]; then
+    mkdir /home/root/.vivipos
+    # copy profiles.ini from data to root
+    cp /data/profiles.ini /home/root/.vivipos
+fi
+
+# chdir to /data/vivipos_sdk and run sdk
+cd /data/vivipos_sdk && /data/vivipos_sdk/run_vivipos &
