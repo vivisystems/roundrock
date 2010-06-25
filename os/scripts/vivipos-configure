@@ -1,0 +1,597 @@
+#!/bin/sh
+#
+# VIVIPOS Configure tools  
+#
+# racklin@gmail.com
+#
+LANG=en
+LC_ALL=c
+NAME=vivipos-configure
+SCRIPTNAME=/usr/sbin/$NAME
+VIVIPOS_DATA=/data
+ROOTFS_DIR=/
+
+: ${DIALOG=dialog}
+choice=
+RESULT=0
+
+main_menu() {
+
+tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/viviposconf$$
+
+${DIALOG} --clear --title "VIVIPOS Recovery and Upgrade Mode - Main Menu" \
+--menu "Thank you for choosing VIVIPOS. You are now in Recovery and Upgrade Mode.\n\n\
+It is strongly advised that only system engineers are eligible to operate this mode.If you are not system engineer, please select Cancel to exit this mode.\n\
+\n\
+Function Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 22 61 8 \
+	    "Configure"  "Configure VIVIPOS LCD Panel" \
+	    "Database"  "Database maintenance" \
+	    "Clear" "Clear Logs and Temporary Files" \
+	    "Reset" "Remove All Profiles / Databases / Backups" \
+	    "Upgrade" "Upgrade VIVIPOS Image File" \
+		"Reboot" "Reboot VIVIPOS" \
+	    "Exit"  "Exit" 2> $tempfile
+
+	retval=$?
+
+	case $retval in
+	  0)
+		choice=`cat $tempfile`
+		;;
+	  1)
+		choice="Exit";;
+	  255)
+		choice="Exit";;
+	esac
+
+	rm -f $tempfile	
+
+	return 0;
+
+}
+
+
+do_machine() {
+
+tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/viviposconf$$
+
+${DIALOG} --clear --title "Configure VIVIPOS LCD Panel" \
+--menu "Please Select Type of VIVIPOS LCD Panel\n\n\
+Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
+	"12"  '12" Mitsubishi LCD Panel' \
+	"15" '15" AU LCD Panel' \
+        "15e" '15" AU LCD Panel With ELO Touch' \
+	"15c" '15" CPT LCD Panel' \
+        "15ce" '15" CPT LCD Panel With ELO Touch' \
+	"vm800" "800x600 VMware Environment" \
+        "vm1024" "1024x768 VMware Environment" \
+	"Back"  "Return to Main Menu" 2> $tempfile
+
+	retval=$?
+
+	case $retval in
+	  0)
+		choice=`cat $tempfile`
+		;;
+	  1)
+		choice="Back";;
+	  255)
+		choice="Back";;
+	esac
+
+	rm -f $tempfile
+
+
+	case $choice in
+		12)
+			(
+				echo "10";
+				if [ -f /etc/vivipos/12.tbz ]; then
+                                        tar xjpf /etc/vivipos/12.tbz -C /
+                                        tar xjpf /etc/vivipos/fuji.tbz -C /
+                                        #cp /etc/vivipos/initrd.img-2.6.32-22-generic /boot/
+				fi
+				echo "100";
+			) | $DIALOG --title "Configure" --gauge 'Initializing for 12" Mitsubishi LCD Panel...\n\nPlease wait... ' 10 50 0
+			;;
+		15)
+			(
+				echo "10";
+				if [ -f /etc/vivipos/15.tbz ]; then
+                                        tar xjpf /etc/vivipos/15.tbz -C /
+                                        tar xjpf /etc/vivipos/fuji.tbz -C /
+                                        #cp /etc/vivipos/initrd.img-2.6.32-22-generic /boot/
+				fi
+				echo "100";
+			) | $DIALOG --title "Configure" --gauge 'Initializing for 15" AU LCD Panel...\n\nPlease wait... ' 10 50 0
+			;;
+		15c)
+			(
+				echo "10";
+				if [ -f /etc/vivipos/15c.tbz ]; then
+                                        tar xjpf /etc/vivipos/15c.tbz -C /
+                                        tar xjpf /etc/vivipos/fuji.tbz -C /
+                                        #cp /etc/vivipos/initrd.img-2.6.32-22-generic /boot/
+				fi
+				echo "100";
+			) | $DIALOG --title "Configure" --gauge 'Initializing for 15" CPT LCD Panel...\n\nPlease wait... ' 10 50 0
+			;;
+		15e)
+			(
+				echo "10";
+				if [ -f /etc/vivipos/15e.tbz ]; then
+                                        tar xjpf /etc/vivipos/15e.tbz -C /
+                                        tar xjpf /etc/vivipos/elo.tbz -C /
+                                        #cp /etc/vivipos/initrd.img-2.6.32-22-generic /boot/
+				fi
+				echo "100";
+			) | $DIALOG --title "Configure" --gauge 'Initializing for 15" AU LCD Panel With ELO Touch...\n\nPlease wait... ' 10 50 0
+			;;
+		15ce)
+			(
+				echo "10";
+				if [ -f /etc/vivipos/15ce.tbz ]; then
+                                        tar xjpf /etc/vivipos/15ce.tbz -C /
+                                        tar xjpf /etc/vivipos/elo.tbz -C /
+                                        #cp /etc/vivipos/initrd.img-2.6.32-22-generic /boot/
+				fi
+				echo "100";
+			) | $DIALOG --title "Configure" --gauge 'Initializing for 15" CPT LCD Panel With ELO Touch...\n\nPlease wait... ' 10 50 0
+			;;
+		vm800)
+			(
+				echo "10";
+				if [ -f /etc/vivipos/vm800.tbz ]; then
+                                        tar xjpf /etc/vivipos/vm800.tbz -C /
+                                        #tar xjpf /etc/vivipos/vmtools.tbz -C /
+				fi
+				echo "100";
+			) | $DIALOG --title "Configure" --gauge "Initializing for 800x600 VMware Environment...\n\nPlease wait... " 10 50 0
+			;;
+		vm1024)
+			(
+				echo "10";
+				if [ -f /etc/vivipos/vm1024.tbz ]; then
+                                        tar xjpf /etc/vivipos/vm1024.tbz -C /
+                                        #tar xjpf /etc/vivipos/vmtools.tbz -C /
+				fi
+				echo "100";
+			) | $DIALOG --title "Configure" --gauge "Initializing for 1024x768 VMware Environment...\n\nPlease wait... " 10 50 0
+			;;
+		*)
+			return 0
+			;;
+	esac
+
+	$DIALOG --title "Configure" --clear --msgbox "VIVIPOS Configuration Finished. \n\n\
+		Please select OK, then return to Main Menu and select 'Reboot' to take effect." 10 50
+
+	return 0;
+
+
+}
+
+do_database() {
+
+tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/viviposconf$$
+
+${DIALOG} --clear --title "VIVIPOS Database maintenance" \
+--menu "Please Select Database maintenance function.\n\n\
+Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
+	"Integrity"  "Database Integrity Check" \
+	"Rebuild" "Database Rebuild" \
+	"Vacuum" "Database Vacuum" \
+	"Export" "Database Export" \
+	"Import" "Database Import" \
+	"Back"  "Return to Main Menu" 2> $tempfile
+
+	retval=$?
+
+	case $retval in
+	  0)
+		choice=`cat $tempfile`
+		;;
+	  1)
+		choice="Back";;
+	  255)
+		choice="Back";;
+	esac
+
+	rm -f $tempfile
+
+	case $choice in
+		Integrity)
+			(
+				echo "XXX\n10\nIntegrity Checking Databases ...\n\nPlease wait... \nXXX";
+				
+				total=`ls -l /data/databases/*.sqlite | wc -l`
+				perfile=`expr 100 / ${total}`
+				idx=1
+				result_msg=
+
+				for file in /data/databases/*.sqlite; do
+					percent=`expr $idx "*" $perfile`
+					echo "XXX\n$percent\nIntegrity Checking Databases ...\n`basename ${file}`\n\nPlease wait... \nXXX";
+
+					result=`sqlite3 $file "PRAGMA integrity_check"`
+					if [ "$result" != "ok" ]; then
+						result_msg="${result_msg}`basename $file`:ERROR\n"
+					else 
+						result_msg="${result_msg}`basename $file`:OK\n"
+					fi
+					
+					idx=$((idx+1))
+				done
+
+				echo "XXX\n100\nIntegrity Checking Databases Finished...\n\n\nXXX";
+
+				echo $result_msg > /tmp/integrity_check.txt
+
+			) | $DIALOG --title "Integrity Check" --gauge "Integrity Checking Databases ...\n\nPlease wait... " 18 50 0
+			for m in `cat /tmp/integrity_check.txt`; do
+				m=`echo $m | sed "s/:/:\t\t/"`
+				result_msg="${result_msg} $m \n"
+			done
+	$DIALOG --title "Integrity Check Result" --clear --msgbox "VIVIPOS Database Integrity Check Result: \n\n${result_msg}\n\n" 18 50
+			;;
+		Rebuild)
+			(
+				echo "XXX\n10\nRebuilding Databases ...\n\nPlease wait... \nXXX";
+				
+				total=`ls -l /data/databases/*.sqlite | wc -l`
+				perfile=`expr 100 / ${total}`
+				idx=1
+				for file in /data/databases/*.sqlite; do
+					percent=`expr $idx "*" $perfile`
+					echo "XXX\n$percent\nRebuilding Databases ...\n`basename ${file}`\n\nPlease wait... \nXXX";
+
+					sqlite3 $file ".dump" | sqlite3 $file.tmp ;
+                    cp $file.tmp $file
+                    rm -f $file.tmp
+					
+					idx=$((idx+1))
+				done
+
+				echo "XXX\n100\nRebuilding Databases Finished...\n\n \nXXX";
+
+			) | $DIALOG --title "Rebuild" --gauge "Rebuilding Databases ...\n\nPlease wait... " 10 50 0
+			chmod -R 775 /data/databases/*.sqlite ;
+			;;
+		Vacuum)
+			(
+				echo "XXX\n10\nVacuuming Databases ...\n\nPlease wait... \nXXX";
+				
+				total=`ls -l /data/databases/*.sqlite | wc -l`
+				perfile=`expr 100 / ${total}`
+				idx=1
+				for file in /data/databases/*.sqlite; do
+					percent=`expr $idx "*" $perfile`
+					echo "XXX\n$percent\nVacuuming Databases ...\n`basename ${file}`\n\nPlease wait... \nXXX";
+					echo "VACUUM;" | sqlite3 $file ;
+					idx=$((idx+1))
+				done
+
+				echo "XXX\n100\nVacuuming Databases Finished...\n\n \nXXX";
+
+			) | $DIALOG --title "Vacuum" --gauge "Vacuuming Databases ...\n\nPlease wait... " 10 50 0
+			chmod -R 775 /data/databases/*.sqlite 
+			;;
+		*)
+			return 0
+			;;
+	esac
+
+	$DIALOG --title "Database maintenance" --clear --msgbox "VIVIPOS Database maintenance Finished. \n\n\
+		Please select OK, then return to Main Menu and select 'Reboot' to take effect." 10 50
+
+	return 0;
+
+
+}
+
+
+do_reset() {
+
+# confirm
+$DIALOG --title "Remove All Profiles / Databases / Backups" --clear \
+        --yesno "WARNING: This function must be operated with extreme cautions !!\n This function will REMOVE ALL PROFILES / DATABASES / BACKUPS.\n\n\
+	If you just want to clear system logs, please select No and return to Main Menu, then select 'Clear' function." 15 70
+
+case $? in
+  0)
+	
+		(
+
+			echo "XXX\n20\nREMOVING profiles ...\nXXX"		
+			rm -fr $VIVIPOS_DATA/profile/
+
+			echo "XXX\n30\nREMOVING images ...\nXXX"		
+			rm -fr $VIVIPOS_DATA/images/*
+
+			echo "XXX\n40\nREMOVING backups ...\nXXX"
+			rm -fr $VIVIPOS_DATA/backups/20*
+
+			echo "XXX\n50\nREMOVING databases ...\nXXX"
+			rm -fr $VIVIPOS_DATA/databases/*
+	
+			echo "XXX\n60\nREMOVING screenshots ...\nXXX"
+			rm -fr $VIVIPOS_DATA/screenshots/*
+
+			echo "XXX\n70\nINSTALLING Factory databases ...\nXXX"
+			if [ -f "/data/backups/Factory/databases.tbz" ]; then
+				tar xjpf /data/backups/Factory/databases.tbz -C /data/databases
+				chown -R root:root /data/databases
+				chmod -R 0775 /data/databases
+			fi
+
+			# restore profile
+			echo "XXX\n80\nINSTALLING Factory profile ...\nXXX"
+			if [ -f "/data/backups/Factory/profile.tbz" ]; then
+				tar xjpf /data/backups/Factory/profile.tbz -C /data/profile
+			fi
+
+			# restore images
+			echo "XXX\n90\nINSTALLING Factory images ...\nXXX"
+			if [ -f "/data/backups/Factory/images.tbz" ]; then
+				tar xjpf /data/backups/Factory/images.tbz -C /data/images
+			fi
+			
+
+		) | $DIALOG --title "Removing" --gauge "Please waiting... " 10 50 0
+
+	$DIALOG --title "Remove All Profiles / Databases / Backups" --clear --msgbox "Remove All Profiles / Databases / Backups Finished.\n\n\
+		Please select OK, then return to Main Menu and select 'Reboot' to take effect." 10 50
+
+    ;;
+  1)
+    ;;
+  255)
+    ;;
+esac
+
+
+return 0;
+
+
+}
+
+
+do_clear() {
+
+# confirm
+$DIALOG --title "Clear Logs and Temporary Files" --clear \
+        --yesno "Are you sure you want to clear all logs and temporart flies?" 15 70
+
+case $? in
+  0)
+		(
+
+		echo "XXX\n50\nREMOVING logs\nXXX"
+
+		find $ROOTFS_DIR/var/ -name *.old -type f -exec rm -f {} \;
+		rm -f $ROOTFS_DIR/var/log/*.gz
+		rm -f $ROOTFS_DIR/var/log/*.0
+		rm -f $ROOTFS_DIR/var/log/*.1
+		rm -f $ROOTFS_DIR/var/log/*.2
+		rm -f $ROOTFS_DIR/var/log/*.3
+		rm -f $ROOTFS_DIR/var/log/Xorg*
+		rm -f $ROOTFS_DIR/var/log/lighttpd/*
+		rm -f $ROOTFS_DIR/var/log/sync_client.log
+		rm -f $ROOTFS_DIR/var/log/x.log
+		rm -f $ROOTFS_DIR/var/log/x11vnc.log
+
+		echo '' > $ROOTFS_DIR/var/log/auth.log
+		echo '' > $ROOTFS_DIR/var/log/daemon.log
+		echo '' > $ROOTFS_DIR/var/log/debug
+		echo '' > $ROOTFS_DIR/var/log/dmesg
+		echo '' > $ROOTFS_DIR/var/log/dpkg.log
+		echo '' > $ROOTFS_DIR/var/log/messages
+		echo '' > $ROOTFS_DIR/var/log/syslog
+		echo '' > $ROOTFS_DIR/var/log/user.log
+		echo '' > $ROOTFS_DIR/var/log/udev
+
+		rm -f $ROOTFS_DIR/var/backups/*.gz
+		rm -f $ROOTFS_DIR/var/cache/lighttpd/compress/css/*
+
+		rm -fr $VIVIPOS_DATA/vivipos_sdk/log/*
+		find $VIVIPOS_DATA/vivipos_webapp/app/tmp/ -type f -exec rm -f {} \;
+
+		) | $DIALOG --title "Removing all logs and temporart flies" --gauge "Please wait... " 10 50 0
+
+	$DIALOG --title "Clear Logs and Temporary Files" --clear --msgbox "Clear Logs and Temporary Files Finished. \n\n\
+		Please select OK, then return to Main Menu and select 'Reboot' to take effect." 10 50
+
+    ;;
+  1)
+    ;;
+  255)
+    ;;
+esac
+
+
+return 0;
+
+
+}
+
+
+
+check_media() {
+
+# load module
+modprobe ntfs
+modprobe msdos
+modprobe vfat
+
+
+ALL_MEDIAS=`cat /proc/partitions | grep -v "sda" | grep -v "loop" | grep -v "major"  | awk -F " " '{ print $4 }'`
+
+echo "" > /tmp/last_media
+
+for media in $ALL_MEDIAS ; do
+
+	echo "XXX\n10\nTRYING $media \nXXX";
+
+	pmount $media 2>&1 > /dev/null;
+
+	retval=$?	
+
+	if [ $retval = 0 ]; then
+
+
+			if [ -d /media/$media/UPDATE ]; then
+				echo "/media/$media" > /tmp/last_media
+				return 0;
+		    else
+				pumount $media;
+			fi
+
+	fi
+
+done
+
+return 1;
+	
+}
+
+
+umount_media() {
+
+	media=`cat /tmp/last_media`
+	pumount  $media 2>&1 > /dev/null;
+	if [ "$?" = "0" ]; then
+		rm -f /tmp/last_media
+	fi
+
+	return 0
+	
+}
+
+
+do_upgrade() {
+
+	check_media | $DIALOG --title "Detecting USB Flash Drive" --gauge "Please wait... " 10 50 0 ;
+	media=`cat /tmp/last_media`
+	if [ ! -d $media/UPDATE ]; then
+		$DIALOG --title "Detecting Fail" --clear --msgbox "Can not Detect any USB Flash Drive with VIVIPOS Upgrade Image File\n\n" 10 50
+		return 1;
+	fi
+
+	tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/viviposconf$$
+
+	radioGroup=""
+	files=`ls $media/UPDATE/update_* | grep -v 'gz' | grep -v 'zip' `
+	for	script in $files ; do
+		script2=`basename $script`
+		radioGroup="$radioGroup $script2 '' "
+	done;
+
+	eval "'${DIALOG}' '--title' 'Upgrade Image File' '--clear' '--menu' 'Please Select Image File' '20' '70' '18' $radioGroup" 2> $tempfile
+
+	retval=$?
+
+	case $retval in
+	  0)
+		choice=`cat $tempfile`
+		;;
+	  1)
+		choice="";;
+	  255)
+		choice="";;
+	esac
+
+	rm -f $tempfile;
+
+	if [ -z "$choice" ]; then
+		umount_media;
+		return 1;
+	fi
+
+	update_script=$media/UPDATE/$choice;
+
+	if [ -f $update_script ]; then
+
+		## running script
+		(
+			/bin/sh $update_script;
+
+		)
+		# | $DIALOG --title "Upgrade VIVIPOS Image File" --gauge "*** UPDATING VIVIPOS IMAGE *** \n\n\
+		# It takes 5 - 10 mins for image update. \n\
+		# WARNING: DO NOT interrupt this operation and DO NOT power off VIVIPOS machine!\n\n\
+		# Please wait... " 15 50 0 ;
+
+		$DIALOG --title "Upgrade VIVIPOS Image File" --clear --msgbox "Upgrade VIVIPOS Image File Finished. \n\n\
+			Please select OK, then return to Main Menu, and take the following steps:\n\
+					1. Select 'Configure VIVIPOS LCD Panel' \n\
+					2. Select type of VIVIPOS LCD Panel (12 / 15 / 15c) \n\
+					3. Return to Main Menu \n\
+					4. Select 'Reboot VIVIPOS'" 16 60
+	
+
+	fi
+	umount_media ;
+
+	return 0;
+
+}
+
+do_reboot() {
+
+# confirm
+$DIALOG --title "Reboot" --clear \
+        --yesno "Are you sure you want to reboot VIVIPOS machine now?" 10 50
+
+case $? in
+  0)
+	sync; sync; sync;
+	reboot;
+	exit 1;
+    ;;
+  1)
+    ;;
+  255)
+    ;;
+esac
+
+return 0;
+
+}
+
+
+#
+# main loop
+#
+while [ /bin/true ]; do
+# display main_menu
+main_menu ;
+
+# switch 
+case $choice in
+  Configure)
+	do_machine
+    ;;
+  Database)
+	do_database
+	;;
+  Clear)
+	do_clear
+	;;
+  Reset)
+	do_reset
+	;;
+  Reboot)
+	do_reboot
+	;;
+  Upgrade)
+	do_upgrade
+	;;
+  Exit)
+	exit 0
+	;;
+esac
+
+done
+
+exit 0
+
