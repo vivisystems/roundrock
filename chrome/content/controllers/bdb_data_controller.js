@@ -34,7 +34,7 @@
         // 2b. if integrity check fails, attempt db recover, put up "call for service" notice
         //
         integrityCheck: function(evt) {
-            var statusFile = '/tmp/integrity-status.' + GeckoJS.String.uuid();
+            var statusFile = '/tmp/integrity-status';
             var status = '';
             var alertDialog;
 

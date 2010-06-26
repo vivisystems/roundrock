@@ -4,6 +4,7 @@
 
     <script src="chrome://roundrock/content/controllers/bigdisk_controller.js" type="application/x-javascript;version=1.7"/>
     <script src="chrome://roundrock/content/controllers/bdb_data_controller.js" type="application/x-javascript;version=1.7"/>
+    <script src="chrome://roundrock/content/controllers/diskspace_controller.js" type="application/x-javascript;version=1.7"/>
 
     <script src="chrome://roundrock/content/startup_dispatcher.js" type="application/x-javascript;version=1.7"/>
     

@@ -3,9 +3,9 @@
 
 function roundrock_startup(evt) {
     GeckoJS.Dispatcher.removeEventListener('onDispatch', roundrock_startup);
-    $do('integrityCheck', evt, 'BDBData');
 
     if (!GeckoJS.Session.get('restarting')) {
+        $do('integrityCheck', evt, 'BDBData');
         $do('initial', evt, 'BigDisk');
     }
 }
