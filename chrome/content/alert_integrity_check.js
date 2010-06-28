@@ -17,6 +17,7 @@
         var actionButtonsObj = document.getElementById('action_buttons');
         var rebootButtonsObj = document.getElementById('action_reboot');
         var shutdownButtonsObj = document.getElementById('action_shutdown');
+        var progressBoxObj = document.getElementById('progress_box');
 
         if (detail) {
             detailObj.value = detail;
@@ -24,6 +25,8 @@
 
         detailObj.hidden = !detail;
         actionButtonsObj.hidden = !detail;
+        
+        progressBoxObj.hidden = detail ? true : false;
 
         window.rebootMachine = function() {
             GeckoJS.Session.set('restarting', true);

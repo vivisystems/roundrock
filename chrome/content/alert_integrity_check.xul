@@ -32,6 +32,11 @@
                 <button id="action_shutdown" label="&integrity.shutdownButton.label;" class="button-execute"
                         oncommand="shutdownMachine();"/>
             </hbox>
+            <vbox id="progress_box" hidden="true" pack="begin" flex="1">
+                <spacer style="height: 20px;"/>
+                <progressmeter id="progress" mode="undetermined" value="0"/>
+                <spacer style="height: 20px;"/>
+            </vbox>
         </vbox>
     </vbox>
     

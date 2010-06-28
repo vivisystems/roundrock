@@ -85,8 +85,10 @@
             switch(status) {
                 case 'failed-to-run':
                 case 'failed-check':
-                    evt.preventDefault();
                     alertDialog = this._showAlertDialog(((status == 'failed-to-run') ? failedToRunMsg : checkFailedMsg) + ' ' + actionMsg);
+                    while (true) {
+                        this.sleep(10000000);
+                    }
                     break;
 
                 default:
