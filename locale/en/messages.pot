@@ -2303,6 +2303,9 @@ msgstr "Administration Tools"
 msgid "acl_recall_last_sale"
 msgstr "Recall Last Sale"
 
+msgid "acl_set_seat_no"
+msgstr "Set Seat No"
+
 ########################################################################
 #
 # List of Ports

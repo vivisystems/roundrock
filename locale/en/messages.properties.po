@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-06-15 20:21+0800\n"
+"POT-Creation-Date: 2010-06-30 09:35+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2225,6 +2225,9 @@ msgstr "Administration Tools"
 
 msgid "acl_recall_last_sale"
 msgstr "Recall Last Sale"
+
+msgid "acl_set_seat_no"
+msgstr "Set Seat No"
 
 # #######################################################################
 #
@@ -6541,7 +6544,7 @@ msgid "(importexport_products)visible"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:380
-msgid "(importexport_products)button_color"
+msgid "(importexport_products)font_size"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:381
