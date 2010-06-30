@@ -64,7 +64,7 @@
                                     <label id="tax_label" value="" control="tax_value"/>
                                     <label id="tax_rate" value="" hidden="true" default=""/>
                                     <textbox id="tax_value" flex="1" value="" class="button-item-c"
-                                             oninput="validateInput()" onfocus="select()"
+                                             readonly="true" onfocus="blur()"
                                              onclick="$do('getRate','null','BarcodeLearning');"/>
                                 </vbox>
                                 <vbox flex="1">
