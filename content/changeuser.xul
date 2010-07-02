@@ -59,6 +59,9 @@
         </hbox>
         <spacer flex="1"/>
         <hbox pack="end">
+            <spacer width="10px;"/>
+            <vivibutton id="poweroffBtn" label="" class="poweroff" oncommand="mainWindow.$do('shutdown', null, 'Main');" />
+            <spacer flex="1"/>
             <isoptionenabled option="vivipos.fec.settings.ShowVKIcon" action="display">
                 <vivibutton id="vkbBtn" label="" class="vkb" oncommand="VirtualKeyboard.toggle();" />
             </isoptionenabled>

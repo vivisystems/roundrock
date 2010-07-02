@@ -357,6 +357,14 @@
     -moz-appearance: none;
 }
 
+.poweroff {
+    background: transparent url(../images/shutdown.png) center center no-repeat;
+    border-width: 0px;
+    height: 80px;
+    width: 80px;
+    -moz-appearance: none;
+}
+
 .vkb {
     background: transparent url(../images/keyboard.png) center center no-repeat;
     border-width: 0px;
