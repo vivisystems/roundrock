@@ -2426,9 +2426,9 @@
 
             no = no || '1';
 
-            GeckoJS.Session.set('vivipos_fec_current_table_seat', no);
-
             var curTransaction = cart._getTransaction(true); // autocreate
+            
+            GeckoJS.Session.set('vivipos_fec_current_table_seat', no);
 
             cart._cancelReturn();
             

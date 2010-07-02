@@ -818,7 +818,7 @@
             }catch(e){
                 // XXX notify fatal error message.
                 // alert(e);
-                this.log('ERROR', 'executeSelectTableOrder and InnerHtml\n' + result + this.dump(tableStatus), e);
+                this.log('ERROR', 'executeSelectTableOrder and InnerHtml\n' + result , e);
                 return false;
             }
             return true;
