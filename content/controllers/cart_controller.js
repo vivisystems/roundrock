@@ -1577,6 +1577,10 @@
                 var qtyPrecision = this._getPrecision(qty);
                 var deltaPrecision = this._getPrecision(delta);
                 newQty = newQty.toFixed( qtyPrecision > deltaPrecision ? qtyPrecision : deltaPrecision);
+
+                // toFixed 會轉成 string, 所以要加上
+                newQty = parseFloat(newQty);
+
             }
 
             // check if changing quantity causes violation of return policy
