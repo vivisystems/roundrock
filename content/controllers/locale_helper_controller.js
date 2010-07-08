@@ -125,10 +125,19 @@
                 if (prefCached != cachedValue) {
                     result = false;
                 }else {
-                    result = true;
+
+                    // check if reinstall the same langpack
+                    var chromePath = 'chrome://' + chromeExtName + '/locale/.localehelper';
+                    var baseFilePath = GREUtils.File.chromeToPath(chromePath);
+
+                    if (GREUtils.File.exists(baseFilePath)) {
+                        result = true;
+                    }else {
+                        result = false;
+                    }
+                    
                 }
             }
-            
             return result;
 
         },
@@ -139,6 +148,13 @@
             var cachedValue = this.getCachedValue(extId, chromeExtName, langpackId);
 
             GREUtils.Pref.addPref(cachedKey, cachedValue);
+
+            // write flag to langpack
+            var chromePath = 'chrome://' + chromeExtName + '/locale/.localehelper';
+            var baseFilePath = GREUtils.File.chromeToPath(chromePath);
+
+            GREUtils.File.writeAllBytes(baseFilePath, ((new Date()).getTime()+""));
+
 
         },
 
