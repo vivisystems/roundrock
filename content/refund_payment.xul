@@ -77,7 +77,7 @@
                 <vbox flex="1">
                     <hbox flex="1">
                         <vbox flex="1" pack="center" align="center">
-                            <label value="&refundpayment.amount;" flex="1"/>
+                            <label id="label_amount" value="&refundpayment.amount;" flex="1"/>
                             <vivitextbox id="refund_amount" flex="1" type="number"
                                          hidespinbuttons="true" decimalplaces="Infinity"
                                          numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
@@ -85,24 +85,24 @@
                         </vbox>
                         <spacer width="5px"/>
                         <vbox flex="1" pack="center" align="center">
-                            <label value="&refundpayment.note1;" flex="1"/>
+                            <label id="refundpayment_note1" value="&refundpayment.note1;" flex="1"/>
                             <textbox id="memo1" flex="1" form="refundForm" name="memo1" default=""/>
                         </vbox>
                         <spacer width="5px"/>
                         <vbox flex="1" pack="center" align="center">
-                            <label value="&refundpayment.note2;" flex="1"/>
+                            <label id="refundpayment_note2" value="&refundpayment.note2;" flex="1"/>
                             <textbox id="memo2" flex="1" form="refundForm" name="memo2" default=""/>
                         </vbox>
                     </hbox>
                     <hbox flex="1">
-                        <caption label="&refundpayment.type.refund;" flex="0"/>
+                        <caption  id="type_refund" label="&refundpayment.type.refund;" flex="0"/>
                         <radiogroup id="type" flex="1" orient="horizontal"
                                     form="refundForm" name="type" default="cash">
-                                <radio flex="1" label="&refundpayment.cash;" value="cash"/>
-                                <radio flex="1" label="&refundpayment.creditcard;" value="creditcard"/>
-                                <radio flex="1" label="&refundpayment.coupon;" value="coupon"/>
-                                <radio flex="1" label="&refundpayment.giftcard;" value="giftcard"/>
-                                <radio flex="1" label="&refundpayment.check;" value="check"/>
+                                <radio id="cash" flex="1" label="&refundpayment.cash;" value="cash"/>
+                                <radio id="creditcard" flex="1" label="&refundpayment.creditcard;" value="creditcard"/>
+                                <radio id="coupon" flex="1" label="&refundpayment.coupon;" value="coupon"/>
+                                <radio id="giftcard" flex="1" label="&refundpayment.giftcard;" value="giftcard"/>
+                                <radio id="check" flex="1" label="&refundpayment.check;" value="check"/>
                         </radiogroup>
                     </hbox>
                 </vbox>
