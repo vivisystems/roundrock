@@ -1593,6 +1593,7 @@
 
         shutdownMachine: function() {
             try {
+                this._flushPrefs();
                 goShutdownMachine();
             }catch(e) {
             }
@@ -1600,6 +1601,7 @@
 
         rebootMachine: function() {
             try {
+                this._flushPrefs();
                 goRebootMachine();
             }catch(e) {
             }
@@ -2110,8 +2112,21 @@
             }
 
             return null;
-        }
+        },
 
+
+        _flushPrefs: function() {
+            try {
+                var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+                mPrefService.savePrefFile(null);
+
+                var profD = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsIFile);
+                var userJs = profD.clone(); userJs.append('user.js');
+                mPrefService.savePrefFile(userJs);
+            }catch(e) {
+                this.log('ERROR', 'Error save prefs.js and user.js');
+            }
+        }
 
     };
 
