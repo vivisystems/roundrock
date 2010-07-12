@@ -22,8 +22,9 @@
 
             var defaultId = 'viviecr@firich.com.tw';
             var defaultChromeName = 'viviecr';
+            var langpackId = 'langpack-%LOCALE%@firich.com.tw';
 
-            if(this.isExtensionCached(defaultId, defaultChromeName)) return true;
+            if(this.isExtensionCached(defaultId, defaultChromeName, langpackId)) return true;
 
             var untrans = this.getUnTranslationCount(defaultId, defaultChromeName);
 
@@ -39,11 +40,11 @@
 
                 this.autoFill(true);
 
-                this.addExtensionCached(defaultId, defaultChromeName, 0);
+                this.addExtensionCached(defaultId, defaultChromeName, langpackId);
 
             }else {
                 // if cached no exists save it
-                this.addExtensionCached(defaultId, defaultChromeName, 0);
+                this.addExtensionCached(defaultId, defaultChromeName, langpackId);
             }
 
             return true;
@@ -89,28 +90,71 @@
 
         },
 
-        getCachedKey: function(extId, chromeExtName) {
+        getCachedKey: function(extId) {
 
-            var extVersion = this.getExtensionVersion(extId);
-            var selectedLocale = this.getExtensionSelectedLocale(extId, chromeExtName);
-
-            var cachedKey = "extensions.localehelper." + encodeURIComponent(extId).replace(".", "_", "g") + "." + extVersion.replace(".", "_", "g") + "." + selectedLocale ;
-
+            var cachedKey = "extensions.localehelper." + encodeURIComponent(extId).replace(".", "_", "g") ;
             return cachedKey;
 
         },
 
-        isExtensionCached: function(extId, chromeExtName) {
+        getCachedValue: function(extId, chromeExtName, langpackId) {
 
-            if (this.getExtensionSelectedLocale(extId, chromeExtName) == 'en') return true;
-            
-            return (GREUtils.Pref.getPref(this.getCachedKey(extId, chromeExtName)) != null);
+            var extVersion = this.getExtensionVersion(extId);
+            var selectedLocale = this.getExtensionSelectedLocale(extId, chromeExtName);
+            var selectedLangpackId = langpackId.replace("%LOCALE%", selectedLocale);
+            var selectedLangpackVersion = this.getExtensionVersion(selectedLangpackId);
+
+            var cachedValue = encodeURIComponent(extId) + "_" + extVersion + "," + encodeURIComponent(selectedLangpackId) + "_" + selectedLangpackVersion ;
+
+            return cachedValue;
 
         },
 
-        addExtensionCached: function(extId, chromeExtName, value) {
 
-            GREUtils.Pref.addPref(this.getCachedKey(extId, chromeExtName), value);
+        isExtensionCached: function(extId, chromeExtName, langpackId) {
+
+            if (this.getExtensionSelectedLocale(extId, chromeExtName) == 'en') return true;
+
+            var cachedKey = this.getCachedKey(extId);
+            var cachedValue = this.getCachedValue(extId, chromeExtName, langpackId);
+            var prefCached = GREUtils.Pref.getPref(cachedKey);
+           
+            var result = false;
+
+            if (prefCached != null) {
+                if (prefCached != cachedValue) {
+                    result = false;
+                }else {
+
+                    // check if reinstall the same langpack
+                    var chromePath = 'chrome://' + chromeExtName + '/locale/.localehelper';
+                    var baseFilePath = GREUtils.File.chromeToPath(chromePath);
+
+                    if (GREUtils.File.exists(baseFilePath)) {
+                        result = true;
+                    }else {
+                        result = false;
+                    }
+                    
+                }
+            }
+            return result;
+
+        },
+
+        addExtensionCached: function(extId, chromeExtName, langpackId) {
+
+            var cachedKey = this.getCachedKey(extId);
+            var cachedValue = this.getCachedValue(extId, chromeExtName, langpackId);
+
+            GREUtils.Pref.addPref(cachedKey, cachedValue);
+
+            // write flag to langpack
+            var chromePath = 'chrome://' + chromeExtName + '/locale/.localehelper';
+            var baseFilePath = GREUtils.File.chromeToPath(chromePath);
+
+            GREUtils.File.writeAllBytes(baseFilePath, ((new Date()).getTime()+""));
+
 
         },
 
