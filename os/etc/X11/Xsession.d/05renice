@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# renice Xorg to priority -10
+PID=`ps -opid --no-heading -CXorg`
+if [ -n "${PID}" ]; then
+    renice -10 -p ${PID}
+fi
