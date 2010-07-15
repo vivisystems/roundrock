@@ -55,8 +55,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptclerksales.periodtype;"/>
-                                        <menulist id="period_type">
+                                        <label value="&rptclerksales.periodtype;" id="period_type_label" form="queryform" name="period_type_label"/>
+                                        <menulist id="period_type" form="queryform" name="period_type">
                                             <menupopup id="period_type_menupopup">
                                                 <menuitem selected="false" label="&rptclerksales.transaction_created;" value="transaction_created"/>
                                                 <menuitem selected="true" label="&rptclerksales.transaction_submitted;" value="transaction_submitted"/>
@@ -65,14 +65,14 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptclerksales.shiftno;"/>
-                                        <textbox id="shift_no" value=""/>
+                                        <label value="&rptclerksales.shiftno;" id="shift_no_label" form="queryform" name="shift_no_label"/>
+                                        <textbox id="shift_no" value=""  form="queryform" name="shift_no"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptclerksales.clerk_type;"/>
-                                        <menulist id="clerk_type">
+                                        <label value="&rptclerksales.clerk_type;" id="clerk_type_label" form="queryform" name="clerk_type_label"/>
+                                        <menulist id="clerk_type" form="queryform" name="clerk_type">
                                             <menupopup id="clerk_type_menupopup">
                                                 <menuitem selected="false" label="&rptclerksales.service_clerk;" value="service_clerk_displayname"/>
                                                 <menuitem selected="true" label="&rptclerksales.proceeds_clerk;" value="proceeds_clerk_displayname"/>
@@ -80,17 +80,17 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptclerksales.terminal_no;"/>
-                                        <textbox id="terminal_no" value=""/>
+                                        <label value="&rptclerksales.terminal_no;" id="terminal_no_label" form="queryform" name="terminal_no_label"/>
+                                        <textbox id="terminal_no" value="" form="queryform" name="terminal_no"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptclerksales.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&rptclerksales.sortby;" id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby" form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="false" label="&rptclerksales.sortby.terminal_no;" value="terminal_no"/>
-                                                <menuitem selected="true" label="&rptclerksales.sortby.time;" value="time"/>
+                                                <menuitem selected="true"  label="&rptclerksales.sortby.time;" value="time"/>
                                                 <menuitem selected="false" label="&rptclerksales.sortby.sequence;" value="sequence"/>
                                                 <menuitem selected="false" label="&rptclerksales.sortby.invoice_no;" value="invoice_no"/>
                                                 <menuitem selected="false" label="&rptclerksales.sortby.item_subtotal;" value="item_subtotal"/>

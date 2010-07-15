@@ -43,8 +43,8 @@
                             <rows>
                                 <row>
                                     <vbox>
-                                        <label value="&rptdepartments.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&rptdepartments.sortby;" id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby" form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="true" label="&rptdepartments.sortby.no;" value="no"/>
                                                 <menuitem selected="false" label="&rptdepartments.sortby.name;" value="name"/>

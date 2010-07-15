@@ -55,8 +55,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptorderstatus.periodtype;"/>
-                                        <menulist id="period_type">
+                                        <label value="&rptorderstatus.periodtype;" id="period_type_label" form="queryform" name="period_type_label"/>
+                                        <menulist id="period_type" form="queryform" name="period_type">
                                             <menupopup id="period_type_menupopup">
                                                 <menuitem selected="true" label="&rptorderstatus.transaction_created;" value="transaction_created"
                                                           oncommand="document.getElementById('orderstatus_deck').selectedIndex = 0;"/>
@@ -72,15 +72,15 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptorderstatus.shiftno;"/>
-                                        <textbox id="shift_no" value=""/>
+                                        <label value="&rptorderstatus.shiftno;" id="shift_no_label" form="queryform" name="shift_no_label"/>
+                                        <textbox id="shift_no" value="" form="queryform" name="shift_no"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptorderstatus.orderstatus;"/>
-                                        <deck id="orderstatus_deck" selectedIndex="0">
-                                            <menulist id="orderstatus">
+                                        <label value="&rptorderstatus.orderstatus;" id="orderstatus_label" form="queryform" name="orderstatus_label"/>
+                                        <deck id="orderstatus_deck" selectedIndex="0" >
+                                            <menulist id="orderstatus" form="queryform" name="orderstatus">
                                                 <menupopup id="orderstatus_menupopup">
                                                     <menuitem selected="true" label="[&rptorderstatus.all;]" value="all"/>
                                                     <menuitem selected="false" label="&rptorderstatus.finalizedorder;" value="1"/>
@@ -98,14 +98,14 @@
                                         </deck>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptorderstatus.terminal_no;"/>
-                                        <textbox id="terminal_no" value=""/>
+                                        <label value="&rptorderstatus.terminal_no;" id="terminal_no_label" form="queryform" name="terminal_no_label"/>
+                                        <textbox id="terminal_no" value=""  form="queryform" name="terminal_no"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptorderstatus.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&rptorderstatus.sortby;"  id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby"  form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="false" label="&rptorderstatus.sortby.terminal_no;" value="terminal_no"/>
                                                 <menuitem selected="false" label="&rptorderstatus.sortby.status;" value="status"/>
