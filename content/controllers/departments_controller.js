@@ -313,9 +313,10 @@
 
                     this.resetInputData();
 
-                    var index = this.updateSession('remove');
+                    var index = this.updateSession('remove');                   
                     this._selectedIndex = -1;
                     this.changeDepartmentPanel(index);
+                    this._ifPanelEmpty();                
 
                     OsdUtils.info(_('Department [%S] removed successfully', [dept.name]));
                 }
@@ -323,6 +324,15 @@
                     NotifyUtils.error(_('An error occurred while removing Department [%S]. The department may not have been removed successfully', [dept.name]));
                 }
             }
+        },
+
+        _ifPanelEmpty: function(){
+
+             if(!GeckoJS.Session.get('categories')){
+
+                 this.deptPanelView.init('deptscrollablepanel');
+                 this.validateForm();
+             }
         },
 
         updateSession: function(mode, id) {
