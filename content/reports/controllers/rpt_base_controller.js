@@ -161,7 +161,11 @@
 
         _set_queryForm: function(){
 
-            var queryForm = GeckoJS.FormHelper.serializeToObject('queryform');
+            var queryForm = GeckoJS.FormHelper.serializeToObject('queryform') ;
+
+            if(GeckoJS.BaseObject.getKeys(queryForm).length == 0)
+                queryForm = GeckoJS.FormHelper.serializeToObject('settings');
+            
             var queryFormLabel = {};
 
             for (var fieldName in queryForm ) {

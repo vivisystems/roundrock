@@ -17,6 +17,19 @@
 		<p class="heading_p">&nbsp;</p>
 		<p class="heading_p" style="text-align: right;">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
 	</div>
+        <table id="condition-table">
+            <tr>
+                <td class="condition-title"><span class="caption">${_('(rpt)Condition') + ' - '}</span></td>
+                <td align="left" >
+                       <span class="caption">${queryFormLabel.department_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.department|escape}</span>
+                       <span class="caption">${queryFormLabel.plugroup_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.plugroup|escape}</span>
+                       <span class="caption">${queryFormLabel.sortby_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.sortby|escape}</span>
+                </td>
+           </tr>
+       </table>
 	
 {for category in body}
         <table id="body-table" style="width: 100%">

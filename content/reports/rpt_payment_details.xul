@@ -55,8 +55,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptpaymentdetails.periodtype;"/>
-                                        <menulist id="period_type">
+                                        <label value="&rptpaymentdetails.periodtype;" id="period_type_label" form="queryform" name="period_type_label"/>
+                                        <menulist id="period_type" form="queryform" name="period_type">
                                             <menupopup id="period_type_menupopup">
                                                 <menuitem selected="false" label="&rptpaymentdetails.created;" value="created"/>
                                                 <menuitem selected="false" label="&rptpaymentdetails.sale_period;" value="sale_period"/>
@@ -64,14 +64,14 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptpaymentdetails.shiftno;"/>
-                                        <textbox id="shift_no" value=""/>
+                                        <label value="&rptpaymentdetails.shiftno;" id="shift_no_label" form="queryform" name="shift_no_label"/>
+                                        <textbox id="shift_no" value="" form="queryform" name="shift_no"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptpaymentdetails.type;"/>
-                                        <menulist id="payment_type">
+                                        <label value="&rptpaymentdetails.type;" id="payment_type_label" form="queryform" name="payment_type_label"/>
+                                        <menulist id="payment_type" form="queryform" name="payment_type">
                                             <menupopup id="payment_type_menupopup">
                                                 <menuitem selected="true" label="&rptpaymentdetails.type.all;" value="all"/>
                                                 <menuitem selected="false" label="&rptpaymentdetails.type.creditcard;" value="creditcard"/>
@@ -83,14 +83,14 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptpaymentdetails.terminal_no;"/>
-                                        <textbox id="terminal_no" value=""/>
+                                        <label value="&rptpaymentdetails.terminal_no;" id="terminal_no_label" form="queryform" name="terminal_no_label"/>
+                                        <textbox id="terminal_no" value="" form="queryform" name="terminal_no"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptpaymentdetails.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&rptpaymentdetails.sortby;" id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby" form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="false" label="&rptpaymentdetails.sortby.terminal_no;" value="terminal_no"/>
                                                 <menuitem selected="true" label="&rptpaymentdetails.sortby.time;" value="time"/>

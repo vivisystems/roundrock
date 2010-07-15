@@ -54,7 +54,7 @@
 		                    </row>
 		                    <row>
 		                    	<vbox>
-		                    		<label value="&rptyourorder.periodtype;"/>
+		                    		<label value="&rptyourorder.periodtype;"  id="period_type_label" form="settings" name="period_type_label"/>
 					                <menulist id="period_type" form="settings" name="period_type">
 					                    <menupopup id="period_type_menupopup">
 					                        <menuitem selected="false" label="&rptyourorder.transaction_created;" value="transaction_created"/>
@@ -64,13 +64,13 @@
 					                </menulist>
 		                    	</vbox>
 		                    	<vbox>
-				                    <label value="&rptyourorder.shiftno;"/>
-				                    <textbox id="shift_no" value=""/>
+				                    <label value="&rptyourorder.shiftno;" id="shift_no_label" form="settings" name="shift_no_label"/>
+				                    <textbox id="shift_no" value="" form="settings" name="shift_no"/>
 				                </vbox>
 		                    </row>
 		                    <row>
 		                    	<vbox>
-		                    		<label value="&rptyourorder.status;"/>
+		                    		<label value="&rptyourorder.status;" id="status_label" form="settings" name="status_label"/>
 					                <menulist id="status" form="settings" name="status">
 					                    <menupopup id="status_menupopup">
 					                        <menuitem selected="false" label="&rptyourorder.all;" value="all"/>
@@ -82,7 +82,7 @@
 					                </menulist>
 		                    	</vbox>
 		                    	<vbox>
-		                    		<label value="&rptyourorder.destination;"/>
+		                    		<label value="&rptyourorder.destination;" id="destination_label" form="settings" name="destination_label"/>
 					                <menulist id="destination" form="settings" name="destination">
 					                    <menupopup id="destination_menupopup">
 					                        <menuitem selected="true" label="&rptyourorder.all;" value="all"/>
@@ -92,7 +92,7 @@
 		                    </row>
 		                    <row>
 		                    	<vbox>
-				                	<label value="&rptyourorder.sortby;"/>
+				                	<label value="&rptyourorder.sortby;" id="sortby_label" form="settings" name="sortby_label"/>
 					                <menulist id="sortby" form="settings" name="sortby">
 					                    <menupopup id="sortby_menupopup">
 					                        <menuitem selected="false" label="&rptyourorder.sortby.terminal_no;" value="terminal_no"/>
@@ -142,8 +142,8 @@
 					                </menulist>
 			                    </vbox>
 			                    <vbox>
-				                    <label value="&rptyourorder.terminal_no;"/>
-				                    <textbox id="terminal_no" value=""/>
+				                    <label value="&rptyourorder.terminal_no;" id="terminal_no_label" form="settings" name="terminal_no_label"/>
+				                    <textbox id="terminal_no" value="" form="settings" name="terminal_no"/>
 				                </vbox>
 		                    </row>
 		                    <row>
