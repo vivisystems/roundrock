@@ -21,6 +21,12 @@
 
         changeDepartmentPanel: function(index) {
 
+            if(!GeckoJS.Session.get('categories')){
+                 this.deptPanelView.init('deptscrollablepanel');
+                 this.validateForm();
+                 return;
+            }
+            
             if (index == this._selectedIndex) return;
             
             if (!this.confirmChangeDepartment(index)) {
@@ -316,7 +322,6 @@
                     var index = this.updateSession('remove');                   
                     this._selectedIndex = -1;
                     this.changeDepartmentPanel(index);
-                    this._ifPanelEmpty();                
 
                     OsdUtils.info(_('Department [%S] removed successfully', [dept.name]));
                 }
@@ -326,22 +331,13 @@
             }
         },
 
-        _ifPanelEmpty: function(){
-
-             if(!GeckoJS.Session.get('categories')){
-
-                 this.deptPanelView.init('deptscrollablepanel');
-                 this.validateForm();
-             }
-        },
-
         updateSession: function(mode, id) {
 
             var cateModel = new CategoryModel();
             var categories = cateModel.find('all', {
                 order: 'no'
             });
-            GeckoJS.Session.set('categories');
+            GeckoJS.Session.set('categories', categories);
             this.deptPanelView.updateCategories();
             var data = GeckoJS.Session.get('categories');
 
