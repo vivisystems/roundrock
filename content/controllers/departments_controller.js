@@ -6,7 +6,7 @@
         
         screenwidth: GeckoJS.Session.get('screenwidth') || 800,
         screenheight: GeckoJS.Session.get('screenheight') || 600,
-        _selectedIndex: null,
+        _selectedIndex: -1,
         _deptscrollablepanel: null,
         deptPanelView: null,
 
@@ -21,7 +21,7 @@
 
         changeDepartmentPanel: function(index) {
 
-            if(!GeckoJS.Session.get('categories')){
+            if(!GeckoJS.Session.get('categories')) {
                  this.deptPanelView.init('deptscrollablepanel');
                  this.validateForm();
                  return;
