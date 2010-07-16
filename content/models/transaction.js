@@ -2391,6 +2391,7 @@
             
             var paymentItem = {
                 id: paymentId,
+                type: 'payment',
                 name: type,
                 amount: this.getRoundedPrice((type == 'giftcard') ? amount : qty * amount),
                 origin_amount: origin_amount,

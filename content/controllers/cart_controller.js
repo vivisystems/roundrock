@@ -1745,17 +1745,17 @@
                     }
                 }
             }
-            this.dispatchEvent('beforeVoidItem', itemTrans);
-            var voidedItem = curTransaction.voidItemAt(index);
-            this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
 
+            var beforeResult = this.dispatchEvent('beforeVoidItem', itemTrans);
+            if (beforeResult) {
+                var voidedItem = curTransaction.voidItemAt(index);
+                this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
+                this.subtotal();
+            }
+            
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-
-            this.subtotal();
-
-
         },
 
         addDiscountByNumber: function(args) {
