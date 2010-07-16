@@ -5,6 +5,12 @@ ${head.store.telephone1|center:42}
 Terminal: ${head.store.terminal_no + ' '|left:11}${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname|left:14}
 ${head.start_time} ~ ${head.end_time}
 
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
+${queryFormLabel.shiftno_label}${queryFormLabel.shiftno}
+${queryFormLabel.periodtype_label}${queryFormLabel.periodtype}
+${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+
 ${head.title|center:42}
 {for category in body.department}
 ------------------------------------------

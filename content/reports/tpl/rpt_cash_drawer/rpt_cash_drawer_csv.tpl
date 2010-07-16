@@ -8,6 +8,9 @@
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 "${_( '(rpt)Start Time' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.terminal_no_label}","${queryFormLabel.terminal_no}"
+"${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
 
 "${_( '(rpt)Terminal' )}","${_( '(rpt)Drawer' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Time' )}","${_( '(rpt)Event' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Payment Type' )}","${_( '(rpt)Amount' )}"
 {for item in body}

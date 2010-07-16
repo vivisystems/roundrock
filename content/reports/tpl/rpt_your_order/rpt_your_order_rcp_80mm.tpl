@@ -5,6 +5,14 @@ ${head.store.telephone1|center:42}
 Terminal: ${head.store.terminal_no|left:10} Clerk: ${head.clerk_displayname|left:14}
 ${head.start_time} ~ ${head.end_time}
 
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
+${queryFormLabel.shift_no_label}${queryFormLabel.shift_no}
+${queryFormLabel.period_type_label}${queryFormLabel.period_type}
+${queryFormLabel.status_label}${queryFormLabel.status}
+${queryFormLabel.destination_label}${queryFormLabel.destination}
+${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+
 ${head.title|center:42}
 ------------------------------------------
 {for detail in body}

@@ -8,6 +8,10 @@ ${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 ${head.start_time} ~
 ${head.end_time}
 
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.groupby_label}${queryFormLabel.groupby}
+${queryFormLabel.warehouse_label}${queryFormLabel.warehouse}
+
 ${head.title|center:24}
 {for record in body.records}
 ------------------------

@@ -7,6 +7,9 @@
 "${_( '(rpt)Clerk' ) + ':'}","${head.clerk_displayname}"
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+
 "${_( '(rpt)Department Number' )}","${_( '(rpt)Department Name' )}"
 {for category in body}
 "'${category.no}","'${category.name}"

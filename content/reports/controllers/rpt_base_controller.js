@@ -204,7 +204,8 @@
 
             this._reportRecords.queryForm = queryForm;
             this._reportRecords.queryFormLabel = queryFormLabel;
-            this.log(this.dump(queryFormLabel));
+            /*@debug condition table*/
+            //this.log(this.dump(queryFormLabel));
         },
         
         _exploit_reportRecords: function() {

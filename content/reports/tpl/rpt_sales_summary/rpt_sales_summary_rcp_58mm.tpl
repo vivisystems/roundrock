@@ -8,6 +8,13 @@ ${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 ${head.start_time} ~
 ${head.end_time}
 
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
+${queryFormLabel.shift_no_label}${queryFormLabel.shift_no}
+${queryFormLabel.period_type_label}${queryFormLabel.period_type}
+${queryFormLabel.num_dept_label}${queryFormLabel.num_dept}
+${queryFormLabel.num_product_label}${queryFormLabel.num_product}
+
 ${head.title|center:24}
 ------------------------
 ${_( '(rpt)Sales Overview' )}
