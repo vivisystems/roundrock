@@ -20,13 +20,14 @@
         },
 
         changeDepartmentPanel: function(index) {
-
-            if(!GeckoJS.Session.get('categories')) {
-                 this.deptPanelView.init('deptscrollablepanel');
+            
+            if(!GeckoJS.Session.get('categories')||GeckoJS.Session.get('categories').length == 0){
+                 this.deptPanelView.init('deptscrollablepanel');              
+                 this.resetInputData();
                  this.validateForm();
                  return;
             }
-            
+          
             if (index == this._selectedIndex) return;
             
             if (!this.confirmChangeDepartment(index)) {
