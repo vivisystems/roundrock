@@ -40,7 +40,7 @@
                 </columns>
                 <rows>
                     <row>
-                        <hbox align="center">
+                        <hbox align="center" id="paidTotalContainer">
                             <caption id="title" label="&refundpayment.payments;"/>
                             <textbox id="paidTotal" disabled="true" flex="1"/>
                             <button flex="1" id="clone_payments" disabled="false" class="button-iconic button-clone"
@@ -55,7 +55,7 @@
                     </row>
 
                     <row>
-                        <hbox align="center">
+                        <hbox align="center" id="refundTotalContainer" >
                             <caption id="title" label="&refundpayment.refunds;"/>
                             <textbox id="refundTotal" disabled="true" flex="1"/>
                             <button id="btnMinus" class="button-iconic button-minus" disabled="true"
@@ -74,7 +74,7 @@
             </grid>
 
             <hbox align="center" class="content-formbox">
-                <vbox flex="1">
+                <vbox flex="1" id="id="refundPaymentEditorContainer"">
                     <hbox flex="1">
                         <vbox flex="1" pack="center" align="center">
                             <label id="label_amount" value="&refundpayment.amount;" flex="1"/>
@@ -94,15 +94,15 @@
                             <textbox id="memo2" flex="1" form="refundForm" name="memo2" default=""/>
                         </vbox>
                     </hbox>
-                    <hbox flex="1">
+                    <hbox flex="1" >
                         <caption  id="type_refund" label="&refundpayment.type.refund;" flex="0"/>
                         <radiogroup id="type" flex="1" orient="horizontal"
                                     form="refundForm" name="type" default="cash">
-                                <radio id="cash" flex="1" label="&refundpayment.cash;" value="cash"/>
-                                <radio id="creditcard" flex="1" label="&refundpayment.creditcard;" value="creditcard"/>
-                                <radio id="coupon" flex="1" label="&refundpayment.coupon;" value="coupon"/>
-                                <radio id="giftcard" flex="1" label="&refundpayment.giftcard;" value="giftcard"/>
-                                <radio id="check" flex="1" label="&refundpayment.check;" value="check"/>
+                                <radio id="radio_cash" flex="1" label="&refundpayment.cash;" value="cash"/>
+                                <radio id="radio_creditcard" flex="1" label="&refundpayment.creditcard;" value="creditcard"/>
+                                <radio id="radio_coupon" flex="1" label="&refundpayment.coupon;" value="coupon"/>
+                                <radio id="radio_giftcard" flex="1" label="&refundpayment.giftcard;" value="giftcard"/>
+                                <radio id="radio_check" flex="1" label="&refundpayment.check;" value="check"/>
                         </radiogroup>
                     </hbox>
                 </vbox>
@@ -112,7 +112,7 @@
 
             <spacer height="10px"/>
 
-            <hbox>
+            <hbox id="functionButtonsContainer" >
                 <hbox id="dialogButtons" pack="center" flex="1" class="toolbar" toolbarmode="horizontal">
                     <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
                     <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
