@@ -2479,6 +2479,8 @@
                 return;
             }
 
+            /* pop dialog*/
+
             if (payment != null && payment != '' && currencies && currencies.length > convertIndex) {
                 // currency convert array
                 let currency = currencies[convertIndex].currency;
@@ -2488,7 +2490,7 @@
                 let origin_amount = payment;
                 let amount = parseFloat(payment) * currency_rate;
                 this._addPayment('cash', amount, origin_amount, memo1, memo2, groupable, finalize);
-            }
+            }/*
             else {
                 if (buf.length==0) {
                     NotifyUtils.warn(_('Please enter an amount first'));
@@ -2498,7 +2500,7 @@
                 }
                 this._clearAndSubtotal();
                 return;
-            }
+            }*/
         },
 
         _getCreditCardDialog: function (data) {
