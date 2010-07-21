@@ -229,8 +229,6 @@
             async = async || false;
             callback = (typeof callback == 'function') ?  callback : null;
 
-            dump( 'requestRemoteService url: ' + reqUrl + ', with method: ' + method + '\n');
-
             // set this reference to self for callback
             var self = this;
 
@@ -262,8 +260,6 @@
 
             req.open(method, reqUrl, true);
 
-            // dump('request url: ' + reqUrl + '\n');
-
             // set vivipos web service basic authorization
             this.setAuthorizationHeader(req);
 
@@ -276,7 +272,7 @@
 
             // set readystatechange handler
             req.onreadystatechange = function (aEvt) {
-                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+
                 self.lastReadyState = req.readyState;
                 self.lastStatus = req.status;
 
@@ -304,9 +300,7 @@
                                 }
                             }
                         }catch(e) {
-
-                            self.log('ERROR', 'requestRemoteService decode error ' + e );
-                            dump('decode error ' + e ) ;
+                            self.log('ERROR', 'requestRemoteService decode error', e);
                         }
                     }
                     // clear resources
@@ -316,6 +310,7 @@
                             try{
                                 callback.call(this, datas);
                             }catch(e) {
+                                self.log('ERROR', 'callback error ', e);
                             }
                         }
                         if (timeout) clearTimeout(timeout);
@@ -351,7 +346,7 @@
                 }
 
             }catch(e) {
-                dump('requestRemoteService req.send error ' + e  + '\n');
+                this.log('ERROR', 'requestRemoteService req.send error ', e);
             }finally {
 
                 if (!async) {
@@ -365,11 +360,24 @@
                 try{
                     callback.call(this, datas);
                 }catch(e) {
+                    this.log('ERROR', 'callback error ', e);
                 }
                 
             }
             return datas;
 
+        },
+
+        log: function(level, message, exception) {
+
+            // using GeckoJS class logger
+            if (GeckoJS && GeckoJS.BaseObject) {
+                GeckoJS.BaseObject.log(this.name, level, message, exception);
+            }else {
+                // using window.dump
+                dump((new Date()).toString() + ':' + ' ['+ level +'] ' + message + '\n');
+            }
+            
         }
 
     };
