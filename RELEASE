@@ -1,25 +1,54 @@
--------------------------------
-Release Note for VIVIECR ver.1.2.1.3
-Release Date: 2010-June-14
--------------------------------
+--------------------------------------------------------------------------------
+Release Note for VIVIECR ver.1.2.1.4 (English version)
+Release Date: 2010-July-20
+--------------------------------------------------------------------------------
 
 This is a maintenance release with enhanced functions for VIVIPOS Application (VIVIECR) 1.2.1.x series.
 Previous 1.2.1.x releases may be upgraded to this release by installing the XPI file through Add-ons Manager.
 
--------------------------------
+--------------------------------------------------------------------------------
 Dependencies
--------------------------------
+--------------------------------------------------------------------------------
 
 This release requires the following applications:
     - VIVIPOS OS Release 1.2.2 or above
     - VIVIPOS App Engine Release 1.2.1.4 or above
     - VIVIPOS WebApp and WebServices Release 1.2.1.1 or above
 
-You should also install appropriate language pack (langpack-en-US_1.2.1.3.xpi) to avoid translation-related issues.
+You should also install appropriate language pack (langpack-en-US_1.2.1.4.xpi) to avoid translation-related issues.
 
--------------------------------
+--------------------------------------------------------------------------------
 Enhanced Functions
--------------------------------
+--------------------------------------------------------------------------------
+
+****** The following is the list of enhanced functions from VIVIECR ver.1.2.1.3 to VIVIECR ver.1.2.1.4 ******
+
+Ticket#102:
+New function "Set Seat Number" added: This function assigns a seat number to a selected item in shopping cart. The parameter field may be empty or be set a preset seat number.
+If the parameter field is empty, the seat number is read from the input line.
+
+Ticket#101:
+New function "Label Item" added: This function assigns a label to a selected item in shopping cart. The parameter field may be empty to remove the existing label.
+A label may be read from the input line to override the default label. One common application of this function for a restaurant is to designate a course number on 
+each item so that kitchen staff could prepare each course in proper order.
+
+Ticket#104:
+Enhance logging method of table function.
+
+Ticket#112:
+Enhance power-off and reboot process: When power-off or reboot button is executed, system will automatically backup prefs.js to user.js.
+
+Ticket#107:
+Enhance "Auto-Fill" function in Localization Editor.
+
+Ticket#111:
+Enhance the software code of "Return / Refund" function.
+
+Ticket#86:
+Enhance the display method of User in "Attendance Record" of Reports function: Unify the "User Name" and "Display Name" shown in "Attendance Record" for Clock-in and Clock-out section.
+
+
+****** The following is the list of enhanced functions from VIVIECR ver.1.2.1.2 to VIVIECR ver.1.2.1.3 ******
 
 Ticket#82:
 Enhance "20c (non-en) VFD Sample template": If users select "20c (non-en) VFD Sample template" in VFD tab of Devices setting, and input store name in Chinese in Store Contact setting, the message shows on VFD hardware will be ?????. This is because pre-installed VFD hardware does not support Chinese charset. This release has amended the template to show "Welcome!" message only on VFD hardware in case that users select "20c (non-en) VFD Sample template".
@@ -37,9 +66,33 @@ Add the following 3 printing options in "Sales Summary" of Reports function:
     - Skip Printing 'Top Product Sales'
     - Skip Printing 'Top Department Sales'
 
--------------------------------
+--------------------------------------------------------------------------------
 Bugs Fixed
--------------------------------
+--------------------------------------------------------------------------------
+
+****** The following is the list of bugs fixed from VIVIECR ver.1.2.1.3 to VIVIECR ver.1.2.1.4 ******
+
+Ticket#106:
+In the circumstance that sales unit is not "unit", when users increase/decrease the q'ty of selected item in shopping cart by pressing + or - symbol, the number of item count will be displayed incorrectly.
+This issue has been fixed in 1.2.1.4 release.
+
+Ticket#105:
+In barcode learning function, the column of Tax Rate could be input either from Tax Selection Screen or be input manually.
+In 1.2.1.4 release, this has been amended as "input from Tax Selection Screen only".
+
+Ticket#103:   *** IMPORTANT FIX ***
+In VIVIECR ver.1.2.1.3, after "Shift Change" process completed, report screen does not pop-up.
+This issue has been fixed in 1.2.1.4 release.
+
+Ticket#116:
+In certain circumstance, the deleted departments remain on screen.
+This issue has been fixed in 1.2.1.4 release.
+
+Ticket#120:
+Fixed the logging method in partial log files: In WebApp and WebServices application, any log messages related to VIVIECR will be logged into VIVIPOS log files.
+
+
+****** The following is the list of bugs fixed from VIVIECR ver.1.2.1.2 to VIVIECR ver.1.2.1.3 ******
 
 Ticket#45:
 In the circumstance that users did not set up "Local Currency" in Currency Exchange function, when users process Void Sales function for cash refund and the input field of "Note 1" is left blank, it will cause the information of payment amount and cashdrawer amount in the screen of "Shift Change" not correct.
@@ -86,298 +139,5 @@ Ticket#100:
 In the circumstance that system detects "Error initiating table panel", table map will not be displayed normally.
 This issue has been fixed in 1.2.1.3 release by restarting the table map automatically after system detects such error, and system will log this error in System Log.
 
----------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
-
----------------
-Release 1.2.1.2
----------------
-
-This is a maintenance release with enhanced functions for VIVIPOS Application (VIVIECR) 1.2.1.x series.
-Previous 1.2.1.x releases may be upgraded to this release by installing the XPI file through Add-ons Manager.
-
-------------
-Dependencies
-------------
-
-This release requires VIVIPOS App Engine Release 1.2.1.4 or above and VIVIPOS WebApp and WebServices Release 1.2.1.1 or above.
-You should also install Release 1.2.1.2 of the appropriate language pack to resolve translation-related issues.
-
-------------------
-Enhanced Functions
-------------------
-
-Ticket#2:
-In General Options, add new settings as follows:
-    - Reset Sequence Number when ending sale period
-    - Reset Check Number when ending sale period
-
-Ticket#8:
-In "Inter-Register Comms" tab of Synchronization Settings, add "Images" as an option of IRC package module.
-
-Ticket#14:
-In Data Import / Export function, the title of imported/exported CSV file supports locale translation.
-
-Ticket#23:
-Void Sale function button enhancement: All items in original order are allowed to be brought to an new order for further return process via parameter setting.
-
-Ticket#29:
-Cashdrawer Controllers dispatch an event before/after cash drawer opens.
-
-Ticket#31:
-Add new function button: Open Control Panel, which supports Roles, and i18n label.
-This function allows operator to open a specific function in Control Panel for further configuration.
-
-Ticket#32:
-Add new function button: Open Report, which allows operator to open a specific report with pre-set parameter as default query conditions.
-
-Ticket#34:
-Void Sale function button enhancement: The original payment amount and payment type will be automatically brought to the refund screen for further refund process via parameter setting.
-
-Ticket#42:
-Label Printing function supports multiple barcode type including 39code, UPC-A, EAN-13, CODE 128, I25.
-
-Ticket#45:
-Void Sale function button enhancement: When original payment type is Cash, if operator does not input the code of currency during refund process, system will automatically input the code of local currency.
-
-Ticket#47:
-Move Scripts to the bottom to enhance application performance.
-
-Ticket#49:
-Make loadTest a standalone controller.
-
-Ticket#52:
-Better error logging when committing orders: When committing a stored order, if the remote web service fails, operator will be notified of the error and system will automatically generate 'ERROR' log 
-for future troubleshooting.
-
-Ticket#63:
-Enhance logging functions. System will check log level first to increase application performance.
-
-Ticket#64:
-In "Link Groups" tab of Products, Routing groups selection of Devices, and Department/Product Group selection of Promotion Manager, add a "check mark" symbol on each button after selection.
-
-Ticket#65:
-System will adjust time via rdate immediately after Network Settings complete.
-
-Ticket#66:
-After order recalled, if the order status in shopping cart is different than the order status in table screen, system will automatically rebuild order status and pop-up a "order status rebuild successfully" message.
-
-Ticket#69:
-Recall Stored Order by Sequence# / Check# / Table# function button enhancement: Add new parameter setting to recall "completed order".
-
-Ticket#71:
-Void Sale function button enhancement: A message will pop-up after the original order voided to ask operator to confirm if all items in original order should be automatically brought to an new order for further process via parameter setting.
-
-Ticket#72:
-In General Options and Layout Manager function, system will log the save time after operator clicks SAVE icon.
-
-Ticket#73:
-In "Inter-Register Comms" tab of Synchronization Settings, after IRC package applied successfully, system requires to re-load and save settings.
-
-----------
-Bugs Fixed
-----------
-
-Ticket#15:
-In Lable Printing function, fixed the translation issue of Price Level.
-
-Ticket#16:
-In Product Sales Report, fixed the re-save issue after query conditions are set.
-
-Ticket#43:
-If VIVIECR application was upgraded from 1.1.0.x to 1.2.1.x, an error message will pop-up when operators set query conditions in Product Sales Report, Product Sales Return Report, and Sales Summary.
-This issue has been fixed in 1.2.1.2 release.
-
-Ticket#44:
-In Product function, when operator selects Tax Rate, Console shows error message.
-This issue has been fixed in 1.2.1.2 release.
-
-Ticket#46:
-If VIVIECR application was upgraded from 1.1.0.x to 1.2.1.x, the function of "Recall Stored Orders" fails.
-This issue has been fixed in 1.2.1.2 release.
-
-Ticket#48:
-When queue order is recalled, if webservice can not connect with host machine, an exception issue occurs.
-This issue has been fixed in 1.2.1.2 release.
-
-Ticket#53:
-The scroll buttons in the reports triggered from the screen of "Shift Change / End Sale Period function" are not working.
-This issue has been fixed in 1.2.1.2 release.
-
-Ticket#54:
-In Function Panel Configuration function, the Scroll Forward, Scroll Backward, and Home Page buttons always show an obsolete icon.
-This issue has been fixed in 1.2.1.2 release.
-
-Ticket#57:
-In Hourly Sales Report, the column of Total Items always show 0.
-This issue has been fixed in 1.2.1.2 release.
-
-Ticket#58:
-In Order Destinations function, if there is no setting for order destination at all, the Table Manager function will not be able to show its setting normally.
-This issue has been fixed in 1.2.1.2 release.
-
-Ticket#59:
-This issue exists in VIVIECR 1.2.1.1 only: In order to resolve "special characters" issue, all special characters were transformed in View Orders screen.
-However, it caused another i"empty character" issue.
-This "empty character" issue has been fixed in 1.2.1.2 release.
-
-Ticket#67:
-If the return value of "beforeTruncateTxnRecords Event" is false, the screen of "Please wait..." will not be able to close normally.
-This issue has been fixed in 1.2.1.2 release.
-
-Ticket#68:
-During the process of "System Backup", all database links should be close to prevent from database modification or database lock.
-
-Ticket#74:
-In Lable Printing function, fixed the disabled issue of "Modify" button.
-
-Ticket#76:
-In "Inter-Register Comms" tab of Synchronization Settings, fixed the issue of some "General Settings" are not included in the package module.
-
-Ticket#77:
-If there is no tax setting in "Taxes" function, and the Tax column of "Department", "Product" and "Condiment" (CSV file) is empty, the CSV files will not be imported successfully.
-This issue has been fixed in 1.2.1.2 release.
-
-
-
----------------
-Release 1.2.1.1
----------------
-
-This is a maintenance release for VIVIPOS Application (VIVIECR) 1.2.1.0
-
-Previous 1.2.1.0 releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
-
-
-------------
-Dependencies
-------------
-
-This release requires VIVIPOS App Engine Release 1.2.1.2 or above and VIVIPOS WebApp and WebServices Release 1.2.1.0 or above. You should also install Release 1.2.1.1 of the appropriate language pack to resolve translation-related bugs.
-
-
-----------
-Known bugs
-----------
-
-Bug #159:
-    Application may wait indefinitely if connection to printer is lost while printing
-
-
-----------
-Bugs fixed
-----------
-
-Bug #398:
-    Programmable function name, label, and description may now be directly defined in Programmable Function Registry
-
-Bug #399:
-    Need to highlight function buttons linked to obsolete functions
-
-Bug #400:
-    Need better error handling and reporting on order submit/commit exceptions
-
-Bug #401:
-    Backup data files are not removed when truncating transaction records
-
-Bug #402:
-    New data option allows databases to be backed up automatically on sale period closings
-
-Bug #403:
-    Register by department number will now prompt user to select a department if no preset department has been programmed
-
-Bug #405:
-    Product Selection panel in the Set Menu screen should always reset to first page
-
-Bug #406:
-    Added an OSD panel component for display of large amount of textual/graphical information on the main screen
-
-Bug #407:
-    Tweak product/department panel CSS in all layouts
-
-Bug #408:
-     Promotion reset when order queued then recalled
-
-Bug #411:
-    After 'Subtotal', display item summary and tax breakdown
-
-Bug #412:
-    Order reduction must not exceed total amount excluding non-discountable items, and surcharges must respect non-surchargeable property
-
-Bug #416:
-    Order attribute 'items_summary' needs more columns
-
-Bug #417:
-    Modifying quantity of groupable payments lead to incorrect payment amount
-
-Bug #418:
-    Promotion status should be made always visible to avoid screen shifting about
-
-Bug #421:
-    Improve handling of adding to collapsed condiments to avoid shifting cart content
-
-Bug #423:
-    When selected, text of refund item entries in the cart are not visible
-
-Bug #424:
-    Special characters must be escaped when displaying order details in table selection screen
-
-Bug #426:
-    Basic ECR layout needs two-level access for basic and advanced control panels
-
-Bug #428:
-    Product image should scale automatically to fill up PLU button
-
-Bug #429:
-    Need to warn user when report will take a long time to render because of its size
-
-Bug #434:
-    Return mode should be reset when order is recalled or pulled from queue 
-
-Bug #438:
-    Label of checkbox option in the right column may be mis-aligned
-
-Ticket#25:
-    Customizedd SQL statements require escaped quotation marks ('')
-
-Ticket#26:
-    Automatically fill in missing localized strings for the current locale
-
-Ticket#30:
-    Stock control fails to initialize stock records table
-
-Ticket#2: 
-    Check number counter reset to 1 at day end
-
-Ticket#8:
-    Add Image Manager to IRC function
-
-Ticket#14:
-    Export CSV support l10n Header.
-
-Ticket#15:
-    Label Printing lost some l10n messages (bugfix).
-
-Ticket#16:
-    Product Sales Report 產品銷售報表 防呆
-
-Ticket#23:
-    執行交易作廢後，自動將此作廢單的品項重新帶入購物車
-
-Ticket#30:
-    Stock control fails to initialize stock records table (bugfix)
-
-Ticket#31:
-    open control panel function support parameter to open specific xul.
-
-Ticket#32:
-    open report function support parameters and auto execute report.
- 
-Ticket#37:
-    Buttons have different widths in end-of-shift/period-close dialogs
-
-Ticket#38:
-    Cancelling an order leaves the order data in transient backup files
-
-Ticket#39:
-    View Orders displays transaction created time as transaction submitted time
