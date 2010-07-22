@@ -232,6 +232,22 @@
             this._set_reportData( start, end, start_str, end_str, shiftNo, periodType, terminalNo, sortby, limit);
         },
 
+        set_reportRecords: function( parameters ) {
+
+            document.getElementById('start_date').value = parameters.start;
+            document.getElementById('end_date').value = parameters.end;
+
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+
+            document.getElementById('terminal_no').value = parameters.terminalNo;
+
+            document.getElementById( 'period_type' ).value = parameters.periodtype;
+            document.getElementById( 'shift_no' ).value = parameters.shiftno;
+
+            this._set_reportData( parameters.start, parameters.end, start_str, end_str, parameters.shiftno, parameters.periodtype, parameters.terminalNo, 'date', this._csvLimit);
+        },
+
         printDailySalesSummary: function( start, end, terminalNo, periodType, shiftNo ) {
 
             var start_str = new Date(start).toString( 'yyyy/MM/dd HH:mm' );

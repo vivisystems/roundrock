@@ -83,7 +83,7 @@
                         <vbox flex="1">
                             <vivibutton id="review" class="ZoomBtn" label="&shiftchange.button.review.daily.sales;" flex="1"
                                         roles="acl_report_dailysalessummary" action="hide"
-                                        oncommand="mainWindow.$do('reviewDailySales', null, 'ShiftChanges');"/>
+                                        oncommand="mainWindow.$do('reviewDailySales', true 'ShiftChanges');"/>
                         </vbox>
                     </row>
                     <row flex="1">
@@ -102,7 +102,7 @@
                         <vbox>
                             <vivibutton id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales;" flex="1"
                                         roles="acl_report_dailysalessummary" action="hide"
-                                        oncommand="mainWindow.$do('printDailySales', null, 'ShiftChanges');"/>
+                                        oncommand="mainWindow.$do('printDailySales', true 'ShiftChanges');"/>
                         </vbox>
                     </row>
 

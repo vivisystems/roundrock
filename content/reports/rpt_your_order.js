@@ -15,8 +15,22 @@
      * Controller Startup
      */
     function startup() {
-        $do( 'load', null, 'RptYourOrder' );
 
+        var parameters = window.arguments[ 0 ];
+
+
+        if (parameters && parameters.setparms) {
+            $do( 'load', null, 'RptYourOrder' );
+            $do( 'set_reportRecords', parameters, 'RptYourOrder' );
+            $do( '_setTemplateDataHead', null, 'RptYourOrder' );
+            $do( '_setTemplateDataFoot', null, 'RptYourOrder' );
+            $do( '_exploit_reportRecords', null, 'RptYourOrder' );
+            $do( 'toggleSize', null, 'RptYourOrder' );
+        }
+        else {
+             $do( 'load', null, 'RptYourOrder' );
+        }
+   
         var screenwidth = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.width' ) || 800;
         var screenheight = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.height' ) || 600;
 
