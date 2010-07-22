@@ -216,7 +216,7 @@
                         return;
                     }
                     else if (last && !last.clockout) {
-                        if (!clockstamp.saveStamp('clockout', this.branch_id, username)) {
+                        if (!clockstamp.saveStamp('clockout', this.branch_id, username, null, displayname)) {
                             this._dbError(clockstamp.lastError, clockstamp.lastErrorString,
                                           _('An error was encountered while clocking employee [%S] out (error code %S).', [displayname, clockstamp.lastError]));
                             NotifyUtils.error(_('Failed to clock user out.'));

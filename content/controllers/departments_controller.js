@@ -6,7 +6,7 @@
         
         screenwidth: GeckoJS.Session.get('screenwidth') || 800,
         screenheight: GeckoJS.Session.get('screenheight') || 600,
-        _selectedIndex: null,
+        _selectedIndex: -1,
         _deptscrollablepanel: null,
         deptPanelView: null,
 
@@ -20,7 +20,14 @@
         },
 
         changeDepartmentPanel: function(index) {
-
+            
+            if(!GeckoJS.Session.get('categories')||GeckoJS.Session.get('categories').length == 0){
+                 this.deptPanelView.init('deptscrollablepanel');              
+                 this.resetInputData();
+                 this.validateForm();
+                 return;
+            }
+          
             if (index == this._selectedIndex) return;
             
             if (!this.confirmChangeDepartment(index)) {
@@ -313,7 +320,7 @@
 
                     this.resetInputData();
 
-                    var index = this.updateSession('remove');
+                    var index = this.updateSession('remove');                   
                     this._selectedIndex = -1;
                     this.changeDepartmentPanel(index);
 
@@ -331,7 +338,7 @@
             var categories = cateModel.find('all', {
                 order: 'no'
             });
-            GeckoJS.Session.set('categories');
+            GeckoJS.Session.set('categories', categories);
             this.deptPanelView.updateCategories();
             var data = GeckoJS.Session.get('categories');
 
