@@ -2478,7 +2478,7 @@
                 this._clearAndSubtotal();
                 return;
             }
-            /*check currcncy was defined*/
+            /*check currency was defined*/
             if(!currencies || currencies.length <= convertIndex){
                  NotifyUtils.warn(_('Please configure the currency entry first [%S]', [convertIndex]));
                  this._clearAndSubtotal();
@@ -2501,7 +2501,7 @@
                 let origin = this._getTransaction().data.remain;
                 let converted = parseFloat(origin) / currency_rate;
 
-                converted = Math.round(converted*100)/100;
+                converted = Math.round(converted*1000)/1000;
                 
                 /* pop dialog*/
                 let inputObj = {
