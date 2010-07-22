@@ -8,7 +8,7 @@
     var inputObj = window.arguments[4];
 
     /**
-     * Controller Startup
+     *  Startup
      */
     function startup() {
 
