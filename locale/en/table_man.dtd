@@ -103,6 +103,7 @@
 
 <!ENTITY tableman.tableoptions.defaultregion "Default Region:">
 
+<!ENTITY tableman.tableoptions.print.caption "Print Check Options:">
 <!ENTITY tableman.tableoptions.printCheckAfterTransferTable "Printing Options for Table Transfer">
 <!ENTITY tableman.tableoptions.printCheckAfterTransferTable.none "None">
 <!ENTITY tableman.tableoptions.printCheckAfterTransferTable.auto "Print automatically">
