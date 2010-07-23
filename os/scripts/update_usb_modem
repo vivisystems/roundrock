@@ -1,0 +1,47 @@
+#!/bin/sh
+
+DEVICE_MARKER=/tmp/3g-modem.device
+
+if [ $# -ne 2 -o -z "$1" -o -z "$2" ]; then
+    echo "usage: $0 action device"
+    exit
+fi
+
+# function to update wvdial.conf
+
+WVDIAL_CONF=/etc/wvdial.conf
+REG_WVDIAL="s/\(^Modem\s=\s\/dev\/\).*/\1$2/g"
+
+update_wvdial() {
+    sed ${REG_WVDIAL} ${WVDIAL_CONF} > ${WVDIAL_CONF}.$$
+    mv -f ${WVDIAL_CONF}.$$ ${WVDIAL_CONF}
+}
+
+# function to update gnokiirc
+
+GNOKII_CONF=~root/.gnokiirc
+REG_GNOKII="s/\(^port\s=\s\/dev\/\).*/\1$2/g"
+
+update_gnokii() {
+    sed ${REG_GNOKII} ${GNOKII_CONF} > ${GNOKII_CONF}.$$
+    mv -f ${GNOKII_CONF}.$$ ${GNOKII_CONF}
+}
+
+case "$1" in
+
+    add)
+	update_wvdial
+	update_gnokii
+	echo $2 > ${DEVICE_MARKER}
+
+	# emit 'roundrock-3g-modem-added' event
+	initctl emit --no-wait roundrock-3g-modem-added
+    ;;
+
+    remove)
+	/bin/rm -f ${DEVICE_MARKER}
+
+	# emit 'roundrock-3g-modem-removed' event
+	initctl emit --no-wait roundrock-3g-modem-removed
+    ;;
+esac

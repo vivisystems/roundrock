@@ -1,0 +1,13 @@
+# listen for usb-serial devices that are mapped to ttyUSB
+KERNEL!="ttyUSB[0-9]", GOTO="end"
+
+# filter out devices that are not 3G modem
+ENV{ID_USB_DRIVER}!="option", GOTO="end"
+
+# only process the first interface (00)
+ENV{ID_USB_INTERFACE_NUM}!="00", GOTO="end"
+
+ACTION=="add", RUN+="/sbin/update_usb_modem add %k"
+ACTION=="remove", RUN+="/sbin/update_usb_modem remove %k"
+
+LABEL="end"

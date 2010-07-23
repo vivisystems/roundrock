@@ -1,0 +1,4 @@
+#!/bin/sh
+
+MSG=`cat`
+echo `date` [$#] $@ : $MSG >> /tmp/sms.log
