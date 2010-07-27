@@ -408,6 +408,12 @@
                 if(autoCreate) return this._newTransaction();
                 return null;
             }else if (autoCreate && (curTransaction.isCancel() || curTransaction.isVoided() || curTransaction.isSubmit())) {
+
+                // check if transaction is recalled
+                if (curTransaction.data.recall == 1) {
+                    (new OrderModel()).releaseOrderLock(curTransaction.data.id);
+                }
+
                 return this._newTransaction();
             }    
 
@@ -3515,7 +3521,7 @@
 
             if (!this.ifHavingOpenedOrder()) {
 
-                if (curTransaction.data.recall == 2) orderModel.releaseOrderLock(curTransaction.data.id);
+                if (curTransaction.data.recall == 1 || curTransaction.data.recall == 2) orderModel.releaseOrderLock(curTransaction.data.id);
 
                 this.clear();
 
