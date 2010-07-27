@@ -257,6 +257,19 @@
             this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, returntype, displaymode, breakoutSetmenu, limit );
         },
 
+        set_reportRecords: function( parameters ) {
+
+            document.getElementById( 'start_date' ).value = parameters.start;
+            document.getElementById( 'end_date' ).value = parameters.end;
+
+            document.getElementById( 'terminal_no' ).value = parameters.terminalNo;
+
+            document.getElementById( 'periodtype' ).value = parameters.periodtype;
+            document.getElementById( 'shiftno' ).value = parameters.shiftno;
+
+            this._setData( parameters.start, parameters.end, parameters.periodtype, parameters.shiftno, 'product_no', parameters.terminalNo, 'all', 'all', 'detailed', false, this._stdLimit );
+        },
+
         printProductReturns: function( start, end, terminalNo, periodType, shiftNo ) {
 
             this._setData( start, end, periodType, shiftNo, 'product_no', terminalNo, 'all', 'all', 'detailed', false, this._stdLimit );

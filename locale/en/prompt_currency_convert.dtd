@@ -1,0 +1,6 @@
+<!ENTITY prompt.currencyconvert.title  "Currency Convert">
+<!ENTITY prompt.currencyconvert.origin_amount  "Amount to Convert">
+<!ENTITY prompt.currencyconvert.amount  "Amount">
+<!ENTITY prompt.currencyconvert.payment  "payment">
+<!ENTITY prompt.currencyconvert.okButton.label  "OK">
+<!ENTITY prompt.currencyconvert.cancelButton.label  "Cancel">

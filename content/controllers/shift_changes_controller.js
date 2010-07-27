@@ -1591,6 +1591,15 @@
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
             var periodType = 'sale_period';
             var shiftNo = shift ? this._getShiftNumber().toString() : '';
+
+            var parameters = {
+                start: salePeriod,
+                end: salePeriod,
+                periodtype: periodType,
+                shiftno: shiftNo,
+                terminalNo: terminalNo,
+                setparms: true
+            };
             
             /* check if exist customer report*/
             var reports = GeckoJS.Configure.read('vivipos.fec.reportpanels');
@@ -1618,7 +1627,8 @@
                                     path: el.path,
                                     roles: el.roles,
                                     label: label,
-                                    key: key || ""
+                                    key: key || "",
+                                    setparms: true
                             }
                             reportExist = true;
                      }
@@ -1631,6 +1641,8 @@
                                 _('Report is undefined'));
                 return;
             }
+
+            pref.parameters = parameters;
             
             /*open dialog*/
             var aURL = 'chrome://viviecr/content/reports/rpt_your_order.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&shift_no='+shiftNo;;

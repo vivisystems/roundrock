@@ -13,7 +13,18 @@
      */
     function startup() {
 
-        $do('load', null, 'RptCashByClerk');
+        var parameters = window.arguments[ 0 ];
+
+        if (parameters && parameters.setparms) {
+            $do( 'set_reportRecords', parameters, 'RptCashByClerk' );
+            $do( '_setTemplateDataHead', null, 'RptCashByClerk' );
+            $do( '_setTemplateDataFoot', null, 'RptCashByClerk' );
+            $do( '_exploit_reportRecords', null, 'RptCashByClerk' );
+            $do( 'toggleSize', null, 'RptCashByClerk' );
+        }
+        else {
+            $do('load', null, 'RptCashByClerk');
+        }
 
     };
 

@@ -266,6 +266,29 @@
             this._set_reportData( start, end, start_str, end_str, terminal_no, shiftNo, periodType, sortby, status, destination, limit);
         },
 
+        set_reportRecords: function(pref) {
+
+            document.getElementById( 'start_date' ).value = pref.parameters.start;
+            document.getElementById( 'end_date' ).value = pref.parameters.end;
+
+            var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+            var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+
+            document.getElementById( 'terminal_no' ).value = pref.parameters.terminalNo;
+            document.getElementById( 'shift_no' ).value = pref.parameters.shiftno;
+            document.getElementById( 'period_type' ).value = pref.parameters.periodtype;
+
+            var sortby = document.getElementById( 'sortby' ).value;
+
+            var status = document.getElementById( 'status' ).value;
+
+            var destination = document.getElementById( 'destination' ).value;
+
+            this.sleep(1000);
+
+            this._set_reportData( pref.parameters.start, pref.parameters.end, start_str, end_str, pref.parameters.terminalNo, pref.parameters.shiftno, pref.parameters.periodtype, sortby, status, destination, this._stdLimit );
+        },
+
         printCustomerReport: function(salePeriod, salePeriod, terminalNo, shiftNumber, settings, key ){
 
             var periodType = settings.period_type;
