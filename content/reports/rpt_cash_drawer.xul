@@ -44,17 +44,17 @@
                             <row>
                                 <vbox>
                                     <label value="&cashdrawer.startdate;"/>
-                                    <vividatetimepicker id="start_date" value="" type="popup"/>
+                                    <vividatetimepicker id="start_date" value="" type="popup" form="queryform" name="start_date"/>
                                 </vbox>
                                 <vbox>
                                     <label value="&cashdrawer.enddate;"/>
-                                    <vividatetimepicker id="end_date" value="" type="popup"/>
+                                    <vividatetimepicker id="end_date" value="" type="popup" form="queryform" name="end_date"/>
                                 </vbox>
                             </row>
                             <row>
                                 <vbox>
-                                    <label value="&cashdrawer.sortby;"/>
-                                    <menulist id="sortby">
+                                    <label value="&cashdrawer.sortby;" id="sortby_label" name="sortby_label" form="queryform"/>
+                                    <menulist id="sortby" form="queryform" name="sortby">
                                         <menupopup id="sortby_menupopup">
                                             <menuitem selected="true" label="&cashdrawer.sortby.terminal_no;" value="terminal_no"/>
                                             <menuitem selected="false" label="&cashdrawer.sortby.drawer_no;" value="drawer_no"/>
@@ -67,8 +67,8 @@
                                     </menulist>
                                 </vbox>
                                 <vbox>
-                                    <label value="&cashdrawer.terminal_no;"/>
-                                    <textbox id="terminal_no" value=""/>
+                                    <label value="&cashdrawer.terminal_no;" id="terminal_no_label" name="terminal_no_label" form="queryform" />
+                                    <textbox id="terminal_no" value="" form="queryform" name="terminal_no"/>
                                 </vbox>
                             </row>
                         </rows>

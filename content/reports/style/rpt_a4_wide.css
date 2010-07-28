@@ -175,6 +175,20 @@ td.hyperlink:hover {
     cursor: pointer;
 }
 
+#condition-table {
+  width: 100%;
+  margin: 0px auto 0px auto;
+/*  font: 100% sans-serif; */
+  border-collapse: collapse;
+  text-align:left;
+  empty-cells: show;
+}
+
+#condition-table .condition-title{
+    width: 10%;
+    white-space:nowrap;
+}
+
 /** for print use **/
 @media print {
 	.report {

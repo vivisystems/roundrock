@@ -7,6 +7,13 @@ ${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 ${head.start_time} ~
 ${head.end_time}
 
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
+${queryFormLabel.shiftno_label}${queryFormLabel.shiftno}
+${queryFormLabel.periodtype_label}${queryFormLabel.periodtype}
+${queryFormLabel.returntype_label}${queryFormLabel.returntype}
+${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+
 ${head.title|center:24}
 {for category in body}
 ------------------------

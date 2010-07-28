@@ -8,6 +8,9 @@
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 "${_( '(rpt)Start Time' + ':' )}","${head.start_time}"
 "${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.terminal_no_label}","${queryFormLabel.terminal_no}"
+"${queryFormLabel.shift_no_label}","${queryFormLabel.shift_no}"
 {for master in body}
 ""
 "${master.terminal_no}","${master.starttime}","${master.endtime}"

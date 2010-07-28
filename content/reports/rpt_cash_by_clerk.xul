@@ -45,21 +45,21 @@
                             <row>
                                 <vbox>
                                     <label value="&rptcashbyclerk.startdate;"/>
-                                    <vividatetimepicker id="start_date" value="" mode="date" type="popup"/>
+                                    <vividatetimepicker id="start_date" value="" mode="date" type="popup" form="queryform" name="start_date"/>
                                 </vbox>
                                 <vbox>
                                     <label value="&rptcashbyclerk.enddate;"/>
-                                    <vividatetimepicker id="end_date" value="" mode="date" type="popup"/>
+                                    <vividatetimepicker id="end_date" value="" mode="date" type="popup" form="queryform" name="end_date"/>
                                 </vbox>
                             </row>
                             <row>
                                 <vbox>
-                                            <label value="&rptcashbyclerk.terminal_no;"/>
-                                            <textbox id="terminal_no" value=""/>
+                                            <label value="&rptcashbyclerk.terminal_no;" id="terminal_no_label" form="queryform" name="terminal_no_label"/>
+                                            <textbox id="terminal_no" value="" form="queryform" name="terminal_no" />
                                         </vbox>
                                 <vbox>
-                                    <label value="&rptcashbyclerk.shiftno;"/>
-                                            <textbox id="shift_no" value=""/>
+                                    <label value="&rptcashbyclerk.shiftno;" id="shift_no_label" form="queryform" name="shift_no_label"/>
+                                            <textbox id="shift_no" value="" form="queryform" name="shift_no"/>
                                 </vbox>
                             </row>
                         </rows>

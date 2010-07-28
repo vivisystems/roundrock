@@ -26,11 +26,11 @@
 <!ENTITY productSalesReturn.saleperiod "Sale Period">
 <!ENTITY productSalesReturn.shiftno "Shift:">
 <!ENTITY productSalesReturn.department "Department:">
-<!ENTITY productSalesReturn.returntype "Return Type">
+<!ENTITY productSalesReturn.returntype "Return Type:">
 <!ENTITY productSalesReturn.returntype.all "All">
 <!ENTITY productSalesReturn.returntype.item "Returned Items">
 <!ENTITY productSalesReturn.returntype.order "Voided Orders">
-<!ENTITY productSalesReturn.displaymode "Display Mode">
+<!ENTITY productSalesReturn.displaymode "Display Mode:">
 <!ENTITY productSalesReturn.displaymode.detailed "Detailed">
 <!ENTITY productSalesReturn.displaymode.summary "Summary">
 <!ENTITY productSalesReturn.show "Show">

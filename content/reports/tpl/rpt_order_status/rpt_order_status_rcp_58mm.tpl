@@ -7,6 +7,14 @@ ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
 ${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 ${head.start_time} ~
 ${head.end_time}
+
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
+${queryFormLabel.shift_no_label}${queryFormLabel.shift_no}
+${queryFormLabel.period_type_label}${queryFormLabel.period_type}
+${queryFormLabel.orderstatus_label}${queryFormLabel.orderstatus}
+${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+
 [&CR]
 ${head.title|center:24}
 {for detail in body}
