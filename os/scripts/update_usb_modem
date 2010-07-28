@@ -1,26 +1,38 @@
 #!/bin/sh
+#echo `date` $@ >> /tmp/update3g.log
 
-DEVICE_MARKER=/tmp/3g-modem.device
-
-if [ $# -ne 2 -o -z "$1" -o -z "$2" ]; then
-    echo "usage: $0 action device"
+if [ $# -ne 3 -o -z "$1" -o -z "$2" -o -z "$3" ]; then
+    echo "usage: $0 action target device"
     exit
+fi
+
+TARGET=$2
+DEVICE_MARKER=/tmp/3g-modem.device.${TARGET}
+
+PIN_FILE=/etc/roundrock.pin
+
+if [ -r ${PIN_FILE} -a -f ${PIN_FILE} ]; then
+    PIN=`cat ${PIN_FILE}`
+else
+    PIN="0000"
 fi
 
 # function to update wvdial.conf
 
 WVDIAL_CONF=/etc/wvdial.conf
-REG_WVDIAL="s/\(^Modem\s=\s\/dev\/\).*/\1$2/g"
+REG_WVDIAL_1="s/\(^Modem\s=\s\/dev\/\).*/\1$3/g"
+REG_WVDIAL_2="s/\(^Init9\s=\s\AT+CPIN=\).*/\1${PIN}/g"
 
 update_wvdial() {
-    sed ${REG_WVDIAL} ${WVDIAL_CONF} > ${WVDIAL_CONF}.$$
+    # update wvdial.conf
+    sed ${REG_WVDIAL_1} ${WVDIAL_CONF} | sed ${REG_WVDIAL_2} > ${WVDIAL_CONF}.$$
     mv -f ${WVDIAL_CONF}.$$ ${WVDIAL_CONF}
 }
 
 # function to update gnokiirc
 
 GNOKII_CONF=~root/.gnokiirc
-REG_GNOKII="s/\(^port\s=\s\/dev\/\).*/\1$2/g"
+REG_GNOKII="s/\(^port\s=\s\/dev\/\).*/\1$3/g"
 
 update_gnokii() {
     sed ${REG_GNOKII} ${GNOKII_CONF} > ${GNOKII_CONF}.$$
@@ -30,18 +42,26 @@ update_gnokii() {
 case "$1" in
 
     add)
-	update_wvdial
-	update_gnokii
-	echo $2 > ${DEVICE_MARKER}
+	if [ "$2" = "wvdial" ]; then
+	    update_wvdial
 
-	# emit 'roundrock-3g-modem-added' event
-	initctl emit --no-wait roundrock-3g-modem-added
+	    # unlock SIM by dialing unlock
+	    wvdial unlock
+	elif [ "$2" = "gnokii" ]; then
+	    update_gnokii
+
+	    # emit 'roundrock-3g-modem-added' event to start smsd
+	    initctl emit --no-wait roundrock-3g-modem-added
+	fi
+	echo $3 > ${DEVICE_MARKER}
     ;;
 
     remove)
 	/bin/rm -f ${DEVICE_MARKER}
 
-	# emit 'roundrock-3g-modem-removed' event
-	initctl emit --no-wait roundrock-3g-modem-removed
+	if [ "$2" = "gnokii" ]; then
+	    # emit 'roundrock-3g-modem-removed' event to stop smsd
+	    initctl emit --no-wait roundrock-3g-modem-removed
+	fi
     ;;
 esac
