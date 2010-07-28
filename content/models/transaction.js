@@ -3583,13 +3583,14 @@
                 let itemIndex = itemDisplay.index;
                 let itemParentIndex = itemDisplay.parent_index;
                 let itemType = itemDisplay.type;
+                let displayLevel = itemDisplay.level;
                 let item = source.data.items[itemIndex];
                 let parentItem = null;
                 if (itemParentIndex) {
                     parentItem = source.data.items[itemParentIndex];
                 }
 
-                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex || (itemType != 'item' && itemType != 'setitem')) {
+                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex || (itemType != 'item' && itemType != 'setitem' && displayLevel > 0)) {
                     
                     if (itemIndex && !removeIndexes[itemIndex]) {
                         removeIndexes[itemIndex] = itemIndex;
@@ -3638,6 +3639,7 @@
                 let itemIndex = itemDisplay.index;
                 let itemParentIndex = itemDisplay.parent_index;
                 let itemType = itemDisplay.type;
+                let displayLevel = itemDisplay.level;
                 let item = source.data.items[itemIndex];
                 let parentItem = null;
                 if (itemParentIndex) {
@@ -3651,7 +3653,7 @@
                 let newItem = null;
                 let priceModifier = item.price_modifier
 
-                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex || (itemType != 'item' && itemType != 'setitem')) {
+                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex || (itemType != 'item' && itemType != 'setitem' && displayLevel > 0)) {
 
 
                     if (itemIndex && !removeIndexes[itemIndex]) {
