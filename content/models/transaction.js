@@ -1066,6 +1066,8 @@
             var sellQty = itemTrans.current_qty;
             var oldSellQty = itemTrans.current_qty;
             var sellPrice = itemTrans.current_price;
+            var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
+            var oldPriceLevel = itemTrans.price_level;
             var condimentPrice = 0;
             var setItems = [];
             var setItemEventData;
@@ -1088,10 +1090,16 @@
 
                     if (itemTrans.current_qty < 0 && sellQty > 0) sellQty = 0 - sellQty;
 
-                    sellPrice = (GeckoJS.Session.get('cart_set_price_value') != null)
-                                ? GeckoJS.Session.get('cart_set_price_value')
-                                : sellPrice;
-
+                    if (GeckoJS.Session.get('cart_set_price_value') != null) {
+                        sellPrice = GeckoJS.Session.get('cart_set_price_value');
+                    }else {
+                        if ((sellQty == oldSellQty) && (oldPriceLevel != priceLevel)) {
+                            // user want to shift price level
+                            sellPrice = null;
+                        }else {
+                            sellPrice = itemTrans.current_price;
+                        }
+                    }
                     sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
 
                     sellQtyDisplay  = (GeckoJS.Session.get('cart_set_qty_display') != null) ? GeckoJS.Session.get('cart_set_qty_display') : sellQtyDisplay;

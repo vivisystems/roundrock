@@ -835,6 +835,8 @@
                     var currentItem = curTransaction.getItemAt(currentIndex);
                     var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
                     var price = GeckoJS.Session.get('cart_set_price_value');
+                    var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
+                    var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
                     var destination = GeckoJS.Session.get('vivipos_fec_order_destination');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (!qtyFromInput &&
@@ -845,6 +847,8 @@
                             !currentItem.hasMarker &&
                             currentItem.destination == destination &&
                             ((price == null) || (currentItem.current_price == price)) &&
+                            ((priceLevel == null) || (currentItem.price_level == priceLevel) ||
+                             (currentItem.price_level == '-' && item.id == currentItem.id && lastSellItem && lastSellItem.id == item.id) ) &&
                             ((currentItem.current_qty > 0 && !this._returnMode) ||
                                 currentItem.current_qty < 0 && !currentItemDisplay.returned && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
