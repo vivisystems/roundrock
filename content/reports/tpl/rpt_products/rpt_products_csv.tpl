@@ -9,6 +9,11 @@
 "${_( '(rpt)Product Count' )}","${head.total}"
 "${_( '(rpt)Products Displayed' )}","${head.displayed}"
 
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.department_label}","${queryFormLabel.department}"
+"${queryFormLabel.plugroup_label}","${queryFormLabel.plugroup}"
+"${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+
 "${_( '(rpt)Department Number' )}","${_( '(rpt)Department Name' )}","${_( '(rpt)Product Number' )}","${_( '(rpt)Product Name' )}","${_( '(rpt)Alt Name1' )}","${_( '(rpt)Alt Name2' )}","${_( '(rpt)Barcode' )}","${_( '(rpt)Tax Code' )}","${_( '(rpt)Stock Level' )}","${_( '(rpt)Low Stock Threshold' )}","'${_( '(rpt)auto_maintain_stock') }","${_( '(rpt)return_stock' )}","${_( '(rpt)manual_adjustment_only' )}","${_( '(rpt)force_memo' )}","${_( '(rpt)force_condiment' )}","${_( '(rpt)age_verification' )}","${_( '(rpt)single' )}","${_( '(rpt)visible' )}","${_( '(rpt)display_mode' )}"
 
 {for category in body}

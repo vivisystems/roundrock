@@ -44,16 +44,16 @@
                             <rows>
                                 <row>
                                     <vbox>
-                                        <label value="&rptstocks.department;"/>
-                                        <menulist id="department" flex="1">
+                                        <label value="&rptstocks.department;" id="department_label" form="queryform" name="department_label"/>
+                                        <menulist id="department" flex="1"  form="queryform" name="department">
                                             <menupopup id="department_menupopup"  flex="1">
                                                 <menuitem selected="true" label="[&rptstocks.all;]" value="all"/>
                                             </menupopup>
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptstocks.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&rptstocks.sortby;" id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby" form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="true" label="&rptstocks.sortby.no;" value="no"/>
                                                 <menuitem selected="false" label="&rptstocks.sortby.name;" value="name"/>

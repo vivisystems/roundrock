@@ -4,6 +4,13 @@
 ${head.store.telephone1|center:42}
 ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no + ' '|left:11}${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname|left:14}
 
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
+${queryFormLabel.period_type_label}${queryFormLabel.period_type}
+${queryFormLabel.start_hour_label}${queryFormLabel.start_hour}
+${queryFormLabel.end_hour_label}${queryFormLabel.end_hour}
+${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+
 ${head.title|center:42}
 {for detail in body}
 ------------------------------------------

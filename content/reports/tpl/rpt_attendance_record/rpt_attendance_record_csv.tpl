@@ -8,6 +8,10 @@
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 "${_( '(rpt)Start Time' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.user_label}","${queryFormLabel.user}"
+"${queryFormLabel.job_label}","${queryFormLabel.job}"
+"${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
 
 {for master in body}
 "'${master.username}","${_( '(rpt)Job' )}","${_( '(rpt)Clock In' )}","${_( '(rpt)Clock Out' )}","${_( '(rpt)Span Time' )}"

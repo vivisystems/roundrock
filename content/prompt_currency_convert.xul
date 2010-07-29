@@ -51,7 +51,7 @@
                         </row>
                         <row id="row0">
                             <vbox flex="1">
-                                <label id="" value="&prompt.currencyconvert.payment;" control=""/>
+                                <label id="payment_label" value="&prompt.currencyconvert.payment;" control=""/>
                                 <textbox id="payment" type="float" oninput="validateInput()" hidespinbuttons="true" flex="1" value=""  onfocus="select()"/>
                             </vbox>
                         </row>

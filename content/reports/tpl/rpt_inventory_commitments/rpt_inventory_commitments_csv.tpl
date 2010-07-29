@@ -8,6 +8,9 @@
 "${( 'Printed Time' ) + ':'}","${foot.gen_time}"
 "${( 'Start Time' ) + ':'}","${head.start_time}"
 "${( 'End Time' ) + ':'}","${head.end_time}"
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.type_label}","${queryFormLabel.type}"
+"${queryFormLabel.warehouse_label}","${queryFormLabel.warehouse}"
 {for commitment in body}
 ""
 "${_( "(inventory)" + commitment.type )}( ${commitment.clerk} / ${commitment.created|unixTimeToString} )","${commitment.commitment_memo}"

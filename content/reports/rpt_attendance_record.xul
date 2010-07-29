@@ -46,25 +46,25 @@
                                 <row>
                                     <vbox>
                                         <label value="&rptattendancerecord.startdate;"/>
-                                        <vividatetimepicker id="start_date" value="" type="popup"/>
+                                        <vividatetimepicker id="start_date" value="" type="popup" form="queryform" name="start_date"/>
                                     </vbox>
                                     <vbox>
                                         <label value="&rptattendancerecord.enddate;"/>
-                                        <vividatetimepicker id="end_date" value="" type="popup"/>
+                                        <vividatetimepicker id="end_date" value="" type="popup" form="queryform" name="end_date"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptattendancerecord.user;"/>
-                                        <menulist id="user">
+                                        <label value="&rptattendancerecord.user;" id="user_label" form="queryform" name="user_label"/>
+                                        <menulist id="user" form="queryform" name="user">
                                             <menupopup id="user_menupopup">
                                                 <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all"/>
                                             </menupopup>
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptattendancerecord.jobs;"/>
-                                        <menulist id="job">
+                                        <label value="&rptattendancerecord.jobs;" id="job_label" form="queryform" name="job_label"/>
+                                        <menulist id="job" form="queryform" name="job">
                                             <menupopup id="job_menupopup">
                                                 <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all"/>
                                             </menupopup>
@@ -73,8 +73,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptattendancerecord.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&rptattendancerecord.sortby;"  id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby" form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="false" label="&rptattendancerecord.job;" value="job"/>
                                                 <menuitem selected="true" label="&rptattendancerecord.intime;" value="InTime"/>

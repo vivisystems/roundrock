@@ -8,6 +8,13 @@
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 "${_( '(rpt)Start Time' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.terminal_no_label}","${queryFormLabel.terminal_no}"
+"${queryFormLabel.shift_no_label}","${queryFormLabel.shift_no}"
+"${queryFormLabel.period_type_label}","${queryFormLabel.period_type}"
+"${queryFormLabel.status_label}","${queryFormLabel.status}"
+"${queryFormLabel.destination_label}","${queryFormLabel.destination}"
+"${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
 
 {for field in fields}"${_( field.name )}",{/for}""
 {for detail in body}

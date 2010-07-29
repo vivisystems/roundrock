@@ -53,8 +53,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&productSalesReturn.periodtype;"/>
-                                        <menulist id="periodtype">
+                                        <label value="&productSalesReturn.periodtype;" id="periodtype_label" form="queryform" name="periodtype_label"/>
+                                        <menulist id="periodtype" form="queryform" name="periodtype">
                                             <menupopup id="periodtype_menupopup">
                                                 <menuitem selected="false" label="&productSalesReturn.transaction_created;" value="transaction_created"/>
                                                 <menuitem selected="true" label="&productSalesReturn.transaction_submitted;" value="transaction_submitted"/>
@@ -63,8 +63,8 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&productSalesReturn.shiftno;"/>
-                                        <textbox id="shiftno" value=""/>
+                                        <label value="&productSalesReturn.shiftno;" id="shiftno_label" form="queryform" name="shiftno_label"/>
+                                        <textbox id="shiftno" value="" form="queryform" name="shiftno"/>
                                     </vbox>
                                 </row>
                                 <row>
@@ -77,14 +77,14 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&productSalesReturn.terminal_no;"/>
-                                        <textbox id="terminal_no" value=""/>
+                                        <label value="&productSalesReturn.terminal_no;"  id="terminal_no_label" form="queryform" name="terminal_no_label"/>
+                                        <textbox id="terminal_no" value="" form="queryform" name="terminal_no"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&productSalesReturn.returntype;"/>
-                                        <menulist id="returntype">
+                                        <label value="&productSalesReturn.returntype;" id="returntype_label" form="queryform" name="returntype_label"/>
+                                        <menulist id="returntype" form="queryform" name="returntype">
                                             <menupopup id="returntype_menupopup">
                                                 <menuitem selected="true" label="&productSalesReturn.returntype.all;" value="all"/>
                                                 <menuitem selected="false" label="&productSalesReturn.returntype.item;" value="item"/>
@@ -93,8 +93,8 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&productSalesReturn.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&productSalesReturn.sortby;" id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby" form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="true" label="&productSalesReturn.sortby.product_no;" value="product_no"/>
                                                 <menuitem selected="false" label="&productSalesReturn.sortby.product_name;" value="product_name"/>

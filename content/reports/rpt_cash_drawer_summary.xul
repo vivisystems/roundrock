@@ -51,20 +51,20 @@
 				                    </vbox>
 				                </row>
 				                <row>
-				                	<vbox>
-						            	<label value="&cashdrawersummary.sortby;"/>
-								        <menulist id="sortby">
-								            <menupopup id="sortby_menupopup">
-								                <menuitem selected="true" label="&cashdrawersummary.sortby.terminal_no;" value="terminal_no"/>
-								                <menuitem selected="false" label="&cashdrawersummary.sortby.clerk_displayname;" value="clerk_displayname"/>
-								                <menuitem selected="false" label="&cashdrawersummary.sortby.event_type;" value="event_type"/>
-								                <menuitem selected="false" label="&cashdrawersummary.sortby.num_occurrences;" value="num_occurrences"/>
-								            </menupopup>
-								        </menulist>
-								    </vbox>
+				                    <vbox>
+                                                        <label value="&cashdrawersummary.sortby;" id="sortby_label" form="queryform" name="sortby_label"/>
+                                                                <menulist id="sortby" form="queryform" name="sortby">
+                                                                    <menupopup id="sortby_menupopup">
+                                                                        <menuitem selected="true" label="&cashdrawersummary.sortby.terminal_no;" value="terminal_no"/>
+                                                                        <menuitem selected="false" label="&cashdrawersummary.sortby.clerk_displayname;" value="clerk_displayname"/>
+                                                                        <menuitem selected="false" label="&cashdrawersummary.sortby.event_type;" value="event_type"/>
+                                                                        <menuitem selected="false" label="&cashdrawersummary.sortby.num_occurrences;" value="num_occurrences"/>
+                                                                    </menupopup>
+                                                                </menulist>
+					            </vbox>
                                     <vbox>
-                                        <label value="&cashdrawersummary.terminal_no;"/>
-                                        <textbox id="terminal_no" value=""/>
+                                        <label value="&cashdrawersummary.terminal_no;" id="terminal_no_label" form="queryform" name="terminal_no_label"/>
+                                        <textbox id="terminal_no" value="" form="queryform" name="terminal_no"/>
                                     </vbox>
 				                </row>
 				            </rows>
