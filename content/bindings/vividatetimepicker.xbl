@@ -812,6 +812,7 @@
             if (!isNaN(dt)) {
               this._dateValue = dt;
               this.setAttribute("value", this.value);
+              this._setValueOnChange();
               //this._updateUI('hour', this.hour);
               //this._updateUI('minute', this.minute);
               //this._updateUI('second', this.second);
@@ -1348,6 +1349,7 @@
         <parameter name="aValue"/>
         <body>
           <![CDATA[
+alert('setValueNoSync 1355');
             var dt = new Date(aValue);
             if (!isNaN(dt)) {
               this._dateValue = dt;

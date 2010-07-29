@@ -99,6 +99,10 @@
                 date.setDate(date.getDate() + 1);
             }
 
+            var datetimeObj = document.getElementById('datetime');
+            var roundDatetime = (new Date()).getTime();
+            var roundDate = new Date( roundDatetime - (roundDatetime % 3600000 )); // round down 1hour
+            datetimeObj.dateValue = roundDate;
             this.validateForm();
         },
 
