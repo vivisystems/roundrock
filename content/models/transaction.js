@@ -3197,6 +3197,13 @@
                     if (total < 0) roundedTotal = 0 - roundedTotal;
                     revalue_subtotal = roundedTotal - total;
                     break;
+                    
+                case 'round-to-5-cents-down':
+                    var x = Math.abs(total) * 100;
+                    var roundedTotal = (x - (x % 5))/100;
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
 
                 case 'round-to-10-cents-up':
                     roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-nickel');
@@ -3225,6 +3232,13 @@
 
                 case 'round-to-50-cents':
                     roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-half');
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'round-to-50-cents-down':
+                    var x = Math.abs(total) * 10;
+                    var roundedTotal = (x - (x % 5))/10;
                     if (total < 0) roundedTotal = 0 - roundedTotal;
                     revalue_subtotal = roundedTotal - total;
                     break;

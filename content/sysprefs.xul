@@ -202,10 +202,12 @@
                                 <menuitem label="&formats.revalue.round-down-to-factor;" value="round-down-to-factor"/>
                                 <menuitem label="&formats.revalue.round-up-to-factor;" value="round-up-to-factor"/>
                                 <menuitem label="&formats.revalue.round-to-5-cents;" value="round-to-5-cents"/>
+                                <menuitem label="&formats.revalue.round-to-5-cents-down;" value="round-to-5-cents-down"/>
                                 <menuitem label="&formats.revalue.round-to-10-cents-up;" value="round-to-10-cents-up"/>
                                 <menuitem label="&formats.revalue.round-to-10-cents-down;" value="round-to-10-cents-down"/>
                                 <menuitem label="&formats.revalue.round-to-25-cents;" value="round-to-25-cents"/>
                                 <menuitem label="&formats.revalue.round-to-50-cents;" value="round-to-50-cents"/>
+                                <menuitem label="&formats.revalue.round-to-50-cents-down;" value="round-to-50-cents-down"/>
                             </menupopup>
                         </menulist>
                     </vbox>

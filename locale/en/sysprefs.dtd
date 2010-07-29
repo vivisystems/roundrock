@@ -151,10 +151,12 @@
 <!ENTITY formats.revalue.round-down-to-factor "round down to factor">
 <!ENTITY formats.revalue.round-up-to-factor "round up to factor">
 <!ENTITY formats.revalue.round-to-5-cents "round to 5 cents">
+<!ENTITY formats.revalue.round-to-5-cents-down "round to 5 cents (round down 5 cents)">
 <!ENTITY formats.revalue.round-to-10-cents-down "round to 10 cents (round down 5 cents)">
 <!ENTITY formats.revalue.round-to-10-cents-up "round to 10 cents (round up 5 cents)">
 <!ENTITY formats.revalue.round-to-25-cents "round to 25 cents">
 <!ENTITY formats.revalue.round-to-50-cents "round to 50 cents">
+<!ENTITY formats.revalue.round-to-50-cents-down "round to 50 cents (round down 50 cents)">
 <!ENTITY formats.revalue.factor "Factor for revaluing prices">
 <!ENTITY formats.revalue.policies "Revalue policy">
 <!ENTITY formats.charsetselector "Import/Export Charset">
