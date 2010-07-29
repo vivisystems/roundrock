@@ -1349,7 +1349,6 @@
         <parameter name="aValue"/>
         <body>
           <![CDATA[
-alert('setValueNoSync 1355');
             var dt = new Date(aValue);
             if (!isNaN(dt)) {
               this._dateValue = dt;
