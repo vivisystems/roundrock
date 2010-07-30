@@ -24,6 +24,7 @@
             $do( 'set_reportRecords', parameters, 'RptYourOrder' );
             $do( '_setTemplateDataHead', null, 'RptYourOrder' );
             $do( '_setTemplateDataFoot', null, 'RptYourOrder' );
+            $do( '_set_queryForm', null, 'RptYourOrder' );
             $do( '_exploit_reportRecords', null, 'RptYourOrder' );
             $do( 'toggleSize', null, 'RptYourOrder' );
         }

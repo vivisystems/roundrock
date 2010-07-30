@@ -22,6 +22,7 @@
             $do( 'set_reportRecords', parameters, 'RptProductSalesReturn' );
             $do( '_setTemplateDataHead', null, 'RptProductSalesReturn' );
             $do( '_setTemplateDataFoot', null, 'RptProductSalesReturn' );
+            $do( '_set_queryForm', null, 'RptProductSalesReturn' );
             $do( '_exploit_reportRecords', null, 'RptProductSalesReturn' );
             $do( 'toggleSize', null, 'RptProductSalesReturn' );
         }

@@ -29,6 +29,7 @@
             $do( 'setConditionsAnd_reportRecords', parameters, 'RptSalesSummary' );
             $do( '_setTemplateDataHead', null, 'RptSalesSummary' );
             $do( '_setTemplateDataFoot', null, 'RptSalesSummary' );
+            $do( '_set_queryForm', null, 'RptSalesSummary' );
             $do( '_exploit_reportRecords', null, 'RptSalesSummary' );
             $do( 'toggleSize', null, 'RptSalesSummary' );
         }

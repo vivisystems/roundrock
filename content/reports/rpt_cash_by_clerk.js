@@ -19,6 +19,7 @@
             $do( 'set_reportRecords', parameters, 'RptCashByClerk' );
             $do( '_setTemplateDataHead', null, 'RptCashByClerk' );
             $do( '_setTemplateDataFoot', null, 'RptCashByClerk' );
+            $do( '_set_queryForm', null, 'RptCashByClerk' );
             $do( '_exploit_reportRecords', null, 'RptCashByClerk' );
             $do( 'toggleSize', null, 'RptCashByClerk' );
         }

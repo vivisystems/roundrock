@@ -22,6 +22,7 @@
             $do( 'set_reportRecords', parameters, 'RptDailySalesSummary' );
             $do( '_setTemplateDataHead', null, 'RptDailySalesSummary' );
             $do( '_setTemplateDataFoot', null, 'RptDailySalesSummary' );
+            $do( '_set_queryForm', null, 'RptDailySalesSummary' );
             $do( '_exploit_reportRecords', null, 'RptDailySalesSummary' );
             $do( 'toggleSize', null, 'RptDailySalesSummary' );
         }
