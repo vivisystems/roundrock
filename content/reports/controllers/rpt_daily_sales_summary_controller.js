@@ -265,7 +265,8 @@
             var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
-
+            
+            $do( '_set_queryForm', null, 'RptDailySalesSummary' );
             rcp.printReport( 'report', tpl, this._reportRecords );
         },
         
