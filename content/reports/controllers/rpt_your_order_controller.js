@@ -288,34 +288,6 @@
 
             this._set_reportData( pref.parameters.start, pref.parameters.end, start_str, end_str, pref.parameters.terminalNo, pref.parameters.shiftno, pref.parameters.periodtype, sortby, status, destination, this._stdLimit );
         },
-
-        printCustomerReport: function(salePeriod, salePeriod, terminalNo, shiftNumber, settings, key ){
-
-            var periodType = settings.period_type;
-            var sortby = settings.sortby;
-            var status = settings.status;
-            var destination = settings.destination;
-
-            var start_str = new Date(salePeriod).toString( 'yyyy/MM/dd HH:mm' );
-            var end_str = new Date(salePeriod).toString( 'yyyy/MM/dd HH:mm' );
-
-            this.load(key);
-            this._set_reportData( salePeriod, salePeriod, start_str, end_str, terminalNo, shiftNumber, periodType, sortby, status, destination, this._stdLimit );
-            this._setTemplateDataHead();
-
-            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                            .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
-            var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
-
-            var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
-
-            var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
-            var file = GREUtils.File.getFile( path );
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
-            
-            $do( '_set_queryForm', null, 'RptYourOrder' );
-            rcp.printReport( 'report', tpl, this._reportRecords );
-        },
         
         setPaperSize: function( doNotSetReportWidthTextBoxZero ) {
             // set pper size.
@@ -624,8 +596,19 @@
             
             // initialize the settings according to the preference.
             var settings = GeckoJS.Configure.read( this._setting_pref );
-            if ( settings )
-                GeckoJS.FormHelper.unserialize( this._setting_form, settings );
+            if ( settings ){
+
+               /* If we don't remove 'label' property, the label value will be modify in xul.*/
+                var settings_array = settings.split('&');
+                var non_label = [];
+
+                for(var index = 0; index< settings_array.length; index++){
+                    if(settings_array[index].indexOf('label') == -1)
+                        non_label.push(settings_array[index]);
+                }
+
+                GeckoJS.FormHelper.unserialize( this._setting_form, non_label.join('&'));
+            }
             this.setPaperSize( true );
         }
     };

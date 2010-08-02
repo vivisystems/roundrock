@@ -16,19 +16,7 @@
      */
     function startup() {
 
-        var parameters = window.arguments[ 0 ];
-
-        if (parameters && parameters.setparms) {
-            $do( 'set_reportRecords', parameters, 'RptProductSalesReturn' );
-            $do( '_setTemplateDataHead', null, 'RptProductSalesReturn' );
-            $do( '_setTemplateDataFoot', null, 'RptProductSalesReturn' );
-            $do( '_set_queryForm', null, 'RptProductSalesReturn' );
-            $do( '_exploit_reportRecords', null, 'RptProductSalesReturn' );
-            $do( 'toggleSize', null, 'RptProductSalesReturn' );
-        }
-        else {
-            $do( 'load', null, 'RptProductSalesReturn' );
-        }
+            $do( 'load', null, 'RptProductSalesReturn' );       
     };
 
     window.addEventListener( 'load', startup, false );
