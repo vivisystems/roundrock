@@ -253,7 +253,7 @@
             var start_str = new Date(start).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = new Date(end).toString( 'yyyy/MM/dd HH:mm' );
 
-            this._set_reportData( start, end, start_str, end_str, "", periodType, terminalNo, 'date', this._csvLimit );
+            this._set_reportData( start, end, start_str, end_str, shiftNo, periodType, terminalNo, 'date', this._csvLimit );
             this._setTemplateDataHead();
 
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]

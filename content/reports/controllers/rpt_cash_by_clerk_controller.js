@@ -123,7 +123,7 @@
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 
-            $do( '_set_queryForm', null, 'RptCashByClerk' );
+            this._set_queryForm();
             rcp.printReport( 'report', tpl, this._reportRecords );
         },
         
