@@ -1411,15 +1411,7 @@
         },
 
         printDailySales: function(shift) {
-            if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
-                return;
-
-            var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
-            var salePeriod = this._getSalePeriod() * 1000;
-            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
-            var shiftNumber = shift ? this._getShiftNumber().toString() : '';
-
-            reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', shiftNumber );
+           this.reviewDailySales(shift, true);
         },
 
         printDailySalesSummary: function(shift) {
@@ -1518,26 +1510,23 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
         },
 
-        reviewDailySales: function( shift ) {
+        reviewDailySales: function( shift, autoPrint ) {
+            autoPrint = autoPrint || false;
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
             var periodType = 'sale_period';
             var shiftNo = shift ? this._getShiftNumber().toString() : '';
-            
-            var parameters = {
-                start: salePeriod,
-                end: salePeriod,
-                periodtype: periodType,
-                shiftno: shiftNo,
-                terminalNo: terminalNo,
-                setparms: true
-            };
-
-            //var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
-            
-            var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul?terminal_no=${terminal_no}&start_date='+salePeriod+'&end_date='+salePeriod+'&period_type='+periodType+'&shift_no='+shiftNo;
+                       
+            var aURL = 'chrome://viviecr/content/reports/rpt_sales_summary.xul?terminal_no='+terminalNo+'&start_date='+salePeriod+'&end_date='+salePeriod+'&period_type='+periodType+'&shift_no='+shiftNo;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, parameters);//processedTpl, parameters);
+
+            if (autoPrint) {
+                aURL += '&auto_print_rcp=true&auto_close=true';
+            }else {
+                aURL += '&auto_execute=true';
+            }
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features);
         },
 
          reviewDailySalesSummary: function( shift ) {

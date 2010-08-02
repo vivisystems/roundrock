@@ -478,6 +478,26 @@
                     this._dismissWaitingPanel();
             }
         },
+
+        printRcp: function() {
+            
+            try {
+
+                //document.documentElement.collapsed = true;
+                this._csvLimit = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.reports.csvLimit" ) || this._csvLimit );
+
+                this._setTemplateDataHead();
+                this._set_reportRecords();
+                this._set_queryForm();
+                this._setTemplateDataFoot();
+
+                this.exportRcp();
+
+            }catch(e) {
+                
+            }
+
+        },
         
         /**
          * @param fields is an array consisted of strings indicating the fields going to be added to popup menu.
@@ -719,13 +739,30 @@
             if (queryObj['auto_execute']) {
 
                // using some delay for controller loaded.
+               var self=this;
                window.setTimeout(function() {
                    if ($('#execute').length>0) {
                         $('#execute').click();
                    }else if ($('.ExeBtn').length>0) {
                        $('.ExeBtn').click();
+                   }else {
+                        self.execute();
                    }
-               }, 1000);
+                   if (queryObj['auto_close']) {
+                       window.close();
+                   }
+               }, 100);
+            }
+
+            if (queryObj['auto_print_rcp']){
+
+               var self=this;
+               window.setTimeout(function() {
+                    self.printRcp();
+                    if (queryObj['auto_close']) {
+                        window.close();
+                    }
+               }, 100);
             }
 
             return queryObj;
