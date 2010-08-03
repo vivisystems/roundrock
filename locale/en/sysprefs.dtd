@@ -172,3 +172,4 @@
 <!ENTITY training.takedefaultdbtobetrainingdb "Reset training database to default training database">
 <!ENTITY training.taketrainingdbtobedefaultdb "Take current training database as default training database">
 <!ENTITY cart.display.fields "Display Fields">
+<!ENTITY general.clearcart_idletime "Idle time (seconds)">

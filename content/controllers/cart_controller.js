@@ -95,6 +95,21 @@
                     }
                 }
             } ).register();
+
+            // clear register screen if needed
+            var isClearCart = GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization') || false;
+            var clearCartIdletime = GeckoJS.Configure.read('vivipos.fec.settings.ClearCartIdleTime') || 0;
+
+            if (isClearCart && clearCartIdletime > 0) {
+                
+                var idle = GeckoJS.Controller.getInstanceByName('Idle');
+
+                idle.register('clearCart', clearCartIdletime, function(){
+                   if(!self.ifHavingOpenedOrder()) self.cartViewEmpty();
+                });
+            }
+
+
         },
 
         destroy: function() {
@@ -3854,7 +3869,9 @@
                 }
 
                 // clear register screen if needed
-                if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                var isClearCart = GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization') || false;
+                var clearCartIdletime = GeckoJS.Configure.read('vivipos.fec.settings.ClearCartIdleTime') || 0;
+                if (isClearCart && clearCartIdletime <= 0) {
                     //this._cartView.empty();
                     this.cartViewEmpty();
                 }
