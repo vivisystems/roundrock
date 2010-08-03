@@ -247,28 +247,6 @@
 
             this._set_reportData( parameters.start, parameters.end, start_str, end_str, parameters.shiftno, parameters.periodtype, parameters.terminalNo, 'date', this._csvLimit);
         },
-
-        printDailySalesSummary: function( start, end, terminalNo, periodType, shiftNo ) {
-
-            var start_str = new Date(start).toString( 'yyyy/MM/dd HH:mm' );
-            var end_str = new Date(end).toString( 'yyyy/MM/dd HH:mm' );
-
-            this._set_reportData( start, end, start_str, end_str, shiftNo, periodType, terminalNo, 'date', this._csvLimit );
-            this._setTemplateDataHead();
-
-            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                            .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
-            var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
-
-            var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
-
-            var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
-            var file = GREUtils.File.getFile( path );
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
-            
-            $do( '_set_queryForm', null, 'RptDailySalesSummary' );
-            rcp.printReport( 'report', tpl, this._reportRecords );
-        },
         
         exportPdf: function() {
             this._super( {

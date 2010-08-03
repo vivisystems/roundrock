@@ -16,19 +16,7 @@
      */
     function startup() {
 
-        var parameters = window.arguments[ 0 ];
-
-        if (parameters && parameters.setparms) {
-            $do( 'set_reportRecords', parameters, 'RptDailySalesSummary' );
-            $do( '_setTemplateDataHead', null, 'RptDailySalesSummary' );
-            $do( '_setTemplateDataFoot', null, 'RptDailySalesSummary' );
-            $do( '_set_queryForm', null, 'RptDailySalesSummary' );
-            $do( '_exploit_reportRecords', null, 'RptDailySalesSummary' );
-            $do( 'toggleSize', null, 'RptDailySalesSummary' );
-        }
-        else {
-            $do('load', null, 'RptDailySalesSummary');
-        }
+            $do('load', null, 'RptDailySalesSummary');       
     };
 
     window.addEventListener('load', startup, false);
