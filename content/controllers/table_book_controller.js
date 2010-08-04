@@ -38,7 +38,10 @@
 
             if (resetForm) {
                 this.Form.reset('bookingForm');
-                document.getElementById('booking_time_tmp').value = (new Date()).getTime();
+
+                var roundDatetime = (new Date()).getTime();
+                document.getElementById('booking_time_tmp').value = (roundDatetime - (roundDatetime % 900000)); // round down 15mins
+                
                 document.getElementById('add_modify_btn').disabled = true;
             }
             
