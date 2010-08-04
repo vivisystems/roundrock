@@ -380,30 +380,18 @@
                     record[ 'avg_price' ] = record[ 'net' ] / record[ 'qty' ];
                 else
                     record[ 'avg_price' ] = 0.0;
-        /*
-                if (!(record.cate_no in categories.department)) {
-                    categories.department[ record.cate_no ] = {
-                        no: record.cate_no,
-                        name: record.cate_name,
-                        orderItems: [ record ],
-                        summary: {
-                            qty: record.qty,
-                            gross: record.gross,
-                            net: record.net
-                            },
-                        prodByNo: {}
-                    };
-                }
-                else {*/
+
                 for(var i = 0; i< record.grouplink.length ; i++){
 
+                    if (!record.grouplink[i]) continue;
+                    
                     group[ record.grouplink[i].id ].orderItems.push( record );
                     group[ record.grouplink[i].id ].summary.qty += record.qty;
                     group[ record.grouplink[i].id ].summary.gross += record.gross;
                     group[ record.grouplink[i].id ].summary.net += record.net;
-                
-         //       }
-              group[ record.grouplink[i].id ].prodByNo[ record.product_no ] = 1;}
+                    group[ record.grouplink[i].id ].prodByNo[ record.product_no ] = 1;
+                    
+                }
             } );
 
             return group ;
