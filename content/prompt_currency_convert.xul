@@ -45,7 +45,7 @@
                         </row>
                         <row id="row1">
                             <vbox flex="1">
-                                <label id="" value="&prompt.currencyconvert.amount;" control=""/>
+                                <label id="amount_label" value="" control=""/>
                                 <textbox id="amount"  readonly="true" flex="1" value="" onfocus="select()"/>
                             </vbox>
                         </row>
