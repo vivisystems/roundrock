@@ -14,6 +14,7 @@
 
         document.getElementById('dialog-caption').setAttribute("label", title0);
         document.getElementById('payment_label').value = _('Payment in %S',[title0])
+        document.getElementById('amount_label').value = _('Converted Amount in %S',[title0])
         document.getElementById('origin_amount').value = inputObj.origin_amount;
         document.getElementById('amount').value = inputObj.amount;
         document.getElementById('payment').value=inputObj.amount;
