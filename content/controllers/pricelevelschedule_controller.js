@@ -212,6 +212,7 @@
         validateForm: function() {
             var scheduleIndex = this.getListObj().selectedIndex;
             var pricelevelIndex = this.getPriceLevelObj().selectedIndex;
+            this.getPriceLevelObj().selectedItems = [pricelevelIndex];
 
             document.getElementById('add_schedule').setAttribute('disabled', pricelevelIndex == -1);
             document.getElementById('remove_schedule').setAttribute('disabled', scheduleIndex == -1);
