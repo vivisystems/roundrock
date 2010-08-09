@@ -1,4 +1,92 @@
 --------------------------------------------------------------------------------
+Release Note for VIVIECR ver.1.2.1.5 (English version)
+Release Date: 2010-Aug-10
+--------------------------------------------------------------------------------
+
+This is a maintenance release with enhanced functions for VIVIPOS Application (VIVIECR) 1.2.1.x series.
+Previous 1.2.1.x releases may be upgraded to this release by installing the XPI file through Add-ons Manager.
+
+--------------------------------------------------------------------------------
+Dependencies
+--------------------------------------------------------------------------------
+
+This release requires the following applications:
+	- VIVIPOS OS Release 1.2.2 or above
+	- VIVIPOS App Engine Release 1.2.1.4 or above
+	- VIVIPOS WebApp and WebServices Release 1.2.1.1 or above
+
+You should also install appropriate language pack (langpack-en-US_1.2.1.5.xpi) to avoid translation-related issues.
+
+--------------------------------------------------------------------------------
+Enhanced Functions
+--------------------------------------------------------------------------------
+
+Ticket#114:
+Enhance "Reports" function by adding query condition in the header of each report.
+
+Ticket#119:
+Enhance "Currency Conversion" function: A screen which shows the information of currency conversion will pop-up after users click "Currency Exchange" function button.
+
+Ticket#128:
+Enhance "Roles" function for the "Report Selection Screen" pop-up after users conduct "Shift Change" or "End Sales Period" operations.
+
+Ticket#129:
+Enhance "Price Level" function:
+	1. When users click same product twice but with different price level, the product will be listed on different row in shopping cart.
+	2. By clicking "Modify" function button, users can amend the price level of selected product in shopping cart to current price level setting.
+	3. By clicking "Clear" function button, users can revert the price back to the default price of current price level setting.
+
+Ticket#130:
+Enhance "Price Level Schedule" function: The preset time when users setup price level schedule has been displayed in "Hour".
+
+Ticket#132:
+Enhance "Revalue" function by adding the following 2 selections in "General Options":
+	1. round-to-5-cents-down revalue factor:
+		e.g.	0.11 ~ 0.14  ==> round to 0.10
+		e.g.	0.15 ~ 0.19  ==> round to 0.15
+	2. round-to-50-cents-down revalue factor:
+		e.g.	0.1 ~ 0.4  ==> round to 0.0
+		e.g.	0.5 ~ 0.9  ==> round to 0.5
+
+Ticket#134:
+Enhance "Table Booking" function in Table Manager: The preset time when users register a table booking has been displayed in "Quarter Hour".
+
+Ticket#135:
+Enhance "General Options" function: Allow users to set the "Delayed time" before system clears the register screen (after order finalized or stored).
+
+Ticket#137:
+Enhance idle service in software code to support idle name and idle time.
+
+--------------------------------------------------------------------------------
+Bugs Fixed
+--------------------------------------------------------------------------------
+
+Ticket#118:
+In the circumstance that one of the sub items of a set item has condiment in the order, when users split the set item to an new order, the condiment will not be split out along with the set item to the new order.
+This issue has been fixed in 1.2.1.5 release.
+
+Ticket#121:
+In the circumstance that after users conduct "Shift Change" or "End Sales Period" operations, when users click the report butoon in the pop-up screen, the report does not execute the query conditions automatically.
+This issue has been fixed in 1.2.1.5 release.
+
+Ticket#122:
+In the circumstance that when a product and a set item which includes the same product as a sub item exist in an order, and if there is a promotion rule applied to this order, the promotion rule failed afer users store this order and recall it back to shopping cart. This issue has been fixed in 1.2.1.5 release.
+
+Ticket#124:
+Fixed the table order lock issue when a completed order is recalled back to shopping cart.
+
+Ticket#125:
+In the circumstance that a region is deleted from Table Manager setting, when users recall an order which contains previous deleted region information, the recall order process failed.
+This issue has been fixed in 1.2.1.5 release.
+
+Ticket#133:
+In the circumstance that a product group is deleted from Product Groups setting, when users execute Product Sales Report which contains previous deleted product group information,
+the Product Sales Report failed to open. This issue has been fixed in 1.2.1.5 release.
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
 Release Note for VIVIECR ver.1.2.1.4 (English version)
 Release Date: 2010-July-20
 --------------------------------------------------------------------------------
