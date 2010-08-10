@@ -42,7 +42,7 @@
                 if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
 
             }catch(e) {
-                this.log(sql +",,"+ e);
+                this.log('ERROR', 'appendItem: promotion_applies error. SQL:'+sql, e);
             }
 
         },
@@ -59,7 +59,7 @@
                 if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
 
             }catch(e) {
-                this.log(sql +",,"+ e);
+                this.log('ERROR', 'removeItem: promotion_applies error. SQL:'+sql, e);
             }
 
         },
@@ -74,7 +74,7 @@
                 if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
 
             }catch(e) {
-            // this.log(sql +",,"+ e);
+                this.log('ERROR', 'truncate: promotion_applies error. SQL:'+sql, e);
             }
 
         },

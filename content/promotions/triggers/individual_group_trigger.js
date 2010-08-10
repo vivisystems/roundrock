@@ -72,7 +72,7 @@
             var cartItems = [];
 
             // ONLY DISTINCT cart item
-            var sql2 = "SELECT DISTINCT(ROWID) AS ROWID,promotion_cart_items.* FROM promotion_cart_items WHERE " + condition + " ORDER BY promotion_cart_items.current_price";
+            var sql2 = "SELECT DISTINCT(ROWID) AS ROWID,promotion_cart_items.* FROM promotion_cart_items WHERE " + condition + " AND promotion_cart_items.current_price > 0 ORDER BY promotion_cart_items.current_price ";
             cartItems = cartItemModel.getDataSource().fetchAll(sql2);
 
             switch (amount_mode) {
@@ -104,6 +104,7 @@
 
             }
 
+            //this.log('matchedItems ' + this.dump(matchedItems));
             if (matchedItems.length) {
                 this.setMatchedAmount(amount);
                 return true;
@@ -115,7 +116,7 @@
 
         isRepeatable: function() {
 
-            // this.log('IndividualPlu isRepeatable ' + (this.triggerPlus.length > 0));
+            //this.log('IndividualPlu isRepeatable ' + (this.triggerGroups.length > 0));
             return (this.triggerGroups.length > 0);
 
         }

@@ -53,8 +53,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&promotionsummary.periodtype;"/>
-                                        <menulist id="periodtype">
+                                        <label value="&promotionsummary.periodtype;" id="periodtype_label" form="queryform" name="periodtype_label"/>
+                                        <menulist id="periodtype" form="queryform" name="periodtype">
                                             <menupopup id="periodtype_menupopup">
                                                 <menuitem selected="false" label="&promotionsummary.created;" value="transaction_created"/>
                                                 <menuitem selected="true" label="&promotionsummary.transaction_submitted;" value="transaction_submitted"/>
@@ -63,8 +63,8 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&promotionsummary.shiftno;"/>
-                                        <textbox id="shiftno" value=""/>
+                                        <label value="&promotionsummary.shiftno;" id="shiftno_label" form="queryform" name="shiftno_label"/>
+                                        <textbox id="shiftno" value="" form="queryform" name="shiftno"/>
                                     </vbox>
                                 </row>
                                 <row>
@@ -88,8 +88,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&promotionsummary.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&promotionsummary.sortby;" id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby" form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="true" label="&promotionsummary.sortby.date;" value="date"/>
                                                 <menuitem selected="false" label="&promotionsummary.sortby.gross;" value="gross"/>
@@ -102,8 +102,8 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&promotionsummary.terminal_no;"/>
-                                        <textbox id="terminal_no" value=""/>
+                                        <label value="&promotionsummary.terminal_no;" id="terminal_no_label" form="queryform" name="terminal_no_label"/>
+                                        <textbox id="terminal_no" value="" form="queryform" name="terminal_no"/>
                                     </vbox>
                                 </row>
                             </rows>

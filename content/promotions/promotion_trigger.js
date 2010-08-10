@@ -211,8 +211,6 @@ var __klass__ = {
             matchedItems.push(matchedItem);
         });
 
-        //this.log(this.dump(matchedItems) + ',,,' + qty + ',,,' + matchedItemsSubtotal);
-
         if (remain <= 0) {
             // set MatchedItemsSubtotal
             this.setMatchedItemsSubtotal(matchedItemsSubtotal);

@@ -5,6 +5,10 @@ ${head.store.telephone1|center:42}
 Terminal: ${head.store.terminal_no + ' '|left:11}${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname|left:14}
 ${head.start_time} ~ ${head.end_time}
 
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.type_label}${queryFormLabel.type}
+${queryFormLabel.warehouse_label}${queryFormLabel.warehouse}
+
 ${head.title|center:42}
 {for commitment in body}
 ==========================================

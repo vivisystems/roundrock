@@ -232,25 +232,20 @@
             this._set_reportData( start, end, start_str, end_str, shiftNo, periodType, terminalNo, sortby, limit);
         },
 
-        printDailySalesSummary: function( start, end, terminalNo, periodType, shiftNo ) {
+        set_reportRecords: function( parameters ) {
 
-            var start_str = new Date(start).toString( 'yyyy/MM/dd HH:mm' );
-            var end_str = new Date(end).toString( 'yyyy/MM/dd HH:mm' );
+            document.getElementById('start_date').value = parameters.start;
+            document.getElementById('end_date').value = parameters.end;
 
-            this._set_reportData( start, end, start_str, end_str, "", periodType, terminalNo, 'date', this._csvLimit );
-            this._setTemplateDataHead();
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
-            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                            .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
-            var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+            document.getElementById('terminal_no').value = parameters.terminalNo;
 
-            var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
+            document.getElementById( 'period_type' ).value = parameters.periodtype;
+            document.getElementById( 'shift_no' ).value = parameters.shiftno;
 
-            var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
-            var file = GREUtils.File.getFile( path );
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
-
-            rcp.printReport( 'report', tpl, this._reportRecords );
+            this._set_reportData( parameters.start, parameters.end, start_str, end_str, parameters.shiftno, parameters.periodtype, parameters.terminalNo, 'date', this._csvLimit);
         },
         
         exportPdf: function() {

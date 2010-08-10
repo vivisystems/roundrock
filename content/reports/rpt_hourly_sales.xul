@@ -54,8 +54,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rpthourlysales.starthour;"/>
-                                        <menulist id="start_hour">
+                                        <label value="&rpthourlysales.starthour;" id="start_hour_label" form="queryform" name="start_hour_label"/>
+                                        <menulist id="start_hour" form="queryform" name="start_hour">
                                             <menupopup id="start_hour_menupopup">
                                                 <menuitem selected="true"  label="0" value="0"/>
                                                 <menuitem selected="false" label="1" value="1"/>
@@ -85,8 +85,8 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rpthourlysales.endhour;"/>
-                                        <menulist id="end_hour">
+                                        <label value="&rpthourlysales.endhour;" id="end_hour_label" form="queryform" name="end_hour_label"/>
+                                        <menulist id="end_hour" form="queryform" name="end_hour">
                                             <menupopup id="end_hour_menupopup">
                                                 <menuitem selected="false"  label="0" value="0"/>
                                                 <menuitem selected="false" label="1" value="1"/>
@@ -118,8 +118,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rpthourlysales.periodtype;"/>
-                                        <menulist id="period_type">
+                                        <label value="&rpthourlysales.periodtype;" id="period_type_label" form="queryform" name="period_type_label"/>
+                                        <menulist id="period_type" form="queryform" name="period_type">
                                             <menupopup id="period_type_menupopup">
                                                 <menuitem selected="false" label="&rpthourlysales.transaction_created;" value="transaction_created"/>
                                                 <menuitem selected="true" label="&rpthourlysales.transaction_submitted;" value="transaction_submitted"/>
@@ -128,14 +128,14 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rpthourlysales.terminal_no;"/>
-                                        <textbox id="terminal_no" value=""/>
+                                        <label value="&rpthourlysales.terminal_no;" id="terminal_no_label" form="queryform" name="terminal_no_label"/>
+                                        <textbox id="terminal_no" value="" form="queryform" name="terminal_no"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rpthourlysales.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&rpthourlysales.sortby;" id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby" form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="false" label="&rpthourlysales.sortby.terminal_no;" value="terminal_no"/>
                                                 <menuitem selected="false" label="&rpthourlysales.sortby.hour;" value="Hour"/>

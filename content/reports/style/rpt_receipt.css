@@ -225,3 +225,18 @@ body
 {
     text-align: right;
 }
+
+#condition-table {
+  width: 100%;
+  margin: 0px auto 0px auto;
+/*  font: 100% sans-serif; */
+  border-collapse: collapse;
+  text-align:left;
+  clear:both;
+  empty-cells: show;
+}
+
+#condition-table .condition-title{
+    width: 20%;
+    white-space:nowrap;
+}

@@ -1,6 +1,10 @@
 [&INIT]
 [&QSON]${head.store.name|center:21}[&QSOFF]
 [&DWON]${head.store.branch|center:21}[&DWOFF]
+
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+
 ${head.store.telephone1|center:42}
 ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no + ' '|left:11}${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname|left:14}
 

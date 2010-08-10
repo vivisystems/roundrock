@@ -99,6 +99,10 @@
                 date.setDate(date.getDate() + 1);
             }
 
+            var datetimeObj = document.getElementById('datetime');
+            var roundDatetime = (new Date()).getTime();
+            var roundDate = new Date( roundDatetime - (roundDatetime % 3600000 )); // round down 1hour
+            datetimeObj.dateValue = roundDate;
             this.validateForm();
         },
 
@@ -208,6 +212,7 @@
         validateForm: function() {
             var scheduleIndex = this.getListObj().selectedIndex;
             var pricelevelIndex = this.getPriceLevelObj().selectedIndex;
+            this.getPriceLevelObj().selectedItems = [pricelevelIndex];
 
             document.getElementById('add_schedule').setAttribute('disabled', pricelevelIndex == -1);
             document.getElementById('remove_schedule').setAttribute('disabled', scheduleIndex == -1);

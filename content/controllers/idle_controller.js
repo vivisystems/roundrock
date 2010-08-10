@@ -4,69 +4,139 @@
 
         name: 'Idle',
 
-        lastIdleTime: -1,
+        registeredIdles: {},
 
-        // implement observe for idle
-        observe: function(subject, topic, data) {
+        getObserveObject: function(name, func) {
 
-            if (topic == 'idle') {
-
-                var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
+            var idleName = name || '';
+            var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
+            var self = this;
+            
+            var idleObserver = {
                 
-                // gc force
+                observe: function(subject, topic, data) {
+
+                    if (topic == 'idle') {
+                       
+                        try {
+
+                            // callback function
+                            if(typeof func == "function") func.call(self);
+
+                        }catch(e) {
+                            self.log('ERROR', 'ERROR invoke idle callback', e);
+                        }
+
+                        self.dispatchEvent('onIdle', {
+                            name: idleName,
+                            subject: subject,
+                            topic: topic ,
+                            data: data
+                        });
+
+                    }else if (topic == 'back'){
+
+                        self.dispatchEvent('onBack', {
+                            name: idleName,
+                            subject: subject,
+                            topic: topic ,
+                            data: data
+                        });
+
+                    }
+
+                }
+            };
+
+            return idleObserver;
+        },
+
+
+        registerDefault: function() {
+
+            var self = this;
+            var name = 'default';
+            var idleTime = GeckoJS.Configure.read("vivipos.fec.settings.idle.time") || 60; // one minute
+            
+            var callback = function() {
+                
                 try {
 
-                    GREUtils.gc();
+                    GREUtils.gc(); // gc force
 
                     window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                          .getInterface(Components.interfaces.nsIDOMWindowUtils)
-                          .garbageCollect();
+                    .getInterface(Components.interfaces.nsIDOMWindowUtils)
+                    .garbageCollect();
+
+                    // notification-daemon has memory leak restart it.
+                    GREUtils.File.run('/etc/X11/Xsession.d/70notification-daemon', [], true);
+
                 }catch(e) {
-                    
+                    self.log('ERROR', 'ERROR process default idle.', e);
                 }
 
-                // notification-daemon has memory leak restart it.
-                GREUtils.File.run('/etc/X11/Xsession.d/70notification-daemon', [], true);
+            };
 
-                this.dispatchEvent('onIdle', {subject: subject, topic: topic , data: data});
-
-            }else if (topic == 'back'){
-
-                this.dispatchEvent('onBack', {subject: subject, topic: topic , data: data});
-                
-            }
+            this.register(name, idleTime, callback);
 
         },
 
-        register: function () {
 
-            if (this.lastIdleTime == -1) {
-                
-                var idleTime = GeckoJS.Configure.read("vivipos.fec.settings.idle.time") || 60; // one minute
+        register: function (name, idleTime, callback) {
 
-                var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
+            if (this.registeredIdles[name]) {
 
-                idleService.addIdleObserver(this, idleTime);
-
-                this.lastIdleTime = idleTime;
-            }
-            else {
                 this.log('WARN', 'Idle service already registered, please unregister existing service first');
-            }
 
-        },
+            }else {
 
-        unregister: function () {
-
-            if (this.lastIdleTime != -1) {
+                idleTime = idleTime || GeckoJS.Configure.read("vivipos.fec.settings.idle.time") || 60; // one minute
                 var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
+                var idleObserve = this.getObserveObject(name, callback);
 
-                idleService.removeIdleObserver(this, this.lastIdleTime);
+                idleService.addIdleObserver(idleObserve, idleTime);
 
-                this.lastIdleTime = -1;
+                // add to registeredIdles
+                this.registeredIdles[name] = {name: name, idle: idleTime, observe: idleObserve};
+
             }
 
         },
+
+
+        unregister: function (name) {
+
+            if (this.registeredIdles[name]) {
+
+                var idleTime = this.registeredIdles[name]['idle'];
+                var observe = this.registeredIdles[name]['observe'];
+
+                var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
+                idleService.removeIdleObserver(observe, idleTime);
+
+                delete this.registeredIdles[name];
+                
+            }
+            
+        },
+
+        unregisterAll: function() {
+
+            var idleService = Components.classes["@mozilla.org/widget/idleservice;1"].getService(Components.interfaces.nsIIdleService);
+            
+            for (var name in this.registeredIdles) {
+
+                var idleTime = this.registeredIdles[name]['idle'];
+                var observe = this.registeredIdles[name]['observe'];
+
+                idleService.removeIdleObserver(observe, idleTime);
+
+            }
+
+            this.registeredIdles = {};
+            
+        },
+
 
         updateIdleTime: function(evt) {
             // re-register with new idle time if different from old idle time
@@ -75,10 +145,15 @@
             var idleController = GeckoJS.Controller.getInstanceByName('Idle');
 
             if (idleController) {
-                if (idleTime != idleController.lastIdleTime) {
-                    idleController.unregister();
-                    idleController.register();
+
+                var idleObject = idleController.registeredIdles['default'];
+                if (idleObject) {
+                    if (idleTime != idleObject.idle) {
+                        idleController.unregister('default');
+                        idleController.registerDefault();
+                    }
                 }
+
             }
         }
 
@@ -88,13 +163,12 @@
     GeckoJS.Controller.extend(__controller__);
 
 
-
     function startup() {
 
         var idleController = GeckoJS.Controller.getInstanceByName('Idle');
         
         if (idleController) {
-            idleController.register();
+            idleController.registerDefault();
         }
 
         // listen for 'updateOptions' event
@@ -111,7 +185,7 @@
         var idleController = GeckoJS.Controller.getInstanceByName('Idle');
 
         if (idleController) {
-            idleController.unregister();
+            idleController.unregisterAll();
         }
     }
 

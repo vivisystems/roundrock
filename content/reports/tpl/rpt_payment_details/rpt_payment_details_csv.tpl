@@ -8,6 +8,12 @@
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 "${_( '(rpt)Start Time' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.terminal_no_label}","${queryFormLabel.terminal_no}"
+"${queryFormLabel.shift_no_label}","${queryFormLabel.shift_no}"
+"${queryFormLabel.period_type_label}","${queryFormLabel.period_type}"
+"${queryFormLabel.payment_type_label}","${queryFormLabel.payment_type}"
+"${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
 
 {for paymentGroup in body}
 '${_('(rpt)' + paymentGroup_index)}

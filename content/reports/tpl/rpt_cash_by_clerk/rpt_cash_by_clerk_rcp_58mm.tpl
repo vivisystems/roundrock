@@ -8,6 +8,10 @@ ${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 ${head.start_time} ~
 ${head.end_time}
 
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
+${queryFormLabel.shift_no_label}${queryFormLabel.shift_no}
+
 ${head.title|center:24}
 {for master in body}
 ========================

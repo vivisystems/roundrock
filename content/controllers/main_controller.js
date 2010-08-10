@@ -159,7 +159,11 @@
         },
 
         idleHandler: function(evt) {
-            if ( !this._isTraining ) {
+            
+            var data = evt.data;
+            var idleName = data.name || 'default';
+            
+            if ( !this._isTraining && idleName == 'default' ) {
                 var signOff = GeckoJS.Configure.read('vivipos.fec.settings.SignOffWhenIdle');
                 if (signOff) {
 

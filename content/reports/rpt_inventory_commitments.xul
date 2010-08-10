@@ -55,8 +55,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptinventorycommitments.type;"/>
-                                        <menulist id="type">
+                                        <label value="&rptinventorycommitments.type;" id="type_label" form="queryform" name="type_label"/>
+                                        <menulist id="type" form="queryform" name="type">
                                             <menupopup id="type_menupopup">
                                                 <menuitem selected="true" label="&rptinventorycommitments.type.all;" value="all"/>
                                                 <menuitem selected="false" label="&stockrecords.commit.reason.inventory;" value="inventory"/>
@@ -67,8 +67,8 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptinventorycommitments.warehouse;"/>
-                                        <textbox id="warehouse" value=""/>
+                                        <label value="&rptinventorycommitments.warehouse;" id="warehouse_label" form="queryform" name="warehouse_label"/>
+                                        <textbox id="warehouse" value="" form="queryform" name="warehouse"/>
                                     </vbox>
                                 </row>
                             </rows>

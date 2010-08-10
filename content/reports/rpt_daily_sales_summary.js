@@ -16,8 +16,7 @@
      */
     function startup() {
 
-        $do('load', null, 'RptDailySalesSummary');
-
+            $do('load', null, 'RptDailySalesSummary');       
     };
 
     window.addEventListener('load', startup, false);

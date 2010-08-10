@@ -58,7 +58,7 @@
                         this._triggerPrefs[trigger_key] = triggerObj;
                        
                     }catch(e){
-                         // this.log('include trigger ' + e);
+                         this.log('ERROR', 'include trigger error.', e);
                     }
                 }
             }
@@ -82,7 +82,7 @@
                         this._typePrefs[type_key] = typeObj;
 
                     }catch(e){
-                        // this.log('include type ' + e);
+                        this.log('ERROR', 'include type error.', e);
                     }
                 }
             }
@@ -106,7 +106,7 @@
 
                 Transaction.events.addListener('onUnserialize', function(evt) {
                     if (!evt || !evt.data) return;
-
+                    
                     self.appendTransactionDatas(evt.data);
                 });
                 
@@ -223,7 +223,7 @@
                                 self._activedTriggers[Id] = triggerObj;
                             }
                         }catch(e) {
-                            //self.log('new trigger exception ' + e);
+                            self.log('ERROR', 'instance trigger exception error.', e);
                         }
                     }
 
@@ -240,7 +240,7 @@
                     }
 
                 }catch(e) {
-                    // self.log('try instance ' + e);
+                    self.log('ERROR', 'try instance error.', e);
                 }
             });
             // this.log(this.dump(this._activedTriggers));
@@ -279,16 +279,22 @@
         },
 
         appendTransactionDatas: function(transaction) {
-
+           
             if(this._currentPromotions.length == 0) return;
-            
+
             try {
                 for (var index in transaction.data.items) {
                     if(transaction.data.items[index]) {
-                        this.appendTransactionData(transaction.data.items[index]);
+                        if ( (!transaction.data.items[index]['parent_index']) ||
+                             (typeof transaction.data.items[index]['parent_index'] == 'string' && transaction.data.items[index]['parent_index'] == 'null' )
+                           ) {
+                            this.appendTransactionData(transaction.data.items[index]);
+                        }
                     }
                 }
-            }catch(e) {}
+            }catch(e) {
+                this.log('ERROR', 'appendTransactionDatas error.', e);
+            }
         },
 
         appendTransactionData: function(item) {
@@ -396,7 +402,7 @@
                     } while (triggerObj.isRepeatable() && recursiveCount < maxRecursiveCount) ;
 
                 }catch(e) {
-                  this.log(/*'WARN', */'promotion process ' + promotion.name + ', ' + e.messages);
+                  this.log('WARN', 'promotion process ' + promotion.name + ' error.', e);
                 }
                 return true;
 

@@ -8,6 +8,12 @@
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 "${_( '(rpt)Start Time' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.terminal_no_label}","${queryFormLabel.terminal_no}"
+"${queryFormLabel.shift_no_label}","${queryFormLabel.shift_no}"
+"${queryFormLabel.period_type_label}","${queryFormLabel.period_type}"
+"${queryFormLabel.orderstatus_label}","${queryFormLabel.orderstatus}"
+"${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
 
 "${_( '(rpt)Terminal' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Sale Period')}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Status' )}","${_( '(rpt)Void Clerk' )}","${_( '(rpt)Void Sale Period' )}","${_( '(rpt)Void Shift' )}","${_( '(rpt)Void Time' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Invoice Count' )}","${_( '(rpt)Gross Sales' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Total' )}","${_( '(rpt)Payment' )}"
 {for detail in body}

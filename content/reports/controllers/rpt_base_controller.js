@@ -158,6 +158,55 @@
 
         _set_reportRecords: function( limit ) {
         },
+
+        _set_queryForm: function(){
+
+            var queryForm = GeckoJS.FormHelper.serializeToObject('queryform') ;
+
+            if(GeckoJS.BaseObject.getKeys(queryForm).length == 0)
+                queryForm = GeckoJS.FormHelper.serializeToObject('settings');
+            
+            var queryFormLabel = {};
+
+            for (var fieldName in queryForm ) {
+                // check field name is label ?
+                if (fieldName.match(/_label$/)) {
+                    queryFormLabel[fieldName] = queryForm[fieldName];
+                }else {
+
+                    let fieldValueLabel = queryForm[fieldName];
+                    try {
+                        let inputObj = document.getElementById(fieldName);
+                        if (inputObj) {
+                            let tagName = inputObj.tagName.toLowerCase();
+
+                           switch(tagName) {
+                               case 'menulist':
+                               case 'radiogroup':
+                                   let selItem = inputObj.selectedItem;
+                                   fieldValueLabel = $(selItem).attr('label') || $(selItem).attr('value');
+                               break;
+
+                               case 'checkbox':
+                                   fieldValueLabel = $(inputObj).attr('label') || $(inputObj).attr('value');
+                               break;
+
+                               default:
+                                   break;
+                           }
+                        }
+
+                    }finally {
+                        queryFormLabel[fieldName] = fieldValueLabel;
+                    }
+                }
+            }
+
+            this._reportRecords.queryForm = queryForm;
+            this._reportRecords.queryFormLabel = queryFormLabel;
+            /*@debug condition table*/
+            //this.log(this.dump(queryFormLabel));
+        },
         
         _exploit_reportRecords: function() {
 
@@ -234,6 +283,7 @@
                 var waitPanel = this._showWaitingPanel(100, true);
                 this._setTemplateDataHead();
                 this._set_reportRecords();
+                this._set_queryForm();
                 this._setTemplateDataFoot();
                 reportResult = this._exploit_reportRecords();
             } catch ( e ) {
@@ -427,6 +477,26 @@
                 if ( waitPanel != undefined )
                     this._dismissWaitingPanel();
             }
+        },
+
+        printRcp: function() {
+            
+            try {
+
+                //document.documentElement.collapsed = true;
+                this._csvLimit = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.reports.csvLimit" ) || this._csvLimit );
+
+                this._setTemplateDataHead();
+                this._set_reportRecords();
+                this._set_queryForm();
+                this._setTemplateDataFoot();
+
+                this.exportRcp();
+
+            }catch(e) {
+                
+            }
+
         },
         
         /**
@@ -669,13 +739,30 @@
             if (queryObj['auto_execute']) {
 
                // using some delay for controller loaded.
+               var self=this;
                window.setTimeout(function() {
                    if ($('#execute').length>0) {
                         $('#execute').click();
                    }else if ($('.ExeBtn').length>0) {
                        $('.ExeBtn').click();
+                   }else {
+                        self.execute();
                    }
-               }, 1000);
+                   if (queryObj['auto_close']) {
+                       window.close();
+                   }
+               }, 100);
+            }
+
+            if (queryObj['auto_print_rcp']){
+
+               var self=this;
+               window.setTimeout(function() {
+                    self.printRcp();
+                    if (queryObj['auto_close']) {
+                        window.close();
+                    }
+               }, 100);
             }
 
             return queryObj;

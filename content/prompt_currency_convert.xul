@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % CurrencyConvert SYSTEM "chrome://viviecr/locale/prompt_currency_convert.dtd">
+  %CurrencyConvert;
+  <!ENTITY % Numberpad SYSTEM "chrome://viviecr/locale/numberpad.dtd">
+  %Numberpad;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&prompt.currencyconvert.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+
+  <script type="application/x-javascript" src="chrome://viviecr/content/prompt_currency_convert.js" />
+
+    <vbox class="container-dialog" flex="1">
+        <vbox class="container-main" flex="1">
+            <groupbox flex="1">
+                <caption id="dialog-caption" label="" class="label-page-title"/>              
+                <grid id="main-grid" class="data-form">
+                    <columns>
+                        <column flex="1"/>
+                    </columns>
+                    <rows id="main-rows">
+                        <row id="row0">
+                            <vbox flex="1">
+                                <label id="" value="&prompt.currencyconvert.origin_amount;" control=""/>
+                                <textbox id="origin_amount" readonly="true" flex="1" value=""  oninput="" onfocus="select()"/>
+                            </vbox>
+                        </row>
+                        <row id="row1">
+                            <vbox flex="1">
+                                <label id="amount_label" value="" control=""/>
+                                <textbox id="amount"  readonly="true" flex="1" value="" onfocus="select()"/>
+                            </vbox>
+                        </row>
+                        <row id="row0">
+                            <vbox flex="1">
+                                <label id="payment_label" value="" control=""/>
+                                <textbox id="payment" type="float" oninput="validateInput()" hidespinbuttons="true" flex="1" value=""  onfocus="select()"/>
+                            </vbox>
+                        </row>
+                    </rows>
+                </grid>
+            </groupbox>
+            <hbox id="numpad" pack="center">
+                <numberpad id="multinumberpad" class="numpad"/>
+                <vbox>
+                    <sendkeybutton id="bkeyBtn" label="&numberpad.keylabel.del;" keyCode='0x08' class="button-fixed"/>
+                    <sendkeybutton id="clearBtn" label="&numberpad.keylabel.clear;" class="button-fixed"
+                                   oncommand="clearFocusedElement(this.target);"/>
+                </vbox>
+            </hbox>
+            <spacer id="single-line-spacer" flex="1"/>
+            <hbox>
+                <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                    <button id="ok" label="&prompt.currencyconvert.okButton.label;" disabled="true" default="true" oncommand="doOKButton();"/>
+                    <button id="cancel" label="&prompt.currencyconvert.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
+                </hbox>
+                <hbox pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle()"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
+
+</window>

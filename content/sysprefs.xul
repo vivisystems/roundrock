@@ -45,6 +45,7 @@
             <preference id="pref_autosetdecimalpoint" name="vivipos.fec.settings.AutoSetDecimalPoint" type="bool"/>
             <preference id="pref_disableautofinalize" name="vivipos.fec.settings.DisableAutoFinalize" type="bool"/>
             <preference id="pref_cartscrollmode" name="vivipos.fec.settings.CartScrollMode" type="unichar"/>
+            <preference id="pref_clearcart_idletime" name="vivipos.fec.settings.ClearCartIdleTime" type="int"/>
         </preferences>
 
         <grid class="data-form-2 data-form-options">
@@ -59,7 +60,10 @@
                 </row>
                 <row>
                     <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&general.changedepartmentclearbuffer;"/>
-                    <checkbox preference="pref_clearcartafterfinalization" id="pref_clearcartafterfinalizationCtrl" label="&general.clearcartafterfinalization;"/>
+                    <vbox>
+                        <checkbox preference="pref_clearcartafterfinalization" id="pref_clearcartafterfinalizationCtrl" label="&general.clearcartafterfinalization;"/>
+                        <hbox><label control="clearcart_idletime" value="&general.clearcart_idletime;"/><textbox preference="pref_clearcart_idletime" id="clearcart_idletime" type="number" size="3" maxlength="3" min="0" max="999"/></hbox>
+                    </vbox>
                 </row>
                 <row>
                     <checkbox preference="pref_ageverificationack" id="pref_ageverificationackCtrl" label="&general.ageverificationack;"/>
@@ -202,10 +206,12 @@
                                 <menuitem label="&formats.revalue.round-down-to-factor;" value="round-down-to-factor"/>
                                 <menuitem label="&formats.revalue.round-up-to-factor;" value="round-up-to-factor"/>
                                 <menuitem label="&formats.revalue.round-to-5-cents;" value="round-to-5-cents"/>
+                                <menuitem label="&formats.revalue.round-to-5-cents-down;" value="round-to-5-cents-down"/>
                                 <menuitem label="&formats.revalue.round-to-10-cents-up;" value="round-to-10-cents-up"/>
                                 <menuitem label="&formats.revalue.round-to-10-cents-down;" value="round-to-10-cents-down"/>
                                 <menuitem label="&formats.revalue.round-to-25-cents;" value="round-to-25-cents"/>
                                 <menuitem label="&formats.revalue.round-to-50-cents;" value="round-to-50-cents"/>
+                                <menuitem label="&formats.revalue.round-to-50-cents-down;" value="round-to-50-cents-down"/>
                             </menupopup>
                         </menulist>
                     </vbox>

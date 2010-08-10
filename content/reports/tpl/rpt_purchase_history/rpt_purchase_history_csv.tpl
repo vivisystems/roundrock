@@ -8,6 +8,9 @@
 "${( 'Printed Time' ) + ':'}","${foot.gen_time}"
 "${( 'Start Time' ) + ':'}","${head.start_time}"
 "${( 'End Time' ) + ':'}","${head.end_time}"
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.groupby_label}","${queryFormLabel.groupby}"
+"${queryFormLabel.warehouse_label}","${queryFormLabel.warehouse}"
 {for record in body.records}
 {eval}
     numRecord = record.records.length;

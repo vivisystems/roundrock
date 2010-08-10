@@ -18,6 +18,23 @@
 		<p class="caption" style="text-align: right;">${head.start_time} - ${head.end_time}</p>
                 <br/>
 	</div>
+        <table id="condition-table">
+            <tr>
+                <td class="condition-title"><span class="caption">${_('(rpt)Condition') + ' - '}</span></td>
+                <td align="left" >
+                       <span class="caption">${queryFormLabel.terminal_no_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.terminal_no|escape}</span>
+                       <span class="caption">${queryFormLabel.shift_no_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.shift_no|escape}</span>
+                       <span class="caption">${queryFormLabel.period_type_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.period_type|escape}</span>
+                       <span class="caption">${queryFormLabel.payment_type_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.payment_type|escape}</span>
+                       <span class="caption">${queryFormLabel.sortby_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.sortby|escape}</span>
+                </td>
+           </tr>
+       </table>
 {for paymentGroup in body}
         <br/>
         <table id="body-table">

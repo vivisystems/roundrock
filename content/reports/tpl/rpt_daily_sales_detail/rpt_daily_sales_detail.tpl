@@ -17,6 +17,23 @@
 		<p class="heading_p" style="text-align: right;">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
 		<p class="caption" style="text-align: right;">${head.start_time} - ${head.end_time}</p>
 	</div>
+        <table id="condition-table">
+            <tr>
+                <td class="condition-title"><span class="caption">${_('(rpt)Condition') + ' - '}</span></td>
+                <td align="left" >
+                       <span class="caption">${queryFormLabel.terminal_no_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.terminal_no|escape}</span>
+                       <span class="caption">${queryFormLabel.shift_no_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.shift_no|escape}</span>
+                       <span class="caption">${queryFormLabel.period_type_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.period_type|escape}</span>
+                       <span class="caption">${queryFormLabel.sequence_no_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.sequence_no|escape}</span>
+                       <span class="caption">${queryFormLabel.sortby_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.sortby|escape}</span>
+                </td>
+           </tr>
+        </table>
         <table id="body-table">
             <thead>
                 <tr>
