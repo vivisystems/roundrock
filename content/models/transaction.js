@@ -1066,6 +1066,8 @@
             var sellQty = itemTrans.current_qty;
             var oldSellQty = itemTrans.current_qty;
             var sellPrice = itemTrans.current_price;
+            var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
+            var oldPriceLevel = itemTrans.price_level;
             var condimentPrice = 0;
             var setItems = [];
             var setItemEventData;
@@ -1088,10 +1090,16 @@
 
                     if (itemTrans.current_qty < 0 && sellQty > 0) sellQty = 0 - sellQty;
 
-                    sellPrice = (GeckoJS.Session.get('cart_set_price_value') != null)
-                                ? GeckoJS.Session.get('cart_set_price_value')
-                                : sellPrice;
-
+                    if (GeckoJS.Session.get('cart_set_price_value') != null) {
+                        sellPrice = GeckoJS.Session.get('cart_set_price_value');
+                    }else {
+                        if ((sellQty == oldSellQty) && (oldPriceLevel != priceLevel)) {
+                            // user want to shift price level
+                            sellPrice = null;
+                        }else {
+                            sellPrice = itemTrans.current_price;
+                        }
+                    }
                     sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
 
                     sellQtyDisplay  = (GeckoJS.Session.get('cart_set_qty_display') != null) ? GeckoJS.Session.get('cart_set_qty_display') : sellQtyDisplay;
@@ -3189,6 +3197,13 @@
                     if (total < 0) roundedTotal = 0 - roundedTotal;
                     revalue_subtotal = roundedTotal - total;
                     break;
+                    
+                case 'round-to-5-cents-down':
+                    var x = Math.abs(total) * 100;
+                    var roundedTotal = (x - (x % 5))/100;
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
 
                 case 'round-to-10-cents-up':
                     roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-nickel');
@@ -3217,6 +3232,13 @@
 
                 case 'round-to-50-cents':
                     roundedTotal = Transaction.Number.round(Math.abs(total), 2, 'to-nearest-half');
+                    if (total < 0) roundedTotal = 0 - roundedTotal;
+                    revalue_subtotal = roundedTotal - total;
+                    break;
+
+                case 'round-to-50-cents-down':
+                    var x = Math.abs(total) * 10;
+                    var roundedTotal = (x - (x % 5))/10;
                     if (total < 0) roundedTotal = 0 - roundedTotal;
                     revalue_subtotal = roundedTotal - total;
                     break;
@@ -3583,13 +3605,14 @@
                 let itemIndex = itemDisplay.index;
                 let itemParentIndex = itemDisplay.parent_index;
                 let itemType = itemDisplay.type;
+                let displayLevel = itemDisplay.level;
                 let item = source.data.items[itemIndex];
                 let parentItem = null;
                 if (itemParentIndex) {
                     parentItem = source.data.items[itemParentIndex];
                 }
 
-                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex) {
+                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex || (itemType != 'item' && itemType != 'setitem' && displayLevel > 0)) {
                     
                     if (itemIndex && !removeIndexes[itemIndex]) {
                         removeIndexes[itemIndex] = itemIndex;
@@ -3638,6 +3661,7 @@
                 let itemIndex = itemDisplay.index;
                 let itemParentIndex = itemDisplay.parent_index;
                 let itemType = itemDisplay.type;
+                let displayLevel = itemDisplay.level;
                 let item = source.data.items[itemIndex];
                 let parentItem = null;
                 if (itemParentIndex) {
@@ -3651,7 +3675,7 @@
                 let newItem = null;
                 let priceModifier = item.price_modifier
 
-                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex) {
+                if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex || (itemType != 'item' && itemType != 'setitem' && displayLevel > 0)) {
 
 
                     if (itemIndex && !removeIndexes[itemIndex]) {

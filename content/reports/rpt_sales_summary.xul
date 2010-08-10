@@ -54,8 +54,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptsalessummary.periodtype;"/>
-                                        <menulist id="period_type">
+                                        <label value="&rptsalessummary.periodtype;" id="period_type_label" form="queryform" name="period_type_label"/>
+                                        <menulist id="period_type" form="queryform" name="period_type">
                                             <menupopup id="periodtype_menupopup">
                                                 <menuitem selected="false" label="&rptsalessummary.transaction_created;" value="transaction_created"/>
                                                 <menuitem selected="true" label="&rptsalessummary.transaction_submitted;" value="transaction_submitted"/>
@@ -64,24 +64,24 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptsalessummary.shiftno;"/>
-                                        <textbox id="shift_no" value=""/>
+                                        <label value="&rptsalessummary.shiftno;"  id="shift_no_label" form="queryform" name="shift_no_label"/>
+                                        <textbox id="shift_no" value="" form="queryform" name="shift_no"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptsalessummary.numdept;"/>
-                                        <textbox id="num_dept" value=""/>
+                                        <label value="&rptsalessummary.numdept;" id="num_dept_label" form="queryform" name="num_dept_label"/>
+                                        <textbox id="num_dept" value="" form="queryform" name="num_dept"/>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptsalessummary.numproduct;"/>
-                                        <textbox id="num_product" value=""/>
+                                        <label value="&rptsalessummary.numproduct;" id="num_product_label" form="queryform" name="num_product_label"/>
+                                        <textbox id="num_product" value="" form="queryform" name="num_product"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptsalessummary.terminal_no;"/>
-                                        <textbox id="terminal_no" value=""/>
+                                        <label value="&rptsalessummary.terminal_no;" id="terminal_no_label" form="queryform" name="terminal_no_label"/>
+                                        <textbox id="terminal_no" value="" form="queryform" name="terminal_no"/>
                                     </vbox>
                                     <vbox>
                                         <checkbox id="breakout_setmenu" checked="false" label="&rptsalessummary.breakout.setmenu;"/>

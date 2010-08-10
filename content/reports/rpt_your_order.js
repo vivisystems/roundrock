@@ -15,8 +15,9 @@
      * Controller Startup
      */
     function startup() {
-        $do( 'load', null, 'RptYourOrder' );
 
+        $do( 'load', null, 'RptYourOrder' );
+        
         var screenwidth = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.width' ) || 800;
         var screenheight = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.height' ) || 600;
 

@@ -53,8 +53,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptpurchasehistory.groupby;"/>
-                                        <menulist id="groupby">
+                                        <label value="&rptpurchasehistory.groupby;" id="groupby_label" form="queryform" name="groupby_label"/>
+                                        <menulist id="groupby" form="queryform" name="groupby">
                                             <menupopup id="groupby_menupopup">
                                                 <menuitem selected="true" label="&rptpurchasehistory.groupby.product;" value="product"/>
                                                 <menuitem selected="false" label="&rptpurchasehistory.groupby.supplier;" value="supplier"/>
@@ -62,8 +62,8 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptpurchasehistory.warehouse;"/>
-                                        <textbox id="warehouse" value=""/>
+                                        <label value="&rptpurchasehistory.warehouse;" id="warehouse_label" form="queryform" name="warehouse_label"/>
+                                        <textbox id="warehouse" value="" form="queryform" name="warehouse"/>
                                     </vbox>
                                 </row>
                             </rows>

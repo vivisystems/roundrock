@@ -13,8 +13,7 @@
      */
     function startup() {
 
-        $do('load', null, 'RptCashByClerk');
-
+            $do('load', null, 'RptCashByClerk');
     };
 
     window.addEventListener('load', startup, false);

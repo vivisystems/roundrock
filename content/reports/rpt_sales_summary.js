@@ -22,9 +22,9 @@
      * Controller Startup
      */
     function startup() {
-        
-        $do( 'load', null, 'RptSalesSummary' );
 
+        $do( 'load', null, 'RptSalesSummary' );
+        
     };
 
     window.addEventListener( 'load', startup, false );

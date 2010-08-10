@@ -8,6 +8,10 @@
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 "${_( '(rpt)Start Time' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End Time' ) + ':'}","${head.end_time}"
+"${_('(rpt)Condition') + ' - '}"
+"${queryFormLabel.terminal_no_label}","${queryFormLabel.terminal_no}"
+"${queryFormLabel.periodtype_label}","${queryFormLabel.periodtype}"
+"${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
 
 "${_( '(rpt)Terminal' )}","${_( '(rpt)Sale Period' )}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Total' )}","${_('(rpt)Gross Sales')}","${_( '(rpt)Order Surcharge' )}","${_( '(rpt)Order Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Included Tax' )}"{for tax in taxList},"'${tax.no + ' ' + _( '(rpt)Gross Sales' )}","'${tax.no}"{/for}
 

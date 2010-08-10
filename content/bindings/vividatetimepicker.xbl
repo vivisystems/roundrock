@@ -812,6 +812,7 @@
             if (!isNaN(dt)) {
               this._dateValue = dt;
               this.setAttribute("value", this.value);
+              this._setValueOnChange();
               //this._updateUI('hour', this.hour);
               //this._updateUI('minute', this.minute);
               //this._updateUI('second', this.second);

@@ -16,8 +16,7 @@
      */
     function startup() {
 
-        $do( 'load', null, 'RptProductSalesReturn' );
-
+            $do( 'load', null, 'RptProductSalesReturn' );       
     };
 
     window.addEventListener( 'load', startup, false );

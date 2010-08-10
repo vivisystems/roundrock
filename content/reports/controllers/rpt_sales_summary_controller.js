@@ -939,25 +939,6 @@
 
         },
 		
-        printSalesSummary: function( start, end, terminalNo, periodType, shiftNo, num_dept, num_product ) {
-            this._setConditions( start, end, terminalNo, periodType, shiftNo, num_dept, num_product );
-            this._set_reportData();
-            this._setTemplateDataHead();
-			
-            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-            .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
-            var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
-			
-            var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
-			
-            var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
-
-            var file = GREUtils.File.getFile( path );
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
-			
-            rcp.printReport( 'report', tpl, this._reportRecords );
-        },
-        
         getProcessedTpl: function( start, end, terminalNo, periodType, shiftNo ) {
             this._setConditions( start, end, terminalNo, periodType, shiftNo );
             this._set_reportData();

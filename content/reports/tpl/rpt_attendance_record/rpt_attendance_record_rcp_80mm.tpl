@@ -5,6 +5,11 @@ ${head.store.telephone1|center:42}
 ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no + ' '|left:10}${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname|left:14}
 ${head.start_time} ~ ${head.end_time}
 
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.user_label}${queryFormLabel.user}
+${queryFormLabel.job_label}${queryFormLabel.job}
+${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+
 ${head.title|center:42}
 {for master in body}
 ------------------------------------------

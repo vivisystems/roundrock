@@ -536,7 +536,7 @@
                 curTransaction.setTableName(table.table_name);
                 if (table.table_region_id) {
                     let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
-                    curTransaction.setTableRegionName(region.name);
+                    if (region) curTransaction.setTableRegionName(region.name);
                 }
 
                 cart._clearAndSubtotal();
@@ -1162,7 +1162,7 @@
                     curTransaction.setTableName(table.table_name);
                     if (table.table_region_id) {
                         let region = this.Table.TableRegion.getTableRegionById(table.table_region_id);
-                        curTransaction.setTableRegionName(region.name);
+                        if (region) curTransaction.setTableRegionName(region.name);
                     }
                     // update table seats
                     GeckoJS.Session.set('vivipos_fec_number_of_table_seats', (table.seats||1) );
@@ -2199,7 +2199,7 @@
                 let orgRegionName = '';
                 if (orgTable.table_region_id) {
                     let orgRegion = this.Table.TableRegion.getTableRegionById(orgTable.table_region_id);
-                    orgRegionName = orgRegion.name;
+                    if (orgRegion) orgRegionName = orgRegion.name;
                 }
 
                 let newTable = this.Table.getTableById(newTableId);
@@ -2207,7 +2207,7 @@
                 let newRegionName = '';
                 if (newTable.table_region_id) {
                     let newRegion = this.Table.TableRegion.getTableRegionById(newTable.table_region_id);
-                    newRegionName = newRegion.name;
+                    if (newRegion) newRegionName = newRegion.name;
                 }
 
                 // after transfer table dispatch event and print checks

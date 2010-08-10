@@ -55,8 +55,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptdailysales.periodtype;"/>
-                                        <menulist id="period_type">
+                                        <label value="&rptdailysales.periodtype;" id="period_type_label" form="queryform" name="period_type_label"/>
+                                        <menulist id="period_type" form="queryform" name="period_type">
                                             <menupopup id="period_type_menupopup">
                                                 <menuitem selected="false" label="&rptdailysales.transaction_created;" value="transaction_created"/>
                                                 <menuitem selected="true" label="&rptdailysales.transaction_submitted;" value="transaction_submitted"/>
@@ -65,14 +65,14 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptdailysales.shiftno;"/>
-                                        <textbox id="shift_no" value=""/>
+                                        <label value="&rptdailysales.shiftno;" id="shift_no_label" form="queryform" name="shift_no_label"/>
+                                        <textbox id="shift_no" value="" form="queryform" name="shift_no"/>
                                     </vbox>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptdailysales.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&rptdailysales.sortby;" id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby" form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="false" label="&rptdailysales.sortby.terminal_no;" value="terminal_no"/>
                                                 <menuitem selected="true" label="&rptdailysales.sortby.time;" value="time"/>
@@ -94,8 +94,8 @@
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptdailysales.terminal_no;"/>
-                                        <textbox id="terminal_no" value=""/>
+                                        <label value="&rptdailysales.terminal_no;" id="terminal_no_label" form="queryform" name="terminal_no_label"/>
+                                        <textbox id="terminal_no" value="" form="queryform" name="terminal_no"/>
                                     </vbox>
                                 </row>
                             </rows>

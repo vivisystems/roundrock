@@ -491,7 +491,7 @@
 
                                     <tabpanel>
                                         <vbox flex="1">
-                                            <caption label="&tableman.tableoptions.dockoptions.caption;"/>
+                                            <caption label="&tableman.tableoptions.print.caption;"/>
                                             <grid flex="1" class="data-form">
                                                 <columns>
                                                     <column flex="1"/>

@@ -257,22 +257,17 @@
             this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, returntype, displaymode, breakoutSetmenu, limit );
         },
 
-        printProductReturns: function( start, end, terminalNo, periodType, shiftNo ) {
+        set_reportRecords: function( parameters ) {
 
-            this._setData( start, end, periodType, shiftNo, 'product_no', terminalNo, 'all', 'all', 'detailed', false, this._stdLimit );
-            this._setTemplateDataHead();
+            document.getElementById( 'start_date' ).value = parameters.start;
+            document.getElementById( 'end_date' ).value = parameters.end;
 
-            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                            .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
-            var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+            document.getElementById( 'terminal_no' ).value = parameters.terminalNo;
 
-            var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
+            document.getElementById( 'periodtype' ).value = parameters.periodtype;
+            document.getElementById( 'shiftno' ).value = parameters.shiftno;
 
-            var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
-            var file = GREUtils.File.getFile( path );
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
-
-            rcp.printReport( 'report', tpl, this._reportRecords );
+            this._setData( parameters.start, parameters.end, parameters.periodtype, parameters.shiftno, 'product_no', parameters.terminalNo, 'all', 'all', 'detailed', false, this._stdLimit );
         },
 
         execute: function() {

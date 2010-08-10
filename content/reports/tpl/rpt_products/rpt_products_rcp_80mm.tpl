@@ -8,6 +8,11 @@ ${head.title|center:42}
 ${_( '(rpt)Product Count' ) + ': '|left:30}${head.total|format:0|right:12}
 ${_( '(rpt)Products Displayed' ) + ': '|left:30}${head.displayed|format:0|right:12}
 
+${_('(rpt)Condition') + ' - '}
+${queryFormLabel.department_label}${queryFormLabel.department}
+${queryFormLabel.plugroup_label}${queryFormLabel.plugroup}
+${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+
 {for category in body}
 ------------------------------------------
 ${category.no} - ${category.name}

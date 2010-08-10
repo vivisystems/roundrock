@@ -70,7 +70,7 @@
                     if(sql2 && datasource.conn) datasource.conn.executeSimpleSQL(sql2);
 
                 }catch(e) {
-                    this.log(sql +",,"+ e);
+                    this.log('ERROR', 'appendItem: promotion_cart_items error. SQL:' + sql2, e);
                 }
 
         },
@@ -90,7 +90,7 @@
                 if(sql2 && datasource.conn) datasource.conn.executeSimpleSQL(sql2);
 
             }catch(e) {
-                //this.log(sql +",,"+ e);
+                this.log('ERROR', 'removeItem: promotion_cart_items error. SQL:' + sql2, e);
             }
 
         },
@@ -105,7 +105,7 @@
                 if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
 
             }catch(e) {
-                // this.log(sql +",,"+ e);
+                this.log('ERROR', 'truncate: promotion_cart_items error. SQL:' + sql, e);
             }
 
         },
@@ -127,6 +127,7 @@
                 try {
                     this.getDataSource().conn.executeSimpleSQL(sql);
                 }catch(e) {
+                    this.log('ERROR', 'reserveItems: promotion_cart_items error. SQL:' + sql, e);
                 }
 
             }, this);

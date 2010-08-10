@@ -44,16 +44,16 @@
                             <rows>
                                 <row>
                                     <vbox>
-                                        <label value="&rptproducts.department;"/>
-                                        <menulist id="department">
+                                        <label value="&rptproducts.department;" id="department_label" form="queryform" name="department_label"/>
+                                        <menulist id="department" form="queryform" name="department">
                                             <menupopup id="department_menupopup">
                                                 <menuitem selected="true" label="[&rptproducts.all;]" value="all"/>
                                             </menupopup>
                                         </menulist>
                                     </vbox>
                                     <vbox>
-                                        <label value="&rptproducts.sortby;"/>
-                                        <menulist id="sortby">
+                                        <label value="&rptproducts.sortby;" id="sortby_label" form="queryform" name="sortby_label"/>
+                                        <menulist id="sortby" form="queryform" name="sortby">
                                             <menupopup id="sortby_menupopup">
                                                 <menuitem selected="true" label="&rptproducts.no;" value="no"/>
                                                 <menuitem selected="false" label="&rptproducts.name;" value="name"/>
@@ -67,8 +67,8 @@
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&rptproducts.plugroup;"/>
-                                        <menulist id="plugroup">
+                                        <label value="&rptproducts.plugroup;" id="plugroup_label" form="queryform" name="plugroup_label"/>
+                                        <menulist id="plugroup" form="queryform" name="plugroup">
                                             <menupopup id="plugroup_menupopup">
                                                 <menuitem selected="true" label="[&rptproducts.all;]" value="all"/>
                                             </menupopup>

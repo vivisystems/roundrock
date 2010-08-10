@@ -95,12 +95,29 @@
                     }
                 }
             } ).register();
+
         },
 
         destroy: function() {
             if (this.observer) this.observer.unregister();
         },
 
+        registerClearCartIdle: function() {
+
+            var idle = GeckoJS.Controller.getInstanceByName('Idle');
+
+            idle.unregister('clearCart');
+           
+            var isClearCart = GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization') || false;
+            var clearCartIdletime = GeckoJS.Configure.read('vivipos.fec.settings.ClearCartIdleTime') || 0;
+            var self=this;
+            if (isClearCart && clearCartIdletime > 0) {
+                idle.register('clearCart', clearCartIdletime, function(){
+                   if(!self.ifHavingOpenedOrder()) self.cartViewEmpty();
+                });
+            }
+            
+        },
 
         updateCartOptions: function() {
             let cartList = this._getCartlist();
@@ -126,6 +143,9 @@
                 cartList.setAttribute('scrollMode', mode);
                 cartList.setAttribute('scrollUnit', unit);
             }
+
+            this.registerClearCartIdle();
+            
         },
 
         sessionHandler: function(evt) {
@@ -408,6 +428,12 @@
                 if(autoCreate) return this._newTransaction();
                 return null;
             }else if (autoCreate && (curTransaction.isCancel() || curTransaction.isVoided() || curTransaction.isSubmit())) {
+
+                // check if transaction is recalled
+                if (curTransaction.data.recall == 1) {
+                    (new OrderModel()).releaseOrderLock(curTransaction.data.id);
+                }
+
                 return this._newTransaction();
             }    
 
@@ -829,6 +855,8 @@
                     var currentItem = curTransaction.getItemAt(currentIndex);
                     var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
                     var price = GeckoJS.Session.get('cart_set_price_value');
+                    var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
+                    var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
                     var destination = GeckoJS.Session.get('vivipos_fec_order_destination');
                     if (currentItemDisplay && currentItemDisplay.type == 'item') {
                         if (!qtyFromInput &&
@@ -839,6 +867,8 @@
                             !currentItem.hasMarker &&
                             currentItem.destination == destination &&
                             ((price == null) || (currentItem.current_price == price)) &&
+                            ((priceLevel == null) || (currentItem.price_level == priceLevel) ||
+                             (currentItem.price_level == '-' && item.id == currentItem.id && lastSellItem && lastSellItem.id == item.id) ) &&
                             ((currentItem.current_qty > 0 && !this._returnMode) ||
                                 currentItem.current_qty < 0 && !currentItemDisplay.returned && this._returnMode) &&
                             currentItem.tax_name == item.rate) {
@@ -2478,27 +2508,61 @@
                 this._clearAndSubtotal();
                 return;
             }
+            /*check currency was defined*/
+            if(!currencies || currencies.length <= convertIndex){
+                 NotifyUtils.warn(_('Please configure the currency entry first [%S]', [convertIndex]));
+                 this._clearAndSubtotal();
+                 return;
+            }
 
-            if (payment != null && payment != '' && currencies && currencies.length > convertIndex) {
-                // currency convert array
+            // currency convert array
+            let currency = currencies[convertIndex].currency;
+            let currency_rate = currencies[convertIndex].currency_exchange;
+            let memo1 = currency;
+            let memo2 = currency_rate;
+
+            if(payment == null || payment ==''){
+                
+                 // currency convert array
                 let currency = currencies[convertIndex].currency;
                 let currency_rate = currencies[convertIndex].currency_exchange;
                 let memo1 = currency;
                 let memo2 = currency_rate;
-                let origin_amount = payment;
-                let amount = parseFloat(payment) * currency_rate;
-                this._addPayment('cash', amount, origin_amount, memo1, memo2, groupable, finalize);
+                let origin = this._getTransaction().data.remain;
+                let converted = parseFloat(origin) / currency_rate;
+
+                converted = Math.round(converted*1000)/1000;
+                
+                /* pop dialog*/
+                let inputObj = {
+
+                    currency:currency,
+                    currency_rate:currency_rate,
+                    origin_amount:origin,
+                    amount:converted
+                };
+
+                var screenwidth = GeckoJS.Session.get('screenwidth');
+                var screenheight = GeckoJS.Session.get('screenheight');
+
+                var aURL = 'chrome://viviecr/content/prompt_currency_convert.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width='+screenwidth*0.45+',height='+screenheight*0.9;
+
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features,
+                                           '', '', inputObj.currency, '', inputObj);
+
+                if(inputObj.ok){
+                     payment = inputObj.input0;
+                     
+                }else return;
             }
-            else {
-                if (buf.length==0) {
-                    NotifyUtils.warn(_('Please enter an amount first'));
-                }
-                else if (currencies == null || currencies.length <= convertIndex) {
-                    NotifyUtils.warn(_('Please configure the currency entry first [%S]', [convertIndex]));
-                }
-                this._clearAndSubtotal();
-                return;
-            }
+            
+            let origin_amount = payment;
+            let amount = parseFloat(payment) * currency_rate;
+
+            this._addPayment('cash', amount, origin_amount, memo1, memo2, groupable, finalize);
+
+            return;
         },
 
         _getCreditCardDialog: function (data) {
@@ -3481,7 +3545,7 @@
 
             if (!this.ifHavingOpenedOrder()) {
 
-                if (curTransaction.data.recall == 2) orderModel.releaseOrderLock(curTransaction.data.id);
+                if (curTransaction.data.recall == 1 || curTransaction.data.recall == 2) orderModel.releaseOrderLock(curTransaction.data.id);
 
                 this.clear();
 
@@ -3810,7 +3874,9 @@
                 }
 
                 // clear register screen if needed
-                if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                var isClearCart = GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization') || false;
+                var clearCartIdletime = GeckoJS.Configure.read('vivipos.fec.settings.ClearCartIdleTime') || 0;
+                if (isClearCart && clearCartIdletime <= 0) {
                     //this._cartView.empty();
                     this.cartViewEmpty();
                 }
