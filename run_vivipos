@@ -16,6 +16,8 @@ if [ -z "$DISPLAY" ]; then
   export DISPLAY=:0
 fi
 
+DIALOG=zenity
+AOSD=aosd_cat
 #
 # include l10n messages
 #
@@ -25,6 +27,12 @@ fi
 MSG_RUN_VIVIPOS_STARTING=${MSG_RUN_VIVIPOS_STARTING:-"Starting VIVIPOS ......"}
 MSG_RUN_VIVIPOS_INTEGRITY_CHECK=${MSG_RUN_VIVIPOS_INTEGRITY_CHECK:-"Integrity Check:"}
 MSG_RUN_VIVIPOS_REBUILDING=${MSG_RUN_VIVIPOS_REBUILDING:-"Rebuilding:"}
+MSG_RUN_VIVIPOS_CONTACT=${MSG_RUN_VIVIPOS_CONTACT:-"Please contact technical support for assistance immediately!"}
+
+BACKUP_DIR="/data/backups"
+DATE=`date +%Y%m%d`
+
+DB_ERROR_FLAG=/tmp/.quick_check_error
 
 
 #
@@ -59,28 +67,97 @@ do_journal_check()
 }
 
 #
-# do sqlite integrity check
+# do sqlite quick check
 #
-do_integrity_check()
+do_quick_check()
 {
 
-    for i in $DATABASE/*.sqlite; do
-                dbname=`basename $i`
-                /usr/bin/aosd_cat -F "Sans 20"  -x 100 -y -120 -d 600000 "${MSG_RUN_VIVIPOS_INTEGRITY_CHECK} ${dbname}" &
-                echo "`date +"%Y-%m-%d %H:%M:%S"` :   integrity_check [${dbname}]" >> ${DIR}/log/vivipos.log
+        TOTAL_DBS=`ls -l $DATABASE/*.sqlite | wc -l`
+        PERCENT=$((100/TOTAL_DBS))
+        CUR_PERCENT=0
 
-		result=`$SQLITE3 $i "PRAGMA integrity_check"`
-                pkill aosd_cat
-		if [ "$?" = "0" ] && [ ! -z "$result" ] && [ "$result" != "ok" ]; then
-                    /usr/bin/aosd_cat -F "Sans 20" -x 100 -y -80 -d 600000 "${MSG_RUN_VIVIPOS_REBUILDING} ${dbname}" &
-                    echo "`date +"%Y-%m-%d %H:%M:%S"` :   rebuilding [${dbname}]" >> ${DIR}/log/vivipos.log
+    (
 
-                    $SQLITE3 $i ".dump" | $SQLITE3 $i.tmp
-                    cp $i.tmp $i
-                    rm -f $i.tmp
-                    pkill aosd_cat
-		fi
-    done
+
+        if [ -f $DB_ERROR_FLAG ]; then
+            rm $DB_ERROR_FLAG
+        fi
+
+        for dbfile in $DATABASE/*.sqlite; do
+
+                    dbname=`basename $dbfile`
+                    CUR_PERCENT=$((CUR_PERCENT+PERCENT))
+
+                    # /usr/bin/aosd_cat -F "Sans 20"  -x 100 -y -120 -d 600000 "${MSG_RUN_VIVIPOS_INTEGRITY_CHECK} ${dbname}" &
+                    echo "`date +"%Y-%m-%d %H:%M:%S"` :   integrity_check [${dbname}]" >> ${DIR}/log/vivipos.log
+                    
+                    echo "${CUR_PERCENT}"
+                    echo "# ${MSG_RUN_VIVIPOS_INTEGRITY_CHECK}  ${dbname} \t (${CUR_PERCENT}%)"
+                    result=`$SQLITE3 $dbfile "PRAGMA quick_check" 2>&1`
+                    QUICK_CHECK_ES=$?
+
+                    if [ "$QUICK_CHECK_ES" = "0" ] && [ ! -z "$result" ] && [ "$result" != "ok" ]; then
+
+                        # NEED Rebuild
+                        #/usr/bin/aosd_cat -F "Sans 20" -x 100 -y -80 -d 600000 "${MSG_RUN_VIVIPOS_REBUILDING} ${dbname}" &
+                        echo "`date +"%Y-%m-%d %H:%M:%S"` :   rebuilding [${dbname}] (${result} ${QUICK_CHECK_ES})" >> ${DIR}/log/vivipos.log
+
+                        echo "$((CUR_PERCENT+1))"
+                        echo "# ${MSG_RUN_VIVIPOS_REBUILDING}  ${dbname} \t (${CUR_PERCENT}%)"
+
+                        # copy to backup dir
+                        if [ ! -d $BACKUP_DIR ]; then
+                           mkdir $BACKUP_DIR
+                        fi
+                        cp $dbfile "${BACKUP_DIR}/${dbname}_${DATE}"
+
+                        $SQLITE3 $dbfile ".dump" | $SQLITE3 $dbfile.tmp
+                        ES=$?
+
+                        if [ "0" = "$ES" ]; then
+                            DB_VERSION=`$SQLITE3 $dbfile "PRAGMA user_version;"`
+                            echo "PRAGMA user_version=${DB_VERSION};" | $SQLITE3 $dbfile.tmp ;
+                            rm $dbfile
+                            mv $dbfile.tmp $dbfile
+                        else
+                            echo "$dbfile\t$QUICK_CHECK_ES\t$result" >> $DB_ERROR_FLAG
+                            echo "$((CUR_PERCENT+2))"
+                            echo "# ${MSG_RUN_VIVIPOS_REBUILDING}   ${dbname} \t ERROR"
+                            sleep 1
+                        fi
+
+                    elif [ "$QUICK_CHECK_ES" != "0" ]; then
+
+                        # CANT NOT Rebuild
+                        echo "`date +"%Y-%m-%d %H:%M:%S"` :      Can not rebuild [${dbname}]  (${result} ${QUICK_CHECK_ES})" >> ${DIR}/log/vivipos.log
+
+                        if [ "$QUICK_CHECK_ES" != "5" ]; then
+
+                            # copy to backup dir
+                            if [ ! -d $BACKUP_DIR ]; then
+                               mkdir $BACKUP_DIR
+                            fi
+
+                            cp $dbfile "${BACKUP_DIR}/${dbname}_${DATE}"
+                            echo "$dbfile\t$QUICK_CHECK_ES\t$result" >> $DB_ERROR_FLAG
+
+                        fi
+
+                        echo "$((CUR_PERCENT+2))"
+                        echo "# ${MSG_RUN_VIVIPOS_REBUILDING}   ${dbname} \t ERROR"
+
+                    fi
+
+        done
+        echo "100"
+        echo "# OK"
+
+    ) | $DIALOG --progress \
+          --width=500 --height=150 \
+          --title="${MSG_RUN_VIVIPOS_INTEGRITY_CHECK}" \
+          --text="${MSG_RUN_VIVIPOS_INTEGRITY_CHECK}" \
+          --auto-close \
+          --percentage=0
 
 }
 
@@ -95,6 +172,9 @@ do_disk_usage_check()
 }
 
 
+# once a day
+do_disk_usage_check
+
 # for loop runing vivipos forever
 while [ $RETVAL != 0 ]; do
 
@@ -102,21 +182,30 @@ while [ $RETVAL != 0 ]; do
 
     # do_vacuum
 
-	# do_integrity_check
-	do_integrity_check
+	do_quick_check
+	#do_integrity_check
         do_journal_check
-	do_disk_usage_check
 
-    echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini]" >> ${DIR}/log/vivipos.log
 
-    /usr/bin/aosd_cat -x 100 -F "Sans 24" -d 800000  "$MSG_RUN_VIVIPOS_STARTING" &
+        if [ -f $DB_ERROR_FLAG ]; then
 
-	# set env of system info
-	eval `${DIR}/getSystemLicenseStub -v|awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
-	${DIR}/xulrunner/xulrunner ${DIR}/application.ini
-    RETVAL=$?
+            ERROR_DB=`cat $DB_ERROR_FLAG`
+            $DIALOG --error --width=600 --height=300 --text="${MSG_RUN_VIVIPOS_CONTACT} \n\n${ERROR_DB}"
 
-    echo "`date +"%Y-%m-%d %H:%M:%S"` : Exit VIVIPOS [${RETVAL}]" >> ${DIR}/log/vivipos.log
+        else
+
+            echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini]" >> ${DIR}/log/vivipos.log
+
+            /usr/bin/aosd_cat -x 100 -F "Sans 24" -d 800000  "$MSG_RUN_VIVIPOS_STARTING" &
+
+            # set env of system info
+            eval `${DIR}/getSystemLicenseStub -v|awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
+            ${DIR}/xulrunner/xulrunner ${DIR}/application.ini
+            RETVAL=$?
+
+            echo "`date +"%Y-%m-%d %H:%M:%S"` : Exit VIVIPOS [${RETVAL}]" >> ${DIR}/log/vivipos.log
+
+        fi
 
 done
 

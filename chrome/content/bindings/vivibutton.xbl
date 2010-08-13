@@ -238,7 +238,13 @@
             height = height || $btn.css('height').replace('px', '');
 
             aLabel.style['width'] = width +'px' ;
-            aLabel.style['max-width'] = width +'px';
+            aLabel.style['maxWidth'] = width +'px';
+
+            var aImage = this.vivibuttonImage;
+
+            //aImage.style['width'] = width +'px' ; // not auto strenth
+            aImage.style['maxWidth'] = width +'px';
+            if (aImage.style['minWidth'].length > 0) aImage.style['minWidth'] = width +'px'; // if preset minWidth reset it to maxWidth
 
         ]]>  
         </body>
