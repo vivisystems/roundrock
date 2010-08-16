@@ -6,8 +6,6 @@
 #
 LANG=en
 LC_ALL=c
-NAME=vivipos-configure
-SCRIPTNAME=/usr/sbin/$NAME
 VIVIPOS_DATA=/data
 ROOTFS_DIR=/
 
@@ -19,18 +17,18 @@ main_menu() {
 
 tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/viviposconf$$
 
-${DIALOG} --clear --title "VIVIPOS Recovery and Upgrade Mode - Main Menu" \
---menu "Thank you for choosing VIVIPOS. You are now in Recovery and Upgrade Mode.\n\n\
+${DIALOG} --clear --title "VIVIPOS Configuration and Upgrade Mode - Main Menu" \
+--menu "Thank you for choosing VIVIPOS. You are now in Configuration and Upgrade Mode.\n\n\
 It is strongly advised that only system engineers are eligible to operate this mode.If you are not system engineer, please select Cancel to exit this mode.\n\
 \n\
 Function Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 22 61 8 \
-	    "Configure"  "Configure VIVIPOS LCD Panel" \
+	    "Configure" "Configure VIVIPOS LCD Panel" \
 	    "Database"  "Database maintenance" \
-	    "Clear" "Clear Logs and Temporary Files" \
-	    "Reset" "Remove All Profiles / Databases / Backups" \
-	    "Upgrade" "Upgrade VIVIPOS Image File" \
-		"Reboot" "Reboot VIVIPOS" \
-	    "Exit"  "Exit" 2> $tempfile
+	    "Clear"     "Clear Logs and Temporary Files" \
+	    "Reset"     "Remove All Profiles / Databases / Backups" \
+	    "Upgrade"   "Upgrade VIVIPOS Image File" \
+            "Reboot"    "Reboot VIVIPOS" \
+	    "Exit"      "Exit" 2> $tempfile
 
 	retval=$?
 
@@ -58,14 +56,12 @@ tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/viviposconf$$
 ${DIALOG} --clear --title "Configure VIVIPOS LCD Panel" \
 --menu "Please Select Type of VIVIPOS LCD Panel\n\n\
 Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
-	"12"  '12" Mitsubishi LCD Panel' \
-	"15" '15" AU LCD Panel' \
-        "15e" '15" AU LCD Panel With ELO Touch' \
-	"15c" '15" CPT LCD Panel' \
-        "15ce" '15" CPT LCD Panel With ELO Touch' \
-	"vm800" "800x600 VMware Environment" \
-        "vm1024" "1024x768 VMware Environment" \
-	"Back"  "Return to Main Menu" 2> $tempfile
+	"12"        '12" Mitsubishi LCD Panel' \
+	"15"        '15" AU LCD Panel' \
+        "15e"       '15" AU LCD Panel With ELO Touch' \
+	"vm800"     '800x600 VMware Environment' \
+        "vm1024"    '1024x768 VMware Environment' \
+	"Back"      'Return to Main Menu' 2> $tempfile
 
 	retval=$?
 
@@ -105,17 +101,6 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge 'Initializing for 15" AU LCD Panel...\n\nPlease wait... ' 10 50 0
 			;;
-		15c)
-			(
-				echo "10";
-				if [ -f /etc/vivipos/15c.tbz ]; then
-                                        tar xjpf /etc/vivipos/15c.tbz -C /
-                                        tar xjpf /etc/vivipos/fuji.tbz -C /
-                                        #cp /etc/vivipos/initrd.img-2.6.32-22-generic /boot/
-				fi
-				echo "100";
-			) | $DIALOG --title "Configure" --gauge 'Initializing for 15" CPT LCD Panel...\n\nPlease wait... ' 10 50 0
-			;;
 		15e)
 			(
 				echo "10";
@@ -126,17 +111,6 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 				fi
 				echo "100";
 			) | $DIALOG --title "Configure" --gauge 'Initializing for 15" AU LCD Panel With ELO Touch...\n\nPlease wait... ' 10 50 0
-			;;
-		15ce)
-			(
-				echo "10";
-				if [ -f /etc/vivipos/15ce.tbz ]; then
-                                        tar xjpf /etc/vivipos/15ce.tbz -C /
-                                        tar xjpf /etc/vivipos/elo.tbz -C /
-                                        #cp /etc/vivipos/initrd.img-2.6.32-22-generic /boot/
-				fi
-				echo "100";
-			) | $DIALOG --title "Configure" --gauge 'Initializing for 15" CPT LCD Panel With ELO Touch...\n\nPlease wait... ' 10 50 0
 			;;
 		vm800)
 			(
