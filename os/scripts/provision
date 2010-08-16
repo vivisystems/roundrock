@@ -1,0 +1,112 @@
+#!/bin/sh
+#
+# ROUNDROCK provisioning tool
+#
+# irving.hsu@vivisystems.com.tw
+#
+LANG=en
+LC_ALL=c
+
+: ${DIALOG=dialog}
+
+DIALOG_OPTS="--backtitle PROVISIONING"
+MAX_WIDTH=80
+MAX_HEIGHT=24
+
+# license related variables
+LICENSE_FILE=/etc/vivipos.lic
+LICENSE_SIGNER=makelic
+MEDIA_MARKER=/tmp/last_media
+
+# support center variables
+SUPPORT_FQDN_FILE=/etc/support.site
+DEFAULT_SUPPORT_FQDN="support.vivisystems.com.tw"
+
+determine_window_size() {
+    DIMENSIONS=`$DIALOG --print-maxsize --stdout | sed "s/.*MaxSize: \(.*\), \(.*\)/\1,\2/g"`
+    MAX_WIDTH=`echo $DIMENSIONS | awk -F"," '{print $2}'`
+    MAX_HEIGHT=`echo $DIMENSIONS | awk -F"," '{print $1}'`
+}
+
+# check license signer
+check_license_signer() {
+
+    MEDIA=""
+    # check if USB thumb drive with license signer is available
+    if [ -r "$MEDIA_MARKER" ]; then
+        MEDIA="/media/`cat $MEDIA_MARKER`"
+    fi
+
+    if [ -n "$MEDIA" -a -r "$MEDIA/$LICENSE_SIGNER" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# sign license
+sign_license() {
+
+    check_license_signer
+
+    while [ $? -eq 1 ]; do
+        $DIALOG $DIALOG_OPTS --title LICENSE --msgbox "Please insert USB thumb drive with the license signer" 4 $MAX_WIDTH
+
+        check_license_signer
+    done
+
+    # change directory to external media
+    cd "$MEDIA"
+
+    local SUCCESS=1
+
+    while [ $SUCCESS -ne 0 ]; do
+
+        sh -e "$LICENSE_SIGNER"
+        SUCCESS=$?
+
+        if [ $SUCCESS -eq 0 ]; then
+            $DIALOG $DIALOG_OPTS --title LICENSE --msgbox "License successfully signed" 4 $MAX_WIDTH
+        else
+            $DIALOG $DIALOG_OPTS --title LICENSE --msgbox "Error encountered while executing [$LICENSE_SIGNER]\n\nPlease check the license signer and retry" 6 $MAX_WIDTH
+        fi
+    done
+}
+
+# update FQDN for support center
+update_support_center_fqdn() {
+    if [ -r "$SUPPORT_FQDN_FILE" ]; then
+        SUPPORT_FQDN=`cat "$SUPPORT_FQDN_FILE"`
+    else
+        SUPPORT_FQDN="$DEFAULT_SUPPORT_FQDN"
+    fi
+
+    local SUCCESS=1
+
+    while [ $SUCCESS -ne 0 ]; do
+
+        SUPPORT_FQDN=`$DIALOG $DIALOG_OPTS --title "Support Center Fully Qualified Domain Name" --nocancel --stdout --inputbox "Please update support center domain name if necessary" 6 $MAX_WIDTH "$SUPPORT_FQDN"`
+
+        if [ -z "$SUPPORT_FQDN" ]; then
+            $DIALOG $DIALOG_OPTS --title "Support Center" --msgbox "Support center domain name must not be empty" 4 $MAX_WIDTH
+        else
+            SUPPORT_IP=`dig -q "$SUPPORT_FQDN" +short`
+            if [ -z "$SUPPORT_IP" ]; then
+                $DIALOG $DIALOG_OPTS --title "Support Center" --msgbox "Failed to resolve support center domain name" 4 $MAX_WIDTH
+            else
+                $DIALOG $DIALOG_OPTS --title "Support Center" --msgbox "Support center verified at IP address [$SUPPORT_IP]" 4 $MAX_WIDTH
+                SUCCESS=0
+            fi
+        fi
+
+    done
+
+    # store support center FQDN in $SUPPORT_FQDN_FILE
+    echo $SUPPORT_FQDN > "$SUPPORT_FQDN_FILE"
+}
+
+determine_window_size
+
+sign_license
+
+update_support_center_fqdn

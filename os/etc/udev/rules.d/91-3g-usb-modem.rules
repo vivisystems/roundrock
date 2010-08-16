@@ -1,0 +1,21 @@
+# listen for usb-serial devices that are mapped to ttyUSB
+KERNEL!="ttyUSB[0-9]", GOTO="end"
+
+# filter out devices that are not 3G modem
+ENV{ID_USB_DRIVER}!="option", GOTO="end"
+
+ENV{TARGET}="none"
+
+# first interface (00) is for wvdial/pppd
+ENV{ID_USB_INTERFACE_NUM}=="00", ENV{TARGET}="wvdial"
+
+# third interface (02) is for gnokii/smsd
+ENV{ID_USB_INTERFACE_NUM}=="02", ENV{TARGET}="gnokii"
+
+
+ENV{TARGET}=="none", GOTO="end"
+
+ACTION=="add", RUN+="/sbin/update_usb_modem add $env{TARGET} %k"
+ACTION=="remove", RUN+="/sbin/update_usb_modem remove $env{TARGET} %k"
+
+LABEL="end"
