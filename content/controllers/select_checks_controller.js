@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
         
         name: 'SelectChecks',
@@ -98,6 +102,6 @@
 
     };
 
-    var SelectChecksController = window.SelectChecksController =  GeckoJS.Controller.extend(__controller__);
+    var SelectChecksController = window.SelectChecksController =  AppController.extend(__controller__);
 
 })();

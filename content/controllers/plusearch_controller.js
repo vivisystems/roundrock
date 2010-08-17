@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
 
         name: 'PluSearch',
@@ -272,6 +276,6 @@
         
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
 })();

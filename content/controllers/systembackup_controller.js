@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __view__ = {
 
         init: function(dir) {
@@ -585,6 +589,6 @@
         }
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
 })();

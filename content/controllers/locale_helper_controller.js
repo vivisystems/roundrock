@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     const EXT_MGR = Components.classes["@mozilla.org/extensions/manager;1"].getService(Components.interfaces.nsIExtensionManager);
     const XUL_CHROME_REG = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService().QueryInterface(Components.interfaces.nsIXULChromeRegistry);
 
@@ -466,7 +470,7 @@
 
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
     // mainWindow register stock initial
     var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]

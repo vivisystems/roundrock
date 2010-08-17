@@ -2,6 +2,10 @@
 
     GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
 
         name: 'VFD',
@@ -470,7 +474,7 @@
     	}
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

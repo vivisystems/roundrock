@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     // include promotion trigger / type class
     include('chrome://viviecr/content/promotions/promotion_trigger.js');
     include('chrome://viviecr/content/promotions/promotion_type.js');
@@ -508,7 +512,7 @@
 
     };
 
-    GeckoJS.Controller.extend(__promotions_controller__);
+    AppController.extend(__promotions_controller__);
 
     // mainWindow register promotions rules
     var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");

@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     // nsIWebProgressListener implementation to monitor activity in the browser.
     var browserProgressListener = {
 
@@ -140,7 +144,7 @@
 
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
     window.addEventListener("load", function (){
         $do('startup', '', 'Printers');

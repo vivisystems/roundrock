@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __layout_manager_controller__ = {
 
         name: 'LayoutManager',
@@ -496,7 +500,7 @@
 
     };
 
-    GeckoJS.Controller.extend(__layout_manager_controller__);
+    AppController.extend(__layout_manager_controller__);
 
     window.addEventListener('load', function() {
         $do('initial', null, 'LayoutManager');

@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
 
         name: 'OverlayLayout',
@@ -36,7 +40,7 @@
         }
     }
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
     window.addEventListener('ViviposStartup', function() {
         // trick, invoke directly
