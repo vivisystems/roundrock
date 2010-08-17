@@ -31,7 +31,7 @@ update_wvdial() {
 
 # function to update gnokiirc
 
-GNOKII_CONF=~root/.gnokiirc
+GNOKII_CONF=/etc/gnokiirc
 REG_GNOKII="s/\(^port\s=\s\/dev\/\).*/\1$3/g"
 
 update_gnokii() {

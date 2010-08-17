@@ -12,15 +12,34 @@ LC_ALL=c
 DIALOG_OPTS="--backtitle PROVISIONING"
 MAX_WIDTH=80
 MAX_HEIGHT=24
+ERROR_MSG=""
+
 
 # license related variables
 LICENSE_FILE=/etc/vivipos.lic
 LICENSE_SIGNER=makelic
 MEDIA_MARKER=/tmp/last_media
 
+
 # support center variables
 SUPPORT_FQDN_FILE=/etc/support.site
 DEFAULT_SUPPORT_FQDN="support.vivisystems.com.tw"
+
+
+# serial number config
+SERIAL_NUMBER_READER=/data/vivipos_sdk/getSystemLicenseStub
+SERIAL_NUMBER=""
+
+
+# data for 3.5G modem
+MODEM_MARKER=/tmp/3g-modem.device.gnokii
+GNOKII=gnokii
+SIM_IMEI=""
+SIM_PLMN=""
+SIM_PIN=""
+PIN_FILE=/etc/roundrock.pin
+
+################################################################################################################
 
 determine_window_size() {
     DIMENSIONS=`$DIALOG --print-maxsize --stdout | sed "s/.*MaxSize: \(.*\), \(.*\)/\1,\2/g"`
@@ -28,7 +47,16 @@ determine_window_size() {
     MAX_HEIGHT=`echo $DIMENSIONS | awk -F"," '{print $1}'`
 }
 
-# check license signer
+################################################################################################################
+
+provision_failed() {
+    $DIALOG $DIALOG_OPTS --title "Provision Failed" --msgbox "Failure Reason\n--------------\n\n$ERROR_MSG" 7 $MAX_WIDTH
+    return 1
+}
+
+
+################################################################################################################
+
 check_license_signer() {
 
     MEDIA=""
@@ -44,7 +72,8 @@ check_license_signer() {
     fi
 }
 
-# sign license
+################################################################################################################
+
 sign_license() {
 
     check_license_signer
@@ -73,7 +102,8 @@ sign_license() {
     done
 }
 
-# update FQDN for support center
+################################################################################################################
+
 update_support_center_fqdn() {
     if [ -r "$SUPPORT_FQDN_FILE" ]; then
         SUPPORT_FQDN=`cat "$SUPPORT_FQDN_FILE"`
@@ -105,8 +135,104 @@ update_support_center_fqdn() {
     echo $SUPPORT_FQDN > "$SUPPORT_FQDN_FILE"
 }
 
+################################################################################################################
+
+get_serial_number() {
+
+    local SUCCESS=1
+
+    while [ $SUCCESS -ne 0 ]; do
+
+        SERIAL_NUMBER=`$SERIAL_NUMBER_READER`
+
+        if [ -z "$SERIAL_NUMBER" ]; then
+            $DIALOG $DIALOG_OPTS --title "Serial Number" --yes-label "Retry" --no-label "Cancel" --yesno "Failed to retrieve system serial number" 4 $MAX_WIDTH
+            if [ $? -ne 0 ]; then
+                return 1
+            fi
+        else
+            $DIALOG $DIALOG_OPTS --title "Serial Number" --msgbox "System serial number successfully retrieved\n\n$SERIAL_NUMBER" 7 $MAX_WIDTH
+            SUCCESS=0
+        fi
+    done
+}
+
+################################################################################################################
+
+validate_plmn() {
+    REGEX="s/[0-9]//g"
+    RESIDUE=`echo $1 | sed $REGEX`
+    if [ ${#1} -eq 10 -a -z "$RESIDUE" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+################################################################################################################
+
+provision_wireless_modem() {
+
+    local SUCCESS
+
+    # prompt for target mobile number
+    SUCCESS=1
+    while [ $SUCCESS -ne 0 ]; do
+        TARGET_PLMN=`$DIALOG $DIALOG_OPTS --title "Wireless Modem" --nocancel --stdout --inputbox "Please enter target mobile number" 6 $MAX_WIDTH`
+
+        # validate mobile number
+        validate_plmn $TARGET_PLMN
+        if [ $? -eq 0 ]; then
+            SUCCESS=0
+        else
+            $DIALOG $DIALOG_OPTS --title "Wireless Modem" --msgbox "Invalid target mobile number\n\n$TARGET_PLMN" 6 $MAX_WIDTH
+        fi
+    done
+
+    # send SMS to target phone
+    $GNOKII --sendsms $TARGET_PLMN
+
+    # prompt for sender phone number
+    SUCCESS=1
+    while [ $SUCCESS -ne 0 ]; do
+        SIM_PLMN=`$DIALOG $DIALOG_OPTS --title "Wireless Modem" --nocancel --stdout --inputbox "Please enter sender mobile number" 6 $MAX_WIDTH`
+
+        # validate mobile number
+        validate_plmn $SIM_PLMN
+        if [ $? -eq 0 ]; then
+            SUCCESS=0
+        else
+            $DIALOG $DIALOG_OPTS --title "Wireless Modem" --msgbox "Invalid sender mobile number\n\n$SIM_PLMN" 6 $MAX_WIDTH
+        fi
+    done
+
+    # read IMEI from modem
+    SIM_IMEI=`$GNOKII --identify | grep IMEI | awk -F" " '{print $3}`
+
+    # generate random PIN code
+
+    # write PIN code into SIM card and enable locking
+
+    # store PIN code on terminal
+}
+
+################################################################################################################
+
 determine_window_size
 
-sign_license
+#sign_license
 
-update_support_center_fqdn
+#update_support_center_fqdn
+
+get_serial_number
+
+if [ $? -ne 0 ]; then
+    ERROR_MSG="Unable to retrieve system serial number"
+    provision_failed
+fi
+
+if [ -f "$MODEM_MARKER" ]; then
+    provision_wireless_modem
+else
+    $DIALOG $DIALOG_OPTS --title "Wireless Modem" --msgbox "Modem not detected, skipping modem provisioning" 4 $MAX_WIDTH
+fi
