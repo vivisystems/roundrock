@@ -43,7 +43,7 @@ for i in "${DB_DIR}"/*.sqlite; do
 
     log_warning_msg "... checking integrity of database [${dbname}]"
 
-    result=`${SQLITE3} $i "PRAGMA integrity_check"`
+    result=`${SQLITE3} $i "PRAGMA quick_check"`
 
     if [ "$?" = "0" ] && [ ! -z "$result" ] && [ "$result" != "ok" ]; then
         log_warning_msg "... database [${dbname}] not ok: ${result}"
