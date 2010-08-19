@@ -45,8 +45,11 @@ case "$1" in
 	if [ "$2" = "wvdial" ]; then
 	    update_wvdial
 
-	    # unlock SIM by dialing unlock
-	    wvdial unlock
+	    # unlock SIM by dialing unlock if PIN file exists
+            if [ -f $PIN_FILE ]; then
+                wvdial unlock
+            fi
+
 	elif [ "$2" = "gnokii" ]; then
 	    update_gnokii
 
