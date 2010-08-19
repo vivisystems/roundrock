@@ -28,6 +28,8 @@ MSG_RUN_VIVIPOS_STARTING=${MSG_RUN_VIVIPOS_STARTING:-"Starting VIVIPOS ......"}
 MSG_RUN_VIVIPOS_INTEGRITY_CHECK=${MSG_RUN_VIVIPOS_INTEGRITY_CHECK:-"Integrity Check:"}
 MSG_RUN_VIVIPOS_REBUILDING=${MSG_RUN_VIVIPOS_REBUILDING:-"Rebuilding:"}
 MSG_RUN_VIVIPOS_CONTACT=${MSG_RUN_VIVIPOS_CONTACT:-"Please contact technical support for assistance immediately!"}
+MSG_RUN_VIVIPOS_REBOOT=${MSG_RUN_VIVIPOS_REBOOT:-"Reboot Machine"}
+MSG_RUN_VIVIPOS_SHUTDOWN=${MSG_RUN_VIVIPOS_SHUTDOWN:-"Shutdown Machine"}
 
 BACKUP_DIR="/data/backups"
 DATE=`date +%Y%m%d`
@@ -95,6 +97,7 @@ do_quick_check()
                     echo "# ${MSG_RUN_VIVIPOS_INTEGRITY_CHECK}  ${dbname} \t (${CUR_PERCENT}%)"
                     result=`$SQLITE3 $dbfile "PRAGMA quick_check" 2>&1`
                     QUICK_CHECK_ES=$?
+                    sleep 2;
 
                     if [ "$QUICK_CHECK_ES" = "0" ] && [ ! -z "$result" ] && [ "$result" != "ok" ]; then
 
@@ -190,7 +193,13 @@ while [ $RETVAL != 0 ]; do
         if [ -f $DB_ERROR_FLAG ]; then
 
             ERROR_DB=`cat $DB_ERROR_FLAG`
-            $DIALOG --error --width=600 --height=300 --text="${MSG_RUN_VIVIPOS_CONTACT} \n\n${ERROR_DB}"
+            $DIALOG --question --width=600 --height=300 --text="${MSG_RUN_VIVIPOS_CONTACT} \n\n${ERROR_DB}" --ok-label="${MSG_RUN_VIVIPOS_SHUTDOWN}" --cancel-label="${MSG_RUN_VIVIPOS_REBOOT}"
+
+            if [ 0 = "$?" ]; then
+                /sbin/shutdown -h now
+            else
+                /sbin/shutdown -r now
+            fi
 
         else
 
