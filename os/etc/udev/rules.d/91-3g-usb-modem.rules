@@ -10,7 +10,7 @@ ENV{TARGET}="none"
 ENV{ID_USB_INTERFACE_NUM}=="00", ENV{TARGET}="wvdial"
 
 # third interface (03) is for gnokii/smsd
-ENV{ID_USB_INTERFACE_NUM}=="03", ENV{TARGET}="gnokii"
+ENV{ID_USB_INTERFACE_NUM}!="00", ENV{TARGET}="gnokii"
 
 
 ENV{TARGET}=="none", GOTO="end"

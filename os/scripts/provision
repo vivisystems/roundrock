@@ -40,10 +40,12 @@ SIM_PLMN=""
 SIM_PIN=""
 PIN_FILE=/etc/modem.pin
 WVDIAL_CONF=/etc/wvdial.conf
+DEFAULT_PIN=""
 
 # file to store system details
 LSHW=lshw
 SYSINFO_FILE=/tmp/system.$$
+SYSINFO_BASE64=""
 
 ################################################################################################################
 
@@ -183,6 +185,8 @@ get_system_details() {
     ${LSHW} > "$SYSINFO_FILE" 2>/dev/null \
         | $DIALOG $DIALOG_OPTS --title "Retrieving system details..." --tailbox "$SYSINFO_FILE" 18 $MAX_WIDTH
 
+    # generate base64 encoding of system details
+    SYSINFO_BASE64=`base64 "$SYSINFO_FILE"
 }
 
 ################################################################################################################
@@ -219,11 +223,15 @@ unlock_sim_with_pin() {
 
     TITLE="Wireless Modem - Unlock SIM"
 
+    # get DEFAULT PIN
+    if [ -r "${PIN_FILE}" ]; then
+        DEFAULT_PIN=`cat "${PIN_FILE}"`
+    fi
     # prompt for SIM PIN code
     SUCCESS=1
     STATUS=`$GNOKII --getsecuritycodestatus 2>/dev/null | grep "Security code status:" | awk -F': ' '{print $2}'`
     while [ $SUCCESS -ne 0 ]; do
-	DEFAULT_PIN=`$DIALOG $DIALOG_OPTS --title "$TITLE" --nocancel --stdout --inputbox "Please enter PIN code (current status: $STATUS)" 6 $MAX_WIDTH`
+	DEFAULT_PIN=`$DIALOG $DIALOG_OPTS --title "$TITLE" --nocancel --stdout --inputbox "Please enter PIN code (current status: $STATUS)" 6 $MAX_WIDTH "$DEFAULT_PIN"`
 
 	# validate PIN
 	validate_pin $DEFAULT_PIN
@@ -415,7 +423,7 @@ send_terminal_data() {
         killall dialog
     fi
 
-    POST_DATA="IMEI=$SIM_IMEI&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER"
+    POST_DATA="IMEI=$SIM_IMEI&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER&SYSINFO=$SYSINFO_BASE64"
     SUPPORT_URL="http://$SUPPORT_FQDN/echo"
     PROGRESS_HEIGHT=12
     POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
@@ -429,7 +437,7 @@ send_terminal_data() {
 	      --and-widget --keep-window \
 	      --title "Transmission Complete" \
 	      --extra-button --extra-label "Retry" \
-	      --cancel-label NO \
+	      --ok-label YES --cancel-label NO \
 	      --yesno "Did transmission succeed?" 4 $MAX_WIDTH
 
 	STATUS=$?
