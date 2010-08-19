@@ -38,7 +38,7 @@ WVDIAL=wvdial
 SIM_IMEI=""
 SIM_PLMN=""
 SIM_PIN=""
-PIN_FILE=/etc/roundrock.pin
+PIN_FILE=/etc/modem.pin
 WVDIAL_CONF=/etc/wvdial.conf
 
 # file to store system details
@@ -56,10 +56,23 @@ determine_window_size() {
 ################################################################################################################
 
 provision_failed() {
+    rm -f "${LICENSE_FILE}".$$
+    rm -f "${PIN_FILE}".$$
+    rm -f "$SUPPORT_FQDN_FILE".$$
+
+    sync
+
     $DIALOG $DIALOG_OPTS --title "Provision Failed" --msgbox "Failure Reason\n--------------\n\n$2" $1 $MAX_WIDTH
     exit 1
 }
 
+################################################################################################################
+
+handle_trap() {
+    provision_failed  9 "User Interrupt"
+}
+
+trap handle_trap INT QUIT
 
 ################################################################################################################
 
@@ -97,12 +110,15 @@ sign_license() {
 
     while [ $SUCCESS -ne 0 ]; do
 
+	rm -f "$LICENSE_FILE"
+
         sh -e "$LICENSE_SIGNER"
+
         SUCCESS=$?
 
         if [ $SUCCESS -eq 0 ]; then
-            $DIALOG $DIALOG_OPTS --title LICENSE --msgbox "License successfully signed" 4 $MAX_WIDTH
 	    mv ${LICENSE_FILE} ${LICENSE_FILE}.$$
+            $DIALOG $DIALOG_OPTS --title LICENSE --msgbox "License successfully signed" 4 $MAX_WIDTH
         else
             $DIALOG $DIALOG_OPTS --title LICENSE --msgbox "Error encountered while executing [$LICENSE_SIGNER]\n\nPlease check the license signer and retry" 6 $MAX_WIDTH
         fi
@@ -133,7 +149,7 @@ update_support_center_fqdn() {
     done
 
     # store support center FQDN in $SUPPORT_FQDN_FILE
-    echo $SUPPORT_FQDN > "$SUPPORT_FQDN_FILE.$$"
+    echo -n $SUPPORT_FQDN > "$SUPPORT_FQDN_FILE.$$"
 }
 
 ################################################################################################################
@@ -195,18 +211,6 @@ validate_pin() {
 
 ################################################################################################################
 
-get_default_pin() {
-
-    if [ -r "$PIN_FILE" ]; then
-        DEFAULT_PIN=`cat "$PIN_FILE"`
-    else
-        DEFAULT_PIN="0000"
-    fi
-
-}
-
-################################################################################################################
-
 unlock_sim_with_pin() {
 
     local SUCCESS
@@ -215,18 +219,18 @@ unlock_sim_with_pin() {
 
     TITLE="Wireless Modem - Unlock SIM"
 
-    # check if waiting for PIN
+    # prompt for SIM PIN code
+    SUCCESS=1
     STATUS=`$GNOKII --getsecuritycodestatus 2>/dev/null | grep "Security code status:" | awk -F': ' '{print $2}'`
-    if [ "$STATUS" != "nothing to enter." ]; then
+    while [ $SUCCESS -ne 0 ]; do
+	DEFAULT_PIN=`$DIALOG $DIALOG_OPTS --title "$TITLE" --nocancel --stdout --inputbox "Please enter PIN code (current status: $STATUS)" 6 $MAX_WIDTH`
 
-        # prompt for SIM PIN code
-        SUCCESS=1
-        while [ $SUCCESS -ne 0 ]; do
-            DEFAULT_PIN=`$DIALOG $DIALOG_OPTS --title "$TITLE" --nocancel --stdout --inputbox "Please enter PIN code (current status: $STATUS)" 6 $MAX_WIDTH`
+	# validate PIN
+	validate_pin $DEFAULT_PIN
+	if [ $? -eq 0 ]; then
 
-            # validate PIN
-            validate_pin $DEFAULT_PIN
-            if [ $? -eq 0 ]; then
+	    # check if waiting for PIN
+	    if [ "$STATUS" != "nothing to enter." ]; then
 
                 # update unlock dialer
                 REG_WVDIAL="s/\(^Init9\s=\s\AT+CPIN=\).*/\1${DEFAULT_PIN}/g"
@@ -244,11 +248,13 @@ unlock_sim_with_pin() {
                 else
                     $DIALOG $DIALOG_OPTS --title "$TITLE" --msgbox "Failed to unlock SIM with PIN [$DEFAULT_PIN]\n\nStatus: $STATUS" 6 $MAX_WIDTH
                 fi
-            else
-                $DIALOG $DIALOG_OPTS --title "$TITLE" --msgbox "Invalid PIN code [$DEFAULT_PIN]" 4 $MAX_WIDTH
+	    else
+		SUCCESS=0
             fi
-        done
-    fi
+	else
+	    $DIALOG $DIALOG_OPTS --title "$TITLE" --msgbox "Invalid PIN code [$DEFAULT_PIN]" 4 $MAX_WIDTH
+	fi
+    done
 
 }
 
@@ -362,9 +368,6 @@ provision_wireless_modem() {
     SIM_IMEI=`$GNOKII --identify 2>/devnull | grep IMEI | awk -F" " '{print $3}'`
     $DIALOG $DIALOG_OPTS --title "Wireless Modem - IMEI" --msgbox "Modem IMEI retrieved\n\n[$SIM_IMEI]" 6 $MAX_WIDTH
 
-    # get default PIN
-    get_default_pin
-
     # unlock sim
     unlock_sim_with_pin
 
@@ -372,13 +375,13 @@ provision_wireless_modem() {
     verify_plmn
 
     # generate random PIN code
-    SIM_PIN="4567"
+    SIM_PIN=`date +"%s" | sed "s/.*\(....\)/\1/"`
 
     # write PIN code into SIM and enable locking
     enable_sim_lock "$SIM_PIN"
 
     # store PIN code on terminal
-    echo "$SIM_PIN" > "$PIN_FILE.$$"
+    echo -n "$SIM_PIN" > "$PIN_FILE.$$"
 
     # prompt user to remove/re-insert modem and verify that PIN works
 
@@ -426,6 +429,7 @@ send_terminal_data() {
 	      --and-widget --keep-window \
 	      --title "Transmission Complete" \
 	      --extra-button --extra-label "Retry" \
+	      --cancel-label NO \
 	      --yesno "Did transmission succeed?" 4 $MAX_WIDTH
 
 	STATUS=$?
@@ -444,8 +448,6 @@ send_terminal_data() {
 
 ################################################################################################################
 
-rm -f ${LICENSE_FILE}
-
 vivipos-configure
 
 determine_window_size
@@ -457,7 +459,7 @@ update_support_center_fqdn
 get_serial_number
 
 if [ $? -ne 0 ]; then
-    provision_failed 7 "Unable to retrieve system serial number"
+    provision_failed 9 "Unable to retrieve system serial number"
 fi
 
 get_system_details
@@ -471,13 +473,18 @@ fi
 send_terminal_data
 
 if [ $? -ne 0 ]; then
-    rm -f /etc/vivipos.lic
-    provision_failed 10 "Failed to transmit provisioning data to support center. License file will be removed. Please reprovision this terminal after the errors have been resolved."
+    provision_failed 11 "Failed to transmit provisioning data to support center. Please reprovision this terminal after the errors have been resolved."
 else
+
+    mv "${LICENSE_FILE}".$$ "${LICENSE_FILE}"
+    mv "${PIN_FILE}".$$ "${PIN_FILE}"
+    mv "$SUPPORT_FQDN_FILE".$$ "$SUPPORT_FQDN_FILE"
+
+    sync
+
     $DIALOG $DIALOG_OPTS --title "Provision Successful" --msgbox "Provisioning is successful. Press OK to power off the terminal. Upon reboot, please verify that\n\n 1. license is correct\n 2. (if applicable) wireless modem is successfully unlocked" 10 $MAX_WIDTH
-    mv "${LICENSE_FILE}.$$" "${LICENSE_FILE}"
-    mv "${PIN_FILE}.$$" "${PIN_FILE}"
-    mv "$SUPPORT_FQDN_FILE.$$" "$SUPPORT_FQDN_FILE"
+
+    /usr/bin/clear
 
     poweroff
 fi

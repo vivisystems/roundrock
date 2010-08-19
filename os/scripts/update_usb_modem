@@ -9,7 +9,7 @@ fi
 TARGET=$2
 DEVICE_MARKER=/tmp/3g-modem.device.${TARGET}
 
-PIN_FILE=/etc/roundrock.pin
+PIN_FILE=/etc/modem.pin
 
 if [ -r ${PIN_FILE} -a -f ${PIN_FILE} ]; then
     PIN=`cat ${PIN_FILE}`

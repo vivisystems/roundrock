@@ -2,6 +2,7 @@
 
 DIR=`dirname $0`
 ROOTFS=/home/vivipos/diskimage/rootfs
+
 tar c -C $DIR/os/etc . | tar x -C $ROOTFS/etc
 
 tar c -C $DIR/os/scripts . | tar x -C $ROOTFS/sbin
