@@ -162,6 +162,10 @@ do_quick_check()
           --auto-close \
           --percentage=0
 
+    if [ 1 = "$?" ]; then
+        echo "`date +"%Y-%m-%d %H:%M:%S"` :   USER CANCEL integrity_check " >> ${DIR}/log/vivipos.log
+    fi
+
 }
 
 #
@@ -193,12 +197,14 @@ while [ $RETVAL != 0 ]; do
         if [ -f $DB_ERROR_FLAG ]; then
 
             ERROR_DB=`cat $DB_ERROR_FLAG`
-            $DIALOG --question --width=600 --height=300 --text="${MSG_RUN_VIVIPOS_CONTACT} \n\n${ERROR_DB}" --ok-label="${MSG_RUN_VIVIPOS_SHUTDOWN}" --cancel-label="${MSG_RUN_VIVIPOS_REBOOT}"
+            $DIALOG --question --width=600 --height=300 --text="${MSG_RUN_VIVIPOS_CONTACT} \n\n${ERROR_DB}"
+            #--ok-label="${MSG_RUN_VIVIPOS_SHUTDOWN}" --cancel-label="${MSG_RUN_VIVIPOS_REBOOT}"
 
             if [ 0 = "$?" ]; then
                 /sbin/shutdown -h now
             else
-                /sbin/shutdown -r now
+                #/sbin/shutdown -r now
+                /sbin/shutdown -h now
             fi
 
         else
