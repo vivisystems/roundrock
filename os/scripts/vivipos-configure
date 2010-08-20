@@ -137,8 +137,12 @@ Selection: (UP/DOWN/LEFT/RIGHT and [Enter])" 20 51 6 \
 			;;
 	esac
 
-	$DIALOG --title "Configure" --clear --msgbox "VIVIPOS Configuration Finished. \n\n\
-		Please select OK, then return to Main Menu and select 'Reboot' to take effect." 10 50
+	if [ $1 -gt 0 ]; then
+	    $DIALOG --title "Configure" --clear --msgbox "VIVIPOS Configuration Finished." 5 $MAX_WIDTH
+	else
+	    $DIALOG --title "Configure" --clear --msgbox "VIVIPOS Configuration Finished. \n\n\
+		    Please select OK, then return to Main Menu and select 'Reboot' to take effect." 10 50
+	fi
 
 	return 0;
 
@@ -537,13 +541,17 @@ return 0;
 # main loop
 #
 while [ /bin/true ]; do
-# display main_menu
-main_menu ;
+# display main_menu if no default choice provided
+if [ $# -eq 0 ]; then
+    main_menu ;
+else
+    choice=$1
+fi
 
 # switch 
 case $choice in
   Configure)
-	do_machine
+	do_machine $#
     ;;
   Database)
 	do_database
@@ -564,6 +572,11 @@ case $choice in
 	exit 0
 	;;
 esac
+
+# break out of loop if default choice provided
+if [ $# -gt 0 ]; then
+    break;
+fi
 
 done
 

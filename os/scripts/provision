@@ -58,13 +58,13 @@ determine_window_size() {
 ################################################################################################################
 
 provision_failed() {
-    rm -f "${LICENSE_FILE}".$$
-    rm -f "${PIN_FILE}".$$
-    rm -f "$SUPPORT_FQDN_FILE".$$
+    [ -f "${LICENSE_FILE}".$$ ] && rm -f "${LICENSE_FILE}".$$
+    [ -f "${PIN_FILE}".$$ ] && rm -f "${PIN_FILE}".$$
+    [ -f "$SUPPORT_FQDN_FILE".$$ ] && rm -f "$SUPPORT_FQDN_FILE".$$
 
     sync
 
-    $DIALOG $DIALOG_OPTS --title "Provision Failed" --msgbox "Failure Reason\n--------------\n\n$2" $1 $MAX_WIDTH
+    $DIALOG $DIALOG_OPTS --title "PROVISIONING ERROR" --msgbox "Failure Reason\n--------------\n\n$2" $1 $MAX_WIDTH
     exit 1
 }
 
@@ -97,10 +97,14 @@ check_license_signer() {
 
 sign_license() {
 
+    local TITLE
+
+    TITLE="GENERATE LICENSE"
+
     check_license_signer
 
     while [ $? -eq 1 ]; do
-        $DIALOG $DIALOG_OPTS --title LICENSE --msgbox "Please insert USB thumb drive with the license signer" 4 $MAX_WIDTH
+        $DIALOG $DIALOG_OPTS --title "$TITLE" --msgbox "Please insert USB thumb drive with the license generator tool" 4 $MAX_WIDTH
 
         check_license_signer
     done
@@ -114,15 +118,15 @@ sign_license() {
 
 	rm -f "$LICENSE_FILE"
 
-        sh -e "$LICENSE_SIGNER"
+        sh -e "$LICENSE_SIGNER" | $DIALOG $DIALOG_OPTS --progressbox "Generating license..." 4 $MAX_WIDTH
 
         SUCCESS=$?
 
         if [ $SUCCESS -eq 0 ]; then
 	    mv ${LICENSE_FILE} ${LICENSE_FILE}.$$
-            $DIALOG $DIALOG_OPTS --title LICENSE --msgbox "License successfully signed" 4 $MAX_WIDTH
+            $DIALOG $DIALOG_OPTS --title "${TITLE}" --msgbox "License successfully generated" 4 $MAX_WIDTH
         else
-            $DIALOG $DIALOG_OPTS --title LICENSE --msgbox "Error encountered while executing [$LICENSE_SIGNER]\n\nPlease check the license signer and retry" 6 $MAX_WIDTH
+            $DIALOG $DIALOG_OPTS --title "${TITLE}" --msgbox "Error encountered while executing [$LICENSE_SIGNER]\n\nPlease check the license generator and retry" 6 $MAX_WIDTH
         fi
     done
 }
@@ -130,6 +134,9 @@ sign_license() {
 ################################################################################################################
 
 update_support_center_fqdn() {
+
+    local TITLE="SUPPORT CENTER LOCATION"
+
     if [ -r "$SUPPORT_FQDN_FILE" ]; then
         SUPPORT_FQDN=`cat "$SUPPORT_FQDN_FILE"`
     else
@@ -140,10 +147,10 @@ update_support_center_fqdn() {
 
     while [ $SUCCESS -ne 0 ]; do
 
-        SUPPORT_FQDN=`$DIALOG $DIALOG_OPTS --title "Support Center Fully Qualified Domain Name" --nocancel --stdout --inputbox "Please update support center domain name if necessary" 6 $MAX_WIDTH "$SUPPORT_FQDN"`
+        SUPPORT_FQDN=`$DIALOG $DIALOG_OPTS --title "${TITLE}" --nocancel --stdout --inputbox "Please update fully qualified support center domain name if necessary" 6 $MAX_WIDTH "$SUPPORT_FQDN"`
 
         if [ -z "$SUPPORT_FQDN" ]; then
-            $DIALOG $DIALOG_OPTS --title "Support Center" --msgbox "Support center domain name must not be empty" 4 $MAX_WIDTH
+            $DIALOG $DIALOG_OPTS --title "${TITLE}" --msgbox "Support center domain name must not be empty" 4 $MAX_WIDTH
         else
             SUCCESS=0
         fi
@@ -159,18 +166,22 @@ update_support_center_fqdn() {
 get_serial_number() {
 
     local SUCCESS=1
+    local TITLE="SYSTEM SERIAL NUMBER"
 
     while [ $SUCCESS -ne 0 ]; do
 
-        SERIAL_NUMBER=`$SERIAL_NUMBER_READER`
+        $SERIAL_NUMBER_READER > /tmp/sn.$$ \
+	| $DIALOG $DIALOG_OPTS --progressbox "Retrieving system serial number..." 4 $MAX_WIDTH
 
+	SERIAL_NUMBER=`cat /tmp/sn.$$`
+	
         if [ -z "$SERIAL_NUMBER" ]; then
-            $DIALOG $DIALOG_OPTS --title "System Serial Number" --yes-label "Retry" --no-label "Cancel" --yesno "Failed to retrieve system serial number" 4 $MAX_WIDTH
+            $DIALOG $DIALOG_OPTS --title "${TITLE}" --yes-label "Retry" --no-label "Cancel" --yesno "Failed to retrieve system serial number" 4 $MAX_WIDTH
             if [ $? -ne 0 ]; then
                 return 1
             fi
         else
-            $DIALOG $DIALOG_OPTS --title "System Serial Number" --msgbox "System serial number successfully retrieved\n\n$SERIAL_NUMBER" 7 $MAX_WIDTH
+            $DIALOG $DIALOG_OPTS --title "${TITLE}" --msgbox "System serial number successfully retrieved\n\n$SERIAL_NUMBER" 7 $MAX_WIDTH
             SUCCESS=0
         fi
     done
@@ -181,12 +192,17 @@ get_serial_number() {
 
 get_system_details() {
 
-    touch "$SYSINFO_FILE"
+    local TITLE
+
+    TITLE="SYSTEM DETAILS"
+
     ${LSHW} > "$SYSINFO_FILE" 2>/dev/null \
-        | $DIALOG $DIALOG_OPTS --title "Retrieving system details..." --tailbox "$SYSINFO_FILE" 18 $MAX_WIDTH
+    | $DIALOG $DIALOG_OPTS --progressbox "Collecting system details..." 4 $MAX_WIDTH
 
     # generate base64 encoding of system details
-    SYSINFO_BASE64=`base64 "$SYSINFO_FILE"
+    SYSINFO_BASE64=`base64 "$SYSINFO_FILE"`
+
+    $DIALOG $DIALOG_OPTS --title "${TITLE}" --exit-label OK --textbox "$SYSINFO_FILE" $((MAX_HEIGHT - 5)) $MAX_WIDTH
 }
 
 ################################################################################################################
@@ -221,7 +237,7 @@ unlock_sim_with_pin() {
     local STATUS
     local TITLE
 
-    TITLE="Wireless Modem - Unlock SIM"
+    TITLE="WIRELESS MODEM - UNLOCK SIM"
 
     # get DEFAULT PIN
     if [ -r "${PIN_FILE}" ]; then
@@ -274,7 +290,7 @@ verify_plmn() {
     local RESEND
     local TITLE
 
-    TITLE="Wireless Modem - Verify"
+    TITLE="WIRELESS MODEM - VERIFY"
     RESEND=1
 
     while [ $RESEND -ne 0 ]; do
@@ -322,6 +338,7 @@ enable_sim_lock() {
 
     local NEW_PIN
     local OUTPUT_FILE=/tmp/simlock.$$
+    local TITLE="WIRELESS MODEM - ENABLE SIM LOCK"
 
     NEW_PIN=$1
 
@@ -346,11 +363,11 @@ enable_sim_lock() {
 
             STATUS=`${WVDIAL} lockstatus 2>&1 | grep "CLCK: " | awk '{print $2}'`
             if [ "$STATUS" != "1" ]; then
-                $DIALOG $DIALOG_OPTS --title "Wireless Modem - SIM Lock" --msgbox "Failed to enable SIM lock (status $STATUS)" 4 $MAX_WIDTH
+                $DIALOG $DIALOG_OPTS --title "${TITLE}" --msgbox "Failed to enable SIM lock (status $STATUS)" 4 $MAX_WIDTH
             fi
         done
     else
-        $DIALOG $DIALOG_OPTS --title "Wireless Modem - SIM Lock" --msgbox "SIM lock already enabled" 4 $MAX_WIDTH
+        $DIALOG $DIALOG_OPTS --title "${TITLE}" --msgbox "SIM lock already enabled" 4 $MAX_WIDTH
     fi
 
     # execute pin change
@@ -360,7 +377,7 @@ enable_sim_lock() {
     ${WVDIAL} changepin 2>&1 \
     | $DIALOG $DIALOG_OPTS --begin $POSY 0 --progressbox "Changing PIN..." $PROGRESS_HEIGHT $MAX_WIDTH \
       --and-widget --keep-window \
-      --title "Wireless Modem - PIN Change" \
+      --title "${TITLE}" \
       --msgbox "Please verify that PIN change is successfully completed" 4 $MAX_WIDTH
 
 }
@@ -374,7 +391,7 @@ provision_wireless_modem() {
 
     # read IMEI from modem
     SIM_IMEI=`$GNOKII --identify 2>/devnull | grep IMEI | awk -F" " '{print $3}'`
-    $DIALOG $DIALOG_OPTS --title "Wireless Modem - IMEI" --msgbox "Modem IMEI retrieved\n\n[$SIM_IMEI]" 6 $MAX_WIDTH
+    $DIALOG $DIALOG_OPTS --title "WIRELESS MODEM - IMEI" --msgbox "Modem IMEI retrieved\n\n[$SIM_IMEI]" 6 $MAX_WIDTH
 
     # unlock sim
     unlock_sim_with_pin
@@ -394,7 +411,7 @@ provision_wireless_modem() {
     # prompt user to remove/re-insert modem and verify that PIN works
 
 
-    $DIALOG $DIALOG_OPTS --title "Wireless Modem" --msgbox "Modem successfully provisioned" 4 $MAX_WIDTH
+    $DIALOG $DIALOG_OPTS --title "WIRELESS MODEM" --msgbox "Modem successfully provisioned" 4 $MAX_WIDTH
 
 }
 
@@ -435,7 +452,7 @@ send_terminal_data() {
 	     --post-data="$POST_DATA" $SUPPORT_URL \
 	    | $DIALOG $DIALOG_OPTS --begin $POSY 0 --progressbox "Transmitting Provisioning Information..." $PROGRESS_HEIGHT $MAX_WIDTH \
 	      --and-widget --keep-window \
-	      --title "Transmission Complete" \
+	      --title "TRANSMISSION COMPLETE" \
 	      --extra-button --extra-label "Retry" \
 	      --ok-label YES --cancel-label NO \
 	      --yesno "Did transmission succeed?" 4 $MAX_WIDTH
@@ -456,9 +473,11 @@ send_terminal_data() {
 
 ################################################################################################################
 
-vivipos-configure
-
 determine_window_size
+
+export MAX_WIDTH MAX_HEIGHT
+
+vivipos-configure Configure
 
 sign_license
 
@@ -475,7 +494,7 @@ get_system_details
 if [ -f "$MODEM_MARKER" ]; then
     provision_wireless_modem
 else
-    $DIALOG $DIALOG_OPTS --title "Wireless Modem" --msgbox "Modem not detected, skipping modem provisioning" 4 $MAX_WIDTH
+    $DIALOG $DIALOG_OPTS --title "WIRELESS MODEM" --msgbox "Modem not detected, skipping modem provisioning" 4 $MAX_WIDTH
 fi
 
 send_terminal_data
@@ -484,9 +503,9 @@ if [ $? -ne 0 ]; then
     provision_failed 11 "Failed to transmit provisioning data to support center. Please reprovision this terminal after the errors have been resolved."
 else
 
-    mv "${LICENSE_FILE}".$$ "${LICENSE_FILE}"
-    mv "${PIN_FILE}".$$ "${PIN_FILE}"
-    mv "$SUPPORT_FQDN_FILE".$$ "$SUPPORT_FQDN_FILE"
+    [ -f "${LICENSE_FILE}".$$ ] && mv "${LICENSE_FILE}".$$ "${LICENSE_FILE}"
+    [ -f "${PIN_FILE}".$$ ] && mv "${PIN_FILE}".$$ "${PIN_FILE}"
+    [ -f "$SUPPORT_FQDN_FILE".$$ ] && mv "$SUPPORT_FQDN_FILE".$$ "$SUPPORT_FQDN_FILE"
 
     sync
 
