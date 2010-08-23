@@ -25,6 +25,7 @@ MEDIA_MARKER=/tmp/last_media
 SUPPORT_FQDN_FILE=/etc/support.site
 DEFAULT_SUPPORT_FQDN="support.vivisystems.com.tw"
 SUPPORT_FQDN="$DEFAULT_SUPPORT_FQDN"
+SSL_CERTIFICATE=/etc/roundrock.pem
 
 # serial number config
 SERIAL_NUMBER_READER=/data/vivipos_sdk/getSystemLicenseStub
@@ -441,14 +442,14 @@ send_terminal_data() {
     fi
 
     POST_DATA="IMEI=$SIM_IMEI&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER&SYSINFO=$SYSINFO_BASE64"
-    SUPPORT_URL="http://$SUPPORT_FQDN/echo"
+    SUPPORT_URL="https://$SUPPORT_FQDN/cgi-bin/echo.php"
     PROGRESS_HEIGHT=12
     POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
 
     RETRY=0
 
     while [ $RETRY -eq 0 ]; do
-	wget --waitretry=5 --no-http-keep-alive --no-cache -T 120 -t 3 -O - 2>&1 \
+	wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem --no-http-keep-alive --no-cache -T 120 -t 3 -O - 2>&1 \
 	     --post-data="$POST_DATA" $SUPPORT_URL \
 	    | $DIALOG $DIALOG_OPTS --begin $POSY 0 --progressbox "Transmitting Provisioning Information..." $PROGRESS_HEIGHT $MAX_WIDTH \
 	      --and-widget --keep-window \
