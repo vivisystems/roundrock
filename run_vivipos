@@ -197,7 +197,8 @@ while [ $RETVAL != 0 ]; do
         if [ -f $DB_ERROR_FLAG ]; then
 
             ERROR_DB=`cat $DB_ERROR_FLAG`
-            $DIALOG --question --width=600 --height=300 --text="${MSG_RUN_VIVIPOS_CONTACT} \n\n${ERROR_DB}"
+            $DIALOG --error --width=600 --height=300 --text="${MSG_RUN_VIVIPOS_CONTACT} \n\n${ERROR_DB}"
+            #$DIALOG --question --width=600 --height=300 --text="${MSG_RUN_VIVIPOS_CONTACT} \n\n${ERROR_DB}"
             #--ok-label="${MSG_RUN_VIVIPOS_SHUTDOWN}" --cancel-label="${MSG_RUN_VIVIPOS_REBOOT}"
 
             if [ 0 = "$?" ]; then
@@ -206,6 +207,8 @@ while [ $RETVAL != 0 ]; do
                 #/sbin/shutdown -r now
                 /sbin/shutdown -h now
             fi
+
+            exit 1
 
         else
 
@@ -224,3 +227,4 @@ while [ $RETVAL != 0 ]; do
 
 done
 
+echo 0
