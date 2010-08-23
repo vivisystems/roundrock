@@ -4863,7 +4863,7 @@
 
                   stuff.created = Math.round(new Date().getTime() / 1000 );
 
-                  if(stuff.type != 'item' && stuff.type != 'condiment'){
+                  if(stuff.type != 'item' && stuff.type != 'condiment' && stuff.type != 'setitem'){
                       curTransaction.data.display_sequences.splice(i, 1);
                       i--;
                   }
