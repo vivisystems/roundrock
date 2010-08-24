@@ -3673,7 +3673,7 @@
 
                 let orgItem = null;
                 let newItem = null;
-                let priceModifier = item.price_modifier
+                let priceModifier = (item? item.price_modifier : null);
 
                 if (selectedItemIndex == itemIndex || selectedItemIndex == itemParentIndex || (itemType != 'item' && itemType != 'setitem' && displayLevel > 0)) {
 
@@ -3743,6 +3743,7 @@
                             }
                         }
 
+                        newItem.index = newItemIndex;
                         this.data.items[newItemIndex] = newItem;
                         source.data.items[itemIndex] = orgItem;
 
@@ -3833,8 +3834,25 @@
             }
             this.calcTotal();
             source.calcTotal();
-        }
+        },
 
+        cloneAllItems: function(source) {
+
+            for(let i=0; i < source.data.display_sequences.length; i++) {
+                let data = source.data.display_sequences[i] ;
+                let type = data.type;
+
+                // only process item , any assoc items will auto move.
+              if (type == 'item'){
+
+                    this._cloneItem(source, i, source.data.items[data.index].current_qty);
+
+                }
+
+            }
+            this.calcTotal();
+            source.calcTotal();
+        }
 
     };
 
