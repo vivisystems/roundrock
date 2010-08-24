@@ -4841,6 +4841,7 @@
 
                   let item = trans.data.display_sequences[i];
 
+
                   if(item.type == 'item' || item.type == 'setitem'){
                       if(this.checkof_itemStock(item, trans.data.items_summary[item.id].qty_subtotal)){
                           //set stock_status = -1, this items is out of sold
