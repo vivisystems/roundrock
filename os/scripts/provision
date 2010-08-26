@@ -420,35 +420,36 @@ provision_wireless_modem() {
 
 send_terminal_data() {
 
-    if [ -f "$MODEM_MARKER" ]; then
-        # dialing cht
-        PROGRESS_HEIGHT=12
-        POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
-
-        ${WVDIAL} cht >/tmp/pppd-session 2>&1 &
-
-        $DIALOG $DIALOG_OPTS --begin $POSY 0 --no-kill --tailboxbg /tmp/pppd-session $PROGRESS_HEIGHT $MAX_WIDTH 2>/dev/null &
-        DLG_PID=$!
-
-        # wait until ppp0 if up and running
-        PPPD=1
-        while [ $PPPD -ne 0 ]; do
-            sleep 5
-            ifconfig ppp0
-            PPPD=$?
-        done
-
-        killall dialog
-    fi
-
-    POST_DATA="IMEI=$SIM_IMEI&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER&SYSINFO=$SYSINFO_BASE64"
-    SUPPORT_URL="https://$SUPPORT_FQDN/cgi-bin/echo.php"
-    PROGRESS_HEIGHT=12
-    POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
-
     RETRY=0
 
     while [ $RETRY -eq 0 ]; do
+
+	if [ -f "$MODEM_MARKER" ]; then
+	    # dialing cht
+	    PROGRESS_HEIGHT=12
+	    POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
+
+	    ${WVDIAL} cht >/tmp/pppd-session 2>&1 &
+
+	    $DIALOG $DIALOG_OPTS --begin $POSY 0 --no-kill --tailboxbg /tmp/pppd-session $PROGRESS_HEIGHT $MAX_WIDTH 2>/dev/null &
+	    DLG_PID=$!
+
+	    # wait until ppp0 if up and running
+	    PPPD=1
+	    while [ $PPPD -ne 0 ]; do
+		sleep 5
+		ifconfig ppp0
+		PPPD=$?
+	    done
+
+	    killall dialog
+	fi
+
+	POST_DATA="IMEI=$SIM_IMEI&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER&SYSINFO=$SYSINFO_BASE64"
+	SUPPORT_URL="https://$SUPPORT_FQDN/cgi-bin/echo.php"
+	PROGRESS_HEIGHT=12
+	POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
+
 	wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem --no-http-keep-alive --no-cache -T 120 -t 3 -O - 2>&1 \
 	     --post-data="$POST_DATA" $SUPPORT_URL \
 	    | $DIALOG $DIALOG_OPTS --begin $POSY 0 --progressbox "Transmitting Provisioning Information..." $PROGRESS_HEIGHT $MAX_WIDTH \
@@ -463,11 +464,14 @@ send_terminal_data() {
 	if [ $STATUS -ne 3 ]; then
 	    RETRY=1
 	fi
-    done
 
-    if [ -f "$MODEM_MARKER" ]; then
-	killall pppd wvdial
-    fi
+	if [ -f "$MODEM_MARKER" ]; then
+	    killall pppd wvdial
+	    
+	    sleep 2
+	fi
+	
+    done
 
     return $STATUS
 }
