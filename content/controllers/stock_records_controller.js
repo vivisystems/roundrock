@@ -1,4 +1,9 @@
 (function() {
+
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     // for using the checkMedia method.
     include('chrome://viviecr/content/reports/controllers/components/check_media.js');
 
@@ -749,7 +754,7 @@
         }
     };
     
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
     // mainWindow register stock initial
     var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");

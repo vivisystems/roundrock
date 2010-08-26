@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
 
         name: 'Cart',
@@ -4800,17 +4804,30 @@
 
              this.dispatchEvent('onUnlockRecallOrderByNewId', curTransaction);
              
-             let curTransaction = this._createNewTransaction(transaction);            
+             //let curTransaction = this._createNewTransaction(transaction);
+             let curTransaction = new Transaction(false);
 
-             curTransaction.calcPromotions();
-             curTransaction.calcTotal();
+             curTransaction.cloneAllItems(transaction);
+
+             curTransaction = this.checkof_transStock(curTransaction);
 
              this.dispatchEvent('onGetSubtotal', curTransaction);
 
              this.dispatchEvent('afterUnlockRecallOrderByNewId', curTransaction);
 
              this._setTransactionToView(curTransaction);
-             //   this.returnItem(true);
+
+             /* initial display_sequences condiment*/
+             for(let i= 0; i< curTransaction.data.display_sequences.length; i++){
+
+                  let item = curTransaction.data.display_sequences[i];
+                  if(item.type == 'condiment'){
+
+                      curTransaction.expandCondiments(i);
+                      curTransaction.collapseCondiments(i);
+                  }
+             }
+
              this._clearAndSubtotal();
 
              this.dispatchEvent('onWarning', 'OPEN ORDER');
@@ -4818,96 +4835,45 @@
              curTransaction.updateCartView(-1, -1);          
         },
 
-        /*Create a new transaction that data is assigned by data of input old transaction*/
-        _createNewTransaction: function( oldTrans ){
+        checkof_transStock: function(trans){
 
-            let curTransaction = new Transaction(false);
+             for(let i= 0; i< trans.data.display_sequences.length; i++){
 
-             let id = curTransaction.data.id
-             let check_no = curTransaction.data.check_no;
-             let seq = curTransaction.data.seq;
-             let seq_original = curTransaction.data.seq_original;
+                  let item = trans.data.display_sequences[i];
 
-             curTransaction.data  = oldTrans.data;
 
-             curTransaction.data.id = id;
-             curTransaction.data.check_no = check_no;
-             curTransaction.data.seq = seq;
-             curTransaction.data.seq_original = seq_original;
-
-             curTransaction.data.close = false ;
-             
-             /*delete all display sequences batch property*/
-             curTransaction.data.display_sequences.forEach(function(item){
-
-                 delete item.batch;
-             });
-
-             /*delete all items hasMark property*/
-             for( id in curTransaction.data.items){
-                 curTransaction.data.items[id].hasMarker = false;
-                 curTransaction.data.items[id].created = Math.round(new Date().getTime() / 1000 );
-             }
-
-             /* change transaction status*/
-             curTransaction.data.status = 0;
-
-             /*keeps item and condiment in the order, others are removed*/
-             for(var i = 0 ; i< curTransaction.data.display_sequences.length ; i++){
-
-                  var stuff = curTransaction.data.display_sequences[i];
-
-                  stuff.created = Math.round(new Date().getTime() / 1000 );
-
-                  if(stuff.type != 'item' && stuff.type != 'condiment'){
-                      curTransaction.data.display_sequences.splice(i, 1);
-                      i--;
+                  if(item.type == 'item' || item.type == 'setitem'){
+                      if(this.checkof_itemStock(item, trans.data.items_summary[item.id].qty_subtotal)){
+                          //set stock_status = -1, this items is out of sold
+                          trans.data.display_sequences[i].stock_status = -1;
+                          trans.data.items[item.index].stock_status = -1;
+                      }
                   }
              }
+             return trans;
+        },
 
-             let subtotal = curTransaction.data.payment_subtotal ;
+        checkof_itemStock: function(item, qty_subtotal){
 
-             /*initialize transaction */
-             curTransaction.data.remain = 0;
-             curTransaction.data.total = 0;
-             curTransaction.data.payment_subtotal = 0;
-             curTransaction.data.average_price = 0;
-             curTransaction.data.item_subtotal = 0;
-             curTransaction.data.batchCount = 0;
-             
-             delete curTransaction.data.batchItemCount;
-             delete curTransaction.data.batchPaymentCount;
-             curTransaction.data.trans_payments = {};
+             var productModel = new ProductModel();
 
-             /* reset time*/
-             curTransaction.data.created = Math.round(new Date().getTime() / 1000 );
-             curTransaction.data.modified = Math.round(new Date().getTime() / 1000 );
-             curTransaction.data.transaction_created =  Math.round(new Date().getTime() / 1000 );
-             delete curTransaction.data.transaction_submitted;
+             var iteminfo = productModel.getProductById(item.id) || null;
 
-             /*reset clerk*/
-             var user = this.Acl.getUserPrincipal();
-             curTransaction.data.proceeds_clerk = user.username;
-             curTransaction.data.proceeds_clerk_displayname = user.description;
+             if(!iteminfo)
+                 return false;
 
-             var salePeriod = GeckoJS.Session.get('sale_period');
-             var shiftNumber = GeckoJS.Session.get('shift_number');
+             var auto_maintain_stock = iteminfo.auto_maintain_stock;
 
-             curTransaction.data.sale_period = salePeriod;
-             curTransaction.data.shift_number = shiftNumber;
+             if (auto_maintain_stock) {
 
-             // set branch and terminal info
-            var terminalNo = GeckoJS.Session.get('terminal_no') || '';
-            curTransaction.data.terminal_no = terminalNo;
+                 var stockrecord = new StockRecordModel();
 
-            var store = GeckoJS.Session.get('storeContact');
+                 var stock = stockrecord.getStockById(iteminfo.no);
 
-            if (store) {
-                curTransaction.data.branch = store.branch;
-                curTransaction.data.branch_id = store.branch_id;
-            }
-              
-             return curTransaction;
+                 if(qty_subtotal > stock);
+                     return true;
+             }
+             return false;
         },
 
         _getMemoDialog: function (memo) {
@@ -5134,5 +5100,6 @@
 
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
+    
 })();

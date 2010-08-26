@@ -231,6 +231,7 @@
         },
 
         toggleOpenState: function(row) {
+           
             var itemDisplay = this.data[row];
             if (itemDisplay.open) {
                 this._transaction.collapseCondiments(row);

@@ -34,7 +34,7 @@ pref("DATABASE_CONFIG.table.classname", "SQLite");
 pref("DATABASE_CONFIG.table.path", "/data/databases");
 pref("DATABASE_CONFIG.table.database", "vivipos.sqlite");
 pref("DATABASE_CONFIG.table.timeout", "30");
-pref("DATABASE_CONFIG.table.synchronous", 'NORMAL');
+pref("DATABASE_CONFIG.table.synchronous", 'FULL');
 pref("DATABASE_CONFIG.table.journal_mode", 'TRUNCATE');
 
 /*
@@ -59,7 +59,7 @@ pref("DATABASE_CONFIG.order.classname", "SQLite");
 pref("DATABASE_CONFIG.order.path", "/data/databases");
 pref("DATABASE_CONFIG.order.database", "vivipos_order.sqlite");
 pref("DATABASE_CONFIG.order.timeout", "30");
-pref("DATABASE_CONFIG.order.synchronous", 'NORMAL');
+pref("DATABASE_CONFIG.order.synchronous", 'FULL');
 pref("DATABASE_CONFIG.order.journal_mode", 'TRUNCATE');
 
 /*
@@ -84,7 +84,7 @@ pref("DATABASE_CONFIG.acl.classname", "SQLite");
 pref("DATABASE_CONFIG.acl.path", "/data/databases");
 pref("DATABASE_CONFIG.acl.database", "vivipos.sqlite");
 pref("DATABASE_CONFIG.acl.timeout", "30");
-pref("DATABASE_CONFIG.acl.synchronous", 'NORMAL');
+pref("DATABASE_CONFIG.acl.synchronous", 'FULL');
 pref("DATABASE_CONFIG.acl.journal_mode", 'TRUNCATE');
 
 /*
@@ -109,7 +109,7 @@ pref("DATABASE_CONFIG.extension.classname", "SQLite");
 pref("DATABASE_CONFIG.extension.path", "/data/databases");
 pref("DATABASE_CONFIG.extension.database", "vivipos.sqlite");
 pref("DATABASE_CONFIG.extension.timeout", "30");
-pref("DATABASE_CONFIG.extension.synchronous", 'NORMAL');
+pref("DATABASE_CONFIG.extension.synchronous", 'FULL');
 pref("DATABASE_CONFIG.extension.journal_mode", 'TRUNCATE');
 
 /*
@@ -134,7 +134,7 @@ pref("DATABASE_CONFIG.journal.classname", "SQLite");
 pref("DATABASE_CONFIG.journal.path", "/data/databases");
 pref("DATABASE_CONFIG.journal.database", "vivipos.sqlite");
 pref("DATABASE_CONFIG.journal.timeout", "30");
-pref("DATABASE_CONFIG.journal.synchronous", 'NORMAL');
+pref("DATABASE_CONFIG.journal.synchronous", 'FULL');
 pref("DATABASE_CONFIG.journal.journal_mode", 'TRUNCATE');
 
 /*
@@ -159,7 +159,7 @@ pref("DATABASE_CONFIG.inventory.classname", "SQLite");
 pref("DATABASE_CONFIG.inventory.path", "/data/databases");
 pref("DATABASE_CONFIG.inventory.database", "vivipos.sqlite");
 pref("DATABASE_CONFIG.inventory.timeout", "30");
-pref("DATABASE_CONFIG.inventory.synchronous", 'NORMAL');
+pref("DATABASE_CONFIG.inventory.synchronous", 'FULL');
 pref("DATABASE_CONFIG.inventory.journal_mode", 'TRUNCATE');
 
 /*

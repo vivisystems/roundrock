@@ -56,7 +56,7 @@
     <vbox id="plusXUL" flex="1" class="container-be layout-be">
         <hbox flex="1" class="container-main layout-a">
             <vbox flex="1" class="container-left block-33">
-                <label value="&plus.title;" class="label-page-title"/>
+                <label value="&plus.title;." class="label-page-title"/>
                 <tabbox flex="1" class="custom-content-tabbox">
                     <tabs id="mode_tabs">
                         <tab id="tab_normalmode" label="&plus.tab.normalmode;"/>

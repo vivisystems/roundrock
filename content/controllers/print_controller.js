@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     include('chrome://viviecr/content/devices/deviceTemplate.js');
     include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
     include('chrome://viviecr/content/reports/template_ext.js');
@@ -1280,7 +1284,7 @@
 
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

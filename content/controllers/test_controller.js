@@ -4,6 +4,10 @@
      * Class ViviPOS.TestController
      */
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
         name: 'Test',
         components: ['Tax','Acl'],
@@ -101,6 +105,6 @@ alert('generateTransactions [' + count + ']');
 
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
 })();

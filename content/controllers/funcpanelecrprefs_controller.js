@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
 
         name: 'vivifuncpanelecr_prefs',
@@ -964,7 +968,7 @@
 
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
     window.addEventListener("load", function (){
       $do('vivifuncpanelecrPrefs_startup', 'vivifuncpanelecr_prefs', 'vivifuncpanelecr_prefs');

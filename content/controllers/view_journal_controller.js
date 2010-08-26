@@ -6,6 +6,10 @@
     include('chrome://viviecr/content/reports/template_ext.js');
     include('chrome://viviecr/content/controllers/components/order_status.js');
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
 
         name: 'ViewJournal',
@@ -168,6 +172,6 @@
 
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
 })();

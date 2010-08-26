@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
         
         name: 'CartQueue',
@@ -236,6 +240,6 @@
 
     };
 
-    var CartQueueController = window.CartQueueController =  GeckoJS.Controller.extend(__controller__);
+    var CartQueueController = window.CartQueueController =  AppController.extend(__controller__);
 
 })();

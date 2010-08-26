@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     GeckoJS.include('chrome://viviecr/content/models/storecontact.js');
     GeckoJS.include('chrome://viviecr/content/models/stock_record.js');
 
@@ -191,7 +195,7 @@
 
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

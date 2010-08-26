@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
 
         name: 'Main',
@@ -333,6 +337,7 @@
         },
 
         ControlPanelDialog: function () {
+            
             if (GeckoJS.Session.get( "isTraining" )) {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('Control Panel is disabled during training.'));
                 return;
@@ -2144,5 +2149,5 @@
 
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 })();

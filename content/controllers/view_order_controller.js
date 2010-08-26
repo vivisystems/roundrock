@@ -3,6 +3,10 @@
     include('chrome://viviecr/content/reports/template.js');
     include('chrome://viviecr/content/reports/template_ext.js');
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
 
         name: 'ViewOrder',
@@ -208,5 +212,5 @@
         }
     };
 
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 })();

@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
         
         name: 'GuestCheck',
@@ -164,6 +168,7 @@
                 disablecancelbtn:true
             };
 
+            dump(this.topmostWindow +'aaa \n');
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Number of Guests'), aFeatures, _('Enter Number of Guests'), '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
@@ -190,6 +195,7 @@
 
             title = title || _('Enter Check Number');
 
+dump(this.topmostWindow +'aaa \n');
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, title, aFeatures, title, '', '', '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
@@ -319,7 +325,7 @@
                 orders: orders,
                 excludedOrderId: ""
             };
-                
+
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_checks', aFeatures, inputObj);
 
             if (inputObj.ok && inputObj.order_id) {
@@ -2463,7 +2469,7 @@
 
     };
 
-    var GuestCheckController = window.GuestCheckController =  GeckoJS.Controller.extend(__controller__);
+    var GuestCheckController = window.GuestCheckController =  AppController.extend(__controller__);
 
     // mainWindow self register guest check initial
     var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");

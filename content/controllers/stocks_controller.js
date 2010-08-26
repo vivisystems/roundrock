@@ -1,5 +1,9 @@
 ( function() {
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
 
         name: 'Stocks',
@@ -308,7 +312,7 @@
 
     };
     
-    GeckoJS.Controller.extend( __controller__ );
+    AppController.extend( __controller__ );
 
     // mainWindow register stock initial
     var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");

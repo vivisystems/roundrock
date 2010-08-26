@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     /**
      * Controller Promotions Manager
      * 
@@ -510,7 +514,7 @@
 
     };
 
-    GeckoJS.Controller.extend(__promotions_manager_controller__);
+    AppController.extend(__promotions_manager_controller__);
 
     window.addEventListener('load', function() {
         $do('initial', null, 'PromotionsManager');

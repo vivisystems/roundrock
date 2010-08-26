@@ -1,5 +1,9 @@
 (function(){
     
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     include('chrome://viviecr/content/reports/template.js');
     include('chrome://viviecr/content/reports/template_ext.js');
 
@@ -1438,7 +1442,7 @@
 
     };
     
-    GeckoJS.Controller.extend(__controller__);
+    AppController.extend(__controller__);
 
 
 })();

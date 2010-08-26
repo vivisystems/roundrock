@@ -3,7 +3,11 @@
     include('chrome://viviecr/content/devices/deviceTemplate.js');
     include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
     include('chrome://viviecr/content/reports/template_ext.js');
-	 
+
+    if(typeof AppController == 'undefined') {
+        include( 'chrome://viviecr/content/controllers/app_controller.js' );
+    }
+
     var __controller__ = {
 
         name: "Journal",
@@ -301,7 +305,7 @@
 };
 
 	 
-GeckoJS.Controller.extend( __controller__ );
+    AppController.extend( __controller__ );
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');

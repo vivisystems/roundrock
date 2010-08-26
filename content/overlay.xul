@@ -36,7 +36,7 @@
   <script src='chrome://viviecr/content/controllers/components/guest_check.js' type="application/x-javascript;version=1.7"/>
   
   <!-- include base controller -->
-  <script src='chrome://viviecr/content/controller/app_controller.js' type="application/x-javascript;version=1.7"/>
+  <script src='chrome://viviecr/content/controllers/app_controller.js' type="application/x-javascript;version=1.7"/>
 
   <!-- irc -->
   <script src='chrome://viviecr/content/controllers/locale_helper_controller.js' type="application/x-javascript;version=1.8"/>
