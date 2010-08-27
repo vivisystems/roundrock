@@ -7,7 +7,7 @@ menuentry 'Round Rock' --class ubuntu --class gnu-linux --class gnu --class os {
         recordfail
         insmod ext2
         set root='(hd0,1)'
-        linux   /boot/vmlinuz-2.6.32-24-generic root=LABEL=ROUNDROCK_ROOT ro quiet splash 8250.nr_uarts=8 irqpoll elevator=noop nomodeset
+        linux   /boot/vmlinuz-2.6.32-24-generic root=LABEL=ROUNDROCK_ROOT ro quiet splash nomodeset
         initrd  /boot/initrd.img-2.6.32-24-generic
 }
 
