@@ -1,0 +1,24 @@
+#!/bin/sh
+
+PREREQ=""
+
+prereqs()
+{
+	echo "$PREREQ"
+}
+
+case $1 in
+# get pre-requisites
+prereqs)
+	prereqs
+	exit 0
+	;;
+esac
+
+# Hooks for copying necessary executables into initramfs
+
+. /usr/share/initramfs-tools/hook-functions
+
+copy_exec /usr/bin/tty /bin
+copy_exec /usr/bin/find /bin
+copy_exec /usr/bin/cksum /bin
