@@ -5,3 +5,5 @@ ROOTFS=/home/vivipos/diskimage/rootfs
 tar c -C $DIR/os/etc . | tar x -C $ROOTFS/etc
 
 tar c -C $DIR/os/scripts . | tar x -C $ROOTFS/sbin
+
+tar c -C $DIR/os/initramfs-tools . | tar x -C $ROOTFS/usr/share/initramfs-tools
