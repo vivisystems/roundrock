@@ -1,0 +1,27 @@
+#!/bin/sh
+
+PREREQ=""
+
+prereqs()
+{
+	echo "$PREREQ"
+}
+
+case $1 in
+# get pre-requisites
+prereqs)
+	prereqs
+	exit 0
+	;;
+esac
+
+# Hooks for loading harddisk modules into the initramfs
+
+. /usr/share/initramfs-tools/hook-functions
+
+if [ "$MODULES" = "list" ]; then
+	#auto_add_modules block
+	auto_add_modules ide
+	#auto_add_modules ata
+	auto_add_modules scsi
+fi
