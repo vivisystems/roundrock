@@ -19,6 +19,6 @@ esac
 
 . /usr/share/initramfs-tools/hook-functions
 
-copy_exec /usr/bin/tty /bin
-copy_exec /usr/bin/find /bin
-copy_exec /usr/bin/cksum /bin
+copy_exec /usr/bin/md5deep /bin
+copy_exec /data/vivipos_sdk/getSystemLicenseStub /bin
+copy_exec /sbin/decrypt /bin
