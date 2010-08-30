@@ -70,11 +70,33 @@ parse_options()
 	cryptkey="" # This is only used as an argument to an eventual keyscript
 	crypttries=3
 	cryptrootdev=""
+
+	# ROUNDROCK options - BEGIN
+	cryptkeyfile=""		# must be explicitly given to have effect
+	crypttoollabel="ROUNDROCK_TOOLS"
+	crypttoolscript="crypt-keygen"
+	crypttoolmount="${rootmnt}"
+	# ROUNDROCK options - END
+
 	CRYPTTAB_OPTIONS=""
 
 	local IFS=" ,"
 	for x in $cryptopts; do
 		case $x in
+		# ROUNDROCK options - BEGIN
+		keyfile=*)
+			cryptkeyfile=${x#keyfile=}
+			;;
+		toollabel=*)
+			crypttoollabel=${x#toollabel=}
+			;;
+		toolscript=*)
+			crypttoolscript=${x#toolscript=}
+			;;
+		toolmount=*)
+			crypttoolmount=${x#toolmount=}
+			;;
+		# ROUNDROCK options - END
 		hash=*)
 			crypthash=${x#hash=}
 			;;
@@ -286,6 +308,75 @@ setup_mapping()
 			return 1
 		fi
 
+		# ROUNDROCK options - BEGIN
+		#
+		# if cryptkeyfile is specified but not present, try to execute tool script
+		# to generate cryptkey
+		# 
+		if [ -n "$cryptkeyfile" ]; then
+			if [ -r "$cryptkeyfile" ]; then
+				log_warning_msg "key file specified [$cryptkeyfile]"
+			else
+				log_warning_msg "key file specified but non-existent [$cryptkeyfile]"
+				
+				# attempt to mount tool disk and execute tool script
+				if [ -n "$crypttoollabel" -a \
+				     -n "$crypttoolscript" -a \
+				     -n "$crypttoolmount" ]; then
+				     
+
+					if [ ! -h  "/dev/disk/by-label/$crypttoollabel" ]; then
+						log_warning_msg "Please insert the provisioning tool disk now..."
+					fi
+
+					TOOL_FSTYPE=`wait-for-root "/dev/disk/by-label/$crypttoollabel" 30`
+
+					if [ -n "$TOOL_FSTYPE" ]; then
+
+						log_warning_msg "mounting tool volume [$crypttoollabel] type [$TOOL_FSTYPE]"
+
+						mount -t "$TOOL_FSTYPE" "/dev/disk/by-label/$crypttoollabel" "$crypttoolmount"
+
+						if [ $? -eq 0 ]; then
+
+							log_warning_msg "tool volume [$crypttoollabel] mounted"
+
+							if [ -x "$crypttoolmount/$crypttoolscript" ]; then
+								"$crypttoolmount/$crypttoolscript" "$cryptkeyfile"
+								log_warning_msg "tool script [$crypttoolmount/$crypttoolscript] executed"
+							else
+								log_warning_msg "tool script not found [$crypttoolmount/$crypttoolscript]"
+							fi
+
+							if [ -r "$cryptkeyfile" ]; then
+								cp "$cryptkeyfile" "$crypttoolmount"
+
+								log_warning_msg "key file created"
+							else
+								log_warning_msg "failed to create key file"
+							fi
+
+							sync
+
+							log_warning_msg "validating key..."
+
+							$crypttoolmount/decrypt $cryptkeyfile
+
+							sleep 5
+
+							umount "$crypttoolmount"
+						else
+							log_warning_msg "failed to mount tool volume [$crypttoollabel]"
+						fi
+					else
+						log_warning_msg "crypt-keygen tool not available [$crypttoollabel] [$crypttoolmount] [$crypttoolscript]"
+					fi
+				else
+					log_warning_msg "crypt-keygen tool not specified [$crypttoollabel] [$crypttoolmount] [$crypttoolscript]"
+				fi
+			fi
+		fi
+		# ROUNDROCK options - END
 		if [ -z "$cryptkeyscript" ]; then
 			cryptkey="Unlocking the disk $cryptsource ($crypttarget)\nEnter passphrase: "
 			if [ -x /bin/plymouth ] && plymouth --ping; then

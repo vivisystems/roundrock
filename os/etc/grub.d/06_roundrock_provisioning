@@ -1,0 +1,13 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+menuentry 'Round Rock Provisioning' --class ubuntu --class gnu-linux --class gnu --class os {
+        recordfail
+        insmod ext2
+        set root='(hd0,1)'
+        linux   /boot/vmlinuz-2.6.32-24-generic root=/dev/mapper/ROUNDROCK_ROOT ro nomodeset cryptopts=source=/dev/sda2,target=ROUNDROCK_ROOT,cipher=aes-cbc-plain,keyfile=/etc/crypt-key
+        initrd  /boot/initrd.img-2.6.32-24-generic
+}
+

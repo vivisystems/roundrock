@@ -5,11 +5,18 @@
 #include <sys/types.h>
 #include "encrypt.h"
 
+
 failed() {
   return 1;
 }
 
-int main(argc, argv) {
+
+void usage(char *cmd) {
+  fprintf(stderr, "usage: %s keyfile\n", cmd);
+}
+
+
+int main(int argc, char **argv) {
 
   int r;
   int mounts;
@@ -18,12 +25,21 @@ int main(argc, argv) {
   char serial_number[1024];
   char key_buf[2048];
 
+  char *KEYFILE;
+
   pid_t pid;
   pid_t ppid;
 
   size_t key_len;
 
   FILE *f;
+
+  if (argc != 2) {
+    usage(argv[0]);
+    return failed();
+  }
+
+  KEYFILE = argv[1];
 
   printf("*** Begin\n");
 
@@ -101,7 +117,7 @@ int main(argc, argv) {
   printf("==> decrypt private key\n");
 
   // retrieve public key from file
-  f = fopen("/etc/public-key", "r");
+  f = fopen(KEYFILE, "r");
   if (f != NULL) {
     key_len = read(fileno(f), key_buf, 2048);
     if (ferror(f)) {

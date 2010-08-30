@@ -18,7 +18,19 @@ ERROR_MSG=""
 # license related variables
 LICENSE_FILE=/etc/vivipos.lic
 LICENSE_SIGNER=makelic
-MEDIA_MARKER=/tmp/last_media
+TOOLS_LABEL=ROUNDROCK_TOOLS
+
+
+# initramfs related parameters
+CRYPT_KEY_FILE=crypt-key
+CRYPT_KEY_PATH=/etc
+INITRAMFS=/boot/initrd.img-2.6.32-24-generic
+
+
+# GRUB related parameters
+GRUB_DIRECTORY=/etc/grub.d
+PROVISIONING_GRUB_ENTRY=06_roundrock_provisioning
+GRUB_UPDATE_SCRIPT=update-grub
 
 
 # support center variables
@@ -81,13 +93,10 @@ trap handle_trap INT QUIT
 
 check_license_signer() {
 
-    MEDIA=""
+    MEDIA="/media/$TOOLS_LABEL"
     # check if USB thumb drive with license signer is available
-    if [ -r "$MEDIA_MARKER" ]; then
-        MEDIA="`cat $MEDIA_MARKER`/Tools"
-    fi
 
-    if [ -n "$MEDIA" -a -r "$MEDIA/$LICENSE_SIGNER" ]; then
+    if [ -r "$MEDIA/$LICENSE_SIGNER" ]; then
         return 0
     else
         return 1
@@ -418,6 +427,49 @@ provision_wireless_modem() {
 
 ################################################################################################################
 
+generate_initramfs() {
+
+    local CWD=`pwd`
+
+    if [ -r "$MEDIA/$CRYPT_KEY_FILE" ]; then
+
+	# expand initramfs
+	mkdir /tmp/newrd.$$
+	cd /tmp/newrd.$$
+	gunzip -c $INITRAMFS | cpio --verbose -i 2>&1 \
+	    | $DIALOG $DIALOG_OPTS --progressbox "Unpacking initramfs..." $((MAX_HEIGHT - 5)) $MAX_WIDTH
+
+	sleep 2;
+
+	mv -f "$MEDIA/$CRYPT_KEY_FILE" "./$CRYPT_KEY_PATH/"
+	find . | cpio --verbose --dereference -o -H newc 2>/tmp/cpio.out.$$ | gzip -c > /tmp/initrd.$$ \
+	    | $DIALOG $DIALOG_OPTS --title "Regenerating initramfs..." --tailbox /tmp/cpio.out.$$ $((MAX_HEIGHT - 5)) $MAX_WIDTH
+
+	mv -f /tmp/initrd.$$ $INITRAMFS
+
+	cd $CWD
+	rm -rf /tmp/newrd.$$ /tmp/cpio.out.$$
+
+    fi
+
+
+}
+
+################################################################################################################
+
+remove_provisioning_grub_entry() {
+
+    rm -f "$GRUB_DIRECTORY/$PROVISIONING_GRUB_ENTRY"
+    "$GRUB_UPDATE_SCRIPT" 2>&1 | $DIALOG $DIALOG_OPTS --progressbox "Updating GRUB entries ..." 10 $MAX_WIDTH
+
+    sleep 2
+
+    sync
+
+}
+
+################################################################################################################
+
 send_terminal_data() {
 
     RETRY=0
@@ -482,9 +534,15 @@ determine_window_size
 
 export MAX_WIDTH MAX_HEIGHT
 
-vivipos-configure Configure
+#vivipos-configure Configure
 
 sign_license
+
+# repack initramfs with crypt-key
+generate_initramfs
+
+# remove ROUNDROCK PROVISIONING grub entry with
+remove_provisioning_grub_entry
 
 update_support_center_fqdn
 

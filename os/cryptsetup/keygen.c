@@ -8,17 +8,30 @@ int failed() {
   return 1;
 }
 
-int main(argc, argv) {
+void usage(char *cmd) {
+  fprintf(stderr, "usage: %s keyfile\n", cmd);
+}
+
+int main(int argc, char **argv) {
 
   int r;
   char cmd_buf[1024];
   char md5_sum[1024];
   char serial_number[1024];
   char key_buf[2048];
+  
+  char *KEYFILE;
 
   FILE *f;
 
-  printf("*** Begin\n");
+  if (argc != 2) {
+    usage(argv[0]);
+    return failed();
+  }
+
+  KEYFILE = argv[1];
+
+  printf("*** Begin [keyfile=%s]\n", KEYFILE);
 
   // compute MD5 digest
   printf("==> compute MD5 digest\n");
@@ -77,7 +90,7 @@ int main(argc, argv) {
 
   // store public key
   printf("==> store public key\n");
-  f = fopen("/root/public-key", "w");
+  f = fopen(KEYFILE, "w");
   if (f != NULL) {
     ssize_t count = write(fileno(f), key_buf, key_len);
     fclose(f);
@@ -97,7 +110,7 @@ int main(argc, argv) {
   printf("==> validate public key\n");
 
   // retrieve public key from file
-  f = fopen("/root/public-key", "r");
+  f = fopen(KEYFILE, "r");
   if (f != NULL) {
     key_len = read(fileno(f), key_buf, 2048);
     if (ferror(f)) {

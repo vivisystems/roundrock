@@ -1,10 +1,10 @@
-default:	sign decrypt
+default:	crypt-keygen decrypt
 
-sign:		sign.c encrypt.h
-		gcc -o sign sign.c
+crypt-keygen:	keygen.c encrypt.h
+		gcc -o crypt-keygen keygen.c
 
 decrypt:	decrypt.c encrypt.h
 		gcc -o decrypt decrypt.c
 
 clean:		
-		rm -f sign decrypt
+		rm -f crypt-keygen decrypt
