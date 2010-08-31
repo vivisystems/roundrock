@@ -442,13 +442,13 @@ generate_initramfs() {
 	sleep 2;
 
 	mv -f "$MEDIA/$CRYPT_KEY_FILE" "./$CRYPT_KEY_PATH/"
-	find . | cpio --verbose --dereference -o -H newc 2>/tmp/cpio.out.$$ | gzip -c > /tmp/initrd.$$ \
-	    | $DIALOG $DIALOG_OPTS --title "Regenerating initramfs..." --tailbox /tmp/cpio.out.$$ $((MAX_HEIGHT - 5)) $MAX_WIDTH
+	find . | {cpio --verbose --dereference -o -H newc | gzip -c > /tmp/initrd.$$ } 2>&1 \
+	    | $DIALOG $DIALOG_OPTS --progressbox "Regenerating initramfs..." $((MAX_HEIGHT - 5)) $MAX_WIDTH
 
 	mv -f /tmp/initrd.$$ $INITRAMFS
 
 	cd $CWD
-	rm -rf /tmp/newrd.$$ /tmp/cpio.out.$$
+	rm -rf /tmp/newrd.$$
 
     fi
 
@@ -534,7 +534,7 @@ determine_window_size
 
 export MAX_WIDTH MAX_HEIGHT
 
-#vivipos-configure Configure
+vivipos-configure Configure
 
 sign_license
 

@@ -313,8 +313,10 @@ setup_mapping()
 		# if cryptkeyfile is specified but not present, try to execute tool script
 		# to generate cryptkey
 		# 
+		keyfile="-"
 		if [ -n "$cryptkeyfile" ]; then
 			if [ -r "$cryptkeyfile" ]; then
+				keyfile="$cryptkeyfile"
 				log_warning_msg "key file specified [$cryptkeyfile]"
 			else
 				log_warning_msg "key file specified but non-existent [$cryptkeyfile]"
@@ -350,6 +352,7 @@ setup_mapping()
 
 							if [ -r "$cryptkeyfile" ]; then
 								cp "$cryptkeyfile" "$crypttoolmount"
+								keyfile="$cryptkeyfile"
 
 								log_warning_msg "key file created"
 							else
@@ -357,12 +360,6 @@ setup_mapping()
 							fi
 
 							sync
-
-							log_warning_msg "validating key..."
-
-							$crypttoolmount/decrypt $cryptkeyfile
-
-							sleep 5
 
 							umount "$crypttoolmount"
 						else
@@ -375,7 +372,13 @@ setup_mapping()
 					log_warning_msg "crypt-keygen tool not specified [$crypttoollabel] [$crypttoolmount] [$crypttoolscript]"
 				fi
 			fi
+
 		fi
+
+		if [ $keyfile != "-" ]; then
+			cryptkeyscript=":"
+		fi
+
 		# ROUNDROCK options - END
 		if [ -z "$cryptkeyscript" ]; then
 			cryptkey="Unlocking the disk $cryptsource ($crypttarget)\nEnter passphrase: "
@@ -389,7 +392,7 @@ setup_mapping()
 
 
 		if ! crypttarget="$crypttarget" cryptsource="$cryptsource" \
-		     $cryptkeyscript "$cryptkey" | $cryptcreate --key-file=- ; then
+		     $cryptkeyscript "$cryptkey" | $cryptcreate --key-file="$keyfile" ; then
 			message "cryptsetup: cryptsetup failed, bad password or options?"
 			continue
 		fi

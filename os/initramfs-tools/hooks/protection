@@ -22,3 +22,4 @@ esac
 copy_exec /usr/bin/md5deep /bin
 copy_exec /data/vivipos_sdk/getSystemLicenseStub /bin
 copy_exec /sbin/decrypt /bin
+copy_exec /usr/bin/sort /bin

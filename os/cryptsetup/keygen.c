@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
   char cmd_buf[1024];
   char md5_sum[1024];
   char serial_number[1024];
-  char key_buf[2048];
+  char key_buf[MAX_KEY_SIZE];
   
   char *KEYFILE;
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
 
   // compute MD5 digest
   printf("==> compute MD5 digest\n");
-  sprintf(cmd_buf, "cd /; %s -r -l %s 2>/dev/null | %s", MD5DEEP, MD5_PATH, MD5DEEP);
+  sprintf(cmd_buf, "cd .; %s -r -l %s 2>/dev/null | sort | %s", MD5DEEP, MD5_PATH, MD5DEEP);
   f = popen(cmd_buf, "r");
 
   if (f != NULL) {
@@ -74,6 +74,8 @@ int main(int argc, char **argv) {
   // check if we need to pad key
   int pad_len = (8 - key_len%8)%8;
   char pad_str[] = "XXXXXXXX";
+
+  memset((void *) key_buf, 0, MAX_KEY_SIZE);
   sprintf(key_buf, "%s", serial_number);
   strncat(key_buf, pad_str, pad_len);
   strcat(key_buf, PKEY);
