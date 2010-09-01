@@ -19,6 +19,7 @@ ERROR_MSG=""
 LICENSE_FILE=/etc/vivipos.lic
 LICENSE_SIGNER=makelic
 TOOLS_LABEL=ROUNDROCK_TOOLS
+MEDIA="/media/$TOOLS_LABEL"
 
 
 # initramfs related parameters
@@ -38,6 +39,7 @@ SUPPORT_FQDN_FILE=/etc/support.site
 DEFAULT_SUPPORT_FQDN="support.vivisystems.com.tw"
 SUPPORT_FQDN="$DEFAULT_SUPPORT_FQDN"
 SSL_CERTIFICATE=/etc/roundrock.pem
+
 
 # serial number config
 SERIAL_NUMBER_READER=/data/vivipos_sdk/getSystemLicenseStub
@@ -74,6 +76,7 @@ provision_failed() {
     [ -f "${LICENSE_FILE}".$$ ] && rm -f "${LICENSE_FILE}".$$
     [ -f "${PIN_FILE}".$$ ] && rm -f "${PIN_FILE}".$$
     [ -f "$SUPPORT_FQDN_FILE".$$ ] && rm -f "$SUPPORT_FQDN_FILE".$$
+    [ -f "${INITRAMFS}".$$ ] && rm -f "${INITRAMFS}".$$
 
     sync
 
@@ -91,11 +94,17 @@ trap handle_trap INT QUIT
 
 ################################################################################################################
 
-check_license_signer() {
+check_tool_disk() {
 
-    MEDIA="/media/$TOOLS_LABEL"
+    local DEVNAME
+
+    # if volume is detected, trigger auto mount
+    DEVNAME=`udevadm info --query=name --name=disk/by-label/${TOOLS_LABEL}`
+    if [ -n "$DEVNAME" ]; then
+	udevadm trigger --subsystem-match=block --action=add --sysname="$DEVNAME"
+    fi
+
     # check if USB thumb drive with license signer is available
-
     if [ -r "$MEDIA/$LICENSE_SIGNER" ]; then
         return 0
     else
@@ -111,12 +120,12 @@ sign_license() {
 
     TITLE="GENERATE LICENSE"
 
-    check_license_signer
+    check_tool_disk
 
     while [ $? -eq 1 ]; do
         $DIALOG $DIALOG_OPTS --title "$TITLE" --msgbox "Please insert USB thumb drive with the license generator tool" 4 $MAX_WIDTH
 
-        check_license_signer
+        check_tool_disk
     done
 
     # change directory to external media
@@ -442,13 +451,15 @@ generate_initramfs() {
 	sleep 2;
 
 	mv -f "$MEDIA/$CRYPT_KEY_FILE" "./$CRYPT_KEY_PATH/"
-	find . | {cpio --verbose --dereference -o -H newc | gzip -c > /tmp/initrd.$$ } 2>&1 \
+	find . | { cpio --verbose --dereference -o -H newc | gzip -c > /tmp/initrd.$$ ; } 2>&1 \
 	    | $DIALOG $DIALOG_OPTS --progressbox "Regenerating initramfs..." $((MAX_HEIGHT - 5)) $MAX_WIDTH
 
-	mv -f /tmp/initrd.$$ $INITRAMFS
+	mv -f /tmp/initrd.$$ $INITRAMFS.$$
 
 	cd $CWD
 	rm -rf /tmp/newrd.$$
+
+        sleep 2;
 
     fi
 
@@ -534,6 +545,8 @@ determine_window_size
 
 export MAX_WIDTH MAX_HEIGHT
 
+check_tool_disk
+
 vivipos-configure Configure
 
 sign_license
@@ -566,9 +579,10 @@ if [ $? -ne 0 ]; then
     provision_failed 11 "Failed to transmit provisioning data to support center. Please reprovision this terminal after the errors have been resolved."
 else
 
-    [ -f "${LICENSE_FILE}".$$ ] && mv "${LICENSE_FILE}".$$ "${LICENSE_FILE}"
-    [ -f "${PIN_FILE}".$$ ] && mv "${PIN_FILE}".$$ "${PIN_FILE}"
-    [ -f "$SUPPORT_FQDN_FILE".$$ ] && mv "$SUPPORT_FQDN_FILE".$$ "$SUPPORT_FQDN_FILE"
+    [ -f "${LICENSE_FILE}".$$ ] && mv -f "${LICENSE_FILE}".$$ "${LICENSE_FILE}"
+    [ -f "${PIN_FILE}".$$ ] && mv -f "${PIN_FILE}".$$ "${PIN_FILE}"
+    [ -f "$SUPPORT_FQDN_FILE".$$ ] && mv -f "$SUPPORT_FQDN_FILE".$$ "$SUPPORT_FQDN_FILE"
+    [ -f "${INITRAMFS}".$$ ] && mv -f "${INITRAMFS}".$$ "${INITRAMFS}"
 
     sync
 

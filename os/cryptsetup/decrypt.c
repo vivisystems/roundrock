@@ -117,7 +117,7 @@ int decrypt(char *inputkey, unsigned int *outkey_len, int debug) {
   printf("==> decrypting key...\n");
 
   inputkey_len = strlen(inputkey);
-  if (debug) printf("    - key size [%d]\n", inputkey_len);
+  if (1) printf("    - key size [%d]\n", inputkey_len);
 
   des_setparity(md5_sum);
   r = ecb_crypt(md5_sum, inputkey, inputkey_len, DES_DECRYPT | DES_SW);
