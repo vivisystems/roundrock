@@ -27,7 +27,8 @@
 
 #define GETLICENSE	{'g', 'e', 't', 'S', 'y', 's', 't', 'e', \
 			 'm', 'L', 'i', 'c', 'e', 'n', 's', 'e', \
-			 'S', 't', 'u', 'b',  \
+			 'S', 't', 'u', 'b', ' ', '2', '>', '/', \
+			 'd', 'e', 'v', '/', 'n', 'u', 'l', 'l', \
 			 '\0' }
 
 // "awk '{print $1}' /proc/%d/mounts 2>/dev/null | grep -c -v none 2>/dev/null"

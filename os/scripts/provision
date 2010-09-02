@@ -76,7 +76,7 @@ provision_failed() {
     [ -f "${LICENSE_FILE}".$$ ] && rm -f "${LICENSE_FILE}".$$
     [ -f "${PIN_FILE}".$$ ] && rm -f "${PIN_FILE}".$$
     [ -f "$SUPPORT_FQDN_FILE".$$ ] && rm -f "$SUPPORT_FQDN_FILE".$$
-    [ -f "${INITRAMFS}".$$ ] && rm -f "${INITRAMFS}".$$
+    [ -f /tmp/initrd.$$ ] && rm -f /tmp/initrd.$$
 
     sync
 
@@ -137,7 +137,7 @@ sign_license() {
 
 	rm -f "$LICENSE_FILE"
 
-        sh -e "$LICENSE_SIGNER" | $DIALOG $DIALOG_OPTS --progressbox "Generating license..." 4 $MAX_WIDTH
+        sh -e "$LICENSE_SIGNER" 2>&1 | $DIALOG $DIALOG_OPTS --progressbox "Generating license..." 8 $MAX_WIDTH
 
         SUCCESS=$?
 
@@ -189,8 +189,8 @@ get_serial_number() {
 
     while [ $SUCCESS -ne 0 ]; do
 
-        $SERIAL_NUMBER_READER > /tmp/sn.$$ \
-	| $DIALOG $DIALOG_OPTS --progressbox "Retrieving system serial number..." 4 $MAX_WIDTH
+        { $SERIAL_NUMBER_READER > /tmp/sn.$$ ; } 2>&1 \
+	| $DIALOG $DIALOG_OPTS --progressbox "Retrieving system serial number..." 8 $MAX_WIDTH
 
 	SERIAL_NUMBER=`cat /tmp/sn.$$`
 	
@@ -454,8 +454,6 @@ generate_initramfs() {
 	find . | { cpio --verbose --dereference -o -H newc | gzip -c > /tmp/initrd.$$ ; } 2>&1 \
 	    | $DIALOG $DIALOG_OPTS --progressbox "Regenerating initramfs..." $((MAX_HEIGHT - 5)) $MAX_WIDTH
 
-	mv -f /tmp/initrd.$$ $INITRAMFS.$$
-
 	cd $CWD
 	rm -rf /tmp/newrd.$$
 
@@ -582,7 +580,7 @@ else
     [ -f "${LICENSE_FILE}".$$ ] && mv -f "${LICENSE_FILE}".$$ "${LICENSE_FILE}"
     [ -f "${PIN_FILE}".$$ ] && mv -f "${PIN_FILE}".$$ "${PIN_FILE}"
     [ -f "$SUPPORT_FQDN_FILE".$$ ] && mv -f "$SUPPORT_FQDN_FILE".$$ "$SUPPORT_FQDN_FILE"
-    [ -f "${INITRAMFS}".$$ ] && mv -f "${INITRAMFS}".$$ "${INITRAMFS}"
+    [ -f /tmp/initrd.$$ ] && mv -f /tmp/initrd.$$ "${INITRAMFS}"
 
     sync
 
