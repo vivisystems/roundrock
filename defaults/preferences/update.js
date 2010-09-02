@@ -6,7 +6,7 @@ pref("app.update.enabled", true);
 // This preference turns on app.update.mode and allows automatic download and
 // install to take place. We use a separate boolean toggle for this to make
 // the UI easier to construct.
-pref("app.update.auto", true);
+pref("app.update.auto", false);
 
 // Defines how the Application Update Service notifies the user about updates:
 //
@@ -23,7 +23,7 @@ pref("app.update.mode", 1);
 pref("app.update.silent", false);
 
 // Update service URL:
-pref("app.update.url", "http://update.vivipos.com.tw/%PRODUCT%/update/VersionCheck.php?channel=%CHANNEL%&version=%VERSION%&build_id=%BUILD_ID%&build_target=%BUILD_TARGET%&dallas=%DALLAS%&mac_address=%MAC_ADDRESS%&vendor_name=%VENDOR_NAME%&system_name=%SYSTEM_NAME%");
+pref("app.update.url", "http://update.vivisystems.com.tw/%PRODUCT%/update/VersionCheck.php?channel=%CHANNEL%&version=%VERSION%&build_id=%BUILD_ID%&build_target=%BUILD_TARGET%&dallas=%DALLAS%&mac_address=%MAC_ADDRESS%&vendor_name=%VENDOR_NAME%&system_name=%SYSTEM_NAME%");
 
 // User-settable override to app.update.url for testing purposes.
 //pref("app.update.url.override", "");
@@ -38,7 +38,7 @@ pref("app.update.url", "http://update.vivipos.com.tw/%PRODUCT%/update/VersionChe
 
 // Interval: Time between checks for a new version (in seconds)
 //           default=1 day
-pref("app.update.interval", 86400);
+pref("app.update.interval", 0);
 
 // Interval: Time before prompting the user to download a new version that
 //           is available (in seconds) default=1 day
@@ -78,8 +78,8 @@ pref("app.update.incompatible.mode", 0);
 //  .. etc ..
 //
 pref("extensions.update.enabled", true);
-pref("extensions.update.url", "http://update.vivipos.com.tw/addons/update/VersionCheck.php?reqVersion=%REQ_VERSION%&id=%ITEM_ID%&version=%ITEM_VERSION%&maxAppVersion=%ITEM_MAXAPPVERSION%&status=%ITEM_STATUS%&appID=%APP_ID%&appVersion=%APP_VERSION%&appOS=%APP_OS%&appABI=%APP_ABI%&locale=%APP_LOCALE%&currentAppVersion=%CURRENT_APP_VERSION%&dallas=%DALLAS%&mac_address=%MAC_ADDRESS%&vendor_name=%VENDOR_NAME%&system_name=%SYSTEM_NAME%");
-pref("extensions.update.interval", 86400);  // Check for updates to Extensions and
+pref("extensions.update.url", "http://update.vivisystems.com.tw/addons/update/VersionCheck.php?reqVersion=%REQ_VERSION%&id=%ITEM_ID%&version=%ITEM_VERSION%&maxAppVersion=%ITEM_MAXAPPVERSION%&status=%ITEM_STATUS%&appID=%APP_ID%&appVersion=%APP_VERSION%&appOS=%APP_OS%&appABI=%APP_ABI%&locale=%APP_LOCALE%&currentAppVersion=%CURRENT_APP_VERSION%&dallas=%DALLAS%&mac_address=%MAC_ADDRESS%&vendor_name=%VENDOR_NAME%&system_name=%SYSTEM_NAME%");
+pref("extensions.update.interval", 0);  // Check for updates to Extensions and
                                             // Themes every day
 // Non-symmetric (not shared by extensions) extension-specific [update] preferences
 //pref("extensions.getMoreExtensionsURL", "http://%LOCALE%.add-ons.mozilla.com/%LOCALE%/%APP%/%VERSION%/extensions/");
@@ -87,5 +87,5 @@ pref("extensions.update.interval", 86400);  // Check for updates to Extensions a
 //pref("extensions.getMorePluginsURL", "http://%LOCALE%.add-ons.mozilla.com/%LOCALE%/%APP%/%VERSION%/plugins/");
 
 pref("xpinstall.whitelist.add", "update.mozilla.org");
-pref("xpinstall.whitelist.add.102", "update.vivipos.com.tw");
+pref("xpinstall.whitelist.add.102", "update.vivisystems.com.tw");
 pref("xpinstall.whitelist.add.103", "addons.mozilla.org");

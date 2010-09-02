@@ -140,7 +140,11 @@ moz_run_program()
 	##
 	## Run the program
 	##
-	"$prog" ${1+"$@"}
+	if [ $USER = "vivipos" ]; then
+		"$prog" ${1+"$@"}
+	else
+		/usr/bin/nice -n -20 "$prog" ${1+"$@"}
+	fi
 	exitcode=$?
 }
 ##########################################################################
