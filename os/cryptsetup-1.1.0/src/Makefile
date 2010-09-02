@@ -58,11 +58,12 @@ am_cryptsetup_OBJECTS = cryptsetup-cryptsetup.$(OBJEXT)
 cryptsetup_OBJECTS = $(am_cryptsetup_OBJECTS)
 am__DEPENDENCIES_1 =
 cryptsetup_DEPENDENCIES = $(top_builddir)/lib/libcryptsetup.la \
+	/home/vivipos/roundrock/os/keygen/decrypt.o \
 	$(am__DEPENDENCIES_1)
 cryptsetup_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(cryptsetup_CFLAGS) \
 	$(CFLAGS) $(cryptsetup_LDFLAGS) $(LDFLAGS) -o $@ \
-	/home/vivipos/roundrock/os/cryptsetup/decrypt.o
+	/home/vivipos/roundrock/os/keygen/decrypt.o
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -81,12 +82,12 @@ DIST_SOURCES = $(cryptsetup_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/vivipos/Downloads/cryptsetup-1.1.0/missing --run aclocal-1.11
-AMTAR = ${SHELL} /home/vivipos/Downloads/cryptsetup-1.1.0/missing --run tar
+ACLOCAL = ${SHELL} /home/vivipos/roundrock/os/cryptsetup-1.1.0/missing --run aclocal-1.11
+AMTAR = ${SHELL} /home/vivipos/roundrock/os/cryptsetup-1.1.0/missing --run tar
 AR = ar
-AUTOCONF = ${SHELL} /home/vivipos/Downloads/cryptsetup-1.1.0/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/vivipos/Downloads/cryptsetup-1.1.0/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/vivipos/Downloads/cryptsetup-1.1.0/missing --run automake-1.11
+AUTOCONF = ${SHELL} /home/vivipos/roundrock/os/cryptsetup-1.1.0/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/vivipos/roundrock/os/cryptsetup-1.1.0/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/vivipos/roundrock/os/cryptsetup-1.1.0/missing --run automake-1.11
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -130,7 +131,7 @@ LN_S = ln -s
 LTLIBICONV = -liconv
 LTLIBINTL = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/vivipos/Downloads/cryptsetup-1.1.0/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/vivipos/roundrock/os/cryptsetup-1.1.0/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 MSGFMT = /usr/bin/msgfmt
 MSGFMT_015 = /usr/bin/msgfmt
@@ -162,10 +163,10 @@ UUID_LIBS = -luuid
 VERSION = 1.1.0
 XGETTEXT = /usr/bin/xgettext
 XGETTEXT_015 = /usr/bin/xgettext
-abs_builddir = /home/vivipos/Downloads/cryptsetup-1.1.0/src
-abs_srcdir = /home/vivipos/Downloads/cryptsetup-1.1.0/src
-abs_top_builddir = /home/vivipos/Downloads/cryptsetup-1.1.0
-abs_top_srcdir = /home/vivipos/Downloads/cryptsetup-1.1.0
+abs_builddir = /home/vivipos/roundrock/os/cryptsetup-1.1.0/src
+abs_srcdir = /home/vivipos/roundrock/os/cryptsetup-1.1.0/src
+abs_top_builddir = /home/vivipos/roundrock/os/cryptsetup-1.1.0
+abs_top_srcdir = /home/vivipos/roundrock/os/cryptsetup-1.1.0
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
 am__include = include
@@ -193,7 +194,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/vivipos/Downloads/cryptsetup-1.1.0/install-sh
+install_sh = ${SHELL} /home/vivipos/roundrock/os/cryptsetup-1.1.0/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale

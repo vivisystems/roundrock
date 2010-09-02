@@ -62,7 +62,7 @@ cryptsetup_DEPENDENCIES = $(top_builddir)/lib/libcryptsetup.la \
 cryptsetup_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(cryptsetup_CFLAGS) \
 	$(CFLAGS) $(cryptsetup_LDFLAGS) $(LDFLAGS) -o $@ \
-	/home/vivipos/roundrock/os/cryptsetup/decrypt.o
+	/home/vivipos/roundrock/os/keygen/decrypt.o
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles

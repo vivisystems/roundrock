@@ -30,7 +30,7 @@ gettextsrcdir = $(datadir)/gettext/po
 
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
-mkinstalldirs = $(SHELL) ${SHELL} /home/vivipos/Downloads/cryptsetup-1.1.0/install-sh -d
+mkinstalldirs = $(SHELL) ${SHELL} /home/vivipos/roundrock/os/cryptsetup-1.1.0/install-sh -d
 mkdir_p = /bin/mkdir -p
 
 GMSGFMT_ = /usr/bin/msgfmt
