@@ -57,8 +57,7 @@ NS_IMETHODIMP rrAuthenticateOS::Authenticate(const char *user, const char *passw
 	return NS_ERROR_FAILURE;
     }
 
-    //*_retval = (strcmp(ppwd, pwd.sp_pwdp) == 0);
-    *_retval = true;
+    *_retval = (strcmp(ppwd, pwd.sp_pwdp) == 0);
 
     return NS_OK;
 }

@@ -554,9 +554,6 @@ sign_license
 # repack initramfs with crypt-key
 generate_initramfs
 
-# remove ROUNDROCK PROVISIONING grub entry with
-remove_provisioning_grub_entry
-
 update_support_center_fqdn
 
 get_serial_number
@@ -587,6 +584,9 @@ else
     sync
 
     $DIALOG $DIALOG_OPTS --title "Provision Successful" --msgbox "Provisioning is successful. Press OK to power off the terminal. Upon reboot, please verify that\n\n 1. license is correct\n 2. (if applicable) wireless modem is successfully unlocked" 10 $MAX_WIDTH
+
+    # remove ROUNDROCK PROVISIONING grub entry with
+    remove_provisioning_grub_entry
 
     /usr/bin/clear
 
