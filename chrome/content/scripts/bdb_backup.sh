@@ -167,7 +167,7 @@ do_backup() {
     if [ "$backup_with_profile" = "with-profile" ]; then
         echo "65\n# ${MSG_SCRIPT_BACKUP_STEP_07}"
         cd /data/profile
-        tar cjvpf $bak/$bak_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" . | xargs -l1 basename | sed "s/.*/60\n# \0/g"
+        tar cjvpf $bak/$bak_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" --exclude="./extensions" . | xargs -l1 basename | sed "s/.*/60\n# \0/g"
     fi
 
     #backup user prefs.js
