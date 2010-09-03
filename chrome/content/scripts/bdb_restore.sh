@@ -142,7 +142,7 @@ do_restore() {
         echo "70\n# ${MSG_SCRIPT_RESTORE_STEP_05}"
 
         if [ -f "$restore_dir/profile.tbz" ]; then
-            tar xjpf $restore_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" -C /data/profile
+            tar xjpf $restore_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" --exclude="./extensions" --exclude="extensions" -C /data/profile
         fi
 
         # restore images
