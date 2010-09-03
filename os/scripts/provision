@@ -468,12 +468,14 @@ generate_initramfs() {
 
 remove_provisioning_grub_entry() {
 
-    rm -f "$GRUB_DIRECTORY/$PROVISIONING_GRUB_ENTRY"
-    "$GRUB_UPDATE_SCRIPT" 2>&1 | $DIALOG $DIALOG_OPTS --progressbox "Updating GRUB entries ..." 10 $MAX_WIDTH
+    if  [ -r "$GRUB_DIRECTORY/$PROVISIONING_GRUB_ENTRY" ]; then
+	rm -f "$GRUB_DIRECTORY/$PROVISIONING_GRUB_ENTRY"
+	"$GRUB_UPDATE_SCRIPT" 2>&1 | $DIALOG $DIALOG_OPTS --progressbox "Updating GRUB entries ..." 10 $MAX_WIDTH
 
-    sleep 2
+	sleep 2
 
-    sync
+	sync
+    fi
 
 }
 
