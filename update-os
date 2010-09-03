@@ -5,6 +5,8 @@ ROOTFS=/home/vivipos/diskimage/rootfs
 
 tar cp --owner=root -C $DIR/os/etc . | tar x --owner=root -C $ROOTFS/etc
 
-tar c --owner=root -C $DIR/os/scripts . | tar x --owner=root -C $ROOTFS/sbin
+tar c --owner=root -h -C $DIR/os/scripts . | tar x --owner=root -C $ROOTFS/sbin
 
 tar c --owner=root -C $DIR/os/initramfs-tools . | tar x --owner=root -C $ROOTFS/usr/share/initramfs-tools
+
+cp os/xpcom_ospasswd/*.xpt os/xpcom_ospasswd/*.so $ROOTFS/data/vivipos_sdk/components/

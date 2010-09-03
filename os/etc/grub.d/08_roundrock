@@ -7,7 +7,7 @@ menuentry 'Round Rock' --class ubuntu --class gnu-linux --class gnu --class os {
         recordfail
         insmod ext2
         set root='(hd0,1)'
-        linux   /boot/vmlinuz-2.6.32-24-generic root=LABEL=ROUNDROCK_ROOT ro quiet splash nomodeset
+        linux   /boot/vmlinuz-2.6.32-24-generic root=/dev/mapper/ROUNDROCK_ROOT ro splash quiet nomodeset cryptopts=source=/dev/sda2,target=ROUNDROCK_ROOT,cipher=aes-cbc-essiv:sha256,hash=ripemd160,size=256,keyfile=/etc/crypt-key
         initrd  /boot/initrd.img-2.6.32-24-generic
 }
 

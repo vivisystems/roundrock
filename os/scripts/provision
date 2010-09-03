@@ -18,7 +18,20 @@ ERROR_MSG=""
 # license related variables
 LICENSE_FILE=/etc/vivipos.lic
 LICENSE_SIGNER=makelic
-MEDIA_MARKER=/tmp/last_media
+TOOLS_LABEL=ROUNDROCK_TOOLS
+MEDIA="/media/$TOOLS_LABEL"
+
+
+# initramfs related parameters
+CRYPT_KEY_FILE=crypt-key
+CRYPT_KEY_PATH=/etc
+INITRAMFS=/boot/initrd.img-2.6.32-24-generic
+
+
+# GRUB related parameters
+GRUB_DIRECTORY=/etc/grub.d
+PROVISIONING_GRUB_ENTRY=06_roundrock_provisioning
+GRUB_UPDATE_SCRIPT=update-grub
 
 
 # support center variables
@@ -26,6 +39,7 @@ SUPPORT_FQDN_FILE=/etc/support.site
 DEFAULT_SUPPORT_FQDN="support.vivisystems.com.tw"
 SUPPORT_FQDN="$DEFAULT_SUPPORT_FQDN"
 SSL_CERTIFICATE=/etc/roundrock.pem
+
 
 # serial number config
 SERIAL_NUMBER_READER=/data/vivipos_sdk/getSystemLicenseStub
@@ -62,6 +76,7 @@ provision_failed() {
     [ -f "${LICENSE_FILE}".$$ ] && rm -f "${LICENSE_FILE}".$$
     [ -f "${PIN_FILE}".$$ ] && rm -f "${PIN_FILE}".$$
     [ -f "$SUPPORT_FQDN_FILE".$$ ] && rm -f "$SUPPORT_FQDN_FILE".$$
+    [ -f /tmp/initrd.$$ ] && rm -f /tmp/initrd.$$
 
     sync
 
@@ -79,15 +94,18 @@ trap handle_trap INT QUIT
 
 ################################################################################################################
 
-check_license_signer() {
+check_tool_disk() {
 
-    MEDIA=""
-    # check if USB thumb drive with license signer is available
-    if [ -r "$MEDIA_MARKER" ]; then
-        MEDIA="`cat $MEDIA_MARKER`/Tools"
+    local DEVNAME
+
+    # if volume is detected, trigger auto mount
+    DEVNAME=`udevadm info --query=name --name=disk/by-label/${TOOLS_LABEL}`
+    if [ -n "$DEVNAME" ]; then
+	udevadm trigger --subsystem-match=block --action=add --sysname="$DEVNAME"
     fi
 
-    if [ -n "$MEDIA" -a -r "$MEDIA/$LICENSE_SIGNER" ]; then
+    # check if USB thumb drive with license signer is available
+    if [ -r "$MEDIA/$LICENSE_SIGNER" ]; then
         return 0
     else
         return 1
@@ -102,12 +120,12 @@ sign_license() {
 
     TITLE="GENERATE LICENSE"
 
-    check_license_signer
+    check_tool_disk
 
     while [ $? -eq 1 ]; do
         $DIALOG $DIALOG_OPTS --title "$TITLE" --msgbox "Please insert USB thumb drive with the license generator tool" 4 $MAX_WIDTH
 
-        check_license_signer
+        check_tool_disk
     done
 
     # change directory to external media
@@ -119,7 +137,7 @@ sign_license() {
 
 	rm -f "$LICENSE_FILE"
 
-        sh -e "$LICENSE_SIGNER" | $DIALOG $DIALOG_OPTS --progressbox "Generating license..." 4 $MAX_WIDTH
+        sh -e "$LICENSE_SIGNER" 2>&1 | $DIALOG $DIALOG_OPTS --progressbox "Generating license..." 8 $MAX_WIDTH
 
         SUCCESS=$?
 
@@ -171,8 +189,8 @@ get_serial_number() {
 
     while [ $SUCCESS -ne 0 ]; do
 
-        $SERIAL_NUMBER_READER > /tmp/sn.$$ \
-	| $DIALOG $DIALOG_OPTS --progressbox "Retrieving system serial number..." 4 $MAX_WIDTH
+        { $SERIAL_NUMBER_READER > /tmp/sn.$$ ; } 2>&1 \
+	| $DIALOG $DIALOG_OPTS --progressbox "Retrieving system serial number..." 8 $MAX_WIDTH
 
 	SERIAL_NUMBER=`cat /tmp/sn.$$`
 	
@@ -418,6 +436,51 @@ provision_wireless_modem() {
 
 ################################################################################################################
 
+generate_initramfs() {
+
+    local CWD=`pwd`
+
+    if [ -r "$MEDIA/$CRYPT_KEY_FILE" ]; then
+
+	# expand initramfs
+	mkdir /tmp/newrd.$$
+	cd /tmp/newrd.$$
+	gunzip -c $INITRAMFS | cpio --verbose -i 2>&1 \
+	    | $DIALOG $DIALOG_OPTS --progressbox "Unpacking initramfs..." $((MAX_HEIGHT - 5)) $MAX_WIDTH
+
+	sleep 2;
+
+	mv -f "$MEDIA/$CRYPT_KEY_FILE" "./$CRYPT_KEY_PATH/"
+	find . | { cpio --verbose --dereference -o -H newc | gzip -c > /tmp/initrd.$$ ; } 2>&1 \
+	    | $DIALOG $DIALOG_OPTS --progressbox "Regenerating initramfs..." $((MAX_HEIGHT - 5)) $MAX_WIDTH
+
+	cd $CWD
+	rm -rf /tmp/newrd.$$
+
+        sleep 2;
+
+    fi
+
+
+}
+
+################################################################################################################
+
+remove_provisioning_grub_entry() {
+
+    if  [ -r "$GRUB_DIRECTORY/$PROVISIONING_GRUB_ENTRY" ]; then
+	rm -f "$GRUB_DIRECTORY/$PROVISIONING_GRUB_ENTRY"
+	"$GRUB_UPDATE_SCRIPT" 2>&1 | $DIALOG $DIALOG_OPTS --progressbox "Updating GRUB entries ..." 10 $MAX_WIDTH
+
+	sleep 2
+
+	sync
+    fi
+
+}
+
+################################################################################################################
+
 send_terminal_data() {
 
     RETRY=0
@@ -482,9 +545,14 @@ determine_window_size
 
 export MAX_WIDTH MAX_HEIGHT
 
+check_tool_disk
+
 vivipos-configure Configure
 
 sign_license
+
+# repack initramfs with crypt-key
+generate_initramfs
 
 update_support_center_fqdn
 
@@ -508,13 +576,17 @@ if [ $? -ne 0 ]; then
     provision_failed 11 "Failed to transmit provisioning data to support center. Please reprovision this terminal after the errors have been resolved."
 else
 
-    [ -f "${LICENSE_FILE}".$$ ] && mv "${LICENSE_FILE}".$$ "${LICENSE_FILE}"
-    [ -f "${PIN_FILE}".$$ ] && mv "${PIN_FILE}".$$ "${PIN_FILE}"
-    [ -f "$SUPPORT_FQDN_FILE".$$ ] && mv "$SUPPORT_FQDN_FILE".$$ "$SUPPORT_FQDN_FILE"
+    [ -f "${LICENSE_FILE}".$$ ] && mv -f "${LICENSE_FILE}".$$ "${LICENSE_FILE}"
+    [ -f "${PIN_FILE}".$$ ] && mv -f "${PIN_FILE}".$$ "${PIN_FILE}"
+    [ -f "$SUPPORT_FQDN_FILE".$$ ] && mv -f "$SUPPORT_FQDN_FILE".$$ "$SUPPORT_FQDN_FILE"
+    [ -f /tmp/initrd.$$ ] && mv -f /tmp/initrd.$$ "${INITRAMFS}"
 
     sync
 
     $DIALOG $DIALOG_OPTS --title "Provision Successful" --msgbox "Provisioning is successful. Press OK to power off the terminal. Upon reboot, please verify that\n\n 1. license is correct\n 2. (if applicable) wireless modem is successfully unlocked" 10 $MAX_WIDTH
+
+    # remove ROUNDROCK PROVISIONING grub entry with
+    remove_provisioning_grub_entry
 
     /usr/bin/clear
 

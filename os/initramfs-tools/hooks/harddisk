@@ -20,7 +20,7 @@ esac
 . /usr/share/initramfs-tools/hook-functions
 
 if [ "$MODULES" = "list" ]; then
-	#auto_add_modules block
+	auto_add_modules block
 	auto_add_modules ide
 	#auto_add_modules ata
 	auto_add_modules scsi

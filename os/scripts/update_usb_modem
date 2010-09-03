@@ -59,7 +59,7 @@ case "$1" in
             gnokii --config ${GNOKII_CONF}.$3 --identify > /tmp/usb_modem.$3.$$ 2>/dev/null &
             PID=$!
 
-            # wait 5 seconds
+            # wait 10 seconds
             sleep 10
 
             # check if port is active

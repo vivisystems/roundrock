@@ -1,0 +1,8 @@
+#include "nsISupports.idl"
+
+[scriptable, uuid(fc06fc07-7ba3-47f4-8d45-909d9ea4fe41)]
+interface rrIAuthenticateOS : nsISupports
+{
+  boolean authenticate(in string user, in string passwd);
+};
+

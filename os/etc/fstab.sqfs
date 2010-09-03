@@ -1,0 +1,35 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid -o value -s UUID' to print the universally unique identifier
+# for a device; this may be used with UUID= as a more robust way to name
+# devices that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+LABEL=ROUNDROCK_ROOT	/	ext4	errors=remount-ro	0	1
+
+LABEL=ROUNDROCK_ROOT	/rw	ext4	errors=remount-ro	0	0
+
+LABEL=ROUNDROCK_BOOT	/mnt/boot	ext4	errors=remount-ro	0	1
+
+/mnt/boot/boot	/boot	none	bind
+
+#/home/squashfs/lib.sqfs /ro/lib squashfs ro,loop,nodev 0 0
+#ausf	/lib	aufs	nodev,noatime,nodiratime,br:/rw/lib=rw:/ro/lib=ro	0	0
+
+#/home/squashfs/var-lib.sqfs /ro/var/lib squashfs ro,loop,nodev 0 0
+#ausf	/var/lib	aufs	nodev,noatime,nodiratime,br:/rw/var/lib=rw:/ro/var/lib=ro	0	0
+
+/home/squashfs/usr.sqfs	/ro/usr	squashfs	ro,loop,nodev	0	0
+ausf	/usr	aufs	nodev,noatime,nodiratime,br:/rw/usr=rw:/ro/usr=ro	0	0
+
+/home/squashfs/usr-lib.sqfs	/ro/usr/lib	squashfs	ro,loop,nodev	0	0
+ausf	/usr/lib	aufs	nodev,noatime,nodiratime,br:/rw/usr/lib=rw:/ro/usr/lib=ro	0	0
+
+# data
+/home/squashfs/data.sqfs /ro/data squashfs ro,loop,nodev 0 0
+ausf	/data	aufs	nodev,noatime,nodiratime,br:/rw/data=rw:/ro/data=ro	0	0
+
+#/dev/scd0	/media/cdrom0   udf,iso9660 user,noauto,exec 0       0
+#/dev/fd0	/media/floppy0  auto    rw,user,noauto,exec 0       0
+#tmpfs		/tmp		tmpfs	size=64M	0	0
+#tmpfs		/var/spool/cups	tmpfs	size=32M	0	0

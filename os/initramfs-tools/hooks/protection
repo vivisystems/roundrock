@@ -1,0 +1,25 @@
+#!/bin/sh
+
+PREREQ=""
+
+prereqs()
+{
+	echo "$PREREQ"
+}
+
+case $1 in
+# get pre-requisites
+prereqs)
+	prereqs
+	exit 0
+	;;
+esac
+
+# Hooks for copying necessary executables into initramfs
+
+. /usr/share/initramfs-tools/hook-functions
+
+copy_exec /usr/bin/md5deep /bin
+copy_exec /data/vivipos_sdk/getSystemLicenseStub /bin
+copy_exec /sbin/decrypt /bin
+copy_exec /usr/bin/sort /bin
