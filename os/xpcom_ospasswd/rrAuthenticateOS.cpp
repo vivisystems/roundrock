@@ -44,14 +44,13 @@ NS_IMETHODIMP rrAuthenticateOS::Authenticate(const char *user, const char *passw
 
     s = getspnam_r(user, &pwd, buf, bufsize, &result);
     if (result == NULL) {
-	if (s == 0)
+	if (s == 0) {
 	    return NS_OK;
+	}
 	else {
 	    return NS_ERROR_FAILURE;
 	}
     }
-    return NS_OK;
-
     
     ppwd = crypt(passwd, pwd.sp_pwdp);
     if (ppwd == NULL) {
