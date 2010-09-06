@@ -370,7 +370,7 @@ pref("vivipos.fec.registry.function.programmable.return.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.return.data", "");
 pref("vivipos.fec.registry.function.programmable.return.version", "1.2.1.0");
 
-pref("vivipos.fec.registry.function.programmable.returncartitem.access", "acl_register_return");
+pref("vivipos.fec.registry.function.programmable.returncartitem.access", "acl_register_return_item");
 pref("vivipos.fec.registry.function.programmable.returncartitem.command", "returnCartItem");
 pref("vivipos.fec.registry.function.programmable.returncartitem.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.returncartitem.data", "");

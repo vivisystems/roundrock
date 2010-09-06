@@ -445,7 +445,7 @@
                                                       form="functionsForm" name="fnModifyitem" default="false" />
                                         <checkbox id="fnQuantity" value="true" label="Disable Quantity"
                                                       form="functionsForm" name="fnQuantity" default="false" />
-                                        <checkbox id="fnReturn" value="true" label="Disable Return"
+                                        <checkbox id="fnReturn" value="true" label="Disable Refund"
                                                       form="functionsForm" name="fnReturn" default="false" />
                                         <checkbox id="fnReturncartitem" value="true" label="Disable Returncartitem"
                                                       form="functionsForm" name="fnReturncartitem" default="false" />

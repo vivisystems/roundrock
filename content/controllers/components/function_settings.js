@@ -231,8 +231,8 @@
                 'fnRecallCheck': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.recallCheck', acl:'acl_recall_check', checkForAcl:'fnRecallCheck,fnRecallTable,fnRecallOrder'},
                 'fnReceipt': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.receipt', acl:'acl_issue_post_receipt', checkForAcl:'fnReceipt'},
                 'fnReceiptcopy': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.receiptcopy', acl:'acl_issue_post_receipt_copy', checkForAcl:'fnReceiptcopy'},
-                'fnReturn': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.return', acl:'acl_register_return', checkForAcl:'fnReturn,fnReturncartitem'},
-                'fnReturncartitem': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.returncartitem', acl:'acl_register_return', checkForAcl:'fnReturn,fnReturncartitem'},
+                'fnReturn': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.return', acl:'acl_register_return', checkForAcl:'fnReturn'},
+                'fnReturncartitem': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.returncartitem', acl:'acl_register_return_item', checkForAcl:'fnReturncartitem'},
                 'fnScale': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.scale', acl:'acl_read_scale', checkForAcl:'fnScale'},
                 'fnSetdestination': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.setdestination', acl:'acl_set_destination', checkForAcl:'fnSetdestination'},
                 'fnShiftchange': {type:'prefs', method:'remove', key:'vivipos.fec.registry.function.programmable.shiftchange', acl:'acl_end_sale_period,acl_change_shift', checkForAcl:'fnShiftchange'},
@@ -269,7 +269,7 @@
         settings: _settings,
 
         processPrefsSettings: function(form, data) {
-
+            
             if (!form || !data) return ;
             this.log('form:' + form);
             let formSetting = this.settings[form];

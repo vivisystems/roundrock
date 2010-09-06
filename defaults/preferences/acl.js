@@ -79,6 +79,7 @@ pref("vivipos.fec.acl.roles.acl_register_open_price", "acl_register_open_price")
 pref("vivipos.fec.acl.roles.acl_register_plus", "acl_register_plus");
 pref("vivipos.fec.acl.roles.acl_register_quantity", "acl_register_quantity");
 pref("vivipos.fec.acl.roles.acl_register_reduction", "acl_register_reduction");
+pref("vivipos.fec.acl.roles.acl_register_return_item", "acl_register_return_item");
 pref("vivipos.fec.acl.roles.acl_register_return", "acl_register_return");
 pref("vivipos.fec.acl.roles.acl_register_sub_total", "acl_register_sub_total");
 pref("vivipos.fec.acl.roles.acl_register_surcharge", "acl_register_surcharge");
