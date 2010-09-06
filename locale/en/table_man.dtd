@@ -90,6 +90,7 @@
 <!ENTITY tableman.tableoptions.minimumchargefor "Apply Minimum Charge On">
 <!ENTITY tableman.tableoptions.minimumchargeplu "Record Minimum Charge Against">
 <!ENTITY tableman.tableoptions.annotation_for_override_minimumcharge "Annotation for Overriding Minimum Charge">
+<!ENTITY tableman.tableoptions.table_auto_recall_oneorder "Auto recall if only one order">
 
 <!ENTITY tableman.tableoptions.displayoptions "Display Elements:">
 <!ENTITY tableman.tableoptions.displaycheckno "Check Number">

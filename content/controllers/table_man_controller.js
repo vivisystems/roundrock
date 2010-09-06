@@ -965,6 +965,10 @@
                 guestnumDestinationObj.selectedItems = selectedItems ;
             }
 
+            // load preference
+            var check = GeckoJS.Configure.read('vivipos.fec.settings.tableman.autorecalloneorder');
+            document.getElementById('tableAutoRecallOneOrder').checked = check;
+            
             return settings;
 
         },
@@ -1003,8 +1007,6 @@
             }
             // get require destination
             this.TableSetting.saveTableSettings(settings);
-
-            
         },
 
         /**

@@ -759,6 +759,10 @@
                 return;
             }
 
+            if(GeckoJS.Configure.read('vivipos.fec.settings.tableman.autorecalloneorder'))
+                if( GeckoJS.BaseObject.getKeys(tableStatus.OrdersById).length == 1)
+                    this.recallOrder(GeckoJS.BaseObject.getKeys(tableStatus.OrdersById)[0]);
+
             // unserialize orderObject
             for(var id in tableStatus.OrdersById) {
 

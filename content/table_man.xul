@@ -460,6 +460,9 @@
                                                                 </menulist>
                                                         </vbox>
                                                     </row>
+                                                    <row>
+                                                        <checkbox id="tableAutoRecallOneOrder" label="&tableman.tableoptions.table_auto_recall_oneorder;" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.tableman.autorecalloneorder', this.checked);" />
+                                                    </row>
                                                 </rows>
                                             </grid>
                                         </vbox>
