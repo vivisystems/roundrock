@@ -277,8 +277,8 @@
                                     <tab id="tab_options1" label="&tableman.tab.tableoptions.1;"/>
                                     <tab id="tab_options2" label="&tableman.tab.tableoptions.2;"/>
                                     <tab id="tab_options3" label="&tableman.tab.tableoptions.3;"/>
-                                    <tab id="tab_options3" label="&tableman.tab.tableoptions.print;"/>
-                                    <tab id="tab_options_dock" label="&tableman.tab.tableoptions.dock;"/>
+                                    <tab id="printCheck" label="&tableman.tab.tableoptions.print;"/>
+                                    <tab id="tab_options_dock" label="&tableman.tab.tableoptions.dock;" hidden="true"/>
                                 </tabs>
                                 <tabpanels flex="1">
 

@@ -30,6 +30,12 @@
         _templates: null,
 
         initial: function() {
+
+            /*if selected layout is compacttable, enable dock tab*/
+            let selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout');
+
+            if( selectedLayout == 'compacttable')
+                document.getElementById('tab_options_dock').setAttribute('hidden', false);
         },
 
         getCartController: function() {

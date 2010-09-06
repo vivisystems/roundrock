@@ -8,6 +8,7 @@
     function startup() {
 
         $do('load', null, 'TableMan');
+        $do('initial', null, 'TableMan');
 
         $('#imageBrowseBtn')[0].addEventListener('command', selectImages, false);
         $('#imageRemoveBtn')[0].addEventListener('command', RemoveImage, false);
