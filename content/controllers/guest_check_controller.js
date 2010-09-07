@@ -168,7 +168,6 @@
                 disablecancelbtn:true
             };
 
-            dump(this.topmostWindow +'aaa \n');
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Number of Guests'), aFeatures, _('Enter Number of Guests'), '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
@@ -195,7 +194,6 @@
 
             title = title || _('Enter Check Number');
 
-dump(this.topmostWindow +'aaa \n');
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, title, aFeatures, title, '', '', '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {

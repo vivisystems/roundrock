@@ -22,6 +22,7 @@
         _lastSaleOrderId: null,
 
         _pendingAddItemEvents: [],
+        _waitSubmitFlag: false,
 
         beforeFilter: function(evt) {
 
@@ -3700,6 +3701,8 @@
 
         submit: function(status) {
 
+            if (this._waitSubmitFlag) return false;
+            
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -3719,10 +3722,11 @@
             }
 
             if (status == 1) {
-
+                this._waitSubmitFlag = true;
                 // dispatch PrepareFinalization event to make required adjustments
                 if (!this.dispatchEvent('PrepareFinalization', oldTransaction)) {
                     this.dispatchEvent('onGetSubtotal', oldTransaction);
+                    this._waitSubmitFlag = false;
                     return false;
                 };
 
@@ -3760,6 +3764,7 @@
             }
 
             // blockUI when saving...
+            this._waitSubmitFlag = true;
             var waitPanel = this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 0);
 
             if (this.dispatchEvent('beforeSubmit', {
@@ -3827,6 +3832,7 @@
                         this.log('ERROR', 'Failed to submit order [' + oldTransaction.data.id + '] sequence [' + oldTransaction.data.seq + '] status [' + status + '] return code [' + submitStatus + ']');
 
                         // unblockUI
+                        this._waitSubmitFlag = false;
                         this._unblockUI(waitPanel);
                         return false;
                     }
@@ -3856,6 +3862,7 @@
                             this.dispatchEvent('commitOrderError', commitStatus);
                             this.dispatchEvent('onGetSubtotal', oldTransaction);
                             this.dispatchEvent('onWarning', _('DATA ERROR'));
+                            this._waitSubmitFlag = false;
                             this._unblockUI(waitPanel);
                             return false;
                         }
@@ -3885,16 +3892,19 @@
                     this.cartViewEmpty();
                 }
 
+                this._waitSubmitFlag = false;
                 this._unblockUI(waitPanel);
 
                 // dispatch success event
                 this.dispatchEvent('onSubmitSuccess', oldTransaction);
+                return true;
 
             }
             else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
 
                 // unblockUI
+                this._waitSubmitFlag = false;
                 this._unblockUI(waitPanel);
                 return false;
             }
@@ -4077,7 +4087,7 @@
             else {
                 payment = amount;
             }
-
+                
             // if amount is 0, verify that buffer is not empty and contains a valid number
             if (amount == '0') {
 
