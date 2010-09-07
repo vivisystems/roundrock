@@ -3729,6 +3729,7 @@
                     this._waitSubmitFlag = false;
                     return false;
                 };
+                this._waitSubmitFlag = false;
 
                 var user = GeckoJS.Session.get('user');
                 var adjustment_amount = oldTransaction.data.trans_discount_subtotal + oldTransaction.data.trans_surcharge_subtotal +
