@@ -367,6 +367,9 @@
 
                 if (success) {
 
+                    GeckoJS.Session.remove('tablesStatus');
+                    GeckoJS.Session.remove('tablesStatusLastmodified');
+
                     GREUtils.Dialog.alert(this.topmostWindow,
                         _('Table Status'),
                         _('Table status rebuilt successfully'));
