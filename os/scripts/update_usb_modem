@@ -1,5 +1,5 @@
 #!/bin/sh
-#echo `date` $@ >> /tmp/update3g.log
+echo `date` $@ >> /tmp/update3g.log
 
 if [ $# -ne 3 -o -z "$1" -o -z "$2" -o -z "$3" ]; then
     echo "usage: $0 action target device"
@@ -50,13 +50,15 @@ case "$1" in
                 wvdial unlock
             fi
 
+	    echo $3 > ${DEVICE_MARKER}
+
 	elif [ "$2" = "gnokii" ]; then
 	    # generate device specific gnokiirc
 	    update_gnokii $3
 
             # run gnokii --identify in background
             rm -f /tmp/usb_modem.$3.$$
-            gnokii --config ${GNOKII_CONF}.$3 --identify > /tmp/usb_modem.$3.$$ 2>/dev/null &
+            gnokii --config ${GNOKII_CONF}.$3 --identify | grep IMEI | awk '{print $3}' > /tmp/usb_modem.$3.$$ 2>/dev/null &
             PID=$!
 
             # wait 10 seconds
@@ -67,15 +69,19 @@ case "$1" in
 
                 mv -f ${GNOKII_CONF}.$3 ${GNOKII_CONF}
 
+		echo $3 > ${DEVICE_MARKER}
+
+		# retrieve IMEI
+		IMEI=`cat /tmp/usb_modem.$3.$$`
+
                 # emit 'roundrock-3g-modem-added' event to start smsd
-                initctl emit --no-wait roundrock-3g-modem-added
+                initctl emit --no-wait roundrock-3g-modem-added IMEI=$IMEI
             fi
 
             kill $PID >/dev/null 2>&1
 
             rm -f /tmp/usb_modem.$3.$$ ${GNOKII_CONF}.$3
 	fi
-	echo $3 > ${DEVICE_MARKER}
     ;;
 
     remove)
