@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-09-06 11:12+0800\n"
+"POT-Creation-Date: 2010-09-07 12:19+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5642,7 +5642,7 @@ msgid "Enter Check Number"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:227
-#: ../..//content/controllers/table_man_controller.js:193
+#: ../..//content/controllers/table_man_controller.js:199
 msgid "Table Number"
 msgstr ""
 
@@ -7440,7 +7440,7 @@ msgstr ""
 #: ../..//content/controllers/plusearch_controller.js:248
 #: ../..//content/controllers/plusearch_controller.js:253
 #: ../..//content/controllers/stock_records_controller.js:137
-#: ../..//content/controllers/table_man_controller.js:890
+#: ../..//content/controllers/table_man_controller.js:896
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:79
 msgid "Product Search"
 msgstr ""
@@ -8242,14 +8242,14 @@ msgid "TAL"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:205
-#: ../..//content/controllers/select_table_controller.js:1059
-#: ../..//content/controllers/select_table_controller.js:1102
-#: ../..//content/controllers/table_man_controller.js:804
+#: ../..//content/controllers/select_table_controller.js:1063
+#: ../..//content/controllers/select_table_controller.js:1106
+#: ../..//content/controllers/table_man_controller.js:810
 msgid "All Regions"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:206
-#: ../..//content/controllers/table_man_controller.js:805
+#: ../..//content/controllers/table_man_controller.js:811
 msgid "Available Tables"
 msgstr ""
 
@@ -8299,7 +8299,7 @@ msgid "Please select the table to mark status..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:605
-#: ../..//content/controllers/select_table_controller.js:1110
+#: ../..//content/controllers/select_table_controller.js:1114
 msgid "Clear Table Status"
 msgstr ""
 
@@ -8324,65 +8324,65 @@ msgstr ""
 msgid "Table [%S] is not available!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:809
+#: ../..//content/controllers/select_table_controller.js:813
 #: ../..//content/helpers/nsi_orders_checklist_view.js:58
 #: ../..//content/helpers/nsi_tablestatus_view.js:161
 msgid "C#"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:812
+#: ../..//content/controllers/select_table_controller.js:816
 #: ../..//content/helpers/nsi_orders_checklist_view.js:61
 #: ../..//content/helpers/nsi_tablestatus_view.js:158
 msgid "S#"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:848
-#: ../..//content/controllers/select_table_controller.js:853
-#: ../..//content/controllers/select_table_controller.js:869
+#: ../..//content/controllers/select_table_controller.js:852
+#: ../..//content/controllers/select_table_controller.js:857
+#: ../..//content/controllers/select_table_controller.js:873
 msgid "Table [%S] is not available for merging. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:908
+#: ../..//content/controllers/select_table_controller.js:912
 msgid "Table [%S] is not available for unmerging. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:945
-#: ../..//content/controllers/select_table_controller.js:948
+#: ../..//content/controllers/select_table_controller.js:949
+#: ../..//content/controllers/select_table_controller.js:952
 msgid "Select Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:971
+#: ../..//content/controllers/select_table_controller.js:975
 msgid "Table [%S] is not available for marking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:976
+#: ../..//content/controllers/select_table_controller.js:980
 msgid "Table [%S] is not available fr marking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:983
+#: ../..//content/controllers/select_table_controller.js:987
 msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1027
+#: ../..//content/controllers/select_table_controller.js:1031
 msgid "Table [%S] is not available for unmarking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1065
+#: ../..//content/controllers/select_table_controller.js:1069
 msgid "You are now marking table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1108
+#: ../..//content/controllers/select_table_controller.js:1112
 msgid "You are now cleaning table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1143
+#: ../..//content/controllers/select_table_controller.js:1147
 msgid ""
 "A minor error was detected with this order and has been fixed. The order was "
 "previously completed and will no longer appear in the table manager"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1228
 #: ../..//content/controllers/select_table_controller.js:1232
+#: ../..//content/controllers/select_table_controller.js:1236
 msgid "Table [%S] is not available for transfer. Status [%S], Active [%S]"
 msgstr ""
 
@@ -9338,178 +9338,178 @@ msgstr ""
 msgid "No Promotion"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:136
+#: ../..//content/controllers/table_man_controller.js:142
 msgid "Add Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:136
+#: ../..//content/controllers/table_man_controller.js:142
 msgid "Adding New Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:136
+#: ../..//content/controllers/table_man_controller.js:142
 msgid "Number of New Tables"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:136
+#: ../..//content/controllers/table_man_controller.js:142
 msgid "Number of Seats per Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:161
+#: ../..//content/controllers/table_man_controller.js:167
 msgid "[%S] new tables added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:193
+#: ../..//content/controllers/table_man_controller.js:199
 msgid "Add Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:193
+#: ../..//content/controllers/table_man_controller.js:199
 msgid "New Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:193
+#: ../..//content/controllers/table_man_controller.js:199
 msgid "Table Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:198
+#: ../..//content/controllers/table_man_controller.js:204
 msgid "Table number [%S] is invalid"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:230
+#: ../..//content/controllers/table_man_controller.js:236
 msgid "Table number [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:234
+#: ../..//content/controllers/table_man_controller.js:240
 msgid "Table number [%S] has already been assigned"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:267
-#: ../..//content/controllers/table_man_controller.js:341
+#: ../..//content/controllers/table_man_controller.js:273
+#: ../..//content/controllers/table_man_controller.js:347
 msgid "Table [%S (%S)] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:289
+#: ../..//content/controllers/table_man_controller.js:295
 msgid "confirm delete table [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:290
+#: ../..//content/controllers/table_man_controller.js:296
 msgid "Are you sure you want to delete table [%S (%S)]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:306
+#: ../..//content/controllers/table_man_controller.js:312
 msgid "Table [%S (%S)] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:365
-#: ../..//content/controllers/table_man_controller.js:370
-#: ../..//content/controllers/table_man_controller.js:572
+#: ../..//content/controllers/table_man_controller.js:371
+#: ../..//content/controllers/table_man_controller.js:376
+#: ../..//content/controllers/table_man_controller.js:578
 msgid "Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:366
+#: ../..//content/controllers/table_man_controller.js:372
 msgid "Table status rebuilt successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:371
+#: ../..//content/controllers/table_man_controller.js:377
 msgid ""
 "Failed to rebuild table status, please check the network connectivity to the "
 "terminal designated as the table status server [message #2101]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:396
+#: ../..//content/controllers/table_man_controller.js:402
 msgid "Add Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:396
+#: ../..//content/controllers/table_man_controller.js:402
 msgid "New Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:396
+#: ../..//content/controllers/table_man_controller.js:402
 msgid "Region Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:424
+#: ../..//content/controllers/table_man_controller.js:430
 msgid "Region [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:428
+#: ../..//content/controllers/table_man_controller.js:434
 msgid "Region [%S] has already been assigned"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:468
+#: ../..//content/controllers/table_man_controller.js:474
 msgid "Region [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:491
+#: ../..//content/controllers/table_man_controller.js:497
 msgid "confirm delete region [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:492
+#: ../..//content/controllers/table_man_controller.js:498
 msgid "Are you sure you want to delete region [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:505
+#: ../..//content/controllers/table_man_controller.js:511
 msgid "Region [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:571
+#: ../..//content/controllers/table_man_controller.js:577
 msgid "Add New Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:572
+#: ../..//content/controllers/table_man_controller.js:578
 msgid "New Table Status"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:602
+#: ../..//content/controllers/table_man_controller.js:608
 msgid "Table status [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:606
+#: ../..//content/controllers/table_man_controller.js:612
 msgid "Table status [%S] already exists"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:649
+#: ../..//content/controllers/table_man_controller.js:655
 msgid "Table status [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:677
+#: ../..//content/controllers/table_man_controller.js:683
 msgid "confirm delete table status [%S]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:677
+#: ../..//content/controllers/table_man_controller.js:683
 msgid "Are you sure you want to delete table status [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:689
+#: ../..//content/controllers/table_man_controller.js:695
 msgid "Table status [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1037
+#: ../..//content/controllers/table_man_controller.js:1045
 msgid "Options saved successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1044
+#: ../..//content/controllers/table_man_controller.js:1052
 msgid "Clone Table Management Options"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1045
+#: ../..//content/controllers/table_man_controller.js:1053
 msgid "Table management options will be cloned from the table status server."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1045
+#: ../..//content/controllers/table_man_controller.js:1053
 msgid "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1141
+#: ../..//content/controllers/table_man_controller.js:1149
 msgid ""
 "Modification of tables and regions requires system restart to take effect."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1142
+#: ../..//content/controllers/table_man_controller.js:1150
 msgid ""
 "The system will restart automatically after you return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1143
+#: ../..//content/controllers/table_man_controller.js:1151
 msgid "Table Manager"
 msgstr ""
 
@@ -10737,11 +10737,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:47
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:57
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:75
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:55
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:46
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:71
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:36
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:52
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:56
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:48
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:75
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:37
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:54
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:53
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:57
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:87
@@ -10814,11 +10814,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_58mm.tpl:68
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:23
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:44
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:56
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:48
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:73
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:37
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:53
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:57
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:50
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:77
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:38
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:55
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:54
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:59
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:89
@@ -10858,11 +10858,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_58mm.tpl:70
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:24
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:45
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:57
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:50
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:75
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:38
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:54
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:58
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:52
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:79
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:39
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:56
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:55
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:61
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:91
@@ -10904,11 +10904,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:91
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:32
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:60
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:58
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:52
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:77
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:39
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:55
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:59
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:54
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:81
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:40
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:57
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:56
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:63
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:93
@@ -10950,11 +10950,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:93
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:33
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:61
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:59
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:54
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:79
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:40
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:56
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:60
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:56
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:83
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:41
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:58
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:57
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:65
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:95
@@ -10996,11 +10996,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:95
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:34
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:62
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:60
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:56
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:81
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:41
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:57
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:61
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:58
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:85
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:42
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:59
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:58
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:67
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:97
@@ -11054,11 +11054,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_58mm.tpl:78
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:28
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:49
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:62
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:60
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:85
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:43
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:59
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:63
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:62
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:89
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:44
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:61
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:60
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:71
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:101
@@ -11104,10 +11104,10 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:70
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:51
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:37
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:104
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:121
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:68
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:49
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:106
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:124
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:70
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:50
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:108
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:81
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:57
@@ -11164,9 +11164,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:71
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:53
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:40
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:105
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:70
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:51
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:107
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:72
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:52
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:109
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:86
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:60
@@ -11383,11 +11383,11 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_58mm.tpl:51
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:22
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:36
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:61
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:58
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:83
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:42
-#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:58
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:62
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:60
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:87
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:43
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:60
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:59
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:69
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:99
@@ -12006,6 +12006,24 @@ msgstr ""
 msgid "(rpt)Row Limit Excess"
 msgstr ""
 
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:55
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:46
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:73
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:36
+#: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:53
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:46
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:86
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:29
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:40
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:58
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:69
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:23
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:31
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:43
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:51
+msgid "(rpt)Quantities Sold"
+msgstr ""
+
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:48
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:46
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:35
@@ -12045,19 +12063,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:22
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:42
 msgid "(rpt)Average Net Price"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:46
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:86
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:29
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:40
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:58
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:69
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:23
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:31
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:43
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:51
-msgid "(rpt)Quantities Sold"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return.tpl:48

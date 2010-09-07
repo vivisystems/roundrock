@@ -61,7 +61,8 @@
             'orders.rounding_prices,' +
             'orders.precision_prices,' +
             'orders.rounding_taxes,' +
-            'orders.precision_taxes'
+            'orders.precision_taxes,' +
+            'orders.qty_subtotal'
 
             var conditions = "orders." + periodType + ">='" + start +
             "' AND orders." + periodType + "<='" + end + "'";
@@ -130,14 +131,14 @@
                                 promotion_subtotal: 0.0,
                                 revalue_subtotal: 0.0,
                                 total: 0.0,
-                                payment: 0.0
+                                payment: 0.0,
+                                qty_subtotal: 0
                             }
                         }
                     }
                 }
                 orderRecord.status = this.statusToString(orderRecord.status);
-                records[ orderRecord.type ].orders.push( orderRecord );
-				
+                records[ orderRecord.type ].orders.push( orderRecord );				
                 records[ orderRecord.type ].summary.item_subtotal += orderRecord.item_subtotal;
                 records[ orderRecord.type ].summary.tax_subtotal += orderRecord.tax_subtotal;
                 records[ orderRecord.type ].summary.surcharge_subtotal += orderRecord.surcharge_subtotal;
@@ -146,13 +147,13 @@
                 records[ orderRecord.type ].summary.revalue_subtotal += orderRecord.revalue_subtotal;
                 records[ orderRecord.type ].summary.total += orderRecord.total;
                 records[ orderRecord.type ].summary.payment += orderRecord.payment;
+                records[ orderRecord.type ].summary.qty_subtotal += orderRecord.qty_subtotal;
             }, this );
             
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.orderannotation.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
-            this._reportRecords.head.terminal_no = terminalNo;
-            
+            this._reportRecords.head.terminal_no = terminalNo;          
             this._reportRecords.body = records;
             this._reportRecords.head.rowCount = rowCount;
         },
