@@ -1,4 +1,136 @@
-#!/bin/sh
+#!/bin/bash
+
+VNC_PASSFILE=/data/profile/x11vnc_passwd
+VNC_PROG=/usr/bin/x11vnc
+VNC_CONTROL=x11vnc
+
+SUPPORT_FQDN=`cat /etc/support.site`
+SUPPORT_FQDN=${SUPPORT_FDQN:-support.vivisystems.com.tw}
+
+STATUS_URL=https://$SUPPORT_FQDN/cgi-bin/echo.php
 
 MSG=`cat`
 echo `date` [$#] $@ : $MSG >> /tmp/sms.log
+
+MSG_ACTION=
+MSG_IMEI=
+MSG_SERIAL=
+
+parse_message() {
+
+    MSG_ACTION=`echo $1 | tr [:lower:] [:upper:] 2>/dev/null`
+    MSG_IMEI=$2
+    MSG_SERIAL=$3
+
+}
+
+validate_msg() {
+
+    [ "$MSG_IMEI" = "$IMEI" -a "$MSG_SERIAL" = "$SERIAL" \
+	 -a \( "$MSG_ACTION" = "VNC-UP" -o "$MSG_ACTION" = "VNC-DOWN" \
+	 -o "$MSG_ACTION" = "UP" -o "$MSG_ACTION" = "DOWN" \) ]
+
+}
+
+parse_message $MSG
+
+IMEI=1
+SERIAL=1
+
+validate_msg || exit
+
+case "$MSG_ACTION" in
+
+    UP|VNC-UP)
+
+	# bring up ppp0
+	killall wvdial pppd
+	sleep 2
+
+	wvdial cht >/dev/null 2>&1 &
+	
+	WAITS=5
+	PPPD=1
+	while [ $PPPD -eq 1 -a $WAITS -ne 0 ]; do
+	    sleep 5
+	    ifconfig ppp0
+	    PPPD=$?
+
+	    WAITS=$((WAITS - 1))
+	done
+
+	# are we up?
+	if [ $PPPD -eq 0 ]; then
+
+	    # inform support center that network is up
+	    POST_DATA=SERIAL=$SERIAL&STATUS=NETWORK-UP
+	    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem --no-cache \
+	    	 -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
+
+	    # are we able to connect to support center?
+	    if [ $? -ne 0 ]; then
+
+		# failed to connect to support center; terminate PPP
+
+		killall wvdial pppd
+
+	    else
+
+		# bring up VNC?
+
+		if [ "$MSG_ACTION" = "VNC-UP" ]; then
+
+		    # generate new VNC passcode and bring up VNC
+		    VNC_PASSCODE=$RANDOM
+		    $VNC_PROG -storepasswd $VNC_PASSCODE $VNC_PASSFILE
+		    echo $VNC_PASSCODE > /tmp/vnc.code
+
+		    stop $VNC_CONTROL
+		    start $VNC_CONTROL
+
+		    # inform support center that VNC is up
+		    POST_DATA=SERIAL=$SERIAL&STATUS=VNC-UP&VNC_PASSCODE=$VNC_PASSCODE
+		    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
+			 --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
+
+		    if [ $? -ne 0 ]; then
+
+			# failed to connect to support center; terminate PPP
+
+			killall wvdial pppd
+
+		    fi
+		fi
+	    fi
+
+	else
+	    killall wvdial pppd
+	fi
+	;;
+
+    DOWN|VNC-DOWN)
+
+	# bring down VNC
+	stop $VNC_CONTROL
+
+	# inform support center that VNC is down
+	POST_DATA=SERIAL=$SERIAL&STATUS=VNC_DOWN
+	wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
+	     --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
+
+
+	# bring down ppp?
+
+	if [ "$MSG_ACTION" = "DOWN" ]; then
+	    killall wvdial pppd
+
+	    # inform support center that network is down
+	    POST_DATA=SERIAL=$SERIAL&STATUS=NETWORK_DOWN
+	    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
+		 --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
+
+	fi
+	;;
+
+esac
+
