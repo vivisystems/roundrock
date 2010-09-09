@@ -457,7 +457,7 @@ generate_initramfs() {
 	cd $CWD
 	rm -rf /tmp/newrd.$$
 
-        sleep 2;
+        sync
 
     fi
 
