@@ -58,7 +58,8 @@ show() {
     # get new window stack
     NEW_WINDOW_STACK=`xprop -root | grep "${WINDOW_STACK_PREFIX}"`
     NEW_WINDOW_STACK=`echo ${NEW_WINDOW_STACK#"${WINDOW_STACK_PREFIX}"} | sed "s/,//g"`
-    echo "NEW WINDOW [${NEW_WINDOW_STACK}] ACTIVE WINDOW [${ACTIVE_WINDOW}]" > /tmp/stack.log
+
+    echo "NEW WINDOW [${NEW_WINDOW_STACK}] ACTIVE WINDOW [${ACTIVE_WINDOW}]" > /tmp/powerbtn.log
 
     # restore original window stack
     if [ -n "${WINDOW_STACK}" ]; then
@@ -85,7 +86,9 @@ show() {
 # determine if we are on main screen
 #
 on_mainscreen() {
-echo "`date` checking if on mainscreen" > /tmp/powerbtn.log
+
+    echo "`date` checking if on mainscreen" > /tmp/powerbtn.log
+
     if [ -n "${ACTIVE_WINDOW}" -a "${ACTIVE_WINDOW}" != "0x0" ]; then
         CLASS=`xprop -id "${ACTIVE_WINDOW}" | grep "${WINDOW_CLASS_PREFIX}"`
         CLASS=${CLASS#"${WINDOW_CLASS_PREFIX}"}
@@ -93,7 +96,6 @@ echo "`date` checking if on mainscreen" > /tmp/powerbtn.log
         ROLE=`xprop -id "${ACTIVE_WINDOW}" | grep "${WINDOW_ROLE_PREFIX}"`
         ROLE=${ROLE#"${WINDOW_ROLE_PREFIX}"}
 
-echo "`date` [${CLASS}] [${ROLE}]" >> /tmp/powerbtn.log
         if [ "${CLASS}" = '"Vivipos", "VIVIPOS"' -a "${ROLE}" = '"Main"' ]; then
             return 0
         else
