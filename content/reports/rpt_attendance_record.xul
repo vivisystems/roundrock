@@ -83,6 +83,10 @@
                                             </menupopup>
                                         </menulist>
                                     </vbox>
+                                    <vbox>
+                                        <label value="&rptattendancerecord.branchid;" id="branch_id_label" form="queryform" name="branch_id_label"/>
+                                        <textbox id="branch_id" value="" form="queryform" name="branch_id"/>
+                                    </vbox>
                                 </row>
                             </rows>
                         </grid>
