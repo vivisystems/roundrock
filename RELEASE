@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
-Release Note for VIVIECR ver.1.2.1.6 (English version)
-Release Date: 2010-Aug-23
+Release Note for VIVIECR ver.1.2.1.7 (English version)
+Release Date: 2010-Sept-09
 --------------------------------------------------------------------------------
 
 This is a maintenance release with enhanced functions for VIVIPOS Application (VIVIECR) 1.2.1.x series.
@@ -11,26 +11,35 @@ Dependencies
 --------------------------------------------------------------------------------
 
 This release requires the following applications:
-    - VIVIPOS OS Release 1.2.2 or above
-    - VIVIPOS App Engine Release 1.2.1.5 or above
-    - VIVIPOS WebApp and WebServices Release 1.2.1.1 or above
+	- VIVIPOS OS Release 1.2.2 or above
+	- VIVIPOS App Engine Release 1.2.1.5 or above
+	- VIVIPOS WebApp and WebServices Release 1.2.1.2 or above
 
-You should also install appropriate language pack (langpack-en-US_1.2.1.6.xpi) to avoid translation-related issues.
+You should also install appropriate language pack (langpack-en-US_1.2.1.7.xpi) to avoid translation-related issues.
 
 --------------------------------------------------------------------------------
 Enhanced Functions
 --------------------------------------------------------------------------------
 
-Ticket#138:
-Enhance the way data written to the file system: Change the synchronous mode from NORMAL to FULL, to ensure that the data can be immediately and correctly written to the file system.
+Ticket#139:
+Enhance Table Manager and Layout Manager functions: Only when users switch layout setting to "Compact Table Layout" in Layout Manager, the "Dock Options" tab in Table Manager will show up.
+
+Ticket#142:
+Enhance Table Manager function: Automatically recall order to shopping cart when only one order exists in a table.
+
+Ticket#144:
+Enhance Rebuild Status function in Table Manager: Remove cache after table status rebuilt, which allows "Rebuild Status" function to take effect immediately without restarting the application.
+
+Ticket#147:
+Add one new role for "Return Item" function.
 
 --------------------------------------------------------------------------------
 Bugs Fixed
 --------------------------------------------------------------------------------
 
-Ticket#140:
-In the circumstance that 2nd screen function is activated, some screens (eg: Shift Change / End Sale Period screen, Recall Stored Order screen) will be wrongly opened in the 2nd screen.
-This issue has been fixed in 1.2.1.6 release.
+Ticket#156:	(This bug applies to Taiwan market only)
+In the circumstance that when users click "Cash" button twice in a very fast way, the invoice (for Taiwan market) will be printed twice.
+This issue has been fixed in 1.2.1.7 release.
 
 --------------------------------------------------------------------------------
 
