@@ -973,13 +973,8 @@
 
                 guestnumDestinationObj.selectedItems = selectedItems ;
             }
-
-            // load preference
-            var check = GeckoJS.Configure.read('vivipos.fec.settings.tableman.autorecalloneorder');
-            document.getElementById('tableAutoRecallOneOrder').checked = check;
             
             return settings;
-
         },
 
         /**
@@ -1044,6 +1039,8 @@
                 this._needRestart = true;
             }catch(e) {
             }
+
+            this.savePref();
 
             OsdUtils.info(_('Options saved successfully'));
 
@@ -1138,8 +1135,31 @@
             // get table settings and update UI
             this.readTableSettings();
 
+            // load option preference
+            this.loadPref();
         },
 
+        loadPref: function(){
+
+            // load preference
+            var check = GeckoJS.Configure.read('vivipos.fec.settings.tableman.autorecalloneorder');
+            var checkpoppanel = GeckoJS.Configure.read('vivipos.fec.settings.tableman.checkbox_poptablepanelIdleTime');
+
+            var time = GeckoJS.Configure.read('vivipos.fec.settings.tableman.textbox_poptablepanelIdleTime');
+
+            document.getElementById('tableAutoRecallOneOrder').checked = check;
+            document.getElementById('checkbox_poptablepanelIdleTime').checked = checkpoppanel;
+            document.getElementById('textbox_poptablepanelIdleTime').value = time;
+        },
+
+        savePref: function(){
+
+            var checked = document.getElementById('checkbox_poptablepanelIdleTime').checked;
+            var time = document.getElementById('textbox_poptablepanelIdleTime').value;
+            
+            GeckoJS.Configure.write('vivipos.fec.settings.tableman.checkbox_poptablepanelIdleTime', checked);
+            GeckoJS.Configure.write('vivipos.fec.settings.tableman.textbox_poptablepanelIdleTime', time);
+        },
 
         /**
          * doExit check restart and confirm
