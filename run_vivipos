@@ -218,7 +218,7 @@ while [ $RETVAL != 0 ]; do
 
             # set env of system info
             eval `${DIR}/getSystemLicenseStub -v|awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
-            ${DIR}/xulrunner/xulrunner ${DIR}/application.ini
+            ${DIR}/xulrunner/xulrunner ${DIR}/application.ini $@
             RETVAL=$?
 
             echo "`date +"%Y-%m-%d %H:%M:%S"` : Exit VIVIPOS [${RETVAL}]" >> ${DIR}/log/vivipos.log
