@@ -137,3 +137,5 @@
 
 <!ENTITY tableman.tableoptions.printCheckCurrentBatchItems "Print items in current batch only">
 <!ENTITY tableman.tableoptions.printCheckOnlyPositiveCurrentBatchItems "Print positive quantity items in current batch only">
+
+<!ENTITY tableman.tableoptions.popTablePanelIdelTime "Pop table panel after order is finalized in accordance with idel time (seconds)">
