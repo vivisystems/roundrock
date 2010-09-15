@@ -3248,7 +3248,7 @@
                     revalue_subtotal = 0;
                     break;
             }
-            return revalue_subtotal;
+            return this.roundNumber(revalue_subtotal);
         },
 
         calcTotal: function() {
