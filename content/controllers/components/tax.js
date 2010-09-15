@@ -536,6 +536,10 @@
             return roundedAmount;
 
         }
+        function roundNumber(num) {
+                var result = Math.round(num*Math.pow(10,(precision+1)))/Math.pow(10,(precision+1));
+                return result;
+        }
 
         var taxObject = null;
         amount = amount || 0;
@@ -572,12 +576,13 @@
                     	included = amount - ( amount / (100 + taxObject['rate']) * 100);
                         //included = amount * taxObject[ 'rate' ] / ( 100 + taxObject[ 'rate' ] );
                     }
-                    if (included > 0) taxAmount[no]['included'] = included;
+                    if (included > 0) taxAmount[no]['included'] = roundTax(included);
                 }
-                taxAmount[no]['taxable'] = amount - included;
+                taxAmount[no]['taxable'] = roundNumber(amount - taxAmount[no]['included']);
                 break;
                 
             case "ADDON":
+                taxAmount[no]['included'] = 0;
                 taxAmount[no]['taxable'] = amount;
                 if (unitprice >= taxObject['threshold']) {
                     var charge = 0;
@@ -586,7 +591,7 @@
                     }else {
                         charge = amount * (taxObject['rate'] / 100) ;
                     }
-                    if (charge > 0) taxAmount[no]['charge'] = charge;
+                    if (charge > 0) taxAmount[no]['charge'] = roundTax(charge);
                 }
                 break;
 
@@ -629,17 +634,17 @@
                         var amount1 = amount - includedChargeAmount;
 
                         // compute total included tax charge
-                        includedRateAmount = amount1 - ( amount1 / (100 + includedRate) * 100);
+                        includedRateAmount = roundNumber(amount1 - ( amount1 / (100 + includedRate) * 100));
 
                         // allocate included tax amount to individual rate-based included taxes
                         var allocatedTaxAmount = 0;
                         for (var i = 0; i < includedRateTaxes.length - 1; i++) {
                             var cTaxObj = includedRateTaxes[i];
-                            var partialIncludedAmount = cTaxObj.rate * includedRateAmount / includedRate;
+                            var partialIncludedAmount = roundTax(cTaxObj.rate * includedRateAmount / includedRate);
                             taxAmount[no]['combine'][cTaxObj.no] = {
                                 charge: 0,
                                 included: partialIncludedAmount,
-                                taxable: amount1 - includedRateAmount,
+                                taxable: roundNumber(amount1 - includedRateAmount),
                                 tax: cTaxObj
                             }
                             allocatedTaxAmount += partialIncludedAmount;
@@ -648,14 +653,14 @@
                        var cTaxObj = includedRateTaxes[i];
                        taxAmount[no]['combine'][cTaxObj.no] = {
                            charge: 0,
-                           included: includedRateAmount - allocatedTaxAmount,
-                           taxable: amount1 - includedRateAmount,
+                           included: roundNumber(includedRateAmount - allocatedTaxAmount),
+                           taxable: roundNumber(amount1 - includedRateAmount),
                            tax: cTaxObj
                        }
                     }
 
-                    totalIncluded = includedRateAmount + includedChargeAmount;
-                    var pretaxAmount = amount - totalIncluded;
+                    totalIncluded = roundNumber(includedRateAmount + includedChargeAmount);
+                    var pretaxAmount = roundNumber(amount - totalIncluded);
 
                     taxObject.CombineTax.forEach(function(cTaxObj){
                         // foreach component tax of type 'add-on', compute add on tax
@@ -675,8 +680,8 @@
                         }
                     }, this);
                 }
-                taxAmount[no]['charge'] = totalCharge;
-                taxAmount[no]['included'] = totalIncluded;
+                taxAmount[no]['charge'] = roundNumber(totalCharge);
+                taxAmount[no]['included'] = roundNumber(totalIncluded);
                 break;
 
             case "VAT":
@@ -712,12 +717,12 @@
         taxAmount[no]['charge'] = roundTax(taxAmount[no]['charge']);
         taxAmount[no]['included'] = roundTax(taxAmount[no]['included']);
 
-        taxAmount[no]['tax_details'] = this.calcTaxDetails(taxAmount, no, roundTax);
+        taxAmount[no]['tax_details'] = this.calcTaxDetails(taxAmount, no, roundTax, roundNumber);
 
         return taxAmount;
     };
 
-    TaxComponent.prototype.calcTaxDetails = function(taxChargeObj, no, roundTax) {
+    TaxComponent.prototype.calcTaxDetails = function(taxChargeObj, no, roundTax, roundNumber) {
 
         var tax_details;
 

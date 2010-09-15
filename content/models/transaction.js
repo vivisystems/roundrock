@@ -512,7 +512,7 @@
 
         createItemDataObj: function(index, item, sellQty, sellPrice, parent_index) {
 
-            var roundedPrice = sellPrice || 0;
+            var roundedPrice = this.getRoundedNumber(sellPrice || 0);
             var priceModifier = item.manual_adjustment_only ? 1 : this.data.price_modifier;
             var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice*priceModifier) || 0;
 
@@ -3353,16 +3353,19 @@
                 var disItem = this.data.trans_discounts[transDisIndex];
                 trans_discount_subtotal += parseFloat(disItem.current_discount);
             }
+            trans_discount_subtotal = this.getRoundedNumber(trans_discount_subtotal);
 
             for(var transSurIndex in this.data.trans_surcharges ) {
                 var surItem = this.data.trans_surcharges[transSurIndex];
                 trans_surcharge_subtotal += parseFloat(surItem.current_surcharge);
             }
+            trans_surcharge_subtotal = this.getRoundedNumber(trans_surcharge_subtotal);
 
             for(var payIndex in this.data.trans_payments ) {
                 var payItem = this.data.trans_payments[payIndex];
                 payment_subtotal += parseFloat(payItem.amount);
             }
+            payment_subtotal = this.getRoundedNumber(payment_subtotal);
 
             promotion_subtotal = this.data.promotion_subtotal ;
             promotion_tax_subtotal = isNaN(parseFloat(this.data.promotion_tax_subtotal)) ? 0 : parseFloat(this.data.promotion_tax_subtotal);
@@ -3472,6 +3475,13 @@
             if (format) return this.formatPrice(this.data.payment_subtotal);
 
             return this.data.payment_subtotal;
+        },
+
+
+        getRoundedNumber: function(num, precision) {
+            precision = precision || Math.max(this.data.precision_taxes, this.data.precision_prices);
+            var result = Math.round(num*Math.pow(10,(precision+1)))/Math.pow(10,(precision+1));
+            return result;
         },
 
 
