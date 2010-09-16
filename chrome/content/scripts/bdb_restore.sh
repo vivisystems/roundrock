@@ -16,7 +16,7 @@ restore_with_system=$2
 error_file=${3:-/tmp/restore.status}
 target_dir=${4:-/data/databases}
 
-BERKELEY_HOME=/usr/local/BerkeleyDB.5.0
+BERKELEY_HOME=/usr/local/BerkeleyDB.5.1
 db_recover=${BERKELEY_HOME}/bin/db_recover
 sqlite3=/usr/bin/sqlite3
 
