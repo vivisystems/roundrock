@@ -17,7 +17,7 @@
         _backup_system_script: 'bdb_backup.sh',
         _restore_system_script: 'bdb_restore.sh',
 
-        _bdb_recover: '/usr/local/BerkeleyDB.5.0/bin/db_recover',
+        _bdb_recover: '/usr/local/BerkeleyDB.5.1/bin/db_recover',
         _sqlite3: '/usr/bin/sqlite3',
 
         _integrity_check_output: '/tmp/ROUNDROCK_INTEGRITY_STATUS',
