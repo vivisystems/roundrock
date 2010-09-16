@@ -8,7 +8,7 @@
 
         name: 'Plus',
 
-        uses: ['Product'],
+        uses: ['Product', 'StockRecord'],
         
         components: ['Tax'],
 
@@ -1226,6 +1226,22 @@
                 var pluIndex = plus.indexOf(plu.id);
 
                 this.clickPluPanel(pluIndex);
+            }
+        },
+
+        validateAutoStock: function(){
+
+            var checked = document.getElementById('auto_maintain_stock').checked;
+
+            if(checked){
+
+                 var item_no = document.getElementById('product_no');
+                 var stockQty = this.StockRecord.getStockById(item_no.value);
+
+                 if(stockQty == 0){
+                      NotifyUtils.warn(_('You should set inventory first.'));
+                      document.getElementById('auto_maintain_stock').checked = false;
+                 }
             }
         },
 
