@@ -92,6 +92,7 @@
             var types = this.getAttribute('types') || '';
             var ignoreincolumnpickers = this.getAttribute('ignoreincolumnpicker') || '';
             var editables = this.getAttribute('editables') || '';
+            var hiddencolumns = this.getAttribute('hiddencolumns') || '';
 
             treecols.setAttribute('hidden', "true");
             GeckoJS.Helper.removeAllChildren(treecols);
@@ -101,6 +102,7 @@
             var _types = types ? types.split(',') : [];
             var _editables = editables ? editables.split(',') : [];
             var _ignoreincolumnpickers = ignoreincolumnpickers ? ignoreincolumnpickers.split(',') : [];
+            var _hiddencolumns = hiddencolumns ? hiddencolumns.split(',') : [];
 
             for (let i = 0; i < _headers.length ; i++) {
 
@@ -136,6 +138,9 @@
 
                 if (_ignoreincolumnpickers[i]) {
                     treecol.setAttribute('ignoreincolumnpicker', _ignoreincolumnpickers[i]);
+                }
+                if (_hiddencolumns[i]) {
+                    treecol.setAttribute('hidden', _hiddencolumns[i]);
                 }
             }
             treecols.setAttribute('hidden', "false");

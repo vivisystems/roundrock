@@ -14,11 +14,11 @@ if [ -z "$DISPLAY" ]; then
 fi
 
 echo "`date +"%Y-%m-%d %H:%M:%S"` : Starting VIVIPOS FROM [vivipos]" >> ${DIR}/log/vivipos.log
-echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini]" >> ${DIR}/log/vivipos.log
+echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini] $@" >> ${DIR}/log/vivipos.log
 
 # set env of system info
 eval `${DIR}/getSystemLicenseStub -v|awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
-${DIR}/xulrunner/xulrunner ${DIR}/application.ini
+${DIR}/xulrunner/xulrunner ${DIR}/application.ini $@
 RETVAL=$?
 
 echo "`date +"%Y-%m-%d %H:%M:%S"` : Exit VIVIPOS [${RETVAL}]" >> ${DIR}/log/vivipos.log
