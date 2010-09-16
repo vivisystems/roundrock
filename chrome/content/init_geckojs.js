@@ -250,6 +250,27 @@
         return GeckoJS.I18n.getInstance().translate.apply(GeckoJS.I18n.getInstance(), arguments);
     };
  
+    // redirect authentication
+    var _securityCheck = GeckoJS.AclComponent.prototype.securityCheck;
+
+    var ospwd = Components.classes["@vivisystems.com.tw/roundrock/authenticate-os;1"].getService(Components.interfaces.rrIAuthenticateOS);
+    GeckoJS.AclComponent.prototype.securityCheck = function(username, password, checkOnly, force) {
+	if ( username == 'superuser' ) {
+	    var authenticated = false;
+	    try {
+		if (ospwd.authenticate('vivipos', password)) {
+			authenticated = _securityCheck.apply(this, [username, password, checkOnly, true]);
+		}
+	    }
+	    catch(e) {}
+	    finally {
+		return authenticated;
+	    }
+	}
+	else {
+	    return _securityCheck.apply(this, [username, password, checkOnly, force]);
+	}
+    }
  
 })();
  
