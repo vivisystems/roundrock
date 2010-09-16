@@ -33,6 +33,7 @@ ${'  ' + _( '(rpt)Shift' ) + ':'|left:18}${order.shift_number|right:24}
 ${'  ' + _( '(rpt)Time' ) + ':'|left:18}${order.time|unixTimeToString|right:24}
 ${'  ' + _( '(rpt)Sequence' ) + ':'|left:18}${order.sequence|right:24}
 ${'  ' + _( '(rpt)Status' ) + ':'|left:18}${order.status|right:24}
+${'  ' + _( '(rpt)Quantities Sold' ) + ':'|left:18}${order.qty_subtotal|viviFormatPrices:true|right:24}
 ${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:18}${order.item_subtotal|viviFormatPrices:true|right:24}
 ${'  ' + _( '(rpt)Surcharge' ) + ':'|left:18}${order.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${'  ' + _( '(rpt)Discount' ) + ':'|left:18}${order.discount_subtotal|viviFormatPrices:true|right:24}
@@ -49,6 +50,7 @@ ${'  ' + _( '(rpt)Payment' ) + ':'|left:18}${order.payment|viviFormatPrices:true
 ${_( '(rpt)Records Found' ) + ': '|left:18}${types.orders.length|format:0|right:24}
 ------------------------------------------
 ${_( '(rpt)Summary' )}
+${'  ' + _( '(rpt)Quantities Sold' ) + ':'|left:18}${types.summary.qty_subtotal|viviFormatPrices:true|right:24}
 ${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:18}${types.summary.item_subtotal|viviFormatPrices:true|right:24}
 ${'  ' + _( '(rpt)Surcharge' ) + ':'|left:18}${types.summary.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${'  ' + _( '(rpt)Discount' ) + ':'|left:18}${types.summary.discount_subtotal|viviFormatPrices:true|right:24}

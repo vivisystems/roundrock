@@ -277,8 +277,9 @@
                                     <tab id="tab_options1" label="&tableman.tab.tableoptions.1;"/>
                                     <tab id="tab_options2" label="&tableman.tab.tableoptions.2;"/>
                                     <tab id="tab_options3" label="&tableman.tab.tableoptions.3;"/>
-                                    <tab id="tab_options3" label="&tableman.tab.tableoptions.print;"/>
-                                    <tab id="tab_options_dock" label="&tableman.tab.tableoptions.dock;"/>
+                                    <tab id="tab_options4" label="&tableman.tab.tableoptions.4;"/>
+                                    <tab id="printCheck" label="&tableman.tab.tableoptions.print;"/>
+                                    <tab id="tab_options_dock" label="&tableman.tab.tableoptions.dock;" hidden="true"/>
                                 </tabs>
                                 <tabpanels flex="1">
 
@@ -462,31 +463,45 @@
                                                     </row>
                                                 </rows>
                                             </grid>
-                                        </vbox>
+                                            <grid class="data-form">
+                                                <columns>                                        
+                                                    <column flex="1"/>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <checkbox id="tableAutoRecallOneOrder" label="&tableman.tableoptions.table_auto_recall_oneorder;" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.tableman.autorecalloneorder', this.checked);" />
+                                                    </row>
+                                                </rows>
+                                            </grid>
+                                        </vbox>                                        
+                                    </tabpanel>
 
-                                        <caption label="&tableman.tableoptions.displayoptions;"/>
-                                        <grid class="data-form">
-                                            <columns>
-                                                <column flex="1"/>
-                                                <column flex="1"/>
-                                                <column flex="1"/>
-                                                <column flex="1"/>
-                                            </columns>
-                                            <rows>
-                                                <row>
-                                                    <checkbox id="displayCheckNo" label="&tableman.tableoptions.displaycheckno;" form="settingsForm" name="DisplayCheckNo"/>
-                                                    <checkbox id="displayTableLabel" label="&tableman.tableoptions.displaytablelabel;" form="settingsForm" name="DisplayTableLabel"/>
-                                                    <checkbox id="displaySeqNo" label="&tableman.tableoptions.displayseqno;" form="settingsForm" name="DisplaySeqNo"/>
-                                                    <checkbox id="displayBooking" label="&tableman.tableoptions.displaybooking;" form="settingsForm" name="DisplayBooking"/>
-                                                </row>
-                                                <row>
-                                                    <checkbox id="displayPeriod" label="&tableman.tableoptions.displayperiod;" form="settingsForm" name="DisplayPeriod"/>
-                                                    <checkbox id="displayTotal" label="&tableman.tableoptions.displaytotal;" form="settingsForm" name="DisplayTotal"/>
-                                                    <checkbox id="displayCapacity" label="&tableman.tableoptions.displaycapacity;" form="settingsForm" name="DisplayCapacity"/>
-                                                    <checkbox id="displayClerk" label="&tableman.tableoptions.displayclerk;" form="settingsForm" name="DisplayClerk"/>
-                                                </row>
-                                            </rows>
-                                        </grid>
+                                    <tabpanel>
+                                        <vbox flex="1">
+                                            <caption label="&tableman.tableoptions.displayoptions;"/>
+                                            <grid class="data-form">
+                                                <columns>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <checkbox id="displayCheckNo" label="&tableman.tableoptions.displaycheckno;" form="settingsForm" name="DisplayCheckNo"/>
+                                                        <checkbox id="displayTableLabel" label="&tableman.tableoptions.displaytablelabel;" form="settingsForm" name="DisplayTableLabel"/>
+                                                        <checkbox id="displaySeqNo" label="&tableman.tableoptions.displayseqno;" form="settingsForm" name="DisplaySeqNo"/>
+                                                        <checkbox id="displayBooking" label="&tableman.tableoptions.displaybooking;" form="settingsForm" name="DisplayBooking"/>
+                                                    </row>
+                                                    <row>
+                                                        <checkbox id="displayPeriod" label="&tableman.tableoptions.displayperiod;" form="settingsForm" name="DisplayPeriod"/>
+                                                        <checkbox id="displayTotal" label="&tableman.tableoptions.displaytotal;" form="settingsForm" name="DisplayTotal"/>
+                                                        <checkbox id="displayCapacity" label="&tableman.tableoptions.displaycapacity;" form="settingsForm" name="DisplayCapacity"/>
+                                                        <checkbox id="displayClerk" label="&tableman.tableoptions.displayclerk;" form="settingsForm" name="DisplayClerk"/>
+                                                    </row>
+                                                </rows>
+                                            </grid>
+                                        </vbox>
                                     </tabpanel>
 
                                     <tabpanel>

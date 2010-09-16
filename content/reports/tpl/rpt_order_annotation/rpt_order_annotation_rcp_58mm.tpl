@@ -43,6 +43,8 @@ ${_( '(rpt)Sequence' ) + ':'|left:24}
 ${order.sequence|right:24}
 ${_( '(rpt)Status' ) + ':'|left:24}
 ${order.status|right:24}
+${_( '(rpt)Quantities Sold' ) + ':'|left:24}
+${order.qty_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Gross Sales' ) + ':'|left:24}
 ${order.item_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Surcharge' ) + ':'|left:24}
@@ -68,6 +70,8 @@ ${order.payment|viviFormatPrices:true|right:24}
 ${_( '(rpt)Records Found' ) + ': '|left:18}${types.orders.length|format:0|right:6}
 ------------------------
 ${_( '(rpt)Summary' )}
+${_( '(rpt)Quantities Sold' ) + ':'|left:24}
+${types.summary.qty_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Gross Sales' ) + ':'|left:24}
 ${types.summary.item_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Surcharge' ) + ':'|left:24}

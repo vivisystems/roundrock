@@ -8,6 +8,7 @@
 <!ENTITY tableman.tab.tableoptions.1 "Options 1">
 <!ENTITY tableman.tab.tableoptions.2 "Options 2">
 <!ENTITY tableman.tab.tableoptions.3 "Options 3">
+<!ENTITY tableman.tab.tableoptions.4 "Options 4">
 <!ENTITY tableman.tab.tableoptions.print "Print Check">
 <!ENTITY tableman.tab.tableoptions.dock "Dock">
 
@@ -90,6 +91,7 @@
 <!ENTITY tableman.tableoptions.minimumchargefor "Apply Minimum Charge On">
 <!ENTITY tableman.tableoptions.minimumchargeplu "Record Minimum Charge Against">
 <!ENTITY tableman.tableoptions.annotation_for_override_minimumcharge "Annotation for Overriding Minimum Charge">
+<!ENTITY tableman.tableoptions.table_auto_recall_oneorder "Auto recall order when only one order exists">
 
 <!ENTITY tableman.tableoptions.displayoptions "Display Elements:">
 <!ENTITY tableman.tableoptions.displaycheckno "Check Number">

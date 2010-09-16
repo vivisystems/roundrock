@@ -30,6 +30,12 @@
         _templates: null,
 
         initial: function() {
+
+            /*if selected layout is compacttable, enable dock tab*/
+            let selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout');
+
+            if( selectedLayout == 'compacttable')
+                document.getElementById('tab_options_dock').setAttribute('hidden', false);
         },
 
         getCartController: function() {
@@ -360,6 +366,9 @@
                 var success = this.TableStatus.rebuildTableStatus();
 
                 if (success) {
+
+                    GeckoJS.Session.remove('tablesStatus');
+                    GeckoJS.Session.remove('tablesStatusLastmodified');
 
                     GREUtils.Dialog.alert(this.topmostWindow,
                         _('Table Status'),
@@ -965,6 +974,10 @@
                 guestnumDestinationObj.selectedItems = selectedItems ;
             }
 
+            // load preference
+            var check = GeckoJS.Configure.read('vivipos.fec.settings.tableman.autorecalloneorder');
+            document.getElementById('tableAutoRecallOneOrder').checked = check;
+            
             return settings;
 
         },
@@ -1003,8 +1016,6 @@
             }
             // get require destination
             this.TableSetting.saveTableSettings(settings);
-
-            
         },
 
         /**

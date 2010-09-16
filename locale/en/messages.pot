@@ -2100,7 +2100,10 @@ msgid "acl_manage_products"
 msgstr "Manage Products"
 
 msgid "acl_register_return"
-msgstr "Register Item Return"
+msgstr "Register Refund"
+
+msgid "acl_register_return_item"
+msgstr "Register Return Item"
 
 msgid "acl_register_credit_card"
 msgstr "Register Credit Card Payment"

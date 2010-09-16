@@ -52,6 +52,7 @@
                     <th style="text-align: center;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Sequence' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Status' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Quantities Sold' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Gross Sales' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Discount' )}</th>
@@ -78,6 +79,7 @@
                     <td style="text-align: center;">${order.time|unixTimeToString}</td>
                     <td style="text-align: center;" class="hyperlink">${order.sequence}</td>
                     <td style="text-align: center;">${order.status}</td>
+                    <td style="text-align: right;">${order.qty_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.discount_subtotal|viviFormatPrices:true}</td>
@@ -103,6 +105,7 @@
                 <tr>
                     <td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' )}: ${types.orders.length|format:0}</td>
                     <td colspan="5" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
+                    <td style="text-align: right;">${types.summary.qty_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${types.summary.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${types.summary.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${types.summary.discount_subtotal|viviFormatPrices:true}</td>
