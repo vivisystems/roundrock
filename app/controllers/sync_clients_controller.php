@@ -88,12 +88,14 @@ class SyncClientsController extends AppController {
 
         // save to database
         $pullResult = $this->SyncHandler->parseResponse($responseData, 'php');
-
+        unset($responseData);
+        
         if (!$pullResult['success']) {
             return false;
         }
 
         $saveResult = $this->SyncHandler->saveServerData($server_machine_id, $pullResult['data']);
+        unset($pullResult);
 
         // commit to sync_remote_machines
         // call server 's pull commit with last_synced
@@ -120,9 +122,14 @@ class SyncClientsController extends AppController {
 
             $pullCommitResult = $this->SyncHandler->parseResponse($responseData, 'php');
 
+            unset($requestData);
+            unset($responseData);
+
             if (!$pullCommitResult['success']) {
                 return false;
             }
+
+            unset($pullCommitResult);
         }
         
         // success
@@ -155,13 +162,16 @@ class SyncClientsController extends AppController {
 
         $datas = $this->SyncHandler->getClientData($server_machine_id);
         $requestData = $this->SyncHandler->prepareRequest($datas, 'php'); // php request type
-
+        unset($datas);
+        
         // send push commit
         $http =& $this->getHttpSocket();
         
         $responseData = $http->post($push_url, array('request_data'=>$requestData) );
+        unset($requestData);
 
         $pushResult = $this->SyncHandler->parseResponse($responseData, 'php');
+        unset($responseData);
 
         if(!$pushResult['success']) {
             return false;
@@ -176,6 +186,7 @@ class SyncClientsController extends AppController {
                                                                'count' => $count,
                                                                'last_synced' => $lastSynced);
         }
+        unset($pushResult);
 
         if (count($lastSyncedData) > 0) {
 
@@ -239,6 +250,7 @@ class SyncClientsController extends AppController {
             $datas = $this->SyncHandler->getClientDataCount($server_machine_id);
 
             $sum = array_sum(Set::classicExtract($datas, '{s}.count'));
+            unset($datas);
 
             if ($sum <= 0) break;
             

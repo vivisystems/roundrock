@@ -320,6 +320,7 @@ class SyncHandlerComponent extends Object {
                     );
 
                     // echo 'create: ' . $sql . "\n";
+                    unset($fields); unset($values); unset($valuesInsert);
 
                     break;
 
@@ -349,16 +350,20 @@ class SyncHandlerComponent extends Object {
                     );
 
                     // echo 'update: ' . $sql . "\n";
+                    unset($fields); unset($values); unset($valuesUpdate);
 
                     break;
             }
 
             if(!empty($sql)) {
                 $outputBuffer .= $sql. "; \n";
+                unset($sql);
             }
 
         }
 
+        unset($newSync_fields); unset($newSync_values);
+        
         return $outputBuffer;
 
     }
@@ -461,8 +466,10 @@ class SyncHandlerComponent extends Object {
             $data['last_synced'] = $newLastSynced;
             $data['sql'] = $sql;
 
-
             $datas[$dbConfig] = $data;
+
+            unset($data); unset($sql);
+            
         }
 
         return $datas;
@@ -521,6 +528,8 @@ class SyncHandlerComponent extends Object {
                 $datasource->connection->beginTransaction();
                 $datasource->connection->exec($data['sql']);
                 $datasource->connection->commit();
+
+                unset($data['sql']);
 
                 // setting result array
                 $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => $data['count'], 'last_synced' => $data['last_synced']);

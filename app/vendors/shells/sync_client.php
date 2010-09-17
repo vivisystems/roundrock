@@ -128,6 +128,7 @@ class SyncClientShell extends SyncBaseShell {
             $this->observerNotify('finished', json_encode($syncResult));
 
             $successed = $syncResult['pull_result'] && $syncResult['push_result'];
+            unset($syncResult);
 
         }catch(Exception $e) {
             $successed = false;
@@ -178,6 +179,7 @@ class SyncClientShell extends SyncBaseShell {
             $this->observerNotify('finished', json_encode($syncResult));
 
             $successed = $syncResult['pull_result'] && $syncResult['push_result'];
+            unset($syncResult);
 
         }catch(Exception $e) {
             $successed = false;
@@ -279,6 +281,8 @@ class SyncClientShell extends SyncBaseShell {
                     $successed = $this->isSyncingSuccess();
                 }
 
+                CakeLog::write('memory', "After Synced: " + number_format(memory_get_usage()));
+                
                 if ($successed) break;
 
                 System_Daemon::log(System_Daemon::LOG_WARNING, "perform_sync not successed, retries = " . $tries . ", sleep (" . $timeout . " secs)" );
