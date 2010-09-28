@@ -20,7 +20,7 @@ NOW=`date +%Y%m%d`
 #MKSQUASHFS=/home/rack/bin/mksquashfs-3.4
 MKSQUASHFS=mksquashfs
 
-DRI_DRIVERS="i915"
+DRI_DRIVERS="intel vmware"
 DRI_LIBS="/usr/lib/dri"
 
 XORG_VIDEO_DRIVERS="intel vmware"
