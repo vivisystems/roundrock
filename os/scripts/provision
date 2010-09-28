@@ -55,7 +55,7 @@ SIM_PLMN=""
 SIM_PIN=""
 PIN_FILE=/etc/modem.pin
 WVDIAL_CONF=/etc/wvdial.conf
-DEFAULT_PIN=""
+DEFAULT_PIN="0000"
 
 # file to store system details
 LSHW=lshw
