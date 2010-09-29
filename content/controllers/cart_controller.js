@@ -872,7 +872,7 @@
                             !currentItem.hasMarker &&
                             currentItem.destination == destination &&
                             ((price == null) || (currentItem.current_price == price)) &&
-                            ((priceLevel == null) || (currentItem.price_level == priceLevel) ||
+                            ((priceLevel == null) || ((currentItem.price_level == priceLevel) || !plu['level_enable'+priceLevel] ) ||
                              (currentItem.price_level == '-' && item.id == currentItem.id && lastSellItem && lastSellItem.id == item.id) ) &&
                             ((currentItem.current_qty > 0 && !this._returnMode) ||
                                 currentItem.current_qty < 0 && !currentItemDisplay.returned && this._returnMode) &&

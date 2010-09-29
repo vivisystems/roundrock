@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-09-14 13:34+0800\n"
+"POT-Creation-Date: 2010-09-16 15:50+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3193,8 +3193,8 @@ msgid "Price Level %S"
 msgstr ""
 
 #: ../..//content/prompt_clone_plu.js:35
-#: ../..//content/controllers/plus_controller.js:1294
-#: ../..//content/controllers/plus_controller.js:1411
+#: ../..//content/controllers/plus_controller.js:1310
+#: ../..//content/controllers/plus_controller.js:1427
 msgid "Clone Product"
 msgstr ""
 
@@ -7926,42 +7926,46 @@ msgid "Selected products successfully linked to product group [%S]"
 msgstr ""
 
 #: ../..//content/controllers/plus_controller.js:1242
+msgid "You should set inventory first."
+msgstr ""
+
+#: ../..//content/controllers/plus_controller.js:1258
 msgid "Save Changes"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1243
+#: ../..//content/controllers/plus_controller.js:1259
 msgid ""
 "You have made changes to the current product. Please either save or discard "
 "the changes before cloning this product."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1265
+#: ../..//content/controllers/plus_controller.js:1281
 msgid "Product Group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1273
+#: ../..//content/controllers/plus_controller.js:1289
 msgid "Department [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1289
+#: ../..//content/controllers/plus_controller.js:1305
 msgid "Product to Clone"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1311
+#: ../..//content/controllers/plus_controller.js:1327
 msgid "Please wait while product properties are cloned..."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1406
+#: ../..//content/controllers/plus_controller.js:1422
 msgid "Product [%S] cloned successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1412
+#: ../..//content/controllers/plus_controller.js:1428
 msgid ""
 "You have cancelled product cloning while it is in progress. Some of the "
 "selected products may not have been cloned."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1416
+#: ../..//content/controllers/plus_controller.js:1432
 msgid "You have not selected any properties to clone."
 msgstr ""
 

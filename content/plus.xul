@@ -270,7 +270,7 @@
                                     <rows>
                                         <row module="productsStockAttr">
                                             <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;"
-                                                      form="productForm" name="auto_maintain_stock" default="false"/>
+                                                      form="productForm" name="auto_maintain_stock" default="false" oncommand="$do('validateAutoStock', null, 'Plus');"/>
                                             <checkbox id="return_stock" value="true" label="&plus.can.restock;"
                                                       form="productForm" name="return_stock" default="false"/>
                                         </row>
