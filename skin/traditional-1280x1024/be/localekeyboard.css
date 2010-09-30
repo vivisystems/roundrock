@@ -1,0 +1,65 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Locales and Keyboard
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-content-locales {
+    width: 700px;
+}
+
+.custom-content-button-kbmap {
+    background: white;
+    border: 1px solid #a1a1a1;
+    border-bottom: 2px solid;
+    color: #3f3f3f;
+    font-size: 10pt;
+    margin: 5px;
+    max-height: 110px;
+    max-width: 180px;
+    min-height: 110px;
+    min-width: 180px;
+    padding: 4px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a1a1a1 ;
+    -moz-border-right-colors: #a1a1a1 ;
+    -moz-border-bottom-colors: #a1a1a1 #a1a1a1;
+    -moz-border-left-colors: #a1a1a1;
+    -moz-border-radius: 6px;
+}
+
+.custom-content-button-kbmap hbox {
+    word-wrap: break-word;
+    -moz-box-orient: vertical;
+}
+
+.custom-content-button-kbmap image{
+    display: none;
+}
+
+.custom-content-button-kbmap[disabled=false]:active {
+    background: #93cbcc;
+    border: 1px solid #a1a1a1;
+    -moz-border-top-colors: #a1a1a1 ;
+    -moz-border-right-colors: #a1a1a1 ;
+    -moz-border-bottom-colors: #a1a1a1;
+    -moz-border-left-colors: #a1a1a1;
+}
+
+.custom-content-button-kbmap[disabled=false][selected] {
+    background: #93cbcc;
+    border: 3px solid;
+    color: white;
+    font-weight: bold;
+    padding: 2px;
+    -moz-border-top-colors: #84b6b7 #8abfc0 #90c7c8 ;
+    -moz-border-right-colors: #a3d3d4 #9acecf #9dd0d1;
+    -moz-border-bottom-colors: #a3d3d4 #9acecf #9dd0d1;
+    -moz-border-left-colors: #84b6b7 #8abfc0 #90c7c8;
+}
+
+.custom-content-button-kbmap[disabled=true] {
+    background: transparent;
+    border: 0px;
+}

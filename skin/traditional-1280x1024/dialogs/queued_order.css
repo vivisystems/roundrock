@@ -1,0 +1,22 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Queued Order Dialog
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-content-queue-list,
+.custom-content-queue-list[readonly=true] {
+    background: none !important;
+    border: none  !important;
+    margin: 20px;
+    min-height: 390px !important;
+    min-width: 300px;
+    -moz-appearance: none;
+    -moz-box-flex: 1 !important;
+}
+
+.custom-content-sline{
+    border-bottom: 1px solid #a98f6e;
+    margin-left: 4px;
+}
