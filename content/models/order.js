@@ -806,7 +806,7 @@
                     // order objects
                     if (attachedOrderHistory) {
                        // copy objects to history
-                       //this.OrderObject.execute("INSERT OR REPLACE INTO order_history." + this.OrderObject.table + " SELECT * FROM " + this.OrderObject.table + " WHERE " + conditions);
+                       this.OrderObject.execute("INSERT OR REPLACE INTO order_history." + this.OrderObject.table + " SELECT * FROM " + this.OrderObject.table + " WHERE " + conditions);
                     }                                                            
                     if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE " + conditions)) {
                         throw {
