@@ -1022,6 +1022,10 @@
 
         updateOptions: function () {
             // used by input_line_controller to listen for option updates
+
+            // initial history order files
+            this.initialOrderHistoryDatabase();
+            
         },
 
         initialLogin: function () {

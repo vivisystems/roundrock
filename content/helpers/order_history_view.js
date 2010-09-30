@@ -24,14 +24,13 @@
             });
 
             var orderDbConfig = GeckoJS.Configure.read('DATABASE_CONFIG.order') || {database: 'vivipos_order.sqlite'};
-            var periodSQL = "select max(modified) as modified from orders union select min(modified) as modified from orders";
+            var periodSQL = "select max(transaction_created) as modified from orders union select min(transaction_created) as modified from orders";
             var countSQL = "select count(*) as total_orders from orders";
             
             this._files.forEach(function(o){
                 try {
 
-                    let filename = o.leafName;
-                    let filesize = o.fileSize;
+                    let filename = o.leafName || '';
                     let dbConfig = GREUtils.extend({},orderDbConfig, {path: dir, database: filename});
                     let datasource = GeckoJS.ConnectionManager.getDataSourceByClass(dbConfig.classname, dbConfig);
 
@@ -39,6 +38,7 @@
                     let maxTime = 0;
                     let minTime = 0;
                     let total_orders = 0;
+                    let filesize = o.fileSize || 0;
                     
                     if (result && result.length == 2) {
                         minTime = Math.min(result[0]['modified'], result[1]['modified']);
@@ -58,8 +58,8 @@
                        maxTime: maxTime,
                        total_orders: total_orders,
                        display_filesize: GeckoJS.NumberHelper.toReadableSize(filesize),
-                       display_minTime: new Date(minTime*1000).toString('yyyy-MM-dd HH:mm'),
-                       display_maxTime: new Date(maxTime*1000).toString('yyyy-MM-dd HH:mm'),
+                       display_minTime: (minTime ? new Date(minTime*1000).toString('yyyy-MM-dd HH:mm') : ''),
+                       display_maxTime: (maxTime ? new Date(maxTime*1000).toString('yyyy-MM-dd HH:mm') : ''),
                        display_total_orders: GeckoJS.NumberHelper.format(total_orders)
                     });
                 } catch (e) {

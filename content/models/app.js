@@ -226,6 +226,7 @@
             var historyDatabasePath = GeckoJS.Configure.read('vivipos.fec.settings.historyDatabasesPath') || '/data/history_databases';
 
             var historyOrderFile = '' ; //historyDatabasePath + '/' + orderDbConfig.database;
+            var reportingOrderFile = historyDatabasePath + '/vivipos_order_reporting.sqlite';
 
             if (isMoveToHistory && retainDays > 0) {
 
@@ -248,20 +249,43 @@
                     }
                    
                     var dirHandle = new GeckoJS.Dir(historyDatabasePath, true); // autocreate
-                    if (!dirHandle.exists()) return false;
-
-                    var dbHandle = new GeckoJS.File(historyOrderFile);
-                    if (dbHandle.exists()) return historyOrderFile;
+                    if (!dirHandle.exists()) {
+                        this.log('ERROR', 'Can not initial [' + historyDatabasePath + '] directory.');
+                        return false;
+                    }
 
                     // check Factory databases.tbz exists
                     var factoryDatabasesFile = '/data/backups/Factory/databases.tbz';
                     if (!GeckoJS.File.exists(factoryDatabasesFile)) return false;
 
-                    // uncompress factory databases
-                    GeckoJS.File.run('/bin/tar', ['-xjpf', factoryDatabasesFile, '-C', '/tmp', './'+orderDbConfig.database], true);
-                    GeckoJS.File.run('/bin/mv', ['/tmp/'+orderDbConfig.database, historyOrderFile], true);
+                    var reportingDbHandle  = new GeckoJS.File(reportingOrderFile);
+                    if (!reportingDbHandle.exists()) {
+                        // uncompress factory databases
+                        GeckoJS.File.run('/bin/tar', ['-xjpf', factoryDatabasesFile, '-C', '/tmp', './'+orderDbConfig.database], true);
+                        GeckoJS.File.run('/bin/mv', ['/tmp/'+orderDbConfig.database, reportingOrderFile], true);
 
-                    if (dbHandle.exists()) return historyOrderFile;
+                        this.log('WARN', 'Creating [' + reportingOrderFile + '] file from Factory databases.tbz');
+                    }
+
+
+                    var dbHandle = new GeckoJS.File(historyOrderFile);
+
+                    if (dbHandle.exists()){
+                        return historyOrderFile;
+                    }else {
+                        // uncompress factory databases
+                        GeckoJS.File.run('/bin/tar', ['-xjpf', factoryDatabasesFile, '-C', '/tmp', './'+orderDbConfig.database], true);
+                        GeckoJS.File.run('/bin/mv', ['/tmp/'+orderDbConfig.database, historyOrderFile], true);
+
+                        this.log('WARN', 'Creating [' + historyOrderFile + '] file from Factory databases.tbz');
+                    }
+
+                    if (dbHandle.exists()) {
+                        return historyOrderFile;
+                    }else {
+                        this.log('ERROR', 'Can not creating [' + historyOrderFile + '] file from Factory databases.tbz');
+                        return false;
+                    }
 
                 }catch(e) {
                     this.log('ERROR', 'Error initialOrderHistoryDatabase', e);
