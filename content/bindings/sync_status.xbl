@@ -148,6 +148,7 @@
                         /* Start Request with http basic authorization */
                         req.open('GET', url, true);
                         req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
+                        req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
                         //dump('request ' + url + '\n');
 
                         req.onreadystatechange = function (aEvt) {
@@ -333,6 +334,7 @@
 			req.setRequestHeader("Keep-Alive", null);
 			req.setRequestHeader("Accept-Charset", null);
 			req.setRequestHeader("Connection", "close");
+                        req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 			
 			req.onreadystatechange = function()
 			{
