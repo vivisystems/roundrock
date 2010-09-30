@@ -98,7 +98,6 @@
             
         </stack>
         <hbox class="dialogbtn">
-            <label value=" :dddddddddddd "  style="font-size: x-small;" />
             <vbox>
                 <hbox>
                     <label id="usedTablesLbl" style="font-size: x-small;" />
