@@ -278,7 +278,7 @@
 }
 
 .ActivityScrollPanel {
-    margin: 50px 0 0 58px;
+    margin: 50px 0 0 65px;
 }
 
 .ActivityBtn {
@@ -287,7 +287,7 @@
     color: black;
     font-size: 12px;
     height: 107px;
-    margin: 0px 55px 0px 0px;
+    margin: 0px 57px 0px 0px;
     max-height:107px;
     max-width:173px;
     min-height:107px;
@@ -375,7 +375,7 @@
 
 /* Tools Area  */
 .ToolsBox {
-    margin: 56px 0 0 1px;
+    margin: 56px 0 0 10px;
 }
 
 .ToolsTitle {
@@ -608,7 +608,7 @@
     font-size: 18pt;
     font-weight: bold !important;
     height: 121px;
-    margin-left: 304px;
+    margin-left: 420px;
     width: 415px;
     -moz-appearance: none;
     -moz-box-pack: center;

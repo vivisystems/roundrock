@@ -1,6 +1,6 @@
 .maindialog {
-    width: 1024px;
-    height: 768px;
+    width: 1280px;
+    height: 1024px;
 
     background-attachment: fixed;
     background-color: white;
@@ -12,7 +12,7 @@
     height: 138px;
 }
 .MainPanel {
-    margin-left: 0px;
+    margin: 100px 0 0 40px;
 }
 .TableBtns {
     top: 250px;
@@ -87,9 +87,11 @@
 }
 .ExitBtn {
   background: transparent url(../images/ExitBtn.png) center center no-repeat !important;
+  margin:0 50px 0 0;
 }
 .RefrashBtn {
   background: transparent url(../images/refrash.png) top center no-repeat !important;
+  margin:0 0 0 0;
 }
 
 .mergeBtn {
@@ -149,8 +151,8 @@
 }
 
 .RightBtns {
-    left: 880px;
-    top: 180px;
+    left: 1080px;
+    top: 250px;
     width: 320px;
 }
 .RightBtns button {

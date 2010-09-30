@@ -136,12 +136,12 @@
 }
 
 .container-be .data-form > columns > column {
-    border-right: 2px solid white;
-    padding: 8px;
+    border-right: 3px solid white;
+    padding: 10px;
 }
 
 .container-be .data-form label {
-    font-size: 12pt;
+    font-size: 14pt;
     color: #372213;
 }
 
@@ -166,7 +166,7 @@
 }
 
 .container-be .data-form-2 label {
-    font-size: 12pt;
+    font-size: 14pt;
     color: #372213;
 }
 
@@ -467,7 +467,7 @@
     border:none;
     color: #393939;
     margin-bottom: 5px;
-    padding: 15px 8px;
+    padding: 20px 15px;
     -moz-appearance: none;
 }
 
@@ -482,7 +482,7 @@
 .container-be .content-tabbox > tabs > tab label,
 .container-be windowdragbox radio label,
 .container-be .content-tabbox > arrowscrollbox label {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
 }
 
