@@ -1,0 +1,285 @@
+/*-----------------------------------------------------------------------------
+ *
+ * SHOPPING CART
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .cart-list {
+    background: transparent;
+    border: 2px solid ;
+    font-size: 14px;
+    margin: 0px 0px 2px 0px;
+    padding: 0px;
+    -moz-border-top-colors: #e6f4ff #e6f4ff;
+    -moz-border-right-colors: #e6f4ff #e4e4e4;
+    -moz-border-bottom-colors: #c9c9c9 #f1f1f1;
+    -moz-border-left-colors: #ececec #fff;
+}
+
+.main-overlay .cart-list > .cart-list {
+    border: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART scrollbar
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .cart-list .scrollablepanel-scrollbar vivibutton {
+    margin: 0px 2px;
+}
+
+.main-overlay .cart-list scrollbar {
+    display: none;
+}
+
+.main-overlay .cart-list .scrollablepanel-scrollbar {
+    -moz-box-align: center;
+}
+
+.main-overlay .cart-scroll-up-button {
+    background: transparent url(../images/chatup.png) 0 0 no-repeat;
+    border: 0px solid;
+    height: 40px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    width: 40px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+}
+
+.main-overlay .cart-scroll-up-button[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+.main-overlay .cart-scroll-up-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .cart-scroll-down-button {
+    background: transparent url(../images/chatdown.png) 0 0 no-repeat;
+    border: 0px solid;
+    height: 40px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    width: 40px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+}
+
+.main-overlay .cart-scroll-down-button[disabled=false]:active {
+    background-position:-40px 0;
+}
+
+.main-overlay .cart-scroll-down-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .cart-scroll-up-button description,
+.main-overlay .cart-scroll-down-button description {
+    display: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART sidepanel tool buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay #cartsidebar {
+    -moz-box-align: center;
+}
+
+.main-overlay #cartsidebar vivibutton description {
+    display: none;
+}
+
+.main-overlay #cartsidebar vivibutton {
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART order details
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .cart-list tree {
+    background: #e6f4ff;
+    border: none;
+    margin: 0px;
+    -moz-appearance: none;
+}
+
+.main-overlay .cart-list treecol {
+    background: #fdf9f6;
+    border: none;
+    border-bottom: 1px dotted #908c83;
+    border-right: 1px solid #bebebe;
+    -moz-appearance: none;
+    -moz-border-right-colors: #bebebe;
+    -moz-border-bottom-colors: #908c83;
+}
+
+.main-overlay .cart-list .tree-splitter {
+    background: #bebebe;
+    width: 1px;
+    -moz-appearance: none;
+}
+
+.main-overlay .cart-list treechildren::-moz-tree-row {
+    border-bottom: 1px solid #818085;
+    height: 28px;
+}
+
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(selected) {font-size: 18px; font-weight: bolder;}
+
+/* the following CSS styles are used to override system default font colors */
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treeReturnItem selected) {color: black;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treeRefundItem selected) {color: black;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treeVerifyAge selected) {color: black;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treeTOTAL selected) {color: black;}
+
+.main-overlay .cart-list treechildren::-moz-tree-row(selected) {background-color: #5b758c; }
+.main-overlay .cart-list treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
+.main-overlay .cart-list treechildren::-moz-tree-row(treeOutofStock) {background-color: red;}
+.main-overlay .cart-list treechildren::-moz-tree-row(treeVerifyAge) {background-color: lightblue;}
+.main-overlay .cart-list treechildren::-moz-tree-row(treeReturnItem) {background-color: lightgreen;}
+.main-overlay .cart-list treechildren::-moz-tree-row(treeRefundItem) {background-color: beige;}
+.main-overlay .cart-list treechildren::-moz-tree-row(treeTOTAL) {background-color: #da7f12;}
+.main-overlay .cart-list treechildren::-moz-tree-row(batchMarker) {border-bottom: 3px solid black !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(discountApplied) {color: brown; font-style: italic; font-weight: bolder;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(surchargeApplied) {color: green; font-style: italic; font-weight: bolder;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treecellTax) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(row) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(label) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(current_qty) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(current_price) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(price_level) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(destination) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treecellCondiment) {font-size: 11px; font-weight: normal;}
+
+/*
+.cart-list treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
+.cart-list treechildren::-moz-tree-row(treeTRAY) {background-color: #8e9d90;}
+.cart-list treechildren::-moz-tree-row(treeSUBTOTAL) {background-color: #71a5d0;}
+.cart-list treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
+.cart-list treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
+*/
+/*treechildren::-moz-tree-image(treecellUntagged) {list-style-image: url(../images/prod-add.png);}*/
+.main-overlay .cart-list treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(../images/check.png);}
+
+.main-overlay .cart-list #name,
+.main-overlay .cart-list #price_level,
+.main-overlay .cart-list #destination,
+.main-overlay .cart-list #seat_no {
+    text-align: left;
+}
+
+.main-overlay .cart-list #label,
+.main-overlay .cart-list #current_qty,
+.main-overlay .cart-list #current_price,
+.main-overlay .cart-list #current_subtotal,
+.main-overlay .cart-list #current_tax {
+    text-align: right;
+}
+
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART order headings
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .cart-list tree #tag {
+    max-width: 15px;
+    min-width: 15px;
+}
+
+.main-overlay .cart-list tree #label {
+    max-width: 32px;
+    min-width: 32px;
+}
+
+.main-overlay .cart-list tree #row {
+    max-width: 25px;
+    min-width: 25px;
+}
+
+.main-overlay .cart-list tree #destination {
+    max-width: 30px;
+    min-width: 30px;
+}
+
+.main-overlay .cart-list tree #seat_no {
+    max-width: 30px;
+    min-width: 30px;
+}
+
+.main-overlay .cart-list tree #name {
+/*
+    max-width: 140px;
+    min-width: 140px;
+*/
+}
+
+.main-overlay .cart-list tree #no {
+/*
+    max-width: 140px;
+    min-width: 140px;
+*/
+}
+
+.main-overlay .cart-list tree #current_qty {
+    max-width: 67px;
+    min-width: 67px;
+}
+
+.main-overlay .cart-list tree #current_price {
+    max-width: 86px;
+    min-width: 86px;
+}
+
+.main-overlay .cart-list tree #current_subtotal {
+    max-width: 110px;
+    min-width: 110px;
+}
+
+.main-overlay .cart-list tree #current_tax {
+    max-width: 28px;
+    min-width: 28px;
+}
+
+.main-overlay .cart-list tree #price_level {
+    max-width: 24px;
+    min-width: 24px;
+}
+
+.main-overlay .cart-list .tree-scrollable-columns {
+    max-height: 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ * cart button
+ *-----------------------------------------------------------------------------
+ */
+
+.button-cart {
+    border: none;
+    height: 48px;
+    margin: 0px;
+    max-width: 40px;
+    min-width: 40px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+}
+
+.button-cart label {
+    display: none;
+}
+
+.button-cart description {
+    display: none;
+}

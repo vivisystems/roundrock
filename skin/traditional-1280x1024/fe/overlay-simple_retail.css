@@ -1,0 +1,55 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Main Screen Styles
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .main-panel  {
+    background-color: #f2faff;
+    border: 0px solid red;
+    height: 768px;
+    width: 1024px;
+}
+
+.main-overlay .left-panel {
+    max-width: 460px;
+    min-width: 460px;
+    overflow: hidden;
+    width: 460px;
+}
+
+.main-overlay .right-panel {
+    max-width: 564px;
+    min-width: 564px;
+    overflow: hidden;
+    width: 564px;
+}
+
+.main-overlay .function-toolbar {
+    min-width: 44px;
+    max-width: 44px;
+    width: 44px;
+}
+
+.main-overlay box[panel] {
+    border: 3px solid #a1a1a1;
+    margin: 4px;
+    padding: 4px;
+    -moz-border-radius: 6px;
+}
+
+.main-overlay .main-wait-panel {
+    background: white none center center no-repeat;
+    height: 140px;
+    margin: 314px 212px 314px 212px;
+    width: 600px;
+}
+
+.main-overlay .main-wait-dialog {
+    background: white;
+    border: 3px solid #c1ab8e;
+    margin: 8px;
+    padding: 4px;
+    -moz-border-radius: 8px;
+}
