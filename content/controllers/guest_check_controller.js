@@ -2247,6 +2247,8 @@
                     if (confirmed) {
 
                         let newTxnData = this.getTransactionDataByOrderId(orderId);
+                        newTxnData.table_name = newTableName;
+                        newTxnData.table_region_name = newRegionName;
                         newTxnData.org_table_no = orgTableNo;
                         newTxnData.org_table_name = orgTableName;
                         newTxnData.org_table_region_name = orgRegionName;
