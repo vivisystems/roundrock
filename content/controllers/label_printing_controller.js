@@ -94,9 +94,12 @@
                 var width = 450;
                 var height = 600;
             }
-            else{
+            else if(this.screenwidth == 800){
                  var width = 400;
                  var height = 470;
+            }else{
+                 var width = this.screenwidth/3
+                 var height = this.screenheight/1.5;
             }
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width='+width+',height='+height;
@@ -207,9 +210,12 @@
                 var width = 450;
                 var height = 600;
             }
-            else{
+            else if(this.screenwidth == 800){
                  var width = 400;
                  var height = 470;
+            }else{
+                 var width = this.screenwidth/3
+                 var height = this.screenheight/1.5;
             }
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width='+width+',height='+height;
 
@@ -644,9 +650,12 @@
                 var width = 450;
                 var height = 300;
             }
-            else{
+            else if(this.screenwidth == 800){
                  var width = 300;
                  var height = 233;
+            }else{
+                 var width = this.screenwidth/3
+                 var height = this.screenheight/3.5;
             }
            
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
