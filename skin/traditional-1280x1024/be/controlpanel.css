@@ -1,0 +1,615 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Control Panels
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.ControlPanel {
+    background: #f8f4eb url(../images/controlpanelbg.jpg) top left no-repeat;
+    border: none;
+    height: 1024x;
+	width: 1280px;
+}
+
+/* Product Area */
+.ProductBox {
+    margin: 42px 0 0 90px;
+    padding: 156px 0 0 63px;
+}
+
+.ProductTitle {
+	color: #503828;
+	font-size: 12pt;
+        margin: 10px 0 0 0px;
+    font-weight: bold;
+	margin-left: 5px;
+	max-width: 160px;
+	max-height: 27px;
+}
+
+.ProductScrollPanel {
+	margin: 18px 0 0 0px;
+	max-height: 382px;
+	max-width: 443px;
+	min-width: 443px;
+	width: 443px;
+}
+
+.ProductBtn {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 12px;
+    overflow: hidden;
+    height: 118px;
+    margin: 50px 0px 0px 35px;
+    max-height:118px;
+    max-width:130px;
+    min-height:118px;
+    min-width:130px;
+    padding: 0px;
+    width: 130px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.ProductBtn[disabled=true] {
+    background: none;
+    border: none;
+    -moz-appearance: none;
+}
+
+.ProductBtn hbox {
+    -moz-box-orient: vertical;
+}
+
+.ProductBtn image{
+	height: 76px;
+	width: 111px;
+}
+
+.ProductBtn description{
+	height: 30px;
+	padding: 5px 0 0 0;
+	width: 111px;
+}
+
+.ProductUpBtn {
+    background: transparent url(../images/cp_prodUpBtn.png) center center no-repeat;
+    margin: 90px 0 0 0px;
+    border: none;
+    height: 32px;
+    max-width:32px;
+    min-width:32px;
+    width: 32px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.ProductUpBtn hbox {
+    -moz-box-orient: vertical;
+}
+
+.ProductUpBtn[disabled=false]:active {
+    background: transparent url(../images/cp_prodUpBtn_a.png) center center no-repeat;
+}
+
+.ProductUpBtn[disabled=true] {
+    background: transparent url(../images/cp_prodUpBtn_b.png) center center no-repeat;
+}
+
+.ProductUpBtn  description {
+    display: none;
+}
+
+.ProductDownBtn {
+    background: transparent url(../images/cp_prodDownBtn.png) center center no-repeat;
+    border: none;
+    margin: 0 0 50px 0;
+    max-width:32px;
+    min-width:32px;
+    height: 32px;
+    width: 32px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.ProductDownBtn[disabled=false]:active {
+    background: transparent url(../images/cp_prodDownBtn_a.png) center center no-repeat;
+}
+
+.ProductDownBtn[disabled=true] {
+    background: transparent url(../images/cp_prodDownBtn_b.png) center center no-repeat;
+}
+
+.ProductDownBtn description {
+    display: none;
+}
+
+.RightArea {
+    margin: 37px 0 0 29px;
+}
+
+/* Employee Area */
+.EmployeeBox {
+
+}
+
+.EmployeeTitle {
+    color: #605048;
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 20px 0 0 400px;
+    max-width: 153px;
+    max-height: 26px;
+}
+
+.EmployeeScrollPanel {
+    margin: 45px 0 0 60px;
+}
+
+.EmployeeScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: 7px !important;
+}
+
+.EmployeeBtn {
+    background: white;
+    border: 10px solid #c4bdac;
+    color: black;
+    font-size: 12px;
+    height: 123px;
+    margin: 0px 30px 0px 0px;
+    max-height:123px;
+    max-width:129px;
+    min-height:123px;
+    min-width:129px;
+    overflow: hidden;
+    padding: 0px;
+    width: 129px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-border-top-colors: #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac;
+    -moz-border-right-colors: #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac;
+    -moz-border-bottom-colors: #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac;
+    -moz-border-left-colors: #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac #c4bdac;
+    -moz-user-focus: ignore;
+}
+
+.EmployeeBtn hbox {
+    -moz-box-orient: vertical;
+}
+
+.EmployeeBtn image{
+    height: 88px;
+    width: 111px;
+}
+
+.EmployeeBtn description{
+    background: #c4bdac;
+}
+
+.EmployeeBtn[disabled=true] {
+    background: none;
+    border: 1px solid #c4bdac !important;
+    -moz-appearance: none;
+}
+
+.EmployeeBtn[disabled=false]:active {
+    border: 11px solid #e4dcc9 !important;
+    -moz-border-top-colors: #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 !important;
+    -moz-border-right-colors: #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 !important;
+    -moz-border-bottom-colors: #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 !important;
+    -moz-border-left-colors: #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 !important;
+}
+
+.EmployeeBtn[disabled=false]:active description{
+    background: #e4dcc9;
+}
+
+.EmployeeUpBtn {
+    background: transparent url(../images/cp_employeeUpBtn.png) top left no-repeat;
+    border: none;
+    height: 32px;
+    max-width:32px;
+    min-width:32px;
+    width: 32px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.EmployeeUpBtn[disabled=false]:active {
+    background: transparent url(../images/cp_employeeUpBtn_a.png) top left no-repeat;
+}
+
+.EmployeeUpBtn[disabled=true] {
+    background: transparent url(../images/cp_employeeUpBtn_b.png) top left no-repeat;
+}
+
+.EmployeeUpBtn  description {
+    display: none;
+}
+
+.EmployeeDownBtn {
+    background: transparent url(../images/cp_employeeDownBtn.png) bottom left no-repeat;
+    border: none;
+    height: 32px;
+    max-width:32px;
+    min-width:32px;
+    width: 32px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.EmployeeDownBtn[disabled=false]:active {
+    background: transparent url(../images/cp_employeeDownBtn_a.png) bottom left no-repeat;
+}
+
+.EmployeeDownBtn[disabled=true] {
+    background: transparent url(../images/cp_employeeDownBtn_b.png) bottom left no-repeat;
+}
+
+.EmployeeDownBtn description {
+    display: none;
+}
+
+/* Activity Area */
+.ActivityBox {
+    margin: 39px 0 0 17px;
+}
+
+.ActivityTitle {
+    color: #396c6d;
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 38px 0 0 390px;
+    max-height: 26px;
+    max-width: 153px;
+}
+
+.ActivityScrollPanel {
+    margin: 50px 0 0 65px;
+}
+
+.ActivityBtn {
+    background: white;
+    border: 1px solid white;
+    color: black;
+    font-size: 12px;
+    height: 107px;
+    margin: 0px 57px 0px 0px;
+    max-height:107px;
+    max-width:173px;
+    min-height:107px;
+	min-width:173px;
+    overflow: hidden;
+    padding: 0px;
+    width: 173px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.ActivityBtn[disabled=true] {
+    background: none;
+    border: none;
+}
+
+.ActivityBtn hbox {
+    -moz-box-orient: vertical;
+}
+
+.ActivityBtn image{
+    height: 76px;
+    width: 155px;
+}
+
+.ActivityBtn .button-text{
+    height: 25px;
+    width: 155px;
+}
+
+.ActivityBtn[disabled=false]:active {
+    border: 1px solid #d1e1d0;
+}
+
+.ActivityUpBtn {
+    background: transparent url(../images/cp_actUpBtn.png) right top no-repeat;
+    border: none;
+    height: 32px;
+    margin: 0 0 0 6px;
+    max-width:32px;
+    min-width:32px;
+    width: 32px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.ActivityUpBtn[disabled=false]:active {
+    background: transparent url(../images/cp_actUpBtn_a.png) right top no-repeat;
+}
+
+.ActivityUpBtn[disabled=true] {
+    background: transparent url(../images/cp_actUpBtn_b.png) right top no-repeat;
+}
+
+.ActivityUpBtn  description {
+    display: none;
+}
+
+.ActivityDownBtn {
+    background: transparent url(../images/cp_actDownBtn.png) right bottom no-repeat;
+    border: none;
+    height: 32px;
+    margin: 0 0 0 6px;
+    max-width:32px;
+    min-width:32px;
+    width: 32px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.ActivityDownBtn[disabled=false]:active {
+    background: transparent url(../images/cp_actDownBtn_a.png) right bottom no-repeat;
+}
+
+.ActivityDownBtn[disabled=true] {
+    background: transparent url(../images/cp_actDownBtn_b.png) right bottom no-repeat;
+}
+
+.ActivityDownBtn  description {
+    display: none;
+}
+
+/* Tools Area  */
+.ToolsBox {
+    margin: 56px 0 0 10px;
+}
+
+.ToolsTitle {
+    color: #3e4428;
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 43px 0 0 400px;
+    max-height: 26px;
+    max-width: 153px;
+}
+
+.ToolsScrollPanel {
+    margin: 50px 0 0 50px;
+}
+
+.ToolsScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: -3px !important;
+}
+
+.ToolsBtn {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 12px;
+    height: 123px;
+    margin: 0px 35px 0px 0px;
+    max-height: 123px;
+    max-width: 130px;
+    min-height: 123px;
+	min-width: 130px;
+    overflow: hidden;
+    padding: 0px;
+    width: 130px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.ToolsBtn hbox {
+    -moz-box-orient: vertical;
+}
+
+.ToolsBtn image{
+    height: 88px;
+    width: 88px;
+}
+
+.ToolsBtn .button-text{
+    height: 25px;
+    width: 112px;
+}
+
+.ToolsUpBtn {
+    background: transparent url(../images/cp_toolUpBtn.png) top left no-repeat;
+    border: none;
+    height: 32px;
+    margin: 0 0 0 3px;
+    max-width:32px;
+    min-width:32px;
+    width: 32px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.ToolsUpBtn[disabled=false]:active {
+    background: transparent url(../images/cp_toolUpBtn_a.png) top left no-repeat;
+}
+
+.ToolsUpBtn[disabled=true] {
+    background: transparent url(../images/cp_toolUpBtn_b.png) top left no-repeat;
+}
+
+.ToolsUpBtn  description {
+    display: none;
+}
+
+.ToolsDownBtn {
+    background: transparent url(../images/cp_toolDownBtn.png) bottom left no-repeat;
+    border: none;
+    height: 32px;
+    margin: 0 0 0 3px;
+    max-width:32px;
+    min-width:32px;
+    width: 32px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.ToolsDownBtn[disabled=false]:active {
+    background: transparent url(../images/cp_toolDownBtn_a.png) bottom left no-repeat;
+}
+
+.ToolsDownBtn[disabled=true] {
+    background: transparent url(../images/cp_toolDownBtn_b.png) bottom left no-repeat;
+}
+
+.ToolsDownBtn  description {
+    display: none;
+}
+
+/* System */
+.SysBox {
+    margin: 50px 0 0 30px;
+}
+
+.SysScrollPanel {
+    max-width: 594px;
+}
+
+.SysBtn {
+    background: transparent url(../images/cp_mbtn.png) top left no-repeat;
+    border: none;
+    color: #362f2d;
+    font-size: 15px;
+    height: 151px;
+    margin: 0px 20px 0px 0px;
+    max-height:151px;
+    max-width:159px;
+    min-height:151px;
+	min-width:159px;
+    overflow: hidden;
+    padding: 50px 15px 10px 15px;
+    width: 159px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.SysBtn hbox {
+    -moz-box-orient: vertical;
+}
+
+.SysBtn image{
+    display: none;
+}
+
+.SysBtn[disabled=false]:active {
+    background: transparent url(../images/cp_mbtn_a.png) top left no-repeat;
+    padding: 51px 11px 11px 13px;
+}
+
+.SysBtn[disabled=true] {
+	color: #84736e;
+}
+
+.SysUpBtn {
+    background: transparent url(../images/cp_mUpbtn.png) top left no-repeat;
+    border: none;
+    height: 45px;
+    margin: 35px 0 0 2px;
+    max-width:46px;
+    min-width:46px;
+    width: 46px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.SysUpBtn[disabled=false]:active {
+    background: transparent url(../images/cp_mUpbtn_a.png) top left no-repeat;
+}
+
+.SysUpBtn[disabled=true] {
+    background: transparent url(../images/cp_mUpbtn_b.png) top left no-repeat;
+}
+
+.SysUpBtn description {
+    display: none;
+}
+
+.SysDownBtn {
+    background: transparent url(../images/cp_mDownbtn.png) bottom left no-repeat;
+    border: none;
+    height: 45px;
+    margin: 25px 0 0 2px;
+    max-width:46px;
+    min-width:46px;
+    width: 46px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.SysDownBtn[disabled=false]:active {
+    background: transparent url(../images/cp_mDownbtn_a.png) bottom left no-repeat;
+}
+
+.SysDownBtn[disabled=true] {
+    background: transparent url(../images/cp_mDownbtn_b.png) bottom left no-repeat;
+}
+
+.SysDownBtn  description {
+    display: none;
+}
+
+/* exit */
+.ExitBtn {
+    background: transparent url(../images/cp_exit.png) bottom left no-repeat;
+    border: none;
+    height: 115px;
+    margin: 0px 50px;
+    max-height:115px;
+    max-width:82px;
+    min-width:82px;
+    min-height:115px;
+    overflow: hidden;
+    padding: 0;
+    width: 8px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.ExitBtn:active {
+    background: transparent url(../images/cp_exit_a.png) bottom left no-repeat;
+}
+
+.ExitBtn description, .ExitBtn label {
+    display: none;
+}
+
+/*  Loading  */
+.loading {
+    background: transparent url(../images/loading.png) center center no-repeat;
+    border: none;
+    color: #514e48;
+    font-family: monospace;
+    font-size: 18pt;
+    font-weight: bold !important;
+    height: 121px;
+    margin-left: 420px;
+    width: 415px;
+    -moz-appearance: none;
+    -moz-box-pack: center;
+}

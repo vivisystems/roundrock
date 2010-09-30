@@ -1,0 +1,366 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Sign-In Screen
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
+#signinpanel  {
+    background: #f8f4eb url(../images/Signin.jpg) top left no-repeat;
+    border: 0px solid red;
+    height: 768px;
+    width: 1024px;
+}
+
+.userscrollablepanel {
+    margin-left: 105px;
+    margin-top: 25px;
+    max-height: 465px;
+    min-height: 465px;
+}
+
+.numberbtn {
+    background: url(../images/btn_purple.png);
+    background-color:#800040;
+    color: White;
+    font-size: 30px;
+    font-weight: bold !important;
+    height: 67px;
+    list-style-type: none;
+    margin: 1px 1px 0px 0px;
+    max-height:67px;
+    max-width:100px;
+    min-height:67px;
+    min-width:100px;
+    overflow: hidden;
+    padding: 0px;
+    width: 100px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.numpad {
+	background: white url(../images/numpadbg.gif) no-repeat top center;
+	border: solid 1px #5c5751;
+	height: 330px;
+	margin: 103px 0 0 70px;
+	max-height: 330px;
+	max-width: 373px;
+	padding: 27px 10px 10px 5px;
+	width: 373px;
+	-moz-background-clip: border;
+	-moz-border-radius-topleft: 12px;
+	-moz-border-radius-topright: 12px;
+}
+
+.numberpad sendkeybutton{
+    background: transparent url(../images/numbtn_tall.png);
+    border: 0px solid;
+    color: white;
+    font-size: 34px;
+    font-weight: bold !important;
+    height: 67px;
+    list-style-type: none;
+    margin: 5px 0 0 5px;
+    max-height:67px;
+    max-width:82px;
+    min-height:67px;
+    min-width:82px;
+    overflow: hidden;
+    padding: 0px;
+    width: 82px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+}
+
+.numberpad sendkeybutton:active{
+	background: transparent url(../images/numbtn_tall_a.png) center center no-repeat;
+}
+
+.rightprevbtn {
+    background: transparent url(../images/userUp.png) center center no-repeat;
+	border: none;
+    height: 40px;
+    max-width:40px;
+    min-width:40px;
+    width: 40px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.rightprevbtn:active {
+	background: transparent url(../images/userUp_a.png) center center no-repeat;
+}
+
+.rightprevbtn label {
+	display: none;
+}
+
+.rightprevbtn description {
+	display: none;
+}
+
+.rightnextbtn {
+    background: transparent url(../images/userDown.png) center center no-repeat;
+    border: none;
+    height: 40px;
+    max-width:40px;
+    min-width:40px;
+    width: 40px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.rightnextbtn:active {
+	background: transparent url(../images/userDown_a.png) center center no-repeat;
+}
+
+.rightnextbtn label {
+	display: none;
+}
+
+.rightnextbtn description {
+	display: none;
+}
+
+.leftprevbtn {
+    background: transparent url(../images/userUp.png) center center no-repeat;
+    border: none;
+    height: 40px;
+    max-width:40px;
+    min-width:40px;
+    width: 40px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.leftnextbtn {
+    background: transparent url(../images/userDown.png) center center no-repeat;
+    border: none;
+    height: 40px;
+    max-width:40px;
+    min-width:40px;
+    width: 40px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.userbtn {
+    background: transparent url(../images/user.gif) no-repeat 33px 15px;
+    border: none;
+    border-bottom: 1px dotted #908c83;
+    color: #514f43;
+    font-size: 16px;
+    font-weight: bold !important;
+    height: 93px;
+    list-style-type: none;
+    margin: 0px;
+    max-height:93px;
+    max-width:288px;
+    min-height:93px;
+    min-width:288px;
+    overflow: hidden;
+    padding: 0px;
+    width: 288px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-box-orient: vertical;
+    -moz-user-focus: ignore;
+}
+
+.userbtn hbox{
+    height: 100%;
+    padding-left: 110px;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.userbtn description {
+    text-align: left;
+}
+
+.userbtn hbox image{
+    display: none;
+    height: 24px;
+    max-height: 24px;
+    max-width: 24px;
+    width: 24px;
+}
+
+.userbtn[disabled=false]:active {
+    background: transparent url(../images/selUser.gif) no-repeat center center;
+    color: white;
+}
+
+.userbtn[disabled=true] {
+    background: none;
+}
+
+.userbtn[selected=true] {
+    background: transparent url(../images/selUser.gif) no-repeat center center;
+    color: white;
+}
+
+.gray {
+    background: url(../images/btn_gray.png);
+    background-position:0pt -64px;
+}
+
+.blue {
+    background: url(../images/btn_blue.png);
+    background-position:0pt -64px;
+}
+
+.green {
+    background: url(../images/btn_green.png);
+    background-position:0pt -64px;
+}
+
+.purple {
+    background: url(../images/btn_purple.png);
+    background-position:0pt -64px;
+}
+
+.systembtn {
+    background: transparent url(../images/funBtn4.png) center center no-repeat;
+    border: 0px solid;
+    height: 140px;
+    color: #42422f;
+    font-size: 16px;
+    font-weight: bold !important;
+    list-style-type: none;
+    margin: 5px 0px 0px 5px;
+    max-height:140px;
+    max-width:90px;
+    min-height:140px;
+    min-width:90px;
+    overflow: hidden;
+    padding: 0px;
+    text-wrap: normal;
+    width: 90px;
+    word-wrap: break-word;
+    -moz-appearance: none;
+    -moz-box-align:center;
+    -moz-box-pack:center;
+    -moz-user-focus: ignore;
+}
+
+.systembtn:active {
+    background: transparent url(../images/funBtn4_a.png) center center no-repeat;
+}
+
+.genbtn {
+    background: transparent url(../images/signin.gif) no-repeat center center;
+    border: none;
+    color: White;
+    font-size: 15px;
+    font-weight: bold !important;
+    height: 79px;
+    list-style-type: none;
+    margin: 0px 0px 0px 0px;
+    max-height: 79px;
+    max-width: 90px;
+    min-height:79px;
+    min-width: 90px;
+    overflow: hidden;
+    padding: 0px;
+    width: 90px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.genbtn[disabled=false]:active {
+	background: transparent url(../images/signin_a.gif) no-repeat center center;
+}
+
+.genbtn hbox{
+    max-height: 40px;
+}
+
+.genbtn label{
+	color: #ffffff;
+}
+
+.genbtn[disabled=true] {
+	background: transparent url(../images/signin_disable.gif) no-repeat center center;
+}
+
+.PwPad {
+	margin: 45px 0 0 305px;
+	min-height: 70px;
+}
+
+.pwlabel {
+	color: white;
+	font-size: 14pt;
+	margin-top: 13px;
+}
+
+.userlabel {
+	color: #dcf74a;
+	font-size: 11pt;
+	margin-top: 9px;
+}
+
+.nameBox {
+    margin-left: 175px;
+}
+
+.pwBox {
+	border: 2px solid #b2a59a;
+	color: #514f43;
+	font-size: 24px;
+	height: 40px;
+	margin-right: 12px;
+	margin-top: 5px;
+    padding: 2px;
+	width: 270px;
+	-moz-appearance: none;
+	-moz-border-radius: 4px;
+}
+
+.PageTitle {
+	color: black;
+	font-size: 20pt;
+	margin: 15px 0 0 390px;
+}
+
+.QuickLogin {
+    background: transparent url(../images/light_on.png) 0 0 no-repeat;
+    margin : 4px 55px 0px 0px;
+    max-height: 74px;
+    max-width: 83px;
+    min-height: 74px;
+    min-width: 83px;
+}
+
+.QuickLogin[disabled=true] {
+    background: transparent url(../images/light_off.png) 0 0 no-repeat;
+}
+
+.clockinout {
+    background: transparent url(../images/clock.png) center center no-repeat;
+    border-width: 0px;
+    height: 80px;
+    width: 80px;
+    -moz-appearance: none;
+}
+
+.vkb {
+    background: transparent url(../images/keyboard.png) center center no-repeat;
+    border-width: 0px;
+    height: 80px;
+    width: 80px;
+    -moz-appearance: none;
+}
