@@ -1692,13 +1692,29 @@
         onCartOnSubmitSuccess: function(evt) {
 
             if (this.tableSettings.TableWinAsFirstWin) {
-                // newTable always create new transaction object
-                //this.newTable();
 
-                // just popup table selector
-                this.popupTableSelectorPanel();
+                    var idle = GeckoJS.Controller.getInstanceByName('Idle');
+                    idle.unregister('popTablePanel');
+
+                    var poptablepanel = GeckoJS.Configure.read('vivipos.fec.settings.tableman.checkbox_poptablepanelIdleTime') || false;
+                    var idletime = GeckoJS.Configure.read('vivipos.fec.settings.tableman.textbox_poptablepanelIdleTime') || 0;
+
+                    var self=this;
+
+                    var cartController = this.getCartController();
+
+                    if (poptablepanel && idletime > 0) {
+
+                        idle.register('popTablePanel', idletime, function(){
+
+                           if(!cartController.ifHavingOpenedOrder()){
+                               self.popupTableSelectorPanel();
+                               cartController.registerClearCartIdle();
+                               idle.unregister('popTablePanel');
+                           }
+                        });
+                    }
             }
-
         },
 
 

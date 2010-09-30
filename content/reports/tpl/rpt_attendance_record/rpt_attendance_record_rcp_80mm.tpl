@@ -11,7 +11,10 @@ ${queryFormLabel.job_label}${queryFormLabel.job}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
 
 ${head.title|center:42}
-{for master in body}
+{for branch in body}
+------------------------------------------
+${_( '(rpt)Branch ID' ) + ':'|left:11}${branch.branch_id|left:31}
+{for master in branch.clerk}
 ------------------------------------------
 ${_( '(rpt)Clerk' ) + ':'|left:11}${master.username|left:31}
 ------------------------------------------
@@ -26,6 +29,7 @@ ${_( '(rpt)Records Found' ) + ':'|left:15}${master.clockStamps.length|format:0|r
 ------------------------------------------
 ${_( '(rpt)Summary' ) + ':'|left:11}${master.total_spantime|default:''|right:31}
 ------------------------------------------
+{/for}
 {/for}
 [&CR]
 [&CR]

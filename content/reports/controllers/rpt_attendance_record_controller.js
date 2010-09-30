@@ -24,6 +24,8 @@
             
             var sortby = document.getElementById( 'sortby' ).value;
 
+            var branchid = document.getElementById('branch_id').value;
+
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
 
@@ -38,7 +40,8 @@
                             'clock_stamps.job',
                             'clockin_time',
                             'clockout_time',
-                            'displayname'
+                            'displayname',
+                            'branch_id'
                         ];
 
             var conditions = "clock_stamps.created>='" + start +
@@ -97,12 +100,67 @@
                                                             GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans % 60),2);
                 total_spans += o.Spans;
             });
+
+            var data_groupby_branchid = {};
+
+            clockStamps = GeckoJS.BaseObject.getValues(clockStamps);
+
+            /* initial branch_id object*/
+            clockStamps.forEach(function(o){
+
+                   o.clockStamps.forEach(function(object){
+
+
+                         if(!data_groupby_branchid[object.branch_id]){
+                             data_groupby_branchid[object.branch_id] = {};
+                             data_groupby_branchid[object.branch_id].branch_id = object.branch_id;
+                             data_groupby_branchid[object.branch_id].clerk = {};
+                         }
+
+                         if(!data_groupby_branchid[object.branch_id].clerk[object.username]){
+                             data_groupby_branchid[object.branch_id].clerk[object.username] = {};
+                             data_groupby_branchid[object.branch_id].clerk[object.username].username = o.username ;
+                             data_groupby_branchid[object.branch_id].clerk[object.username].total_spans = 0;
+                             data_groupby_branchid[object.branch_id].clerk[object.username].clockStamps = [];
+                         }
+                   });
+            });
+
+            clockStamps.forEach(function(o){
+                 o.clockStamps.forEach(function(object){
+                        data_groupby_branchid[object.branch_id].clerk[object.username].clockStamps.push(object);
+                        data_groupby_branchid[object.branch_id].clerk[object.username].total_spans += object.Spans;
+                        data_groupby_branchid[object.branch_id].clerk[object.username].total_spantime = GeckoJS.String.padLeft(parseInt(data_groupby_branchid[object.branch_id].clerk[object.username].total_spans / 24 / 60 / 60),2) + " " +
+                											GeckoJS.String.padLeft(parseInt(data_groupby_branchid[object.branch_id].clerk[object.username].total_spans / 60 / 60) % 24,2) + ":" +
+                                                                                                        GeckoJS.String.padLeft(parseInt((data_groupby_branchid[object.branch_id].clerk[object.username].total_spans / 60) % 60),2) + ":" +
+                                                                                                        GeckoJS.String.padLeft(parseInt(data_groupby_branchid[object.branch_id].clerk[object.username].total_spans % 60),2);
+                 });
+            });
+
+            if(branchid != ''){
+                
+                if(!data_groupby_branchid[branchid])
+                    data_groupby_branchid[branchid] = {};
+
+                var temp = data_groupby_branchid[branchid];
+                data_groupby_branchid = {};
+                data_groupby_branchid[branchid] = temp;
+            }
+
+            data_groupby_branchid = GeckoJS.BaseObject.getValues(data_groupby_branchid);
+
+            data_groupby_branchid.forEach(function(o){
+
+                o.clerk = GeckoJS.BaseObject.getValues(o.clerk);
+            });
+           
+          //  this.log(this.dump(data_groupby_branchid,1000));
             
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.attendancerecord.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             
-            this._reportRecords.body = GeckoJS.BaseObject.getValues(clockStamps);
+            this._reportRecords.body = data_groupby_branchid;
             
             this._reportRecords.foot.total_spantime = GeckoJS.String.padLeft(parseInt(total_spans / 24 / 60 / 60),2) + " " +
                                                       GeckoJS.String.padLeft(parseInt(total_spans / 60 / 60) % 24,2) + ":" +

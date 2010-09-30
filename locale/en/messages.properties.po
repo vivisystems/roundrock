@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-09-16 11:59+0800\n"
+"POT-Creation-Date: 2010-09-30 11:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3193,8 +3193,8 @@ msgid "Price Level %S"
 msgstr ""
 
 #: ../..//content/prompt_clone_plu.js:35
-#: ../..//content/controllers/plus_controller.js:1294
-#: ../..//content/controllers/plus_controller.js:1411
+#: ../..//content/controllers/plus_controller.js:1310
+#: ../..//content/controllers/plus_controller.js:1427
 msgid "Clone Product"
 msgstr ""
 
@@ -4125,7 +4125,7 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1541
 #: ../..//content/controllers/cart_controller.js:1713
 #: ../..//content/controllers/cart_controller.js:4171
-#: ../..//content/controllers/guest_check_controller.js:2314
+#: ../..//content/controllers/guest_check_controller.js:2330
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
@@ -4140,7 +4140,7 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:3435
 #: ../..//content/controllers/cart_controller.js:4178
 #: ../..//content/controllers/cart_controller.js:4410
-#: ../..//content/controllers/guest_check_controller.js:2327
+#: ../..//content/controllers/guest_check_controller.js:2343
 msgid "Please select an item first"
 msgstr ""
 
@@ -4290,7 +4290,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1705
-#: ../..//content/controllers/guest_check_controller.js:2306
+#: ../..//content/controllers/guest_check_controller.js:2322
 msgid "Not an open order; cannot void"
 msgstr ""
 
@@ -4730,10 +4730,10 @@ msgstr ""
 #: ../..//content/controllers/clockinout_controller.js:305
 #: ../..//content/controllers/guest_check_controller.js:941
 #: ../..//content/controllers/guest_check_controller.js:946
-#: ../..//content/controllers/guest_check_controller.js:1960
-#: ../..//content/controllers/guest_check_controller.js:1965
-#: ../..//content/controllers/guest_check_controller.js:2105
-#: ../..//content/controllers/guest_check_controller.js:2110
+#: ../..//content/controllers/guest_check_controller.js:1976
+#: ../..//content/controllers/guest_check_controller.js:1981
+#: ../..//content/controllers/guest_check_controller.js:2121
+#: ../..//content/controllers/guest_check_controller.js:2126
 #: ../..//content/controllers/ledger_controller.js:325
 #: ../..//content/controllers/list_orders_controller.js:223
 #: ../..//content/controllers/main_controller.js:1410
@@ -4977,12 +4977,12 @@ msgid "Would you like to add items to cart from the voided order ?"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4922
-#: ../..//content/controllers/guest_check_controller.js:2384
+#: ../..//content/controllers/guest_check_controller.js:2400
 msgid "Add Memo"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4924
-#: ../..//content/controllers/guest_check_controller.js:2384
+#: ../..//content/controllers/guest_check_controller.js:2400
 msgid "Memo"
 msgstr ""
 
@@ -5664,7 +5664,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:349
-#: ../..//content/controllers/guest_check_controller.js:2077
+#: ../..//content/controllers/guest_check_controller.js:2093
 msgid "Split Check"
 msgstr ""
 
@@ -5697,7 +5697,7 @@ msgid "Please use transfer table to update table number"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:557
-#: ../..//content/controllers/guest_check_controller.js:2192
+#: ../..//content/controllers/guest_check_controller.js:2208
 msgid ""
 "[%S] is an invalid table number. Table number must be defined through table "
 "manager; Please input another table number."
@@ -5715,7 +5715,7 @@ msgid "Recall Check"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:942
-#: ../..//content/controllers/guest_check_controller.js:1961
+#: ../..//content/controllers/guest_check_controller.js:1977
 msgid ""
 "This order could not be committed. Please contact technical support for "
 "assistance immediately [message #505]."
@@ -5840,114 +5840,114 @@ msgid ""
 "charge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1785
+#: ../..//content/controllers/guest_check_controller.js:1801
 msgid ""
 "An error was encountered while attempting to remove all table status records "
 "(error code %S) [message #501]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1790
+#: ../..//content/controllers/guest_check_controller.js:1806
 msgid ""
 "An error was encountered while attempting to remove all table status records "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1857
+#: ../..//content/controllers/guest_check_controller.js:1873
 msgid "The same order can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1877
+#: ../..//content/controllers/guest_check_controller.js:1893
 msgid "This order not stored order, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1882
+#: ../..//content/controllers/guest_check_controller.js:1898
 msgid "This order has been payment, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1888
+#: ../..//content/controllers/guest_check_controller.js:1904
 msgid "This order has discounts or surcharge, can not be merge"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1931
+#: ../..//content/controllers/guest_check_controller.js:1947
 #: ../..//content/controllers/select_table_controller.js:614
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1966
+#: ../..//content/controllers/guest_check_controller.js:1982
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #503]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:1980
+#: ../..//content/controllers/guest_check_controller.js:1996
 msgid "Check# %S has been successfully merged to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2022
+#: ../..//content/controllers/guest_check_controller.js:2038
 msgid "This order not stored order, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2026
+#: ../..//content/controllers/guest_check_controller.js:2042
 msgid "This order has been payment, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2030
+#: ../..//content/controllers/guest_check_controller.js:2046
 msgid "This order has discounts or surcharge, can not be split"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2106
+#: ../..//content/controllers/guest_check_controller.js:2122
 msgid ""
 "This order could not be committed. Please contact technical support for "
 "assistance immediately [message #506]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2111
+#: ../..//content/controllers/guest_check_controller.js:2127
 msgid ""
 "This order could not be committed. Please check the network connectivity to "
 "the terminal designated as the table service server [message #504]."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2126
+#: ../..//content/controllers/guest_check_controller.js:2142
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2227
+#: ../..//content/controllers/guest_check_controller.js:2243
 msgid "Transfer Table"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2228
+#: ../..//content/controllers/guest_check_controller.js:2244
 msgid "Transfer table From (%S) To (%S)"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2229
+#: ../..//content/controllers/guest_check_controller.js:2245
 msgid "Are you sure you want to print transfer table check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2270
+#: ../..//content/controllers/guest_check_controller.js:2286
 msgid "Return Cart Item"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2271
+#: ../..//content/controllers/guest_check_controller.js:2287
 msgid "Are you sure you want to print return cart item check"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2321
+#: ../..//content/controllers/guest_check_controller.js:2337
 msgid "This operation may only be applied to stored transactions"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2338
+#: ../..//content/controllers/guest_check_controller.js:2354
 msgid "Cannot RUSH the selected item [%S]. It is not the item or setitem."
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2358
+#: ../..//content/controllers/guest_check_controller.js:2374
 msgid "Rush Item"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2359
+#: ../..//content/controllers/guest_check_controller.js:2375
 msgid "Are you sure you want to print rush item check for [%S]"
 msgstr ""
 
-#: ../..//content/controllers/guest_check_controller.js:2451
+#: ../..//content/controllers/guest_check_controller.js:2467
 msgid "Table Initialization"
 msgstr ""
 
@@ -7926,42 +7926,46 @@ msgid "Selected products successfully linked to product group [%S]"
 msgstr ""
 
 #: ../..//content/controllers/plus_controller.js:1242
+msgid "You should set inventory first."
+msgstr ""
+
+#: ../..//content/controllers/plus_controller.js:1258
 msgid "Save Changes"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1243
+#: ../..//content/controllers/plus_controller.js:1259
 msgid ""
 "You have made changes to the current product. Please either save or discard "
 "the changes before cloning this product."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1265
+#: ../..//content/controllers/plus_controller.js:1281
 msgid "Product Group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1273
+#: ../..//content/controllers/plus_controller.js:1289
 msgid "Department [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1289
+#: ../..//content/controllers/plus_controller.js:1305
 msgid "Product to Clone"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1311
+#: ../..//content/controllers/plus_controller.js:1327
 msgid "Please wait while product properties are cloned..."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1406
+#: ../..//content/controllers/plus_controller.js:1422
 msgid "Product [%S] cloned successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1412
+#: ../..//content/controllers/plus_controller.js:1428
 msgid ""
 "You have cancelled product cloning while it is in progress. Some of the "
 "selected products may not have been cloned."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1416
+#: ../..//content/controllers/plus_controller.js:1432
 msgid "You have not selected any properties to clone."
 msgstr ""
 
@@ -9483,33 +9487,33 @@ msgstr ""
 msgid "Table status [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1048
+#: ../..//content/controllers/table_man_controller.js:1045
 msgid "Options saved successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1055
+#: ../..//content/controllers/table_man_controller.js:1052
 msgid "Clone Table Management Options"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1056
+#: ../..//content/controllers/table_man_controller.js:1053
 msgid "Table management options will be cloned from the table status server."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1056
+#: ../..//content/controllers/table_man_controller.js:1053
 msgid "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1152
+#: ../..//content/controllers/table_man_controller.js:1172
 msgid ""
 "Modification of tables and regions requires system restart to take effect."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1153
+#: ../..//content/controllers/table_man_controller.js:1173
 msgid ""
 "The system will restart automatically after you return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1154
+#: ../..//content/controllers/table_man_controller.js:1174
 msgid "Table Manager"
 msgstr ""
 
@@ -10398,9 +10402,9 @@ msgstr ""
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_80mm.tpl:20
 #: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:11
 #: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:7
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:20
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:24
 #: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:5
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:16
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:19
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:11
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:7
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:11
@@ -11071,9 +11075,9 @@ msgstr ""
 
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_58mm.tpl:63
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_80mm.tpl:43
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:63
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:39
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:25
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:65
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:43
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:28
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:71
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_58mm.tpl:44
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_80mm.tpl:33
@@ -11137,9 +11141,9 @@ msgstr ""
 
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_58mm.tpl:65
 #: ../..//content/reports/tpl/journal_report/rpt_order_status_rcp_80mm.tpl:45
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:65
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:41
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:27
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:67
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:45
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:30
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:56
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:28
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:22
@@ -11286,34 +11290,40 @@ msgstr ""
 msgid "(rpt)Condition"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:45
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:23
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:19
-msgid "(rpt)Job"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:46
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:25
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:20
-msgid "(rpt)Clock In"
-msgstr ""
-
 #: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:47
 #: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:27
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:21
-msgid "(rpt)Clock Out"
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:22
+msgid "(rpt)Job"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:48
 #: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:29
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:22
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:23
+msgid "(rpt)Clock In"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:49
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:31
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:24
+msgid "(rpt)Clock Out"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:50
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:33
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:25
 msgid "(rpt)Span Time"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:75
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:46
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:32
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:78
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:51
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:36
 msgid "(rpt)Total Work Time"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:20
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:16
+#: /tmp/your_order_report.js:21
+msgid "(rpt)Branch ID"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:42
@@ -12828,10 +12838,6 @@ msgstr ""
 
 #: /tmp/your_order_report.js:20
 msgid "(rpt)Member Cellphone"
-msgstr ""
-
-#: /tmp/your_order_report.js:21
-msgid "(rpt)Branch ID"
 msgstr ""
 
 #: /tmp/your_order_report.js:23

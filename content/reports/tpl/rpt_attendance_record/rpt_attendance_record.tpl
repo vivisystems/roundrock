@@ -33,8 +33,10 @@
                 </td>
             </tr>
         </table>
-
-{for master in body}
+{for branch in body}
+<br>
+<p class="caption"><font color="red">[ ${branch.branch_id} ]</font></p>
+{for master in branch.clerk}
         <table id="body-table">
             <!--caption>${master.username}</caption-->
             <thead>
@@ -68,6 +70,7 @@
             </tfoot>
         </table>
         </br>
+{/for}
 {/for}
 <table width="98%">
 <thead>

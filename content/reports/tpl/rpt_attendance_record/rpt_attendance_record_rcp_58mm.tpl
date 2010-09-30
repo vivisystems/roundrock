@@ -15,7 +15,11 @@ ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
 
 ${head.title|center:24}
 ------------------------
-{for master in body}
+{for branch in body}
+[&CR]
+${_( '(rpt)Branch ID' ) + ': '}${branch.branch_id}
+------------------------
+{for master in branch.clerk}
 [&CR]
 ${_( '(rpt)Clerk' ) + ': '}${master.username}
 ------------------------
@@ -40,6 +44,7 @@ ${_( '(rpt)Records Found' ) + ':'|left:14}${master.clockStamps.length|format:0|r
 ------------------------
 ${_( '(rpt)Summary' ) + ':'|left:12}${master.total_spantime|default:''|right:12}
 ------------------------
+{/for}
 {/for}
 [&CR]
 [&CR]

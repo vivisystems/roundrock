@@ -138,6 +138,11 @@
             var currentTableNo = -1;
             var doRecall = true;
 
+	    if (numTables <= 0 && noTable == 0) {
+		noTable = 1;
+		this.log('WARN', 'Load test parameters\n   no tables configured: noTable adjusted to [0] ');
+	    }
+
             try {
                 while (ordersOpened < count || ordersClosed < count) {
 
@@ -228,7 +233,7 @@
 
                             if (txn) {
                                 ordersOpened++;
-                                this.log('WARN', 'new order opened [' + txn.data.seq + '] count [' + ordersOpened + '] status [' + txn.data.status + ']');
+                                this.log('WARN', 'new order opened [' + txn.data.seq + ' (' + txn.data.id + ')] count [' + ordersOpened + '] status [' + txn.data.status + ']');
 
                                 if (!noTable) {
                                     // assign number of guests
@@ -263,10 +268,11 @@
                                 }
                             }
 
-                            // add items
-                            for (let j = 0; j < itemsToAdd; j++) {
+                            let targetCount = itemCount + itemsToAdd;
 
-                                // select an item with no condiments from product list
+                            // add items
+                            while (txn.data.qty_subtotal < targetCount ) {
+
                                 var pindex = Math.floor(numProds * Math.random());
                                 if (pindex >= numProds) pindex = numProds - 1;
 
@@ -290,10 +296,11 @@
                                 }
                             }
 
-                            this.sleep(1000);
+                            this.sleep(500);
 
                             if (store && doStore) {
 
+				this.log('WARN', 'storing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] store [' + store + ']');
                                 // instrument storeCheck
                                 let start = new Date().getTime();
 
@@ -301,18 +308,25 @@
 
                                 // instrument storeCheck
                                 let elapsed = (new Date().getTime()) - start;
-                                this._loadTestStoreDataSet.push(elapsed);
-                                this._loadTestStoreTotalTime += elapsed;
-                                this._loadTestStoreCount++;
 
-                                if (elapsed > this._loadTestStoreMax || this._loadTestStoreMax == -1) this._loadTestStoreMax = elapsed;
-                                if (elapsed < this._loadTestStoreMin || this._loadTestStoreMin == -1) this._loadTestStoreMin = elapsed;
+				// check if storeCheck succeeded?
+				if (txn.data.status == 2) {
+				    this._loadTestStoreDataSet.push(elapsed);
+				    this._loadTestStoreTotalTime += elapsed;
+				    this._loadTestStoreCount++;
 
-                                if (noTable) {
-                                    this.log('WARN', 'storing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] store [' + store + ']');
-                                    progressBar.value = (++ordersClosed * 100) / count;
-                                    this.log('WARN', 'order stored [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
-                                }
+				    if (elapsed > this._loadTestStoreMax || this._loadTestStoreMax == -1) this._loadTestStoreMax = elapsed;
+				    if (elapsed < this._loadTestStoreMin || this._loadTestStoreMin == -1) this._loadTestStoreMin = elapsed;
+
+				    if (noTable) {
+					progressBar.value = (++ordersClosed * 100) / count;
+				    }
+
+				    this.log('WARN', 'order stored [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+				}
+				else {
+				    alert('Failed to store order. Please check logs for errors');
+				}
                             }
                             else if (txn.data.qty_subtotal >= items || noTable) {
                                 this.log('WARN', 'closing order [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + '] qty [' + txn.data.qty_subtotal + ']');
@@ -334,7 +348,7 @@
                                 // update progress bar for order closed
                                 if (txn.data.status == 1 || noTable) {
                                     progressBar.value = (++ordersClosed * 100) / count;
-                                    this.log('WARN', 'order closed [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
+                                    this.log('WARN', 'order closed [' + txn.data.seq + ' (' + txn.data.id + ')] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
                                 }
                                 else {
                                     this.log('WARN', 'order not closed [' + txn.data.seq + '] count [' + ordersClosed + '] status [' + txn.data.status + '] recall [' + txn.data.recall + ']');
