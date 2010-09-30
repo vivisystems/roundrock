@@ -7,17 +7,18 @@
         _files: [],
         _data: [],
 
-        init: function(dir) {
+        init: function(dir, nameRegex) {
 
             this._data = [];
             this._files = [];
             var self = this;
+            nameRegex = nameRegex || /[\w]*[_]*vivipos_order.sqlite$/ ;
 
             dir = dir || GeckoJS.Configure.read('vivipos.fec.settings.historyDatabasesPath') || '/data/history_databases';
             
             this._files = new GeckoJS.Dir.readDir(dir, {
                 type: "f",
-                name: /[\w]*[_]*vivipos_order.sqlite$/
+                name: nameRegex
             }).sort(function(a, b) {
                 if (a.leafName < b.leafName) return 1; else if (a.leafName > b.leafName) return -1; else return 0;
             });

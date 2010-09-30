@@ -13,10 +13,11 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-09-16 15:50+0800\n"
+"POT-Creation-Date: 2010-09-30 18:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3165,7 +3166,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/overlay.js:23
-#: ../..//content/controllers/main_controller.js:1621
+#: ../..//content/controllers/main_controller.js:1625
 #: ../..//content/controllers/setup_wizard_controller.js:685
 msgid "VIVIPOS Setup"
 msgstr ""
@@ -3182,9 +3183,9 @@ msgid ""
 msgstr ""
 
 #: ../..//content/prompt_additem.js:161
-#: ../..//content/controllers/label_printing_controller.js:564
-#: ../..//content/controllers/label_printing_controller.js:790
-#: ../..//content/controllers/label_printing_controller.js:840
+#: ../..//content/controllers/label_printing_controller.js:570
+#: ../..//content/controllers/label_printing_controller.js:799
+#: ../..//content/controllers/label_printing_controller.js:849
 msgid "Price Level"
 msgstr ""
 
@@ -3343,8 +3344,8 @@ msgstr ""
 #: ../..//content/prompt_select_user.js:42
 #: ../..//content/controllers/changeuser_controller.js:85
 #: ../..//content/controllers/changeuser_controller.js:97
-#: ../..//content/controllers/main_controller.js:1086
-#: ../..//content/controllers/main_controller.js:1165
+#: ../..//content/controllers/main_controller.js:1089
+#: ../..//content/controllers/main_controller.js:1168
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr ""
 
@@ -3376,7 +3377,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/reportPanel.js:71
-#: ../..//content/controllers/main_controller.js:2025
+#: ../..//content/controllers/main_controller.js:2029
 msgid "custom"
 msgstr ""
 
@@ -3522,7 +3523,7 @@ msgstr ""
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:153
 #: ../..//content/controllers/hotkey_prefs_controller.js:523
 #: ../..//content/controllers/jobs_controller.js:231
-#: ../..//content/controllers/label_printing_controller.js:911
+#: ../..//content/controllers/label_printing_controller.js:920
 #: ../..//content/controllers/ledger_entry_types_controller.js:275
 #: ../..//content/controllers/localekeyboard_controller.js:80
 #: ../..//content/controllers/nonplu_setting_controller.js:221
@@ -3555,7 +3556,7 @@ msgstr ""
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:155
 #: ../..//content/controllers/hotkey_prefs_controller.js:525
 #: ../..//content/controllers/jobs_controller.js:233
-#: ../..//content/controllers/label_printing_controller.js:912
+#: ../..//content/controllers/label_printing_controller.js:921
 #: ../..//content/controllers/ledger_entry_types_controller.js:277
 #: ../..//content/controllers/localekeyboard_controller.js:82
 #: ../..//content/controllers/localization_controller.js:332
@@ -3591,7 +3592,7 @@ msgstr ""
 #: ../..//content/controllers/hotkey_prefs_controller.js:525
 #: ../..//content/controllers/jobs_controller.js:233
 #: ../..//content/controllers/jobs_controller.js:249
-#: ../..//content/controllers/label_printing_controller.js:912
+#: ../..//content/controllers/label_printing_controller.js:921
 #: ../..//content/controllers/ledger_entry_types_controller.js:256
 #: ../..//content/controllers/ledger_entry_types_controller.js:277
 #: ../..//content/controllers/localekeyboard_controller.js:82
@@ -3622,171 +3623,171 @@ msgid ""
 "discard the changes?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:191
+#: ../..//content/controllers/admintools_controller.js:194
 #: ../..//content/controllers/autobackup_controller.js:23
 #: ../..//content/controllers/image_manager_controller.js:81
 #: ../..//content/controllers/import_export_controller.js:63
 #: ../..//content/controllers/import_export_controller.js:64
-#: ../..//content/controllers/systembackup_controller.js:242
+#: ../..//content/controllers/systembackup_controller.js:261
 #: ../..//content/controllers/userprefs_controller.js:35
 #: ../..//content/reports/controllers/components/csv_export.js:17
 msgid "Failed to execute command (%S)."
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:214
+#: ../..//content/controllers/admintools_controller.js:217
 msgid "-- no contact --"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:216
+#: ../..//content/controllers/admintools_controller.js:219
 msgid "Contacting Synchronization Server"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:217
+#: ../..//content/controllers/admintools_controller.js:220
 msgid ""
 "Failed to establish contact with the synchronization service. Please check "
 "network connectivity to the server at ["
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:238
+#: ../..//content/controllers/admintools_controller.js:241
 msgid "Resume Sync"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:241
+#: ../..//content/controllers/admintools_controller.js:244
 msgid "Suspend Sync"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:251
+#: ../..//content/controllers/admintools_controller.js:254
 msgid "--no contact--"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:310
+#: ../..//content/controllers/admintools_controller.js:313
 msgid "Synchronization status refreshed"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:317
+#: ../..//content/controllers/admintools_controller.js:320
 msgid "Performing Synchronization..."
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:326
+#: ../..//content/controllers/admintools_controller.js:332
 msgid "Synchronization request executed"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:331
+#: ../..//content/controllers/admintools_controller.js:339
 msgid "Failed to execute synchronization client"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:337
-#: ../..//content/controllers/admintools_controller.js:381
-#: ../..//content/controllers/admintools_controller.js:386
-#: ../..//content/controllers/admintools_controller.js:391
+#: ../..//content/controllers/admintools_controller.js:345
+#: ../..//content/controllers/admintools_controller.js:397
+#: ../..//content/controllers/admintools_controller.js:402
+#: ../..//content/controllers/admintools_controller.js:407
 msgid "Purge Synchronization Data"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:338
+#: ../..//content/controllers/admintools_controller.js:346
 msgid ""
 "This action will irrecoverably remove change logs on all datasources and re-"
 "initialize local sync index. Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:340
+#: ../..//content/controllers/admintools_controller.js:348
 msgid "Purging Synchronization Data..."
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:356
+#: ../..//content/controllers/admintools_controller.js:367
 msgid "Unable to commit changes to datasource [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:365
+#: ../..//content/controllers/admintools_controller.js:379
 msgid ""
-"Unable to re-initialize local index [sync_remote_machines] for datasource [%"
-"S]"
+"Unable to re-initialize local index [sync_remote_machines] for datasource "
+"[%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:370
+#: ../..//content/controllers/admintools_controller.js:385
 msgid "Unable to purge change logs [syncs] from datasource [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:374
+#: ../..//content/controllers/admintools_controller.js:390
 msgid "Unable to obtain exclusive lock on datasource [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:382
+#: ../..//content/controllers/admintools_controller.js:398
 msgid "Synchronization data successfully purged from all datasources"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:387
+#: ../..//content/controllers/admintools_controller.js:403
 msgid "Failed to purge synchronization data"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:392
+#: ../..//content/controllers/admintools_controller.js:408
 msgid "Failed to purge synchronization data from some of the datasources"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:408
+#: ../..//content/controllers/admintools_controller.js:426
 msgid "Failed to resume synchronization"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:411
+#: ../..//content/controllers/admintools_controller.js:430
 msgid "Synchronization to server resumed"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:420
+#: ../..//content/controllers/admintools_controller.js:442
 msgid "Synchronization to server suspended"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:423
+#: ../..//content/controllers/admintools_controller.js:446
 msgid "Failed to suspend synchronization"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:435
+#: ../..//content/controllers/admintools_controller.js:458
 msgid "Bi-directional Synchronization"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:435
+#: ../..//content/controllers/admintools_controller.js:458
 msgid "Uni-directional Synchronization"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:505
-#: ../..//content/controllers/admintools_controller.js:580
-#: ../..//content/controllers/admintools_controller.js:589
+#: ../..//content/controllers/admintools_controller.js:528
+#: ../..//content/controllers/admintools_controller.js:607
+#: ../..//content/controllers/admintools_controller.js:618
 msgid "Purge Non-local Transaction Data"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:506
+#: ../..//content/controllers/admintools_controller.js:529
 msgid ""
 "This action will irrecoverably purge transaction data generated on other "
 "terminals. This is intended only for use on client terminals with uni-"
 "directional synchronization. Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:508
+#: ../..//content/controllers/admintools_controller.js:531
 msgid "Purging Non-Local Transaction Data..."
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:581
+#: ../..//content/controllers/admintools_controller.js:608
 msgid "Non-local Transaction data purged from datasource [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:590
-#: ../..//content/controllers/admintools_controller.js:847
+#: ../..//content/controllers/admintools_controller.js:619
+#: ../..//content/controllers/admintools_controller.js:886
 msgid "Unable to obtain lock on datasource [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:646
+#: ../..//content/controllers/admintools_controller.js:675
 msgid "(activity)ledger"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:658
+#: ../..//content/controllers/admintools_controller.js:687
 msgid "(activity)transaction"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:742
-#: ../..//content/controllers/admintools_controller.js:837
-#: ../..//content/controllers/admintools_controller.js:846
+#: ../..//content/controllers/admintools_controller.js:771
+#: ../..//content/controllers/admintools_controller.js:874
+#: ../..//content/controllers/admintools_controller.js:885
 msgid "Reset Sale Period"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:743
+#: ../..//content/controllers/admintools_controller.js:772
 msgid ""
 "You are attempting to reset sale period from [%S, %S] to [%S, %S]. This will "
 "cause the following to happen:\n"
@@ -3800,150 +3801,201 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:747
+#: ../..//content/controllers/admintools_controller.js:776
 msgid "Resetting Sale Period..."
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:838
+#: ../..//content/controllers/admintools_controller.js:875
 msgid "Current sale period successfully reset"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:875
-#: ../..//content/controllers/admintools_controller.js:887
+#: ../..//content/controllers/admintools_controller.js:915
+#: ../..//content/controllers/admintools_controller.js:932
 msgid "Reset Order Sequence"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:876
+#: ../..//content/controllers/admintools_controller.js:916
 msgid ""
 "This action will set the local order sequence number to [%S], and could lead "
 "to duplicate sequence numbers and must be used with extreme care. Are you "
 "sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:882
+#: ../..//content/controllers/admintools_controller.js:927
 msgid "Local order sequence number set to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:888
+#: ../..//content/controllers/admintools_controller.js:933
 msgid "New order sequence number [%S] is invalid"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:920
+#: ../..//content/controllers/admintools_controller.js:965
 msgid "Datasource backup list refreshed"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:954
-#: ../..//content/controllers/admintools_controller.js:965
-#: ../..//content/controllers/admintools_controller.js:970
+#: ../..//content/controllers/admintools_controller.js:999
+#: ../..//content/controllers/admintools_controller.js:1014
+#: ../..//content/controllers/admintools_controller.js:1021
 msgid "Remove Datasource Backup Data"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:955
+#: ../..//content/controllers/admintools_controller.js:1000
 msgid ""
 "This action will irrecoverably remove backup data for model [%S]. This may "
 "result in loss of customer data. Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:966
+#: ../..//content/controllers/admintools_controller.js:1015
 msgid "Backup data for model [%S] successfully removed"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:971
+#: ../..//content/controllers/admintools_controller.js:1022
 msgid "Failed to remove backup data for model [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:980
-#: ../..//content/controllers/admintools_controller.js:997
-#: ../..//content/controllers/admintools_controller.js:1002
-#: ../..//content/controllers/admintools_controller.js:1007
+#: ../..//content/controllers/admintools_controller.js:1031
+#: ../..//content/controllers/admintools_controller.js:1054
+#: ../..//content/controllers/admintools_controller.js:1060
+#: ../..//content/controllers/admintools_controller.js:1066
 msgid "Purge Datasource Backup Data"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:981
+#: ../..//content/controllers/admintools_controller.js:1032
 msgid ""
 "This action will irrecoverably remove all datasource backup data. This may "
 "result in loss of customer data. Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:998
+#: ../..//content/controllers/admintools_controller.js:1055
 msgid "Datasource backup data successfully purged"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1003
+#: ../..//content/controllers/admintools_controller.js:1061
 msgid "Failed to purge datasource backup data"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1008
+#: ../..//content/controllers/admintools_controller.js:1067
 msgid "Failed to purge some of the datasource backup data"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1102
+#: ../..//content/controllers/admintools_controller.js:1161
 msgid "IRC status refreshed"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1123
+#: ../..//content/controllers/admintools_controller.js:1182
 msgid "View Last Failure"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1124
+#: ../..//content/controllers/admintools_controller.js:1183
 msgid "Unpack log for package [%S] no longer exists"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1133
-#: ../..//content/controllers/admintools_controller.js:1148
+#: ../..//content/controllers/admintools_controller.js:1192
+#: ../..//content/controllers/admintools_controller.js:1209
 msgid "Clear Last Failure"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1134
+#: ../..//content/controllers/admintools_controller.js:1193
 msgid ""
 "This action will remove the failure flag for package [%S] and allow it to be "
 "re-applied. Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1149
+#: ../..//content/controllers/admintools_controller.js:1210
 msgid "Failed to clear the failure flag"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1152
+#: ../..//content/controllers/admintools_controller.js:1215
 msgid "Last failure cleared"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1203
-#: ../..//content/controllers/admintools_controller.js:1210
+#: ../..//content/controllers/admintools_controller.js:1267
+#: ../..//content/controllers/admintools_controller.js:1274
 msgid "Reset Download Timestamp"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1204
+#: ../..//content/controllers/admintools_controller.js:1268
 msgid ""
 "This action will reset timestamp to [0]. Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1206
+#: ../..//content/controllers/admintools_controller.js:1270
 msgid "Download timestamp reset to [0]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1211
+#: ../..//content/controllers/admintools_controller.js:1275
 msgid "Failed to reset download timestamp"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1225
-#: ../..//content/controllers/admintools_controller.js:1243
+#: ../..//content/controllers/admintools_controller.js:1290
+#: ../..//content/controllers/admintools_controller.js:1314
 msgid "Re-Download Packages"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1226
+#: ../..//content/controllers/admintools_controller.js:1291
 msgid ""
 "This action will remove package [%S] and all later packages and reset "
 "timestamp to cause them to be downloaded from the server again. Are you sure "
 "you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1239
+#: ../..//content/controllers/admintools_controller.js:1309
 msgid "Selected package(s) cleared and download timestamp updated to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/admintools_controller.js:1244
+#: ../..//content/controllers/admintools_controller.js:1315
 msgid "Failed to update last download timestamp"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1390
+#: ../..//content/controllers/admintools_controller.js:1418
+#: ../..//content/controllers/systembackup_controller.js:654
+msgid "Please select a order history file first"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1397
+msgid "Remove Order History Database"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1398
+msgid ""
+"This action will remove order history database [%S] . Are you sure you want "
+"to proceed?"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1428
+#: ../..//content/controllers/admintools_controller.js:1502
+msgid "Merge Order History Database To Reporting Database"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1429
+msgid ""
+"This action will merge order history database [%S][%S] to order history for "
+"reporting database [%S]. It takes a few minutes to complete the merge "
+"database. The screen will be hanging there and no operations allowed Are you "
+"sure you want to proceed?"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1437
+msgid "Merging Order History Database..."
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1491
+msgid "Merging Order History Database To Reporting Database executed"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1503
+msgid "Failed to merge order history data"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1519
+msgid "Purge Order History Database For Reporting"
+msgstr ""
+
+#: ../..//content/controllers/admintools_controller.js:1520
+msgid ""
+"This action will empty order history for reporting database [%S] . Are you "
+"sure you want to proceed?"
 msgstr ""
 
 #: ../..//content/controllers/annotation_controller.js:64
@@ -4196,7 +4248,7 @@ msgid "The item [%S] (%S) is sold out"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:895
-#: ../..//content/controllers/main_controller.js:755
+#: ../..//content/controllers/main_controller.js:758
 msgid "Price must be given to register sale of department [%S]"
 msgstr ""
 
@@ -4631,12 +4683,12 @@ msgid "Add New Ledger Entry"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3114
-#: ../..//content/controllers/ledger_controller.js:215
+#: ../..//content/controllers/ledger_controller.js:207
 msgid "Transaction [%S] for amount of [%S] successfully logged to the ledger"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3118
-#: ../..//content/controllers/ledger_controller.js:220
+#: ../..//content/controllers/ledger_controller.js:212
 msgid "Failed to log transaction [%S] for amount of [%S] to the ledger"
 msgstr ""
 
@@ -4734,10 +4786,10 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1981
 #: ../..//content/controllers/guest_check_controller.js:2121
 #: ../..//content/controllers/guest_check_controller.js:2126
-#: ../..//content/controllers/ledger_controller.js:325
+#: ../..//content/controllers/ledger_controller.js:317
 #: ../..//content/controllers/list_orders_controller.js:223
-#: ../..//content/controllers/main_controller.js:1400
-#: ../..//content/controllers/main_controller.js:1942
+#: ../..//content/controllers/main_controller.js:1403
+#: ../..//content/controllers/main_controller.js:1946
 #: ../..//content/controllers/print_controller.js:1281
 #: ../..//content/controllers/setup_wizard_controller.js:702
 #: ../..//content/controllers/shift_changes_controller.js:1791
@@ -4840,7 +4892,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4001
-#: ../..//content/controllers/main_controller.js:479
+#: ../..//content/controllers/main_controller.js:482
 msgid "Add Annotation"
 msgstr ""
 
@@ -5063,8 +5115,8 @@ msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:279
 msgid ""
-"An error was encountered while saving cashdrawer access record (error code %"
-"S) [message #205]."
+"An error was encountered while saving cashdrawer access record (error code "
+"%S) [message #205]."
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:294
@@ -5830,8 +5882,8 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1605
 #: ../..//content/controllers/guest_check_controller.js:1660
 msgid ""
-"override minimum charge. override clerk (%S,%S), original minimum charge (%"
-"S), new minimum charge (%S), comp amount (%S)"
+"override minimum charge. override clerk (%S,%S), original minimum charge "
+"(%S), new minimum charge (%S), comp amount (%S)"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:1632
@@ -6698,8 +6750,8 @@ msgstr ""
 #: ../..//content/controllers/import_export_controller.js:777
 #: ../..//content/controllers/import_export_controller.js:918
 #: ../..//content/controllers/import_export_controller.js:2000
-#: ../..//content/controllers/label_printing_controller.js:924
-#: ../..//content/controllers/label_printing_controller.js:936
+#: ../..//content/controllers/label_printing_controller.js:933
+#: ../..//content/controllers/label_printing_controller.js:945
 msgid "Yes"
 msgstr ""
 
@@ -6828,7 +6880,7 @@ msgid "Reboot after Update"
 msgstr ""
 
 #: ../..//content/controllers/irc_controller.js:361
-#: ../..//content/controllers/main_controller.js:1577
+#: ../..//content/controllers/main_controller.js:1581
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
@@ -6924,10 +6976,10 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/journal_controller.js:245
-#: ../..//content/controllers/ledger_controller.js:326
+#: ../..//content/controllers/ledger_controller.js:318
 #: ../..//content/controllers/list_orders_controller.js:224
-#: ../..//content/controllers/main_controller.js:1402
-#: ../..//content/controllers/main_controller.js:1943
+#: ../..//content/controllers/main_controller.js:1405
+#: ../..//content/controllers/main_controller.js:1947
 #: ../..//content/controllers/setup_wizard_controller.js:703
 #: ../..//content/controllers/shift_changes_controller.js:45
 #: ../..//content/controllers/shift_changes_controller.js:1792
@@ -6939,130 +6991,130 @@ msgid ""
 "technical support immediately."
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:116
-#: ../..//content/controllers/label_printing_controller.js:235
+#: ../..//content/controllers/label_printing_controller.js:119
+#: ../..//content/controllers/label_printing_controller.js:241
 msgid "Number of labels to print"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:567
+#: ../..//content/controllers/label_printing_controller.js:573
 msgid "Level 1"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:570
+#: ../..//content/controllers/label_printing_controller.js:576
 msgid "Level 2"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:573
+#: ../..//content/controllers/label_printing_controller.js:579
 msgid "Level 3"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:576
+#: ../..//content/controllers/label_printing_controller.js:582
 msgid "Level 4"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:579
+#: ../..//content/controllers/label_printing_controller.js:585
 msgid "Level 5"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:582
+#: ../..//content/controllers/label_printing_controller.js:588
 msgid "Level 6"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:585
+#: ../..//content/controllers/label_printing_controller.js:591
 msgid "Level 7"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:588
+#: ../..//content/controllers/label_printing_controller.js:594
 msgid "Level 8"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:591
+#: ../..//content/controllers/label_printing_controller.js:597
 msgid "Level 9"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:636
-#: ../..//content/controllers/label_printing_controller.js:660
+#: ../..//content/controllers/label_printing_controller.js:642
+#: ../..//content/controllers/label_printing_controller.js:669
 msgid "Save Product List"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:636
-#: ../..//content/controllers/label_printing_controller.js:1021
+#: ../..//content/controllers/label_printing_controller.js:642
+#: ../..//content/controllers/label_printing_controller.js:1030
 msgid "The list is empty"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:660
+#: ../..//content/controllers/label_printing_controller.js:669
 msgid "List Name"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:670
+#: ../..//content/controllers/label_printing_controller.js:679
 msgid "This list already exists. Do you want to replace this list?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:690
+#: ../..//content/controllers/label_printing_controller.js:699
 msgid "New list [%S] has been generated"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:697
+#: ../..//content/controllers/label_printing_controller.js:706
 msgid "The list [%S] has been replaced"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:709
+#: ../..//content/controllers/label_printing_controller.js:718
 msgid "You have made changes to the current list. Save changes ?"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:818
+#: ../..//content/controllers/label_printing_controller.js:827
 msgid "New List"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:859
+#: ../..//content/controllers/label_printing_controller.js:868
 msgid "Replaces products"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:860
+#: ../..//content/controllers/label_printing_controller.js:869
 msgid "have been replaced"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:923
+#: ../..//content/controllers/label_printing_controller.js:932
 msgid "Save List"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:924
-#: ../..//content/controllers/label_printing_controller.js:936
+#: ../..//content/controllers/label_printing_controller.js:933
+#: ../..//content/controllers/label_printing_controller.js:945
 msgid "No"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:935
+#: ../..//content/controllers/label_printing_controller.js:944
 msgid "Barcode Warning"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:974
-#: ../..//content/controllers/label_printing_controller.js:1288
-#: ../..//content/controllers/label_printing_controller.js:1310
+#: ../..//content/controllers/label_printing_controller.js:983
+#: ../..//content/controllers/label_printing_controller.js:1297
+#: ../..//content/controllers/label_printing_controller.js:1319
 msgid "Invalid Barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:988
+#: ../..//content/controllers/label_printing_controller.js:997
 msgid "No Barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1006
+#: ../..//content/controllers/label_printing_controller.js:1015
 msgid "Zero Price"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1021
-#: ../..//content/controllers/label_printing_controller.js:1082
+#: ../..//content/controllers/label_printing_controller.js:1030
+#: ../..//content/controllers/label_printing_controller.js:1091
 msgid "Print label"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1056
+#: ../..//content/controllers/label_printing_controller.js:1065
 msgid "select_template"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1082
+#: ../..//content/controllers/label_printing_controller.js:1091
 msgid "All of the selected products have invalid price or barcode"
 msgstr ""
 
-#: ../..//content/controllers/label_printing_controller.js:1162
+#: ../..//content/controllers/label_printing_controller.js:1171
 msgid ""
 "You have made changes to the current list. Save changes before existing?"
 msgstr ""
@@ -7105,69 +7157,63 @@ msgstr ""
 
 #: ../..//content/controllers/ledger_controller.js:96
 msgid ""
-"An error was encountered while expiring ledger payment records (error code %"
-"S) [messages #803]."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:103
-msgid ""
 "An error was encountered while expiring ledger activity logs (error code %S) "
 "[messages #802]."
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:111
+#: ../..//content/controllers/ledger_controller.js:104
 msgid ""
-"An error was encountered while expiring backup ledger receipts (error code %"
-"S) [messages #803]."
+"An error was encountered while expiring backup ledger receipts (error code "
+"%S) [messages #803]."
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:118
+#: ../..//content/controllers/ledger_controller.js:111
 msgid ""
 "An error was encountered while expiring ledger receipts (error code %S) "
 "[messages #804]."
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:135
+#: ../..//content/controllers/ledger_controller.js:127
 msgid ""
 "An error was encountered while removing all backup ledger activity logs "
 "(error code %S) [messages #805]."
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:142
+#: ../..//content/controllers/ledger_controller.js:134
 msgid ""
 "An error was encountered while removing all ledger activity logs (error code "
 "%S) [messages #806]."
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:150
+#: ../..//content/controllers/ledger_controller.js:142
 msgid ""
 "An error was encountered while removing all backup ledger receipts (error "
 "code %S) [messages #807]."
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:157
+#: ../..//content/controllers/ledger_controller.js:149
 msgid ""
 "An error was encountered while revmoing all ledger receipts (error code %S) "
 "[messages #808]."
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:178
+#: ../..//content/controllers/ledger_controller.js:170
 msgid ""
 "An error was encountered while saving ledger entry (error code %S) [messages "
 "#809]."
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:191
+#: ../..//content/controllers/ledger_controller.js:183
 msgid ""
 "An error was encountered while saving ledger payment records (error code %S) "
 "[messages #810]."
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:210
+#: ../..//content/controllers/ledger_controller.js:202
 msgid "Add Ledger Entry"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:233
+#: ../..//content/controllers/ledger_controller.js:225
 msgid ""
 "An error was encountered while retrieving ledger records (error code %S) "
 "[messages #811]."
@@ -7302,12 +7348,12 @@ msgid "Failed to recall the selected order"
 msgstr ""
 
 #: ../..//content/controllers/loadtest_controller.js:95
-#: ../..//content/controllers/main_controller.js:1688
+#: ../..//content/controllers/main_controller.js:1692
 msgid "Load Test"
 msgstr ""
 
 #: ../..//content/controllers/loadtest_controller.js:95
-#: ../..//content/controllers/main_controller.js:1688
+#: ../..//content/controllers/main_controller.js:1692
 msgid "Open order exists, discard the order and proceed with the load test?"
 msgstr ""
 
@@ -7387,23 +7433,23 @@ msgstr ""
 msgid "Export Locale"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:168
+#: ../..//content/controllers/main_controller.js:171
 msgid "Signing off idle user.."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:246
+#: ../..//content/controllers/main_controller.js:249
 msgid "Product Initialization"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:314
+#: ../..//content/controllers/main_controller.js:317
 msgid "Package Builder"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:332
-#: ../..//content/controllers/main_controller.js:1050
-#: ../..//content/controllers/main_controller.js:1096
-#: ../..//content/controllers/main_controller.js:1176
-#: ../..//content/controllers/main_controller.js:1339
+#: ../..//content/controllers/main_controller.js:335
+#: ../..//content/controllers/main_controller.js:1053
+#: ../..//content/controllers/main_controller.js:1099
+#: ../..//content/controllers/main_controller.js:1179
+#: ../..//content/controllers/main_controller.js:1342
 #: ../..//content/controllers/training_mode_controller.js:110
 #: ../..//content/controllers/training_mode_controller.js:120
 #: ../..//content/controllers/training_mode_controller.js:130
@@ -7414,27 +7460,27 @@ msgstr ""
 msgid "Training Mode"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:332
+#: ../..//content/controllers/main_controller.js:335
 msgid "Control Panel is disabled during training."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:338
+#: ../..//content/controllers/main_controller.js:341
 msgid "You are not authorized to access the control panel"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:343
+#: ../..//content/controllers/main_controller.js:346
 msgid "Control Panel"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:352
+#: ../..//content/controllers/main_controller.js:355
 msgid "Change User"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:361
+#: ../..//content/controllers/main_controller.js:364
 msgid "Clock In/Out"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:380
+#: ../..//content/controllers/main_controller.js:383
 #: ../..//content/controllers/plus_controller.js:556
 #: ../..//content/controllers/plus_controller.js:1099
 #: ../..//content/controllers/plusearch_controller.js:248
@@ -7445,210 +7491,210 @@ msgstr ""
 msgid "Product Search"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:414
+#: ../..//content/controllers/main_controller.js:417
 #: ../..//content/controllers/print_controller.js:1253
 msgid "Printer Dashboard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:424
+#: ../..//content/controllers/main_controller.js:427
 msgid "No order to add/view annotations"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:504
+#: ../..//content/controllers/main_controller.js:507
 msgid "Annotate Order"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:570
+#: ../..//content/controllers/main_controller.js:573
 msgid "Control panel function [%S] does not exist"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:589
+#: ../..//content/controllers/main_controller.js:592
 msgid "You are not authorized to access the [%S] control panel function"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:667
+#: ../..//content/controllers/main_controller.js:670
 msgid "List Orders"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:676
+#: ../..//content/controllers/main_controller.js:679
 msgid "(view)search by table number"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:682
+#: ../..//content/controllers/main_controller.js:685
 msgid "(view)search by check number"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:689
+#: ../..//content/controllers/main_controller.js:692
 msgid "(view)search by order sequence"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:847
+#: ../..//content/controllers/main_controller.js:850
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1001]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1051
-#: ../..//content/controllers/main_controller.js:1097
-#: ../..//content/controllers/main_controller.js:1177
+#: ../..//content/controllers/main_controller.js:1054
+#: ../..//content/controllers/main_controller.js:1100
+#: ../..//content/controllers/main_controller.js:1180
 msgid "To use this funciton, please leave training mode first"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1056
+#: ../..//content/controllers/main_controller.js:1059
 msgid "Switch User"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1057
+#: ../..//content/controllers/main_controller.js:1060
 msgid "Please enter password"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1078
-#: ../..//content/controllers/main_controller.js:1158
+#: ../..//content/controllers/main_controller.js:1081
+#: ../..//content/controllers/main_controller.js:1161
 msgid " logged in"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1115
+#: ../..//content/controllers/main_controller.js:1118
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1002]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1128
+#: ../..//content/controllers/main_controller.js:1131
 msgid ""
 "An error was encountered while retrieving employees (error code %S) [message "
 "#1003]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1133
+#: ../..//content/controllers/main_controller.js:1136
 msgid "User [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1169
+#: ../..//content/controllers/main_controller.js:1172
 msgid "Please enter passcode first."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1205
-#: ../..//content/controllers/main_controller.js:1220
-#: ../..//content/controllers/main_controller.js:1234
-#: ../..//content/controllers/main_controller.js:1250
+#: ../..//content/controllers/main_controller.js:1208
+#: ../..//content/controllers/main_controller.js:1223
+#: ../..//content/controllers/main_controller.js:1237
+#: ../..//content/controllers/main_controller.js:1253
 msgid "Sign Off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1205
+#: ../..//content/controllers/main_controller.js:1208
 msgid "Discard items that have been registered?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1221
+#: ../..//content/controllers/main_controller.js:1224
 msgid "What do you want to do with the registered items?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1222
+#: ../..//content/controllers/main_controller.js:1225
 msgid "Queue"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1222
-#: ../..//content/controllers/main_controller.js:1252
+#: ../..//content/controllers/main_controller.js:1225
+#: ../..//content/controllers/main_controller.js:1255
 msgid "Discard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1234
+#: ../..//content/controllers/main_controller.js:1237
 msgid "You have one or more queued orders. Discard them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1251
+#: ../..//content/controllers/main_controller.js:1254
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1252
+#: ../..//content/controllers/main_controller.js:1255
 msgid "Keep"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1261
+#: ../..//content/controllers/main_controller.js:1264
 msgid "confirm sign-off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1261
+#: ../..//content/controllers/main_controller.js:1264
 msgid "Are you ready to sign off?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1339
+#: ../..//content/controllers/main_controller.js:1342
 msgid "This function is not available in training mode"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1344
 #: ../..//content/controllers/main_controller.js:1347
-#: ../..//content/controllers/main_controller.js:1418
+#: ../..//content/controllers/main_controller.js:1350
+#: ../..//content/controllers/main_controller.js:1421
 msgid "Remove All Transaction Records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1345
+#: ../..//content/controllers/main_controller.js:1348
 msgid ""
 "This operation will remove all transaction records. Are you sure you want to "
 "proceed?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1348
+#: ../..//content/controllers/main_controller.js:1351
 msgid ""
 "Data will not be recoverable once removed. It is strongly recommended that "
 "the system be backed up before truncating transaction records. Proceed with "
 "data removal?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1350
+#: ../..//content/controllers/main_controller.js:1353
 msgid "Removing all transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1401
+#: ../..//content/controllers/main_controller.js:1404
 msgid ""
 "An error was encountered while attempting to remove all transaction records "
 "[message #1011]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1419
+#: ../..//content/controllers/main_controller.js:1422
 msgid "Removal completed. Application will now restart"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1439
+#: ../..//content/controllers/main_controller.js:1442
 msgid "Removing expired transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1456
+#: ../..//content/controllers/main_controller.js:1459
 msgid ""
 "An error was encountered while expiring backup sales activity logs (error "
 "code %S) [message #1004]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1465
+#: ../..//content/controllers/main_controller.js:1468
 msgid ""
 "An error was encountered while expiring sales activity logs (error code %S) "
 "[message #1005]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1476
+#: ../..//content/controllers/main_controller.js:1479
 msgid ""
 "An error was encountered while expiring backup employee attendance records "
 "(error code %S) [message #1006]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1485
+#: ../..//content/controllers/main_controller.js:1488
 msgid ""
 "An error was encountered while expiring employee attendance records (error "
 "code %S) [message #1007]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1496
+#: ../..//content/controllers/main_controller.js:1500
 msgid ""
 "An error was encountered while expiring order queues (error code %S) "
 "[message #1008]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1549
+#: ../..//content/controllers/main_controller.js:1553
 msgid ""
 "An error was encountered while retrieving stock adjustment records (error "
 "code %S) [message #1010]."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1562
+#: ../..//content/controllers/main_controller.js:1566
 #: ../..//content/controllers/stock_records_controller.js:522
 #: ../..//content/controllers/stock_records_controller.js:580
 #: ../..//content/controllers/stock_records_controller.js:596
@@ -7656,35 +7702,35 @@ msgstr ""
 msgid "Stock Adjustment"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1573
+#: ../..//content/controllers/main_controller.js:1577
 msgid "Adjust Stock"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1577
+#: ../..//content/controllers/main_controller.js:1581
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1585
+#: ../..//content/controllers/main_controller.js:1589
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1585
+#: ../..//content/controllers/main_controller.js:1589
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1963
+#: ../..//content/controllers/main_controller.js:1967
 msgid "Function Customizer"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:2033
+#: ../..//content/controllers/main_controller.js:2037
 msgid "Report [%S] does not exist"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:2044
+#: ../..//content/controllers/main_controller.js:2048
 msgid "You are not authorized to access the [%S] report"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:2116
+#: ../..//content/controllers/main_controller.js:2120
 msgid "Select User"
 msgstr ""
 
@@ -8432,14 +8478,14 @@ msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:626
 msgid ""
-"An error was encountered while accessing administrator account (error code %"
-"S) [message #1302]."
+"An error was encountered while accessing administrator account (error code "
+"%S) [message #1302]."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:634
 msgid ""
-"An error was encountered while updating administrator password (error code %"
-"S) [message #1303]."
+"An error was encountered while updating administrator password (error code "
+"%S) [message #1303]."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:647
@@ -8662,8 +8708,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:765
 msgid ""
-"An error was encountered while retrieving cash payment records (error code %"
-"S) [message #1413]."
+"An error was encountered while retrieving cash payment records (error code "
+"%S) [message #1413]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:792
@@ -8710,8 +8756,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:981
 msgid ""
-"An error was encountered while computing cash and ledger sums (error code %"
-"S) [message #1418]."
+"An error was encountered while computing cash and ledger sums (error code "
+"%S) [message #1418]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1000
@@ -8752,8 +8798,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1114
 msgid ""
-"An error was encountered while computing ledger cash received (error code %"
-"S) [message #1424]."
+"An error was encountered while computing ledger cash received (error code "
+"%S) [message #1424]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1133
@@ -8957,8 +9003,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:302
 msgid ""
-"An error was encountered while inserting product stock records (error code %"
-"S) [message #1603]."
+"An error was encountered while inserting product stock records (error code "
+"%S) [message #1603]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:334
@@ -9036,8 +9082,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:616
 msgid ""
-"An error was encountered while saving stock adjustment records (error code %"
-"S) [message #1611]."
+"An error was encountered while saving stock adjustment records (error code "
+"%S) [message #1611]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:649
@@ -9048,8 +9094,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:657
 msgid ""
-"An error was encountered while saving stock adjustment details (error code %"
-"S) [message #1613]."
+"An error was encountered while saving stock adjustment details (error code "
+"%S) [message #1613]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:668
@@ -9209,84 +9255,87 @@ msgstr ""
 msgid "Package not available to remove."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:272
+#: ../..//content/controllers/systembackup_controller.js:291
 msgid "Backing Up Data to Local Storage"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:299
+#: ../..//content/controllers/systembackup_controller.js:318
 msgid "<Backup to Local Storage> is done"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:313
-#: ../..//content/controllers/systembackup_controller.js:414
+#: ../..//content/controllers/systembackup_controller.js:332
+#: ../..//content/controllers/systembackup_controller.js:433
+#: ../..//content/controllers/systembackup_controller.js:627
 msgid "Media not found!! Please attach the external storage device..."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:317
+#: ../..//content/controllers/systembackup_controller.js:336
+#: ../..//content/controllers/systembackup_controller.js:631
 msgid "Copying Backup Data to External Media"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:335
+#: ../..//content/controllers/systembackup_controller.js:354
+#: ../..//content/controllers/systembackup_controller.js:651
 msgid "<Backup to External Storage> is done"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:338
+#: ../..//content/controllers/systembackup_controller.js:357
 msgid "Please select a local backup first"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:350
+#: ../..//content/controllers/systembackup_controller.js:369
 msgid "Restoring Data from Local Backup"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:364
+#: ../..//content/controllers/systembackup_controller.js:383
 msgid "Do you want to restore [%S] from local backup?"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:366
-#: ../..//content/controllers/systembackup_controller.js:433
+#: ../..//content/controllers/systembackup_controller.js:385
+#: ../..//content/controllers/systembackup_controller.js:452
 msgid ""
 "If you execute restore now, the system will restart automatically after you "
 "return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:368
-#: ../..//content/controllers/systembackup_controller.js:436
+#: ../..//content/controllers/systembackup_controller.js:387
+#: ../..//content/controllers/systembackup_controller.js:455
 msgid "Confirm Restore"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:396
+#: ../..//content/controllers/systembackup_controller.js:415
 msgid "<Restore from Local backup> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:403
+#: ../..//content/controllers/systembackup_controller.js:422
 msgid "Please select a local backup to restore from"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:419
+#: ../..//content/controllers/systembackup_controller.js:438
 msgid "Restoring Data from External Backup"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:433
+#: ../..//content/controllers/systembackup_controller.js:452
 msgid "Do you want to restore [%S] from external media [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:464
+#: ../..//content/controllers/systembackup_controller.js:483
 msgid "<Restore from External Backup> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:471
+#: ../..//content/controllers/systembackup_controller.js:490
 msgid "Please select an external backup to restore from"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:527
+#: ../..//content/controllers/systembackup_controller.js:548
 msgid "Media [%S] not ready"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:531
+#: ../..//content/controllers/systembackup_controller.js:552
 msgid "Please select media"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:551
+#: ../..//content/controllers/systembackup_controller.js:575
 msgid "Select External Backup Media"
 msgstr ""
 
@@ -9660,8 +9709,8 @@ msgstr ""
 
 #: ../..//content/controllers/userprefs_controller.js:115
 msgid ""
-"Are you sure you want to restore user preferences from the selected backup [%"
-"S]? If you choose to proceed with recovery, application will restart "
+"Are you sure you want to restore user preferences from the selected backup "
+"[%S]? If you choose to proceed with recovery, application will restart "
 "immediately."
 msgstr ""
 
@@ -9907,6 +9956,53 @@ msgstr ""
 
 #: ../..//content/controllers/components/package.js:52
 msgid "(sector)"
+msgstr ""
+
+#: ../..//content/models/cashdrawer_record.js:63
+#: ../..//content/models/cashdrawer_record.js:71
+msgid ""
+"An error was encountered while expiring cashdrawer activity logs (error code "
+"%S) ."
+msgstr ""
+
+#: ../..//content/models/clockstamp.js:141
+#: ../..//content/models/clockstamp.js:149
+msgid ""
+"An error was encountered while expiring employee attendance records (error "
+"code %S) ."
+msgstr ""
+
+#: ../..//content/models/ledger_receipt.js:65
+#: ../..//content/models/ledger_receipt.js:73
+msgid ""
+"An error was encountered while expiring ledger receipts (error code %S) ."
+msgstr ""
+
+#: ../..//content/models/ledger_record.js:46
+msgid ""
+"An error was encountered while expiring ledger payment records (error code "
+"%S) ."
+msgstr ""
+
+#: ../..//content/models/ledger_record.js:54
+#: ../..//content/models/ledger_record.js:61
+msgid ""
+"An error was encountered while expiring ledger activity logs (error code "
+"%S) ."
+msgstr ""
+
+#: ../..//content/models/shift_change.js:109
+#: ../..//content/models/shift_change.js:116
+msgid ""
+"An error was encountered while expiring shift change records (error code "
+"%S) ."
+msgstr ""
+
+#: ../..//content/models/shift_change_detail.js:78
+#: ../..//content/models/shift_change_detail.js:85
+msgid ""
+"An error was encountered while expiring shift change details (error code "
+"%S) ."
 msgstr ""
 
 #: ../..//content/models/transaction.js:1500

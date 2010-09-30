@@ -651,7 +651,7 @@
                     NotifyUtils.info(_('<Backup to External Storage> is done'));
                 }
             } else {
-                NotifyUtils.info(_('Please select a local backup first'));
+                NotifyUtils.info(_('Please select a order history file first'));
             }
 
             this.refresh();
