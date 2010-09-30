@@ -253,7 +253,7 @@
                                errmsg: _('An error was encountered while expiring backup shift change records (error code %S) [message #1403].', [model.lastError])};
                     }
 
-                    r = model.execute('delete from shift_changes where created <= ' + expireDate);
+                    r = model.clearExpireData(expireDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
@@ -268,7 +268,7 @@
                                errmsg: _('An error was encountered while expiring backup shift change details (error code %S) [message #1405].', [model.lastError])};
                     }
 
-                    r = model.execute('delete from shift_change_details where not exists (select 1 from shift_changes where shift_changes.id == shift_change_details.shift_change_id)') && r;
+                    r = model.clearExpireData();
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
