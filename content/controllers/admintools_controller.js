@@ -8,6 +8,9 @@
 
         name: 'AdminTools',
 
+        _userName: null,
+        _userDisplayName: null,
+
         _dataPath: null,
         _modelClasses: null,
         _syncedDatasources: null,
@@ -315,7 +318,10 @@
             let script = dataPath + '/vivipos_webapp/sync_client';
 
             let waitpanel = this._showWaitPanel(_('Performing Synchronization...'));
+            this._log('SYNC executing sync script [' + script + ']');
             if (this._execute(script, ['sync'])) {
+
+                this._log('SYNC sync script executed [' + script + ']');
 
                 this.sleep(5000);
 
@@ -327,6 +333,8 @@
             }
             else {
                 waitpanel.hidePopup();
+
+                this._log('SYNC failed to execute sync script [' + script + ']');
 
                 NotifyUtils.error(_('Failed to execute synchronization client'));
             }
@@ -346,31 +354,39 @@
                     let model = pair.model;
                     let ds = pair.datasource;
 
+                    this._log('SYNC purging change logs for datasource [' + ds.configName + ']');
+
                     // remove change logs
                     if (ds.begin(true)) {
+
 
                         if (ds.execute('delete from syncs')) {
                             if (ds.execute('delete from sync_remote_machines')) {
                                 if (!ds.commit(true)) {
                                     ds.rollback(true);
                                     NotifyUtils.error(_('Unable to commit changes to datasource [%S]', [ds.configName]));
+                                    this._log('SYNC failed to purge change logs - unable to commit changes to datasource [' + ds.configName + ']');
                                 }
                                 else {
+                                    this._log('SYNC change logs purged for datasource [' + ds.configName + ']');
                                     this.refreshSyncStatus();
                                     success++;
                                 }
                             }
                             else {
                                 ds.rollback(true);
+                                this._log('SYNC failed to purge change logs - unable to re-initialize local index for datasource [' + ds.configName + ']');
                                 NotifyUtils.error(_('Unable to re-initialize local index [sync_remote_machines] for datasource [%S]', [ds.configName]));
                             }
                         }
                         else {
                             ds.rollback(true);
+                            this._log('SYNC failed to purge change logs for datasource [' + ds.configName + ']');
                             NotifyUtils.error(_('Unable to purge change logs [syncs] from datasource [%S]', [ds.configName]));
                         }
                     }
                     else {
+                        this._log('SYNC failed to purge change logs - unable to obtain exclusive lock on datasource [' + ds.configName + ']');
                         NotifyUtils.warn(_('Unable to obtain exclusive lock on datasource [%S]', [ds.configName]));
                     }
                 }, this)
@@ -401,25 +417,32 @@
 
             if (suspended) {
                 // do resume
+                this._log('SYNC resuming sync [' + this._syncSuspendStatusFile + syncSettings.machine_id + ']');
                 statusFile.remove();
 
                 suspended = this._getSyncSuspendStatus(true);
                 if (suspended) {
+                    this._log('SYNC failed to resume sync');
                     NotifyUtils.error(_('Failed to resume synchronization'));
                 }
                 else {
+                    this._log('SYNC sync resumed');
                     NotifyUtils.info(_('Synchronization to server resumed'));
                 }
             }
             else {
+                this._log('SYNC suspending sync [' + this._syncSuspendStatusFile + syncSettings.machine_id + ']');
+
                 // do suspend
                 statusFile.create();
 
                 suspended = this._getSyncSuspendStatus(true);
                 if (suspended) {
+                    this._log('SYNC sync suspended');
                     NotifyUtils.info(_('Synchronization to server suspended'));
                 }
                 else {
+                    this._log('SYNC failed to suspend sync');
                     NotifyUtils.error(_('Failed to suspend synchronization'));
                 }
             }
@@ -510,6 +533,8 @@
                 var ds = new OrderModel().getDataSource();
                 var terminal_no = this._getSyncSettings().machine_id;
 
+                this._log('REMOTE removing data from datasource [' + ds.configName + ']');
+
                 if (ds.begin(true)) {
 
                     // cashdrawer_records
@@ -572,6 +597,8 @@
                     // dispatch event to allow extensions to do their own cleanup
                     this.dispatchEvent('removeRemoteData', terminal_no);
                     
+                    this._log('REMOTE data removed from datasource [' + ds.configName + ']');
+                    
                     ds.commit(true);
 
                     waitpanel.hidePopup();
@@ -581,6 +608,8 @@
                                           _('Non-local Transaction data purged from datasource [%S]', [ds.configName]));
                 }
                 else {
+                    this._log('REMOTE failed to remove data - unable to obtain lock on datasource [' + ds.configName + ']');
+
                     ds.rollback(true);
 
                     waitpanel.hidePopup();
@@ -750,9 +779,14 @@
                 let mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                                     .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
                 let shiftChangeController = mainWindow.GeckoJS.Controller.getInstanceByName('ShiftChanges');
+
+                this._log('SP resetting sale period/shift to [' + newSalePeriod + '] [' + newShiftNumber + ']');
+
                 if (shiftChangeController) {
                     shiftChangeController._setShift(newSalePeriod, newShiftNumber, false, false);
                 }
+
+                this._log('SP sale period/shift reset to [' + newSalePeriod + '] [' + newShiftNumber + ']');
 
                 var ds = shiftChangeModel.getDataSource();
                 if (ds.begin(true)) {
@@ -795,6 +829,7 @@
                        });
 
                     });
+
                     // update orders
                     var orderModel = new OrderModel();
                     var orderRecords;
@@ -831,6 +866,8 @@
 
                     ds.commit(true);
                     
+                    this._log('SP order/ledger/shift data updated for sale period/shift reset');
+
                     waitPanel.hidePopup();
 
                     GREUtils.Dialog.alert(this.topmostWindow,
@@ -839,6 +876,8 @@
                 }
                 else {
                     ds.rollback(true);
+
+                    this._log('SP failed to reset sale period  - unable to update order/ledger/shift data');
 
                     waitpanel.hidePopup();
 
@@ -869,16 +908,22 @@
         },
 
         resetOrderNumber: function() {
+            var currentOrderSequence = document.getElementById('current_order_sequence').value;
             var newOrderSequence = document.getElementById('new_order_sequence').value;
             if (newOrderSequence != null && newOrderSequence != '' && !isNaN(parseInt(newOrderSequence))) {
                 if (GREUtils.Dialog.confirm(this.topmostWindow,
                                             _('Reset Order Sequence'),
                                             _('This action will set the local order sequence number to [%S], and could lead to duplicate sequence numbers and must be used with extreme care. Are you sure you want to proceed?', [newOrderSequence]))) {
+
+                    this._log('SP resetting order number from [' + currentOrderSequence + '] to [' + newOrderSequence + ']');
+
                     var sequenceModel = new SequenceModel();
                     sequenceModel.setLocalSequence('order_no', newOrderSequence);
 
                     this.refreshOrderSequence();
                     
+                    this._log('SP order number reset to [' + newOrderSequence + ']');
+
                     NotifyUtils.info(_('Local order sequence number set to [%S]', [newOrderSequence]));
                 }
             }
@@ -954,6 +999,8 @@
                                             _('Remove Datasource Backup Data'),
                                             _('This action will irrecoverably remove backup data for model [%S]. This may result in loss of customer data. Are you sure you want to proceed?', [dsbackup.model]))) {
 
+                    this._log('BACKUP removing backup file [' + dsbackup.model + ']');
+
                     let nsIFile = dsbackup.file;
                     if (nsIFile.exists()) {
                         GREUtils.File.remove(nsIFile);
@@ -961,11 +1008,15 @@
                         this.refreshDSBackupData(true);
 
                         if (!nsIFile.exists()) {
+                            this._log('BACKUP removed backup file [' + dsbackup.model + ']');
+
                             GREUtils.Dialog.alert(this.topmostWindow,
                                                   _('Remove Datasource Backup Data'),
                                                   _('Backup data for model [%S] successfully removed', [dsbackup.model]));
                         }
                         else {
+                            this._log('BACKUP failed to remove backup file [' + dsbackup.model + ']');
+
                             GREUtils.Dialog.alert(this.topmostWindow,
                                                   _('Remove Datasource Backup Data'),
                                                   _('Failed to remove backup data for model [%S]', [dsbackup.model]));
@@ -984,25 +1035,33 @@
                 let nsIFiles = GeckoJS.Dir.readDir(path, {type: 'f'});
                 let total = nsIFiles.length;
                 let removed = 0;
+
+                this._log('BACKUP purging backup files [count=' + total + ']');
+
                 nsIFiles.forEach(function(nsIFile) {
                     if (nsIFile.exists()) {
+                        this._log('BACKUP purging backup file [' + nsIFile.leafName + ']');
+                        
                         GREUtils.File.remove(nsIFile);
                         if (!nsIFile.exists()) removed++;
                     }
-                })
+                }, this)
                 this.refreshDSBackupData(true);
                 
                 if (removed == total) {
+                    this._log('BACKUP purged [' + removed + '] backup files');
                     GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Purge Datasource Backup Data'),
                                           _('Datasource backup data successfully purged'));
                 }
                 else if (removed == 0) {
+                    this._log('BACKUP failed to purge any backup files');
                     GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Purge Datasource Backup Data'),
                                           _('Failed to purge datasource backup data'));
                 }
                 else {
+                    this._log('BACKUP failed to purge some backup files [total=' + total + ', purged=' + removed + ']');
                     GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Purge Datasource Backup Data'),
                                           _('Failed to purge some of the datasource backup data'));
@@ -1136,10 +1195,12 @@
                 let unpacklogPath = rootPath + 'queues/' + failedPackage + '.unpacklog.json';
                 let unpacklogFile = new GeckoJS.File(unpacklogPath);
                 unpacklogFile.remove();
+                this._log('IRC unpack file removed [' + unpacklogPath + ']');
 
                 let lastFailurePath = rootPath + 'last_error_package';
                 let lastFailureFile = new GeckoJS.File(lastFailurePath);
                 lastFailureFile.remove();
+                this._log('IRC last failure file removed [' + lastFailurePath + ']');
 
                 this.refreshIRCStatus();
                 
@@ -1147,8 +1208,10 @@
                     GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Clear Last Failure'),
                                           _('Failed to clear the failure flag'));
+                    this._log('IRC failed to clear the failure flag');
                 }
                 else {
+                    this._log('IRC last failure cleared');
                     NotifyUtils.info(_('Last failure cleared'));
                 }
             }
@@ -1194,6 +1257,7 @@
                 lastDownloadedFile.open('w');
                 result = lastDownloadedFile.write(timestamp);
                 lastDownloadedFile.close();
+                this._log('IRC last downloaded time reset to [' + timestamp + ']');
             }
             return result;
         },
@@ -1209,6 +1273,7 @@
                     GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Reset Download Timestamp'),
                                           _('Failed to reset download timestamp'));
+                    this._log('IRC failed to reset last downloaded time');
                 }
                 this.refreshIRCStatus();
             }
@@ -1225,20 +1290,26 @@
                                             _('Re-Download Packages'),
                                             _('This action will remove package [%S] and all later packages and reset timestamp to cause them to be downloaded from the server again. Are you sure you want to proceed?', [pkg.pkg]))) {
 
+                    this._log('IRC set download pointer to package [' + pkg.pkg + ']');
+
                     // remove packages including and after the selected entry
                     for (; index < this._ircPackages.length; index++) {
                         this._execute('/bin/rm', ['-f', rootPath + 'queues/' + this._ircPackages[index].pkg + '.tbz']);
                         this._execute('/bin/rm', ['-f', rootPath + 'queues/' + this._ircPackages[index].pkg + '.tbz.json']);
                         this._execute('/bin/rm', ['-f', rootPath + 'queues/' + this._ircPackages[index].pkg + '.tbz.unpacklog.json']);
+
+                        this._log('IRC removed package [' + this._ircPackages[index].pkg + ']');
                     }
 
                     // set last downloaded to the selected package time minus 1
                     let newtimestamp = pkg.created - 1;
                     let rc = this._resetIRCLastDownload(newtimestamp);
                     if (rc) {
+                        this._log('IRC download pointer set to package [' + pkg.pkg + ']');
                         NotifyUtils.info(_('Selected package(s) cleared and download timestamp updated to [%S]', [newtimestamp]));
                     }
                     else {
+                        this._log('IRC failed to set download pointer to package [' + pkg.pkg + ']');
                         GREUtils.Dialog.alert(this.topmostWindow,
                                               _('Re-Download Packages'),
                                               _('Failed to update last download timestamp'));
@@ -1250,6 +1321,8 @@
         },
 
         load: function() {
+            let aclUser = this.Acl.getUserPrincipal();
+
             // initialize sync list
             this.initSyncStatus();
 
@@ -1275,6 +1348,15 @@
             this.refreshIRCStatus(true);
             
             this.dispatchEvent('initial');
+
+            this._userName = aclUser ? aclUser.username : 'unknown user';
+            this._userDisplayName = aclUser ? aclUser.description : 'unknown user';
+
+            this._log('entering administration tools');
+        },
+
+        _log: function(msg) {
+            this.log('FATAL', '[' + this._userName + ' (' + this._userDisplayName + ')]:' + msg);
         }
 
     };
