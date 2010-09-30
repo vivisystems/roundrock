@@ -695,7 +695,7 @@
 
         removeOrders: function(conditions, id_list) {
             // use execute sql statement to prevent sync...
-
+            
             var order_conditions = conditions;
             if (id_list && id_list.length > 0 && typeof id_list == 'object') {
                 let id_strings = id_list.join(',');
@@ -705,10 +705,17 @@
             else {
                 conditions = 'order_id in (SELECT id FROM orders WHERE ' + conditions + ')';
             }
-
+            
+            var result = false;
+            var isMoveToHistory = GeckoJS.Configure.read('vivipos.fec.settings.moveExpiredDataToHistory') || false;
+            var attachedOrderHistory = isMoveToHistory ? this.attachOrderHistory() : false;
+           
             // use transaction to improve performance
             if (!this.begin()) {
                 this.log('ERROR', 'An error was encountered while preparing to remove expired orders (error code ' + this.lastError + '): ' + this.lastErrorString);
+                if (attachedOrderHistory) {
+                    this.detachOrderHistory();
+                }               
                 return false;
             }
             else {
@@ -717,6 +724,10 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order item taxes
+                    if (attachedOrderHistory) {
+                       // copy item taxes to history
+                       this.OrderItemTax.execute("INSERT OR REPLACE INTO order_history." + this.OrderItemTax.table + " SELECT * FROM " + this.OrderItemTax.table + " WHERE " + conditions);
+                    }
                     if (!this.OrderItemTax.execute("DELETE FROM " + this.OrderItemTax.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderItemTax.lastError,
@@ -729,6 +740,10 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order items
+                    if (attachedOrderHistory) {
+                       // copy items to history
+                       this.OrderItem.execute("INSERT OR REPLACE INTO order_history." + this.OrderItem.table + " SELECT * FROM " + this.OrderItem.table + " WHERE " + conditions);
+                    }                    
                     if (!this.OrderItem.execute("DELETE FROM " + this.OrderItem.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderItem.lastError,
@@ -741,6 +756,10 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order item condiments
+                    if (attachedOrderHistory) {
+                       // copy item condiments to history
+                       this.OrderItemCondiment.execute("INSERT OR REPLACE INTO order_history." + this.OrderItemCondiment.table + " SELECT * FROM " + this.OrderItemCondiment.table + " WHERE " + conditions);
+                    }                                        
                     if (!this.OrderItemCondiment.execute("DELETE FROM " + this.OrderItemCondiment.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderItemCondiment.lastError,
@@ -753,6 +772,10 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order additions
+                    if (attachedOrderHistory) {
+                       // copy additions to history
+                       this.OrderAddition.execute("INSERT OR REPLACE INTO order_history." + this.OrderAddition.table + " SELECT * FROM " + this.OrderAddition.table + " WHERE " + conditions);
+                    }                                        
                     if (!this.OrderAddition.execute("DELETE FROM " + this.OrderAddition.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderAddition.lastError,
@@ -765,6 +788,10 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order annotations
+                    if (attachedOrderHistory) {
+                       // copy annotations to history
+                       this.OrderAnnotation.execute("INSERT OR REPLACE INTO order_history." + this.OrderAnnotation.table + " SELECT * FROM " + this.OrderAnnotation.table + " WHERE " + conditions);
+                    }                                                            
                     if (!this.OrderAnnotation.execute("DELETE FROM " + this.OrderAnnotation.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderAnnotation.lastError,
@@ -777,6 +804,10 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order objects
+                    if (attachedOrderHistory) {
+                       // copy objects to history
+                       //this.OrderObject.execute("INSERT OR REPLACE INTO order_history." + this.OrderObject.table + " SELECT * FROM " + this.OrderObject.table + " WHERE " + conditions);
+                    }                                                            
                     if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderObject.lastError,
@@ -789,6 +820,10 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order payments
+                    if (attachedOrderHistory) {
+                       // copy payments to history
+                       this.OrderPayment.execute("INSERT OR REPLACE INTO order_history." + this.OrderPayment.table + " SELECT * FROM " + this.OrderPayment.table + " WHERE " + conditions);
+                    }                                        
                     if (!this.OrderPayment.execute("DELETE FROM " + this.OrderPayment.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderPayment.lastError,
@@ -801,6 +836,10 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order receipts
+                    if (attachedOrderHistory) {
+                       // copy receipts to history
+                       this.OrderReceipt.execute("INSERT OR REPLACE INTO order_history." + this.OrderReceipt.table + " SELECT * FROM " + this.OrderReceipt.table + " WHERE " + conditions);
+                    }                                        
                     if (!this.OrderReceipt.execute("DELETE FROM " + this.OrderReceipt.table + " WHERE "+ conditions)) {
                         throw {
                             errno: this.OrderReceipt.lastError,
@@ -813,6 +852,10 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order promotions
+                    if (attachedOrderHistory) {
+                       // copy promotions to history
+                       this.OrderPromotion.execute("INSERT OR REPLACE INTO order_history." + this.OrderPromotion.table + " SELECT * FROM " + this.OrderPromotion.table + " WHERE " + conditions);
+                    }                                        
                     if (!this.OrderPromotion.execute("DELETE FROM " + this.OrderPromotion.table + " WHERE " + conditions)) {
                         throw {
                             errno: this.OrderPromotion.lastError,
@@ -825,6 +868,10 @@
                     GeckoJS.BaseObject.sleep(50);
 
                     // order delete lastest
+                    if (attachedOrderHistory) {
+                       // copy orders to history
+                       this.execute("INSERT OR REPLACE INTO order_history." + this.table + " SELECT * FROM " + this.table + " WHERE " + order_conditions);
+                    }                                                            
                     if (!this.execute("DELETE FROM " + this.table + " WHERE " + order_conditions)) {
                         throw {
                             errno: this.lastError,
@@ -843,18 +890,26 @@
                             errmsg: 'An error was encountered while completing removal of expired orders (error code ' + this.lastError + '): ' + this.lastErrorString
                         }
                     }
-                    return true;
+                                        
+                    result = true;
                 }
                 catch(e) {
                     this.rollback();
 
                     this.log('ERROR', e.errmsg);
 
-                    this.lastError = e.lastError;
-                    this.lastErrorString = e.lastErrorString;
+                    this.lastError = e.errno;
+                    this.lastErrorString = e.errstr;
 
-                    return false;
+                    result = false;
+
+                } finally {
+                    if (attachedOrderHistory) {
+                        this.detachOrderHistory();
+                    }
                 }
+                return result;
+
             }
         }
 

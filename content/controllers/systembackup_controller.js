@@ -60,12 +60,14 @@
         _listObj: null,
         _listObjLocalBackup: null,
         _listObjStickBackup: null,
+        _listObjOrderHistory: null,
         _listDatas: null,
         _selectedIndex: 0,
         _dataPath: null,
         _scriptDir: null,
         _localbackupDir: null,
         _stickbackupDir: null,
+        _stickHistoryDir: null,
         _busy: false,
         _availableDevices: [],
         _selectedDevice: null,
@@ -83,6 +85,17 @@
                 this._listObjStickBackup = document.getElementById('stickbackupscrollablepanel');
             }
             return this._listObjStickBackup;
+        },
+
+        getListObjOrderHistory: function() {
+            if(this._listObjOrderHistory == null) {
+                this._listObjOrderHistory = document.getElementById('orderHistoryScrollablepanel');
+                $('#filename').css('minWidth', '200px');
+                $('#display_minTime').css('width', '100px');
+                $('#display_maxTime').css('width', '100px');
+                //$('#filename').css('width', '150px');
+            }
+            return this._listObjOrderHistory;
         },
 
         setButtonState: function() {
@@ -195,6 +208,12 @@
                             deviceReady = true;
 
                         }
+
+                        let historyDir = new GeckoJS.Dir(mountPath + 'history_databases' + branchId + terminalNo, true);
+                        if (historyDir.exists()) {
+                            this._stickHistoryDir = historyDir.path + '/';
+                        }
+
                     }
                 }
             }
@@ -515,10 +534,12 @@
                 this.selectDevice();
             }
             this.validateForm();
+
         },
 
         selectDevice: function(device) {
             var deviceLabelObj = document.getElementById('scandevices');
+            var deviceLabel2Obj = document.getElementById('scandevices2');
             if (device) {
                 if (this.checkBackupDevice(device)) {
                     deviceLabelObj.label = device.label;
@@ -530,6 +551,9 @@
             else {
                 deviceLabelObj.label = _('Please select media');
             }
+
+            deviceLabel2Obj.label = deviceLabelObj.label; // 
+            
             this._selectedDevice = device;
 
             this.refresh();
@@ -559,11 +583,15 @@
         },
 
         refresh: function() {
+            
             var panelViewLocal = new BackupFilesView(this._localbackupDir);
             this.getListObjLocalBackup().datasource = panelViewLocal;
 
             var panelViewStick = new BackupFilesView(this._stickbackupDir);
             this.getListObjStickBackup().datasource = panelViewStick;
+
+            var orderHistoryView = new OrderHistoryView();
+            this.getListObjOrderHistory().datasource = orderHistoryView;
             
             this.validateForm();
         },
@@ -586,7 +614,53 @@
             backuptostickBtn.setAttribute('disabled', !localSelected || !this._selectedDevice);
             restorefromlocalBtn.setAttribute('disabled', !localSelected);
             restorefromstickBtn.setAttribute('disabled', !externalSelected);
+        },
+
+        selectOrderHistory: function(index) {
+            // XXXX nothing to do
+        },
+
+        copyOrderHistoryToStick: function() {
+            
+            if (this._busy) return;
+            if (!this.checkBackupDevice(this._selectedDevice)){
+                NotifyUtils.info(_('Media not found!! Please attach the external storage device...'));
+                return;
+            }
+            this._busy = true;
+            var waitPanel = this._showWaitPanel(_('Copying Backup Data to External Media'));
+            this.setButtonState();
+
+            var localObj = this.getListObjOrderHistory();
+            var index = localObj.selectedIndex;
+            var datas = localObj.datasource._data;
+
+            if (index >= 0) {
+                var dir = datas[index].dir;
+                var filename = datas[index].filename;
+
+                // do copy from local to stick
+                // var param = "-fr " + this._localbackupDir + dir + " " + this._stickbackupDir + dir;
+                var params = ["-f", dir+'/'+filename, this._stickHistoryDir];
+
+                // log user process
+                this.log('FATAL', 'copyOrderHistoryToStick file: [' + dir+'/'+filename +']');
+
+                if (this.execute("/bin/cp", params)) {
+                    this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
+                    NotifyUtils.info(_('<Backup to External Storage> is done'));
+                }
+            } else {
+                NotifyUtils.info(_('Please select a local backup first'));
+            }
+
+            this.refresh();
+            this._busy = false;
+            this.setButtonState();
+            waitPanel.hidePopup();
+
         }
+        
     };
 
     AppController.extend(__controller__);

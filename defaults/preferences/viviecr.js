@@ -17,3 +17,7 @@ pref("vivipos.fec.general.layouts.selectedLayout", "traditional");
 
 pref("vivipos.fec.settings.ResetSeqNoWhenEndPeriod", true);
 pref("vivipos.fec.settings.ResetCheckNoWhenEndPeriod", false);
+
+pref("vivipos.fec.settings.moveExpiredDataToHistory", false);
+pref("vivipos.fec.settings.historyDatabasesPath", "/data/history_databases");
+pref("vivipos.fec.settings.splitHistoryOrderFile", "yearly");

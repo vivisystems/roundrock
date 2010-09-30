@@ -89,14 +89,7 @@
                                errmsg: _('An error was encountered while expiring backup ledger activity logs (error code %S) [messages #801].', [model.lastError])};
                     }
 
-                    r = model.execute('delete from order_payments where order_id IN (select id from ledger_records where created <= ' + expireDate + ')');
-                    if (!r) {
-                        throw {errno: model.lastError,
-                               errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while expiring ledger payment records (error code %S) [messages #803].', [model.lastError])};
-                    }
-
-                    r = model.execute('delete from ledger_records where created <= ' + expireDate);
+                    r = model.clearExpireData(expireDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
@@ -111,7 +104,7 @@
                                errmsg: _('An error was encountered while expiring backup ledger receipts (error code %S) [messages #803].', [model.lastError])};
                     }
 
-                    r = model.execute('delete from ledger_receipts where created <= ' + expireDate);
+                    r = model.clearExpireData(expireDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
@@ -119,7 +112,6 @@
                     }
                 }
                 catch(e) {
-                    model.rollback();
                     this._dbError(e.errno, e.errstr, e.errmsg);
                 }
             }
