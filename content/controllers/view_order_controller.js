@@ -21,6 +21,7 @@
         _index: -1,
         _locked: false,
         _recall: false,
+        _useDbConfig: 'order',
 
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
@@ -28,6 +29,8 @@
         },
 
         load: function(inputObj) {
+
+            this._useDbConfig = inputObj.useDbConfig || 'order';
             
             // store global data
             this._orders = inputObj.orders;
@@ -63,6 +66,8 @@
             var orderObj = document.getElementById('order');
             
             var orderModel = new OrderModel();
+            orderModel.useDbConfig = this._useDbConfig; // udpate dbconfig
+
             var order = orderModel.findById(id, 2);
             if (parseInt(orderModel.lastError) != 0) {
                 this._dbError(orderModel.lastError, orderModel.lastErrorString,

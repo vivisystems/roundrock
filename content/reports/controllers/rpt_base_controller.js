@@ -540,9 +540,11 @@
         },
 	    
         _openOrderDialogByID: function( id ) {
+            var useDbConfig = this.initOrderHistoryDatabase();
             var aURL = 'chrome://viviecr/content/view_order.xul';
             var aName = _( 'Order Details' );
             var aArguments = {
+                useDbConfig: useDbConfig,
                 orders: [ {
                     id: id
                 } ],
