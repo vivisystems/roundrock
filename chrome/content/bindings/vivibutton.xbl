@@ -49,7 +49,10 @@
 
             var value = this.getAttribute('label') || '';
             if(aLabel.getAttribute('crop')) {
+                this.cropLabel = true;
                 aLabel.removeChild(aLabel.firstChild);
+            }else {
+                this.cropLabel = false;
             }
 
             if (this.getAttribute('pre')) {
@@ -151,7 +154,7 @@
       <body><![CDATA[
 
         var aLabel = this.vivibuttonLabel ;
-        if(aLabel.getAttribute('crop')) {
+        if (this.cropLabel) {
             aLabel.value = value;
         }else {
             aLabel.firstChild.data = value;
@@ -166,10 +169,7 @@
       <body><![CDATA[
 
         var aLabel = this.vivibuttonLabel;
-        
-        return aLabel.firstChild.data;
-
-        if(aLabel.getAttribute('crop')) {
+        if (this.cropLabel) {
             return aLabel.value;
         }else {
             return aLabel.firstChild.data;
