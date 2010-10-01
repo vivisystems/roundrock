@@ -742,19 +742,6 @@
 
             this.updateStartEndDateFields(queryObj);
 
-            // get order history databases info
-            var orderHistoryView = new OrderHistoryView(null, /[\w]*[_]*vivipos_order[_reporting]*.sqlite$/);
-            if (orderHistoryView._data.length > 0) {
-                this._orderHistoryDatabases = orderHistoryView._data;
-            }
-
-            // get current order database info
-            var orderDbConfig = GeckoJS.Configure.read('DATABASE_CONFIG.order') || {path:'/data/databases', database: 'vivipos_order.sqlite'};
-            var currentOrderView = new OrderHistoryView(orderDbConfig.path, /^vivipos_order.sqlite$/);
-            if (currentOrderView._data.length >0) {
-                this._currentOrderDatabase = currentOrderView._data[0];
-            }
-            
             // try update datasources menu
             this.updateDatabasesMenu();
 
@@ -866,6 +853,24 @@
 
 
         updateDatabasesMenu: function(domId) {
+
+            // get order history databases info
+            var orderHistoryView = new OrderHistoryView(null, /[\w]*[_]*vivipos_order[_reporting]*.sqlite$/);
+            if (orderHistoryView._data.length > 0) {
+                this._orderHistoryDatabases = [];
+                orderHistoryView._data.forEach(function(d){
+                    if (d.total_orders == 0) return;
+                    this._orderHistoryDatabases.push(d);
+                }, this);
+            }
+
+            // get current order database info
+            var orderDbConfig = GeckoJS.Configure.read('DATABASE_CONFIG.order') || {path:'/data/databases', database: 'vivipos_order.sqlite'};
+            var currentOrderView = new OrderHistoryView(orderDbConfig.path, /^vivipos_order.sqlite$/);
+            if (currentOrderView._data.length >0) {
+                this._currentOrderDatabase = currentOrderView._data[0];
+            }
+
             domId = domId || 'datasources-menu';
             
             let $menuObj = $('#'+domId);

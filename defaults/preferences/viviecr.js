@@ -20,4 +20,4 @@ pref("vivipos.fec.settings.ResetCheckNoWhenEndPeriod", false);
 
 pref("vivipos.fec.settings.moveExpiredDataToHistory", false);
 pref("vivipos.fec.settings.historyDatabasesPath", "/data/history_databases");
-pref("vivipos.fec.settings.splitHistoryOrderFile", "yearly");
+pref("vivipos.fec.settings.splitHistoryOrderFile", "quarterly");

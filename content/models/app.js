@@ -222,7 +222,7 @@
             var orderDbConfig = GeckoJS.Configure.read('DATABASE_CONFIG.order') || {database: 'vivipos_order.sqlite'};
             var retainDays = GeckoJS.Configure.read('vivipos.fec.settings.OrderRetainDays') || 0;
             var isMoveToHistory = GeckoJS.Configure.read('vivipos.fec.settings.moveExpiredDataToHistory') || false;
-            var splitHistoryOrderFile = GeckoJS.Configure.read('vivipos.fec.settings.splitHistoryOrderFile') || 'yearly';
+            var splitHistoryOrderFile = GeckoJS.Configure.read('vivipos.fec.settings.splitHistoryOrderFile') || 'quarterly';
             var historyDatabasePath = GeckoJS.Configure.read('vivipos.fec.settings.historyDatabasesPath') || '/data/history_databases';
 
             var historyOrderFile = '' ; //historyDatabasePath + '/' + orderDbConfig.database;
@@ -241,8 +241,20 @@
                             historyOrderFile = historyDatabasePath + '/' + retainDate.toString("yyyyMM") + '_' + orderDbConfig.database;
                             break;
 
-                        case 'yearly':
                         default:
+                        case 'quarterly':
+                            var qm = Math.ceil( parseInt(retainDate.toString("M"))/3);
+                            var qmFilename = ['','0103', '0306', '0709', '1012'];
+                            historyOrderFile = historyDatabasePath + '/' + retainDate.toString("yyyy") + qmFilename[qm] +'_' + orderDbConfig.database;
+                            break;
+
+                        case 'halfyearly':
+                            var hym = Math.ceil( parseInt(retainDate.toString("M"))/6);
+                            var hymFilename = ['','0106', '0712'];
+                            historyOrderFile = historyDatabasePath + '/' + retainDate.toString("yyyy") + hymFilename[hym] +'_' + orderDbConfig.database;
+                            break;
+
+                        case 'yearly':
                             historyOrderFile = historyDatabasePath + '/' + retainDate.toString("yyyy") + '_' + orderDbConfig.database;
                             break;
 
