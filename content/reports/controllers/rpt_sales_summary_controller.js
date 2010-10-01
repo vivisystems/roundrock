@@ -19,6 +19,8 @@
         _breakout_setmenu: false,
         _fileName: 'rpt_sales_summary',
 
+        useDbConfig: 'order',
+
         _getConditions: function() {
             this._start = document.getElementById( 'start_date' ).value;
             this._end = document.getElementById( 'end_date' ).value;
@@ -101,6 +103,8 @@
             data.summary.HourGrossSales = 0.0;
             
             var order = new OrderModel();
+            order.useDbConfig = this.useDbConfig;
+            
             data.records = order.find( 'all', {
                 fields: fields,
                 conditions: conditions,
@@ -163,6 +167,7 @@
             var end = parseInt( this._end / 1000, 10 );
 
             var orderItem = new OrderItemModel();
+            orderItem.useDbConfig = this.useDbConfig
 
             var fields = [
             'orders.terminal_no AS "Order.terminal_no"',
@@ -258,6 +263,7 @@
             var end = parseInt( this._end / 1000, 10 );
 
             var orderItem = new OrderItemModel();
+            orderItem.useDbConfig = this.useDbConfig; // udpate dbconfig
 
             var fields = [
             'orders.terminal_no AS "Order.terminal_no"',
@@ -373,6 +379,7 @@
             summary.payment_total = 0;
 
             var orderPayment = new OrderPaymentModel();
+            orderPayment.useDbConfig = this.useDbConfig; // udpate dbconfig
             /*
             var records = orderPayment.find( 'all',{
                 fields: fields,
@@ -534,6 +541,8 @@
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var orderPayment = new OrderPaymentModel();
+            orderPayment.useDbConfig = this.useDbConfig; // udpate dbconfig
+
             var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
 
             var Currencies = GeckoJS.Session.get('Currencies');
@@ -590,6 +599,8 @@
             var orderby = 'orders.terminal_no,orders.' + this._periodtype;
 
             var order = new OrderModel();
+            order.useDbConfig = this.useDbConfig; // udpate dbconfig
+
             var orderRecord = order.find( 'first', {
                 fields: fields,
                 conditions: conditions,
@@ -612,7 +623,9 @@
             // if breakout set menu, run another query on order items
             if (orderRecord && this._breakout_setmenu) {
                 let qtySubtotal = 0;
+
                 let orderItem = new OrderItemModel();
+                orderItem.useDbConfig = this.useDbConfig; // udpate dbconfig
 
                 let fields = [
                     'SUM("order_items"."current_qty") as "qty"',
@@ -680,6 +693,7 @@
             };
             
             var orderItemTax = new OrderItemTaxModel();
+            orderItemTax.useDbConfig = this.useDbConfig; // udpate dbconfig
 
             data.records = orderItemTax.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_item_taxes ON ("orders"."id" = "order_item_taxes"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
 
@@ -718,6 +732,8 @@
             var orderby = 'orders.destination';
             
             var order = new OrderModel();
+            order.useDbConfig = this.useDbConfig; // udpate dbconfig
+
             var datas = order.find( 'all', {
                 fields: fields,
                 conditions: conditions,
@@ -764,6 +780,7 @@
 
             
             var orderPromotionModel = new OrderPromotionModel();
+            orderPromotionModel.useDbConfig = this.useDbConfig; // udpate dbconfig
 
             /*
             var records = orderPromotionModel.find('all', {
@@ -839,6 +856,7 @@
             var orderby = 'amount desc';
             
             var orderItem = new OrderItemModel();
+            orderItem.useDbConfig = this.useDbConfig; // udpate dbconfig
 
 
             /*
@@ -875,6 +893,7 @@
             ];
             
             var orderAddition = new OrderAdditionModel();
+            orderAddition.useDbConfig = this.useDbConfig; // udpate dbconfig
 
             /*
             results = orderAddition.find( 'all', {
@@ -904,6 +923,9 @@
         },
 		
         _set_reportRecords: function() {
+
+            // initial order history if user selected it.
+            this.useDbConfig = this.initOrderHistoryDatabase();
 			
             this._getConditions();
 

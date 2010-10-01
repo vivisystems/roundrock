@@ -56,7 +56,13 @@
 
             // var order = new OrderModel();
 
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var orderPayment = new OrderPaymentModel();
+
+            orderPayment.useDbConfig = useDbConfig; // udpate dbconfig
+         
             // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
             //var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, limit: this._csvLimit, recursive: 1});
             var datas = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
