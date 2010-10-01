@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://viviecr/locale/reports/rpt_databases_menu.dtd">
+
+<overlay id="databasesMenuOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <hbox id="databasesMenuBox" >
+        <label id="datasources-menuitem-tpl1" hidden="true" value="%FILENAME% (&databases_menu.current_order_database;) [&databases_menu.min_order_time; %MINORDERTIME% , &databases_menu.max_order_time; %MAXORDERTIME% , &databases_menu.total_orders; %TOTALORDERS% , &databases_menu.filesize; %FILESIZE%]" />
+        <label id="datasources-menuitem-tpl2" hidden="true" value="%FILENAME% (&databases_menu.history_order_database;) [&databases_menu.min_order_time; %MINORDERTIME% , &databases_menu.max_order_time; %MAXORDERTIME% , &databases_menu.total_orders; %TOTALORDERS% , &databases_menu.filesize; %FILESIZE%]" />
+        <grid flex="1" class="data-form">
+            <columns>
+                <column /><column flex="1"/>
+            </columns>
+            <rows>
+                <row>
+                    <label value="&databases_menu.databases;" id="databasesMenuLabel" />
+                    <menulist id="datasources-menu" style="text-align: left;">
+                        <menupopup id="datasources-menupopup">
+                        </menupopup>
+                    </menulist>
+                </row>
+            </rows>        
+        </grid>
+        
+    </hbox>
+         
+</overlay>

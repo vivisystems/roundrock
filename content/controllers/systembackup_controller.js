@@ -590,7 +590,7 @@
             var panelViewStick = new BackupFilesView(this._stickbackupDir);
             this.getListObjStickBackup().datasource = panelViewStick;
 
-            var orderHistoryView = new OrderHistoryView();
+            var orderHistoryView = new OrderHistoryView(null, /[\w]*[_]*vivipos_order[_reporting]*.sqlite$/);
             this.getListObjOrderHistory().datasource = orderHistoryView;
             
             this.validateForm();

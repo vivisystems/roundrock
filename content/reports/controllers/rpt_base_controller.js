@@ -1,4 +1,7 @@
 ( function() {
+
+    include( 'chrome://viviecr/content/helpers/order_history_view.js' );
+    
     /**
      * Report Base Controller
      * This class is used to maintain the utility methods taken advantage by each report controller.
@@ -52,6 +55,9 @@
         _decimals: GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.',
         _thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',',
         _precision: GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0,
+
+        _currentOrderDatabase: {},
+        _orderHistoryDatabases: [],
         
         formatPrice: function(price, showZero) {
             if (parseFloat(price) == 0 && !showZero) {
@@ -736,6 +742,22 @@
 
             this.updateStartEndDateFields(queryObj);
 
+            // get order history databases info
+            var orderHistoryView = new OrderHistoryView(null, /[\w]*[_]*vivipos_order[_reporting]*.sqlite$/);
+            if (orderHistoryView._data.length > 0) {
+                this._orderHistoryDatabases = orderHistoryView._data;
+            }
+
+            // get current order database info
+            var orderDbConfig = GeckoJS.Configure.read('DATABASE_CONFIG.order') || {path:'/data/databases', database: 'vivipos_order.sqlite'};
+            var currentOrderView = new OrderHistoryView(orderDbConfig.path, /^vivipos_order.sqlite$/);
+            if (currentOrderView._data.length >0) {
+                this._currentOrderDatabase = currentOrderView._data[0];
+            }
+            
+            // try update datasources menu
+            this.updateDatabasesMenu();
+
             if (queryObj['auto_execute']) {
 
                // using some delay for controller loaded.
@@ -840,7 +862,103 @@
 
             return queryObj;
             
-        }
+        },
+
+
+        updateDatabasesMenu: function(domId) {
+            domId = domId || 'datasources-menu';
+            
+            let $menuObj = $('#'+domId);
+            let itemTpl1 = $('#datasources-menuitem-tpl1').val() || '';
+            let itemTpl2 = $('#datasources-menuitem-tpl2').val() || '';
+
+            var updateTpl = function(tpl, data) {
+                tpl = tpl.replace('%FILENAME%', data['filename']);
+                tpl = tpl.replace('%FILESIZE%', data['display_filesize']);
+                tpl = tpl.replace('%TOTALORDERS%', data['display_total_orders']);
+                tpl = tpl.replace('%MINORDERTIME%', data['display_minTime']);
+                tpl = tpl.replace('%MAXORDERTIME%', data['display_maxTime']);
+                return tpl;
+            };
+
+            if ($menuObj.length) {
+                let menuObj = $menuObj[0];
+                menuObj.removeAllItems();
+               
+                // update menus
+                // add currentdatabase
+                let item = menuObj.appendItem(updateTpl(itemTpl1, this._currentOrderDatabase), this._currentOrderDatabase['filename']);
+                $(item).css('textAlign', 'left');
+
+                this._orderHistoryDatabases.forEach(function(d) {
+                    let item = menuObj.appendItem(updateTpl(itemTpl2, d), d['filename']);
+                    $(item).css('textAlign', 'left');
+                });
+
+                menuObj.selectedIndex = 0;
+            }
+        },
+
+        /**
+             * if user select order history file, initial datasource
+             * return dbconfig name
+             */
+        initOrderHistoryDatabase: function(domId) {
+            domId = domId || 'datasources-menu';
+            let $menuObj = $('#'+domId);
+
+            let dbConfigName =  'order';
+
+            if ($menuObj.length) {
+                let menuObj = $menuObj[0];
+
+                // using history 
+                if (menuObj.selectedIndex > 0) {
+                
+                    let index = menuObj.selectedIndex-1;
+                    let data = this._orderHistoryDatabases[index];
+                    if (!data) return dbConfigName;
+
+                    dbConfigName = 'order_history';
+                    var orderDbConfig = GeckoJS.Configure.read('DATABASE_CONFIG.order') || {database: 'vivipos_order.sqlite'};
+                    let dbConfig = GREUtils.extend({},orderDbConfig, {path: data.dir, database: data.filename});
+
+                    let sourceList = GeckoJS.ConnectionManager.sourceList();
+                    let datasource = null;
+
+                    if (sourceList.indexOf(dbConfigName) != -1) {
+                        // close connection if exists and not the same file
+                        datasource = GeckoJS.ConnectionManager.getDataSource(dbConfigName);
+                        if (datasource.database != data.filename) {
+                            GeckoJS.ConnectionManager.getDataSource(dbConfigName).close();
+                            this.log('DEBUG', 'InitOrderHistoryDatabase close exists order_history: ' + datasource.database );
+                            datasource = null;
+                        }
+                    }
+
+                    // connect order_history datasource
+                    if (!datasource) {
+                        datasource = GeckoJS.ConnectionManager.getDataSourceByClass(orderDbConfig.classname, dbConfig);
+
+                        if (datasource) {
+                            // registry it with order_history
+                            GeckoJS.ConnectionManager.setDataSource(dbConfigName, datasource);
+                            this.log('DEBUG', 'InitOrderHistoryDatabase open order_history: ' + data.dir + '/' + data.filename);
+                        }else {
+                            dbConfigName = 'order';
+                            this.log('ERROR', 'Can not initOrderHistoryDatabase ' + data.dir + '/' + data.filename);
+                        }
+
+                    }else {
+                        this.log('DEBUG', 'InitOrderHistoryDatabase using exists order_history: ' + data.dir + '/' + data.filename);
+                    }
+                }
+            }
+            
+            return dbConfigName;
+
+        },
+
     };
     
     var RptBaseController = window.RptBaseController = GeckoJS.Controller.extend( __controller__ );

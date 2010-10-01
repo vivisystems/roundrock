@@ -28,8 +28,13 @@
 
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
-            
+
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var cashDrawer = new CashdrawerRecordModel();
+
+            cashDrawer.useDbConfig = useDbConfig; // udpate dbconfig
 
             var fields = [
                             'terminal_no',
