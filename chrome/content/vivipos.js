@@ -538,9 +538,14 @@
 
             GeckoJS.Configure.addEventListener('savePrefFile', this._registerListener);
             
+        },
+
+        restartApplicationKeyPress: function() {
+
+            GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS RESTART [USER PRESS RESTART]');
+            goRestartApplication();
+
         }
-
-
 
     };
 
