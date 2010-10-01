@@ -18,7 +18,12 @@
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
             
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var orderModel = new OrderModel();
+
+            orderModel.useDbConfig = useDbConfig; // udpate dbconfig
 
             var sortby = document.getElementById( 'sortby' ).value;
 

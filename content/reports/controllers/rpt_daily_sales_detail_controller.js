@@ -116,7 +116,12 @@
             	
             var sql = 'SELECT ' + fields + ' FROM ' + tables + ' WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT ' + limit + ';';
 
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var order = new OrderModel();
+
+            order.useDbConfig = useDbConfig; // udpate dbconfig
 
             var counts = order.getDataSource().fetchAll('SELECT count(id) as rowCount from (SELECT distinct (orders.id) ' + '  FROM '+ tables +' WHERE ' + conditions +')');
             var rowCount = counts[0].rowCount;

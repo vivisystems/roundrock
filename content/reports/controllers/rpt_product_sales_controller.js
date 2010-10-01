@@ -17,8 +17,13 @@
 
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
-            
+
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var orderItem = new OrderItemModel();
+
+            orderItem.useDbConfig = useDbConfig; // udpate dbconfig
 
             var fields = [
                 'order_items.product_no',
