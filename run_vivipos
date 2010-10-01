@@ -126,6 +126,7 @@ do_quick_check()
                             echo "$dbfile\t$QUICK_CHECK_ES\t$result" >> $DB_ERROR_FLAG
                             echo "$((CUR_PERCENT+2))"
                             echo "# ${MSG_RUN_VIVIPOS_REBUILDING}   ${dbname} \t ERROR"
+                            rm -f $dbfile.tmp
                             sleep 1
                         fi
 
