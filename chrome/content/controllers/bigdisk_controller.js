@@ -28,8 +28,8 @@
         _syncSettings: null,
         _syncSuspendStatusFile: '/tmp/sync_suspend_',
         
-        _limit_retain_txn: 30,
-        _limit_retain_inventory: 30,
+        _limit_retain_txn: 45,
+        _limit_retain_inventory: 45,
 
         initial: function(evt) {
             
