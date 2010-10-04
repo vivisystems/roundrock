@@ -208,6 +208,21 @@
                 }
             }
 
+            let databaseLabel = $('#databasesMenuLabel').val();
+            let databaseDesc = '';
+            let database = '';
+            let $menuObj = $('#datasources-menu');
+            if ($menuObj.length) {
+                let menuObj = $menuObj[0];
+                if (menuObj.selectedIndex >= 0) {
+                    databaseDesc = $(menuObj.selectedItem).attr('label');
+                    database = $(menuObj.selectedItem).val();
+                }
+            }
+            queryFormLabel['database_label'] = databaseLabel;
+            queryFormLabel['database'] = databaseDesc;
+            queryForm['database'] = database;
+
             this._reportRecords.queryForm = queryForm;
             this._reportRecords.queryFormLabel = queryFormLabel;
             /*@debug condition table*/
