@@ -31,6 +31,8 @@
                        <span class="heading_p">${queryFormLabel.returntype|escape}</span>
                        <span class="caption">${queryFormLabel.sortby_label|escape}</span>
                        <span class="heading_p">${queryFormLabel.sortby|escape}</span>
+                       <span class="caption">${queryFormLabel.database_label|escape}</span>
+                       <span class="heading_p">${queryFormLabel.database|escape}</span>
                 </td>
            </tr>
        </table>

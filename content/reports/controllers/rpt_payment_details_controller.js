@@ -80,9 +80,13 @@
 
             var orderby = 'order_payments.name, order_payments.created';
             
-            //var order = new OrderModel();
+           // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var orderPayment = new OrderPaymentModel();
 
+            orderPayment.useDbConfig = useDbConfig; // udpate dbconfig
+            
             var counts = orderPayment.getDataSource().fetchAll('SELECT count (*) as "rowCount" ' + '  FROM order_payments LEFT JOIN orders ON ("order_payments"."order_id" = "orders"."id" )  WHERE ' + conditions);
             var rowCount = counts[0].rowCount;
 

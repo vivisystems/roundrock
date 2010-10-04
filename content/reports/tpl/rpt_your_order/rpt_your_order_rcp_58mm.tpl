@@ -15,6 +15,7 @@ ${queryFormLabel.period_type_label}${queryFormLabel.period_type}
 ${queryFormLabel.status_label}${queryFormLabel.status}
 ${queryFormLabel.destination_label}${queryFormLabel.destination}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:24}
 {for detail in body}

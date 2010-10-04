@@ -8,6 +8,7 @@ ${head.start_time} ~ ${head.end_time}
 ${_('(rpt)Condition') + ' - '}
 ${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:42}
 {for item in body}

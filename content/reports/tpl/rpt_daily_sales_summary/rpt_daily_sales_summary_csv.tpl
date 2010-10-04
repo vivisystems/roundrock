@@ -13,6 +13,7 @@
 "${queryFormLabel.shift_no_label}","${queryFormLabel.shift_no}"
 "${queryFormLabel.period_type_label}","${queryFormLabel.period_type}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
 "${_( '(rpt)Terminal' )}","${_( '(rpt)Time' )}","${_( '(rpt)Number of Guests' )}","${_( '(rpt)Number of Items' )}","${_( '(rpt)Gross Sales' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Total' )}","${_( '(rpt)Payment' )}","${_( '(rpt)Cash' )}","${_( '(rpt)Check' )}","${_( '(rpt)Credit Card' )}","${_( '(rpt)Coupon' )}","${_( '(rpt)Gift Card' )}"
 {for detail in body}

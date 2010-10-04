@@ -13,6 +13,7 @@
 "${queryFormLabel.shiftno_label}","${queryFormLabel.shiftno}"
 "${queryFormLabel.periodtype_label}","${queryFormLabel.periodtype}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
 {for category in body.department}
 "'${category.no}","${category.name}"

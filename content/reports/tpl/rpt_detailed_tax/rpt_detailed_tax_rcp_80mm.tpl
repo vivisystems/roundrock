@@ -9,6 +9,7 @@ ${_('(rpt)Condition') + ' - '}
 ${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
 ${queryFormLabel.periodtype_label}${queryFormLabel.periodtype}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:42}
 {for item in body}

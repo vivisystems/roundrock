@@ -11,6 +11,7 @@ ${queryFormLabel.shift_no_label}${queryFormLabel.shift_no}
 ${queryFormLabel.period_type_label}${queryFormLabel.period_type}
 ${queryFormLabel.sequence_no_label}${queryFormLabel.sequence_no}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:42}
 {for detail in body}

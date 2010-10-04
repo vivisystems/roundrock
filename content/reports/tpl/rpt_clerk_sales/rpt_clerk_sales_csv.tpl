@@ -14,6 +14,7 @@
 "${queryFormLabel.period_type_label}","${queryFormLabel.period_type}"
 "${queryFormLabel.clerk_type_label}","${queryFormLabel.clerk_type}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
 {for clerk in body}
 ""

@@ -13,6 +13,7 @@ ${queryFormLabel.shiftno_label}${queryFormLabel.shiftno}
 ${queryFormLabel.periodtype_label}${queryFormLabel.periodtype}
 ${queryFormLabel.returntype_label}${queryFormLabel.returntype}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:24}
 {for category in body}

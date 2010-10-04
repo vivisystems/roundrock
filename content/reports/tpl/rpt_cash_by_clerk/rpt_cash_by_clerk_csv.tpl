@@ -11,6 +11,7 @@
 "${_('(rpt)Condition') + ' - '}"
 "${queryFormLabel.terminal_no_label}","${queryFormLabel.terminal_no}"
 "${queryFormLabel.shift_no_label}","${queryFormLabel.shift_no}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 {for master in body}
 ""
 "${master.terminal_no}","${master.starttime}","${master.endtime}"

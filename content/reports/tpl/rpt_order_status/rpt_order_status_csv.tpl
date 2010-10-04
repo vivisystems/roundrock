@@ -14,6 +14,7 @@
 "${queryFormLabel.period_type_label}","${queryFormLabel.period_type}"
 "${queryFormLabel.orderstatus_label}","${queryFormLabel.orderstatus}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
 "${_( '(rpt)Terminal' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Sale Period')}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Status' )}","${_( '(rpt)Void Clerk' )}","${_( '(rpt)Void Sale Period' )}","${_( '(rpt)Void Shift' )}","${_( '(rpt)Void Time' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Invoice Count' )}","${_( '(rpt)Gross Sales' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Total' )}","${_( '(rpt)Payment' )}"
 {for detail in body}
