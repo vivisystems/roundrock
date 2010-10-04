@@ -12,7 +12,7 @@
         _script_path: '',
         _data_path: '',
         _expire_batch_size: 500,
-        _expire_total_size: 100000,
+        _expire_total_size: 10000,
 
         _backup_system_script: 'bdb_backup.sh',
         _restore_system_script: 'bdb_restore.sh',
@@ -300,7 +300,7 @@
                             throw {
                                 errno: order.lastError,
                                 errstr: order.lastErrorString,
-                                errmsg: _('An error was encountered while expiring sales activity logs (error code %S) [message #1005].', [order.lastError])
+                                errmsg: _('An error was encountered while expiring sales activity logs (error code %S) [message #1005RR].', [order.lastError])
                             };
                         }
 
@@ -310,7 +310,7 @@
                                 throw {
                                     errno: order.lastError,
                                     errstr: order.lastErrorString,
-                                    errmsg: _('An error was encountered while expiring uniform invoice logs (error code %S) [message #9006]', [uiModel.lastError])
+                                    errmsg: _('An error was encountered while expiring uniform invoice logs (error code %S) [message #9006RR]', [uiModel.lastError])
                                 };
                             }
                         }
