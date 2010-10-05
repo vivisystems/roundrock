@@ -1,0 +1,5 @@
+/var/log/sync_log.db {
+    weekly
+    rotate 2
+    missingok
+}

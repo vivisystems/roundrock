@@ -1,0 +1,8 @@
+/var/log/sync_client.log {
+  rotate 4
+  weekly
+  compress
+  missingok
+  notifempty
+}
+

@@ -1,0 +1,8 @@
+/var/log/x.log {
+  rotate 2
+  weekly
+  compress
+  missingok
+  notifempty
+}
+
