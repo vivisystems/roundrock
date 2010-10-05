@@ -3,51 +3,9 @@
     if(typeof AppController == 'undefined') {
         include( 'chrome://viviecr/content/controllers/app_controller.js' );
     }
-
-    var __view__ = {
-
-        init: function(dir) {
-            this._dir = dir;
-
-            // only .png supported.
-            this.data = new GeckoJS.Dir.readDir(dir, {type: "f", name: /.png$/i}).sort(function(a, b) {
-                if (a.leafName < b.leafName) return -1; 
-                else if (a.leafName > b.leafName) return 1; 
-                else return 0;
-            });
-
-            var totalSize = 0;
-            this.fileCount = this.data.length;
-            this.data.forEach(function(file) {
-                totalSize += file.fileSize;
-            });
-            this._totalSize = totalSize;
-
-        },
-
-        getCurrentIndexData: function (row) {
-            return this.data[row];
-        },
-
-        getImageSrc: function(row, col) {
-
-                var val = this.getCellValue(row, col);
-
-                var aImageFile = "file://" + val + '?' + Math.random();
-
-                return aImageFile;
-        },
-        renderButton: function(row, btn) {
-
-            if (btn) {
-                btn.removeAttribute('checked');
-            }
-
-        }
-
-    };
-
-    var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend(__view__);
+    if(typeof ImageFilesView == 'undefined') {
+        include( 'chrome://viviecr/content/helpers/image_file_view.js' );
+    }
 
     var __controller__ = {
         name: 'ImageManager',

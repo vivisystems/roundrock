@@ -3,6 +3,9 @@
     if(typeof AppController == 'undefined') {
         include( 'chrome://viviecr/content/controllers/app_controller.js' );
     }
+    if(typeof ImageFilesView == 'undefined') {
+        include( 'chrome://viviecr/content/helpers/image_file_view.js' );
+    }
 
     var __controller__ = {
 
