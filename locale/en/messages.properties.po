@@ -13,11 +13,10 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-10-05 09:58+0800\n"
+"POT-Creation-Date: 2010-10-05 15:19+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3699,8 +3698,8 @@ msgstr ""
 
 #: ../..//content/controllers/admintools_controller.js:379
 msgid ""
-"Unable to re-initialize local index [sync_remote_machines] for datasource "
-"[%S]"
+"Unable to re-initialize local index [sync_remote_machines] for datasource [%"
+"S]"
 msgstr ""
 
 #: ../..//content/controllers/admintools_controller.js:385
@@ -4098,7 +4097,7 @@ msgid "Tax"
 msgstr ""
 
 #: ../..//content/controllers/barcode_learning_controller.js:54
-#: ../..//content/controllers/import_export_controller.js:2040
+#: ../..//content/controllers/import_export_controller.js:2045
 msgid "Department"
 msgstr ""
 
@@ -5115,8 +5114,8 @@ msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:279
 msgid ""
-"An error was encountered while saving cashdrawer access record (error code "
-"%S) [message #205]."
+"An error was encountered while saving cashdrawer access record (error code %"
+"S) [message #205]."
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:294
@@ -5882,8 +5881,8 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1605
 #: ../..//content/controllers/guest_check_controller.js:1660
 msgid ""
-"override minimum charge. override clerk (%S,%S), original minimum charge "
-"(%S), new minimum charge (%S), comp amount (%S)"
+"override minimum charge. override clerk (%S,%S), original minimum charge (%"
+"S), new minimum charge (%S), comp amount (%S)"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:1632
@@ -6258,7 +6257,7 @@ msgid "Export Error"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:133
-#: ../..//content/controllers/import_export_controller.js:817
+#: ../..//content/controllers/import_export_controller.js:822
 msgid "Import/Export already in progress"
 msgstr ""
 
@@ -6743,99 +6742,99 @@ msgstr ""
 msgid "(importexport_setitems)reduction"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:756
+#: ../..//content/controllers/import_export_controller.js:761
 msgid "License exists in \"%S\" folder. Overwrite it ?"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:777
-#: ../..//content/controllers/import_export_controller.js:918
-#: ../..//content/controllers/import_export_controller.js:2000
+#: ../..//content/controllers/import_export_controller.js:782
+#: ../..//content/controllers/import_export_controller.js:923
+#: ../..//content/controllers/import_export_controller.js:2005
 #: ../..//content/controllers/label_printing_controller.js:933
 #: ../..//content/controllers/label_printing_controller.js:945
 msgid "Yes"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:777
-#: ../..//content/controllers/import_export_controller.js:918
-#: ../..//content/controllers/import_export_controller.js:2000
+#: ../..//content/controllers/import_export_controller.js:782
+#: ../..//content/controllers/import_export_controller.js:923
+#: ../..//content/controllers/import_export_controller.js:2005
 msgid " (%S)"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:779
-#: ../..//content/controllers/import_export_controller.js:781
+#: ../..//content/controllers/import_export_controller.js:784
+#: ../..//content/controllers/import_export_controller.js:786
 msgid "Export of [%S] to file [%S] finished!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:787
-#: ../..//content/controllers/import_export_controller.js:789
+#: ../..//content/controllers/import_export_controller.js:792
+#: ../..//content/controllers/import_export_controller.js:794
 msgid "Failed to export [%S] to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:817
 #: ../..//content/controllers/import_export_controller.js:822
+#: ../..//content/controllers/import_export_controller.js:827
 msgid "Import Error"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:822
+#: ../..//content/controllers/import_export_controller.js:827
 msgid "Import device and/or folder not found [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:828
+#: ../..//content/controllers/import_export_controller.js:833
 msgid "Please select a data category to import"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:833
+#: ../..//content/controllers/import_export_controller.js:838
 msgid "Importing %S"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:930
+#: ../..//content/controllers/import_export_controller.js:935
 msgid "[message #601]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1221
+#: ../..//content/controllers/import_export_controller.js:1226
 msgid "Product Group item %S @ row %S requires a valid display order value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1357
+#: ../..//content/controllers/import_export_controller.js:1362
 msgid "Product item %S @ row %S requires a valid display mode value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1404
+#: ../..//content/controllers/import_export_controller.js:1409
 msgid "Product item %S @ row %S requires a valid display order value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1416
+#: ../..//content/controllers/import_export_controller.js:1421
 msgid "Product item %S @ row %S requires a valid stock unit"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1479
+#: ../..//content/controllers/import_export_controller.js:1484
 msgid "Department item %S @ row %S requires a valid display order value"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:2003
-#: ../..//content/controllers/import_export_controller.js:2004
+#: ../..//content/controllers/import_export_controller.js:2008
+#: ../..//content/controllers/import_export_controller.js:2009
 msgid "Import of [%S] from file [%S] finished!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:2015
-#: ../..//content/controllers/import_export_controller.js:2016
+#: ../..//content/controllers/import_export_controller.js:2020
+#: ../..//content/controllers/import_export_controller.js:2021
 msgid "Failed to import [%S] from file [%S]!"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:2048
+#: ../..//content/controllers/import_export_controller.js:2053
 msgid "Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:2056
+#: ../..//content/controllers/import_export_controller.js:2061
 msgid "Condiment"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:2064
+#: ../..//content/controllers/import_export_controller.js:2069
 #: ../..//content/controllers/plus_controller.js:588
 msgid "Product Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:2072
+#: ../..//content/controllers/import_export_controller.js:2077
 msgid "Product"
 msgstr ""
 
@@ -7163,8 +7162,8 @@ msgstr ""
 
 #: ../..//content/controllers/ledger_controller.js:104
 msgid ""
-"An error was encountered while expiring backup ledger receipts (error code "
-"%S) [messages #803]."
+"An error was encountered while expiring backup ledger receipts (error code %"
+"S) [messages #803]."
 msgstr ""
 
 #: ../..//content/controllers/ledger_controller.js:111
@@ -8436,8 +8435,8 @@ msgstr ""
 msgid "Table [%S] is not available for transfer. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_template_controller.js:56
-#: ../..//content/controllers/select_template_controller.js:59
+#: ../..//content/controllers/select_template_controller.js:58
+#: ../..//content/controllers/select_template_controller.js:61
 msgid "Select Barcode Type"
 msgstr ""
 
@@ -8478,14 +8477,14 @@ msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:626
 msgid ""
-"An error was encountered while accessing administrator account (error code "
-"%S) [message #1302]."
+"An error was encountered while accessing administrator account (error code %"
+"S) [message #1302]."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:634
 msgid ""
-"An error was encountered while updating administrator password (error code "
-"%S) [message #1303]."
+"An error was encountered while updating administrator password (error code %"
+"S) [message #1303]."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:647
@@ -8708,8 +8707,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:765
 msgid ""
-"An error was encountered while retrieving cash payment records (error code "
-"%S) [message #1413]."
+"An error was encountered while retrieving cash payment records (error code %"
+"S) [message #1413]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:792
@@ -8756,8 +8755,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:981
 msgid ""
-"An error was encountered while computing cash and ledger sums (error code "
-"%S) [message #1418]."
+"An error was encountered while computing cash and ledger sums (error code %"
+"S) [message #1418]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1000
@@ -8798,8 +8797,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1114
 msgid ""
-"An error was encountered while computing ledger cash received (error code "
-"%S) [message #1424]."
+"An error was encountered while computing ledger cash received (error code %"
+"S) [message #1424]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1133
@@ -9003,8 +9002,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:302
 msgid ""
-"An error was encountered while inserting product stock records (error code "
-"%S) [message #1603]."
+"An error was encountered while inserting product stock records (error code %"
+"S) [message #1603]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:334
@@ -9082,8 +9081,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:616
 msgid ""
-"An error was encountered while saving stock adjustment records (error code "
-"%S) [message #1611]."
+"An error was encountered while saving stock adjustment records (error code %"
+"S) [message #1611]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:649
@@ -9094,8 +9093,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:657
 msgid ""
-"An error was encountered while saving stock adjustment details (error code "
-"%S) [message #1613]."
+"An error was encountered while saving stock adjustment details (error code %"
+"S) [message #1613]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:668
@@ -9709,8 +9708,8 @@ msgstr ""
 
 #: ../..//content/controllers/userprefs_controller.js:115
 msgid ""
-"Are you sure you want to restore user preferences from the selected backup "
-"[%S]? If you choose to proceed with recovery, application will restart "
+"Are you sure you want to restore user preferences from the selected backup [%"
+"S]? If you choose to proceed with recovery, application will restart "
 "immediately."
 msgstr ""
 
@@ -9980,29 +9979,29 @@ msgstr ""
 
 #: ../..//content/models/ledger_record.js:46
 msgid ""
-"An error was encountered while expiring ledger payment records (error code "
-"%S) ."
+"An error was encountered while expiring ledger payment records (error code %"
+"S) ."
 msgstr ""
 
 #: ../..//content/models/ledger_record.js:54
 #: ../..//content/models/ledger_record.js:61
 msgid ""
-"An error was encountered while expiring ledger activity logs (error code "
-"%S) ."
+"An error was encountered while expiring ledger activity logs (error code %"
+"S) ."
 msgstr ""
 
 #: ../..//content/models/shift_change.js:109
 #: ../..//content/models/shift_change.js:116
 msgid ""
-"An error was encountered while expiring shift change records (error code "
-"%S) ."
+"An error was encountered while expiring shift change records (error code %"
+"S) ."
 msgstr ""
 
 #: ../..//content/models/shift_change_detail.js:78
 #: ../..//content/models/shift_change_detail.js:85
 msgid ""
-"An error was encountered while expiring shift change details (error code "
-"%S) ."
+"An error was encountered while expiring shift change details (error code %"
+"S) ."
 msgstr ""
 
 #: ../..//content/models/transaction.js:1500
