@@ -1,0 +1,14 @@
+/var/log/lighttpd/*.log {
+        weekly
+        missingok
+	copytruncate
+        rotate 4
+        compress
+        notifempty
+        sharedscripts
+        postrotate
+           if [ -f /var/run/lighttpd.pid ] && ps --pid $(cat /var/run/lighttpd.pid) > /dev/null 2>&1; then \
+	      restart --no-wait lighttpd
+           fi;
+        endscript
+}
