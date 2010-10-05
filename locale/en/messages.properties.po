@@ -13,10 +13,11 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-10-04 13:42+0800\n"
+"POT-Creation-Date: 2010-10-05 09:58+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3698,8 +3699,8 @@ msgstr ""
 
 #: ../..//content/controllers/admintools_controller.js:379
 msgid ""
-"Unable to re-initialize local index [sync_remote_machines] for datasource [%"
-"S]"
+"Unable to re-initialize local index [sync_remote_machines] for datasource "
+"[%S]"
 msgstr ""
 
 #: ../..//content/controllers/admintools_controller.js:385
@@ -5114,8 +5115,8 @@ msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:279
 msgid ""
-"An error was encountered while saving cashdrawer access record (error code %"
-"S) [message #205]."
+"An error was encountered while saving cashdrawer access record (error code "
+"%S) [message #205]."
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:294
@@ -5881,8 +5882,8 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1605
 #: ../..//content/controllers/guest_check_controller.js:1660
 msgid ""
-"override minimum charge. override clerk (%S,%S), original minimum charge (%"
-"S), new minimum charge (%S), comp amount (%S)"
+"override minimum charge. override clerk (%S,%S), original minimum charge "
+"(%S), new minimum charge (%S), comp amount (%S)"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:1632
@@ -7162,8 +7163,8 @@ msgstr ""
 
 #: ../..//content/controllers/ledger_controller.js:104
 msgid ""
-"An error was encountered while expiring backup ledger receipts (error code %"
-"S) [messages #803]."
+"An error was encountered while expiring backup ledger receipts (error code "
+"%S) [messages #803]."
 msgstr ""
 
 #: ../..//content/controllers/ledger_controller.js:111
@@ -8477,14 +8478,14 @@ msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:626
 msgid ""
-"An error was encountered while accessing administrator account (error code %"
-"S) [message #1302]."
+"An error was encountered while accessing administrator account (error code "
+"%S) [message #1302]."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:634
 msgid ""
-"An error was encountered while updating administrator password (error code %"
-"S) [message #1303]."
+"An error was encountered while updating administrator password (error code "
+"%S) [message #1303]."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:647
@@ -8707,8 +8708,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:765
 msgid ""
-"An error was encountered while retrieving cash payment records (error code %"
-"S) [message #1413]."
+"An error was encountered while retrieving cash payment records (error code "
+"%S) [message #1413]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:792
@@ -8755,8 +8756,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:981
 msgid ""
-"An error was encountered while computing cash and ledger sums (error code %"
-"S) [message #1418]."
+"An error was encountered while computing cash and ledger sums (error code "
+"%S) [message #1418]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1000
@@ -8797,8 +8798,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1114
 msgid ""
-"An error was encountered while computing ledger cash received (error code %"
-"S) [message #1424]."
+"An error was encountered while computing ledger cash received (error code "
+"%S) [message #1424]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1133
@@ -9002,8 +9003,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:302
 msgid ""
-"An error was encountered while inserting product stock records (error code %"
-"S) [message #1603]."
+"An error was encountered while inserting product stock records (error code "
+"%S) [message #1603]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:334
@@ -9081,8 +9082,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:616
 msgid ""
-"An error was encountered while saving stock adjustment records (error code %"
-"S) [message #1611]."
+"An error was encountered while saving stock adjustment records (error code "
+"%S) [message #1611]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:649
@@ -9093,8 +9094,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:657
 msgid ""
-"An error was encountered while saving stock adjustment details (error code %"
-"S) [message #1613]."
+"An error was encountered while saving stock adjustment details (error code "
+"%S) [message #1613]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:668
@@ -9708,8 +9709,8 @@ msgstr ""
 
 #: ../..//content/controllers/userprefs_controller.js:115
 msgid ""
-"Are you sure you want to restore user preferences from the selected backup [%"
-"S]? If you choose to proceed with recovery, application will restart "
+"Are you sure you want to restore user preferences from the selected backup "
+"[%S]? If you choose to proceed with recovery, application will restart "
 "immediately."
 msgstr ""
 
@@ -9979,29 +9980,29 @@ msgstr ""
 
 #: ../..//content/models/ledger_record.js:46
 msgid ""
-"An error was encountered while expiring ledger payment records (error code %"
-"S) ."
+"An error was encountered while expiring ledger payment records (error code "
+"%S) ."
 msgstr ""
 
 #: ../..//content/models/ledger_record.js:54
 #: ../..//content/models/ledger_record.js:61
 msgid ""
-"An error was encountered while expiring ledger activity logs (error code %"
-"S) ."
+"An error was encountered while expiring ledger activity logs (error code "
+"%S) ."
 msgstr ""
 
 #: ../..//content/models/shift_change.js:109
 #: ../..//content/models/shift_change.js:116
 msgid ""
-"An error was encountered while expiring shift change records (error code %"
-"S) ."
+"An error was encountered while expiring shift change records (error code "
+"%S) ."
 msgstr ""
 
 #: ../..//content/models/shift_change_detail.js:78
 #: ../..//content/models/shift_change_detail.js:85
 msgid ""
-"An error was encountered while expiring shift change details (error code %"
-"S) ."
+"An error was encountered while expiring shift change details (error code "
+"%S) ."
 msgstr ""
 
 #: ../..//content/models/transaction.js:1500
