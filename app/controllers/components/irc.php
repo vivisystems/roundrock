@@ -143,6 +143,7 @@ class IrcComponent extends Object {
             $this->prefsJs = $prefsJs;
             return $this->prefsJs;
         }else {
+            CakeLog::write('warning', '[IRC] Can not getPrefsJs file not found ' . $this->profilePath."/prefs.js");
             return "";
         }
 
@@ -231,6 +232,7 @@ class IrcComponent extends Object {
             return $folder->delete();
 
         }else {
+            CakeLog::write('warning', '[IRC] Can not removeWorkingDir ' . $workingDir);
             return false;
         }
 
@@ -479,6 +481,10 @@ class IrcComponent extends Object {
                 break;
         }
 
+        if (empty($result)) {
+            CakeLog::write('warning', '[IRC] Can not processDbAction ' . $workingDir ." , " . $mode . " , " . $database . " , " . $table );
+        }
+
         return $result;
 
 
@@ -533,6 +539,10 @@ class IrcComponent extends Object {
                 break;
         }
 
+        if (empty($result)) {
+            CakeLog::write('warning', '[IRC] Can not processPrefAction ' . $workingDir ." , " . $mode );
+        }
+
         return $result;
 
     }
@@ -581,6 +591,10 @@ class IrcComponent extends Object {
                 
                 break;
 
+        }
+
+        if (empty($result)) {
+            CakeLog::write('warning', '[IRC] Can not processFileAction ' . $workingDir ." , " . $mode . " , " . $file);
         }
 
         return $result;
@@ -658,8 +672,9 @@ class IrcComponent extends Object {
 
         if (file_exists($actionsFile)) {
             $unpackActions = json_decode(file_get_contents($actionsFile), true);
-        }
-
+        } else {
+            CakeLog::write('warning', '[IRC] UnpackTbzPackage warn actions.json in  ' . $workingDir ." , " . $tbzFile);
+         }
         return $unpackActions;
 
     }
@@ -679,13 +694,14 @@ class IrcComponent extends Object {
         $tbzUnpackLogFile = $tbzFile . ".unpacklog.json";
 
         // lock statusFile
-        $fp = fopen($tbzUnpackLogFile, "w");
+        $fp = fopen($packagesQueuePath.$tbzUnpackLogFile, "w");
 
         if (flock($fp, LOCK_EX)) {
             file_put_contents($packagesQueuePath.$tbzUnpackLogFile, json_encode($unpackLogs));
             flock($fp, LOCK_UN);
         }else {
             // error log
+            CakeLog::write('warning', '[IRC] saveUnpackPackageLog error  in  ' . $tbzFile);
         }
         
         fclose($fp);
