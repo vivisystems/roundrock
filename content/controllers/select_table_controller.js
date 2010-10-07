@@ -759,7 +759,7 @@
                 return;
             }
 
-            if(this.tableSettings.tableAutoRecallOneOrder)
+            if(this.tableSettings.AutoRecallOnlyOneOrder)
                 if( GeckoJS.BaseObject.getKeys(tableStatus.OrdersById).length == 1)
                     this.recallOrder(GeckoJS.BaseObject.getKeys(tableStatus.OrdersById)[0]);
 

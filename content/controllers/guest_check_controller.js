@@ -84,6 +84,10 @@
                 }
 
             }
+            
+            // register popup table panel idle timer for popup
+            this.registerPopupTablePanelIdle();
+
             GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo', (this.tableSettings.RequireCheckNo || false), false );
         },
 
@@ -1690,30 +1694,15 @@
          * @param {Object} evt
          */
         onCartOnSubmitSuccess: function(evt) {
-
-            if (this.tableSettings.TableWinAsFirstWin) {
-
-                    var idle = GeckoJS.Controller.getInstanceByName('Idle');
-                    idle.unregister('popTablePanel');
-
-                    var poptablepanel = GeckoJS.Configure.read('vivipos.fec.settings.tableman.checkbox_poptablepanelIdleTime') || false;
-                    var idletime = GeckoJS.Configure.read('vivipos.fec.settings.tableman.textbox_poptablepanelIdleTime') || 0;
-
-                    var self=this;
-
-                    var cartController = this.getCartController();
-
-                    if (poptablepanel && idletime > 0) {
-
-                        idle.register('popTablePanel', idletime, function(){
-
-                           if(!cartController.ifHavingOpenedOrder()){
-                               self.popupTableSelectorPanel();
-                               idle.unregister('popTablePanel');
-                           }
-                        });
-                    }
+        
+            var popupTable = this.tableSettings.TableWinAsFirstWin || false;
+            var idleTime = this.tableSettings.PopupTablePanelIdleTime || 0;
+            var cartController = this.getCartController();
+            
+            if (popupTable && idleTime <= 0 && !cartController.ifHavingOpenedOrder()) {
+                this.popupTableSelectorPanel();
             }
+
         },
 
 
@@ -1735,11 +1724,11 @@
                 let result = this.Order.releaseOrderLock(orderId);
             }
 
-            if (this.tableSettings.TableWinAsFirstWin) {
-                // newTable always create new transaction object
-                //this.newTable();
+            var popupTable = this.tableSettings.TableWinAsFirstWin || false;
+            var idleTime = this.tableSettings.PopupTablePanelIdleTime || 0;
+            var cartController = this.getCartController();
 
-                // just popup table selector
+            if (popupTable && idleTime <= 0 && !cartController.ifHavingOpenedOrder()) {
                 this.popupTableSelectorPanel();
             }
 
@@ -2479,7 +2468,32 @@
         },
 
         destroy: function() {
+        },
+
+
+        /**
+         * registerPopupTablePanelIdle
+         */
+        registerPopupTablePanelIdle: function() {
+
+            var popupTable = this.tableSettings.TableWinAsFirstWin || false;
+            var idleTime = this.tableSettings.PopupTablePanelIdleTime || 0;
+            var cartController = this.getCartController();
+            var idle = GeckoJS.Controller.getInstanceByName('Idle');
+
+            idle.unregister('popupTablePanel');
+
+            var self=this;
+            if (popupTable && idleTime > 0) {
+                idle.register('popupTablePanel', idleTime, function() {
+                    if(!cartController.ifHavingOpenedOrder()) {
+                        self.popupTableSelectorPanel();
+                    }
+                });
+            }
+
         }
+
 
 
     };
