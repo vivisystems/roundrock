@@ -141,23 +141,23 @@ do_data_sqfs() {
     echo
     echo "* Cleaning up profile databases:"
 
-    if [ -f ${ROOTFS_DIR}/data/profile/cookies.sqlite ]; then
+    if [ -d ${ROOTFS_DIR}/data/profile/cookies.sqlite-journal ]; then
 	echo "  - /data/profile/cookies.sqlite"
-	rm -f ${ROOTFS_DIR}/data/profile/cookies.sqlite
+	rm -rf ${ROOTFS_DIR}/data/profile/cookies.sqlite
 	rm -f ${ROOTFS_DIR}/data/profile/cookies.sqlite-journal/__db.*
 	rm -f ${ROOTFS_DIR}/data/profile/cookies.sqlite-journal/log.*
     fi
 
-    if [ -f ${ROOTFS_DIR}/data/profile/permissions.sqlite ]; then
+    if [ -d ${ROOTFS_DIR}/data/profile/permissions.sqlite-journal ]; then
 	echo "  - /data/profile/permissions.sqlite"
-	rm -f ${ROOTFS_DIR}/data/profile/permissions.sqlite
+	rm -rf ${ROOTFS_DIR}/data/profile/permissions.sqlite
 	rm -f ${ROOTFS_DIR}/data/profile/permissions.sqlite-journal/__db.*
 	rm -f ${ROOTFS_DIR}/data/profile/permissions.sqlite-journal/log.*
     fi
 
-    if [ -f ${ROOTFS_DIR}/data/profile/places.sqlite ]; then
+    if [ -d ${ROOTFS_DIR}/data/profile/places.sqlite-journal ]; then
 	echo "  - /data/profile/places.sqlite"
-	rm -f ${ROOTFS_DIR}/data/profile/places.sqlite
+	rm -rf ${ROOTFS_DIR}/data/profile/places.sqlite
 	rm -f ${ROOTFS_DIR}/data/profile/places.sqlite-journal/__db.*
 	rm -f ${ROOTFS_DIR}/data/profile/places.sqlite-journal/log.*
     fi
