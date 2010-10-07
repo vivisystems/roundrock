@@ -220,6 +220,10 @@ class SyncClientShell extends SyncBaseShell {
         $hostname = empty($syncSettings['hostname']) ? 'localhost' : $syncSettings['hostname'];
         $process_type = $syncSettings['process_type'];
 
+        // remove status from tmp
+        $this->removeSyncStatus();
+        $this->removeSyncRequest();
+
         $shell =& $this;
 
         // use shell script, so we don't need db connection
