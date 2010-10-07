@@ -1709,7 +1709,6 @@
 
                            if(!cartController.ifHavingOpenedOrder()){
                                self.popupTableSelectorPanel();
-                               cartController.registerClearCartIdle();
                                idle.unregister('popTablePanel');
                            }
                         });

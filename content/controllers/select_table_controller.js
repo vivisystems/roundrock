@@ -759,7 +759,7 @@
                 return;
             }
 
-            if(GeckoJS.Configure.read('vivipos.fec.settings.tableman.autorecalloneorder'))
+            if(this.tableSettings.tableAutoRecallOneOrder)
                 if( GeckoJS.BaseObject.getKeys(tableStatus.OrdersById).length == 1)
                     this.recallOrder(GeckoJS.BaseObject.getKeys(tableStatus.OrdersById)[0]);
 

@@ -470,13 +470,13 @@
                                                 </columns>
                                                 <rows>
                                                     <row>
-                                                        <checkbox id="tableAutoRecallOneOrder" label="&tableman.tableoptions.table_auto_recall_oneorder;" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.tableman.autorecalloneorder', this.checked);" />
+                                                        <checkbox id="tableAutoRecallOneOrder" label="&tableman.tableoptions.table_auto_recall_oneorder;" form="settingsForm" name="tableAutoRecallOneOrder" />
                                                     
                                                     </row>
                                                     <row>
                                                         <hbox>
-                                                            <checkbox id="checkbox_poptablepanelIdleTime" label="&tableman.tableoptions.popTablePanelIdelTime;"/>
-                                                            <textbox  id="textbox_poptablepanelIdleTime" type="number" size="3" maxlength="3" min="0" max="999"/>
+                                                            <label  value="&tableman.tableoptions.popTablePanelIdelTime;"/>
+                                                            <textbox  id="textbox_poptablepanelIdleTime" type="number" size="3" maxlength="3" min="0" max="999" form="settingsForm" name="textbox_poptablepanelIdleTime"/>
                                                         </hbox>
                                                     </row>
                                                 </rows>
