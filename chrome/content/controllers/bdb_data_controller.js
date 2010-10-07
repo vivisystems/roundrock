@@ -98,7 +98,6 @@
         },
 
         initial: function(evt) {
-            
             // set up various paths
             this._data_path = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
             this._script_path =  GREUtils.File.chromeToPath(this._script_url);
@@ -201,22 +200,21 @@
             }
         },
 
-        // @backupToRemote:
+        // @backupToExternal:
         //
         // parms should be an array with two elements:
         //
         // parms[0]: reference to the built-in system backup controller
         // parms[1]: reference to the system backup document
         //
-        backupToRemote: function(parms) {
-
+        backupToExternal: function(parms) {
             var env = parms[0];
             var doc = parms[1];
 
             if (env._busy) return;
             env._busy = true;
 
-            var waitPanel = env._showWaitPanel(_('Backing Up Data to Local Storage'));
+            var waitPanel = env._showWaitPanel(_('Backing Up Data to External Storage'));
             var withProfile = doc.getElementById('backupWithProfile').checked ;
 
             env.setButtonState();
@@ -230,7 +228,7 @@
             }
 
             // log user process
-            this.log('FATAL', 'backupToRemote withProfile: [' + withProfile +']');
+            this.log('FATAL', 'backupToExternal withProfile: [' + withProfile +']');
 
             env.flushPrefs(); // flush it.
 
@@ -239,16 +237,16 @@
 
             var script = this._script_path + '/' + this._backup_system_script;
             let evt_data = {script: script, args: args, skip: false};
-            if (this.dispatchEvent('beforeBackupToRemote', evt_data)) {
+            if (this.dispatchEvent('beforeBackupToExternal', evt_data)) {
                 script = evt_data.script;
                 args = evt_data.args;
 
                 this.log('DEBUG', 'backup script [' + script + ']');
                 this.log('DEBUG', 'backup args [' + this.dump(args) + ']');
-
+                
                 if (evt_data.skip || this._execute(script, args)) {
                     this._execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
-                    NotifyUtils.info(_('<Backup to Local Storage> is done'));
+                    NotifyUtils.info(_('<Backup to External Storage> is done'));
                 }
             }
             env.refresh();
@@ -369,7 +367,7 @@
                 this.sleep(200);
 
                 // step 5: create new DB
-                if (!this._execute('/bin/sh', ['-c', this._sqlite3 + ' ' + database_file + ' ".read ' + schema_file + '"'])) {
+                if (!this._execute('/bin/sh', ['-c', 'cd "' + ds.path + '"; ' + this._sqlite3 + ' ' + database_file + ' ".read ' + schema_file + '"'])) {
                     throw _('step 5');
                 }
                 GeckoJS.File.remove(schema_file);
@@ -391,7 +389,8 @@
                 this.sleep(200);
 
                 // step 8: change permission
-                if (!this._execute('/bin/sh', ['-c', '/bin/chmod 0664 ' + database_file]) ||
+                if (!this._execute('/bin/sh', ['-c', '/bin/chmod 0775 ' + database_file]) ||
+                    !this._execute('/bin/sh', ['-c', '/bin/chmod 0664 ' + database_file + '/*']) ||
                     !this._execute('/bin/sh', ['-c', '/bin/chmod 0775 ' + database_file + '-journal']) ||
                     !this._execute('/bin/sh', ['-c', '/bin/chmod 0664 ' + database_file + '-journal/*'])) {
                     throw _('step 8');
