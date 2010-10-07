@@ -6,7 +6,7 @@
 #
 
 BASE_DIR=`dirname $0`
-ROOTFS_DIR=${BASE_DIR}/rootfs
+ROOTFS_DIR=`cd "$BASE_DIR"; pwd`/rootfs
 SQUASHFS_DIR=${BASE_DIR}/squashfs
 DIST_DIR=${BASE_DIR}/distfs
 TGZ_DIR=${BASE_DIR}/tgz
@@ -20,7 +20,7 @@ NOW=`date +%Y%m%d`
 #MKSQUASHFS=/home/rack/bin/mksquashfs-3.4
 MKSQUASHFS=mksquashfs
 
-DRI_DRIVERS="intel vmware"
+DRI_DRIVERS="i915"
 DRI_LIBS="/usr/lib/dri"
 
 XORG_VIDEO_DRIVERS="intel vmware"
@@ -63,6 +63,8 @@ do_removetmp() {
     rm -f ${ROOTFS_DIR}/data/profile/Cache/*
 
     rm -f ${ROOTFS_DIR}/data/vivipos_sdk/components/*.dat
+
+    rm -f ${ROOTFS_DIR}/data/vivipos_sdk/log/*.log
 
     rm -f ${ROOTFS_DIR}/data/profile/*.dat
 
@@ -136,8 +138,32 @@ do_data_sqfs() {
 	rm ${SQUASHFS_DIR}/data.sqfs
     fi
 
+    echo
+    echo "* Cleaning up profile databases:"
+
+    if [ -d ${ROOTFS_DIR}/data/profile/cookies.sqlite-journal ]; then
+	echo "  - /data/profile/cookies.sqlite"
+	rm -rf ${ROOTFS_DIR}/data/profile/cookies.sqlite
+	rm -f ${ROOTFS_DIR}/data/profile/cookies.sqlite-journal/__db.*
+	rm -f ${ROOTFS_DIR}/data/profile/cookies.sqlite-journal/log.*
+    fi
+
+    if [ -d ${ROOTFS_DIR}/data/profile/permissions.sqlite-journal ]; then
+	echo "  - /data/profile/permissions.sqlite"
+	rm -rf ${ROOTFS_DIR}/data/profile/permissions.sqlite
+	rm -f ${ROOTFS_DIR}/data/profile/permissions.sqlite-journal/__db.*
+	rm -f ${ROOTFS_DIR}/data/profile/permissions.sqlite-journal/log.*
+    fi
+
+    if [ -d ${ROOTFS_DIR}/data/profile/places.sqlite-journal ]; then
+	echo "  - /data/profile/places.sqlite"
+	rm -rf ${ROOTFS_DIR}/data/profile/places.sqlite
+	rm -f ${ROOTFS_DIR}/data/profile/places.sqlite-journal/__db.*
+	rm -f ${ROOTFS_DIR}/data/profile/places.sqlite-journal/log.*
+    fi
+
     ${MKSQUASHFS} ${ROOTFS_DIR}/data/vivipos_sdk \
-    		  ${ROOTFS_DIR}/data/profile \
+		  ${ROOTFS_DIR}/data/profile \
 		  ${ROOTFS_DIR}/data/scripts \
 		  ${SQUASHFS_DIR}/data.sqfs \
 		  -ef ${BASE_DIR}/exclude_from_sqfs \
@@ -195,7 +221,7 @@ do_mount_encrypted() {
 
     echo "* Mapping $DISTFS_LABEL to encrypted file system on $partition"
 
-    cryptsetup --verbose --verify-passphrase \
+    cryptsetup --verbose \
     	       --cipher=aes-cbc-essiv:sha256 --hash=ripemd160 --key-size=256 \
 	       create $DISTFS_LABEL $partition
 
@@ -305,6 +331,9 @@ do_dist() {
  
     echo "* Setting up fstab for dist file system"
     cp "${ROOTFS_DIR}/etc/fstab.sqfs" "${DIST_DIR}/etc/fstab"
+
+    echo "* Setting up resolv.conf for dist file system"
+    cp "${ROOTFS_DIR}/etc/resolv.conf.dist" "${DIST_DIR}/etc/resolv.conf"
 
     chmod 755 "${DIST_DIR}/home/squashfs/"*
 
