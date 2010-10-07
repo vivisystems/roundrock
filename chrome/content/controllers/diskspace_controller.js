@@ -135,7 +135,7 @@
             GREUtils.File.remove(statusFile);
             
             let available = -1;     // failed to run
-            let script = "df -B 1 /data/databases | grep / | awk -F' ' '{ print $2 }' > " + statusFile;
+            let script = "LC_ALL=c df -B 1 /data/databases | grep -v Filesystem | awk -F' ' '{ print $2 }' > " + statusFile;
             if (this._execute('/bin/sh', ['-c', script])) {
                 // read integrity check status from status file
                 if (GeckoJS.File.exists(statusFile)) {
