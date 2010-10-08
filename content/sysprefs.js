@@ -156,6 +156,9 @@ function dismissWaitingPanel() {
 }
 
 function closePreferences() {
+
+    checkClearCartIdleTime();
+    
     try {
 
         // mainWindow register promotions rules
@@ -180,4 +183,13 @@ function closePreferences() {
 function setVolume(volume, silent) {
     if (silent == null) silent = true;
     $do('setVolume', [volume * 10, silent], 'Sound');
+}
+
+function checkClearCartIdleTime() {
+    var idleTime = $('#clearcart_idletime').val();
+    if (idleTime >0 && idleTime <5) {
+        alert(_('Clear Cart Idle Time MUST be 0 for disabled or greater then 5 secs.'));
+        $('#clearcart_idletime').val(5);
+        GeckoJS.Configure.write('vivipos.fec.settings.ClearCartIdleTime', 5);
+    }
 }

@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-10-08 09:45+0800\n"
+"POT-Creation-Date: 2010-10-08 10:07+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3418,12 +3418,16 @@ msgstr ""
 msgid "Rebuilding databases..."
 msgstr ""
 
-#: ../..//content/sysprefs.js:171
+#: ../..//content/sysprefs.js:174
 msgid "General Options"
 msgstr ""
 
-#: ../..//content/sysprefs.js:171
+#: ../..//content/sysprefs.js:174
 msgid "General options saved"
+msgstr ""
+
+#: ../..//content/sysprefs.js:191
+msgid "Clear Cart Idle Time MUST be 0 for disabled or greater then 5 secs."
 msgstr ""
 
 #: ../..//content/controllers/aclgroups_controller.js:57
@@ -9543,34 +9547,39 @@ msgstr ""
 msgid "Table status [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1043
+#: ../..//content/controllers/table_man_controller.js:1045
 msgid "Options saved successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1050
+#: ../..//content/controllers/table_man_controller.js:1052
 msgid "Clone Table Management Options"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1051
+#: ../..//content/controllers/table_man_controller.js:1053
 msgid "Table management options will be cloned from the table status server."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1051
+#: ../..//content/controllers/table_man_controller.js:1053
 msgid "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1145
+#: ../..//content/controllers/table_man_controller.js:1147
 msgid ""
 "Modification of tables and regions requires system restart to take effect."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1146
+#: ../..//content/controllers/table_man_controller.js:1148
 msgid ""
 "The system will restart automatically after you return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:1147
+#: ../..//content/controllers/table_man_controller.js:1149
 msgid "Table Manager"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:1249
+msgid ""
+"Popup Table Panel Idle Time MUST be 0 for disabled or greater then 5 secs."
 msgstr ""
 
 #: ../..//content/controllers/taxes_controller.js:93

@@ -982,6 +982,8 @@
          */
         saveTableSettings: function() {
 
+            this.checkPopupTablePanelIdleTime();
+            
             // get form values , only checked
             var settings = this.Form.serializeToObject('settingsForm', true);
 
@@ -1239,6 +1241,14 @@
                 document.getElementById('clone_settings_from_master').setAttribute('hidden', true);
             }
 
+        },
+
+        checkPopupTablePanelIdleTime : function() {
+            var idleTime = $('#popupTablePanelIdleTime').val();
+            if (idleTime >0 && idleTime <5) {
+                alert(_('Popup Table Panel Idle Time MUST be 0 for disabled or greater then 5 secs.'));
+                $('#popupTablePanelIdleTime').val(5);
+            }
         }
 
 

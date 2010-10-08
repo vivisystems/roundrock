@@ -92,7 +92,7 @@
                     </vbox>
                     <vbox>
                         <label control="idletime" value="&general.idletime;"/>
-                        <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="10" max="999"/>
+                        <textbox preference="pref_idletime" id="idletime" type="number" size="4" maxlength="4" min="10" max="9999"/>
                     </vbox>
                 </row>
                 <row>
