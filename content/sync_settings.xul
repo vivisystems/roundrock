@@ -222,7 +222,7 @@
 
                                 <row>
                                     <label value="&sync_settings.label.retain_days;"/>
-                                    <vivitextbox type="number" size="2" min="1" max="30"
+                                    <vivitextbox type="number" size="2" min="1" max="10"
                                                  numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                  form="syncSettingForm" name="retain_days"/>
                                 </row>
