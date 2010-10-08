@@ -273,6 +273,9 @@
          *
          */
         popupTableSelectorPanel: function() {
+            
+            // not initialized after main controller
+            if (!this._mainFirstLoaded) return '';
 
             var inputObj = {
                 isNewOrder: true,
@@ -1745,10 +1748,9 @@
         onMainFirstLoad: function(evt) {
 
             if (this.tableSettings.TableWinAsFirstWin) {
-                // newTable always create new transaction object
-                //this.newTable();
 
                 this._mainFirstLoaded = true;
+
                 // just popup table selector
                 this.popupTableSelectorPanel();
             }
@@ -2489,7 +2491,6 @@
             var self=this;
             if (popupTable && idleTime > 0) {
                 idle.register('popupTablePanel', idleTime, function() {
-                    if (!self._mainFirstLoaded) return ; // not initialized after main controller
                     if(!cartController.ifHavingOpenedOrder()) {
                         self.popupTableSelectorPanel();
                     }
