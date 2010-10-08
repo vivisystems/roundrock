@@ -18,6 +18,8 @@
 
         _waitStoreFlag: false,
 
+        _mainFirstLoaded: false,
+
         initial: function() {
 
             // add cart events
@@ -1746,6 +1748,7 @@
                 // newTable always create new transaction object
                 //this.newTable();
 
+                this._mainFirstLoaded = true;
                 // just popup table selector
                 this.popupTableSelectorPanel();
             }
@@ -2486,6 +2489,7 @@
             var self=this;
             if (popupTable && idleTime > 0) {
                 idle.register('popupTablePanel', idleTime, function() {
+                    if (!self._mainFirstLoaded) return ; // not initialized after main controller
                     if(!cartController.ifHavingOpenedOrder()) {
                         self.popupTableSelectorPanel();
                     }
