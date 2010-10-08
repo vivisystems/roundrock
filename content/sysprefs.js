@@ -105,6 +105,8 @@
 
         var selectedBarcodeLearningPLUGroup = GeckoJS.Configure.read('vivipos.fec.settings.BarcodeLearningPLUGroup') || 'none';
         barcodeLearningMenu.value = selectedBarcodeLearningPLUGroup;
+
+        GeckoJS.BaseObject.log('SysPrefs', 'FATAL', 'entering sysprefs manager.');
     };
     
 
@@ -157,6 +159,8 @@ function dismissWaitingPanel() {
 
 function closePreferences() {
 
+    GeckoJS.BaseObject.log('SysPrefs', 'FATAL', 'exiting sysprefs manager.');
+    
     checkClearCartIdleTime();
     
     try {

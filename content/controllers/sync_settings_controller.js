@@ -59,6 +59,8 @@
             this.Form.unserializeFromObject('syncSettingForm', settings);
 
             this.initialIrcModules();
+
+            this.log('FATAL', 'entering sync settings tools.');
         },
 
         isAlphaNumeric: function(str) {
@@ -126,7 +128,9 @@
         },
 
         update: function() {
-		
+
+            this.log('FATAL', 'update sync_settings');
+            
             var obj = this.Form.serializeToObject('syncSettingForm', false);
             this.Form.unserializeFromObject('syncSettingForm', obj);
 
@@ -413,6 +417,7 @@
             
             if (success) {
                 OsdUtils.info(_('Package [%S] created successfully', [success]));
+                this.log('FATAL', 'createIrcPackage ' + success);
             }else {
                 NotifyUtils.warn(_('Failed to create IRC Package'));
             }
@@ -470,6 +475,7 @@
 
             if (success) {
                 OsdUtils.info(_('Package [%S] removed successfully', [file]));
+                this.log('FATAL', 'removeIrcPackage ' + file);
             }else {
                 NotifyUtils.warn(_('Package not available to remove.'));
             }
