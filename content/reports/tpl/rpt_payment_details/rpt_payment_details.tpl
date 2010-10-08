@@ -20,6 +20,13 @@
 	</div>
         <table id="condition-table">
             <tr>
+                <td class="condition-title"><span class="caption">${queryFormLabel.database_label|escape}</span></td>
+                <td align="left" >
+
+                       <span class="heading_p">${queryFormLabel.database|escape}</span>
+                </td>
+            </tr>
+            <tr>
                 <td class="condition-title"><span class="caption">${_('(rpt)Condition') + ' - '}</span></td>
                 <td align="left" >
                        <span class="caption">${queryFormLabel.terminal_no_label|escape}</span>
@@ -32,9 +39,6 @@
                        <span class="heading_p">${queryFormLabel.payment_type|escape}</span>
                        <span class="caption">${queryFormLabel.sortby_label|escape}</span>
                        <span class="heading_p">${queryFormLabel.sortby|escape}</span>
-                       <br>
-                       <span class="caption">${queryFormLabel.database_label|escape}</span>
-                       <span class="heading_p">${queryFormLabel.database|escape}</span>
                 </td>
            </tr>
        </table>
