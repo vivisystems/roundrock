@@ -168,7 +168,7 @@
 <!ENTITY orderdata.rebuilddatabase "Rebuild Database">
 <!ENTITY orderdata.autobackuponclosing "Backup automatically on closing sale period">
 <!ENTITY orderdata.move_order_to_history "Move expire order datas to history order files">
-<!ENTITY orderdata.split_history_order_file "Split history files by:">
+<!ENTITY orderdata.split_history_order_file "Split by:">
 <!ENTITY orderdata.split_history_order_file_monthly "Monthly">
 <!ENTITY orderdata.split_history_order_file_quarterly "Quarterly">
 <!ENTITY orderdata.split_history_order_file_halfyearly "Half-Yearly">

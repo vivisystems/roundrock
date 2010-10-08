@@ -379,14 +379,17 @@
                 </row>
                 <row>
                     <checkbox preference="pref_orderexpirehistory" id="orderexpirehistory" label="&orderdata.move_order_to_history;"/>
-                     <menulist flex="1" preference="pref_splitHistoryOrderFile" id="splitHistoryOrderFile">
-                        <menupopup>
-                          <menuitem label="&orderdata.split_history_order_file; &orderdata.split_history_order_file_monthly;" value="monthly"/>
-                          <menuitem label="&orderdata.split_history_order_file; &orderdata.split_history_order_file_quarterly;" value="quarterly"/>
-                          <menuitem label="&orderdata.split_history_order_file; &orderdata.split_history_order_file_halfyearly;" value="halfyearly"/>
-                          <menuitem label="&orderdata.split_history_order_file; &orderdata.split_history_order_file_yearly;" value="yearly"/>
-                        </menupopup>
-                      </menulist>
+                    <hbox>
+                        <label value="&orderdata.split_history_order_file;" />
+                         <menulist flex="1" preference="pref_splitHistoryOrderFile" id="splitHistoryOrderFile">
+                            <menupopup>
+                              <menuitem label="&orderdata.split_history_order_file_monthly;" value="monthly"/>
+                              <menuitem label="&orderdata.split_history_order_file_quarterly;" value="quarterly"/>
+                              <menuitem label="&orderdata.split_history_order_file_halfyearly;" value="halfyearly"/>
+                              <menuitem label="&orderdata.split_history_order_file_yearly;" value="yearly"/>
+                            </menupopup>
+                          </menulist>
+                    </hbox>
                 </row>
                 <row>
                     <label value="&orderdata.inventory.adjustment.retaindays;"/>

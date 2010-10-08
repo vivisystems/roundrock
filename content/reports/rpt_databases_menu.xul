@@ -6,8 +6,9 @@
          xmlns:html="http://www.w3.org/1999/xhtml">
 
     <hbox id="databasesMenuBox" >
-        <label id="datasources-menuitem-tpl1" hidden="true" value="%FILENAME% (&databases_menu.current_order_database;) [&databases_menu.min_order_time; %MINORDERTIME% , &databases_menu.max_order_time; %MAXORDERTIME% , &databases_menu.total_orders; %TOTALORDERS% , &databases_menu.filesize; %FILESIZE%]" />
-        <label id="datasources-menuitem-tpl2" hidden="true" value="%FILENAME% (&databases_menu.history_order_database;) [&databases_menu.min_order_time; %MINORDERTIME% , &databases_menu.max_order_time; %MAXORDERTIME% , &databases_menu.total_orders; %TOTALORDERS% , &databases_menu.filesize; %FILESIZE%]" />
+        <label id="datasources-menuitem-tpl1" hidden="true" value="(&databases_menu.current_order_database;) (&databases_menu.order_time; %MINORDERTIME% &databases_menu.order_time_to; %MAXORDERTIME%)" />
+        <label id="datasources-menuitem-tpl2" hidden="true" value="(&databases_menu.history_order_database;) (&databases_menu.order_time; %MINORDERTIME% &databases_menu.order_time_to; %MAXORDERTIME%) (%FILENAME%)" />
+        <label id="datasources-menuitem-tpl3" hidden="true" value="(&databases_menu.reporting_database;) (&databases_menu.order_time; %MINORDERTIME% &databases_menu.order_time_to; %MAXORDERTIME%)" />
         <grid flex="1" class="data-form">
             <columns>
                 <column /><column flex="1"/>

@@ -346,12 +346,8 @@
                                 <column flex="1"/>
                             </columns>
                             <rows flex="1">
-                                <row flex="8">
+                                <row flex="1">
                                     <vbox flex="1">
-                                        <button id="refreshOrderHistoryData" class="button-execute"
-                                                label="&admintools.order_history.refresh;"
-                                                oncommand="$do('refreshOrderHistoryData', null, 'AdminTools');"/>
-                                        <spacer style="height: 10px;"/>
                                         <button id="removeOrderHistoryData" class="button-execute"
                                                 label="&admintools.order_history.remove;"
                                                 oncommand="$do('removeOrderHistoryData', null, 'AdminTools');"/>
@@ -360,22 +356,28 @@
                                                 label="&admintools.order_history.merge;"
                                                 oncommand="$do('mergeOrderHistoryData', null, 'AdminTools');"/>
                                     </vbox>
-                                    <vivitree id="orderHistoryScrollablepanel" flex="1" class="standard"
+                                    <groupbox flex="1">
+                                        <caption label="&admintools.order_history.order_history_order_files;" />
+                                        <vivitree id="orderHistoryScrollablepanel" flex="1" class="standard"
                                                   headers="&orderhistory.filename;,&orderhistory.filesize;,&orderhistory.total_orders;,&orderhistory.mintime;,&orderhistory.maxtime;"
                                                   fields="filename,display_filesize,display_total_orders,display_minTime,display_maxTime"
                                                   hidecolumnpicker="true"
                                                   onselect="$do('selectOrderHistory',this.selectedIndex, 'AdminTools');"/>
+                                    </groupbox>
                                 </row>
-                                <row flex="2">
+                                <row>
                                     <vbox flex="1">
                                         <button id="purgeOrderHistoryData" class="button-execute"
                                                 label="&admintools.order_history.purge;"
                                                 oncommand="$do('purgeOrderHistoryData', null, 'AdminTools');"/>
                                     </vbox>
-                                    <vivitree id="orderHistoryReportScrollablepanel" flex="1" class="standard"
+                                    <groupbox flex="1">
+                                        <caption label="&admintools.order_history.order_history_reporting_file;" />
+                                        <vivitree id="orderHistoryReportScrollablepanel" rows="1" class="standard"
                                                   headers="&orderhistory.filename;,&orderhistory.filesize;,&orderhistory.total_orders;,&orderhistory.mintime;,&orderhistory.maxtime;"
                                                   fields="filename,display_filesize,display_total_orders,display_minTime,display_maxTime"
                                                   hidecolumnpicker="true" />
+                                    </groupbox>
                                 </row>
                             </rows>
                         </grid>

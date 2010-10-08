@@ -1,7 +1,10 @@
 <!ENTITY databases_menu.databases "Databases:">
 <!ENTITY databases_menu.current_order_database "Current">
 <!ENTITY databases_menu.history_order_database "History">
+<!ENTITY databases_menu.reporting_database "Reporting">
 <!ENTITY databases_menu.filesize "FS:">
 <!ENTITY databases_menu.total_orders "Orders:">
 <!ENTITY databases_menu.min_order_time "MinTime:">
 <!ENTITY databases_menu.max_order_time "MaxTime:">
+<!ENTITY databases_menu.order_time "Order Time:">
+<!ENTITY databases_menu.order_time_to "~">

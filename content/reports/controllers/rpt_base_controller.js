@@ -893,6 +893,7 @@
             let $menuObj = $('#'+domId);
             let itemTpl1 = $('#datasources-menuitem-tpl1').val() || '';
             let itemTpl2 = $('#datasources-menuitem-tpl2').val() || '';
+            let itemTpl3 = $('#datasources-menuitem-tpl3').val() || '';
 
             var updateTpl = function(tpl, data) {
                 tpl = tpl.replace('%FILENAME%', data['filename']);
@@ -913,7 +914,8 @@
                 $(item).css('textAlign', 'left');
 
                 this._orderHistoryDatabases.forEach(function(d) {
-                    let item = menuObj.appendItem(updateTpl(itemTpl2, d), d['filename']);
+                    let tpl = (d['filename']  == 'vivipos_order_reporting.sqlite') ? itemTpl3 : itemTpl2;
+                    let item = menuObj.appendItem(updateTpl(tpl, d), d['filename']);
                     $(item).css('textAlign', 'left');
                 });
 

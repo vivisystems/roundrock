@@ -1393,9 +1393,16 @@
 
             var selectedData = _listObjOrderHistory.datasource._data[index];
 
-            if (GREUtils.Dialog.confirm(this.topmostWindow,
+            let confirmed = (GREUtils.Dialog.confirm(this.topmostWindow,
                                         _('Remove Order History Database'),
-                                        _('This action will remove order history database [%S] . Are you sure you want to proceed?', [selectedData.filename]))) {
+                                        _('This action will remove order history database [%S] . Are you sure you want to proceed?', [selectedData.filename])) &&
+                             GREUtils.Dialog.confirm(this.topmostWindow,
+                                        _('Remove Order History Database'),
+                                        _('Order history database [%S] is removed will never UNDO . Are you really sure you want to proceed?', [selectedData.filename]))
+                            );
+
+
+            if (confirmed) {
 
                 this._log('Remove Order History Database file [' + selectedData.filename + ']');
 
