@@ -26,6 +26,7 @@
                        <span class="heading_p">${queryFormLabel.terminal_no|escape}</span>
                        <span class="caption">${queryFormLabel.sortby_label|escape}</span>
                        <span class="heading_p">${queryFormLabel.sortby|escape}</span>
+                       <br>
                        <span class="caption">${queryFormLabel.database_label|escape}</span>
                        <span class="heading_p">${queryFormLabel.database|escape}</span>
                 </td>

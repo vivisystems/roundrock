@@ -31,6 +31,7 @@
                        <span class="heading_p">${queryFormLabel.num_dept|escape}</span>
                        <span class="caption">${queryFormLabel.num_product_label|escape}</span>
                        <span class="heading_p">${queryFormLabel.num_product|escape}</span>
+                       <br>
                        <span class="caption">${queryFormLabel.database_label|escape}</span>
                        <span class="heading_p">${queryFormLabel.database|escape}</span>
                 </td>
