@@ -57,7 +57,7 @@ do_restore() {
         RESTORE_DB_USAGE=`cat "${restore_dir}/diskusage"`
         SPACE_NEEDED=$((RESTORE_DB_USAGE-CURRENT_DB_USAGE))
         # determine if there is enough diskspace for database recovery
-        if [ ${SPACE_NEEDED} -ge 0 ]; then
+        if [ ${SPACE_NEEDED} -gt 0 ]; then
 	    AVAILABLE_SPACE=`LC_ALL=c df -B 1 -P "${target_dir}" | grep -v "Filesystem" | awk -F " " '{ print $4}'`
 	    AVAILABLE_SPACE=$((AVAILABLE_SPACE-safety_margin))
 

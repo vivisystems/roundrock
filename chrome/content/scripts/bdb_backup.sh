@@ -183,7 +183,7 @@ do_backup() {
         echo "55\n# ${MSG_SCRIPT_BACKUP_STEP_07}"
         sleep 1;
         cd /data/profile
-        tar cjvpf $bak/$bak_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" --exclude="./extensions" . | xargs -l1 basename | sed "s/.*/60\n# ${MSG_SCRIPT_BACKUP_STEP_07} [\0]/g"
+        tar cjvpf $bak/$bak_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" --exclude="./extensions*" --exclude="./Cache" --exclude="*lock*" --exclude="*sqlite*" . | xargs -l1 basename | sed "s/.*/60\n# ${MSG_SCRIPT_BACKUP_STEP_07} [\0]/g"
     fi
 
     #backup user prefs.js
