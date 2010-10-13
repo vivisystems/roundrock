@@ -14,6 +14,7 @@ script_path=`dirname "${0}"`
 # back up profile as well?
 backup_with_profile=$1
 backup_destination=${2:-secondary}
+database_dir=/data/databases
 
 # include /data/profile/sync_settings.ini - this defines machine_id
 if [ -f /data/profile/sync_settings.ini ]; then
@@ -21,8 +22,8 @@ if [ -f /data/profile/sync_settings.ini ]; then
 fi
 
 # retrieve branch id from database
-if [ -f /data/databases/vivipos.sqlite ]; then
-    branch_id=`/usr/bin/sqlite3 /data/databases/vivipos.sqlite "SELECT branch_id FROM store_contacts WHERE terminal_no='${machine_id}'"`
+if [ -f ${database_dir}/vivipos.sqlite ]; then
+    branch_id=`/usr/bin/sqlite3 ${database_dir}/vivipos.sqlite "SELECT branch_id FROM store_contacts WHERE terminal_no='${machine_id}'"`
 fi
 
 BDB_HOME=/usr/local/BerkeleyDB.5.1
@@ -149,15 +150,15 @@ do_backup() {
         db_env="${db}.sqlite-journal"
 
         # first, perform db recovery
-        cd /data/databases/${db_env};
-        ${BDB_RECOVER}
+        cd ${database_dir}/${db_env};
+        ${BDB_RECOVER} -e
 
         # next, copy database files to backup location
         start_index=$((start_index+5))
-        cd /data/databases/
+        cd ${database_dir}/
         echo "${start_index}\n# ${MSG_SCRIPT_BACKUP_STEP_05} [${db}]"
         sleep 1;
-        tar cpjf "$bak/$bak_dir/${db}.tbz" "${db}.sqlite" "${db_env}"
+        tar cpjf "$bak/$bak_dir/${db}.tbz" "${db}.sqlite" "${db_env}" >/dev/null 2>&1
 
         # lastly, sync disk
         start_index=$((start_index+5))
@@ -166,6 +167,12 @@ do_backup() {
         sync; sleep 1; sync;
     done
 
+    # backup backup directory
+    start_index=$((start_index+5))
+    echo "${start_index}\n# ${MSG_SCRIPT_BACKUP_STEP_05} [backup]"
+    cd ${database_dir}
+    tar cpjf "$bak/$bak_dir/backup.tbz" backup >/dev/null 2>&1
+
     # start services
     echo "50\n# ${MSG_SCRIPT_BACKUP_STEP_06}"
     sleep 1;
@@ -173,14 +180,14 @@ do_backup() {
 
     # backup profile
     if [ "$backup_with_profile" = "with-profile" ]; then
-        echo "60\n# ${MSG_SCRIPT_BACKUP_STEP_07}"
+        echo "55\n# ${MSG_SCRIPT_BACKUP_STEP_07}"
         sleep 1;
         cd /data/profile
-        tar cjvpf $bak/$bak_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" --exclude="./extensions" . | xargs -l1 basename | sed "s/.*/60\n# \0/g"
+        tar cjvpf $bak/$bak_dir/profile.tbz --exclude="./chrome/userChrome.css" --exclude="./chrome/userConfigure.js" --exclude="./extensions" . | xargs -l1 basename | sed "s/.*/60\n# ${MSG_SCRIPT_BACKUP_STEP_07} [\0]/g"
     fi
 
     #backup user prefs.js
-    echo "70\n# ${MSG_SCRIPT_BACKUP_STEP_08}"
+    echo "60\n# ${MSG_SCRIPT_BACKUP_STEP_08}"
     sleep 1;
     cd /data/profile
     cp /data/profile/prefs.js $bak/$bak_dir/
@@ -188,13 +195,13 @@ do_backup() {
 
 
     #backup images
-    echo "80\n# ${MSG_SCRIPT_BACKUP_STEP_09}"
+    echo "65\n# ${MSG_SCRIPT_BACKUP_STEP_09}"
     sleep 1;
     cd /data/images
-    tar cjvpf $bak/$bak_dir/images.tbz . | xargs -l1 basename | sed "s/.*/75\n# ${MSG_SCRIPT_BACKUP_STEP_09} [\0]/g"
+    tar cjvpf $bak/$bak_dir/images.tbz . | xargs -l1 basename | sed "s/.*/65\n# ${MSG_SCRIPT_BACKUP_STEP_09} [\0]/g"
 
     #backup system
-    echo "85\n# ${MSG_SCRIPT_BACKUP_STEP_10}"
+    echo "80\n# ${MSG_SCRIPT_BACKUP_STEP_10}"
     sleep 1;
     cd /data/system
     cp -f /etc/vivipos.lic etc/
@@ -209,14 +216,19 @@ do_backup() {
     cp -fr /var/lib/eeti.param var/lib
     cp -fr /var/lib/vivipos var/lib
     cp -f /data/profile/sync_settings.ini data/profile/
-    tar cjvpf $bak/$bak_dir/system.tbz . | xargs -l1 basename | sed "s/.*/80\n# \0/g"
+    tar cjvpf $bak/$bak_dir/system.tbz . | xargs -l1 basename | sed "s/.*/80\n# ${MSG_SCRIPT_BACKUP_STEP_10} [\0]/g"
 
-    echo "90\n# ${MSG_SCRIPT_BACKUP_STEP_11}"
+    # record backup size
+    echo "85\n# ${MSG_SCRIPT_BACKUP_STEP_11}"
+    cd ${database_dir}
+    LC_ALL=c du -b -c ${database_dir}/vivipos*.sqlite* ${database_dir}/backup /data/images | grep 'total' | awk '{print $1}' > "$bak/$bak_dir/diskusage"
+
+    echo "90\n# ${MSG_SCRIPT_BACKUP_STEP_12}"
     sleep 1;
     sync;
 
     if [ "$backup_destination" = "local" ]; then
-        echo "95\n# ${MSG_SCRIPT_BACKUP_STEP_12}"
+        echo "95\n# ${MSG_SCRIPT_BACKUP_STEP_13}"
         sleep 1;
 
         for backidx in 0 1 2 3 4 5 6 7 8 9; do
@@ -261,7 +273,7 @@ do_backup() {
 
 
                     # check free space
-                    echo "95\n# ${MSG_SCRIPT_BACKUP_STEP_12} [" `basename ${BACKUP_DEV}` "]"
+                    echo "95\n# ${MSG_SCRIPT_BACKUP_STEP_13} [" `basename ${BACKUP_DEV}` "]"
                     sleep 1;
                     while [ `LC_ALL=c df -B 1 -P /tmp/BACKUP | grep -v "Filesystem" | awk -F " " '{ print $4}'` -lt "$LAST_BACKUP_USAGE" ]; do
                         # remove oldest backup dir
@@ -289,7 +301,7 @@ do_backup() {
 
     # update disk usage
     if [ -x /data/scripts/diskspace_usage.sh ]; then
-            sudo /data/scripts/diskspace_usage.sh
+        sudo /data/scripts/diskspace_usage.sh
     fi
 
     echo "100\n# ${MSG_SCRIPT_BACKUP_FINISH}"

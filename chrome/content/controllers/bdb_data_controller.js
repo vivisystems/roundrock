@@ -440,11 +440,12 @@
 
         _handleRestore: function(evt) {
 
-            // handle restore iff databases.tbz does not exist
+            // handle restore iff (i) databases.tbz does not exist (ii) diskusage exists
             var dir = evt.data.args[0];
-            if (!GeckoJS.File.exists(dir + '/databases.tbz')) {
+            if (!GeckoJS.File.exists(dir + '/databases.tbz') && GeckoJS.File.exists(dir + '/diskusage')) {
                 var target_dir = this._data_path + '/databases';
                 var error_file = '/tmp/restore.status.' + GeckoJS.String.uuid();
+                var safety_margin = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.vivisystems.diskspace.force.threshold'));
 
                 var script = this._script_path + '/' + this._restore_system_script;
                 var args = [];
@@ -457,6 +458,7 @@
                 }
                 args.push(error_file);
                 args.push(target_dir);
+                args.push(safety_margin);
 
                 this.log('FATAL', 'Restoring from [' + args[0] + '] into [' + target_dir + ']');
 
