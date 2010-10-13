@@ -462,6 +462,8 @@
 
                 this.log('FATAL', 'Restoring from [' + args[0] + '] into [' + target_dir + ']');
 
+		this._closeDBConnections();
+
                 this._execute(script, args);
 
                 if (GeckoJS.File.exists(error_file)) {
