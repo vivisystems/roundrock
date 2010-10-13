@@ -13,10 +13,11 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-10-12 14:54+0800\n"
+"POT-Creation-Date: 2010-10-13 14:07+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3536,7 +3537,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:92
 #: ../..//content/controllers/static_condiments_controller.js:488
 #: ../..//content/controllers/storecontact_controller.js:180
-#: ../..//content/controllers/sync_settings_controller.js:202
+#: ../..//content/controllers/sync_settings_controller.js:206
 #: ../..//content/controllers/taxes_controller.js:92
 #: ../..//content/controllers/users_controller.js:475
 #: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:170
@@ -3570,7 +3571,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:94
 #: ../..//content/controllers/static_condiments_controller.js:490
 #: ../..//content/controllers/storecontact_controller.js:182
-#: ../..//content/controllers/sync_settings_controller.js:204
+#: ../..//content/controllers/sync_settings_controller.js:208
 #: ../..//content/controllers/taxes_controller.js:94
 #: ../..//content/controllers/users_controller.js:477
 #: ../..//content/reports/controllers/rpt_setDepartmentGroup_controller.js:171
@@ -3611,7 +3612,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:94
 #: ../..//content/controllers/static_condiments_controller.js:490
 #: ../..//content/controllers/storecontact_controller.js:182
-#: ../..//content/controllers/sync_settings_controller.js:204
+#: ../..//content/controllers/sync_settings_controller.js:208
 #: ../..//content/controllers/taxes_controller.js:94
 #: ../..//content/controllers/taxes_controller.js:110
 #: ../..//content/controllers/users_controller.js:456
@@ -3702,8 +3703,8 @@ msgstr ""
 
 #: ../..//content/controllers/admintools_controller.js:379
 msgid ""
-"Unable to re-initialize local index [sync_remote_machines] for datasource [%"
-"S]"
+"Unable to re-initialize local index [sync_remote_machines] for datasource "
+"[%S]"
 msgstr ""
 
 #: ../..//content/controllers/admintools_controller.js:385
@@ -5125,8 +5126,8 @@ msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:279
 msgid ""
-"An error was encountered while saving cashdrawer access record (error code %"
-"S) [message #205]."
+"An error was encountered while saving cashdrawer access record (error code "
+"%S) [message #205]."
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:294
@@ -5892,8 +5893,8 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1614
 #: ../..//content/controllers/guest_check_controller.js:1669
 msgid ""
-"override minimum charge. override clerk (%S,%S), original minimum charge (%"
-"S), new minimum charge (%S), comp amount (%S)"
+"override minimum charge. override clerk (%S,%S), original minimum charge "
+"(%S), new minimum charge (%S), comp amount (%S)"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:1641
@@ -7173,8 +7174,8 @@ msgstr ""
 
 #: ../..//content/controllers/ledger_controller.js:104
 msgid ""
-"An error was encountered while expiring backup ledger receipts (error code %"
-"S) [messages #803]."
+"An error was encountered while expiring backup ledger receipts (error code "
+"%S) [messages #803]."
 msgstr ""
 
 #: ../..//content/controllers/ledger_controller.js:111
@@ -7392,7 +7393,7 @@ msgid "Failed to write Properties to file [%S]"
 msgstr ""
 
 #: ../..//content/controllers/localekeyboard_controller.js:65
-#: ../..//content/controllers/sync_settings_controller.js:125
+#: ../..//content/controllers/sync_settings_controller.js:129
 msgid "No changes to save"
 msgstr ""
 
@@ -8488,14 +8489,14 @@ msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:626
 msgid ""
-"An error was encountered while accessing administrator account (error code %"
-"S) [message #1302]."
+"An error was encountered while accessing administrator account (error code "
+"%S) [message #1302]."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:634
 msgid ""
-"An error was encountered while updating administrator password (error code %"
-"S) [message #1303]."
+"An error was encountered while updating administrator password (error code "
+"%S) [message #1303]."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:647
@@ -8718,8 +8719,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:765
 msgid ""
-"An error was encountered while retrieving cash payment records (error code %"
-"S) [message #1413]."
+"An error was encountered while retrieving cash payment records (error code "
+"%S) [message #1413]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:792
@@ -8766,8 +8767,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:981
 msgid ""
-"An error was encountered while computing cash and ledger sums (error code %"
-"S) [message #1418]."
+"An error was encountered while computing cash and ledger sums (error code "
+"%S) [message #1418]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1000
@@ -8808,8 +8809,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1114
 msgid ""
-"An error was encountered while computing ledger cash received (error code %"
-"S) [message #1424]."
+"An error was encountered while computing ledger cash received (error code "
+"%S) [message #1424]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1133
@@ -9013,8 +9014,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:302
 msgid ""
-"An error was encountered while inserting product stock records (error code %"
-"S) [message #1603]."
+"An error was encountered while inserting product stock records (error code "
+"%S) [message #1603]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:334
@@ -9092,8 +9093,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:616
 msgid ""
-"An error was encountered while saving stock adjustment records (error code %"
-"S) [message #1611]."
+"An error was encountered while saving stock adjustment records (error code "
+"%S) [message #1611]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:649
@@ -9104,8 +9105,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:657
 msgid ""
-"An error was encountered while saving stock adjustment details (error code %"
-"S) [message #1613]."
+"An error was encountered while saving stock adjustment details (error code "
+"%S) [message #1613]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:668
@@ -9209,6 +9210,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/sync_settings_controller.js:77
+#: ../..//content/controllers/sync_settings_controller.js:81
 msgid "Network Service Settings"
 msgstr ""
 
@@ -9216,52 +9218,56 @@ msgstr ""
 msgid "Terminal number must only contain [a-zA-Z] and [0-9]"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:110
+#: ../..//content/controllers/sync_settings_controller.js:82
+msgid "Password must only contain [a-zA-Z] and [0-9]"
+msgstr ""
+
+#: ../..//content/controllers/sync_settings_controller.js:114
 msgid "confirm network service settings change"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:111
+#: ../..//content/controllers/sync_settings_controller.js:115
 msgid ""
 "Network service settings changes require system restart to take effect. If "
 "you save the changes now, the system will restart automatically after you "
 "return to the Main Screen. Do you want to save your changes?"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:186
+#: ../..//content/controllers/sync_settings_controller.js:190
 msgid "Network service settings saved"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:203
+#: ../..//content/controllers/sync_settings_controller.js:207
 msgid ""
 "You have made changes to network service settings. Save changes before "
 "exiting?"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:323
+#: ../..//content/controllers/sync_settings_controller.js:327
 msgid "Package client list refreshed"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:390
+#: ../..//content/controllers/sync_settings_controller.js:394
 msgid "Please select one or more modules to synchronize"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:408
+#: ../..//content/controllers/sync_settings_controller.js:412
 msgid "Creating IRC Package"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:419
+#: ../..//content/controllers/sync_settings_controller.js:423
 msgid "Package [%S] created successfully"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:422
+#: ../..//content/controllers/sync_settings_controller.js:426
 msgid "Failed to create IRC Package"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:477
+#: ../..//content/controllers/sync_settings_controller.js:481
 msgid "Package [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:480
+#: ../..//content/controllers/sync_settings_controller.js:484
 msgid "Package not available to remove."
 msgstr ""
 
@@ -9724,8 +9730,8 @@ msgstr ""
 
 #: ../..//content/controllers/userprefs_controller.js:115
 msgid ""
-"Are you sure you want to restore user preferences from the selected backup [%"
-"S]? If you choose to proceed with recovery, application will restart "
+"Are you sure you want to restore user preferences from the selected backup "
+"[%S]? If you choose to proceed with recovery, application will restart "
 "immediately."
 msgstr ""
 
@@ -9995,29 +10001,29 @@ msgstr ""
 
 #: ../..//content/models/ledger_record.js:46
 msgid ""
-"An error was encountered while expiring ledger payment records (error code %"
-"S) ."
+"An error was encountered while expiring ledger payment records (error code "
+"%S) ."
 msgstr ""
 
 #: ../..//content/models/ledger_record.js:54
 #: ../..//content/models/ledger_record.js:61
 msgid ""
-"An error was encountered while expiring ledger activity logs (error code %"
-"S) ."
+"An error was encountered while expiring ledger activity logs (error code "
+"%S) ."
 msgstr ""
 
 #: ../..//content/models/shift_change.js:109
 #: ../..//content/models/shift_change.js:116
 msgid ""
-"An error was encountered while expiring shift change records (error code %"
-"S) ."
+"An error was encountered while expiring shift change records (error code "
+"%S) ."
 msgstr ""
 
 #: ../..//content/models/shift_change_detail.js:78
 #: ../..//content/models/shift_change_detail.js:85
 msgid ""
-"An error was encountered while expiring shift change details (error code %"
-"S) ."
+"An error was encountered while expiring shift change details (error code "
+"%S) ."
 msgstr ""
 
 #: ../..//content/models/transaction.js:1500

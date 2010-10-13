@@ -11,7 +11,7 @@
 <!ENTITY sync_settings.label.port "Port:">
 
 <!ENTITY sync_settings.label.machine_id "Terminal Number (a-z, A-Z, 0-9):">
-<!ENTITY sync_settings.label.password "Password:">
+<!ENTITY sync_settings.label.password "Password (a-z, A-Z, 0-9):">
 
 <!ENTITY sync_settings.label.batch_limit "Batch Size:">
 <!ENTITY sync_settings.label.interval "Synchronization Interval:">

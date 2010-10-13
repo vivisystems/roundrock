@@ -77,6 +77,10 @@
                 GREUtils.Dialog.alert(this.topmostWindow, _('Network Service Settings'),
                     _('Terminal number must only contain [a-zA-Z] and [0-9]'));
                 data.cancel = true;
+            }else if (!this.isAlphaNumeric(obj['password']) || obj['password'].length==0) {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Network Service Settings'),
+                    _('Password must only contain [a-zA-Z] and [0-9]'));
+                data.cancel = true;
             }
             else {
                 data.changed = this.Form.isFormModified('syncSettingForm');
