@@ -150,9 +150,9 @@
             GREUtils.File.remove(statusFile);
             
             let available = -1;     // failed to run
-            let script = "LC_ALL=c df -B 1 /data/databases | grep -v Filesystem | awk -F' ' '{ print $2 }' > " + statusFile;
+            let script = "LC_ALL=c df -B 1 /data/databases | grep -v Filesystem | awk -F' ' '{ print $3 }' > " + statusFile;
             if (this._execute('/bin/sh', ['-c', script])) {
-                // read integrity check status from status file
+                // read available bytes from status file
                 if (GeckoJS.File.exists(statusFile)) {
                     let f = new GeckoJS.File(statusFile);
                     f.open('r');
