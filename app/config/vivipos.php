@@ -19,7 +19,6 @@ if (($db_configs = Cache::read('db_configs')) === false) {
 
     $db_configs = array();
     foreach($db_files as $db_file) {
-echo "<br/>checking [$db_file]<br/>";
             preg_match('/^vivipos(.*)\.sqlite$/i', $db_file, $matches);
 
             if (count($matches) == 2){
@@ -28,7 +27,6 @@ echo "<br/>checking [$db_file]<br/>";
                     $name = str_replace('_', '', $matches[1]);
                     if (strlen($name) == 0 ) $name = 'default';
 
-echo "<br/>database found [$database]<br/>";
                     $config = array('driver'=>'sqlite3', 'database'=>$database,
                                     'synchronous'=>$SYNCHRONOUS, 'journal_mode'=>$JOURNAL_MODE,
                                     'locking_mode'=>$LOCKING_MODE);
