@@ -49,7 +49,7 @@
         </action>
         <action>
             <type>file</type>
-            <file>/data/images/</file>
+            <file>/data/images/*</file>
         </action>
         <action>
             <type>pref</type>
