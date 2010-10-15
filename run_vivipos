@@ -53,7 +53,7 @@ run()
     /usr/bin/aosd_cat -x 100 -n "Droid Serif 24" -u 800000 &
 
     # set env of system info
-    eval `${DIR}/getSystemLicenseStub -v|awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
+    eval `${DIR}/getSystemLicenseStub -v 2>/dev/null |awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
     ${DIR}/xulrunner/xulrunner ${DIR}/application.ini $@
     RETVAL=$?
 
