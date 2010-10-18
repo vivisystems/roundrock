@@ -1,88 +1,37 @@
----------------
-Release 1.2.1.1
----------------
+--------------------------------------------------------------------------------
+Release Note for VIVIPOS WebApp and WebServices ver.1.2.1.3 (English version)
+Release Date: 2010-Oct-18
+--------------------------------------------------------------------------------
 
-This is a release for VIVIPOS Web Services 1.2.1.1
+This is a maintenance release with enhanced functions for VIVIPOS WebApp and WebServices ver.1.2.1.x series.
+Previous 1.2.1.x releases may be upgraded to this release by installing the XPI file through Add-ons Manager.
 
-Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
+--------------------------------------------------------------------------------
+Dependencies
+--------------------------------------------------------------------------------
 
-------------
-Enhancements
-------------
-Ticket #1:
-    Rewritten sync_client / irc_client startup scripts , support auto restart if process is die.
+This release requires the following applications:
+	- VIVIPOS OS Release 1.2.2 or above
+	- VIVIPOS App Engine Release 1.2.1.5 or above
+	- VIVIECR Release 1.2.1.6 or above
 
-Ticket #4:
-    Sync client shell script support sync_all parameter to sync to server and wait for finished.
+--------------------------------------------------------------------------------
+Enhanced Functions
+--------------------------------------------------------------------------------
 
-Ticket #2, #3:
-    Auto repair table order status if difference of order's status when recallOrder.    
-Ticket #5:
-    Removed debug messsges.
+Ticket#11:
+Enhance the way PHP5 processes memory leak for longtime script.
+Unset big object everytime when sync process finished to ensure the memory usage is under reasonable state.
 
+--------------------------------------------------------------------------------
+Bugs Fixed
+--------------------------------------------------------------------------------
 
----------------
-Release 1.2.1.0
----------------
+Ticket#13:
+Fix the lock file issue in irc.php due to path error.
 
-This is a release for VIVIPOS Web Services 1.2.1.0
+Ticket#14:
+Fix the issue that when sync_client / irc_client is activated, the status under /tmp is not removed.
 
-Previous 1.2.0.x releases may be upgraded to this release by installing the release XPI through the Add-on Manager.
+--------------------------------------------------------------------------------
 
-------------
-Enhancements
-------------
-
-Bug #195:
-    It is desired in a clustered environment to program a master terminal and have the programming automatically replicated to each terminal in the cluster. This replication, termed Inter-register communication, IRC, would significantly reduce the effort required to install and maintain a terminal cluster.
-
-Bug #359:
-    Synchronization may be suspended temporarily to make troubleshooting easier.
-
------------------------------
-Bugs fixed in RELEASE-1.2.0.5
------------------------------
-
-Bug #355:
-    The sequence web service may return duplicate sequence numbers due to race conditions that were not handled properly
-
-Bug #363:
-    Add Table Lock before readOrder / saveOrder / voidOrder / transferTable / changeClerk .
-
------------------------------
-Bugs fixed in RELEASE-1.2.0.4
------------------------------
-
-Bug #306:
-    Empty order master or detail records causes storage of the records to fail
-
------------------------------
-Bugs fixed in RELEASE-1.2.0.3
------------------------------
-
-Bug #215:
-    When an order is stored with annotations, the annotations are duplicated each time the order is re-stored or finalized
-
------------------------------
-Bugs fixed in RELEASE-1.2.0.2
------------------------------
-
-Bug #160:
-    Need to be able to rebuild/reset all table statuses and release locked orders if table status is wrong
-
-
-Bug #167:
-     Newly added bookings are not reflected in Table Selection screen when existing from the bookings screen, and previously booked tables are not precluded from being rebooked for the same time slot
-
-Bug #191:
-    Sign-off prompts user for action on queued orders when queued orders do not exist
-
------------------------------
-Bugs fixed in RELEASE-1.2.0.1
------------------------------
-
-Bug #86:
-    Table Status Duration minutes - 0 means infinite duration.
-
-Bug #99:
-    Recalled orders display empty check_no and table_no as '0'.
