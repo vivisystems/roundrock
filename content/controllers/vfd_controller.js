@@ -265,10 +265,10 @@
             var data = {
                 type: type,
                 txn: txn,
-                store: GeckoJS.Session.get('storeContact'),
-                order: (txn == null) ? null : txn.data,
-                item: item,
-                itemDisplay: itemDisplay
+                store: this.deepClone(GeckoJS.Session.get('storeContact')),
+                order: (txn == null) ? null : this.deepClone(txn.data),
+                item: this.deepClone(item),
+                itemDisplay: this.deepClone(itemDisplay)
             };
 
             //this.log(this.dump(selectedDevices));
@@ -471,7 +471,17 @@
 
         destroy: function() {
             if (this.observer) this.observer.unregister();
-    	}
+    	},
+
+        deepClone: function(obj) {
+            // use uneval/eval
+            try {
+                return eval(uneval(obj));
+            }catch(e){
+                // using shadowing clone
+                return GREUtils.extend({}, obj);
+            }
+        }
     };
 
     AppController.extend(__controller__);
