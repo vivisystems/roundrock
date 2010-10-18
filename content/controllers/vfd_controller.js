@@ -14,6 +14,7 @@
         _worker: null,
         _useMainThread: false,
         _timers: {},
+        _dummyTxn: null,
 
         // load device configuration and selections
         initial: function () {
@@ -81,6 +82,10 @@
 
             // create idle timer
             this.restartIdleTimer();
+
+            // initial dummy txn
+            this._dummyTxn = new Transaction(true, true);
+
         },
 
         getDeviceController: function () {
@@ -262,11 +267,21 @@
                     item = evt.data;
             }
 
+            // clone transaction 
+            let txn2 = null;
+            let order2 = null;
+            if (txn != null) {
+                order2 = this.deepClone(txn.data);
+                txn2 = this._dummyTxn;
+                txn2.data = order2;
+            }
+
+            // set template data
             var data = {
                 type: type,
-                txn: txn,
+                txn: txn2,
                 store: this.deepClone(GeckoJS.Session.get('storeContact')),
-                order: (txn == null) ? null : this.deepClone(txn.data),
+                order: order2,
                 item: this.deepClone(item),
                 itemDisplay: this.deepClone(itemDisplay)
             };
