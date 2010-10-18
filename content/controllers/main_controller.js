@@ -833,6 +833,7 @@
         },
 
         setClerk: function (recovery) {
+
             var user = this.Acl.getUserPrincipal();
             if (user) {
                 // perform user login initialization

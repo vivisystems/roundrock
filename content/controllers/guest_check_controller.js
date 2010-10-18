@@ -18,8 +18,6 @@
 
         _waitStoreFlag: false,
 
-        _mainFirstLoaded: false,
-
         initial: function() {
 
             // add cart events
@@ -48,12 +46,12 @@
             var main = this.getMainController();
             if (main) {
                 main.addEventListener('afterTruncateTxnRecords', this.onMainTruncateTxnRecords, this);
-                main.addEventListener('afterSignedOn', this.onMainFirstLoad, this);
+                main.addEventListener('afterSignedOn', this.onMainAfterSignedOn, this);
             }
 
             var cartqueue = GeckoJS.Controller.getInstanceByName('CartQueue');
             if (cartqueue) {
-                cartqueue.addEventListener('onQueue', this.onMainFirstLoad, this);
+                cartqueue.addEventListener('onQueue', this.onCartQueue, this);
             }
             
             this.addEventListener('beforeStoreCheck', this.beforeStoreCheck, this);
@@ -273,9 +271,6 @@
          *
          */
         popupTableSelectorPanel: function() {
-            
-            // not initialized after main controller
-            if (!this._mainFirstLoaded) return '';
 
             var inputObj = {
                 isNewOrder: true,
@@ -1699,15 +1694,7 @@
          * @param {Object} evt
          */
         onCartOnSubmitSuccess: function(evt) {
-        
-            var popupTable = this.tableSettings.TableWinAsFirstWin || false;
-            var idleTime = this.tableSettings.PopupTablePanelIdleTime || 0;
-            var cartController = this.getCartController();
-            
-            if (popupTable && idleTime <= 0 && !cartController.ifHavingOpenedOrder()) {
-                this.popupTableSelectorPanel();
-            }
-
+            this.isPopupTableSelectorPanel();
         },
 
 
@@ -1725,33 +1712,36 @@
             // recall order, release lock
             if (transaction && transaction.data.recall == 2) {
                 let orderId = transaction.data.id;
-
                 let result = this.Order.releaseOrderLock(orderId);
             }
+
+            this.isPopupTableSelectorPanel();
+
+        },
+
+
+        onMainAfterSignedOn: function() {
+            this.isPopupTableSelectorPanel();
+        },
+
+
+        onCartQueue: function() {
+            this.isPopupTableSelectorPanel();
+        },
+
+
+        /**
+         * isPopupTableSelectorPanel
+         *
+         * @param {Object} evt
+         */
+        isPopupTableSelectorPanel: function() {
 
             var popupTable = this.tableSettings.TableWinAsFirstWin || false;
             var idleTime = this.tableSettings.PopupTablePanelIdleTime || 0;
             var cartController = this.getCartController();
 
             if (popupTable && idleTime <= 0 && !cartController.ifHavingOpenedOrder()) {
-                this.popupTableSelectorPanel();
-            }
-
-        },
-
-
-        /**
-         * onMainFirstLoad
-         *
-         * @param {Object} evt
-         */
-        onMainFirstLoad: function(evt) {
-
-            if (this.tableSettings.TableWinAsFirstWin) {
-
-                this._mainFirstLoaded = true;
-
-                // just popup table selector
                 this.popupTableSelectorPanel();
             }
             
@@ -2485,14 +2475,17 @@
             var idleTime = this.tableSettings.PopupTablePanelIdleTime || 0;
             var cartController = this.getCartController();
             var idle = GeckoJS.Controller.getInstanceByName('Idle');
+            var $panel = $('#selectTablePanel');
 
             idle.unregister('popupTablePanel');
-
             var self=this;
+            
             if (popupTable && idleTime > 0) {
                 idle.register('popupTablePanel', idleTime, function() {
                     if(!cartController.ifHavingOpenedOrder()) {
-                        self.popupTableSelectorPanel();
+                        // this flag will been set at select_table_controller.js
+                        var isInitialized  = $panel.attr('initialized') || false ;
+                        if (isInitialized) self.popupTableSelectorPanel();
                     }
                 });
             }

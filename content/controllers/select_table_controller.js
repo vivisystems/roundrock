@@ -380,6 +380,7 @@
 
             // init popupPanel...
             var $panel = $('#selectTablePanel');
+            $panel.attr('initialized', false);
 
             var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
@@ -448,6 +449,7 @@
                         self.setAction('selectTable');
 
                         self._initedPanel = true;
+                        $panel.attr('initialized', true);
                     
                     }catch(e) {
                         self.log('ERROR', 'ERROR init panel', e);
@@ -1387,9 +1389,11 @@
             // tables init by panel show
             this.initialTableSelectorPanel();
 
+            /*
+             * Table Selector Panel will popup here first time.
+             * When this script onload
+             */
 
-            //            var main = mainWindow.GeckoJS.Controller.getInstanceByName( 'Main' );
-            //            main.dispatchEvent('onFirstLoad', null);
             if (tableSettings.TableWinAsFirstWin) {
                 // just popup table selector
                 var curTransaction = GeckoJS.Session.get('current_transaction') || {recoveryMode: false};
