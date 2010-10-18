@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
-Release Note for VIVIECR ver.1.2.1.7 (English version)
-Release Date: 2010-Sept-09
+Release Note for VIVIECR ver.1.2.1.8 (English version)
+Release Date: 2010-Oct-18
 --------------------------------------------------------------------------------
 
 This is a maintenance release with enhanced functions for VIVIPOS Application (VIVIECR) 1.2.1.x series.
@@ -15,31 +15,85 @@ This release requires the following applications:
 	- VIVIPOS App Engine Release 1.2.1.5 or above
 	- VIVIPOS WebApp and WebServices Release 1.2.1.2 or above
 
-You should also install appropriate language pack (langpack-en-US_1.2.1.7.xpi) to avoid translation-related issues.
+You should also install appropriate language pack (langpack-en-US_1.2.1.8.xpi) to avoid translation-related issues.
 
 --------------------------------------------------------------------------------
 Enhanced Functions
 --------------------------------------------------------------------------------
 
-Ticket#139:
-Enhance Table Manager and Layout Manager functions: Only when users switch layout setting to "Compact Table Layout" in Layout Manager, the "Dock Options" tab in Table Manager will show up.
+Ticket#141:
+Enhance Table Manager function: Add "Delayed time setting (seconds)" which allows users to setup the delayed time for the pop-up timing of table selection panel after order finalized or stored.
 
-Ticket#142:
-Enhance Table Manager function: Automatically recall order to shopping cart when only one order exists in a table.
+Ticket#150:
+Enhance Stock Control function: Add an alert message to request users to setup stock quantity first before ticking "Auto-stock" setting in Products.
 
-Ticket#144:
-Enhance Rebuild Status function in Table Manager: Remove cache after table status rebuilt, which allows "Rebuild Status" function to take effect immediately without restarting the application.
+Ticket#151:
+Enhance the display method of order item in shopping cart when the price level setting of the order item is not enable due to the price level setting of that order's Destinations setting.
 
-Ticket#147:
-Add one new role for "Return Item" function.
+Ticket#157:
+Enhance Annotations and Reports functions: Add new field in Order Annotations Report to refect the quantity sold in each order.
+
+Ticket#160:
+Enhance Attendance Record: Add Branch ID in the selection of search criteria.
+
+Ticket#164:
+Enhance Synchronization function: Submit X-Requested-With header to Synchronization Server so that the called script can know it is an XMLHttpRequest.
+
+Ticket#165:
+Enhance Item Tax ID in database: Adopt UUID as Item Tax ID in database.
+
+Ticket#166:
+Enhance Load Test function (operated by system engineer for testing purpose only) to add an alert in case the "store order" operation fails.
+
+Ticket#167:
+Enhance Load Test function (operated by system engineer for testing purpose only) to ensure the load test parameter for table will not affect the load test process.
+
+Ticket#169:
+Enhance Data Options setting in General Options function: Automatically move expired order data to historical database.
+
+Ticket#171:
+Enhance View System Log function: When users access Administration Tools, system will automatically record all the activities in system log file (vivipos.log).
+
+Ticket#173:
+Enhance User Interface: Add new skin with 1280x1024 resolution. 
+
+Ticket#176:
+Enhance Reports function: Add one query column for Database Selection in the header of each report.
+
+Ticket#177:
+Enhance Data Import / Export function: Rewrite software code to make this function more efficient.
+
+Ticket#178:
+Enhance Product Label Printing function: Modify software code to redefine the path of template image in preference file, which allows users to add label printing template via Add-on extension.
+
+Ticket#179:
+Enhance Delayed time setting in Table Manager and General Options: Delayed time setting could only be set as 0 (zero) or longer than 5 seconds to ensure Idle Service working normally.
+
+Ticket#180:
+Enhance View System Log function: When users change the settings in General Options and Network Services, system will automatically record all the activities in system log file (vivipos.log).
+
+Ticket#181:
+Enhance Product Sales Report: Add "Total Records Found" field to the last line of Product Sales Report.
+
+Ticket#182:
+Enhance Password setting mechanism: Password must only contain [a-z], [A-Z], [0-9]. Field of Password must not be blank. No space is allowed when input Password.
+
+Ticket#184:
+Enhance Inter-Register Comms (IRC) function: Change the products module of irc_manifest.xml from /data/images/ to /data/images/* to support Windows's bsdtar.exe.
+
+Ticket#185:
+Enhance VFD Templates: The Transaction data must be 'deep clone' before it is sent to the device templates, to prevent changes in the device templates.
 
 --------------------------------------------------------------------------------
 Bugs Fixed
 --------------------------------------------------------------------------------
 
-Ticket#156:	(This bug applies to Taiwan market only)
-In the circumstance that when users click "Cash" button twice in a very fast way, the invoice (for Taiwan market) will be printed twice.
-This issue has been fixed in 1.2.1.7 release.
+Ticket#146:
+In the circumstance that when users conduct transfer table process and print out a "transfer table check", the Table Label shown on transfer table check is not correct.
+This issue has been fixed in 1.2.1.8 release.
+
+Ticket#174:
+Fixed some duplicate message numbers.
 
 --------------------------------------------------------------------------------
 
