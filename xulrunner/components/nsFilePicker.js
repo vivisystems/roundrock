@@ -278,9 +278,9 @@ function (compMgr, fileSpec, location, type)
 
     compMgr.registerFactoryLocation(FILEPICKER_CID,
                                     "FilePicker JS Component",
-//@line 284 "/builds/slave/xulrunner_linux_build/build/toolkit/components/filepicker/src/nsFilePicker.js.in"
+//@line 284 "/home/rack/workspace/mozilla-1.9.1/toolkit/components/filepicker/src/nsFilePicker.js.in"
                                     "",
-//@line 286 "/builds/slave/xulrunner_linux_build/build/toolkit/components/filepicker/src/nsFilePicker.js.in"
+//@line 286 "/home/rack/workspace/mozilla-1.9.1/toolkit/components/filepicker/src/nsFilePicker.js.in"
                                     fileSpec,
                                     location,
                                     type);

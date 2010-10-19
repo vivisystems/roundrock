@@ -1,4 +1,4 @@
-//@line 37 "/builds/slave/xulrunner_linux_build/build/toolkit/components/urlformatter/src/nsURLFormatter.js"
+//@line 37 "/home/rack/workspace/mozilla-1.9.1/toolkit/components/urlformatter/src/nsURLFormatter.js"
 /**
  * @class nsURLFormatterService
  *
