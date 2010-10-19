@@ -5,14 +5,14 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
     <em:id>inspector@mozilla.org</em:id>
-    <em:version>2.0.3</em:version>
+    <em:version>2.0.8</em:version>
 
     <em:targetApplication>
       <!-- Firefox -->
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>3.0a1</em:minVersion>
-        <em:maxVersion>3.2a1pre</em:maxVersion>
+        <em:maxVersion>4.0b8pre</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -21,7 +21,7 @@
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>3.0a1pre</em:minVersion>
-        <em:maxVersion>3.0b2pre</em:maxVersion>
+        <em:maxVersion>3.2a1pre</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -39,7 +39,7 @@
       <Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.0a1pre</em:minVersion>
-        <em:maxVersion>2.0a3</em:maxVersion>
+        <em:maxVersion>2.1b1</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -48,7 +48,7 @@
       <Description>
         <em:id>{a23983c0-fd0e-11dc-95ff-0800200c9a66}</em:id>
         <em:minVersion>1.0a1</em:minVersion>
-        <em:maxVersion>1.0b1</em:maxVersion>
+        <em:maxVersion>1.0.*</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -57,7 +57,7 @@
       <Description>
         <em:id>toolkit@mozilla.org</em:id>
         <em:minVersion>1.9a1</em:minVersion>
-        <em:maxVersion>1.9.2a1pre</em:maxVersion>
+        <em:maxVersion>2.0.*</em:maxVersion>
       </Description>
     </em:targetApplication>
 

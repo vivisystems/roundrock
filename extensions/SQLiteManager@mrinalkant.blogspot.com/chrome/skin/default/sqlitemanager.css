@@ -1,3 +1,5 @@
+@namespace html "http://www.w3.org/1999/xhtml";
+
 /*
 @import url(chrome://global/skin/)
 */
@@ -16,6 +18,13 @@ label.dbinfo {
 	text-align: right;
 }
 
+#dbInfoTab html|select,
+#dbInfoTab html|input {
+  width: 160px;
+  padding: 2px 10px 0px 10px;
+  margin: 2px 10px 0px 10px;
+}
+
 label.forControl {
 	padding-top: 5px;
 }
@@ -30,6 +39,12 @@ vbox#vb-dbInfoTab menulist {
 }
 
 /*toolbar images*/
+.sm-tab-close-button {
+  list-style-image: url("chrome://sqlitemanager/skin/images/close.gif");
+}
+.tbb_questionmark {
+  list-style-image: url("chrome://sqlitemanager/skin/images/questionMark_24.png");
+}
 #tbb_refresh {
   list-style-image: url("chrome://sqlitemanager/skin/images/refresh.png");
 }
@@ -44,6 +59,9 @@ vbox#vb-dbInfoTab menulist {
 }
 #tbb_import {
   list-style-image: url("chrome://sqlitemanager/skin/images/import.png");
+}
+#tbb_udf {
+  list-style-image: url("chrome://sqlitemanager/skin/images/userfunctions.png");
 }
 #tbb_createTable {
   list-style-image: url("chrome://sqlitemanager/skin/images/createTable.png");
@@ -92,9 +110,27 @@ vbox#vb-dbInfoTab menulist {
 #about-icon {
   list-style-image: url("chrome://sqlitemanager/skin/images/default32.png");
 }
-text.url {
-  text-decoration: underline;
+
+/*tree*/
+treechildren::-moz-tree-cell-text(selected) {
+  font-weight: bold;
 }
-text.url:hover {
-  cursor: pointer;
+
+/*tree in structure sidebar*/
+treechildren::-moz-tree-cell(dbObjTable1) {
+  background-color: #ccffcc;
+}
+treechildren::-moz-tree-cell(dbObjIndex1) {
+  background-color: #ccccff;
+}
+treechildren::-moz-tree-cell(dbObjTrigger1) {
+  background-color: #ffcccc;
+}
+treechildren::-moz-tree-cell(dbObjTable1 selected) {
+  background-color: #339933;
+}
+
+/*tree in browse and execute tabs*/
+treechildren::-moz-tree-cell(tabledata) {
+  border-right: 1px solid black;
 }

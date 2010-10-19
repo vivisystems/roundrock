@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 44 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 44 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
 */
 
 const Cc = Components.classes;
@@ -38,7 +38,7 @@ const URI_UPDATE_NS             = "http://www.mozilla.org/2005/app-update";
 
 const KEY_APPDIR          = "XCurProcD";
 const KEY_GRED            = "GreD";
-//@line 85 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 85 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
 const DIR_UPDATES         = "updates";
 const FILE_UPDATE_STATUS  = "update.status";
@@ -86,12 +86,11 @@ var gABI        = null;
 var gOSVersion  = null;
 var gLocale     = null;
 var gConsole    = null;
-var gCanUpdate  = null;
 var gLogEnabled = { };
 var gEnv        = null;
 
 // shared code for suppressing bad cert dialogs
-//@line 41 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/shared/src/badCertHandler.js"
+//@line 41 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/shared/src/badCertHandler.js"
 
 /**
  * Only allow built-in certs for HTTPS connections.  See bug 340198.
@@ -168,7 +167,7 @@ BadCertHandler.prototype = {
     return this;
   }
 };
-//@line 137 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 136 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
 /**
  * Logs a string to the error console.
@@ -183,6 +182,66 @@ function LOG(module, string) {
       gConsole.logStringMessage("AUS:SVC " + module + ":" + string);
   }
 }
+
+__defineGetter__("gCanCheckForUpdates", function () {
+  delete this.gCanCheckForUpdates;
+  // If the administrator has locked the app update functionality
+  // OFF - this is not just a user setting, so disable the manual
+  // UI too.
+  var enabled = getPref("getBoolPref", PREF_APP_UPDATE_ENABLED, true);
+  if (!enabled && gPref.prefIsLocked(PREF_APP_UPDATE_ENABLED)) {
+    LOG("UpdateService", "gCanCheckForUpdates - unable to check for " +
+        "updates, disabled by pref");
+    return gCanCheckForUpdates = false;
+  }
+
+  // If we don't know the binary platform we're updating, we can't update.
+  if (!gABI) {
+    LOG("UpdateService", "gCanCheckForUpdates - unable to check for " +
+        "updates, unknown ABI");
+    return gCanCheckForUpdates = false;
+  }
+
+  // If we don't know the OS version we're updating, we can't update.
+  if (!gOSVersion) {
+    LOG("UpdateService", "gCanCheckForUpdates - unable to check for " +
+        "updates, unknown OS version");
+    return gCanCheckForUpdates = false;
+  }
+
+  LOG("UpdateService", "gCanCheckForUpdates - able to check for updates");
+  return gCanCheckForUpdates = true;
+});
+
+__defineGetter__("gCanApplyUpdates", function () {
+  delete this.gCanApplyUpdates;
+  try {
+    var appDirFile = getUpdateFile([FILE_PERMS_TEST]);
+    LOG("UpdateService", "gCanApplyUpdates - testing " + appDirFile.path);
+    if (!appDirFile.exists()) {
+      appDirFile.create(Ci.nsILocalFile.NORMAL_FILE_TYPE, PERMS_FILE);
+      appDirFile.remove(false);
+    }
+    var updateDir = getUpdatesDir();
+    var upDirFile = updateDir.clone();
+    upDirFile.append(FILE_PERMS_TEST);
+    LOG("UpdateService", "gCanApplyUpdates - testing " + upDirFile.path);
+    if (!upDirFile.exists()) {
+      upDirFile.create(Ci.nsILocalFile.NORMAL_FILE_TYPE, PERMS_FILE);
+      upDirFile.remove(false);
+    }
+//@line 276 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
+  }
+  catch (e) {
+     LOG("UpdateService", "gCanApplyUpdates - unable to apply update. " +
+         "Exception: " + e);
+    // No write privileges to install directory
+    return gCanApplyUpdates = false;
+  }
+
+  LOG("UpdateService", "gCanCheckForUpdates - able to apply updates");
+  return gCanApplyUpdates = true;
+});
 
 /**
  * Convert a string containing binary values to hex.
@@ -278,7 +337,7 @@ function getDirInternal(key, pathArray, shouldCreate, update) {
   var fileLocator = Cc["@mozilla.org/file/directory_service;1"].
                     getService(Ci.nsIProperties);
   var dir = fileLocator.get(key, Ci.nsIFile);
-//@line 254 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 390 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
   for (var i = 0; i < pathArray.length; ++i) {
     dir.append(pathArray[i]);
     if (shouldCreate && !dir.exists())
@@ -385,7 +444,7 @@ function getUpdatesDir(key) {
     updateDir = fileLocator.get(key, Ci.nsIFile);
   else {
     updateDir = fileLocator.get(KEY_APPDIR, Ci.nsIFile);
-//@line 366 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 502 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
   }
   updateDir.append(DIR_UPDATES);
   updateDir.append("0");
@@ -430,7 +489,7 @@ function writeStatusFile(dir, state) {
 }
 
 /**
-//@line 424 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 560 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
  */
 function writeVersionFile(dir, version) {
   var versionFile = dir.clone();
@@ -1053,8 +1112,8 @@ function UpdateService() {
           getService(Ci.nsIPrefBranch2);
   gConsole = Cc["@mozilla.org/consoleservice;1"].
              getService(Ci.nsIConsoleService);
-  gEnv = Components.classes["@mozilla.org/process/environment;1"].
-         getService(Components.interfaces.nsIEnvironment);
+  gEnv = Cc["@mozilla.org/process/environment;1"].
+         getService(Ci.nsIEnvironment);
 
   // Not all builds have a known ABI
   try {
@@ -1084,7 +1143,7 @@ function UpdateService() {
     gOSVersion = encodeURIComponent(osVersion);
   }
 
-//@line 1084 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1220 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
   // Start the update timer only after a profile has been selected so that the
   // appropriate values for the update check are read from the user's profile.
@@ -1191,8 +1250,11 @@ UpdateService.prototype = {
     // Detect installation failures and notify
 
     // Bail out if we don't have appropriate permissions
-    if (!this.canUpdate)
+    if (!this.canUpdate) {
+      LOG("UpdateService:_postUpdateProcessing - unable to update");
       return;
+    }
+ 
 
     var status = readStatusFile(getUpdatesDir());
 
@@ -1201,7 +1263,7 @@ UpdateService.prototype = {
       status = null;
 
     var updRootKey = null;
-//@line 1222 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1361 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
     if (status == STATE_DOWNLOADING) {
       LOG("UpdateService", "_postUpdateProcessing - patch found in " +
@@ -1233,12 +1295,12 @@ UpdateService.prototype = {
         um.activeUpdate = update;
 
         prompter.showUpdateInstalled();
-//@line 1257 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1396 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
         // Perform platform-specific post-update processing.
         if (POST_UPDATE_CONTRACTID in Cc) {
           Cc[POST_UPDATE_CONTRACTID].createInstance(Ci.nsIRunnable).run();
         }
-//@line 1262 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1401 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
         // Done with this update. Clean it up.
         cleanupActiveUpdate(updRootKey);
       }
@@ -1415,12 +1477,27 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1450 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1589 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
      */
 
     // Encode version since it could be a non-ascii string (bug 359093)
     var neverPrefName = PREF_UPDATE_NEVER_BRANCH +
                         encodeURIComponent(update.version);
+
+    if (!gCanApplyUpdates) {
+      if (getPref("getBoolPref", neverPrefName, false)) {
+        LOG("Checker", "_selectAndInstallUpdate - the user is unable to " +
+            "apply updates. Not prompting because the preference " +
+            neverPrefName + " is true");
+      }
+      else {
+        LOG("Checker", "_selectAndInstallUpdate - the user is unable to " +
+            "apply updates... prompting");
+        this._showPrompt(update);
+      }
+      return;
+    }
+
     if (update.type == "major" &&
         getPref("getBoolPref", neverPrefName, false)) {
       LOG("Checker", "_selectAndInstallUpdate - not prompting because this " +
@@ -1429,7 +1506,7 @@ UpdateService.prototype = {
     }
 
     /**
-//@line 1479 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1633 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
      */
     if (update.type == "major") {
       LOG("Checker", "_selectAndInstallUpdate - prompting because it is a " +
@@ -1508,7 +1585,7 @@ UpdateService.prototype = {
 
     if (currentAddons.length > 0) {
       /**
-//@line 1575 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1729 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/update/src/nsUpdateService.js.in"
        */
       this._incompatAddonsCount = currentAddons.length;
       LOG("UpdateService", "_checkAddonCompatibility - checking for " +
@@ -1539,7 +1616,7 @@ UpdateService.prototype = {
    * See nsIExtensionManager.idl
    */
   onUpdateEnded: function AUS_onUpdateEnded() {
-    if (this._incompatAddonsCount > 0) {
+    if (this._incompatAddonsCount > 0 || !gCanApplyUpdates) {
       LOG("Checker", "onUpdateEnded - prompting because there are " +
           "incompatible add-ons");
       this._showPrompt(this._update);
@@ -1591,54 +1668,21 @@ UpdateService.prototype = {
    * See nsIUpdateService.idl
    */
   get canUpdate() {
-    if (gCanUpdate !== null)
-      return gCanUpdate;
+    return gCanApplyUpdates && gCanCheckForUpdates;
+  },
 
-    try {
-      var appDirFile = getUpdateFile([FILE_PERMS_TEST]);
-      LOG("UpdateService", "canUpdate - testing " + appDirFile.path);
-      if (!appDirFile.exists()) {
-        appDirFile.create(Ci.nsILocalFile.NORMAL_FILE_TYPE, PERMS_FILE);
-        appDirFile.remove(false);
-      }
-      var updateDir = getUpdatesDir();
-      var upDirFile = updateDir.clone();
-      upDirFile.append(FILE_PERMS_TEST);
-      LOG("UpdateService", "canUpdate - testing " + upDirFile.path);
-      if (!upDirFile.exists()) {
-        upDirFile.create(Ci.nsILocalFile.NORMAL_FILE_TYPE, PERMS_FILE);
-        upDirFile.remove(false);
-      }
-//@line 1751 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/update/src/nsUpdateService.js.in"
-    }
-    catch (e) {
-       LOG("UpdateService", "canUpdate - unable to update. Exception: " + e);
-      // No write privileges to install directory
-      return gCanUpdate = false;
-    }
-    // If the administrator has locked the app update functionality
-    // OFF - this is not just a user setting, so disable the manual
-    // UI too.
-    var enabled = getPref("getBoolPref", PREF_APP_UPDATE_ENABLED, true);
-    if (!enabled && gPref.prefIsLocked(PREF_APP_UPDATE_ENABLED)) {
-      LOG("UpdateService", "canUpdate - unable to update, disabled by pref");
-      return gCanUpdate = false;
-    }
+  /**
+   * See nsIUpdateService.idl
+   */
+  get canCheckForUpdates() {
+    return gCanCheckForUpdates;
+  },
 
-    // If we don't know the binary platform we're updating, we can't update.
-    if (!gABI) {
-      LOG("UpdateService", "canUpdate - unable tp update, unknown ABI");
-      return gCanUpdate = false;
-    }
-
-    // If we don't know the OS version we're updating, we can't update.
-    if (!gOSVersion) {
-      LOG("UpdateService", "canUpdate unable to update, unknown OS version");
-      return gCanUpdate = false;
-    }
-
-    LOG("UpdateService", "canUpdate - able to update");
-    return gCanUpdate = true;
+  /**
+   * See nsIUpdateService.idl
+   */
+  get canApplyUpdates() {
+    return gCanApplyUpdates;
   },
 
   /**
@@ -1716,7 +1760,9 @@ UpdateService.prototype = {
   implementationLanguage: Ci.nsIProgrammingLanguage.JAVASCRIPT,
   getHelperForLanguage: function(language) null,
   getInterfaces: function AUS_getInterfaces(count) {
-    var interfaces = [Ci.nsIApplicationUpdateService, Ci.nsITimerCallback,
+    var interfaces = [Ci.nsIApplicationUpdateService,
+                      Ci.nsIApplicationUpdateService2,
+                      Ci.nsITimerCallback,
                       Ci.nsIObserver];
     count.value = interfaces.length;
     return interfaces;
@@ -1728,6 +1774,7 @@ UpdateService.prototype = {
   _xpcom_categories: [{ category: "app-startup", service: true }],
   _xpcom_factory: UpdateServiceFactory,
   QueryInterface: XPCOMUtils.generateQI([Ci.nsIApplicationUpdateService,
+                                         Ci.nsIApplicationUpdateService2,
                                          Ci.nsIAddonUpdateCheckListener,
                                          Ci.nsITimerCallback,
                                          Ci.nsIObserver])
@@ -2011,11 +2058,11 @@ Checker.prototype = {
                       getDistributionPrefValue(PREF_APP_DISTRIBUTION));
     url = url.replace(/%DISTRIBUTION_VERSION%/g,
                       getDistributionPrefValue(PREF_APP_DISTRIBUTION_VERSION));
+    url = url.replace(/\+/g, "%2B");
     url = url.replace(/%DALLAS%/g, gEnv.get("dallas"));
     url = url.replace(/%MAC_ADDRESS%/g, gEnv.get("mac_address"));
     url = url.replace(/%VENDOR_NAME%/g, gEnv.get("vendor_name"));
     url = url.replace(/%SYSTEM_NAME%/g, gEnv.get("system_name"));
-    url = url.replace(/\+/g, "%2B");
 
     if (force)
       url += (url.indexOf("?") != -1 ? "&" : "?") + "force=1";
@@ -2175,11 +2222,8 @@ Checker.prototype = {
    */
   _enabled: true,
   get enabled() {
-    var aus = Cc["@mozilla.org/updates/update-service;1"].
-              getService(Ci.nsIApplicationUpdateService);
-    var enabled = getPref("getBoolPref", PREF_APP_UPDATE_ENABLED, true) &&
-                  aus.canUpdate && this._enabled;
-    return enabled;
+    return getPref("getBoolPref", PREF_APP_UPDATE_ENABLED, true) &&
+           gCanCheckForUpdates && this._enabled;
   },
 
   /**
@@ -2833,8 +2877,8 @@ UpdatePrompt.prototype = {
   /**
    * See nsIUpdateService.idl
    */
-  checkForUpdates: function UP_checkForUpdates() {
-    this._showUI(null, URI_UPDATE_PROMPT_DIALOG, null, UPDATE_WINDOW_NAME,
+  checkForUpdates: function UP_checkForUpdates(parent) {
+    this._showUI((parent||null), URI_UPDATE_PROMPT_DIALOG, null, UPDATE_WINDOW_NAME,
                  null, null);
   },
 
@@ -2859,7 +2903,7 @@ UpdatePrompt.prototype = {
   /**
    * See nsIUpdateService.idl
    */
-  showUpdateDownloaded: function UP_showUpdateDownloaded(update, background) {
+  showUpdateDownloaded: function UP_showUpdateDownloaded(update, background, parent) {
     if (background) {
       if (!this._enabled)
         return;
@@ -2870,11 +2914,11 @@ UpdatePrompt.prototype = {
                                               [update.name], 1);
       var text = bundle.GetStringFromName(stringsPrefix + "text");
       var imageUrl = "";
-      this._showUnobtrusiveUI(null, URI_UPDATE_PROMPT_DIALOG, null,
+      this._showUnobtrusiveUI((parent||null), URI_UPDATE_PROMPT_DIALOG, null,
                               UPDATE_WINDOW_NAME, "finishedBackground", update,
                               title, text, imageUrl);
     } else {
-      this._showUI(null, URI_UPDATE_PROMPT_DIALOG, null,
+      this._showUI((parent||null), URI_UPDATE_PROMPT_DIALOG, "modal,dialog=yes",
                    UPDATE_WINDOW_NAME, "finishedBackground", update);
     }
   },

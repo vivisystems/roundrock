@@ -1,58 +1,19 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://sqlitemanager/skin/smoverlay.css" type="text/css"?>
 <overlay id="overlay"
-      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+  <script type="application/x-javascript" src="chrome://sqlitemanager/content/overlays/overlay.js"/>  
   <script type="application/x-javascript">
   <![CDATA[
-    window.addEventListener("load", sm_start, false);
-
-    var smPrefService= Components.classes["@mozilla.org/preferences-service;1"]
-                         .getService(Components.interfaces.nsIPrefService)
-                         .getBranch("extensions.sqlitemanager.");
-
-    function sm_start() {
-        var md = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-          .getInterface(Components.interfaces.nsIWebNavigation)
-          .QueryInterface(Components.interfaces.nsIDocShellTreeItem).rootTreeItem
-          .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-          .getInterface(Components.interfaces.nsIDOMWindow).document;
-        var iVal = smPrefService.getIntPref("posInTargetApp");
-        if (iVal == 0)
-          md.getElementById("menuitem-sqlitemanager").setAttribute("hidden", true);
-        if (iVal == 1)
-          md.getElementById("menuitem-sqlitemanager").setAttribute("hidden", false);
-    }
-
-    function OpenSQLiteManager() {
-      if (smPrefService == null)
-        smPrefService = Components.classes["@mozilla.org/preferences-service;1"]
-                         .getService(Components.interfaces.nsIPrefService)
-                         .getBranch("extensions.sqlitemanager.");
-      var iOpenMode;
-      try {
-        iOpenMode = smPrefService.getIntPref("openMode");
-      } 
-      catch(e) {
-        iOpenMode = 1;
-      }
-
-      switch (iOpenMode) {
-        case 1:      //open a chrome window
-          window.open("chrome://sqlitemanager/content/sqlitemanager.xul", 
-            "", "chrome,resizable,centerscreen");
-          break;
-        case 2:      //open in a new tab
-          openUILinkIn("chrome://sqlitemanager/content/sqlitemanager.xul","tab");
-          break;
-      }
-      return;
-    }
+    // Register handlers to maintain extension life cycle.
+    window.addEventListener("load", com.googlecode.sqlitemanager.start, false);
+    window.addEventListener("unload", com.googlecode.sqlitemanager.shutdown, false);
   ]]>
   </script>
 
   <menupopup id="menu_ToolsPopup">
-    <menuitem oncommand="OpenSQLiteManager()"
+    <menuitem oncommand="com.googlecode.sqlitemanager.open()"
       label="SQLite Manager" id="menuitem-sqlitemanager"
       insertafter="devToolsSeparator" class="menuitem-iconic"
       accesskey="Q"/>
@@ -63,7 +24,7 @@
       class="toolbarbutton-1"
       id="button-sqlitemanager"
       label="SQLite Manager"
-      oncommand="OpenSQLiteManager()"
+      oncommand="com.googlecode.sqlitemanager.open()"
       tooltiptext="SQLite Manager"/>
   </toolbarpalette>
 </overlay>

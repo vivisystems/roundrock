@@ -1,20 +1,12 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://sqlitemanager/skin/smoverlay.css" type="text/css"?>
 <overlay id="overlay"
-      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript">
-  <![CDATA[
-    function OpenSQLiteManager() {
-      window.open("chrome://sqlitemanager/content/sqlitemanager.xul", 
-          "", "chrome,resizable,centerscreen");
-      return;
-    }
-  ]]>
-  </script>
+  <script type="application/x-javascript" src="overlay.js"/>  
 
   <menupopup id="taskPopup">
-    <menuitem oncommand="OpenSQLiteManager()"
+    <menuitem oncommand="com.googlecode.sqlitemanager.openInOwnWindow()"
       label="SQLite Manager" id="menuitem-sqlitemanager"
       insertafter="prefSep" class="menuitem-iconic"
       accesskey="Q"/>
@@ -25,7 +17,7 @@
       class="toolbarbutton-1"
       id="button-sqlitemanager"
       label="SQLite Manager"
-      oncommand="OpenSQLiteManager()"
+      oncommand="com.googlecode.sqlitemanager.openInOwnWindow()"
       tooltiptext="SQLite Manager"/>
   </toolbarpalette>
 </overlay>

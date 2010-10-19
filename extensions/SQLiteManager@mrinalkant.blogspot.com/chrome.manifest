@@ -1,6 +1,11 @@
 content     sqlitemanager    chrome/content/
 skin        sqlitemanager    default  chrome/skin/default/
 locale      sqlitemanager    en-US    chrome/locale/en-US/
+resource    sqlitemanager    chrome/resource/
+
+component {f15ff0f9-9699-496e-a13c-a651365abe2a} components/clh.js
+contract @mrinalkant/commandlinehandler/general-startup;1?type=sqlitemanager {f15ff0f9-9699-496e-a13c-a651365abe2a}
+category profile-after-change m-sqlitemanager @mrinalkant/commandlinehandler/general-startup;1?type=sqlitemanager
 
 #Firefox
 overlay chrome://browser/content/browser.xul chrome://sqlitemanager/content/overlays/firefox.xul
@@ -9,6 +14,9 @@ style   chrome://global/content/customizeToolbar.xul chrome://sqlitemanager/skin
 # Thunderbird
 overlay chrome://messenger/content/mailWindowOverlay.xul	chrome://sqlitemanager/content/overlays/thunderbird.xul		application={3550f703-e582-4d05-9a08-453d09bdfdc6}
 overlay chrome://messenger/content/messengercompose/messengercompose.xul	chrome://sqlitemanager/content/overlays/thunderbird-composer.xul	application={3550f703-e582-4d05-9a08-453d09bdfdc6}
+
+#Sunbird
+overlay chrome://sunbird/content/calendar.xul chrome://sqlitemanager/content/overlays/sunbird.xul application={718e30fb-e89b-41dd-9da7-e25a45638b28}
 
 #Songbird
 overlay chrome://songbird/content/xul/menuOverlay.xul chrome://sqlitemanager/content/overlays/songbird.xul
@@ -23,4 +31,5 @@ overlay chrome://messenger/content/messengercompose/messengercompose.xul chrome:
 overlay chrome://komodo/content/komodo.xul chrome://sqlitemanager/content/overlays/komodo.xul
 
 #overrides
-override chrome://sqlitemanager/skin/sqlitemanager.css chrome://sqlitemanager/skin/darwin/sqlitemanager.css os=darwin
+style chrome://sqlitemanager/content/sqlitemanager.xul chrome://sqlitemanager/skin/darwin/sqlitemanager.css os=darwin
+

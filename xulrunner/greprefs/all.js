@@ -138,11 +138,11 @@ pref("media.enforce_same_site_origin", false);
 // Media cache size in kilobytes
 pref("media.cache_size", 51200);
 
-//@line 142 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 142 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 pref("media.ogg.enabled", true);
-//@line 145 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 145 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 pref("media.wave.enabled", true);
-//@line 147 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 147 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
 // Whether to autostart a media element with an |autoplay| attribute
 pref("media.autoplay.enabled", true);
@@ -158,7 +158,7 @@ pref("gfx.downloadable_fonts.enabled", true);
 pref("accessibility.browsewithcaret", false);
 pref("accessibility.warn_on_browsewithcaret", true);
 
-//@line 163 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 163 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 // Tab focus model bit field:
 // 1 focuses text controls, 2 focuses other form elements, 4 adds links.
 // Most users will want 1, 3, or 7.
@@ -171,7 +171,7 @@ pref("accessibility.tabfocus_applies_to_xul", false);
 // unless this preference was set manually
 pref("ui.scrollToClick", 0);
 
-//@line 179 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 179 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
 pref("accessibility.usetexttospeech", "");
 pref("accessibility.usebrailledisplay", "");
@@ -519,9 +519,9 @@ pref("dom.storage.default_quota",      5120);
 
 // Parsing perf prefs. For now just mimic what the old code did.
 pref("content.sink.event_probe_rate", 3);
-//@line 527 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 527 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 pref("content.sink.pending_event_mode", 0);
-//@line 529 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 529 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
 // Disable popups from plugins by default
 //   0 = openAllowed
@@ -566,7 +566,7 @@ pref("network.protocol-handler.external.data", false);
 pref("network.protocol-handler.external.ms-help", false);
 pref("network.protocol-handler.external.shell", false);
 pref("network.protocol-handler.external.vnd.ms.radio", false);
-//@line 576 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 576 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 pref("network.protocol-handler.external.disk", false);
 pref("network.protocol-handler.external.disks", false);
 pref("network.protocol-handler.external.afp", false);
@@ -704,7 +704,10 @@ pref("network.IDN.whitelist.jp", true);
 pref("network.IDN.whitelist.kr", true);
 pref("network.IDN.whitelist.li", true);
 pref("network.IDN.whitelist.lt", true);
+pref("network.IDN.whitelist.lu", true);
 pref("network.IDN.whitelist.no", true);
+pref("network.IDN.whitelist.nu", true);
+pref("network.IDN.whitelist.nz", true);
 pref("network.IDN.whitelist.pl", true);
 pref("network.IDN.whitelist.pr", true);
 pref("network.IDN.whitelist.se", true);
@@ -714,12 +717,23 @@ pref("network.IDN.whitelist.tm", true);
 pref("network.IDN.whitelist.tw", true);
 pref("network.IDN.whitelist.vn", true);
 
-// non-ccTLDs
+// IDN ccTLDs
+// ae, UAE, .<Emarat>
+pref("network.IDN.whitelist.xn--mgbaam7a8h", true); 
+// sa, Saudi Arabia, .<al-Saudiah>
+pref("network.IDN.whitelist.xn--mgberp4a5d4ar", true); 
+// ru, Russian Federation, .<RF>
+pref("network.IDN.whitelist.xn--p1ai", true);
+// jo, Jordan, .<Al-Ordon>
+pref("network.IDN.whitelist.xn--mgbayh7gpa", true);
+
+// gTLDs
 pref("network.IDN.whitelist.biz", true);
 pref("network.IDN.whitelist.cat", true);
 pref("network.IDN.whitelist.info", true);
 pref("network.IDN.whitelist.museum", true);
 pref("network.IDN.whitelist.org", true);
+pref("network.IDN.whitelist.tel", true);
 
 // NOTE: Before these can be removed, one of bug 414812's tests must be updated
 //       or it will likely fail!  Please CC jwalden+bmo on the bug associated
@@ -799,7 +813,7 @@ pref("network.negotiate-auth.gsslib", "");
 // Specify if the gss lib comes standard with the OS
 pref("network.negotiate-auth.using-native-gsslib", true);
 
-//@line 814 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 828 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
 // The following prefs are used to enable automatic use of the operating
 // system's NTLM implementation to silently authenticate the user with their
@@ -818,9 +832,9 @@ pref("network.ntlm.send-lm-response", false);
 
 pref("permissions.default.image",           1); // 1-Accept, 2-Deny, 3-dontAcceptForeign
 
-//@line 834 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 848 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 pref("network.proxy.type",                  5);
-//@line 841 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 855 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
 pref("network.proxy.ftp",                   "");
 pref("network.proxy.ftp_port",              0);
@@ -1182,15 +1196,15 @@ pref("font.minimum-size.x-western", 0);
 pref("font.minimum-size.x-unicode", 0);
 pref("font.minimum-size.x-user-def", 0);
 
-//@line 1581 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 1595 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
-//@line 1998 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 2012 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
-//@line 2199 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 2213 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
-//@line 2293 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 2307 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
-//@line 2296 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 2310 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 // Handled differently under Mac/Windows
 pref("network.hosts.smtp_server", "localhost");
 pref("network.hosts.pop_server", "pop");
@@ -1458,15 +1472,15 @@ pref("print.postscript.print_command", "lpr ${MOZ_PRINTER_NAME:+-P\"$MOZ_PRINTER
 // So, we have no reasons we should use non-toplevel window for popup.
 pref("ui.panel.default_level_parent", true);
 
-//@line 2566 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 2580 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
-//@line 2634 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 2648 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
-//@line 2660 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 2674 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
-//@line 2680 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 2694 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
-//@line 2688 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 2702 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
 // Login Manager prefs
 pref("signon.rememberSignons",              true);
@@ -1490,7 +1504,7 @@ pref("image.cache.size", 5242880);
 // Size is given a weight of 1000 - timeweight.
 pref("image.cache.timeweight", 500);
 
-//@line 2717 "/home/rack/workspace/mozilla-1.9.1/modules/libpref/src/init/all.js"
+//@line 2731 "/builds/slave/xulrunner_linux_build/build/modules/libpref/src/init/all.js"
 
 // Enable/Disable the geolocation API for content
 pref("geo.enabled", true);

@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 44 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 44 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
 */
 
 //
@@ -154,7 +154,7 @@ var gConv                 = null;
 var gIDTest = /^(\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}|[a-z0-9-\._]*\@[a-z0-9-\._]+)$/i;
 
 // shared code for suppressing bad cert dialogs
-//@line 41 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/shared/src/badCertHandler.js"
+//@line 41 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/shared/src/badCertHandler.js"
 
 /**
  * Only allow built-in certs for HTTPS connections.  See bug 340198.
@@ -231,7 +231,7 @@ BadCertHandler.prototype = {
     return this;
   }
 };
-//@line 196 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 196 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
 
 /**
  * Creates a Version Checker object.
@@ -1399,7 +1399,7 @@ DirectoryInstallLocation.prototype = {
   QueryInterface: XPCOMUtils.generateQI([Ci.nsIInstallLocation])
 };
 
-//@line 1509 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 1509 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
 
 /**
  * An object which handles the installation of an Extension.
@@ -1489,11 +1489,8 @@ Installer.prototype = {
       // create directories first
       var entries = zipReader.findEntries("*/");
       while (entries.hasMore()) {
-        //var entryName = entries.getNext();
-        //var target = installLocation.getItemFile(extensionID, entryName);
-        // if utf8 filename or chinese filename by racklin
-        var entryName = gConv.ConvertFromUnicode(entries.getNext()); 
-        var target = installLocation.getItemFile(extensionID, gConv.ConvertToUnicode(entryName));
+        var entryName = entries.getNext();
+        var target = installLocation.getItemFile(extensionID, entryName);
         if (!target.exists()) {
           try {
             target.create(Ci.nsILocalFile.DIRECTORY_TYPE, PERMS_DIRECTORY);
@@ -1509,9 +1506,8 @@ Installer.prototype = {
       while (entries.hasMore()) {
         //var entryName = entries.getNext();
         //target = installLocation.getItemFile(extensionID, entryName);
-        // if utf8 filename or chinese filename by racklin
-        var entryName = gConv.ConvertFromUnicode(entries.getNext()); 
-        var target = installLocation.getItemFile(extensionID, gConv.ConvertToUnicode(entryName));
+        var entryName = gConv.ConvertFromUnicode(entries.getNext());
+        target = installLocation.getItemFile(extensionID, gConv.ConvertToUnicode(entryName));
         if (target.exists())
           continue;
 
@@ -2334,11 +2330,11 @@ function ExtensionManager() {
   gRDF = Cc["@mozilla.org/rdf/rdf-service;1"].
          getService(Ci.nsIRDFService);
   gInstallManifestRoot = gRDF.GetResource(RDFURI_INSTALL_MANIFEST_ROOT);
+  gEnv = Components.classes["@mozilla.org/process/environment;1"]
+                   .getService(Components.interfaces.nsIEnvironment);
 
-  gEnv = Components.classes["@mozilla.org/process/environment;1"].
-         getService(Components.interfaces.nsIEnvironment);
-  gConv = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
-         getService(Components.interfaces.nsIScriptableUnicodeConverter);
+  gConv = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
+                   .getService(Components.interfaces.nsIScriptableUnicodeConverter);
   gConv.charset = "UTF-8";
 
   // Register Global Install Location
@@ -2400,7 +2396,7 @@ function ExtensionManager() {
     InstallLocations.put(systemLocation);
   }
 
-//@line 2512 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 2512 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
 
   // Register Additional Install Locations
   var categoryManager = Cc["@mozilla.org/categorymanager;1"].
@@ -2755,7 +2751,7 @@ ExtensionManager.prototype = {
   _installGlobalItem: function EM__installGlobalItem(file) {
     if (!file || !file.exists())
       throw new Error("Unable to find the file specified on the command line!");
-//@line 2872 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 2872 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
     var installManifestFile = extractRDFFileToTempDir(file, FILE_INSTALL_MANIFEST, true);
     if (!installManifestFile.exists())
       throw new Error("The package is missing an install manifest!");
@@ -4992,7 +4988,7 @@ ExtensionManager.prototype = {
       }
       else {
         if (opType == OP_NEEDS_UPGRADE)
-          ds.setItemProperty(id, "newVersion", null);
+          ds.setItemProperty(id, EM_R("newVersion"), null);
         this._setOp(id, OP_NEEDS_UNINSTALL);
         var type = ds.getItemProperty(id, "type");
         var restartRequired = this.installRequiresRestart(id, type);
@@ -5574,13 +5570,13 @@ ExtensionManager.prototype = {
       // count to 0 to prevent this dialog from being displayed again.
       this._downloadCount = 0;
       var result;
-//@line 5691 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 5691 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
       result = this._confirmCancelDownloads(this._downloadCount,
                                             "quitCancelDownloadsAlertTitle",
                                             "quitCancelDownloadsAlertMsgMultiple",
                                             "quitCancelDownloadsAlertMsg",
                                             "dontQuitButtonWin");
-//@line 5703 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 5703 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
       if (subject instanceof Ci.nsISupportsPRBool)
         subject.data = result;
     }
@@ -6105,7 +6101,7 @@ ExtensionItemUpdater.prototype = {
   _listener           : null,
 
   /* ExtensionItemUpdater
-//@line 6253 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 6253 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
   */
   checkForUpdates: function ExtensionItemUpdater_checkForUpdates(aItems,
                                                                  aItemCount,
@@ -6492,7 +6488,7 @@ RDFItemUpdater.prototype = {
 
   onDatasourceLoaded: function RDFItemUpdater_onDatasourceLoaded(aDatasource, aLocalItem) {
     /*
-//@line 6676 "/home/rack/workspace/mozilla-1.9.1/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 6676 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
     */
     if (!aDatasource.GetAllResources().hasMoreElements()) {
       LOG("RDFItemUpdater:onDatasourceLoaded: Datasource empty.\r\n" +

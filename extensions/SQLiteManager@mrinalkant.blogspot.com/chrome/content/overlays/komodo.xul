@@ -1,43 +1,14 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://sqlitemanager/skin/smoverlay.css" type="text/css"?>
 <overlay id="overlay"
-      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript">
-  <![CDATA[
-    var smPrefService= null;
-
-    function OpenSQLiteManager() {
-      if (smPrefService == null)
-        smPrefService = Components.classes["@mozilla.org/preferences-service;1"]
-                         .getService(Components.interfaces.nsIPrefService)
-                         .getBranch("extensions.sqlitemanager.");
-      var iOpenMode;
-      try {
-        iOpenMode = smPrefService.getIntPref("openMode");
-      } 
-      catch(e) {
-        iOpenMode = 1;
-      }
-
-      switch (iOpenMode) {
-        case 1:      //open a chrome window
-          window.open("chrome://sqlitemanager/content/sqlitemanager.xul", 
-            "", "chrome,resizable,centerscreen");
-          break;
-        case 2:      //open in a new tab
-          ko.open.URI('chrome://sqlitemanager/content/sqlitemanager.xul', 'browser');
-          break;
-      }
-      return;
-    }
-  ]]>
-  </script>
+  <script type="application/x-javascript" src="overlay.js"/>  
 
   <menupopup id="popup_tools">
-    <menuitem oncommand="OpenSQLiteManager()"
+    <menuitem oncommand="OpenSQLiteManagerKo()"
       label="SQLite Manager" id="menuitem-sqlitemanager"
-      class="menuitem-iconic-wide"
+      class="menuitem-iconic"
       accesskey="Q"/>
   </menupopup>
 
@@ -46,7 +17,7 @@
       persist="buttonstyle"
       buttonstyle="pictures"
       label="SQLite Manager"
-      oncommand="OpenSQLiteManager()"
+      oncommand="OpenSQLiteManagerKo()"
       tooltiptext="SQLite Manager"/>
   </toolbar>
 </overlay>

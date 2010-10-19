@@ -1,27 +1,4 @@
-.tabs-closebutton {
-  list-style-image: url("chrome://sqlitemanager/skin/images/close.gif");
-}
-
 tabs#sm-tabs tab {
-  /*padding: 4px 7px;*/
-  padding: 0 10px;
+  padding: 0 5px;
 }
 
-label.dbinfo {
-	padding-top: 5px;
-	width: 30ex;
-	text-align: right;
-}
-
-label.forControl {
-	padding-top: 5px;
-}
-
-tabbox#sm-tabbox tabpanel {
-  overflow: auto;
-}
-
-vbox#vb-dbInfoTab textbox,
-vbox#vb-dbInfoTab menulist {
-  width: 20ex;
-}
