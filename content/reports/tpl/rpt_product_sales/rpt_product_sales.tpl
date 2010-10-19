@@ -122,11 +122,11 @@
     <table id="body-table">      
         <tfoot>
             <tr>
-                <td style="text-align: left;" width="48%">${_( '(rpt)Total Records Found' ) + ': '}${category.orderItems.length|format:0}</td>
+                <td style="text-align: left;" width="48%">${_( '(rpt)Total Records Found' ) + ': '}${foot.record|format:0}</td>
                 <td style="text-align: left;" width="20%">${_( '(rpt)Summary' ) + ': '}</td>
-                <td style="text-align: center;">${category.summary.qty|format:0}</td>
-                <td style="text-align: right;">${category.summary.gross|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${category.summary.net|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: center;">${foot.total_summary|format:0}</td>
+                <td style="text-align: right;">${foot.total_gross|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.total_net|default:0|viviFormatPrices:true}</td>
             </tr>
         </tfoot>
     </table>
