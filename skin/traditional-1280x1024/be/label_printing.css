@@ -6,8 +6,8 @@
     background: white ;
     border:none;
     color: #4f4f51;
-    font-size: 12pt;
-    padding: 12px 12px;
+    font-size: 14pt;
+    padding: 14px 14px;
     -moz-appearance: none;
 }
 
@@ -73,7 +73,7 @@
     color: #4d4234;
     font-size: 15pt;
     margin: 5px;
-    min-height: 45px;
+    min-height: 55px;
     min-width: 80px;
     padding: 8px;
     -moz-appearance: none;

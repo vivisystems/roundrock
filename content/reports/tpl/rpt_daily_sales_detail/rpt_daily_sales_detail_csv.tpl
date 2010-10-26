@@ -14,6 +14,7 @@
 "${queryFormLabel.period_type_label}","${queryFormLabel.period_type}"
 "${queryFormLabel.sequence_no_label}","${queryFormLabel.sequence_no}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
 "${_( '(rpt)Terminal' )}","${_( '(rpt)Sale Period' )}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Number of Guests' )}","${_( '(rpt)Number of Items' )}","${_( '(rpt)Gross Sales' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Total' )}"
 {for detail in body}

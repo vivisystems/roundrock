@@ -68,14 +68,14 @@
                                     </vbox>
                                     <vbox>
                                         <label value="&sync_settings.label.machine_id;"/>
-                                        <textbox form="syncSettingForm" name="machine_id"/>
+                                        <textbox form="syncSettingForm" name="machine_id" onchange="this.value = this.value.trim();"/>
                                     </vbox>
                                 </row>
 
                                 <row>
                                     <vbox>
                                         <label value="&sync_settings.label.password;"/>
-                                        <textbox form="syncSettingForm" name="password"/>
+                                        <textbox form="syncSettingForm" name="password" onchange="this.value = this.value.trim();"/>
                                     </vbox>
                                     <vbox>
                                         <label value="&sync_settings.label.interval;"/>

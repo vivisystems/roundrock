@@ -15,6 +15,7 @@
 "${queryFormLabel.annotation_type_label}","${queryFormLabel.annotation_type}"
 "${queryFormLabel.orderstatus_label}","${queryFormLabel.orderstatus}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
 {for types in body}
 "${types_index}"

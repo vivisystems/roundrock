@@ -4,7 +4,7 @@ pref("vivipos.fec.registry.layouts.traditional.desc", "chrome://viviecr/locale/m
 pref("vivipos.fec.registry.layouts.traditional.overlay_uri", "chrome://viviecr/content/layouts/traditional/traditional.xul");
 pref("vivipos.fec.registry.layouts.traditional.prefs_overlay_uri", "chrome://viviecr/content/layouts/traditional/traditional_prefs.xul");
 pref("vivipos.fec.registry.layouts.traditional.icon", "chrome://viviecr/content/layouts/traditional/traditional.png");
-pref("vivipos.fec.registry.layouts.traditional.resolutions", "800x600,1024x768");
+pref("vivipos.fec.registry.layouts.traditional.resolutions", "800x600,1024x768,1280x1024");
 pref("vivipos.fec.registry.layouts.traditional.disabled_features", "pluheightFeature");
 pref("vivipos.fec.registry.layouts.traditional.skin", "traditional-${width}x${height}/1.0");
 

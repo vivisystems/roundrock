@@ -17,8 +17,13 @@
 
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
-            
+
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var orderItem = new OrderItemModel();
+
+            orderItem.useDbConfig = useDbConfig; // udpate dbconfig
 
             var fields = [
                 'order_items.product_no',
@@ -64,11 +69,6 @@
             
             // prepare category stuff.
             var deptCondition = '';
-    /*        if ( department != 'all' ) {
-                conditions += " AND order_items.cate_no = '" + this._queryStringPreprocessor( department ) + "'";
-                deptCondition = "no = '" + this._queryStringPreprocessor( department ) + "'";
-            }
-    */
             var categoryModel = new CategoryModel();
             var categoryRecords = categoryModel.find( 'all', {
                 fields: [ 'no', 'name' ],
@@ -92,19 +92,8 @@
                     }
                 }
             } );
-            categories.group = this._setGroups();
-            if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(categories,20));
-         //   alert(this.dump(categories));
-            /*
-            var orderItemRecords = orderItem.find( 'all',{
-                fields: fields,
-                conditions: conditions,
-                group: groupby,
-                recursive: 1,
-                order: orderby,
-                limit: this._csvLimit
-            } );
-            */
+           categories.group = this._setGroups();
+           if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(categories,20));       
 
            var orderItemRecords = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
 
@@ -209,38 +198,7 @@
                             } );
                          }
                     }
-                }
-
-           /*      allProducts.forEach( function( p ) {
-                   if (!(p.cate_no in categories.department)) {
-                        categories.department[ p.cate_no ] = {
-                            no: p.cate_no,
-                            name: p.cate_no + ' - ' + _('Obsolete'),
-                            orderItems: [ p ],
-                            summary: {
-                                qty: 0,
-                                gross: 0.0,
-                                net: 0.0
-                            },
-                            prodByNo: {}
-                        };
-                        categories.department[ p.cate_no ].prodByNo[ p.no ] = 1;
-                    }
-                    else
-
-                    //
-
-                    if (!(p.no in categories.group[ p.cate_no ].prodByNo)) {
-                        categories.department[ p.cate_no ].orderItems.push( {
-                            product_no: p.no,
-                            product_name: p.name,
-                            avg_price: 0.0,
-                            qty: 0,
-                            gross: 0.0,
-                            net: 0.0
-                        } );
-                    }
-                });*/
+                }          
             }
 
             if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(categories,20));
@@ -340,21 +298,36 @@
                 }
             }
 
+            var total_record = 0;
+            var total_summary = 0;
+            var total_gross = 0;
+            var total_net = 0;
+
+            for(var cate in categories){
+                for(var obj in categories[cate]){
+                    total_record += categories[cate][obj].orderItems.length;
+                    total_summary += categories[cate][obj].summary.qty;
+                    total_gross += categories[cate][obj].summary.gross;
+                    total_net += categories[cate][obj].summary.net;
+                }
+            }
+
             //set group
             //categories.group = GeckoJS.BaseObject.clone(categories.department);
             if (GeckoJS.Log.defaultClassLevel.value <= 1) this.log('DEBUG', this.dump(categories,20));
-            var departmentKeys = GeckoJS.BaseObject.getKeys(categories.department);
-
-            
-
-            
-
+            var departmentKeys = GeckoJS.BaseObject.getKeys(categories.department);           
+          
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.productsales.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;
 
             this._reportRecords.body = categories;
+
+            this._reportRecords.foot.record = total_record;
+            this._reportRecords.foot.total_summary = total_summary;
+            this._reportRecords.foot.total_gross = total_gross;
+            this._reportRecords.foot.total_net = total_net;
         },
 
         _setGroupProperty: function( allProducts ){

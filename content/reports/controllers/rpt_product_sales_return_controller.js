@@ -40,9 +40,13 @@
             // OrderItemModel represents vivipos_order.order_items table 
             //
 
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var orderItem = new OrderItemModel();
 
-
+            orderItem.useDbConfig = useDbConfig; // udpate dbconfig
+         
             // Define the fields we want to retrive from the OrderItem object
             // please note that "net" result is the sum of current subtotal plus surcharge or discount applied 
 

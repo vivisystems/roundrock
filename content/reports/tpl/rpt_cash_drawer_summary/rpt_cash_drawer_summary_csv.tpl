@@ -11,6 +11,7 @@
 "${_('(rpt)Condition') + ' - '}"
 "${queryFormLabel.terminal_no_label}","${queryFormLabel.terminal_no}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
  "${_( '(rpt)Clerk' )}","${_( '(rpt)Event' )}","${_( '(rpt)Occurrences' )}"
 {for item in body}

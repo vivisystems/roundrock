@@ -92,7 +92,7 @@
                     </vbox>
                     <vbox>
                         <label control="idletime" value="&general.idletime;"/>
-                        <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="10" max="999"/>
+                        <textbox preference="pref_idletime" id="idletime" type="number" size="4" maxlength="4" min="10" max="9999"/>
                     </vbox>
                 </row>
                 <row>
@@ -352,6 +352,8 @@
             <preference id="pref_orderweeklypack" name="vivipos.fec.settings.OrderWeeklyPack" type="int"/>
             <preference id="pref_autobackuponclosing" name="vivipos.fec.settings.AutoBackupOnClosing" type="bool"/>
             <preference id="pref_inventory_adjustment_retaindays" name="vivipos.fec.settings.InventoryAdjustmentRetainDays" type="int"/>
+            <preference id="pref_orderexpirehistory" name="vivipos.fec.settings.moveExpiredDataToHistory" type="bool"/>
+            <preference id="pref_splitHistoryOrderFile" name="vivipos.fec.settings.splitHistoryOrderFile" type="unichar"/>
         </preferences>
 
         <grid class="data-form data-form-options">
@@ -376,12 +378,25 @@
                     </menulist>
                 </row>
                 <row>
+                    <checkbox preference="pref_orderexpirehistory" id="orderexpirehistory" label="&orderdata.move_order_to_history;"/>
+                    <hbox>
+                        <label value="&orderdata.split_history_order_file;" />
+                         <menulist flex="1" preference="pref_splitHistoryOrderFile" id="splitHistoryOrderFile">
+                            <menupopup>
+                              <menuitem label="&orderdata.split_history_order_file_monthly;" value="monthly"/>
+                              <menuitem label="&orderdata.split_history_order_file_quarterly;" value="quarterly"/>
+                              <menuitem label="&orderdata.split_history_order_file_halfyearly;" value="halfyearly"/>
+                              <menuitem label="&orderdata.split_history_order_file_yearly;" value="yearly"/>
+                            </menupopup>
+                          </menulist>
+                    </hbox>
+                </row>
+                <row>
                     <label value="&orderdata.inventory.adjustment.retaindays;"/>
                     <textbox preference="pref_inventory_adjustment_retaindays" id="inventoryAdjustmentRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>
                 </row>
                 <row>
-                    <label value="&orderdata.autobackuponclosing;"/>
-                    <checkbox preference="pref_autobackuponclosing" id="autobackuponclosing"/>
+                    <checkbox preference="pref_autobackuponclosing" id="autobackuponclosing" label="&orderdata.autobackuponclosing;" />
                 </row>
             </rows>
         </grid>

@@ -10,13 +10,13 @@
 
 .layout-dialog .layout-fullscreen {
     background: white;
-    height: 768px;
-    max-height: 768px;
-    max-width: 1024px;
-    min-height: 768px;
-    min-width: 1024px;
+    height: 1024px;
+    max-height: 1024px;
+    max-width: 1280px;
+    min-height: 1024px;
+    min-width: 1280px;
     overflow: hidden;
-    width: 1024px;
+    width: 1280px;
 }
 
 .layout-dialog .layout-popup-memo {

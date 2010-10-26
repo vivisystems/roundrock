@@ -78,7 +78,66 @@
                 }
             }
             return r;
+        },
+        
+        clearExpireData: function(expireDate) {
+
+            // try to attach history database
+            var result = false;
+            var isMoveToHistory = GeckoJS.Configure.read('vivipos.fec.settings.moveExpiredDataToHistory') || false;
+            var attachedOrderHistory = isMoveToHistory ? this.attachOrderHistory() : false;
+
+            if (!this.begin()) {
+                this.log('ERROR', 'An error was encountered while preparing to remove expired shift change records (error code ' + this.lastError + '): ' + this.lastErrorString);
+                if (attachedOrderHistory) {
+                    this.detachOrderHistory();
+                }               
+                return false;
+            }
+
+            try {
+                   
+                if (attachedOrderHistory) {
+                   // copy clockstamp to history
+                   this.execute('INSERT OR REPLACE INTO order_history.shift_changes SELECT * FROM shift_changes where created <= ' + expireDate);
+                }
+                                                                            
+                r = this.execute('delete from shift_changes where created <= ' + expireDate);
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while expiring shift change records (error code %S) .', [this.lastError])};
+                }
+                
+                if (!this.commit()) {
+                    throw {
+                        errno: this.lastError,
+                        errstr: this.lastErrorString,
+                        errmsg: _('An error was encountered while expiring shift change records (error code %S) .', [this.lastError])
+                    };                           
+                }                   
+                result = true; 
+                           
+            }catch(e) {
+                
+                this.rollback();
+                this.log('ERROR', e.errmsg);
+
+                this.lastError = e.errno;
+                this.lastErrorString = e.errstr;
+               
+                result = false;
+                
+            }finally {
+                if (attachedOrderHistory) {
+                    this.detachOrderHistory();
+                }                
+            }
+            
+            return result;
+            
         }
+        
 
     };
 

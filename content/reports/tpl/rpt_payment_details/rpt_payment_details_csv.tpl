@@ -14,6 +14,7 @@
 "${queryFormLabel.period_type_label}","${queryFormLabel.period_type}"
 "${queryFormLabel.payment_type_label}","${queryFormLabel.payment_type}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
 {for paymentGroup in body}
 '${_('(rpt)' + paymentGroup_index)}

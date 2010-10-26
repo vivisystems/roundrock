@@ -78,8 +78,14 @@
             var groupby = 'orders.id, order_payments.name';
             var orderby = 'orders.' +  timeField;
             
-            //var order = new OrderModel();
+            
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var orderPayment = new OrderPaymentModel();
+
+            orderPayment.useDbConfig = useDbConfig; // udpate dbconfig
+            
 
             var counts = orderPayment.getDataSource().fetchAll('SELECT count(id) as rowCount from (SELECT distinct (orders.id) ' + '  FROM orders LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby +')');
             var rowCount = counts[0].rowCount;

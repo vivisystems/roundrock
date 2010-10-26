@@ -59,7 +59,11 @@
             var groupby = 'clock_stamps.username';
             var orderby = 'clock_stamps.username, "' + sortby + '"';
 
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
             var clockStamp = new ClockStampModel();
+            clockStamp.useDbConfig = useDbConfig; // udpate dbconfig
+
             var datas = clockStamp.find( 'all', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1, limit: limit } );
 
             // prepare report datas here so that all clock stamps are ordered by username first

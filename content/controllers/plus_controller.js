@@ -1235,10 +1235,13 @@
 
             if(checked){
 
-                 var item_no = document.getElementById('product_no');
-                 var stockQty = this.StockRecord.getStockById(item_no.value);
+                 var item_no = document.getElementById('product_no').value;//var stockQty = this.StockRecord.getStockById(item_no.value);
 
-                 if(stockQty == 0){
+                 var stockRecord = this.StockRecord.get( 'first', {
+                    conditions: "id = '" + item_no + "'"
+                } );
+
+                 if(!stockRecord){
                       NotifyUtils.warn(_('You should set inventory first.'));
                       document.getElementById('auto_maintain_stock').checked = false;
                  }

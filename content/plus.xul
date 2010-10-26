@@ -131,7 +131,7 @@
 
                 <tabbox flex="1" crop="right" class="content-tabbox">
 
-                    <arrowscrollbox orient="horizontal" flex="1" class="content-arrow-scrollbox">
+                    <arrowscrollbox orient="horizontal" class="content-arrow-scrollbox">
                         <tabs id="tabs" >
                             <tab id="tab1" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                             <tab id="tab2" module="productsBasic2Attr" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />

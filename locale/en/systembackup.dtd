@@ -16,3 +16,10 @@
 <!ENTITY vivipos.fec.common.modify "Modify">
 <!ENTITY vivipos.fec.common.delete "Delete">
 
+<!ENTITY orderhistory.backup "Order History Backup">
+<!ENTITY orderhistory.local "Order History (local)">
+<!ENTITY orderhistory.filename "Filename">
+<!ENTITY orderhistory.filesize "Filesize">
+<!ENTITY orderhistory.mintime "Min Order Time">
+<!ENTITY orderhistory.maxtime "Max Order Time">
+<!ENTITY orderhistory.total_orders "Total Orders">

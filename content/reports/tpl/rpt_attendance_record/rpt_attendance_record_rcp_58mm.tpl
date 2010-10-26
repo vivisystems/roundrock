@@ -12,6 +12,7 @@ ${_('(rpt)Condition') + ' - '}
 ${queryFormLabel.user_label}${queryFormLabel.user}
 ${queryFormLabel.job_label}${queryFormLabel.job}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:24}
 ------------------------

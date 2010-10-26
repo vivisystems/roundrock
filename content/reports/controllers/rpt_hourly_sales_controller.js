@@ -66,7 +66,12 @@
             
             var orderby = '"Order.Date", "Order.Hour"';
 
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var order = new OrderModel();
+
+            order.useDbConfig = useDbConfig; // udpate dbconfig
 
             this.log('DEBUG', this.dump(conditions));
 

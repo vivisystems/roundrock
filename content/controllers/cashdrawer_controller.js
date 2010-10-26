@@ -464,7 +464,7 @@
                                errmsg: _('An error was encountered while expiring backup cashdrawer activity logs (error code %S) [message #201].', [model.lastError])};
                     }
 
-                    r = model.execute('delete from cashdrawer_records where created <= ' + expireDate);
+                    r = model.clearExpireData(expireDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,

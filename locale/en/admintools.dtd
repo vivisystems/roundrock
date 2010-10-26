@@ -4,6 +4,7 @@
 <!ENTITY admintools.tab.saleperiod          "Sale Period Adjustment">
 <!ENTITY admintools.tab.dsbackup            "Datasource Backup">
 <!ENTITY admintools.tab.irc                 "IRC">
+<!ENTITY admintools.tab.order_history       "Order History">
 
 <!ENTITY admintools.syncstatus.status       "Synchronization Status">
 <!ENTITY admintools.syncstatus.server       "Synchronization Server">
@@ -61,3 +62,9 @@
 
 <!ENTITY admintools.saleperiod.reset.saleperiod     "Reset Sale Period">
 <!ENTITY admintools.saleperiod.reset.ordernumber    "Reset Order Sequence">
+
+<!ENTITY admintools.order_history.merge           "Merge">
+<!ENTITY admintools.order_history.remove         "Remove">
+<!ENTITY admintools.order_history.purge          "Purge">
+<!ENTITY admintools.order_history.order_history_order_files           "History Order Files">
+<!ENTITY admintools.order_history.order_history_reporting_file           "History Order For Reporting">

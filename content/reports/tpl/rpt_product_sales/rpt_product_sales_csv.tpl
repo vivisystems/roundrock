@@ -13,6 +13,7 @@
 "${queryFormLabel.shiftno_label}","${queryFormLabel.shiftno}"
 "${queryFormLabel.periodtype_label}","${queryFormLabel.periodtype}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
 {for category in body.department}
 "'${category.no}","${category.name}"
@@ -31,3 +32,4 @@
 {/for}
 "${_( '(rpt)Records Found' ) + ': '}","${category.orderItems.length|format:0}","${_( '(rpt)Summary' ) + ':'}","${category.summary.qty|default:0}","${category.summary.gross|default:0|viviFormatPrices:true}","${category.summary.net|viviFormatPrices:true}"
 {/for}
+"${_( '(rpt)Total Records Found' ) + ': '}","${foot.record|format:0}","${_( '(rpt)Summary' ) + ':'}","${foot.total_summary|default:0}","${foot.total_gross|default:0|viviFormatPrices:true}","${foot.total_net|viviFormatPrices:true}"

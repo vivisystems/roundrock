@@ -12,6 +12,7 @@ ${queryFormLabel.period_type_label}${queryFormLabel.period_type}
 ${queryFormLabel.annotation_type_label}${queryFormLabel.annotation_type}
 ${queryFormLabel.orderstatus_label}${queryFormLabel.orderstatus}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:24}
 {for types in body}

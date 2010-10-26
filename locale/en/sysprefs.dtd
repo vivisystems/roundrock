@@ -167,6 +167,12 @@
 <!ENTITY orderdata.inventory.adjustment.retaindays "Number of days to retain inventory adjustment records">
 <!ENTITY orderdata.rebuilddatabase "Rebuild Database">
 <!ENTITY orderdata.autobackuponclosing "Backup automatically on closing sale period">
+<!ENTITY orderdata.move_order_to_history "Move expire order datas to history order files">
+<!ENTITY orderdata.split_history_order_file "Split by:">
+<!ENTITY orderdata.split_history_order_file_monthly "Monthly">
+<!ENTITY orderdata.split_history_order_file_quarterly "Quarterly">
+<!ENTITY orderdata.split_history_order_file_halfyearly "Half-Yearly">
+<!ENTITY orderdata.split_history_order_file_yearly "Yearly">
 <!ENTITY training.vacuumtrainingdb "Pack Training database">
 <!ENTITY training.takecurrentdbtobedefaultdb "Take current database to be default training database">
 <!ENTITY training.takedefaultdbtobetrainingdb "Reset training database to default training database">

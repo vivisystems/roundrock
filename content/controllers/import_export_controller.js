@@ -566,6 +566,7 @@
                                                         default: {
                                                         }
                                                     }
+                                                    break;
                                             }
                                             case "plugroups": {
                                                     switch(col) {
@@ -612,6 +613,7 @@
                                                         default: {
                                                         }
                                                     }
+                                                    break;
                                             }
                                             case "products": {
                                                     switch(col) {
@@ -673,6 +675,7 @@
 
                                                         }
                                                     }
+                                                    break;
                                             }
                                             case "categories": {
                                                     switch(col) {
@@ -684,6 +687,7 @@
 
                                                         }
                                                     }
+                                                    break;
                                             }
                                             case "setitems": {
                                                     switch(col) {
@@ -717,6 +721,7 @@
 
                                                         }
                                                     }
+                                                    break;
                                             }
                                             default: {
                                             }

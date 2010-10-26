@@ -4,6 +4,8 @@
   %Dialog;
   <!ENTITY % AdminTools SYSTEM "chrome://viviecr/locale/admintools.dtd">
   %AdminTools;
+  <!ENTITY % ImportExport SYSTEM "chrome://viviecr/locale/systembackup.dtd">
+  %ImportExport;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
@@ -27,6 +29,8 @@
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
 
+  <script src="chrome://viviecr/content/helpers/order_history_view.js" type="application/x-javascript"/>
+  
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/admintools_controller.js" type="application/x-javascript"/>
 
@@ -48,6 +52,7 @@
                         <tab id="tab3" label="&admintools.tab.saleperiod;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab4" label="&admintools.tab.dsbackup;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab5" label="&admintools.tab.irc;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab6" label="&admintools.tab.order_history;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                     </tabs>
                 </arrowscrollbox>
 
@@ -328,6 +333,51 @@
                                               fields="pkg,source,size,unpacked" types=",,,checkbox" hidecolumnpicker="true"
                                               onselect="$do('selectIRCPackage', null, 'AdminTools');"
                                               />
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+
+                    <!-- order history merge / remove -->
+                    <tabpanel id="tabpanel_order_history" orient="vertical" flex="1">
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column flex="0"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows flex="1">
+                                <row flex="1">
+                                    <vbox flex="1">
+                                        <button id="removeOrderHistoryData" class="button-execute"
+                                                label="&admintools.order_history.remove;"
+                                                oncommand="$do('removeOrderHistoryData', null, 'AdminTools');"/>
+                                        <spacer style="height: 10px;"/>
+                                        <button id="mergeOrderHistoryData" class="button-execute"
+                                                label="&admintools.order_history.merge;"
+                                                oncommand="$do('mergeOrderHistoryData', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <groupbox flex="1">
+                                        <caption label="&admintools.order_history.order_history_order_files;" />
+                                        <vivitree id="orderHistoryScrollablepanel" flex="1" class="standard"
+                                                  headers="&orderhistory.filename;,&orderhistory.filesize;,&orderhistory.total_orders;,&orderhistory.mintime;,&orderhistory.maxtime;"
+                                                  fields="filename,display_filesize,display_total_orders,display_minTime,display_maxTime"
+                                                  hidecolumnpicker="true"
+                                                  onselect="$do('selectOrderHistory',this.selectedIndex, 'AdminTools');"/>
+                                    </groupbox>
+                                </row>
+                                <row>
+                                    <vbox flex="1">
+                                        <button id="purgeOrderHistoryData" class="button-execute"
+                                                label="&admintools.order_history.purge;"
+                                                oncommand="$do('purgeOrderHistoryData', null, 'AdminTools');"/>
+                                    </vbox>
+                                    <groupbox flex="1">
+                                        <caption label="&admintools.order_history.order_history_reporting_file;" />
+                                        <vivitree id="orderHistoryReportScrollablepanel" rows="1" class="standard"
+                                                  headers="&orderhistory.filename;,&orderhistory.filesize;,&orderhistory.total_orders;,&orderhistory.mintime;,&orderhistory.maxtime;"
+                                                  fields="filename,display_filesize,display_total_orders,display_minTime,display_maxTime"
+                                                  hidecolumnpicker="true" />
+                                    </groupbox>
                                 </row>
                             </rows>
                         </grid>

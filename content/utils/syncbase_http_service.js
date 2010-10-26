@@ -259,7 +259,10 @@
             var datas = null;
 
             req.open(method, reqUrl, true);
-
+            
+            // Set header so the called script knows that it's an XMLHttpRequest
+            req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            
             // set vivipos web service basic authorization
             this.setAuthorizationHeader(req);
 

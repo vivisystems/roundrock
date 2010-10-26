@@ -14,7 +14,7 @@
 "${queryFormLabel.period_type_label}","${queryFormLabel.period_type}"
 "${queryFormLabel.num_dept_label}","${queryFormLabel.num_dept}"
 "${queryFormLabel.num_product_label}","${queryFormLabel.num_product}"
-""
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 "${head.title} ${head.subtitle}"
 "",""
 "${_( '(rpt)Sales Overview' )}"

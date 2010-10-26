@@ -15,6 +15,7 @@
 "${queryFormLabel.status_label}","${queryFormLabel.status}"
 "${queryFormLabel.destination_label}","${queryFormLabel.destination}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
 {for field in fields}"${_( field.name )}",{/for}""
 {for detail in body}

@@ -212,6 +212,119 @@
                 }
             }
             
+        },
+
+        /**
+                *  Initial /data/history_databases if not exists
+                */
+        initialOrderHistoryDatabase: function() {
+
+            var orderDbConfig = GeckoJS.Configure.read('DATABASE_CONFIG.order') || {database: 'vivipos_order.sqlite'};
+            var retainDays = GeckoJS.Configure.read('vivipos.fec.settings.OrderRetainDays') || 0;
+            var isMoveToHistory = GeckoJS.Configure.read('vivipos.fec.settings.moveExpiredDataToHistory') || false;
+            var splitHistoryOrderFile = GeckoJS.Configure.read('vivipos.fec.settings.splitHistoryOrderFile') || 'quarterly';
+            var historyDatabasePath = GeckoJS.Configure.read('vivipos.fec.settings.historyDatabasesPath') || '/data/history_databases';
+
+            var historyOrderFile = '' ; //historyDatabasePath + '/' + orderDbConfig.database;
+            var reportingOrderFile = historyDatabasePath + '/vivipos_order_reporting.sqlite';
+
+            if (isMoveToHistory && retainDays > 0) {
+
+                try {
+
+                    var curTime = Math.floor((new Date()).getTime()/1000);
+                    var retainDate = new Date( (curTime - (retainDays*86400)) * 1000);
+                    
+                    switch (splitHistoryOrderFile) {
+
+                        case 'monthly':
+                            historyOrderFile = historyDatabasePath + '/' + retainDate.toString("yyyyMM") + '_' + orderDbConfig.database;
+                            break;
+
+                        default:
+                        case 'quarterly':
+                            var qm = Math.ceil( parseInt(retainDate.toString("M"))/3);
+                            var qmFilename = ['','0103', '0306', '0709', '1012'];
+                            historyOrderFile = historyDatabasePath + '/' + retainDate.toString("yyyy") + qmFilename[qm] +'_' + orderDbConfig.database;
+                            break;
+
+                        case 'halfyearly':
+                            var hym = Math.ceil( parseInt(retainDate.toString("M"))/6);
+                            var hymFilename = ['','0106', '0712'];
+                            historyOrderFile = historyDatabasePath + '/' + retainDate.toString("yyyy") + hymFilename[hym] +'_' + orderDbConfig.database;
+                            break;
+
+                        case 'yearly':
+                            historyOrderFile = historyDatabasePath + '/' + retainDate.toString("yyyy") + '_' + orderDbConfig.database;
+                            break;
+
+                    }
+                   
+                    var dirHandle = new GeckoJS.Dir(historyDatabasePath, true); // autocreate
+                    if (!dirHandle.exists()) {
+                        this.log('ERROR', 'Can not initial [' + historyDatabasePath + '] directory.');
+                        return false;
+                    }
+
+                    // check Factory databases.tbz exists
+                    var factoryDatabasesFile = '/data/backups/Factory/databases.tbz';
+                    if (!GeckoJS.File.exists(factoryDatabasesFile)) return false;
+
+                    var reportingDbHandle  = new GeckoJS.File(reportingOrderFile);
+                    if (!reportingDbHandle.exists()) {
+                        // uncompress factory databases
+                        GeckoJS.File.run('/bin/tar', ['-xjpf', factoryDatabasesFile, '-C', '/tmp', './'+orderDbConfig.database], true);
+                        GeckoJS.File.run('/bin/mv', ['/tmp/'+orderDbConfig.database, reportingOrderFile], true);
+
+                        this.log('WARN', 'Creating [' + reportingOrderFile + '] file from Factory databases.tbz');
+                    }
+
+
+                    var dbHandle = new GeckoJS.File(historyOrderFile);
+
+                    if (dbHandle.exists()){
+                        return historyOrderFile;
+                    }else {
+                        // uncompress factory databases
+                        GeckoJS.File.run('/bin/tar', ['-xjpf', factoryDatabasesFile, '-C', '/tmp', './'+orderDbConfig.database], true);
+                        GeckoJS.File.run('/bin/mv', ['/tmp/'+orderDbConfig.database, historyOrderFile], true);
+
+                        this.log('WARN', 'Creating [' + historyOrderFile + '] file from Factory databases.tbz');
+                    }
+
+                    if (dbHandle.exists()) {
+                        return historyOrderFile;
+                    }else {
+                        this.log('ERROR', 'Can not creating [' + historyOrderFile + '] file from Factory databases.tbz');
+                        return false;
+                    }
+
+                }catch(e) {
+                    this.log('ERROR', 'Error initialOrderHistoryDatabase', e);
+                }
+
+            }
+            return false;
+
+        },
+
+
+        attachOrderHistory: function(historyOrderFile) {
+
+            historyOrderFile = historyOrderFile || this.initialOrderHistoryDatabase();
+
+            var attachedOrderHistory = false;
+            if (historyOrderFile && GeckoJS.File.exists(historyOrderFile)) {
+                attachedOrderHistory = this.execute("ATTACH DATABASE '" +  historyOrderFile + "' AS 'order_history'");
+            }
+
+            return attachedOrderHistory;
+            
+        },
+
+
+        detachOrderHistory: function() {
+            return this.execute("DETACH DATABASE 'order_history'");
         }
 
 

@@ -377,7 +377,7 @@
                 else {
                     GREUtils.Dialog.alert(this.topmostWindow,
                         _('Table Status'),
-                        _('Failed to rebuild table status, please check the network connectivity to the terminal designated as the table status server [message #2101]'));
+                        _('Failed to rebuild table status, please check the network connectivity to the terminal designated as the table status server [message #2301]'));
                 }
             } finally {
                 this._isBusy = false;
@@ -982,6 +982,8 @@
          */
         saveTableSettings: function() {
 
+            this.checkPopupTablePanelIdleTime();
+            
             // get form values , only checked
             var settings = this.Form.serializeToObject('settingsForm', true);
 
@@ -1039,8 +1041,6 @@
                 this._needRestart = true;
             }catch(e) {
             }
-
-            this.savePref();
 
             OsdUtils.info(_('Options saved successfully'));
 
@@ -1134,32 +1134,7 @@
 
             // get table settings and update UI
             this.readTableSettings();
-
-            // load option preference
-            this.loadPref();
-        },
-
-        loadPref: function(){
-
-            // load preference
-            var check = GeckoJS.Configure.read('vivipos.fec.settings.tableman.autorecalloneorder');
-            var checkpoppanel = GeckoJS.Configure.read('vivipos.fec.settings.tableman.checkbox_poptablepanelIdleTime');
-
-            var time = GeckoJS.Configure.read('vivipos.fec.settings.tableman.textbox_poptablepanelIdleTime');
-
-            document.getElementById('tableAutoRecallOneOrder').checked = check;
-            document.getElementById('checkbox_poptablepanelIdleTime').checked = checkpoppanel;
-            document.getElementById('textbox_poptablepanelIdleTime').value = time;
-        },
-
-        savePref: function(){
-
-            var checked = document.getElementById('checkbox_poptablepanelIdleTime').checked;
-            var time = document.getElementById('textbox_poptablepanelIdleTime').value;
-            
-            GeckoJS.Configure.write('vivipos.fec.settings.tableman.checkbox_poptablepanelIdleTime', checked);
-            GeckoJS.Configure.write('vivipos.fec.settings.tableman.textbox_poptablepanelIdleTime', time);
-        },
+        },     
 
         /**
          * doExit check restart and confirm
@@ -1266,6 +1241,14 @@
                 document.getElementById('clone_settings_from_master').setAttribute('hidden', true);
             }
 
+        },
+
+        checkPopupTablePanelIdleTime : function() {
+            var idleTime = $('#popupTablePanelIdleTime').val();
+            if (idleTime >0 && idleTime <5) {
+                alert(_('Popup Table Panel Idle Time MUST be 0 for disabled or greater then 5 secs.'));
+                $('#popupTablePanelIdleTime').val(5);
+            }
         }
 
 

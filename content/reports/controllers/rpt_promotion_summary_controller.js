@@ -78,11 +78,21 @@
             }
             				
             var sql = 'select ' + s_fields + ' from ( ' + subquery + ' ) as s group by s.date, s.promotion_id order by ' + s_orderby + ' limit -1;';
-           	
+
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var orderModel = new OrderModel();
+
+            orderModel.useDbConfig = useDbConfig; // udpate dbconfig
+
             var records = orderModel.getDataSource().fetchAll( sql );
+            
   			
             var promotionModel = new PromotionModel();
+
+            promotionModel.useDbConfig = useDbConfig; // udpate dbconfig
+
             //sql = 'select id, name, code from promotions group by id order by name limit -1;';
             var promotionIds = promotionModel.find('all', {
                 fields: ['id', 'name', 'code'],

@@ -66,6 +66,9 @@
                 alertWin.close();
                 delete alertWin;
             }
+
+            // initial history database if enable move expire data to history
+            this.initialOrderHistoryDatabase();
             
             //this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
@@ -840,6 +843,7 @@
         },
 
         setClerk: function (recovery) {
+
             var user = this.Acl.getUserPrincipal();
             if (user) {
                 // perform user login initialization
@@ -1029,6 +1033,10 @@
 
         updateOptions: function () {
             // used by input_line_controller to listen for option updates
+
+            // initial history order files
+            this.initialOrderHistoryDatabase();
+            
         },
 
         initialLogin: function () {
@@ -1440,7 +1448,7 @@
 
         clearOrderData: function(days, pack) {
             // the number of days to retain
-
+            
             var retainDays = days || GeckoJS.Configure.read('vivipos.fec.settings.OrderRetainDays') || 0;
             var weeklyPack = GeckoJS.Configure.read('vivipos.fec.settings.OrderWeeklyPack') || -1;
 
@@ -1487,7 +1495,7 @@
                             };
                         }
 
-                        r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
+                        r = clockstamp.clearExpireData(retainDate);
                         if (!r) {
                             throw {
                                 errno: clockstamp.lastError,
@@ -1495,7 +1503,8 @@
                                 errmsg: _('An error was encountered while expiring employee attendance records (error code %S) [message #1007].', [clockstamp.lastError])
                             };
                         }
-
+                        
+                        
                         // remove order queues
                         var orderQueue = new OrderQueueModel();
                         r = orderQueue.removeQueues(retainDate);
@@ -2145,6 +2154,14 @@
             }catch(e) {
                 this.log('ERROR', 'Error save prefs.js and user.js');
             }
+        },
+
+        initialOrderHistoryDatabase: function() {
+
+            // call dummy appModel
+            var model = new AppModel();
+            return model.initialOrderHistoryDatabase();
+
         }
 
     };

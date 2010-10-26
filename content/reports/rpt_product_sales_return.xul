@@ -14,6 +14,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_databases_menu.xul"?>
 
 <window id="main"
         hidechrome="true"
@@ -33,6 +34,9 @@
         <vbox flex="1" class="container-main">
             <vbox>
                 <label value="&productSalesReturn.title;" class="label-page-title"/>
+                <!-- databases menu overlay -->
+                <hbox id="databasesMenuBox" />
+
                 <hbox>
                     <hbox flex="1">
                         <grid flex="1" class="data-form">

@@ -14,6 +14,7 @@
 "${queryFormLabel.periodtype_label}","${queryFormLabel.periodtype}"
 "${queryFormLabel.returntype_label}","${queryFormLabel.returntype}"
 "${queryFormLabel.sortby_label}","${queryFormLabel.sortby}"
+"${queryFormLabel.database_label}","${queryFormLabel.database}"
 
 
 {for category in body}

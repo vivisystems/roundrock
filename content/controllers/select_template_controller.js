@@ -3,6 +3,9 @@
     if(typeof AppController == 'undefined') {
         include( 'chrome://viviecr/content/controllers/app_controller.js' );
     }
+    if(typeof ImageFilesView == 'undefined') {
+        include( 'chrome://viviecr/content/helpers/image_file_view.js' );
+    }
 
     var __controller__ = {
 
@@ -15,34 +18,26 @@
        _selectedFile : null,
        _selectedIndex : -1,
        _dir:'',
+       imagefilesView:{},
 
        setTemplate: function(index){
-
-         var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                    .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
-
-         var deviceController = mainWindow.GeckoJS.Controller.getInstanceByName( 'Devices' );
-                
-         var templatePanel = document.getElementById('imagePanel');
+         
          var templateName = document.getElementById('templateName');
 
-         var tmpl = templatePanel.datasource.data[index].leafName.split('.')[0];
+         var imagePanel = document.getElementById('imagePanel');
 
-         let templates = deviceController.getTemplates('label');
+         var tmpl = imagePanel.datasource.data[index].leafName.replace('.png','');
 
-                if(tmpl in templates) {
-                    let newTemplate = GREUtils.extend({}, templates[tmpl]);
-                    newTemplate.name = tmpl;
-
-                    var label = newTemplate.label;
-                    if (label.indexOf('chrome://') == 0) {
-                        var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
-                        label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
-                    }
-                    else {
-                        label = _(label);
-                    }
-                }
+         var label = GeckoJS.Configure.read('vivipos.fec.registry.templates.' + tmpl + '.label');
+         
+            if (label.indexOf('chrome://') == 0) {
+                var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+            }
+            else {
+                label = _(label);
+            }
+                
          templateName.setAttribute('value', label);
        },
 
@@ -92,12 +87,29 @@
 
        loadImage: function(dir) {
 
-            var dir = GREUtils.File.chromeToPath('chrome://viviecr/content/images/labels');
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                    .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
+
+            var deviceController = mainWindow.GeckoJS.Controller.getInstanceByName( 'Devices' );
+
+            var templates = deviceController.getTemplates('label');
+
+            var imageArray =[];
+
+            for(var obj in templates){
+
+                var tpl = { leafName: obj,
+                            path: GREUtils.File.chromeToPath(templates[obj].image),
+                            fileSize:0};
+
+                imageArray.push(tpl);
+            }
+            
             this._selectedFile = null;
             this._selectedIndex = -1;
             this._dir = dir;
 
-            this.imagefilesView = new ImageFilesView(dir);
+            this.imagefilesView = new ImageFilesArrayView(imageArray);
 
             var limitSetting = GeckoJS.Configure.read('vivipos.fec.settings.image.disklimit') || 0;
             if (limitSetting > this._disklimit) this._disklimit = limitSetting;

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://viviecr/locale/reports/rpt_databases_menu.dtd">
+
+<overlay id="databasesMenuOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <hbox id="databasesMenuBox" >
+        <label id="datasources-menuitem-tpl1" hidden="true" value="(&databases_menu.current_order_database;) (&databases_menu.order_time; %MINORDERTIME% &databases_menu.order_time_to; %MAXORDERTIME%)" />
+        <label id="datasources-menuitem-tpl2" hidden="true" value="(&databases_menu.history_order_database;) (&databases_menu.order_time; %MINORDERTIME% &databases_menu.order_time_to; %MAXORDERTIME%) (%FILENAME%)" />
+        <label id="datasources-menuitem-tpl3" hidden="true" value="(&databases_menu.reporting_database;) (&databases_menu.order_time; %MINORDERTIME% &databases_menu.order_time_to; %MAXORDERTIME%)" />
+        <grid flex="1" class="data-form">
+            <columns>
+                <column /><column flex="1"/>
+            </columns>
+            <rows>
+                <row>
+                    <label value="&databases_menu.databases;" id="databasesMenuLabel" />
+                    <menulist id="datasources-menu" style="text-align: left;">
+                        <menupopup id="datasources-menupopup">
+                        </menupopup>
+                    </menulist>
+                </row>
+            </rows>        
+        </grid>
+        
+    </hbox>
+         
+</overlay>

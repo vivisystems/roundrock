@@ -8,6 +8,7 @@ ${head.start_time} ~ ${head.end_time}
 ${_('(rpt)Condition') + ' - '}
 ${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
 ${queryFormLabel.shift_no_label}${queryFormLabel.shift_no}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:42}
 {for master in body}

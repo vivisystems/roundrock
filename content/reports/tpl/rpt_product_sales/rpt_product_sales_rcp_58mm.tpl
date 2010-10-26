@@ -13,6 +13,7 @@ ${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
 ${queryFormLabel.shiftno_label}${queryFormLabel.shiftno}
 ${queryFormLabel.periodtype_label}${queryFormLabel.periodtype}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:24}
 {for category in body.department}
@@ -73,6 +74,17 @@ ${category.summary.gross|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Net Sales' ) + ':'}
 ${category.summary.net|default:0|viviFormatPrices:true|right:24}
 {/for}
+------------------------
+${_( '(rpt)Total Records Found' ) + ': '}
+${foot.record|format:0|right:24}
+------------------------
+${_( '(rpt)Summary' )}
+${_( '(rpt)Quantities Sold' ) + ':'}
+${foot.total_summary|format:0|right:24}
+${_( '(rpt)Gross Sales' ) + ':'}
+${foot.total_gross|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Net Sales' ) + ':'}
+${foot.total_net|default:0|viviFormatPrices:true|right:24}
 ------------------------
 ${foot.gen_time}
 [&CR]

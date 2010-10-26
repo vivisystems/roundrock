@@ -253,7 +253,7 @@
                                errmsg: _('An error was encountered while expiring backup shift change records (error code %S) [message #1403].', [model.lastError])};
                     }
 
-                    r = model.execute('delete from shift_changes where created <= ' + expireDate);
+                    r = model.clearExpireData(expireDate);
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
@@ -268,7 +268,7 @@
                                errmsg: _('An error was encountered while expiring backup shift change details (error code %S) [message #1405].', [model.lastError])};
                     }
 
-                    r = model.execute('delete from shift_change_details where not exists (select 1 from shift_changes where shift_changes.id == shift_change_details.shift_change_id)') && r;
+                    r = model.clearExpireData();
                     if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
@@ -845,7 +845,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving groupable coupon payment records (error code %S) [message #1414].', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving groupable coupon payment records (error code %S) [message #1440].', [orderPayment.lastError])};
 
                 //alert(this.dump(groupableCouponGiftcardPayment));
                 //this.log(this.dump(groupableCouponGiftcardPayment));
@@ -873,7 +873,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving groupable cash payment records (error code %S) [message #1414].', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving groupable cash payment records (error code %S) [message #1441].', [orderPayment.lastError])};
 
                 //alert(this.dump(groupableCashPayment));
                 //this.log(this.dump(groupableCashPayment));
@@ -901,7 +901,7 @@
                 if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving groupable foreign cash payment records (error code %S) [message #1414].', [orderPayment.lastError])};
+                           errmsg: _('An error was encountered while retrieving groupable foreign cash payment records (error code %S) [message #1442].', [orderPayment.lastError])};
 
                 //alert(this.dump(groupableForeignCashPayment));
                 //this.log(this.dump(groupableForeignCashPayment));
@@ -1322,7 +1322,7 @@
 
                 if (!shiftChangeModel.saveShiftChange(shiftChangeRecord)) {
                     this._dbError(shiftChangeModel.lastError, shiftChangeModel.lastErrorString,
-                                  _('An error was encountered while saving shift change record; shift may not have been closed properly [message #1427]..'));
+                                  _('An error was encountered while saving shift change record; shift may not have been closed properly [message #1443]..'));
                     return;
                 }
 

@@ -19,6 +19,13 @@
 	</div>
         <table id="condition-table">
             <tr>
+                <td class="condition-title"><span class="caption">${queryFormLabel.database_label|escape}</span></td>
+                <td align="left" >
+
+                       <span class="heading_p">${queryFormLabel.database|escape}</span>
+                </td>
+            </tr>
+            <tr>
                 <td class="condition-title"><span class="caption">${_('(rpt)Condition') + ' - '}</span></td>
                 <td align="left" >
                        <span class="caption">${queryFormLabel.terminal_no_label|escape}</span>
@@ -112,6 +119,16 @@
     </table>
     <br />
 {/for}
-
+    <table id="body-table">      
+        <tfoot>
+            <tr>
+                <td style="text-align: left;" width="48%">${_( '(rpt)Total Records Found' ) + ': '}${foot.record|format:0}</td>
+                <td style="text-align: left;" width="20%">${_( '(rpt)Summary' ) + ': '}</td>
+                <td style="text-align: center;">${foot.total_summary|format:0}</td>
+                <td style="text-align: right;">${foot.total_gross|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.total_net|default:0|viviFormatPrices:true}</td>
+            </tr>
+        </tfoot>
+    </table>
 </div>
 <br />

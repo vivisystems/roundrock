@@ -25,6 +25,8 @@
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
 
+  <script src="chrome://viviecr/content/helpers/order_history_view.js" type="application/x-javascript"/>
+  
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/systembackup_controller.js" type="application/x-javascript"/>
 
@@ -37,48 +39,84 @@
 
     <vbox flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-a">
-            <label value="&systembackup.backup; / &systembackup.restore;" class="label-page-title"/>
-            <hbox flex="1">
-                <vbox flex="1" class="block-33">
-                    <hbox pack="center" class="content-formbox">
-                        <label value="&systembackup.local;"/>
-                    </hbox>
-                    <hbox flex="1" class="content-listbox">
-                        <vivitree id="localbackupscrollablepanel" flex="1" class="standard"
-                                  headers="&systembackup.time;" fields="time" hidecolumnpicker="true"
-                                  onselect="$do('select',this.selectedIndex, 'SystemBackup');"/>
-                    </hbox>
-                </vbox>
 
-                <vbox flex="1" id="toolbar" class="toolbar" toolbarmode="vertical">
-                    <spacer flex="1"/>
-                    <vivibutton id="backuptolocal" label="&systembackup.backuptolocal;" oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
-                    <vivibutton id="backuptostick" label="&systembackup.backuptostick;" oncommand="$do('backupToStick',null, 'SystemBackup');"/>
-                    <spacer style="height:50px;"/>
-                    <vivibutton id="restorefromlocal" label="&systembackup.restorefromlocal;" oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
-                    <vivibutton id="restorefromstick" label="&systembackup.restorefromstick;" oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
-                    <spacer flex="1"/>
-                    <checkbox label="&systembackup.backupwithprofile;" id="backupWithProfile" checked="true"/>
-                    <spacer height="5px"/>
-                    <checkbox label="&systembackup.restorewithsystem;" id="restoreWithSystem"/>
-                    <spacer height="5px"/>
-                </vbox>
+                <tabbox flex="1" class="content-tabbox">
+                    <tabs id="main-tabbox">
+                        <tab id="tab_systembackup" label="&systembackup.backup; / &systembackup.restore;"/>
+                        <tab id="tab_orderhistory" label="&orderhistory.backup;"/>
+                    </tabs>
+                    <tabpanels id="main-tabpanels" flex="1">
+                        <tabpanel flex="1" orient="vertical">
+                            <hbox flex="1">
+                                <vbox flex="1" class="block-33">
+                                    <hbox pack="center" class="content-formbox">
+                                        <label value="&systembackup.local;"/>
+                                    </hbox>
+                                    <hbox flex="1" class="content-listbox">
+                                        <vivitree id="localbackupscrollablepanel" flex="1" class="standard"
+                                                  headers="&systembackup.time;" fields="time" hidecolumnpicker="true"
+                                                  onselect="$do('select',this.selectedIndex, 'SystemBackup');"/>
+                                    </hbox>
+                                </vbox>
 
-                <vbox flex="1" class="block-33">
-                    <hbox pack="center" class="content-formbox">
-                        <button id="scandevices" label="&systembackup.stick;" flex="1"
-                                oncommand="$do('pickBackupDevices', null, 'SystemBackup');"/>
-                    </hbox>
-                    <hbox flex="1" class="content-listbox">
-                        <vivitree id="stickbackupscrollablepanel" flex="1" class="standard"
-                                  headers="&systembackup.time;" fields="time" hidecolumnpicker="true"
-                                  onselect="$do('select',this.selectedIndex, 'SystemBackup');"/>
-                    </hbox>
-                </vbox>
-            </hbox>
-            <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
-                <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
-            </hbox>
+                                <vbox flex="1" id="toolbar" class="toolbar" toolbarmode="vertical">
+                                    <spacer flex="1"/>
+                                    <vivibutton id="backuptolocal" label="&systembackup.backuptolocal;" oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
+                                    <vivibutton id="backuptostick" label="&systembackup.backuptostick;" oncommand="$do('backupToStick',null, 'SystemBackup');"/>
+                                    <spacer style="height:50px;"/>
+                                    <vivibutton id="restorefromlocal" label="&systembackup.restorefromlocal;" oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
+                                    <vivibutton id="restorefromstick" label="&systembackup.restorefromstick;" oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
+                                    <spacer flex="1"/>
+                                    <checkbox label="&systembackup.backupwithprofile;" id="backupWithProfile" checked="true"/>
+                                    <spacer height="5px"/>
+                                    <checkbox label="&systembackup.restorewithsystem;" id="restoreWithSystem"/>
+                                    <spacer height="5px"/>
+                                </vbox>
+
+                                <vbox flex="1" class="block-33">
+                                    <hbox pack="center" class="content-formbox">
+                                        <button id="scandevices" label="&systembackup.stick;" flex="1"
+                                                oncommand="$do('pickBackupDevices', null, 'SystemBackup');"/>
+                                    </hbox>
+                                    <hbox flex="1" class="content-listbox">
+                                        <vivitree id="stickbackupscrollablepanel" flex="1" class="standard"
+                                                  headers="&systembackup.time;" fields="time" hidecolumnpicker="true"
+                                                  onselect="$do('select',this.selectedIndex, 'SystemBackup');"/>
+                                    </hbox>
+                                </vbox>
+                            </hbox>
+                        </tabpanel>
+                        
+                        <tabpanel flex="1" orient="vertical">
+                            <vbox flex="1">
+                                <vbox flex="1">
+                                    <hbox pack="center" class="content-formbox">
+                                        <label value="&orderhistory.local;"/>
+                                    </hbox>
+                                    <hbox flex="1" class="content-listbox">
+                                        <vivitree id="orderHistoryScrollablepanel" flex="1" class="standard"
+                                                  headers="&orderhistory.filename;,&orderhistory.filesize;,&orderhistory.total_orders;,&orderhistory.mintime;,&orderhistory.maxtime;"
+                                                  fields="filename,display_filesize,display_total_orders,display_minTime,display_maxTime"
+                                                  hidecolumnpicker="true"
+                                                  onselect="$do('selectOrderHistory',this.selectedIndex, 'SystemBackup');"/>
+                                    </hbox>
+                                </vbox>
+
+                                <hbox id="toolbar" class="toolbar" toolbarmode="vertical">
+                                    <vivibutton id="scandevices2" label="&systembackup.stick;" oncommand="$do('pickBackupDevices', null, 'SystemBackup');"/>
+                                    <spacer flex="1"/>
+                                    <vivibutton id="backuptostick" label="&systembackup.backuptostick;" oncommand="$do('copyOrderHistoryToStick',null, 'SystemBackup');"/>
+                                    <spacer flex="1"/>
+                                </hbox>
+                            </vbox>
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>
+            
+                <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
+                    <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
+                </hbox>
+            
         </vbox>
     </vbox>
 

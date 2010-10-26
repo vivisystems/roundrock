@@ -113,8 +113,13 @@
                         break;
                 }
             }
-            
+
+            // initial order history if user selected it.
+            var useDbConfig = this.initOrderHistoryDatabase();
+
             var order = new OrderModel();
+
+            order.useDbConfig = useDbConfig; // udpate dbconfig
 
             var rowCount = order.find( 'count', {
                 fields: fields,

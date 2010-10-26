@@ -10,6 +10,7 @@ ${queryFormLabel.period_type_label}${queryFormLabel.period_type}
 ${queryFormLabel.start_hour_label}${queryFormLabel.start_hour}
 ${queryFormLabel.end_hour_label}${queryFormLabel.end_hour}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:42}
 {for detail in body}

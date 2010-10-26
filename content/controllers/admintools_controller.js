@@ -1346,6 +1346,9 @@
 
             // refresh irc status
             this.refreshIRCStatus(true);
+
+            // refresh order history databases
+            this.refreshOrderHistoryData();
             
             this.dispatchEvent('initial');
 
@@ -1355,9 +1358,202 @@
             this._log('entering administration tools');
         },
 
-        _log: function(msg) {
-            this.log('FATAL', '[' + this._userName + ' (' + this._userDisplayName + ')]:' + msg);
-        }
+        _log: function(msg, e) {
+            this.log('FATAL', '[' + this._userName + ' (' + this._userDisplayName + ')]:' + msg, e);
+        },
+
+        refreshOrderHistoryData: function() {
+
+            var _listObjOrderHistory = document.getElementById('orderHistoryScrollablepanel');
+            var _listObjOrderHistoryReport = document.getElementById('orderHistoryReportScrollablepanel');
+
+            var orderHistoryView = new OrderHistoryView();
+            _listObjOrderHistory.datasource = orderHistoryView;
+
+            var orderHistoryReportView = new OrderHistoryView(null, /^vivipos_order_reporting.sqlite$/);
+            _listObjOrderHistoryReport.datasource = orderHistoryReportView;
+
+            // update column filename width
+            try {
+                $(_listObjOrderHistory.tree.columns[0].element).css('minWidth', '200px');
+                $(_listObjOrderHistoryReport.tree.columns[0].element).css('minWidth', '200px');
+            }catch(e) {
+                
+            }
+        },
+
+        removeOrderHistoryData: function() {
+
+            var _listObjOrderHistory = document.getElementById('orderHistoryScrollablepanel');
+            var index = _listObjOrderHistory.selectedIndex;
+            if (index < 0) {
+                NotifyUtils.info(_('Please select a order history file first'));
+                return false;
+            }
+
+            var selectedData = _listObjOrderHistory.datasource._data[index];
+
+            let confirmed = (GREUtils.Dialog.confirm(this.topmostWindow,
+                                        _('Remove Order History Database'),
+                                        _('This action will remove order history database [%S] . Are you sure you want to proceed?', [selectedData.filename])) &&
+                             GREUtils.Dialog.confirm(this.topmostWindow,
+                                        _('Remove Order History Database'),
+                                        _('Order history database [%S] is removed will never UNDO . Are you really sure you want to proceed?', [selectedData.filename]))
+                            );
+
+
+            if (confirmed) {
+
+                this._log('Remove Order History Database file [' + selectedData.filename + ']');
+
+                var dbFile = new GeckoJS.File(selectedData.dir + '/' + selectedData.filename);
+                dbFile.remove();
+
+                var dbJournalFile = new GeckoJS.File(selectedData.dir + '/' + selectedData.filename + '-journal');
+                dbJournalFile.remove();
+
+                this.refreshOrderHistoryData();
+
+            }
+        },
+
+        mergeOrderHistoryData: function() {
+
+            var _listObjOrderHistory = document.getElementById('orderHistoryScrollablepanel');
+            var index = _listObjOrderHistory.selectedIndex;
+            if (index < 0) {
+                NotifyUtils.info(_('Please select a order history file first'));
+                return false;
+            }
+
+            var selectedData = _listObjOrderHistory.datasource._data[index];
+
+            var _listObjOrderHistoryReport = document.getElementById('orderHistoryReportScrollablepanel');
+            var reportingData = _listObjOrderHistoryReport.datasource._data[0];
+
+            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                        _('Merge Order History Database To Reporting Database'),
+                                        _('This action will merge order history database [%S][%S] to order history for reporting database [%S]. It takes a few minutes to complete the merge database. The screen will be hanging there and no operations allowed Are you sure you want to proceed?', [selectedData.filename, selectedData.display_filesize, reportingData.display_filesize]))) {
+
+                this._log('Merge Order History Database file [' + selectedData.filename + ']' + '('+selectedData.display_filesize+')' + ' reporting database ' + '(' + reportingData.display_filesize +')');
+
+                let waitpanel = null;
+
+                try {
+                    
+                    waitpanel = this._showWaitPanel(_('Merging Order History Database...'));
+
+                    var selectedDatabaseFile = selectedData.dir + '/' + selectedData.filename;
+                    var reportingDatabaseFile = reportingData.dir + '/' + reportingData.filename;
+
+                    var orderDbConfig = GeckoJS.Configure.read('DATABASE_CONFIG.order') || {database: 'vivipos_order.sqlite'};
+                    var dbConfig = GREUtils.extend({},orderDbConfig, {path: reportingData.dir, database: reportingData.filename});
+
+                    var datasource = GeckoJS.ConnectionManager.getDataSourceByClass(dbConfig.classname, dbConfig);
+
+                    if (!datasource) {
+                        throw {message: reportingData.filename + ' can not connected.'};
+                    }
+
+                    var tables = datasource.listTables();
+
+                    // attach selected database
+                    var attached = false;
+                    attached = datasource.execute("ATTACH DATABASE '" +  selectedDatabaseFile + "' AS 'order_history'");
+
+                    tables.forEach(function(tableName) {
+
+                        switch (tableName) {
+                            case 'order_objects':
+                            case 'sync_remote_machines':
+                            case 'syncs':
+                                // XXXX skip import
+                                break;
+
+                            default:
+                                var rc = datasource.begin();
+                                if (!rc) {
+                                    throw {message: reportingData.filename + ' can not merge table: ' + tableName};
+                                }
+
+                                // import data
+                                datasource.execute("INSERT OR REPLACE INTO " + tableName + " SELECT * FROM order_history." + tableName );
+
+                                rc = datasource.commit();
+                                if (!rc) {
+                                    datasource.rollback();
+                                    throw {message: reportingData.filename + ' can not merge and commit table: ' + tableName};
+                                }
+                                break;
+                        }
+
+                    }, this);
+
+                    if (attached) {
+                        datasource.execute("DETACH DATABASE 'order_history'");
+                    }
+
+                    waitpanel.hidePopup();
+
+                    NotifyUtils.info(_('Merging Order History Database To Reporting Database executed'));
+                    
+                    this._log('Merge Order History Database file [' + selectedData.filename + ']' + '('+selectedData.display_filesize+')' + ' reporting database ' + '(' + reportingData.display_filesize +') finished');
+
+                    this.refreshOrderHistoryData();
+
+                }catch(e) {
+
+                    waitpanel.hidePopup();
+
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Merge Order History Database To Reporting Database'),
+                                          _('Failed to merge order history data'));
+
+                    this._log('Merge Order History Database file [' + selectedData.filename + ']' + '('+selectedData.display_filesize+')' + ' reporting database ' + '(' + reportingData.display_filesize +') error', e);
+                }
+            }
+
+        },
+
+        purgeOrderHistoryData: function() {
+
+            var orderDbConfig = GeckoJS.Configure.read('DATABASE_CONFIG.order') || {database: 'vivipos_order.sqlite'};
+            var historyDatabasePath = GeckoJS.Configure.read('vivipos.fec.settings.historyDatabasesPath') || '/data/history_databases';
+
+            var data  = {dir: historyDatabasePath, filename: 'vivipos_order_reporting.sqlite'};
+
+                if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                            _('Purge Order History Database For Reporting'),
+                                            _('This action will empty order history for reporting database [%S] . Are you sure you want to proceed?', [data.filename]))) {
+
+                    this._log('Purge Order History Database file [' + data.filename + ']');
+
+                    var dbFile = new GeckoJS.File(data.dir + '/' + data.filename);
+                    dbFile.remove();
+
+                    var dbJournalFile = new GeckoJS.File(data.dir + '/' + data.filename + '-journal');
+                    dbJournalFile.remove();
+
+
+                    // initial new empty file from Factory
+                    // check Factory databases.tbz exists
+                    var factoryDatabasesFile = '/data/backups/Factory/databases.tbz';
+                    if (GeckoJS.File.exists(factoryDatabasesFile)) {
+                        // uncompress factory databases
+                        GeckoJS.File.run('/bin/tar', ['-xjpf', factoryDatabasesFile, '-C', '/tmp', './'+orderDbConfig.database], true);
+                        GeckoJS.File.run('/bin/mv', ['/tmp/'+orderDbConfig.database, data.dir + '/' + data.filename], true);
+                    }
+
+                    this.refreshOrderHistoryData();
+
+                }
+
+
+        },
+
+        selectOrderHistory: function() {
+          // XXXX nothing to do
+        },
 
     };
 

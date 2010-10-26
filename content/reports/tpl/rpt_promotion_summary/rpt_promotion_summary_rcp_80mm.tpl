@@ -10,6 +10,7 @@ ${queryFormLabel.terminal_no_label}${queryFormLabel.terminal_no}
 ${queryFormLabel.shiftno_label}${queryFormLabel.shiftno}
 ${queryFormLabel.periodtype_label}${queryFormLabel.periodtype}
 ${queryFormLabel.sortby_label}${queryFormLabel.sortby}
+${queryFormLabel.database_label}${queryFormLabel.database}
 
 ${head.title|center:42}
 {for result in body}

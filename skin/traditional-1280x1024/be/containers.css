@@ -7,6 +7,8 @@
 
 .container-be {
     background: white url(../images/optionsbg.gif) center center no-repeat;
+    height: 1024px;
+    width: 1280px;
 }
 
 .container-be .container-main {
@@ -15,6 +17,8 @@
     margin: 8px;
     padding: 4px;
     -moz-border-radius: 8px;
+    height: 1024px;
+    width: 1280px;
 }
 
 .container-be .container-top {
