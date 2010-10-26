@@ -143,6 +143,7 @@ class SyncClientShell extends SyncBaseShell {
             $this->observerNotify('finished', json_encode($syncResult));
 
             $successed = $syncResult['pull_result'] && $syncResult['push_result'];
+            unset($syncResult);
 
         }catch(Exception $e) {
             $successed = false;
@@ -193,6 +194,7 @@ class SyncClientShell extends SyncBaseShell {
             $this->observerNotify('finished', json_encode($syncResult));
 
             $successed = $syncResult['pull_result'] && $syncResult['push_result'];
+            unset($syncResult);
 
         }catch(Exception $e) {
             $successed = false;
@@ -244,6 +246,10 @@ class SyncClientShell extends SyncBaseShell {
         $timeout = $syncSettings['timeout'];
         $hostname = empty($syncSettings['hostname']) ? 'localhost' : $syncSettings['hostname'];
         $process_type = $syncSettings['process_type'];
+
+        // remove status from tmp
+        $this->removeSyncStatus();
+        $this->removeSyncRequest();
 
         $shell =& $this;
 
@@ -325,6 +331,8 @@ class SyncClientShell extends SyncBaseShell {
                     System_Daemon::log(System_Daemon::LOG_INFO, "sync finished: " . $successed);
                 }
 
+                CakeLog::write('memory', "After Synced: " + number_format(memory_get_usage()));
+                
                 if ($successed) break;
 
                 System_Daemon::log(System_Daemon::LOG_WARNING, "perform_sync not successed, retries = " . $tries . ", sleep (" . $timeout . " secs)" );

@@ -4,7 +4,7 @@
  */
 $DATA_PATH = '/data';
 $DATABASE_PATH = '/data/databases';
-$SYNCHRONOUS = 'NORMAL';
+$SYNCHRONOUS = 'FULL';
 $JOURNAL_MODE = 'TRUNCATE';
 $LOCKING_MODE = 'NORMAL';
 

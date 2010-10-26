@@ -196,6 +196,10 @@ class IrcClientShell extends SyncBaseShell {
         $hostname = empty($syncSettings['irc_hostname']) ? 'localhost' : $syncSettings['irc_hostname'];
         $expireDays = empty($syncSettings['irc_expire_days']) ? 30 : $syncSettings['irc_expire_days'];
 
+        // remove status from tmp
+        $this->removeSyncStatus();
+        $this->removeSyncRequest();
+
         // remove expire irc packages before start process.
         $this->removeExpirePackages($expireDays);
 

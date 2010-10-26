@@ -155,6 +155,21 @@ class SyncBaseShell extends Shell {
      *
      * @return <type>
      */
+    function removeSyncStatus() {
+
+        if(file_exists($this->statusFile)){
+            unlink($this->statusFile);
+        }
+
+        return true;
+
+    }
+
+
+    /**
+     *
+     * @return <type>
+     */
     function isSyncRequest() {
 
         if(file_exists($this->requestFile)) return true;
