@@ -9,19 +9,21 @@
     <em:id>SQLiteManager@mrinalkant.blogspot.com</em:id>
     <em:type>2</em:type>
     <em:name>SQLite Manager</em:name>
-    <em:version>0.5.0</em:version>
+    <em:version>0.6.2</em:version>
     <em:description>Manage any SQLite database on your computer</em:description>
     <em:creator>Mrinal Kant</em:creator>
     <em:homepageURL>http://sqlite-manager.googlecode.com/</em:homepageURL>
     <em:iconURL>chrome://sqlitemanager/skin/images/default32.png</em:iconURL>
     <em:optionsURL>chrome://sqlitemanager/content/preferences.xul</em:optionsURL>
 
+<!-- do not remove the following comment -->
+<!-- TARGETMARKER -->
     <!-- Firefox --> 
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>3.5</em:minVersion>
-        <em:maxVersion>3.6a1pre</em:maxVersion>
+        <em:minVersion>3.6.4</em:minVersion>
+        <em:maxVersion>4.0b8pre</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -29,8 +31,8 @@
     <em:targetApplication>
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
-        <em:minVersion>3.0b3</em:minVersion>
-        <em:maxVersion>3.1a1pre</em:maxVersion>
+        <em:minVersion>3.0.4</em:minVersion>
+        <em:maxVersion>3.3a1pre</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -38,54 +40,18 @@
     <em:targetApplication>
       <Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
-        <em:minVersion>2.0b1</em:minVersion>
-        <em:maxVersion>2.1a1pre</em:maxVersion>
-      </Description>
-    </em:targetApplication>
-
-    <em:targetApplication>
-      <Description>
-        <em:id>songbird@songbirdnest.com</em:id>
-        <em:minVersion>1.2.0</em:minVersion>
-        <em:maxVersion>1.2.0</em:maxVersion>
+        <em:minVersion>2.1a1</em:minVersion>
+        <em:maxVersion>2.1b1</em:maxVersion>
       </Description>
     </em:targetApplication>
 
    <em:targetApplication>
     <Description>
       <em:id>toolkit@mozilla.org</em:id>
-      <em:minVersion>1.9.1</em:minVersion>
-      <em:maxVersion>1.9.1</em:maxVersion>
+      <em:minVersion>1.9.1.4</em:minVersion>
+      <em:maxVersion>2.0</em:maxVersion>
     </Description>
    </em:targetApplication>
-
-    <!-- Komodo IDE -->
-    <em:targetApplication>
-      <Description>
-        <em:id>{36E66FA0-F259-11D9-850E-000D935D3368}</em:id>
-        <em:minVersion>5.0</em:minVersion>
-        <em:maxVersion>5.1.*</em:maxVersion>
-      </Description>
-    </em:targetApplication>
-
-    <!-- Komodo Edit -->
-    <em:targetApplication>
-      <Description>
-        <em:id>{b1042fb5-9e9c-11db-b107-000d935d3368}</em:id>
-        <em:minVersion>5.0</em:minVersion>
-        <em:maxVersion>5.1.*</em:maxVersion>
-      </Description>
-    </em:targetApplication>
-
-    <!-- VIVIPOS -->
-    <em:targetApplication>
-      <Description>
-        <em:id>{7aacc14f-1abc-4243-b48e-63b953c0476a}</em:id>
-        <em:minVersion>1.1.*</em:minVersion>
-        <em:maxVersion>1.2.*</em:maxVersion>
-      </Description>
-    </em:targetApplication>
-
 
   </Description>      
 </RDF>

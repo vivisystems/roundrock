@@ -31,7 +31,7 @@
 
   <commandset id="cmdset_file">
     <command id="cmd_quitApplication" oncommand="goQuitApplication()"/>
-    <command id="cmd_restartApplication" oncommand="goRestartApplication()"/>
+    <command id="cmd_restartApplication" oncommand="vivipos.restartApplicationKeyPress()"/>
   </commandset>
 
   <keyset id="keyset_explorer">

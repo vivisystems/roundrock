@@ -18,10 +18,6 @@ pref("extensions.sqlitemanager.promptForLastDb", true);
 //how many records to display when browsing and searching; -1 means all
 pref("extensions.sqlitemanager.displayNumRecords", 100);
 
-//kind of MRU
-pref("extensions.sqlitemanager.mruPath.1", "");
-pref("extensions.sqlitemanager.mruSize", 10);
-
 pref("extensions.sqlitemanager.userDir", "");
 
 //related to main toolbar area and the included toolbars
@@ -57,6 +53,8 @@ pref("extensions.sqlitemanager.textForBlob", "BLOB");
 pref("extensions.sqlitemanager.showBlobSize", true);
 //max size of blob to display as string (convert to string)
 pref("extensions.sqlitemanager.maxSizeToShowBlobData", 50);
+//how to show data: 0=hex, 1=string
+pref("extensions.sqlitemanager.blob.howToShowData", 0);
 
 //unsafe alter table operations (delete/alter column) are disabled by default
 //pref("extensions.sqlitemanager.allowUnsafeTableAlteration", false);
@@ -64,6 +62,23 @@ pref("extensions.sqlitemanager.maxSizeToShowBlobData", 50);
 //handle ADS
 pref("extensions.sqlitemanager.handleADS", 0);
 
+//handle ADS
+pref("extensions.sqlitemanager.identifierQuoteChar", '""');
+
 //not frozen
 //allowed values: previous/default
 pref("extensions.sqlitemanager.whenInsertingShow", "previous");
+//full path of dir where smFunctions.sqlite is located.
+//This db stores user-defined functions (udf).
+pref("extensions.sqlitemanager.udfDbDirPath", "");
+
+//duration (in seconds) of display of notification messages
+pref("extensions.sqlitemanager.notificationDuration", 4);
+
+//stores JSON object for MRU
+pref("extensions.sqlitemanager.jsonMruData", '{"meta":{"version":"1"},"size":10,"list":[]}');
+
+//stores JSON object for data tree style.
+pref("extensions.sqlitemanager.jsonDataTreeStyle", '{"meta":{"version":"2"},"setting":"default","nullvalue":{"unselected":{"background-color":"#ffcccc","color":"#000000"},"selected":{"background-color":"#ff6666","color":"#ffffff"}},"integervalue":{"unselected":{"background-color":"#ccffcc","color":"#000000"},"selected":{"background-color":"#339933","color":"#ffffff"}},"floatvalue":{"unselected":{"background-color":"#66ff66","color":"#000000"},"selected":{"background-color":"#00cc00","color":"#ffffff"}},"textvalue":{"unselected":{"background-color":"#ccffff","color":"#000000"},"selected":{"background-color":"#000066","color":"#ffffff"}},"blobvalue":{"unselected":{"background-color":"#ccccff","color":"#000000"},"selected":{"background-color":"#333399","color":"#ffffff"}},"textFont":{"unselected":{"font-size":100,"font-family":""}},"rowHeight":0}');
+//stores JSON object for export/import settings.
+pref("extensions.sqlitemanager.jsonEximSettings", '{"meta":{"version":"1"},"csv":{"export":{"separator":",","encloser":"din","includeColNames":false},"import":{"separator":",","encloser":"din"}}}');

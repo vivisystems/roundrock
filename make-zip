@@ -1,3 +1,4 @@
+rm vivipos_sdk_*_*.zip vivipos_sdk_*_*.sha1
 rel_date=`date +'%Y%m%d%H%M%S'`
 version=`cat VERSION`	
 

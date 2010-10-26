@@ -7,21 +7,13 @@
   xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   xmlns:xbl="http://www.mozilla.org/xbl">
 
+  <script type="application/x-javascript" src="overlay.js"/>  
+
   <!-- Into the "Tools" menu, before the Prefs Separator -->
   <menupopup id="menu_ToolsPopup">
-    <menuitem oncommand="OpenSQLiteManager()"
+    <menuitem oncommand="OpenSMInOwnWindow()"
       label="SQLite Manager" id="menuitem-sqlitemanager"
       insertbefore="menu_PrefsSeparator" class="menuitem-iconic"
       accesskey="Q"/>
   </menupopup>
-
-  <!-- You can load a script file, or just put script inline like this. -->
-  <script>
-  <![CDATA[
-    function OpenSQLiteManager() {
-      window.open("chrome://sqlitemanager/content/sqlitemanager.xul", "", "chrome,resizable,centerscreen");
-      return;
-    }
-  ]]>
-  </script>
 </overlay>

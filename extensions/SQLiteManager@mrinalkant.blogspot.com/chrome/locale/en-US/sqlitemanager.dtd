@@ -136,6 +136,7 @@
 <!ENTITY	tab.browse "Browse &amp; Search">
 <!ENTITY	tab.execute "Execute SQL">
 <!ENTITY	tab.dbinfo "DB Settings">
+<!ENTITY	tab.udf "User-defined Functions">
 
 <!ENTITY	btn.search "Search">
 <!ENTITY	btn.search.ak "h">
@@ -144,20 +145,24 @@
 <!ENTITY	btn.exporttable "Export">
 <!ENTITY	btn.exporttable.ak "">
 <!ENTITY	btn.addcol "Add Column">
-<!ENTITY	btn.addrecord "Add Record">
+<!ENTITY	btn.addrecord "Add">
 <!ENTITY	btn.addrecord.ak "A">
 
-<!ENTITY	menu.editSelected "Edit Selected">
+<!ENTITY	menu.editSelected "Edit">
 <!ENTITY	menu.editSelected.ak "E">
-<!ENTITY	menu.deleteSelected "Delete Selected">
+<!ENTITY	menu.deleteSelected "Delete">
 <!ENTITY	menu.deleteSelected.ak "l">
-<!ENTITY	menu.duplicateRecord "Duplicate Record">
+<!ENTITY	menu.duplicateRecord "Duplicate">
 <!ENTITY	menu.duplicateRecord.ak "p">
+
+<!ENTITY	menu.copyColName "Copy Column Name">
+<!ENTITY	menu.copyColName.ak "C">
 
 <!ENTITY	menu.copyCell "Copy Cell">
 <!ENTITY	menu.copyCell.ak "C">
 <!ENTITY	menu.copyRows "Copy Row(s) as CSV">
 <!ENTITY	menu.copyRows.ak "R">
+<!ENTITY	menu.copyRowsForExcel "Copy Row(s) as CSV (MSExcel compatible)">
 <!ENTITY	menu.copyRowsAsSql "Copy Row(s) as SQL">
 <!ENTITY	menu.copyRowsAsSql.ak "q">
 
@@ -168,11 +173,21 @@
 
 <!ENTITY	btn.runsql        "Run SQL">
 <!ENTITY	btn.runsql.ak 	  "R">
+<!ENTITY	btn.runsql.tooltiptext 	  "Use 'control + ;' to execute the query.">
 <!ENTITY	buttonRun 	      "Run SQL Statement (with results)">
 <!ENTITY	buttonRun.ak 	  "R">
 <!ENTITY	buttonExecute 	  "Execute Statement (no results)">
 <!ENTITY	buttonExecute.ak  "E">
 <!ENTITY	label.sqlLastError "Last Error">
+
+<!ENTITY	mb.queryActions        "Actions">
+<!ENTITY	mi.viewQueryAsTable        "View Table">
+<!ENTITY	mi.viewQueryAsTable.ak 	  "T">
+<!ENTITY	mi.viewQueryAsCsv        "View CSV">
+<!ENTITY	mi.viewQueryAsCsv.ak 	  "C">
+<!ENTITY	mi.saveQueryAsCsv        "Save Result (CSV) to File">
+<!ENTITY	mi.saveQueryAsCsv.ak 	  "S">
+
 <!ENTITY	label.resultOfQuery "Result of the Query">
 <!ENTITY	label.resultOfQuery.ak "Q">
 <!ENTITY	btn.prevSql 	"Previous Sql from History">
@@ -182,9 +197,9 @@
 
 <!ENTITY	sbp.db		"DB">
 
-<!ENTITY	masterinfo.tbl_name		"Associated with table/view">
+<!ENTITY	masterinfo.tbl_name		"Associated with table">
 <!ENTITY	masterinfo.rootpage		"Rootpage">
-<!ENTITY	masterinfo.sql				"SQL statement that created this object">
+<!ENTITY	masterinfo.sql				"Create statement">
 
 <!ENTITY table "Table">
 <!ENTITY index "Index">
@@ -213,6 +228,7 @@
 <!ENTITY moreInfo "More Info">
 <!ENTITY numColumns "No. of Columns">
 <!ENTITY numIndexes "No. of Indexes">
+<!ENTITY numTriggers "No. of Triggers">
 <!ENTITY numRecords "No. of Records">
 <!ENTITY Columns "Columns">
 <!ENTITY name "Name">

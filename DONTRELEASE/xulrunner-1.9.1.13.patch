@@ -1,0 +1,114 @@
+diff -ruN components/nsExtensionManager.js /home/rack/Downloads/xulrunner/components//nsExtensionManager.js
+--- components/nsExtensionManager.js	2010-10-19 15:16:01.398691000 +0800
++++ /home/rack/Downloads/xulrunner/components//nsExtensionManager.js	2010-09-15 03:22:49.000000000 +0800
+@@ -145,8 +145,6 @@
+ var gAllowFlush           = true;
+ var gDSNeedsFlush         = false;
+ var gManifestNeedsFlush   = false;
+-var gEnv                  = null;
+-var gConv                 = null;
+ 
+ /**
+  * Valid GUIDs fit this pattern.
+@@ -1504,10 +1502,8 @@
+ 
+       entries = zipReader.findEntries(null);
+       while (entries.hasMore()) {
+-        //var entryName = entries.getNext();
+-        //target = installLocation.getItemFile(extensionID, entryName);
+-        var entryName = gConv.ConvertFromUnicode(entries.getNext());
+-        target = installLocation.getItemFile(extensionID, gConv.ConvertToUnicode(entryName));
++        var entryName = entries.getNext();
++        target = installLocation.getItemFile(extensionID, entryName);
+         if (target.exists())
+           continue;
+ 
+@@ -2330,12 +2326,6 @@
+   gRDF = Cc["@mozilla.org/rdf/rdf-service;1"].
+          getService(Ci.nsIRDFService);
+   gInstallManifestRoot = gRDF.GetResource(RDFURI_INSTALL_MANIFEST_ROOT);
+-  gEnv = Components.classes["@mozilla.org/process/environment;1"]
+-                   .getService(Components.interfaces.nsIEnvironment);
+-
+-  gConv = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
+-                   .getService(Components.interfaces.nsIScriptableUnicodeConverter);
+-  gConv.charset = "UTF-8";
+ 
+   // Register Global Install Location
+   var appGlobalExtensions = getDirNoCreate(KEY_APPDIR, [DIR_EXTENSIONS]);
+@@ -6288,10 +6278,6 @@
+   aURI = aURI.replace(/%APP_ABI%/g, gXPCOMABI);
+   aURI = aURI.replace(/%APP_LOCALE%/g, gLocale);
+   aURI = aURI.replace(/%CURRENT_APP_VERSION%/g, gApp.version);
+-  aURI = aURI.replace(/%DALLAS%/g, gEnv.get("dallas"));
+-  aURI = aURI.replace(/%MAC_ADDRESS%/g, gEnv.get("mac_address"));
+-  aURI = aURI.replace(/%VENDOR_NAME%/g, gEnv.get("vendor_name"));
+-  aURI = aURI.replace(/%SYSTEM_NAME%/g, gEnv.get("system_name"));
+ 
+   // Replace custom parameters (names of custom parameters must have at
+   // least 3 characters to prevent lookups for something like %D0%C8)
+diff -ruN components/nsUpdateService.js /home/rack/Downloads/xulrunner/components//nsUpdateService.js
+--- components/nsUpdateService.js	2010-10-19 15:19:21.804691001 +0800
++++ /home/rack/Downloads/xulrunner/components//nsUpdateService.js	2010-09-15 03:22:50.000000000 +0800
+@@ -87,7 +87,6 @@
+ var gLocale     = null;
+ var gConsole    = null;
+ var gLogEnabled = { };
+-var gEnv        = null;
+ 
+ // shared code for suppressing bad cert dialogs
+ //@line 41 "/builds/slave/xulrunner_linux_build/build/toolkit/mozapps/shared/src/badCertHandler.js"
+@@ -1112,8 +1111,6 @@
+           getService(Ci.nsIPrefBranch2);
+   gConsole = Cc["@mozilla.org/consoleservice;1"].
+              getService(Ci.nsIConsoleService);
+-  gEnv = Cc["@mozilla.org/process/environment;1"].
+-         getService(Ci.nsIEnvironment);
+ 
+   // Not all builds have a known ABI
+   try {
+@@ -2059,10 +2056,6 @@
+     url = url.replace(/%DISTRIBUTION_VERSION%/g,
+                       getDistributionPrefValue(PREF_APP_DISTRIBUTION_VERSION));
+     url = url.replace(/\+/g, "%2B");
+-    url = url.replace(/%DALLAS%/g, gEnv.get("dallas"));
+-    url = url.replace(/%MAC_ADDRESS%/g, gEnv.get("mac_address"));
+-    url = url.replace(/%VENDOR_NAME%/g, gEnv.get("vendor_name"));
+-    url = url.replace(/%SYSTEM_NAME%/g, gEnv.get("system_name"));
+ 
+     if (force)
+       url += (url.indexOf("?") != -1 ? "&" : "?") + "force=1";
+@@ -2877,8 +2870,8 @@
+   /**
+    * See nsIUpdateService.idl
+    */
+-  checkForUpdates: function UP_checkForUpdates(parent) {
+-    this._showUI((parent||null), URI_UPDATE_PROMPT_DIALOG, null, UPDATE_WINDOW_NAME,
++  checkForUpdates: function UP_checkForUpdates() {
++    this._showUI(null, URI_UPDATE_PROMPT_DIALOG, null, UPDATE_WINDOW_NAME,
+                  null, null);
+   },
+ 
+@@ -2903,7 +2896,7 @@
+   /**
+    * See nsIUpdateService.idl
+    */
+-  showUpdateDownloaded: function UP_showUpdateDownloaded(update, background, parent) {
++  showUpdateDownloaded: function UP_showUpdateDownloaded(update, background) {
+     if (background) {
+       if (!this._enabled)
+         return;
+@@ -2914,11 +2907,11 @@
+                                               [update.name], 1);
+       var text = bundle.GetStringFromName(stringsPrefix + "text");
+       var imageUrl = "";
+-      this._showUnobtrusiveUI((parent||null), URI_UPDATE_PROMPT_DIALOG, null,
++      this._showUnobtrusiveUI(null, URI_UPDATE_PROMPT_DIALOG, null,
+                               UPDATE_WINDOW_NAME, "finishedBackground", update,
+                               title, text, imageUrl);
+     } else {
+-      this._showUI((parent||null), URI_UPDATE_PROMPT_DIALOG, "modal,dialog=yes",
++      this._showUI(null, URI_UPDATE_PROMPT_DIALOG, null,
+                    UPDATE_WINDOW_NAME, "finishedBackground", update);
+     }
+   },

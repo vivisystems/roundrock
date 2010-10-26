@@ -14,7 +14,7 @@
  * @public
  * @namespace
  */
-var GeckoJS = GeckoJS || {version: "1.2.5"}; // Check to see if already defined in current scope
+var GeckoJS = GeckoJS || {version: "1.2.6"}; // Check to see if already defined in current scope
 
 /**
  * This is a reference to the global context, which is normally the "window" object.
@@ -2687,7 +2687,7 @@ GREUtils.define('GeckoJS.Event', GeckoJS.global);
  * <br/>
  * GeckoJS.Event provides a mechanism for global callbacks to be hooked into
  * the event dispatching flow. A global callback may be of type "before" or
- * "after". Before dispatching any event, GeckoJS.Event will invoke each of the
+ * "after" or "event". Before dispatching any event, GeckoJS.Event will invoke each of the
  * callbacks in turn, and will stop when either all the callbacks have been
  * invoked, or if a callback cancels the callback chain by calling
  * preventDefault() on the EventItem. Similarly, "after" callbacks are invoked
@@ -2718,7 +2718,7 @@ GeckoJS.Event = GeckoJS.BaseObject.extend('Event',
      * @param {Array} listeners
      */
     init: function(listeners){
-        this.listeners = listeners || [];
+        this.listeners = listeners || {};
     }
 });
 /*
@@ -2735,7 +2735,7 @@ GeckoJS.Event = function(){
  * @static
  * @field {Object} callbacks
  */
-GeckoJS.Event.callbacks = [];
+GeckoJS.Event.callbacks = {};
 /*
 if (Application.storage.has("GeckoJS_Event_callbacks")) {
     GeckoJS.Event.callbacks = Application.storage.get("GeckoJS_Event_callbacks", (new Array()) );
@@ -2755,35 +2755,32 @@ if (Application.storage.has("GeckoJS_Event_callbacks")) {
  * @public
  * @static
  * @function
- * @param {String} aType          This is the type of callback to add ("before" or "after")
+ * @param {String} aType          This is the type of callback to add ("before" or "after" or "event")
  * @param {Object} aCallback    This is the callback function or object
  * @param {Object} thisObj        Locking its execution scope to this object
  */
 GeckoJS.Event.addCallback = function(aType, aCallback, thisObj){
 
     if(!aType || !aCallback) return;
+    aType = aType.toLowerCase();
 
-    if (GeckoJS.Event.callbacks.some(function(element){
+    if (typeof GeckoJS.Event.callbacks[aType] == 'undefined') {
+        // initial callback type
+        GeckoJS.Event.callbacks[aType] = [];
+    }
+
+    if (GeckoJS.Event.callbacks[aType].some(function(element){
         return element.type == aType && element.callback == aCallback;
     })) return;
 
     // add id
     if(!aCallback.__hashCode) aCallback.__hashCode = GeckoJS.String.uuid();
 
-    GeckoJS.Event.callbacks.push({
-        type: aType.toLowerCase(),
+    GeckoJS.Event.callbacks[aType].push({
+        type: aType,
         callback: aCallback,
         thisObj: thisObj || GeckoJS.global
     });
-
-    // resource release guarder
-    /*
-    if(typeof window != 'undefined') {
-        var self = this;
-        window.addEventListener('unload', function(evt) {
-            GeckoJS.Event.removeCallback(aType, aCallback);
-        }, true);
-    }*/
 
 };
 
@@ -2794,24 +2791,24 @@ GeckoJS.Event.addCallback = function(aType, aCallback, thisObj){
  * @public
  * @static
  * @function
- * @param {String} aType          This is the event for type of callback is to be added , before or after
+ * @param {String} aType          This is the event for type of callback is to be added , before or after or event
  * @param {Function} aCallback    This is the callback function to add
  */
 GeckoJS.Event.removeCallback = function(aType, aCallback){
 
-    for (var i = GeckoJS.Event.callbacks.length -1; i >0; i--) {
-        var element = GeckoJS.Event.callbacks[i];
+    if(!aType || !aCallback) return;
+    aType = aType.toLowerCase();
+
+    if (typeof GeckoJS.Event.callbacks[aType] == 'undefined') return ; // not has this type of callbacks
+
+    for (var i = GeckoJS.Event.callbacks[aType].length -1; i >0; i--) {
+        var element = GeckoJS.Event.callbacks[aType][i];
         if ( element.type == aType && (element.callback == aCallback || element.callback.__hashCode == aCallback.__hashCode) ) {
-            this.GeckoJS.Event.callbacks.splice(i,1);
+            this.GeckoJS.Event.callbacks[aType].splice(i,1);
         }
 
     }
-    /*
-    GeckoJS.Event.callbacks = GeckoJS.Event.callbacks.filter(function(element){
-        return element.type != aType && element.callback != aCallback;
-    });
-    */
-
+    
 };
 
 /**
@@ -2825,12 +2822,17 @@ GeckoJS.Event.removeCallback = function(aType, aCallback){
  * @public
  * @static
  * @function
- * @param {String} aType          This is the type of callback to invoke ("before" or "after")
+ * @param {String} aType          This is the type of callback to invoke ("before" or "after" or "event")
  * @param {GeckoJS.EventItem} aEventItem     This is the EventItem to pass to the callbacks
  */
 GeckoJS.Event.processCallback = function(aType, aEventItem){
-    
-    GeckoJS.Event.callbacks.forEach(function(key){
+
+    if(!aType) return;
+    aType = aType.toLowerCase();
+
+    if (typeof GeckoJS.Event.callbacks[aType] == 'undefined') return ; // not has this type of callbacks
+
+    GeckoJS.Event.callbacks[aType].forEach(function(key){
         if (key.type == aType && !aEventItem.cancel) {
 
             try {
@@ -2865,31 +2867,24 @@ GeckoJS.Event.prototype.addListener = function(aEvent, aListener, thisObj){
     
     if(!aEvent || !aListener) return;
 
-    if (this.listeners.some(function(element){
+    if (typeof this.listeners[aEvent] == 'undefined') {
+        // initial listener of event
+        this.listeners[aEvent] = [];
+    }
+
+    if (this.listeners[aEvent].some(function(element){
         return element.event == aEvent && element.listener == aListener;
     })) return;
 
     // add id
     if(!aListener.__hashCode) aListener.__hashCode = GeckoJS.String.uuid();
     
-    this.listeners.push({
+    this.listeners[aEvent].push({
         event: aEvent,
         listener: aListener,
         thisObj: thisObj || GeckoJS.global
     });
 
-    // resource release guarder
-    /*
-    if(typeof window != 'undefined') {
-        var self = this;
-        window.addEventListener('unload', function(evt) {
-            self.removeListener(aEvent, aListener);
-        }, true);
-    }*/
-/*
-    function hasFilter(element){
-        return element.event == aEvent && element.listener == aListener;
-    }*/
 };
 
 /**
@@ -2903,10 +2898,14 @@ GeckoJS.Event.prototype.addListener = function(aEvent, aListener, thisObj){
  */
 GeckoJS.Event.prototype.removeListener = function(aEvent, aListener){
 
-    for (var i = this.listeners.length -1; i >=0; i--) {
-        var element = this.listeners[i];
+    if(!aEvent || !aListener) return;
+
+    if (typeof this.listeners[aEvent] == 'undefined') return ; // not has this listener of event
+
+    for (var i = this.listeners[aEvent].length -1; i >=0; i--) {
+        var element = this.listeners[aEvent][i];
         if ( element.event == aEvent && (element.listener == aListener || element.listener.__hashCode == aListener.__hashCode) ) {
-            this.listeners.splice(i,1);
+            this.listeners[aEvent].splice(i,1);
         }
     }
 
@@ -2949,26 +2948,48 @@ GeckoJS.Event.prototype.dispatch = function(aEvent, aEventData, aTarget){
 
     var eventItem = new GeckoJS.EventItem(aEvent, aEventData, aTarget);
 
-    var self = this;
-    this.listeners.forEach(function(key){
+    // trigger before callback
+    try {
         GeckoJS.Event.processCallback("before", eventItem);
-        
-        if (key.event == aEvent && !eventItem.cancel) {
+    }catch(e) {
+    }
 
-            try {
-                key.listener.handleEvent ? key.listener.handleEvent.call(key.thisObj, eventItem) : key.listener.call(key.thisObj, eventItem);
-            }catch(ex){              
-                if (ex.name == "ReferenceError") {
-                    self.removeListener(key.event, key.listener);
-                }else {
-                    GeckoJS.Event.log('Event', 'ERROR', 'GeckoJS.Event.dispatch (' + key.event +') ', ex);
+    var self = this;
+    if (typeof this.listeners[aEvent] != 'undefined') {
+
+        this.listeners[aEvent].forEach(function(key){
+
+            if (key.event == aEvent && !eventItem.cancel) {
+
+                try {
+
+                    key.listener.handleEvent ? key.listener.handleEvent.call(key.thisObj, eventItem) : key.listener.call(key.thisObj, eventItem);
+
+                    // trigger event callback
+                    try {
+                        GeckoJS.Event.processCallback("event", eventItem);
+                    }catch(e){
+                    }
+
+                }catch(ex){
+                    if (ex.name == "ReferenceError") {
+                        self.removeListener(key.event, key.listener);
+                    }else {
+                        GeckoJS.Event.log('Event', 'ERROR', 'GeckoJS.Event.dispatch (' + key.event +') ', ex);
+                    }
                 }
+
             }
 
-        }
+        });
         
+    }
+
+    // trigger after callback
+    try {
         GeckoJS.Event.processCallback("after", eventItem);
-    });
+    }catch(e) {
+    }
 
     return !eventItem.cancel;
 };

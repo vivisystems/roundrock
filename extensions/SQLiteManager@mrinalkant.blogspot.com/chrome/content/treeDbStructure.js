@@ -17,7 +17,7 @@ TreeDbStructure.prototype = {
   mAllPrefix: "all-",
 
   init: function() {
- 		document.getElementById(this.treeId).view = this;
+     document.getElementById(this.treeId).view = this;
   },
 
   removeChildData: function() {
@@ -25,7 +25,7 @@ TreeDbStructure.prototype = {
     this.init();
   },
   
-	setChildData: function(aObjects)	{
+  setChildData: function(aObjects)  {
     this.mbSettingChildren = true;
 
     this.visibleData = [];
@@ -41,8 +41,8 @@ TreeDbStructure.prototype = {
         this.childData[idx] = aObjects[idx];
 
         var sLabel = lbl[pp] + " (" + aObjects[idx].length + ")";
-  		//[cellText, isContainer, isContainerOpen, SmType, iLevel]
-  		//SmType is application defined attribute set by the extension author here
+      //[cellText, isContainer, isContainerOpen, SmType, iLevel]
+      //SmType is application defined attribute set by the extension author here
         this.visibleData.push([sLabel, true, false, this.mAllPrefix+idx,0]);
       }
     }
@@ -50,52 +50,52 @@ TreeDbStructure.prototype = {
     //for categories
     for (var iii=0; iii < this.rowCount; iii++) {
       if (this.getLevel(iii) == 0) {
-    		for (var jjj=0; jjj < this.aExpandedNodes[0].length; jjj++) {
-    		  if (this.aExpandedNodes[0][jjj] == this.getSmType(iii)) {
-    		    this.toggleOpenState(iii);
-    		  }
-    		}
-    	}
+        for (var jjj=0; jjj < this.aExpandedNodes[0].length; jjj++) {
+          if (this.aExpandedNodes[0][jjj] == this.getSmType(iii)) {
+            this.toggleOpenState(iii);
+          }
+        }
+      }
     }
     //for db objects
     for (var iii=0; iii < this.rowCount; iii++) {
       if (this.getLevel(iii) == 1) {
-    		for (var jjj=0; jjj < this.aExpandedNodes[1].length; jjj++) {
-    		  if (this.aExpandedNodes[1][jjj] == this.getCellText(iii)) {
-    		    this.toggleOpenState(iii);
-    		  }
-    		}
-    	}
-		}
+        for (var jjj=0; jjj < this.aExpandedNodes[1].length; jjj++) {
+          if (this.aExpandedNodes[1][jjj] == this.getCellText(iii)) {
+            this.toggleOpenState(iii);
+          }
+        }
+      }
+    }
 
     this.mbSettingChildren = false;
     this.init();
-	},
+  },
 
   setExpandableNodes: function(aExpand) {
     this.aExpandedNodes = aExpand;
   },
 
-  get treeId()                  { return this.mTreeId; },
-  get treeChildrenId()          { return this.mTreeChildrenId; },
-  get visibleDataLength()          { return this.visibleData.length; },
-  getSmType: function(idx) { return this.visibleData[idx][3]; },
+  get treeId() { return this.mTreeId; },
+  get treeChildrenId() { return this.mTreeChildrenId; },
+  get visibleDataLength() { return this.visibleData.length; },
+  getSmType: function(row) { return this.visibleData[row][3]; },
   isTreeReady: function() { return !this.mbSettingChildren; },
 
   //following are treeview functions
   treeBox: null,
   selection: null,
 
-  get rowCount()                     { return this.visibleData.length; },
-  setTree: function(treeBox)         { this.treeBox = treeBox; },
-  getCellText: function(idx, column) { return this.visibleData[idx][0]; },
-  isContainer: function(idx)         { return this.visibleData[idx][1]; },
-  isContainerOpen: function(idx)     { return this.visibleData[idx][2]; },
+  get rowCount() { return this.visibleData.length; },
+  setTree: function(treeBox) { this.treeBox = treeBox; },
+  getCellText: function(row,col) { return this.visibleData[row][0]; },
+  isContainer: function(idx) { return this.visibleData[idx][1]; },
+  isContainerOpen: function(idx) { return this.visibleData[idx][2]; },
   isContainerEmpty: function(idx)    { return false; },
   isSeparator: function(idx)         { return false; },
   isSorted: function()               { return false; },
   isEditable: function(idx, column)  { return false; },
-  getLevel: function(idx)            { return this.visibleData[idx][4]; },
+  getLevel: function(idx) { return this.visibleData[idx][4]; },
   getParentIndex: function(idx) {
     var iLevel = this.getLevel(idx);
     for (var t = idx - 1; t >= 0 ; t--) {
@@ -113,8 +113,7 @@ TreeDbStructure.prototype = {
     }
     return false;
   },
-  //do not return in between because the this.aExpandedNodes array
-  //is being populated at the end.
+  //do not return in between because the this.aExpandedNodes array is being populated at the end.
   toggleOpenState: function(idx) {
     if (!this.isContainer(idx)) return;
 
@@ -138,26 +137,26 @@ TreeDbStructure.prototype = {
       this.visibleData[idx][2] = true;
 
       if(thisLevel == 0) {
-	      var label = this.getSmType(idx).substring(this.mAllPrefix.length);
-	      var toinsert = this.childData[label];
-	      var sType = label;
-	      var bContainer = false;
-        if (label == "table" || label == "master") bContainer = true;
+        var label = this.getSmType(idx).substring(this.mAllPrefix.length);
+        var toinsert = this.childData[label];
+        var sType = label;
+        var bContainer = false;
+        if (label == "table" || label == "master" || label == "view")
+          bContainer = true;
 
-	      for (var i = 0; i < toinsert.length; i++) {
-           this.visibleData.splice(idx + i + 1, 0, [toinsert[i], bContainer,false,sType,thisLevel + 1]);
-	      }
-	      this.treeBox.rowCountChanged(idx + 1, toinsert.length);
-	    }
-
-      if(thisLevel == 1 && (this.getSmType(idx) == "table" || this.getSmType(idx) == "master")) {
-    		var info = Database.getTableColumns(this.getCellText(idx), "");
-    		var cols = info[0];
-    		for(var i = 0; i < cols.length; i++) {
-    			this.visibleData.splice(idx + i + 1, 0, [cols[i][info[1]["name"][0]], false,false,"someColumn",thisLevel + 1]);
+        for (var i = 0; i < toinsert.length; i++) {
+           this.visibleData.splice(idx + i + 1, 0, [toinsert[i], bContainer, false, sType, thisLevel + 1]);
         }
-	      this.treeBox.rowCountChanged(idx + 1, cols.length);
-	    }
+        this.treeBox.rowCountChanged(idx + 1, toinsert.length);
+      }
+
+      if(thisLevel == 1 && (this.getSmType(idx) == "table" || this.getSmType(idx) == "master" || this.getSmType(idx) == "view")) {
+        var info = SQLiteManager.getTableInfo(this.getCellText(idx), "");
+        for(var i = 0; i < info.length; i++) {
+          this.visibleData.splice(idx + i + 1, 0, [[info[i].name], false, false, "someColumn", thisLevel + 1]);
+        }
+        this.treeBox.rowCountChanged(idx + 1, info.length);
+      }
     }
     //use indexOf to search, then add or delete
     //populate aExpandedNodes again
@@ -183,6 +182,24 @@ TreeDbStructure.prototype = {
   performAction: function(action) {},
   performActionOnCell: function(action, index, column) {},
   getRowProperties: function(idx, column, prop) {},
-  getCellProperties: function(idx, column, prop) {},
+  getCellProperties: function(row, col, properties) {
+    var atomService = Components.classes["@mozilla.org/atom-service;1"].getService(Components.interfaces.nsIAtomService);
+    if (this.getSmType(row) == "table") {
+      var atom = atomService.getAtom("dbObjTable");
+      properties.AppendElement(atom);
+    }
+    if (this.getSmType(row) == "index") {
+      var atom = atomService.getAtom("dbObjIndex");
+      properties.AppendElement(atom);
+    }
+    if (this.getSmType(row) == "view") {
+      var atom = atomService.getAtom("dbObjView");
+      properties.AppendElement(atom);
+    }
+    if (this.getSmType(row) == "trigger") {
+      var atom = atomService.getAtom("dbObjTrigger");
+      properties.AppendElement(atom);
+    }
+  },
   getColumnProperties: function(column, element, prop) {}
 };

@@ -29,9 +29,10 @@
 
             // set log level
             var logLevel = GeckoJS.Configure.read('vivipos.fec.debug.log_level') || 'ERROR';
+            var logLevelObj = GeckoJS.Log[logLevel] || GeckoJS.Log.WARN;
 
             // addAppender for vivipos.log file.
-            GeckoJS.Log.addAppender('vivipos', new GeckoJS.Log.FileAppender(GeckoJS.Log.WARN, GeckoJS.Configure.read('CurProcD')+"/log/vivipos.log"));
+            GeckoJS.Log.addAppender('vivipos', new GeckoJS.Log.FileAppender(logLevelObj, GeckoJS.Configure.read('CurProcD')+"/log/vivipos.log"));
 
             GeckoJS.Log.defaultClassLevel = GeckoJS.Log[logLevel];
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log[logLevel];
@@ -537,9 +538,14 @@
 
             GeckoJS.Configure.addEventListener('savePrefFile', this._registerListener);
             
+        },
+
+        restartApplicationKeyPress: function() {
+
+            GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS RESTART [USER PRESS RESTART]');
+            goRestartApplication();
+
         }
-
-
 
     };
 

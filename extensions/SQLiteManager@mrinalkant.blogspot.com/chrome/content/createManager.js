@@ -1,587 +1,501 @@
+Components.utils.import("resource://sqlitemanager/sqlite.js");
+
 var CreateManager = {
-	//arrays with information for each field
-	aFieldNames: null,
-	aFieldTypes: null,
+  //arrays with information for each field
+  aFieldNames: null,
+  aFieldTypes: null,
 
-	sCurrentTable: null,
-	sObject: null,
-	sOperation: null,
+  sCurrentTable: null,
+  sObject: null,
+  sOperation: null,
 
-	numOfEmptyColumns: 20, //shown during create table
+  numOfEmptyColumns: 20, //shown during create table
 
-	loadEmptyColumns: function() {
-		var node = document.getElementById("rows-all");
-		this.numOfEmptyColumns = sm_prefsBranch.getIntPref("maxColumnsInTable");
+  loadEmptyColumns: function() {
+    var node = $$("rows-all");
+    this.numOfEmptyColumns = sm_prefsBranch.getIntPref("maxColumnsInTable");
 
-		var row = document.getElementById("row-template");
-		for(var i = 0; i < this.numOfEmptyColumns; i++) {
-			var clone = row.cloneNode(true);
-			clone.setAttribute("id", "row-" + i);
-			clone.setAttribute("style", "");
-			var children = clone.childNodes;
-			var id;
+    var row = $$("row-template");
+    for(var i = 0; i < this.numOfEmptyColumns; i++) {
+      var clone = row.cloneNode(true);
+      clone.setAttribute("id", "row-" + i);
+      clone.setAttribute("style", "");
+      var children = clone.childNodes;
+      var id;
       for (var j = 0; j < children.length; j++) {
         id = children[j].getAttribute("id") + "-" + i;
         children[j].setAttribute("id", id);
       };
 
-			node.appendChild(clone);
-		}
-	},
+      node.appendChild(clone);
+    }
+  },
 
-	loadOccupiedColumns: function(sTableName) {
+  loadOccupiedColumns: function(sTableName) {
     var bReadOnlyColNames = false;
-		var aRetVals = window.arguments[1];
+    var aRetVals = window.arguments[1];
     if (typeof aRetVals.readonlyFlags != "undefined") {
       if (aRetVals.readonlyFlags.indexOf("colnames") >= 0)
         bReadOnlyColNames = true;
     }
 
-    document.getElementById("tablename").value = aRetVals.tableName;
-		var node = document.getElementById("rows-all");
-		this.numOfEmptyColumns = aRetVals.colNames.length;
-		
-		var row = document.getElementById("row-template");
-		for(var i = 0; i < this.numOfEmptyColumns; i++) {
-			var clone = row.cloneNode(true);
-			clone.setAttribute("id", "row-" + i);
-			clone.setAttribute("style", "");
-			var children = clone.childNodes;
-			var id;
-		   for (var j = 0; j < children.length; j++) {
-		   		id = children[j].getAttribute("id");
-		   		if (id == "colname") {
+    $$("tablename").value = aRetVals.tableName;
+    var node = $$("rows-all");
+    this.numOfEmptyColumns = aRetVals.colNames.length;
+
+    var row = $$("row-template");
+    for(var i = 0; i < this.numOfEmptyColumns; i++) {
+      var clone = row.cloneNode(true);
+      clone.setAttribute("id", "row-" + i);
+      clone.setAttribute("style", "");
+      var children = clone.childNodes;
+      var id;
+       for (var j = 0; j < children.length; j++) {
+           id = children[j].getAttribute("id");
+           if (id == "colname") {
             children[j].setAttribute("value", aRetVals.colNames[i]);
             if (bReadOnlyColNames)
               children[j].setAttribute("readonly", bReadOnlyColNames);
           }
-		   		children[j].setAttribute("id", id + "-" + i);
-		   };
+           children[j].setAttribute("id", id + "-" + i);
+       };
 
-			node.appendChild(clone);
-		}
-	},
-		
-	loadCreateTableDialog: function () {
-		Database = window.arguments[0];
-		var aRetVals = window.arguments[1];
+      node.appendChild(clone);
+    }
+  },
 
-		this.sObject = "TABLE";
-		
-		this.loadDbNames("dbName", Database.logicalDbName);
+  mDb: null,
 
-		if (typeof aRetVals.tableName == "undefined")
-    	this.loadEmptyColumns();
+  loadCreateTableDialog: function () {
+    this.mDb = window.arguments[0];
+    var aRetVals = window.arguments[1];
+
+    this.sObject = "TABLE";
+    
+    this.loadDbNames("dbName", this.mDb.logicalDbName);
+
+    if (typeof aRetVals.tableName == "undefined")
+      this.loadEmptyColumns();
     else
-    	this.loadOccupiedColumns();
+      this.loadOccupiedColumns();
     window.sizeToContent();
-	},
-		
+  },
+    
   changeDataType: function(sId) {
-		var sVal = document.getElementById(sId).value;
-		var sNum = sId.substr(sId.lastIndexOf("-")+1);
+    var sVal = $$(sId).value;
+    var sNum = sId.substr(sId.lastIndexOf("-")+1);
     var sPkeyId = "primarykey-" + sNum;
     var sAutoId = "autoincrement-" + sNum;
 
-    if (sVal.toUpperCase() == "INTEGER"
-        && document.getElementById(sPkeyId).checked)
-      document.getElementById(sAutoId).disabled = false;
+    if (sVal.toUpperCase() == "INTEGER" && $$(sPkeyId).checked)
+      $$(sAutoId).disabled = false;
     else {
-      document.getElementById(sAutoId).disabled = true;
-      document.getElementById(sAutoId).checked = false;
+      $$(sAutoId).disabled = true;
+      $$(sAutoId).checked = false;
     }
   },
 
   togglePrimaryKey: function(sId) {
-		var bPk = document.getElementById(sId).checked;
-		var sNum = sId.substr(sId.lastIndexOf("-")+1);
+    var bPk = $$(sId).checked;
+    var sNum = sId.substr(sId.lastIndexOf("-")+1);
     var sNullId = "allownull-" + sNum;
     var sDefId = "defaultvalue-" + sNum;
     var sAutoId = "autoincrement-" + sNum;
     var sTypeId = "datatype-" + sNum;
-    if (document.getElementById(sTypeId).value.toUpperCase() == "INTEGER"
-        && bPk)
-      document.getElementById(sAutoId).disabled = false;
+    if ($$(sTypeId).value.toUpperCase() == "INTEGER" && bPk)
+      $$(sAutoId).disabled = false;
     else {
-      document.getElementById(sAutoId).disabled = true;
-      document.getElementById(sAutoId).checked = false;
+      $$(sAutoId).disabled = true;
+      $$(sAutoId).checked = false;
     }
 
     if (bPk) {
-      document.getElementById(sNullId).checked = !bPk;
+      $$(sNullId).checked = !bPk;
     }
   },
 
   selectDb: function(sID) {
     this.loadTableNames("tabletoindex", this.sCurrentTable, false);
-	},
+  },
 
   selectTable: function(sID) {
-    var sTable = document.getElementById(sID).value;
-		//function names have been assigned in the main load functions
-		if(this.sObject == "INDEX")
-			this.loadFieldNames(sTable);
-	},
+    var sTable = $$(sID).value;
+    //function names have been assigned in the main load functions
+    if(this.sObject == "INDEX")
+      this.loadFieldNames(sTable);
+  },
 
-	loadCreateIndexDialog: function () {
-		Database = window.arguments[0];
-		this.sCurrentTable = window.arguments[1];
+  loadCreateIndexDialog: function () {
+    this.mDb = window.arguments[0];
+    this.sCurrentTable = window.arguments[1];
 
-		this.sObject = "INDEX";
+    this.sObject = "INDEX";
 
-		this.loadDbNames("dbName", Database.logicalDbName);
+    this.loadDbNames("dbName", this.mDb.logicalDbName);
     this.loadTableNames("tabletoindex", this.sCurrentTable, false);
 
-		this.loadFieldNames(this.sCurrentTable);
-	},
+    this.loadFieldNames(this.sCurrentTable);
+  },
 
   loadFieldNames: function(sTableName) {
-		document.title = "Create Index on Table " + sTableName;
- 		var dbName = document.getElementById("dbName").value;
-		var info = Database.getTableColumns(sTableName, dbName);
-		var cols = info[0];
-		this.aFieldNames = [], aTypes = [];
-		for(var i = 0; i < cols.length; i++) {
-			this.aFieldNames.push(cols[i][info[1]["name"][0]]);
-			aTypes.push(cols[i][info[1]["type"][0]]);
-		}
-		var vbox = document.getElementById("definecolumns");
+    document.title = sm_getLFStr("createMngr.index.title", [sTableName], 1);
+     var dbName = $$("dbName").value;
+    var cols = this.mDb.getTableInfo(sTableName, dbName);
+    this.aFieldNames = [], aTypes = [];
+    for(var i = 0; i < cols.length; i++) {
+      this.aFieldNames.push(cols[i].name);
+      aTypes.push(cols[i].type);
+    }
+    var vbox = $$("definecolumns");
 
-		while (vbox.firstChild) {
-			 vbox.removeChild(vbox.firstChild);
-		}
-			
-		for(var i = 0; i < this.aFieldNames.length; i++) {
-			var radgr = document.createElement("radiogroup");
-			radgr.setAttribute("id", "rad-" + (i+1));
+    while (vbox.firstChild) {
+       vbox.removeChild(vbox.firstChild);
+    }
+      
+    for(var i = 0; i < this.aFieldNames.length; i++) {
+      var radgr = document.createElement("radiogroup");
+      radgr.setAttribute("id", "rad-" + (i+1));
 
-			var hbox = document.createElement("hbox");
-			hbox.setAttribute("flex", "1");
-			hbox.setAttribute("style", "margin:2px 3px 2px 3px");
-			hbox.setAttribute("align", "right");
-			
-			var lbl = document.createElement("label");
-			lbl.setAttribute("value", (i+1) + ". " + this.aFieldNames[i]);
-			lbl.setAttribute("style", "padding-top:5px;width:100px;");
-			lbl.setAttribute("accesskey", (i+1));
-			lbl.setAttribute("control", "rad-" + (i+1));
-			hbox.appendChild(lbl);
-			
-			var radio;
-			radio = document.createElement("radio");
-			radio.setAttribute("label", "Do not use");
-			radio.setAttribute("selected", "true");
-			radio.setAttribute("value", "");
-			hbox.appendChild(radio);
+      var hbox = document.createElement("hbox");
+      hbox.setAttribute("flex", "1");
+      hbox.setAttribute("style", "margin:2px 3px 2px 3px");
+      hbox.setAttribute("align", "right");
+      
+      var lbl = document.createElement("label");
+      lbl.setAttribute("value", (i+1) + ". " + this.aFieldNames[i]);
+      lbl.setAttribute("style", "padding-top:5px;width:100px;");
+      lbl.setAttribute("accesskey", (i+1));
+      lbl.setAttribute("control", "rad-" + (i+1));
+      hbox.appendChild(lbl);
+      
+      var radio;
+      radio = document.createElement("radio");
+      radio.setAttribute("label", sm_getLStr("createMngr.index.donotuse"));
+      radio.setAttribute("selected", "true");
+      radio.setAttribute("value", "");
+      hbox.appendChild(radio);
 
-			radio = document.createElement("radio");
-			radio.setAttribute("label", "Ascending");
-			radio.setAttribute("value", sm_doublequotes(this.aFieldNames[i]) + " ASC");
-			hbox.appendChild(radio);
+      radio = document.createElement("radio");
+      radio.setAttribute("label", sm_getLStr("createMngr.index.ascending"));
+      radio.setAttribute("value", SQLiteFn.quoteIdentifier(this.aFieldNames[i]) + " ASC");
+      hbox.appendChild(radio);
 
-			radio = document.createElement("radio");
-			radio.setAttribute("label", "Descending");
-			radio.setAttribute("value", sm_doublequotes(this.aFieldNames[i]) + " DESC");
-			hbox.appendChild(radio);
+      radio = document.createElement("radio");
+      radio.setAttribute("label", sm_getLStr("createMngr.index.descending"));
+      radio.setAttribute("value", SQLiteFn.quoteIdentifier(this.aFieldNames[i]) + " DESC");
+      hbox.appendChild(radio);
 
-			radgr.appendChild(hbox);
-			
-			vbox.appendChild(radgr);
-		}
-	},
+      radgr.appendChild(hbox);
+      
+      vbox.appendChild(radgr);
+    }
+  },
 
-	doOKCreateIndex: function() {
-		var name = document.getElementById("indexname").value;
-		if(name == "") {
-			alert("Name cannot be null");
-			return false;
-		}
+  doOKCreateIndex: function() {
+    var name = $$("indexname").value;
+    if(name == "") {
+      alert(sm_getLStr("createMngr.index.cannotBeNull"));
+      return false;
+    }
 
-		var dbName = document.getElementById("dbName").value;
- 		name = Database.getPrefixedName(name, dbName);
+    var dbName = $$("dbName").value;
+     name = this.mDb.getPrefixedName(name, dbName);
 
-		var tbl = document.getElementById("tabletoindex").value;
-		var dup = document.getElementById("duplicatevalues").selectedItem.value;
-		
-		var radgr, radval;
-		var cols = "";
-		for(var i = 0; i < this.aFieldNames.length; i++) {
-			radgr = document.getElementById("rad-" + (i+1));
-			radval = radgr.value;
-			if(radval != "") {
-				if(cols != "")
-					radval = ", " + radval;
-				
-				cols = cols + radval;
-			}
-		}	
-		if(cols == "") {
-			alert("No Fields selected");
-			return false;
-		}
-		
-		var sQuery = "CREATE " + dup + " INDEX " + name + " ON " +
-        sm_doublequotes(tbl) +	" (" + cols + ")";
-		return Database.confirmAndExecute([sQuery], "Create Index " + name, "confirm.create");
-	},
+    var tbl = $$("tabletoindex").value;
+    var dup = $$("duplicatevalues").selectedItem.value;
+    
+    var radgr, radval;
+    var cols = "";
+    for(var i = 0; i < this.aFieldNames.length; i++) {
+      radgr = $$("rad-" + (i+1));
+      radval = radgr.value;
+      if(radval != "") {
+        if(cols != "")
+          radval = ", " + radval;
+        
+        cols = cols + radval;
+      }
+    }  
+    if(cols == "") {
+      alert(sm_getLStr("createMngr.index.noFieldsSelected"));
+      return false;
+    }
+    
+    var sQuery = "CREATE " + dup + " INDEX " + name + " ON " + SQLiteFn.quoteIdentifier(tbl) +  " (" + cols + ")";
+    return this.mDb.confirmAndExecute([sQuery], sm_getLFStr("createMngr.index.confirm", [name], 1), "confirm.create");
+  },
 
-	loadCreateTriggerDialog: function () {
-		Database = window.arguments[0];
-		this.sCurrentTable = window.arguments[1];
+  loadCreateTriggerDialog: function () {
+    this.mDb = window.arguments[0];
+    this.sCurrentTable = window.arguments[1];
 
-		this.sObject = "trigger";
+    this.sObject = "trigger";
 
-		this.loadDbNames("dbName", Database.logicalDbName);
+    this.loadDbNames("dbName", this.mDb.logicalDbName);
     this.loadTableNames("tabletoindex", this.sCurrentTable, false);
-	},
+  },
 
   //used for create index/trigger dialogs;
   loadTableNames: function(sListBoxId, sTableName, bMaster) {
-		var dbName = document.getElementById("dbName").value;
-		var listbox = document.getElementById(sListBoxId);
+    var dbName = $$("dbName").value;
+    var listbox = $$(sListBoxId);
 
     var aMastTableNames = [];
     if (bMaster)
-      aMastTableNames = Database.getObjectList("master", dbName);
-		var aNormTableNames = Database.getObjectList("table", dbName);
-		var aObjectNames = aMastTableNames.concat(aNormTableNames);
-		PopulateDropDownItems(aObjectNames, listbox, sTableName);
+      aMastTableNames = this.mDb.getObjectList("master", dbName);
+    var aNormTableNames = this.mDb.getObjectList("table", dbName);
+    var aObjectNames = aMastTableNames.concat(aNormTableNames);
+    PopulateDropDownItems(aObjectNames, listbox, sTableName);
 
-		if(this.sObject == "INDEX")
-			this.selectTable("tabletoindex");
+    if(this.sObject == "INDEX")
+      this.selectTable("tabletoindex");
   },
 
   loadDbNames: function(sListBoxId, sDbName) {
-		var listbox = document.getElementById(sListBoxId);
-    var aObjectNames = Database.getDatabaseList();
-		PopulateDropDownItems(aObjectNames, listbox, sDbName);
+    var listbox = $$(sListBoxId);
+    var aObjectNames = this.mDb.getDatabaseList();
+    PopulateDropDownItems(aObjectNames, listbox, sDbName);
   },
 
-	doOK: function() {
-	},
-		
-	modifyTable: function(sOperation, sTable, sColumn) {
-		//get the columns info
-		var info = Database.getTableColumns(sTable, "");
-		if (sOperation == "alterColumn") {
-			//correct the info array
-			for(var i = 0; i < info[0].length; i++) {
-				if (info[0][i][info[1]["name"][0]] == sColumn.oldColName) {
-				  info[0][i][info[1]["name"][0]] = sColumn.newColName;
-				  info[0][i][info[1]["type"][0]] = sColumn.newColType;
-//				  info[0][i][info[1]["dflt_value"][0]] = sColumn.newDefaultValue;
-				}
-				else
-					continue;
-			}
-		}
-		if (sOperation == "dropColumn") {
-			//correct the info array
-			for(var i = 0; i < info[0].length; i++) {
-				if (info[0][i][info[1]["name"][0]] == sColumn) {
-				  info[0].splice(i, 1);
-				}
-				else
-					continue;
-			}
-		}
+  doOK: function() {
+  },
 
-		var cols = info[0];
+  doOKCreateTable: function() {
+    var name = $$("tablename").value;
+    if(name == "") {
+      alert(sm_getLStr("createMngr.tbl.cannotBeNull"));
+      return false;
+    }
+    if(name.indexOf("sqlite_") == 0) {
+      alert(sm_getLStr("createMngr.tbl.cannotBeginSqlite"));
+      return false;
+    }
 
-		var aPK = [], aCols = [], aColNames = [];
+    var txtTemp = "";
+    if($$("temptable").checked)
+      txtTemp = " TEMP ";
 
-		for(var i = 0; i < cols.length; i++) {
-			var colname = cols[i][info[1]["name"][0]];
-			colname = sm_doublequotes(colname);
-      aColNames.push(colname);
-
-			var col = [i, colname];
-			aCols.push(col);
-			var primarykey = cols[i][info[1]["pk"][0]];
-			if(primarykey == 1)
-				aPK.push(colname);
-		}
-		var colList = aColNames.toString();
-
-    var aColDefs = [];
-		for(var i = 0; i < aCols.length; i++) {
-			var j = aCols[i][0]
-			var datatype = cols[j][info[1]["type"][0]];
-
-			var txtNull = " NOT NULL ";
-			if(cols[j][info[1]["notnull"][0]] == 0)
-				txtNull = "";
-
-			var defaultvalue = cols[j][info[1]["dflt_value"][0]];
-			if(defaultvalue.toUpperCase() == g_strForNull.toUpperCase())
-				defaultvalue = ""
-			else
-				defaultvalue = " DEFAULT " + defaultvalue + " ";
-
-			var pk = "";
-			if(aPK.length == 1 && aPK[0] == aCols[i][1])
-				pk = " PRIMARY KEY ";
-			var col = aCols[i][1] + " " + datatype + 
-						pk + txtNull + defaultvalue;
-			aColDefs.push(col);
-		}
-		var coldef = aColDefs.toString();
-
-		//this is the primary key constraint on multiple columns
-		var constraintPK = "";
-		if(aPK.length > 1)
-			constraintPK = ", PRIMARY KEY (" + aPK.toString() + ") ";
-
-		coldef += constraintPK;
-
-////////////////////////////
-		var sTab = Database.getPrefixedName(sTable, "");
-		var sTempTable = Database.getPrefixedName(g_tempNamePrefix + sTable, "");
-		var sTempTableName = sm_doublequotes(g_tempNamePrefix + sTable);
-		
-		var aQueries = [];
-		aQueries.push("ALTER TABLE " + sTab + " RENAME TO "	+ sTempTableName);
-		aQueries.push("CREATE TABLE " + sTab + " (" + coldef + ")");		
-		if (sOperation == "dropColumn")
-  		aQueries.push("INSERT INTO " + sTab + " SELECT " + colList
-  					+ " FROM " + sTempTable);		
-		if (sOperation == "alterColumn")
-  		aQueries.push("INSERT INTO " + sTab + " SELECT * FROM " + sTempTable);		
-		aQueries.push("DROP TABLE " + sTempTable);		
-
-    var sMsg = "";
-		if (sOperation == "dropColumn")
-      sMsg = "Drop Column " + sColumn + " from " + sTab;
-		if (sOperation == "alterColumn")
-      sMsg = "Alter Column " + sColumn[0] + " in table " + sTab;
-
-		var bReturn = Database.confirmAndExecute(aQueries, sMsg, "confirm.otherSql");
-  	return bReturn;
-	},
-
-	doOKCreateTable: function() {
-		var name = document.getElementById("tablename").value;
-		if(name == "") {
-			alert("Table Name cannot be null");
-			return false;
-		}
-		if(name.indexOf("sqlite_") == 0) {
-			alert("Table Name cannot begin with sqlite_");
-			return false;
-		}
-
-		var txtTemp = "";
-		if(document.getElementById("temptable").checked)
-			txtTemp = " TEMP ";
-
-		//temp object will be created in temp db only
+    //temp object will be created in temp db only
     if (txtTemp == "") {
-  		var dbName = document.getElementById("dbName").value;
-   		name = Database.getPrefixedName(name, dbName);
-   	}
-   	else
-   	  name = sm_doublequotes(name);
+      var dbName = $$("dbName").value;
+       name = this.mDb.getPrefixedName(name, dbName);
+     }
+     else
+       name = SQLiteFn.quoteIdentifier(name);
 
-		var txtExist = "";
-		if(document.getElementById("ifnotexists").checked)
-			txtExist = " IF NOT EXISTS ";
+    var txtExist = "";
+    if($$("ifnotexists").checked)
+      txtExist = " IF NOT EXISTS ";
 
     //find which textboxes contain valid entry for column name
-		var iTotalRows = this.numOfEmptyColumns;
-		var aCols = [];
-		for(var i = 0; i < iTotalRows; i++) {
-			var colname = document.getElementById("colname-" + i).value;
-			if(colname.length == 0 || colname == null || colname == undefined) {
-				continue;
-			}
-			if(colname == "rowid" || colname == "_rowid_" || colname == "oid") {
-				alert("Column Name cannot be one of rowid, _rowid_, oid");
-				return false;
-			}
-			//if colname is valid, get the col definition details in aCols array
-			//coldef needs name, datatype, pk, autoinc, default, allownull
-			var col = [];
-			colname = sm_doublequotes(colname);
-			col["name"] = colname;
-			col["type"] = document.getElementById("datatype-" + i).value;
-			col["pk"] = document.getElementById("primarykey-" + i).checked;
-			col["autoinc"] = document.getElementById("autoincrement-" + i).checked;
-			col["defValue"] = document.getElementById("defaultvalue-" + i).value;
-			col["allowNull"] = document.getElementById("allownull-" + i).checked;
-			aCols.push(col);
-		}
+    var iTotalRows = this.numOfEmptyColumns;
+    var aCols = [];
+    for(var i = 0; i < iTotalRows; i++) {
+      var colname = $$("colname-" + i).value;
+      if(colname.length == 0 || colname == null || colname == undefined) {
+        continue;
+      }
+      if(colname == "rowid" || colname == "_rowid_" || colname == "oid") {
+        alert(sm_getLStr("createMngr.invalidColname"));
+        return false;
+      }
+      //if colname is valid, get the col definition details in aCols array; coldef needs name, datatype, pk, autoinc, default, allownull
+      var col = [];
+      colname = SQLiteFn.quoteIdentifier(colname);
+      col["name"] = colname;
+      col["type"] = $$("datatype-" + i).value;
+      col["check"] = "";
+      var si = $$("datatype-" + i).selectedItem;
+      if (si != null) {
+        if (si.hasAttribute('sm_check')) {
+          col["type"] = si.getAttribute('sm_type');
+          col["check"] = si.getAttribute('sm_check');
+          col["check"] = col["check"].replace("zzzz", colname, "g");
+        }
+      }
+      col["pk"] = $$("primarykey-" + i).checked;
+      col["autoinc"] = $$("autoincrement-" + i).checked;
+      col["defValue"] = $$("defaultvalue-" + i).value;
+      col["allowNull"] = $$("allownull-" + i).checked;
+      col["unique"] = $$("cb-unique-" + i).checked;
+      aCols.push(col);
+    }
 
-		//populate arrays for primary key and count autoincrement columns
-		var aPK = [], iAutoIncCols = 0;
-		for(var i = 0; i < aCols.length; i++) {
-			if(aCols[i]["pk"]) {
-				aPK.push(aCols[i]["name"]);
-			}
-			if(aCols[i]["autoinc"]) {
-				iAutoIncCols++;
-			}
-		}
-		//some checks follow
-		if(iAutoIncCols > 1) {
-      alert("AUTOINCREMENT on more than one column is an error.");
+    //populate arrays for primary key and count autoincrement columns
+    var aPK = [], iAutoIncCols = 0;
+    for(var i = 0; i < aCols.length; i++) {
+      if(aCols[i]["pk"]) {
+        aPK.push(aCols[i]["name"]);
+      }
+      if(aCols[i]["autoinc"]) {
+        iAutoIncCols++;
+      }
+    }
+    //some checks follow
+    if(iAutoIncCols > 1) {
+      alert(sm_getLStr("createMngr.autoincError.cols"));
       return false; //do not leave the dialog
-		}
-		if(iAutoIncCols > 0 && aPK.length > 1) {
-      alert("AUTOINCREMENT not allowed if primary key is over two or more columns.");
+    }
+    if(iAutoIncCols > 0 && aPK.length > 1) {
+      alert(sm_getLStr("createMngr.autoincError.PK"));
       return false; //do not leave the dialog
-		}
-		
+    }
+    
     //prepare an array of column definitions
-		var aColDefs = [];
-		for(var i = 0; i < aCols.length; i++) {
-			var sColDef = aCols[i]["name"] + " " + aCols[i]["type"];
+    var aColDefs = [];
+    for(var i = 0; i < aCols.length; i++) {
+      var sColDef = aCols[i]["name"] + " " + aCols[i]["type"];
 
-			if(aPK.length == 1 && aCols[i]["pk"])
-				sColDef += " PRIMARY KEY ";
-			if(aCols[i]["autoinc"])
-				sColDef += " AUTOINCREMENT ";
+      if(aPK.length == 1 && aCols[i]["pk"])
+        sColDef += " PRIMARY KEY ";
+      if(aCols[i]["autoinc"])
+        sColDef += " AUTOINCREMENT ";
 
-			if(!aCols[i]["allowNull"])
-				sColDef += " NOT NULL ";
-				
-			var sDefValue = sm_makeDefaultValue(aCols[i]["defValue"]);
-			if (sDefValue != null)
+      if(!aCols[i]["allowNull"])
+        sColDef += " NOT NULL ";
+        
+      if(aCols[i]["unique"])
+        sColDef += " UNIQUE ";
+        
+      if(aCols[i]["check"] != "")
+        sColDef += " " + aCols[i]["check"] + " ";
+        
+      var sDefValue = aCols[i]["defValue"];
+      if (sDefValue != "")
         sColDef += " DEFAULT " + sDefValue;
 
-			aColDefs.push(sColDef);
-		}
+      aColDefs.push(sColDef);
+    }
 
-		//this is the primary key constraint on multiple columns
-		if(aPK.length > 1) {
-			var constraintPK = "PRIMARY KEY (" + aPK.join(", ") + ")";
-  		aColDefs.push(constraintPK);
-  	}
+    //this is the primary key constraint on multiple columns
+    if(aPK.length > 1) {
+      var constraintPK = "PRIMARY KEY (" + aPK.join(", ") + ")";
+      aColDefs.push(constraintPK);
+    }
 
-		var sQuery = "CREATE " + txtTemp + " TABLE " + txtExist + name + " (" + aColDefs.join(", ") + ")";
+    var sQuery = "CREATE " + txtTemp + " TABLE " + txtExist + name + " (" + aColDefs.join(", ") + ")";
 
-		var aRetVals = window.arguments[1];
-		aRetVals.tableName = name;
-		aRetVals.createQuery = sQuery;
-		aRetVals.ok = true;
-		return true;
-	},
+    var aRetVals = window.arguments[1];
+    aRetVals.tableName = name;
+    aRetVals.createQuery = sQuery;
+    aRetVals.ok = true;
+    return true;
+  },
 
-	loadCreateViewDialog: function () {
-		Database = window.arguments[0];
-		var aRetVals = window.arguments[1];
-		this.loadDbNames("dbName", aRetVals.dbName);
+  loadCreateViewDialog: function () {
+    this.mDb = window.arguments[0];
+    var aRetVals = window.arguments[1];
+    this.loadDbNames("dbName", aRetVals.dbName);
     if (typeof aRetVals.readonlyFlags != "undefined") {
       if (aRetVals.readonlyFlags.indexOf("dbnames") >= 0)
-        document.getElementById("dbName").setAttribute("disabled", true);
+        $$("dbName").setAttribute("disabled", true);
       if (aRetVals.readonlyFlags.indexOf("viewname") >= 0)
-        document.getElementById("objectName").setAttribute("readonly", true);
+        $$("objectName").setAttribute("readonly", true);
     }
     if (typeof aRetVals.modify != "undefined") {
-      document.getElementById("objectName").value = aRetVals.objectName;
-      document.getElementById("txtSelectStatement").value = aRetVals.selectStmt;
-      document.getElementById("tempObject").disabled = true;
-      document.getElementById("ifnotexists").disabled = true;
+      $$("objectName").value = aRetVals.objectName;
+      $$("txtSelectStatement").value = aRetVals.selectStmt;
+      $$("tempObject").disabled = true;
+      $$("ifnotexists").disabled = true;
 
-      document.getElementById("txtSelectStatement").focus();
-      document.title = "Modify View";
+      $$("txtSelectStatement").focus();
+      document.title = sm_getLStr("createMngr.modifyView");
     }
-	},
-	
-	doOKCreateView: function() {
-		var name = document.getElementById("objectName").value;
-		if(name == "") {
-			alert("Name cannot be null");
-			return false;
-		}
+  },
+  
+  doOKCreateView: function() {
+    var name = $$("objectName").value;
+    if(name == "") {
+      alert(sm_getLStr("createMngr.view.cannotBeNull"));
+      return false;
+    }
 
-		var txtTemp = "";
-		if(document.getElementById("tempObject").checked)
-			txtTemp = " TEMP ";
-			
-		//temp object will be created in temp db only
+    var txtTemp = "";
+    if($$("tempObject").checked)
+      txtTemp = " TEMP ";
+      
+    //temp object will be created in temp db only
     if (txtTemp == "") {
-  		var dbName = document.getElementById("dbName").value;
-   		name = Database.getPrefixedName(name, dbName);
-   	}
-   	else
-   	  name = sm_doublequotes(name);
+      var dbName = $$("dbName").value;
+       name = this.mDb.getPrefixedName(name, dbName);
+     }
+     else
+       name = SQLiteFn.quoteIdentifier(name);
 
-		var txtExist = "";
-		if(document.getElementById("ifnotexists").checked)
-			txtExist = " IF NOT EXISTS ";
-				
-		var selectStatement = document.getElementById("txtSelectStatement").value;
-		if(selectStatement == "") {
-			alert("Statement cannot be null");
-			return false;
-		}
+    var txtExist = "";
+    if($$("ifnotexists").checked)
+      txtExist = " IF NOT EXISTS ";
+        
+    var selectStatement = $$("txtSelectStatement").value;
+    if(selectStatement == "") {
+      alert(sm_getLStr("createMngr.statement.cannotBeNull"));
+      return false;
+    }
 
-		var aRetVals = window.arguments[1];
+    var aRetVals = window.arguments[1];
     var aQueries = [];
     if (typeof aRetVals.modify != "undefined") {
       aQueries.push("DROP VIEW " + name);
     }
-		var sQuery = "CREATE " + txtTemp + " VIEW " + txtExist + name 
-					+ " AS " + selectStatement;
-		aQueries.push(sQuery);
+    var sQuery = "CREATE " + txtTemp + " VIEW " + txtExist + name 
+          + " AS " + selectStatement;
+    aQueries.push(sQuery);
 
-		aRetVals.objectName = name;
-		aRetVals.queries = aQueries;
-		aRetVals.ok = true;
-		return true;
-	},
+    aRetVals.objectName = name;
+    aRetVals.queries = aQueries;
+    aRetVals.ok = true;
+    return true;
+  },
 
-	doOKCreateTrigger: function() {
-		var name = document.getElementById("objectName").value;
-		if(name == "") {
-			alert("Name cannot be null");
-			return false;
-		}
+  doOKCreateTrigger: function() {
+    var name = $$("objectName").value;
+    if(name == "") {
+      alert(sm_getLStr("createMngr.trigger.cannotBeNull"));
+      return false;
+    }
 
-		var txtTemp = "";
-		if(document.getElementById("tempObject").checked)
-			txtTemp = " TEMP ";
+    var txtTemp = "";
+    if($$("tempObject").checked)
+      txtTemp = " TEMP ";
 
-		//temp object will be created in temp db only
+    //temp object will be created in temp db only
     if (txtTemp == "") {
-  		var dbName = document.getElementById("dbName").value;
-   		name = Database.getPrefixedName(name, dbName);
-   	}
-   	else
-   	  name = sm_doublequotes(name);
+      var dbName = $$("dbName").value;
+       name = this.mDb.getPrefixedName(name, dbName);
+     }
+     else
+       name = SQLiteFn.quoteIdentifier(name);
 
-		var txtExist = "";
-		if(document.getElementById("ifnotexists").checked)
-			txtExist = " IF NOT EXISTS ";
-				
-		var txtForEachRow = "";
-		if(document.getElementById("foreachrow").checked)
-			txtForEachRow = " FOR EACH ROW ";
-				
-		var whenExpression = document.getElementById("txtWhenExpression").value;
-		if(whenExpression == "" || whenExpression == null) {
-			whenExpression = "";
-		}
-		else
-			whenExpression = " WHEN " + whenExpression + " ";
+    var txtExist = "";
+    if($$("ifnotexists").checked)
+      txtExist = " IF NOT EXISTS ";
+        
+    var txtForEachRow = "";
+    if($$("foreachrow").checked)
+      txtForEachRow = " FOR EACH ROW ";
+        
+    var whenExpression = $$("txtWhenExpression").value;
+    if(whenExpression == "" || whenExpression == null) {
+      whenExpression = "";
+    }
+    else
+      whenExpression = " WHEN " + whenExpression + " ";
 
-		var steps = document.getElementById("txtTriggerSteps").value;
-		if(steps == "") {
-			alert("Trigger steps cannot be empty");
-			return false;
-		}
+    var steps = $$("txtTriggerSteps").value;
+    if(steps == "") {
+      alert(sm_getLStr("createMngr.trigger.cannotBeEmpty"));
+      return false;
+    }
 
-		var txtTable = document.getElementById("tabletoindex").value;
-		var txtTime = document.getElementById("triggerTime").selectedItem.label;
-		var txtEvent = document.getElementById("dbEvent").selectedItem.label;
+    var txtTable = $$("tabletoindex").value;
+    var txtTime = $$("triggerTime").selectedItem.label;
+    var txtEvent = $$("dbEvent").selectedItem.label;
 
-		var sQuery = "CREATE " + txtTemp + " TRIGGER " + txtExist + name 
-					+ " " + txtTime + " " + txtEvent + " ON " + txtTable + txtForEachRow 
-					+ whenExpression + " BEGIN " + steps + " END";
-		return Database.confirmAndExecute([sQuery], "Create Trigger " + name, "confirm.create");
-	},
+    var sQuery = "CREATE " + txtTemp + " TRIGGER " + txtExist + name + " " + txtTime + " " + txtEvent + " ON " + txtTable + txtForEachRow + whenExpression + " BEGIN " + steps + " END";
+    return this.mDb.confirmAndExecute([sQuery], sm_getLFStr("createMngr.trigger.confirm", [name], 1), "confirm.create");
+  },
 
-	doCancel: function() {
-	  return true;
-	}
+  doCancel: function() {
+    return true;
+  }
 };
