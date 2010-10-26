@@ -215,7 +215,7 @@ get_system_details() {
 
     TITLE="SYSTEM DETAILS"
 
-    ${LSHW} > "$SYSINFO_FILE" 2>/dev/null \
+    ${LSHW} -short > "$SYSINFO_FILE" 2>/dev/null \
     | $DIALOG $DIALOG_OPTS --progressbox "Collecting system details..." 4 $MAX_WIDTH
 
     # generate base64 encoding of system details
@@ -508,8 +508,8 @@ send_terminal_data() {
 	    killall dialog
 	fi
 
-	POST_DATA="IMEI=$SIM_IMEI&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER&SYSINFO=$SYSINFO_BASE64"
-	SUPPORT_URL="https://$SUPPORT_FQDN/cgi-bin/echo.php"
+	POST_DATA="func=provision&IMEI=$SIM_IMEI&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER&SYSINFO=$SYSINFO_BASE64"
+	SUPPORT_URL="https://$SUPPORT_FQDN/cgi-bin/Server/vivipos/service.php"
 	PROGRESS_HEIGHT=12
 	POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
 
