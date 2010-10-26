@@ -27,11 +27,26 @@
 
         initial: function() {
 
-            // load preferences
-            this._check_interval = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.vivisystems.diskspace.check.interval')) || this._default_check_interval;
-            this._warn_threshold = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.vivisystems.diskspace.warn.threshold')) || this._default_warn_threshold;
-            this._force_threshold = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.vivisystems.diskspace.force.threshold')) || this._default_force_threshold;
+            // load/set preferences
+            this._check_interval = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.vivisystems.diskspace.check.interval'));
+            if (this._check_interval == null || isNaN(this._check_interval)) {
+                this._check_interval = this._default_check_interval;
+                GeckoJS.Configure.write('vivipos.fec.settings.vivisystems.diskspace.check.interval', this._check_interval);
+            }
 
+            this._warn_threshold = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.vivisystems.diskspace.warn.threshold'));
+            if (this._warn_threshold == null || isNaN(this._warn_threshold)) {
+                this._warn_threshold = this._default_warn_threshold;
+                GeckoJS.Configure.write('vivipos.fec.settings.vivisystems.diskspace.warn.threshold', this._warn_threshold);
+            }
+
+            this._force_threshold = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.vivisystems.diskspace.force.threshold'));
+            if (this._force_threshold == null || isNaN(this._force_threshold)) {
+                this._force_threshold = this._default_force_threshold;
+                GeckoJS.Configure.write('vivipos.fec.settings.vivisystems.diskspace.force.threshold', this._force_threshold);
+            }
+
+            //
             // get handle to cart controller
             this._cart = GeckoJS.Controller.getInstanceByName('Cart');
 
@@ -135,9 +150,9 @@
             GREUtils.File.remove(statusFile);
             
             let available = -1;     // failed to run
-            let script = "LC_ALL=c df -B 1 /data/databases | grep -v Filesystem | awk -F' ' '{ print $2 }' > " + statusFile;
+            let script = "LC_ALL=c df -B 1 /data/databases | grep -v Filesystem | awk -F' ' '{ print $3 }' > " + statusFile;
             if (this._execute('/bin/sh', ['-c', script])) {
-                // read integrity check status from status file
+                // read available bytes from status file
                 if (GeckoJS.File.exists(statusFile)) {
                     let f = new GeckoJS.File(statusFile);
                     f.open('r');
