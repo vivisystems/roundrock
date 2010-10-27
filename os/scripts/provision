@@ -25,7 +25,7 @@ MEDIA="/media/$TOOLS_LABEL"
 # initramfs related parameters
 CRYPT_KEY_FILE=crypt-key
 CRYPT_KEY_PATH=/etc
-INITRAMFS=/boot/initrd.img-2.6.32-24-generic
+INITRAMFS=/boot/initrd.img-2.6.32-25-generic
 
 
 # GRUB related parameters
@@ -61,6 +61,8 @@ DEFAULT_PIN="0000"
 LSHW=lshw
 SYSINFO_FILE=/tmp/system.$$
 SYSINFO_BASE64=""
+MODEL_FILE=/etc/MODEL
+MODEL="Unknown"
 
 ################################################################################################################
 
@@ -219,7 +221,16 @@ get_system_details() {
     | $DIALOG $DIALOG_OPTS --progressbox "Collecting system details..." 4 $MAX_WIDTH
 
     # generate base64 encoding of system details
-    SYSINFO_BASE64=`base64 "$SYSINFO_FILE"`
+    SYSINFO_BASE64=`base64 -w 0 "$SYSINFO_FILE"`
+
+    # retrieve software version
+    if [ -r $MODEL_FILE ]; then
+	MODEL=`cat $MODEL_FILE`;
+    fi
+
+    echo >> $SYSINFO_FILE
+    echo >> $SYSINFO_FILE
+    echo "Model: $MODEL" >> $SYSINFO_FILE
 
     $DIALOG $DIALOG_OPTS --title "${TITLE}" --exit-label OK --textbox "$SYSINFO_FILE" $((MAX_HEIGHT - 5)) $MAX_WIDTH
 }
@@ -508,7 +519,7 @@ send_terminal_data() {
 	    killall dialog
 	fi
 
-	POST_DATA="func=provision&IMEI=$SIM_IMEI&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER&SYSINFO=$SYSINFO_BASE64"
+	POST_DATA="func=provision&IMEI=$SIM_IMEI&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER&SYSINFO=$SYSINFO_BASE64&MODEL=$MODEL"
 	SUPPORT_URL="https://$SUPPORT_FQDN/cgi-bin/Server/vivipos/service.php"
 	PROGRESS_HEIGHT=12
 	POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
