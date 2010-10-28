@@ -16,10 +16,19 @@
             if(scope) loader.loadSubScript(src, scope);
             else loader.loadSubScript(src);
         }catch(e) {
+            
+            if ( typeof e == 'string' && src.indexOf('jsc') != -1) {
+            	var m = e.match(/^JSLOADER \[RESULT:(\d) MSG:'(.*)'\]$/);
+            	// decode error
+				if(m) {
+					var errorcode = m[1];
+					var errormsg = m[2];
+					alert('code = ' + errorcode + ', ' + ' msg = ' + errormsg);
+				}
+
+            }else if (e.name == 'NS_ERROR_FAILURE' && src.indexOf('jsc') != -1) {
  
-            if (e.name == 'NS_ERROR_FAILURE' && src.indexOf('jsc') != -1) {
- 
-                // jsc decode error
+                // jsc license error
                 if (!context['__license_prompt__']) {
                     // alert('Maybe license error' );
                     var aURL = "chrome://vivipos/content/lic_help/lic_help.xul";
