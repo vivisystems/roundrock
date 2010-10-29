@@ -564,14 +564,14 @@ determine_window_size
 
 export MAX_WIDTH MAX_HEIGHT
 
-#check_tool_disk
+check_tool_disk
 
-#vivipos-configure Configure
+vivipos-configure Configure
 
-#sign_license
+sign_license
 
 # repack initramfs with crypt-key
-#generate_initramfs
+generate_initramfs
 
 update_support_center_fqdn
 
@@ -591,7 +591,6 @@ fi
 
 send_terminal_data
 
-exit
 if [ $? -ne 0 ]; then
     provision_failed 11 "Failed to transmit provisioning data to support center. Please reprovision this terminal after the errors have been resolved."
 else
