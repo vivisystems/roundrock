@@ -18,7 +18,7 @@ VNC_CONTROL=x11vnc
 SUPPORT_FQDN=`cat /etc/support.site`
 SUPPORT_FQDN=${SUPPORT_FDQN:-support.vivisystems.com.tw}
 
-STATUS_URL=https://$SUPPORT_FQDN/cgi-bin/echo.php
+STATUS_URL=https://$SUPPORT_FQDN/cgi-bin/Server/vivipos/service.php
 
 MSG=`cat`
 echo `date` [$#] $@ : $MSG >> /tmp/sms.log
@@ -144,9 +144,6 @@ allow_vnc() {
 
 parse_message $MSG
 
-IMEI=1
-SERIAL=1
-
 validate_msg || exit
 
 case "$MSG_ACTION" in
@@ -179,7 +176,7 @@ case "$MSG_ACTION" in
 	if [ $PPPD -eq 0 ]; then
 
 	    # inform support center that network is up
-	    POST_DATA=SERIAL=$SERIAL&STATUS=NETWORK-UP
+	    POST_DATA=func=network-status&SERIAL=$SERIAL&STATUS=1
 	    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem --no-cache \
 	    	 -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
 
@@ -197,14 +194,14 @@ case "$MSG_ACTION" in
 		if [ "$MSG_ACTION" = "VNC-UP" ]; then
 
 		    # generate new VNC passcode and bring up VNC
-		    VNC_PASSCODE=$RANDOM
+		    VNC_PASSCODE=`expr $RANDOM + $RANDOM`
 		    $VNC_PROG -storepasswd $VNC_PASSCODE $VNC_PASSFILE
 
 		    stop $VNC_CONTROL
 		    start $VNC_CONTROL
 
 		    # inform support center that VNC is up
-		    POST_DATA=SERIAL=$SERIAL&STATUS=VNC-UP&VNC_PASSCODE=$VNC_PASSCODE
+		    POST_DATA=func=vnc-status&SERIAL=$SERIAL&STATUS=$VNC_PASSCODE
 		    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
 			 --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
 
@@ -225,7 +222,7 @@ case "$MSG_ACTION" in
 	stop $VNC_CONTROL
 
 	# inform support center that VNC is down
-	POST_DATA=SERIAL=$SERIAL&STATUS=VNC_DOWN
+	POST_DATA=func=vnc-status&SERIAL=$SERIAL&STATUS=0
 	wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
 	     --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
 
@@ -233,13 +230,13 @@ case "$MSG_ACTION" in
 	# bring down ppp?
 
 	if [ "$MSG_ACTION" = "DOWN" ]; then
-	    killall wvdial pppd
 
 	    # inform support center that network is down
-	    POST_DATA=SERIAL=$SERIAL&STATUS=NETWORK_DOWN
+	    POST_DATA=func=network-status&SERIAL=$SERIAL&STATUS=0
 	    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
 		 --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
 
+	    killall wvdial pppd
 	fi
 	;;
 

@@ -50,7 +50,9 @@ SERIAL_NUMBER=""
 MODEM_MARKER=/tmp/3g-modem.device.gnokii
 GNOKII=gnokii
 WVDIAL=wvdial
-SIM_IMEI=""
+
+MODEM_IMEI=""
+
 SIM_PLMN=""
 SIM_PIN=""
 PIN_FILE=/etc/modem.pin
@@ -420,8 +422,14 @@ provision_wireless_modem() {
     local RESEND
 
     # read IMEI from modem
-    SIM_IMEI=`$GNOKII --identify 2>/devnull | grep IMEI | awk -F" " '{print $3}'`
-    $DIALOG $DIALOG_OPTS --title "WIRELESS MODEM - IMEI" --msgbox "Modem IMEI retrieved\n\n[$SIM_IMEI]" 6 $MAX_WIDTH
+    eval `gnokii --identify 2>/dev/null | sed -e 's/ //g' -e's/:/=/g' -e 's/^/export MODEM_/g'`;
+
+    $DIALOG $DIALOG_OPTS --title "WIRELESS MODEM DETECTED" --msgbox "Modem details:\n\n
+IMEI         = [$MODEM_IMEI]\n
+Manufacturer = [$MODEM_Manufacturer]\n
+Model        = [$MODEM_Model]\n
+Product Name = [$MODEM_Productname]\n
+Revision     = [$MODEM_Revision]" 10 $MAX_WIDTH
 
     # unlock sim
     unlock_sim_with_pin
@@ -503,7 +511,7 @@ send_terminal_data() {
 	    PROGRESS_HEIGHT=12
 	    POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
 
-	    ${WVDIAL} cht >/tmp/pppd-session 2>&1 &
+	    sudo ${WVDIAL} cht >/tmp/pppd-session 2>&1 &
 
 	    $DIALOG $DIALOG_OPTS --begin $POSY 0 --no-kill --tailboxbg /tmp/pppd-session $PROGRESS_HEIGHT $MAX_WIDTH 2>/dev/null &
 	    DLG_PID=$!
@@ -519,7 +527,7 @@ send_terminal_data() {
 	    killall dialog
 	fi
 
-	POST_DATA="func=provision&IMEI=$SIM_IMEI&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER&SYSINFO=$SYSINFO_BASE64&MODEL=$MODEL"
+	POST_DATA="func=provision&IMEI=$MODEM_IMEI&MODEM_MODEL=$MODEM_Model&MODEM_MANUFACTURER=$MODEM_Manufacturer&MODEM_PRODUCT=$MODEM_Productname&MODEM_REVISION=$MODEM_Revision&PLMN=$SIM_PLMN&PIN=$SIM_PIN&SERIAL=$SERIAL_NUMBER&SYSINFO=$SYSINFO_BASE64&MODEL=$MODEL"
 	SUPPORT_URL="https://$SUPPORT_FQDN/cgi-bin/Server/vivipos/service.php"
 	PROGRESS_HEIGHT=12
 	POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
@@ -540,7 +548,7 @@ send_terminal_data() {
 	fi
 
 	if [ -f "$MODEM_MARKER" ]; then
-	    killall pppd wvdial
+	    sudo killall pppd wvdial
 	    
 	    sleep 2
 	fi
@@ -556,14 +564,14 @@ determine_window_size
 
 export MAX_WIDTH MAX_HEIGHT
 
-check_tool_disk
+#check_tool_disk
 
-vivipos-configure Configure
+#vivipos-configure Configure
 
-sign_license
+#sign_license
 
 # repack initramfs with crypt-key
-generate_initramfs
+#generate_initramfs
 
 update_support_center_fqdn
 
@@ -583,6 +591,7 @@ fi
 
 send_terminal_data
 
+exit
 if [ $? -ne 0 ]; then
     provision_failed 11 "Failed to transmit provisioning data to support center. Please reprovision this terminal after the errors have been resolved."
 else
