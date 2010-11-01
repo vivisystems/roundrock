@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 : ${DIALOG=zenity}
 
@@ -164,9 +164,10 @@ case "$MSG_ACTION" in
 	
 	WAITS=5
 	PPPD=1
-	while [ $PPPD -eq 1 -a $WAITS -ne 0 ]; do
+        IP=
+	while [ \( $PPPD -eq 1 -a -n "$IP" \) -a $WAITS -ne 0 ]; do
 	    sleep 5
-	    ifconfig ppp0
+	    IP=`ifconfig ppp0 | egrep -o -e "inet addr:[0-9]+.[0-9]+.[0-9]+.[0-9]+" | awk -F":" '{print $2}'`
 	    PPPD=$?
 
 	    WAITS=$((WAITS - 1))
@@ -176,7 +177,7 @@ case "$MSG_ACTION" in
 	if [ $PPPD -eq 0 ]; then
 
 	    # inform support center that network is up
-	    POST_DATA=func=network-status&SERIAL=$SERIAL&STATUS=1
+	    POST_DATA="func=network-status&SERIAL=$SERIAL&STATUS=1"
 	    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem --no-cache \
 	    	 -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
 
@@ -201,7 +202,7 @@ case "$MSG_ACTION" in
 		    start $VNC_CONTROL
 
 		    # inform support center that VNC is up
-		    POST_DATA=func=vnc-status&SERIAL=$SERIAL&STATUS=$VNC_PASSCODE
+		    POST_DATA="func=vnc-status&SERIAL=$SERIAL&STATUS=$VNC_PASSCODE"
 		    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
 			 --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
 
@@ -222,7 +223,7 @@ case "$MSG_ACTION" in
 	stop $VNC_CONTROL
 
 	# inform support center that VNC is down
-	POST_DATA=func=vnc-status&SERIAL=$SERIAL&STATUS=0
+	POST_DATA="func=vnc-status&SERIAL=$SERIAL&STATUS=0"
 	wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
 	     --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
 
@@ -232,7 +233,7 @@ case "$MSG_ACTION" in
 	if [ "$MSG_ACTION" = "DOWN" ]; then
 
 	    # inform support center that network is down
-	    POST_DATA=func=network-status&SERIAL=$SERIAL&STATUS=0
+	    POST_DATA="func=network-status&SERIAL=$SERIAL&STATUS=0"
 	    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
 		 --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
 
