@@ -155,6 +155,9 @@
                 document.getElementById('plu').value = (data.no || '');
                 if (data.no && data.no.length > 0) {
                     this.searchPlu(data.no, false, false, true);
+
+                    if(this.getListObj().datasource._data.length > 0)
+                        this.getListObj().selection.select(0);
                 }
             }
             else {
