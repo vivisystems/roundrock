@@ -943,7 +943,7 @@
                         if (orderModel.isLocalhost()) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                 _('Data Operation Error'),
-                                _('This order could not be committed. Please contact technical support for assistance immediately [message #505].'));
+                                _('This order could not be committed. Please contact technical support for assistance immediately [message #507].'));
                         }
                         else {
                             GREUtils.Dialog.alert(this.topmostWindow,
