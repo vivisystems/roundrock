@@ -208,11 +208,44 @@
 
         },
 
+        getImageSrc: function(row, col) {
+            
+
+            var isCategory = true;
+            var imgField = col.id || 'no';
+
+            // check button type [category or plugroup]
+            var category = this.getCurrentIndexData(row);
+            if (typeof category['Category'] != 'object') isCategory = false;
+            if (!isCategory) imgField = 'name';
+
+            var fieldValue = category[imgField] || false;
+
+            if (!fieldValue) return null;
+
+            var filename = "";
+            if (isCategory) {
+                filename = "dep_" + encodeURIComponent(fieldValue) + ".png";
+            }else {
+                filename = "grp_" + encodeURIComponent(fieldValue) + ".png";
+            }
+
+            var sPluDir = GeckoJS.Session.get('pluimage_directory');
+            // category/department prefix dep_
+            var aDstFile = sPluDir + filename;
+            if (GREUtils.File.exists(aDstFile)) {
+                return 'file://' + aDstFile;
+
+            }else {
+                return null;
+            }
+        },
+
         /*
          * FrontEnd style
          */
         renderButton: function(row, btn) {
-            
+
             var buttonColor = this.getCellValue(row,{
                 id: 'button_color'
             });
@@ -231,14 +264,20 @@
                 //$btn.addClass('font-'+ buttonFontSize);
             }
 
+            // check image exists?
+            var imageSrc = this.getImageSrc(row,{id: 'no'});
+            var imageExists = (imageSrc != null);
+
+            if (imageExists) {
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label';
+            }else {
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
+            }
+
             if (classStr.length > 0) {
                 // $btn.addClass(classStr);
                 btn.className += " " + classStr;
             }
-
-            // force no list style image at dep
-            //$btn.css('list-style-image', 'none');
-            btn.style['list-style-image'] = 'none';
 
             // sold out?
             var soldout = this.getCellValue(row,{

@@ -694,7 +694,7 @@
                 }
                 
                 var sPluDir = GeckoJS.Session.get('pluimage_directory');
-                var aDstFile = sPluDir + valObj.no + ".png";
+                var aDstFile = sPluDir + encodeURIComponent(valObj.no) + ".png";
 
                 document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
             }
@@ -1033,7 +1033,7 @@
             // var no  = $('#product_no').val();
 
             var sPluDir = GeckoJS.Session.get('pluimage_directory');
-            var aDstFile = sPluDir + no + ".png";
+            var aDstFile = sPluDir + encodeURIComponent(no) + ".png"; // encode 
 
             if (GREUtils.File.exists(aDstFile)) GREUtils.File.remove(aDstFile);
             document.getElementById('pluimage').setAttribute("src", "");
