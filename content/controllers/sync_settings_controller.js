@@ -156,6 +156,19 @@
                 storeContactModel.save(storeContact);
             }
 
+            // update shift_marker as well
+            var terminal_no = GeckoJS.Session.get('terminal_no');
+            if (terminal_no) {
+                var shiftMarkerModel = new ShiftMarkerModel();
+                var shiftMarker = shiftMarkerModel.findByIndex('first', {index: 'terminal_no',
+                                                                         value: terminal_no});
+                if (shiftMarker) {
+                    shiftMarkerModel.id = shiftMarker.id;
+                    shiftMarker.terminal_no = obj.machine_id;
+                    shiftMarkerModel.save(shiftMarker);
+                }
+            }
+
             try {
 
                 var ntpConf = new GeckoJS.File('/etc/ntp.conf');
