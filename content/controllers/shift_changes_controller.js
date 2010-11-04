@@ -941,7 +941,7 @@
                 conditions = 'sale_period = "' + salePeriod + '"' +
                              ' AND shift_number = "' + shiftNumber + '"' +
                              ' AND terminal_no = "' + terminal_no + '"' +
-                             ' AND destination is NOT NULL' +
+                             " AND (destination is NOT NULL OR destination != '')" +
                              ' AND status = "1"';
                 groupby = 'orders.destination';
                 orderby = 'orders.destination';
