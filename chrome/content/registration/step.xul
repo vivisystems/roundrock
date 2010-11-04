@@ -1,0 +1,63 @@
+﻿<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin" type="text/css"?>
+<?xml-stylesheet href="style.css" type="text/css"?>
+
+<window title="Step3" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<script type="application/x-javascript" src="jquery-1.4.2.min.js"/>
+<groupbox class="form">
+	<caption>Step3</caption>
+	<hbox align="center">
+		<label value="IMEI"/>
+		<textbox id="txtIMEI"/>
+	</hbox>
+	<hbox align="center">
+		<label value="SERIAL"/>
+		<textbox id="txtSERIAL"/>
+	</hbox>
+	<hbox align="center">
+		<label value="PLMN"/>
+		<textbox id="txtPLMN"/>
+	</hbox>
+	<hbox align="center">
+		<label value="PIN"/>
+		<textbox id="txtPIN"/>
+	</hbox>
+	<hbox align="center">
+		<label value="SYSINFO"/>
+		<textbox id="txtSYSINFO"/>
+	</hbox>
+</groupbox>
+<hbox>
+	<button id="btnSubmit" label="送出"/>
+</hbox>
+<script type="application/x-javascript">
+	//送出
+	$('#btnSubmit').click(function() {
+		var IMEI = $('#txtIMEI').val();
+		var SERIAL = $('#txtSERIAL').val();
+		var PLMN = $('#txtPLMN').val();
+		var PIN = $('#txtPIN').val();
+		var SYSINFO = $('#txtSYSINFO').val();
+		
+		$.ajax({
+			type: 'POST',
+			url: '../service.php',
+			data: {
+				func: 'provision', 
+				IMEI: IMEI,
+				SERIAL: SERIAL,
+				PLMN: PLMN,
+				PIN: PIN,
+				SYSINFO: SYSINFO
+			},
+			success: function(v) {
+				if(v) alert('發生錯誤！錯誤訊息：\n' + v);
+				else alert('送出成功！');
+			},
+			error: function(a) {
+				alert('發生錯誤！錯誤代碼：' + a.status);
+			}
+		});
+	});
+</script>
+</window>

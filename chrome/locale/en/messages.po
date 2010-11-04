@@ -1,176 +1,327 @@
-#: ../../content/controllers/bigdisk_controller.js:218
+#: ../../content/controllers/bdb_data_controller.js:41
+msgid "Data integrity check failed to run."
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:42
+msgid "Data integrity check failed."
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:43
+msgid "Please contact your dealer for service."
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:217
+msgid "Backing Up Data to External Storage"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:249
+msgid "<Backup to External Storage> is done"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:301
+msgid ""
+"An error was encountered while expiring sales activity logs (error code %S) "
+"[message #1005RR]."
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:311
+msgid ""
+"An error was encountered while expiring uniform invoice logs (error code %S) "
+"[message #9006RR]"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:339
+msgid "step 1"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:348
+msgid "step 2"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:364
+msgid "step 4"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:371
+msgid "step 5"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:379
+msgid "step 6"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:386
+msgid "step 7"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:396
+msgid "step 8"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:403
+msgid "step 9"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:410
+msgid "step 10"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:418
+msgid "Transaction Record Truncate Error"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:419
+msgid ""
+"Failed to truncate transaction records [%S]. Please restart the terminal and "
+"try again [message #RR-001]"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:474
+msgid "System restore failed"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:479
+msgid "System Restore Error"
+msgstr ""
+
+#: ../../content/controllers/bdb_data_controller.js:551
+msgid "Data Integrity"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:249
 msgid "Media not found!! Please attach the external storage device..."
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:231
+#: ../../content/controllers/bigdisk_controller.js:262
 msgid ""
 "Are you sure you want to import historical transaction data from backup [%S] "
 "located on external media [%S]?"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:232
+#: ../../content/controllers/bigdisk_controller.js:263
 msgid ""
 "If you import now, the system will restart automatically after you return to "
 "the Main Screen."
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:234
+#: ../../content/controllers/bigdisk_controller.js:265
+#: ../../content/controllers/bigdisk_controller.js:269
 msgid "Confirm Import"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:237
+#: ../../content/controllers/bigdisk_controller.js:267
+msgid ""
+"You are strongly advised to backup the existing data before proceeding with "
+"the import. Do you want to continue with the import?"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:272
 msgid "Importing Historical Data from External Backup"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:257
+#: ../../content/controllers/bigdisk_controller.js:292
 msgid "<Import from External Backup> is done!!"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:264
+#: ../../content/controllers/bigdisk_controller.js:300
 msgid "Please select an external backup to import"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:337
+#: ../../content/controllers/bigdisk_controller.js:373
 msgid "Secondary Storage Activated"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:338
+#: ../../content/controllers/bigdisk_controller.js:374
 msgid ""
 "Secondary storage of size [%S] with [%S] free is now online and ready for use"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:340
+#: ../../content/controllers/bigdisk_controller.js:376
 msgid "The following service/configuration is now active automatically"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:341
-#: ../../content/controllers/bigdisk_controller.js:455
+#: ../../content/controllers/bigdisk_controller.js:377
+#: ../../content/controllers/bigdisk_controller.js:492
 msgid "electronic journal"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:342
-#: ../../content/controllers/bigdisk_controller.js:456
+#: ../../content/controllers/bigdisk_controller.js:378
+#: ../../content/controllers/bigdisk_controller.js:493
 msgid "retaining the last 7 local backups instead of the last 2"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:343
+#: ../../content/controllers/bigdisk_controller.js:379
 msgid "The following services may now be enabled"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:344
-#: ../../content/controllers/bigdisk_controller.js:458
-#: ../../content/controllers/bigdisk_controller.js:487
+#: ../../content/controllers/bigdisk_controller.js:380
+#: ../../content/controllers/bigdisk_controller.js:495
+#: ../../content/controllers/bigdisk_controller.js:524
 msgid "pulling orders from synchronization server"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:345
+#: ../../content/controllers/bigdisk_controller.js:381
 msgid "backing up terminal profile"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:346
-#: ../../content/controllers/bigdisk_controller.js:459
+#: ../../content/controllers/bigdisk_controller.js:382
+#: ../../content/controllers/bigdisk_controller.js:496
 msgid "In addition, please adjust the following settings"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:348
-#: ../../content/controllers/bigdisk_controller.js:461
+#: ../../content/controllers/bigdisk_controller.js:384
+#: ../../content/controllers/bigdisk_controller.js:498
 msgid "number of days to retain inventory commitment records"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:347
-#: ../../content/controllers/bigdisk_controller.js:460
+#: ../../content/controllers/bigdisk_controller.js:383
+#: ../../content/controllers/bigdisk_controller.js:497
 msgid "number of days to retain transaction data"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:368
+#: ../../content/controllers/bigdisk_controller.js:404
 msgid "Small Disk Configuration"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:369
+#: ../../content/controllers/bigdisk_controller.js:405
 msgid ""
 "We have detected terminal configurations that require secondary storage, but "
-"no secondary storage has been installed. Do you still want to use this "
-"terminal?"
+"no secondary storage has been installed."
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:370
-#: ../../content/controllers/bigdisk_controller.js:415
+#: ../../content/controllers/bigdisk_controller.js:406
+msgid "Do you still want to use this terminal?"
+msgstr ""
+
+#: ../../content/controllers/bigdisk_controller.js:407
+#: ../../content/controllers/bigdisk_controller.js:452
 msgid ""
 "If you choose to use the terminal, the following service/configuration "
 "changes will be made automatically"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:372
-#: ../../content/controllers/bigdisk_controller.js:417
+#: ../../content/controllers/bigdisk_controller.js:409
+#: ../../content/controllers/bigdisk_controller.js:454
 msgid ""
 "If you choose NOT to use the terminal, please press the \"Cancel\" button; "
 "the terminal will automatically shut down"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:412
+#: ../../content/controllers/bigdisk_controller.js:449
 msgid "Secondary Storage Disabled"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:413
+#: ../../content/controllers/bigdisk_controller.js:450
 msgid ""
 "The secondary storage has been taken off-line. You may still use this "
 "terminal, but historical transaction data must be restored from external "
 "backup before they may be accessed."
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:414
-msgid "Do you want to continue to use this terminal?"
+#: ../../content/controllers/bigdisk_controller.js:451
+msgid "Do you want to use this terminal?"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:451
+#: ../../content/controllers/bigdisk_controller.js:488
 msgid "New Secondary Storage Activated"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:452
+#: ../../content/controllers/bigdisk_controller.js:489
 msgid ""
 "New secondary storage of size [%S] with [%S] free is now online and ready "
 "for use"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:454
+#: ../../content/controllers/bigdisk_controller.js:491
 msgid "The following service and configuration are now active automatically"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:457
+#: ../../content/controllers/bigdisk_controller.js:494
 msgid "The following service may now be enabled"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:462
+#: ../../content/controllers/bigdisk_controller.js:499
 msgid ""
 "You may use the \"Import\" option in \"System Backup/Restore\" to import "
 "historical transaction data into the current database"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:480
+#: ../../content/controllers/bigdisk_controller.js:517
 msgid "disabling electronic journal"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:483
+#: ../../content/controllers/bigdisk_controller.js:520
 msgid "retaining the last 2 local backups instead of the last 7"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:503
+#: ../../content/controllers/bigdisk_controller.js:540
 msgid "number of days to retain order data set to [%S] ([%S])"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:509
+#: ../../content/controllers/bigdisk_controller.js:546
 msgid ""
 "number of days to retain inventory adjustment records set to [%S] ([%S])"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:543
+#: ../../content/controllers/bigdisk_controller.js:580
 msgid "Generating Last Good Database..."
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:599
+#: ../../content/controllers/bigdisk_controller.js:651
 msgid "Last Good Database"
 msgstr ""
 
-#: ../../content/controllers/bigdisk_controller.js:600
+#: ../../content/controllers/bigdisk_controller.js:652
 msgid "Restoring Last Good Database..."
+msgstr ""
+
+#: ../../content/controllers/diskspace_controller.js:89
+msgid "Storage Low"
+msgstr ""
+
+#: ../../content/controllers/diskspace_controller.js:90
+msgid ""
+"The system is running low on storage space. Please reduce the number of days "
+"to retain order data (currently set to "
+msgstr ""
+
+#: ../../content/controllers/diskspace_controller.js:103
+#: ../../content/controllers/diskspace_controller.js:107
+#: ../../content/controllers/diskspace_controller.js:120
+#: ../../content/controllers/diskspace_controller.js:126
+msgid "Storage Critically Low"
+msgstr ""
+
+#: ../../content/controllers/diskspace_controller.js:104
+msgid ""
+"The system is critically low on storage space, and no disk space may be "
+"reclaimed. Continuing to use this terminal may lead to data loss. Please "
+"contact your dealer for assistance [message #v1000]"
+msgstr ""
+
+#: ../../content/controllers/diskspace_controller.js:108
+msgid ""
+"Storage space is critically low. If you press OK, the system will attempt to "
+"reclaim storage by reducing the number of days to retain order data by 1 "
+"(currently set at %S days). Press Cancel to make no changes and shut down "
+"the terminal."
+msgstr ""
+
+#: ../../content/controllers/diskspace_controller.js:109
+msgid ""
+"Storage space is still critically low. If you press OK, the system will make "
+"another attempt to reclaim storage by reducing the number of days to retain "
+"order data by 1 (currently set at %S days). Press Cancel to make no further "
+"changes and shut down the terminal."
+msgstr ""
+
+#: ../../content/controllers/diskspace_controller.js:121
+msgid ""
+"Storage availability verification failed. Continuing to use this terminal "
+"may lead to data loss. Please contact your dealer for assistance [message "
+"#v1001]"
+msgstr ""
+
+#: ../../content/controllers/diskspace_controller.js:127
+msgid "Storage reclaimed by removing expired data."
 msgstr ""

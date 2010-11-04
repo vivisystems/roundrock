@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/sh -x
 
 DIR=`dirname $0`
 ROOTFS=/home/vivipos/diskimage/rootfs
 
-tar cp --owner=root -C $DIR/os/etc . | tar x --owner=root -C $ROOTFS/etc
+tar chp --owner=root -C $DIR/os/etc . | tar x --owner=root -C $ROOTFS/etc
 
 tar c --owner=root -h -C $DIR/os/scripts . | tar x --owner=root -C $ROOTFS/sbin
 

@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin" type="text/css"?>
+<?xml-stylesheet href="style.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/buttons.css" type="text/css"?>
+
+<window title="Registration" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="jquery-1.4.2.min.js"/>
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include controller -->
+  <script src="chrome://roundrock/content/registration/registration_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://roundrock/content/registration/registration.js" />
+  
+  <script type="application/x-javascript" src="twzip.js"/>
+
+    <keyset id="keyset_extensions">
+        <key id="keyEnter" keycode="VK_RETURN" oncommand="document.getElementById('btnSubmit').click()"/>
+        <key id="keyExit" keycode="VK_ESCAPE" oncommand="document.getElementById('btnExit').click()" />
+    </keyset>
+
+    <box class="setcenter">
+        <input id="id" name="id" form="RegistrationForm" type="hidden"/>
+        <vbox class="mainbox" flex="1">
+            <hbox>
+                <label class="title" value="店家資訊"/>
+                <spacer flex="1"/>
+                <hbox class="redword" align="end">
+                    <label value="*必填欄位"/>
+                </hbox>
+            </hbox>
+            <grid class="mainform">
+                <columns>
+                    <column class="field" flex="1"/>
+                    <column class="answer" flex="2"/>
+                </columns>
+                <rows>
+                <row>
+                    <hbox class="fieldname">
+			<label class="redstar" value="*"/>
+			<label value="店名"/>
+                    </hbox>
+                    <textbox id="txtNAME" name="name" form="RegistrationForm"/>
+                </row>
+                <row>
+                    <hbox class="fieldname">
+			<label class="redstar" value="*"/>
+			<label value="分店"/>
+                    </hbox>
+                    <textbox id="txtBRANCH" name="branch" form="RegistrationForm"/>
+                </row>
+                <row>
+                    <hbox class="fieldname">
+			<label class="redstar" value="*"/>
+			<label value="分店代號"/>
+                    </hbox>
+                    <textbox id="txtBRANCHID" name="branch_id" form="RegistrationForm"/>
+                </row>
+                <row>
+                    <hbox class="fieldname">
+			<label class="redstar" value="*"/>
+			<label value="本機編號"/>
+                    </hbox>
+                    <textbox id="txtTERMINALNO" name="terminal_no" form="RegistrationForm" readonly="true"/>
+                </row>
+                <row>
+                    <hbox class="fieldname">
+                        <label class="redstar" value="*"/>
+			<label value="店長"/>
+                    </hbox>
+                    <textbox id="txtOWNER" name="email" form="RegistrationForm"/>
+                </row>
+                <row>
+                    <hbox class="fieldname">
+                        <label class="redstar" value="*"/>
+			<label value="聯絡人"/>
+                    </hbox>
+                    <textbox id="txtCONTACT" name="contact" form="RegistrationForm"/>
+                </row>
+                <row>
+                    <hbox class="fieldname">
+			<label class="redstar" value="*"/>
+			<label value="電話"/>
+                    </hbox>
+                    <textbox id="txtPHONE" name="telephone1" form="RegistrationForm"/>
+                </row>
+                <row style="border-bottom: 1px solid #898B90;">
+                    <hbox class="fieldname">
+			<label class="redstar" value="*"/>
+			<label value="地址"/>
+                    </hbox>
+                    <vbox id="boxAddress">
+			<hbox>
+                            <textbox id="txtZIP" readonly="true" style="display: none;" name="zip" form="RegistrationForm"/>
+			</hbox>
+			<textbox id="txtADDRESS" name="address2" form="RegistrationForm"/>
+                    </vbox>
+                </row>
+                </rows>
+            </grid>
+            <hbox class="button">
+                <button id="btnExit" label="離 開" onclick="window.close()"/>
+                <spacer flex="1"/>
+                <button id="vkb" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
+                <button id="btnSubmit" label="註 冊"/>
+                <button id="btnClear" label="清 除" oncommand="$do('clearForm', null, 'Registration')"/>
+            </hbox>
+        </vbox>
+    </box>
+
+  <script type="application/x-javascript">
+        //送出
+        $('#btnSubmit').click(function() {
+            var status = {exitFlag: false};
+            $do('update', status, 'Registration');
+
+            if (status.exitFlag) window.close();
+        });
+
+        //地址連動
+        var zip = document.getElementById("txtZIP");
+        $.twzip(zip, "RegistrationForm");
+
+  </script>
+</window>

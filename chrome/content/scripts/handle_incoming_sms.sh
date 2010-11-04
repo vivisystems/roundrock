@@ -20,6 +20,9 @@ SUPPORT_FQDN=${SUPPORT_FDQN:-support.vivisystems.com.tw}
 
 STATUS_URL=https://$SUPPORT_FQDN/cgi-bin/Server/vivipos/service.php
 
+SSL_CERTIFICATE=/etc/roundrock.pem
+SSL_CA_CERTIFICATE=/etc/ca-certificates/ca-cert.pem
+
 MSG=`cat`
 echo `date` [$#] $@ : $MSG >> /tmp/sms.log
 
@@ -165,7 +168,7 @@ case "$MSG_ACTION" in
 	WAITS=5
 	PPPD=1
         IP=
-	while [ \( $PPPD -eq 1 -a -n "$IP" \) -a $WAITS -ne 0 ]; do
+	while [ \( $PPPD -eq 1 -o -z "$IP" \) -a $WAITS -ne 0 ]; do
 	    sleep 5
 	    IP=`ifconfig ppp0 | egrep -o -e "inet addr:[0-9]+.[0-9]+.[0-9]+.[0-9]+" | awk -F":" '{print $2}'`
 	    PPPD=$?
@@ -178,8 +181,9 @@ case "$MSG_ACTION" in
 
 	    # inform support center that network is up
 	    POST_DATA="func=network-status&SERIAL=$SERIAL&STATUS=1"
-	    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem --no-cache \
-	    	 -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
+	    wget --waitretry=5 --no-cache -T 120 -t 3 -O /dev/null \
+                 --ca-certificate="$SSL_CA_CERTIFICATE" --certificate="$SSL_CERTIFICATE" \
+	    	 --post-data="$POST_DATA" $STATUS_URL
 
 	    # are we able to connect to support center?
 	    if [ $? -ne 0 ]; then
@@ -203,8 +207,9 @@ case "$MSG_ACTION" in
 
 		    # inform support center that VNC is up
 		    POST_DATA="func=vnc-status&SERIAL=$SERIAL&STATUS=$VNC_PASSCODE"
-		    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
-			 --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
+		    wget --waitretry=5 --no-cache -T 120 -t 3 -O /dev/null \
+                         --ca-certificate="$SSL_CA_CERTIFICATE" --certificate="$SSL_CERTIFICATE" \
+			 --post-data="$POST_DATA" $STATUS_URL
 
 		    if [ $? -ne 0 ]; then
 			killall wvdial pppd
@@ -224,8 +229,9 @@ case "$MSG_ACTION" in
 
 	# inform support center that VNC is down
 	POST_DATA="func=vnc-status&SERIAL=$SERIAL&STATUS=0"
-	wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
-	     --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
+	wget --waitretry=5 --no-cache -T 120 -t 3 -O /dev/null \
+             --ca-certificate="$SSL_CA_CERTIFICATE" --certificate="$SSL_CERTIFICATE" \
+	     --post-data="$POST_DATA" $STATUS_URL
 
 
 	# bring down ppp?
@@ -234,8 +240,9 @@ case "$MSG_ACTION" in
 
 	    # inform support center that network is down
 	    POST_DATA="func=network-status&SERIAL=$SERIAL&STATUS=0"
-	    wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem \
-		 --no-cache -T 120 -t 3 -O /dev/null --post-data="$POST_DATA" $STATUS_URL
+	    wget --waitretry=5 --no-cache -T 120 -t 3 -O /dev/null \
+                 --ca-certificate="$SSL_CA_CERTIFICATE" --certificate="$SSL_CERTIFICATE" \
+		 --post-data="$POST_DATA" $STATUS_URL
 
 	    killall wvdial pppd
 	fi

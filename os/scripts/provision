@@ -12,7 +12,6 @@ LC_ALL=c
 DIALOG_OPTS="--backtitle PROVISIONING"
 MAX_WIDTH=80
 MAX_HEIGHT=24
-ERROR_MSG=""
 
 
 # license related variables
@@ -39,6 +38,7 @@ SUPPORT_FQDN_FILE=/etc/support.site
 DEFAULT_SUPPORT_FQDN="support.vivisystems.com.tw"
 SUPPORT_FQDN="$DEFAULT_SUPPORT_FQDN"
 SSL_CERTIFICATE=/etc/roundrock.pem
+SSL_CA_CERTIFICATE=/etc/ca-certificates/ca-cert.pem
 
 
 # serial number config
@@ -517,12 +517,16 @@ send_terminal_data() {
 	    DLG_PID=$!
 
 	    # wait until ppp0 if up and running
-	    PPPD=1
-	    while [ $PPPD -ne 0 ]; do
-		sleep 5
-		ifconfig ppp0
-		PPPD=$?
-	    done
+            WAITS=5
+            PPPD=1
+            IP=
+            while [ \( $PPPD -eq 1 -o -z "$IP" \) -a $WAITS -ne 0 ]; do
+                sleep 5
+                IP=`ifconfig ppp0 | egrep -o -e "inet addr:[0-9]+.[0-9]+.[0-9]+.[0-9]+" | awk -F":" '{print $2}'`
+                PPPD=$?
+
+                WAITS=$((WAITS - 1))
+            done
 
 	    killall dialog
 	fi
@@ -532,7 +536,8 @@ send_terminal_data() {
 	PROGRESS_HEIGHT=12
 	POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))
 
-	wget --waitretry=5 --no-check-certificate --certificate=/etc/roundrock.pem --no-http-keep-alive --no-cache -T 120 -t 3 -O - 2>&1 \
+	wget --waitretry=5 --no-http-keep-alive --no-cache -T 120 -t 3 -O - 2>&1 \
+             --ca-certificate="$SSL_CA_CERTIFICATE" --certificate="$SSL_CERTIFICATE" \
 	     --post-data="$POST_DATA" $SUPPORT_URL \
 	    | $DIALOG $DIALOG_OPTS --begin $POSY 0 --progressbox "Transmitting Provisioning Information..." $PROGRESS_HEIGHT $MAX_WIDTH \
 	      --and-widget --keep-window \

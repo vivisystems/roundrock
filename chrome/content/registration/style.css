@@ -1,0 +1,124 @@
+groupbox.form label {
+	width: 5em;
+	text-align: right;
+}
+
+.setcenter {
+	width: 100%;
+	max-width: 100%;
+	height: 768px;
+	max-height: 768px;
+	padding-top: 50px;
+	-moz-box-pack: center;
+	background: none;
+	background-color: #626262;
+	-moz-appearance: none;
+}
+
+.mainbox {
+	width: 730px;
+	max-width: 730px;
+	min-width: 730px;
+	height: 560px;
+	max-height: 560px;
+	background: none;
+	background-color: #FFFFFF;
+	-moz-appearance: none;
+	-moz-border-radius: 15px;	
+	border-right: 4px solid;
+	border-bottom: 4px solid;
+        -moz-border-right-colors: #555 #444 #333 #222;
+        -moz-border-bottom-colors: #555 #444 #333 #222;
+}
+
+.mainform {
+	width: 660px;
+	max-width: 660px;
+	max-width: 660px;
+	height: 265px;
+	max-height: 265px;
+	font-size: 11pt;
+	margin-top: 15px;
+	margin-left: 35px;
+}
+
+.mainform row {
+	border-top: 1px solid #898B90;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.mainform .field {
+	width: 120px;
+	max-width: 120px;
+	background: none;
+	background-color: #E1E3E7;
+	border-left: 1px solid #898B90;
+	padding-left: 5px;
+}
+
+.mainform .answer {
+	background: none;
+	background-color: #F5F7FA;
+	border-left: 1px solid #898B90;
+	border-right: 1px solid #898B90;
+	padding-right: 5px;
+}
+
+.mainform textbox {
+	height: 40px;
+	max-height: 40px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.mainform hbox {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.mainform .fieldname {
+	margin-top: 15px;
+}
+
+.button {
+	margin-top: 15px;
+	margin-left: 35px;
+}
+
+.title {
+	color: #5B6062;
+	font-size: 12pt;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-left: 35px;
+}
+
+.redstar {
+	color: #FF0000;
+	font-weight: bold;
+}
+
+.redword {
+	color: #FF0000;
+	font-size: 9pt;
+	margin-top: 5px;
+	margin-left: 525px;
+}
+
+menulist {
+	height: 30px;
+	max-height: 30px;
+}
+
+button {
+	width: 100px;
+	height: 40px;
+	border: none;
+	background: none;
+	background-color: #858889;
+	-moz-appearance: none;
+	color: #FFFFFF;
+	font-size: 11pt;
+	font-family: Arial;
+}
