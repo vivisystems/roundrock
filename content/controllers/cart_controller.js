@@ -4800,7 +4800,6 @@
         },
         
         /*
-         * @author: Slash.tu             2010/04/02
          * @event: this.dispatchEvent('onVoidSaleSuccess', curTransaction);
          *
          * Pop a dialog, users decide if additem from transaction(void sale)
@@ -4808,7 +4807,6 @@
         addItemFormVoidOrder: function(evt){
 
              let alertVoidSales = evt.data.alertVoidSales;
-
 
              if( alertVoidSales != '0' && alertVoidSales != '1' && alertVoidSales != '2'){
 
@@ -4837,6 +4835,12 @@
              
              //let curTransaction = this._createNewTransaction(transaction);
              let curTransaction = new Transaction(false);
+
+             // clone order destination
+             curTransaction.data.destination = transaction.data.destination;
+             curTransaction.data.destination_prefix = transaction.data.destination_prefix;
+             // set destination to session
+             GeckoJS.Session.set('vivipos_fec_order_destination', curTransaction.data.destination);
 
              curTransaction.cloneAllItems(transaction);
 
