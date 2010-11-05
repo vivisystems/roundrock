@@ -22,6 +22,39 @@
         _script_uri: 'chrome://roundrock/content/scripts/registration.sh',
         _script_output: '/tmp/registration.status',
 
+        initial: function() {
+            // intercept Main.initial()
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+
+            if (main) {
+
+                let formObj = this.loadRegistration();
+
+                if (formObj == null) {
+                    let screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+                    let screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
+                    let aURL = 'chrome://roundrock/content/registration/registration.xul';
+                    let aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
+
+                    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _( 'Registration' ), aFeatures);
+
+                    // log user process
+                    this.log('FATAL', 'restarting after registration');
+
+                    try {
+                        GREUtils.restartApplication();
+                        window.stop();
+                        window.close();
+
+                        this.sleep(1000);
+                    }catch(e) {
+                        this.log('ERROR', 'Error restarting after registration', e);
+                    }
+                        }
+                    }
+        },
+
         isAlphaNumeric: function(str) {
             var nonalphaRE = /[^a-zA-Z0-9]/;
             return !nonalphaRE.test(str);
@@ -153,7 +186,7 @@
 
                             case 0:
                                 msg = _('Terminal has been successfully registered. Thank you!');
-                                //data.exitFlag = true;
+                                data.exitFlag = true;
                                 break;
 
                             case 1:
@@ -192,27 +225,36 @@
                 data.exitFlag = false;
             }
         },
-        
-        load: function () {
-            
-            this._script_path =  GREUtils.File.chromeToPath(this._script_uri);
 
+
+        loadRegistration: function() {
+
+            var formObj;
             var terminal_no = GeckoJS.Session.get('terminal_no');
+
             if (terminal_no == null || terminal_no == '') {
                 // terminal_no from sync_settings
                 var syncSettings = (new SyncSetting()).read() || {};
 
                 terminal_no = syncSettings.machine_id;
             }
-            var formObj;
-            
-            var storeContactModel = new StoreContactModel();
+            this._terminal_no = terminal_no;
 
             if (terminal_no != null && terminal_no != '') {
+                var storeContactModel = new StoreContactModel();
                 formObj = storeContactModel.findByIndex('first', {index: 'terminal_no',
                                                                   value: terminal_no});
             }
-            this._terminal_no = terminal_no;
+
+            return formObj;
+        },
+
+
+        load: function () {
+            
+            this._script_path =  GREUtils.File.chromeToPath(this._script_uri);
+
+            var formObj = this.loadRegistration();
 
             if (formObj != null) {
                 this.setForm(formObj, true);
@@ -337,5 +379,9 @@
     };
 
     AppController.extend(__controller__);
+
+    window.addEventListener('load', function() {
+        $do('initial', null, 'Registration');
+    }, false);
 
 })();
