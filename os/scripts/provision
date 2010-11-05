@@ -341,7 +341,8 @@ verify_plmn() {
 	done
 
 	# send SMS to target phone
-	echo "PROVISION [$SIM_IMEI]" | $GNOKII --sendsms $TARGET_PLMN 2>&1 |$DIALOG $DIALOG_OPTS --progressbox "Sending verification SMS..." 12 $MAX_WIDTH
+	echo "PROVISION [$MODEM_IMEI]" | $GNOKII --sendsms $TARGET_PLMN 2>&1 |$DIALOG $DIALOG_OPTS --progressbox "Sending verification SMS..." 12 $MAX_WIDTH
+	sleep 2
 
 	# prompt for sender phone number
 	SUCCESS=1
@@ -362,6 +363,16 @@ verify_plmn() {
 	    fi
 	done
     done
+
+    # write PLMN into SM phonebook at location 1
+    echo "MYPHONE;$SIM_PLMN;SM;1;0;0;0;0;MYPHONE" | $GNOKII --writephonebook -o 2>&1 | $DIALOG $DIALOG_OPTS --progressbox "Storing [$SIM_PLMN] into SIM (SM) phonebook..." 12 $MAX_WIDTH
+    sleep 2
+
+    # read PLMN back
+    SIM_PLMN_VERIFY=`$GNOKII --getphonebook SM 1 1 2>/dev/null | grep Number | awk '{print $2}'`
+    if [ "$SIM_PLMN" != "$SIM_PLMN_VERIFY" ]; then
+	provision_failed 9 "Unable to write phone number [$SIM_PLMN] into SM phonebook"
+    fi
 }
 
 ################################################################################################################
@@ -446,9 +457,6 @@ Revision     = [$MODEM_Revision]" 10 $MAX_WIDTH
     # store PIN code on terminal
     echo -n "$SIM_PIN" > "$PIN_FILE.$$"
 
-    # prompt user to remove/re-insert modem and verify that PIN works
-
-
     $DIALOG $DIALOG_OPTS --title "WIRELESS MODEM" --msgbox "Modem successfully provisioned" 4 $MAX_WIDTH
 
 }
@@ -506,7 +514,7 @@ send_terminal_data() {
 
     while [ $RETRY -eq 0 ]; do
 
-	if [ -f "$MODEM_MARKER" ]; then
+	if [ -f "$MODEM_MARKER1" ]; then
 	    # dialing cht
 	    PROGRESS_HEIGHT=12
 	    POSY=$((MAX_HEIGHT - $PROGRESS_HEIGHT - 2))

@@ -50,7 +50,7 @@
             }
 
             if (!valid) {
-                alert(_('Please maPleaske sure all required fields are populated'));
+                alert(_('Please sure all required fields are populated'));
                 return;
             }
 
@@ -126,21 +126,21 @@
                 }
                 else {
                     // call external script to register
-                    let parms = [escape(SERIAL),
-                                 escape(IMEI),
-                                 escape(formObj.name),
-                                 escape(formObj.email),
-                                 escape(formObj.contact),
-                                 escape(formObj.telephone1),
-                                 escape(formObj.zip),
-                                 escape(formObj.county),
-                                 escape(formObj.city),
-                                 escape(formObj.address1 + ' ' + formObj.address2),
+                    let parms = [encodeURIComponent(SERIAL),
+                                 encodeURIComponent(IMEI),
+                                 encodeURIComponent(formObj.name),
+                                 encodeURIComponent(formObj.email),
+                                 encodeURIComponent(formObj.contact),
+                                 encodeURIComponent(formObj.telephone1),
+                                 encodeURIComponent(formObj.zip),
+                                 encodeURIComponent(formObj.county),
+                                 encodeURIComponent(formObj.city),
+                                 encodeURIComponent(formObj.address1 + ' ' + formObj.address2),
                                  this._script_output
                                 ];
                     if (this._execute(this._script_path, parms, false)) {
                         let status = this._readStatus(this._script_output);
-                        let msg = _('Internal error occurred while attempting to send registration information to registration server!');
+                        let msg = _('Internal error occurred while attempting to send registration information to Registration Server!');
 
                         switch(parseInt(status.code)) {
                             case -2:
@@ -148,35 +148,39 @@
                                 break;
 
                             case -1:
-                                msg = _('Unknown response from registration server');
+                                msg = _('Unknown response from Registration Server');
                                 break;
 
                             case 0:
                                 msg = _('Terminal has been successfully registered. Thank you!');
-                                data.exitFlag = true;
+                                //data.exitFlag = true;
                                 break;
 
                             case 1:
-                                msg = _('Failed to detect wireless modem while attempting to send registration information to registration server!');
+                                msg = _('Failed to detect wireless modem while attempting to send registration information to Registration Server!');
                                 break;
 
                             case 2:
-                                msg = _('Failed to connect to Internet while attempting to send registration information to registration server!');
+                                msg = _('Failed to connect to Internet while attempting to send registration information to Registration Server!');
                                 break;
 
                             case 3:
-                                msg = _('Registration rejected by the registration server' + '\n\n' + status.response);
+                                msg = _('An error has occurred while contacting the Registration Server' + '\n\n' + status.response);
+                                break;
+
+                            case 4:
+                                msg = _('Registration rejected by the Registration Server' + '\n\n' + status.response);
                                 break;
 
                             default:
-                                msg = _('Invalid response code [%S] from registration server', [status.code]);
+                                msg = _('Invalid response code [%S] from Registration Server', [status.code]);
                                 break;
                         }
                         GREUtils.Dialog.alert(this.topmostWindow, _('Terminal Registration'), msg);
                     }
                     else {
                         GREUtils.Dialog.alert(this.topmostWindow, _('Terminal Registration'),
-                                              _('Error occurred while attempting to send registration information to registration server!'));
+                                              _('Error occurred while attempting to send registration information to Registration Server!'));
                     }
                 }
 
