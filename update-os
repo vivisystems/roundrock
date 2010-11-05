@@ -12,3 +12,5 @@ tar c --owner=root -C $DIR/os/initramfs-tools . | tar x --owner=root -C $ROOTFS/
 tar c --owner=root -C $DIR/os/profile . | tar x --owner=root -C $ROOTFS/data/profile
 
 cp os/xpcom_ospasswd/*.xpt os/xpcom_ospasswd/*.so $ROOTFS/data/vivipos_sdk/components/
+
+cp /etc/resolv.conf $ROOTFS/etc/resolv.conf
