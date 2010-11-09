@@ -4852,6 +4852,11 @@
 
              this._setTransactionToView(curTransaction);
 
+             // call setDestination to change pricelevel and tax
+             if (curTransaction.data.destination) {
+                this.requestCommand('setDestination', curTransaction.data.destination, 'Destinations');
+            }
+
              /* initial display_sequences condiment*/
              for(let i= 0; i< curTransaction.data.display_sequences.length; i++){
 
