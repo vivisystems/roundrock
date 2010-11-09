@@ -280,10 +280,15 @@
             
                 seq = this.resetLocalSequence(key, value);
 
-                if (callback) {
-                    callback.call(this, seq.value);
-                }
-                return seq.value;
+		if (seq != -1) {
+		    if (callback) {
+			callback.call(this, seq.value);
+		    }
+		    return seq.value;
+		}
+		else {
+		    return seq;
+		}
             }
         },
 
@@ -309,27 +314,31 @@
 
         resetLocalSequence: function(key, value) {
 
-            this.begin();
+	    var seq;
+	    var r;
 
-            var seq = this.findByIndex('first', {
-                index: 'key',
-                value: key
-            }) ||
+            if (this.begin()) {
 
-            {
-                id: "",
-                key: key,
-                value: 0
-            };
-            seq.value = value;
-            this.id = seq.id;
-            if (!this.save(seq)) {
-                this.saveToBackup(seq);
-            }
+            	var seq = this.findByIndex('first', {
+		    index: 'key',
+		    value: key
+		}) ||
 
-            this.commit();
-            
-            return seq;
+		{
+		    id: "",
+		    key: key,
+		    value: 0
+		};
+		seq.value = value;
+		this.id = seq.id;
+		if (this.save(seq) || this.saveToBackup(seq)) {
+		    if (this.commit()) {
+			return seq;
+		    }
+		}
+		this.rollback();
+	    }
+	    return -1;
         }
     }
 

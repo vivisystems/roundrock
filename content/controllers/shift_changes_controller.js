@@ -453,11 +453,26 @@
 
                     // update cluster sale period
                     var r = this.ShiftMarker.advanceClusterSalePeriod(newSalePeriod);
-                    if (!r) {
-                        SequenceModel.resetLocalSequence('sale_period', newSalePeriod);
-                        this.log('DEBUG', 'advanced local sale period to ' + newSalePeriod + ':' + newSalePeriodDate);
+		    // cluster sale period server is self
+                    if (r == false) {
+                        r = SequenceModel.resetLocalSequence('sale_period', newSalePeriod);
+			if (r == -1) {
+			    GREUtils.Dialog.alert(this.topmostWindow,
+				_('Shift Change Error'),
+				_('Failed to start sale period because error occurred while updating the sale period. Please restart the terminal, and contact technical support immediately if the problem persists [message #1444]'));
+
+			    this._updateSession({sale_period: -1,
+						 shift_number: '',
+						 end_of_period: false,
+						 end_of_shift: false});
+			    return;
+			}
+			else {
+			    this.log('DEBUG', 'advanced local sale period to ' + newSalePeriod + ':' + newSalePeriodDate);
+			}
                     }
-                    else if (r == -1) {
+		    // error while updating cluster sale period
+                    else if (r == null) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                             _('Shift Change Error'),
                             _('Failed to start sale period because cluster sale period could not be updated. Please check the network connectivity to the terminal designated as the sale period master [message #1434]'));
