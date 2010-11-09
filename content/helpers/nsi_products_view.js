@@ -195,7 +195,8 @@
                 var val = product[colKey];
                 var sPluDir = GeckoJS.Session.get('pluimage_directory');
 
-                aDstFile = sPluDir + encodeURIComponent(val) + ".png";
+                var sFilename = (val+"").replace(/[\/\\.:\*\s<>?|]+/g, '_');
+                aDstFile = sPluDir + sFilename + ".png";
 
                 if (GREUtils.File.exists(aDstFile)) {
                     product[cachedKey] = aDstFile + '?' + product['imageCounter'];

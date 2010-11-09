@@ -181,7 +181,8 @@
             var val = this.getCellValue(row, col);
             var sPluDir = GeckoJS.Session.get('pluimage_directory');
             // category/department prefix dep_
-            var aDstFile = sPluDir + "dep_" + encodeURIComponent(val) + ".png";
+            var sFilename = (val+"").replace(/[\/\\.:\*\s<>?|]+/g, '_');
+            var aDstFile = sPluDir + "dep_" + sFilename + ".png";
             if (GREUtils.File.exists(aDstFile)) {
                 return 'file://' + aDstFile;
 

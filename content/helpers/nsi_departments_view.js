@@ -224,10 +224,11 @@
             if (!fieldValue) return null;
 
             var filename = "";
+            var sFilename = (fieldValue+"").replace(/[\/\\.:\*\s<>?|]+/g, '_');
             if (isCategory) {
-                filename = "dep_" + encodeURIComponent(fieldValue) + ".png";
+                filename = "dep_" + sFilename + ".png";
             }else {
-                filename = "grp_" + encodeURIComponent(fieldValue) + ".png";
+                filename = "grp_" + sFilename + ".png";
             }
 
             var sPluDir = GeckoJS.Session.get('pluimage_directory');

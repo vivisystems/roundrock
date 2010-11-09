@@ -76,7 +76,8 @@ function selectImages() {
 
 	if (!GREUtils.File.exists(aSrcFile))
 	        return false;
-	var aDstFile = sPluDir + encodeURIComponent(no) + '.png';
+        var sFilename = (no+"").replace(/[\/\\.:\*\s<>?|]+/g, '_');
+	var aDstFile = sPluDir + sFilename + '.png';
 
     if (GREUtils.File.exists(aDstFile)) GREUtils.File.remove(aDstFile);
 	GREUtils.File.copy(aSrcFile, aDstFile);
@@ -101,7 +102,8 @@ function RemoveImage() {
     var pid = $('#product_id').val();
 
     var sPluDir = GeckoJS.Session.get('pluimage_directory');
-    var aDstFile = sPluDir + encodeURIComponent(no) + '.png';
+    var sFilename = (no+"").replace(/[\/\\.:\*\s<>?|]+/g, '_');
+    var aDstFile = sPluDir + sFilename + '.png';
 
 	if (GREUtils.File.exists(aDstFile)) GREUtils.File.remove(aDstFile);
     document.getElementById('pluimage').setAttribute('src', '');
