@@ -22,8 +22,8 @@
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
-            var start_hour = document.getElementById( 'start_hour' ).value;
-            var end_hour = document.getElementById( 'end_hour' ).value;
+            var start_hour = parseInt(document.getElementById( 'start_hour' ).value);
+            var end_hour = parseInt(document.getElementById( 'end_hour' ).value);
 
             var terminalNo = document.getElementById( 'terminal_no' ).value;
             var periodType = document.getElementById( 'period_type' ).value;
@@ -53,7 +53,7 @@
             var conditions = "orders." + periodType + ">='" + start +
                             "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status='1'" +
-                            ' AND "Order.Hour" ' + ">= '" + start_hour + "'" +
+                            ' AND "Order.Hour" ' + ">= " + start_hour +
                             ' AND "Order.Hour" ' + "<= '" + end_hour + "'"  ;
 
             var groupby;
@@ -73,20 +73,20 @@
 
             order.useDbConfig = useDbConfig; // udpate dbconfig
 
-            this.log('DEBUG', this.dump(conditions));
-
-            this.log('DEBUG', this.dump({fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1, limit: limit}));
+            this.log(this.dump(conditions));
 
             var records = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1, limit: limit} );
 
             //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
+            this.log(this.dump(records));
+
             var starDate = document.getElementById( 'start_date' ).value;
             var endDate = document.getElementById( 'end_date' ).value + 86400000;
 
             /*insert zero sale data*/
-           for(var x= starDate ; x < endDate ; x = x + 86400000){
+           for(var x= parseInt(starDate) ; x < parseInt(endDate) ; x = x + 86400000){
                  for(var y = start_hour; y <= end_hour ; y++){
 
                       if(!this._checkdata(records, x, GeckoJS.String.padLeft(y, 2, '0'))){
@@ -158,21 +158,7 @@
                 //o.HourTotal = GeckoJS.NumberHelper.round(o.HourTotal, precision_prices, rounding_prices) || 0;
                 //o.HourTotal = o.HourTotal.toFixed(precision_prices);
             } );
-
-            //HourTotal = GeckoJS.NumberHelper.round(HourTotal, precision_prices, rounding_prices) || 0;
-            //HourTotal = HourTotal.toFixed(precision_prices);
-
-           /* hours filter */
-     /*       for(var i = 0 ; i < records.length ; i++){
-
-                 if(records[i].Hour <= 11){
-                      records.splice(i, 1);
-                      i--
-                 }
-            }*/
-
-            
-
+          
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.hourlysales.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
