@@ -14,8 +14,13 @@ TrainingBehavior.prototype.switchRelativeDBConf = function( model ) {
 	function switchSpecifiedDBConf( relation ) {
 		model[ relation ].forEach( function( relativeModel ) {
 			var modelName = relativeModel.name;   		
-			if( model[ modelName ] )
-				model[ modelName ].useDbConfig = model.useDbConfig;
+			if( model[ modelName ] ) {
+                            // init useDbConfigBak 
+                            if( !model[ modelName ].useDbConfigBak ) {
+                                model[ modelName ].useDbConfigBak = model[ modelName ].useDbConfig;
+                            }
+                            model[ modelName ].useDbConfig = model.useDbConfig;
+                        }
 		});
 	}
 	
