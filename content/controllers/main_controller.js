@@ -1400,8 +1400,8 @@
                             r = orderModel.execute('delete from sync_remote_machines') && r;
 
                             // reset sequence
-                            SequenceModel.resetSequence('order_no');
-                            SequenceModel.resetSequence('check_no');
+                            r = (SequenceModel.resetSequence('order_no') == -1) ? 0 : r;
+                            r = (SequenceModel.resetSequence('check_no') == -1) ? 0 : r;
 
                             if (!r) {
                                 GREUtils.Dialog.alert(this.topmostWindow,
