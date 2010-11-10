@@ -152,8 +152,7 @@
             var productsID = this.productPanelView.data;
 
             for(var i = 0 ; i< productsID.length; i++){
-
-                products.push(this.Product.getProductById( productsID[i] ));
+                products.push(GREUtils.extend({}, this.Product.getProductById( productsID[i] )));
             }
 
             this.getListObj().datasource = products;
