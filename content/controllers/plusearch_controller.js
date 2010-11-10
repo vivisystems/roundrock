@@ -159,8 +159,6 @@
 
             this._listDatas = products;
 
-            this.log(this.dump(products));
-
             this._selCateIndex = index;
 
             this.clickPluPanel(-1);
