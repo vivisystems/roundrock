@@ -20,7 +20,7 @@
 	
 	<script type="application/x-javascript" src="chrome://viviecr/content/alert_irc_update.js" />
 
-	<vbox flex="1" class="container-dialog">
+	<vbox flex="1" class="container-dialog container-wait-dialog">
 		<vbox flex="1" class="container-main">
 
 			<vbox flex="1" id="progressBox" hidden="true">
