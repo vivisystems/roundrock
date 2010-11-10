@@ -143,6 +143,23 @@
                 return;
             }
 
+            /* Query products by category.no */
+            if(index >= 0){
+                var cate = this.catePanelView.getCurrentIndexData(index);
+
+                var productTable = new ProductModel();
+                var products = [];
+
+                         /* case 1. department */
+                if(!cate.Plugroup)
+                      products = productTable.find("all", "cate_no="+"'"+cate.no+"'");
+
+                          /* case 2. group */
+                 else products = productTable.find("all", "link_group LIKE '%"+cate.id+"%'");
+
+                 this.getListObj().datasource = products;
+            }
+
             this.productPanelView.setCatePanelIndex(index);
             this._selCateIndex = index;
 
