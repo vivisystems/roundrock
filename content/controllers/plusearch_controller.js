@@ -7,6 +7,8 @@
     var __controller__ = {
 
         name: 'PluSearch',
+
+        uses: ['Product'],
         
         _listObj: null,
         _listDatas: null,
@@ -143,24 +145,23 @@
                 return;
             }
 
-            /* Query products by category.no */
-            if(index >= 0){
-                var cate = this.catePanelView.getCurrentIndexData(index);
+            this.productPanelView.setCatePanelIndex(index);
 
-                var productTable = new ProductModel();
-                var products = [];
+            var products = [];
 
-                         /* case 1. department */
-                if(!cate.Plugroup)
-                      products = productTable.find("all", "cate_no="+"'"+cate.no+"'");
+            var productsID = this.productPanelView.data;
 
-                          /* case 2. group */
-                 else products = productTable.find("all", "link_group LIKE '%"+cate.id+"%'");
+            for(var i = 0 ; i< productsID.length; i++){
 
-                 this.getListObj().datasource = products;
+                products.push(this.Product.getProductById( productsID[i] ));
             }
 
-            this.productPanelView.setCatePanelIndex(index);
+            this.getListObj().datasource = products;
+
+            this._listDatas = products;
+
+            this.log(this.dump(products));
+
             this._selCateIndex = index;
 
             this.clickPluPanel(-1);
@@ -171,10 +172,10 @@
             if (data) {
                 document.getElementById('plu').value = (data.no || '');
                 if (data.no && data.no.length > 0) {
-                    this.searchPlu(data.no, false, false, true);
-
+                    //this.searchPlu(data.no, false, false, true);
+                     
                     if(this.getListObj().datasource._data.length > 0)
-                        this.getListObj().selection.select(0);
+                        this.getListObj().selection.select(index);
                 }
             }
             else {
