@@ -1992,7 +1992,13 @@
                     }
                     taxIndex = ( (taxIndex+1) >= taxes.length ) ? 0 : (taxIndex+1);
                 }
-                var newTax = taxes[taxIndex];
+                var newTax = null;
+                try {
+                    // deep clone using uneval/eval object  GECKO ONLY
+                    newTax = eval(uneval(taxes[taxIndex]));
+                }catch(e) {
+                    newTax = GREUtils.extend({}, taxes[taxIndex]);
+                }
 
                 itemTrans.tax_name = newTax.no;
                 // create data object to push in items array
