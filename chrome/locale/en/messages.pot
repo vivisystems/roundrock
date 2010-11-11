@@ -16,3 +16,19 @@ msgstr "Terminal Registration"
 
 msgid "acl_registration"
 msgstr "Terminal Registration"
+
+################
+# LAYOUT
+################
+
+msgid "vivipos.fec.registry.layouts.roundrock_blue_800x600.label"
+msgstr "POS-Ready ECR (Blue)"
+
+msgid "vivipos.fec.registry.layouts.roundrock_blue_800x600.desc"
+msgstr "Layout suitable for users accustomed to ECRs"
+
+msgid "vivipos.fec.registry.layouts.roundrock_blue_1024x768.label"
+msgstr "POS-Ready ECR (Blue)"
+
+msgid "vivipos.fec.registry.layouts.roundrock_blue_1024x768.desc"
+msgstr "Layout suitable for users accustomed to ECRs"
