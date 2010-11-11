@@ -44,7 +44,7 @@
             // rows or cols == 0 hidden
             if (panelCols == 0 || panelRows == 0 || btnHeight == 0) {
                 $('#staticCondimentsPanelContainer').hide();
-                return 0;
+                return;
             }else {
                 $('#staticCondimentsPanelContainer').show();
             }
@@ -143,6 +143,8 @@
         registerInitial: function() {
 
             var condimentscrollablepanel = document.getElementById('staticCondimentsPanel');
+
+	    if (!condimentscrollablepanel) return;
 
             var self = this;
 

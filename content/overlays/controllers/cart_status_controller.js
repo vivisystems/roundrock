@@ -18,6 +18,9 @@
 
         initial: function() {
 
+            var panel = this.getStatusContainerObj();
+	    if (!panel) return;
+
             // register listener for cart
             let cart = this.getCartController();
             if (cart) {
