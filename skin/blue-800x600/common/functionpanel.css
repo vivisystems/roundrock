@@ -1,0 +1,224 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Common Function Panel Style
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_function_panel {
+    background: none;
+    border-width: 1px;
+    padding: 0px 0px 0px 0px;
+    margin-right: 5px;
+    
+}
+
+.vivifuncpanelecr_spacer {
+    margin: 0px 0px 0px 0px;
+    min-width: 1px;
+    padding: 0px 0px 0px 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel button panel
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_button_panel {
+    border: none;
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    background: #080A15;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel mapped buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_matrix_button_mapped {
+    background: #300;
+    border: none;
+    color: #FFF;
+    list-style-type: none;
+    margin: 0px;
+    overflow: hidden;
+    padding: 0px;
+    text-align: center;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.vivifuncpanelecr_matrix_button_mapped[disabled=true] description {
+    display: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel unmapped buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_matrix_button_nomap {
+    border: 1px solid;
+    list-style-type: none;
+    margin: 0px;
+    overflow: hidden;
+    padding: 0px;
+    text-align: center;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-border-top-colors: #8e8e8e;
+    -moz-border-right-colors: #8e8e8e;
+    -moz-border-bottom-colors: #8e8e8e;
+    -moz-border-left-colors: #8e8e8e;
+    -moz-border-radius: 10px;
+    -moz-user-focus: ignore;
+}
+
+
+
+/*-----------------------------------------------------------------------------
+ * Function Panel configure-mode buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_matrix_button_configure {
+    border-width: 1px;
+    list-style-type: none;
+    margin: 0px;
+    overflow: hidden;
+    padding: 0px;
+    text-align: center;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-border-radius: 0px;
+    -moz-user-focus: ignore;
+}
+
+.vivifuncpanelecr_matrix_button_configure[checked=true] {
+    border-width: 3px;
+    -moz-border-top-colors: black red;
+    -moz-border-bottom-colors: black red;
+    -moz-border-left-colors: black red;
+    -moz-border-right-colors: black red;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel control panel
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_control_panel {
+    margin: 0px 0px 0px 0px;
+    max-width: 44px;
+    min-width: 44px;
+    overflow: hidden;
+    padding: 0px 0px 0px 0px;
+    -moz-box-align: center;
+    display: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel scrollbar
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_control_scroll_left {
+    background: transparent url(../images/departUp.png) 0 0 no-repeat;
+    border: 0px;
+    margin: 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px 0px 0px 0px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.vivifuncpanelecr_control_scroll_left[disabled=false]:active {
+    background-position:-40px 0;
+}
+
+.vivifuncpanelecr_control_scroll_right {
+    background: transparent url(../images/departDown.png) 0 0 no-repeat;
+    border: 0px;
+    margin: 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px 0px 0px 0px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.vivifuncpanelecr_control_scroll_right[disabled=false]:active {
+    background-position:-40px 0;
+}
+
+.vivifuncpanelecr_control_home {
+    background: transparent url(../images/funTop.png) 0 0 no-repeat;
+    border: 0px;
+    margin: 0px 0 2px 0;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px 0px 0px 0px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.vivifuncpanelecr_control_home[disabled=false]:active {
+    background-position:-40px 0;
+}
+
+.vivifuncpanelecr_control_label {
+    background: transparent;
+    border-width: 1px;
+    color: #3d4247;
+    font-size: 10.5pt;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    border-color: transparent;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-border-radius: 0px; 
+    -moz-user-focus: ignore;
+}
+
+.vivifuncpanelecr_control_label .button-text{
+    margin: 0px;
+    padding: 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel buttons
+ *-----------------------------------------------------------------------------
+ */
+
+/* button active */
+
+vivifunctionpanelecr vivibutton[disabled=false]:active {
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel toolbar
+ *-----------------------------------------------------------------------------
+ */
+
+vivifunctionpanelecr #toolbar {
+    margin-left: 2px;
+    margin-right: 2px;
+}

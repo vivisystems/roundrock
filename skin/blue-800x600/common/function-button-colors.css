@@ -1,0 +1,134 @@
+/*--------------------------------------------------------------------------
+ *
+ * FUNCTION BUTTON COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.function-button-color-default {
+    background: #080A15 url(../images/btn_function_01.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-default label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-1 {
+    background: #080A15 url(../images/btn_function_02.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-1 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-2 {
+    background: #080A15 url(../images/btn_function_03.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-2 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-3 {
+    background: #080A15 url(../images/btn_function_04.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-3 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-4 {
+    background: #080A15 url(../images/btn_function_05.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-4 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-5 {
+    background: #080A15 url(../images/btn_function_06.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-5 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-6 {
+    background: #080A15 url(../images/btn_function_07.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-6 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-7 {
+    background: #080A15 url(../images/btn_function_08.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-7 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-8 {
+    background: #080A15 url(../images/btn_function_09.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-8 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-9 {
+    background: #080A15 url(../images/btn_function_10.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-9 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-10 {
+    background: #080A15 url(../images/btn_function_11.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-10 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-11 {
+    background: #080A15 url(../images/btn_function_12.png) no-repeat right bottom;
+    color: #FFFFFF;
+    -moz-appearance: none;
+}
+
+.function-button-color-11 label {
+    color: #FFFFFF !important;
+}
+
+.function-button-color-default[selected], .function-button-color-1[selected],
+.function-button-color-2[selected], .function-button-color-3[selected], .function-button-color-4[selected],
+.function-button-color-5[selected], .function-button-color-6[selected], .function-button-color-7[selected],
+.function-button-color-8[selected], .function-button-color-9[selected], .function-button-color-10[selected],
+.function-button-color-11[selected] {
+    list-style-image: url(../images/con_sel.png);
+}

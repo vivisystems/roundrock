@@ -1,0 +1,45 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Main Screen Cart Status
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .cart-status {
+    background-color: #1e1b14;
+    border: 0px solid #f39a1c;
+    font-family: monospace;
+    font-size: 18pt;
+    font-weight: bold !important;
+    height: 38px;
+    margin: 0px;
+    padding: 4px;
+}
+
+.main-overlay .cart-status[status=no-txn] {
+    color: green;
+}
+
+.main-overlay .cart-status[status=open-txn] {
+    color: yellow;
+}
+
+.main-overlay .cart-status[status=open-recalled-txn] {
+    color: yellow;
+}
+
+.main-overlay .cart-status[status=closed-txn] {
+    color: orange;
+}
+
+.main-overlay .cart-status[status=stored-txn] {
+    color: orange;
+}
+
+.main-overlay .cart-status[status=voided-txn] {
+    color: red;
+}
+
+.main-overlay .cart-status[status=locked-txn] {
+    color: orange;
+}

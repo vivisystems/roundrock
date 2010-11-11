@@ -1,0 +1,113 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Front End Department Panel
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .catescrollablepanel{
+    background: none;
+    margin: 0px;
+}
+
+.main-overlay .button-department {
+    background: #848388 url(../images/departBtn1.png) top left repeat-x;
+    border: 2px solid;
+    margin: 2px 2px 2px 2px;
+    min-height:50px;
+    min-width: 50px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #848388 #bebebe;
+    -moz-border-right-colors: #848388 #bebebe;
+    -moz-border-bottom-colors: #848388 #bebebe;
+    -moz-border-left-colors: #848388 #bebebe;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+    -moz-border-radius: 10px;
+}
+
+.main-overlay .button-department[disabled=true] {
+    -moz-border-top-colors: #848388 #bebebe !important;
+    -moz-border-right-colors: #848388 #bebebe !important;
+    -moz-border-bottom-colors: #848388 #bebebe !important;
+    -moz-border-left-colors: #848388 #bebebe !important;
+}
+
+.main-overlay .button-department hbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-box-orient: vertical;
+}
+
+.main-overlay .button-department description {
+    text-wrap: normal;
+    word-wrap: break-word;
+}
+
+/*-----------------------------------------------------------------------------
+ *  scroll buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .dept-scroll-up-button {
+    background: transparent url(../images/departUp.png) 0 0 no-repeat;
+    border: 0px;
+    margin: 2px 0px 0px 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    display: none;
+}
+
+.main-overlay .dept-scroll-up-button[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+.main-overlay .dept-scroll-up-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .dept-scroll-up-button label {
+    display: none;
+}
+
+.main-overlay .dept-scroll-up-button description {
+    display: none;
+}
+
+.main-overlay .dept-scroll-down-button {
+    background: transparent url(../images/departDown.png) 0 0 no-repeat;
+    border: 0px;
+    margin: 0px 0px 2px 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    display: none;
+}
+
+.main-overlay .dept-scroll-down-button[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+.main-overlay .dept-scroll-down-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .dept-scroll-down-button label {
+    display: none;
+}
+
+.main-overlay .dept-scroll-down-button description {
+    display: none;
+}

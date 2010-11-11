@@ -1,0 +1,39 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Main Screen VFD
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .vfd-pad {
+}
+
+.main-overlay .vfd-vbox {
+    height: 60px;
+    margin-left: 0px;
+    padding: 3px;
+}
+
+.main-overlay .vfd-label {
+    background-color: transparent;
+    border-width: 0px;
+    color: #f49b1d;
+    font-family: monospace;
+    font-size: 15pt;
+    font-weight: bold !important;
+    padding-right: 3px;
+    color: #FFF;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.main-overlay .vfd-pad-training {
+    background-color: red;
+    border-bottom: 7px solid red;
+}
+
+.main-overlay .vfd-pad-training .label-vfd {
+    color: black !important;
+}
