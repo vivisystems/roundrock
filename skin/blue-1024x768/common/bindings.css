@@ -65,7 +65,7 @@ vivitextbox {
 }
 
 onscreenvfd {
-  -moz-binding: url("chrome://viviecr/content/layouts/blue/bindings/onscreenvfd.xbl#onscreenvfd");
+  -moz-binding: url("chrome://roundrock/content/layouts/blue/bindings/onscreenvfd.xbl#onscreenvfd");
 }
 
 promotions_status {

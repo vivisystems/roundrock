@@ -139,13 +139,23 @@
     -moz-border-bottom-colors: #141C7D;
 }
 
+.main-overlay .cart-list treecols {
+    background: #010A22;
+    border-bottom: 2px solid #212A52;
+    border-left: 2px solid #212A52;
+    border-right: 2px solid #212A52;
+    margin-bottom: 2px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+}
+
 .main-overlay .cart-list treecol {
-    padding: 5px;
     background: transparent;
     border: none;
     color: #FFF;
     font-weight: bold;
-    height: 50px;
+    height: 46px;
+    padding: 0px 4px;
     -moz-appearance: none;
 }
 
@@ -178,7 +188,7 @@
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(discountApplied) {color: brown; font-style: italic; font-weight: bolder;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(surchargeApplied) {color: green; font-style: italic; font-weight: bolder;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(treecellTax) {font-size: 14px !important; font-weight: normal !important;}
-.main-overlay .cart-list treechildren::-moz-tree-cell-text(row) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(row) {font-size: 16px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_qty) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_price) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(price_level) {font-size: 14px !important; font-weight: normal !important;}
@@ -256,8 +266,8 @@
 }
 
 .main-overlay .cart-list tree #current_tax {
-    max-width: 28px;
-    min-width: 28px;
+    max-width: 32px;
+    min-width: 32px;
 }
 
 .main-overlay .cart-list tree #price_level {

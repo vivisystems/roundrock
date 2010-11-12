@@ -18,19 +18,18 @@
     min-width: 455px;
     width: 455px;
     background: #000;
-    -moz-border-radius: 10px;
     border: 1px solid #000;
 }
 
 .main-overlay .right-panel {
+    background-color: #111A42;
     max-width: 567px;
     min-width: 567px;
     width: 567px;
 }
 
 .main-overlay .bottom-panel {
-    padding-top: 3px;
-    background-color: #212A52;
+    background-color: #111A42;
 }
 
 .main-overlay .function-toolbar {
@@ -62,17 +61,43 @@
     border: 2px ridge;
 }
 
-.info-panel {
+.input-panel {
+    background: #000;
     color: #FFF;
     font-size: 16px;
     font-weight: bold;
-    width: 513px;
-    min-width: 513px;
-    height: 43px;
-    max-height: 43px;
+    width: 255px;
+    min-width: 255px;
+    max-width: 255px;
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
     border-bottom: 2px solid #212A52;
     border-left: 2px solid #212A52;
+    border-right: 2px solid #212A52;
+    margin-bottom: 2px;
     -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+}
+
+.info-panel {
+    background: #000;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: bold;
+    width: 255px;
+    min-width: 255px;
+    max-width: 255px;
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    border-bottom: 2px solid #212A52;
+    border-left: 2px solid #212A52;
+    border-right: 2px solid #212A52;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
 }
 
 .vfd-panel {
@@ -107,7 +132,7 @@
     height: 95px;
     border: none;
     background: none;
-    font-size: 20px;
+    font-size: 26px;
     font-weight: bold;
     -moz-appearance: none;
 }
@@ -125,8 +150,15 @@
     max-width: 455px;
     min-width: 455px;
     width: 455px;
-    padding-left: 4px;
-    min-height: 314px;
-    height: 314px;
-    max-height: 314px;
+    min-height: 312px;
+    height: 312px;
+    max-height: 312px;
+}
+
+.function-panel vivibutton {
+    padding: 2px;
+}
+
+#boxInfo {
+    padding-left: 50px;
 }

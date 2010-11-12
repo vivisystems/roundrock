@@ -61,7 +61,6 @@
 
 .container-be .content-buttonpanel vivibutton {
     margin: 4px;
-    border: none;
 }
 
 .container-be .content-buttonpanel checkbox {
@@ -125,7 +124,6 @@
  */
 
 .container-be .data-form {
-    border-right: 2px solid white;
     background: #f0efe8;
     margin: 0px 10px 10px 10px;
 }
@@ -152,7 +150,6 @@
 }
 
 .container-be .data-form-2 {
-    border-right: 2px solid white;
     background: #f0efe8;
     margin: 0px 10px 10px 10px;
 }
