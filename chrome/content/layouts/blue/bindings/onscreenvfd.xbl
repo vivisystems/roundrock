@@ -1,0 +1,429 @@
+<?xml version="1.0"?>
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <binding id="onscreenvfd">
+
+        <content>
+            <xul:hbox flex="1" xbl:inherits="orient,align">
+                <xul:textbox anonid="labelVfd" hidden="true" xbl:inherits="class=labelClass"></xul:textbox>
+                <xul:grid flex="1">
+                    <xul:columns>
+                        <xul:column flex="1" />
+                        <xul:column flex="1" />
+                    </xul:columns>
+                    <xul:rows>
+                        <xul:row anonid="row1" flex="1">
+                            <xul:textbox anonid="label1_0" disabled="true" xbl:inherits="class=labelClass"></xul:textbox>
+                            <xul:textbox anonid="label1_1" disabled="true" xbl:inherits="class=labelClass"></xul:textbox>
+                        </xul:row>
+                        <xul:row anonid="row2" flex="1">
+                            <xul:textbox anonid="label0_0" size="2" disabled="true" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="label0_1" disabled="true" style="color: yellow; align: right;" xbl:inherits="class=labelClass,value"></xul:textbox>
+                        </xul:row>
+                    </xul:rows>
+                </xul:grid>
+            </xul:hbox>
+            <html:div anonid="detectFontWidthContainer" style="display: none;" xbl:inherits="class=labelClass"></html:div>
+        </content>
+
+        <xbl:implementation>
+
+            <xbl:field name="_maxlen">13</xbl:field>
+            <xbl:field name="roundPrecision">0</xbl:field>
+            <field name="_hideInput">false</field>
+            <field name="_label0_0">null</field>
+            <field name="_label0_1">null</field>
+            <field name="_label1_0">null</field>
+            <field name="_label1_1">null</field>
+            <field name="_fontWidth">10</field>
+            <field name="_inputController">null</field>
+
+            <constructor>
+            <![CDATA[
+
+                this._label0_0 = document.getAnonymousElementByAttribute(this, "anonid", "label0_0");
+                this._label0_1 = document.getAnonymousElementByAttribute(this, "anonid", "label0_1");
+                this._label1_0 = document.getAnonymousElementByAttribute(this, "anonid", "label1_0");
+                this._label1_1 = document.getAnonymousElementByAttribute(this, "anonid", "label1_1");
+
+                this._hbox = document.getAnonymousElementByAttribute( this, "anonid", "hbox" );
+
+                this._maxlen = this.getAttribute('maxlen');
+
+                this.keypadevents = GeckoJS.Controller.getInstanceByName('Keypad').events;
+                this.cartevents = GeckoJS.Controller.getInstanceByName('Cart').events;
+                this.cartQueueEvents = GeckoJS.Controller.getInstanceByName('CartQueue').events;
+                this.mainevents = GeckoJS.Controller.getInstanceByName('Main').events;
+
+                this._fontWidth = this._detectFontWidth();
+
+                var self = this;
+
+                this.onGetSubtotal = function(evt) {
+                    var transaction = evt.data;
+                    if (transaction) {
+                        self.setText0_0(_('TAL') + ': ' + transaction.getTotal(true));
+                        // self.setText0_1('');
+                        self.setText1_1(_('REM') + ': ' + transaction.getRemainTotal(true));
+                        if (transaction.data != null && transaction.data.status == 1) {
+                            self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(false)));
+                        }
+                        self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
+                    } else {
+                        self.onClear(evt);
+                    }
+                }
+
+                this.onReturnSingle = function(evt) {
+                    self.setText0_1(_('Return Single'));
+                }
+
+                this.onReturnAll = function(evt) {
+                    self.setText0_1(_('Return All'));
+                }
+
+                this.onAddBuffer = function(evt) {
+
+                    if(self._inputController) {
+
+                        self._inputController.value = evt.data;
+                    }else {
+                        self.setText1_1((self.hideInput ? '' : _('I') + ': ') + evt.data);
+                    }
+                }
+
+                this.onSetQty = function(evt) {
+                    self.setText1_1(_('QTY') + ': '+ evt.data);
+                }
+
+                this.onClear = function(evt) {
+
+                    if (this.hideInput) {
+                        self.setText0_1('');
+                        self.setText0_0(_('Change Clerk'));
+                        self.setText1_1('');
+                        self.setText1_0(_('Password') + ': ');
+                    }
+                    else {
+                        if (evt) var transaction = evt.data;
+                        else var transaction = null;
+
+                        var total = "0";
+                        var remain = "0";
+                        var payment = "0";
+
+                        if (transaction != null && !(transaction.isSubmit() || transaction.isCancel())) {
+                            total = transaction.getTotal(true);
+                            remain = transaction.getRemainTotal(true);
+                            payment = transaction.getPaymentSubtotal(true);
+                        }else {
+                            total = this.format(0);
+                            remain = this.format(0);
+                            payment = this.format(0);
+                        }
+
+                        self.setText0_1('');
+                        self.setText0_0(_('TAL') + ': ' + total);
+                        self.setText1_1(_('REM') + ': ' + remain);
+                        self.setText1_0(_('PAY') + ': ' + payment);
+                    }
+                }
+
+                this.afterCancel = function(evt) {
+                    var transaction = evt.data;
+                    if (transaction == null || typeof transaction.data == "undefined") {
+                        self.afterCancel(evt);
+                    }
+                }
+
+                this.afterCancel = function(evt) {
+                    var transaction = evt.data;
+                    if (transaction == null || typeof transaction.data == "undefined") {
+                        total = this.format(0);
+                        remain = this.format(0);
+                        payment = this.format(0);
+
+                        // @irving 2009-02-23 removed comments from self.setText0_1('')
+                        self.setText0_1('');
+                        self.setText0_0(_('TAL') + ': ' + total);
+                        self.setText1_1(_('REM') + ': ' + remain);
+                        self.setText1_0(_('PAY') + ': ' + payment);
+                    } else { //return;
+                        self.setText1_0(_('CANCELLED'));
+                        self.setText1_1(_('SEQ#') + transaction.data.seq);
+                        // self.setText0_1(self.format(0));
+                        self.setText0_0(_('TAL') + ': ' + self.format(0));
+                    }
+                    self.setText0_1('');
+
+                }
+
+                this.onQueue = function(evt) {
+                    var transaction = evt.data;
+                    if (transaction == null) return;
+                    self.setText1_0(_('QUEUED'));
+                    self.setText1_1(_('SEQ#') + transaction.data.seq);
+                    self.setText0_1('');
+                }
+
+                this.afterSubmit = function(evt) {
+                    var transaction = evt.data;
+                    if (transaction == null) {
+                        // self.setText0_1(self.format(0));
+                        self.setText0_0(_('TAL') + ': ' + self.format(0));
+                        return;
+                    }
+                    // self.setText0_1(transaction.getTotal(true));
+                    if (transaction.data != null && transaction.data.status == 1) {
+                        self.setText0_0(_('TAL') + ': ' + transaction.getTotal(true));
+                        self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
+                        self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(false)));
+                        self.setText0_1(_('Sale Completed'));
+                    }
+                }
+
+                this.onEnterPassword = function(evt) {
+                    self.hideInput = true;
+                    this.onClear();
+
+                    if (self._inputController) {
+                        self._inputController.type = 'password';
+                    }
+                }
+
+                this.onExitPassword = function(evt) {
+                    self.hideInput = false;
+                    this.onClear();
+
+                    if (self._inputController) {
+                        self._inputController.type = 'textbox';
+                    }
+
+                }
+
+                this.format = function(number) {
+                    self.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+
+                    var options = {
+                        places: ((self.roundPrecision>0)? self.roundPrecision : 0)
+                    };
+                    // format display precision
+                    return GeckoJS.NumberHelper.format(number, options);
+
+                }
+
+                this.onWarning = function(evt) {
+                    self.setText0_1(evt.data);
+                }
+
+                this.keypadevents.addListener('onAddBuffer', this.onAddBuffer, this);
+
+                this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
+                this.cartevents.addListener('onReturnSingle', this.onReturnSingle, this);
+                this.cartevents.addListener('onReturnAll', this.onReturnAll, this);
+                this.cartevents.addListener('onSetQty', this.onSetQty, this);
+                this.cartevents.addListener('onClear', this.onClear, this);
+                this.cartevents.addListener('afterCancel', this.afterCancel, this);
+                this.cartevents.addListener('afterSubmit', this.afterSubmit, this);
+                this.cartevents.addListener('onWarning', this.onWarning, this);
+
+                this.cartQueueEvents.addListener('onQueue', this.onQueue, this);
+
+                this.mainevents.addListener('onEnterPassword', this.onEnterPassword, this);
+                this.mainevents.addListener('onExitPassword', this.onExitPassword, this);
+
+                // add Observer for startTrainingMode event.
+                var self = this;
+                this.observer = GeckoJS.Observer.newInstance( {
+                    topics: [ "TrainingMode" ],
+
+                    observe: function( aSubject, aTopic, aData ) {
+                        switch(aTopic) {
+                            case 'TrainingMode':
+                                if ( aData == "start" ) {
+                                    self.switchTrainingMode( true );
+                                } else if ( aData == "exit" ) {
+                                    self.switchTrainingMode( false );
+                                }
+                                break;
+                        }
+                    }
+                } ).register();
+
+                self.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+                self.onClear({data: null});
+
+                this.ready = function() {
+                    self._inputController = document.getElementById(self.getAttribute('inputController'));
+
+                    if (self._inputController) {
+                        self.keypadevents.addListener('onClearBuffer', self.onAddBuffer, self);
+                    }
+
+                }
+
+                window.addEventListener('load', this.ready, true);
+
+            ]]>
+            </constructor>
+
+            <destructor>
+            <![CDATA[
+                if (this.keypadevents) {
+                    this.keypadevents.removeListener('onAddBuffer', this.onAddBuffer);
+                }
+                if (this.cartevents) {
+                    this.cartevents.removeListener('onGetSubtotal', this.onGetSubtotal);
+                    this.cartevents.removeListener('onReturnStatus', this.onReturnStatus);
+
+                    this.cartevents.removeListener('onSetQty', this.onSetQty);
+                    this.cartevents.removeListener('onClear', this.onClear);
+                    this.cartevents.removeListener('afterCancel', this.afterCancel);
+                    this.cartevents.removeListener('afterSubmit', this.afterSubmit);
+                    this.cartevents.removeListener('onWarning', this.onWarning);
+                }
+                if (this.cartQueueEvents){
+                    this.cartQueueEvents.removeListener('onQueue', this.onQueue);
+                }
+                if (this.mainevents) {
+                    this.mainevents.removeListener('onEnterPassword', this.onEnterPassword);
+                    this.mainevents.removeListener('onExitPassword', this.onExitPassword, this);
+                }
+
+                this.observer.unregister();
+
+                window.removeEventListener('load', this.ready, true);
+
+            ]]>
+            </destructor>
+
+            <xbl:method name="_detectFontWidth">
+                <xbl:body>
+                <![CDATA[
+                    var h = document.getAnonymousElementByAttribute(this, "anonid", "detectFontWidthContainer");
+                    var d = document.createElementNS("http://www.w3.org/1999/xhtml","html:div");
+                    var s = document.createElementNS("http://www.w3.org/1999/xhtml","html:span");
+                    var fontWidth = 0;
+
+                    h.style.display = "block";
+                    d.appendChild(s);
+                    s.textContent       = "0123456789ABCDEF";
+                    h.appendChild(d);
+                    var defaultWidth   = s.offsetWidth;
+
+                    // remove fontDetectContainer
+                    h.removeChild(d);
+
+                    h.style.display = "none";
+
+                    fontWidth = Math.floor(defaultWidth/16);
+
+                    return fontWidth;
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="_cropText">
+                <xbl:parameter name="text"/>
+                <xbl:parameter name="container"/>
+                <xbl:body>
+                <![CDATA[
+                    var input = document.getAnonymousElementByAttribute(container, "class", "textbox-input");
+
+                    var textWidth = text.length * this._fontWidth;
+                    var innerWidth = input.clientWidth;
+
+                    // need to account for left and right padding
+                    var leftPadding = $(input).css('padding-left').replace('px', '', 'g');
+                    var rightPadding = $(input).css('padding-right').replace('px', '', 'g');
+                    var displayWidth = innerWidth - leftPadding - rightPadding;
+
+                    if (textWidth > displayWidth) {
+                        var maxlen = parseInt(displayWidth / this._fontWidth);
+                        text = text.substr(0, maxlen - 4) + "..." + text.substr(text.length - 1, 1);
+                    }
+
+                    return text;
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="switchTrainingMode">
+                <xbl:parameter name="isTraining"/>
+                <xbl:body>
+                <![CDATA[
+                    var classStr = this.getAttribute('class');
+                    var trainingClass = this.getAttribute('trainingClass') || 'vfd-pad-training';
+                    //GREUtils.log( 'in switchTrainingMode: ' + classStr);
+                    if (isTraining) {
+                        // if class doesn't contain trainingClass, append it
+                        if (!GeckoJS.String.contains(classStr, trainingClass)) {
+                            classStr += ' ' + trainingClass;
+                            this.className = classStr;
+                        }
+                    }
+                    else {
+                        // if class contains trainingClass, remove it
+                        if (GeckoJS.String.contains(classStr, trainingClass)) {
+                            classStr = GeckoJS.String.trim(classStr.replace(trainingClass, '', 'g'));
+                            this.className = classStr;
+                        }
+                    }
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="setText0_0">
+                <xbl:parameter name="val"/>
+                <xbl:body>
+                <![CDATA[
+
+                    val = this._cropText(val, this._label0_0);
+                    this._label0_0.value = val;
+                ]]>
+                </xbl:body>
+            </xbl:method>
+            <xbl:method name="setText0_1">
+                <xbl:parameter name="val"/>
+                <xbl:body>
+                <![CDATA[
+
+                    val = this._cropText(val, this._label0_1);
+                    this._label0_1.value = val;
+                ]]>
+                </xbl:body>
+            </xbl:method>
+            <xbl:method name="setText1_0">
+                <xbl:parameter name="val"/>
+                <xbl:body>
+                <![CDATA[
+
+                    val = this._cropText(val, this._label1_0);
+                    this._label1_0.value = val;
+                ]]>
+                </xbl:body>
+            </xbl:method>
+            <xbl:method name="setText1_1">
+                <xbl:parameter name="val"/>
+                <xbl:body>
+                <![CDATA[
+
+                    if (this.hideInput) {
+                        var newval = '';
+                        for (var i = 0; i < val.length; i++) newval += '*';
+                        val = newval;
+                    }
+
+                    val = this._cropText(val, this._label1_1);
+                    this._label1_1.value = val;
+                ]]>
+                </xbl:body>
+            </xbl:method>
+        </xbl:implementation>
+
+    </binding>
+
+</bindings>
