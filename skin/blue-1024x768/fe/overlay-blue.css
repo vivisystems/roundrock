@@ -61,14 +61,49 @@
     border: 2px ridge;
 }
 
-.input-panel {
+.clock-panel {
     background: #000;
     color: #FFF;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
-    width: 255px;
-    min-width: 255px;
-    max-width: 255px;
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+    height: 48px;
+    min-height: 48px;
+    max-height: 48px;
+    border-bottom: 2px solid #212A52;
+    border-left: 2px solid #212A52;
+    border-right: 2px solid #212A52;
+    margin: 0px 5px 2px 5px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+}
+
+.cartstatus-panel {
+    background: #000;
+    width: 210px;
+    min-width: 210px;
+    max-width: 210px;
+    height: 48px;
+    min-height: 48px;
+    max-height: 48px;
+    border-bottom: 2px solid #212A52;
+    border-left: 2px solid #212A52;
+    border-right: 2px solid #212A52;
+    margin: 0px 0px 2px 5px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+}
+
+.return-mode-panel {
+    color: yellow;
+    font-size: 20px;
+    font-weight: bold;
+    background: #000;
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
     height: 48px;
     min-height: 48px;
     max-height: 48px;
@@ -78,41 +113,6 @@
     margin-bottom: 2px;
     -moz-border-radius-bottomleft: 10px;
     -moz-border-radius-bottomright: 10px;
-}
-
-.info-panel {
-    background: #000;
-    color: #FFF;
-    font-size: 16px;
-    font-weight: bold;
-    width: 255px;
-    min-width: 255px;
-    max-width: 255px;
-    height: 48px;
-    min-height: 48px;
-    max-height: 48px;
-    border-bottom: 2px solid #212A52;
-    border-left: 2px solid #212A52;
-    border-right: 2px solid #212A52;
-    margin-left: 5px;
-    margin-bottom: 2px;
-    -moz-border-radius-bottomleft: 10px;
-    -moz-border-radius-bottomright: 10px;
-}
-
-.vfd-panel {
-    color: #FFF;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px 0 10px 0;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #141C7D;
-}
-
-.text-total {
-    color: #FFF;
-    font-size: 28px;
-    font-weight: bold;
 }
 
 .number-panel {
@@ -137,9 +137,6 @@
     font-weight: bold;
     -moz-appearance: none;
 }
-.screen800 {
-    display: none;
-}
 
 .function-panel {
     max-width: 567px;
@@ -160,6 +157,6 @@
     padding: 2px;
 }
 
-#boxInfo {
-    padding-left: 50px;
+#boxInfo1 {
+    padding-left: 10px;
 }
