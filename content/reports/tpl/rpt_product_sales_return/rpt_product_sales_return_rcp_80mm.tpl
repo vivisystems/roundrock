@@ -48,6 +48,13 @@ ${_( '(rpt)Units Returned' ) + ':'|left:20}${category.summary.units|format:0|rig
 ${_( '(rpt)Gross Returns' ) + ':'|left:20}${category.summary.gross|viviFormatPrices:true|right:22}
 ${_( '(rpt)Net Returns' ) + ':'|left:20}${category.summary.net|viviFormatPrices:true|right:22}
 {/for}
+------------------------
+${_( '(rpt)Total Records Found:' ) + ': '|left:25}${foot.record|format:0|right:17}
+------------------------
+${_( '(rpt)Summary' )}
+${_( '(rpt)Quantities Sold' ) + ':'|left:16}${foot.total_summary|format:0|right:26}
+${_( '(rpt)Gross Sales' ) + ':'|left:16}${foot.total_gross|default:0|viviFormatPrices:true|right:26}
+${_( '(rpt)Net Sales' ) + ':'|left:16}${foot.total_net|default:0|viviFormatPrices:true|right:26}
 ------------------------------------------
 ${foot.gen_time}
 [&CR]
