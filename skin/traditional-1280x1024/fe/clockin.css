@@ -13,8 +13,8 @@
 .clockinPanel {
     background: #f8f4eb url(../images/ClockInOut.jpg) top left no-repeat;
 	border: none;
-    height: 768px;
-    width: 1024px;
+    height: 1024px;
+    width: 1280px;
 }
 
 .PageTitle {
@@ -29,10 +29,10 @@
  */
 
 .clockuserscrollablepanel {
-    margin: 67px 0 0 70px;
-    max-height: 428px;
+    margin: 117px 0 0 140px;
+    max-height: 570px;
     max-width: 223px;
-    min-height: 428px;
+    min-height: 570px;
     min-width: 223px;
 }
 
@@ -44,16 +44,16 @@
     color: #3a382f;
     font-size: 15px;
     font-weight: bold !important;
-    height: 69px;
+    height: 65px;
     list-style-type: none;
-    margin: 0px 0px 3px 14px;
-    max-height:69px;
-    max-width:167px;
-    min-height:69px;
-    min-width:167px;
+    margin: 0px 0px 2px 14px;
+    max-height:65px;
+    max-width:208px;
+    min-height:65px;
+    min-width:208px;
     overflow: hidden;
     padding: 30px 0 0 0px;
-    width: 167px;
+    width: 208px;
     -moz-appearance: none;
     -moz-background-clip: border;
     -moz-box-orient: vertical;
@@ -89,8 +89,9 @@
  */
 
 .clockuserscrollablepanel .scrollablepanel-scrollbar{
-	max-width: 50px;
-	min-width: 50px;
+	max-width: 56px;
+	min-width: 56px;
+        
 }
 
 /* scroll bar buttons */
@@ -106,6 +107,7 @@
     -moz-appearance: none;
     -moz-background-clip: border;
     -moz-user-focus: ignore;
+    
 }
 
 .rightprevbtn[disabled=false]:active {
@@ -126,6 +128,7 @@
     -moz-appearance: none;
     -moz-background-clip: border;
     -moz-user-focus: ignore;
+    margin: 0px 0px 0px 0px;
 }
 
 .rightnextbtn[disabled=false]:active {

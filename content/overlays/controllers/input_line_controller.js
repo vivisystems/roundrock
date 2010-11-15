@@ -18,6 +18,7 @@
 
             var keypadController = this._keypadController = GeckoJS.Controller.getInstanceByName('Keypad');
             var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
+	    if (!inputBox) return;
 
             // register listener for main controller event 'onUpdateOptions'
             var mainController = this._mainController = GeckoJS.Controller.getInstanceByName('Main');

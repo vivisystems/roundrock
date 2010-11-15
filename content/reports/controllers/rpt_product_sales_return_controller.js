@@ -231,12 +231,29 @@
             }
             */
 
+            var total_record = 0;
+            var total_summary = 0;
+            var total_gross = 0;
+            var total_net = 0;
+
+            for(var cate in categories){
+                    total_record += categories[cate].orderItems.length;
+                    total_summary += categories[cate].summary.units;
+                    total_gross += categories[cate].summary.gross;
+                    total_net += categories[cate].summary.net;
+            }
+
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.productsalesreturn.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;
 
             this._reportRecords.body = categories;
+
+            this._reportRecords.foot.record = total_record;
+            this._reportRecords.foot.total_summary = total_summary;
+            this._reportRecords.foot.total_gross = total_gross;
+            this._reportRecords.foot.total_net = total_net;
         },
 
         _set_reportRecords: function( limit ) {

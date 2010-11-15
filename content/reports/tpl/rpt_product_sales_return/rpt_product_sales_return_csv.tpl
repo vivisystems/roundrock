@@ -28,3 +28,4 @@
 {/for}
 "${_( '(rpt)Records Found' ) + ': '}","${category.orderItems.length|format:0}","${_( '(rpt)Summary' ) + ':'}","${category.summary.units|default:0}","","${category.summary.gross|default:0|viviFormatPrices:true}","${category.summary.net|viviFormatPrices:true}"
 {/for}
+"${_( '(rpt)Total Records Found' ) + ': '}","${foot.record|format:0}","${_( '(rpt)Summary' ) + ':'}","${foot.total_summary|default:0}","${foot.total_gross|default:0|viviFormatPrices:true}","${foot.total_net|viviFormatPrices:true}"
