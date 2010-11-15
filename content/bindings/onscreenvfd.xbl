@@ -85,6 +85,10 @@
                     self.setText0_1(_('Return All'));
                 }
 
+                this.onReturnCleared = function(evt) {
+                    self.setText0_1('');
+                }
+
                 this.onAddBuffer = function(evt) {
 
                     if(self._inputController) {
@@ -230,6 +234,7 @@
                 this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
                 this.cartevents.addListener('onReturnSingle', this.onReturnSingle, this);
                 this.cartevents.addListener('onReturnAll', this.onReturnAll, this);
+                this.cartevents.addListener('onReturnCleared', this.onReturnCleared, this);
                 this.cartevents.addListener('onSetQty', this.onSetQty, this);
                 this.cartevents.addListener('onClear', this.onClear, this);
                 this.cartevents.addListener('afterCancel', this.afterCancel, this);

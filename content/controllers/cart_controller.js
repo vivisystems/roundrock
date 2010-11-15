@@ -1699,7 +1699,7 @@
                 }
                 if (this._returnMode && !this._returnPersist) {
                     this._returnMode = false;
-                    this.clearWarning();
+                    this.dispatchEvent('onReturnCleared', null);
                 }
             }
             else {
