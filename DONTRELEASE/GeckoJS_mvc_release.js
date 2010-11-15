@@ -596,7 +596,8 @@ GeckoJS.Model.prototype._getAssociationModel = function(name, recursive) {
     
     recursive = recursive || 1;
     
-    var model = GeckoJS.ClassRegistry.getObject("ModelAssoc_" + name);
+    //var model = GeckoJS.ClassRegistry.getObject("ModelAssoc_" + name);
+    var model = null;
     var modelClass = GeckoJS.ClassRegistry.getObject("ModelClass_"+name);
 
     if (model == null && modelClass != null){
@@ -604,7 +605,7 @@ GeckoJS.Model.prototype._getAssociationModel = function(name, recursive) {
         model = new modelClass(null, recursive);
         
         // add Model to ClassRegistry for later use
-        GeckoJS.ClassRegistry.addObject("ModelAssoc_" + name, model);
+        // GeckoJS.ClassRegistry.addObject("ModelAssoc_" + name, model);
         
     }
     return model;
