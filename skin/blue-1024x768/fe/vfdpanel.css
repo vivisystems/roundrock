@@ -70,10 +70,9 @@
 }
 
 .main-overlay .vfd-pad-training {
-    background-color: red;
-    border-bottom: 7px solid red;
+    background-color: #604020;
 }
 
-.main-overlay .vfd-pad-training .label-vfd {
+.main-overlay .vfd-pad-training textbox {
     color: black !important;
 }
