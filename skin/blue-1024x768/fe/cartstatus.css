@@ -5,10 +5,10 @@
  *-----------------------------------------------------------------------------
  */
 
-.main-overlay .cart-status {
+.main-overlay #cartStatusPanelContainer {
     background-color: transparent;
     font-family: monospace;
-    font-size: 26pt;
+    font-size: 20pt;
     font-weight: bold !important;
     text-align: center;
     height: 42px;
