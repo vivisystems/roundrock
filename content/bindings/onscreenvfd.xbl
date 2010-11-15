@@ -169,6 +169,12 @@
                     self.setText0_1('');
                 }
 
+                this.afterPullQueue = function(evt) {
+                    var transaction = evt.data;
+                    if (transaction == null) return;
+                    self.setText0_1(_('PULLED SEQ#%S', [transaction.data.seq]));
+                }
+
                 this.afterSubmit = function(evt) {
                     var transaction = evt.data;
                     if (transaction == null) {
@@ -231,6 +237,7 @@
                 this.cartevents.addListener('onWarning', this.onWarning, this);
 
                 this.cartQueueEvents.addListener('onQueue', this.onQueue, this);
+                this.cartQueueEvents.addListener('afterPullQueue', this.afterPullQueue, this);
                 
                 this.mainevents.addListener('onEnterPassword', this.onEnterPassword, this);
                 this.mainevents.addListener('onExitPassword', this.onExitPassword, this);
