@@ -69,9 +69,9 @@
     width: 255px;
     min-width: 255px;
     max-width: 255px;
-    height: 32px;
-    min-height: 32px;
-    max-height: 32px;
+    height: 48px;
+    min-height: 48px;
+    max-height: 48px;
     border-bottom: 2px solid #212A52;
     border-left: 2px solid #212A52;
     border-right: 2px solid #212A52;
@@ -88,9 +88,9 @@
     width: 255px;
     min-width: 255px;
     max-width: 255px;
-    height: 32px;
-    min-height: 32px;
-    max-height: 32px;
+    height: 48px;
+    min-height: 48px;
+    max-height: 48px;
     border-bottom: 2px solid #212A52;
     border-left: 2px solid #212A52;
     border-right: 2px solid #212A52;
@@ -124,6 +124,7 @@
     min-height: 383px;
     max-height: 383px;
 }
+
 .number-panel button {
     color: #FFF;
     width: 125px;

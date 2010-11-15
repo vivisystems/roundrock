@@ -8,10 +8,10 @@
 .main-overlay .cart-status {
     background-color: transparent;
     font-family: monospace;
-    font-size: 16pt;
+    font-size: 26pt;
     font-weight: bold !important;
     text-align: center;
-    height: 28px;
+    height: 42px;
     margin: 0px;
 }
 

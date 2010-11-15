@@ -2607,6 +2607,7 @@
 
                             // replicate display sequence
                             let newDispSetItem = this.createDisplaySeq(newSetItemIndex, newSetItem, itemDisplay.type, itemDisplay.level);
+                            newDispSetItem['returned'] = true;
                             displayItems.push(newDispSetItem);
 
                             lastItemDispIndex = displayItems.length - 1;
