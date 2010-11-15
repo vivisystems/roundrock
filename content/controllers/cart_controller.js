@@ -1706,7 +1706,7 @@
 
                 this._clearAndSubtotal();
                 return;
-            }retu
+            }
 
             // check if transaction is closed
             if (curTransaction.isClosed()) {
