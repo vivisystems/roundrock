@@ -225,8 +225,6 @@
                 this.keypadevents.addListener('onAddBuffer', this.onAddBuffer, this);
 
                 this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
-                this.cartevents.addListener('onReturnSingle', this.onReturnSingle, this);
-                this.cartevents.addListener('onReturnAll', this.onReturnAll, this);
                 this.cartevents.addListener('onSetQty', this.onSetQty, this);
                 this.cartevents.addListener('onClear', this.onClear, this);
                 this.cartevents.addListener('afterCancel', this.afterCancel, this);

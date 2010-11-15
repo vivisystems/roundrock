@@ -4,16 +4,39 @@
 
         name: 'Layout',
 
+        returnStatusObj: null,
+
         initial: function() {
             
             this.resetLayout(true);
 
             // add event listener for SetClerk event
             var main = GeckoJS.Controller.getInstanceByName('Main');
-            if(main) {
+            if (main) {
                 main.addEventListener('onSetClerk', this.home, this);
             }
 
+            // add event listener for return mode events
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            this.returnStatusObj = document.getElementById('returnStatus');
+
+            if (cart && this.returnStatusObj) {
+                cart.addEventListener('onReturnSingle', this.onReturnSingle, this);
+                cart.addEventListener('onReturnAll', this.onReturnAll, this);
+                cart.addEventListener('onReturnCleared', this.onReturnCleared, this);
+            }
+        },
+
+        onReturnSingle: function() {
+            this.returnStatusObj.value = _('Return Single');
+        },
+
+        onReturnAll: function() {
+            this.returnStatusObj.value = _('Return All');
+        },
+
+        onReturnCleared: function() {
+            this.returnStatusObj.value = '';
         },
 
         home: function() {

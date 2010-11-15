@@ -63,7 +63,6 @@
                                    keys="vivipos_fec_order_destination"
                                    valueClass="console-message-value"
                                    />
-                <viviclock id="clock" class="console-clock" showdate="true"/>
                 <sync_status id="syncStatus"/>
             </statusbarpanel>
         </statusbar>
