@@ -289,7 +289,9 @@
                 }
                 if (this.cartevents) {
                     this.cartevents.removeListener('onGetSubtotal', this.onGetSubtotal);
-                    this.cartevents.removeListener('onReturnStatus', this.onReturnStatus);
+                    this.cartevents.removeListener('onReturnSingle', this.onReturnSingle);
+                    this.cartevents.removeListener('onReturnAll', this.onReturnAll);
+                    this.cartevents.removeListener('onReturnCleared', this.onReturnCleared);
                     
                     this.cartevents.removeListener('onSetQty', this.onSetQty);
                     this.cartevents.removeListener('onClear', this.onClear);
@@ -299,6 +301,7 @@
                 }
                 if (this.cartQueueEvents){
                     this.cartQueueEvents.removeListener('onQueue', this.onQueue);
+                    this.cartQueueEvents.removeListener('afterPullQueue', this.afterPullQueue);
                 }
                 if (this.mainevents) {
                     this.mainevents.removeListener('onEnterPassword', this.onEnterPassword);
