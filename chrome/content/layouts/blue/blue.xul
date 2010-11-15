@@ -24,17 +24,18 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
 
-<?xul-overlay href="chrome://roundrock/content/layouts/blue/overlays/vfdPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartStatusPanelOverlay.xul" ?>
+
+<?xul-overlay href="chrome://roundrock/content/layouts/blue/overlays/vfdPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://roundrock/content/layouts/blue/overlays/terminalStatus.xul" ?>
 
 <?xul-overlay href="chrome://viviecr/content/dialogs/select_table.xul" ?>
 
@@ -54,29 +55,26 @@
                 <box id="leftPanel" flex="0" orient="vertical" class="left-panel">
 
                     <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;" class="cart-list"/>
-                    <hbox flex="0">
-                        <onscreenvfd id="onscreenvfd" value=""
-                                     class="vfd-vbox" labelClass="vfd-label" trainingClass="vfd-pad-training"
-                                     inputController="inputLineTextBox"/>
-                        <!--
-                        <hbox class="vfd-panel">
-                            <vbox flex="1">
-                                <label id="labOrderSequence" value="發票序號"/>
-                                <label value="統一編號"/>
-                            </vbox>
-                            <vbox flex="1">
-                                <label id="labPayment" value="收錢"/>
-                                <label id="labCharge" value="找零"/>
-                            </vbox>
-                        </hbox>
-                        <hbox align="right">
-                            <label anonid="labUser" value="服務員:" class="screen1024"/>
-                            <spacer flex="1"/>
-                            <label value="總計:" class="text-total"/>
-                            <label id="labTotal" class="text-total"/>
-                        </hbox>
-                        -->
-                    </hbox>
+                    <onscreenvfd id="onscreenvfd" value=""
+                                 class="vfd-vbox"
+                                 messageRowClass="messageRowClass"
+                                 messageLabelClass="messageLabelClass"
+                                 messageValueClass="messageValueClass"
+                                 summaryRowClass="summaryRowClass"
+                                 paymentLabelSize="7"
+                                 paymentValueSize="8"
+                                 paymentLabelClass="smallLabelClass"
+                                 paymentValueClass="smallValueClass"
+                                 changeLabelSize="7"
+                                 changeValueSize="8"
+                                 changeLabelClass="smallLabelClass"
+                                 changeValueClass="smallValueClass"
+                                 totalClass="totalClass"
+                                 totalLabelSize="6"
+                                 totalLabelClass="totalLabelClass"
+                                 totalValueClass="totalValueClass"
+                                 trainingClass="vfd-pad-training"/>
+                                 <!--inputController="inputLineTextBox"/-->
 
                 </box>
 
@@ -84,22 +82,12 @@
                     <vbox id="boxInfo" align="right">
                         <hbox align="right">
                             <hbox class="input-panel" pack="center" align="center">
-                                <box id="inputLinePanelContainer" flex="1" panel="&layout.panel.inputline;"/>
+                                <!--box id="inputLinePanelContainer" flex="1" panel="&layout.panel.inputline;"/-->
                             </hbox>
-                            <vbox class="info-panel" pack="center" align="center">
+                            <vbox class="info-panel" pack="end">
                                 <box id="cartStatusPanelContainer" flex="0" panel="&layout.panel.cartstatus;"/>
                             </vbox>
                         </hbox>
-                        <vivisessionstatus id="vivipos_fec_order_status" flex="1"
-                                           class="orderstatus"
-                                           columns="4"
-                                           noseparator="true"
-                                           labels="&viviorderstatus.pricelevel.label;,&viviorderstatus.destination.label;,&viviorderstatus.numberitems.label;,&viviorderstatus.ordersequence.label;"
-                                           ratios="10,10,7,6"
-                                           keys="vivipos_fec_price_level,vivipos_fec_order_destination,vivipos_fec_number_of_items,vivipos_fec_order_sequence"
-                                           labelClass="orderstatus-field-label"
-                                           valueClass="orderstatus-field-value"
-                                           />
                     </vbox>
                     <hbox>
                         <vbox>

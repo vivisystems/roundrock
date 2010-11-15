@@ -80,6 +80,7 @@
             var pluPanel = document.getElementById('prodscrollablepanel');
             var fnPanel = document.getElementById('functionpanel');
             var fnPanelContainer = document.getElementById('functionPanelContainer');
+            var condPanel = document.getElementById('condimentscrollablepanel');
             
             var pluRows = 3;
             var pluCols = 4;
@@ -90,8 +91,32 @@
             var hidePLUScrollbar = true;
             var hideFPScrollbar = true;
 
+            var condRows = GeckoJS.Configure.read('vivipos.fec.settings.CondimentRows');
+            if (condRows == null) condRows = 7;
+
+            var condCols = GeckoJS.Configure.read('vivipos.fec.settings.CondimentCols');
+            if (condCols == null) condCols = 4;
+
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.blue.CropPLULabel') || false;
             if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
+
+            if (condPanel &&
+                (initial ||
+                 (condPanel.vivibuttonpanel.getAttribute('rows') != condRows) ||
+                 (condPanel.vivibuttonpanel.getAttribute('cols') != condCols))) {
+                condPanel.vivibuttonpanel.rows = condRows;
+                condPanel.vivibuttonpanel.cols = condCols;
+
+                condPanel.initGrid();
+
+                if (!initial) {
+                    // @hack irving
+                    // make panel visible to let changes take effect
+                    $.popupPanel('selectCondimentPanel', {});
+                    $.hidePanel('selectCondimentPanel', {});
+                    condPanel.vivibuttonpanel.resizeButtons();// this line bring about an error when initial is true.
+                }
+            }
 
             if (pluPanel) {
                 if (initial ||

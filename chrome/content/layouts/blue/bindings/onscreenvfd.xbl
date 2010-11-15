@@ -7,71 +7,84 @@
     <binding id="onscreenvfd">
 
         <content>
-            <xul:hbox flex="1" xbl:inherits="orient,align">
-                <xul:textbox anonid="labelVfd" hidden="true" xbl:inherits="class=labelClass"></xul:textbox>
-                <xul:grid flex="1">
-                    <xul:columns>
-                        <xul:column flex="1" />
-                        <xul:column flex="1" />
-                    </xul:columns>
-                    <xul:rows>
-                        <xul:row anonid="row1" flex="1">
-                            <xul:textbox anonid="label1_0" disabled="true" xbl:inherits="class=labelClass"></xul:textbox>
-                            <xul:textbox anonid="label1_1" disabled="true" xbl:inherits="class=labelClass"></xul:textbox>
-                        </xul:row>
-                        <xul:row anonid="row2" flex="1">
-                            <xul:textbox anonid="label0_0" size="2" disabled="true" xbl:inherits="class=labelClass,value"></xul:textbox>
-                            <xul:textbox anonid="label0_1" disabled="true" style="color: yellow; align: right;" xbl:inherits="class=labelClass,value"></xul:textbox>
-                        </xul:row>
-                    </xul:rows>
-                </xul:grid>
-            </xul:hbox>
-            <html:div anonid="detectFontWidthContainer" style="display: none;" xbl:inherits="class=labelClass"></html:div>
+            <xul:vbox flex="1" xbl:inherits="orient,align">
+                <xul:hbox xbl:inherits="class=messageRowClass">
+                    <xul:textbox anonid="label0_1_label" disabled="true" xbl:inherits="class=messageLabelClass,size=messageLabelSize"></xul:textbox>
+                    <xul:textbox anonid="label0_1_value" flex="1" disabled="true" xbl:inherits="class=messageValueClass,size=messageValueSize"></xul:textbox>
+                </xul:hbox>
+                <xul:hbox flex="1" xbl:inherits="class=summaryRowClass">
+                    <xul:vbox pack="center">
+                        <xul:hbox>
+                            <xul:textbox anonid="label1_0_label" disabled="true" xbl:inherits="class=paymentLabelClass,size=paymentLabelSize"></xul:textbox>
+                            <xul:textbox anonid="label1_0_value" disabled="true" xbl:inherits="class=paymentValueClass,size=paymentValueSize"></xul:textbox>
+                        </xul:hbox>
+                        <xul:hbox>
+                            <xul:textbox anonid="label1_1_label" disabled="true" xbl:inherits="class=changeLabelClass,size=changeLabelSize"></xul:textbox>
+                            <xul:textbox anonid="label1_1_value" disabled="true" xbl:inherits="class=changeValueClass,size=changeValueSize"></xul:textbox>
+                        </xul:hbox>
+                    </xul:vbox>
+                    <xul:hbox align="center" flex="1" xbl:inherits="class=totalClass">
+                        <xul:textbox anonid="label0_0_label" disabled="true" xbl:inherits="class=totalLabelClass,size=totalLabelSize"></xul:textbox>
+                        <xul:textbox anonid="label0_0_value" disabled="true" flex="1" xbl:inherits="class=totalValueClass,size=totalValueSize"></xul:textbox>
+                    </xul:hbox>
+                </xul:hbox>
+            </xul:vbox>
+            <html:div anonid="detectFontWidthContainer" style="display: none;"></html:div>
         </content>
 
         <xbl:implementation>
 
-            <xbl:field name="_maxlen">13</xbl:field>
             <xbl:field name="roundPrecision">0</xbl:field>
             <field name="_hideInput">false</field>
-            <field name="_label0_0">null</field>
-            <field name="_label0_1">null</field>
-            <field name="_label1_0">null</field>
-            <field name="_label1_1">null</field>
-            <field name="_fontWidth">10</field>
+            <field name="_label0_0_label">null</field>
+            <field name="_label0_0_value">null</field>
+            <field name="_label0_1_label">null</field>
+            <field name="_label0_1_value">null</field>
+            <field name="_label1_0_label">null</field>
+            <field name="_label1_0_value">null</field>
+            <field name="_label1_1_label">null</field>
+            <field name="_label1_1_value">null</field>
+            <field name="_fontWidth0_0">10</field>
+            <field name="_fontWidth0_1">10</field>
+            <field name="_fontWidth1_0">10</field>
+            <field name="_fontWidth1_1">10</field>
             <field name="_inputController">null</field>
 
             <constructor>
             <![CDATA[
 
-                this._label0_0 = document.getAnonymousElementByAttribute(this, "anonid", "label0_0");
-                this._label0_1 = document.getAnonymousElementByAttribute(this, "anonid", "label0_1");
-                this._label1_0 = document.getAnonymousElementByAttribute(this, "anonid", "label1_0");
-                this._label1_1 = document.getAnonymousElementByAttribute(this, "anonid", "label1_1");
+                this._label0_0_label = document.getAnonymousElementByAttribute(this, "anonid", "label0_0_label");
+                this._label0_1_label = document.getAnonymousElementByAttribute(this, "anonid", "label0_1_label");
+                this._label1_0_label = document.getAnonymousElementByAttribute(this, "anonid", "label1_0_label");
+                this._label1_1_label = document.getAnonymousElementByAttribute(this, "anonid", "label1_1_label");
 
-                this._hbox = document.getAnonymousElementByAttribute( this, "anonid", "hbox" );
-
-                this._maxlen = this.getAttribute('maxlen');
+                this._label0_0_value = document.getAnonymousElementByAttribute(this, "anonid", "label0_0_value");
+                this._label0_1_value = document.getAnonymousElementByAttribute(this, "anonid", "label0_1_value");
+                this._label1_0_value = document.getAnonymousElementByAttribute(this, "anonid", "label1_0_value");
+                this._label1_1_value = document.getAnonymousElementByAttribute(this, "anonid", "label1_1_value");
 
                 this.keypadevents = GeckoJS.Controller.getInstanceByName('Keypad').events;
                 this.cartevents = GeckoJS.Controller.getInstanceByName('Cart').events;
                 this.cartQueueEvents = GeckoJS.Controller.getInstanceByName('CartQueue').events;
                 this.mainevents = GeckoJS.Controller.getInstanceByName('Main').events;
 
-                this._fontWidth = this._detectFontWidth();
+                this._fontWidth0_0 = this._detectFontWidth(this._label0_0_value);
+                this._fontWidth0_1 = this._detectFontWidth(this._label0_1_value);
+                this._fontWidth1_0 = this._detectFontWidth(this._label1_0_value);
+                this._fontWidth1_1 = this._detectFontWidth(this._label1_1_value);
 
                 var self = this;
 
                 this.onGetSubtotal = function(evt) {
                     var transaction = evt.data;
+
                     if (transaction) {
-                        self.setText0_0(_('TAL') + ': ' + transaction.getTotal(true));
-                        // self.setText0_1('');
-                        self.setText1_1(_('REM') + ': ' + transaction.getRemainTotal(true));
+                        self.setText0_0(_('TAL'), transaction.getTotal(true));
+                        self.setText1_1(_('REM'), transaction.getRemainTotal(true));
                         if (transaction.data != null && transaction.data.status == 1) {
-                            self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(false)));
+                            self.setText1_1(_('CHG'), self.format(0-transaction.getRemainTotal(false)));
                         }
-                        self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
+                        self.setText1_0(_('PAY'), transaction.getPaymentSubtotal(true));
                     } else {
                         self.onClear(evt);
                     }
@@ -88,24 +101,23 @@
                 this.onAddBuffer = function(evt) {
 
                     if(self._inputController) {
-
                         self._inputController.value = evt.data;
                     }else {
-                        self.setText1_1((self.hideInput ? '' : _('I') + ': ') + evt.data);
+                        self.setText0_1((self.hideInput ? '' : _('I')) + ': ' + evt.data);
                     }
                 }
 
                 this.onSetQty = function(evt) {
-                    self.setText1_1(_('QTY') + ': '+ evt.data);
+                    self.setText0_1(_('QTY') + ': ' + evt.data);
                 }
 
                 this.onClear = function(evt) {
 
                     if (this.hideInput) {
                         self.setText0_1('');
-                        self.setText0_0(_('Change Clerk'));
-                        self.setText1_1('');
-                        self.setText1_0(_('Password') + ': ');
+                        self.setText0_0(_('Change Clerk'), '');
+                        self.setText1_1('', '');
+                        self.setText1_0('', '');
                     }
                     else {
                         if (evt) var transaction = evt.data;
@@ -126,9 +138,9 @@
                         }
 
                         self.setText0_1('');
-                        self.setText0_0(_('TAL') + ': ' + total);
-                        self.setText1_1(_('REM') + ': ' + remain);
-                        self.setText1_0(_('PAY') + ': ' + payment);
+                        self.setText0_0(_('TAL'), total);
+                        self.setText1_1(_('REM'), remain);
+                        self.setText1_0(_('PAY'), payment);
                     }
                 }
 
@@ -142,45 +154,37 @@
                 this.afterCancel = function(evt) {
                     var transaction = evt.data;
                     if (transaction == null || typeof transaction.data == "undefined") {
-                        total = this.format(0);
-                        remain = this.format(0);
-                        payment = this.format(0);
-
-                        // @irving 2009-02-23 removed comments from self.setText0_1('')
                         self.setText0_1('');
-                        self.setText0_0(_('TAL') + ': ' + total);
-                        self.setText1_1(_('REM') + ': ' + remain);
-                        self.setText1_0(_('PAY') + ': ' + payment);
                     } else { //return;
-                        self.setText1_0(_('CANCELLED'));
-                        self.setText1_1(_('SEQ#') + transaction.data.seq);
-                        // self.setText0_1(self.format(0));
-                        self.setText0_0(_('TAL') + ': ' + self.format(0));
+                        self.setText0_1(_('CANCELLED') + ': ' + _('SEQ#') + transaction.data.seq);
                     }
-                    self.setText0_1('');
-
+                    self.setText0_0(_('TAL'), '');
+                    self.setText1_0(_('PAY'), '');
+                    self.setText1_1(_('REM'), '');
                 }
 
                 this.onQueue = function(evt) {
                     var transaction = evt.data;
                     if (transaction == null) return;
-                    self.setText1_0(_('QUEUED'));
-                    self.setText1_1(_('SEQ#') + transaction.data.seq);
-                    self.setText0_1('');
+                    self.setText0_1(_('QUEUED') + ': ' + _('SEQ#') + transaction.data.seq);
+                }
+
+                this.afterPullQueue = function(evt) {
+                    var transaction = evt.data;
+                    if (transaction == null) return;
+                    self.setText0_1(_('PULLED') + ': ' + _('SEQ#') + transaction.data.seq);
                 }
 
                 this.afterSubmit = function(evt) {
                     var transaction = evt.data;
                     if (transaction == null) {
-                        // self.setText0_1(self.format(0));
-                        self.setText0_0(_('TAL') + ': ' + self.format(0));
+                        self.setText0_0(_('TAL'), self.format(0));
                         return;
                     }
-                    // self.setText0_1(transaction.getTotal(true));
                     if (transaction.data != null && transaction.data.status == 1) {
-                        self.setText0_0(_('TAL') + ': ' + transaction.getTotal(true));
-                        self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
-                        self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(false)));
+                        self.setText0_0(_('TAL'), transaction.getTotal(true));
+                        self.setText1_0(_('PAY'), transaction.getPaymentSubtotal(true));
+                        self.setText1_1(_('CHG'), self.format(0-transaction.getRemainTotal(false)));
                         self.setText0_1(_('Sale Completed'));
                     }
                 }
@@ -218,7 +222,6 @@
                 this.onWarning = function(evt) {
                     self.setText0_1(evt.data);
                 }
-
                 this.keypadevents.addListener('onAddBuffer', this.onAddBuffer, this);
 
                 this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
@@ -231,12 +234,12 @@
                 this.cartevents.addListener('onWarning', this.onWarning, this);
 
                 this.cartQueueEvents.addListener('onQueue', this.onQueue, this);
+                this.cartQueueEvents.addListener('afterPullQueue', this.afterPullQueue, this);
 
                 this.mainevents.addListener('onEnterPassword', this.onEnterPassword, this);
                 this.mainevents.addListener('onExitPassword', this.onExitPassword, this);
 
                 // add Observer for startTrainingMode event.
-                var self = this;
                 this.observer = GeckoJS.Observer.newInstance( {
                     topics: [ "TrainingMode" ],
 
@@ -264,7 +267,6 @@
                     }
 
                 }
-
                 window.addEventListener('load', this.ready, true);
 
             ]]>
@@ -301,6 +303,7 @@
             </destructor>
 
             <xbl:method name="_detectFontWidth">
+                <xbl:parameter name="target"/>
                 <xbl:body>
                 <![CDATA[
                     var h = document.getAnonymousElementByAttribute(this, "anonid", "detectFontWidthContainer");
@@ -309,6 +312,7 @@
                     var fontWidth = 0;
 
                     h.style.display = "block";
+                    h.setAttribute('class', target.getAttribute('class'));
                     d.appendChild(s);
                     s.textContent       = "0123456789ABCDEF";
                     h.appendChild(d);
@@ -320,7 +324,6 @@
                     h.style.display = "none";
 
                     fontWidth = Math.floor(defaultWidth/16);
-
                     return fontWidth;
                 ]]>
                 </xbl:body>
@@ -329,11 +332,12 @@
             <xbl:method name="_cropText">
                 <xbl:parameter name="text"/>
                 <xbl:parameter name="container"/>
+                <xbl:parameter name="fontWidth"/>
                 <xbl:body>
                 <![CDATA[
                     var input = document.getAnonymousElementByAttribute(container, "class", "textbox-input");
 
-                    var textWidth = text.length * this._fontWidth;
+                    var textWidth = text.length * fontWidth;
                     var innerWidth = input.clientWidth;
 
                     // need to account for left and right padding
@@ -342,7 +346,7 @@
                     var displayWidth = innerWidth - leftPadding - rightPadding;
 
                     if (textWidth > displayWidth) {
-                        var maxlen = parseInt(displayWidth / this._fontWidth);
+                        var maxlen = parseInt(displayWidth / fontWidth);
                         text = text.substr(0, maxlen - 4) + "..." + text.substr(text.length - 1, 1);
                     }
 
@@ -377,12 +381,14 @@
             </xbl:method>
 
             <xbl:method name="setText0_0">
+                <xbl:parameter name="label"/>
                 <xbl:parameter name="val"/>
                 <xbl:body>
                 <![CDATA[
 
-                    val = this._cropText(val, this._label0_0);
-                    this._label0_0.value = val;
+                    val = this._cropText(val, this._label0_0_value, this._fontWidth0_0);
+                    this._label0_0_label.value = label;
+                    this._label0_0_value.value = val;
                 ]]>
                 </xbl:body>
             </xbl:method>
@@ -391,22 +397,25 @@
                 <xbl:body>
                 <![CDATA[
 
-                    val = this._cropText(val, this._label0_1);
-                    this._label0_1.value = val;
+                    val = this._cropText(val, this._label0_1_value, this._fontWidth0_1);
+                    this._label0_1_value.value = val;
                 ]]>
                 </xbl:body>
             </xbl:method>
             <xbl:method name="setText1_0">
+                <xbl:parameter name="label"/>
                 <xbl:parameter name="val"/>
                 <xbl:body>
                 <![CDATA[
 
-                    val = this._cropText(val, this._label1_0);
-                    this._label1_0.value = val;
+                    val = this._cropText(val, this._label1_0_value, this._fontWidth1_0);
+                    this._label1_0_label.value = label;
+                    this._label1_0_value.value = val;
                 ]]>
                 </xbl:body>
             </xbl:method>
             <xbl:method name="setText1_1">
+                <xbl:parameter name="label"/>
                 <xbl:parameter name="val"/>
                 <xbl:body>
                 <![CDATA[
@@ -417,8 +426,9 @@
                         val = newval;
                     }
 
-                    val = this._cropText(val, this._label1_1);
-                    this._label1_1.value = val;
+                    val = this._cropText(val, this._label1_1_value, this._fontWidth1_1);
+                    this._label1_1_label.value = label;
+                    this._label1_1_value.value = val;
                 ]]>
                 </xbl:body>
             </xbl:method>
