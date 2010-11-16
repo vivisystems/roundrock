@@ -100,6 +100,11 @@
                     }
                 }
 
+                this.onClearBuffer = function(evt) {
+
+                    self.setText0_1('');
+                }
+
                 this.onSetQty = function(evt) {
                     self.setText0_1(_('QTY') + ': ' + evt.data);
                 }
@@ -253,8 +258,8 @@
                 this.ready = function() {
                     self._inputController = document.getElementById(self.getAttribute('inputController'));
 
-                    if (self._inputController) {
-                        self.keypadevents.addListener('onClearBuffer', self.onAddBuffer, self);
+                    if (!self._inputController) {
+                        self.keypadevents.addListener('onClearBuffer', self.onClearBuffer, self);
                     }
 
                 }
@@ -267,6 +272,7 @@
             <![CDATA[
                 if (this.keypadevents) {
                     this.keypadevents.removeListener('onAddBuffer', this.onAddBuffer);
+                    if (!self._inputController) this.keypadevents.removeListener('onClearBuffer', this.onClearBuffer);
                 }
                 if (this.cartevents) {
                     this.cartevents.removeListener('onGetSubtotal', this.onGetSubtotal);
