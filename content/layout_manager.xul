@@ -85,7 +85,7 @@
                         <textbox preference="pref_condcols" id="condcols" type="number" size="2" maxlength="1" min="1"/>
                     </vbox>
                 </row>
-                <row>
+                <row id="functionPanelFeature" feature="hidden">
                     <label value="&layout.functionpanel.label;"/>
                     <vbox>
                         <label control="pref_fnrows" value="&layout.functionpanel.rows;"/>
@@ -100,7 +100,7 @@
                         <textbox preference="pref_fnheight" id="fnheight" type="number" min="200" max="999"  size="3" maxlength="3"/>
                     </vbox>
                 </row>
-                <row>
+                <row id="cartStatusPositionFeature" feature="hidden">
                     <label value="&layout.cartstatus.position;"/>
                     <menulist id="cartstatus_relation_direction" flex="1" oncommand="$do('setCartStatusPosition', this.value, 'LayoutManager');">
                         <menupopup>

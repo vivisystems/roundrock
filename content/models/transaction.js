@@ -744,7 +744,7 @@
                 let current_qty = '';
 
                 if (item.is_groupable) {
-                    current_qty = item.current_qty + 'X';
+                    current_qty = item.current_qty + _('X');
                 }
                 switch (item.name.toUpperCase()) {
 
@@ -820,7 +820,7 @@
                 }
                 else if (type == 'item' || type == 'setitem') {
                     if (item.sale_unit == 'unit') {
-                        itemDisplay.current_qty += 'X';
+                        itemDisplay.current_qty += _('X');
                     }
                     else {
 
