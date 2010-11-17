@@ -39,7 +39,7 @@
 [&US][&ESC QE] QUEUED: ${order.seq|right:20}[&CR]
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterPullQueue' || type == 'afterRecallOrder'}
-[&US][&ESC QE] RECALL: ${order.seq|right:20}[&CR]
+[&US][&ESC QE] PULLED: ${order.seq|right:20}[&CR]
 [&ESC QF] TAL: ${txn.formatPrice(order.total)|right:23}[&CR]
 {elseif type == 'afterCancel'}
 [&US][&ESC QF] CANCEL: ${order.seq|right:20}[&CR]
