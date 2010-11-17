@@ -597,13 +597,19 @@
             var itemDisplay = {} ;
             var dispName;
             if (type == 'item') {
+
+                // using item's destination to set destination_prefix not from global
+                var destinationsByName = GeckoJS.Session.get('destinationsByName');
+                var itemDest = item.destination || this.data.destination;
+                var itemDestPrefix = (destinationsByName[itemDest] ? (destinationsByName[itemDest]['prefix']||"") + " " : this.data.destination_prefix );
+
                 itemDisplay = GREUtils.extend(itemDisplay, {
                     id: item.id,
                     no: item.no,
                     name: item.name,
                     alt_name1: item.alt_name1,
                     alt_name2: item.alt_name2,
-                    destination: this.data.destination_prefix,
+                    destination: itemDestPrefix,
                     current_qty: item.current_qty,
                     current_price: item.current_price,
                     //current_subtotal: item.current_subtotal + item.current_condiment,
