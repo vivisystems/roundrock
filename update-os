@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 DIR=`dirname $0`
 ROOTFS=/home/vivipos/diskimage/rootfs
