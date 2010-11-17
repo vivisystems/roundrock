@@ -5,11 +5,8 @@
  *-----------------------------------------------------------------------------
  */
 
-.layout-dialog {
-}
-
 .layout-dialog .layout-fullscreen {
-    background: white;
+    background: transparent;
     height: 768px;
     max-height: 768px;
     max-width: 1024px;
@@ -20,7 +17,7 @@
 }
 
 .layout-dialog .layout-popup-memo {
-    background: white;
+    background: transparent;
     height: 728px;
     margin: 20px 200px;
     max-height: 728px;
@@ -32,7 +29,7 @@
 }
 
 .layout-dialog .layout-popup-prompt {
-    background: white;
+    background: transparent;
     height: 680px;
     margin: 34px 262px;
     max-height: 680px;
@@ -44,7 +41,7 @@
 }
 
 .layout-dialog .layout-popup-password {
-    background: white;
+    background: transparent;
     height: 450px;
     margin: 159px 262px;
     max-height: 450px;
