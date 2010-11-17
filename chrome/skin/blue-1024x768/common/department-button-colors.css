@@ -1,0 +1,259 @@
+/*--------------------------------------------------------------------------
+ *
+ * DEPARTMENT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.department-button-color-default {
+    background: #848388 url(../images/departBtn1.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #848388 #bebebe;
+    -moz-border-right-colors: #848388 #bebebe;
+    -moz-border-bottom-colors: #848388 #bebebe;
+    -moz-border-left-colors: #848388 #bebebe;
+    -moz-border-radius: 10px;
+}
+
+.department-button-color-default[disabled=false]:active,
+.department-button-color-default[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #201f21 #353436 #4f4f52 #646467 !important;
+    -moz-border-bottom-colors: white #9f9ea2 #99989c #8d8c90 #848388 !important;
+    -moz-border-left-colors: white #201f21 #353436 #4f4f52 #646467 !important;
+    -moz-border-right-colors: white #9f9ea2 #99989c #8d8c90 #848388 !important;
+}
+
+.department-button-color-1 {
+    background: #354f66 url(../images/departBtn2.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #354f66;
+    -moz-border-bottom-colors: #354f66;
+    -moz-border-left-colors: #354f66;
+    -moz-border-right-colors: #354f66;
+}
+
+.department-button-color-1[disabled=false]:active,
+.department-button-color-1[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #0d1318 #152029 #202f3d #283c4e !important;
+    -moz-border-bottom-colors: white #617587 #576d80 #435b71 #354f66 !important;
+    -moz-border-left-colors: white #0d1318 #152029 #202f3d #283c4e !important;
+    -moz-border-right-colors: white #617587 #576d80 #435b71 #354f66 !important;
+    
+}
+
+.department-button-color-2 {
+    background: #a2a70f url(../images/departBtn3.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a2a70f #bebebe;
+    -moz-border-right-colors: #a2a70f #bebebe;
+    -moz-border-bottom-colors: #a2a70f #bebebe;
+    -moz-border-left-colors: #a2a70f #bebebe;
+}
+
+.department-button-color-2[disabled=false]:active,
+.department-button-color-2[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #272804 #414306 #616409 #7b7f0b !important;
+    -moz-border-bottom-colors: white #b6ba43 #b2b637 #a9ad20 #a2a70f !important;
+    -moz-border-left-colors: white #272804 #414306 #616409 #7b7f0b !important;
+    -moz-border-right-colors: white #b6ba43 #b2b637 #a9ad20 #a2a70f !important;
+}
+
+.department-button-color-3 {
+    background: #790000 url(../images/departBtn4.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #790000 #bebebe;
+    -moz-border-right-colors: #790000 #bebebe;
+    -moz-border-bottom-colors: #790000 #bebebe;
+    -moz-border-left-colors: #790000 #bebebe;
+}
+
+.department-button-color-3[disabled=false]:active,
+.department-button-color-3[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #1e0000 #230000 #440000 #670000 !important;
+    -moz-border-bottom-colors: white #963737 #902b2b #821212 #790000 !important;
+    -moz-border-left-colors: white #1e0000 #230000 #440000 #670000 !important;
+    -moz-border-right-colors: white #963737 #902b2b #821212 #790000 !important;
+}
+
+.department-button-color-4 {
+    background: #555940 url(../images/departBtn5.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #555940 #bebebe;
+    -moz-border-right-colors: #555940 #bebebe;
+    -moz-border-bottom-colors: #555940 #bebebe;
+    -moz-border-left-colors: #555940 #bebebe;
+}
+
+.department-button-color-4[disabled=false]:active,
+.department-button-color-4[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #151610 #191a13 #303224 #494c37 !important;
+    -moz-border-bottom-colors: white #7a7d69 #727560 #61654d #555940 !important;
+    -moz-border-left-colors: white #151610 #191a13 #303224 #494c37 !important;
+    -moz-border-right-colors: white #7a7d69 #727560 #61654d #555940 !important;
+}
+
+.department-button-color-5 {
+    background: #603913 url(../images/departBtn6.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #603913 #bebebe;
+    -moz-border-right-colors: #603913 #bebebe;
+    -moz-border-bottom-colors: #603913 #bebebe;
+    -moz-border-left-colors: #603913 #bebebe;
+}
+
+.department-button-color-5[disabled=false]:active,
+.department-button-color-5[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #180e05 #1c1106 #36200b #523110 !important;
+    -moz-border-bottom-colors: white #826446 #7b5a3b #6b4724 #603913 !important;
+    -moz-border-left-colors: white #180e05 #1c1106 #36200b #523110 !important;
+    -moz-border-right-colors: white #826446 #7b5a3b #6b4724 #603913 !important;
+}
+
+.department-button-color-6 {
+    background: #ad355c url(../images/departBtn7.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #ad355c #bebebe;
+    -moz-border-right-colors: #ad355c #bebebe;
+    -moz-border-bottom-colors: #ad355c #bebebe;
+    -moz-border-left-colors: #ad355c #bebebe;
+}
+
+.department-button-color-6[disabled=false]:active,
+.department-button-color-6[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #2b0d17 #320f1b #611e34 #942d4f !important;
+    -moz-border-bottom-colors: white #bf617f #bb5777 #b34368 #ad355c !important;
+    -moz-border-left-colors: white #2b0d17 #320f1b #611e34 #942d4f !important;
+    -moz-border-right-colors: white #bf617f #bb5777 #b34368 #ad355c !important;
+}
+
+.department-button-color-7 {
+    background: #a3620a url(../images/departBtn8.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a3620a #bebebe;
+    -moz-border-right-colors: #a3620a #bebebe;
+    -moz-border-bottom-colors: #a3620a #bebebe;
+    -moz-border-left-colors: #a3620a #bebebe;
+}
+
+.department-button-color-7[disabled=false]:active,
+.department-button-color-7[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #291903 #2f1c03 #5b3706 #8b5409 !important;
+    -moz-border-bottom-colors: white #b7843f #b37c33 #a96d1b #a3620a !important;
+    -moz-border-left-colors: white #291903 #2f1c03 #5b3706 #8b5409 !important;
+    -moz-border-right-colors: white #b7843f #b37c33 #a96d1b #a3620a !important;
+}
+
+.department-button-color-8 {
+    background: #5c2f75 url(../images/departBtn9.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #5c2f75 #bebebe;
+    -moz-border-right-colors: #5c2f75 #bebebe;
+    -moz-border-bottom-colors: #5c2f75 #bebebe;
+    -moz-border-left-colors: #5c2f75 #bebebe;
+}
+
+.department-button-color-8[disabled=false]:active,
+.department-button-color-8[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #170c1d #1b0e22 #341a42 #4f2864 !important;
+    -moz-border-bottom-colors: white #a68db3 #9173a2 #704986 #5c2f75 !important;
+    -moz-border-left-colors: white #170c1d #1b0e22 #341a42 #4f2864 !important;
+    -moz-border-right-colors: white #a68db3 #9173a2 #704986 #5c2f75 !important;
+}
+
+.department-button-color-9 {
+    background: #213b6b url(../images/departBtn10.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #213b6b #bebebe;
+    -moz-border-right-colors: #213b6b #bebebe;
+    -moz-border-bottom-colors: #213b6b #bebebe;
+    -moz-border-left-colors: #213b6b #bebebe;
+}
+
+.department-button-color-9[disabled=false]:active,
+.department-button-color-9[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #080f1b #0a111f #13213c #1c325b !important;
+    -moz-border-bottom-colors: white #8593ae #697b9b #3d547e #213b6b !important;
+    -moz-border-left-colors: white #080f1b #0a111f #13213c #1c325b !important;
+    -moz-border-right-colors: white #8593ae #697b9b #3d547e #213b6b !important;
+}
+
+.department-button-color-10 {
+    background: #534741 url(../images/departBtn11.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #534741 #bebebe;
+    -moz-border-right-colors: #534741 #bebebe;
+    -moz-border-bottom-colors: #534741 #bebebe;
+    -moz-border-left-colors: #534741 #bebebe;
+}
+
+.department-button-color-10[disabled=false]:active,
+.department-button-color-10[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #151210 #181513 #2f2824 #473d38 !important;
+    -moz-border-bottom-colors: white #786f6a #706661 #5f544e #534741 !important;
+    -moz-border-left-colors: white #151210 #181513 #2f2824 #473d38 !important;
+    -moz-border-right-colors: white #786f6a #706661 #5f544e #534741 !important;
+}
+
+.department-button-color-11 {
+    background: #294e39 url(../images/departBtn12.png) top left repeat-x !important;
+    border-width: 1px;
+    color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #294e39 #bebebe;
+    -moz-border-right-colors: #294e39 #bebebe;
+    -moz-border-bottom-colors: #294e39 #bebebe;
+    -moz-border-left-colors: #294e39 #bebebe;
+}
+
+.department-button-color-11[disabled=false]:active,
+.department-button-color-11[disabled=false][selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #0a140e #0c1711 #172c20 #234331 !important;
+    -moz-border-bottom-colors: white #577464 #4d6c5a #385a47 #294e39 !important;
+    -moz-border-left-colors: white #0a140e #0c1711 #172c20 #234331 !important;
+    -moz-border-right-colors: white #577464 #4d6c5a #385a47 #294e39 !important;
+}
+
+.department-button-color-default[disabled=false][selected], .department-button-color-1[disabled=false][selected],
+.department-button-color-2[disabled=false][selected], .department-button-color-3[disabled=false][selected],
+.department-button-color-4[disabled=false][selected], .department-button-color-5[disabled=false][selected],
+.department-button-color-6[disabled=false][selected], .department-button-color-7[disabled=false][selected],
+.department-button-color-8[disabled=false][selected], .department-button-color-9[disabled=false][selected],
+.department-button-color-10[disabled=false][selected], .department-button-color-11[disabled=false][selected] {
+    /*list-style-image: url(chrome://viviecr/skin/images/con_sel.png) !important;*/
+    font-style: italic;
+    /*background-position: 0 -32px !important;*/
+}

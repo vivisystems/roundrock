@@ -1,0 +1,28 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Order Destinations
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+#destscrollablepanel tree #default {
+    max-width: 70px;
+    text-align: center;
+}
+
+#destscrollablepanel tree #pricelevel,
+#destscrollablepanel tree #taxname,
+#destscrollablepanel tree #prefix,
+#destscrollablepanel tree #name {
+    text-align: center;
+}
+
+
+/*-----------------------------------------------------------------------------
+ * Column widths
+ *-----------------------------------------------------------------------------
+ */
+
+.column-fixed-4 {
+    width: 250px;
+}

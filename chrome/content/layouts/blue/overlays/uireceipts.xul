@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/uipanel.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://uireceipts/locale/uireceipt.dtd">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="overlay">
+
+    <script type="application/x-javascript" src="chrome://uireceipts/content/uireceipt.js" />
+
+    <vbox id="uiPanelContainer">
+        <deck id="uireceipt_status_deck" class="uidisplay-vfdPad" insertafter="onscreenvfd" selectedIndex="1" flex="1">
+            <vivisessionstatus flex="1" columns="3"
+                               noseparator="true"
+                               labels="&uireceipt.display.uniform.invoice;,&uireceipt.display.remaining.count;,&uireceipt.display.uniform.business.number;"
+                               labelClass="uidisplay-field-label"
+                               valueClass="uidisplay-field-value"
+                              keys="uniform_invoice_marker,uniform_invoice_counter,uniform_business_number"/>
+            <textbox class="uidisplay-field-value" style="text-align:center; background-color: orange; color: black" readonly="true" value="&uireceipt.status.off.popup;"/>
+            <textbox class="uidisplay-field-value" style="text-align:center; background-color: red; color: green" readonly="true" value="&uireceipt.status.off.staydown;"/>
+            <textbox class="uidisplay-field-value" style="text-align:center; background-color: yellow; color: black" readonly="true" value="&uireceipt.status.manual.popup;"/>
+            <textbox class="uidisplay-field-value" style="text-align:center; background-color: purple; color: white" readonly="true" value="&uireceipt.status.manual.staydown;"/>
+        </deck>
+    </vbox>
+    <statusbarpanel id="statusbar-display">
+        <image id="receiptStatus" class="receiptStatus" insertafter="syncStatus"/>
+    </statusbarpanel>
+</overlay>

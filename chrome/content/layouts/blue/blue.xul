@@ -24,7 +24,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
 
-<?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
@@ -34,8 +33,9 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartStatusPanelOverlay.xul" ?>
 
-<?xul-overlay href="chrome://roundrock/content/layouts/blue/overlays/vfdPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://roundrock/content/layouts/blue/overlays/keysetExtensions.xul" ?>
 <?xul-overlay href="chrome://roundrock/content/layouts/blue/overlays/terminalStatus.xul" ?>
+<?xul-overlay href="chrome://roundrock/content/layouts/blue/overlays/uireceipts.xul" ?>
 
 <?xul-overlay href="chrome://viviecr/content/dialogs/select_table.xul" ?>
 
@@ -76,6 +76,7 @@
                                  trainingClass="vfd-pad-training"
                                  inputController=""/>
 
+                    <box id="uiPanelContainer" flex="0" class="uiPanel"/>
                 </box>
 
                 <box id="rightPanel" flex="1" class="right-panel" orient="vertical">

@@ -49,6 +49,7 @@
             <field name="_fontWidth1_0">10</field>
             <field name="_fontWidth1_1">10</field>
             <field name="_inputController">null</field>
+            <field name="_fromKeypad">false</field>
 
             <constructor>
             <![CDATA[
@@ -96,13 +97,20 @@
                     if(self._inputController) {
                         self._inputController.value = evt.data;
                     }else {
-                        self.setText0_1((self.hideInput ? '' : _('I')) + ': ' + evt.data);
+                        if (evt.data.length > 0) {
+                            self.setText0_1((self.hideInput ? '' : _('I')) + ': ' + evt.data, true);
+                        }
+                        else {
+                            if (this._fromKeypad) {
+                                self.setText0_1('', true);
+                            }
+                        }
                     }
                 }
 
                 this.onClearBuffer = function(evt) {
 
-                    self.setText0_1('');
+                    if (this._fromKeypad) self.setText0_1('', true);
                 }
 
                 this.onSetQty = function(evt) {
@@ -259,7 +267,7 @@
                     self._inputController = document.getElementById(self.getAttribute('inputController'));
 
                     if (!self._inputController) {
-                        self.keypadevents.addListener('onClearBuffer', self.onClearBuffer, self);
+                        self.keypadevents.addListener('onClearBuffer', self.onAddBuffer, self);
                     }
 
                 }
@@ -272,7 +280,7 @@
             <![CDATA[
                 if (this.keypadevents) {
                     this.keypadevents.removeListener('onAddBuffer', this.onAddBuffer);
-                    if (!self._inputController) this.keypadevents.removeListener('onClearBuffer', this.onClearBuffer);
+                    if (!self._inputController) this.keypadevents.removeListener('onClearBuffer', this.onAddBuffer);
                 }
                 if (this.cartevents) {
                     this.cartevents.removeListener('onGetSubtotal', this.onGetSubtotal);
@@ -394,8 +402,11 @@
             </xbl:method>
             <xbl:method name="setText0_1">
                 <xbl:parameter name="val"/>
+                <xbl:parameter name="keypad"/>
                 <xbl:body>
                 <![CDATA[
+
+                    this._fromKeypad = keypad;
 
                     val = this._cropText(val, this._label0_1_value, this._fontWidth0_1);
                     this._label0_1_value.value = val;

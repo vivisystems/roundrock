@@ -1,0 +1,42 @@
+/*  skin for main screen ------------------------------------------------------------- */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+.uidisplay-vfdPad {
+    background-color: #1e1b14;
+    padding: 8px 0px;
+}
+
+.uidisplay-field-label {
+    color: #fff;
+    max-width: 65px;
+    margin: 0px 3px 0px 0px;
+    padding: 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 12px;
+    text-align: right;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.uidisplay-field-value {
+    color: #fff;
+    margin: 0px;
+    padding: 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-family: monospace;
+    font-size: 12px;
+    text-align: left;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+
