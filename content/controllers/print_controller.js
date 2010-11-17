@@ -14,6 +14,7 @@
 
         _device: null,
         _worker: null,
+        _dummyTxn: null,
 
         // load device configuration and selections
         initial: function () {
@@ -33,6 +34,9 @@
             if(cart) {
                 cart.addEventListener('afterSubmit', this.handleSubmitEvent, this);
             }
+
+            // initial dummy txn
+            this._dummyTxn = new Transaction(true, true);
 
         },
 
@@ -489,11 +493,17 @@
             }
 
             var enabledDevices = deviceController.getEnabledDevices('receipt');
-            var order = txn.data;
+            var order2 = this.deepClone(txn.data);
+            var txn2 = this._dummyTxn;
+            if (txn2) {
+                txn2.data = order2;
+            }else {
+                txn2 = txn;
+            }
             
             var data = {
-                txn: txn,
-                order: order
+                txn: txn2,
+                order: order2
             };
 
             // for each enabled printer device, print if autoprint is on or if force is true
@@ -649,10 +659,17 @@
             }
 
             var enabledDevices = device.getEnabledDevices('check');
-            var order = txn.data;
+            var order2 = this.deepClone(txn.data);
+            var txn2 = this._dummyTxn;
+            if (txn2) {
+                txn2.data = order2;
+            }else {
+                txn2 = txn;
+            }
+
             var data = {
-                txn: txn,
-                order: order
+                txn: txn2,
+                order: order2
             };
 
             // construct routing groups
@@ -694,7 +711,6 @@
                             data.routingGroups = routingGroups;
                             data.autoPrint = autoPrint;
                             data.duplicate = duplicate;
-                            data.order = GREUtils.extend({}, txn.data);
                             self.printSlip('check', data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                         }
                     }
@@ -887,7 +903,7 @@
             var devicemodel = enabledDevices[0].devicemodel;
             var encoding = enabledDevices[0].encoding;
 
-            var data = { product: list, barcodeType: barcodeType };
+            var data = {product: list, barcodeType: barcodeType};
 
             _templateModifiers(TrimPath, encoding);
             //4.call printSlip
@@ -1019,7 +1035,7 @@
             if (data != null) {
 
                 // make extensions has chance to modify template or update data before parse template
-                let eventData =  {  data: data,
+                let eventData =  {data: data,
                                     template: template,
                                     port: port,
                                     portspeed: portspeed,
@@ -1027,7 +1043,7 @@
                                     devicemodel: devicemodel,
                                     encoding: encoding,
                                     printer: printer,
-                                    devicetype: deviceType };
+                                    devicetype: deviceType};
 
                 if (!this.dispatchEvent('beforePrintSlipGetTemplate', eventData)) {
                     return;
@@ -1280,6 +1296,16 @@
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
+        },
+
+        deepClone: function(obj) {
+            // use uneval/eval
+            try {
+                return eval(uneval(obj));
+            }catch(e){
+                // using shadowing clone
+                return GREUtils.extend({}, obj);
+            }
         }
 
     };

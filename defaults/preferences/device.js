@@ -39,7 +39,7 @@ pref("vivipos.fec.registry.templates.label-simple-testing-1.image", "chrome://vi
 pref("vivipos.fec.registry.templates.label-simple-testing-2.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.label-simple-testing-2.type", "label");
 pref("vivipos.fec.registry.templates.label-simple-testing-2.path", "chrome://viviecr/content/devices/templates/label-simple-testing-2.tpl");
-pref("vivipos.fec.registry.templates.label-simple-testing-2.image", "chrome://viviecr/content/images/labels/label-simple-testing-1.png");
+pref("vivipos.fec.registry.templates.label-simple-testing-2.image", "chrome://viviecr/content/images/labels/label-simple-testing-2.png");
 
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.type", "receipt");

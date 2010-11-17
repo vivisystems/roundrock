@@ -9,3 +9,18 @@
 <!ENTITY lic_help.restart.button   "Restart Application">
 <!ENTITY lic_help.export.button   "Export License Stub File (vivipos_stub.txt)">
 <!ENTITY lic_help.import.button   "Import License File (vivipos.lic)">
+<!ENTITY lic_help.skip.button   "Skip">
+<!ENTITY extension_info.label "Extension Infomation">
+<!ENTITY extension_info.id.label  "ID">
+<!ENTITY extension_info.name.label     "Name">
+<!ENTITY extension_info.version.label   "Version">
+<!ENTITY extension_info.creator.label   "Creator">
+<!ENTITY extension_info.homepage.label   "Homepage">
+<!ENTITY ext_lic_error.label "Extension License Error" >
+<!ENTITY ext_lic_errcode.label "Error Code" >
+<!ENTITY ext_lic_errmsg.label "Error Message" >
+<!ENTITY ext_lic_keyid.label "KeyID" >
+<!ENTITY ext_lic_expire_date.label "ExpireDate" >
+
+<!ENTITY lic_help.ext_export.button   "Export License File (vivipos.lic)">
+<!ENTITY lic_help.ext_import.button   "Import Signed License (signed.lic)">

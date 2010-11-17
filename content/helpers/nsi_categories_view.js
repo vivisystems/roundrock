@@ -180,7 +180,9 @@
         getImageSrc: function(row, col) {
             var val = this.getCellValue(row, col);
             var sPluDir = GeckoJS.Session.get('pluimage_directory');
-            var aDstFile = sPluDir + val + ".png";
+            // category/department prefix dep_
+            var sFilename = (val+"").replace(/[\/\\.:\*\s<>?|]+/g, '_');
+            var aDstFile = sPluDir + "dep_" + sFilename + ".png";
             if (GREUtils.File.exists(aDstFile)) {
                 return 'file://' + aDstFile;
 
@@ -207,6 +209,17 @@
                 classStr += ((classStr.length > 0) ? ' ' : '') + 'font-' + buttonFontSize;
                 //$(btn).addClass('font-'+ buttonFontSize);
             }
+
+            // check image exists?
+            var imageSrc = this.getImageSrc(row,{id: 'no'});
+            var imageExists = (imageSrc != null);
+
+            if (imageExists) {
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label';
+            }else {
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
+            }
+            
             if (classStr.length > 0) {
                 // $(btn).addClass(classStr);
                 btn.className += " " + classStr;

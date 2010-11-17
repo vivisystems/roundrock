@@ -26,7 +26,7 @@
     <box flex="1" class="clockinPanel">
         <vbox  id="" pack="start" class="hboxb" flex="1">
             <hbox  pack="start" flex="1">
-                <vbox style="width: 250px;" pack="start">
+                <vbox style="width: 350px;" pack="start">
                     <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" rows="6" cols="1" flex="1" seltype="single" labelField="displayname"
                                                class="clockuserscrollablepanel"
                                                oncommand="$do('showJobList', null, 'ClockInOut')"
@@ -37,7 +37,7 @@
                         </hbox>
                     </viviscrollablebuttonpanel>
                 </vbox>
-                <spacer width="10px"/>
+                <spacer width="150px"/>
                 <vbox>
                     <label value="&clockin.title;" class="PageTitle" />
                     <hbox class="numjobpad">

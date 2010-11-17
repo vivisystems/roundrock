@@ -597,13 +597,19 @@
             var itemDisplay = {} ;
             var dispName;
             if (type == 'item') {
+
+                // using item's destination to set destination_prefix not from global
+                var destinationsByName = GeckoJS.Session.get('destinationsByName');
+                var itemDest = item.destination || this.data.destination;
+                var itemDestPrefix = (destinationsByName[itemDest] ? (destinationsByName[itemDest]['prefix']||"") + " " : this.data.destination_prefix );
+
                 itemDisplay = GREUtils.extend(itemDisplay, {
                     id: item.id,
                     no: item.no,
                     name: item.name,
                     alt_name1: item.alt_name1,
                     alt_name2: item.alt_name2,
-                    destination: this.data.destination_prefix,
+                    destination: itemDestPrefix,
                     current_qty: item.current_qty,
                     current_price: item.current_price,
                     //current_subtotal: item.current_subtotal + item.current_condiment,
@@ -1995,7 +2001,13 @@
                     }
                     taxIndex = ( (taxIndex+1) >= taxes.length ) ? 0 : (taxIndex+1);
                 }
-                var newTax = taxes[taxIndex];
+                var newTax = null;
+                try {
+                    // deep clone using uneval/eval object  GECKO ONLY
+                    newTax = eval(uneval(taxes[taxIndex]));
+                }catch(e) {
+                    newTax = GREUtils.extend({}, taxes[taxIndex]);
+                }
 
                 itemTrans.tax_name = newTax.no;
                 // create data object to push in items array

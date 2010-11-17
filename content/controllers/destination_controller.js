@@ -37,6 +37,8 @@
             GeckoJS.Session.set('destinations', listDatas);
             GeckoJS.Session.set('defaultDestination', defaultDest);
 
+            this.setDestinationsByNameSession(listDatas);
+
             // add listener for newTransaction event
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if (cart) {
@@ -44,6 +46,22 @@
             }
 
         },
+
+
+        setDestinationsByNameSession: function(destinations) {
+
+            destinations = destinations || [];
+
+            var destinationsByName = {};
+
+            destinations.forEach(function(d) {
+                destinationsByName[d.name] = d;
+            });
+
+            GeckoJS.Session.set('destinationsByName', destinationsByName);
+
+        },
+
 
         getListObj: function() {
             if (this._listObj == null) {
@@ -196,6 +214,8 @@
             GeckoJS.Configure.write('vivipos.fec.settings.Destinations', datastr);
             GeckoJS.Session.set('destinations', datas);
 
+            this.setDestinationsByNameSession(datas);
+
             this._selectedIndex = -1;
             this.load();
         },
@@ -314,24 +334,13 @@
         setDestination: function(destName) {
             // check if destination is valid
             var destinations = GeckoJS.Session.get('destinations');
-            //var results = new GeckoJS.ArrayQuery(destinations).filter('name = ' + destName);
-            
-            // doing so makes destName able to have spaces.
-            var results = [];
-            var destinationArray = new GeckoJS.ArrayQuery( destinations )._data;
-            if ( destinationArray ) {
-                results = destinationArray.filter( function( d ) {
-                    if ( d.name == destName )
-                        return true;
-                    return false;
-                } );
-            }
+            var destinationsByName = GeckoJS.Session.get('destinationsByName');
 
-            if (results == null || results.length == 0) {
+            if (!destinationsByName[destName]) {
                 NotifyUtils.warn(_('Destination [%S] has not been defined', [destName]));
                 return;
             }
-            var dest = results[0];
+            var dest = destinationsByName[destName];
             
             // get cart controller
             var cart = GeckoJS.Controller.getInstanceByName('Cart');

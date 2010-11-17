@@ -268,7 +268,17 @@
         // use cache first
         var taxesByNo = GeckoJS.Session.get('taxesByNo');
         if(taxesByNo != null) {
-            if(taxesByNo[no]) return taxesByNo[no];
+            if(taxesByNo[no]) {
+                var taxResult = null;
+                try {
+                    // deep clone using uneval/eval object  GECKO ONLY
+                    taxResult = eval(uneval(taxesByNo[no]));
+                    return taxResult;
+                }catch(e) {
+                    taxResult = GREUtils.extend({}, taxesByNo[no]);
+                }
+                return taxResult;
+            }
         }
 
         // find from model
@@ -315,7 +325,17 @@
         // use cache first
         var taxesById = GeckoJS.Session.get('taxesById');
         if(taxesById != null) {
-            if(taxesById[id]) return taxesById[id];
+            if(taxesById[id]) {
+                var taxResult = null;
+                try {
+                    // deep clone using uneval/eval object  GECKO ONLY
+                    taxResult = eval(uneval(taxesById[id]));
+                    return taxResult;
+                }catch(e) {
+                    taxResult = GREUtils.extend({}, taxesById[id]);
+                }        
+                return taxResult;
+            }
         }
 
         // find from model

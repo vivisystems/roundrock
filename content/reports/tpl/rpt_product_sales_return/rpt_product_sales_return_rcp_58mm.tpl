@@ -65,6 +65,17 @@ ${_( '(rpt)Net Returns' ) + ':'}
 ${category.summary.net|default:0|viviFormatPrices:true|right:24}
 {/for}
 ------------------------
+${_( '(rpt)Total Records Found' ) + ': '}
+${foot.record|format:0|right:24}
+------------------------
+${_( '(rpt)Summary' )}
+${_( '(rpt)Quantities Sold' ) + ':'}
+${foot.total_summary|format:0|right:24}
+${_( '(rpt)Gross Sales' ) + ':'}
+${foot.total_gross|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Net Sales' ) + ':'}
+${foot.total_net|default:0|viviFormatPrices:true|right:24}
+------------------------
 ${foot.gen_time}
 [&CR]
 [&CR]

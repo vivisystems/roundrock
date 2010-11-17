@@ -102,5 +102,19 @@
     </table>
     <br />
 {/for}
+    <table id="body-table">
+        <tfoot>
+            <tr>
+                <td style="text-align: left;" width="20%">${_( '(rpt)Total Records Found' ) + ': '}${foot.record|format:0}</td>
+                <td  style="text-align: left;" width="18%">${_( '(rpt)Summary' ) + ': '}</td>
+                <td style="text-align: left;">${foot.total_summary|format:0}</td>
+                <td style="text-align: left;"></td>
+                <td style="text-align: center;">${foot.total_gross|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: left;">${foot.total_net|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: left;"> </td>
+                <td style="text-align: left;"> </td>
+            </tr>
+        </tfoot>
+    </table>
 </div>
 <br />

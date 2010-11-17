@@ -926,51 +926,71 @@
 
                 this._blockNextAction = true;
                 next( function() {
-                    if (addedItem.id == plu.id && !self._returnMode) {
 
-                        currentIndex = curTransaction.getDisplayIndexByIndex(addedItem.index);
-                        return next( function() {
+                    // process memo and condiment
+                    try {
+                        
+                        if (addedItem.id == plu.id && !self._returnMode) {
 
-                            if (plu.force_memo) {
+                            currentIndex = curTransaction.getDisplayIndexByIndex(addedItem.index);
+                            return next( function() {
+                                try {
+                                    if (plu.force_memo) {
 
-                                // need to move cursor to addedItem
-                                cart.selection.select(currentIndex);
+                                        // need to move cursor to addedItem
+                                        cart.selection.select(currentIndex);
 
-                                return self.addMemo(plu);
-                            }
-
-                        }).next( function() {
-
-                            if (plu.force_condiment) {
-                                var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
-                                var conds = condGroupsByPLU[plu.cond_group]['Condiments'];
-
-                                if (conds.length > 0) {
-                                    // need to move cursor to addedItem
-                                    cart.selection.select(currentIndex);
-
-                                    return self.addCondiment(plu, null, doSIS);
+                                        return self.addMemo(plu);
+                                    }
+                                }catch(e) {
+                                    self.log('WARN', 'Cart::addItem ERROR on force_memo .', e);
                                 }
-                            }
 
-                        });
+                            }).next( function() {
+                                try{
+                                    if (plu.force_condiment) {
+                                        var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU') || {};
+                                        var condsPlu = condGroupsByPLU[plu.cond_group] || {};
+                                        var conds = condsPlu['Condiments'] || [];
 
-                    }else if (addedItem.id == plu.id && self._returnMode && self._returnCode) {
+                                        if (conds.length > 0) {
+                                            // need to move cursor to addedItem
+                                            cart.selection.select(currentIndex);
 
-                        // force memo from annotation code
-                        return self.addMemo(self._returnCode);
+                                            return self.addCondiment(plu, null, doSIS);
+                                        }
+                                    }
+                                }catch(e) {
+                                    self.log('WARN', 'Cart::addItem ERROR on force_condiment .', e);
+                                }
+                            });
 
+                        }else if (addedItem.id == plu.id && self._returnMode && self._returnCode) {
+
+                            // force memo from annotation code
+                            return self.addMemo(self._returnCode);
+
+                        }
+
+                    }catch(e) {
+                        self.log('WARN', 'Cart::addItem ERROR on force_memo or force_condiment .', e);
                     }
+
 
                 } ).next( function() {
-                    
-                    // single item sale?
-                    if (doSIS && !self._returnMode) {
-                        self._addPayment('cash', null, null, null, null, false, true);
-                        self.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
-                    }
-                    else {
-                        self._clearAndSubtotal();
+
+                    try {
+                        // single item sale?
+                        if (doSIS && !self._returnMode) {
+                            self._addPayment('cash', null, null, null, null, false, true);
+                            self.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
+                        }
+                        else {
+                            self._clearAndSubtotal();
+                        }
+
+                    }catch (e) {
+                        self.log('WARN', 'Cart::addItem ERROR on single item sale  .', e);
                     }
 
                     self._blockNextAction = false;
@@ -4780,7 +4800,6 @@
         },
         
         /*
-         * @author: Slash.tu             2010/04/02
          * @event: this.dispatchEvent('onVoidSaleSuccess', curTransaction);
          *
          * Pop a dialog, users decide if additem from transaction(void sale)
@@ -4788,7 +4807,6 @@
         addItemFormVoidOrder: function(evt){
 
              let alertVoidSales = evt.data.alertVoidSales;
-
 
              if( alertVoidSales != '0' && alertVoidSales != '1' && alertVoidSales != '2'){
 
@@ -4818,6 +4836,12 @@
              //let curTransaction = this._createNewTransaction(transaction);
              let curTransaction = new Transaction(false);
 
+             // clone order destination
+             curTransaction.data.destination = transaction.data.destination;
+             curTransaction.data.destination_prefix = transaction.data.destination_prefix;
+             // set destination to session
+             GeckoJS.Session.set('vivipos_fec_order_destination', curTransaction.data.destination);
+
              curTransaction.cloneAllItems(transaction);
 
              curTransaction = this.checkof_transStock(curTransaction);
@@ -4827,6 +4851,11 @@
              this.dispatchEvent('afterUnlockRecallOrderByNewId', curTransaction);
 
              this._setTransactionToView(curTransaction);
+
+             // call setDestination to change pricelevel and tax
+             if (curTransaction.data.destination) {
+                this.requestCommand('setDestination', curTransaction.data.destination, 'Destinations');
+            }
 
              /* initial display_sequences condiment*/
              for(let i= 0; i< curTransaction.data.display_sequences.length; i++){
