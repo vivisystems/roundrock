@@ -14,7 +14,6 @@
     -moz-border-right-colors: #848388 #bebebe;
     -moz-border-bottom-colors: #848388 #bebebe;
     -moz-border-left-colors: #848388 #bebebe;
-    -moz-border-radius: 10px;
 }
 
 .department-button-color-default[disabled=false]:active,

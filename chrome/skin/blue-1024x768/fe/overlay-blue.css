@@ -160,3 +160,11 @@
 #boxInfo1 {
     padding-left: 10px;
 }
+
+.main-overlay .vivifuncpanelecr_button_panel vivibutton {
+    -moz-border-radius: 16px 15px 12px 10px;
+}
+
+.main-overlay .prodscrollablepanel .button-product {
+    -moz-border-radius: 18px 18px 14px 15px;
+}

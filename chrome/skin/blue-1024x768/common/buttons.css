@@ -433,7 +433,6 @@ button_colorpicker {
     padding: 0px;
     -moz-box-pack: center;
     -moz-user-focus: ignore;
-    background: #080A15;
 }
 
 button_colorpicker button hbox {

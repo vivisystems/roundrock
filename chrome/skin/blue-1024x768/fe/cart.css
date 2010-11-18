@@ -196,7 +196,7 @@
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(discountApplied) {color: brown; font-style: italic; font-weight: bolder;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(surchargeApplied) {color: green; font-style: italic; font-weight: bolder;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(treecellTax) {font-size: 14px !important; font-weight: normal !important;}
-.main-overlay .cart-list treechildren::-moz-tree-cell-text(row) {font-size: 16px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(row) {font-size: 12px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_qty) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_price) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(price_level) {font-size: 14px !important; font-weight: normal !important;}
@@ -214,7 +214,8 @@
 .main-overlay .cart-list #current_qty,
 .main-overlay .cart-list #current_price,
 .main-overlay .cart-list #current_subtotal,
-.main-overlay .cart-list #current_tax {
+.main-overlay .cart-list #current_tax,
+.main-overlay .cart-list tree #row {
     text-align: right;
 }
 
