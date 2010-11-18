@@ -4,7 +4,7 @@
         
         name: 'CsvExport',
 
-        _blockSize: 4096,
+        _blockSize: 65536,
 
         execute: function( cmd, param ) {
             try {

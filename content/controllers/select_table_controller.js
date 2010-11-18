@@ -803,19 +803,46 @@
                     result = tableStatus['_cachedOrdersInnerHTML_'];
                 }
 
+                alert('cached');
                 if (doc) {
                     doc.innerHTML = result ;
                     // remove all tabs
+                    alert('r innerhtml');
                     var tabs = document.getElementById('orders_tab');
                     this.Form.removeAllChildren(tabs);
+                    alert('removeall');
+
+                    alert('table status ' + tableStatus);
+
+                    alert('table status.TableOrder ' + tableStatus.TableOrder);
                     
                     tableStatus.TableOrder.forEach(function(order){
+
+                        alert(GeckoJS.BaseObject.dump(order));
+                        /*
+                         *Object
+{
+    'id': 452aaa12-8680-489b-a5b7-542dff361fe2
+    'total': 0
+    'table_no': 6
+    'check_no': 0
+    'service_clerk': null
+    'sequence': null
+    'no_of_customers': 0
+    'transaction_created': 0
+    'created': 1286892323
+    'modified': 1286892323
+    'status': 2
+    'terminal_no': null
+    'table_id': 12676a00-b0e8-4e19-a789-f07261b234e9
+}
+*/
                         var tab = document.createElement("tab");
                         if (order.check_no) {
                             tab.setAttribute('label', _('C#') + order.check_no);
                         }
                         else {
-                            tab.setAttribute('label', _('S#') + order.sequence.substr(-3));
+                            tab.setAttribute('label', _('S#') + (order.sequence? order.sequence.substr(-3) : '-1'));
                         }
                         tab.setAttribute('value', order.id);
                         tabs.appendChild(tab);
@@ -823,8 +850,12 @@
 
                     document.getElementById('order_selected_table_id').value = table_id;
                 }
+                alert('after inner');
+
                 this._actionData = table;
                 this.popupOrderDisplayPanel();
+
+                alert('sdf');
             }catch(e){
                 // XXX notify fatal error message.
                 // alert(e);

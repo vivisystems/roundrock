@@ -330,9 +330,12 @@
          * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
          */
         exportPdf: function( paperProperties ) {
-            this.Wkhtmltopdf.exists();
-            this.exportPdfExt(paperProperties);
-            return ;
+
+            // if wkhtmltopdf extension installed
+            if (this.Wkhtmltopdf.exists()) {
+                return this.exportPdfExt(paperProperties);
+            }
+            
             if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
                 return;
 
@@ -488,7 +491,7 @@
          * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
          */
         exportPdfExt: function( paperProperties, noReload ) {
-            alert('exportPdfExt');
+
             if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
                 return;
 
@@ -497,14 +500,13 @@
             
             try {
                 this._enableButton( false );
-                /*
+
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
                 if ( !media_path ) {
                     NotifyUtils.info( _( 'Media not found!! Please attach a USB thumb drive...' ) );
                     this._enableButton( true );
                     return;
-                }*/
-                var media_path = "/media/sdb1"
+                }
 
                 var waitPanel = this._showWaitingPanel();
 
@@ -517,10 +519,8 @@
                 try {
                     var rep_path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
                     rep_tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( rep_path ) ) || "";
-                    alert(rep_tpl);
                     var layout_path = GREUtils.File.chromeToPath( this._rpt_layout_template_src);
                     layout_tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( layout_path ) ) || "";
-                    alert(layout_tpl);
                 }catch(e) {
                 }
 
@@ -549,7 +549,14 @@
                 };
 
                 this.Wkhtmltopdf.exportToPdf(tmpFile, paperProperties, this._reportRecords, rep_tpl, layout_tpl, caption, progress);
-                this._copyExportFileFromTmp( tmpFile, targetDir, 180,  cb );
+                
+                if (GREUtils.File.exists(tmpFile)) {
+                    this._copyExportFileFromTmp( tmpFile, targetDir, 180,  cb );
+                }else {
+                    NotifyUtils.warn( _( 'Export PDF Error' ) );
+                    this.log('ERROR', this.name + '::Export to pdf (' + tmpFile + ') not exists.');
+                    cb();
+                }
                 
             } catch ( e ) {
                 //dump( e );
