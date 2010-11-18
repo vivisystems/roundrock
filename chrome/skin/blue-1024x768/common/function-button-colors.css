@@ -6,123 +6,112 @@
  */
 
 .function-button-color-default {
-    background: transparent url(../images/btn_function_01.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #fff url(../images/funColor01.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-default label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #8e8e8e;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #8e8e8e;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #8e8e8e;
+    -moz-border-left-colors: #8e8e8e;
 }
 
 .function-button-color-1 {
-    background: transparent url(../images/btn_function_02.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #e3edff url(../images/funColor02.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-1 label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #616b7d;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #616b7d;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #616b7d;
+    -moz-border-left-colors: #616b7d;
 }
 
 .function-button-color-2 {
-    background: transparent url(../images/btn_function_03.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #d7db74 url(../images/funColor03.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-2 label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #99a112;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #99a112;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #99a112;
+    -moz-border-left-colors: #99a112;
 }
 
 .function-button-color-3 {
-    background: transparent url(../images/btn_function_04.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #fdd8a8 url(../images/funColor04.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
+    -moz-border-top-colors: #e38d49;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #e38d49;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #e38d49;
+    -moz-border-left-colors: #e38d49;
 
-.function-button-color-3 label {
-    color: #FFFFFF !important;
 }
 
 .function-button-color-4 {
-    background: transparent url(../images/btn_function_05.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #bdceca url(../images/funColor05.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-4 label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #5d8179;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #5d8179;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #5d8179;
+    -moz-border-left-colors: #5d8179;
 }
 
 .function-button-color-5 {
-    background: transparent url(../images/btn_function_06.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #a2ad88 url(../images/funColor06.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-5 label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #3b4d15;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #3b4d15;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #3b4d15;
+    -moz-border-left-colors: #3b4d15;
 }
 
 .function-button-color-6 {
-    background: transparent url(../images/btn_function_07.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #d2a0aa url(../images/funColor07.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-6 label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #973848;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #973848;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #973848;
+    -moz-border-left-colors: #973848;
 }
 
 .function-button-color-7 {
-    background: transparent url(../images/btn_function_08.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #9ccac8 url(../images/funColor08.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-7 label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #308682;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #308682;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #308682;
+    -moz-border-left-colors: #308682;
 }
 
 .function-button-color-8 {
-    background: transparent url(../images/btn_function_09.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #ac8a81 url(../images/funColor09.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-8 label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #4b190d;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #4b190d;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #4b190d;
+    -moz-border-left-colors: #4b190d;
 }
 
 .function-button-color-9 {
-    background: transparent url(../images/btn_function_10.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #978267 url(../images/funColor10.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-9 label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #553919;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #553919;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #553919;
+    -moz-border-left-colors: #553919;
 }
 
 .function-button-color-10 {
-    background: transparent url(../images/btn_function_11.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #98afc5 url(../images/funColor11.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-10 label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #2d587c;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #2d587c;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #2d587c;
+    -moz-border-left-colors: #2d587c;
 }
 
 .function-button-color-11 {
-    background: transparent url(../images/btn_function_12.png) no-repeat center center;
-    color: #FFFFFF;
+    background: #c4a4c3 url(../images/funColor12.gif) bottom left repeat-x;
     -moz-appearance: none;
-}
-
-.function-button-color-11 label {
-    color: #FFFFFF !important;
+    -moz-border-top-colors: #672865;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #672865;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #672865;
+    -moz-border-left-colors: #672865;
 }
 
 .function-button-color-default[selected], .function-button-color-1[selected],

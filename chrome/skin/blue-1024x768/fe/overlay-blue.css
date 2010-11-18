@@ -32,12 +32,6 @@
     background-color: #111A42;
 }
 
-.main-overlay .function-toolbar {
-    min-width: 44px;
-    max-width: 44px;
-    width: 44px;
-}
-
 .main-overlay .main-wait-panel {
     background: white none center center no-repeat;
     height: 140px;
@@ -55,10 +49,6 @@
 
 #statusbar-display .statusbarpanel-text {
     display: none;
-}
-
-#customerPanelContainer {
-    border: 2px ridge;
 }
 
 .clock-panel {
@@ -157,14 +147,6 @@
     padding: 2px;
 }
 
-#boxInfo1 {
-    padding-left: 10px;
-}
-
 .main-overlay .vivifuncpanelecr_button_panel vivibutton {
     -moz-border-radius: 16px 15px 12px 10px;
-}
-
-.main-overlay .prodscrollablepanel .button-product {
-    -moz-border-radius: 18px 18px 14px 15px;
 }

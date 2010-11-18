@@ -18,24 +18,18 @@
     min-width: 355px;
     width: 355px;
     background: #000;
-    -moz-border-radius: 10px;
     border: 1px solid #000;
 }
 
 .main-overlay .right-panel {
+    background-color: #111A42;
     max-width: 445px;
     min-width: 445px;
     width: 445px;
 }
 
 .main-overlay .bottom-panel {
-    margin-top: 10px;
-}
-
-.main-overlay .function-toolbar {
-    min-width: 44px;
-    max-width: 44px;
-    width: 44px;
+    background-color: #111A42;
 }
 
 .main-overlay .main-wait-panel {
@@ -57,32 +51,58 @@
     display: none;
 }
 
-#customerPanelContainer {
-    border: 2px ridge;
-}
-
-.info-panel {
+.clock-panel {
+    background: #000;
     color: #FFF;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
-    height: 33px;
-    max-height: 33px;
+    width: 145px;
+    min-width: 145px;
+    max-width: 145px;
+    height: 36px;
+    min-height: 36px;
+    max-height: 36px;
     border-bottom: 2px solid #212A52;
+    border-left: 2px solid #212A52;
+    border-right: 2px solid #212A52;
+    margin: 0px 5px 2px 5px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
 }
 
-.vfd-panel {
-    color: #FFF;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px 0 10px 0;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #141C7D;
+.cartstatus-panel {
+    background: #000;
+    width: 155px;
+    min-width: 155px;
+    max-width: 155px;
+    height: 36px;
+    min-height: 36px;
+    max-height: 36px;
+    border-bottom: 2px solid #212A52;
+    border-left: 2px solid #212A52;
+    border-right: 2px solid #212A52;
+    margin: 0px 0px 2px 5px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
 }
 
-.text-total {
-    color: #FFF;
-    font-size: 28px;
+.return-mode-panel {
+    color: yellow;
+    font-size: 18px;
     font-weight: bold;
+    background: #000;
+    width: 105px;
+    min-width: 105px;
+    max-width: 105px;
+    height: 36px;
+    min-height: 36px;
+    max-height: 36px;
+    border-bottom: 2px solid #212A52;
+    border-left: 2px solid #212A52;
+    border-right: 2px solid #212A52;
+    margin-bottom: 2px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
 }
 
 .number-panel {
@@ -94,6 +114,7 @@
     min-height: 307px;
     max-height: 307px;
 }
+
 .number-panel button {
     color: #FFF;
     width: 95px;
@@ -106,15 +127,26 @@
     font-weight: bold;
     -moz-appearance: none;
 }
-#prodscrollablepanel {
-    display: none;
+
+.function-panel {
+    max-width: 445px;
+    min-width: 445px;
+    width: 445px;
 }
-#boxInfo {
-    display: none;
+
+.product-panel {
+    max-width: 355px;
+    min-width: 355px;
+    width: 355px;
+    min-height: 233px;
+    height: 233px;
+    max-height: 233px;
 }
-.input {
-    color: #FFF;
+
+.function-panel vivibutton1 {
+    padding: 2px;
 }
-.screen1024{
-    display: none;
+
+.main-overlay .vivifuncpanelecr_button_panel vivibutton {
+    -moz-border-radius: 8px;
 }

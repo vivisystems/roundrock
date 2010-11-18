@@ -11,12 +11,12 @@
 
 .uidisplay-field-label {
     color: #fff;
-    max-width: 65px;
+    max-width: 70px;
     margin: 0px 3px 0px 0px;
     padding: 0px;
     background-color: transparent;
     border-width: 0px;
-    font-size: 12px;
+    font-size: 14px;
     text-align: right;
     -moz-appearance: none;
     -moz-user-focus: ignore;
@@ -31,7 +31,7 @@
     background-color: transparent;
     border-width: 0px;
     font-family: monospace;
-    font-size: 12px;
+    font-size: 14px;
     text-align: left;
     -moz-appearance: none;
     -moz-user-focus: ignore;
@@ -39,4 +39,9 @@
     -moz-user-input: none;
 }
 
+.uidisplay-field-value[anonid=value1] {
+    min-width: 60px;
+    max-width: 60px;
+    width: 60px;
+}
 

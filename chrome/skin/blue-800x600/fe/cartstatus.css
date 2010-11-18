@@ -5,15 +5,13 @@
  *-----------------------------------------------------------------------------
  */
 
-.main-overlay .cart-status {
-    background-color: #1e1b14;
-    border: 0px solid #f39a1c;
+.main-overlay #cartStatusPanelContainer {
+    background-color: transparent;
     font-family: monospace;
-    font-size: 18pt;
+    font-size: 16pt;
     font-weight: bold !important;
-    height: 38px;
+    text-align: center;
     margin: 0px;
-    padding: 4px;
 }
 
 .main-overlay .cart-status[status=no-txn] {

@@ -11,6 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/fe/orderstatus.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/department.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/product.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/function-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/condiment.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/cart.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/cartstatus.css" type="text/css"?>
@@ -85,7 +86,7 @@
                             <vbox class="return-mode-panel" align="center" pack="center">
                                 <label id="returnStatus" flex="0"/>
                             </vbox>
-                            <vbox class="cartstatus-panel" pack="end">
+                            <vbox class="cartstatus-panel" pack="center" align="center">
                                 <box id="cartStatusPanelContainer" flex="0" panel="&layout.panel.cartstatus;"/>
                             </vbox>
                             <vbox class="clock-panel" align="center" pack="center">
