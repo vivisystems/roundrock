@@ -522,3 +522,11 @@ listbox {
 .jobsummaryDownbtn:active {
 	background: transparent url(../images/jobdownbtn_a.png) center center no-repeat;
 }
+
+.clockin_spacer{
+    width: 350px;
+}
+
+.clockin_spacer{
+    width: 150px;
+}
