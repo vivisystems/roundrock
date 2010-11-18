@@ -123,7 +123,17 @@
   empty-cells: show;
   }
 
- #condition-table .condition-title{
+#condition-table .condition-title{
     width: 20%;
     white-space:nowrap;
-  }
+}
+  
+#printhead {
+    width: 160px;
+    height: 40px;
+    background-image: url(logo.png);
+}
+
+#printhead > img {
+    display: none;
+}
