@@ -6,8 +6,8 @@ skin viviecr traditional-800x600/1.0 skin/traditional-800x600/
 skin viviecr traditional-1024x768/1.0 skin/traditional-1024x768/
 skin viviecr traditional-1280x1024/1.0 skin/traditional-1280x1024/
 skin viviecr compacttable-1024x768/1.0 skin/compacttable-1024x768/
-
 skin viviecr ecr-800x600/1.0 skin/ecr-800x600/
+
 override chrome://global/skin/dialog.css chrome://viviecr/skin/overrides/dialog.css
 override chrome://global/skin/scrollbars.css chrome://viviecr/skin/overrides/scrollbars.css
 
