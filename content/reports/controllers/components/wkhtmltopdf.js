@@ -22,9 +22,14 @@
                 fullFilename = GREUtils.File.chromeToPath(filename) || "";
             }catch(e) {
             }
+
             this.fullFileName = fullFilename;
 
-            return true;
+            if (fullFilename.length >0) {
+                return GREUtils.File.exists(fullFilename);
+            }
+            return false;
+
         },
 
         execute: function( cmd, param ) {
