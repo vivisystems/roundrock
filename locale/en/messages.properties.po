@@ -13,7 +13,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-11-17 13:12+0800\n"
+"POT-Creation-Date: 2010-11-18 12:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -380,6 +380,20 @@ msgstr "CHK"
 
 msgid "(cart)GIFTCARD"
 msgstr "GC"
+
+# #######################################################################
+#
+# Register Display - Sale Unit
+#
+# #######################################################################
+msgid "(item)X"
+msgstr "X"
+
+msgid "(setitem)X"
+msgstr "X"
+
+msgid "(payment)X"
+msgstr "X"
 
 # #######################################################################
 #
@@ -3522,7 +3536,7 @@ msgstr ""
 #: ../..//content/controllers/condiments_controller.js:161
 #: ../..//content/controllers/currencysetup_controller.js:90
 #: ../..//content/controllers/departments_controller.js:175
-#: ../..//content/controllers/destination_controller.js:428
+#: ../..//content/controllers/destination_controller.js:437
 #: ../..//content/controllers/devices_controller.js:1666
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:153
 #: ../..//content/controllers/hotkey_prefs_controller.js:523
@@ -3555,7 +3569,7 @@ msgstr ""
 #: ../..//content/controllers/condiments_controller.js:163
 #: ../..//content/controllers/currencysetup_controller.js:92
 #: ../..//content/controllers/departments_controller.js:177
-#: ../..//content/controllers/destination_controller.js:430
+#: ../..//content/controllers/destination_controller.js:439
 #: ../..//content/controllers/devices_controller.js:1668
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:155
 #: ../..//content/controllers/hotkey_prefs_controller.js:525
@@ -3588,8 +3602,8 @@ msgstr ""
 #: ../..//content/controllers/currencysetup_controller.js:92
 #: ../..//content/controllers/departments_controller.js:177
 #: ../..//content/controllers/departments_controller.js:193
-#: ../..//content/controllers/destination_controller.js:409
-#: ../..//content/controllers/destination_controller.js:430
+#: ../..//content/controllers/destination_controller.js:418
+#: ../..//content/controllers/destination_controller.js:439
 #: ../..//content/controllers/devices_controller.js:1668
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:155
 #: ../..//content/controllers/hotkey_prefs_controller.js:481
@@ -3635,6 +3649,7 @@ msgstr ""
 #: ../..//content/controllers/systembackup_controller.js:261
 #: ../..//content/controllers/userprefs_controller.js:35
 #: ../..//content/reports/controllers/components/csv_export.js:17
+#: ../..//content/reports/controllers/components/wkhtmltopdf.js:38
 msgid "Failed to execute command (%S)."
 msgstr ""
 
@@ -5477,70 +5492,70 @@ msgid ""
 "have been removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:115
+#: ../..//content/controllers/destination_controller.js:133
 msgid "Add New Destination"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:116
+#: ../..//content/controllers/destination_controller.js:134
 msgid "New Destination"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:116
+#: ../..//content/controllers/destination_controller.js:134
 msgid "Destination"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:122
+#: ../..//content/controllers/destination_controller.js:140
 msgid "Destination [%S] already exists"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:139
+#: ../..//content/controllers/destination_controller.js:157
 msgid "Destination [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:158
+#: ../..//content/controllers/destination_controller.js:176
 msgid "Destination [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:164
+#: ../..//content/controllers/destination_controller.js:182
 msgid "Destination name must not be empty"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:177
+#: ../..//content/controllers/destination_controller.js:195
 msgid "confirm delete destination [%S]"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:177
+#: ../..//content/controllers/destination_controller.js:195
 msgid "Are you sure you want to delete destination [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:184
+#: ../..//content/controllers/destination_controller.js:202
 msgid "Destination [%S] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:331
+#: ../..//content/controllers/destination_controller.js:340
 msgid "Destination [%S] has not been defined"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:339
+#: ../..//content/controllers/destination_controller.js:348
 msgid ""
 "Shopping cart is missing; please contact your dealer for technical support"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:352
+#: ../..//content/controllers/destination_controller.js:361
 msgid "This order is closed pending payment and may not be modified"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:371
+#: ../..//content/controllers/destination_controller.js:380
 msgid "Price Level changed from [%S] to [%S] for destination [%S]"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:410
+#: ../..//content/controllers/destination_controller.js:419
 msgid ""
 "You have made changes to the current destination. Are you sure you want to "
 "discard the changes?"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:429
+#: ../..//content/controllers/destination_controller.js:438
 msgid ""
 "You have made changes to the current destination. Save changes before "
 "exiting?"
@@ -7355,7 +7370,7 @@ msgid "(view)terminal"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:182
-#: ../..//content/reports/controllers/rpt_base_controller.js:560
+#: ../..//content/reports/controllers/rpt_base_controller.js:648
 msgid "Order Details"
 msgstr ""
 
@@ -8308,8 +8323,8 @@ msgid "TAL"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:205
-#: ../..//content/controllers/select_table_controller.js:1065
-#: ../..//content/controllers/select_table_controller.js:1108
+#: ../..//content/controllers/select_table_controller.js:1096
+#: ../..//content/controllers/select_table_controller.js:1139
 #: ../..//content/controllers/table_man_controller.js:813
 msgid "All Regions"
 msgstr ""
@@ -8365,7 +8380,7 @@ msgid "Please select the table to mark status..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:607
-#: ../..//content/controllers/select_table_controller.js:1116
+#: ../..//content/controllers/select_table_controller.js:1147
 msgid "Clear Table Status"
 msgstr ""
 
@@ -8390,65 +8405,65 @@ msgstr ""
 msgid "Table [%S] is not available!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:815
+#: ../..//content/controllers/select_table_controller.js:842
 #: ../..//content/helpers/nsi_orders_checklist_view.js:58
 #: ../..//content/helpers/nsi_tablestatus_view.js:161
 msgid "C#"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:818
+#: ../..//content/controllers/select_table_controller.js:845
 #: ../..//content/helpers/nsi_orders_checklist_view.js:61
 #: ../..//content/helpers/nsi_tablestatus_view.js:158
 msgid "S#"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:854
-#: ../..//content/controllers/select_table_controller.js:859
-#: ../..//content/controllers/select_table_controller.js:875
+#: ../..//content/controllers/select_table_controller.js:885
+#: ../..//content/controllers/select_table_controller.js:890
+#: ../..//content/controllers/select_table_controller.js:906
 msgid "Table [%S] is not available for merging. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:914
+#: ../..//content/controllers/select_table_controller.js:945
 msgid "Table [%S] is not available for unmerging. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:951
-#: ../..//content/controllers/select_table_controller.js:954
+#: ../..//content/controllers/select_table_controller.js:982
+#: ../..//content/controllers/select_table_controller.js:985
 msgid "Select Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:977
+#: ../..//content/controllers/select_table_controller.js:1008
 msgid "Table [%S] is not available for marking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:982
+#: ../..//content/controllers/select_table_controller.js:1013
 msgid "Table [%S] is not available fr marking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:989
+#: ../..//content/controllers/select_table_controller.js:1020
 msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1033
+#: ../..//content/controllers/select_table_controller.js:1064
 msgid "Table [%S] is not available for unmarking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1071
+#: ../..//content/controllers/select_table_controller.js:1102
 msgid "You are now marking table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1114
+#: ../..//content/controllers/select_table_controller.js:1145
 msgid "You are now cleaning table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1149
+#: ../..//content/controllers/select_table_controller.js:1180
 msgid ""
 "A minor error was detected with this order and has been fixed. The order was "
 "previously completed and will no longer appear in the table manager"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1234
-#: ../..//content/controllers/select_table_controller.js:1238
+#: ../..//content/controllers/select_table_controller.js:1265
+#: ../..//content/controllers/select_table_controller.js:1269
 msgid "Table [%S] is not available for transfer. Status [%S], Active [%S]"
 msgstr ""
 
@@ -10039,52 +10054,52 @@ msgid ""
 "%S) ."
 msgstr ""
 
-#: ../..//content/models/transaction.js:1500
+#: ../..//content/models/transaction.js:1509
 msgid "Cannot VOID a payment that has been subtotaled"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1659
+#: ../..//content/models/transaction.js:1668
 msgid "Discount amount [%S] may not exceed user item discount limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1668
+#: ../..//content/models/transaction.js:1677
 msgid "Discount amount [%S] may not exceed item amount [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1707
-#: ../..//content/models/transaction.js:1878
+#: ../..//content/models/transaction.js:1716
+#: ../..//content/models/transaction.js:1887
 msgid "Please note that return item(s) are present"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1735
+#: ../..//content/models/transaction.js:1744
 msgid "Discount amount [%S] may not exceed discountable sale [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:1837
+#: ../..//content/models/transaction.js:1846
 msgid "Surcharge amount [%S] may not exceed user item surcharge limit [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2166
+#: ../..//content/models/transaction.js:2175
 msgid "Condiment [%S] already added to [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2234
+#: ../..//content/models/transaction.js:2243
 msgid "Condiment may only be added to an item"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2945
+#: ../..//content/models/transaction.js:2954
 msgid "Price HALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2960
+#: ../..//content/models/transaction.js:2969
 msgid "Price adjusted from [%S] to current HALO [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2969
+#: ../..//content/models/transaction.js:2978
 msgid "Price LALO [%S] overridden on [%S]"
 msgstr ""
 
-#: ../..//content/models/transaction.js:2984
+#: ../..//content/models/transaction.js:2993
 msgid "Price adjusted from [%S] to current LALO [%S]"
 msgstr ""
 
@@ -10281,8 +10296,9 @@ msgstr ""
 
 #: ../..//content/reports/controllers/journal_report_controller.js:131
 #: ../..//content/reports/controllers/journal_report_controller.js:140
-#: ../..//content/reports/controllers/rpt_base_controller.js:347
-#: ../..//content/reports/controllers/rpt_base_controller.js:394
+#: ../..//content/reports/controllers/rpt_base_controller.js:357
+#: ../..//content/reports/controllers/rpt_base_controller.js:404
+#: ../..//content/reports/controllers/rpt_base_controller.js:506
 msgid "Media not found!! Please attach a USB thumb drive..."
 msgstr ""
 
@@ -10296,7 +10312,7 @@ msgid ""
 "space is available on the external USB thumb drive [message #2001]."
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:250
+#: ../..//content/reports/controllers/rpt_base_controller.js:253
 msgid ""
 "The file size of the report you are going to generate is greater then %S. It "
 "takes a few minutes to complete the report. The screen will be hanging there "
@@ -10304,25 +10320,30 @@ msgid ""
 "and return to previous page to narrow down your search."
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:329
+#: ../..//content/reports/controllers/rpt_base_controller.js:339
+#: ../..//content/reports/controllers/rpt_base_controller.js:495
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:337
+#: ../..//content/reports/controllers/rpt_base_controller.js:347
 msgid ""
 "The document is too large to be exported in .PDF format, please export as ."
 "CSV file instead!"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:383
+#: ../..//content/reports/controllers/rpt_base_controller.js:393
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:448
+#: ../..//content/reports/controllers/rpt_base_controller.js:458
 msgid "Are you sure you want to print this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:622
+#: ../..//content/reports/controllers/rpt_base_controller.js:556
+msgid "Export PDF Error"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_base_controller.js:710
 msgid "The thumb drive does not have enough free space!"
 msgstr ""
 
@@ -10412,14 +10433,19 @@ msgstr ""
 msgid "Are you sure you want to remove this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/components/browser_print.js:218
-#: ../..//content/reports/controllers/components/browser_print.js:305
+#: ../..//content/reports/controllers/components/browser_print.js:225
+#: ../..//content/reports/controllers/components/browser_print.js:312
+#: ../..//content/reports/controllers/components/wkhtmltopdf.js:126
 msgid "Generated by VIVIPOS"
 msgstr ""
 
-#: ../..//content/reports/controllers/components/browser_print.js:222
-#: ../..//content/reports/controllers/components/browser_print.js:306
+#: ../..//content/reports/controllers/components/browser_print.js:229
+#: ../..//content/reports/controllers/components/browser_print.js:313
 msgid "Firich Enterprises Co.,Ltd."
+msgstr ""
+
+#: ../..//content/reports/controllers/components/wkhtmltopdf.js:113
+msgid "About %S Mins"
 msgstr ""
 
 #: ../..//content/reports/tpl/journal_report/journal_report.tpl:10
