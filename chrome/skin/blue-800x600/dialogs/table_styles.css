@@ -1,0 +1,372 @@
+/****************** table_status_btn **********************/
+
+.tableStatusBtn {
+	font-size: 9pt;
+    height: 95px;
+	max-height: 100px;
+    width: 138px;
+}
+
+.tableStatusBtn > div {
+	background: transparent url(../images/paper.png) no-repeat center bottom;
+	position:relative;
+	height: 100px;
+	width: 138px;
+}
+
+.tableStatusBtn .topItem {
+	height: 91px;
+	left: 8px;
+	position:absolute;
+	top: 8px;
+	width: 126px;
+	z-index: 100;
+}
+
+.tableStatusBtn .bgItem {
+	bottom: 10px;
+	color: #e8e8e8;
+	font-size: 44pt;
+	font-weight: bold;
+    height: 55px;
+	position:absolute;
+	right: 10px;
+	text-align: right;
+    width: 100px;
+	z-index: 40;
+}
+
+.tableStatusBtn .bottomItem {
+    bottom: 4px;
+    font-size: 12pt;
+    height: 16px;
+    padding: 0px;
+    position: absolute;
+    right: 8px;
+    text-align:right;
+    width: 60px;
+    z-index: 50;
+}
+
+.tableStatusBtn .tableData {
+	margin-left: 0px;
+	width: 120px;
+}
+
+.tableStatusBtn .tableInfo {
+    margin-left: 8px;
+	padding: 0px;
+}
+
+.tableStatusBtn .tableInfo .checkNo,
+.tableStatusBtn .tableInfo .clerk,
+.tableStatusBtn .tableInfo .total,
+.tableStatusBtn .remark {
+	margin-top: 0px;
+	overflow: hidden;
+}
+
+.tableStatusBtn .tableName {
+	color: #372213;
+	margin-left: 4px;
+	margin-top: 0px;
+	padding: 2px;
+	word-break:break-all;
+	word-wrap: break-word;
+}
+
+.tableStatusBtn .checkNum{
+	color: #9e0b0f;
+	font-weight: bold;
+	right: 12px;
+	position:absolute;
+	top: 30px;
+	z-index: 130;
+}
+
+.tableStatusBtn .time{
+	background: transparent url(../images/time.png) no-repeat 0px center;
+	color: black;
+	font-size: 8pt;
+	position:absolute;
+	right: 28px;
+	text-align: right;
+	top: 9px;
+	width: 49px;
+	z-index: 120;
+}
+
+.tableStatusBtn .tableNo {
+	font-size: 16pt;
+	font-weight: bold;
+	line-height: 16px;
+    margin: 2px 2px 0 2px;
+	padding: 0px 18px 0 2px;
+}
+
+.tableStatusBtn .thumbtack {
+	height: 28px;
+	position:absolute;
+	right: 8px;
+	top: 0;
+	width: 18px;
+	z-index: 110;
+}
+
+/* �W�L�ɶ� */
+.tableStatusBtn .overtime {
+	background: #9e0b0f;
+	color: yellow;
+	font-weight: bold;
+}
+
+/* �W�L�H�� */
+.tableStatusBtn .overpeople {
+	background: #9e0b0f;
+	color: yellow;
+	font-weight: bold;
+}
+
+.tableStatusBtn .redtable .tableNo {
+	border-bottom: 1px solid #9e0b0f;
+	color: #9e0b0f;
+}
+
+.tableStatusBtn .redtable .thumbtack {
+	background: transparent url(../images/thumbtack_red.png) no-repeat 0px center;
+}
+
+.tableStatusBtn .bluetable .tableNo {
+	border-bottom: 1px solid #354f66;
+	color: #354f66;
+}
+
+.tableStatusBtn .bluetable .thumbtack {
+	background: transparent url(../images/thumbtack_blue.png) no-repeat 0px center;
+}
+
+.tableStatusBtn .bluetable .time {
+	background: none;
+}
+
+.tableStatusBtn .greentable .tableNo {
+	color: #a2a70f;
+	border-bottom: 1px solid #a2a70f;	
+}
+
+.tableStatusBtn .greentable .thumbtack {
+	background: transparent url(../images/thumbtack_green.png) no-repeat 0px center;
+}
+
+.tableStatusBtn .people {
+	color:  #ed145b;
+	font-weight: bold;
+	font-size: 16pt;
+}
+
+.tableStatusBtn .bottomItem{
+	bottom: 10px;
+}
+
+.tableStatusBtn .greentable .time {
+	background: none;
+}
+
+.tableStatusBtn .yellowtable .tableNo {
+	color: #f2c54e;
+	border-bottom: 1px solid #f2c54e;	
+}
+
+.tableStatusBtn .yellowtable .thumbtack {
+	background: transparent url(../images/thumbtack_yellow.png) no-repeat 0px center;
+}
+
+.tableStatusBtn .yellowtable .time {
+	background: none;
+}
+
+/****************** table_status_std_btn **********************/
+
+.tableStatusStdBtn {
+	font-size: 9pt;
+	height: 120px;
+	max-height: 120px;
+	width: 160px;
+}
+
+.tableStatusStdBtn > div {
+	height: 120px;
+	position:relative;
+	width: 160px;
+}
+
+.tableStatusStdBtn .topItem {
+	height: 91px;
+	left: 8px;
+	position:absolute;
+	top: 8px;
+	width: 160px;
+	z-index: 100;
+}
+
+.tableStatusStdBtn .bgItem {
+	bottom: 10px;
+	color: #e8e8e8;
+	font-size: 44pt;
+	font-weight: bold;
+    height: 55px;
+	position:absolute;
+	right: 10px;
+	text-align: right;
+    width: 150px;
+	z-index: 40;
+}
+
+.tableStatusStdBtn .bottomItem {
+    bottom: 4px;
+    font-size: 12pt;
+    height: 16px;
+    padding: 0px;
+    position:absolute;
+    right: 8px;
+    text-align:right;
+    width: 60px;
+    z-index: 50;
+}
+
+.tableStatusStdBtn .tableData {
+	margin-left: 0px;
+	width: 160px;
+}
+
+.tableStatusStdBtn .tableInfo {
+    margin-left: 8px;
+	padding: 0px;
+}
+
+.tableStatusStdBtn .tableInfo .checkNo,
+.tableStatusStdBtn .tableInfo .clerk,
+.tableStatusStdBtn .tableInfo .total,
+.tableStatusStdBtn .remark {
+	margin-top: 0px;
+	overflow: hidden;
+}
+
+.tableStatusStdBtn .tableName {
+	color: #372213;
+	margin-left: 4px;
+	margin-top: 0px;
+	padding: 2px;
+	word-break:break-all;
+	word-wrap: break-word;
+}
+
+.tableStatusStdBtn .checkNum{
+	color: #9e0b0f;
+	font-weight: bold;
+	position:absolute;
+	right: 12px;
+	top: 30px;
+	z-index: 130;
+}
+
+.tableStatusStdBtn .time{
+	background: transparent url(../images/time.png) no-repeat 0px center;
+	color: black;
+	font-size: 8pt;
+	position:absolute;
+	right: 28px;
+	text-align: right;
+	top: 9px;
+	width: 49px;
+	z-index: 120;
+}
+
+.tableStatusStdBtn .tableNo {
+	font-size: 16pt;
+	font-weight: bold;
+	line-height: 16px;
+	margin: 2px 2px 0 2px;
+	padding: 0px 18px 0 2px;
+}
+
+.tableStatusStdBtn .thumbtack {
+	position:absolute;
+	top: 0;
+	right: 8px;
+	z-index: 110;
+	width: 18px;
+	height: 28px;
+}
+
+/* �W�L�ɶ� */
+.tableStatusStdBtn .overtime {
+	background: #9e0b0f;
+	color: yellow;
+	font-weight: bold;
+}
+
+/* �W�L�H�� */
+.tableStatusStdBtn .overpeople {
+	background: #9e0b0f;
+	color: yellow;
+	font-weight: bold;
+}
+
+.tableStatusStdBtn .redtable .tableNo {
+	border-bottom: 1px solid #9e0b0f;
+	color: #9e0b0f;
+}
+
+.tableStatusStdBtn .redtable .thumbtack {
+	background: transparent url(../images/thumbtack_red.png) no-repeat 0px center;
+}
+
+.tableStatusStdBtn .bluetable .tableNo {
+	border-bottom: 1px solid #354f66;
+	color: #354f66;
+}
+
+.tableStatusStdBtn .bluetable .thumbtack {
+	background: transparent url(../images/thumbtack_blue.png) no-repeat 0px center;
+}
+
+.tableStatusStdBtn .bluetable .time {
+	background: none;
+}
+
+.tableStatusStdBtn .greentable .tableNo {
+	border-bottom: 1px solid #a2a70f;
+	color: #a2a70f;
+}
+
+.tableStatusStdBtn .greentable .thumbtack {
+	background: transparent url(../images/thumbtack_green.png) no-repeat 0px center;
+}
+
+.tableStatusStdBtn .greentable .people{
+	color:  #ed145b;
+	font-size: 16pt;
+	font-weight: bold;
+}
+
+.tableStatusStdBtn .greentable .bottomItem{
+	bottom: 10px;
+}
+
+.tableStatusStdBtn .greentable .time {
+	background: none;
+}
+
+.tableStatusStdBtn .yellowtable .tableNo {
+	border-bottom: 1px solid #f2c54e;
+	color: #f2c54e;
+}
+
+.tableStatusStdBtn .yellowtable .thumbtack {
+	background: transparent url(../images/thumbtack_yellow.png) no-repeat 0px center;
+}
+
+.tableStatusStdBtn .yellowtable .time {
+	background: none;
+}

@@ -1,0 +1,130 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Styles for Table Status Button
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.container-dialog table_status_btn {
+    margin: 2px;
+}
+
+.container-dialog table_status_btn .bgtext {
+    color: #ddd;
+    font-size: 80px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+
+.container-dialog table_status_btn .tablebox td {
+    height: 18px;
+    empty-cells: show;
+}
+
+.container-dialog table_status_btn .tdb_green {
+    border-bottom: #0a2 solid 1px;
+}
+
+.container-dialog table_status_btn .tdb_red {
+    border-bottom: #d26 solid 1px;
+}
+
+.container-dialog table_status_btn .tdb_blue {
+    border-bottom: #66f solid 1px;
+}
+
+.container-dialog table_status_btn .tdb_yellow {
+    border-bottom: #f6f solid 1px;
+}
+
+.container-dialog table_status_btn .table_no {
+    color: #eef;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    float: left;
+    text-align: center;
+    width: 40px;
+}
+
+.container-dialog table_status_btn .table_label {
+    background: none;
+    float: left;
+    font-style: italic;
+}
+
+.container-dialog table_status_btn .checks {
+    background: none;
+    color: #f33;
+    float: right;
+    font-size: 16px;
+    margin-top: 6px;
+    text-align: right;
+}
+
+.container-dialog table_status_btn .check_no {
+    background: none;
+    float: left;
+}
+
+.container-dialog table_status_btn .period {
+    float: right;
+    text-align: right;
+}
+
+.container-dialog table_status_btn .seq_no {
+    background: none;
+    float: left;
+}
+
+.container-dialog table_status_btn .booking {
+    background: none;
+    float: left;
+}
+
+.container-dialog table_status_btn .subtotal {
+    background: none;
+    float: left;
+}
+
+.container-dialog table_status_btn .capacity {
+    float: right;
+    text-align: right;
+}
+
+.container-dialog table_status_btn .clerk {
+    margin-top: 0px;
+    text-align: left;
+}
+
+.container-dialog table_status_btn .green {
+    background-color: #cfc;
+}
+
+.container-dialog table_status_btn .red {
+    background-color: #fcc;
+}
+
+.container-dialog table_status_btn .blue {
+    background-color: #ccf;
+}
+
+.container-dialog table_status_btn .yellow {
+    background-color: #fcf;
+}
+
+.container-dialog table_status_btn .table_green {
+    background-color: #0a2;
+}
+.container-dialog table_status_btn .table_red {
+    background-color: #d26;
+}
+
+.container-dialog table_status_btn .table_blue {
+    background-color: #66f;
+}
+
+.container-dialog table_status_btn .table_yellow {
+    background-color: #f6f;
+}

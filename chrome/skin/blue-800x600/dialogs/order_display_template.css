@@ -1,0 +1,185 @@
+@namespace xul url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace html url(""http://www.w3.org/1999/xhtml"");
+
+/******** for xul ********/
+.reportbox {
+    overflow-y:auto;
+}
+
+ @media print {
+
+}
+
+
+/******** for html ********/
+.report {
+	height: 1px;
+	min-height: 1px;
+  padding: 7px;
+	margin: 0px;
+	
+}
+.size {
+
+}
+
+.paper {
+	width: 590px;
+    max-width: 590px;
+	min-height: 500px;
+	max-height: 520px;
+	overflow-y:auto;
+	margin: 0px auto;
+  padding: 10px;
+}
+
+.PageTitle  {
+	text-align: center;
+	font-size: 10pt;
+	color: #534741;
+	font-weight: bold;
+	border-bottom: 3px #b5b093 double;
+	background: url(images/report_title_bg.gif) repeat-x bottom center;
+	padding: 8px;
+	margin: 10px 0;
+}
+
+.tableTitle  {
+	text-align: center;
+	font-size: 10pt;
+	color: #534741;
+	margin: 0px 10px;
+}
+
+/* who print, when, time range, ...etc */
+.ReportDate {
+	font-size: 8pt;
+	color: black;
+	background-color: #f5f2e9;
+	padding: 3px 10px;
+	width: 95%;
+	margin: 15px auto;	
+}
+
+
+#body-table {
+  width: 98%;
+  margin: 10px auto 0px auto;
+/*  font: 100% sans-serif; */
+  border-collapse: collapse;
+  empty-cells: show;
+  }
+
+#body-table > caption {
+  text-align: left;
+  font-weight: bold;
+  font-size: 12pt;
+  color: #292929;
+  margin: 10px 5px;
+  list-style-image: url(images/table_title.gif);
+}
+
+
+/* basic shared rules */
+#body-table th,
+#body-table tbody td {
+  text-align: right;
+  border-bottom: 1px solid #c3c3c3;
+  }
+
+#body-table th {
+  font-weight: bold;
+  padding-left: .5em;
+  }
+
+
+/* header */
+#body-table > thead > tr:first-child > th {
+  text-align: center;
+  color: #56523a;
+  border-top: 2px solid #b5b093;
+  border-bottom: 1px solid #b5b093;
+  background-color: #f5f2ec;
+  font-size: 10pt;
+  padding: 4px;
+}
+
+#body-table > thead > tr + tr > th {
+  font-style: italic;
+  color: gray;
+  }
+
+/* fix size of superscript */
+#body-table sup {
+  font-size: 75%;
+  }
+
+/* body */
+#body-table td {
+  padding:4px 8px;
+  font-size: 10pt;
+  color: #484848;
+}
+
+#body-table tbody th:after {
+  content: ":";
+  }
+
+
+/* footer */
+#body-table tfoot {
+  font-weight: bold;
+  }
+
+#body-table tfoot th {
+  color: #2e2e2e;
+  }
+
+#body-table tfoot th:after {
+  content: ":";
+  }
+
+#body-table tfoot td {
+  text-align: right;
+}
+
+#body-table > tfoot > tr:first-child td {
+  border-top: 2pt solid #c3c3c3;
+  border-bottom: none;
+  font-size: 10pt;
+}
+
+
+/** for print use **/
+@media print {
+	.report {
+		padding: 0px;
+		margin: 0px;
+		background: white;
+	}
+	
+	.paper {
+		width: 17cm;
+		padding: 10px;
+		background: none;
+		border: none;
+	}
+
+	.ReportDate {
+		border: 1px solid #555;
+	}
+		
+	#body-table > thead {
+		display: table-header-group;
+	}
+
+	#body-table > thead > tr:first-child > th {
+	  background-color: #f5f2ec;
+	}
+	
+	#body-table > caption {
+	  page-break-before: always;
+  }
+	
+}
+

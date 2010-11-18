@@ -2,6 +2,7 @@ content roundrock /home/vivipos/workspace/roundrock/chrome/content/ xpcnativewra
 locale roundrock en /home/vivipos/workspace/roundrock/chrome/locale/en/
 
 skin viviecr blue-1024x768/1.0 /home/vivipos/workspace/roundrock/chrome/skin/blue-1024x768/
+skin viviecr blue-800x600/1.0 /home/vivipos/workspace/roundrock/chrome/skin/blue-800x600/
 
 overlay chrome://vivipos/content/mainUIOverlay.xul chrome://roundrock/content/overlays/overlay.xul
 overlay chrome://viviecr/content/sysprefs.xul chrome://roundrock/content/overlays/sysprefs.xul
