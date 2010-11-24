@@ -340,7 +340,7 @@
 
             var cateModel = new CategoryModel();
             var categories = cateModel.find('all', {
-                order: 'no'
+                order: "display_order, name COLLATE NOCASE"
             });
             GeckoJS.Session.set('categories', categories);
             this.deptPanelView.updateCategories();

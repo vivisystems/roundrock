@@ -13,11 +13,10 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2010-11-18 12:02+0800\n"
+"POT-Creation-Date: 2010-11-22 14:45+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3649,7 +3648,7 @@ msgstr ""
 #: ../..//content/controllers/systembackup_controller.js:261
 #: ../..//content/controllers/userprefs_controller.js:35
 #: ../..//content/reports/controllers/components/csv_export.js:17
-#: ../..//content/reports/controllers/components/wkhtmltopdf.js:38
+#: ../..//content/reports/controllers/components/wkhtmltopdf.js:43
 msgid "Failed to execute command (%S)."
 msgstr ""
 
@@ -3718,8 +3717,8 @@ msgstr ""
 
 #: ../..//content/controllers/admintools_controller.js:379
 msgid ""
-"Unable to re-initialize local index [sync_remote_machines] for datasource "
-"[%S]"
+"Unable to re-initialize local index [sync_remote_machines] for datasource [%"
+"S]"
 msgstr ""
 
 #: ../..//content/controllers/admintools_controller.js:385
@@ -5141,8 +5140,8 @@ msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:279
 msgid ""
-"An error was encountered while saving cashdrawer access record (error code "
-"%S) [message #205]."
+"An error was encountered while saving cashdrawer access record (error code %"
+"S) [message #205]."
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:294
@@ -5907,8 +5906,8 @@ msgstr ""
 #: ../..//content/controllers/guest_check_controller.js:1609
 #: ../..//content/controllers/guest_check_controller.js:1664
 msgid ""
-"override minimum charge. override clerk (%S,%S), original minimum charge "
-"(%S), new minimum charge (%S), comp amount (%S)"
+"override minimum charge. override clerk (%S,%S), original minimum charge (%"
+"S), new minimum charge (%S), comp amount (%S)"
 msgstr ""
 
 #: ../..//content/controllers/guest_check_controller.js:1636
@@ -7194,8 +7193,8 @@ msgstr ""
 
 #: ../..//content/controllers/ledger_controller.js:104
 msgid ""
-"An error was encountered while expiring backup ledger receipts (error code "
-"%S) [messages #803]."
+"An error was encountered while expiring backup ledger receipts (error code %"
+"S) [messages #803]."
 msgstr ""
 
 #: ../..//content/controllers/ledger_controller.js:111
@@ -8323,8 +8322,8 @@ msgid "TAL"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:205
-#: ../..//content/controllers/select_table_controller.js:1096
-#: ../..//content/controllers/select_table_controller.js:1139
+#: ../..//content/controllers/select_table_controller.js:1068
+#: ../..//content/controllers/select_table_controller.js:1111
 #: ../..//content/controllers/table_man_controller.js:813
 msgid "All Regions"
 msgstr ""
@@ -8380,7 +8379,7 @@ msgid "Please select the table to mark status..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:607
-#: ../..//content/controllers/select_table_controller.js:1147
+#: ../..//content/controllers/select_table_controller.js:1119
 msgid "Clear Table Status"
 msgstr ""
 
@@ -8405,65 +8404,65 @@ msgstr ""
 msgid "Table [%S] is not available!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:842
+#: ../..//content/controllers/select_table_controller.js:816
 #: ../..//content/helpers/nsi_orders_checklist_view.js:58
 #: ../..//content/helpers/nsi_tablestatus_view.js:161
 msgid "C#"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:845
+#: ../..//content/controllers/select_table_controller.js:819
 #: ../..//content/helpers/nsi_orders_checklist_view.js:61
 #: ../..//content/helpers/nsi_tablestatus_view.js:158
 msgid "S#"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:885
-#: ../..//content/controllers/select_table_controller.js:890
-#: ../..//content/controllers/select_table_controller.js:906
+#: ../..//content/controllers/select_table_controller.js:857
+#: ../..//content/controllers/select_table_controller.js:862
+#: ../..//content/controllers/select_table_controller.js:878
 msgid "Table [%S] is not available for merging. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:945
+#: ../..//content/controllers/select_table_controller.js:917
 msgid "Table [%S] is not available for unmerging. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:982
-#: ../..//content/controllers/select_table_controller.js:985
+#: ../..//content/controllers/select_table_controller.js:954
+#: ../..//content/controllers/select_table_controller.js:957
 msgid "Select Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1008
+#: ../..//content/controllers/select_table_controller.js:980
 msgid "Table [%S] is not available for marking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1013
+#: ../..//content/controllers/select_table_controller.js:985
 msgid "Table [%S] is not available fr marking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1020
+#: ../..//content/controllers/select_table_controller.js:992
 msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1064
+#: ../..//content/controllers/select_table_controller.js:1036
 msgid "Table [%S] is not available for unmarking. Status [%S], Active [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1102
+#: ../..//content/controllers/select_table_controller.js:1074
 msgid "You are now marking table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1145
+#: ../..//content/controllers/select_table_controller.js:1117
 msgid "You are now cleaning table status of Region# %S"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1180
+#: ../..//content/controllers/select_table_controller.js:1152
 msgid ""
 "A minor error was detected with this order and has been fixed. The order was "
 "previously completed and will no longer appear in the table manager"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1265
-#: ../..//content/controllers/select_table_controller.js:1269
+#: ../..//content/controllers/select_table_controller.js:1237
+#: ../..//content/controllers/select_table_controller.js:1241
 msgid "Table [%S] is not available for transfer. Status [%S], Active [%S]"
 msgstr ""
 
@@ -8509,14 +8508,14 @@ msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:626
 msgid ""
-"An error was encountered while accessing administrator account (error code "
-"%S) [message #1302]."
+"An error was encountered while accessing administrator account (error code %"
+"S) [message #1302]."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:634
 msgid ""
-"An error was encountered while updating administrator password (error code "
-"%S) [message #1303]."
+"An error was encountered while updating administrator password (error code %"
+"S) [message #1303]."
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:647
@@ -8747,8 +8746,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:780
 msgid ""
-"An error was encountered while retrieving cash payment records (error code "
-"%S) [message #1413]."
+"An error was encountered while retrieving cash payment records (error code %"
+"S) [message #1413]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:807
@@ -8795,8 +8794,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:996
 msgid ""
-"An error was encountered while computing cash and ledger sums (error code "
-"%S) [message #1418]."
+"An error was encountered while computing cash and ledger sums (error code %"
+"S) [message #1418]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1015
@@ -8837,8 +8836,8 @@ msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1129
 msgid ""
-"An error was encountered while computing ledger cash received (error code "
-"%S) [message #1424]."
+"An error was encountered while computing ledger cash received (error code %"
+"S) [message #1424]."
 msgstr ""
 
 #: ../..//content/controllers/shift_changes_controller.js:1148
@@ -9042,8 +9041,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:303
 msgid ""
-"An error was encountered while inserting product stock records (error code "
-"%S) [message #1603]."
+"An error was encountered while inserting product stock records (error code %"
+"S) [message #1603]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:335
@@ -9121,8 +9120,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:617
 msgid ""
-"An error was encountered while saving stock adjustment records (error code "
-"%S) [message #1611]."
+"An error was encountered while saving stock adjustment records (error code %"
+"S) [message #1611]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:650
@@ -9133,8 +9132,8 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:658
 msgid ""
-"An error was encountered while saving stock adjustment details (error code "
-"%S) [message #1613]."
+"An error was encountered while saving stock adjustment details (error code %"
+"S) [message #1613]."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:669
@@ -9758,8 +9757,8 @@ msgstr ""
 
 #: ../..//content/controllers/userprefs_controller.js:115
 msgid ""
-"Are you sure you want to restore user preferences from the selected backup "
-"[%S]? If you choose to proceed with recovery, application will restart "
+"Are you sure you want to restore user preferences from the selected backup [%"
+"S]? If you choose to proceed with recovery, application will restart "
 "immediately."
 msgstr ""
 
@@ -10029,29 +10028,29 @@ msgstr ""
 
 #: ../..//content/models/ledger_record.js:46
 msgid ""
-"An error was encountered while expiring ledger payment records (error code "
-"%S) ."
+"An error was encountered while expiring ledger payment records (error code %"
+"S) ."
 msgstr ""
 
 #: ../..//content/models/ledger_record.js:54
 #: ../..//content/models/ledger_record.js:61
 msgid ""
-"An error was encountered while expiring ledger activity logs (error code "
-"%S) ."
+"An error was encountered while expiring ledger activity logs (error code %"
+"S) ."
 msgstr ""
 
 #: ../..//content/models/shift_change.js:109
 #: ../..//content/models/shift_change.js:116
 msgid ""
-"An error was encountered while expiring shift change records (error code "
-"%S) ."
+"An error was encountered while expiring shift change records (error code %"
+"S) ."
 msgstr ""
 
 #: ../..//content/models/shift_change_detail.js:78
 #: ../..//content/models/shift_change_detail.js:85
 msgid ""
-"An error was encountered while expiring shift change details (error code "
-"%S) ."
+"An error was encountered while expiring shift change details (error code %"
+"S) ."
 msgstr ""
 
 #: ../..//content/models/transaction.js:1509
@@ -10435,7 +10434,7 @@ msgstr ""
 
 #: ../..//content/reports/controllers/components/browser_print.js:225
 #: ../..//content/reports/controllers/components/browser_print.js:312
-#: ../..//content/reports/controllers/components/wkhtmltopdf.js:126
+#: ../..//content/reports/controllers/components/wkhtmltopdf.js:132
 msgid "Generated by VIVIPOS"
 msgstr ""
 
@@ -10444,7 +10443,7 @@ msgstr ""
 msgid "Firich Enterprises Co.,Ltd."
 msgstr ""
 
-#: ../..//content/reports/controllers/components/wkhtmltopdf.js:113
+#: ../..//content/reports/controllers/components/wkhtmltopdf.js:118
 msgid "About %S Mins"
 msgstr ""
 
@@ -12254,14 +12253,11 @@ msgstr ""
 
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:125
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:78
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:57
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return.tpl:108
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return_rcp_58mm.tpl:68
-msgid "(rpt)Total Records Found"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:57
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return_rcp_80mm.tpl:52
-msgid "(rpt)Total Records Found:"
+msgid "(rpt)Total Records Found"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_product_sales_return/rpt_product_sales_return.tpl:55
