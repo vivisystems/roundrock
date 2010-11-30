@@ -24,7 +24,7 @@ MEDIA="/media/$TOOLS_LABEL"
 # initramfs related parameters
 CRYPT_KEY_FILE=crypt-key
 CRYPT_KEY_PATH=/etc
-INITRAMFS=/boot/initrd.img-2.6.32-25-generic
+INITRAMFS=/boot/initrd.img-2.6.32-26-generic
 
 
 # GRUB related parameters
@@ -477,7 +477,7 @@ generate_initramfs() {
 
 	sleep 2;
 
-	mv -f "$MEDIA/$CRYPT_KEY_FILE" "./$CRYPT_KEY_PATH/"
+	cp -f "$MEDIA/$CRYPT_KEY_FILE" "./$CRYPT_KEY_PATH/"
 	find . | { cpio --verbose --dereference -o -H newc | gzip -c > /tmp/initrd.$$ ; } 2>&1 \
 	    | $DIALOG $DIALOG_OPTS --progressbox "Regenerating initramfs..." $((MAX_HEIGHT - 5)) $MAX_WIDTH
 
@@ -621,6 +621,9 @@ else
     remove_provisioning_grub_entry
 
     /usr/bin/clear
+
+    # remove license key
+    [ -f "$MEDIA/$CRYPT_KEY_FILE" ] && rm -f "$MEDIA/$CRYPT_KEY_FILE";
 
     poweroff
 fi
