@@ -108,6 +108,7 @@ do_usr_lib_sqfs() {
     		  ${ROOTFS_DIR}/usr/lib/python3.1 \
     		  ${ROOTFS_DIR}/usr/lib/ImageMagick-6.5.7 \
     		  ${ROOTFS_DIR}/usr/lib/perl \
+    		  ${ROOTFS_DIR}/usr/lib/GMABooster \
     		  ${ROOTFS_DIR}/usr/lib/gconv \
     		  ${ROOTFS_DIR}/usr/lib/gtk-2.0 \
     		  ${ROOTFS_DIR}/usr/lib/cgi-bin \

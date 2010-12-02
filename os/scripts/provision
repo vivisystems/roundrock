@@ -24,7 +24,7 @@ MEDIA="/media/$TOOLS_LABEL"
 # initramfs related parameters
 CRYPT_KEY_FILE=crypt-key
 CRYPT_KEY_PATH=/etc
-INITRAMFS=/boot/initrd.img-2.6.32-26-generic
+INITRAMFS=/boot/initrd.img-2.6.37-7-generic
 
 
 # GRUB related parameters
