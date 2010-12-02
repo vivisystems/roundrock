@@ -52,6 +52,11 @@ run()
     echo  "$MSG_RUN_VIVIPOS_STARTING" | \
     /usr/bin/aosd_cat -x 100 -n "Droid Serif 24" -u 800000 &
 
+    # 3G modem
+    if [ -f /tmp/3g-modem.device.gnokii ]; then
+        eval `gnokii --identify 2>/dev/null | sed -e 's/ //g' -e's/:/=/g' -e 's/^/export MODEM_/g'`;
+    fi
+
     # set env of system info
     eval `${DIR}/getSystemLicenseStub -v 2>/dev/null |awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
     ${DIR}/xulrunner/xulrunner ${DIR}/application.ini $@

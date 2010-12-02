@@ -16,6 +16,16 @@ fi
 echo "`date +"%Y-%m-%d %H:%M:%S"` : Starting VIVIPOS FROM [vivipos]" >> ${DIR}/log/vivipos.log
 echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini] $@" >> ${DIR}/log/vivipos.log
 
+# 3G modem
+if [ -f /tmp/3g-modem.device.gnokii ]; then
+    eval `gnokii --identify 2>/dev/null | sed -e 's/ //g' -e's/:/=/g' -e 's/^/export MODEM_/g'`;
+fi
+
+# support center
+if [ -f /etc/support.site ]; then
+    SUPPORT_SITE=`cat /etc/support.site`; export SUPPORT_SITE
+fi
+
 # set env of system info
 eval `${DIR}/getSystemLicenseStub -v 2>/dev/null |awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
 ${DIR}/xulrunner/xulrunner ${DIR}/application.ini $@
