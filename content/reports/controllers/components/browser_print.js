@@ -1,4 +1,11 @@
 ( function() {
+    try {
+        include( 'chrome://viviecr/content/reports/controllers/components/wkhtmltopdf.js' );
+    }catch(e) {
+        var WkhtmltopdfComponent = window.WkhtmltopdfComponent = GeckoJS.Component.extend( {exists: function() {
+                return false;
+        }} );
+    }
 
     var __component__ = {
 

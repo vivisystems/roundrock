@@ -16,7 +16,7 @@
 	min-height: 1px;
   padding: 7px;
 	margin: 0px;
-	background: #f7f4ed url(chrome://viviecr/content/skin/images/report_bg.gif) repeat-x top center;
+	background: #f7f4ed url(report_bg.gif) repeat-x top center;
 }
 
 .paper {
@@ -37,7 +37,7 @@
 	color: #534741;
 	font-weight: bold;
 	border-bottom: 3px #b5b093 double;
-	background: url(chrome://viviecr/content/skin/images/report_title_bg.gif) repeat-x bottom center;
+	background: url(report_title_bg.gif) repeat-x bottom center;
 	padding: 8px;
 	margin: 10px 0;
 }
@@ -73,7 +73,7 @@
   font-size: 9pt;
   color: #292929;
   margin: 3px 5px;
-  list-style-image: url(chrome://viviecr/content/skin/images/table_title.gif);
+  list-style-image: url(table_title.gif);
 }
 
 .subtitle{
@@ -239,4 +239,14 @@ body
 #condition-table .condition-title{
     width: 20%;
     white-space:nowrap;
+}
+
+#printhead {
+    width: 160px;
+    height: 40px;
+    background-image: url(logo.png);
+}
+
+#printhead > img {
+    display: none;
 }

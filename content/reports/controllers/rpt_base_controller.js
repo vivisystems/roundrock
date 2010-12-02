@@ -8,7 +8,7 @@
      */
     var __controller__ = {
         name: 'RptBase',
-        components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia', 'OrderStatus' ],
+        components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia', 'OrderStatus', 'Wkhtmltopdf' ],
         packageName: 'viviecr',
         _recordOffset: 0, // this attribute indicates the number of rows going to be ignored from the beginning of retrieved data rows.
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
@@ -58,6 +58,9 @@
 
         _currentOrderDatabase: {},
         _orderHistoryDatabases: [],
+
+        _rpt_layout_template_src: "",
+
         
         formatPrice: function(price, showZero) {
             if (parseFloat(price) == 0 && !showZero) {
@@ -323,9 +326,16 @@
         },
         
         /**
-		 * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
-		 */
+         * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
+         * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
+         */
         exportPdf: function( paperProperties ) {
+
+            // if wkhtmltopdf extension installed
+            if (this.Wkhtmltopdf.exists()) {
+                return this.exportPdfExt(paperProperties);
+            }
+            
             if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
                 return;
 
@@ -473,6 +483,84 @@
                 
                 if ( waitPanel != undefined )
                     this._dismissWaitingPanel();
+            }
+        },
+
+        /**
+         * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
+         * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
+         */
+        exportPdfExt: function( paperProperties, noReload ) {
+
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
+                return;
+
+            var cb = null;
+            this._csvLimit = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.reports.csvLimit" ) || this._csvLimit );
+            
+            try {
+                this._enableButton( false );
+
+                var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
+                if ( !media_path ) {
+                    NotifyUtils.info( _( 'Media not found!! Please attach a USB thumb drive...' ) );
+                    this._enableButton( true );
+                    return;
+                }
+
+                var waitPanel = this._showWaitingPanel();
+
+                var progress = document.getElementById( this._progress_bar_id );
+                var caption = document.getElementById( this.getCaptionId() );
+
+                // process layout template
+                var rep_tpl = "";
+                var layout_tpl = "";
+                try {
+                    var rep_path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
+                    rep_tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( rep_path ) ) || "";
+                    var layout_path = GREUtils.File.chromeToPath( this._rpt_layout_template_src);
+                    layout_tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( layout_path ) ) || "";
+                }catch(e) {
+                }
+
+                var tmpRecords = {};
+                if ( !noReload ) {
+                    tmpRecords.head = GREUtils.extend( {}, this._reportRecords.head );
+                    tmpRecords.body = this._reportRecords.body;
+                    tmpRecords.foot = GREUtils.extend( {}, this._reportRecords.foot );
+
+                    this._set_reportRecords( this._csvLimit );
+                    this._reportRecords.foot.gen_time = ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' );
+                }
+
+                var fileName = this._exportedFileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.pdf';
+                var targetDir = media_path;
+                var tmpFile = this._tmpFileDir + fileName;
+                
+                var self = this;
+
+                cb = function() {
+                    // enable buttons
+                    self._enableButton( true );
+                    // hide panel
+                    if ( waitPanel != undefined )
+                        self._dismissWaitingPanel();
+                };
+
+                this.Wkhtmltopdf.exportToPdf(tmpFile, paperProperties, this._reportRecords, rep_tpl, layout_tpl, caption, progress);
+                
+                if (GREUtils.File.exists(tmpFile)) {
+                    this._copyExportFileFromTmp( tmpFile, targetDir, 180,  cb );
+                }else {
+                    NotifyUtils.warn( _( 'Export PDF Error' ) );
+                    this.log('ERROR', this.name + '::Export to pdf (' + tmpFile + ') not exists.');
+                    cb();
+                }
+                
+            } catch ( e ) {
+                //dump( e );
+                this._copyExportFileFromTmp( "/tmp/__notexists__", "/tmp", 0.1,  cb ); // to close the waiting panel.
             }
         },
         
@@ -745,6 +833,16 @@
             this._enableButton( false );
             this._mainScreenWidth = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.width' ) || 800;
             this._mainScreenHeight = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.height' ) || 600;
+
+            // reset report result innerHtml
+            var bw = document.getElementById( this._preview_frame_id );
+            if (bw) {
+                this._rpt_layout_template_src = bw.getAttribute('src') || ""; // set layout template , export pdf will use it.
+                var doc = bw.contentWindow.document.getElementById( this._abody_id );
+                if (doc) {
+                    doc.innerHTML = "";
+                }
+            }
             
             // they are the same in default.
             this._exportedFileName = this._fileName;
@@ -981,7 +1079,8 @@
             
             return dbConfigName;
 
-        },
+        }
+
 
     };
     

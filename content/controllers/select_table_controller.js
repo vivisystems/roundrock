@@ -810,12 +810,13 @@
                     this.Form.removeAllChildren(tabs);
                     
                     tableStatus.TableOrder.forEach(function(order){
+
                         var tab = document.createElement("tab");
                         if (order.check_no) {
                             tab.setAttribute('label', _('C#') + order.check_no);
                         }
                         else {
-                            tab.setAttribute('label', _('S#') + order.sequence.substr(-3));
+                            tab.setAttribute('label', _('S#') + (order.sequence? order.sequence.substr(-3) : '-1'));
                         }
                         tab.setAttribute('value', order.id);
                         tabs.appendChild(tab);
@@ -823,8 +824,10 @@
 
                     document.getElementById('order_selected_table_id').value = table_id;
                 }
+
                 this._actionData = table;
                 this.popupOrderDisplayPanel();
+
             }catch(e){
                 // XXX notify fatal error message.
                 // alert(e);

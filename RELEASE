@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
-Release Note for VIVIECR ver.1.2.1.8 (English version)
-Release Date: 2010-Oct-18
+Release Note for VIVIECR ver.1.2.1.9 (English version)
+Release Date: 2010-Nov-18
 --------------------------------------------------------------------------------
 
 This is a maintenance release with enhanced functions for VIVIPOS Application (VIVIECR) 1.2.1.x series.
@@ -13,87 +13,83 @@ Dependencies
 This release requires the following applications:
 	- VIVIPOS OS Release 1.2.2 or above
 	- VIVIPOS App Engine Release 1.2.1.5 or above
-	- VIVIPOS WebApp and WebServices Release 1.2.1.2 or above
+	- VIVIPOS WebApp and WebServices Release 1.2.1.3 or above
 
-You should also install appropriate language pack (langpack-en-US_1.2.1.8.xpi) to avoid translation-related issues.
+You should also install appropriate language pack (langpack-en-US_1.2.1.9.xpi) to avoid translation-related issues.
 
 --------------------------------------------------------------------------------
 Enhanced Functions
 --------------------------------------------------------------------------------
 
-Ticket#141:
-Enhance Table Manager function: Add "Delayed time setting (seconds)" which allows users to setup the delayed time for the pop-up timing of table selection panel after order finalized or stored.
+Ticket#193:
+Enhanced Logging: Sequence generation error will now be logged to vivipos.log
 
-Ticket#150:
-Enhance Stock Control function: Add an alert message to request users to setup stock quantity first before ticking "Auto-stock" setting in Products.
+Ticket#202:
+Enhanced Layout Function: Accidental object modifications in template processing in both VFD display and printer printing will no longer affect cart session object.
 
-Ticket#151:
-Enhance the display method of order item in shopping cart when the price level setting of the order item is not enable due to the price level setting of that order's Destinations setting.
+Ticket#204:
+Enhanced Product Return Report: Summation by department now available.
 
-Ticket#157:
-Enhance Annotations and Reports functions: Add new field in Order Annotations Report to refect the quantity sold in each order.
+Ticket#209:
+Enhanced Product Return Function: When switched into product return mode, notification message will now be controlled via component's event dispatch rather than cart controller.
 
-Ticket#160:
-Enhance Attendance Record: Add Branch ID in the selection of search criteria.
+Ticket#210:
+Enhanced PDF Generation: PDF generation will not support over 100 pages of creation through wkhtmltopdf module.
 
-Ticket#164:
-Enhance Synchronization function: Submit X-Requested-With header to Synchronization Server so that the called script can know it is an XMLHttpRequest.
-
-Ticket#165:
-Enhance Item Tax ID in database: Adopt UUID as Item Tax ID in database.
-
-Ticket#166:
-Enhance Load Test function (operated by system engineer for testing purpose only) to add an alert in case the "store order" operation fails.
-
-Ticket#167:
-Enhance Load Test function (operated by system engineer for testing purpose only) to ensure the load test parameter for table will not affect the load test process.
-
-Ticket#169:
-Enhance Data Options setting in General Options function: Automatically move expired order data to historical database.
-
-Ticket#171:
-Enhance View System Log function: When users access Administration Tools, system will automatically record all the activities in system log file (vivipos.log).
-
-Ticket#173:
-Enhance User Interface: Add new skin with 1280x1024 resolution. 
-
-Ticket#176:
-Enhance Reports function: Add one query column for Database Selection in the header of each report.
-
-Ticket#177:
-Enhance Data Import / Export function: Rewrite software code to make this function more efficient.
-
-Ticket#178:
-Enhance Product Label Printing function: Modify software code to redefine the path of template image in preference file, which allows users to add label printing template via Add-on extension.
-
-Ticket#179:
-Enhance Delayed time setting in Table Manager and General Options: Delayed time setting could only be set as 0 (zero) or longer than 5 seconds to ensure Idle Service working normally.
-
-Ticket#180:
-Enhance View System Log function: When users change the settings in General Options and Network Services, system will automatically record all the activities in system log file (vivipos.log).
-
-Ticket#181:
-Enhance Product Sales Report: Add "Total Records Found" field to the last line of Product Sales Report.
-
-Ticket#182:
-Enhance Password setting mechanism: Password must only contain [a-z], [A-Z], [0-9]. Field of Password must not be blank. No space is allowed when input Password.
-
-Ticket#184:
-Enhance Inter-Register Comms (IRC) function: Change the products module of irc_manifest.xml from /data/images/ to /data/images/* to support Windows's bsdtar.exe.
-
-Ticket#185:
-Enhance VFD Templates: The Transaction data must be 'deep clone' before it is sent to the device templates, to prevent changes in the device templates.
+Ticket#212:
+Enhanced Shopping Cart: Product's sale unit that is set to "individually" will now be displayed in the shopping art as "X".  This character can be controlled through locale translation if processed through I18n.
 
 --------------------------------------------------------------------------------
 Bugs Fixed
 --------------------------------------------------------------------------------
 
-Ticket#146:
-In the circumstance that when users conduct transfer table process and print out a "transfer table check", the Table Label shown on transfer table check is not correct.
-This issue has been fixed in 1.2.1.8 release.
+Ticket#187:
+Department button will no longer generate image link error when its department number is the same as a product number in the database.
 
-Ticket#174:
-Fixed some duplicate message numbers.
+Ticket#189:
+Fixed an error with product barcode printing's preview overlapping.
+
+Ticket#190:
+In products setting page, choosing a product group then performing group linking was not linked properly - this is now fixed.
+
+Ticket#192:
+Error message #505 was used repeatedly, one is now changed to #507
+
+Ticket#194:
+Shift change report will now consider orders with destination field as both NULL or empty string '' to be the same.
+
+Ticket#196:
+Products that require condiments yet have no condiment group(s) linked will no longer crash the shopping cart.
+
+Ticket#197:
+When order content is automatically entered in the shopping cart after void sales, order destination will now carry over.
+
+Ticket#198:
+Shift marker will now synchronize to terminal ID changes to avoid sales period and shift loss during recovery.
+
+Ticket#200:
+Report by period will no longer be empty with specific time conditions.
+
+Ticket#201:
+Entering training mode after a boot up will no longer cause intermittent sales data to be recorded to training database after exiting training mode.
+
+Ticket#203:
+Fixed employee carding screen display for 1280 x 1024 mode.
+
+Ticket#207:
+Recalling a queued order will no longer leave previous order's information in the onscreen VFD
+
+Ticket#208:
+Performing a return item on an item in a set item will no longer generate color problem for the set item in the shopping cart
+
+Ticket#211:
+When the cursor is moved to a white row on the shopping cart, the cursor's color will no longer be overridden by the row color
+
+Ticket#213:
+Orders without sequence number assigned can now be recalled.
+
+Ticket#214:
+Department button will now be properly aligned in sequence according to its display order value.
 
 --------------------------------------------------------------------------------
 
