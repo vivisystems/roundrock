@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/orderstatus.dtd">
+
+<overlay id="vfdPanelOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <box id="vfdPanelContainer" orient="vertical" flex="0">
+    <vbox id="vfdPanel" flex="1" class="vfd-pad">
+
+        <onscreenvfd id="onscreenvfd" value=""
+                     class="vfd-vbox" labelClass="vfd-label" trainingClass="vfd-pad-training"
+                     inputController="inputLineTextBox"/>
+
+    </vbox>
+  </box>
+</overlay>

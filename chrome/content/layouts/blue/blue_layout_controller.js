@@ -68,7 +68,6 @@
             if (condCols == null) condCols = 4;
 
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.blue.CropPLULabel') || false;
-            if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
 
             if (condPanel &&
                 (initial ||
@@ -145,7 +144,7 @@
             
             // not any layout templates support it
             var showToolbar = false;
-            var hideBottomBox = false;
+            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox');
 
             var bottombox = document.getElementById('vivipos-bottombox');
             var fnPanel = document.getElementById('functionpanel');

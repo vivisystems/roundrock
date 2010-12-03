@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
+
+<overlay id="bluePrefsOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <prefwindow id="prefwin">
+
+    <script src='chrome://roundrock/content/layouts/blue/blue_prefs.js'/>
+
+        <prefpane id="displaySettingsPane" label="&category.layout.general;">
+            <preferences>
+
+                <preference id="pref_crop_dept_label" name="vivipos.fec.settings.layout.CropDeptLabel" type="bool"/>
+                <preference id="pref_crop_plu_label" name="vivipos.fec.settings.layout.blue.CropPLULabel" type="bool"/>
+                <preference id="pref_hidebottombox" name="vivipos.fec.settings.layout.HideBottomBox" type="bool" />
+
+            </preferences>
+            <grid class="data-form">
+                <columns>
+                    <column flex="1" />
+                    <column flex="1" />
+                </columns>
+                <rows>
+                    <row>
+                        <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
+                        <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
+                    </row>
+                    <row>
+                        <checkbox preference="pref_hidebottombox" id="pref_hidebottomboxCtrl" label="&layout.hidebottombox;" />
+                    </row>
+                </rows>
+            </grid>
+        </prefpane>
+
+    </prefwindow>
+</overlay>

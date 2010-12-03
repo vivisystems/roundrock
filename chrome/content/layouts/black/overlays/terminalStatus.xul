@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="overlay_test">
+
+    <box id="vivipos-bottombox">
+        <statusbar id="status-bar" pack="end">
+            <statusbarpanel id="statusbar-display">
+                <vivisessionstatus id="terminal_no" flex="1"
+                                   class="console-terminal-no"
+                                   columns="1"
+                                   crop="end"
+                                   nolabels="true"
+                                   keys="terminal_no"
+                                   valueClass="console-message-value"
+                                   />
+                <viviuserlabel id="current_user" class="console-current-user" flex="1"/>
+
+                <isoptionenabled id="option_sale_period" option="vivipos.fec.settings.DisableSalePeriod" action="hide"
+                                 flex="1" orient="horizontal">
+                    <vivisessionstatus id="sale_period" flex="1"
+                                       class="console-sale-period"
+                                       columns="1"
+                                       crop="end"
+                                       nolabels="true"
+                                       noseparator="true"
+                                       keys="sale_period_string"
+                                       valueClass="console-message-value"
+                                     />
+                </isoptionenabled>
+                <isoptionenabled id="option_shift_number" option="vivipos.fec.settings.DisableShiftChange" action="hide"
+                                 flex="1" orient="horizontal">
+                    <vivisessionstatus id="shift_number" flex="1"
+                                       class="console-sale-period"
+                                       columns="1"
+                                       crop="end"
+                                       nolabels="true"
+                                       noseparator="true"
+                                       keys="shift_number"
+                                       valueClass="console-message-value"
+                                     />
+                </isoptionenabled>
+                <vivisessionstatus id="order_sequence" flex="1"
+                                   class="console-order-sequence"
+                                   columns="1"
+                                   crop="end"
+                                   nolabels="true"
+                                   keys="vivipos_fec_order_sequence"
+                                   valueClass="console-message-value"
+                                   />
+                <vivisessionstatus id="price_level" flex="1"
+                                   class="console-price-level"
+                                   columns="1"
+                                   crop="end"
+                                   nolabels="true"
+                                   keys="vivipos_fec_price_level"
+                                   valueClass="console-message-value"
+                                   />
+                <vivisessionstatus id="destination" flex="1"
+                                   class="console-destination"
+                                   columns="1"
+                                   crop="end"
+                                   nolabels="true"
+                                   keys="vivipos_fec_order_destination"
+                                   valueClass="console-message-value"
+                                   />
+                <sync_status id="syncStatus"/>
+            </statusbarpanel>
+        </statusbar>
+    </box>
+</overlay>

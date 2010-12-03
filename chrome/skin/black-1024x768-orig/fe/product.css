@@ -1,0 +1,138 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Front End Product Panel
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .prodscrollablepanel {
+	margin: 0px 2px 0px 0px;
+	padding: 0px 0 0 2px;
+	-moz-appearance: none;
+	-moz-background-clip: border;
+}
+
+.main-overlay .prodscrollablepanel vivibuttonpanel {
+	margin-top: 2px;
+	margin-right: 4px;
+	margin-bottom: 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ *  Front-end product buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .button-product {
+    background: #A9A5A5 url(../images/btn_product_01.gif) 0 0 repeat-x;
+    border: 2px solid;
+    margin: 0 0 4px 2px;
+    min-width: 50px;
+    height: 58px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #777;
+    -moz-border-right-colors: #777;
+    -moz-border-bottom-colors: #777;
+    -moz-border-left-colors: #777;
+    -moz-background-clip: border;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+    -moz-border-radius: 10px;
+}
+
+.main-overlay .button-product[disabled=true] {
+    background-color: #A9A5A5;
+    -moz-border-top-colors: #777 !important;
+    -moz-border-right-colors: #777 !important;
+    -moz-border-bottom-colors: #777 !important;
+    -moz-border-left-colors: #777 !important;
+}
+
+.main-overlay .button-product hbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-box-orient: vertical;
+}
+
+.main-overlay .button-product description {
+    text-wrap: normal;
+    word-wrap: break-word;
+}
+
+/*-----------------------------------------------------------------------------
+ * scroll buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .product-scroll-up-button {
+    background: transparent url(../images/departUp.png) 0 0 no-repeat;
+    border: 0px;
+    margin: 2px 0px 0px 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+.main-overlay .product-scroll-up-button[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+.main-overlay .product-scroll-up-button label {
+    display: none;
+}
+
+.main-overlay .product-scroll-up-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .product-scroll-up-button description {
+    display: none;
+}
+
+.main-overlay .product-scroll-down-button {
+    background: transparent url(../images/departDown.png) 0 0 no-repeat;
+    border: 0px;
+    margin: 0px 0px 2px 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+.main-overlay .product-scroll-down-button[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+.main-overlay .product-scroll-down-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .product-scroll-down-button label {
+    display: none;
+}
+
+.main-overlay .product-scroll-down-button description {
+    display: none;
+}
+
+.main-overlay .prodscrollablepanel .scrollablepanel-scrollbar {
+	margin: 2px 0 2px 2px;
+        display: none;
+}
+
+.main-overlay .prodscrollablepanel image {
+	height: 32px;
+	width: 32px;
+}
+
+

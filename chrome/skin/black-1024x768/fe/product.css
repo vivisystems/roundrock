@@ -1,0 +1,183 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Front End Product Panel
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .prodscrollablepanel {
+    margin: 0px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+}
+
+.main-overlay .prodscrollablepanel vivibuttonpanel {
+    margin: 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ *  Front-end product buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .button-product {
+    border: 5px solid;
+    color: #000 !important;
+    padding: 2px;
+    margin: 2px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-border-top-colors: black gray transparent transparent transparent;
+    -moz-border-right-colors: black gray transparent transparent transparent;
+    -moz-border-bottom-colors: gray black transparent transparent transparent;
+    -moz-border-left-colors: gray black transparent transparent transparent;
+    -moz-border-radius: 10px;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+}
+
+.main-overlay .button-product[disabled=true] {
+    border-width: 5px !important;
+    -moz-border-top-colors: white #3a3a3b #3d3e3f #737678 #afb4b7 !important;
+    -moz-border-bottom-colors: white #f1f2f3 #eff0f1 #ebecee #e6e7e9 !important;
+    -moz-border-left-colors: white #555658 #76777a #9b9ea0 #cacccf !important;
+    -moz-border-right-colors: white #e0e2e5 #dee0e4 #dde0e3 #dbdee1 !important;
+}
+
+.main-overlay .button-product hbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-box-orient: vertical;
+}
+
+.main-overlay .button-product description {
+    text-wrap: normal;
+    word-wrap: break-word;
+}
+
+/*-----------------------------------------------------------------------------
+ * scroll buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .product-scroll-up-button {
+    background: transparent url(../images/departUp.png) no-repeat center center;
+    border: 0px;
+    margin: 2px 0px 0px 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+.main-overlay .product-scroll-up-button[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+.main-overlay .product-scroll-up-button label {
+    display: none;
+}
+
+.main-overlay .product-scroll-up-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .product-scroll-up-button description {
+    display: none;
+}
+
+.main-overlay .product-scroll-down-button {
+    background: transparent url(../images/departDown.png) no-repeat center center;
+    border: 0px;
+    margin: 0px 0px 2px 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+.main-overlay .product-scroll-down-button[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+.main-overlay .product-scroll-down-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .product-scroll-down-button label {
+    display: none;
+}
+
+.main-overlay .product-scroll-down-button description {
+    display: none;
+}
+
+.main-overlay .prodscrollablepanel .scrollablepanel-scrollbar {
+	margin: 2px 0 2px 2px;
+        display: none;
+}
+
+/*--------------------------------------------------------------------------
+ *
+ * PRODUCT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.main-overlay .prodscrollablepanel .product-button-color-default {
+    background: #A9A5A5 url(../images/btn_product_01.gif) 0 0 repeat-x !important;
+}
+
+.main-overlay .prodscrollablepanel .product-button-color-1 {
+    background: #D4D1D1 url(../images/btn_product_02.gif) 0 0 repeat-x !important;
+}
+
+.main-overlay .prodscrollablepanel .product-button-color-2 {
+    background: #FFBFBF url(../images/btn_product_03.gif) 0 0 repeat-x !important;
+}
+
+.main-overlay .prodscrollablepanel .product-button-color-3 {
+    background: #CDCDFF url(../images/btn_product_04.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-4 {
+    background: #92FF92 url(../images/btn_product_05.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-5 {
+    background: #EBEB00 url(../images/btn_product_06.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-6 {
+    background: #DBC5FF url(../images/btn_product_07.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-7 {
+    background: #FFCA85 url(../images/btn_product_08.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-8 {
+    background: #FFB8E5 url(../images/btn_product_09.gif) 0 0 repeat-x !important;
+ }
+
+.product-button-color-9 {
+    background: #F070FF url(../images/btn_product_10.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-10 {
+    background: #6FB9D6 url(../images/btn_product_11.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-11 {
+    background: #6DFFF6 url(../images/btn_product_12.gif) 0 0 repeat-x !important;
+}
+

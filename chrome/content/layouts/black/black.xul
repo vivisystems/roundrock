@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Layout SYSTEM "chrome://viviecr/locale/layout.dtd">
+  %Layout;
+  <!ENTITY % OrderStatus SYSTEM "chrome://viviecr/locale/orderstatus.dtd">
+  %OrderStatus;
+  ]>
+
+<?xml-stylesheet href="chrome://viviecr/skin/fe/overlay-black.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/vfdpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/orderstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/department.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/product.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/function-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/condiment.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/cart.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/cartstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/inputline.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/promotions_status.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/terminalstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/functionpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
+
+<?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/cartStatusPanelOverlay.xul" ?>
+
+<?xul-overlay href="chrome://roundrock/content/layouts/black/overlays/keysetExtensions.xul" ?>
+<?xul-overlay href="chrome://roundrock/content/layouts/black/overlays/terminalStatus.xul" ?>
+<?xul-overlay href="chrome://roundrock/content/layouts/black/overlays/uireceipts.xul" ?>
+
+<?xul-overlay href="chrome://viviecr/content/dialogs/select_table.xul" ?>
+
+<overlay id="blueLayoutOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script src="chrome://roundrock/content/layouts/black/black_layout_controller.js" type="application/x-javascript;version=1.7"/>
+
+    <box id="main-container">
+
+        <box id="mainPanel" flex="1" class="main-panel" orient="vertical">
+
+            <hbox flex="1">
+
+                <box id="leftPanel" flex="0" orient="vertical" class="left-panel">
+
+                    <box id="uiPanelContainer" flex="0" class="uiPanel"/>
+
+                    <hbox class="page-panel" align="center">
+                        <button anonid="btnUp" label="▲" oncommand="$do('scrollByLines', '-1', 'Cart');"/>
+                        <button anonid="btnUp" label="▲▲" oncommand="$do('scrollByLines', '-9', 'Cart');"/>
+                        <spacer flex="1"/>
+                        <button anonid="btnDown" label="▼" oncommand="$do('scrollByLines', '+1', 'Cart');"/>
+                        <button anonid="btnDown" label="▼▼" oncommand="$do('scrollByLines', '+9', 'Cart');"/>
+                    </hbox>
+
+                    <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;" class="cart-list"/>
+
+                    <onscreenvfd id="onscreenvfd" value=""
+                                 class="vfd-vbox"
+                                 messageRowClass="messageRowClass"
+                                 messageLabelClass="messageLabelClass"
+                                 messageValueClass="messageValueClass"
+                                 summaryRowClass="summaryRowClass"
+                                 paymentLabelSize="7"
+                                 paymentValueSize="8"
+                                 paymentLabelClass="smallLabelClass"
+                                 paymentValueClass="smallValueClass"
+                                 changeLabelSize="7"
+                                 changeValueSize="8"
+                                 changeLabelClass="smallLabelClass"
+                                 changeValueClass="smallValueClass"
+                                 totalClass="totalClass"
+                                 totalLabelSize="6"
+                                 totalLabelClass="totalLabelClass"
+                                 totalValueClass="totalValueClass"
+                                 trainingClass="vfd-pad-training"
+                                 inputController=""/>
+                </box>
+
+                <box id="rightPanel" flex="1" class="right-panel" orient="vertical">
+                    <hbox id="boxInfo" align="right">
+                    </hbox>
+                    <hbox class="info-panel">
+                        <vbox class="return-mode-panel" align="center" pack="center">
+                            <label id="returnStatus" flex="0"/>
+                        </vbox>
+                        <vbox class="cartstatus-panel" pack="center" align="center">
+                            <box id="cartStatusPanelContainer" flex="0" panel="&layout.panel.cartstatus;"/>
+                        </vbox>
+                        <spacer flex="1"/>
+                        <clock flex="0" align="right" class="clock-panel"/>
+                    </hbox>
+                    <box id="categoryPanelContainer" hidden="false" flex="0" panel="&layout.panel.departments;"/>
+                    <box id="productPanelContainer" hidden="false" flex="1" panel="&layout.panel.products;" class="product-panel"/>
+                </box>
+
+            </hbox>
+            <hbox class="bottom-panel">
+                <box id="functionPanelContainer" flex="1" panel="&layout.panel.function;" class="function-panel"/>
+            </hbox>
+
+        </box>
+
+    </box>
+
+</overlay>

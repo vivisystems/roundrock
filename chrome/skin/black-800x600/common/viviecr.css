@@ -1,0 +1,468 @@
+/*-----------------------------------------------------------------------------
+ *
+ * GLOBAL CSS
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+@import "chrome://viviecr/skin/common/bindings.css";
+@import "chrome://viviecr/skin/common/buttons.css";
+
+/*-----------------------------------------------------------------------------
+ * Reset global paddings and margins
+ *-----------------------------------------------------------------------------
+ */
+
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Column widths
+ *-----------------------------------------------------------------------------
+ */
+
+.column-fixed-2 * {
+    max-width: 366px;
+    min-width: 366px;
+    width: 366px;
+}
+
+.column-fixed-3 {
+    max-width: 250px;
+    min-width: 250px;
+    width: 250px;
+}
+
+.column-fixed-4 {
+     max-width: 185px;
+     min-width: 185px;
+     width: 185px;
+}
+
+.column-fixed-5 {
+     max-width: 150px;
+     min-width: 150px;
+     width: 150px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Text Headings
+ *-----------------------------------------------------------------------------
+ */
+
+.label-page-title {
+    color: #6F0;
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 5px 8px;
+}
+
+.label-sub-title {
+    color: #372213;
+    font-size: 11pt;
+    font-weight: bold;
+    margin: 5px 8px;
+}
+
+.label-notice {
+    color: #cc6300 !important;
+    font-weight: bold;
+}
+
+.label-alert {
+    border: 2px solid #cc6300;
+    color: #cc6300 !important;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+/*-----------------------------------------------------------------------------
+ * Text box used to display descriptions
+ *-----------------------------------------------------------------------------
+ */
+
+.textbox-description {
+    font-size: 13px !important;
+    background: white !important;
+}
+
+/*-----------------------------------------------------------------------------
+ * Wait panel
+ *-----------------------------------------------------------------------------
+ */
+
+.wait-panel {
+  background: white;
+  border: 3px solid #c1ab8e;
+  padding: 30px;
+  -moz-border-radius: 8px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Standard vivitree
+ *-----------------------------------------------------------------------------
+ */
+vivitree treechildren {
+    color: black;
+}
+
+vivitree[class=standard] {
+    margin: 4px;
+}
+
+vivitree[class~=standard] scrollbarbutton {
+    min-width: 32px;
+    min-height: 32px;
+    width: 40px;
+    height: 40px;
+}
+
+vivitree[class~=standard] treecol,
+vivitree[class~=standard] treecolpicker {
+    background: #f2f2f2 url(../images/titleBg.png) center center repeat-x;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 1px solid #979a9d;
+    border-bottom: 1px solid #979a9d;
+    color: #000;
+    height: 32px;
+    padding: 1px 3px;
+    -moz-border-right-colors: #979a9d;
+    -moz-border-bottom-colors: #979a9d;
+    -moz-appearance: none;
+}
+
+vivitree[class~=standard] treecolpicker {
+    min-width: 34px;
+    width: 40px;
+}
+
+vivitree[class~=standard] treecol > label {
+    text-align: center;
+}
+
+vivitree[class~=standard] treecol > image {
+    display: none;
+}
+
+vivitree[class~=standard] treechildren::-moz-tree-row {height: 32px;}
+vivitree[class~=standard] treechildren::-moz-tree-row(selected) {background-color: #92856a; }
+vivitree[class~=standard] treechildren::-moz-tree-row(odd, selected) {background-color: #92856a; }
+vivitree[class~=standard] treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
+vivitree[class~=standard] treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
+
+vivitree[class~=standard] treechildren::-moz-tree-checkbox {
+  /* unchecked checkbox treecells. This style MUST come before treechildren::-moz-tree-checkbox(checked) otherwise it won't take effect.  */
+  list-style-image: none;
+}
+
+vivitree[class~=standard] treechildren::-moz-tree-checkbox(checked){
+  /* css for checked cells. cbox-check.gif isn't available in Firefox 1, 2, and 3 on Mac OS X, so you should specify a URL to an image
+     in your extension or elsewhere. */
+  list-style-image: url("chrome://global/skin/checkbox/cbox-check.gif");
+}
+
+vivitree[class~=noscrollbar] scrollbar {
+    display: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Standard vivitimezones
+ *-----------------------------------------------------------------------------
+ */
+
+vivikbmaps[type=button] panel > vbox {
+    border: 3px solid #c1ab8e;
+    margin: 8px;
+    padding: 4px;
+    -moz-appearance: none;
+    -moz-border-radius: 8px;
+}
+
+vivitimezones[type=button] label {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+vivitimezones[type=button] > vbox > hbox {
+    margin: 5px 0px;
+    -moz-box-align: center;
+}
+
+vivitimezones stack {
+    padding: 10px;
+}
+
+vivitimezones[type=button] panel > vbox {
+    border: 3px solid #c1ab8e;
+    margin: 8px;
+    padding: 4px;
+    -moz-appearance: none;
+    -moz-border-radius: 8px;
+}
+
+
+vivitimezones[type=button] panel > vbox > label:first-child {
+    color: #573c4d;
+    font-size: 11pt;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Standard vivilocaleslistbox
+ *-----------------------------------------------------------------------------
+ */
+
+vivilocaleslistbox[type=listbox] listitem {
+    min-height: 36px;
+}
+
+vivilocaleslistbox[type=listbox] listitem[selected=true] {
+    background-color: #92856a;
+    color: white;
+}
+
+/*-----------------------------------------------------------------------------
+ * Standard vivikbmaps
+ *-----------------------------------------------------------------------------
+ */
+
+vivikbmaps[type=button] label {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+vivikbmaps[type=button] > hbox {
+    margin: 2px 0px;
+    -moz-box-align: center;
+}
+
+vivitimezones stack {
+    padding: 5px;
+}
+
+vivikbmaps[type=button] panel {
+    background: white;
+}
+
+vivikbmaps[type=button] panel > vbox {
+    border: 3px solid #c1ab8e;
+    margin: 8px;
+    padding: 4px;
+    -moz-appearance: none;
+    -moz-border-radius: 8px;
+}
+
+vivikbmaps[type=button] panel > vbox > label:first-child {
+    color: #573c4d;
+    font-size: 11pt;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Time pad
+ *-----------------------------------------------------------------------------
+ */
+
+vividatetimepicker-timepad .textbox-input-box {
+    -moz-appearance: none;
+    background: none;
+    border: none;
+}
+
+vividatetimepicker-timepad button {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 3px solid;
+    color: #372213;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 3px;
+    min-height: 36px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-radius: 6px;
+}
+
+vividatetimepicker-timepad button:active {
+    background: white url(../images/itembtnB_sel.png) left center repeat-x;
+    border: 2px solid;
+    color: #32787a;
+    -moz-border-top-colors: #00a99d #00a99d;
+    -moz-border-right-colors: #00a99d #00a99d;
+    -moz-border-bottom-colors: #00a99d #00a99d;
+    -moz-border-left-colors: #00a99d #00a99d;
+}
+
+vividatetimepicker-timepad .TimeBox {
+    -moz-box-pack: center;
+}
+
+vividatetimepicker-timepad .TimeLabelBox {
+    -moz-box-pack: center;
+}
+
+vividatetimepicker-timepad .TimeLabelBox label {
+    color: #534741;
+    font-size: 10pt;
+    font-weight: bold;
+    margin: 16px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Date-time picker
+ *-----------------------------------------------------------------------------
+ */
+
+vividatetimepicker .viviDateTimeLabel {
+    color: #534741;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+vividatetimepicker .datetimepicker-input-box {
+    border: none;
+    min-height: 36px;
+    padding-right: 4px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #d0cfcb;
+    -moz-border-left-colors: #d0cfcb;
+    -moz-border-right-colors: #d0cfcb;
+    -moz-border-bottom-colors: #d0cfcb;
+}
+
+vividatetimepicker[type=popup] .datetimepicker-input-box {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 1px solid #d0cfcb;
+}
+
+vividatetimepicker[type=embed] .datepicker-popupgrid {
+    margin: 0px 20px;
+}
+vividatetimepicker .datetimepicker-input-box input {
+    background: none;
+    font-size: 14px;
+    -moz-appearance: none;
+}
+
+vividatetimepicker .datepicker-weeklabel {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    margin: 2px !important;
+    padding: 0px !important;
+}
+
+vividatetimepicker .datepicker-gridlabel {
+    font-size: 18px !important;
+    margin: 2px !important;
+    padding: 0px !important;
+}
+
+vividatetimepicker dropmarker {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 3px solid;
+    color: #534741;
+    list-style-image: url(../images/dropdown.png);
+    min-height: 36px;
+    width: 36px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
+}
+
+vividatetimepicker button {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 3px solid;
+    color: #736357;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 3px;
+    min-height: 36px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #f1ede5 #f2efeb #e6e3df;
+    -moz-border-right-colors: #e6e3df #d3d0cd #bab8b5;
+    -moz-border-bottom-colors: #e6e3df #d3d0cd #bab8b5;
+    -moz-border-left-colors: #f1ede5 #f2efeb #e6e3df;
+    -moz-border-radius: 6px;
+}
+
+vividatetimepicker button:active {
+    background: white url(../images/itembtnB_sel.png) left center repeat-x;
+    border: 2px solid;
+    color: #32787a;
+    -moz-appearance: none;
+    -moz-border-top-colors: #00a99d #00a99d;
+    -moz-border-right-colors: #00a99d #00a99d;
+    -moz-border-bottom-colors: #00a99d #00a99d;
+    -moz-border-left-colors: #00a99d #00a99d;
+}
+
+/*-----------------------------------------------------------------------------
+ * Date picker
+ *-----------------------------------------------------------------------------
+ */
+
+vividatetimepicker .datepicker-mainbox {
+    font-size: 14pt;
+}
+
+vividatetimepicker .datepicker-monthbox {
+    background: #f1ede5;
+    font-size: 14pt;
+    margin-top: 4px;
+    padding: 4px;
+}
+
+vividatetimepicker .datepicker-mainbox grid row {
+    min-height: 28px !important;
+    border: 1px solid #f1ede5;
+    padding: 3px;
+}
+
+vividatetimepicker .datepicker-mainbox grid column {
+    border: 1px solid #f1ede5;
+    padding: 3px;
+}
+
+vividatetimepicker panel {
+    background: white;
+    border: 1px solid #999;
+    padding: 4px;
+    -moz-appearance: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Time picker
+ *-----------------------------------------------------------------------------
+ */
+
+vividatetimepicker .TimeBox {
+    -moz-box-pack: center;
+}
+
+vividatetimepicker .TimeLabelBox {
+    -moz-box-pack: center;
+}
+
+vividatetimepicker .TimeLabelBox label {
+    color: #534741;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    margin: 10px;
+}

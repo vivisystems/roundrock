@@ -1,0 +1,15 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Product Filters
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-content-filter-list #index,
+.custom-content-filter-list #length {
+    text-align: center;
+}
+
+.custom-content-filter-list #filtername {
+    text-align: left;
+}

@@ -1,0 +1,83 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Merge Check Dialog
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-content-toolbar {
+    max-width: 225px;
+    width: 225px;
+}
+
+#sourcecheckscrollablepanel #name,
+#targetcheckscrollablepanel #name {
+    text-align: left;
+}
+
+#sourcecheckscrollablepanel #current_qty,
+#targetcheckscrollablepanel #current_qty {
+    text-align: center;
+}
+
+#sourcecheckscrollablepanel #current_price,
+#targetcheckscrollablepanel #current_price {
+    text-align: right;
+}
+
+#splitScrollablePanel tree {
+    background: #ffeeee;
+    border: none;
+    margin: 0px;
+    -moz-appearance: none;
+}
+
+.main-overlay .cart-list scrollbar {
+    display: block;
+}
+
+.main-overlay .cart-list treechildren::-moz-tree-row {
+    border-bottom: 1px solid #818085;
+    height: 36px;
+}
+
+.main-overlay .cart-list .tree-scrollable-columns {
+    max-height: 0px;
+}
+
+#sourceOrderBox {
+    width: 460px;
+    max-width: 460px;
+}
+
+#splitOrderBox {
+    width: 460px;
+    max-width: 460px;
+}
+
+.autorepeatbutton-up, .autorepeatbutton-down {
+    min-width: 36px;
+}
+
+button {
+    background-color: white ;
+    background-image: none;
+    border: 2px solid;
+    color: #4d4234;
+    font-size: 12pt;
+    margin: 5px;
+    min-height: 40px;
+    min-width: 75px;
+    padding: 8px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #918570 white;
+    -moz-border-left-colors: #918570 white;
+    -moz-border-right-colors: #918570 white;
+    -moz-border-bottom-colors: #918570 white;
+    -moz-border-radius: 6px;
+}
+
+button[disabled=true]{
+    background-color: #fff6e8 ;
+    border-width: 0px !important
+}

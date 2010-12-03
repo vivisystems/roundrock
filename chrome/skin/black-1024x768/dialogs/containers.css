@@ -1,0 +1,114 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Dialog Container Styles
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.container-dialog {
+    background: white;
+}
+
+.container-wait-dialog * {
+    cursor: wait !important;
+}
+
+.container-dialog .container-main {
+    background: white;
+    border: 3px solid #c1ab8e;
+    margin: 8px;
+    padding: 4px;
+    -moz-border-radius: 8px;
+}
+
+.container-dialog .container-top {
+    border-bottom: 1px solid #a98f6e;
+    padding-bottom:4px;
+    margin-bottom: 4px;
+}
+
+.container-dialog .container-left {
+    border-right: 1px solid #a98f6e;
+}
+
+.container-dialog .container-right {
+    margin: 4px;
+}
+
+/* popup panels */
+
+.container-dialog .layout-popup-prompt .container-main {
+    background: white;
+}
+
+/* wait panels */
+
+.container-dialog .container-wait-panel {
+    background: transparent;
+    height: 140px;
+    margin-left: 242px;
+    margin-top: 314px;
+    max-height: 140px;
+    max-width: 540px;
+    min-height: 140px;
+    min-width: 540px;
+    width: 540px;
+}
+
+.container-dialog .container-interruptible-wait-panel {
+    background: transparent;
+    height: 180px;
+    margin-left: 212px;
+    margin-top: 294px;
+    max-height: 180px;
+    max-width: 600px;
+    min-height: 180px;
+    min-width: 600px;
+    width: 600px;
+}
+
+.container-dialog .container-wait-panel .container-main,
+.container-dialog .container-interruptible-wait-panel .container-main {
+    background: #EEEEFF;
+    border: 2px solid #3180FF;
+    margin: 0px;
+    padding: 30px 40px 20px 40px;
+    -moz-border-radius: 10px;
+}
+
+.container-dialog .container-wait-panel progressmeter {
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    -moz-appearance: none;
+    -moz-border-radius: 4px;
+}
+
+.container-dialog .container-wait-panel progressmeter .progress-bar {
+    background-image: url(chrome://viviecr/skin/images/btn_gray.png);
+    background-repeat: repeat-x;
+    -moz-appearance: none !important;
+}
+
+.container-dialog .container-wait-panel groupbox {
+    -moz-box-direction: reverse;
+}
+
+.container-dialog .container-wait-panel groupbox > spacer {
+    display: none;
+}
+
+.container-dialog .container-wait-panel groupbox .label-page-title {
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 0px;
+    padding: 0px;
+}
+
+.container-dialog .container-wait-panel groupbox .groupbox-title {
+    -moz-box-flex: 10000;
+}
+
+.container-dialog .container-wait-panel groupbox .groupbox-body {
+    -moz-box-flex: 0;
+}

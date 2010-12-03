@@ -30,6 +30,18 @@ msgstr "POS-Ready ECR (Blue)"
 msgid "vivipos.fec.registry.layouts.roundrock_blue_1024x768.desc"
 msgstr "Layout suitable for users accustomed to ECRs"
 
+msgid "vivipos.fec.registry.layouts.roundrock_black_800x600.label"
+msgstr "POS-Ready ECR (Black)"
+
+msgid "vivipos.fec.registry.layouts.roundrock_black_800x600.desc"
+msgstr "Layout suitable for users accustomed to ECRs"
+
+msgid "vivipos.fec.registry.layouts.roundrock_black_1024x768.label"
+msgstr "POS-Ready ECR (Black)"
+
+msgid "vivipos.fec.registry.layouts.roundrock_black_1024x768.desc"
+msgstr "Layout suitable for users accustomed to ECRs"
+
 #: ../../content/controllers/bdb_data_controller.js:41
 msgid "Data integrity check failed to run."
 msgstr ""
