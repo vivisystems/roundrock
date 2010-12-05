@@ -107,6 +107,9 @@
 
             </hbox>
             <hbox class="bottom-panel">
+                <hbox id="numberPanel" class="number-panel">
+                    <numberpad id="numberPad" class="number-pad"/>
+                </hbox>
                 <box id="functionPanelContainer" flex="1" panel="&layout.panel.function;" class="function-panel"/>
             </hbox>
 

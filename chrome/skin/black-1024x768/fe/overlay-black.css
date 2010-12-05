@@ -56,29 +56,6 @@
     display: none;
 }
 
-.number-panel {
-    background: url(../images/number_bg.gif) no-repeat;
-    width: 369px;
-    min-width: 369px;
-    max-width: 369px;
-    height: 383px;
-    min-height: 383px;
-    max-height: 383px;
-}
-
-.number-panel button {
-    color: #FFF;
-    width: 125px;
-    min-width: 125px;
-    max-width: 125px;
-    height: 95px;
-    border: none;
-    background: none;
-    font-size: 26px;
-    font-weight: bold;
-    -moz-appearance: none;
-}
-
 .function-panel {
 }
 
@@ -161,5 +138,24 @@
     -moz-border-bottom-colors: #424851 #fff;
     -moz-border-left-colors: #424851 #fff;
     -moz-border-radius: 10px;
+}
+
+.number-panel {
+    width: 378px;
+    min-width: 378px;
+    max-width: 378px;
+}
+
+.number-panel button {
+    color: #FFF;
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+    height: 95px;
+    border: none;
+    background: none;
+    font-size: 26px;
+    font-weight: bold;
+    -moz-appearance: none;
 }
 
