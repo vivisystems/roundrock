@@ -72,25 +72,23 @@
                                  messageLabelClass="messageLabelClass"
                                  messageValueClass="messageValueClass"
                                  summaryRowClass="summaryRowClass"
-                                 paymentLabelSize="7"
+                                 paymentClass="paymentClass"
+                                 paymentLabelSize="12"
                                  paymentValueSize="8"
-                                 paymentLabelClass="smallLabelClass"
-                                 paymentValueClass="smallValueClass"
-                                 changeLabelSize="7"
+                                 paymentLabelClass="vfdLabelClass"
+                                 paymentValueClass="paymentValueClass"
+                                 changeLabelSize="12"
                                  changeValueSize="8"
-                                 changeLabelClass="smallLabelClass"
-                                 changeValueClass="smallValueClass"
+                                 changeLabelClass="vfdLabelClass"
+                                 changeValueClass="changeValueClass"
                                  totalClass="totalClass"
-                                 totalLabelSize="6"
-                                 totalLabelClass="totalLabelClass"
+                                 totalLabelClass="vfdLabelClass"
                                  totalValueClass="totalValueClass"
                                  trainingClass="vfd-pad-training"
                                  inputController=""/>
                 </box>
 
                 <box id="rightPanel" flex="1" class="right-panel" orient="vertical">
-                    <hbox id="boxInfo" align="right">
-                    </hbox>
                     <hbox class="info-panel">
                         <vbox class="return-mode-panel" align="center" pack="center">
                             <label id="returnStatus" flex="0"/>
@@ -98,6 +96,8 @@
                         <vbox class="cartstatus-panel" pack="center" align="center">
                             <box id="cartStatusPanelContainer" flex="0" panel="&layout.panel.cartstatus;"/>
                         </vbox>
+                        <spacer flex="1"/>
+                        <button label="關機" class="btn" oncommand="$do('shutdown','','Main');"/>
                         <spacer flex="1"/>
                         <clock flex="0" align="right" class="clock-panel"/>
                     </hbox>

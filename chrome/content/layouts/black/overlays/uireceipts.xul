@@ -9,12 +9,12 @@
 
     <vbox id="uiPanelContainer">
         <deck id="uireceipt_status_deck" class="uidisplay-vfdPad" insertafter="onscreenvfd" selectedIndex="1" flex="1">
-            <vivisessionstatus flex="1" columns="3"
+            <vivisessionstatus flex="1" columns="2"
                                noseparator="true"
-                               labels="&uireceipt.display.uniform.invoice;,&uireceipt.display.remaining.count;,&uireceipt.display.uniform.business.number;"
+                               labels="&uireceipt.display.uniform.invoice;,,&uireceipt.display.uniform.business.number;,&uireceipt.display.remaining.count;"
                                labelClass="uidisplay-field-label"
                                valueClass="uidisplay-field-value"
-                               keys="uniform_invoice_marker,uniform_invoice_counter,uniform_business_number"/>
+                               keys="uniform_invoice_marker,,uniform_business_number,uniform_invoice_counter"/>
             <textbox class="uidisplay-field-value" style="text-align:center; background-color: orange; color: black" readonly="true" value="&uireceipt.status.off.popup;"/>
             <textbox class="uidisplay-field-value" style="text-align:center; background-color: red; color: green" readonly="true" value="&uireceipt.status.off.staydown;"/>
             <textbox class="uidisplay-field-value" style="text-align:center; background-color: yellow; color: black" readonly="true" value="&uireceipt.status.manual.popup;"/>

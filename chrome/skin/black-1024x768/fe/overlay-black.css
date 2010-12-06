@@ -10,7 +10,7 @@
     border: 0px solid;
     height: 768px;
     width: 1024px;
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .main-overlay .left-panel {
@@ -24,14 +24,13 @@
 
 .main-overlay .right-panel {
     margin-left: 10px;
-    /*
-    max-width: 624px;
-    min-width: 624px;
-    width: 624px;
-    */
+    max-width: 616px;
+    min-width: 616px;
+    width: 616px;
 }
 
 .main-overlay .bottom-panel {
+    margin-top: 8px;
     height: 250px;
     max-height: 250px;
     min-height: 250px;
@@ -54,9 +53,6 @@
 
 #statusbar-display .statusbarpanel-text {
     display: none;
-}
-
-.function-panel {
 }
 
 .function-panel vivibutton {
@@ -92,6 +88,7 @@
 .main-overlay .right-panel .info-panel {
     background: #000;
     font-weight: bold;
+    margin-bottom: 4px;
     padding: 10px 10px 10px 20px;
     -moz-border-radius: 10px;
     -moz-box-align: center;
@@ -112,9 +109,9 @@
     font-weight: bold !important;
     height: 48px;
     max-height: 48px;
-    max-width: 160px;
+    max-width: 150px;
     min-height: 48px;
-    min-width: 160px;
+    min-width: 150px;
     width: 160px;
     -moz-border-top-colors: #424851 #fff;
     -moz-border-right-colors: #424851 #fff;
@@ -127,12 +124,31 @@
     background: transparent;
     border: 2px solid;
     height: 48px;
-    margin-left: 15px;
+    margin: 0px 10px;
     max-height: 48px;
-    max-width: 210px;
+    max-width: 200px;
     min-height: 48px;
-    min-width: 210px;
-    width: 210px;
+    min-width: 200px;
+    width: 200px;
+    -moz-border-top-colors: #424851 #fff;
+    -moz-border-right-colors: #424851 #fff;
+    -moz-border-bottom-colors: #424851 #fff;
+    -moz-border-left-colors: #424851 #fff;
+    -moz-border-radius: 10px;
+}
+
+.main-overlay .right-panel .info-panel .btn {
+    background-color: #000;
+    border: 2px solid #FFF;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: bold;
+    height: 48px;
+    max-height: 48px;
+    max-width: 80px;
+    min-width: 80px;
+    width: 80px;
+    -moz-appearance: none;
     -moz-border-top-colors: #424851 #fff;
     -moz-border-right-colors: #424851 #fff;
     -moz-border-bottom-colors: #424851 #fff;
@@ -141,9 +157,9 @@
 }
 
 .number-panel {
-    width: 378px;
-    min-width: 378px;
-    max-width: 378px;
+    width: 393px;
+    min-width: 393px;
+    max-width: 393px;
 }
 
 .number-panel button {

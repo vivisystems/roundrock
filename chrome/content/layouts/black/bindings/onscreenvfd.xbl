@@ -13,20 +13,18 @@
                     <xul:textbox anonid="label0_1_value" flex="1" disabled="true" xbl:inherits="class=messageValueClass,size=messageValueSize"></xul:textbox>
                 </xul:hbox>
                 <xul:hbox flex="1" xbl:inherits="class=summaryRowClass">
-                    <xul:vbox pack="center">
-                        <xul:hbox>
-                            <xul:textbox anonid="label1_0_label" disabled="true" xbl:inherits="class=paymentLabelClass,size=paymentLabelSize"></xul:textbox>
-                            <xul:textbox anonid="label1_0_value" disabled="true" xbl:inherits="class=paymentValueClass,size=paymentValueSize"></xul:textbox>
-                        </xul:hbox>
-                        <xul:hbox>
-                            <xul:textbox anonid="label1_1_label" disabled="true" xbl:inherits="class=changeLabelClass,size=changeLabelSize"></xul:textbox>
-                            <xul:textbox anonid="label1_1_value" disabled="true" xbl:inherits="class=changeValueClass,size=changeValueSize"></xul:textbox>
-                        </xul:hbox>
-                    </xul:vbox>
-                    <xul:hbox align="center" flex="1" xbl:inherits="class=totalClass">
+                    <xul:vbox flex="1" xbl:inherits="class=totalClass">
                         <xul:textbox anonid="label0_0_label" disabled="true" xbl:inherits="class=totalLabelClass,size=totalLabelSize"></xul:textbox>
                         <xul:textbox anonid="label0_0_value" disabled="true" flex="1" xbl:inherits="class=totalValueClass,size=totalValueSize"></xul:textbox>
-                    </xul:hbox>
+                    </xul:vbox>
+                    <xul:vbox xbl:inherits="class=paymentClass">
+                        <xul:textbox anonid="label1_0_label" disabled="true" xbl:inherits="class=paymentLabelClass,size=paymentLabelSize"></xul:textbox>
+                        <xul:textbox anonid="label1_0_value" disabled="true" xbl:inherits="class=paymentValueClass,size=paymentValueSize"></xul:textbox>
+                    </xul:vbox>
+                    <xul:vbox xbl:inherits="class=changeClass">
+                        <xul:textbox anonid="label1_1_label" disabled="true" xbl:inherits="class=changeLabelClass,size=changeLabelSize"></xul:textbox>
+                        <xul:textbox anonid="label1_1_value" disabled="true" xbl:inherits="class=changeValueClass,size=changeValueSize"></xul:textbox>
+                    </xul:vbox>
                 </xul:hbox>
             </xul:vbox>
             <html:div anonid="detectFontWidthContainer" style="display: none;"></html:div>

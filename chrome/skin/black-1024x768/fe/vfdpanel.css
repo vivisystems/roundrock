@@ -24,6 +24,8 @@
 
 .main-overlay .vfd-vbox .messageRowClass {
     background-color: #1e1b14;
+    border-top: 1px solid #888;
+    margin-top: 2px;
     padding: 5px 10px;
     -moz-appearance: none;
 }
@@ -39,34 +41,41 @@
 }
 
 .main-overlay .vfd-vbox .summaryRowClass {
-    border-top: 0px solid #141C7D;
-    border-bottom: 0px solid #141C7D;
-    padding: 12px 5px;
+    border-top: 1px solid #888;
+    margin-top: 2px;
+    padding: 0px 5px;
     -moz-appearance: none;
 }
 
-.main-overlay .vfd-vbox .smallLabelClass {
-    font-size: 12pt;
+.main-overlay .vfd-vbox .vfdLabelClass {
+    color: #8E8E8E;
+    font-size: 14px;
+    padding: 4px 0px 0px 4px;
+    text-align: left;
 }
 
-.main-overlay .vfd-vbox .smallValueClass {
-    font-size: 12pt;
+.main-overlay .vfd-vbox .paymentClass {
+    border-right: 1px solid #888;
+    padding-right: 5px;
+}
+
+.main-overlay .vfd-vbox .changeValueClass,
+.main-overlay .vfd-vbox .paymentValueClass {
+    color: #FFF;
+    font-size: 18pt;
+    padding: 8px 4px;
     text-align: right;
 }
 
 .main-overlay .vfd-vbox .totalClass {
-    margin-left: 25px;
-}
-
-.main-overlay .vfd-vbox .totalLabelClass {
-    font-size: 20pt;
-    font-weight: bold !important;
+    border-right: 1px solid #888;
+    padding-right: 5px;
 }
 
 .main-overlay .vfd-vbox .totalValueClass {
-    color: red;
-    font-size: 22pt;
-    font-weight: bold !important;
+    color: #3F3;
+    font-size: 18pt;
+    padding: 8px 2px;
     text-align: right;
 }
 

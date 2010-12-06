@@ -15,29 +15,29 @@
 }
 
 .main-overlay .cart-status[status=no-txn] {
-    color: #0F0;
+    color: white;
 }
 
 .main-overlay .cart-status[status=open-txn] {
-    color: yellow;
+    color: white;
 }
 
 .main-overlay .cart-status[status=open-recalled-txn] {
-    color: yellow;
+    color: white;
 }
 
 .main-overlay .cart-status[status=closed-txn] {
-    color: orange;
+    color: white;
 }
 
 .main-overlay .cart-status[status=stored-txn] {
-    color: orange;
+    color: white;
 }
 
 .main-overlay .cart-status[status=voided-txn] {
-    color: red;
+    color: white;
 }
 
 .main-overlay .cart-status[status=locked-txn] {
-    color: orange;
+    color: white;
 }

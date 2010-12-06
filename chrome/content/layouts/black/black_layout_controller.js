@@ -185,8 +185,8 @@
 
                     // need to change layout, first retrieve h/vspacing
 
-                    var hspacing = 0;
-                    var vspacing = 0;
+                    var hspacing = fnPanel.hspacing;
+                    var vspacing = fnPanel.vspacing;
 
                     fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
                 }

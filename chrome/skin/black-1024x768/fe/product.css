@@ -134,11 +134,11 @@
  */
 
 .main-overlay .prodscrollablepanel row vivibutton:nth-child(even) {
-    background: #A9A5A5 url(../images/btn_product_01.gif) 50% 50% repeat-x !important;
+    background: #A9A5A5 url(../images/btn_product_01.gif) 0% 0% repeat-x !important;
 }
 
 .main-overlay .prodscrollablepanel row vivibutton:nth-child(odd) {
-    background: #D4D1D1 url(../images/btn_product_02.gif) 50% 50% repeat-x !important;
+    background: #D4D1D1 url(../images/btn_product_02.gif) 0% 0% repeat-x !important;
 }
 
 .main-overlay .prodscrollablepanel row vivibutton:active:not([disabled=true]),
