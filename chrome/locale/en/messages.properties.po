@@ -9,6 +9,9 @@ msgstr ""
 msgid "vivipos.fec.settings.controlpanels.system.registration.label"
 msgstr "Terminal Registration"
 
+msgid "vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.label"
+msgstr "Fixed Function Key Configuration"
+
 # ###############
 # ACL
 # ###############

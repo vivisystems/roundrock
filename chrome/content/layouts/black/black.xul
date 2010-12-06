@@ -36,6 +36,7 @@
 <?xul-overlay href="chrome://roundrock/content/layouts/black/overlays/keysetExtensions.xul" ?>
 <?xul-overlay href="chrome://roundrock/content/layouts/black/overlays/terminalStatus.xul" ?>
 <?xul-overlay href="chrome://roundrock/content/layouts/black/overlays/uireceipts.xul" ?>
+<?xul-overlay href="chrome://roundrock/content/layouts/black/overlays/fixedFunctionPanelOverlay.xul" ?>
 
 <?xul-overlay href="chrome://viviecr/content/dialogs/select_table.xul" ?>
 
@@ -58,10 +59,10 @@
 
                     <hbox class="page-panel" align="center">
                         <button anonid="btnUp" label="▲" oncommand="$do('scrollByLines', '-1', 'Cart');"/>
-                        <button anonid="btnUp" label="▲▲" oncommand="$do('scrollByLines', '-9', 'Cart');"/>
+                        <button anonid="btnUp" label="▲▲" oncommand="$do('scrollByLines', '-8', 'Cart');"/>
                         <spacer flex="1"/>
                         <button anonid="btnDown" label="▼" oncommand="$do('scrollByLines', '+1', 'Cart');"/>
-                        <button anonid="btnDown" label="▼▼" oncommand="$do('scrollByLines', '+9', 'Cart');"/>
+                        <button anonid="btnDown" label="▼▼" oncommand="$do('scrollByLines', '+8', 'Cart');"/>
                     </hbox>
 
                     <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;" class="cart-list"/>
@@ -107,9 +108,29 @@
 
             </hbox>
             <hbox class="bottom-panel">
-                <hbox id="numberPanel" class="number-panel">
-                    <numberpad id="numberPad" class="number-pad"/>
-                </hbox>
+                <vbox id="fixedFunctionPanelContainer" class="cmd-panel"/>
+                <vbox id="numberPanel" class="number-panel">
+                    <hbox class="top-row">
+                        <button label="7" oncommand='$do("sendCharcode","7","Keypad");'/>
+                        <button label="8" oncommand='$do("sendCharcode","8","Keypad");'/>
+                        <button label="9" oncommand='$do("sendCharcode","9","Keypad");'/>
+                    </hbox>
+                    <hbox class="inner-row">
+                        <button label="4" oncommand='$do("sendCharcode","4","Keypad");'/>
+                        <button label="5" oncommand='$do("sendCharcode","5","Keypad");'/>
+                        <button label="6" oncommand='$do("sendCharcode","6","Keypad");'/>
+                    </hbox>
+                    <hbox class="inner-row">
+                        <button label="1" oncommand='$do("sendCharcode","1","Keypad");'/>
+                        <button label="2" oncommand='$do("sendCharcode","2","Keypad");'/>
+                        <button label="3" oncommand='$do("sendCharcode","3","Keypad");'/>
+                    </hbox>
+                    <hbox class="bottom-row">
+                        <button label="0" oncommand='$do("sendCharcode","0","Keypad");'/>
+                        <button label="00" oncommand='$do("sendCharcode","00","Keypad");'/>
+                        <button label="." oncommand='$do("sendCharcode",".","Keypad");'/>
+                    </hbox>
+                </vbox>
                 <box id="functionPanelContainer" flex="1" panel="&layout.panel.function;" class="function-panel"/>
             </hbox>
 

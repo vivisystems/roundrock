@@ -24,9 +24,9 @@
 
 .main-overlay .right-panel {
     margin-left: 10px;
-    max-width: 616px;
-    min-width: 616px;
-    width: 616px;
+    max-width: 613px;
+    min-width: 613px;
+    width: 613px;
 }
 
 .main-overlay .bottom-panel {
@@ -55,12 +55,13 @@
     display: none;
 }
 
-.function-panel vivibutton {
-    padding: 2px;
+.main-overlay .function-panel {
+    margin: 0px 3px;
 }
 
 .main-overlay .vivifuncpanelecr_button_panel vivibutton {
-    -moz-border-radius: 16px 15px 12px 10px;
+    padding: 2px;
+    -moz-border-radius: 10px;
 }
 
 .main-overlay .page-panel {
@@ -156,22 +157,46 @@
     -moz-border-radius: 10px;
 }
 
-.number-panel {
-    width: 393px;
-    min-width: 393px;
-    max-width: 393px;
+.main-overlay .number-panel {
+    margin-right: 7px;
 }
 
-.number-panel button {
-    color: #FFF;
-    width: 125px;
-    min-width: 125px;
-    max-width: 125px;
-    height: 95px;
-    border: none;
-    background: none;
-    font-size: 26px;
+.main-overlay .number-panel button {
+    background: #B9B0B0 url(../images/btn_function_02.gif) 0% 0% repeat-x;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    color: #000;
+    font-size: 20px;
     font-weight: bold;
+    height: 61px;
+    margin-left: 1px;
+    margin-right: 1px;
+    max-width: 86px;
+    min-width: 86px;
+    width: 86px;
     -moz-appearance: none;
+    -moz-border-right-colors: #777 #333;
+    -moz-border-bottom-colors: #777 #333;
+    -moz-border-radius: 10px;
+    -moz-user-focus: ignore;
 }
 
+.main-overlay .number-panel .inner-row button {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.main-overlay .number-panel .top-row button {
+    margin-bottom: 1px;
+}
+
+.main-overlay .number-panel .bottom-row button {
+    margin-top: 1px;
+}
+
+.main-overlay .cmd-panel {
+    margin-right: 8px;
+    max-width: 110px;
+    min-width: 110px;
+    width: 110px;
+}
