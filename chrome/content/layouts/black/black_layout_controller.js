@@ -25,6 +25,15 @@
                 cart.addEventListener('onReturnAll', this.onReturnAll, this);
                 cart.addEventListener('onReturnCleared', this.onReturnCleared, this);
             }
+
+            // dynamically register control panel for fixed function panel
+            var prefService = Components.classes["@mozilla.org/preferences-service;1"]  
+                                            .getService(Components.interfaces.nsIPrefService);  
+            var branch = prefService.getDefaultBranch("");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.label", "chrome://roundrock/locale/messages.properties");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.path", "chrome://roundrock/content/layouts/black/fixedfuncpanelecrprefs.xul");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.roles", "acl_manage_function_panel");
         },
 
         onReturnSingle: function() {

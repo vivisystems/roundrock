@@ -5,7 +5,8 @@
 @namespace html url("http://www.w3.org/1999/xhtml");
 
 .uidisplay-vfdPad {
-    padding: 8px 0px;
+    margin: 8px 4px;
+    -moz-border-radius: 6px;
 }
 
 .uidisplay-field-label {

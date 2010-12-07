@@ -83,11 +83,11 @@
                 <box id="rightPanel" flex="1" class="right-panel" orient="vertical">
                     <vbox id="boxInfo" align="right">
                         <hbox align="right">
-                            <vbox class="return-mode-panel" align="center" pack="center">
-                                <label id="returnStatus" flex="0"/>
-                            </vbox>
                             <vbox class="cartstatus-panel" pack="center" align="center">
                                 <box id="cartStatusPanelContainer" flex="0" panel="&layout.panel.cartstatus;"/>
+                            </vbox>
+                            <vbox class="return-mode-panel" align="center" pack="center">
+                                <label id="returnStatus" flex="0"/>
                             </vbox>
                             <vbox class="clock-panel" align="center" pack="center">
                                 <viviclock flex="0" showdate="false"/>
