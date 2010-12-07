@@ -6,16 +6,14 @@
  */
 
 .main-overlay .prodscrollablepanel {
-	margin: 0px 2px 0px 0px;
-	padding: 0px 0 0 2px;
-	-moz-appearance: none;
-	-moz-background-clip: border;
+    margin: 0px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
 }
 
 .main-overlay .prodscrollablepanel vivibuttonpanel {
-	margin-top: 2px;
-	margin-right: 4px;
-	margin-bottom: 0px;
+    margin: 0px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -24,29 +22,27 @@
  */
 
 .main-overlay .button-product {
-    background: url(../images/btn_product_01.gif) repeat-x;
-    border: 2px solid;
-    margin: 0 0 4px 2px;
-    min-width: 50px;
-    height: 58px;
-    padding: 0px;
+    border: 3px solid;
+    color: #000 !important;
+    padding: 2px;
+    margin: 2px;
     -moz-appearance: none;
-    -moz-border-top-colors: #777;
-    -moz-border-right-colors: #777;
-    -moz-border-bottom-colors: #777;
-    -moz-border-left-colors: #777;
     -moz-background-clip: border;
+    -moz-border-top-colors: #555 #888 #AAA;
+    -moz-border-right-colors: #555 #888 #AAA;
+    -moz-border-bottom-colors: #555 #888 #AAA;
+    -moz-border-left-colors: #555 #888 #AAA;
+    -moz-border-radius: 10px;
     -moz-box-pack: center;
     -moz-user-focus: ignore;
-    -moz-border-radius: 10px;
 }
 
 .main-overlay .button-product[disabled=true] {
-    background-color: transparent;
-    -moz-border-top-colors: #777 !important;
-    -moz-border-right-colors: #777 !important;
-    -moz-border-bottom-colors: #777 !important;
-    -moz-border-left-colors: #777 !important;
+    border-width: 5px !important;
+    -moz-border-top-colors: white #3a3a3b #3d3e3f #737678 #afb4b7 !important;
+    -moz-border-bottom-colors: white #f1f2f3 #eff0f1 #ebecee #e6e7e9 !important;
+    -moz-border-left-colors: white #555658 #76777a #9b9ea0 #cacccf !important;
+    -moz-border-right-colors: white #e0e2e5 #dee0e4 #dde0e3 #dbdee1 !important;
 }
 
 .main-overlay .button-product hbox {
@@ -66,7 +62,7 @@
  */
 
 .main-overlay .product-scroll-up-button {
-    background: transparent url(../images/departUp.png) 0 0 no-repeat;
+    background: transparent url(../images/departUp.png) no-repeat center center;
     border: 0px;
     margin: 2px 0px 0px 0px;
     max-height: 40px;
@@ -96,7 +92,7 @@
 }
 
 .main-overlay .product-scroll-down-button {
-    background: transparent url(../images/departDown.png) 0 0 no-repeat;
+    background: transparent url(../images/departDown.png) no-repeat center center;
     border: 0px;
     margin: 0px 0px 2px 0px;
     max-height: 40px;
@@ -130,9 +126,77 @@
         display: none;
 }
 
-.main-overlay .prodscrollablepanel image {
-	height: 32px;
-	width: 32px;
+/*--------------------------------------------------------------------------
+ *
+ * PRODUCT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.main-overlay .prodscrollablepanel row vivibutton:nth-child(even) {
+    background: #A9A5A5 url(../images/btn_product_01.gif) 0% 0% repeat-x !important;
 }
 
+.main-overlay .prodscrollablepanel row vivibutton:nth-child(odd) {
+    background: #D4D1D1 url(../images/btn_product_02.gif) 0% 0% repeat-x !important;
+}
 
+.main-overlay .prodscrollablepanel row vivibutton:active:not([disabled=true]),
+.main-overlay .prodscrollablepanel row vivibutton[selected]:not([disabled=true]) {
+    border-width: 3px !important;
+    -moz-border-top-colors: #AAA #888 #555 !important;
+    -moz-border-bottom-colors: #AAA #888 #555 !important;
+    -moz-border-left-colors: #AAA #888 #555 !important;
+    -moz-border-right-colors: #AAA #888 #555 !important;
+}
+
+/*
+.main-overlay .prodscrollablepanel .product-button-color-default {
+    background: #A9A5A5 url(../images/btn_product_01.gif) 0 0 repeat-x !important;
+}
+
+.main-overlay .prodscrollablepanel .product-button-color-1 {
+    background: #D4D1D1 url(../images/btn_product_02.gif) 0 0 repeat-x !important;
+}
+
+.main-overlay .prodscrollablepanel .product-button-color-2 {
+    background: #FFBFBF url(../images/btn_product_03.gif) 0 0 repeat-x !important;
+}
+
+.main-overlay .prodscrollablepanel .product-button-color-3 {
+    background: #CDCDFF url(../images/btn_product_04.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-4 {
+    background: #92FF92 url(../images/btn_product_05.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-5 {
+    background: #EBEB00 url(../images/btn_product_06.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-6 {
+    background: #DBC5FF url(../images/btn_product_07.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-7 {
+    background: #FFCA85 url(../images/btn_product_08.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-8 {
+    background: #FFB8E5 url(../images/btn_product_09.gif) 0 0 repeat-x !important;
+ }
+
+.product-button-color-9 {
+    background: #F070FF url(../images/btn_product_10.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-10 {
+    background: #6FB9D6 url(../images/btn_product_11.gif) 0 0 repeat-x !important;
+}
+
+.product-button-color-11 {
+    background: #6DFFF6 url(../images/btn_product_12.gif) 0 0 repeat-x !important;
+}
+
+*/

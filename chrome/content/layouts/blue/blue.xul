@@ -15,11 +15,9 @@
 <?xml-stylesheet href="chrome://viviecr/skin/fe/condiment.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/cart.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/cartstatus.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/fe/inputline.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/promotions_status.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/terminalstatus.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/functionpanel.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
@@ -30,8 +28,6 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartStatusPanelOverlay.xul" ?>
 
 <?xul-overlay href="chrome://roundrock/content/layouts/blue/overlays/keysetExtensions.xul" ?>
@@ -56,6 +52,7 @@
                 <box id="leftPanel" flex="0" orient="vertical" class="left-panel">
 
                     <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;" class="cart-list"/>
+                    <box id="promotionsStatusPanelContainer" flex="0" panel="&layout.panel.promotions;"/>
                     <onscreenvfd id="onscreenvfd" value=""
                                  class="vfd-vbox"
                                  messageRowClass="messageRowClass"

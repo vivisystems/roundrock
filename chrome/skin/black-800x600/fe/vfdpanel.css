@@ -9,31 +9,80 @@
 }
 
 .main-overlay .vfd-vbox {
-    height: 60px;
-    margin-left: 0px;
-    padding: 3px;
 }
 
-.main-overlay .vfd-label {
+.main-overlay .vfd-vbox textbox {
     background-color: transparent;
-    border-width: 0px;
-    color: #f49b1d;
-    font-family: monospace;
-    font-size: 15pt;
-    font-weight: bold !important;
-    padding-right: 3px;
+    border: 0px !important;
     color: #FFF;
+    font-family: monospace;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;
     -moz-user-input: none;
 }
 
-.main-overlay .vfd-pad-training {
-    background-color: red;
-    border-bottom: 7px solid red;
+.main-overlay .vfd-vbox .messageRowClass {
+    background-color: #1e1b14;
+    border-top: 1px solid #888;
+    margin-top: 2px;
+    padding: 5px 10px;
+    -moz-appearance: none;
 }
 
-.main-overlay .vfd-pad-training .label-vfd {
+.main-overlay .vfd-vbox .messageLabelClass {
+    display: none;
+}
+
+.main-overlay .vfd-vbox .messageValueClass {
+    color: #0F0;
+    font-size: 16pt;
+    font-weight: bold !important;
+}
+
+.main-overlay .vfd-vbox .summaryRowClass {
+    border-top: 1px solid #888;
+    margin-top: 2px;
+    padding: 0px 5px;
+    -moz-appearance: none;
+}
+
+.main-overlay .vfd-vbox .vfdLabelClass {
+    color: #8E8E8E;
+    font-size: 14px;
+    padding: 4px 0px 0px 4px;
+    text-align: left;
+}
+
+.main-overlay .vfd-vbox .paymentClass {
+    border-right: 1px solid #888;
+    padding-right: 5px;
+}
+
+.main-overlay .vfd-vbox .changeValueClass,
+.main-overlay .vfd-vbox .paymentValueClass {
+    color: #FFF;
+    font-size: 18pt;
+    padding: 8px 4px;
+    text-align: right;
+}
+
+.main-overlay .vfd-vbox .totalClass {
+    border-right: 1px solid #888;
+    padding-right: 5px;
+}
+
+.main-overlay .vfd-vbox .totalValueClass {
+    color: #80FF24;
+    font-size: 18pt;
+    padding: 8px 2px;
+    text-align: right;
+}
+
+.main-overlay .vfd-pad-training {
+    background-color: #604020;
+}
+
+.main-overlay .vfd-pad-training textbox {
     color: black !important;
 }

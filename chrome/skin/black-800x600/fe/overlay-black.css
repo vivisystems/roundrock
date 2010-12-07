@@ -7,37 +7,33 @@
 
 .main-overlay .main-panel  {
     background: #f1faff url(../images/main_panel.gif) repeat-x;
-    border: 0px solid red;
-    height: 600px;
-    width: 800px;
-    padding: 10px;
+    border: 0px solid;
+    height: 768px;
+    width: 1024px;
+    padding: 5px 10px;
 }
 
 .main-overlay .left-panel {
-    max-width: 780px;
-    min-width: 780px;
-    width: 780px;
     background: #000;
-    -moz-border-radius: 10px;
     border: 1px solid #000;
-}
+    max-width: 380px;
+    min-width: 380px;
+    width: 380px;
+   -moz-border-radius: 10px;
+ }
 
 .main-overlay .right-panel {
     margin-left: 10px;
-    max-width: 0;
-    min-width: 612px;
-    width: 612px;
-    display: none;
+    max-width: 613px;
+    min-width: 613px;
+    width: 613px;
 }
 
 .main-overlay .bottom-panel {
-    margin-top: 10px;
-}
-
-.main-overlay .function-toolbar {
-    min-width: 44px;
-    max-width: 44px;
-    width: 44px;
+    margin-top: 8px;
+    height: 250px;
+    max-height: 250px;
+    min-height: 250px;
 }
 
 .main-overlay .main-wait-panel {
@@ -59,91 +55,29 @@
     display: none;
 }
 
-#customerPanelContainer {
-    border: 2px ridge;
+.main-overlay .function-panel {
+    margin: 0px 3px;
 }
 
-#leftPanel .text_title {
-    color: #999;
-    font-weight: bold;
-    font-size: 16px;
-    height: 35px;
-}
-#leftPanel .text_green {
-    color: #0E0;
-    text-align: right;
-    font-weight: bold;
-    font-size: 30px;
-}
-#leftPanel .text_white {
-    color: #FFF;
-    text-align: right;
-    font-weight: bold;
-    font-size: 30px;
-}
-#leftPanel .text_panel {
-    height: 70px;
-}
-#leftPanel .text_panel vbox {
-    border-top: 1px solid #CCC;
-    border-right: 1px solid #CCC;
-}
-#leftPanel .text_panel vbox.last {
-    border-right: none;
-}
-
-#rightPanel .cmd_panel {
-    background: #000;
-    height: 130px;
-    min-height: 130px;
-    margin-bottom: 10px;
-    padding: 25px 10px 10px 10px;
-    color: #FFF;
+.main-overlay .vivifuncpanelecr_button_panel vivibutton {
+    padding: 2px;
     -moz-border-radius: 10px;
 }
-#rightPanel .cmd_panel .btn {
-    background-color: #000;
-    border: 2px solid #FFF;
-    margin-left: 10px;
-    width: 90px;
-    height: 60px;
-    max-height: 60px;
-    color: #FFF;
-    font-weight: bold;
-    -moz-appearance: none;
-    -moz-border-top-colors: #424851 #fff;
-    -moz-border-right-colors: #424851 #fff;
-    -moz-border-bottom-colors: #424851 #fff;
-    -moz-border-left-colors: #424851 #fff;
-    -moz-border-radius: 10px;
-}
-#rightPanel .cmd_panel .datetime {
-    font-size: 16px;
-    font-weight: bold;
-    text-align: right;
-}
-#leftPanel .info_panel {
-    padding: 5px 10px 5px 10px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #FFF;
-    border-bottom: 1px solid #A8A8A8;
+
+.main-overlay .page-panel {
 }
 
-.page-panel {
-    display: none;
-}
-.page-panel button {
+.main-overlay .page-panel button {
     background: transparent;
     border: 2px solid;
-    width: 160px;
-    min-width: 160px;
-    height: 40px;
-    min-height: 40px;
-    margin: 0 10px 10px 10px;
     color: #FFF;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
+    height: 40px;
+    margin: 0 5px 10px 5px;
+    min-height: 40px;
+    min-width: 80px;
+    width: 80px;
     -moz-appearance: none;
     -moz-border-top-colors: #fff;
     -moz-border-right-colors: #fff;
@@ -151,67 +85,118 @@
     -moz-border-left-colors: #fff;
     -moz-border-radius: 10px;
 }
-.vfd-panel {
-    height: 70px;
-    min-height: 70px;
-    max-height: 70px;
-    margin-top: 5px;
-    color: #FFF;
-}
-.vfd-panel vbox {
-    border-top: 2px solid #4E4E4E;
-    border-right: 2px solid #4E4E4E;
-}
-.vfd-panel vbox.last {
-    border-right: none;
-}
-.vfd-panel .text-title {
-    font-size: 18px;
-    color: #8E8E8E;
-}
-.vfd-panel .text-value {
-    font-size: 28px;
-    text-align: right;
-}
-.vfd-panel .green {
-    color: #0F0;
-}
-.command-panel {
-    background: #CACACA;
-    margin-top: 45px;
-    padding: 10px;
-}
-.btn-page {
+
+.main-overlay .right-panel .info-panel {
     background: #000;
-    border: none;
-    color: #FFF;
-    height: 40px;
-    margin: 0 10px 10px 0;
-    -moz-appearance: none;
-    -moz-border-radius: 5px;
-}
-.btn-action {
-    background: url(../images/btn_action.gif) repeat-x;
-    height: 39px;
-    margin-bottom: 10px;
-    border: 2px solid;
-    color: #222;
-    -moz-appearance: none;
-    -moz-border-radius: 5px;
-    -moz-border-top-colors: #414141;
-    -moz-border-right-colors: #414141;
-    -moz-border-bottom-colors: #414141;
-    -moz-border-left-colors: #414141;
-}
-.input {
-    color: #FFF;
-    font-size: 16px;
     font-weight: bold;
-    padding: 7px 0 0 7px;
-    background: #2E2D2D;
-    height: 30px;
+    margin-bottom: 4px;
+    padding: 10px 10px 10px 20px;
+    -moz-border-radius: 10px;
+    -moz-box-align: center;
+}
+
+.main-overlay .right-panel .clock-panel {
+    background: transparent;
+    border: 0px;
+    color: #FFF;
+}
+
+.main-overlay .right-panel .info-panel .return-mode-panel {
+    background: transparent;
+    border: 2px solid;
+    color: #0F0;
+    font-family: monospace;
+    font-size: 20pt;
+    font-weight: bold !important;
+    height: 48px;
+    max-height: 48px;
+    max-width: 150px;
+    min-height: 48px;
+    min-width: 150px;
+    width: 160px;
+    -moz-border-top-colors: #424851 #fff;
+    -moz-border-right-colors: #424851 #fff;
+    -moz-border-bottom-colors: #424851 #fff;
+    -moz-border-left-colors: #424851 #fff;
     -moz-border-radius: 10px;
 }
-.screen1024 {
-    display: none;
+
+.main-overlay .right-panel .info-panel .cartstatus-panel {
+    background: transparent;
+    border: 2px solid;
+    height: 48px;
+    margin-right: 10px;
+    max-height: 48px;
+    max-width: 200px;
+    min-height: 48px;
+    min-width: 200px;
+    width: 200px;
+    -moz-border-top-colors: #424851 #fff;
+    -moz-border-right-colors: #424851 #fff;
+    -moz-border-bottom-colors: #424851 #fff;
+    -moz-border-left-colors: #424851 #fff;
+    -moz-border-radius: 10px;
+}
+
+.main-overlay .right-panel .info-panel .btn {
+    background-color: #000;
+    border: 2px solid #FFF;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: bold;
+    height: 48px;
+    max-height: 48px;
+    max-width: 80px;
+    min-width: 80px;
+    width: 80px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #424851 #fff;
+    -moz-border-right-colors: #424851 #fff;
+    -moz-border-bottom-colors: #424851 #fff;
+    -moz-border-left-colors: #424851 #fff;
+    -moz-border-radius: 10px;
+}
+
+.main-overlay .number-panel {
+    margin-right: 7px;
+}
+
+.main-overlay .number-panel button {
+    background: #B9B0B0 url(../images/btn_function_02.gif) 0% 0% repeat-x;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    height: 61px;
+    margin-left: 1px;
+    margin-right: 1px;
+    max-width: 86px;
+    min-width: 86px;
+    width: 86px;
+    -moz-appearance: none;
+    -moz-border-right-colors: #777 #333;
+    -moz-border-bottom-colors: #777 #333;
+    -moz-border-radius: 10px;
+    -moz-user-focus: ignore;
+}
+
+.main-overlay .number-panel .inner-row button {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.main-overlay .number-panel .top-row button {
+    margin-bottom: 1px;
+}
+
+.main-overlay .number-panel .bottom-row button {
+    margin-top: 1px;
+}
+
+.main-overlay .cmd-panel {
+    margin-right: 8px;
+    max-width: 110px;
+    min-width: 110px;
+    width: 110px;
 }

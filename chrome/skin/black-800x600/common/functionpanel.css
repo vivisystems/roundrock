@@ -35,9 +35,12 @@
  */
 
 .vivifuncpanelecr_matrix_button_mapped {
-    background: #300;
-    border: none;
-    color: #FFF;
+    background: #fff url(../images/funColor01.gif) bottom left repeat-x;
+    border-top: 1px solid;
+    border-left: 1px solid;
+    border-right: 3px solid;
+    border-bottom: 3px solid;
+    color: #2b2623;
     list-style-type: none;
     margin: 0px;
     overflow: hidden;
@@ -45,7 +48,11 @@
     text-align: center;
     -moz-appearance: none;
     -moz-background-clip: border;
-    -moz-border-radius: 10px;
+    -moz-border-radius: 0px;
+    -moz-border-top-colors: #8e8e8e;
+    -moz-border-right-colors: #d6dee2 #bdc3c7 #8e8e8e;
+    -moz-border-bottom-colors: #d6dee2 #bdc3c7 #8e8e8e;
+    -moz-border-left-colors: #8e8e8e;
     -moz-user-focus: ignore;
 }
 
@@ -71,7 +78,7 @@
     -moz-border-right-colors: #8e8e8e;
     -moz-border-bottom-colors: #8e8e8e;
     -moz-border-left-colors: #8e8e8e;
-    -moz-border-radius: 10px;
+    -moz-border-radius: 0px;
     -moz-user-focus: ignore;
 }
 
@@ -103,6 +110,14 @@
     -moz-border-right-colors: black red;
 }
 
+.vivifuncpanelecr_matrix_button_obsolete hbox {
+    background-image: url('chrome://viviecr/skin/images/cancel.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -moz-appearance: none;
+}
+
+
 /*-----------------------------------------------------------------------------
  * Function Panel control panel
  *-----------------------------------------------------------------------------
@@ -110,12 +125,11 @@
 
 .vivifuncpanelecr_control_panel {
     margin: 0px 0px 0px 0px;
-    max-width: 44px;
-    min-width: 44px;
+    max-width: 34px;
+    min-width: 34px;
     overflow: hidden;
     padding: 0px 0px 0px 0px;
     -moz-box-align: center;
-    display: none;
 }
 
 /*-----------------------------------------------------------------------------
@@ -127,10 +141,10 @@
     background: transparent url(../images/departUp.png) 0 0 no-repeat;
     border: 0px;
     margin: 0px;
-    max-height: 40px;
-    max-width: 40px;
-    min-height: 40px;
-    min-width: 40px;
+    max-height: 32px;
+    max-width: 32px;
+    min-height: 32px;
+    min-width: 32px;
     padding: 0px 0px 0px 0px;
     -moz-appearance: none;
     -moz-background-clip: border;
@@ -138,17 +152,17 @@
 }
 
 .vivifuncpanelecr_control_scroll_left[disabled=false]:active {
-    background-position:-40px 0;
+    background-position:-32px 0;
 }
 
 .vivifuncpanelecr_control_scroll_right {
     background: transparent url(../images/departDown.png) 0 0 no-repeat;
     border: 0px;
     margin: 0px;
-    max-height: 40px;
-    max-width: 40px;
-    min-height: 40px;
-    min-width: 40px;
+    max-height: 32px;
+    max-width: 32px;
+    min-height: 32px;
+    min-width: 32px;
     padding: 0px 0px 0px 0px;
     -moz-appearance: none;
     -moz-background-clip: border;
@@ -156,17 +170,17 @@
 }
 
 .vivifuncpanelecr_control_scroll_right[disabled=false]:active {
-    background-position:-40px 0;
+    background-position:-32px 0;
 }
 
 .vivifuncpanelecr_control_home {
     background: transparent url(../images/funTop.png) 0 0 no-repeat;
     border: 0px;
     margin: 0px 0 2px 0;
-    max-height: 40px;
-    max-width: 40px;
-    min-height: 40px;
-    min-width: 40px;
+    max-height: 32px;
+    max-width: 32px;
+    min-height: 32px;
+    min-width: 32px;
     padding: 0px 0px 0px 0px;
     -moz-appearance: none;
     -moz-background-clip: border;
@@ -174,7 +188,7 @@
 }
 
 .vivifuncpanelecr_control_home[disabled=false]:active {
-    background-position:-40px 0;
+    background-position:-32px 0;
 }
 
 .vivifuncpanelecr_control_label {

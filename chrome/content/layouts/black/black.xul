@@ -8,14 +8,12 @@
 
 <?xml-stylesheet href="chrome://viviecr/skin/fe/overlay-black.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/vfdpanel.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/fe/orderstatus.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/department.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/product.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/function-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/condiment.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/cart.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/cartstatus.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/fe/inputline.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/promotions_status.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/terminalstatus.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/functionpanel.css" type="text/css"?>
@@ -30,7 +28,6 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartStatusPanelOverlay.xul" ?>
 
 <?xul-overlay href="chrome://roundrock/content/layouts/black/overlays/keysetExtensions.xul" ?>
@@ -66,6 +63,7 @@
                     </hbox>
 
                     <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;" class="cart-list"/>
+                    <box id="promotionsStatusPanelContainer" flex="0" panel="&layout.panel.promotions;"/>
 
                     <onscreenvfd id="onscreenvfd" value=""
                                  class="vfd-vbox"
@@ -104,6 +102,7 @@
                     </hbox>
                     <box id="categoryPanelContainer" hidden="false" flex="0" panel="&layout.panel.departments;"/>
                     <box id="productPanelContainer" hidden="false" flex="1" panel="&layout.panel.products;" class="product-panel"/>
+                    <box id="staticCondimentsPanelContainer" panel="&layout.panel.condiments;"/>
                 </box>
 
             </hbox>

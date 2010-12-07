@@ -8,7 +8,7 @@
 .main-overlay .cart-list {
     background: transparent;
     font-size: 14px;
-    height: 215px;
+    height: 280px;
 }
 
 .main-overlay .cart-list > .cart-list {
@@ -114,23 +114,25 @@
  */
 
 .main-overlay .cart-list tree {
-    background: #DFDFDF;
+    background: #EEE;
     border: none;
     margin: 0px;
     -moz-appearance: none;
 }
 
-.main-overlay .cart-list treecol {
-    background: #000;
-    border: none;
-    color: #FFF;
-    height: 45px;
-    -moz-appearance: none;
+.main-overlay .cart-list treecols {
+    border: 2px solid;
+    -moz-border-top-colors:  #555 #888;
+    -moz-border-right-colors: #555 #888;
+    -moz-border-bottom-colors: #555 #888;
+    -moz-border-left-colors: #555 #888;
 }
 
-.main-overlay .cart-list .tree-splitter {
-    background: #bebebe;
-    width: 1px;
+.main-overlay .cart-list treecol {
+    background: #000;
+    border-width: 0px;
+    color: #FFF;
+    height: 40px;
     -moz-appearance: none;
 }
 
@@ -141,7 +143,7 @@
 
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(selected) {font-size: 18px; font-weight: bolder;}
 
-.main-overlay .cart-list treechildren::-moz-tree-row(selected) {background-color: #CACACA; }
+.main-overlay .cart-list treechildren::-moz-tree-row(selected) {background-color: #CCC !important;}
 .main-overlay .cart-list treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
 .main-overlay .cart-list treechildren::-moz-tree-row(treeOutofStock) {background-color: red;}
 .main-overlay .cart-list treechildren::-moz-tree-row(treeVerifyAge) {background-color: lightblue;}
@@ -155,9 +157,11 @@
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(row) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_qty) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(current_price) {font-size: 14px !important; font-weight: normal !important;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(current_price) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(price_level) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(destination) {font-size: 14px !important; font-weight: normal !important;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(treecellCondiment) {font-size: 11px; font-weight: normal;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(treecellSubtotal) {font-size: 14px; font-weight: normal; padding-right: 3px;}
 
 /*
 .cart-list treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}

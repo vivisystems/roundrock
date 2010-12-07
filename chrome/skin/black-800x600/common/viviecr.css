@@ -19,41 +19,12 @@
 }
 
 /*-----------------------------------------------------------------------------
- * Column widths
- *-----------------------------------------------------------------------------
- */
-
-.column-fixed-2 * {
-    max-width: 366px;
-    min-width: 366px;
-    width: 366px;
-}
-
-.column-fixed-3 {
-    max-width: 250px;
-    min-width: 250px;
-    width: 250px;
-}
-
-.column-fixed-4 {
-     max-width: 185px;
-     min-width: 185px;
-     width: 185px;
-}
-
-.column-fixed-5 {
-     max-width: 150px;
-     min-width: 150px;
-     width: 150px;
-}
-
-/*-----------------------------------------------------------------------------
  * Text Headings
  *-----------------------------------------------------------------------------
  */
 
 .label-page-title {
-    color: #6F0;
+    color: #534741;
     font-size: 12pt;
     font-weight: bold;
     margin: 5px 8px;

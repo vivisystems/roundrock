@@ -7,7 +7,6 @@
 
 .main-overlay .orderstatus {
     background: #555940;
-    display: none;
     -moz-appearance: none;
 }
 .main-overlay .orderstatus .orderstatus {

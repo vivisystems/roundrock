@@ -13,59 +13,12 @@
     cursor: wait !important;
 }
 
-.container-dialog .container-wait-panel *,
-.container-dialog .container-interruptible-wait-panel * {
-    cursor: wait !important;
-}
-
-.container-dialog .container-wait-panel {
-    background: white;
-    height: 120px;
-    margin-left: 100px;
-    margin-top: 240px;
-    max-height: 120px;
-    max-width: 600px;
-    min-height: 120px;
-    min-width: 600px;
-    width: 600px;
-}
-
-.container-dialog .container-interruptible-wait-panel {
-    background: #000;
-    height: 170px;
-    margin-left: 100px;
-    margin-top: 215px;
-    max-height: 170px;
-    max-width: 600px;
-    min-height: 170px;
-    min-width: 600px;
-    width: 600px;
-    -moz-border-radius: 8px;
-}
-
 .container-dialog .container-main {
-    background: #000;
+    background: white;
+    border: 3px solid #c1ab8e;
     margin: 8px;
     padding: 4px;
     -moz-border-radius: 8px;
-}
-
-.container-interruptible-wait-panel .container-main,
-.container-wait-panel  .container-main,
-.container-wait-dialog .container-main{
-    background: #000 !important;
-    border:none !important;
-    margin:0px !important;
-    -moz-border-radius: 0;
-    -moz-appearance: none;
-}
-
-.layout-dialog .container-main {
-    background: transparent;
-}
-
-.layout-dialog .label-page-title {
-    color: #000;
 }
 
 .container-dialog .container-top {
@@ -80,4 +33,85 @@
 
 .container-dialog .container-right {
     margin: 4px;
+}
+
+/* popup panels */
+
+.container-dialog .layout-popup-prompt .container-main {
+    background: white;
+}
+
+/* wait panels */
+
+.container-dialog .container-wait-panel {
+    background: transparent;
+    height: 120px;
+    margin-left: 100px;
+    margin-top: 240px;
+    max-height: 120px;
+    max-width: 600px;
+    min-height: 120px;
+    min-width: 600px;
+    width: 600px;
+}
+
+.container-dialog .container-interruptible-wait-panel {
+    background: transparent;
+    height: 170px;
+    margin-left: 100px;
+    margin-top: 215px;
+    max-height: 170px;
+    max-width: 600px;
+    min-height: 170px;
+    min-width: 600px;
+    width: 600px;
+}
+
+.container-dialog .container-wait-panel .container-main,
+.container-dialog .container-interruptible-wait-panel .container-main {
+    background: #EEEEFF;
+    border: 2px solid #3180FF;
+    margin: 0px;
+    padding: 20px 30px 15px 30px;
+    -moz-border-radius: 10px;
+}
+
+.container-dialog .container-wait-panel progressmeter,
+.container-dialog .container-interruptible-wait-panel progressmeter {
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    -moz-appearance: none;
+    -moz-border-radius: 4px;
+}
+
+.container-dialog .container-wait-panel progressmeter .progress-bar,
+.container-dialog .container-interruptible-wait-panel progressmeter .progress-bar {
+    background-image: url(chrome://viviecr/skin/images/btn_gray.png);
+    background-repeat: repeat-x;
+    -moz-appearance: none !important;
+}
+
+.container-dialog .container-wait-panel groupbox {
+    -moz-box-direction: reverse;
+}
+
+.container-dialog .container-wait-panel groupbox > spacer,
+.container-dialog .container-interruptible-wait-panel groupbox > spacer {
+    display: none;
+}
+
+.container-dialog .container-wait-panel groupbox .label-page-title {
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 0px;
+    padding: 0px;
+}
+
+.container-dialog .container-wait-panel groupbox .groupbox-title {
+    -moz-box-flex: 10000;
+}
+
+.container-dialog .container-wait-panel groupbox .groupbox-body {
+    -moz-box-flex: 0;
 }

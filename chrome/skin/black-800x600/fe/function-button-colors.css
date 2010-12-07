@@ -1,0 +1,135 @@
+/*--------------------------------------------------------------------------
+ *
+ * FRONT-END FUNCTION BUTTON COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.main-overlay vivifuncpanelecr .function-button-color-default {
+    background: #000;
+    color: white;
+    -moz-appearance: none;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-default label {
+    color: white !important;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-1 {
+    background: #000;
+    color: #87FFFF;
+    -moz-appearance: none;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-1 label {
+    color: #87FFFF !important;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-2 {
+    background: #000;
+    color: #FF87FF;
+    -moz-appearance: none;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-2 label {
+    color: #FF87FF !important;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-3 {
+    background: #000;
+    color: #FFFF87;
+    -moz-appearance: none;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-3 label {
+    color: #FFFF87 !important;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-4 {
+    background: #000;
+    color: #FFA5A5;
+    -moz-appearance: none;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-4 label {
+    color: #FFA5A5 !important;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-5 {
+    background: #000;
+    color: #A5A5FF;
+    -moz-appearance: none;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-5 label {
+    color: #A5A5FF !important;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-6 {
+    background: #000;
+    color: #B45AFF;
+    -moz-appearance: none;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-6 label {
+    color: #B45AFF !important;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-7 {
+    background: #000;
+    color: #FFAA50;
+    -moz-appearance: none;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-7 label {
+    color: #FFAA50 !important;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-8 {
+    background: #000;
+    color: #50FFAA;
+    -moz-appearance: none;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-8 label {
+    color: #50FFAA !important;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-9 {
+    background: #535353 url(../images/btn_function_01.gif) repeat-x;
+    border: 2px solid;
+    color: #01E6FB;
+    -moz-appearance: none;
+    -moz-border-top-colors: #222;
+    -moz-border-right-colors: #222;
+    -moz-border-bottom-colors: #222;
+    -moz-border-left-colors: #222;
+    -moz-border-radius: 10px;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-9 label {
+    color: #01E6FB !important;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-10 {
+    background: #B9B0B0 url(../images/btn_function_02.gif) repeat-x;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    color: #000;
+    -moz-appearance: none;
+    -moz-border-right-colors: #777 #333;
+    -moz-border-bottom-colors: #777 #333;
+    -moz-border-radius: 10px;
+}
+
+.main-overlay vivifuncpanelecr .function-button-color-11 {
+    background: #AEA8A8 url(../images/btn_function_03.gif) repeat-x;
+    border: 2px solid;
+    color: #282525;
+    -moz-appearance: none;
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+    -moz-border-radius: 10px;
+}

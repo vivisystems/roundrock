@@ -13,6 +13,7 @@
 .main-overlay .button-department {
     background: #848388 url(../images/departBtn1.png) top left repeat-x;
     border: 2px solid;
+    color: black;
     margin: 2px 2px 2px 2px;
     min-height:50px;
     min-width: 50px;
@@ -111,3 +112,19 @@
 .main-overlay .dept-scroll-down-button description {
     display: none;
 }
+
+/*--------------------------------------------------------------------------
+ *
+ * DEPARTMENT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.main-overlay .catescrollablepanel row vivibutton:nth-child(even) {
+    background: #A9A5A5 url(../images/btn_product_01.gif) 0% 0% repeat-x !important;
+}
+
+.main-overlay .catescrollablepanel row vivibutton:nth-child(odd) {
+    background: #D4D1D1 url(../images/btn_product_02.gif) 0% 0% repeat-x !important;
+}
+

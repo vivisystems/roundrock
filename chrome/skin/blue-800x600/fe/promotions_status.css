@@ -7,6 +7,7 @@
 
 .promotions-vbox {
     background-color: #1e1b14;
+    border-bottom: 2px solid #2e2b24;
 }
 
 .promotions-vbox textbox {
@@ -20,13 +21,14 @@
     border-width: 0px;
     color: #f49b1d;
     font-family: monospace;
-    font-size: 15pt;
+    font-size: 12pt;
     font-weight: bold !important;
-    width: 250px;
+    width: 180px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;
     -moz-user-input: none;
+    -moz-box-align: center;
 }
 
 .promotions-subtotal {
@@ -34,13 +36,14 @@
     border-width: 0px;
     color: red;
     font-family: monospace;
-    font-size: 15pt;
+    font-size: 14pt;
     font-weight: bold !important;
     text-align: right;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;
     -moz-user-input: none;
+    -moz-box-align: center;
 }
 
 .promotions-applies {
@@ -48,14 +51,15 @@
     border-width: 0px;
     color: #f49b1d;
     font-family: monospace;
-    font-size: 15pt;
+    font-size: 12pt;
     font-weight: bold !important;
     text-align: right;
-    width: 80px;
+    width: 50px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;
     -moz-user-input: none;
+    -moz-box-align: center;
 }
 
 .promotions-tree tree {
