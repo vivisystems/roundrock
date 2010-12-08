@@ -9,6 +9,8 @@
 }
 
 .main-overlay .vfd-vbox {
+    background-color: black;
+    -moz-border-radius: 0px 0px 10px 10px;
 }
 
 .main-overlay .vfd-vbox textbox {
@@ -26,7 +28,7 @@
     background-color: #1e1b14;
     border-top: 1px solid #888;
     margin-top: 2px;
-    padding: 5px 10px;
+    padding: 3px 8px;
     -moz-appearance: none;
 }
 
@@ -36,21 +38,21 @@
 
 .main-overlay .vfd-vbox .messageValueClass {
     color: #0F0;
-    font-size: 16pt;
+    font-size: 14pt;
     font-weight: bold !important;
 }
 
 .main-overlay .vfd-vbox .summaryRowClass {
     border-top: 1px solid #888;
     margin-top: 2px;
-    padding: 0px 5px;
+    padding: 0px 3px;
     -moz-appearance: none;
 }
 
 .main-overlay .vfd-vbox .vfdLabelClass {
     color: #8E8E8E;
     font-size: 14px;
-    padding: 4px 0px 0px 4px;
+    padding: 3px 0px 0px 3px;
     text-align: left;
 }
 
@@ -62,8 +64,8 @@
 .main-overlay .vfd-vbox .changeValueClass,
 .main-overlay .vfd-vbox .paymentValueClass {
     color: #FFF;
-    font-size: 18pt;
-    padding: 8px 4px;
+    font-size: 16pt;
+    padding: 6px 3px;
     text-align: right;
 }
 
@@ -74,8 +76,8 @@
 
 .main-overlay .vfd-vbox .totalValueClass {
     color: #80FF24;
-    font-size: 18pt;
-    padding: 8px 2px;
+    font-size: 16pt;
+    padding: 6px 3px;
     text-align: right;
 }
 

@@ -65,7 +65,7 @@ vivitextbox {
 }
 
 onscreenvfd {
-  -moz-binding: url("chrome://roundrock/content/layouts/blue/bindings/onscreenvfd.xbl#onscreenvfd");
+  -moz-binding: url("chrome://roundrock/content/layouts/black/bindings/onscreenvfd.xbl#onscreenvfd");
 }
 
 promotions_status {
@@ -90,5 +90,9 @@ table_status_std_btn {
 
 table_status_btn {
   -moz-binding: url("chrome://viviecr/content/bindings/table_status_btn.xbl#table_status_btn");
+}
+
+clock {
+  -moz-binding: url("chrome://roundrock/content/layouts/black/bindings/clock.xbl#clock");
 }
 

@@ -57,9 +57,12 @@
             
             // resizing product/function panels
             var deptPanel = document.getElementById('catescrollablepanel');
+            var deptPanelContainer = document.getElementById('categoryPanelContainer');
             var pluPanel = document.getElementById('prodscrollablepanel');
+            var pluPanelContainer = document.getElementById('productPanelContainer');
             var fnPanel = document.getElementById('functionpanel');
             var fnPanelContainer = document.getElementById('functionPanelContainer');
+            var fixedFnPanel = document.getElementById('fixedFunctionpanel');
             var condPanel = document.getElementById('condimentscrollablepanel');
 
             var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
@@ -83,6 +86,9 @@
             var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
             if (fnCols == null) fnCols = 4;
 
+            var fixedFnRows = fnRows;
+            var fixedFnCols = 1;
+            
             var hideDeptScrollbar = true;
             var hidePLUScrollbar = true;
             var hideFPScrollbar = true;
@@ -115,7 +121,7 @@
                 }
             }
 
-            if (deptPanel) {
+            if (deptPanel && !deptPanelContainer.hidden) {
                 if (initial ||
                     (deptPanel.getAttribute('rows') != departmentRows) ||
                     (deptPanel.getAttribute('cols') != departmentCols) ||
@@ -150,7 +156,7 @@
                 }
             }
 
-            if (pluPanel) {
+            if (pluPanel && !pluPanelContainer.hidden) {
                 if (initial ||
                     (pluPanel.getAttribute('rows') != pluRows) ||
                     (pluPanel.getAttribute('cols') != pluCols) ||
@@ -180,26 +186,47 @@
                     pluPanel.vivibuttonpanel.resizeButtons();
                 }
             }
-
+            
             if (fnPanel && !fnPanelContainer.hidden) {
                 fnPanel.setAttribute('hideScrollbar', hideFPScrollbar)
                 fnPanel._showHideScrollbar(hideFPScrollbar);
 
                 // check if rows/columns have changed
-                var currentRows = fnPanel.rows;
-                var currentColumns = fnPanel.columns;
+                let currentRows = fnPanel.rows;
+                let currentColumns = fnPanel.columns;
 
                 if (initial || (currentRows != fnRows) ||
                     (currentColumns != fnCols)) {
 
                     // need to change layout, first retrieve h/vspacing
 
-                    var hspacing = fnPanel.hspacing;
-                    var vspacing = fnPanel.vspacing;
+                    let hspacing = fnPanel.hspacing;
+                    let vspacing = fnPanel.vspacing;
 
                     fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
                 }
                 fnPanel.width = fnPanel.boxObject.width;
+            }
+
+            if (fixedFnPanel) {
+                fixedFnPanel.setAttribute('hideScrollbar', hideFPScrollbar)
+                fixedFnPanel._showHideScrollbar(hideFPScrollbar);
+
+                // check if rows/columns have changed
+                let currentRows = fixedFnPanel.rows;
+                let currentColumns = fixedFnPanel.columns;
+
+                if (initial || (currentRows != fixedFnRows) ||
+                    (currentColumns != fixedFnCols)) {
+
+                    // need to change layout, first retrieve h/vspacing
+
+                    let hspacing = fixedFnPanel.hspacing;
+                    let vspacing = fixedFnPanel.vspacing;
+
+                    fixedFnPanel.setSize(fixedFnRows, fixedFnCols, hspacing, vspacing);
+                }
+                fixedFnPanel.width = fixedFnPanel.boxObject.width;
             }
         },
         
@@ -263,18 +290,6 @@
         
         var layout = GeckoJS.Controller.getInstanceByName('Layout');
         if (layout) layout.initial();
-
-        $('#btnUp').click(function() {
-            $('#cartList').each(function() {
-                this._scrollButtonUp.click();
-            });
-        });
-
-        $('#btnDown').click(function() {
-            $('#cartList').each(function() {
-                this._scrollButtonDown.click();
-            });
-        });
 
     }, false);
     

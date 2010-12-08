@@ -22,7 +22,6 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartStatusPanelOverlay.xul" ?>
 
 <?xul-overlay href="chrome://roundrock/content/layouts/black/overlays/keysetExtensions.xul" ?>
@@ -43,64 +42,61 @@
 
         <box id="mainPanel" flex="1" class="main-panel" orient="vertical">
 
-            <hbox flex="1">
+            <box id="topPanel" flex="0" orient="horizontal" class="top-panel">
 
-                <box id="leftPanel" flex="0" orient="vertical" class="left-panel">
+                <box id="uiPanelContainer" flex="0" class="uiPanel"/>
+                <hbox class="info-panel" flex="1">
+                    <vbox class="cartstatus-panel" pack="center" align="center">
+                        <box id="cartStatusPanelContainer" flex="0" panel="&layout.panel.cartstatus;"/>
+                    </vbox>
+                    <vbox class="return-mode-panel" align="center" pack="center">
+                        <label id="returnStatus" flex="0"/>
+                    </vbox>
+                    <spacer flex="1"/>
+                    <button label="關機" class="btn" oncommand="$do('shutdown','','Main');"/>
+                    <spacer flex="1"/>
+                    <clock flex="0" align="right" class="clock-panel"/>
+                </hbox>
+            </box>
 
-                    <box id="uiPanelContainer" flex="0" class="uiPanel"/>
+                <hbox flex="1">
+                    <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;" class="cart-list"/>
 
-                    <hbox class="page-panel" align="center">
+                    <vbox class="page-panel" align="center">
+                        <spacer flex="1"/>
                         <button anonid="btnUp" label="▲" oncommand="$do('scrollByLines', '-1', 'Cart');"/>
-                        <button anonid="btnUp" label="▲▲" oncommand="$do('scrollByLines', '-8', 'Cart');"/>
                         <spacer flex="1"/>
                         <button anonid="btnDown" label="▼" oncommand="$do('scrollByLines', '+1', 'Cart');"/>
-                        <button anonid="btnDown" label="▼▼" oncommand="$do('scrollByLines', '+8', 'Cart');"/>
-                    </hbox>
-
-                    <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;" class="cart-list"/>
-                    <box id="promotionsStatusPanelContainer" flex="0" panel="&layout.panel.promotions;"/>
-
-                    <onscreenvfd id="onscreenvfd" value=""
-                                 class="vfd-vbox"
-                                 messageRowClass="messageRowClass"
-                                 messageLabelClass="messageLabelClass"
-                                 messageValueClass="messageValueClass"
-                                 summaryRowClass="summaryRowClass"
-                                 paymentClass="paymentClass"
-                                 paymentLabelSize="12"
-                                 paymentValueSize="8"
-                                 paymentLabelClass="vfdLabelClass"
-                                 paymentValueClass="paymentValueClass"
-                                 changeLabelSize="12"
-                                 changeValueSize="8"
-                                 changeLabelClass="vfdLabelClass"
-                                 changeValueClass="changeValueClass"
-                                 totalClass="totalClass"
-                                 totalLabelClass="vfdLabelClass"
-                                 totalValueClass="totalValueClass"
-                                 trainingClass="vfd-pad-training"
-                                 inputController=""/>
-                </box>
-
-                <box id="rightPanel" flex="1" class="right-panel" orient="vertical">
-                    <hbox class="info-panel">
-                        <vbox class="cartstatus-panel" pack="center" align="center">
-                            <box id="cartStatusPanelContainer" flex="0" panel="&layout.panel.cartstatus;"/>
-                        </vbox>
-                        <vbox class="return-mode-panel" align="center" pack="center">
-                            <label id="returnStatus" flex="0"/>
-                        </vbox>
                         <spacer flex="1"/>
-                        <button label="關機" class="btn" oncommand="$do('shutdown','','Main');"/>
-                        <spacer flex="1"/>
-                        <clock flex="0" align="right" class="clock-panel"/>
-                    </hbox>
-                    <box id="categoryPanelContainer" hidden="false" flex="0" panel="&layout.panel.departments;"/>
-                    <box id="productPanelContainer" hidden="false" flex="1" panel="&layout.panel.products;" class="product-panel"/>
-                    <box id="staticCondimentsPanelContainer" panel="&layout.panel.condiments;"/>
-                </box>
+                    </vbox>
+                </hbox>
 
-            </hbox>
+                <box id="promotionsStatusPanelContainer" flex="0" panel="&layout.panel.promotions;"/>
+
+                <onscreenvfd id="onscreenvfd" value=""
+                             class="vfd-vbox"
+                             messageRowClass="messageRowClass"
+                             messageLabelClass="messageLabelClass"
+                             messageValueClass="messageValueClass"
+                             summaryRowClass="summaryRowClass"
+                             paymentClass="paymentClass"
+                             paymentLabelSize="12"
+                             paymentValueSize="8"
+                             paymentLabelClass="vfdLabelClass"
+                             paymentValueClass="paymentValueClass"
+                             changeLabelSize="12"
+                             changeValueSize="8"
+                             changeLabelClass="vfdLabelClass"
+                             changeValueClass="changeValueClass"
+                             totalClass="totalClass"
+                             totalLabelClass="vfdLabelClass"
+                             totalValueClass="totalValueClass"
+                             trainingClass="vfd-pad-training"
+                             inputController=""/>
+
+                <box id="categoryPanelContainer" hidden="true" flex="0" panel="&layout.panel.departments;"/>
+                <box id="productPanelContainer" hidden="true" flex="1" panel="&layout.panel.products;" class="product-panel"/>
+
             <hbox class="bottom-panel">
                 <vbox id="fixedFunctionPanelContainer" class="cmd-panel"/>
                 <vbox id="numberPanel" class="number-panel">
@@ -125,6 +121,7 @@
                         <button label="." oncommand='$do("sendCharcode",".","Keypad");'/>
                     </hbox>
                 </vbox>
+                <spacer flex="1"/>
                 <box id="functionPanelContainer" flex="1" panel="&layout.panel.function;" class="function-panel"/>
             </hbox>
 

@@ -5,18 +5,18 @@
 @namespace html url("http://www.w3.org/1999/xhtml");
 
 .uidisplay-vfdPad {
-    margin: 8px 4px;
+    margin: 4px 4px;
     -moz-border-radius: 6px;
 }
 
 .uidisplay-field-label {
     color: #fff;
-    max-width: 70px;
+    max-width: 65px;
     margin: 0px 3px 0px 0px;
     padding: 0px;
     background-color: transparent;
     border-width: 0px;
-    font-size: 14px;
+    font-size: 13px;
     text-align: right;
     -moz-appearance: none;
     -moz-user-focus: ignore;
@@ -27,21 +27,17 @@
 .uidisplay-field-value {
     color: #fff;
     margin: 0px;
+    max-width: 75px;
+    min-width: 75px;
+    width: 75px;
     padding: 0px;
     background-color: transparent;
     border-width: 0px;
     font-family: monospace;
-    font-size: 14px;
+    font-size: 13px;
     text-align: left;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;
     -moz-user-input: none;
 }
-
-.uidisplay-field-value[anonid=value1] {
-    min-width: 60px;
-    max-width: 60px;
-    width: 60px;
-}
-

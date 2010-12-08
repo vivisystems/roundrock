@@ -29,7 +29,7 @@ pref("vivipos.fec.registry.layouts.roundrock_black_1024x768.skin", "black-${widt
 
 pref("vivipos.fec.registry.layouts.roundrock_black_800x600.label", "chrome://roundrock/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.roundrock_black_800x600.desc", "chrome://roundrock/locale/messages.properties");
-pref("vivipos.fec.registry.layouts.roundrock_black_800x600.overlay_uri", "chrome://roundrock/content/layouts/black/black.xul");
+pref("vivipos.fec.registry.layouts.roundrock_black_800x600.overlay_uri", "chrome://roundrock/content/layouts/black/black-800x600.xul");
 pref("vivipos.fec.registry.layouts.roundrock_black_800x600.prefs_overlay_uri", "chrome://roundrock/content/layouts/black/black_prefs.xul");
 pref("vivipos.fec.registry.layouts.roundrock_black_800x600.icon", "chrome://roundrock/content/layouts/black/black.png");
 pref("vivipos.fec.registry.layouts.roundrock_black_800x600.resolutions", "800x600");
