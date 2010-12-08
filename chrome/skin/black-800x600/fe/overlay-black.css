@@ -6,11 +6,12 @@
  */
 
 .main-overlay .main-panel  {
-    background: #f1faff url(../images/main_panel.gif) repeat-x;
+    /*background: #f1faff url(../images/main_panel.gif) repeat-x;*/
+    background-color: #f1faff;
     border: 0px solid;
     height: 600px;
     width: 800px;
-    padding: 4px 10px;
+    padding: 4px 6px;
 }
 
 .main-overlay .top-panel {
@@ -48,9 +49,9 @@
 }
 
 .main-overlay .function-panel {
-    max-width: 492px;
-    min-width: 492px;
-    width: 492px;
+    max-width: 500px;
+    min-width: 500px;
+    width: 500px;
 }
 
 .main-overlay .vivifuncpanelecr_button_panel vivibutton {
@@ -58,25 +59,35 @@
     -moz-border-radius: 10px;
 }
 
-.main-overlay .page-panel {
+.main-overlay .page-panel .page-buttons {
+    background-color: #AAA;
+}
+
+.main-overlay .page-panel .cart-column-heading {
+    background: #000;
+    border-style: solid;
+    border-width: 2px 2px 2px 0px;
+    color: #FFF;
+    height: 40px;
+    -moz-appearance: none;
+    -moz-border-top-colors:  #555 #888;
+    -moz-border-right-colors: #555 #888;
+    -moz-border-bottom-colors: #555 #888;
+    -moz-border-left-colors: #555 #888;
 }
 
 .main-overlay .page-panel button {
-    background: transparent;
-    border: 2px solid;
+    background: black;
+    border-width: 1px;
     color: #FFF;
     font-size: 20px;
     font-weight: bold;
-    height: 40px;
-    margin: 0 5px 10px 5px;
-    min-height: 32px;
+    height: 42px;
+    margin: 0px 8px;
+    min-height: 42px;
     min-width: 70px;
     width: 70px;
     -moz-appearance: none;
-    -moz-border-top-colors: #fff;
-    -moz-border-right-colors: #fff;
-    -moz-border-bottom-colors: #fff;
-    -moz-border-left-colors: #fff;
     -moz-border-radius: 10px;
 }
 
@@ -133,16 +144,16 @@
 }
 
 .main-overlay .top-panel .info-panel .btn {
-    background-color: #000;
-    border: 2px solid #FFF;
-    color: #FFF;
+    background: #CCC;
+    border: 2px solid;
+    color: #000;
     font-size: 14px;
     font-weight: bold;
     height: 36px;
-    max-height: 36px;
-    max-width: 60px;
-    min-width: 60px;
-    width: 60px;
+    margin: 0px 5px;
+    min-height: 36px;
+    min-width: 70px;
+    width: 70px;
     -moz-appearance: none;
     -moz-border-top-colors: #424851 #fff;
     -moz-border-right-colors: #424851 #fff;

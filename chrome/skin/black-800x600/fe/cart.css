@@ -121,7 +121,8 @@
 }
 
 .main-overlay .cart-list treecols {
-    border: 2px solid;
+    border-width: 2px 0px 2px 2px;
+    border-style: solid;
     -moz-border-top-colors:  #555 #888;
     -moz-border-right-colors: #555 #888;
     -moz-border-bottom-colors: #555 #888;

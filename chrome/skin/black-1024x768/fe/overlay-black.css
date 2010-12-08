@@ -139,9 +139,9 @@
 }
 
 .main-overlay .right-panel .info-panel .btn {
-    background-color: #000;
-    border: 2px solid #FFF;
-    color: #FFF;
+    background: #CCC;
+    border: 2px solid;
+    color: #000;
     font-size: 18px;
     font-weight: bold;
     height: 48px;

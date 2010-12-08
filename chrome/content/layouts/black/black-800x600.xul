@@ -62,12 +62,15 @@
                 <hbox flex="1">
                     <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;" class="cart-list"/>
 
-                    <vbox class="page-panel" align="center">
-                        <spacer flex="1"/>
-                        <button anonid="btnUp" label="▲" oncommand="$do('scrollByLines', '-1', 'Cart');"/>
-                        <spacer flex="1"/>
-                        <button anonid="btnDown" label="▼" oncommand="$do('scrollByLines', '+1', 'Cart');"/>
-                        <spacer flex="1"/>
+                    <vbox class="page-panel">
+                        <hbox class="cart-column-heading"/>
+                        <vbox flex="1" class="page-buttons">
+                            <spacer flex="1"/>
+                            <button anonid="btnUp" label="▲" oncommand="$do('scrollByLines', '-1', 'Cart');"/>
+                            <spacer flex="2"/>
+                            <button anonid="btnDown" label="▼" oncommand="$do('scrollByLines', '+1', 'Cart');"/>
+                            <spacer flex="1"/>
+                        </vbox>
                     </vbox>
                 </hbox>
 
