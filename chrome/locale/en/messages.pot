@@ -47,3 +47,15 @@ msgstr "POS-Ready ECR (Black)"
 
 msgid "vivipos.fec.registry.layouts.roundrock_black_1024x768.desc"
 msgstr "Layout suitable for users accustomed to ECRs"
+
+msgid "vivipos.fec.registry.layouts.roundrock_brown_800x600.label"
+msgstr "POS-Ready ECR (Brown)"
+
+msgid "vivipos.fec.registry.layouts.roundrock_brown_800x600.desc"
+msgstr "Layout suitable for users accustomed to ECRs"
+
+msgid "vivipos.fec.registry.layouts.roundrock_brown_1024x768.label"
+msgstr "POS-Ready ECR (Brown)"
+
+msgid "vivipos.fec.registry.layouts.roundrock_brown_1024x768.desc"
+msgstr "Layout suitable for users accustomed to ECRs"
