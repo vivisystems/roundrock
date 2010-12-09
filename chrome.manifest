@@ -4,6 +4,8 @@ skin viviecr blue-1024x768/1.0 chrome/skin/blue-1024x768/
 skin viviecr blue-800x600/1.0 chrome/skin/blue-800x600/
 skin viviecr black-1024x768/1.0 chrome/skin/black-1024x768/
 skin viviecr black-800x600/1.0 chrome/skin/black-800x600/
+skin viviecr brown-1024x768/1.0 chrome/skin/brown-1024x768/
+skin viviecr brown-800x600/1.0 chrome/skin/brown-800x600/
 
 locale roundrock en chrome/locale/en/
 

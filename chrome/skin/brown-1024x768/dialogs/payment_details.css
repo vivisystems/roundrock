@@ -1,0 +1,17 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Payment Details Dialog
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+#paymentscrollablepanel tree #amount,
+#paymentscrollablepanel tree #origin_amount {
+    text-align: right;
+}
+
+#paymentscrollablepanel tree #name,
+#paymentscrollablepanel tree #memo1,
+#paymentscrollablepanel tree #memo2 {
+    text-align: center;
+}

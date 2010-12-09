@@ -1,0 +1,33 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Container Styles
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.container-be {
+    background: white url(../images/optionsbg.gif) center center no-repeat;
+}
+
+.container-be .container-main {
+    background: white;
+    border: 3px solid #c1ab8e;
+    margin: 8px;
+    padding: 4px;
+    -moz-border-radius: 8px;
+}
+
+.container-be .container-top {
+    border-bottom: 1px solid #a98f6e;
+    padding-bottom:4px;
+    margin-bottom: 4px;
+}
+
+.container-be .container-left {
+    border-right: 1px solid #a98f6e;
+    margin-right: 4px;
+}
+
+.container-be .container-right {
+    margin: 4px;
+}
