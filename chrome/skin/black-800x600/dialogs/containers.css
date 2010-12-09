@@ -69,8 +69,8 @@
 
 .container-dialog .container-wait-panel .container-main,
 .container-dialog .container-interruptible-wait-panel .container-main {
-    background: #EEEEFF;
-    border: 2px solid #3180FF;
+    background: #000;
+    border: 2px solid #AAA;
     margin: 0px;
     padding: 20px 30px 15px 30px;
     -moz-border-radius: 10px;
@@ -78,16 +78,17 @@
 
 .container-dialog .container-wait-panel progressmeter,
 .container-dialog .container-interruptible-wait-panel progressmeter {
-    height: 40px;
-    min-height: 40px;
-    max-height: 40px;
+    background-color: #444;
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
     -moz-appearance: none;
-    -moz-border-radius: 4px;
+    -moz-border-radius: 6px;
 }
 
 .container-dialog .container-wait-panel progressmeter .progress-bar,
 .container-dialog .container-interruptible-wait-panel progressmeter .progress-bar {
-    background-image: url(chrome://viviecr/skin/images/btn_gray.png);
+    background: transparent url(chrome://viviecr/skin/images/gray.png) 50% 50% repeat-x;
     background-repeat: repeat-x;
     -moz-appearance: none !important;
 }
@@ -102,9 +103,10 @@
 }
 
 .container-dialog .container-wait-panel groupbox .label-page-title {
+    color: #80FF24;
     font-size: 16px;
     font-weight: bolder;
-    margin: 0px;
+    margin: 10px 0px;
     padding: 0px;
 }
 

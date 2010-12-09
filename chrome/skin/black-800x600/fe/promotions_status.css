@@ -9,6 +9,10 @@
     background-color: #1e1b14;
 }
 
+.promotions-vbox row {
+    -moz-box-align: center;
+}
+
 .promotions-vbox textbox {
     -moz-user-focus: ignore;
     -moz-user-select: none;
