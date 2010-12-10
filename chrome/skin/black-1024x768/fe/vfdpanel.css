@@ -54,9 +54,18 @@
     text-align: left;
 }
 
+.main-overlay .vfd-vbox .changeClass {
+    max-width: 120px;
+    min-width: 120px;
+    width: 120px;
+}
+
 .main-overlay .vfd-vbox .paymentClass {
     border-right: 1px solid #888;
     padding-right: 5px;
+    max-width: 120px;
+    min-width: 120px;
+    width: 120px;
 }
 
 .main-overlay .vfd-vbox .changeValueClass,

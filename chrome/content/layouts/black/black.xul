@@ -71,6 +71,7 @@
                                  paymentValueSize="8"
                                  paymentLabelClass="vfdLabelClass"
                                  paymentValueClass="paymentValueClass"
+                                 changeClass="changeClass"
                                  changeLabelSize="12"
                                  changeValueSize="8"
                                  changeLabelClass="vfdLabelClass"

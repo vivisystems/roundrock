@@ -14,11 +14,11 @@
                 </xul:hbox>
                 <xul:hbox flex="1" xbl:inherits="class=summaryRowClass">
                     <xul:vbox pack="center">
-                        <xul:hbox>
+                        <xul:hbox xbl:inherits="class=paymentClass">
                             <xul:textbox anonid="label1_0_label" disabled="true" xbl:inherits="class=paymentLabelClass,size=paymentLabelSize"></xul:textbox>
                             <xul:textbox anonid="label1_0_value" disabled="true" xbl:inherits="class=paymentValueClass,size=paymentValueSize"></xul:textbox>
                         </xul:hbox>
-                        <xul:hbox>
+                        <xul:hbox xbl:inherits="class=changeClass">
                             <xul:textbox anonid="label1_1_label" disabled="true" xbl:inherits="class=changeLabelClass,size=changeLabelSize"></xul:textbox>
                             <xul:textbox anonid="label1_1_value" disabled="true" xbl:inherits="class=changeValueClass,size=changeValueSize"></xul:textbox>
                         </xul:hbox>

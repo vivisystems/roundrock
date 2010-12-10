@@ -173,8 +173,11 @@
 /*treechildren::-moz-tree-image(treecellUntagged) {list-style-image: url(../images/prod-add.png);}*/
 .main-overlay .cart-list treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(../images/check.png);}
 
+.main-overlay .cart-list #price_level {
+    text-align: center;
+}
+
 .main-overlay .cart-list #name,
-.main-overlay .cart-list #price_level,
 .main-overlay .cart-list #destination {
     text-align: left;
 }
@@ -202,8 +205,8 @@
 }
 
 .main-overlay .cart-list tree #destination {
-    max-width: 30px;
-    min-width: 30px;
+    max-width: 90px;
+    min-width: 90px;
 }
 
 .main-overlay .cart-list tree #name {
@@ -236,13 +239,13 @@
 }
 
 .main-overlay .cart-list tree #current_tax {
-    max-width: 28px;
-    min-width: 28px;
+    max-width: 80px;
+    min-width: 80px;
 }
 
 .main-overlay .cart-list tree #price_level {
-    max-width: 24px;
-    min-width: 24px;
+    max-width: 80px;
+    min-width: 80px;
 }
 
 .main-overlay .cart-list .tree-scrollable-columns {

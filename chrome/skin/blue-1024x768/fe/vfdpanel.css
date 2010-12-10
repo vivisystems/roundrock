@@ -47,25 +47,34 @@
 
 .main-overlay .vfd-vbox .smallLabelClass {
     font-size: 12pt;
+    max-width: 75px;
+    min-width: 75px;
+    width: 75px;
 }
 
 .main-overlay .vfd-vbox .smallValueClass {
     font-size: 12pt;
     text-align: right;
+    max-width: 90px;
+    min-width: 90px;
+    width: 90px;
 }
 
 .main-overlay .vfd-vbox .totalClass {
-    margin-left: 25px;
+    margin-left: 20px;
 }
 
 .main-overlay .vfd-vbox .totalLabelClass {
     font-size: 20pt;
     font-weight: bold !important;
+    max-width: 85px;
+    min-width: 85px;
+    width: 85px;
 }
 
 .main-overlay .vfd-vbox .totalValueClass {
     color: red;
-    font-size: 22pt;
+    font-size: 20pt;
     font-weight: bold !important;
     text-align: right;
 }
