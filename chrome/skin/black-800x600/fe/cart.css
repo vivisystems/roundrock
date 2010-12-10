@@ -142,7 +142,7 @@
     height: 28px;
 }
 
-.main-overlay .cart-list treechildren::-moz-tree-cell-text(selected) {font-size: 18px; font-weight: bolder;}
+.main-overlay .cart-list treechildren::-moz-tree-cell-text(selected) {color: black !important; font-size: 18px; font-weight: bolder;}
 
 .main-overlay .cart-list treechildren::-moz-tree-row(selected) {background-color: #CCC !important;}
 .main-overlay .cart-list treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
