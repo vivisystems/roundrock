@@ -711,6 +711,7 @@
                             data.routingGroups = routingGroups;
                             data.autoPrint = autoPrint;
                             data.duplicate = duplicate;
+			    data.order = self.deepClone(txn.data);
                             self.printSlip('check', data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                         }
                     }
